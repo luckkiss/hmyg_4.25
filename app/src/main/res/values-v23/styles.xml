@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+    <!--<style name="NoActionBarThemeWhite" parent="Base.Theme.AppCompat.Light">-->
+
+        <!--&lt;!&ndash; All customizations that are NOT specific to a particular API-level can go here. &ndash;&gt;-->
+        <!--&lt;!&ndash; 无ActionBar &ndash;&gt;-->
+        <!--<item name="colorPrimary">@color/primary_color</item>-->
+        <!--<item name="colorPrimaryDark">@color/transparent</item>-->
+        <!--&lt;!&ndash;<item name="colorPrimaryDark">@color/main_color</item>&ndash;&gt;-->
+        <!--<item name="colorAccent">@color/accent_color</item>-->
+        <!--<item name="android:verticalDivider">@color/accent_color</item>-->
+        <!--<item name="android:textColorPrimary">@color/primary_text</item>-->
+        <!--&lt;!&ndash; All customizations that are NOT specific to a particular API-level can go here. &ndash;&gt;-->
+
+
+    <!--</style>-->
+
+    <!--6.0之后 提供亮色状态栏，，能黑白交换-->
+    <style name="AppBaseTheme" parent="NoActionBarThemeWhite">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+    <!--6.0之后 提供亮色状态栏，，能黑白交换-->
+    <!--NoActionBarThemeWhite-->
+    <style name="AppBaseTheme2Register"  parent="NoActionBarThemeWhite" >
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <item name="android:windowLightStatusBar">true</item>
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <!--<item name="windowActionBar">false</item>-->
+        <!--<item name="colorPrimary">@android:color/transparent</item>-->
+        <!--<item name="colorPrimaryDark">@android:color/transparent</item>-->
+        <!--<item name="colorAccent">@android:color/transparent</item>-->
+        <!--<item name="android:verticalDivider">@android:color/transparent</item>-->
+        <!--<item name="android:textColorPrimary">@android:color/transparent</item>-->
+
+        <!--View.SYSTEM_UI_FLAG_LAYOUT_STABLE |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|-->
+
+    </style>
+
+    <!--6.0之后 提供亮色状态栏，，能黑白交换-->
+    <style name="e_activity_theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--<item name="android:windowLightStatusBar">true</item>-->
+        <!--&lt;!&ndash;<item name="colorPrimaryDark">@android:color/transparent</item>&ndash;&gt;-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <!--&lt;!&ndash;<item name="fitsSystemWindows">true</item>&ndash;&gt;-->
+        <!--<item name="android:statusBarColor">@color/transparent</item>-->
+
+
+
+    </style>
+
+</resources>

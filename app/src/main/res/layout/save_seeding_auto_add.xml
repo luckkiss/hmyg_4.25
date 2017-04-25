@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/rl_seeding_commom">
+
+
+    <TextView
+        android:id="@+id/tv_auto_add_left1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="高度"
+        android:textSize="@dimen/x15" />
+
+    <TextView
+        android:id="@+id/tv_auto_add_left2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_auto_add_left1"
+        android:layout_marginLeft="3dp"
+        android:layout_toRightOf="@+id/tv_auto_add_left1"
+        android:textColor="@color/hint_text_color"
+        android:textSize="@dimen/x13"
+
+        />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="@dimen/x160"
+        android:layout_height="@dimen/y14"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+        <!--android:paddingLeft="@dimen/x14"-->
+        <!--android:paddingRight="@dimen/x14"-->
+
+        <EditText
+            android:id="@+id/et_auto_add_min"
+            style="@style/edit_seeding_imput" />
+
+        <TextView style="@style/text_Seeding_line" />
+
+        <EditText
+            android:id="@+id/et_auto_add_max"
+            style="@style/edit_seeding_imput" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/et_auto_add_unit"
+        style="@style/text_seeding_cm" />
+
+
+</RelativeLayout>

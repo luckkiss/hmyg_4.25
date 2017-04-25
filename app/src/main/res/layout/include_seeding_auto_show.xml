@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout style="@style/rl_seeding_commom">
+
+        <TextView
+            android:id="@+id/tv_seeding_name"
+            style="@style/text_left_name_style"
+            android:text="品名" />
+
+        <EditText
+            android:id="@+id/et_name"
+            style="@style/et_seeding_common"
+            android:layout_toRightOf="@+id/tv_seeding_name"
+            android:hint="请输入品种名称" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/rl_seeding_commom"
+        android:layout_height="@dimen/y61">
+
+        <TextView
+            android:id="@+id/tv_xj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="胸径"
+            android:textSize="@dimen/x15" />
+
+        <LinearLayout
+            android:id="@+id/ll_xj"
+            android:layout_width="@dimen/x160"
+            android:layout_height="@dimen/y14"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+            <!--android:paddingLeft="@dimen/x14"-->
+            <!--android:paddingRight="@dimen/x14"-->
+
+            <EditText style="@style/edit_seeding_imput" />
+
+            <TextView style="@style/text_Seeding_line" />
+
+            <EditText style="@style/edit_seeding_imput" />
+
+
+        </LinearLayout>
+
+        <TextView style="@style/text_seeding_cm" />
+
+
+        <RadioGroup
+            android:layout_width="@dimen/x160"
+            android:layout_height="@dimen/y17"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/y6"
+            android:orientation="horizontal" android:visibility="visible">
+
+            <RadioButton style="@style/radio_seedling_common" />
+
+            <RadioButton style="@style/radio_seedling_common" />
+
+            <RadioButton style="@style/radio_seedling_common" />
+
+
+        </RadioGroup>
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout style="@style/rl_seeding_commom">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="高度"
+            android:textSize="@dimen/x15" />
+
+        <LinearLayout
+            android:layout_width="@dimen/x160"
+            android:layout_height="@dimen/y14"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+            <!--android:paddingLeft="@dimen/x14"-->
+            <!--android:paddingRight="@dimen/x14"-->
+
+            <EditText style="@style/edit_seeding_imput" />
+
+            <TextView style="@style/text_Seeding_line" />
+
+            <EditText style="@style/edit_seeding_imput" />
+
+
+        </LinearLayout>
+
+        <TextView style="@style/text_seeding_cm" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/rl_seeding_commom">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="冠幅(选填)"
+            android:textSize="@dimen/x15" />
+
+        <LinearLayout
+            android:layout_width="@dimen/x160"
+            android:layout_height="@dimen/y14"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+            <!--android:paddingLeft="@dimen/x14"-->
+            <!--android:paddingRight="@dimen/x14"-->
+
+            <EditText style="@style/edit_seeding_imput" />
+
+            <TextView style="@style/text_Seeding_line" />
+
+            <EditText style="@style/edit_seeding_imput" />
+
+
+        </LinearLayout>
+
+        <TextView style="@style/text_seeding_cm" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/rl_seeding_commom">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="土球(选填)"
+            android:textSize="@dimen/x15" />
+
+        <LinearLayout
+            android:layout_width="@dimen/x160"
+            android:layout_height="@dimen/y14"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+            <!--android:paddingLeft="@dimen/x14"-->
+            <!--android:paddingRight="@dimen/x14"-->
+
+            <EditText style="@style/edit_seeding_imput" />
+
+            <TextView style="@style/text_Seeding_line" />
+
+            <EditText style="@style/edit_seeding_imput" />
+
+
+        </LinearLayout>
+
+        <TextView style="@style/text_seeding_cm" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,84 @@
+<resources>
+
+    <!--
+        Base application theme for API 21+. This theme completely replaces
+        AppBaseTheme from BOTH res/values/styles.xml and
+        res/values-v11/styles.xml on API 14+ devices.
+    -->
+
+    <style name="NoActionBarTheme" parent="Base.Theme.AppCompat.Light">
+
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <!-- 无ActionBar -->
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryDark">@color/main_color</item>
+        <item name="colorAccent">@color/accent_color</item>
+        <item name="android:verticalDivider">@color/accent_color</item>
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+
+    </style>
+
+    <style name="NoActionBarThemeWhite" parent="Base.Theme.AppCompat.Light">
+
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <!-- 无ActionBar -->
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <!--<item name="colorPrimaryDark">@color/main_color</item>-->
+        <item name="colorAccent">@color/accent_color</item>
+        <item name="android:verticalDivider">@color/accent_color</item>
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+
+
+    </style>
+
+    <style name="FullScreenTheme" parent="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
+        <!-- API 21 theme customizations can go here. -->
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+
+    <style name="SplashTheme" parent="@android:style/Theme.Holo.Light.NoActionBar">
+        <!-- API 21 theme customizations can go here. -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+
+
+    <!--swipe back 主题适配-->
+    <style name="AppBaseThemeMain"  parent="NoActionBarThemeWhite">
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
+
+    <style name="AppBaseTheme"  parent="NoActionBarThemeWhite">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+
+    <!--NoActionBarThemeWhite-->
+    <style name="AppBaseTheme2Register"  parent="NoActionBarThemeWhite" >
+        <item name="android:windowIsTranslucent">true</item>
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!--<item name="windowActionBar">false</item>-->
+        <!--<item name="colorPrimary">@android:color/transparent</item>-->
+        <!--<item name="colorPrimaryDark">@android:color/transparent</item>-->
+        <!--<item name="colorAccent">@android:color/transparent</item>-->
+        <!--<item name="android:verticalDivider">@android:color/transparent</item>-->
+        <!--<item name="android:textColorPrimary">@android:color/transparent</item>-->
+    </style>
+
+
+
+
+
+</resources>

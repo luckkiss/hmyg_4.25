@@ -1,0 +1,23 @@
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="25dp">
+
+
+    <TextView
+        android:id="@+id/table_row_left"
+        style="@style/table_row_left"
+        android:layout_weight="2"
+        android:text="商品编号"
+       />
+
+    <TextView
+        android:id="@+id/table_row_right"
+        style="@style/table_row_right"
+        android:layout_weight="6"
+       />
+
+
+</TableRow>
+
+

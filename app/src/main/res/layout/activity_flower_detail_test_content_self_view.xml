@@ -1,0 +1,108 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <!--<View style="@style/View_line_green" />-->
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="25dp">
+
+        <TextView
+            style="@style/table_row_left"
+            android:layout_weight="2"
+            android:text="商品编号" />
+
+        <TextView
+            android:id="@+id/seedlingNum"
+            style="@style/table_row_right"
+            android:layout_weight="6"
+
+            android:text="104465464"
+
+            />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="25dp">
+
+        <TextView
+            style="@style/table_row_left"
+            android:layout_weight="2"
+            android:text="分类" />
+
+        <TextView
+            android:id="@+id/firstTypeName"
+            style="@style/table_row_right"
+            android:layout_weight="6"
+            android:text="乔木" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x9"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/table_row_left"
+        android:minHeight="25dp">
+
+        <TextView
+            style="@style/table_row_left"
+            android:layout_marginLeft="1dp"
+            android:layout_weight="2"
+            android:background="@null"
+            android:text="苗木规格"
+            android:textColor="@color/text_color333"
+            android:textSize="@dimen/x12"
+
+            />
+
+        <TextView
+            style="@style/table_row_right"
+            android:layout_weight="6"
+            android:text="104465464"
+            android:visibility="invisible" />
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="25dp">
+
+        <TextView
+            style="@style/table_row_left"
+            android:layout_weight="2"
+            android:text="动态添加" />
+
+        <TextView
+            style="@style/table_row_right"
+            android:layout_weight="6"
+            android:text="中间动态添加" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="25dp">
+
+        <TextView
+            style="@style/table_row_left"
+            android:layout_weight="2"
+            android:text="备注" />
+
+        <TextView
+            android:id="@+id/remarks"
+            style="@style/table_row_right"
+            android:layout_weight="6"
+            android:text="我是备注" />
+    </TableRow>
+
+</LinearLayout>
+
+

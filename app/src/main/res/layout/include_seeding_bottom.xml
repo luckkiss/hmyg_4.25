@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y31"
+        android:background="@drawable/feedback_content_edittext_shape"
+        android:paddingLeft="@dimen/x9"
+        android:paddingRight="@dimen/x9"
+        android:paddingTop="@dimen/y10">
+
+        <TextView
+            android:id="@+id/tv_price_"
+            style="@style/tv_seeding_include_bottom_left"
+            android:text="价格" />
+
+        <LinearLayout
+            android:id="@+id/ll_center"
+            android:layout_width="@dimen/x180"
+            android:layout_height="@dimen/y14"
+            android:layout_toRightOf="@+id/tv_price_"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/x20">
+            <!--android:paddingLeft="@dimen/x14"-->
+            <!--android:paddingRight="@dimen/x14"-->
+
+            <EditText
+                android:id="@+id/tv_save_seeding_price_min"
+                style="@style/edit_seeding_imput" />
+
+            <TextView style="@style/text_Seeding_line" />
+
+            <EditText
+                android:id="@+id/tv_save_seeding_price_max"
+                style="@style/edit_seeding_imput" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/ll_center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/text_seeding_cm"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="元"
+                android:textSize="@dimen/x14" />
+
+            <CheckBox
+                android:id="@+id/cb_is_meet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/dagou_seletor"
+                android:padding="3dp"
+                android:text="面议"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/x14" />
+
+            <!--<TextView-->
+            <!--style="@style/text_seeding_cm"-->
+            <!--android:drawableLeft="@drawable/dagou"-->
+            <!--android:text="面议" -->
+            <!--android:padding="1dp"-->
+            <!--/>-->
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/rl_seeding_commom">
+
+        <TextView
+            android:id="@+id/tv_seeding_kucun"
+            style="@style/text_left_name_style"
+            android:text="库存" />
+
+        <EditText
+            android:id="@+id/et_repertory_num"
+            style="@style/et_seeding_common"
+            android:layout_toRightOf="@+id/tv_seeding_kucun"
+            android:hint="0"
+            android:inputType="number"
+            android:textSize="@dimen/x14" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_save_seeding_unit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y31"
+        android:background="@drawable/feedback_content_edittext_shape"
+        android:paddingLeft="@dimen/x9"
+        android:paddingRight="@dimen/x9"
+        android:paddingTop="@dimen/y10"
+
+        >
+
+        <TextView
+            style="@style/tv_seeding_include_bottom_left"
+            android:text="单位" />
+
+        <TextView
+            android:id="@+id/tv_save_seeding_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x9"
+            android:drawablePadding="4dp"
+            android:drawableRight="@drawable/ic_arrow_down_black"
+            android:text="株"
+            android:textSize="@dimen/x14" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_save_seeding_home"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y31"
+        android:background="@drawable/feedback_content_edittext_shape"
+        android:paddingLeft="@dimen/x9"
+        android:paddingRight="@dimen/x9"
+        android:paddingTop="@dimen/y10"
+        android:visibility="visible">
+
+        <TextView
+            style="@style/tv_seeding_include_bottom_left"
+            android:text="苗源地" />
+
+        <TextView
+            android:id="@+id/tv_save_seeding_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x9"
+            android:drawableRight="@drawable/ic_right_icon"
+            android:textSize="@dimen/x14" />
+    </RelativeLayout>
+
+    <!--        android:layout_marginTop="@dimen/y8"  -->
+    <include
+        android:id="@+id/list_item_adress"
+        layout="@layout/list_item_adress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/rl_save_seeding_useful"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y31"
+        android:background="@drawable/feedback_content_edittext_shape"
+        android:paddingLeft="@dimen/x9"
+        android:paddingRight="@dimen/x9"
+        android:paddingTop="@dimen/y10">
+
+        <TextView
+            style="@style/tv_seeding_include_bottom_left"
+            android:text="有效期" />
+
+
+        <TextView
+            android:id="@+id/tv_save_seeding_useful"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/tv_unit"
+            android:drawablePadding="4dp"
+            android:text="90"
+            android:textSize="@dimen/x14" />
+
+        <TextView
+            android:id="@+id/tv_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x9"
+            android:drawablePadding="4dp"
+            android:drawableRight="@drawable/ic_arrow_down_black"
+            android:text="天"
+            android:textSize="@dimen/x14" />
+    </RelativeLayout>
+
+
+    <RelativeLayout style="@style/rl_seeding_commom">
+
+        <TextView
+            android:id="@+id/tv_seeding_beizhu"
+            style="@style/text_left_name_style"
+            android:text="备注" />
+
+        <EditText
+            android:id="@+id/et_remark"
+            style="@style/et_seeding_common"
+            android:layout_alignBottom="@+id/tv_seeding_beizhu"
+            android:layout_toRightOf="@+id/tv_seeding_beizhu"
+            android:hint="请填写备注信息" />
+    </RelativeLayout>
+
+</LinearLayout>

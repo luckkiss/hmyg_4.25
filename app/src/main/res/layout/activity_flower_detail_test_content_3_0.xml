@@ -1,0 +1,395 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <!--android:background="#00000000"-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="320dp">
+
+        <com.javis.ab.view.AbSlidingPlayView
+            android:id="@+id/viewPager_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:visibility="visible" />
+
+
+        <TextView
+            android:id="@+id/tv_last_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/viewPager_menu"
+            android:layout_gravity="bottom"
+            android:background="@color/black_color_60"
+            android:paddingBottom="4dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="4dp"
+            android:text="下架时间：2017-05-09  还剩下34天6小时43分09秒"
+            android:textColor="@color/white"
+            android:textSize="@dimen/y8"
+            android:visibility="visible" />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/x8"
+            android:layout_marginTop="@dimen/x8">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.neopixl.pixlui.components.textview.TextView
+                    android:id="@+id/tv_plant"
+                    android:layout_width="@dimen/y10"
+                    android:layout_height="@dimen/y10"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textSize="@dimen/y11"
+                    android:visibility="visible" />
+
+                <com.neopixl.pixlui.components.textview.TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text="香樟"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/y10" />
+            </LinearLayout>
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:id="@+id/tv_statusName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="福建漳州"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/y10" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/x8">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.neopixl.pixlui.components.textview.TextView
+                        android:id="@+id/tv_seedlingNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="@dimen/y3"
+                        android:paddingTop="@dimen/y6"
+                        android:singleLine="true"
+                        android:text="种植类型：假植苗"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/y8" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.neopixl.pixlui.components.textview.TextView
+                        android:id="@+id/tv_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="@dimen/y3"
+                        android:singleLine="true"
+                        android:text="库存：110"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/y8" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <com.neopixl.pixlui.components.textview.TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:singleLine="true"
+                            android:textColor="#666666"
+                            android:textSize="@dimen/y10" />
+
+                        <com.neopixl.pixlui.components.textview.TextView
+                            android:id="@+id/tv_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:singleLine="true"
+                            android:text="Y3000-4000"
+                            android:textColor="#FA0000"
+                            android:textSize="@dimen/y10" />
+
+                        <com.neopixl.pixlui.components.textview.TextView
+                            android:id="@+id/tv_unitTypeName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:singleLine="true"
+                            android:textColor="#666666"
+                            android:textSize="@dimen/y10" />
+
+                        <com.neopixl.pixlui.components.textview.TextView
+                            android:id="@+id/tv_dijia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:singleLine="true"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/y10" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_lianxi"
+                android:layout_width="45.0dip"
+                android:layout_height="45.0dip"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:src="@drawable/seller_makingacall_2"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20px"
+            android:layout_marginTop="10.0dip"
+            android:background="#F3F5F7" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="自定义空控件" />-->
+
+
+            <!--<include layout="@layout/activity_flower_detail_test_content_self_view" />-->
+            <com.hldj.hmyg.widget.AutoAdd2DetailLinearLayout
+                android:id="@+id/ll_auto_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:orientation="vertical" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20px"
+            android:layout_marginTop="10.0dip"
+            android:background="#F3F5F7" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="clip_vertical"
+            android:layout_margin="5.0dip"
+            android:text="商家信息"
+            android:textColor="#333333"
+            android:textSize="@dimen/x16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F3F5F7" />
+
+
+        <TextView
+            android:id="@+id/tv_login_show"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="登录后显示"
+            android:layout_marginLeft="@dimen/x8"
+            android:visibility="gone"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_store"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/x8"
+            android:orientation="vertical"
+            android:padding="@dimen/x2">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x5"
+                android:orientation="horizontal">
+
+                <!--<ImageView-->
+                <!--android:layout_width="@dimen/x15"-->
+                <!--android:layout_height="@dimen/x15"-->
+                <!--android:layout_gravity="clip_vertical"-->
+                <!--android:src="@drawable/seller_company"-->
+                <!--android:visibility="gone" />-->
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="clip_vertical"
+                    android:layout_weight="2"
+                    android:text="公司名称" />
+
+                <TextView
+                    android:id="@+id/tv_store_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="clip_vertical"
+                    android:layout_weight="6"
+                    android:text="漳树(漳州) 园林有限公司" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x5"
+                android:orientation="horizontal">
+
+                <!--<ImageView-->
+                <!--android:layout_width="@dimen/x15"-->
+                <!--android:layout_height="@dimen/x15"-->
+                <!--android:layout_gravity="clip_vertical"-->
+                <!--android:src="@drawable/seller_area"-->
+                <!--android:visibility="gone" />-->
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="clip_vertical"
+                    android:layout_weight="2"
+                    android:text="所在地区" />
+
+                <TextView
+                    android:id="@+id/tv_store_area"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="clip_vertical"
+                    android:layout_weight="6"
+                    android:text="福建   漳州" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x5"
+                android:orientation="horizontal">
+
+                <!--<ImageView-->
+                <!--android:layout_width="@dimen/x15"-->
+                <!--android:layout_height="@dimen/x15"-->
+                <!--android:layout_gravity="clip_vertical"-->
+                <!--android:src="@drawable/ditu_lianxiren"-->
+                <!--android:visibility="gone" />-->
+
+
+                <TextView
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="clip_vertical"
+                    android:layout_weight="2"
+                    android:text="联系人" />
+
+                <TextView
+                    android:id="@+id/tv_contanct_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="clip_vertical"
+                    android:layout_weight="6"
+                    android:text="吴先生" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x5"
+                android:orientation="horizontal">
+
+                <!--<ImageView-->
+                <!--android:layout_width="@dimen/x15"-->
+                <!--android:layout_height="@dimen/x15"-->
+                <!--android:layout_gravity="clip_vertical"-->
+                <!--android:src="@drawable/ditu_dianhua"-->
+                <!--android:visibility="gone" />-->
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="clip_vertical"
+                    android:layout_weight="2"
+                    android:text="电话" />
+
+                <TextView
+                    android:id="@+id/tv_store_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="clip_vertical"
+                    android:layout_weight="6"
+                    android:text="15750701573" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+
+

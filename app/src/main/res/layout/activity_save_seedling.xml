@@ -1,0 +1,161 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_mainView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    tools:context="com.hldj.hmyg.saler.SaveSeedlingActivity">
+
+    <RelativeLayout
+        android:id="@+id/id_rl_top"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/title_top_default"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="发布苗木资源"
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/x18" />
+
+        <TextView
+            android:id="@+id/id_tv_edit_all"
+            android:layout_width="@dimen/x48"
+            android:layout_height="@dimen/x24"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x15"
+            android:background="@drawable/green_btn_selector"
+            android:gravity="center"
+            android:text="清空"
+            android:textColor="@color/main_color"
+            android:textSize="16dp"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/x24"
+            android:layout_height="@dimen/x24"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:background="@drawable/btn_back" />
+    </RelativeLayout>
+
+    <View style="@style/View_line_green" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/y8"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <!--放图片列表资源的gridview-->
+                <com.zzy.common.widget.MeasureGridView
+                    android:id="@+id/publish_flower_info_gv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dip"
+                    android:layout_marginLeft="5dip"
+                    android:background="@color/white"
+                    android:listSelector="@color/transparent"
+                    android:numColumns="4"
+                    android:scrollbars="none" />
+            </LinearLayout>
+
+            <View style="@style/View_line_gray" />
+
+            <!--放 自动换行标签的控件-->
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/id_flowlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y8"
+                android:background="@color/white"
+                android:padding="2.5dp"></com.zhy.view.flowlayout.TagFlowLayout>
+
+            <View style="@style/View_line_gray" />
+
+            <LinearLayout
+                android:id="@+id/ll_auto_add_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="false"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:text="此处显示  动态布局 " />-->
+            </LinearLayout>
+
+            <!--放 自动换行标签的控件-->
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/id_flowlayout_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y8"
+                android:background="@color/white"
+                android:padding="2.5dp"></com.zhy.view.flowlayout.TagFlowLayout>
+
+
+            <View style="@style/View_line_gray" />
+
+
+            <com.hldj.hmyg.widget.SaveSeedingBottomLinearLayout
+                android:id="@+id/bottom_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></com.hldj.hmyg.widget.SaveSeedingBottomLinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_save"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y34"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/iv_ready_save_2_stage"
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="暂存草稿箱"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/main_color" />
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/main_color"
+            android:gravity="center"
+            android:text="发布"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout><!--</com.yunpay.app.KeyboardLayout3>-->
