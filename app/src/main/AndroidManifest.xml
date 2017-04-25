@@ -279,6 +279,9 @@
             android:name="com.hldj.hmyg.buyer.QuoteListActivity"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name="com.hldj.hmyg.buyer.Ui.QuoteListActivity_bak"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.hldj.hmyg.buyer.PurchaseListActivity"
             android:screenOrientation="portrait"></activity>
         <activity

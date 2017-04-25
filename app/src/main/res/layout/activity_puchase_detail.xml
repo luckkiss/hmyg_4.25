@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="采购详情"
+            android:text="报价列表详情"
             android:textColor="@color/main_color"
             android:textSize="@dimen/x18" />
 

@@ -248,5 +248,6 @@
     <string name="i_am_readed">点击登录即表示您已同意</string>
     <string name="tcp">《花木易购服务协议》</string>
     <string name="login_succeed">登录成功</string>
+    <string name="load_failed">加载失败</string>
 
 </resources>

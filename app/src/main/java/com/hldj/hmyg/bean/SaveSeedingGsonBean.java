@@ -45,7 +45,7 @@ public class SaveSeedingGsonBean implements Serializable{
 
     public static class DataBean implements Serializable {
         private SeedlingBean seedling;
-
+        private SeedlingBean item;
         private List<TypeListBean> typeList;
         private List<TypeListBean.PlantTypeListBean> plantTypeList;
 
@@ -71,6 +71,14 @@ public class SaveSeedingGsonBean implements Serializable{
 
         public void setSeedling(SeedlingBean seedling) {
             this.seedling = seedling;
+        }
+
+        public SeedlingBean getItem() {
+            return item;
+        }
+
+        public void setItem(SeedlingBean item) {
+            this.item = item;
         }
 
 
