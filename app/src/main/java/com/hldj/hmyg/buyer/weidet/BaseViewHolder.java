@@ -320,6 +320,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
+
     /**
      * add childView id
      * @param viewId add the child view id   can support childview click
@@ -379,6 +380,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         view.setOnItemClickListener(listener);
         return this;
     }
+
 
     /**
      * Sets the listview or gridview's item long click listener of the view

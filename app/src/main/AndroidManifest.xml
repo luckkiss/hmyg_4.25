@@ -318,7 +318,7 @@
             android:name="com.hldj.hmyg.buyer.ManagerPurchaseActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.hldj.hmyg.buyer.PurchaseDetailActivity"
+            android:name="com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <activity

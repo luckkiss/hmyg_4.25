@@ -55,18 +55,26 @@ public class QuoteListP {
             public void onSuccess(String json) {
                 D.e("======onSuccess========54101356f7114c8286cac1e69b58a138" + json);
 
-
                 QuoteGsonBean saveSeedingGsonBean = GsonUtil.formateJson2Bean(json, QuoteGsonBean.class);
 
 
-                resultCallBack.onSuccess(saveSeedingGsonBean);
+                if(saveSeedingGsonBean.code.equals("1"))
+                {
+                    resultCallBack.onSuccess(saveSeedingGsonBean);
+                }
+                else
+                {
+                    D.e("==失败===");
+                }
+
+
 
 
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
-                D.e("====");
+                D.e("==失败==");
                 super.onFailure(t, errorNo, strMsg);
             }
         };

@@ -12,8 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hpw.mvpframe.R;
-import com.hpw.mvpframe.utils.LogUtil;
+import com.hldj.hmyg.R;
+import com.hldj.hmyg.util.D;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -74,11 +74,11 @@ public abstract class FragmentStatePagerAdapter extends RecyclerView.Adapter<Fra
         if (mCurTransaction == null) {
             mCurTransaction = mFragmentManager.beginTransaction();
         }
-        LogUtil.v(TAG, "Removing item #");
+        D.v("Removing item #");
         int tagId = genTagId(holder.getAdapterPosition());
         Fragment f = mFragmentManager.findFragmentByTag(tagId + "");
         if (f != null) {
-            LogUtil.v(TAG, "Removing fragment #");
+            D.v("Removing fragment #");
             mStates.put(tagId, mFragmentManager.saveFragmentInstanceState(f));
             mCurTransaction.remove(f);
             mCurTransaction.commitAllowingStateLoss();
@@ -151,7 +151,7 @@ public abstract class FragmentStatePagerAdapter extends RecyclerView.Adapter<Fra
 
         @Override
         public void onViewDetachedFromWindow(View v) {
-            LogUtil.v(TAG, "Removing fragment #");
+            D.v( "Removing fragment #");
             final int tagId = genTagId(getLayoutPosition());
             Fragment frag = mFragmentManager.findFragmentByTag(tagId + "");
             if (frag == null) {

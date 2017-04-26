@@ -1,20 +1,20 @@
 package me.imid.swipebacklayout.lib.app;
 
-import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.hldj.hmyg.R;
 
 public class NeedSwipeBackActivity extends SwipeBackBActivity {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onCreate(savedInstanceState);
 //		if (Build.VERSION.SDK_INT >= 23) {
-			setSwipeBackEnable(true);
+        setSwipeBackEnable(true);
 //		}
-	}
+    }
 
 
     /**
@@ -33,7 +33,7 @@ public class NeedSwipeBackActivity extends SwipeBackBActivity {
      */
 
 
-    public  void overridePendingTransition_back() {
+    public void overridePendingTransition_back() {
         //进
         //-100  ---   0
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
@@ -41,4 +41,11 @@ public class NeedSwipeBackActivity extends SwipeBackBActivity {
         //0  --- 100
     }
 
+
+    public static String strFilter(String str) {
+        if (TextUtils.isEmpty(str)) {
+            return "";
+        }
+        return str;
+    }
 }

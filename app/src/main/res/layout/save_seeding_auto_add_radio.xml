@@ -86,8 +86,6 @@
             android:textColor="@color/rb_left_selecteor"
 
             />
-
-
     </RadioGroup>
 
 

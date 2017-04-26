@@ -7,16 +7,17 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.hpw.mvpframe.widget.recyclerview.BaseQuickAdapter;
-import com.hpw.mvpframe.widget.recyclerview.BaseViewHolder;
+import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
+import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 
 import java.util.Iterator;
 import java.util.Set;
 
-import static com.hpw.mvpframe.widget.recyclerview.BaseQuickAdapter.EMPTY_VIEW;
-import static com.hpw.mvpframe.widget.recyclerview.BaseQuickAdapter.FOOTER_VIEW;
-import static com.hpw.mvpframe.widget.recyclerview.BaseQuickAdapter.HEADER_VIEW;
-import static com.hpw.mvpframe.widget.recyclerview.BaseQuickAdapter.LOADING_VIEW;
+import static com.hldj.hmyg.buyer.weidet.BaseQuickAdapter.EMPTY_VIEW;
+import static com.hldj.hmyg.buyer.weidet.BaseQuickAdapter.FOOTER_VIEW;
+import static com.hldj.hmyg.buyer.weidet.BaseQuickAdapter.HEADER_VIEW;
+import static com.hldj.hmyg.buyer.weidet.BaseQuickAdapter.LOADING_VIEW;
+
 
 /**
  * <p>

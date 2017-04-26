@@ -1,5 +1,7 @@
 package com.hldj.hmyg.bean;
 
+import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -134,6 +136,12 @@ public class SaveSeedingGsonBean implements Serializable{
             private boolean isNego = false;
             private int minPrice;
             private int maxPrice;
+
+            public boolean isQuoted ;
+
+
+            public PurchaseJsonBean purchaseJson =new PurchaseJsonBean();
+//            public PurchaseJsonBean purchaseJsonBean =new PurchaseJsonBean();
 
             public int getMinOffbarHeight() {
                 return minOffbarHeight;

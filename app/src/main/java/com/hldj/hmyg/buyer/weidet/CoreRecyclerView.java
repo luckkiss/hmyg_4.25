@@ -52,6 +52,7 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
         addView(view);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeLayout);
         mSwipeRefreshLayout.setEnabled(false);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_list);
         return this;
     }

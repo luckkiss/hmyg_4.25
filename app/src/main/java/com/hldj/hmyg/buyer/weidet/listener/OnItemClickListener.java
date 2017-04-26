@@ -2,7 +2,8 @@ package com.hldj.hmyg.buyer.weidet.listener;
 
 import android.view.View;
 
-import com.hpw.mvpframe.widget.recyclerview.BaseQuickAdapter;
+import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
+
 
 /**
  * A convenience class to extend when you only want to OnItemClickListener for a subset

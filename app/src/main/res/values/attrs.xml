@@ -327,4 +327,29 @@
         <attr name="ptrDrawableBottom" format="reference" />
     </declare-styleable>
 
+    <attr format="color|reference" name="themeColor"/>
+
+    <attr format="color|reference" name="widgetBackground"/>
+
+    <attr format="color|reference" name="widgetBackgroundDark"/>
+
+    <attr format="color|reference" name="widgetBackgroundTitle"/>
+
+
+
+
+
+    <!--recycle viewpager-->
+    <declare-styleable name="RecyclerViewPager">
+
+    <attr format="float" name="rvp_triggerOffset"/>
+
+    <attr format="float" name="rvp_flingFactor"/>
+
+    <attr format="boolean" name="rvp_singlePageFling"/>
+
+    </declare-styleable>
+
+
+
 </resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_gravity="center_vertical"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp">
+
+    <TextView
+        android:id="@+id/tv_params_01"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="脱杆高" />
+
+    <TextView
+        android:id="@+id/tv_params_02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="(选填)"
+        android:textColor="@color/hint_text_color" />
+
+
+    <EditText
+        android:id="@+id/et_params_03"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="30dp"
+        android:hint="cm"
+        android:textColor="@color/hint_text_color"
+        android:textColorHint="@color/hint_text_color" />
+
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:layout_weight="1">-->
+
+
+    <!--<include layout="@layout/view_stub_item_radio" android:id="@+id/vb_radions"/>-->
+    <ViewStub
+        android:id="@+id/vb_radions"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:layout="@layout/view_stub_item_radio"
+        android:paddingRight="10dp"
+        />
+
+    <!--</RelativeLayout>-->
+
+
+</LinearLayout>

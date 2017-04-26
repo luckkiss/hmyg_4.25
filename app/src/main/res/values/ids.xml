@@ -14,4 +14,15 @@
   <item type="id" name="return_scan_result"/>
   <item type="id" name="search_book_contents_failed"/>
   <item type="id" name="search_book_contents_succeeded"/>
+
+
+    <item type="id" name="BaseQuickAdapter_viewholder_support"/>
+
+    <item type="id" name="BaseQuickAdapter_swiping_support"/>
+
+    <item type="id" name="BaseQuickAdapter_dragging_support"/>
+
+    <item type="id" name="BaseQuickAdapter_databinding_support"/>
+
+
 </resources>

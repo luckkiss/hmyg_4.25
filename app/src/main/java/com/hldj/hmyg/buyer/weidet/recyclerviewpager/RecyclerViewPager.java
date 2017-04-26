@@ -14,7 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
-import com.hpw.mvpframe.R;
+import com.hldj.hmyg.R;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

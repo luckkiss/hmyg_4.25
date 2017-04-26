@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            style="@style/View_line_gray"
+            android:background="@color/white" />
+
+        <View style="@style/View_line_green" />
+
+        <include layout="@layout/inculd_top_detail" />
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingLeft="15dp">-->
+
+        <!--<com.coorchice.library.SuperTextView-->
+        <!--android:layout_width="70dp"-->
+        <!--android:layout_height="35dp"-->
+        <!--android:gravity="center"-->
+        <!--android:paddingLeft="5dp"-->
+        <!--android:paddingRight="5dp"-->
+        <!--android:text="用  苗  地:" />-->
+
+        <!--<com.coorchice.library.SuperTextView-->
+        <!--android:id="@+id/tv_purchase_address"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="35dp"-->
+        <!--android:layout_weight="0.8"-->
+        <!--android:gravity="center_vertical|start"-->
+        <!--android:paddingLeft="5dp"-->
+        <!--android:paddingRight="5dp"-->
+        <!--android:text="厦门" />-->
+
+
+        <!--</LinearLayout>-->
+
+        <!--<View style="@style/View_line_green" />-->
+
+        <!--<LinearLayout style="@style/ll_padleft_15">-->
+
+        <!--<com.coorchice.library.SuperTextView-->
+        <!--android:layout_width="70dp"-->
+        <!--android:layout_height="35dp"-->
+        <!--android:gravity="center"-->
+        <!--android:paddingLeft="5dp"-->
+        <!--android:paddingRight="5dp"-->
+        <!--android:text="截止日期:" />-->
+
+        <!--<com.coorchice.library.SuperTextView-->
+        <!--android:id="@+id/tv_purchase_close_date"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="35dp"-->
+        <!--android:layout_weight="0.6"-->
+        <!--android:gravity="center_vertical|start"-->
+        <!--android:maxLines="2"-->
+        <!--android:paddingLeft="5dp"-->
+        <!--android:paddingRight="5dp"-->
+        <!--android:text="2017-05-27" />-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1">-->
+
+        <!--<CheckBox-->
+        <!--android:id="@+id/tv_purchase_store_detail"-->
+        <!--style="@style/radio_seedling_common"-->
+        <!--android:layout_margin="5dp"-->
+        <!--android:background="@drawable/rb_center_selecteor"-->
+        <!--android:text="采购商家信息"-->
+        <!--android:textColor="@color/rb_left_selecteor"-->
+        <!--android:textSize="11sp" />-->
+
+        <!--<CheckBox-->
+        <!--android:id="@+id/tv_purchase_price_sug"-->
+        <!--style="@style/radio_seedling_common"-->
+        <!--android:layout_margin="5dp"-->
+        <!--android:background="@drawable/rb_center_selecteor"-->
+        <!--android:checked="true"-->
+        <!--android:text="报价要求"-->
+        <!--android:textColor="@color/rb_left_selecteor"-->
+        <!--android:textSize="11sp" />-->
+        <!--</LinearLayout>-->
+        <!--</LinearLayout>-->
+
+
+        <View style="@style/View_line_gray" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="center|start"
+            android:text="采购标价"
+            android:textColor="@color/orange" />
+
+        <LinearLayout
+            android:id="@+id/ll_purc_auto_add"
+            style="@style/ll_padleft_15"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+
+        <RelativeLayout style="@style/ll_padleft_15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:gravity="center"
+                android:text="地址" />
+
+            <TextView
+                android:id="@+id/tv_purchase_city_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:drawableRight="@drawable/downarrow"
+                android:gravity="center"
+                android:text="附近省厦门市" />
+
+
+        </RelativeLayout>
+
+
+        <!--动态 tag -->
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/tfl_purchase_auto_add_plant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:max_select="0" />
+
+
+        <TextView
+            android:id="@+id/tv_purchase_add_pic"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:drawableRight="@drawable/ic_right_icon"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="图片" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_purchase_remark"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="备注" />
+
+            <EditText
+                android:id="@+id/et_purchase_remark"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/text_color"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_purchase_commit"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rb_left_select"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="提交报价"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

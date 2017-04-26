@@ -2,7 +2,7 @@ package com.hldj.hmyg.buyer.weidet.listener;
 
 import android.view.View;
 
-import com.hpw.mvpframe.widget.recyclerview.BaseQuickAdapter;
+import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 
 public abstract class OnItemLongClickListener extends SimpleClickListener {
 

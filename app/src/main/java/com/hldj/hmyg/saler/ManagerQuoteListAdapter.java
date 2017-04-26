@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.buyer.PurchaseDetailActivity;
+import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.buyer.QuoteListActivity;
 import com.hy.utils.ValueGetInfo;
 

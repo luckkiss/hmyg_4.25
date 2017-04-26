@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.buyer.PurchaseDetailActivity;
+import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.buyer.Ui.QuoteListActivity_bak;
 import com.hy.utils.StringFormatUtil;
 
