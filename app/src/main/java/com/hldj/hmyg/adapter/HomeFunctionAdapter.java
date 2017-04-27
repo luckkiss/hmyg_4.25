@@ -22,7 +22,6 @@ import com.amap.api.car.example.FindFlowerActivity;
 import com.hldj.hmyg.BActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.HomeFunction;
-import com.hldj.hmyg.buyer.StorePurchaseListActivity;
 import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
 
 /**

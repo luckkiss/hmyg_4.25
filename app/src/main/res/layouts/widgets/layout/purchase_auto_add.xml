@@ -28,7 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="30dp"
+        android:background="@null"
         android:hint="cm"
+        android:inputType="number"
         android:textColor="@color/hint_text_color"
         android:textColorHint="@color/hint_text_color" />
 
@@ -48,8 +50,7 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:layout="@layout/view_stub_item_radio"
-        android:paddingRight="10dp"
-        />
+        android:paddingRight="10dp" />
 
     <!--</RelativeLayout>-->
 

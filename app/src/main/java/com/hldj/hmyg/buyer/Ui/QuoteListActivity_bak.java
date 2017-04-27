@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.buyer.M.ItemBean;
 import com.hldj.hmyg.buyer.M.QuoteGsonBean;
 import com.hldj.hmyg.buyer.M.QuoteListBean;
 import com.hldj.hmyg.buyer.P.QuoteListP;
@@ -57,9 +58,12 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
                         initRecycleItem(helper, item);
                     }
                 })
-                .openLoadMore(10, page -> {
+                .openLoadMore(1000, page -> {
                     D.e("==hellow world==");
                     getDatas();
+                })
+                .addRefreshListener(() -> {
+                    D.e("==refresh==");
                 })
                 .openRefresh();
 
@@ -93,7 +97,7 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
 
     }
 
-    private void initItem(ViewHolder viewHolder_quote, QuoteGsonBean.DataBean.ItemBean itemBean) {
+    private void initItem(ViewHolder viewHolder_quote, ItemBean itemBean) {
 
 
         //获取到 item 数据  通过viewholder  来显示
@@ -138,8 +142,7 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
                 QuoteListActivity_bak.this.saveSeedingGsonBean = saveSeedingGsonBean;
 
                 initItem(viewHolder_quote, saveSeedingGsonBean.data.item);
-
-//                quoteList  recycle_quit
+//              quoteList  recycle_quit
                 recycle_quit.getAdapter().addData(saveSeedingGsonBean.data.quoteList);
 
             }
@@ -154,9 +157,6 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
 
 
     }
-
-
-
 
 
     /**

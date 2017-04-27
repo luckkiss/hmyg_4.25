@@ -320,6 +320,19 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
+    /**
+     * Sets the on click listener of the view.
+     * @param viewId   The view id.
+     * @param listener The on click listener;
+     * @return The BaseViewHolder for chaining.
+     */
+    public BaseViewHolder addOnClickListener(int viewId, View.OnClickListener listener) {
+        View view = getView(viewId);
+        view.setOnClickListener(listener);
+        return this;
+    }
+
+
 
     /**
      * add childView id
@@ -328,6 +341,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
      */
     public BaseViewHolder addOnClickListener(int viewId) {
         childClickViewIds.add(viewId);
+
         return this;
     }
 

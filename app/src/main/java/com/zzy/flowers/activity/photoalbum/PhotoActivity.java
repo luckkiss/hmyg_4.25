@@ -1,15 +1,5 @@
 package com.zzy.flowers.activity.photoalbum;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Logger;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -31,6 +21,7 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.broker.AddCarActivity;
 import com.hldj.hmyg.broker.SaveMarketPriceActivity;
+import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivityBase;
 import com.hldj.hmyg.jimiao.SaveMiaoActivity;
 import com.hldj.hmyg.saler.ChoosePhotoGalleryActivity;
 import com.hldj.hmyg.saler.CoreActivity;
@@ -46,6 +37,16 @@ import com.white.utils.GlobalData;
 import com.white.utils.ImageTools;
 import com.white.utils.ZzyUtil;
 import com.zzy.flowers.iupdate.image.IThumbnailUpdate;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Logger;
 
 public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
 
@@ -355,7 +356,11 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
             SaveMarketPriceActivity.instance.addPicUrls(resultPathList);
         } else if (AddCarActivity.instance != null) {
             AddCarActivity.instance.addPicUrls(resultPathList);
+        }else if(PurchaseDetailActivityBase.instance != null)
+        {
+            PurchaseDetailActivityBase.instance.addPicUrls(resultPathList);
         }
+
 
         // if (photoType == PHOTO_TYPE_PUBLISH_SEED_ATTACH) {
         // TODO 发表图片的添加

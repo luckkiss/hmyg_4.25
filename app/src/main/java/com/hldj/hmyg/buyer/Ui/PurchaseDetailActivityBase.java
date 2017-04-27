@@ -3,7 +3,9 @@ package com.hldj.hmyg.buyer.Ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,16 +13,19 @@ import android.widget.TextView;
 import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.buyer.M.ItemBean;
 import com.hldj.hmyg.buyer.P.PurchaseDeatilP;
 import com.hldj.hmyg.buyer.V.PurchaseDeatilV;
-import com.hldj.hmyg.buyer.weidet.Purchase.PurchaseAutoAddLinearLayout;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
+import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.ToastUtil;
-import com.neopixl.pixlui.components.edittext.EditText;
+import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
@@ -31,12 +36,15 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity implements PurchaseDeatilV {
 
-    private boolean mIsQuoted = true;//是否报过价
-    private String mProjectType = "";//直购 代沟
+    public boolean mIsQuoted = false;//是否报过价
+    public String mProjectType = "";//直购 代沟
+    String firstSeedlingTypeId = "";
     //direct直购
     //protocol代购
 
-    public PurchaseDetailActivityBase instance;
+    ItemBean item;
+
+    public static PurchaseDetailActivityBase instance;
 
 
     @Override
@@ -44,6 +52,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         super.onCreate(savedInstanceState);
         setContentView(R.layout.purchase_detail_activity);
         //初始化 holder  将其设置为private 不让外部访问  避免编译器提示
+
 
         this.instance = this;
         //提供跳转方式的定义。。规范开发
@@ -77,32 +86,60 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
          */
 
 
-        SaveSeedingGsonBean.DataBean.SeedlingBean item = saveSeedingGsonBean.getData().getItem();
-        initItem(item);
 
-        List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen = saveSeedingGsonBean.getData().getTypeList();
-        initAutoLayout(typeListBeen);
+        ItemBean item = saveSeedingGsonBean.getData().getItem();
+        initItem(item);
+        mProjectType = item.projectType;//直购 代购
+
+
+        if (mProjectType.equals(ConstantParams.direct)) {//直购
+            List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen = saveSeedingGsonBean.getData().getTypeList();
+            initProtocol(typeListBeen);
+        } else { //代购
+            List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen = saveSeedingGsonBean.getData().getTypeList();
+            initDirect(typeListBeen);
+//          initAutoLayout(typeListBeen);
+        }
+
 
         List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> plantTypeListBeen = saveSeedingGsonBean.getData().getPlantTypeList();
         initAutoLayout2(plantTypeListBeen);
 
     }
 
-    String firstSeedlingTypeId = "";
+    /**
+     * public String cityCode = "4505";
+     * public String price = "";
+     * public String diameter = "";
+     * public String dbh = "";
+     * public String height = "";
+     * public String crown = "";
+     * public String offbarHeight = "";
+     * public String length = "";
+     * public String diameterType = "";
+     * public String dbhType = "";
+     * public String remarks = "";//备注
+     * public String imageJson = "";//备注
+     * <p>
+     * public String purchaseId ="" ;//
+     *
+     * @param item
+     */
+
 
     //step 1
-    private void initItem(SaveSeedingGsonBean.DataBean.SeedlingBean item) {
+    public void initItem(ItemBean item) {
 //        SaveSeedlingPresenter.initAutoLayout(, item);
-        //direct直购
-        //protocol代购
-        mProjectType = item.getPlantType();
-        mIsQuoted = item.isQuoted;
+//    direct直购
+//    protocol代购
 
 
-        getViewHolder_pur().tv_purchase_name.setText(strFilter(item.getName()));
-        getViewHolder_pur().tv_purchase_size.setText(strFilter(item.getSpecText()));
-        getViewHolder_pur().tv_purchase_type.setText(strFilter(item.getPlantTypeName()));
-        getViewHolder_pur().tv_quote_num.setText(strFilter(item.getCount() + item.getUnitTypeName()));
+        this.item = item;
+        //头部与底部是一样的    这里初始化头部
+        getViewHolder_pur().tv_purchase_name.setText(strFilter(item.name));
+        getViewHolder_pur().tv_purchase_size.setText(strFilter(item.specText));
+        getViewHolder_pur().tv_purchase_type.setText(strFilter(item.plantTypeName));
+        getViewHolder_pur().tv_quote_num.setText(strFilter(item.count + item.unitTypeName));
 
 
         getViewHolder_pur().tv_purchase_address.setText(strFilter(item.purchaseJson.cityName));
@@ -117,11 +154,19 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
 
         getViewHolder_pur().tv_purchase_address.setText(strFilter(item.purchaseJson.cityName));
 
-        firstSeedlingTypeId = item.getFirstSeedlingTypeId();
+        firstSeedlingTypeId = item.firstSeedlingTypeId;
         D.e("==firstSeedlingTypeId==" + firstSeedlingTypeId);
 
 
     }
+
+
+    //直购时调用
+    protected abstract void initDirect(List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen);
+
+
+    //代购时调用
+    protected abstract void initProtocol(List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen);
 
 
     /**
@@ -141,57 +186,61 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
     }
 
 
-    /**
-     * "paramsList":
-     * "name": "胸径",
-     * "value": "dbh",
-     * "required": true
-     *
-     * @param typeListBeen
-     */
-    //step 1
-    private void initAutoLayout(List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen) {
 
+    //step 1   2个界面不一样的实现
+//    public abstract void initAutoLayout(List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen);
+//    {
+//        getViewHolder_pur().ll_purc_auto_add.addView(new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("价格", "dbh", true)));
+//
+//        for (int i = 0; i < typeListBeen.size(); i++) {
+//
+//
+//            if (firstSeedlingTypeId.equals(typeListBeen.get(i).getId())) {
+//                for (int j = 0; j < typeListBeen.get(i).getParamsList().size(); j++) {
+//                    PurchaseAutoAddLinearLayout.PlantBean plantBean = new PurchaseAutoAddLinearLayout.PlantBean(typeListBeen.get(i).getParamsList().get(j).getName(),
+//                            typeListBeen.get(i).getParamsList().get(j).getValue(),
+//                            typeListBeen.get(i).getParamsList().get(j).isRequired()
+//                    );
+//                    getViewHolder_pur().ll_purc_auto_add.addView(new PurchaseAutoAddLinearLayout(this).setData(plantBean));
+//                }
+//
+//
+//            }
+//            // "name": "地径",
+//            //"value": "diameter",
+//            //"required": true
+//        }
+//    }
 
-        getViewHolder_pur().ll_purc_auto_add.addView(new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("价格", "dbh", true)));
-
-        for (int i = 0; i < typeListBeen.size(); i++) {
-
-
-            if (firstSeedlingTypeId.equals(typeListBeen.get(i).getId())) {
-                for (int j = 0; j < typeListBeen.get(i).getParamsList().size(); j++) {
-                    PurchaseAutoAddLinearLayout.PlantBean plantBean = new PurchaseAutoAddLinearLayout.PlantBean(typeListBeen.get(i).getParamsList().get(j).getName(),
-                            typeListBeen.get(i).getParamsList().get(j).getValue(),
-                            typeListBeen.get(i).getParamsList().get(j).isRequired()
-                    );
-                    getViewHolder_pur().ll_purc_auto_add.addView(new PurchaseAutoAddLinearLayout(this).setData(plantBean));
-                }
-
-
-            }
-
-
-            // "name": "地径",
-            //"value": "diameter",
-            //"required": true
-        }
-
-
-    }
-
-    //step 1
+    //step 1  这一步是一样的
     private void initAutoLayout2(List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> bean) {
 
-        SaveSeedlingPresenter.initAutoLayout2(getViewHolder_pur().tfl_purchase_auto_add_plant, bean, -1, instance, null);
+        SaveSeedlingPresenter.initAutoLayout2(getViewHolder_pur().tfl_purchase_auto_add_plant, bean, -1, instance, new TagFlowLayout.OnTagClickListener() {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent) {
+                plantType = bean.get(position).getValue();//上传值
+                return true;
+            }
+        });
 
     }
 
+    private String plantType = "";
 
-    ViewHolder viewHolder_pur;
+    public String getPlantType() {
+
+        return plantType;
+    }
 
     @Override
     public void InitViews() {
 
+    }
+
+    private ViewHolder viewHolder_pur;
+
+    public ViewHolder getViewHolder_pur() {
+        return viewHolder_pur;
     }
 
     @Override
@@ -199,9 +248,6 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         viewHolder_pur = new ViewHolder(this);
     }
 
-    public ViewHolder getViewHolder_pur() {
-        return viewHolder_pur;
-    }
 
     @Override
     public void InitOnclick() {
@@ -228,14 +274,22 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
     private static final String GOOD_ID = "good_id";//本届面传过来的id
 
 
+    public abstract void addPicUrls(ArrayList<Pic> resultPathList);
+
+
     public static void start2Activity(Activity activity, String good_id) {
         Intent intent = new Intent(activity, PurchaseDetailActivity.class);
         intent.putExtra(GOOD_ID, good_id);
         activity.startActivityForResult(intent, 100);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        instance = null;
+    }
 
-    private class ViewHolder {
+    protected class ViewHolder {
 
         public TextView tv_title;
         public ImageView btn_back;
@@ -250,6 +304,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         public TextView tv_purchase_commit;
         public TextView tv_purchase_name;
         public LinearLayout ll_purc_auto_add;
+        public LinearLayout ll_mainView_bottom;//底部容器 根;
         public TextView tv_purchase_size;
         public TextView tv_purchase_type;
         public TextView tv_quote_num;
@@ -273,7 +328,14 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
             this.tv_purchase_remark = (TextView) rootView.findViewById(R.id.tv_purchase_remark);
             this.tv_purchase_commit = (TextView) rootView.findViewById(R.id.tv_purchase_commit);
             this.ll_purc_auto_add = (LinearLayout) rootView.findViewById(R.id.ll_purc_auto_add);//采购报价 动态加载
+            this.ll_mainView_bottom = (LinearLayout) rootView.findViewById(R.id.ll_mainView_bottom);//采购报价 动态加载
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        D.e("==123==");
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -16,7 +16,7 @@
 
         <View style="@style/View_line_green" />
 
-        <include layout="@layout/inculd_top_detail" />
+        <include layout="@layout/include_top_pur_detail" />
         <!--<LinearLayout-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->
@@ -91,108 +91,25 @@
         <!--android:textSize="11sp" />-->
         <!--</LinearLayout>-->
         <!--</LinearLayout>-->
-
-
-        <View style="@style/View_line_gray" />
-
-        <TextView
+        <!--ll_purch_bottom-->
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginLeft="15dp"
-            android:gravity="center|start"
-            android:text="采购标价"
-            android:textColor="@color/orange" />
-
-        <LinearLayout
-            android:id="@+id/ll_purc_auto_add"
-            style="@style/ll_padleft_15"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
 
-        </LinearLayout>
+            <include
+                android:id="@+id/include_bottom_pur_detail"
+                layout="@layout/include_bottom_pur_detail"
+                android:visibility="gone" />
 
-        <RelativeLayout style="@style/ll_padleft_15">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:gravity="center"
-                android:text="地址" />
-
-            <TextView
-                android:id="@+id/tv_purchase_city_name"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:drawableRight="@drawable/downarrow"
-                android:gravity="center"
-                android:text="附近省厦门市" />
+            <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+                android:id="@+id/recycle_pur_one"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
 
 
         </RelativeLayout>
 
-
-        <!--动态 tag -->
-        <com.zhy.view.flowlayout.TagFlowLayout
-            android:id="@+id/tfl_purchase_auto_add_plant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:max_select="0" />
-
-
-        <TextView
-            android:id="@+id/tv_purchase_add_pic"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:drawableRight="@drawable/ic_right_icon"
-            android:gravity="center_vertical"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:text="图片" />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_purchase_remark"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text="备注" />
-
-            <EditText
-                android:id="@+id/et_purchase_remark"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:textColor="@color/text_color"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/tv_purchase_commit"
-            android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/rb_left_select"
-            android:gravity="center"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:text="提交报价"
-            android:textColor="@color/white" />
-
     </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+
+</ScrollView>

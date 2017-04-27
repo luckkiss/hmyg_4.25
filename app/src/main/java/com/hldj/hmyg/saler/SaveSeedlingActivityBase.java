@@ -103,7 +103,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 //            arrayList.add(new Pic("hellow", true, MeasureGridView.usrl, 1));
 //            arrayList.add(new Pic("hellows", true, MeasureGridView.usrl1, 12));
 
-        viewHolder.publish_flower_info_gv.init(this, arrayList2Adapter, viewHolder, new FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener() {
+        viewHolder.publish_flower_info_gv.init(this, arrayList2Adapter, viewHolder.ll_mainView, new FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener() {
             @Override
             public void onTakePic() {
                 D.e("===========onTakePic=============");

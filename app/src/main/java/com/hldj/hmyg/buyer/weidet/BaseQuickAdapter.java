@@ -48,6 +48,8 @@ import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+import static com.hldj.hmyg.buyer.weidet.CoreRecyclerView.LOAD_MORE;
+import static com.hldj.hmyg.buyer.weidet.CoreRecyclerView.REFRESH;
 
 public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends RecyclerView.Adapter<K> {
 
@@ -91,6 +93,7 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
     public static final int FOOTER_VIEW = 0x00000333;
     public static final int EMPTY_VIEW = 0x00000555;
     private View mLoadingView;
+
 
     @IntDef({ALPHAIN, SCALEIN, SLIDEIN_BOTTOM, SLIDEIN_LEFT, SLIDEIN_RIGHT})
     @Retention(RetentionPolicy.SOURCE)
@@ -255,17 +258,43 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
         }
     }
 
+    private int datasState = LOAD_MORE;//默认读取更多
+
+
+    public void setDatasState(int datasState) {
+        this.datasState = datasState;
+    }
+
     /**
      * additional data;
      *
      * @param newData
      */
     public void addData(List<T> newData) {
+
+        if (datasState == REFRESH) {
+            datasState = LOAD_MORE;
+            this.mData.clear();
+        }
         this.mData.addAll(newData);
         hideLoadingMore();
 //        notifyItemRangeInserted(mData.size() - newData.size() + getHeaderLayoutCount(), newData.size());
         notifyDataSetChanged();
     }
+
+    /**
+     * additional data;
+     *
+     * @param newData
+     */
+    public void reFreshDatas(List<T> newData) {
+        this.mData.clear();
+        this.mData.addAll(newData);
+        hideLoadingMore();
+//        notifyItemRangeInserted(mData.size() - newData.size() + getHeaderLayoutCount(), newData.size());
+        notifyDataSetChanged();
+    }
+
 
     /**
      * @return Whether the Adapter is actively showing load

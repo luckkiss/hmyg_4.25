@@ -60,7 +60,7 @@ import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.broker.SeedlingMarketSearchActivity;
 import com.hldj.hmyg.broker.SellectMarketPriceActivity;
 import com.hldj.hmyg.broker.bean.SellectPrice;
-import com.hldj.hmyg.buyer.StorePurchaseListActivity;
+import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
 import com.hldj.hmyg.saler.SubscribeManagerListActivity;
 import com.hldj.hmyg.saler.bean.ParamsList;
 import com.hldj.hmyg.saler.bean.Subscribe;

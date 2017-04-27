@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
@@ -12,7 +13,6 @@ import com.hldj.hmyg.adapter.PublishFlowerInfoPhotoAdapter;
 import com.hldj.hmyg.application.PermissionUtils;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin2;
-import com.hldj.hmyg.saler.SaveSeedlingActivityBase;
 import com.hldj.hmyg.util.TakePhotoUtil;
 import com.hy.utils.ToastUtil;
 import com.zzy.flowers.activity.photoalbum.EditGalleryImageActivity;
@@ -54,14 +54,14 @@ public class MeasureGridView extends GridView {
 
     static PhotoGvOnItemClickListener gvOnItemClickListener;
 
-    public void init(Context context, ArrayList<Pic> urlPaths, SaveSeedlingActivityBase.ViewHolder viewHolder, FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener listener) {
+    public void init(Context context, ArrayList<Pic> urlPaths, ViewGroup ainView, FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener listener) {
 
 
         adapter = new PublishFlowerInfoPhotoAdapter(context, urlPaths);
         this.setAdapter(adapter);
 
 
-        this.setOnItemClickListener(new PhotoGvOnItemClickListener(viewHolder.ll_mainView, listener));
+        this.setOnItemClickListener(new PhotoGvOnItemClickListener(ainView, listener));
 
 
     }

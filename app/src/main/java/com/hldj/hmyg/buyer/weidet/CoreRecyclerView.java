@@ -25,6 +25,17 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
     private SwipeRefreshLayout mSwipeRefreshLayout;
     BaseQuickAdapter mQuickAdapter;
     addDataListener addDataListener;
+    RefreshListener refreshListener;
+
+
+    public CoreRecyclerView addRefreshListener(RefreshListener refreshListener) {
+        this.refreshListener = refreshListener;
+        return this;
+    }
+
+    public interface RefreshListener {
+        void refresh();
+    }
 
     public interface addDataListener {
         void addData(int page);
@@ -91,15 +102,27 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
         return this;
     }
 
+
+    public static final int REFRESH = 100;
+    public static final int LOAD_MORE = 1001;
+
     @Override
     public void onRefresh() {
         page = 0;
-        mQuickAdapter.getData().clear();
+//      mQuickAdapter.getData().clear();
+//      mQuickAdapter.notifyDataSetChanged();//如果直接刷新会闪一下
+//        datasState = REFRESH;//刷新时
+        mQuickAdapter.setDatasState(REFRESH);
         addDataListener.addData(1);
+        if (refreshListener != null) {
+            refreshListener.refresh();
+        }
         mQuickAdapter.openLoadMore(mQuickAdapter.getPageSize());
         mQuickAdapter.removeAllFooterView();
         mSwipeRefreshLayout.setRefreshing(false);
     }
+
+    //添加refresh 接口回调
 
     @Override
     public void onLoadMoreRequested() {

@@ -312,7 +312,7 @@
             android:name="com.hldj.hmyg.buyer.ManagerPurchaseListDetailActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.hldj.hmyg.buyer.StorePurchaseListActivity"
+            android:name="com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.buyer.ManagerPurchaseActivity"

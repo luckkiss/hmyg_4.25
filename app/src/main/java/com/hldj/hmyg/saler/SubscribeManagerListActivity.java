@@ -34,9 +34,8 @@ import android.widget.Toast;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.Data;
-import com.hldj.hmyg.buyer.StorePurchaseListActivity;
+import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
 import com.hldj.hmyg.saler.bean.Subscribe;
-import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 

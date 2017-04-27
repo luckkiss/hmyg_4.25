@@ -1,5 +1,6 @@
 package com.hldj.hmyg.bean;
 
+import com.hldj.hmyg.buyer.M.ItemBean;
 import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
 
 import java.io.Serializable;
@@ -47,7 +48,7 @@ public class SaveSeedingGsonBean implements Serializable{
 
     public static class DataBean implements Serializable {
         private SeedlingBean seedling;
-        private SeedlingBean item;
+        private ItemBean item;
         private List<TypeListBean> typeList;
         private List<TypeListBean.PlantTypeListBean> plantTypeList;
 
@@ -75,11 +76,11 @@ public class SaveSeedingGsonBean implements Serializable{
             this.seedling = seedling;
         }
 
-        public SeedlingBean getItem() {
+        public ItemBean getItem() {
             return item;
         }
 
-        public void setItem(SeedlingBean item) {
+        public void setItem(ItemBean item) {
             this.item = item;
         }
 
