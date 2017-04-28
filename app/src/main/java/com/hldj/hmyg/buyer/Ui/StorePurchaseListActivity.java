@@ -2,12 +2,12 @@ package com.hldj.hmyg.buyer.Ui;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,7 +44,7 @@ import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
 import com.hldj.hmyg.buyer.SortList;
 import com.hldj.hmyg.saler.SubscribeManagerListActivity;
 import com.hldj.hmyg.saler.SubscribeSearchListActivity;
-import com.hldj.hmyg.saler.purchase.WebViewDialog;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
@@ -456,6 +456,7 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
                                 String blurProjectName = JsonGetInfo
                                         .getJsonString(headPurchase,
                                                 "blurProjectName");
+
                                 quoteDesc = JsonGetInfo.getJsonString(
                                         headPurchase, "quoteDesc");
                                 String cityName = JsonGetInfo.getJsonString(
@@ -464,18 +465,31 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
                                         headPurchase, "dispatchName");
                                 String dispatchPhone = JsonGetInfo.getJsonString(
                                         headPurchase, "dispatchPhone");
+                                String displayName = JsonGetInfo.getJsonString(
+                                        JsonGetInfo.getJSONObject(headPurchase,
+                                                "buyer"), "displayName");
                                 String displayPhone = JsonGetInfo
                                         .getJsonString(JsonGetInfo
                                                         .getJSONObject(headPurchase,
                                                                 "buyer"),
                                                 "displayPhone");
-                                String displayName = JsonGetInfo.getJsonString(
-                                        JsonGetInfo.getJSONObject(headPurchase,
-                                                "buyer"), "displayName");
+
                                 String closeDate = JsonGetInfo.getJsonString(
                                         headPurchase, "closeDate");
-                                tv_01.setText(blurProjectName);
+
+                                String num = JsonGetInfo
+                                        .getJsonString(headPurchase,
+                                                "num");
+                                String res = blurProjectName + "采购单" + "<font color='#FFA19494'><small>" + "(" + num + ")" + "</small></font>";
+                                tv_01.setText(Html.fromHtml(res));
                                 tv_02.setText(displayName);
+
+                                /**
+                                 *   String html_source = data.get(position).getBlurProjectName() + "采购单";
+                                 String html_source1 = "(" + data.get(position).getNum() + ")";
+
+                                 tv_01.setText(Html.fromHtml(html_source + "<font color='#FFA19494'><small>" + html_source1 + "</small></font>"));
+                                 */
                                 tv_03.setText("报价说明");
                                 tv_04.setText("用苗地：" + cityName);
                                 if (!"".equals(dispatchPhone) && "".equals(dispatchName)) {
@@ -498,9 +512,8 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
                                             // TODO Auto-generated method stub
                                             showWebViewDialog(quoteDesc);
                                             isFirstLoading = false;
-
                                         }
-                                    }, 1500);
+                                    }, 500);
 
                                 }
                                 subscribeUserCount = JsonGetInfo.getJsonInt(
@@ -1227,6 +1240,8 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
         } else if (resultCode == -1 || resultCode == 1) {
             //刷新列表
             onRefresh();
+        } else if (resultCode == ConstantState.LOGIN_SUCCEED) {
+            onRefresh();
         }
 
 
@@ -1717,34 +1732,48 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
         }
     }
 
+    WebViewDialogFragment webViewDialogFragment;
+
     private void showWebViewDialog(String quoteDesc) {
-        // TODO Auto-generated method stub
-        if (quoteDesc != null) {
-            WebViewDialog.Builder builder = new WebViewDialog.Builder(
-                    StorePurchaseListActivity.this);
-            builder.setTitle("报价说明");
-            builder.setPrice("");
-            builder.setCount("");
-            builder.setAccountName(quoteDesc);
-            builder.setAccountBank("");
-            builder.setAccountNum("");
-            builder.setPositiveButton("确定",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            // 设置你的操作事项
-                        }
-                    });
 
-            builder.setNegativeButton("取消",
-                    new android.content.DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
 
-            builder.create().show();
+        if (webViewDialogFragment == null) {
+
+//            webViewDialogFragment = new WebViewDialogFragment();
+            webViewDialogFragment = WebViewDialogFragment.newInstance(quoteDesc);
+            webViewDialogFragment.show(getSupportFragmentManager(), this.getClass().getName());
+        } else {
+            webViewDialogFragment.show(getSupportFragmentManager(), this.getClass().getName());
         }
+
+
+        // TODO Auto-generated method stub
+//        if (quoteDesc != null) {
+//            WebViewDialog.Builder builder = new WebViewDialog.Builder(
+//                    StorePurchaseListActivity.this);
+//            builder.setTitle("报价说明");
+//            builder.setPrice("");
+//            builder.setCount("");
+//            builder.setAccountName(quoteDesc);
+//            builder.setAccountBank("");
+//            builder.setAccountNum("");
+//            builder.setPositiveButton("确定",
+//                    new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                            // 设置你的操作事项
+//                        }
+//                    });
+//
+//            builder.setNegativeButton("取消",
+//                    new android.content.DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                        }
+//                    });
+//
+//            builder.create().show();
+//        }
 
     }
 

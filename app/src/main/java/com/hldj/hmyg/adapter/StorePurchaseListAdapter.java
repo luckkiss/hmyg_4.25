@@ -11,7 +11,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hldj.hmyg.LoginActivity;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.buyer.Ui.QuoteListActivity_bak;
 import com.hy.utils.StringFormatUtil;
@@ -73,12 +75,17 @@ public class StorePurchaseListAdapter extends BaseAdapter {
         TextView tv_09 = (TextView) inflate.findViewById(R.id.tv_09);
         TextView tv_10 = (TextView) inflate.findViewById(R.id.tv_10);
         TextView tv_11 = (TextView) inflate.findViewById(R.id.tv_11);
-        TextView tv_caozuo01 = (TextView) inflate
-                .findViewById(R.id.tv_caozuo01);
+        TextView tv_caozuo01 = (TextView) inflate.findViewById(R.id.tv_caozuo01);
         TextView tv_caozuo02 = (TextView) inflate
                 .findViewById(R.id.tv_caozuo02);
-        TextView tv_caozuo03 = (TextView) inflate
-                .findViewById(R.id.tv_caozuo03);
+        TextView tv_caozuo03 = (TextView) inflate.findViewById(R.id.tv_caozuo03);//立马报价按钮
+
+        if (MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {
+//            tv_caozuo01.setText("");
+        } else {
+            tv_caozuo01.setText("点我登录");
+        }
+
         tv_01.setText("[" + data.get(position).get("firstTypeName").toString()
                 + "]" + data.get(position).get("name").toString());
         tv_ac.setText(data.get(position).get("count").toString()
@@ -107,25 +114,38 @@ public class StorePurchaseListAdapter extends BaseAdapter {
                 + data.get(position).get("plantTypeName").toString());
         // tv_06.setText("其他要求：" +
         // data.get(position).get("remarks").toString());
-        StringFormatUtil fillColor = new StringFormatUtil(context, "已有"
-                + data.get(position).get("quoteCountJson").toString() + "条报价", data.get(position).get("quoteCountJson").toString(),
-                R.color.red).fillColor();
-        tv_10.setText(fillColor.getResult());
+
+
+
         if (Boolean.parseBoolean(data.get(position).get("isQuoted").toString())) {
             iv_img2.setVisibility(View.VISIBLE);
         } else {
             iv_img2.setVisibility(View.INVISIBLE);
         }
+        /**
+         *     * showQuote : true
+         * showQuoteCount : true
+         */
+        if (MyApplication.getInstance().getUserBean().showQuoteCount)//拥有权限
+        {
+            StringFormatUtil fillColor = new StringFormatUtil(context, "已有"
+                    + data.get(position).get("quoteCountJson").toString() + "条报价", data.get(position).get("quoteCountJson").toString(),
+                    R.color.red).fillColor();
+            tv_10.setText(fillColor.getResult());
+            tv_10.setVisibility(View.VISIBLE);
+            //跳转到报价列表详情
+            tv_10.setOnClickListener(v -> {
 
 
-        //跳转到报价列表详情
-        tv_10.setOnClickListener(v -> {
+                QuoteListActivity_bak.start2Activity((Activity) context, data.get(position).get("id").toString());
 
 
-            QuoteListActivity_bak.start2Activity((Activity) context, data.get(position).get("id").toString());
+            });
+        } else {
+            tv_10.setVisibility(View.GONE);//没有权限 就不显示  和没有点击事件
+        }
 
 
-        });
         inflate.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -140,7 +160,14 @@ public class StorePurchaseListAdapter extends BaseAdapter {
 //				context.startActivity(toPurchaseDetailActivity);
 //				((Activity) context).overridePendingTransition(
 //						R.anim.slide_in_left, R.anim.slide_out_right);
-                PurchaseDetailActivity.start2Activity((Activity) context, data.get(position).get("id").toString());//采购详情 界面
+//                MyApplication.Userinfo.getBoolean("isLogin", false)
+                if (MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {
+//                          PurchaseDetailActivity.start2Activity((Activity) context, data.get(position).get("id").toString());//采购详情 界面
+                    PurchaseDetailActivity.start2Activity((Activity) context, data.get(position).get("id").toString());//采购详情 界面
+
+                } else {
+                    LoginActivity.start2Activity((Activity) context);
+                }
 
 
             }

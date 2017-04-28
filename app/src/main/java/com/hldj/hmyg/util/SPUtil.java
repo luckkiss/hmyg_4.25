@@ -28,6 +28,8 @@ public class SPUtil {
     public static final String TO_WHERE = "towhere";
     public static final String MAIN = "main";
 
+    public static final String isLogin = "isLogin";//是否登录
+
     // 个人信息保存到本地
     public static final String PER_INFO = "PER_INFO";
 

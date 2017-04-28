@@ -22,8 +22,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -53,6 +51,7 @@ import com.hldj.hmyg.saler.StorageSaveActivity;
 import com.hldj.hmyg.saler.bean.ChooseManager;
 import com.hldj.hmyg.update.UpdateDialog;
 import com.hldj.hmyg.util.MyUtil;
+import com.hldj.hmyg.util.StartBarUtils;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.white.update.UpdateInfo;
@@ -107,15 +106,16 @@ public class MainActivity extends TabActivity implements
 
     public Editor e;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-    }
 
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /**
+         * 控制状态栏为黑色  miui flyme
+         */
+        StartBarUtils.FlymeSetStatusBarLightMode(getWindow(), true);
+        StartBarUtils.MIUISetStatusBarLightMode(getWindow(), true);
         setContentView(R.layout.activity_main);
         e = MyApplication.Userinfo.edit();//初始化 sp
 

@@ -28,13 +28,18 @@ public class PurchaseList implements Serializable{
 	String buyerId = "";
 	String buyer = "";
 	String purchaseFormId = "";
-	
+	private String itemCountJson ="";
+	private String blurProjectName ="" ;
+
 	String customerId = "";
 	String status = "";
 	String source = "";
 	String statusName = "";
 	int quoteCountJson = 0;
 	int lastDays = 0;
+
+
+
 	ArrayList<String> itemNameList = new ArrayList<String>();
 	
 	public String getBuyer() {
@@ -192,5 +197,21 @@ public class PurchaseList implements Serializable{
 	}
 	public void setItemNameList(ArrayList<String> itemNameList) {
 		this.itemNameList = itemNameList;
+	}
+
+	public String getItemCountJson() {
+		return itemCountJson;
+	}
+
+	public void setItemCountJson(String itemCountJson) {
+		this.itemCountJson = itemCountJson;
+	}
+
+	public String getBlurProjectName() {
+		return blurProjectName;
+	}
+
+	public void setBlurProjectName(String blurProjectName) {
+		this.blurProjectName = blurProjectName;
 	}
 }

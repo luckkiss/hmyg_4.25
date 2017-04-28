@@ -1,9 +1,11 @@
 package com.hldj.hmyg.buyer.Ui;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,6 +21,7 @@ import com.hldj.hmyg.buyer.M.ItemBean;
 import com.hldj.hmyg.buyer.P.PurchaseDeatilP;
 import com.hldj.hmyg.buyer.V.PurchaseDeatilV;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
+import com.hldj.hmyg.saler.purchase.StoreDeteilDialog;
 import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.ToastUtil;
@@ -36,7 +39,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity implements PurchaseDeatilV {
 
-    public boolean mIsQuoted = false;//是否报过价
+    public boolean mIsQuoted;//是否报过价
     public String mProjectType = "";//直购 代沟
     String firstSeedlingTypeId = "";
     //direct直购
@@ -60,6 +63,11 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
             ToastUtil.showShortToast("用 start2activity来条状本届面");
             return;
         }
+
+        //后退
+        findViewById(R.id.btn_back).setOnClickListener(v -> {
+            finish();
+        });
 
 
         InitHolder();
@@ -86,18 +94,18 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
          */
 
 
-
         ItemBean item = saveSeedingGsonBean.getData().getItem();
         initItem(item);
-        mProjectType = item.projectType;//直购 代购
+        mProjectType = item.purchaseJson.projectType;//直购 代购
 
 
-        if (mProjectType.equals(ConstantParams.direct)) {//直购
-            List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen = saveSeedingGsonBean.getData().getTypeList();
-            initProtocol(typeListBeen);
-        } else { //代购
+        if (mProjectType.equals(ConstantParams.direct)) {//代购
             List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen = saveSeedingGsonBean.getData().getTypeList();
             initDirect(typeListBeen);
+
+        } else { //直购
+            List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen = saveSeedingGsonBean.getData().getTypeList();
+            initProtocol(typeListBeen);
 //          initAutoLayout(typeListBeen);
         }
 
@@ -133,10 +141,11 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
 //    direct直购
 //    protocol代购
 
-
+//        firstTypeName = "乔木"
+//        name = "香樟"
         this.item = item;
         //头部与底部是一样的    这里初始化头部
-        getViewHolder_pur().tv_purchase_name.setText(strFilter(item.name));
+        getViewHolder_pur().tv_purchase_name.setText(strFilter("[" + item.firstTypeName + "]" + item.name));
         getViewHolder_pur().tv_purchase_size.setText(strFilter(item.specText));
         getViewHolder_pur().tv_purchase_type.setText(strFilter(item.plantTypeName));
         getViewHolder_pur().tv_quote_num.setText(strFilter(item.count + item.unitTypeName));
@@ -146,10 +155,13 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         getViewHolder_pur().tv_purchase_close_date.setText(strFilter(item.purchaseJson.closeDate));
         String str = strFilter(item.purchaseJson.quoteDesc);//报价信息 弹窗显示
         getViewHolder_pur().tv_purchase_price_sug.setOnClickListener(v -> {
-            showSug2DialogLeft(str);// TODO: 2017/4/26   增加弹窗<-
+            showSug2DialogLeft();// TODO: 2017/4/26   增加弹窗<-
+
+
         });
         getViewHolder_pur().tv_purchase_store_detail.setOnClickListener(v -> {
-            showSug2DialogLeft(str);// TODO: 2017/4/26   增加弹窗->
+            // TODO: 2017/4/26   增加弹窗->
+            showSug2DialogRight(str);
         });
 
         getViewHolder_pur().tv_purchase_address.setText(strFilter(item.purchaseJson.cityName));
@@ -174,7 +186,49 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
      *
      * @param str
      */
-    private void showSug2DialogLeft(String str) {
+    private void showSug2DialogLeft() {
+        /**
+         * buyerDatas.clear();
+         buyerDatas.add("采购商家：" + companyName);
+         buyerDatas.add("所在地区：" + address);
+         buyerDatas.add("采购数量：" + count);
+         buyerDatas.add("已有报价：" + quoteCountJson + "条");
+         */
+        ArrayList<String> buyerDatas = new ArrayList<String>();
+        buyerDatas.clear();
+        buyerDatas.add("采购商家：" + item.buyer.displayName);
+        buyerDatas.add("所在地区：" + item.buyer.ciCode);
+        buyerDatas.add("采购数量：" + item.count);
+        buyerDatas.add("已有报价：" + item.quoteCountJson + "条");
+
+        StoreDeteilDialog.Builder builder = new StoreDeteilDialog.Builder(
+                PurchaseDetailActivityBase.this);
+        builder.setTitle("商家信息");
+        builder.setPrice("");
+        builder.setCount("");
+        builder.setAccountName("");
+        builder.setAccountBank("");
+        builder.setAccountNum("");
+        builder.setData(buyerDatas);
+        builder.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        dialog.dismiss();
+                        // 设置你的操作事项
+                    }
+                });
+
+        builder.setNegativeButton("取消",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        builder.create().show();
+
     }
 
     /**
@@ -183,8 +237,8 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
      * @param str
      */
     private void showSug2DialogRight(String str) {
+        WebViewDialogFragment.newInstance(str).show(getSupportFragmentManager(), this.getClass().getName());
     }
-
 
 
     //step 1   2个界面不一样的实现
@@ -295,8 +349,8 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         public ImageView btn_back;
         public SuperTextView tv_purchase_address;
         public SuperTextView tv_purchase_close_date;
-        public CheckBox tv_purchase_store_detail;
-        public CheckBox tv_purchase_price_sug;
+        public Button tv_purchase_store_detail;
+        public Button tv_purchase_price_sug;
         public TextView tv_purchase_city_name;
         public TagFlowLayout tfl_purchase_auto_add_plant;
         public TextView tv_purchase_add_pic;
@@ -320,8 +374,8 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
             this.tv_quote_num = (TextView) rootView.findViewById(R.id.tv_quote_num);
             this.tv_purchase_address = (SuperTextView) rootView.findViewById(R.id.tv_quote_address);
             this.tv_purchase_close_date = (SuperTextView) rootView.findViewById(R.id.tv_quote_close_date);
-            this.tv_purchase_store_detail = (CheckBox) rootView.findViewById(R.id.tv_quote_store_detail);
-            this.tv_purchase_price_sug = (CheckBox) rootView.findViewById(R.id.tv_quote_price_sug);
+            this.tv_purchase_store_detail = (Button) rootView.findViewById(R.id.tv_quote_store_detail);//采购商家信息
+            this.tv_purchase_price_sug = (Button) rootView.findViewById(R.id.tv_quote_price_sug);//报价要求
             this.tv_purchase_city_name = (TextView) rootView.findViewById(R.id.tv_purchase_city_name);
             this.tfl_purchase_auto_add_plant = (TagFlowLayout) rootView.findViewById(R.id.tfl_purchase_auto_add_plant);
             this.tv_purchase_add_pic = (TextView) rootView.findViewById(R.id.tv_purchase_add_pic);

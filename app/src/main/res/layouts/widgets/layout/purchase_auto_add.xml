@@ -30,6 +30,7 @@
         android:layout_marginLeft="30dp"
         android:background="@null"
         android:hint="cm"
+        android:textSize="16sp"
         android:inputType="number"
         android:textColor="@color/hint_text_color"
         android:textColorHint="@color/hint_text_color" />

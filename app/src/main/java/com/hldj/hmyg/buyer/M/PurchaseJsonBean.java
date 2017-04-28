@@ -107,6 +107,7 @@ public class PurchaseJsonBean implements Serializable {
     public String purchaseFormId;
     public String typeName;
     public String blurName;
+    public String projectType = ""; //直购与代沟
 
     public static class CiCityBean {
         /**
@@ -125,4 +126,6 @@ public class PurchaseJsonBean implements Serializable {
         public String parentCode;
         public int level;
     }
+
+
 }

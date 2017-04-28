@@ -253,7 +253,8 @@
             android:theme="@style/e_activity_theme"></activity>
         <activity
             android:name="com.hldj.hmyg.GalleryImageActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/FullScreenTheme" />
         <activity
             android:name="com.hldj.hmyg.MessageListActivity"
             android:launchMode="singleTask"

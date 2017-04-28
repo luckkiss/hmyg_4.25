@@ -1,5 +1,6 @@
 package com.hldj.hmyg;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.JpushUtil;
 import com.hldj.hmyg.util.MyUtil;
 import com.hldj.hmyg.util.SPUtil;
+import com.hldj.hmyg.util.SPUtils;
 import com.hy.utils.GetServerUrl;
 import com.loginjudge.LoginJudge;
 import com.mrwujay.cascade.activity.BaseActivity;
@@ -39,7 +41,6 @@ import static com.hldj.hmyg.R.id.btn_clear_num;
 import static com.hldj.hmyg.R.id.btn_clear_password;
 import static com.hldj.hmyg.R.id.et_passward;
 import static com.hldj.hmyg.R.id.et_phone;
-import static com.hldj.hmyg.util.SPUtils.UserBean;
 
 //public class LoginActivity extends BaseActivity {
 public class LoginActivity extends BaseActivity {
@@ -424,7 +425,7 @@ public class LoginActivity extends BaseActivity {
 //                        MyApplication.spUtils.putString(UserBean, json);//把json 存储在sp中，需要的话直接通过gson 转换
                 //成功
                 if (userInfoGsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
-                    String id = userInfoGsonBean.getData().getUser().getId();
+                    String id = userInfoGsonBean.getData().getUser().id;
                     JpushUtil.setAlias(id);
                     //设置 极光推送
                     if ("LoginActivity".equals(activity)) {
@@ -453,9 +454,28 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void save2SP(String json) {
-        SPUtil.put(LoginActivity.this, UserBean, json);//把json 存储在sp中，需要的话直接通过gson 转换
+        //把userbean 存入 application 中
+        UserInfoGsonBean gsonBean = GsonUtil.formateJson2Bean(json, UserInfoGsonBean.class);
+        if (gsonBean.getCode().equals(ConstantState.SUCCEED_CODE) && gsonBean.getData() != null) {
+            if (gsonBean.getData().getUser() != null) {
+                SPUtil.put(LoginActivity.this, SPUtils.UserBean, GsonUtil.Bean2Json(gsonBean.getData().getUser()));//把json 存储在sp中，需要的话直接通过gson 转换
+                MyApplication.getInstance().setUserBean(gsonBean.getData().getUser());
+            } else {
+                D.e("======getUser====为空，后台数据改变=====");
+            }
+        }
+
+
+        String str = MyApplication.getUserBean().toString();
+        D.e("====str====" + str);
+
         LoginPresenter.Save2Sp(editor, json);//把 个人数据放入sp 中
     }
 
+
+    public static void start2Activity(Activity activity) {
+        Intent intent = new Intent(activity, LoginActivity.class);
+        activity.startActivityForResult(intent, 100);
+    }
 
 }

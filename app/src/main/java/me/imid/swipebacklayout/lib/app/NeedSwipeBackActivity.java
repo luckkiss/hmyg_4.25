@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.util.D;
 
 public class NeedSwipeBackActivity extends SwipeBackBActivity {
 
@@ -11,6 +12,9 @@ public class NeedSwipeBackActivity extends SwipeBackBActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
+
+        D.e("======当前界面classname========" + this.getClass().getName());
+
 //		if (Build.VERSION.SDK_INT >= 23) {
         setSwipeBackEnable(true);
 //		}

@@ -13,6 +13,11 @@ import android.widget.TextView;
 import com.hldj.hmyg.DaoBean.SaveJson.DaoMaster;
 import com.hldj.hmyg.DaoBean.SaveJson.DaoSession;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.bean.UserBean;
+import com.hldj.hmyg.util.GsonUtil;
+import com.hldj.hmyg.util.SPUtil;
+import com.hldj.hmyg.util.SPUtils;
+import com.hy.utils.ToastUtil;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -37,6 +42,27 @@ public class MyApplication extends Application {
     public TextView trigger, exit;
     public Vibrator mVibrator;
 
+
+    //存储userbean
+    private static UserBean userBean;
+
+    public static void setUserBean(UserBean userBean) {
+        MyApplication.userBean = userBean;
+    }
+
+    public static UserBean getUserBean() {
+        if (userBean == null) {
+            String json = SPUtil.get(getInstance(), SPUtils.UserBean, "").toString();
+            if (json.equals("")) {
+                ToastUtil.showShortToast("未登录");
+            } else {
+                userBean = GsonUtil.formateJson2Bean(json, UserBean.class);
+            }
+            return new UserBean();
+        }
+        return userBean;
+
+    }
 
     /*
     数据库

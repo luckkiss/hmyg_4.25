@@ -529,7 +529,6 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         params.put("validity", upLoadDatas.getValidity());//发布有效期
         params.put("nurseryId", upLoadDatas.address.addressId);
         params.put("count", upLoadDatas.getRepertory_num());
-
         D.e("=========checkParames1=========");
         if (!checkParames(autoAddRelative_rd, "1")) {
             D.e("=========null======1===");

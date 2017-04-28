@@ -39,8 +39,6 @@ import org.json.JSONObject;
 public class LoginPresenter {
 
 
-
-
     public static void toLoginWithNote(String phone, String smsCode, final ResultCallBack<LoginGsonBean> resultCallBack) {
 
         FinalHttp finalHttp = new FinalHttp();
@@ -99,7 +97,9 @@ public class LoginPresenter {
         @Override
         public void afterTextChanged(Editable s) {
             if (s.length() == 0) imageView.setVisibility(View.GONE);
-            else{ imageView.setVisibility(View.VISIBLE); }
+            else {
+                imageView.setVisibility(View.VISIBLE);
+            }
 
 
             if (s.length() == 11) {
@@ -169,6 +169,11 @@ public class LoginPresenter {
                     .getJsonString(user, "publicPhone"));
             editor.putString("headImage", JsonGetInfo
                     .getJsonString(user, "headImage"));
+
+            editor.putString("showQuoteCount", JsonGetInfo
+                    .getJsonString(user, "showQuoteCount"));
+            editor.putString("showQuote", JsonGetInfo
+                    .getJsonString(user, "showQuote"));
 
             // if
             // (!"".equals(JsonGetInfo.getJsonString(user,
@@ -299,7 +304,7 @@ public class LoginPresenter {
 //                        MyApplication.spUtils.putString(UserBean, json);//把json 存储在sp中，需要的话直接通过gson 转换
                 //成功
                 if (userInfoGsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
-                    String id = userInfoGsonBean.getData().getUser().getId();
+                    String id = userInfoGsonBean.getData().getUser().id;
                     JpushUtil.setAlias(id);
 
 

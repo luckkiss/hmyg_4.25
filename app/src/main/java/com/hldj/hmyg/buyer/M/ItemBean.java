@@ -90,8 +90,8 @@ public class ItemBean {
     public SellerQuoteJsonBean sellerQuoteJson;
     public List<String> paramsList;
     public List<SpecListBean> specList;
+    public BuyerBean buyer ;
 
-    public String projectType = ""; //直购与代沟
 
 
     public boolean isQuoted;
@@ -107,5 +107,23 @@ public class ItemBean {
         public String value;
     }
 
+
+    /**
+     *  "buyer": {
+     "id": "-1",
+     "prCode": "",
+     "ciCode": "",
+     "coCode": "",
+     "twCode": "",
+     "phone": "4006-579-888",
+     "companyName": "厦门花木易购电子商务有限公司",
+     "isInvoices": false,
+     "agentTypeName": "",
+     "isDirectAgent": false,
+     "displayName": "厦门花木易购电子商务有限公司",
+     "adminDisplayName": "厦门花木易购电子商务有限公司",
+     "displayPhone": "4006-579-888"
+     },
+     */
 
 }

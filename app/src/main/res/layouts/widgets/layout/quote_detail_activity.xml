@@ -9,10 +9,7 @@
 
 
     <!--分割线-->
-    <View
-        style="@style/View_line_green"
-        android:layout_height="10dp"
-        android:background="@color/gray_bg" />
+
 
     <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
         android:id="@+id/recycle_quit"

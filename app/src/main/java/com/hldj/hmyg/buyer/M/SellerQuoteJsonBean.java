@@ -1,5 +1,6 @@
 package com.hldj.hmyg.buyer.M;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -78,6 +79,11 @@ public class SellerQuoteJsonBean {
     public String purchaseItemStatus;
     public List<String> paramsList;
     public List<SpecListBean> specList;
+
+
+    public List<ImagesJsonBean> imagesJson = new ArrayList<>();
+//     public ImagesJsonBean imagesJson ;
+
 
     public static class SpecListBean {
         /**

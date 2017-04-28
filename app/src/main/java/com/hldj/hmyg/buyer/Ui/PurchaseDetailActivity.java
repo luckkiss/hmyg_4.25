@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
+import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.buyer.M.ItemBean;
 import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
 import com.hldj.hmyg.buyer.P.PurchaseDeatilP;
@@ -17,9 +20,11 @@ import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.buyer.weidet.Purchase.PurchaseAutoAddLinearLayout;
+import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin2;
 import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.TakePhotoUtil;
 import com.hy.utils.ToastUtil;
 import com.zzy.common.widget.MeasureGridView;
@@ -94,6 +99,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
     /**
      * 直购只要添加一行  价格
+     *
      * @param typeListBeen
      */
     private void initTypeListDirect(List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen) {
@@ -102,6 +108,12 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("价格", "price", true));
         autoLayouts.add(layout);
         getViewHolder_pur().ll_purc_auto_add.addView(layout);
+
+        //不需要地址栏
+
+        ViewGroup viewGroup = (ViewGroup) getViewHolder_pur().tv_purchase_city_name.getParent();
+        viewGroup.setVisibility(View.GONE);
+
     }
 
 
@@ -187,25 +199,32 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
         CoreRecyclerView recyclerView = (CoreRecyclerView) findViewById(R.id.recycle_pur_one);
         recyclerView.initView(this)
-                .init(new BaseQuickAdapter<SellerQuoteJsonBean, BaseViewHolder>(R.layout.item_quote) {
+                .init(new BaseQuickAdapter<SellerQuoteJsonBean, BaseViewHolder>(R.layout.item_quote_dir_po) {
                     @Override
                     protected void convert(BaseViewHolder helper, SellerQuoteJsonBean item) {
-                        helper.setText(R.id.tv_quote_item_sellerName, strFilter(item.sellerName).equals("") ? strFilter(item.sellerPhone) : strFilter(item.sellerName));//报价人
+//                        helper.setText(R.id.tv_quote_item_sellerName, strFilter(item.sellerName).equals("") ? strFilter(item.sellerPhone) : strFilter(item.sellerName));//报价人
 
                         helper.setText(R.id.tv_quote_item_price, strFilter(item.price + ""));//价格
                         helper.setText(R.id.tv_quote_item_plantTypeName, strFilter(item.plantTypeName));//种植类型
+                        helper.setText(R.id.tv_quote_item_declare, strFilter(item.remarks));//种植类型
 
-                        if (!direce) {//代沟
+
+                        if (!direce) {//代购
                             helper.setText(R.id.tv_quote_item_specText, strFilter(item.specText));//要求规格
                             helper.setText(R.id.tv_quote_item_cityName, strFilter(item.cityName));//苗源地址
-                        } else {
-                            helper.setVisible(R.id.tv_quote_item_specText, false);
-                            helper.setVisible(R.id.tv_quote_item_cityName, false);
-
+                        } else {//直购  参数比较少，需要隐藏部分
+                            helper.setParentVisible(R.id.tv_quote_item_specText, false);
+                            helper.setParentVisible(R.id.tv_quote_item_cityName, false);
                         }
 
+                        helper.setText(R.id.tv_quote_item_photo_num, strFilter("有" + item.imagesJson.size() + "张图片"));//有多少张图片
+                        if (item.imagesJson.size() != 0) {
+                            helper.addOnClickListener(R.id.tv_quote_item_photo_num, v -> {
+                                //穿list pic 集合到新的activity 显示 所有的图片
+                                GalleryImageActivity.startGalleryImageActivity(PurchaseDetailActivity.this, 0, getPicList(item.imagesJson));
+                            });
+                        }
 
-                        helper.setText(R.id.tv_quote_item_photo_num, strFilter("1"));//有多少张图片
                         helper.addOnClickListener(R.id.tv_delete_item, v -> {
 
 
@@ -239,6 +258,16 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         recyclerView.getAdapter().addData(sellerQuoteJsonBean);
 
 
+    }
+
+    //解析 数组数据
+    private ArrayList<Pic> getPicList(List<ImagesJsonBean> imagesJson) {
+
+        ArrayList pics = new ArrayList<Pic>();
+        for (int i = 0; i < imagesJson.size(); i++) {
+            pics.add(new Pic(imagesJson.get(i).id, false, imagesJson.get(i).ossMediumImagePath, i));
+        }
+        return pics;
     }
 
 
@@ -323,13 +352,44 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
             D.e("======图片的地址====" + PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList().size());
             D.e("======图片的地址====" + PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList().get(0).getUrl());
         }
-        uploadBean.imagesData = "";
+        uploadBean.imagesData = PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList().get(0).getUrl();
         uploadBean.purchaseId = item.purchaseId;
         uploadBean.purchaseItemId = item.id;
         uploadBean.plantType = getPlantType();
 
         D.e("============上传报价===================");
 
+        //如果是代购  就必须上传一张图片   参数多的那个
+        ArrayList<Pic> piclistLocal = PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList();//本地路径集合
+        List<Pic> listPicsOnline = new ArrayList<>();//上传成功的结果保存在这里 网路路径集合
+
+        if (piclistLocal.size() != 0) {//有图片，则先上传图片
+            //接口上传图片
+            new SaveSeedlingPresenter().upLoad(PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList(), new ResultCallBack<Pic>() {
+                @Override
+                public void onSuccess(Pic pic) {
+                    listPicsOnline.add(pic);
+                    if (listPicsOnline.size() == piclistLocal.size()) {
+                        uploadBean.imagesData = GsonUtil.Bean2Json(listPicsOnline);
+                        save();//如果没有图片，直接上传数据
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Throwable t, int errorNo, String strMsg) {
+
+                }
+            });
+        } else {
+            save();//如果没有图片，直接上传数据
+        }
+
+
+    };
+
+
+    public void save() {
         new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
             @Override
             public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
@@ -345,9 +405,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         })
                 .quoteCommit(PurchaseDetailActivity.this, uploadBean)
         ;
-
-
-    };
+    }
 
 
     List<Map<String, Integer>> list = new ArrayList<>();

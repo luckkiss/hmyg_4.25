@@ -1,18 +1,6 @@
 package com.hldj.hmyg;
 
-import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
-import me.mhao.widget.SlipButton;
-import me.mhao.widget.SlipButton.OnChangedListener;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
@@ -30,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.jpush.android.api.JPushInterface;
 
 import com.flyco.animation.BaseAnimatorSet;
 import com.flyco.animation.BounceEnter.BounceTopEnter;
@@ -38,11 +25,26 @@ import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.SPUtil;
+import com.hldj.hmyg.util.SPUtils;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.white.update.UpdateInfo;
-import com.white.utils.DataCleanManager;
 import com.white.utils.SettingUtils;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cn.jpush.android.api.JPushInterface;
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+import me.mhao.widget.SlipButton;
+import me.mhao.widget.SlipButton.OnChangedListener;
 
 public class SettingActivity extends NeedSwipeBackActivity implements
 		OnChangedListener {
@@ -467,6 +469,20 @@ public class SettingActivity extends NeedSwipeBackActivity implements
 							newMsgAlertStatusOnOff.isIsOpen());
 					e.commit();
 					setResult(6);
+
+					//把userbean 存入 application 中
+//					SPUtil.clear( SPUtils.UserBean,SettingActivity.this);
+					SPUtil.remove(SettingActivity.this ,SPUtils.UserBean);
+					MyApplication.getInstance().setUserBean(null);
+
+
+
+					D.e("==="+SPUtil.get(SettingActivity.this,SPUtils.UserBean,"").toString());
+
+					D.e("===="+MyApplication.getUserBean());
+
+
+
 					finish();
 					MainActivity.toA();
 					break;

@@ -850,10 +850,10 @@ public class PurchaseDetailActivity_back extends BaseThirdActivity implements
 		case R.id.btn_back:
 			onBackPressed();
 			break;
-		case R.id.info_02:
+		case R.id.info_02://报价要求
 			showWebViewDialog();
 			break;
-		case R.id.info_01:
+		case R.id.info_01://采购商信息
 			if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {
 				Intent toLoginActivity = new Intent(
 						PurchaseDetailActivity_back.this, LoginActivity.class);

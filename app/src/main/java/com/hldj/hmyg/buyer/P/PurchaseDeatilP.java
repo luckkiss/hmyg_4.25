@@ -59,7 +59,6 @@ public class PurchaseDeatilP {
 
                 resultCallBack.onSuccess(saveSeedingGsonBean);
 
-
             }
 
             @Override

@@ -507,6 +507,12 @@
         <item name="android:background">@drawable/line</item>
     </style>
 
+    <style name="View_line_gray_1dp">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/gray_bg</item>
+    </style>
+
     <style name="View_line_gray">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">10dp</item>
