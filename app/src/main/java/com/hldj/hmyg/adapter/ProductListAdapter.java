@@ -109,60 +109,11 @@ public class ProductListAdapter extends BaseAdapter {
             childHolder.tv_status_05 = (TextView) convertView
                     .findViewById(R.id.tv_status_05);
 
-//			childHolder.sc_ziying = (ImageView) convertView
-//					.findViewById(R.id.sc_ziying);
-//			childHolder.sc_fuwufugai = (ImageView) convertView
-//					.findViewById(R.id.sc_fuwufugai);
-//			childHolder.sc_hezuoshangjia = (ImageView) convertView
-//					.findViewById(R.id.sc_hezuoshangjia);
-//			childHolder.sc_huodaofukuan = (ImageView) convertView
-//					.findViewById(R.id.sc_huodaofukuan);
             convertView.setTag(childHolder);
         } else {
             childHolder = (ChildHolder) convertView.getTag();
         }
 
-//		if (data.get(position).get("tagList").toString().contains(Data.ZIYING)) {
-//			childHolder.sc_ziying.setVisibility(View.VISIBLE);
-//		} else {
-//			childHolder.sc_ziying.setVisibility(View.GONE);
-//		}
-//		if (data.get(position).get("tagList").toString().contains(Data.FUWU)) {
-//			childHolder.sc_fuwufugai.setVisibility(View.VISIBLE);
-//		} else {
-//			childHolder.sc_fuwufugai.setVisibility(View.GONE);
-//		}
-//		if (data.get(position).get("tagList").toString()
-//				.contains(Data.HEZUOSHANGJIA)) {
-//			childHolder.sc_hezuoshangjia.setVisibility(View.VISIBLE);
-//		} else {
-//			childHolder.sc_hezuoshangjia.setVisibility(View.GONE);
-//		}
-//		if (data.get(position).get("tagList").toString()
-//				.contains(Data.ZIJINDANBAO)) {
-//			childHolder.sc_huodaofukuan.setVisibility(View.VISIBLE);
-//		} else {
-//			childHolder.sc_huodaofukuan.setVisibility(View.GONE);
-//		}
-
-//		if (data.get(position).get("isSelfSupport").toString().contains("true")) {
-//			childHolder.tv_status_01.setVisibility(View.VISIBLE);
-//		}
-//		if (data.get(position).get("freeValidatePrice").toString()
-//				.contains("true")) {
-//			childHolder.tv_status_02.setVisibility(View.VISIBLE);
-//		}
-//		if (data.get(position).get("cashOnDelivery").toString()
-//				.contains("true")) {
-//			childHolder.tv_status_03.setVisibility(View.VISIBLE);
-//		}
-//		if (data.get(position).get("freeDeliveryPrice").toString()
-//				.contains("true")) {
-//			childHolder.tv_status_04.setVisibility(View.VISIBLE);
-//		}
-//		if (data.get(position).get("freeValidate").toString().contains("true")) {
-//			childHolder.tv_status_05.setVisibility(View.VISIBLE);
-//		}
         if (data.get(position).get("isRecommend").toString().contains("true")) {
             childHolder.iv_like.setImageResource(R.drawable.tuijian_lv);
         } else {
@@ -258,20 +209,15 @@ public class ProductListAdapter extends BaseAdapter {
         childHolder.tv_04
                 .setText(data.get(position).get("specText").toString());
 
-
-        String maxPrice = "";
-        String minPrice = "";
-
-        String isNego = "";
-        isNego = data.get(position).get("isNego").toString();
-
-        if (TextUtils.isEmpty(maxPrice) && TextUtils.isEmpty(minPrice)) {
-            maxPrice = data.get(position).get("minPrice") + "";
-            minPrice = data.get(position).get("maxPrice") + "";
-            childHolder.tv_07.setText(minPrice + "-" + maxPrice);
-        } else {
-            childHolder.tv_07.setText("面议");
-        }
+        boolean isNego = (boolean) data.get(position).get("isNego");
+        String minPrice = data.get(position).get("minPrice") + "";
+        String maxPrice = data.get(position).get("maxPrice") + "";
+        setPrice(childHolder.tv_07, maxPrice, minPrice, isNego);
+//        if (TextUtils.isEmpty(maxPrice) && TextUtils.isEmpty(minPrice)) {
+//            childHolder.tv_07.setText(minPrice + "-" + maxPrice);
+//        } else {
+//            childHolder.tv_07.setText("面议");
+//        }
 
 
 //        childHolder.tv_07.setText(ValueGetInfo.doubleTrans1(Double.parseDouble(data.get(position).get("price").toString())));
@@ -356,6 +302,31 @@ public class ProductListAdapter extends BaseAdapter {
         });
 
         return convertView;
+    }
+
+    public static void setPrice(TextView tv_07, String maxPrice, String minPrice, boolean isNego) {
+
+        String price = "";
+        if (isNego) {
+            tv_07.setText("面议");
+        } else {
+            if (TextUtils.isEmpty(maxPrice) && TextUtils.isEmpty(minPrice)) {
+                tv_07.setText("面议");
+            }
+
+            if (!TextUtils.isEmpty(minPrice) && !minPrice.equals("0")) {
+                price = minPrice;
+                if (!TextUtils.isEmpty(maxPrice)&& !maxPrice.equals("0")) {
+                    price = price + "-" + maxPrice;
+                }
+                tv_07.setText(price);
+            } else {
+                tv_07.setText(maxPrice);
+            }
+
+        }
+
+
     }
 
     private class ChildHolder {

@@ -848,36 +848,36 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                                                 .getJsonString(jsonObject3,
                                                         "cityName"));
                                         hMap.put("isNego", JsonGetInfo
-                                                .getJsonDouble(jsonObject3,
+                                                .getJsonBoolean(jsonObject3,
                                                         "isNego"));
                                         hMap.put("minPrice", JsonGetInfo
-                                                .getJsonDouble(jsonObject3,
+                                                .getJsonString(jsonObject3,
                                                         "minPrice"));
                                         hMap.put("maxPrice", JsonGetInfo
-                                                .getJsonDouble(jsonObject3,
+                                                .getJsonString(jsonObject3,
                                                         "maxPrice"));
 
 
                                         hMap.put("count", JsonGetInfo
-                                                .getJsonInt(jsonObject3,
+                                                .getJsonString(jsonObject3,
                                                         "count"));
                                         hMap.put("unitTypeName", JsonGetInfo
                                                 .getJsonString(jsonObject3,
                                                         "unitTypeName"));
                                         hMap.put("diameter", JsonGetInfo
-                                                .getJsonDouble(jsonObject3,
+                                                .getJsonString(jsonObject3,
                                                         "diameter"));
                                         hMap.put("dbh", JsonGetInfo
-                                                .getJsonDouble(jsonObject3,
+                                                .getJsonString(jsonObject3,
                                                         "dbh"));
                                         hMap.put("height", JsonGetInfo
-                                                .getJsonDouble(jsonObject3,
+                                                .getJsonString(jsonObject3,
                                                         "height"));
                                         hMap.put("crown", JsonGetInfo
-                                                .getJsonDouble(jsonObject3,
+                                                .getJsonString(jsonObject3,
                                                         "crown"));
                                         hMap.put("offbarHeight", JsonGetInfo
-                                                .getJsonDouble(jsonObject3,
+                                                .getJsonString(jsonObject3,
                                                         "offbarHeight"));
                                         hMap.put("cityName", JsonGetInfo
                                                 .getJsonString(jsonObject3,

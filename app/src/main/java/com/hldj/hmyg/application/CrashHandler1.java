@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Environment;
-import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
@@ -85,7 +84,7 @@ public class CrashHandler1  implements UncaughtExceptionHandler {
         new Thread() {
             public void run() {
                 Looper.prepare();
-                Toast.makeText(mContext, "出现闪退了正在把日志保存到sdcard crash目录下", 0).show();
+                Toast.makeText(mContext, "出现闪退了正在把日志保存到sdcard crash目录下", Toast.LENGTH_LONG).show();
                 Looper.loop();
             }
         }.start();

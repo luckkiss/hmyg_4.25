@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
-import com.hy.utils.ValueGetInfo;
 
 import net.tsz.afinal.FinalBitmap;
 
@@ -157,7 +156,15 @@ public class ProductGridAdapter extends BaseAdapter {
             holder.tv_03.setTextColor(Color.parseColor("#eb8ead"));
         }
         // tv_03.setText(data.get(position).get("statusName").toString());
-        holder.tv_07.setText(ValueGetInfo.doubleTrans1(Double.parseDouble(data.get(position).get("price").toString())));
+        boolean isNego = (boolean) data.get(position).get("isNego");
+        String minPrice = data.get(position).get("minPrice") + "";
+        String maxPrice = data.get(position).get("maxPrice") + "";
+        ProductListAdapter.setPrice(holder.tv_07, maxPrice, minPrice, isNego);
+
+//        holder.tv_07.setText(ValueGetInfo.doubleTrans1(Double.parseDouble(data.get(position).get("price").toString())));
+
+
+//        holder.tv_07.setText(ValueGetInfo.doubleTrans1(Double.parseDouble(data.get(position).get("price").toString())));
         holder.tv_08.setText("元/" + data.get(position).get("unitTypeName").toString());
         // tv_09.setText(data.get(position).get("count").toString()
         // + data.get(position).get("unitTypeName").toString());

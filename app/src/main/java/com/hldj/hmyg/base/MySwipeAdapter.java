@@ -11,6 +11,7 @@ import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.presenter.CollectPresenter;
@@ -91,14 +92,11 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
 
 //           价格
         TextView tv_07 = (TextView) view.findViewById(R.id.tv_07);
-        if (seedlingBean.isNego()) {
+        boolean isNeGo = seedlingBean.isNego();
+        String maxPrice = seedlingBean.getMinPrice() + "";
+        String minPrice = seedlingBean.getMaxPrice() + "";
+        ProductListAdapter.setPrice(tv_07, maxPrice, minPrice, isNeGo);
 
-            tv_07.setText("面议");
-        } else {
-            String maxPrice = seedlingBean.getMinPrice() + "";
-            String minPrice = seedlingBean.getMaxPrice() + "";
-            tv_07.setText(minPrice + "-" + maxPrice);
-        }
 //           库存
         TextView tv_09 = (TextView) view.findViewById(R.id.tv_09);
         tv_09.setText(seedlingBean.getCount() + "");

@@ -81,8 +81,8 @@ public class MyApplication extends Application {
         CrashReport
                 .initCrashReport(getApplicationContext(), "900021393", false);
         ShareSDK.initSDK(this);
-        // CrashHandler crashHandler = CrashHandler.getInstance();
-        // crashHandler.init(getApplicationContext());
+         CrashHandler1 crashHandler = CrashHandler1.getInstance();
+         crashHandler.init(getApplicationContext());
         // 本地奔溃保存
         Userinfo = getSharedPreferences("Userinfo", Context.MODE_PRIVATE);
         Deviceinfo = getSharedPreferences("Deviceinfo", Context.MODE_PRIVATE);

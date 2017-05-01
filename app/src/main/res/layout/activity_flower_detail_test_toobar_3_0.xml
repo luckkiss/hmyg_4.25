@@ -34,7 +34,7 @@
             <include layout="@layout/activity_flower_detail_test_content_3_0" />
         </com.hldj.hmyg.application.AlphaTitleScrollView>
 
-        <include layout="@layout/activity_flower_detail_bottom" />
+        <include layout="@layout/activity_flower_detail_bottom" android:id="@+id/activity_flower_detail_bottom"/>
     </LinearLayout>
 
 
