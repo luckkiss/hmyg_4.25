@@ -38,6 +38,11 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
 
         setContentView(R.layout.quote_detail_activity);
         InitHolder();
+
+        viewHolder_quote.btn_back.setOnClickListener(v -> {
+            finish();//后退按钮
+        });
+
         InitViews();
         getDatas();
 

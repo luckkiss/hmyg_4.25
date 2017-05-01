@@ -259,7 +259,7 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
         ll_choice = (LinearLayout) findViewById(R.id.ll_choice);
         tv_sorts = (TextView) findViewById(R.id.tv_sorts);
 
-        mainView = (View) findViewById(R.id.mainView);
+        mainView =  findViewById(R.id.mainView);
         xListView = (XListView) findViewById(R.id.xlistView);
         xListView.setDivider(null);
         xListView.setPullLoadEnable(true);

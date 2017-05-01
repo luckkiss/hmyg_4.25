@@ -49,6 +49,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         super.onCreate(savedInstanceState);
 
         int layout_id = R.layout.purchase_detail_activity;//这个界面的布局
+        initGv();
 
     }
 
@@ -78,7 +79,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         if (mIsQuoted)//已经报价
         {
             D.e("=====已经报价=====");
-            initRceycle(true); // 报价成功会获取 sellerQuoteJson  来显示recycle 列表
+            initRceycle(false); // 报价成功会获取 sellerQuoteJson  来显示recycle 列表
             findViewById(R.id.recycle_pur_one).setVisibility(View.VISIBLE);
             findViewById(R.id.include_bottom_pur_detail).setVisibility(View.GONE);
 
@@ -139,8 +140,13 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
             //初始化后 设置点击事件
             getViewHolder_pur().tv_purchase_commit.setOnClickListener(commitListener);
+            getViewHolder_pur().tv_purchase_city_name.setOnClickListener(v -> {
+
+            });
+
         }
-        getViewHolder_pur().tv_purchase_add_pic.setOnClickListener(showCity);
+//        getViewHolder_pur().tv_purchase_add_pic.setOnClickListener(showCity);
+        getViewHolder_pur().tv_purchase_city_name.setOnClickListener(showCity);
 
     }
 
@@ -209,7 +215,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                         helper.setText(R.id.tv_quote_item_declare, strFilter(item.remarks));//种植类型
 
 
-                        if (!direce) {//代购
+                        if (direce) {//代购
                             helper.setText(R.id.tv_quote_item_specText, strFilter(item.specText));//要求规格
                             helper.setText(R.id.tv_quote_item_cityName, strFilter(item.cityName));//苗源地址
                         } else {//直购  参数比较少，需要隐藏部分
@@ -274,6 +280,8 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     PurchaseAutoAddLinearLayout.PlantBean plantBean;
 
     uploadBean uploadBean = new uploadBean();
+
+
     View.OnClickListener commitListener = v -> {
 
         //点击上传   数据   讲采购信息全部放入
@@ -348,11 +356,12 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
         D.e("===city==" + getViewHolder_pur().tv_purchase_city_name.getText());
 
-        if (PurchaseDetailActivity.this.measureGridView != null) {
-            D.e("======图片的地址====" + PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList().size());
+        int size = PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList().size();
+        if (PurchaseDetailActivity.this.measureGridView != null || size != 0) {
+            D.e("======图片的地址数量====" + size);
             D.e("======图片的地址====" + PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList().get(0).getUrl());
+//            uploadBean.imagesData = PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList().get(0).getUrl();
         }
-        uploadBean.imagesData = PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList().get(0).getUrl();
         uploadBean.purchaseId = item.purchaseId;
         uploadBean.purchaseItemId = item.id;
         uploadBean.plantType = getPlantType();
@@ -412,7 +421,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
     public class uploadBean {
         //        String sellerQuoteJson_id = "";//空 提交   非空 取消某人的 发布消息
-        public String cityCode = "4505";
+        public String cityCode = "";
         public String price = "";
         public String diameter = "";
         public String dbh = "";
@@ -448,9 +457,17 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
 
     View.OnClickListener showCity = v -> {
+        CityWheelDialogF.instance()
+                .addSelectListener((province, city, dis, cityCode) -> {
+                    D.e("===========address==============" + province + city + dis);
+                    D.e("===========cityCode==============" + cityCode);
+                    getViewHolder_pur().tv_purchase_city_name.setText(province + city);
+                    uploadBean.cityCode = cityCode.substring(0, 4);
+                })
+                .show(getSupportFragmentManager(), PurchaseDetailActivity.this.getClass().getName())
 
-        showCitys();
-        initGv();
+        ;
+
 
     };
 
@@ -487,12 +504,6 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                 D.e("===========onCancle=============");
             }
         });
-
-
-    }
-
-
-    private void showCitys() {
 
 
     }

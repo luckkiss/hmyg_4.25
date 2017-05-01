@@ -15,7 +15,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,6 +33,7 @@ import android.widget.Toast;
 import com.example.listedittext.paramsData;
 import com.google.gson.Gson;
 import com.hldj.hmyg.CallBack.ResultCallBack;
+import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.application.AlphaTitleScrollView;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
@@ -152,7 +152,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity {
     private TextView tv_contanct_name;
     private LinearLayout ll_store;
     private LinearLayout ll_bohao;
-    private Double price = 0.0;
+    private String price = "";
     private Double floorPrice = 0.0;
     private int count = 0;
     private int lastDay = 0;
@@ -240,7 +240,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity {
         show_type = getIntent().getStringExtra("show_type");
         id = getIntent().getStringExtra("id");
         multipleClickProcess = new MultipleClickProcess();
-        mainView = (View) findViewById(R.id.mainView);
+        mainView = findViewById(R.id.mainView);
         ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
 
         btn_back.setOnClickListener(v -> {
@@ -590,6 +590,9 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity {
                                 closeDate = JsonGetInfo.getJsonString(
                                         jsonObject2, "closeDate");
 
+                                boolean isCollect = JsonGetInfo.getJsonBoolean(
+                                        jsonObject2, "isCollect");
+                                findViewById(R.id.iv_shou_can).setSelected(isCollect);
 
                                 if (floorPrice > 0
                                         && "manage_list".equals(show_type)) {
@@ -616,20 +619,14 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity {
                                     }
 
                                     //价格
-                                    price = JsonGetInfo.getJsonDouble(jsonObject2, "price");
+                                    price = JsonGetInfo.getJsonString(jsonObject2, "price");
 
 
                                     min_price = JsonGetInfo.getJsonString(jsonObject2, "minPrice");
                                     max_price = JsonGetInfo.getJsonString(jsonObject2, "maxPrice");
                                     isNego = JsonGetInfo.getJsonBoolean(jsonObject2, "isNego");
 
-
-                                    if (!TextUtils.isEmpty(min_price) && !TextUtils.isEmpty(max_price)) {
-                                        tv_price.setText(min_price + " - " + max_price);
-                                    } else {
-                                        tv_price.setText("面议");
-                                    }
-
+                                    ProductListAdapter.setPrice(tv_price, max_price, min_price, isNego);
 
                                     //库存数量
                                     stock = JsonGetInfo.getJsonInt(jsonObject2, "stock");
@@ -784,6 +781,18 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity {
                                     tv_05_03.setOnClickListener(multipleClickProcess);
 
                                 } else if ("seedling_list".equals(show_type)) {//商城界面跳转过来的
+                                    tv_statusName.setVisibility(View.VISIBLE);
+                                    ll_buy_car.setVisibility(View.VISIBLE);
+                                    ll_manager_backed.setVisibility(View.GONE);
+                                    ll_manager_unaudit.setVisibility(View.GONE);
+                                    ll_manager_unsubmit.setVisibility(View.GONE);
+                                    ll_manager_published.setVisibility(View.GONE);
+                                    ll_manager_outline.setVisibility(View.GONE);
+                                    tv_add_car.setOnClickListener(multipleClickProcess);
+                                    ll_buy_car.setOnClickListener(multipleClickProcess);
+                                } else {
+                                    //什么都不是的时候，隐藏底部
+//                                    findViewById(R.id.activity_flower_detail_bottom).setVisibility(View.GONE);
                                     tv_statusName.setVisibility(View.VISIBLE);
                                     ll_buy_car.setVisibility(View.VISIBLE);
                                     ll_manager_backed.setVisibility(View.GONE);
@@ -1302,7 +1311,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity {
 //                toSaveSeedlingActivity.putExtras(bundleObject);
 //                startActivityForResult(toSaveSeedlingActivity, 1);
 
-                SaveSeedlingActivity_change_data.start2Activity(FlowerDetailActivity.this,saveSeedingGsonBean,1);
+                SaveSeedlingActivity_change_data.start2Activity(FlowerDetailActivity.this, saveSeedingGsonBean, 1);
 
             }
         }

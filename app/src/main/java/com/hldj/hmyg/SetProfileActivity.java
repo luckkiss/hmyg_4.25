@@ -561,7 +561,7 @@ public class SetProfileActivity extends LoginActivity implements
 	}
 
 	private void setUpData() {
-		initProvinceDatas();
+		initProvinceDatas();//获取省集合  与省集合代表的code 集合
 		mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(
 				SetProfileActivity.this, mProvinceDatas));
 		// 设置可见条目数量

@@ -615,4 +615,41 @@
     <!--</declare-styleable>-->
 
 
+    <!--<style name="BottomDialog" parent="@style/Dialog">-->
+        <!--&lt;!&ndash;<item name="android:layout_width">match_parent</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="android:layout_height">wrap_content</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="android:windowIsFloating">true</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="android:backgroundDimEnabled">false</item>&ndash;&gt;-->
+        <!--<item name="android:windowIsFloating">true</item>-->
+        <!--<item name="android:windowIsTranslucent">false</item>-->
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <!--<item name="android:windowFullscreen">false</item>-->
+        <!--<item name="android:windowBackground">@color/float_transparent</item>-->
+        <!--<item name="android:windowAnimationStyle">@null</item>-->
+        <!--<item name="android:backgroundDimEnabled">true</item>-->
+        <!--<item name="android:backgroundDimAmount">0.4</item>-->
+    <!--</style>-->
+
+    <!--parent="@android:style/Theme.Dialog"-->
+    <style name="BottomDialog" >
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- Dialog进入及退出动画 -->
+        <item name="android:windowAnimationStyle">@style/BottomToTopAnim</item>
+    </style>
+
+    <style name="BottomToTopAnim" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/bottomview_anim_enter</item>
+        <item name="@android:windowExitAnimation">@anim/bottomview_anim_exit</item>
+    </style>
+
+
 </resources>
