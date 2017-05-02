@@ -3,7 +3,6 @@ package com.hldj.hmyg.buyer.Ui;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -11,6 +10,7 @@ import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Pic;
+import com.hldj.hmyg.bean.PicSerializableMaplist;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.buyer.M.ItemBean;
@@ -20,16 +20,13 @@ import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.buyer.weidet.Purchase.PurchaseAutoAddLinearLayout;
-import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
-import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin2;
+import com.hldj.hmyg.saler.UpdataImageActivity_bak;
 import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.TakePhotoUtil;
 import com.hy.utils.ToastUtil;
-import com.zzy.common.widget.MeasureGridView;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +46,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         super.onCreate(savedInstanceState);
 
         int layout_id = R.layout.purchase_detail_activity;//这个界面的布局
-        initGv();
+//        initGv();
 
     }
 
@@ -92,7 +89,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
             //初始化后 设置点击事件
             getViewHolder_pur().tv_purchase_commit.setOnClickListener(commitListener);
         }
-        getViewHolder_pur().tv_purchase_add_pic.setOnClickListener(showCity);
+        getViewHolder_pur().tv_purchase_add_pic.setOnClickListener(choosePic);
 
 
     }
@@ -140,20 +137,18 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
             //初始化后 设置点击事件
             getViewHolder_pur().tv_purchase_commit.setOnClickListener(commitListener);
-            getViewHolder_pur().tv_purchase_city_name.setOnClickListener(v -> {
-
-            });
+            getViewHolder_pur().tv_purchase_city_name.setOnClickListener(showCity);
 
         }
 //        getViewHolder_pur().tv_purchase_add_pic.setOnClickListener(showCity);
-        getViewHolder_pur().tv_purchase_city_name.setOnClickListener(showCity);
+        getViewHolder_pur().tv_purchase_add_pic.setOnClickListener(choosePic);
 
     }
 
 
     @Override
     public void addPicUrls(ArrayList<Pic> resultPathList) {
-        measureGridView.getAdapter().addItems(resultPathList);
+//        measureGridView.getAdapter().addItems(resultPathList);
 //        viewHolder.publish_flower_info_gv.getAdapter().getDataList();
         D.e("=========addPicUrls=========");
     }
@@ -356,43 +351,46 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
         D.e("===city==" + getViewHolder_pur().tv_purchase_city_name.getText());
 
-        int size = PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList().size();
-        if (PurchaseDetailActivity.this.measureGridView != null || size != 0) {
-            D.e("======图片的地址数量====" + size);
-            D.e("======图片的地址====" + PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList().get(0).getUrl());
+//        int size = PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList().size();
+//        if (PurchaseDetailActivity.this.measureGridView != null || size != 0) {
+//            D.e("======图片的地址数量====" + size);
+//            D.e("======图片的地址====" + PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList().get(0).getUrl());
 //            uploadBean.imagesData = PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList().get(0).getUrl();
-        }
+//        }
         uploadBean.purchaseId = item.purchaseId;
         uploadBean.purchaseItemId = item.id;
         uploadBean.plantType = getPlantType();
 
         D.e("============上传报价===================");
 
+
+        save();//如果没有图片，直接上传数据
+
         //如果是代购  就必须上传一张图片   参数多的那个
-        ArrayList<Pic> piclistLocal = PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList();//本地路径集合
-        List<Pic> listPicsOnline = new ArrayList<>();//上传成功的结果保存在这里 网路路径集合
+//        ArrayList<Pic> piclistLocal = PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList();//本地路径集合
+//        List<Pic> listPicsOnline = new ArrayList<>();//上传成功的结果保存在这里 网路路径集合
 
-        if (piclistLocal.size() != 0) {//有图片，则先上传图片
-            //接口上传图片
-            new SaveSeedlingPresenter().upLoad(PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList(), new ResultCallBack<Pic>() {
-                @Override
-                public void onSuccess(Pic pic) {
-                    listPicsOnline.add(pic);
-                    if (listPicsOnline.size() == piclistLocal.size()) {
-                        uploadBean.imagesData = GsonUtil.Bean2Json(listPicsOnline);
-                        save();//如果没有图片，直接上传数据
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Throwable t, int errorNo, String strMsg) {
-
-                }
-            });
-        } else {
-            save();//如果没有图片，直接上传数据
-        }
+//        if (piclistLocal.size() != 0) {//有图片，则先上传图片
+//            //接口上传图片
+//            new SaveSeedlingPresenter().upLoad(PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList(), new ResultCallBack<Pic>() {
+//                @Override
+//                public void onSuccess(Pic pic) {
+//                    listPicsOnline.add(pic);
+//                    if (listPicsOnline.size() == piclistLocal.size()) {
+//                        uploadBean.imagesData = GsonUtil.Bean2Json(listPicsOnline);
+//                        save();//如果没有图片，直接上传数据
+//                    }
+//
+//                }
+//
+//                @Override
+//                public void onFailure(Throwable t, int errorNo, String strMsg) {
+//
+//                }
+//            });
+//        } else {
+//            save();//如果没有图片，直接上传数据
+//        }
 
 
     };
@@ -456,6 +454,22 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
      */
 
 
+    ArrayList<Pic> listPicsOnline = new ArrayList<>();//上传成功的结果保存在这里 网路路径集合
+    View.OnClickListener choosePic = v -> {
+        Intent toUpdataImageActivity = new Intent(
+                PurchaseDetailActivity.this, UpdataImageActivity_bak.class);
+        Bundle bundleObject = new Bundle();
+        final PicSerializableMaplist myMap = new PicSerializableMaplist();
+        myMap.setMaplist(PurchaseDetailActivity.this.listPicsOnline);
+        bundleObject.putSerializable("urlPaths", myMap);
+        toUpdataImageActivity.putExtras(bundleObject);
+        startActivityForResult(toUpdataImageActivity, 1);
+        overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
+
+    };
+
+
     View.OnClickListener showCity = v -> {
         CityWheelDialogF.instance()
                 .addSelectListener((province, city, dis, cityCode) -> {
@@ -464,67 +478,66 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                     getViewHolder_pur().tv_purchase_city_name.setText(province + city);
                     uploadBean.cityCode = cityCode.substring(0, 4);
                 })
-                .show(getSupportFragmentManager(), PurchaseDetailActivity.this.getClass().getName())
-
-        ;
-
-
+                .show(getSupportFragmentManager(), PurchaseDetailActivity.this.getClass().getName());
     };
 
-
-    private ArrayList<Pic> arrayList = new ArrayList<>();
-    private String flowerInfoPhotoPath = "";
-    MeasureGridView measureGridView;
-
-    public void initGv() {
-
-
-        measureGridView = (MeasureGridView) findViewById(R.id.gv_show_images);
-
-        arrayList.add(new Pic("hellow", true, MeasureGridView.usrl, 1));
-//            arrayList.add(new Pic("hellows", true, MeasureGridView.usrl1, 12));
-
-        measureGridView.init(this, arrayList, getViewHolder_pur().ll_mainView_bottom, new FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener() {
-            @Override
-            public void onTakePic() {
-                D.e("===========onTakePic=============");
-                if (TakePhotoUtil.toTakePic(PurchaseDetailActivity.this))//检查 存储空间
-                    flowerInfoPhotoPath = TakePhotoUtil.doTakePhoto(PurchaseDetailActivity.this, TakePhotoUtil.TO_TAKE_PIC);//照相
-            }
-
-            @Override
-            public void onChoosePic() {
-                D.e("===========onChoosePic=============");
-                //通过本界面 addPicUrls 方法回调
-                TakePhotoUtil.toChoosePic(PurchaseDetailActivity.this, measureGridView.getAdapter());
-            }
-
-            @Override
-            public void onCancle() {
-                D.e("===========onCancle=============");
-            }
-        });
-
-
-    }
+//
+//    private ArrayList<Pic> arrayList = new ArrayList<>();
+//    private String flowerInfoPhotoPath = "";
+//    MeasureGridView measureGridView;
+//
+//    public void initGv() {
+//
+//
+//        measureGridView = (MeasureGridView) findViewById(R.id.gv_show_images);
+//
+//        arrayList.add(new Pic("hellow", true, MeasureGridView.usrl, 1));
+////            arrayList.add(new Pic("hellows", true, MeasureGridView.usrl1, 12));
+//
+//        measureGridView.init(this, arrayList, getViewHolder_pur().ll_mainView_bottom, new FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener() {
+//            @Override
+//            public void onTakePic() {
+//                D.e("===========onTakePic=============");
+//                if (TakePhotoUtil.toTakePic(PurchaseDetailActivity.this))//检查 存储空间
+//                    flowerInfoPhotoPath = TakePhotoUtil.doTakePhoto(PurchaseDetailActivity.this, TakePhotoUtil.TO_TAKE_PIC);//照相
+//            }
+//
+//            @Override
+//            public void onChoosePic() {
+//                D.e("===========onChoosePic=============");
+//                //通过本界面 addPicUrls 方法回调
+//                TakePhotoUtil.toChoosePic(PurchaseDetailActivity.this, measureGridView.getAdapter());
+//            }
+//
+//            @Override
+//            public void onCancle() {
+//                D.e("===========onCancle=============");
+//            }
+//        });
+//
+//
+//    }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         if (requestCode == TakePhotoUtil.TO_TAKE_PIC && resultCode == RESULT_OK) {
-            try {
-                measureGridView.addImageItem(flowerInfoPhotoPath);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            // 其次把文件插入到系统图库
-            try {
-                MediaStore.Images.Media.insertImage(getContentResolver(),
-                        flowerInfoPhotoPath, flowerInfoPhotoPath, null);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+
+
+            //接受 上传图片界面传过来的list《pic》
+//            try {
+//                measureGridView.addImageItem(flowerInfoPhotoPath);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            // 其次把文件插入到系统图库
+//            try {
+//                MediaStore.Images.Media.insertImage(getContentResolver(),
+//                        flowerInfoPhotoPath, flowerInfoPhotoPath, null);
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
             // 最后通知图库更新
             // sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
             // Uri.parse("file://" + flowerInfoPhotoPath)));
@@ -537,10 +550,29 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         } else if (resultCode == 4) {
 
         } else if (resultCode == 5) {
+            listPicsOnline.clear();
+
+            data.getExtras().get("urlPaths");
+
+            PicSerializableMaplist myMap = (PicSerializableMaplist) data.getExtras().get("urlPaths");
+
+            listPicsOnline.addAll(myMap.getMaplist());
+
+            int size = listPicsOnline.size();
+
+            getViewHolder_pur().tv_purchase_add_pic.setText("已经选择了" + size + "张图片");
+            //设置 多少张图片
+            uploadBean.imagesData = GsonUtil.Bean2Json(listPicsOnline);
 
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+
+    /**
+     *  final PicSerializableMaplist myMap = new PicSerializableMaplist();
+     myMap.setMaplist(listPicsOnline);
+     bundleObject.putSerializable("urlPaths", myMap);
+     */
 
 }

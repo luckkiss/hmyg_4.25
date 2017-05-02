@@ -12,19 +12,17 @@ import com.hldj.hmyg.application.PermissionUtils;
 import com.hy.utils.GetServerUrl;
 import com.white.utils.AndroidUtil;
 
-import net.tsz.afinal.FinalBitmap;
-
 public class SplashActivity extends FragmentActivity {
 
     private ImageView img_sp;
-    private FinalBitmap fb;
+//    private FinalBitmap fb;
     private long delayMillis = 3000;
     public Editor e;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fb = FinalBitmap.create(this);
+//        fb = FinalBitmap.create(this);
         setContentView(R.layout.activity_splash);
         e = MyApplication.Deviceinfo.edit();
         boolean requestREAD_PHONE_STATE = new PermissionUtils(

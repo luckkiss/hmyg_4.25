@@ -21,13 +21,13 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.broker.AddCarActivity;
 import com.hldj.hmyg.broker.SaveMarketPriceActivity;
-import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivityBase;
 import com.hldj.hmyg.jimiao.SaveMiaoActivity;
 import com.hldj.hmyg.saler.ChoosePhotoGalleryActivity;
 import com.hldj.hmyg.saler.CoreActivity;
 import com.hldj.hmyg.saler.GlobalConstant;
 import com.hldj.hmyg.saler.SaveSeedlingActivity;
 import com.hldj.hmyg.saler.UpdataImageActivity;
+import com.hldj.hmyg.saler.UpdataImageActivity_bak;
 import com.hy.utils.ToastUtil;
 import com.white.utils.ExpandViewTouchUtil;
 import com.white.utils.FileTypeUtil;
@@ -349,18 +349,21 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
         if (UpdataImageActivity.instance != null) {
             UpdataImageActivity.instance.addPicUrls(resultPathList);
         } else if (SaveSeedlingActivity.instance != null) {
-			SaveSeedlingActivity.instance.addPicUrls(resultPathList);
+            SaveSeedlingActivity.instance.addPicUrls(resultPathList);
         } else if (SaveMiaoActivity.instance != null) {
             SaveMiaoActivity.instance.addPicUrls(resultPathList);
         } else if (SaveMarketPriceActivity.instance != null) {
             SaveMarketPriceActivity.instance.addPicUrls(resultPathList);
         } else if (AddCarActivity.instance != null) {
             AddCarActivity.instance.addPicUrls(resultPathList);
-        }else if(PurchaseDetailActivityBase.instance != null)
-        {
-            PurchaseDetailActivityBase.instance.addPicUrls(resultPathList);
-        }
+        } else if (UpdataImageActivity_bak.instance != null)
 
+        {
+            UpdataImageActivity_bak.instance.addPicUrls(resultPathList);
+        }
+//        else if (PurchaseDetailActivityBase.instance != null) {
+//            PurchaseDetailActivityBase.instance.addPicUrls(resultPathList);
+//        }
 
         // if (photoType == PHOTO_TYPE_PUBLISH_SEED_ATTACH) {
         // TODO 发表图片的添加
@@ -546,6 +549,7 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
                     break;
             }
         }
+
     }
 
     public boolean isNotOutOfLimitCount() {

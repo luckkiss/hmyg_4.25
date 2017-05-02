@@ -14,6 +14,7 @@ import com.hldj.hmyg.DaoBean.SaveJson.DaoMaster;
 import com.hldj.hmyg.DaoBean.SaveJson.DaoSession;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.UserBean;
+import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.SPUtil;
 import com.hldj.hmyg.util.SPUtils;
@@ -22,8 +23,6 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.tencent.bugly.crashreport.CrashReport;
-import com.testin.agent.TestinAgent;
 import com.weavey.loading.lib.LoadingLayout;
 
 import java.io.File;
@@ -31,6 +30,7 @@ import java.io.File;
 import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
 import im.fir.sdk.FIR;
+
 
 public class MyApplication extends Application {
 
@@ -76,13 +76,15 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         FIR.init(this);
-        TestinAgent.init(this, "S9Ip9zGgJzj779e9S849s9z94X9DTUGJ",
-                "your channel ID");
-        CrashReport
-                .initCrashReport(getApplicationContext(), "900021393", false);
+
+//                              4e9fef47d1c33625cb0d5495e6856e0a
+//        TestinAgent.init(this, "S9Ip9zGgJzj779e9S849s9z94X9DTUGJ",
+//                "your channel ID");
+//        CrashReport
+//                .initCrashReport(getApplicationContext(), "900021393", false);
         ShareSDK.initSDK(this);
-         CrashHandler1 crashHandler = CrashHandler1.getInstance();
-         crashHandler.init(getApplicationContext());
+//        CrashHandler1 crashHandler = CrashHandler1.getInstance();
+//        crashHandler.init(getApplicationContext());
         // 本地奔溃保存
         Userinfo = getSharedPreferences("Userinfo", Context.MODE_PRIVATE);
         Deviceinfo = getSharedPreferences("Deviceinfo", Context.MODE_PRIVATE);
@@ -96,6 +98,12 @@ public class MyApplication extends Application {
         mVibrator = (Vibrator) getApplicationContext().getSystemService(
                 Service.VIBRATOR_SERVICE);
 
+
+//        try {
+//            initDao();
+//        } catch (Exception e) {
+//            D.e("===dao初始化失败==="+e.getMessage());
+//        }
 
         initDao();
 
@@ -122,7 +130,6 @@ public class MyApplication extends Application {
 
     private void initDao() {
         setDatabase();
-
     }
 
 
@@ -135,7 +142,15 @@ public class MyApplication extends Application {
         // 注意：默认的 DaoMaster.DevOpenHelper 会在数据库升级时，删除所有的表，意味着这将导致数据的丢失。
         // 所以，在正式的项目中，你还应该做一层封装，来实现数据库的安全升级。
         mHelper = new DaoMaster.DevOpenHelper(this, "hmyg.db", null);
-        db = mHelper.getWritableDatabase();
+
+        try {
+            db = mHelper.getWritableDatabase();
+        } catch (Exception e) {
+            D.e("===="+e.getMessage());
+            db = mHelper.getReadableDatabase();
+        }
+
+
         // 注意：该数据库连接属于 DaoMaster，所以多个 Session 指的是相同的数据库连接。
         mDaoMaster = new DaoMaster(db);
         mDaoSession = mDaoMaster.newSession();

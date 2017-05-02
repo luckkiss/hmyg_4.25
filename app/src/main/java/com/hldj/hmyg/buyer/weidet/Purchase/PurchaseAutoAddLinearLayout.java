@@ -85,11 +85,11 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
             initStubView(getViewHolder().vb_radions);
 
 
-        } else {
+        } else if (plantBean.value.equals("diameter")){
             select_size = "size0";
-            getViewHolder().vb_radions.setVisibility(GONE);
+            getViewHolder().vb_radions.setVisibility(VISIBLE);
         }
-
+//|| plantBean.value.equals("diameter")
 
         return this;
     }
@@ -110,32 +110,23 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
     private OnClickListener clickListener = v -> {
         switch (v.getId()) {
             case R.id.rb_auto_add_left:
-                if (type.equals("dbh"))
-                {
+                if (type.equals("dbh")) {
                     select_size = "size30";
-                }
-                else
-                {
+                } else {
                     select_size = "size0";
                 }
-                    break;
+                break;
             case R.id.rb_auto_add_center:
-                if (type.equals("dbh"))
-                {
+                if (type.equals("dbh")) {
                     select_size = "size100";
-                }
-                else
-                {
+                } else {
                     select_size = "size10";
                 }
                 break;
             case R.id.rb_auto_add_right:
-                if (type.equals("dbh"))
-                {
+                if (type.equals("dbh")) {
                     select_size = "size130";
-                }
-                else
-                {
+                } else {
                     select_size = "size30";
                 }
                 break;
@@ -193,7 +184,7 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
         public TextView tv_params_02;
         public EditText et_params_03;
         public ViewStub vb_radions;
-//        private RadioGroup vb_radions;
+        //        private RadioGroup vb_radions;
         public RadioButton rb_auto_add_left;
 
         public ViewHolder(View viewRroot) {
@@ -208,7 +199,6 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
 //            vb_radions.findViewById(R.id.rb_auto_add_left).setOnClickListener(clickListener);
 //            vb_radions.findViewById(R.id.rb_auto_add_center).setOnClickListener(clickListener);
 //            vb_radions.findViewById(R.id.rb_auto_add_right).setOnClickListener(clickListener);
-
 
 
 //            this.vb_radions = (RadioGroup) viewRroot.findViewById(R.id.vb_radions);

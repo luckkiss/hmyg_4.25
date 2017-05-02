@@ -99,7 +99,7 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
 
 //           库存
         TextView tv_09 = (TextView) view.findViewById(R.id.tv_09);
-        tv_09.setText(seedlingBean.getCount() + "");
+        tv_09.setText("库存: " + seedlingBean.getCount() + "");
 
         view.findViewById(R.id.layoutRoot).setOnClickListener(v -> {
             //点击布局
@@ -132,16 +132,16 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
 
     void setName(TextView textView, SaveSeedingGsonBean.DataBean.SeedlingBean bean) {
 
-        if (bean.getNurseryJson() == null) {
+        if (bean.getOwnerJson() == null) {
             textView.setText("");
             return;
         }
-        if (!TextUtils.isEmpty(bean.getNurseryJson().getCompanyName())) {
-            textView.setText(bean.getNurseryJson().getCompanyName());
-        } else if (!TextUtils.isEmpty(bean.getNurseryJson().getPublicName())) {
-            textView.setText(bean.getNurseryJson().getPublicName());
-        } else if (!TextUtils.isEmpty(bean.getNurseryJson().getRealName())) {
-            textView.setText(bean.getNurseryJson().getRealName());
+        if (!TextUtils.isEmpty(bean.getOwnerJson().getCompanyName())) {
+            textView.setText(bean.getOwnerJson().getCompanyName());
+        } else if (!TextUtils.isEmpty(bean.getOwnerJson().getPublicName())) {
+            textView.setText(bean.getOwnerJson().getPublicName());
+        } else if (!TextUtils.isEmpty(bean.getOwnerJson().getRealName())) {
+            textView.setText(bean.getOwnerJson().getRealName());
         }
     }
 

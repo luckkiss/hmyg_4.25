@@ -2,7 +2,10 @@ package com.hldj.hmyg.buyer.Ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.PermissionUtils;
 import com.hldj.hmyg.buyer.M.ItemBean;
 import com.hldj.hmyg.buyer.M.QuoteGsonBean;
 import com.hldj.hmyg.buyer.M.QuoteListBean;
@@ -18,11 +22,12 @@ import com.hldj.hmyg.buyer.V.PurchaseDeatilV;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
-import com.hldj.hmyg.buyer.weidet.listener.OnItemClickListener;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.ToastUtil;
+import com.zf.iosdialog.widget.AlertDialog;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+
 
 public class QuoteListActivity_bak extends NeedSwipeBackActivity implements PurchaseDeatilV {
 
@@ -90,17 +95,32 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
         helper.setText(R.id.tv_quote_item_specText, strFilter(item.specText));//要求规格
         helper.setText(R.id.tv_quote_item_photo_num, strFilter("1"));//有多少张图片
 
-        recycle_quit.addOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void SimpleOnItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtil.showShortToast("电话号码：" + item.sellerPhone);
+        helper.addOnClickListener(R.id.cv_root, v -> {
+            boolean requesCallPhonePermissions = new PermissionUtils(QuoteListActivity_bak.this).requesCallPhonePermissions(200);
+            if (requesCallPhonePermissions) {
+                CallPhone(item.sellerPhone);
             }
         });
+
+
+//        recycle_quit.addOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void SimpleOnItemClick(BaseQuickAdapter adapter, View view, int position) {
+////                ToastUtil.showShortToast("电话号码：" + item.sellerPhone);
+//                boolean requesCallPhonePermissions = new PermissionUtils(QuoteListActivity_bak.this).requesCallPhonePermissions(200);
+//                if (requesCallPhonePermissions) {
+//                    CallPhone(item.sellerPhone);
+//                }
+//                return;
+//
+//            }
+//        });
 //        helper.setOnItemClickListener(R.id.tv_quote_item_photo_num, (parent, view, position, id) -> {
 //            ToastUtil.showShortToast("电话号码：" + item.sellerPhone);
 //        });
 
     }
+
 
     private void initItem(ViewHolder viewHolder_quote, ItemBean itemBean) {
 
@@ -206,4 +226,29 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
         }
 
     }
+
+
+    private void CallPhone(final String displayPhone) {
+        // TODO Auto-generated method stub
+        if (!"".equals(displayPhone)) {
+            new AlertDialog(this).builder()
+                    .setTitle(displayPhone)
+                    .setPositiveButton("呼叫", v -> {
+                        Intent intent = new Intent(Intent.ACTION_CALL, Uri
+                                .parse("tel:" + displayPhone));
+                        // Intent intent = new Intent(Intent.ACTION_DIAL,
+                        // Uri
+                        // .parse("tel:" + displayPhone));
+                        if (ActivityCompat.checkSelfPermission(QuoteListActivity_bak.this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            // TODO: Consider calling
+                            return;
+                        }
+                        startActivity(intent);
+                    }).setNegativeButton("取消", v -> {
+
+            }).show();
+        }
+    }
+
+
 }

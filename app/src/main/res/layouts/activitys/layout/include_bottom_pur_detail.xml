@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <View style="@style/View_line_gray" />
@@ -37,8 +38,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:drawableRight="@drawable/downarrow"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/ic_arrow_down_black"
             android:gravity="center"
+            android:paddingRight="15dp"
             android:text="福建省厦门市" />
 
 
@@ -51,20 +54,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        app:max_select="0"
         android:paddingLeft="10dp"
-        />
+        app:max_select="0" />
 
 
-    <TextView
-        android:id="@+id/tv_purchase_add_pic"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:drawableRight="@drawable/ic_right_icon"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="图片" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="图片"
+            android:textColor="@color/text_color" />
+
+        <TextView
+            android:id="@+id/tv_purchase_add_pic"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:drawableRight="@drawable/ic_right_icon"
+            android:gravity="center_vertical|end"
+            android:drawablePadding="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            tools:text="上传了3张图片" />
+
+
+    </RelativeLayout>
 
 
     <com.zzy.common.widget.MeasureGridView
@@ -76,10 +95,7 @@
         android:background="@color/white"
         android:listSelector="@color/transparent"
         android:numColumns="4"
-        android:scrollbars="none"
-        >
-
-    </com.zzy.common.widget.MeasureGridView>
+        android:scrollbars="none"></com.zzy.common.widget.MeasureGridView>
 
 
     <LinearLayout

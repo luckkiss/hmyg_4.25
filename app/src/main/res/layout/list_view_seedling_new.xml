@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutRoot"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -37,7 +38,6 @@
                 android:layout_height="wrap_content">
 
                 <com.neopixl.pixlui.components.textview.TextView
-                    android:id="@+id/tv_03"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -45,7 +45,8 @@
                     android:gravity="center_vertical"
                     android:singleLine="true"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/y8" />
+                    android:textSize="@dimen/y8"
+                    tools:text="地址：改变到河南信阳去了" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -61,7 +62,8 @@
                         android:layout_height="@dimen/y10"
                         android:gravity="center_vertical"
                         android:singleLine="true"
-                        android:textSize="@dimen/y11" />
+                        android:textSize="@dimen/y11"
+                        tools:background="@drawable/icon_seller_rong" />
 
                     <com.neopixl.pixlui.components.textview.TextView
                         android:id="@+id/tv_02"
@@ -71,7 +73,8 @@
                         android:gravity="center_vertical"
                         android:singleLine="true"
                         android:textColor="@color/main_color"
-                        android:textSize="@dimen/y11" />
+                        android:textSize="@dimen/y11"
+                        tools:text="吴波" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -79,16 +82,32 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
-                android:layout_weight="2">
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/tv_03"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/little_black_sm"
+                    android:textSize="@dimen/y8"
+                    tools:text="河南信阳" />
+
 
                 <com.neopixl.pixlui.components.textview.TextView
                     android:id="@+id/tv_04"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:singleLine="true"
                     android:textColor="@color/little_black_sm"
-                    android:textSize="@dimen/y8" />
+                    android:textSize="@dimen/y8"
+                    tools:text="米径：15 高度：500 冠幅：400" />
             </LinearLayout>
 
 
@@ -122,7 +141,8 @@
                     android:layout_gravity="center_vertical"
                     android:singleLine="true"
                     android:textColor="@color/little_black_sm"
-                    android:textSize="@dimen/y8" />
+                    android:textSize="@dimen/y8"
+                    tools:text="发布人：河南基地" />
             </LinearLayout>
 
 

@@ -125,37 +125,41 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"></com.hldj.hmyg.widget.SaveSeedingBottomLinearLayout>
 
+
+            <LinearLayout
+                android:id="@+id/ll_save"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y28"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/iv_ready_save_2_stage"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="暂存草稿箱"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/main_color" />
+
+                <Button
+                    android:id="@+id/save"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/main_color"
+                    android:gravity="center"
+                    android:text="发布"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
         </LinearLayout>
+
+
     </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/ll_save"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y34"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/iv_ready_save_2_stage"
-            android:layout_width="0.0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:text="暂存草稿箱"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/main_color" />
-
-        <Button
-            android:id="@+id/save"
-            android:layout_width="0.0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/main_color"
-            android:gravity="center"
-            android:text="发布"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/white" />
-    </LinearLayout>
 
 </LinearLayout><!--</com.yunpay.app.KeyboardLayout3>-->

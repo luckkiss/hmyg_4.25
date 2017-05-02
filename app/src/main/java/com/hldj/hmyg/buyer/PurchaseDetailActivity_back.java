@@ -945,7 +945,7 @@ public class PurchaseDetailActivity_back extends BaseThirdActivity implements
 		case R.id.ll_05:
 			showCitys();
 			break;
-		case R.id.ll_06:
+		case R.id.ll_06://添加图片
 			Intent toUpdataImageActivity = new Intent(
 					PurchaseDetailActivity_back.this, UpdataImageActivity.class);
 			Bundle bundleObject = new Bundle();

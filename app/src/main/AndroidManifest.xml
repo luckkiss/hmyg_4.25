@@ -321,7 +321,7 @@
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.hldj.hmyg.FeedBackActivity"
             android:launchMode="singleTask"
@@ -435,7 +435,10 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.saler.UpdataImageActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.hldj.hmyg.saler.UpdataImageActivity_bak"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.SellectActivity"
             android:screenOrientation="portrait"></activity>
@@ -466,7 +469,11 @@
         <activity
             android:name="com.hldj.hmyg.saler.ManagerQuoteListActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.hldj.hmyg.saler.StorageSaveActivity"
             android:screenOrientation="portrait"></activity>
@@ -647,7 +654,10 @@
             android:value="true" />
         <meta-data
             android:name="BUG_HD_SDK_GENERAL_KEY"
-            android:value="ace0b347eac16f0554c65087edef0e12" />
+            android:value="4e9fef47d1c33625cb0d5495e6856e0a" />
+        <!--<meta-data-->
+        <!--android:name="BUG_HD_SDK_GENERAL_KEY"-->
+        <!--android:value="ace0b347eac16f0554c65087edef0e12" />-->
 
         <!-- Required SDK 核心功能 -->
         <!-- option since 2.0.5 可配置PushService，DaemonService,PushReceiver,AlarmReceiver的android:process参数 将JPush相关组件设置为一个独立进程 -->

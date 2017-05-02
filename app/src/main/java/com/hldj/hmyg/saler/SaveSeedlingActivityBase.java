@@ -307,7 +307,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
     public void addPicUrls(ArrayList<Pic> resultPathList) {
         viewHolder.publish_flower_info_gv.getAdapter().addItems(resultPathList);
 //        viewHolder.publish_flower_info_gv.getAdapter().getDataList();
-        D.e("=========addPicUrls=========");
+        D.e("=========addPicUrls========="+resultPathList.toString());
     }
 
     public class ViewHolder {

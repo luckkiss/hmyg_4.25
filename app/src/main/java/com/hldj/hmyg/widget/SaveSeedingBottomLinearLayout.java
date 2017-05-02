@@ -165,8 +165,17 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
                             holder.tv_save_seeding_price_min.setFocusable(false);
                             holder.tv_save_seeding_price_min.setText("");
                         } else {
-                            holder.tv_save_seeding_price_max.setFocusable(true);
+                            D.e("=======");
                             holder.tv_save_seeding_price_min.setFocusable(true);
+                            holder.tv_save_seeding_price_min.setFocusableInTouchMode(true);
+                            holder.tv_save_seeding_price_min.requestFocus();
+                            holder.tv_save_seeding_price_min.requestFocusFromTouch();
+                            holder.tv_save_seeding_price_max.setFocusable(true);
+                            holder.tv_save_seeding_price_max.setFocusableInTouchMode(true);
+                            holder.tv_save_seeding_price_max.requestFocus();
+                            holder.tv_save_seeding_price_max.requestFocusFromTouch();
+
+
                         }
 
 

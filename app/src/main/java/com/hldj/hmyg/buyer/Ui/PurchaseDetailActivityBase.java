@@ -98,11 +98,11 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         mProjectType = item.purchaseJson.projectType;//直购 代购
 
 
-        if (mProjectType.equals(ConstantParams.direct)) {//代购
+        if (mProjectType.equals(ConstantParams.direct)) {//直购
             List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen = saveSeedingGsonBean.getData().getTypeList();
             initDirect(typeListBeen);
 
-        } else { //直购
+        } else { //代购
             List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen = saveSeedingGsonBean.getData().getTypeList();
             initProtocol(typeListBeen);
 //          initAutoLayout(typeListBeen);

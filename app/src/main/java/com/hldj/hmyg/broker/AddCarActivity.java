@@ -892,7 +892,7 @@ public class AddCarActivity extends NeedSwipeBackActivity {
 
 	/**
 	 * 添加图片
-	 * 
+	 *
 	 * @param sourchImagePath
 	 */
 	private void addImageItem(String sourchImagePath) throws IOException {
@@ -1015,7 +1015,7 @@ public class AddCarActivity extends NeedSwipeBackActivity {
 
 	/**
 	 * 如果是静态图片，则进行压缩处理 压缩并存储临时文件至Image目录
-	 * 
+	 *
 	 * @param file
 	 */
 	private String CompressAndSaveImg(File file, int degree,

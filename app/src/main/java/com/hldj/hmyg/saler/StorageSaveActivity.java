@@ -1,7 +1,6 @@
 package com.hldj.hmyg.saler;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -42,8 +41,10 @@ import org.greenrobot.greendao.query.QueryBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+
 //草稿界面
-public class StorageSaveActivity extends Activity implements OnClickListener {
+public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClickListener {
     private ListView GroupManList;
     private BaseAdapter baseAdapter;
 

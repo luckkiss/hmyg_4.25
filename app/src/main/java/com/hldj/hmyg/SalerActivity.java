@@ -23,11 +23,11 @@ import com.hldj.hmyg.application.PermissionUtils;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.buyer.SettingBuyConfigActivity;
 import com.hldj.hmyg.saler.AdressListActivity;
-import com.hldj.hmyg.saler.ManagerQuoteListActivity;
 import com.hldj.hmyg.saler.SalerOrderActivity2;
 import com.hldj.hmyg.saler.SaveSeedlingActivity;
 import com.hldj.hmyg.saler.StorageSaveActivity;
 import com.hldj.hmyg.saler.StoreSettingActivity;
+import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
 import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
 import com.hldj.hmyg.saler.purchaseconfirmlist.PurchaseConfirmListActivity;
 import com.hy.utils.GetServerUrl;
@@ -537,7 +537,7 @@ public class SalerActivity extends LoginActivity {
 					// overridePendingTransition(R.anim.slide_in_left,
 					// R.anim.slide_out_right);
 					Intent toManagerQuoteListActivity = new Intent(
-							SalerActivity.this, ManagerQuoteListActivity.class);
+							SalerActivity.this, ManagerQuoteListActivity_new.class);
 					toManagerQuoteListActivity.putExtra("status", "");
 					startActivity(toManagerQuoteListActivity);
 					overridePendingTransition(R.anim.slide_in_left,

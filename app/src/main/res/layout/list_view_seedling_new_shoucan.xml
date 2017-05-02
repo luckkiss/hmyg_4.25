@@ -2,6 +2,7 @@
 
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sl_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -67,7 +68,6 @@
                     android:layout_height="wrap_content">
 
                     <com.neopixl.pixlui.components.textview.TextView
-                        android:id="@+id/tv_03"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -109,14 +109,29 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dip"
-                    android:layout_weight="2">
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_03"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:textColor="@color/little_black_sm"
+                        android:textSize="@dimen/y8"
+                        tools:text="河南信阳" />
+
 
                     <com.neopixl.pixlui.components.textview.TextView
                         android:id="@+id/tv_04"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        android:layout_height="0dp"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1"
                         android:singleLine="true"
+                        tools:text="河南信阳"
                         android:textColor="@color/little_black_sm"
                         android:textSize="@dimen/y8" />
                 </LinearLayout>

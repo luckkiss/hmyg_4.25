@@ -1,7 +1,5 @@
 package com.hldj.hmyg;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,13 +8,14 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.GridView;
 
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.broker.adapter.ChooseManagerAdapter;
 import com.hldj.hmyg.buy.bean.CollectCar;
 import com.hldj.hmyg.saler.bean.ChooseManager;
+
+import java.util.ArrayList;
 
 public class CActivity2 extends Activity {
 
@@ -92,10 +91,10 @@ public class CActivity2 extends Activity {
 				R.drawable.fabuye_4, false);
 		ChooseManager chooseManager5 = new ChooseManager("5", "采购管理", "",
 				R.drawable.fabuye_5, false);
-		ChooseManager chooseManager6 = new ChooseManager("6", "快速记苗", "",
-				R.drawable.fabuyemian_kuaisujimiao, false);
-		ChooseManager chooseManager7 = new ChooseManager("7", "记苗本", "",
-				R.drawable.fabuyemian_jimiaoben, false);
+//		ChooseManager chooseManager6 = new ChooseManager("6", "快速记苗", "",
+//				R.drawable.fabuyemian_kuaisujimiao, false);
+//		ChooseManager chooseManager7 = new ChooseManager("7", "记苗本", "",
+//				R.drawable.fabuyemian_jimiaoben, false);
 		ChooseManager chooseManager8 = new ChooseManager("8", "发布行情", "",
 				R.drawable.fabuye_fabuhangqing, false);
 		ChooseManager chooseManager9 = new ChooseManager("9", "实时行情", "",
@@ -109,8 +108,8 @@ public class CActivity2 extends Activity {
 		chooseManagers.add(chooseManager3);
 		// chooseManagers.add(chooseManager4);
 		// chooseManagers.add(chooseManager5);
-		chooseManagers.add(chooseManager6);
-		chooseManagers.add(chooseManager7);
+//		chooseManagers.add(chooseManager6);
+//		chooseManagers.add(chooseManager7);
 
 		if (MyApplication.Userinfo.getBoolean("isLogin", false)) {
 			if (MyApplication.Userinfo.getBoolean("isDirectAgent", false)) {

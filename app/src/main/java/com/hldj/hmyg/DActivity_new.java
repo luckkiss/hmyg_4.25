@@ -79,34 +79,7 @@ public class DActivity_new extends Activity implements IXListViewListener {
                         }
                     }).reqClearCollect("seedling");
                 }
-//            FinalHttp finalHttp = new FinalHttp();
-//            GetServerUrl.addHeaders(finalHttp, true);
-//            AjaxParams params = new AjaxParams();
-//            params.put("type", "seedling");
-//            finalHttp.post(GetServerUrl.getUrl() + "admin/collect/empty", params, new AjaxCallBack<String>() {
-//                @Override
-//                public void onSuccess(String json) {
-//
-//                    SimpleGsonBean simpleGsonBean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
-//
-//                    if (simpleGsonBean.code.equals("1")) {
-//
-//                        ToastUtil.showShortToast("清空成功");
-//                        pageIndex = 0;
-//                        initData();
-//                    } else {
-//                        ToastUtil.showShortToast(simpleGsonBean.msg);
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Throwable t, int errorNo, String strMsg) {
-//                    super.onFailure(t, errorNo, strMsg);
-//                }
-//            });
-//
-//
-//        }
+
         );
 
 
