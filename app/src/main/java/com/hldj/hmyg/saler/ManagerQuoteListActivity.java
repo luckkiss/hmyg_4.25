@@ -1,20 +1,5 @@
 package com.hldj.hmyg.saler;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-
-import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
-import me.maxwin.view.XListView;
-import me.maxwin.view.XListView.IXListViewListener;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,9 +11,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.application.MyApplication;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+import me.maxwin.view.XListView;
+import me.maxwin.view.XListView.IXListViewListener;
 
 public class ManagerQuoteListActivity extends NeedSwipeBackActivity implements
 		IXListViewListener,
@@ -68,7 +68,7 @@ public class ManagerQuoteListActivity extends NeedSwipeBackActivity implements
 		tv_05 = (TextView) findViewById(R.id.tv_05);
 		tv_06 = (TextView) findViewById(R.id.tv_06);
 		ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
-		mainView = (View) findViewById(R.id.mainView);
+		mainView =   findViewById(R.id.mainView);
 		xListView = (XListView) findViewById(R.id.xlistView);
 		xListView.setDivider(null);
 		xListView.setPullLoadEnable(true);
