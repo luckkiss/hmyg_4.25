@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/y34"
+        android:layout_height="@dimen/y30"
         android:background="@color/white">
 
         <TextView
@@ -23,8 +23,8 @@
 
         <ImageView
             android:id="@+id/btn_back"
-            android:layout_width="@dimen/x24"
-            android:layout_height="@dimen/x24"
+            android:layout_width="@dimen/x28"
+            android:layout_height="@dimen/x28"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/x10"
             android:background="@drawable/btn_back" />
@@ -47,7 +47,7 @@
 
 
     <com.weavey.loading.lib.LoadingLayout
-        android:id="@+id/loading"
+        android:id="@+id/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:isFirstVisible="true">

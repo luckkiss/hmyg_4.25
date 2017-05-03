@@ -13,6 +13,7 @@ import com.hldj.hmyg.saler.Adapter.FragmentPagerAdapter_TabLayout;
 import com.hldj.hmyg.saler.ManagerQuoteListAdapter;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.weavey.loading.lib.LoadingLayout;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -63,7 +64,8 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
         setContentView(R.layout.activity_manager_quote_list_new);
 
 
-//        LoadingLayout   loadingLayout = (LoadingLayout) findViewById(R.id.loading);
+        LoadingLayout loadingLayout = (LoadingLayout) findViewById(R.id.loading_layout);
+//        loadingLayout.setStatus(loadingLayout.Loading);
 //        loadingLayout.show
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -72,6 +74,14 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
         mFragmentPagerAdapter_tabLayout = new FragmentPagerAdapter_TabLayout(getSupportFragmentManager(), list_title, list_fragment);
         mViewPager.setAdapter(mFragmentPagerAdapter_tabLayout);
         mTabLayout.setupWithViewPager(mViewPager);
+
+//        loadingLayout.setStatus(LoadingLayout.Loading);//表示展示加载界面
+//        loadingLayout.setStatus(LoadingLayout.Empty);//表示展示无数据界面
+//        loadingLayout.setStatus(LoadingLayout.Error);//表示展示加载错误界面
+//        loadingLayout.setStatus(LoadingLayout.No_Network);表示无网络连接界面
+//        loadingLayout.setStatus(LoadingLayout.Success);表示加载成功，
+//        会使得loadingLayout界面消失
+//                展示正常应用应该展示的界面
 
 
     }

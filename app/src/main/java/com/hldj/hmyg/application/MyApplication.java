@@ -29,7 +29,6 @@ import java.io.File;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
-import im.fir.sdk.FIR;
 
 
 public class MyApplication extends Application {
@@ -75,7 +74,7 @@ public class MyApplication extends Application {
     @SuppressLint("SdCardPath")
     public void onCreate() {
         super.onCreate();
-        FIR.init(this);
+//        FIR.init(this);
 
 //                              4e9fef47d1c33625cb0d5495e6856e0a
 //        TestinAgent.init(this, "S9Ip9zGgJzj779e9S849s9z94X9DTUGJ",
