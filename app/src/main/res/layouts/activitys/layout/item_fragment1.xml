@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="3dp"
+    android:layout_marginEnd="6dp"
+    android:layout_marginStart="6dp"
+    android:layout_marginTop="3dp"
+    app:cardCornerRadius="2dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_fr_item_plant_name"
+                android:layout_width="wrap_content"
+                android:layout_height="27dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignTop="@+id/tv_fr_item_state"
+                android:gravity="center|start"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textColor="@color/black_de"
+                android:textSize="13sp"
+                tools:text="百花鸡蛋花" />
+
+            <TextView
+                android:id="@+id/tv_fr_item_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="6dp"
+                android:background="@color/orange"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:textSize="11sp"
+                android:visibility="visible"
+                tools:text="未中标" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.coorchice.library.SuperTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="27dp"
+                    android:gravity="center|start"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="采购商家:"
+                    android:textSize="12sp" />
+
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/tv_fr_item_company_name"
+                    android:layout_width="0dp"
+                    android:layout_height="27dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|start"
+                    android:paddingRight="5dp"
+                    android:textSize="12sp"
+                    tools:text="厦门花木易购电子商务有限公司" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.coorchice.library.SuperTextView
+                android:layout_width="wrap_content"
+                android:layout_height="27dp"
+                android:gravity="center|end"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="苗源地址:"
+                android:textSize="12sp" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_fr_item_company_addr_name"
+                android:layout_width="0dp"
+                android:layout_height="27dp"
+                android:layout_weight="0.8"
+                android:gravity="center_vertical|start"
+                android:paddingRight="5dp"
+                android:textSize="12sp"
+                tools:text="福建 厦门" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.coorchice.library.SuperTextView
+                android:layout_width="wrap_content"
+                android:layout_height="27dp"
+                android:gravity="center|end"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="规格要求:"
+                android:textSize="12sp" />
+
+            <com.coorchice.library.SuperTextView
+
+                android:id="@+id/tv_fr_item_specText"
+
+                android:layout_width="0dp"
+                android:layout_height="27dp"
+                android:layout_weight="0.8"
+                android:gravity="center_vertical|start"
+                android:paddingRight="5dp"
+                android:textSize="12sp"
+                tools:text="地径：55（0.1m量）高度：5" />
+
+
+        </LinearLayout>
+
+
+        <View style="@style/View_line_gray_1dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_bottom_is_quote_del"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.coorchice.library.SuperTextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center|end"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="报        价:"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_fr_item_price"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="0.8"
+                android:gravity="center_vertical|start"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                tools:text="30" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

@@ -2,15 +2,17 @@ package com.hldj.hmyg.bean;
 
 import com.hldj.hmyg.buyer.M.ItemBean;
 import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
+import com.hldj.hmyg.saler.bean.PurchaseItemJsonBean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/4/14.
  */
 
-public class SaveSeedingGsonBean implements Serializable{
+public class SaveSeedingGsonBean implements Serializable {
 
     /**
      * code : 1
@@ -138,10 +140,55 @@ public class SaveSeedingGsonBean implements Serializable{
             private int minPrice;
             private int maxPrice;
 
-            public boolean isQuoted ;
+
+            public boolean isQuoted;
+            public String price = "";
 
 
-            public PurchaseJsonBean purchaseJson =new PurchaseJsonBean();
+            private int validity;
+            private String nurseryId;
+            private int count;
+            private int saleCount;
+            private String status;
+            private boolean isAudit;
+            private String closeDate;
+            private String ownerId;
+            private String createUserType;
+            private String updateUserType;
+            private String sourceType;
+            private int visitsCount;
+            private boolean isSelfSupport;
+            private NurseryJsonBean nurseryJson;
+            private OwnerJsonBean ownerJson;
+            private long lastTime;
+            private int lastDay;
+            private int stock;
+            private String orderBy;
+            private String statusName;
+            private String standardName;
+            private String distanceStr;
+            private String seedlingLabel;
+            private boolean isPartners;
+            private boolean cashOnDelivery;
+            private boolean isServiceCovered;
+
+            private boolean isDefault;
+            private String priceStr;
+
+            private String diameterStr;
+            private String dbhStr;
+            private String heightStr;
+            private String crownStr;
+            private String offbarHeightStr;
+            private String lengthStr;
+            private List<ImagesJsonBean> imagesJson = new ArrayList<>();
+            private List<String> paramsList;
+            private List<SpecListBean> specList;
+            private List<TagListBean> tagList;
+
+
+            public PurchaseJsonBean purchaseJson = new PurchaseJsonBean();
+            public PurchaseItemJsonBean purchaseItemJsonBean = new PurchaseItemJsonBean();
 //            public PurchaseJsonBean purchaseJsonBean =new PurchaseJsonBean();
 
             public int getMinOffbarHeight() {
@@ -272,46 +319,6 @@ public class SaveSeedingGsonBean implements Serializable{
                 isServiceCovered = serviceCovered;
             }
 
-            private int validity;
-            private String nurseryId;
-            private int count;
-            private int saleCount;
-            private String status;
-            private boolean isAudit;
-            private String closeDate;
-            private String ownerId;
-            private String createUserType;
-            private String updateUserType;
-            private String sourceType;
-            private int visitsCount;
-            private boolean isSelfSupport;
-            private NurseryJsonBean nurseryJson;
-            private OwnerJsonBean ownerJson;
-            private long lastTime;
-            private int lastDay;
-            private int stock;
-            private String orderBy;
-            private String statusName;
-            private String standardName;
-            private String distanceStr;
-            private String seedlingLabel;
-            private boolean isPartners;
-            private boolean cashOnDelivery;
-            private boolean isServiceCovered;
-
-            private boolean isDefault;
-            private String priceStr;
-
-            private String diameterStr;
-            private String dbhStr;
-            private String heightStr;
-            private String crownStr;
-            private String offbarHeightStr;
-            private String lengthStr;
-            private List<ImagesJsonBean> imagesJson;
-            private List<String> paramsList;
-            private List<SpecListBean> specList;
-            private List<TagListBean> tagList;
 
             public String getId() {
                 return id;
@@ -921,7 +928,7 @@ public class SaveSeedingGsonBean implements Serializable{
                 this.dbhType = dbhType;
             }
 
-            public static class PrCityBean implements Serializable{
+            public static class PrCityBean implements Serializable {
                 /**
                  * id : 16654
                  * name : 福建
@@ -987,7 +994,7 @@ public class SaveSeedingGsonBean implements Serializable{
                 }
             }
 
-            public static class CiCityBean implements Serializable{
+            public static class CiCityBean implements Serializable {
                 /**
                  * id : 16850
                  * name : 厦门
@@ -1053,7 +1060,7 @@ public class SaveSeedingGsonBean implements Serializable{
                 }
             }
 
-            public static class CoCityBean implements Serializable{
+            public static class CoCityBean implements Serializable {
                 /**
                  * id : 16851
                  * name : 思明
@@ -1119,7 +1126,7 @@ public class SaveSeedingGsonBean implements Serializable{
                 }
             }
 
-            public static class TwCityBean implements Serializable{
+            public static class TwCityBean implements Serializable {
                 /**
                  * id : 16857
                  * name : 梧村街道
@@ -1185,7 +1192,7 @@ public class SaveSeedingGsonBean implements Serializable{
                 }
             }
 
-            public static class NurseryJsonBean implements Serializable{
+            public static class NurseryJsonBean implements Serializable {
                 /**
                  * id : a1a84128b7f04f28abc19dab0ad14597
                  * createBy : 3378ca2d-b09b-411b-a3d0-28766e314685
@@ -1234,9 +1241,9 @@ public class SaveSeedingGsonBean implements Serializable{
                 private String typeName;
                 private double longitude;
                 private double latitude;
-                private String companyName ="";
-                private String publicName ="";
-                private String realName ="";
+                private String companyName = "";
+                private String publicName = "";
+                private String realName = "";
                 private String phone;
                 private String fullAddress;
 
@@ -1471,7 +1478,7 @@ public class SaveSeedingGsonBean implements Serializable{
                     this.fullAddress = fullAddress;
                 }
 
-                public static class PrCityBeanX implements Serializable{
+                public static class PrCityBeanX implements Serializable {
                     /**
                      * id : 16654
                      * name : 福建
@@ -1537,7 +1544,7 @@ public class SaveSeedingGsonBean implements Serializable{
                     }
                 }
 
-                public static class CiCityBeanX implements Serializable{
+                public static class CiCityBeanX implements Serializable {
                     /**
                      * id : 16850
                      * name : 厦门
@@ -1603,7 +1610,7 @@ public class SaveSeedingGsonBean implements Serializable{
                     }
                 }
 
-                public static class CoCityBeanX implements Serializable{
+                public static class CoCityBeanX implements Serializable {
                     /**
                      * id : 16851
                      * name : 思明
@@ -1669,7 +1676,7 @@ public class SaveSeedingGsonBean implements Serializable{
                     }
                 }
 
-                public static class TwCityBeanX implements Serializable{
+                public static class TwCityBeanX implements Serializable {
                     /**
                      * id : 16857
                      * name : 梧村街道
@@ -1736,7 +1743,7 @@ public class SaveSeedingGsonBean implements Serializable{
                 }
             }
 
-            public static class OwnerJsonBean implements Serializable{
+            public static class OwnerJsonBean implements Serializable {
                 /**
                  * id : 3378ca2d-b09b-411b-a3d0-28766e314685
                  * remarks : 罗伟2
@@ -2241,7 +2248,7 @@ public class SaveSeedingGsonBean implements Serializable{
                     this.permissionsName = permissionsName;
                 }
 
-                public static class PrCityBeanXX implements Serializable{
+                public static class PrCityBeanXX implements Serializable {
                     /**
                      * id : 16654
                      * name : 福建
@@ -2307,7 +2314,7 @@ public class SaveSeedingGsonBean implements Serializable{
                     }
                 }
 
-                public static class CiCityBeanXX implements Serializable{
+                public static class CiCityBeanXX implements Serializable {
                     /**
                      * id : 16850
                      * name : 厦门
@@ -2373,7 +2380,7 @@ public class SaveSeedingGsonBean implements Serializable{
                     }
                 }
 
-                public static class CoCityBeanXX implements Serializable{
+                public static class CoCityBeanXX implements Serializable {
                     /**
                      * id : 16851
                      * name : 思明
@@ -2439,7 +2446,7 @@ public class SaveSeedingGsonBean implements Serializable{
                     }
                 }
 
-                public static class TwCityBeanXX implements Serializable{
+                public static class TwCityBeanXX implements Serializable {
                     /**
                      * id : 16857
                      * name : 梧村街道
@@ -2506,7 +2513,7 @@ public class SaveSeedingGsonBean implements Serializable{
                 }
             }
 
-            public static class ImagesJsonBean implements Serializable{
+            public static class ImagesJsonBean implements Serializable {
                 /**
                  * id : 005c473a5cbc49309857062fe27c8aea
                  * imageType : seedling
@@ -2523,7 +2530,7 @@ public class SaveSeedingGsonBean implements Serializable{
                  * ossAppLargeImagePath : http://images.hmeg.cn/upload/image/201704/645e35ff421940158333f9b8b627ad1b.jpg@!450_600
                  */
 
-                private String local_url ="" ;
+                private String local_url = "";
                 private String id;
                 private String imageType;
                 private String name;
@@ -2648,11 +2655,11 @@ public class SaveSeedingGsonBean implements Serializable{
 
                 public ImagesJsonBean setLocal_url(String local_url) {
                     this.local_url = local_url;
-                    return this ;
+                    return this;
                 }
             }
 
-            public static class SpecListBean implements Serializable{
+            public static class SpecListBean implements Serializable {
                 /**
                  * name : 地径
                  * value : 20CM(0.1M量)
@@ -2678,7 +2685,7 @@ public class SaveSeedingGsonBean implements Serializable{
                 }
             }
 
-            public static class TagListBean implements Serializable{
+            public static class TagListBean implements Serializable {
                 /**
                  * title : 自营商品
                  * enumText : 自营
@@ -2716,8 +2723,7 @@ public class SaveSeedingGsonBean implements Serializable{
         }
 
 
-
-        public static class TypeListBean  implements Serializable{
+        public static class TypeListBean implements Serializable {
             /**
              * id : 74b0e9c44dd0499381a1adcadae6b4c9
              * createBy : 1
@@ -2738,9 +2744,6 @@ public class SaveSeedingGsonBean implements Serializable{
              * qualityGradeList : [{"text":"A货","value":"A"},{"text":"B货","value":"B"}]
              * mainSpec : dbh
              */
-
-
-
 
 
             private String id;
@@ -2984,7 +2987,7 @@ public class SaveSeedingGsonBean implements Serializable{
                 }
             }
 
-            public static class PlantTypeListBean implements Serializable{
+            public static class PlantTypeListBean implements Serializable {
                 /**
                  * text : 地栽苗
                  * value : planted
@@ -3010,7 +3013,7 @@ public class SaveSeedingGsonBean implements Serializable{
                 }
             }
 
-            public static class QualityTypeListBean implements Serializable{
+            public static class QualityTypeListBean implements Serializable {
                 /**
                  * text : 全冠苗
                  * value : quanguan
@@ -3036,7 +3039,7 @@ public class SaveSeedingGsonBean implements Serializable{
                 }
             }
 
-            public static class QualityGradeListBean implements Serializable{
+            public static class QualityGradeListBean implements Serializable {
                 /**
                  * text : A货
                  * value : A

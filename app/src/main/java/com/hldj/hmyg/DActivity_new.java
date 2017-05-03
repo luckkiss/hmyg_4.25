@@ -1,8 +1,13 @@
 package com.hldj.hmyg;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
@@ -16,6 +21,7 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
+import com.kaopiz.kprogresshud.KProgressHUD;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -43,16 +49,44 @@ public class DActivity_new extends Activity implements IXListViewListener {
     private int pageIndex = 0;
     private MySwipeAdapter collectAdapter;//收藏列表的  适配器
 
+    public static DActivity_new instance;
+    private KProgressHUD hud;
+    private LocalBroadcastReceiver localReceiver;
+
+    boolean isFirsh = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hud = KProgressHUD.create(DActivity_new.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("数据加载中...").setMaxProgress(100).setCancellable(true)
+                .setDimAmount(0f);
 
         setContentView(R.layout.activity_d_new);
+        instance = this;
 
 
         initView();
 
+        if (isFirsh) {
+            hud.show();
+        }
         initData();
+
+        addLocalBrodcast();
+
+
+    }
+
+    public static DActivity_new getInstance() {
+
+        if (instance != null) {
+            return instance;
+        } else {
+            return null;
+        }
+
     }
 
 
@@ -65,12 +99,13 @@ public class DActivity_new extends Activity implements IXListViewListener {
                     D.e("==============清空收藏夹============");
 
 
-
                     new CollectPresenter(new ResultCallBack<SimpleGsonBean>() {
                         @Override
                         public void onSuccess(SimpleGsonBean simpleGsonBean) {
                             pageIndex = 0;
                             initData();
+                            seedlingBeen.clear();
+                            collectAdapter.notifyDataSetChanged();
                         }
 
                         @Override
@@ -83,16 +118,16 @@ public class DActivity_new extends Activity implements IXListViewListener {
         );
 
 
-            xlistView_d_new = (XListView) findViewById(R.id.xlistView_d_new);
-            xlistView_d_new.setDivider(null);
-            xlistView_d_new.setPullLoadEnable(true);
-            xlistView_d_new.setPullRefreshEnable(true);
-            xlistView_d_new.setXListViewListener(this);
+        xlistView_d_new = (XListView) findViewById(R.id.xlistView_d_new);
+        xlistView_d_new.setDivider(null);
+        xlistView_d_new.setPullLoadEnable(true);
+        xlistView_d_new.setPullRefreshEnable(true);
+        xlistView_d_new.setXListViewListener(this);
 
-            collectAdapter = new MySwipeAdapter(this, seedlingBeen);
-            xlistView_d_new.setAdapter(collectAdapter);
+        collectAdapter = new MySwipeAdapter(this, seedlingBeen);
+        xlistView_d_new.setAdapter(collectAdapter);
 
-        }
+    }
 
     private void initData() {
         /**
@@ -126,10 +161,17 @@ public class DActivity_new extends Activity implements IXListViewListener {
                                 pageIndex++;
                                 D.e("=====pageIndex=======" + pageIndex);
                             }
+
                         } else {
 
                             D.e("===数据库空空如也====");
                         }
+
+                        if (isFirsh) {
+                            isFirsh = false;
+                            hud.dismiss();
+                        }
+
                         D.e("===============collectGsonBean================" + collectGsonBean);
                     }
 
@@ -139,6 +181,10 @@ public class DActivity_new extends Activity implements IXListViewListener {
                         // TODO Auto-generated method stub
                         Toast.makeText(DActivity_new.this, R.string.error_net,
                                 Toast.LENGTH_SHORT).show();
+                        if (isFirsh) {
+                            isFirsh = false;
+                            hud.dismiss();
+                        }
                         super.onFailure(t, errorNo, strMsg);
                     }
 
@@ -158,11 +204,38 @@ public class DActivity_new extends Activity implements IXListViewListener {
             initData();
         }
         onLoad();
+
+    }
+
+
+    public void addLocalBrodcast() {
+        localReceiver = new LocalBroadcastReceiver();
+
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
+
+        IntentFilter intentFilter = new IntentFilter();
+
+        intentFilter.addAction(ConstantState.COLLECT_REFRESH);
+
+        localBroadcastManager.registerReceiver(localReceiver, intentFilter);
+    }
+
+    boolean refresh = false;
+
+    public void setRefresh(boolean refresh) {
+        this.refresh = refresh;
     }
 
     @Override
     protected void onResume() {
         // TODO Auto-generated method stub
+//        if (refresh) {
+//            pageIndex = 0;
+//            initData();
+//
+//
+//            refresh = false;
+//        }
         super.onResume();
     }
 
@@ -191,7 +264,26 @@ public class DActivity_new extends Activity implements IXListViewListener {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(localReceiver);
+    }
 
+
+    public class LocalBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+
+        public void onReceive(Context context, Intent intent) {
+
+            pageIndex = 0;
+            initData();
+            D.e("==refresh===");
+
+        }
+
+    }
 
 
 }

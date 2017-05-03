@@ -246,14 +246,10 @@
             android:background="#F3F5F7" />
 
 
-        <TextView
-            android:id="@+id/tv_login_show"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="登录后显示"
-            android:layout_marginLeft="@dimen/x8"
-            android:visibility="gone"
-            />
+        <include
+            android:id="@+id/login_to_show"
+            layout="@layout/login_to_show"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/ll_store"
@@ -263,6 +259,7 @@
             android:layout_marginRight="@dimen/x8"
             android:orientation="vertical"
             android:padding="@dimen/x2">
+
 
 
             <LinearLayout

@@ -2,7 +2,6 @@ package com.hldj.hmyg.widget;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,10 +46,10 @@ public class SortSpinner {
 
     TextView mTextView;
 
-    public SortListAdapter getSortListAdapter()
-    {
-        return optionsAdapter ;
+    public SortListAdapter getSortListAdapter() {
+        return optionsAdapter;
     }
+
     private static SortSpinner sortSpinner;
 
     private SortSpinner(Activity activity, View parent) {
@@ -63,10 +62,7 @@ public class SortSpinner {
 
 
     public static SortSpinner getInstance(Activity activity, View line) {
-        if (sortSpinner == null) {
-
-            sortSpinner = new SortSpinner(activity, line);
-        }
+        sortSpinner = new SortSpinner(activity, line);
         return sortSpinner;
     }
 
@@ -84,25 +80,25 @@ public class SortSpinner {
     }
 
 
-
     List<Map<String, String>> list_map = new ArrayList<>();
 
 
-    public String orderBy  = "";
-    public SortSpinner addData(String str ) {
+    public String orderBy = "";
 
-        this.orderBy = str ;
+    public SortSpinner addData(String str) {
+
+        this.orderBy = str;
 
         return this;
     }
 
-    public void initData()
-    {
-        this.list_map   =  getSortMaps();
+    public void initData() {
+        this.list_map = getSortMaps();
 
     }
 
-    List<Map<String,String>> list_maps = new ArrayList<>();
+    List<Map<String, String>> list_maps = new ArrayList<>();
+
     /**
      * 获取排序列表
      *
@@ -117,13 +113,11 @@ public class SortSpinner {
         return list_maps;
     }
 
-    public Map createMap (String key ,String value)
-    {
+    public Map createMap(String key, String value) {
         Map map = new HashMap();
         map.put(key, value);
-        return map ;
+        return map;
     }
-
 
 
     /**
@@ -200,6 +194,7 @@ public class SortSpinner {
         optionsAdapter.notifyDataSetChanged();
         return this;
     }
+
     /**
      * 显示PopupWindow窗口
      *
@@ -256,7 +251,7 @@ public class SortSpinner {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
-            View sort_list_item = activity.getLayoutInflater().inflate(R.layout.list_item_sort, null);
+            View sort_list_item = activity.getLayoutInflater().inflate(R.layout.list_item_sort_new, null);
             RelativeLayout rl_sort_list_item = (RelativeLayout) sort_list_item.findViewById(R.id.rl_popo_list_item);
             TextView area_tv_item = (TextView) sort_list_item.findViewById(R.id.tv_item);
 
@@ -268,12 +263,12 @@ public class SortSpinner {
             ImageView is_check = (ImageView) sort_list_item.findViewById(R.id.is_check);
 //			area_tv_item.setText(listData.get(position).getName());
             if (clickTemp == position) {
-                rl_sort_list_item.setBackgroundColor(Color.argb(155, 192, 192,
-                        192)); // #COCOCO
+//                rl_sort_list_item.setBackgroundColor(Color.argb(155, 192, 192,
+//                        192)); // #COCOCO
                 is_check.setVisibility(View.VISIBLE);
             } else {
-                rl_sort_list_item.setBackgroundColor(Color.argb(155, 255, 255,
-                        255)); // #FFFFFF
+//                rl_sort_list_item.setBackgroundColor(Color.argb(155, 255, 255,
+//                        255)); // #FFFFFF
                 is_check.setVisibility(View.INVISIBLE);
             }
 

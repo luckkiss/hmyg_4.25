@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
 
     <TabHost
         android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -35,7 +35,7 @@
                 android:id="@+id/rg_tab"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/tab_a"
@@ -54,13 +54,14 @@
                     android:id="@+id/tab_c"
                     style="@style/tab_hdpi"
                     android:drawableTop="@drawable/tab_home_c"
-                    android:text="@string/tab_c_text" />
-
+                    android:text="发布 " />
+                <!--@string/tab_c_text-->
                 <RadioButton
                     android:id="@+id/tab_d"
                     style="@style/tab_hdpi"
-                    android:drawableTop="@drawable/tab_home_d"
+                    android:drawableTop="@drawable/collect_selecter"
                     android:text="@string/tab_d_text" />
+
                 <RadioButton
                     android:id="@+id/tab_e"
                     style="@style/tab_hdpi"

@@ -69,11 +69,16 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
 //        loadingLayout.show
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        mViewPager.setOffscreenPageLimit(3);
 
 
         mFragmentPagerAdapter_tabLayout = new FragmentPagerAdapter_TabLayout(getSupportFragmentManager(), list_title, list_fragment);
         mViewPager.setAdapter(mFragmentPagerAdapter_tabLayout);
         mTabLayout.setupWithViewPager(mViewPager);
+
+        findViewById(R.id.btn_back).setOnClickListener(v -> {
+            finish();
+        });
 
 //        loadingLayout.setStatus(LoadingLayout.Loading);//表示展示加载界面
 //        loadingLayout.setStatus(LoadingLayout.Empty);//表示展示无数据界面

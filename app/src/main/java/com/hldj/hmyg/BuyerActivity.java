@@ -419,7 +419,7 @@ public class BuyerActivity extends LoginActivity {
 					break;
 				case R.id.ll_04:
 					Intent toDActivity4 = new Intent(BuyerActivity.this,
-							DActivity5.class);
+							DActivity_new.class);
 					toDActivity4.putExtra("type", "1");
 					startActivity(toDActivity4);
 					overridePendingTransition(R.anim.slide_in_left,

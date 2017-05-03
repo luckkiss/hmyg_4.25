@@ -209,6 +209,8 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                         helper.setText(R.id.tv_quote_item_plantTypeName, strFilter(item.plantTypeName));//种植类型
                         helper.setText(R.id.tv_quote_item_declare, strFilter(item.remarks));//种植类型
 
+                        helper.setText(R.id.tv_show_is_quote, strFilter("已报价"));//种植类型
+
 
                         if (direce) {//代购
                             helper.setText(R.id.tv_quote_item_specText, strFilter(item.specText));//要求规格
@@ -217,6 +219,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                             helper.setParentVisible(R.id.tv_quote_item_specText, false);
                             helper.setParentVisible(R.id.tv_quote_item_cityName, false);
                         }
+
 
                         helper.setText(R.id.tv_quote_item_photo_num, strFilter("有" + item.imagesJson.size() + "张图片"));//有多少张图片
                         if (item.imagesJson.size() != 0) {
@@ -262,7 +265,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     }
 
     //解析 数组数据
-    private ArrayList<Pic> getPicList(List<ImagesJsonBean> imagesJson) {
+    public static ArrayList<Pic> getPicList(List<ImagesJsonBean> imagesJson) {
 
         ArrayList pics = new ArrayList<Pic>();
         for (int i = 0; i < imagesJson.size(); i++) {

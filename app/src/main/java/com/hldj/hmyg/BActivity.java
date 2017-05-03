@@ -989,9 +989,15 @@ public class BActivity extends BaseSecondActivity implements
     protected void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
+
+        if (sortSpinner != null) {
+            sortSpinner = null;
+        }
         if (hud != null) {
             hud.dismiss();
         }
+
+
     }
 
     @Override
@@ -1001,6 +1007,7 @@ public class BActivity extends BaseSecondActivity implements
         if (hud != null) {
             hud.dismiss();
         }
+
     }
 
     @Override
@@ -1011,6 +1018,9 @@ public class BActivity extends BaseSecondActivity implements
         }
         super.onBackPressed();
     }
+
+    int pos = 0;
+    public SortSpinner sortSpinner;
 
     public class MultipleClickProcess implements OnClickListener {
         private boolean flag = true;
@@ -1029,14 +1039,14 @@ public class BActivity extends BaseSecondActivity implements
                             // gridview
                             view_type = "list";
                             iv_view_type
-                                    .setImageResource(R.drawable.icon_list_view);
+                                    .setImageResource(R.drawable.icon_grid_view);
                             glistView.setVisibility(View.GONE);
                             xListView.setVisibility(View.VISIBLE);
                         } else if ("list".equals(view_type)) {
                             // listview
                             view_type = "grid";
                             iv_view_type
-                                    .setImageResource(R.drawable.icon_grid_view);
+                                    .setImageResource(R.drawable.icon_list_view);
                             xListView.setVisibility(View.GONE);
                             glistView.setVisibility(View.VISIBLE);
                         }
@@ -1137,15 +1147,12 @@ public class BActivity extends BaseSecondActivity implements
         }
 
 
-        int pos = 0;
-        public SortSpinner sortSpinner;
-
         /**
          * 排序 显示位置不对. 小米上正确
          */
         private void ChoiceSortList() {
             View view = findViewById(R.id.ll_spanner_line);
-            if (sortSpinner == null)
+            if (sortSpinner == null) {
                 sortSpinner = SortSpinner.getInstance(BActivity.this, view)
 //                .addData(getSortMaps())
                         .addOnItemClickListener(new OnItemClickListener() {
@@ -1176,7 +1183,16 @@ public class BActivity extends BaseSecondActivity implements
                             }
                         });
 
-            sortSpinner.ShowWithPos(pos);
+                sortSpinner.ShowWithPos(pos);
+            } else {
+                try {
+                    sortSpinner.ShowWithPos(pos);
+                } catch (Exception e) {
+                    D.e("==baocuo==" + e.getMessage());
+                }
+
+            }
+
         }
 
 
@@ -2059,5 +2075,6 @@ public class BActivity extends BaseSecondActivity implements
                         + mCurrentDistrictName + "," + mCurrentZipCode,
                 Toast.LENGTH_SHORT).show();
     }
+
 
 }

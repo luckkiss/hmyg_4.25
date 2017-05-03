@@ -111,6 +111,7 @@ public class MainActivity extends TabActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         /**
          * 控制状态栏为黑色  miui flyme
          */

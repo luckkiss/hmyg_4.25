@@ -23,6 +23,7 @@ import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.util.D;
 
 public class XListView extends ListView implements OnScrollListener {
 
@@ -275,10 +276,12 @@ public class XListView extends ListView implements OnScrollListener {
 		switch (ev.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 			mLastY = ev.getRawY();
+			D.e("====ACTION_DOWN=="+mLastY);
 			break;
 		case MotionEvent.ACTION_MOVE:
 			final float deltaY = ev.getRawY() - mLastY;
 			mLastY = ev.getRawY();
+			D.e("====ACTION_MOVE=="+mLastY);
 			if (getFirstVisiblePosition() == 0
 					&& (mHeaderView.getVisiableHeight() > 0 || deltaY > 0)) {
 				// the first item is showing, header has shown or pull down.
@@ -292,10 +295,10 @@ public class XListView extends ListView implements OnScrollListener {
 			break;
 		default://刷新
 			mLastY = -1; // reset
+			D.e("==default===="+mLastY);
 			if (getFirstVisiblePosition() == 0) {
 				// invoke refresh
-				if (mEnablePullRefresh
-						&& mHeaderView.getVisiableHeight() > mHeaderViewHeight) {
+				if (mEnablePullRefresh && mHeaderView.getVisiableHeight() > mHeaderViewHeight) {
 					mPullRefreshing = true;
 					mHeaderView.setState(XListViewHeader.STATE_REFRESHING);
 					if (mListViewListener != null) {
@@ -319,6 +322,10 @@ public class XListView extends ListView implements OnScrollListener {
 				}
 				resetFooterHeight();
 			}
+
+			resetHeaderHeight();
+//			updateHeaderHeight(-mHeaderView.getVisiableHeight());
+
 			break;
 		}
 		return super.onTouchEvent(ev);

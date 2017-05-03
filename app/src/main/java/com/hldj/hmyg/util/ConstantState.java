@@ -22,5 +22,6 @@ public interface ConstantState {
     String SUCCEED_CODE = "1";
     String NO_NET_CODE = "110";
 
+    String COLLECT_REFRESH = "COLLECT_REFRESH";
 
 }

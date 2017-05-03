@@ -1,10 +1,12 @@
 package com.hldj.hmyg.buyer.M;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2017/4/28.
  */
 
-public class BuyerBean {
+public class BuyerBean implements Serializable {
     /**
      * id : -1
      * prCode :

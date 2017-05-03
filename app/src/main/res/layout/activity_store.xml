@@ -172,7 +172,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_margin="@dimen/y2"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/morenlogo" />
+                                android:src="@drawable/no_image_show" />
 
                             <RelativeLayout
                                 android:layout_width="match_parent"

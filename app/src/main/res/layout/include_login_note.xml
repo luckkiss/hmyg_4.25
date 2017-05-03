@@ -158,6 +158,7 @@
             android:textSize="@dimen/y9" />
 
         <TextView
+            android:id="@+id/tv_show_tcp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/tv_left"

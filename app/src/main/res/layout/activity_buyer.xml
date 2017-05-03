@@ -722,7 +722,7 @@
                         android:layout_height="@dimen/x24"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/y15"
-                        android:src="@drawable/icon_gouwuche" />
+                        android:src="@drawable/collect_select" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -730,7 +730,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="@dimen/y15"
                         android:layout_marginTop="@dimen/y4"
-                        android:text="购物车"
+                        android:text="收藏夹"
                         android:textColor="@color/light_gray"
                         android:textSize="@dimen/x15" />
                 </LinearLayout>

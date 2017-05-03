@@ -53,14 +53,20 @@ public class LoginPresenter {
 
                 //解析json  返回
                 LoginGsonBean loginGsonBean = GsonUtil.formateJson2Bean(json, LoginGsonBean.class);
-                resultCallBack.onSuccess(loginGsonBean);
-                if (!loginGsonBean.getCode().equals(ConstantState.SUCCEED_CODE))
+
+                if (loginGsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
+                    resultCallBack.onSuccess(loginGsonBean);//登录成功
+                } else {
+                    ToastUtil.showShortToast(loginGsonBean.getMsg());
                     resultCallBack.onFailure(null, Integer.parseInt(loginGsonBean.getCode()), loginGsonBean.getMsg());
+                }
+
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
-                D.e("");
+                ToastUtil.showShortToast("网络错误");
 
             }
         };
@@ -352,7 +358,7 @@ public class LoginPresenter {
                             ToastUtil.showShortToast("验证码已经发送至：" + phString);
                             resultCallBack.onSuccess(GsonUtil.formateJson2Bean(t, LoginGsonBean.class));
                         } else {
-                            ToastUtil.showShortToast("faild");
+                            ToastUtil.showShortToast("短信获取失败，请稍后重试");
                             resultCallBack.onFailure(null, 10, "faild");
                         }
 

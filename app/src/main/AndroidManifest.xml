@@ -116,7 +116,7 @@
 
         android:name="com.hldj.hmyg.application.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/e"
+        android:icon="@drawable/no_image_show"
         android:label="@string/app_name"
         android:theme="@style/AppBaseTheme"
         tools:replace="android:icon, android:theme  ">
@@ -321,7 +321,7 @@
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.FeedBackActivity"
             android:launchMode="singleTask"
@@ -448,6 +448,10 @@
         <activity
             android:name="com.hldj.hmyg.saler.ChooseFirstTypeActivity"
             android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name="com.hldj.hmyg.saler.Ui.ManagerQuoteListItemDetail"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.saler.AddAdressActivity"
             android:screenOrientation="portrait"></activity>
@@ -469,11 +473,11 @@
         <activity
             android:name="com.hldj.hmyg.saler.ManagerQuoteListActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.saler.StorageSaveActivity"
             android:screenOrientation="portrait"></activity>

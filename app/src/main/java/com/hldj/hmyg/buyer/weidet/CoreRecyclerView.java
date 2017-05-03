@@ -113,7 +113,7 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
 //      mQuickAdapter.notifyDataSetChanged();//如果直接刷新会闪一下
 //        datasState = REFRESH;//刷新时
         mQuickAdapter.setDatasState(REFRESH);
-        addDataListener.addData(1);
+        addDataListener.addData(0);
         if (refreshListener != null) {
             refreshListener.refresh();
         }
@@ -285,5 +285,11 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
     public void setRecyclerView(RecyclerView mRecyclerView) {
         this.mRecyclerView = mRecyclerView;
     }
+
+    public CoreRecyclerView selfRefresh(boolean b) {
+        mSwipeRefreshLayout.setRefreshing(b);
+        return this;
+    }
+
 }
 

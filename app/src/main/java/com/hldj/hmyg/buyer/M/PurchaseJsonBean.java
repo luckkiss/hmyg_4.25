@@ -109,7 +109,9 @@ public class PurchaseJsonBean implements Serializable {
     public String blurName;
     public String projectType = ""; //直购与代沟
 
-    public static class CiCityBean {
+    public BuyerBean buyer = new BuyerBean();
+
+    public static class CiCityBean implements Serializable{
         /**
          * id : 31595
          * name : 北海

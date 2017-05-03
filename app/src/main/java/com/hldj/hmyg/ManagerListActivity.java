@@ -1,6 +1,7 @@
 package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -125,7 +126,7 @@ public class ManagerListActivity extends NeedSwipeBackActivity implements
         tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
 
             @Override
-            public void onTagDeleted(int position, me.kaede.tagview.Tag tag) {
+            public void onTagDeleted(int position, Tag tag) {
                 // TODO Auto-generated method stub
                 if (tag.id == 1) {
                     searchKey = "";
@@ -138,12 +139,18 @@ public class ManagerListActivity extends NeedSwipeBackActivity implements
                 .setEmptyTextSize(12).setEmptyTextColor(Color.GRAY)
                 .setShowButton(false)
                 .setActionText(getResources().getString(R.string.reload))
-                .setAction(new View.OnClickListener() {
+                .setAction(new OnClickListener() {
                     @Override
                     public void onClick(View view) {
                     }
                 }).setShowIcon(true).setShowText(true).bindView(xListView);
 
+    }
+
+    @Override
+    protected void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
     }
 
     ListViewSwipeGesture.TouchCallbacks swipeListener = new ListViewSwipeGesture.TouchCallbacks() {
@@ -564,12 +571,6 @@ public class ManagerListActivity extends NeedSwipeBackActivity implements
     }
 
     @Override
-    protected void onResume() {
-        // TODO Auto-generated method stub
-        super.onResume();
-    }
-
-    @Override
     public void onRefresh() {
         // TODO Auto-generated method stub
         xListView.setPullLoadEnable(false);
@@ -677,5 +678,11 @@ public class ManagerListActivity extends NeedSwipeBackActivity implements
         tv_05.setTextColor(getResources().getColor(R.color.little_gray));
         tv_06.setTextColor(getResources().getColor(R.color.little_gray));
     }
+
+
+    public static void start2Activity(Context context) {
+        context.startActivity(new Intent(context, ManagerListActivity.class));
+    }
+
 
 }

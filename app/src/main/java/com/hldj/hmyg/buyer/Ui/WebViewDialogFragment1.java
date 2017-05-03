@@ -1,12 +1,14 @@
 package com.hldj.hmyg.buyer.Ui;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -14,25 +16,22 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hy.utils.GetServerUrl;
 
 /**
  * Created by Administrator on 2017/4/28.
  */
 
-public class WebViewDialogFragment extends DialogFragment {
+public class WebViewDialogFragment1 extends DialogFragment {
 
 
     private WebView webView;
     private TextView tv_ok_to_close;
-    String url = "http://blog.csdn.net/lmj623565791/article/details/37815413/";
-    String html = "http://blog.csdn.net/lmj623565791/article/details/37815413/";
+    String url = GetServerUrl.getUrl() + "h5/page/serviceagreement.html";
 
-    public static WebViewDialogFragment newInstance(String strs) {
-        WebViewDialogFragment f = new WebViewDialogFragment();
-        // Supply num input as an argument.
-        Bundle args = new Bundle();
-        args.putString("strs", strs);
-        f.setArguments(args);
+
+    public static WebViewDialogFragment1 newInstance() {
+        WebViewDialogFragment1 f = new WebViewDialogFragment1();
         return f;
     }
 
@@ -40,30 +39,39 @@ public class WebViewDialogFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        html = getArguments().getString("strs");
+//        setStyle(STYLE_NORMAL, R.style.Dialog_FullScreen);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        super.onActivityCreated(savedInstanceState);
+
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));
+        getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
     }
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_webview_dialog, null);
+        View view = inflater.inflate(R.layout.fragment_webview_dialog_tcp, null);
         initView(view);
-
 
         return view;
     }
 
     private void initView(View view) {
-        TextView tv_show_html = (TextView) view.findViewById(R.id.tv_show_html);
 
-        tv_show_html.setText(Html.fromHtml(html, null, null));
-
+        view.findViewById(R.id.ic_back).setOnClickListener(v -> dismiss());
+        TextView textView = (TextView) view.findViewById(R.id.ic_title);
+        textView.setText("服务协议");
 
 //        tv_show_html.setText(html);
         webView = (WebView) view.findViewById(R.id.webview_show_quite_detail);
         //WebView加载本地资源
-//        webView.loadUrl("file:///android_asset/example.html");
+        webView.loadUrl(url);
         //WebView加载web资源
 //        webView.loadUrl(html);
 
@@ -97,10 +105,6 @@ public class WebViewDialogFragment extends DialogFragment {
             }
 
 
-        });
-        tv_ok_to_close = (TextView) view.findViewById(R.id.tv_ok_to_close);
-        tv_ok_to_close.setOnClickListener(v -> {
-            dismiss();
         });
 
 

@@ -145,7 +145,7 @@ public class MyApplication extends Application {
         try {
             db = mHelper.getWritableDatabase();
         } catch (Exception e) {
-            D.e("===="+e.getMessage());
+            D.e("====" + e.getMessage());
             db = mHelper.getReadableDatabase();
         }
 

@@ -1,17 +1,5 @@
 package com.hldj.hmyg.saler;
 
-import java.util.ArrayList;
-
-import kankan.wheel.widget.OnWheelChangedListener;
-import kankan.wheel.widget.WheelView;
-import kankan.wheel.widget.adapters.ArrayWheelAdapter;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
@@ -47,6 +35,19 @@ import com.mrwujay.cascade.activity.GetCodeByName;
 import com.zf.iosdialog.widget.ActionSheetDialog;
 import com.zf.iosdialog.widget.ActionSheetDialog.OnSheetItemClickListener;
 import com.zf.iosdialog.widget.ActionSheetDialog.SheetItemColor;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import kankan.wheel.widget.OnWheelChangedListener;
+import kankan.wheel.widget.WheelView;
+import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 
 @SuppressLint("NewApi")
 public class QuoteDetailActivity extends BaseActivity implements

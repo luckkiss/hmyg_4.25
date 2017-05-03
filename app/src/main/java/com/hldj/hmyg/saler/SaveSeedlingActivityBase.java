@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.DaoBean.SaveJson.SavaBean;
 import com.hldj.hmyg.DaoBean.SaveJson.SavaBeanDao;
+import com.hldj.hmyg.ManagerListActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.V.SaveSeedlingV;
 import com.hldj.hmyg.application.Data;
@@ -66,6 +67,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
     public SaveSeedingGsonBean saveSeedingGsonBean;
     ArrayList<Pic> arrayList2Adapter = new ArrayList(); // 传入 适配器的图片列表
+    private AutoAddRelative autoAddRelative_top;
 
 
     @Override
@@ -208,6 +210,16 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             typeListBeen.get(position).getName();
             paramsListBean = typeListBeen.get(position).getParamsList();
             D.e("==tag=点击事件=" + paramsListBean.toString());
+
+            //添加品名 第一行
+            if (autoAddRelative_top == null) {
+                autoAddRelative_top = new AutoAddRelative(this)
+                        .initView(R.layout.save_seeding_auto_add_top);
+
+                viewHolder_top = autoAddRelative_top.getViewHolder_top();
+            }
+            autoAddRelative_rd = null;
+
             //根据参数来 配置布局
             addParamViews(paramsListBean);
 
@@ -257,14 +269,17 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
     //根据 参数来动态添加布局
     private void addParamViews(List<SaveSeedingGsonBean.DataBean.TypeListBean.ParamsListBean> paramsListBean) {
         int size = paramsListBean.size();
+
+        String str = autoAddRelative_top.getViewHolder_top().tv_auto_add_name.getText().toString();
         viewHolder.ll_auto_add_layout.removeAllViews();
         arrayList_holders.clear();
-
+        autoAddRelative_top.getViewHolder_top().tv_auto_add_name.setText(str);
         //添加品名 第一行
-        AutoAddRelative autoAddRelative_top = new AutoAddRelative(this)
-                .initView(R.layout.save_seeding_auto_add_top);
+//        AutoAddRelative autoAddRelative_top = new AutoAddRelative(this)
+//                .initView(R.layout.save_seeding_auto_add_top);
         viewHolder.ll_auto_add_layout.addView(autoAddRelative_top);
-        viewHolder_top = autoAddRelative_top.getViewHolder_top();
+//        viewHolder_top = autoAddRelative_top.getViewHolder_top();
+//        viewHolder_top.tv_auto_add_name.setText(str);
 
         for (int i = 0; i < size; i++) {
             String name = paramsListBean.get(i).getName();
@@ -307,7 +322,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
     public void addPicUrls(ArrayList<Pic> resultPathList) {
         viewHolder.publish_flower_info_gv.getAdapter().addItems(resultPathList);
 //        viewHolder.publish_flower_info_gv.getAdapter().getDataList();
-        D.e("=========addPicUrls========="+resultPathList.toString());
+        D.e("=========addPicUrls=========" + resultPathList.toString());
     }
 
     public class ViewHolder {
@@ -361,9 +376,10 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         );
         holder.id_tv_edit_all.setOnClickListener(v ->
                 {
-                    mCache.remove("saveseedling"); // 清空缓存
+//                    mCache.remove("saveseedling"); // 清空缓存
+                    startActivity(new Intent(SaveSeedlingActivityBase.this, SaveSeedlingActivity.class));
                     finish();
-                    startActivity(new Intent(SaveSeedlingActivityBase.this, SaveSeedlingActivity3_0.class));
+
                 }
         );
 
@@ -461,6 +477,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                     ToastUtil.showShortToast("提交完毕");
                     setResult(ConstantState.PUBLIC_SUCCEED);
                     finish();
+                    ManagerListActivity.start2Activity(instance);
                 } else {
                     ToastUtil.showShortToast(simpleGsonBean.msg);
                 }
@@ -530,18 +547,23 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         params.put("nurseryId", upLoadDatas.address.addressId);
         params.put("count", upLoadDatas.getRepertory_num());
         D.e("=========checkParames1=========");
-        if (!checkParames(autoAddRelative_rd, "1")) {
-            D.e("=========null======1===");
-            return null;
-        }
-        if (autoAddRelative_rd.getMTag().equals("dbh")) {
-            params.put("dbhType", autoAddRelative_rd.getDiameterType());
-            params.put("minDbh", viewHolder_rd.et_auto_add_min.getText().toString());//最小地径
-            params.put("maxDbh", viewHolder_rd.et_auto_add_max.getText().toString());//最大地径
-        } else {
-            params.put("diameterType", autoAddRelative_rd.getDiameterType());
-            params.put("minDiameter", viewHolder_rd.et_auto_add_min.getText().toString());//最小地径
-            params.put("maxDiameter", viewHolder_rd.et_auto_add_max.getText().toString());//最大地径
+
+        if (autoAddRelative_rd != null) {
+            if (!checkParames(autoAddRelative_rd, "1")) {
+                D.e("=========null======1===");
+                return null;
+            }
+
+            if (autoAddRelative_rd.getMTag().equals("dbh")) {
+                params.put("dbhType", autoAddRelative_rd.getDiameterType());
+                params.put("minDbh", viewHolder_rd.et_auto_add_min.getText().toString());//最小地径
+                params.put("maxDbh", viewHolder_rd.et_auto_add_max.getText().toString());//最大地径
+            } else {
+                params.put("diameterType", autoAddRelative_rd.getDiameterType());
+                params.put("minDiameter", viewHolder_rd.et_auto_add_min.getText().toString());//最小地径
+                params.put("maxDiameter", viewHolder_rd.et_auto_add_max.getText().toString());//最大地径
+            }
+
         }
 
 

@@ -174,7 +174,7 @@ public class ProductListAdapterForManager extends BaseAdapter {
 //                tv_floorPrice.setVisibility(View.INVISIBLE);
 //            }
             if ("unaudit".equals(data.get(position).get("status").toString())) {
-                tv_03.setTextColor(Data.STATUS_GRAY);
+                tv_03.setTextColor(Data.STATUS_GRAY);//审核中
             } else if ("published".equals(data.get(position).get("status")
                     .toString())) {
                 tv_03.setTextColor(Data.STATUS_STROGE_GREEN);

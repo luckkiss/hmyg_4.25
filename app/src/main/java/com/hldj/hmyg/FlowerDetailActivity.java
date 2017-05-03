@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -634,8 +635,8 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity {
 
                                     //商品规格大小
                                     String specText = JsonGetInfo.getJsonString(jsonObject2, "specText");
-                                    tv_seedlingNum.setText(specText);
-
+                                    String type = JsonGetInfo.getJsonString(jsonObject2, "plantTypeName");
+                                    tv_seedlingNum.setText("种植类型：" + type);
 
 //                                    tv_closeDate.setText("下架时间：" + closeDate);
                                     //下架时间
@@ -975,7 +976,13 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity {
                                         tv_contanct_name.setText(publicName);//联系人
                                     } else {
                                         ll_store.setVisibility(View.GONE);
-                                        findViewById(R.id.tv_login_show).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.login_to_show).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.login_to_show).setOnClickListener(new OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                toLogin();
+                                            }
+                                        });
                                     }
 
 
@@ -1463,9 +1470,12 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity {
         new CollectPresenter(new ResultCallBack<SimpleGsonBean>() {
             @Override
             public void onSuccess(SimpleGsonBean simpleGsonBean) {
-
                 findViewById(R.id.iv_shou_can).setSelected(simpleGsonBean.getData().isCollect());
+                LocalBroadcastManager.getInstance(FlowerDetailActivity.this).sendBroadcast(new Intent(ConstantState.COLLECT_REFRESH));
 
+                /**
+                 * LocalBroadcastManager.getInstance(Context).sendBroadcast(new Intent("这里放一个action"));
+                 */
             }
 
             @Override

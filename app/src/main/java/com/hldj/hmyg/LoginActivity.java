@@ -21,6 +21,7 @@ import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.LoginGsonBean;
 import com.hldj.hmyg.bean.UserInfoGsonBean;
+import com.hldj.hmyg.buyer.Ui.WebViewDialogFragment1;
 import com.hldj.hmyg.presenter.LoginPresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
@@ -76,36 +77,39 @@ public class LoginActivity extends BaseActivity {
         public EditText et_passward_note;
         public ImageButton btn_clear_password_note;
         public TextView login_note;
+        public TextView tv_show_tcp;
 
         public HolderNote() {
 
             //短信登录手机号码
             this.et_phone_note = (EditText) findViewById(R.id.et_phone_note);
+            this.tv_show_tcp = (TextView) findViewById(R.id.tv_show_tcp);
+            tv_show_tcp.setOnClickListener(v -> {
+                WebViewDialogFragment1.newInstance().show(LoginActivity.this.getSupportFragmentManager(), "login");
+            });
+
             //清楚号码按钮
             this.btn_clear_password_note = (ImageButton) findViewById(R.id.btn_clear_phone_note);
             //获取验证码
             this.tv_get_code_note = (TextView) findViewById(R.id.tv_get_code_note);
-            this.tv_get_code_note.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    D.e("======hehe======");
-                    //获取验证码，倒计时，变色，不可点
-                    LoginPresenter.getCode(MyUtil.getStrWithView(holderNote.et_phone_note), holderNote.tv_get_code_note, 20, new ResultCallBack<LoginGsonBean>() {
-                        @Override
-                        public void onSuccess(LoginGsonBean loginGsonBean) {
-                            D.e("======短信发送成功=========id=");
-                            holderNote.login_note.setSelected(true);
-                            holderNote.login_note.setClickable(true);
-                            //通过id 获取个人 信息 userinfo
-                        }
+            this.tv_get_code_note.setOnClickListener(v -> {
+                D.e("======hehe======");
+                //获取验证码，倒计时，变色，不可点
+                LoginPresenter.getCode(MyUtil.getStrWithView(holderNote.et_phone_note), holderNote.tv_get_code_note, 20, new ResultCallBack<LoginGsonBean>() {
+                    @Override
+                    public void onSuccess(LoginGsonBean loginGsonBean) {
+                        D.e("======短信发送成功=========id=");
+                        holderNote.login_note.setSelected(true);
+                        holderNote.login_note.setClickable(true);
+                        //通过id 获取个人 信息 userinfo
+                    }
 
-                        @Override
-                        public void onFailure(Throwable t, int errorNo, String strMsg) {
-                            D.e("===============");
-                        }
-                    });
+                    @Override
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+                        D.e("===============");
+                    }
+                });
 
-                }
             });
             TextWatcher mTextWatcher = new LoginPresenter.MyTextWatcher(this.et_phone_note, this.btn_clear_password_note, this.tv_get_code_note);
             this.et_phone_note.addTextChangedListener(mTextWatcher);
@@ -114,11 +118,18 @@ public class LoginActivity extends BaseActivity {
             this.et_passward_note = (EditText) findViewById(R.id.et_passward_note);
             //登录按钮
             this.login_note = (TextView) findViewById(R.id.login_note);
+
+
             this.login_note.setOnClickListener(new MultipleClickProcess() {
                 @Override
                 public void onClick(View view) {
-                    showToast("hellow world");
-                    toLoginWithNote("" + holderNote.et_phone_note.getText(), "" + holderNote.et_passward_note.getText());
+
+                    if (login_note.isSelected()) {
+                        toLoginWithNote("" + holderNote.et_phone_note.getText(), "" + holderNote.et_passward_note.getText());
+                    } else {
+
+                    }
+
                 }
             });
         }
