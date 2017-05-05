@@ -929,7 +929,7 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
      * @param anim
      * @param index
      */
-    protected void startAnim(Animator anim, int index) {
+    public void startAnim(Animator anim, int index) {
         anim.setDuration(mDuration).start();
         anim.setInterpolator(mInterpolator);
     }

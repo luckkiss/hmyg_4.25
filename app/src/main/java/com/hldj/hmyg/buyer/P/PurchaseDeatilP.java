@@ -33,7 +33,46 @@ public class PurchaseDeatilP {
         this.resultCallBack = resultCallBack;
     }
 
+    /**
+     * 获取 根据id 获取详情数据
+     *
+     * @param id
+     * @return
+     */
+    public PurchaseDeatilP getDatasMgLst(String id) {
+        // TODO Auto-generated method stub
+        FinalHttp finalHttp = new FinalHttp();
+        GetServerUrl.addHeaders(finalHttp, true);
+        AjaxParams params = new AjaxParams();
+        params.put("id", id);
+        params.put("userId", MyApplication.getUserBean().id);
+        finalHttp.post(GetServerUrl.getUrl() + "admin/quote/detail", params,
+                new AjaxCallBack<String>() {
+                    @Override
+                    public void onSuccess(String json) {
 
+//                      ManagerQuoteItemDetailGsonBean gsonBean = GsonUtil.formateJson2Bean(json, ManagerQuoteItemDetailGsonBean.class);
+                        D.e("======onSuccess========54101356f7114c8286cac1e69b58a138" + json);
+
+                        SaveSeedingGsonBean saveSeedingGsonBean = GsonUtil.formateJson2Bean(json, SaveSeedingGsonBean.class);
+
+                        if (saveSeedingGsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
+                            resultCallBack.onSuccess(saveSeedingGsonBean);
+                        } else {
+                            ToastUtil.showShortToast(saveSeedingGsonBean.getMsg());
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+                        ToastUtil.showShortToast("网络错误，请稍后重试");
+                        super.onFailure(t, errorNo, strMsg);
+                    }
+                });
+
+        return this;
+    }
     //admin/purchase/detail
 
     public PurchaseDeatilP getDatas(String id) {

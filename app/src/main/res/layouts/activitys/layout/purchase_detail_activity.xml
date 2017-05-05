@@ -27,7 +27,7 @@
                 android:id="@+id/include_bottom_pur_detail"
                 layout="@layout/include_bottom_pur_detail"
                 android:visibility="gone" />
-
+            <!--<com.hldj.hmyg.buyer.weidet.CoreRecyclerView-->
             <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
                 android:id="@+id/recycle_pur_one"
                 android:layout_width="match_parent"

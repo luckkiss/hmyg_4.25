@@ -84,7 +84,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
      *
      * @param saveSeedingGsonBean
      */
-    private void initDatas(SaveSeedingGsonBean saveSeedingGsonBean) {
+    public void initDatas(SaveSeedingGsonBean saveSeedingGsonBean) {
         /**
          * obj[@"data"][@"typeList"]   //分类的list
          obj[@"data"][@"plantTypeList"]  //种植类型list
@@ -323,7 +323,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
     }
 
 
-    private static final String GOOD_ID = "good_id";//本届面传过来的id
+    protected static final String GOOD_ID = "good_id";//本届面传过来的id
 
 
     public abstract void addPicUrls(ArrayList<Pic> resultPathList);

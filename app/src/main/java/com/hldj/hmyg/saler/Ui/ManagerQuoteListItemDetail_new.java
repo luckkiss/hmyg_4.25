@@ -2,9 +2,11 @@ package com.hldj.hmyg.saler.Ui;
 
 import android.os.Bundle;
 
+import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
-import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivityBase;
+import com.hldj.hmyg.buyer.P.PurchaseDeatilP;
+import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,7 @@ import java.util.List;
  * Created by Administrator on 2017/5/3.
  */
 
-public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivityBase {
+public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
 
 
 //    int oldlayout = R.id.manager_quote_list_detail ;
@@ -40,5 +42,30 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivityBase {
     public void addPicUrls(ArrayList<Pic> resultPathList) {
 
     }
+
+    @Override
+    public void getDatas() {
+        super.getDatas();
+        new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
+            @Override
+            public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
+                initDatas(saveSeedingGsonBean);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+
+            }
+        }).getDatasMgLst(getIntent().getExtras().get(GOOD_ID).toString());//请求数据  进行排版
+
+
+    }
+
+    @Override
+    public void initDatas(SaveSeedingGsonBean saveSeedingGsonBean) {
+        super.initDatas(saveSeedingGsonBean);
+    }
+
+
 
 }
