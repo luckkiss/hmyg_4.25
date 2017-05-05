@@ -154,13 +154,12 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         getViewHolder_pur().tv_purchase_close_date.setText(strFilter(item.purchaseJson.closeDate));
         String str = strFilter(item.purchaseJson.quoteDesc);//报价信息 弹窗显示
         getViewHolder_pur().tv_purchase_price_sug.setOnClickListener(v -> {
-            showSug2DialogLeft();// TODO: 2017/4/26   增加弹窗<-
-
-
-        });
-        getViewHolder_pur().tv_purchase_store_detail.setOnClickListener(v -> {
             // TODO: 2017/4/26   增加弹窗->
             showSug2DialogRight(str);
+        });
+        getViewHolder_pur().tv_purchase_store_detail.setOnClickListener(v -> {
+
+            showSug2DialogLeft();// TODO: 2017/4/26   增加弹窗<-
         });
 
         getViewHolder_pur().tv_purchase_address.setText(strFilter(item.purchaseJson.cityName));

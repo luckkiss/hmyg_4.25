@@ -64,12 +64,12 @@
 
         <com.coorchice.library.SuperTextView
             android:id="@+id/tv_guige_left"
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:gravity="center"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:text="乔木规格:"
+            android:text="苗木规格:"
             android:textSize="13sp" />
 
         <com.coorchice.library.SuperTextView
@@ -93,7 +93,7 @@
         android:layout_height="wrap_content">
 
         <com.coorchice.library.SuperTextView
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:gravity="center"
             android:paddingLeft="5dp"
@@ -149,7 +149,7 @@
         android:layout_height="wrap_content">
 
         <com.coorchice.library.SuperTextView
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:gravity="center"
             android:paddingLeft="5dp"
@@ -178,7 +178,7 @@
         android:layout_height="wrap_content">
 
         <com.coorchice.library.SuperTextView
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:gravity="center"
             android:paddingLeft="5dp"

@@ -5,10 +5,10 @@
     android:versionCode="73"
     android:versionName="2.0.43">
 
-    <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="23"
-        tools:overrideLibrary="android.support.v7.appcompat" />
+    <!--<uses-sdk-->
+    <!--android:minSdkVersion="14"-->
+    <!--android:targetSdkVersion="25"-->
+    <!--tools:overrideLibrary="android.support.v7.appcompat" />-->
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
@@ -238,8 +238,8 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.StoreActivity_bak"
-            android:screenOrientation="portrait"
-            android:theme="@style/e_activity_theme" />
+            android:screenOrientation="portrait" />
+        <!--android:theme="@style/e_activity_theme"-->
         <activity
             android:name="com.hldj.hmyg.store.StoreTypeActivity"
             android:screenOrientation="portrait"></activity>
@@ -249,10 +249,14 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.FlowerDetailActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/e_activity_theme"></activity>
+            android:screenOrientation="portrait" />
+        <!--android:theme="@style/e_activity_theme"-->
         <activity
             android:name="com.hldj.hmyg.GalleryImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullScreenTheme" />
+        <activity
+            android:name="com.hldj.hmyg.GalleryImageActivity_new"
             android:screenOrientation="portrait"
             android:theme="@style/FullScreenTheme" />
         <activity
@@ -337,8 +341,7 @@
         <activity
             android:name="com.hldj.hmyg.SetPasswardByGetCodeActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppBaseTheme2Register"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.ChoosePicsActivity"
             android:screenOrientation="portrait"></activity>
@@ -451,6 +454,9 @@
 
         <activity
             android:name="com.hldj.hmyg.saler.Ui.ManagerQuoteListItemDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.hldj.hmyg.saler.Ui.ManagerQuoteListItemDetail_new"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.saler.AddAdressActivity"
@@ -615,11 +621,10 @@
         <activity
             android:name="com.hldj.hmyg.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppBaseTheme2Register"></activity>
+            android:theme="@style/AppBaseTheme" />
         <activity
             android:name="com.hldj.hmyg.RegisterActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppBaseTheme2Register"></activity>
+            android:screenOrientation="portrait" />
 
         <!-- 您从百度网站获取的APP KEY -->
         <meta-data
@@ -779,9 +784,7 @@
         <activity
             android:name="com.hldj.hmyg.MapSearchListActivity"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.amap.api.car.example.DestinationActivity"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.unionpay.uppay.PayActivity"
             android:configChanges="orientation|keyboardHidden|keyboard"
@@ -805,6 +808,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
 
             <!-- 调用新浪原生SDK，需要注册的回调activity -->
             <intent-filter>
@@ -882,6 +886,16 @@
         <!--android:authorities="com.hldj.hmyg.fileProvider"-->
         <!--android:exported="false"-->
         <!--android:grantUriPermissions="true" />-->
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.hldj.hmyg.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"></meta-data>
+        </provider>
 
 
     </application>

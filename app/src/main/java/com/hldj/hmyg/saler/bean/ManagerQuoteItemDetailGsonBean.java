@@ -1,5 +1,7 @@
 package com.hldj.hmyg.saler.bean;
 
+import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.List;
  * Created by Administrator on 2017/5/3.
  */
 
-public class ManagerQuoteItemDetailGsonBean implements Serializable{
+public class ManagerQuoteItemDetailGsonBean implements Serializable {
 
 
     /**
@@ -31,6 +33,8 @@ public class ManagerQuoteItemDetailGsonBean implements Serializable{
         public boolean canQuote;
 
         public List<UsedQuoteListBean> usedQuoteList = new ArrayList<>();
+
+        public SellerQuoteJsonBean sellerQuoteJson;
 
     }
 }

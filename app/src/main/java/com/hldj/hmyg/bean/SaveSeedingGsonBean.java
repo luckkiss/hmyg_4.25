@@ -188,7 +188,9 @@ public class SaveSeedingGsonBean implements Serializable {
 
 
             public PurchaseJsonBean purchaseJson = new PurchaseJsonBean();
-            public PurchaseItemJsonBean purchaseItemJsonBean = new PurchaseItemJsonBean();
+//            public PurchaseItemJsonBean purchaseItemJsonBean = new PurchaseItemJsonBean();
+            public PurchaseItemJsonBean purchaseItemJson = new PurchaseItemJsonBean();
+
 //            public PurchaseJsonBean purchaseJsonBean =new PurchaseJsonBean();
 
             public int getMinOffbarHeight() {

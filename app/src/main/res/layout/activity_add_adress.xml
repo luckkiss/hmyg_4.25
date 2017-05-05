@@ -1,17 +1,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res/com.hldj.hmyg"
+    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context="com.hldj.hmyg.saler.SaveSeedlingActivity" >
+    tools:context="com.hldj.hmyg.saler.SaveSeedlingActivity">
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/y34"
-        android:background="@color/white" >
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/tv_title"
@@ -53,12 +53,12 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/gray_bg" >
+        android:background="@color/gray_bg">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -66,7 +66,7 @@
                 android:layout_marginTop="@dimen/y8"
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
-                android:padding="1px" >
+                android:padding="1px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                     android:background="@drawable/more_item_selector"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -106,7 +106,7 @@
                 android:layout_height="@dimen/y34"
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
-                android:padding="1px" >
+                android:padding="1px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -115,7 +115,7 @@
                     android:background="@drawable/more_item_selector"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -146,7 +146,7 @@
                 android:layout_height="@dimen/y34"
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
-                android:padding="1px" >
+                android:padding="1px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -155,7 +155,7 @@
                     android:background="@drawable/more_item_selector"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -187,14 +187,14 @@
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
                 android:padding="1px"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/btn_my_list"
                     android:orientation="horizontal"
-                    android:paddingRight="@dimen/x7" >
+                    android:paddingRight="@dimen/x7">
 
                     <TextView
                         android:layout_width="0dp"
@@ -229,14 +229,14 @@
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
                 android:padding="1px"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/btn_my_list"
                     android:orientation="horizontal"
-                    android:paddingRight="@dimen/x7" >
+                    android:paddingRight="@dimen/x7">
 
                     <TextView
                         android:layout_width="0dp"
@@ -257,8 +257,7 @@
                         android:background="@color/white"
                         android:padding="2.5dp"
                         app:auto_select_effect="false"
-                        app:max_select="1" >
-                    </com.zhy.view.flowlayout.TagFlowLayout>
+                        app:max_select="1"></com.zhy.view.flowlayout.TagFlowLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -268,14 +267,14 @@
                 android:layout_height="@dimen/y34"
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
-                android:padding="1px" >
+                android:padding="1px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/btn_my_list"
                     android:orientation="horizontal"
-                    android:paddingRight="@dimen/x7" >
+                    android:paddingRight="@dimen/x7">
 
                     <TextView
                         android:layout_width="0dp"
@@ -309,15 +308,14 @@
                 android:layout_height="@dimen/y34"
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
-                android:padding="1px"
-              >
+                android:padding="1px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/btn_my_list"
                     android:orientation="horizontal"
-                    android:paddingRight="@dimen/x7" >
+                    android:paddingRight="@dimen/x7">
 
                     <TextView
                         android:layout_width="0dp"
@@ -351,14 +349,14 @@
                 android:layout_height="@dimen/y34"
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
-                android:padding="1px" >
+                android:padding="1px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/btn_my_list"
                     android:orientation="horizontal"
-                    android:paddingRight="@dimen/x7" >
+                    android:paddingRight="@dimen/x7">
 
                     <TextView
                         android:layout_width="0dp"
@@ -393,7 +391,7 @@
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
                 android:padding="1px"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -402,7 +400,7 @@
                     android:background="@drawable/more_item_selector"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -433,14 +431,14 @@
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
                 android:padding="1px"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y34"
                     android:background="@drawable/feedback_content_edittext_shape"
                     android:orientation="horizontal"
-                    android:padding="1px" >
+                    android:padding="1px">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -449,7 +447,7 @@
                         android:background="@drawable/more_item_selector"
                         android:clickable="true"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal" >
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -488,7 +486,7 @@
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
                 android:padding="1px"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -497,7 +495,7 @@
                     android:background="@drawable/more_item_selector"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -527,8 +525,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50.0dip"
+                android:background="@color/white"
                 android:orientation="horizontal"
-                android:visibility="gone" >
+                android:visibility="visible"
+                tools:visibility="visible">
 
                 <CheckBox
                     android:id="@+id/remmber"

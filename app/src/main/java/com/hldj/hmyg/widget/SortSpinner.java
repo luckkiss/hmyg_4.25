@@ -12,8 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.PopupWindow.OnDismissListener;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
@@ -167,12 +165,8 @@ public class SortSpinner {
 
         selectPopupWindow.setOutsideTouchable(true);
 
-        selectPopupWindow.setOnDismissListener(new OnDismissListener() {
+        selectPopupWindow.setOnDismissListener(() -> {
 
-            @Override
-            public void onDismiss() {
-
-            }
         });
 
         // 这一句是为了实现弹出PopupWindow后，当点击屏幕其他部分及Back键时PopupWindow会消失，
@@ -251,28 +245,18 @@ public class SortSpinner {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
-            View sort_list_item = activity.getLayoutInflater().inflate(R.layout.list_item_sort_new, null);
-            RelativeLayout rl_sort_list_item = (RelativeLayout) sort_list_item.findViewById(R.id.rl_popo_list_item);
+//            View view = LayoutInflater.from(context).inflate(R.layout.list_item_sort_new, null);
+            View sort_list_item = activity.getLayoutInflater().inflate(R.layout.list_item_sort, null);
             TextView area_tv_item = (TextView) sort_list_item.findViewById(R.id.tv_item);
-
-
             for (Map.Entry<String, String> entry : list_map.get(position).entrySet()) {
                 area_tv_item.setText(entry.getValue());
             }
-
             ImageView is_check = (ImageView) sort_list_item.findViewById(R.id.is_check);
-//			area_tv_item.setText(listData.get(position).getName());
             if (clickTemp == position) {
-//                rl_sort_list_item.setBackgroundColor(Color.argb(155, 192, 192,
-//                        192)); // #COCOCO
                 is_check.setVisibility(View.VISIBLE);
             } else {
-//                rl_sort_list_item.setBackgroundColor(Color.argb(155, 255, 255,
-//                        255)); // #FFFFFF
                 is_check.setVisibility(View.INVISIBLE);
             }
-
-
             return sort_list_item;
         }
 

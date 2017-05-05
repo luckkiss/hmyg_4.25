@@ -422,10 +422,9 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
 
             ImageView iv_img = myViewHolder.getView(R.id.iv_img);//
 
-            if (null != seedlingBean.getImagesJson()) {
+            if (null != seedlingBean.getImagesJson()  &&  seedlingBean.getImagesJson().size()!= 0 ) {
                 String url = seedlingBean.getImagesJson().get(0).getLocal_url();
                 fb.display(iv_img, url);
-
             }
 
 

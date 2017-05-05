@@ -1,13 +1,13 @@
 package com.hldj.hmyg.application;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.app.Service;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 import android.os.Vibrator;
+import android.support.multidex.MultiDexApplication;
 import android.widget.TextView;
 
 import com.hldj.hmyg.DaoBean.SaveJson.DaoMaster;
@@ -18,7 +18,6 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.SPUtil;
 import com.hldj.hmyg.util.SPUtils;
-import com.hy.utils.ToastUtil;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -29,9 +28,10 @@ import java.io.File;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
+import im.fir.sdk.FIR;
 
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
 
     public static SharedPreferences Userinfo;
     public static SharedPreferences Deviceinfo;
@@ -53,7 +53,7 @@ public class MyApplication extends Application {
         if (userBean == null) {
             String json = SPUtil.get(getInstance(), SPUtils.UserBean, "").toString();
             if (json.equals("")) {
-                ToastUtil.showShortToast("未登录");
+//                ToastUtil.showShortToast("未登录");
             } else {
                 userBean = GsonUtil.formateJson2Bean(json, UserBean.class);
             }
@@ -74,9 +74,8 @@ public class MyApplication extends Application {
     @SuppressLint("SdCardPath")
     public void onCreate() {
         super.onCreate();
-//        FIR.init(this);
-
-//                              4e9fef47d1c33625cb0d5495e6856e0a
+        FIR.init(this);
+//      4e9fef47d1c33625cb0d5495e6856e0a
 //        TestinAgent.init(this, "S9Ip9zGgJzj779e9S849s9z94X9DTUGJ",
 //                "your channel ID");
 //        CrashReport

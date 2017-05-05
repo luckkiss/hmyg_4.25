@@ -659,4 +659,14 @@
         <item name="android:windowIsFloating">false</item>
     </style>
 
+
+    <!--6.0之后 提供亮色状态栏，，能黑白交换-->
+    <style name="e_activity_theme" parent="NoActionBarThemeWhite">
+        <!--<item name="android:windowLightStatusBar">true</item>-->
+        <!--&lt;!&ndash;<item name="colorPrimaryDark">@android:color/transparent</item>&ndash;&gt;-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <!--&lt;!&ndash;<item name="fitsSystemWindows">true</item>&ndash;&gt;-->
+        <!--<item name="android:statusBarColor">@color/transparent</item>-->
+    </style>
+
 </resources>

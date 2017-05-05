@@ -28,12 +28,13 @@
 
 
             <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_title_show_name"
                 android:layout_width="wrap_content"
                 android:layout_height="27dp"
                 android:gravity="center|start"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:text="苗木报价:"
+                android:text="采购报价:"
                 android:textColor="@color/orange"
                 android:textSize="13sp" />
 
@@ -141,6 +142,7 @@
 
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -166,6 +168,7 @@
 
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -251,9 +254,9 @@
                 android:gravity="center_vertical|start"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                tools:text="已报价"
                 android:textColor="@color/green"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:text="已报价" />
 
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_delete_item"

@@ -8,6 +8,19 @@
     android:orientation="vertical"
     tools:context=".StoreActivity">
 
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_show_qc"-->
+    <!--android:layout_width="150dp"-->
+    <!--android:layout_height="150dp"-->
+    <!--android:background="@drawable/ic_launcher" />-->
+
+    <!--</LinearLayout>-->
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/y34"
@@ -40,7 +53,7 @@
                 android:paddingRight="2.5dip"
                 android:textColor="@color/gray"
                 android:textColorHint="@color/gray"
-                android:textSize="14.5sp"/>
+                android:textSize="14.5sp" />
         </RelativeLayout>
 
         <ImageView
@@ -167,10 +180,10 @@
 
                             <ImageView
                                 android:id="@+id/iv_icon_persion_pic"
-                                android:layout_width="55dp"
-                                android:layout_height="55dp"
+                                android:layout_width="65dp"
+                                android:layout_height="65dp"
                                 android:layout_centerVertical="true"
-                                android:layout_margin="@dimen/y2"
+                                android:layout_margin="@dimen/y5"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/no_image_show" />
 
@@ -449,7 +462,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2.0dip"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="fill_parent"
@@ -612,7 +626,8 @@
                         android:numColumns="2"
                         android:padding="@dimen/y5"
                         android:verticalSpacing="@dimen/y5"
-                        android:visibility="gone"></com.jarvis.MyView.MyGridView>
+                        android:visibility="gone"
+                        tools:visibility="visible" />
 
                     <com.jarvis.MyView.MyListView
                         android:id="@+id/lv_all"
@@ -620,7 +635,8 @@
                         android:layout_height="match_parent"
                         android:horizontalSpacing="@dimen/y5"
                         android:padding="@dimen/y5"
-                        android:verticalSpacing="@dimen/y5"></com.jarvis.MyView.MyListView>
+                        android:verticalSpacing="@dimen/y5"
+                        tools:visibility="visible" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -628,7 +644,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                     <RelativeLayout
                         android:layout_width="fill_parent"

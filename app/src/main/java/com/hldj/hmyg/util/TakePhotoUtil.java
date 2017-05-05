@@ -69,6 +69,7 @@ public class TakePhotoUtil {
         }
     }
 
+
     /**
      * 进入拍照
      */

@@ -55,7 +55,7 @@ public class Fragment1 extends Fragment {
         new Handler().postDelayed(() -> {
             initData(0);
 
-        }, 1500);
+        }, 800);
 
     }
 
@@ -75,7 +75,8 @@ public class Fragment1 extends Fragment {
 
                 setStatus(helper, item.getStatus());//通过状态设置背景颜色
                 helper.addOnClickListener(R.id.cv_root, v -> {
-                    ManagerQuoteListItemDetail.start2Activity(getActivity(), item);
+//                    ManagerQuoteListItemDetail.start2Activity(getActivity(), item);
+                    ManagerQuoteListItemDetail_new.start2Activity(getActivity(), item.getId());
                 });
 
 

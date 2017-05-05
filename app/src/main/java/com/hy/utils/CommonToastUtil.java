@@ -32,6 +32,11 @@ public class CommonToastUtil {
         }
     }
 
+
+    /**
+     * Toast.makeText(MainActivity.this,"我是一个屏蔽通知我也是可以显示的Toast",Toast.LENGTH_SHORT).show();
+     * @param resId
+     */
     public static void showShortToast(int resId) {
         if (AndroidUtil.isClientRunTop(MyApplication.getInstance())) {// 前台运行
             if (t == null) {

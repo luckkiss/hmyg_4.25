@@ -6,6 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -689,8 +696,9 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                                     }
                                 }
                                 try {
-                                    Bitmap qrCodeBitmap = EncodingHandler
-                                            .createQRCode(url, 350);
+                                    Bitmap qrCodeBitmap = EncodingHandler.createQRCode(url, 350);
+//                                    Bitmap qrCodeBitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_add);
+                                    qrCodeBitmap = getRoundCornerImage(qrCodeBitmap, 3);
                                     try {
                                         img_path = FileUtil.saveMyBitmap(
                                                 System.currentTimeMillis() + "",
@@ -700,6 +708,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                                                     false, img_path, 0));
                                         }
 
+//                                        ((ImageView) findViewById(R.id.iv_show_qc)).setImageBitmap(BitmapFactory.decodeFile(img_path));
                                     } catch (IOException e) {
                                         // TODO Auto-generated catch block
                                         e.printStackTrace();
@@ -1728,6 +1737,38 @@ public class StoreActivity extends NeedSwipeBackActivity implements
             }
         }
         super.onActivityResult(arg0, arg1, arg2);
+    }
+
+
+    /**
+     * 画成圆角图片
+     */
+    public Bitmap getRoundCornerImage(Bitmap bitmap, int roundPixels) {
+        /**创建一个和原始图片一样大小位图*/
+        Bitmap roundConcerImage = Bitmap.createBitmap(bitmap.getWidth(),
+                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        /**创建带有位图roundConcerImage的画布*/
+        Canvas canvas = new Canvas(roundConcerImage);
+        /**创建画笔  */
+        Paint paint = new Paint();
+        /**创建一个和原始图片一样大小的矩形*/
+        Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        RectF rectF = new RectF(rect);
+        /**去锯齿*/
+        paint.setAntiAlias(true);
+        /**画一个和原始图片一样大小的圆角矩形*/
+        canvas.drawRoundRect(rectF, roundPixels, roundPixels, paint);
+        /**设置相交模式  */
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        /**把图片画到矩形去  */
+        canvas.drawBitmap(bitmap, rect, rectF, paint);
+////////////////////////////////////////////////////////////////////////////////////
+        /**引时圆角区域为透明，给其填充白色  */
+        paint.setColor(Color.WHITE);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_ATOP));
+        canvas.drawRect(rectF, paint);
+///////////////////////////////////////////////////////////////////////////////////
+        return roundConcerImage;
     }
 
 }

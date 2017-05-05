@@ -31,8 +31,9 @@
         <item name="android:verticalDivider">@color/accent_color</item>
         <item name="android:textColorPrimary">@color/primary_text</item>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-
-
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">false</item>
     </style>
 
     <style name="FullScreenTheme" parent="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">

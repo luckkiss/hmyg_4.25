@@ -19,8 +19,7 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.buy.bean.StorageSave;
 import com.hldj.hmyg.saler.AdressListActivity;
 import com.hldj.hmyg.util.D;
-import com.hy.utils.ToastUtil;
-import com.zf.iosdialog.widget.ActionSheetDialog;
+import com.zf.iosdialog.widget.ActionSheetDialog_new;
 import com.zzy.common.widget.wheelview.popwin.CustomDaysPickPopwin;
 
 /**
@@ -115,7 +114,7 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
     }
 
 
-    ActionSheetDialog dialog = null;
+    ActionSheetDialog_new dialog = null;
 
     public void setTagWithName(String tag) {
 
@@ -199,12 +198,11 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
                 this.list_item_adress.setOnClickListener(onClickListener);
             }
 
-
             //单位点击时间
             this.rl_save_seeding_unit.setOnClickListener(v -> {
 
                 if (dialog == null) {
-                    dialog = new ActionSheetDialog(context)
+                    dialog = new ActionSheetDialog_new(context)
                             .builder()
                             .setCancelable(false)
                             .setCanceledOnTouchOutside(false)
@@ -324,7 +322,7 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
             if (!TextUtils.isEmpty(str)) {
                 return str;
             } else {
-                ToastUtil.showShortToast("不能为空");
+//                ToastUtil.showShortToast("不能为空");
                 return "";
             }
         }

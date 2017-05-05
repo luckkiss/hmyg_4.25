@@ -4,12 +4,14 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".RegisterActivity" android:fitsSystemWindows="true">
+    tools:context=".RegisterActivity">
+
+
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/y34"
-        android:background="@color/white" >
+        android:background="@color/white">
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,19 +39,19 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/gray_bg" >
+        android:background="@color/gray_bg">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/y34"
                 android:layout_marginTop="@dimen/y9"
                 android:background="@color/white"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="@dimen/x20"
@@ -93,7 +95,7 @@
                 android:layout_height="@dimen/y34"
                 android:layout_marginTop="1px"
                 android:background="@color/white"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="@dimen/x20"
@@ -141,7 +143,7 @@
                 android:layout_height="@dimen/y34"
                 android:layout_marginTop="1px"
                 android:background="@color/white"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="@dimen/x20"
@@ -182,7 +184,6 @@
 
             <com.neopixl.pixlui.components.textview.TextView
                 android:id="@+id/set_passward"
-                style="@style/NoActionBarTheme.TextHuaWenXiHei"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/x37"
                 android:layout_marginLeft="@dimen/x10"
@@ -192,7 +193,6 @@
                 android:enabled="false"
                 android:gravity="center"
                 android:text="确认修改"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/main_color"
                 android:textSize="@dimen/y11" />
         </LinearLayout>

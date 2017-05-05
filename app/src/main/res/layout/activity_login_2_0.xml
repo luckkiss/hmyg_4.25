@@ -4,6 +4,9 @@
     android:background="#FFFFFF"
     android:orientation="vertical">
 
+
+
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/y26"
@@ -70,6 +73,7 @@
                         android:checked="false"
                         android:onClick="showNoteLogin"
                         android:text="@string/login_note" />
+
                     <RadioButton
                         android:id="@+id/rb_login_pwd_right"
                         style="@style/login_rb"

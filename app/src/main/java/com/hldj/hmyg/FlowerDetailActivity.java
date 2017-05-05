@@ -2,6 +2,7 @@ package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,9 +22,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -40,6 +45,7 @@ import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.PermissionUtils;
 import com.hldj.hmyg.bean.Pic;
+import com.hldj.hmyg.bean.PlatformForShare;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.SeedlingParm;
 import com.hldj.hmyg.bean.SimpleGsonBean;
@@ -52,6 +58,7 @@ import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.AutoAdd2DetailLinearLayout;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 import com.hy.utils.ValueGetInfo;
 import com.javis.ab.view.AbOnItemClickListener;
 import com.javis.ab.view.AbSlidingPlayView;
@@ -75,7 +82,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qq.QQ;
 import me.drakeet.materialdialog.MaterialDialog;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
@@ -86,7 +99,7 @@ import static com.hldj.hmyg.util.ConstantState.LOGIN_SUCCEED;
  * 商城详情  苗木详情展示
  */
 @SuppressLint({"ResourceAsColor", "Override"})
-public class FlowerDetailActivity extends NeedSwipeBackActivity {
+public class FlowerDetailActivity extends NeedSwipeBackActivity implements PlatformActionListener {
     private AbSlidingPlayView viewPager;
     private FinalBitmap fb;
     private ArrayList<String> banners = new ArrayList<String>();
@@ -208,6 +221,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity {
     private String max_price = "";//最小价格
     private boolean isNego;
     private boolean isFirst; //第一次加载
+    private SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean;
 
 
     @Override
@@ -230,6 +244,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity {
 //
         mMaterialDialog = new MaterialDialog(this);
         fb = FinalBitmap.create(this);
+        initShareParams();//初始化分享参数
         mCache = ACache.get(this);
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.no_image_big_show)
@@ -477,6 +492,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity {
 
                         // TODO Auto-generated method stub
                         saveSeedingGsonBean = GsonUtil.formateJson2Bean(t, SaveSeedingGsonBean.class);
+                        seedlingBean = saveSeedingGsonBean.getData().getSeedling();
 
 
                         D.e("================json==============" + t);
@@ -533,10 +549,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity {
                                 } else {
                                     banners.add(JsonGetInfo.getJsonString(
                                             jsonObject2, "imageUrl"));
-                                    ossImagePaths.add(new Pic(JsonGetInfo
-                                            .getJsonString(jsonObject2, "id"),
-                                            false, JsonGetInfo.getJsonString(
-                                            jsonObject2, "imageUrl"), 0));
+                                    ossImagePaths.add(new Pic(JsonGetInfo.getJsonString(jsonObject2, "id"), false, JsonGetInfo.getJsonString(jsonObject2, "imageUrl"), 0));
                                 }
                                 if (banners.size() > 0) {
                                     initViewPager();
@@ -1461,7 +1474,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity {
 
     private void share() {
         D.e("============此处执行分享代码===========");
-
+        showDialog();
 
     }
 
@@ -1956,5 +1969,316 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity {
 
     }
 
+    class SharePlatformAdapter extends BaseAdapter {
+
+        @Override
+        public boolean areAllItemsEnabled() {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        @Override
+        public boolean isEnabled(int position) {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        @Override
+        public int getCount() {
+            // TODO Auto-generated method stub
+            return shares.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            // TODO Auto-generated method stub
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            // TODO Auto-generated method stub
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView,
+                            ViewGroup parent) {
+            // TODO Auto-generated method stub
+            View inflate = getLayoutInflater().inflate(
+                    R.layout.list_item_share_platform, null);
+            inflate.setBackgroundColor(Color.WHITE);
+            ImageView iv_icon = (ImageView) inflate.findViewById(R.id.iv_icon);
+            TextView tv_name = (TextView) inflate.findViewById(R.id.tv_name);
+            iv_icon.setImageResource(shares.get(position).getPic());
+            tv_name.setText(shares.get(position).getName());
+            inflate.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    if (!FlowerDetailActivity.this.isFinishing() && dialog != null
+                            && dialog.isShowing()) {
+                        dialog.cancel();
+                    }
+
+                    if ("WechatMoments".equals(shares.get(position).getEname())) {
+                        if (seedlingBean == null) {
+                            ToastUtil.showShortToast("分享失败");
+                            return;
+                        }
+                        ShareToWechatMoments();
+                    } else if ("Wechat".equals(shares.get(position).getEname())) {
+                        if (seedlingBean == null) {
+                            ToastUtil.showShortToast("分享失败");
+                            return;
+                        }
+                        ShareToWechat();
+                    } else if ("SinaWeibo".equals(shares.get(position)
+                            .getEname())) {
+                        if (seedlingBean == null) {
+                            ToastUtil.showShortToast("分享失败");
+                            return;
+                        }
+                        ShareToSinaWeibo();
+                    } else if ("QZone".equals(shares.get(position).getEname())) {
+                        if (seedlingBean == null) {
+                            ToastUtil.showShortToast("分享失败");
+                            return;
+                        }
+                        ShareToQzone();
+                    }
+
+                }
+            });
+            return inflate;
+        }
+    }
+
+    public String getShareUrl() {
+        String shareUrl = "";
+        if (banners.size() != 0) {
+            shareUrl = banners.get(0);
+        }
+        return shareUrl;
+
+    }
+
+    private void ShareToQzone() {
+        Platform.ShareParams sp5 = new Platform.ShareParams();
+        sp5.setTitle(seedlingBean.getName());
+//        sp5.setTitleUrl(Data.getSharePlantUrl(seedlingBean.getId())); // 标题的超链接
+        sp5.setText(seedlingBean.getSpecText());
+        sp5.setImageUrl(seedlingBean.getSmallImageUrl());
+        sp5.setUrl(Data.getSharePlantUrl(seedlingBean.getId()));
+//        sp5.setSite(getString(R.string.app_name));
+//        sp5.setSiteUrl(Data.share);
+        Platform qzone = ShareSDK.getPlatform(QQ.NAME);
+        qzone.setPlatformActionListener(this); // 设置分享事件回调
+        // 执行图文分享
+        qzone.share(sp5);
+    }
+
+    private void ShareToSinaWeibo() {
+        Platform.ShareParams sp3 = new Platform.ShareParams();
+        sp3.setText(seedlingBean.getSpecText());
+        sp3.setImageUrl(seedlingBean.getSmallImageUrl());
+        sp3.setTitle(seedlingBean.getName());
+        sp3.setUrl(Data.getSharePlantUrl(seedlingBean.getId()));
+        Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
+        weibo.setPlatformActionListener(this); // 设置分享事件回调
+        // 执行图文分享
+        weibo.share(sp3);
+
+
+        /**
+         *  Platform.ShareParams sp1 = new Platform.ShareParams();
+         sp1.setShareType(Platform.SHARE_WEBPAGE);
+         sp1.setTitle(seedlingBean.getName());
+         sp1.setText(seedlingBean.getSpecText());
+         sp1.setImageUrl(seedlingBean.getSmallImageUrl());//小图
+         sp1.setUrl(Data.getSharePlantUrl(seedlingBean.getId()));
+         Platform Wechat = ShareSDK.getPlatform("Wechat");
+         Wechat.setPlatformActionListener(this);
+         Wechat.share(sp1);
+         */
+    }
+
+    /**
+     *  if (SHARE_TYPE == 1) {
+     ShareParams sp1 = new ShareParams();
+     sp1.setShareType(Platform.SHARE_IMAGE);
+     sp1.setImagePath(img_path);
+     Platform Wechat = ShareSDK.getPlatform("Wechat");
+     Wechat.setPlatformActionListener(this);
+     Wechat.share(sp1);
+     } else if (SHARE_TYPE == 2) {
+     ShareParams sp1 = new ShareParams();
+     sp1.setShareType(Platform.SHARE_WEBPAGE);
+     sp1.setTitle(title);
+     sp1.setText(text);
+     sp1.setImageUrl(img);
+     sp1.setUrl(url);
+     sp1.setSiteUrl(url);
+     sp1.setImagePath(img_path);
+     Platform Wechat = ShareSDK.getPlatform("Wechat");
+     Wechat.setPlatformActionListener(this);
+     Wechat.share(sp1);
+     }
+     */
+
+    /**
+     * NSString *shareUrl=@"http://m.hmeg.cn/seedling/detail/#{self.plantManageModel.plantManageId}.html";
+     * NSString *title=self.plantManageModel.name;
+     * NSString *descr=self.plantManageModel.specText;
+     * UIImage *image= self.webImageScrollView.firstImageV.image;
+     */
+    private void ShareToWechat() {
+        Platform.ShareParams sp1 = new Platform.ShareParams();
+        sp1.setShareType(Platform.SHARE_WEBPAGE);
+        sp1.setTitle(seedlingBean.getName());
+        sp1.setText(seedlingBean.getSpecText());
+        sp1.setImageUrl(seedlingBean.getSmallImageUrl());//小图
+        String url = Data.getSharePlantUrl(seedlingBean.getId());
+        D.e("===url==" + url);
+        sp1.setUrl(url);
+        Platform Wechat = ShareSDK.getPlatform("Wechat");
+        Wechat.setPlatformActionListener(this);
+        Wechat.share(sp1);
+    }
+
+    private void ShareToWechatMoments() {
+        Platform.ShareParams sp2 = new Platform.ShareParams();
+        sp2.setShareType(Platform.SHARE_WEBPAGE);
+        sp2.setTitle(seedlingBean.getName());
+        sp2.setText(seedlingBean.getSpecText());
+        sp2.setImageUrl(seedlingBean.getSmallImageUrl());//小图
+        sp2.setUrl(Data.getSharePlantUrl(seedlingBean.getId()));
+        Platform Wechat_men = ShareSDK.getPlatform("WechatMoments");
+        Wechat_men.setPlatformActionListener(this);
+        Wechat_men.share(sp2);
+    }
+
+    @Override
+    public void onError(Platform arg0, int arg1, Throwable arg2) {
+        // TODO Auto-generated method stub
+        Toast.makeText(FlowerDetailActivity.this, "分享出错", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCancel(Platform arg0, int arg1) {
+        // TODO Auto-generated method stub
+        Toast.makeText(FlowerDetailActivity.this, "分享已取消", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
+        String expName = arg0.getName();
+        if ("SinaWeibo".equals(expName)) {
+            platform = "3";
+        } else if ("QZone".equals(expName)) {
+            platform = "4";
+        } else if ("Wechat".equals(expName)) {
+            platform = "2";
+        } else if ("WechatMoments".equals(expName)) {
+            platform = "1";
+        }
+
+    }
+
+    private Dialog dialog;
+
+    private void showDialog() {
+        View dia_choose_share = getLayoutInflater().inflate(
+                R.layout.dia_choose_share, null);
+        GridView gridView = (GridView) dia_choose_share
+                .findViewById(R.id.gridView);
+        Button btn_cancle = (Button) dia_choose_share
+                .findViewById(R.id.btn_cancle);
+        gridView.setAdapter(new SharePlatformAdapter());
+        dialog = new Dialog(this, R.style.transparentFrameWindowStyle);
+        dialog.setContentView(dia_choose_share, new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        Window window = dialog.getWindow();
+        // 设置显示动画
+        window.setWindowAnimations(R.style.main_menu_animstyle);
+        WindowManager.LayoutParams wl = window.getAttributes();
+        wl.x = 0;
+        wl.y = getWindowManager().getDefaultDisplay().getHeight();
+        // 以下这两句是为了保证按钮可以水平满屏
+        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+        // 设置显示位置
+        dialog.onWindowAttributesChanged(wl);
+        // 设置点击外围解散
+        dialog.setCanceledOnTouchOutside(true);
+        dia_choose_share.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                if (!FlowerDetailActivity.this.isFinishing() && dialog != null) {
+                    if (dialog.isShowing()) {
+                        dialog.cancel();
+                    } else {
+                        dialog.show();
+                    }
+                }
+
+            }
+        });
+        btn_cancle.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                if (!FlowerDetailActivity.this.isFinishing() && dialog != null) {
+                    if (dialog.isShowing()) {
+                        dialog.cancel();
+                    } else {
+                        dialog.show();
+                    }
+                }
+
+            }
+        });
+
+        if (!FlowerDetailActivity.this.isFinishing() && dialog.isShowing()) {
+            dialog.cancel();
+        } else if (!FlowerDetailActivity.this.isFinishing() && dialog != null
+                && !dialog.isShowing()) {
+            dialog.show();
+        }
+
+    }
+
+    private String platform = "1,2,3,4,5,6,7,8";
+    private ArrayList<PlatformForShare> shares = new ArrayList<PlatformForShare>();
+
+    public void initShareParams() {
+        if (platform.contains("1")) {
+            PlatformForShare platformForShare = new PlatformForShare("朋友圈",
+                    "WechatMoments", "1", R.drawable.sns_icon_23);
+            shares.add(platformForShare);
+        }
+        if (platform.contains("2")) {
+            PlatformForShare platformForShare = new PlatformForShare("微信好友",
+                    "Wechat", "2", R.drawable.sns_icon_22);
+            shares.add(platformForShare);
+        }
+        if (platform.contains("3")) {
+            PlatformForShare platformForShare = new PlatformForShare("新浪微博",
+                    "SinaWeibo", "3", R.drawable.sns_icon_1);
+            shares.add(platformForShare);
+        }
+        if (platform.contains("4")) {
+            PlatformForShare platformForShare = new PlatformForShare("QQ好友",
+                    "QZone", "4", R.drawable.sns_icon_24);
+            shares.add(platformForShare);
+        }
+    }
+
+    ;
 
 }

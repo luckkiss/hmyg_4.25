@@ -7,9 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:drag_edge="right">
-
     <!-- Surface View Start -->
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@color/red"
@@ -20,13 +19,14 @@
         <TextView
             android:id="@+id/tv_delete_item"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:padding="10dp"
             android:text="删除"
             android:textColor="@color/white"
             android:textSize="20sp" />
-    </FrameLayout>
+    </RelativeLayout>
+
     <!-- Surface View End -->
 
     <LinearLayout
@@ -128,12 +128,12 @@
                         android:id="@+id/tv_04"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:gravity="center_vertical"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:singleLine="true"
-                        tools:text="河南信阳"
                         android:textColor="@color/little_black_sm"
-                        android:textSize="@dimen/y8" />
+                        android:textSize="@dimen/y8"
+                        tools:text="河南信阳" />
                 </LinearLayout>
 
 

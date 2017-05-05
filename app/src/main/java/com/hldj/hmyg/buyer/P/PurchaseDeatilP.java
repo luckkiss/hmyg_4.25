@@ -2,6 +2,7 @@ package com.hldj.hmyg.buyer.P;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.R;
@@ -106,12 +107,14 @@ public class PurchaseDeatilP {
                                 resultCallBack.onSuccess(saveSeedingGsonBean);
                             } else {
                                 ToastUtil.showShortToast(saveSeedingGsonBean.getMsg());
+                                Toast.makeText(MyApplication.getInstance(), saveSeedingGsonBean.getMsg(), Toast.LENGTH_SHORT).show();
                             }
 
 
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
                             D.e("===网络失错误==");
+                            ToastUtil.showShortToast("网络错误");
                             e.printStackTrace();
                         }
 
@@ -162,7 +165,7 @@ public class PurchaseDeatilP {
 
                             SaveSeedingGsonBean saveSeedingGsonBean = GsonUtil.formateJson2Bean(json, SaveSeedingGsonBean.class);
                             if ("1".equals(saveSeedingGsonBean.getCode())) {
-                                    resultCallBack.onSuccess(saveSeedingGsonBean);
+                                resultCallBack.onSuccess(saveSeedingGsonBean);
                             } else {
 
                                 ToastUtil.showShortToast("删除失败");

@@ -236,7 +236,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
         if (contentView != null
                 && contentView.getMeasuredHeight() <= scrollView.getScrollY()
                 + scrollView.getHeight()) {
-            toTopBtn.setVisibility(View.VISIBLE);
+            toTopBtn.setVisibility(View.GONE);
             Log.i(TAG, "bottom");
         }
         // 顶部判断
@@ -244,7 +244,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
 
             Log.i(TAG, "top");
         } else if (scrollView.getScrollY() > 30) {
-            toTopBtn.setVisibility(View.VISIBLE);
+            toTopBtn.setVisibility(View.GONE);
             Log.i(TAG, "test");
         }
 
@@ -666,6 +666,10 @@ public class AActivity extends FragmentActivity implements OnClickListener {
                         R.anim.slide_out_right);
                 break;
             case R.id.iv_a_msg:
+                if (!MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {//没有登录跳转到登录界面
+                    LoginActivity.start2Activity(this);
+                    return;
+                }
                 Intent toMessageListActivity = new Intent(AActivity.this,
                         MessageListActivity.class);
                 startActivity(toMessageListActivity);

@@ -67,7 +67,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
     public SaveSeedingGsonBean saveSeedingGsonBean;
     ArrayList<Pic> arrayList2Adapter = new ArrayList(); // 传入 适配器的图片列表
-    private AutoAddRelative autoAddRelative_top;
+    public AutoAddRelative autoAddRelative_top;
 
 
     @Override
@@ -75,6 +75,10 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_seedling);
 
+
+        autoAddRelative_top = new AutoAddRelative(this)
+                .initView(R.layout.save_seeding_auto_add_top);
+        viewHolder_top = autoAddRelative_top.getViewHolder_top();
 
 //step 1
         {
@@ -137,6 +141,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         if (requestCode == TakePhotoUtil.TO_TAKE_PIC && resultCode == RESULT_OK) {
             try {
                 viewHolder.publish_flower_info_gv.addImageItem(flowerInfoPhotoPath);
+                viewHolder.publish_flower_info_gv.getAdapter().Faild2Gone(true);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -212,13 +217,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             D.e("==tag=点击事件=" + paramsListBean.toString());
 
             //添加品名 第一行
-            if (autoAddRelative_top == null) {
-                autoAddRelative_top = new AutoAddRelative(this)
-                        .initView(R.layout.save_seeding_auto_add_top);
 
-                viewHolder_top = autoAddRelative_top.getViewHolder_top();
-            }
-            autoAddRelative_rd = null;
 
             //根据参数来 配置布局
             addParamViews(paramsListBean);
@@ -270,24 +269,26 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
     private void addParamViews(List<SaveSeedingGsonBean.DataBean.TypeListBean.ParamsListBean> paramsListBean) {
         int size = paramsListBean.size();
 
-        String str = autoAddRelative_top.getViewHolder_top().tv_auto_add_name.getText().toString();
         viewHolder.ll_auto_add_layout.removeAllViews();
         arrayList_holders.clear();
-        autoAddRelative_top.getViewHolder_top().tv_auto_add_name.setText(str);
+        if (autoAddRelative_top != null) {
+            String str = autoAddRelative_top.getViewHolder_top().tv_auto_add_name.getText().toString();
+            viewHolder.ll_auto_add_layout.addView(autoAddRelative_top);
+            autoAddRelative_top.getViewHolder_top().tv_auto_add_name.setText(str);
+        }
         //添加品名 第一行
 //        AutoAddRelative autoAddRelative_top = new AutoAddRelative(this)
 //                .initView(R.layout.save_seeding_auto_add_top);
-        viewHolder.ll_auto_add_layout.addView(autoAddRelative_top);
+
 //        viewHolder_top = autoAddRelative_top.getViewHolder_top();
 //        viewHolder_top.tv_auto_add_name.setText(str);
-
+        autoAddRelative_rd = null;
+        viewHolder_rd = null;
         for (int i = 0; i < size; i++) {
             String name = paramsListBean.get(i).getName();
             if (null == name) {
                 return;
             }
-
-
             if (name.equals("地径") || name.equals("米径") || name.equals("胸径")) {//第一个添加带有radio button 选项的   地被不添加
                 autoAddRelative_rd = new AutoAddRelative(this)
                         .initView(R.layout.save_seeding_auto_add_radio)
@@ -297,6 +298,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                 viewHolder_rd = autoAddRelative_rd.getViewHolder_rd();
 
             } else {
+
                 AutoAddRelative autoAddRelative = new AutoAddRelative(this).initView(R.layout.save_seeding_auto_add);
                 autoAddRelative.setTag(name);
                 autoAddRelative.setDatas(paramsListBean.get(i));
@@ -321,6 +323,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
     public void addPicUrls(ArrayList<Pic> resultPathList) {
         viewHolder.publish_flower_info_gv.getAdapter().addItems(resultPathList);
+        viewHolder.publish_flower_info_gv.getAdapter().Faild2Gone(true);
 //        viewHolder.publish_flower_info_gv.getAdapter().getDataList();
         D.e("=========addPicUrls=========" + resultPathList.toString());
     }
@@ -379,6 +382,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 //                    mCache.remove("saveseedling"); // 清空缓存
                     startActivity(new Intent(SaveSeedlingActivityBase.this, SaveSeedlingActivity.class));
                     finish();
+                    overridePendingTransition(0, 0);
 
                 }
         );
@@ -427,7 +431,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
         if (hud_numHud != null && !SaveSeedlingActivityBase.this.isFinishing()) {
             hud_numHud.setProgress(a * 100 / urlPaths.size());
-            hud_numHud.setProgressText("上传中(" + a + "/" + urlPaths.size()
+            hud_numHud.setLabel("上传(" + a + "/" + urlPaths.size()
                     + "张)");
         }
 
@@ -503,7 +507,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             case "1":
                 //若是必填
                 if (autoAddRelative.isRequiredis()) {
-                    if (TextUtils.isEmpty(autoAddRelative.getViewHolder_rd().et_auto_add_min.getText().toString()) || TextUtils.isEmpty(viewHolder_rd.et_auto_add_min.getText().toString())) {
+                    if (TextUtils.isEmpty(autoAddRelative.getViewHolder_rd().et_auto_add_min.getText().toString()) || TextUtils.isEmpty(viewHolder_rd.et_auto_add_max.getText().toString())) {
                         ToastUtil.showShortToast(autoAddRelative.getViewHolder_rd().tv_auto_add_left1.getText() + " 最大值或最小值必须填写!");
                         D.e("=============checkParames===================" + viewHolder_rd.tv_auto_add_left1.getText() + " 最大值或最小值必须填写!");
                         return false;
@@ -513,7 +517,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             case "2":
                 //若是必填
                 if (autoAddRelative.isRequiredis()) {
-                    if (TextUtils.isEmpty(autoAddRelative.getViewHolder().et_auto_add_min.getText().toString()) || TextUtils.isEmpty(viewHolder_rd.et_auto_add_min.getText().toString())) {
+                    if (TextUtils.isEmpty(autoAddRelative.getViewHolder().et_auto_add_min.getText().toString()) || TextUtils.isEmpty(autoAddRelative.getViewHolder().et_auto_add_min.getText().toString())) {
                         ToastUtil.showShortToast(autoAddRelative.getViewHolder().tv_auto_add_left1.getText() + " 最大值或最小值必须填写!");
                         D.e("=============checkParames===================" + viewHolder_rd.tv_auto_add_left1.getText() + " 最大值或最小值必须填写!");
                         return false;
@@ -615,15 +619,15 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             return false;
         }
         if (tag_ID.equals("")) {
-            ToastUtil.showShortToast("请先选择分类1");
-            return false;
-        }
-        if (tag_ID1.equals("")) {
-            ToastUtil.showShortToast("请先选择分类2");
+            ToastUtil.showShortToast("请先选择苗木分类");
             return false;
         }
         if (TextUtils.isEmpty(viewHolder_top.tv_auto_add_name.getText())) {
             ToastUtil.showShortToast("请先输入品名");
+            return false;
+        }
+        if (tag_ID1.equals("")) {
+            ToastUtil.showShortToast("请先选择种植类型");
             return false;
         }
         return true;
@@ -691,14 +695,13 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         seedlingBean.setFirstSeedlingTypeId(tag_ID);
         seedlingBean.setPlantType(tag_ID1);
 
-        if (viewHolder_rd != null) {
+        if (autoAddRelative_rd != null) {
             seedlingBean.setName(viewHolder_top.tv_auto_add_name.getText().toString());
             if (autoAddRelative_rd.getMTag().equals("dbh")) {
                 seedlingBean.setMaxDbh(MyUtil.formateString2Int(viewHolder_rd.et_auto_add_max.getText().toString()));
                 seedlingBean.setMinDbh(MyUtil.formateString2Int(viewHolder_rd.et_auto_add_min.getText().toString()));
                 seedlingBean.setDbhType(autoAddRelative_rd.getDiameterType());
             } else {
-
                 seedlingBean.setMaxDiameter(MyUtil.formateString2Int(viewHolder_rd.et_auto_add_max.getText().toString()));
                 seedlingBean.setMinDiameter(MyUtil.formateString2Int(viewHolder_rd.et_auto_add_min.getText().toString()));
                 seedlingBean.setDiameterType(autoAddRelative_rd.getDiameterType());

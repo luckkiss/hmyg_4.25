@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
+import android.view.View;
 import android.widget.Toast;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
@@ -32,13 +33,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
+
 
 /**
  * 收藏夹  界面
  */
-public class DActivity_new extends Activity implements IXListViewListener {
+public class DActivity_new extends NeedSwipeBackActivity implements IXListViewListener {
     private XListView xlistView_d_new;
     private ArrayList<HashMap<String, Object>> datas = new ArrayList<HashMap<String, Object>>();
 
@@ -66,12 +69,10 @@ public class DActivity_new extends Activity implements IXListViewListener {
         setContentView(R.layout.activity_d_new);
         instance = this;
 
-
+        setSwipeBackEnable(false);
         initView();
 
-        if (isFirsh) {
-            hud.show();
-        }
+        hud.show();
         initData();
 
         addLocalBrodcast();
@@ -93,6 +94,18 @@ public class DActivity_new extends Activity implements IXListViewListener {
     List<SaveSeedingGsonBean.DataBean.SeedlingBean> seedlingBeen = new ArrayList<>();
 
     private void initView() {
+
+
+        if (getIntent().getExtras() != null) {
+            boolean isShow = (boolean) getIntent().getExtras().get(IS_SHOW);
+            if (isShow) {
+                findViewById(R.id.iv_back).setVisibility(View.VISIBLE);
+                findViewById(R.id.iv_back).setOnClickListener(v -> finish());
+                setSwipeBackEnable(true);
+            }
+        } else {
+
+        }
 
 
         findViewById(R.id.tv_clear_all).setOnClickListener(v -> {
@@ -158,19 +171,26 @@ public class DActivity_new extends Activity implements IXListViewListener {
                             if (collectGsonBean.data.page.total != 0 && collectGsonBean.data.page.data.size() != 0) {
                                 seedlingBeen.addAll(collectGsonBean.data.page.data);
                                 collectAdapter.notifyDataSetChanged();
-                                pageIndex++;
                                 D.e("=====pageIndex=======" + pageIndex);
+                                findViewById(R.id.xlistView_d_new).setVisibility(View.VISIBLE);
+                                findViewById(R.id.rl_refresh).setVisibility(View.GONE);
+
+                            } else {
+                                findViewById(R.id.xlistView_d_new).setVisibility(View.GONE);
+                                findViewById(R.id.rl_refresh).setVisibility(View.VISIBLE);
                             }
 
-                        } else {
 
+                        } else {
+                            findViewById(R.id.xlistView_d_new).setVisibility(View.GONE);
+                            findViewById(R.id.rl_refresh).setVisibility(View.VISIBLE);
+                            findViewById(R.id.rl_refresh).setOnClickListener(refresh);
                             D.e("===数据库空空如也====");
                         }
 
-                        if (isFirsh) {
-                            isFirsh = false;
-                            hud.dismiss();
-                        }
+                        hud.dismiss();
+
+                        pageIndex = seedlingBeen.size() / 20;
 
                         D.e("===============collectGsonBean================" + collectGsonBean);
                     }
@@ -181,10 +201,10 @@ public class DActivity_new extends Activity implements IXListViewListener {
                         // TODO Auto-generated method stub
                         Toast.makeText(DActivity_new.this, R.string.error_net,
                                 Toast.LENGTH_SHORT).show();
-                        if (isFirsh) {
-                            isFirsh = false;
-                            hud.dismiss();
-                        }
+                        findViewById(R.id.xlistView_d_new).setVisibility(View.GONE);
+                        findViewById(R.id.rl_refresh).setVisibility(View.VISIBLE);
+                        findViewById(R.id.rl_refresh).setOnClickListener(refresh);
+                        hud.dismiss();
                         super.onFailure(t, errorNo, strMsg);
                     }
 
@@ -220,30 +240,14 @@ public class DActivity_new extends Activity implements IXListViewListener {
         localBroadcastManager.registerReceiver(localReceiver, intentFilter);
     }
 
-    boolean refresh = false;
-
-    public void setRefresh(boolean refresh) {
-        this.refresh = refresh;
-    }
-
-    @Override
-    protected void onResume() {
-        // TODO Auto-generated method stub
-//        if (refresh) {
-//            pageIndex = 0;
-//            initData();
-//
-//
-//            refresh = false;
-//        }
-        super.onResume();
-    }
 
     @Override
     public void onLoadMore() {
         xlistView_d_new.setPullRefreshEnable(false);
         //判断是否超过一页。。么有的话刷新
-        initData();
+        if (seedlingBeen.size() % 20 == 0) {
+            initData();
+        }
         onLoad();
     }
 
@@ -271,12 +275,12 @@ public class DActivity_new extends Activity implements IXListViewListener {
     }
 
 
-    public class LocalBroadcastReceiver extends BroadcastReceiver {
+    class LocalBroadcastReceiver extends BroadcastReceiver {
 
         @Override
 
         public void onReceive(Context context, Intent intent) {
-
+            seedlingBeen.clear();
             pageIndex = 0;
             initData();
             D.e("==refresh===");
@@ -286,4 +290,17 @@ public class DActivity_new extends Activity implements IXListViewListener {
     }
 
 
+    View.OnClickListener refresh = v -> {
+        onRefresh();
+    };
+
+
+    protected static final String IS_SHOW = "isShow";
+
+    public static void start2Activity(Activity context, boolean isShowBack) {
+        Intent intent = new Intent(context, DActivity_new.class);
+        intent.putExtra(IS_SHOW, isShowBack);
+        context.startActivity(intent);
+
+    }
 }

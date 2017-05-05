@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -95,33 +96,30 @@
             android:visibility="gone" />
     </LinearLayout>
 
-    <com.neopixl.pixlui.components.textview.TextView
+    <TextView
         android:id="@+id/login"
-        style="@style/NoActionBarTheme.TextHuaWenXiHei"
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/y28"
+        android:layout_height="40dp"
         android:layout_marginLeft="@dimen/x20"
         android:layout_marginRight="@dimen/x20"
         android:layout_marginTop="@dimen/y17"
         android:background="@drawable/login_submit_states"
-        android:enabled="false"
+        android:clickable="false"
         android:gravity="center"
         android:text="@string/login"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/white"
-        android:textSize="@dimen/y11"
-        />
+        android:textSize="15sp" />
+
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:layout_marginLeft="@dimen/x35"
         android:layout_marginRight="@dimen/x35"
         android:layout_marginTop="@dimen/x10">
 
-        <com.neopixl.pixlui.components.textview.TextView
+        <TextView
             android:id="@+id/reg"
-            style="@style/NoActionBarTheme.TextHuaWenXiHei"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -129,13 +127,13 @@
             android:text="@string/register_quick"
             android:textColor="@color/register_gray" />
 
-        <com.neopixl.pixlui.components.textview.TextView
+        <TextView
             android:id="@+id/find_passward"
-            style="@style/NoActionBarTheme.TextHuaWenXiHei"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:layout_alignTop="@+id/reg"
             android:text="@string/loss_passward"
             android:textColor="@color/register_gray" />
     </RelativeLayout>

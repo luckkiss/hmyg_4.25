@@ -59,6 +59,11 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
 
 
     String type = " ";
+    private boolean required = false;
+
+    public boolean getRequired() {
+        return required;
+    }
 
     public BaseLinearLayout setData(PlantBean plantBean) {
 
@@ -70,6 +75,7 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
         //价格直接写在外面
         getViewHolder().tv_params_01.setText(plantBean.name);
 
+        required = plantBean.required;
         if (plantBean.required) {//必须
             getViewHolder().tv_params_02.setVisibility(View.INVISIBLE);//隐藏
         } else {
@@ -85,7 +91,7 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
             initStubView(getViewHolder().vb_radions);
 
 
-        } else if (plantBean.value.equals("diameter")){
+        } else if (plantBean.value.equals("diameter")) {
             select_size = "size0";
             getViewHolder().vb_radions.setVisibility(VISIBLE);
         }

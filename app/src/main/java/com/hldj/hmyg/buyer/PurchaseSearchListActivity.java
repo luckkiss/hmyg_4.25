@@ -1,21 +1,5 @@
 package com.hldj.hmyg.buyer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
-import me.maxwin.view.XListView;
-import net.tsz.afinal.FinalBitmap;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -56,6 +40,23 @@ import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.white.utils.AndroidUtil;
 import com.zzy.flowers.widget.popwin.EditP2;
+
+import net.tsz.afinal.FinalBitmap;
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+import me.maxwin.view.XListView;
 
 public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
 	private XListView xListView;
@@ -455,7 +456,7 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
 					onBackPressed();
 					break;
 				case R.id.edit_btn:
-					searchIt();
+					searchIt2();
 					break;
 				case R.id.tv_choose:
 					if (pwMyPopWindow.isShowing()) {

@@ -48,7 +48,7 @@ public class MeasureGridView extends GridView {
 
     }
 
-//    public static final String usrl = "https://gss0.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/wh%3D450%2C600/sign=dce89ee56a81800a6eb0810a84051fcc/5243fbf2b2119313bdce98da63380cd790238dce.jpg";
+    //    public static final String usrl = "https://gss0.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/wh%3D450%2C600/sign=dce89ee56a81800a6eb0810a84051fcc/5243fbf2b2119313bdce98da63380cd790238dce.jpg";
     public static final String usrl = "/storage/emulated/0/tencent/MicroMsg/WeiXin/wx_camera_1492170878634.jpg";
     public static final String usrl1 = "/storage/emulated/0/Flowers/image/flower_info_1492490890982.png";
 

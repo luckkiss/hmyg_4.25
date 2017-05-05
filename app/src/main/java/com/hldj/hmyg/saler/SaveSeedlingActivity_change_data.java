@@ -48,11 +48,21 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
 
     }
 
+    @Override
+    public void initAutoLayout2(List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> plantTypeList) {
+        super.initAutoLayout2(plantTypeList);
+        if (autoAddRelative_top!=null)
+        {
+            autoAddRelative_top.getViewHolder_top().tv_auto_add_name.setText(saveSeedingGsonBean.getData().getSeedling().getName());
+        }
+
+    }
+
     private void initExtra(SaveSeedingGsonBean saveSeedingGsonBean) {
 
         List<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean> imagesJsonBeans = saveSeedingGsonBean.getData().getSeedling().getImagesJson();
 
-        if (null != imagesJsonBeans) {
+        if (null != imagesJsonBeans && imagesJsonBeans.size()!=0) {
 
 
             for (int i = 0; i < imagesJsonBeans.size(); i++) {
@@ -64,6 +74,13 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
                 }
 
             }
+        }else
+        {
+            if (saveSeedingGsonBean.getData().getSeedling().getImageUrl()!=null)
+            {
+                arrayList2Adapter.add(new Pic(saveSeedingGsonBean.getData().getSeedling().getId(),false, saveSeedingGsonBean.getData().getSeedling().getImageUrl() , 0));//网络图片获取
+            }
+
         }
 
         viewHolder.publish_flower_info_gv.getAdapter().notifyDataSetChanged();

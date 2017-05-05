@@ -52,11 +52,14 @@
 			Line           http://media.line.me/zh-hant/
 			Pocket         http://getpocket.com/developer/apps/new
 			KakaoTalk      https://developers.kakao.com/
-			KakaoStory     https://developers.kakao.com/
+			KakaoStory     https://developers.kakao.com/
+
+
     -->
 
-    <ShareSDK AppKey="14a39758717e2" />
-    <!-- 修改成你在sharesdk后台注册的应用的appkey" -->
+    <ShareSDK AppKey="14a39758717e2"/>
+    <!--<ShareSDK AppKey="14a39758717e2" />-->
+    <!-- 修改成你在sharesdk后台注册的应用的appkey" 13f574ed29d80 -->
 
 
     <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
@@ -69,6 +72,25 @@
         RedirectUrl="https://api.weibo.com/oauth2/default.html"
         ShareByAppClient="false"
         SortId="1" />
+
+    <Wechat
+        AppId="wx2c4c8e7744e86c02"
+        AppSecret="9e2dd980d00b40bff5201d227a301918"
+        BypassApproval="false"
+        Enable="true"
+        Id="4"
+        SortId="4" />
+    <!--AppID :wx2c4c8e7744e86c02  现在用的-->
+    <!-- AppId="wxe2d1ec462d6f4623" 原来用的-->
+    <!--AppSecret :9e2dd980d00b40bff5201d227a301918 现在用的-->
+    <!-- AppSecret="5b9bb9af364ce8d96d227d03dc421291" 原来用的-->
+    <WechatMoments
+        AppId="wx2c4c8e7744e86c02"
+        AppSecret="9e2dd980d00b40bff5201d227a301918"
+        BypassApproval="false"
+        Enable="true"
+        Id="5"
+        SortId="5" />
 
     <TencentWeibo
         AppKey="801307650"
@@ -104,28 +126,16 @@
 		
 		BypassApproval是绕过审核的标记，设置为true后AppId将被忽略，故不经过
 		审核的应用也可以执行分享，但是仅限于分享文字和图片，不能分享其他类型，
-		默认值为false。此外，微信收藏不支持此字段。
+		默认值为false。此外，微信收藏不支持此字段。
+
+
     -->
 
-    <Wechat
-        AppId="wxe2d1ec462d6f4623"
-        AppSecret="5b9bb9af364ce8d96d227d03dc421291"
-        BypassApproval="false"
-        Enable="true"
-        Id="4"
-        SortId="4" />
 
-    <WechatMoments
-        AppId="wxe2d1ec462d6f4623"
-        AppSecret="5b9bb9af364ce8d96d227d03dc421291"
-        BypassApproval="false"
-        Enable="true"
-        Id="5"
-        SortId="5" />
 
     <WechatFavorite
-        AppId="wxe2d1ec462d6f4623"
-        AppSecret="5b9bb9af364ce8d96d227d03dc421291"
+        AppId="wx2c4c8e7744e86c02"
+        AppSecret="9e2dd980d00b40bff5201d227a301918"
         Enable="true"
         Id="6"
         SortId="6" />
@@ -201,7 +211,9 @@
     	“product”。
     	
     	如果目标设备上已经安装了印象笔记客户端，ShareSDK允许应用调用本地API来完成分享，但
-    	是需要将应用信息中的“ShareByAppClient”设置为true，此字段默认值为false。
+    	是需要将应用信息中的“ShareByAppClient”设置为true，此字段默认值为false。
+
+
     -->
 
     <Evernote
@@ -288,7 +300,9 @@
 		
 		BypassApproval是绕过审核的标记，设置为true后AppId将被忽略，故不经过
 		审核的应用也可以执行分享，但是仅限于分享文字或图片，不能分享其他类型，
-		默认值为false。
+		默认值为false。
+
+
     -->
 
     <Yixin

@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res/com.hldj.hmyg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_Pop"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content"
+    android:background="@color/trans">
 
     <RelativeLayout
         android:id="@+id/gbpBlackLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/popWinBgColor" >
-    </RelativeLayout>
+        android:background="@color/popWinBgColor" />
 
     <LinearLayout
+        android:id="@+id/ll_botom_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/y28"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/x10"
-            android:paddingRight="@dimen/x10" >
+            android:paddingRight="@dimen/x10">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -43,16 +44,15 @@
             android:background="@color/white"
             android:padding="2.5dp"
             app:auto_select_effect="true"
-            app:max_select="-1" >
-        </com.zhy.view.flowlayout.TagFlowLayout>
+            app:max_select="-1"></com.zhy.view.flowlayout.TagFlowLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/y28"
             android:orientation="horizontal"
-            android:visibility="gone"
             android:paddingLeft="@dimen/x5"
-            android:paddingRight="@dimen/x5" >
+            android:paddingRight="@dimen/x5"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_type01"
@@ -119,7 +119,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/y34"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/iv_reset"

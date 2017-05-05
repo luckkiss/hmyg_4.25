@@ -32,6 +32,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 @SuppressLint("ResourceAsColor")
 public class ProductListAdapterForManager extends BaseAdapter {
     private static final String TAG = "ProductListAdapterForManager";
@@ -173,20 +174,20 @@ public class ProductListAdapterForManager extends BaseAdapter {
 //            } else {
 //                tv_floorPrice.setVisibility(View.INVISIBLE);
 //            }
-            if ("unaudit".equals(data.get(position).get("status").toString())) {
-                tv_03.setTextColor(Data.STATUS_GRAY);//审核中
-            } else if ("published".equals(data.get(position).get("status")
+            if ("unaudit".equals(data.get(position).get("status").toString())) {//审核中
+                tv_03.setTextColor(Data.STATUS_ORANGE);//审核中
+            } else if ("published".equals(data.get(position).get("status")//已发布
                     .toString())) {
                 tv_03.setTextColor(Data.STATUS_STROGE_GREEN);
                 // iv_like.setVisibility(View.VISIBLE);
                 // 暂时将设置推荐功能苗木隐藏
-            } else if ("outline".equals(data.get(position).get("status")
+            } else if ("outline".equals(data.get(position).get("status")//已下架
                     .toString())) {
                 tv_03.setTextColor(Data.STATUS_GREEN);
-            } else if ("backed".equals(data.get(position).get("status")
+            } else if ("backed".equals(data.get(position).get("status")//被退回
                     .toString())) {
                 tv_03.setTextColor(Data.STATUS_RED);
-            } else if ("unsubmit".equals(data.get(position).get("status")
+            } else if ("unsubmit".equals(data.get(position).get("status")//未提交
                     .toString())) {
                 tv_03.setTextColor(Data.STATUS_BLUE);
             }

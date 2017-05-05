@@ -20,7 +20,7 @@ import com.hldj.hmyg.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActionSheetDialog {
+public class ActionSheetDialog_new {
     private Context context;
     private Dialog dialog;
     private TextView txt_title;
@@ -31,14 +31,14 @@ public class ActionSheetDialog {
     private List<SheetItem> sheetItemList;
     private Display display;
 
-    public ActionSheetDialog(Context context) {
+    public ActionSheetDialog_new(Context context) {
         this.context = context;
         WindowManager windowManager = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
         display = windowManager.getDefaultDisplay();
     }
 
-    public ActionSheetDialog builder() {
+    public ActionSheetDialog_new builder() {
         // 获取Dialog布局
         View view = LayoutInflater.from(context).inflate(
                 R.layout.view_actionsheet, null);
@@ -72,19 +72,19 @@ public class ActionSheetDialog {
         return this;
     }
 
-    public ActionSheetDialog setTitle(String title) {
+    public ActionSheetDialog_new setTitle(String title) {
         showTitle = true;
         txt_title.setVisibility(View.VISIBLE);
         txt_title.setText(title);
         return this;
     }
 
-    public ActionSheetDialog setCancelable(boolean cancel) {
+    public ActionSheetDialog_new setCancelable(boolean cancel) {
         dialog.setCancelable(cancel);
         return this;
     }
 
-    public ActionSheetDialog setCanceledOnTouchOutside(boolean cancel) {
+    public ActionSheetDialog_new setCanceledOnTouchOutside(boolean cancel) {
         dialog.setCanceledOnTouchOutside(cancel);
         return this;
     }
@@ -95,8 +95,8 @@ public class ActionSheetDialog {
      * @param listener
      * @return
      */
-    public ActionSheetDialog addSheetItem(String strItem, SheetItemColor color,
-                                          OnSheetItemClickListener listener) {
+    public ActionSheetDialog_new addSheetItem(String strItem, SheetItemColor color,
+                                              OnSheetItemClickListener listener) {
         if (sheetItemList == null) {
             sheetItemList = new ArrayList<SheetItem>();
         }
@@ -107,7 +107,7 @@ public class ActionSheetDialog {
     List<itemBean> itemBeen = new ArrayList<>();
 
 
-    public ActionSheetDialog initItemsAndAddListener(final onItemClickListener onItemClickListener) {
+    public ActionSheetDialog_new initItemsAndAddListener(final onItemClickListener onItemClickListener) {
 
         if (itemBeen.size() == 0) {
             itemBeen.add(new itemBean("plant", "株"));
@@ -134,7 +134,7 @@ public class ActionSheetDialog {
         }
 
 
-//        setSheetItems();
+        setSheetItems();
 
         return this;
     }
@@ -169,7 +169,7 @@ public class ActionSheetDialog {
         // TODO 高度控制，非最佳解决办法
         // 添加条目过多的时候控制高度
         if (size >= 7) {
-            LinearLayout.LayoutParams params = (LayoutParams) sLayout_content
+            LayoutParams params = (LayoutParams) sLayout_content
                     .getLayoutParams();
             params.height = display.getHeight() / 2;
             sLayout_content.setLayoutParams(params);
@@ -224,7 +224,7 @@ public class ActionSheetDialog {
             // 高度
             float scale = context.getResources().getDisplayMetrics().density;
             int height = (int) (45 * scale + 0.5f);
-            textView.setLayoutParams(new LinearLayout.LayoutParams(
+            textView.setLayoutParams(new LayoutParams(
                     LayoutParams.MATCH_PARENT, height));
 
             // 点击事件
@@ -241,8 +241,6 @@ public class ActionSheetDialog {
     }
 
     public void show() {
-
-        setSheetItems();
         dialog.show();
     }
 

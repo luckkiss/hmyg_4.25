@@ -27,10 +27,9 @@
     <!--NoActionBarThemeWhite-->
     <style name="AppBaseTheme2Register"  parent="NoActionBarThemeWhite" >
         <!--<item name="android:windowIsTranslucent">true</item>-->
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">false</item>
         <!--<item name="android:windowTranslucentStatus">true</item>-->
         <item name="android:statusBarColor">@android:color/transparent</item>
-
         <!--<item name="windowActionBar">false</item>-->
         <!--<item name="colorPrimary">@android:color/transparent</item>-->
         <!--<item name="colorPrimaryDark">@android:color/transparent</item>-->
@@ -49,9 +48,6 @@
         <!--<item name="android:windowIsTranslucent">true</item>-->
         <!--&lt;!&ndash;<item name="fitsSystemWindows">true</item>&ndash;&gt;-->
         <!--<item name="android:statusBarColor">@color/transparent</item>-->
-
-
-
     </style>
 
 </resources>

@@ -1,18 +1,7 @@
 package com.hldj.hmyg;
 
-import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
-
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -22,13 +11,11 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +24,15 @@ import com.hldj.hmyg.application.MyApplication;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.loginjudge.LoginJudge;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 public class RegisterActivity extends NeedSwipeBackActivity {
 
@@ -417,6 +413,12 @@ public class RegisterActivity extends NeedSwipeBackActivity {
             btn_get_code.setText("重新获取");
             btn_get_code.setClickable(true);
         }
+    }
+
+
+    public void commit()
+    {
+        FinalHttp finalHttp = new FinalHttp();
     }
 
 

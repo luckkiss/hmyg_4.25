@@ -61,6 +61,10 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
 
         initGv();
 
+        findViewById(R.id.btn_back).setOnClickListener(v -> {
+            finish();
+        });
+
         findViewById(R.id.fabu).setOnClickListener(v -> {
             hud_numHud.show();
             save();
@@ -193,6 +197,7 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
 
     public void addPicUrls(ArrayList<Pic> resultPathList) {
         measureGridView.getAdapter().addItems(resultPathList);
+        measureGridView.getAdapter().Faild2Gone(true);
 //        viewHolder.publish_flower_info_gv.getAdapter().getDataList();
         D.e("=========addPicUrls=========");
     }
@@ -207,6 +212,7 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
             //接受 上传图片界面传过来的list《pic》
             try {
                 measureGridView.addImageItem(flowerInfoPhotoPath);
+                measureGridView.getAdapter().Faild2Gone(true);
             } catch (Exception e) {
                 e.printStackTrace();
             }

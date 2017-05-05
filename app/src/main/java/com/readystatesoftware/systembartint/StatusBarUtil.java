@@ -107,8 +107,11 @@ public class StatusBarUtil {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             return;
         }
-        setTransparent(activity);
-        addTranslucentView(activity, statusBarAlpha);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            setTransparent(activity);
+            addTranslucentView(activity, statusBarAlpha);
+
+        }
     }
 
     /**
@@ -120,8 +123,12 @@ public class StatusBarUtil {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             return;
         }
-        transparentStatusBar(activity);
-        setRootView(activity);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            transparentStatusBar(activity);
+            setRootView(activity);
+        }
+
     }
 
     /**

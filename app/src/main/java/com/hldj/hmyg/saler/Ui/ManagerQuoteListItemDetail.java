@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
 import com.hldj.hmyg.buyer.Ui.WebViewDialogFragment;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
@@ -67,10 +69,13 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
 
             initItem(item);
 
-            WebViewDialogFragment.newInstance(item.purchaseJson.quoteDesc).show(getSupportFragmentManager(), ManagerQuoteListItemDetail.class.getName());//弹窗显示
+            new Handler().postDelayed( () -> {
+
+                WebViewDialogFragment.newInstance(item.purchaseJson.quoteDesc).show(getSupportFragmentManager(), ManagerQuoteListItemDetail.class.getName());//弹窗显示
+            }, 500);
 
             initPurcs(item.purchaseJson);
-            initPurcsItem(item.purchaseItemJsonBean);
+            initPurcsItem(item.purchaseItemJson);
 
             requestDetail();
         }
@@ -98,6 +103,9 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
                         if (gsonBean.data.usedQuoteList.size() != 0) {
                             initBottomItems(gsonBean.data.usedQuoteList);
                         }
+                        if (gsonBean.data.sellerQuoteJson != null) {
+                            updateImageSize(gsonBean.data.sellerQuoteJson.imagesJson);
+                        }
 
 
                         super.onSuccess(json);
@@ -112,6 +120,28 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
 //        admin/quote/detail
     }
 
+
+    public void updateImageSize(List<ImagesJsonBean> imagesJsonBeen) {//更新事件
+        SuperTextView tv_quote_item_photo_num = (SuperTextView) findViewById(R.id.tv_quote_item_photo_num);
+        //上传多少张图片
+        if (imagesJsonBeen.size() != 0) {
+            tv_quote_item_photo_num.setText(strFilter("有" + imagesJsonBeen.size() + "张图片"));//有多少张图片
+        } else {
+            tv_quote_item_photo_num.setShowState(false);
+            tv_quote_item_photo_num.setText(strFilter("未上传图片"));//有多少张图片
+        }
+        tv_quote_item_photo_num.setOnClickListener(v -> {
+
+            if (imagesJsonBeen.size() != 0) {
+                //穿list pic 集合到新的activity 显示 所有的图片
+                GalleryImageActivity.startGalleryImageActivity(ManagerQuoteListItemDetail.this, 0, getPicList(imagesJsonBeen));
+            } else {
+                D.e("==没有图片===");
+            }
+
+        });
+    }
+
     private void initBottomItems(List<UsedQuoteListBean> usedQuoteList) {
 
         CoreRecyclerView recyclerView = (CoreRecyclerView) findViewById(R.id.recycle_detail_bottom);
@@ -120,6 +150,10 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
             protected void convert(BaseViewHolder helper, UsedQuoteListBean item) {
                 D.e("==========item=============" + item.toString());
                 helper.setText(R.id.tv_recycle_detail_bottom, strFilter("价格：￥" + item.price + ""));
+
+                if (helper.getAdapterPosition() != 0) {
+                    helper.setVisible(R.id.tv_recycle_detail_bottom_title, false);
+                }
             }
         });
 
@@ -159,19 +193,26 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
         TextView tv_show_is_quote = (TextView) findViewById(R.id.tv_show_is_quote);
         setStatus(tv_show_is_quote, item.getStatus());//中标状态
 
-        TextView tv_quote_item_photo_num = (TextView) findViewById(R.id.tv_quote_item_photo_num);
-        tv_quote_item_photo_num.setText(strFilter("有" + item.getImagesJson().size() + "张图片"));//有多少张图片
-        tv_quote_item_photo_num.setOnClickListener(v -> {
-
-            if (item.getImagesJson().size() != 0) {
-                //穿list pic 集合到新的activity 显示 所有的图片
-                GalleryImageActivity.startGalleryImageActivity(ManagerQuoteListItemDetail.this, 0, getPicList(item.getImagesJson()));
-            } else {
-                D.e("==没有图片===");
-            }
-
-        });
-
+//        SuperTextView tv_quote_item_photo_num = (SuperTextView) findViewById(R.id.tv_quote_item_photo_num);
+//        //上传多少张图片
+//        if (item.getImagesJson().size() != 0) {
+//            tv_quote_item_photo_num.setText(strFilter("有" + item.getImagesJson().size() + "张图片"));//有多少张图片
+//        } else {
+//            tv_quote_item_photo_num.setShowState(false);
+//            tv_quote_item_photo_num.setText(strFilter("未上传图片"));//有多少张图片
+//        }
+//
+//
+//        tv_quote_item_photo_num.setOnClickListener(v -> {
+//
+//            if (item.getImagesJson().size() != 0) {
+//                //穿list pic 集合到新的activity 显示 所有的图片
+//                GalleryImageActivity.startGalleryImageActivity(ManagerQuoteListItemDetail.this, 0, getPicList(item.getImagesJson()));
+//            } else {
+//                D.e("==没有图片===");
+//            }
+//
+//        });
 
         ((ViewGroup) findViewById(R.id.tv_quote_item_specText).getParent()).setVisibility(View.GONE);
         ((ViewGroup) findViewById(R.id.tv_quote_item_cityName).getParent()).setVisibility(View.GONE);
@@ -201,10 +242,10 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
 
     }
 
-    private ArrayList<Pic> getPicList(List<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean> imagesJson) {
+    private ArrayList<Pic> getPicList(List<ImagesJsonBean> imagesJson) {
         ArrayList pics = new ArrayList<Pic>();
         for (int i = 0; i < imagesJson.size(); i++) {
-            pics.add(new Pic(imagesJson.get(i).getId(), false, imagesJson.get(i).getOssMediumImagePath(), i));
+            pics.add(new Pic(imagesJson.get(i).id, false, imagesJson.get(i).ossMediumImagePath, i));
         }
         return pics;
     }
@@ -215,8 +256,8 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
 
     private void initItem(SaveSeedingGsonBean.DataBean.SeedlingBean item) {
         //头部与底部是一样的    这里初始化头部
-        getViewHolder_pur().tv_purchase_name.setText(strFilter("[" + item.purchaseItemJsonBean.firstTypeName + "]" + item.purchaseItemJsonBean.name));
-        getViewHolder_pur().tv_purchase_size.setText(strFilter(item.getSpecText()));
+        getViewHolder_pur().tv_purchase_name.setText(strFilter("[" + item.purchaseItemJson.firstTypeName + "]" + item.purchaseItemJson.name));
+        getViewHolder_pur().tv_purchase_size.setText(strFilter(item.purchaseItemJson.specText));
         getViewHolder_pur().tv_purchase_type.setText(strFilter(item.getPlantTypeName()));
         getViewHolder_pur().tv_quote_num.setText(strFilter(item.getCount() + item.getUnitTypeName()));
 
@@ -226,13 +267,13 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
         getViewHolder_pur().tv_purchase_close_date.setText(strFilter(item.purchaseJson.closeDate));
         String str = strFilter(item.purchaseJson.quoteDesc);//报价信息 弹窗显示
         getViewHolder_pur().tv_purchase_price_sug.setOnClickListener(v -> {
-            showSug2DialogLeft(item);// TODO: 2017/4/26   增加弹窗<-
 
+            // TODO: 2017/4/26   增加弹窗->
+            showSug2DialogRight(str);
 
         });
         getViewHolder_pur().tv_purchase_store_detail.setOnClickListener(v -> {
-            // TODO: 2017/4/26   增加弹窗->
-            showSug2DialogRight(str);
+            showSug2DialogLeft(ManagerQuoteListItemDetail.this, item);// TODO: 2017/4/26   增加弹窗<-
         });
 
         getViewHolder_pur().tv_purchase_address.setText(strFilter(item.purchaseJson.cityName));
@@ -245,7 +286,7 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
      *
      * @param
      */
-    public static void showSug2DialogLeft(SaveSeedingGsonBean.DataBean.SeedlingBean item) {
+    public static void showSug2DialogLeft(Context context, SaveSeedingGsonBean.DataBean.SeedlingBean item) {
         /**
          * buyerDatas.clear();
          buyerDatas.add("采购商家：" + companyName);
@@ -257,10 +298,10 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
         buyerDatas.clear();
         buyerDatas.add("采购商家：" + item.purchaseJson.buyer.displayName);
         buyerDatas.add("所在地区：" + item.purchaseJson.cityName);
-        buyerDatas.add("采购数量：" + item.purchaseItemJsonBean.count);
-        buyerDatas.add("已有报价：" + item.purchaseItemJsonBean.quoteCountJson + "条");
+        buyerDatas.add("采购数量：" + item.purchaseItemJson.count);
+        buyerDatas.add("已有报价：" + item.purchaseItemJson.quoteCountJson + "条");
 
-        StoreDeteilDialog.Builder builder = new StoreDeteilDialog.Builder(MyApplication.getInstance());
+        StoreDeteilDialog.Builder builder = new StoreDeteilDialog.Builder(context);
         builder.setTitle("商家信息");
         builder.setPrice("");
         builder.setCount("");
@@ -348,5 +389,6 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
         }
 
     }
+
 
 }

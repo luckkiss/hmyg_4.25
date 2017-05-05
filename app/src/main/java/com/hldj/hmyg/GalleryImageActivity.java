@@ -1,28 +1,14 @@
 package com.hldj.hmyg;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import me.drakeet.materialdialog.MaterialDialog;
-
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.FloatMath;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -32,21 +18,14 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Gallery;
 import android.widget.TextView;
 
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.framework.Platform.ShareParams;
-
 import com.flyco.animation.BaseAnimatorSet;
 import com.flyco.animation.BounceEnter.BounceTopEnter;
 import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
-import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.PermissionUtils;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PicSerializableMaplist;
 import com.hldj.hmyg.saler.CoreActivity;
-import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.white.utils.FileUtil;
@@ -54,6 +33,20 @@ import com.white.utils.StringUtil;
 import com.zzy.common.widget.galleryView.ImageGalleryPageAdapter;
 import com.zzy.common.widget.galleryView.ImageGalleryView;
 import com.zzy.common.widget.galleryView.SingleTapListener;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.Platform.ShareParams;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
 
 /**
  */

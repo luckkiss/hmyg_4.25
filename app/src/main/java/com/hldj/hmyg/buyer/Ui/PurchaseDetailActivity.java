@@ -3,9 +3,11 @@ package com.hldj.hmyg.buyer.Ui;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.R;
@@ -26,6 +28,7 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.TakePhotoUtil;
 import com.hy.utils.ToastUtil;
+import com.zf.iosdialog.widget.AlertDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -221,7 +224,16 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                         }
 
 
-                        helper.setText(R.id.tv_quote_item_photo_num, strFilter("有" + item.imagesJson.size() + "张图片"));//有多少张图片
+                        SuperTextView textView = helper.getView(R.id.tv_quote_item_photo_num);
+                        if (item.imagesJson.size() != 0) {
+                            helper.setText(R.id.tv_quote_item_photo_num, strFilter("有" + item.imagesJson.size() + "张图片"));//有多少张图片
+
+                        } else {
+                            textView.setShowState(false);
+                            helper.setText(R.id.tv_quote_item_photo_num, strFilter("未上传图片"));//有多少张图片
+                        }
+
+
                         if (item.imagesJson.size() != 0) {
                             helper.addOnClickListener(R.id.tv_quote_item_photo_num, v -> {
                                 //穿list pic 集合到新的activity 显示 所有的图片
@@ -231,27 +243,34 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
                         helper.addOnClickListener(R.id.tv_delete_item, v -> {
 
+                            new AlertDialog(PurchaseDetailActivity.this).builder()
+                                    .setTitle("提示")
+                                    .setPositiveButton("确定", v1 -> {
+
+                                        new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
+                                            @Override
+                                            public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
+
+                                                ToastUtil.showShortToast("删除成功");
+                                                //删除该项目 并且刷新界面
+                                                recyclerView.getAdapter().remove(0);
+                                                recyclerView.getAdapter().notifyItemRemoved(0);
+                                                PurchaseDetailActivity.super.getDatas();
+                                                setResult(-1);
+                                            }
+
+                                            @Override
+                                            public void onFailure(Throwable t, int errorNo, String strMsg) {
+
+                                            }
+                                        })
+                                                .quoteDdel(item.id);
+
+                                    }).setNegativeButton("取消", v2 -> {
+
+                            }).show();
 
                             //删除接口
-
-                            new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
-                                @Override
-                                public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
-
-                                    ToastUtil.showShortToast("删除成功，刷新界面");
-                                    //删除该项目 并且刷新界面
-                                    recyclerView.getAdapter().remove(0);
-                                    recyclerView.getAdapter().notifyItemRemoved(0);
-                                    PurchaseDetailActivity.super.getDatas();
-                                    setResult(-1);
-                                }
-
-                                @Override
-                                public void onFailure(Throwable t, int errorNo, String strMsg) {
-
-                                }
-                            })
-                                    .quoteDdel(item.id);
 
 
                         });
@@ -311,31 +330,42 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
             //                @property (copy, nonatomic) NSString *diameterType;//地径类型
 //                @property (copy, nonatomic) NSString *dbhType;//胸径类型
 
-
+            String content = "";
+            boolean isOk = true;
             switch (plantBean.value) {
                 case ConstantParams.price://价格
-                    uploadBean.price = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
+                    content = uploadBean.price = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
+                    isOk = submit(plantBean.name, uploadBean.price, plantBean.required);
                     break;
                 case ConstantParams.diameter://地径
-                    uploadBean.diameter = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
+                    content = uploadBean.diameter = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
+                    isOk = submit(plantBean.name, uploadBean.price, plantBean.required);
                     break;
                 case ConstantParams.dbh://胸径
-                    uploadBean.dbh = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
+                    content = uploadBean.dbh = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
+                    isOk = submit(plantBean.name, uploadBean.price, plantBean.required);
                     break;
                 case ConstantParams.height://高度
-                    uploadBean.height = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
+                    content = uploadBean.height = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
+                    isOk = submit(plantBean.name, uploadBean.price, plantBean.required);
                     break;
                 case ConstantParams.crown://冠幅
-                    uploadBean.crown = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
+                    content = uploadBean.crown = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
+                    isOk = submit(plantBean.name, uploadBean.price, plantBean.required);
                     break;
                 case ConstantParams.offbarHeight://脱杆高
-                    uploadBean.offbarHeight = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
+                    content = uploadBean.offbarHeight = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
+                    isOk = submit(plantBean.name, uploadBean.price, plantBean.required);
                     break;
                 case ConstantParams.length://长度
-                    uploadBean.length = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
+                    content = uploadBean.length = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
+                    isOk = submit(plantBean.name, uploadBean.price, plantBean.required);
                     break;
 
+            }
 
+            if (!isOk) {
+                return;
             }
 
 //            Map map = new HashMap();
@@ -573,9 +603,22 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
 
     /**
-     *  final PicSerializableMaplist myMap = new PicSerializableMaplist();
-     myMap.setMaplist(listPicsOnline);
-     bundleObject.putSerializable("urlPaths", myMap);
+     * final PicSerializableMaplist myMap = new PicSerializableMaplist();
+     * myMap.setMaplist(listPicsOnline);
+     * bundleObject.putSerializable("urlPaths", myMap);
      */
+
+
+    public boolean submit(String resome, String content, boolean isNeed) {
+        if (!isNeed) {
+            return true;
+        }
+        if (TextUtils.isEmpty(content)) {
+            ToastUtil.showShortToast("请输入：" + resome);
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 }
