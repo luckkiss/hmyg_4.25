@@ -42,6 +42,8 @@ public class MyApplication extends MultiDexApplication {
     public Vibrator mVibrator;
 
 
+
+
     //存储userbean
     private static UserBean userBean;
 
@@ -74,6 +76,8 @@ public class MyApplication extends MultiDexApplication {
     @SuppressLint("SdCardPath")
     public void onCreate() {
         super.onCreate();
+
+
         FIR.init(this);
 //      4e9fef47d1c33625cb0d5495e6856e0a
 //        TestinAgent.init(this, "S9Ip9zGgJzj779e9S849s9z94X9DTUGJ",

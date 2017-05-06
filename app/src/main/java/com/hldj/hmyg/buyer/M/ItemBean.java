@@ -79,7 +79,7 @@ public class ItemBean {
     public String purchaseId;
     public String name;
     public int count;
-    public String status;
+    public String status = "";
     public PurchaseJsonBean purchaseJson;
     public String statusName;
     public int quoteCountJson;

@@ -42,7 +42,7 @@
             android:drawableRight="@drawable/ic_arrow_down_black"
             android:gravity="center"
             android:paddingRight="15dp"
-            android:text="福建省厦门市" />
+            android:text="未选择" />
 
 
     </RelativeLayout>

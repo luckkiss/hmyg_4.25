@@ -249,7 +249,8 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.FlowerDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/e_activity_theme"/>
         <!--android:theme="@style/e_activity_theme"-->
         <activity
             android:name="com.hldj.hmyg.GalleryImageActivity"
@@ -661,6 +662,9 @@
         <meta-data
             android:name="BaiduMobAd_WIFI_LOCATION"
             android:value="true" />
+        <!--<meta-data-->
+            <!--android:name="BUG_HD_SDK_GENERAL_KEY"-->
+            <!--android:value="4e9fef47d1c33625cb0d5495e6856e0a" />  -->
         <meta-data
             android:name="BUG_HD_SDK_GENERAL_KEY"
             android:value="4e9fef47d1c33625cb0d5495e6856e0a" />

@@ -12,12 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.coorchice.library.SuperTextView;
-import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.buyer.M.ItemBean;
-import com.hldj.hmyg.buyer.P.PurchaseDeatilP;
 import com.hldj.hmyg.buyer.V.PurchaseDeatilV;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.saler.purchase.StoreDeteilDialog;
@@ -40,19 +38,30 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
 
     public boolean mIsQuoted;//是否报过价
     public String mProjectType = "";//直购 代沟
-    String firstSeedlingTypeId = "";
+    public String firstSeedlingTypeId = "";
     //direct直购
     //protocol代购
 
-    ItemBean item;
+    public ItemBean item;
+
 
     public static PurchaseDetailActivityBase instance;
+    private String status = "";//状态 用于标记 已报价，已结束 未报价 等等状态
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.purchase_detail_activity);
+
+
+        setContentView();
         //初始化 holder  将其设置为private 不让外部访问  避免编译器提示
 
 
@@ -74,10 +83,12 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         /**
          * 请求接口数据 获取数据之后 initDatas()  调用
          */
-        getDatas();
+//        getDatas();
 
 
     }
+
+    public abstract void setContentView();
 
     /**
      * 接口请求到数据后 调用
@@ -94,6 +105,10 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
 
 
         ItemBean item = saveSeedingGsonBean.getData().getItem();
+
+
+        this.setStatus(item.sellerQuoteJson == null ? "" : strFilter(item.sellerQuoteJson.status));
+
         initItem(item);
         mProjectType = item.purchaseJson.projectType;//直购 代购
 
@@ -306,22 +321,6 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
 
     }
 
-    @Override
-    public void getDatas() {
-        new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
-            @Override
-            public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
-                initDatas(saveSeedingGsonBean);
-            }
-
-            @Override
-            public void onFailure(Throwable t, int errorNo, String strMsg) {
-
-            }
-        }).getDatas(getIntent().getExtras().get(GOOD_ID).toString());//请求数据  进行排版
-
-    }
-
 
     protected static final String GOOD_ID = "good_id";//本届面传过来的id
 
@@ -329,17 +328,12 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
     public abstract void addPicUrls(ArrayList<Pic> resultPathList);
 
 
-    public static void start2Activity(Activity activity, String good_id) {
-        Intent intent = new Intent(activity, PurchaseDetailActivity.class);
-        intent.putExtra(GOOD_ID, good_id);
-        activity.startActivityForResult(intent, 100);
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         instance = null;
     }
+
 
     protected class ViewHolder {
 

@@ -48,7 +48,6 @@ import com.flyco.animation.BounceEnter.BounceTopEnter;
 import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.hldj.hmyg.BActivity.MultipleClickProcess.DaquyuAdapter;
-import com.hldj.hmyg.BActivity.MultipleClickProcess.XiaoquyuAdapter;
 import com.hldj.hmyg.adapter.ProductGridAdapter;
 import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.application.Data;
@@ -114,7 +113,7 @@ public class BActivity extends BaseSecondActivity implements
     private ProductListAdapter listAdapter;
     private ProductGridAdapter gridAdapter;
     private DaquyuAdapter daquyuAdapter;
-    private XiaoquyuAdapter xiaoquyuAdapter;
+    private MultipleClickProcess.XiaoquyuAdapter xiaoquyuAdapter;
     private String searchKey = "";
     private String minPrice = "";
     private String maxPrice = "";

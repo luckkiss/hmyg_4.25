@@ -1,6 +1,7 @@
 package com.hldj.hmyg.buyer.Ui;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,6 +23,7 @@ import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.buyer.weidet.Purchase.PurchaseAutoAddLinearLayout;
+import com.hldj.hmyg.saler.Ui.ManagerQuoteListItemDetail;
 import com.hldj.hmyg.saler.UpdataImageActivity_bak;
 import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.D;
@@ -43,14 +45,41 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
 
     private String purchaseId;//采购id
+    private boolean isFinish = false;
+
+    public void setFinish(boolean finish) {
+        isFinish = finish;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         int layout_id = R.layout.purchase_detail_activity;//这个界面的布局
-//        initGv();
+//      initGv();
+        getDatas();
 
+    }
+
+    @Override
+    public void setContentView() {
+        setContentView(R.layout.purchase_detail_activity);
+    }
+
+
+    @Override
+    public void getDatas() {
+        new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
+            @Override
+            public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
+                initDatas(saveSeedingGsonBean);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+
+            }
+        }).getDatas(getIntent().getExtras().get(GOOD_ID).toString());//请求数据  进行排版
     }
 
 
@@ -70,6 +99,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
 
     }
+
 
     @Override
     protected void initDirect(List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen) {
@@ -125,6 +155,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
          */
         if (mIsQuoted)//已经报价
         {
+
             D.e("=====已经报价=====");
             initRceycle(true); // 报价成功会获取 sellerQuoteJson  来显示recycle 列表
             findViewById(R.id.recycle_pur_one).setVisibility(View.VISIBLE);
@@ -151,6 +182,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
     @Override
     public void addPicUrls(ArrayList<Pic> resultPathList) {
+//        measureGridView.getAdapter().addItems(resultPathList);
 //        measureGridView.getAdapter().addItems(resultPathList);
 //        viewHolder.publish_flower_info_gv.getAdapter().getDataList();
         D.e("=========addPicUrls=========");
@@ -197,11 +229,13 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
     }
 
+    public CoreRecyclerView recyclerView;
+
 
     //请求一个报价列表
-    private void initRceycle(boolean direce) {
+    public void initRceycle(boolean direce) {
 
-        CoreRecyclerView recyclerView = (CoreRecyclerView) findViewById(R.id.recycle_pur_one);
+        recyclerView = (CoreRecyclerView) findViewById(R.id.recycle_pur_one);
         recyclerView.initView(this)
                 .init(new BaseQuickAdapter<SellerQuoteJsonBean, BaseViewHolder>(R.layout.item_quote_dir_po) {
                     @Override
@@ -212,7 +246,10 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                         helper.setText(R.id.tv_quote_item_plantTypeName, strFilter(item.plantTypeName));//种植类型
                         helper.setText(R.id.tv_quote_item_declare, strFilter(item.remarks));//种植类型
 
-                        helper.setText(R.id.tv_show_is_quote, strFilter("已报价"));//种植类型
+//                        helper.setText(R.id.tv_show_is_quote, strFilter("已报价"));//种植类型
+//                        helper.setText(R.id.tv_show_is_quote, strFilter("已报价"));//种植类型
+
+                        ManagerQuoteListItemDetail.setStatus(helper.getView(R.id.tv_show_is_quote), getStatus());
 
 
                         if (direce) {//代购
@@ -241,39 +278,27 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                             });
                         }
 
-                        helper.addOnClickListener(R.id.tv_delete_item, v -> {
+                        if (getStatus().equals("")) {//""表示  已经报价  但是结果还没出来   允许删除
+                            helper.setVisible(R.id.tv_delete_item, true);
 
-                            new AlertDialog(PurchaseDetailActivity.this).builder()
-                                    .setTitle("提示")
-                                    .setPositiveButton("确定", v1 -> {
+                            helper.addOnClickListener(R.id.tv_delete_item, v -> {
 
-                                        new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
-                                            @Override
-                                            public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
+                                new AlertDialog(PurchaseDetailActivity.this)
+                                         .builder()
+                                        .setTitle("提示")
+                                        .setPositiveButton("确定", clic2Del)
+                                        .setNegativeButton("取消", v2 -> { }).show();
 
-                                                ToastUtil.showShortToast("删除成功");
-                                                //删除该项目 并且刷新界面
-                                                recyclerView.getAdapter().remove(0);
-                                                recyclerView.getAdapter().notifyItemRemoved(0);
-                                                PurchaseDetailActivity.super.getDatas();
-                                                setResult(-1);
-                                            }
-
-                                            @Override
-                                            public void onFailure(Throwable t, int errorNo, String strMsg) {
-
-                                            }
-                                        })
-                                                .quoteDdel(item.id);
-
-                                    }).setNegativeButton("取消", v2 -> {
-
-                            }).show();
-
-                            //删除接口
+                                //删除接口
 
 
-                        });
+                            });
+
+                        } else {
+                            helper.setVisible(R.id.tv_delete_item, false);
+                        }
+
+
                     }
                 });
 
@@ -433,9 +458,8 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
             @Override
             public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
-                PurchaseDetailActivity.super.getDatas();
+                getDatas();
                 setResult(1);
-
             }
 
             @Override
@@ -450,7 +474,8 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
     List<Map<String, Integer>> list = new ArrayList<>();
 
-    public class uploadBean {
+
+    public static class uploadBean {
         //        String sellerQuoteJson_id = "";//空 提交   非空 取消某人的 发布消息
         public String cityCode = "";
         public String price = "";
@@ -470,8 +495,6 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
         public String id = "";
         public String plantType = "";
-
-
     }
 
     /**
@@ -621,4 +644,43 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         }
     }
 
+    public static void start2Activity(Activity activity, String good_id) {
+        Intent intent = new Intent(activity, PurchaseDetailActivity.class);
+        intent.putExtra(GOOD_ID, good_id);
+        activity.startActivityForResult(intent, 100);
+    }
+
+
+//    @Override
+//    public void getDatas() {
+//        super.getDatas();
+//    }
+
+    public View.OnClickListener clic2Del = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            {
+
+                new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
+                    @Override
+                    public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
+
+                        ToastUtil.showShortToast("删除成功");
+                        //删除该项目 并且刷新界面
+                        recyclerView.getAdapter().remove(0);
+                        recyclerView.getAdapter().notifyItemRemoved(0);
+                        getDatas();
+                        setResult(-1);
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+
+                    }
+                })
+                        .quoteDdel(item.id);
+
+            }
+        }
+    };
 }

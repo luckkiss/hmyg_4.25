@@ -207,11 +207,13 @@ public class PurchaseDeatilP {
                                 resultCallBack.onSuccess(saveSeedingGsonBean);
                             } else {
 
-                                ToastUtil.showShortToast("删除失败");
+                                ToastUtil.showShortToast("删除失败"+saveSeedingGsonBean.getMsg());
                             }
 
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
+                            ToastUtil.showShortToast("网络错误,删除失败");
+
                             e.printStackTrace();
                         }
 

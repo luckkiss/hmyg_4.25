@@ -29,6 +29,16 @@ public class NeedSwipeBackActivity extends SwipeBackBActivity {
     }
 
 
+    public void showLoading() {
+        dialog.show();
+    }
+
+    public void hindLoading() {
+        if (dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
+
     /**
      * 打开activity 动画
      */
@@ -118,7 +128,6 @@ public class NeedSwipeBackActivity extends SwipeBackBActivity {
             D.e("===设置失败===");
         }
     }
-
 
 
 }
