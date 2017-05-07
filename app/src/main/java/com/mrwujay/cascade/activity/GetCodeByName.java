@@ -1,25 +1,14 @@
 package com.mrwujay.cascade.activity;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetManager;
 
 import com.hy.utils.JsonGetInfo;
-import com.mrwujay.cascade.model.CityModel;
-import com.mrwujay.cascade.model.DistrictModel;
-import com.mrwujay.cascade.model.ProvinceModel;
-import com.mrwujay.cascade.service.JsonParserHandler;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.InputStream;
 
 public class GetCodeByName {
 
@@ -67,6 +56,7 @@ public class GetCodeByName {
 
 		} catch (Throwable e) {
 			e.printStackTrace();
+			return "";
 		} finally {
 
 		}

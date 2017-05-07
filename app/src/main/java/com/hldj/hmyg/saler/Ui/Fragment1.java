@@ -153,7 +153,7 @@ public class Fragment1 extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == ConstantState.DELETE_SUCCEED) {
-            ToastUtil.showShortToast("删除成功，正在刷新");
+            ToastUtil.showShortToast("删除成功");
             refresh();
         }
     }

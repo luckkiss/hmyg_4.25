@@ -18,6 +18,16 @@ public class SwipeBackBActivity extends FragmentActivity implements
     public CustomDialog dialog;
 
 
+
+    public void showLoading() {
+        dialog.show();
+    }
+
+    public void hindLoading() {
+        if (dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

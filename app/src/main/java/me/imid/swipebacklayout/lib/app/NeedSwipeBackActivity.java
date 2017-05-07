@@ -29,15 +29,7 @@ public class NeedSwipeBackActivity extends SwipeBackBActivity {
     }
 
 
-    public void showLoading() {
-        dialog.show();
-    }
 
-    public void hindLoading() {
-        if (dialog.isShowing()) {
-            dialog.dismiss();
-        }
-    }
 
     /**
      * 打开activity 动画

@@ -37,6 +37,7 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
 
     @Override
     public void getDatas() {
+        showLoading();
         new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
             @Override
             public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
@@ -44,11 +45,13 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
 
                 initDatas(saveSeedingGsonBean);
 
+                hindLoading();
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
 
+                hindLoading();
             }
         }).getDatasMgLst(getIntent().getExtras().get(GOOD_ID).toString());//请求数据  进行排版
     }

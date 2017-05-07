@@ -380,6 +380,7 @@ public class LoginActivity extends BaseActivity {
         params.put("userName", holderPwd.et_phone.getText().toString());
         params.put("password", holderPwd.et_passward.getText().toString());
 
+        showLoading();
         finalHttp.post(GetServerUrl.getUrl() + "user/login", params, new AjaxCallBack<String>() {
             @Override
             public void onSuccess(String json) {
@@ -392,10 +393,12 @@ public class LoginActivity extends BaseActivity {
                 } else {
                     showToast(loginGsonBean.getMsg());
                 }
+                hindLoading();
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
+                hindLoading();
                 showToast(getString(R.string.error_net));
             }
 

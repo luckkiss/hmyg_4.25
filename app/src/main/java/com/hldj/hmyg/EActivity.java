@@ -620,6 +620,8 @@ public class EActivity extends LoginActivity implements PlatformActionListener {
                 if (SelectHeadTools.imageUri != null) {
                     beginCrop(SelectHeadTools.imageUri);
                     if (SelectHeadTools.imageUri != null) SelectHeadTools.imageUri = null;
+                } else {
+                    beginCrop(photoUri);
                 }
                 break;
             case Configs.SystemPicture.PHOTO_REQUEST_GALLERY:// 相册获取

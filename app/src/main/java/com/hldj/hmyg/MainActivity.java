@@ -92,6 +92,7 @@ public class MainActivity extends TabActivity implements
     ArrayList<ChooseManager> chooseManagers = new ArrayList<ChooseManager>();
     private ChooseManager chooseManager3;
     private String check = "1";
+
     public void setBasIn(BaseAnimatorSet bas_in) {
         this.mBasIn = bas_in;
     }
@@ -111,6 +112,7 @@ public class MainActivity extends TabActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         /**
          * 控制状态栏为黑色  miui flyme
