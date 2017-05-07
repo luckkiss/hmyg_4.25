@@ -348,16 +348,20 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
 
         if (UpdataImageActivity.instance != null) {
             UpdataImageActivity.instance.addPicUrls(resultPathList);
-        } else if (SaveSeedlingActivity.instance != null) {
+        }
+        if (SaveSeedlingActivity.instance != null) {
             SaveSeedlingActivity.instance.addPicUrls(resultPathList);
-        } else if (SaveMiaoActivity.instance != null) {
+        }
+        if (SaveMiaoActivity.instance != null) {
             SaveMiaoActivity.instance.addPicUrls(resultPathList);
-        } else if (SaveMarketPriceActivity.instance != null) {
+        }
+        if (SaveMarketPriceActivity.instance != null) {
             SaveMarketPriceActivity.instance.addPicUrls(resultPathList);
-        } else if (AddCarActivity.instance != null) {
+        }
+        if (AddCarActivity.instance != null) {
             AddCarActivity.instance.addPicUrls(resultPathList);
-        } else if (UpdataImageActivity_bak.instance != null)
-
+        }
+        if (UpdataImageActivity_bak.instance != null)
         {
             UpdataImageActivity_bak.instance.addPicUrls(resultPathList);
         }

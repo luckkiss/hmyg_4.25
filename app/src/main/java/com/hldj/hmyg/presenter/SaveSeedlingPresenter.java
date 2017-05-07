@@ -245,7 +245,17 @@ public class SaveSeedlingPresenter {
                     public void onSuccess(String json) {
                         D.e("===========json=====上传图片成功==========" + json);
                         UpImageBackGsonBean imageBackGsonBean = GsonUtil.formateJson2Bean(json, UpImageBackGsonBean.class);
-                        resultCallBack.onSuccess(new Pic(imageBackGsonBean.getData().getImage().getId(), false, imageBackGsonBean.getData().getImage().getOssMediumImagePath(), a));
+
+                        if (imageBackGsonBean.getCode().equals(ConstantState.SUCCEED_CODE))
+                        {
+                            D.e("===上传成功==");
+                            resultCallBack.onSuccess(new Pic(imageBackGsonBean.getData().getImage().getId(), false, imageBackGsonBean.getData().getImage().getOssMediumImagePath(), a));
+                        }
+                        else
+                        {
+                            D.e("===上传失败==");
+                        }
+
 //                        urlPaths.add(a, new Pic(imageBackGsonBean.getData().getImage().getId(), false, imageBackGsonBean.getData().getImage().getOssMediumImagePath(), a));
                         D.e("==========暂时使用中等大小图片==============");
                         a++;

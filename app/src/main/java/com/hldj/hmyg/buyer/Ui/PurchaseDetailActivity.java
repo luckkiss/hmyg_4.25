@@ -293,7 +293,32 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                                 new AlertDialog(PurchaseDetailActivity.this)
                                         .builder()
                                         .setTitle("提示")
-                                        .setPositiveButton("确定", clic2Del)
+                                        .setPositiveButton("确定", v1 -> {
+                                            showLoading();
+                                            new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
+                                                @Override
+                                                public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
+
+                                                    ToastUtil.showShortToast("删除成功");
+                                                    //删除该项目 并且刷新界面
+                                                    recyclerView.getAdapter().remove(0);
+                                                    recyclerView.getAdapter().notifyItemRemoved(0);
+                                                    getDatas();
+                                                    setResult(-1);
+                                                    hindLoading();
+                                                    onDeleteFinish(true);
+                                                }
+
+                                                @Override
+                                                public void onFailure(Throwable t, int errorNo, String strMsg) {
+                                                    onDeleteFinish(false);
+                                                    hindLoading();
+                                                }
+                                            })
+                                                    .quoteDdel(item.id);
+
+
+                                        })
                                         .setNegativeButton("取消", v2 -> {
                                         }).show();
 
@@ -314,6 +339,10 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         recyclerView.getAdapter().addData(sellerQuoteJsonBean);
 
 
+    }
+
+    public void onDeleteFinish(boolean isSucceed) {
+        D.e("==========删除成功失败==========="+isSucceed);
     }
 
     //解析 数组数据
@@ -664,33 +693,33 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 //        super.getDatas();
 //    }
 
-    public View.OnClickListener clic2Del = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            {
-
-                showLoading();
-                new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
-                    @Override
-                    public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
-
-                        ToastUtil.showShortToast("删除成功");
-                        //删除该项目 并且刷新界面
-                        recyclerView.getAdapter().remove(0);
-                        recyclerView.getAdapter().notifyItemRemoved(0);
-                        getDatas();
-                        setResult(-1);
-                        hindLoading();
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t, int errorNo, String strMsg) {
-                        hindLoading();
-                    }
-                })
-                        .quoteDdel(purchaseId);
-
-            }
-        }
-    };
+//    public View.OnClickListener clic2Del = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            {
+//
+//                showLoading();
+//                new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
+//                    @Override
+//                    public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
+//
+//                        ToastUtil.showShortToast("删除成功");
+//                        //删除该项目 并且刷新界面
+//                        recyclerView.getAdapter().remove(0);
+//                        recyclerView.getAdapter().notifyItemRemoved(0);
+//                        getDatas();
+//                        setResult(-1);
+//                        hindLoading();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+//                        hindLoading();
+//                    }
+//                })
+//                        .quoteDdel(purchaseId);
+//
+//            }
+//        }
+//    };
 }

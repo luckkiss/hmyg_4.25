@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
@@ -21,20 +22,32 @@ import android.widget.Toast;
 import com.barryzhang.temptyview.TViewUtil;
 import com.cn2che.androids.swipe.OnlyListViewSwipeGesture;
 import com.google.gson.Gson;
+import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.DaoBean.SaveJson.DaoSession;
 import com.hldj.hmyg.DaoBean.SaveJson.SavaBean;
 import com.hldj.hmyg.DaoBean.SaveJson.SavaBeanDao;
+import com.hldj.hmyg.ManagerListActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.base.ViewHolders;
+import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.buy.bean.CollectCar;
+import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
+import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hy.utils.GetServerUrl;
+import com.hy.utils.ToastUtil;
+import com.kaopiz.kprogresshud.KProgressHUD;
 
 import net.tsz.afinal.FinalBitmap;
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -60,7 +73,7 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
     private TextView tv_all;
     private TextView tv_begin;
     private int progress = 0;
-
+    KProgressHUD hud_numHud; // 上传时显示的等待框
 
     /**
      * Called when the activity is first created.
@@ -78,6 +91,7 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
         tv_begin = (TextView) findViewById(R.id.tv_begin);
         id_tv_edit_all = (TextView) findViewById(R.id.id_tv_edit_all);
         btn_back.setOnClickListener(this);
+
 
         initView();
 
@@ -208,6 +222,11 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
      * 初始化View
      */
     private void initView() {
+
+        hud_numHud = KProgressHUD.create(StorageSaveActivity.this)
+                .setStyle(KProgressHUD.Style.ANNULAR_DETERMINATE)
+                .setLabel("上传中，请等待...").setMaxProgress(100)
+                .setCancellable(true);
 //        SaveSeedingGsonBean saveSeedingGsonBean = formateJson2Bean(SPUtil.get(this, "save_sp", "").toString(), SaveSeedingGsonBean.class);
 //        SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean = saveSeedingGsonBean.getData().getSeedling();
 //        List<SaveSeedingGsonBean.DataBean.SeedlingBean> seedlingBeen = new ArrayList<>();
@@ -286,7 +305,11 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
 
                 break;
             case R.id.tv_begin:
-
+                AjaxParams params = new AjaxParams();
+                if (!submit(params)) {
+                    return;
+                }
+                fabu(params);
 
                 break;
 
@@ -295,6 +318,304 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
         }
     }
 
+    ArrayList arrayList;
+
+    List<Pic> onlinePics = new ArrayList<>();
+
+    private void fabu(AjaxParams params) {
+        onlinePics.clear();
+
+        //执行上传图片接口
+        if (list_imagejsons == null) {
+            return;
+        }
+
+        arrayList = new ArrayList<Pic>();
+        for (int i = 0; i < list_imagejsons.size(); i++) {
+            arrayList.add(new Pic(list_imagejsons.get(i).getId(), false, list_imagejsons.get(i).getLocal_url(), i));
+        }
+
+        if (arrayList.size() != 0) {
+
+            hud_numHud.show();
+            //   上传图片  可能多图片
+            new SaveSeedlingPresenter().upLoad(arrayList, new ResultCallBack<Pic>() {
+                @Override
+//                        public void onSuccess(UpImageBackGsonBean imageBackGsonBean) {//
+                public void onSuccess(Pic pic) {//
+
+                    hud_numHud.setLabel("正在上传第" + pic.getSort() + 1 + "张图片");
+                    onlinePics.add(pic);
+                    if (onlinePics.size() == arrayList.size()) {
+                        putParams(params, "imagesData", GsonUtil.Bean2Json(onlinePics));
+                        seedlingSave(params);
+                    }
+//                urlPaths.add(pic);
+//                a = pic.getSort();
+//                a++;
+//                hudProgress();
+
+
+                }
+
+                @Override
+                public void onFailure(Throwable t, int errorNo, String strMsg) {
+                    ToastUtil.showShortToast("上传图片失败");
+                }
+            });
+        } else {
+            seedlingSave(params);
+        }
+
+
+        //执行发布接口
+
+
+        D.e("===没有问题可以发布==");
+    }
+
+
+    private void seedlingSave(AjaxParams ajaxParams) {
+        showLoading();
+        FinalHttp finalHttp = new FinalHttp();
+        GetServerUrl.addHeaders(finalHttp, true);
+
+        finalHttp.post(GetServerUrl.getUrl() + "admin/seedling/save", ajaxParams, new AjaxCallBack<String>() {
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                // TODO Auto-generated method stub
+                Toast.makeText(StorageSaveActivity.this,
+                        R.string.error_net, Toast.LENGTH_SHORT).show();
+                hindLoading();
+                if (hud_numHud != null) {
+                    hud_numHud.dismiss();
+                }
+            }
+
+            @Override
+            public void onSuccess(String json) {
+                D.e("=============json==========" + json);
+
+
+                SimpleGsonBean simpleGsonBean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
+
+                if (simpleGsonBean.code.equals("1")) {
+                    //成功
+                    ToastUtil.showShortToast("提交完毕");
+                    setResult(ConstantState.PUBLIC_SUCCEED);
+                    finish();
+                    ManagerListActivity.start2Activity(StorageSaveActivity.this);
+                } else {
+                    ToastUtil.showShortToast(simpleGsonBean.msg);
+                }
+
+
+                hud_numHud.dismiss();
+                hindLoading();
+
+            }
+        });
+
+    }
+
+    public void putParams(AjaxParams ajaxParams, String key, String value) {
+        if (!TextUtils.isEmpty(value)) {
+            ajaxParams.put(key, value);
+        } else {
+            D.e("===参数===" + key + "==的值是空的==");
+        }
+
+    }
+
+
+    List<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean> list_imagejsons = null;
+
+
+    public SaveSeedingGsonBean getGsonBean() {
+        int count = 0;
+        for (int i = 0; i < myadapter.checks.length; i++) {
+
+            if (myadapter.checks[i]) {
+                D.e("========已选选项============" + i);
+                count++;
+                return list_saveSeedingGsonBeans.get(i);
+            }
+        }
+
+        if (count == 0) {
+            ToastUtil.showShortToast("请选择要发布的一个项目!");
+            return null;
+        }
+        return null;
+    }
+
+    private boolean submit(AjaxParams params) {
+//        list_saveSeedingGsonBeans.get(0);
+
+        //判断是否可以上传
+        SaveSeedingGsonBean saveSeedingGsonBean = getGsonBean();
+        if (saveSeedingGsonBean == null) {
+            return false;
+        }
+        SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean = saveSeedingGsonBean.getData().getSeedling();
+        List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeanlist = saveSeedingGsonBean.getData().getTypeList();
+        List<SaveSeedingGsonBean.DataBean.TypeListBean.ParamsListBean> paramsListBeen = null;
+
+
+        List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> plantTypeListBeen = saveSeedingGsonBean.getData().getPlantTypeList();
+
+        //step 1    判断图片  2个大的分类tag
+        list_imagejsons = seedlingBean.getImagesJson();
+        if (list_imagejsons.size() == 0) {
+            ToastUtil.showShortToast("上传图片不能为空");
+            return false;
+        }
+//        String imagejson = GsonUtil.Bean2Json(seedlingBean.getImagesJson());
+
+//        if (!checkNoNull("上传图片", "imagesData", imagejson, params)) return false;
+
+        if (!checkNoNull("苗木分类", "firstSeedlingTypeId", seedlingBean.getFirstSeedlingTypeId(), params))
+            return false;
+
+
+        for (int i = 0; i < typeListBeanlist.size(); i++) {
+            if (seedlingBean.getFirstSeedlingTypeId().equals(typeListBeanlist.get(i).getId())) {
+                D.e("==i==" + i);
+                paramsListBeen = typeListBeanlist.get(i).getParamsList();
+            }
+        }
+        if (paramsListBeen == null) {
+            checkNoNull("苗木分类", "firstSeedlingTypeId", "", params);
+            return false;
+        }
+
+
+        //step2  动态添加的数据判断
+        for (SaveSeedingGsonBean.DataBean.TypeListBean.ParamsListBean item : paramsListBeen)
+
+        {
+
+            if (!submitParamsLis(item, seedlingBean, params)) {
+                return false;
+            }
+
+        }
+
+
+        if (!checkNoNull("种植类型", "plantType", seedlingBean.getPlantType(), params)) return false;
+
+
+        //step3  bottom 上传数据判断
+
+
+        if (!checkNoNull("品名", "name", seedlingBean.getName() + "", params))
+            return false;
+
+        if (seedlingBean.isNego())//面议
+        {
+            params.put("isNego", true + "");//是否面议
+
+        } else {
+            if (!checkNoNull("最低价格", "minPrice", seedlingBean.getMinPrice() + "", params))
+                return false;
+            if (!checkNoNull("最高价格", "maxPrice", seedlingBean.getMaxPrice() + "", params))
+                return false;
+        }
+
+
+        if (!checkNoNull("库存", "count", seedlingBean.getCount() + "", params)) return false;
+
+        if (!checkNoNull("单位", "unitType", seedlingBean.getUnitTypeName(), params))
+            return false;
+
+        if (!checkNoNull("地址", "nurseryId", seedlingBean.getNurseryId(), params)) return false;
+
+        if (!checkNoNull("有效期", "validity", seedlingBean.getValidity() + "", params))
+            return false;
+
+        return true;
+    }
+
+    private boolean submitParamsLis(SaveSeedingGsonBean.DataBean.TypeListBean.ParamsListBean item, SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean, AjaxParams params) {
+        if (item.isRequired()) {
+            item.getName();
+            String value = item.getValue();
+
+            if (value.equals(ConstantParams.height))//高度
+            {
+                if (!checkNoNull("高度的最大值", "maxHeight", seedlingBean.getMaxHeight() + "", params))
+                    return false;
+                if (!checkNoNull("高度的最小值", "minHeight", seedlingBean.getMinHeight() + "", params))
+                    return false;
+            }
+            if (value.equals(ConstantParams.crown))//冠幅
+            {
+                if (!checkNoNull("冠幅的最大值", "maxCrown", seedlingBean.getMaxCrown() + "", params))
+                    return false;
+                if (!checkNoNull("冠幅的最小值", "minCrown", seedlingBean.getMinCrown() + "", params))
+                    return false;
+            }
+            if (value.equals(ConstantParams.dbh))//胸径
+            {
+                if (!checkNoNull("胸径的最大值", "maxDbh", seedlingBean.getMaxDbh() + "", params))
+                    return false;
+                if (!checkNoNull("胸径的最小值", "minDbh", seedlingBean.getMinDbh() + "", params))
+                    return false;
+            }
+            if (value.equals(ConstantParams.diameter))//地径
+            {
+                if (!checkNoNull("地径的最大值", "maxDiameter", seedlingBean.getMaxDiameter() + "", params))
+                    return false;
+                if (!checkNoNull("地径的最小值", "minDiameter", seedlingBean.getMinDiameter() + "", params))
+                    return false;
+            }
+            if (value.equals(ConstantParams.offbarHeight))//脱杆高
+            {
+                if (!checkNoNull("脱杆高的最大值", "maxOffbarHeight", seedlingBean.getMaxOffbarHeight() + "", params))
+                    return false;
+                if (!checkNoNull("脱杆高的最小值", "minOffbarHeight", seedlingBean.getMinOffbarHeight() + "", params))
+                    return false;
+
+            }
+            if (value.equals(ConstantParams.length))//长度
+            {
+                if (!checkNoNull("长度的最大值", "maxLength", seedlingBean.getMaxLength() + "", params))
+                    return false;
+                if (!checkNoNull("长度的最小值", "minLength", seedlingBean.getMinLength() + "", params))
+                    return false;
+
+            }
+
+
+        }
+        return true;
+    }
+
+
+//    public boolean checkNoNull(String reson, String key, int value, AjaxParams ajaxParams) {
+//        if (value == 0) {
+//            ToastUtil.showShortToast(reson + "不能为空");
+//            return false;
+//        }
+//        putParams(ajaxParams, key, value + "");
+//        return true;
+//    }
+
+    /**
+     * @param faildReason 失败原因
+     * @param key         上传参数的 key
+     * @param value
+     * @param ajaxParams
+     * @return
+     */
+    public boolean checkNoNull(String faildReason, String key, String value, AjaxParams ajaxParams) {
+        if (TextUtils.isEmpty(value) || value.equals("0")) {
+            ToastUtil.showShortToast(faildReason + "不能为空");
+            return false;
+        }
+        putParams(ajaxParams, key, value);
+        return true;
+    }
 
     // 全选或全取消
     private void selectedAll() {
@@ -422,7 +743,7 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
 
             ImageView iv_img = myViewHolder.getView(R.id.iv_img);//
 
-            if (null != seedlingBean.getImagesJson()  &&  seedlingBean.getImagesJson().size()!= 0 ) {
+            if (null != seedlingBean.getImagesJson() && seedlingBean.getImagesJson().size() != 0) {
                 String url = seedlingBean.getImagesJson().get(0).getLocal_url();
                 fb.display(iv_img, url);
             }

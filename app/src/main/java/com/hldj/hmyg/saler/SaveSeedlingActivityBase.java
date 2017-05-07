@@ -684,6 +684,9 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                         .setLocal_url(viewHolder.publish_flower_info_gv.getAdapter()
                                 .getDataList()
                                 .get(i).getUrl());
+                imagesJsonBean.setId(viewHolder.publish_flower_info_gv.getAdapter()
+                        .getDataList()
+                        .get(i).getId());
 
                 list_imgs.add(imagesJsonBean);
             }
@@ -694,9 +697,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         //step 2 中间动态数据 保存
         seedlingBean.setFirstSeedlingTypeId(tag_ID);
         seedlingBean.setPlantType(tag_ID1);
-
+        seedlingBean.setName(viewHolder_top.tv_auto_add_name.getText().toString());
         if (autoAddRelative_rd != null) {
-            seedlingBean.setName(viewHolder_top.tv_auto_add_name.getText().toString());
             if (autoAddRelative_rd.getMTag().equals("dbh")) {
                 seedlingBean.setMaxDbh(MyUtil.formateString2Int(viewHolder_rd.et_auto_add_max.getText().toString()));
                 seedlingBean.setMinDbh(MyUtil.formateString2Int(viewHolder_rd.et_auto_add_min.getText().toString()));

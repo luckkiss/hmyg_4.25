@@ -2661,6 +2661,8 @@ public class SaveSeedingGsonBean implements Serializable {
                     this.local_url = local_url;
                     return this;
                 }
+
+
             }
 
             public static class SpecListBean implements Serializable {

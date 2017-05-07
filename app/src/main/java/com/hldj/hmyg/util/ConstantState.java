@@ -13,9 +13,10 @@ public interface ConstantState {
     int CHANGE_DATES = 201; //
 
     int SAVE_SUCCEED = 202;//保存成功 状态码
-    int SAVE_REQUEST= 203;//保存成功 状态码
+    int SAVE_REQUEST = 203;//保存成功 状态码
     int PUBLIC_SUCCEED = 204;//发布成功 状态码
 
+    int DELETE_SUCCEED = 205;//采购详情界面   订单删除成功状态码
 
 
     String ERROR_CODE = "1003";
@@ -23,5 +24,6 @@ public interface ConstantState {
     String NO_NET_CODE = "110";
 
     String COLLECT_REFRESH = "COLLECT_REFRESH";
+
 
 }

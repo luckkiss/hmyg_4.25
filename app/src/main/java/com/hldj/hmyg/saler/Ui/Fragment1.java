@@ -1,5 +1,6 @@
 package com.hldj.hmyg.saler.Ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -21,6 +22,7 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -145,4 +147,20 @@ public class Fragment1 extends Fragment {
             }
         });
     }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ConstantState.DELETE_SUCCEED) {
+            ToastUtil.showShortToast("删除成功，正在刷新");
+            refresh();
+        }
+    }
+
+    public void refresh() {
+        recyclerView.selfRefresh(true);
+        recyclerView.onRefresh();
+    }
+
 }

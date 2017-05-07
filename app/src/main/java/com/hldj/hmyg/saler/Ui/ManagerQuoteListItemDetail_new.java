@@ -13,7 +13,8 @@ import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.buyer.P.PurchaseDeatilP;
 import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.saler.bean.UsedQuoteListBean;
-import com.hy.utils.ToastUtil;
+import com.hldj.hmyg.util.ConstantState;
+import com.hldj.hmyg.util.D;
 
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
 
     @Override
     public void initRceycle(boolean direce) {
-        overClick();
+//        overClick();
         super.initRceycle(direce);
         if (usedQuoteList != null) {
             for (int i = 0; i < usedQuoteList.size(); i++) {
@@ -71,29 +72,42 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
     }
 
 
+    @Override
+    public void onDeleteFinish(boolean isSucceed) {
+        if (true) {
+            setResult(ConstantState.DELETE_SUCCEED);
+            finish();
+            D.e("===删除成功，回退刷新===");
+        } else {
+            D.e("===删除失败===");
+        }
+    }
+
     /**
      * 重写删除的点击事件
      */
-    private void overClick() {
 
-        showLoading();
-        clic2Del = v -> new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
-            @Override
-            public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
 
-                ToastUtil.showShortToast("删除成功");
-                hindLoading();
-                ManagerQuoteListItemDetail_new.this.finish();
-            }
+//    private void overClick() {
 
-            @Override
-            public void onFailure(Throwable t, int errorNo, String strMsg) {
-                hindLoading();
-            }
-        })
-                .quoteDdel(getPurchaseId());
+//        showLoading();
+//        clic2Del = v -> new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
+//            @Override
+//            public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
+//
+//                ToastUtil.showShortToast("删除成功");
+//                hindLoading();
+//                ManagerQuoteListItemDetail_new.this.finish();
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable t, int errorNo, String strMsg) {
+//                hindLoading();
+//            }
+//        })
+//                .quoteDdel(getPurchaseId());
 
-    }
+//    }
 
 
 //    private void initBottomItems(List<UsedQuoteListBean> usedQuoteList) {
@@ -111,7 +125,6 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
 //        });
 //        recyclerView.getAdapter().addData(usedQuoteList);
 //    }
-
     public static void start2Activity(Activity activity, String good_id) {
         Intent intent = new Intent(activity, ManagerQuoteListItemDetail_new.class);
         intent.putExtra(GOOD_ID, good_id);

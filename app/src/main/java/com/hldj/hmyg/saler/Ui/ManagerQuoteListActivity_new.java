@@ -15,6 +15,7 @@ import com.weavey.loading.lib.LoadingLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.maxwin.view.XListView;
@@ -41,13 +42,12 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
         add("已中标");
         add("未中标");
     }};
+
     private ArrayList<Fragment> list_fragment = new ArrayList<Fragment>() {{
         add(new Fragment1());
         add(new Fragment2());
         add(new Fragment3());
     }};
-
-
 
 
     @Override
@@ -91,12 +91,16 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
-        if (resultCode == 1) {
-
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                if (fragment == null)
+                    continue;
+                fragment.onActivityResult(requestCode, resultCode, data);
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
 
 
 }
