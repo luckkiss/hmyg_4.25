@@ -89,6 +89,7 @@ public class PurchaseDeatilP {
         params.put("id", id);
 
         AjaxCallBack<String> ajaxCallBack = new AjaxCallBack<String>() {
+
             @Override
             public void onSuccess(String json) {
                 D.e("======onSuccess========54101356f7114c8286cac1e69b58a138" + json);
@@ -208,6 +209,7 @@ public class PurchaseDeatilP {
                             } else {
 
                                 ToastUtil.showShortToast("删除失败"+saveSeedingGsonBean.getMsg());
+                                onFailure(null,-1,saveSeedingGsonBean.getMsg());
                             }
 
                         } catch (Exception e) {

@@ -76,20 +76,22 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
      */
     private void overClick() {
 
+        showLoading();
         clic2Del = v -> new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
             @Override
             public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
 
                 ToastUtil.showShortToast("删除成功");
+                hindLoading();
                 ManagerQuoteListItemDetail_new.this.finish();
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
-
+                hindLoading();
             }
         })
-                .quoteDdel(item.id);
+                .quoteDdel(getPurchaseId());
 
     }
 

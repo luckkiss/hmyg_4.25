@@ -45,6 +45,11 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
 
     private String purchaseId;//采购id
+
+    public String getPurchaseId() {
+        return purchaseId;
+    }
+
     private boolean isFinish = false;
 
     public void setFinish(boolean finish) {
@@ -69,15 +74,17 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
     @Override
     public void getDatas() {
+        showLoading();
         new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
             @Override
             public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
                 initDatas(saveSeedingGsonBean);
+                hindLoading();
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
-
+                hindLoading();
             }
         }).getDatas(getIntent().getExtras().get(GOOD_ID).toString());//请求数据  进行排版
     }
@@ -284,10 +291,11 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                             helper.addOnClickListener(R.id.tv_delete_item, v -> {
 
                                 new AlertDialog(PurchaseDetailActivity.this)
-                                         .builder()
+                                        .builder()
                                         .setTitle("提示")
                                         .setPositiveButton("确定", clic2Del)
-                                        .setNegativeButton("取消", v2 -> { }).show();
+                                        .setNegativeButton("取消", v2 -> {
+                                        }).show();
 
                                 //删除接口
 
@@ -661,6 +669,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         public void onClick(View v) {
             {
 
+                showLoading();
                 new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
                     @Override
                     public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
@@ -671,14 +680,15 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                         recyclerView.getAdapter().notifyItemRemoved(0);
                         getDatas();
                         setResult(-1);
+                        hindLoading();
                     }
 
                     @Override
                     public void onFailure(Throwable t, int errorNo, String strMsg) {
-
+                        hindLoading();
                     }
                 })
-                        .quoteDdel(item.id);
+                        .quoteDdel(purchaseId);
 
             }
         }
