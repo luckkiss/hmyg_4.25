@@ -77,8 +77,9 @@ public class Fragment2 extends Fragment {
 
                 setStatus(helper, item.getStatus());//通过状态设置背景颜色
                 helper.addOnClickListener(R.id.cv_root, v -> {
+                    ManagerQuoteListItemDetail_new.start2Activity(getActivity(), item.getId());
 
-                    ManagerQuoteListItemDetail.start2Activity(getActivity(), item);
+//                    ManagerQuoteListItemDetail.start2Activity(getActivity(), item);
 
                 });
 

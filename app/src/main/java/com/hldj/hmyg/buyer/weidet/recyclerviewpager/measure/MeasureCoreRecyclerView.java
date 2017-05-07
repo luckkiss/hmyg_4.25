@@ -22,7 +22,7 @@ import com.hldj.hmyg.buyer.weidet.listener.OnItemClickListener;
  */
 
 public class MeasureCoreRecyclerView extends LinearLayout implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
-    private RecyclerView mRecyclerView;
+    private MeasureRecycleView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     BaseQuickAdapter mQuickAdapter;
     addDataListener addDataListener;
@@ -65,7 +65,7 @@ public class MeasureCoreRecyclerView extends LinearLayout implements BaseQuickAd
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeLayout);
         mSwipeRefreshLayout.setEnabled(false);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_list);
+        mRecyclerView = (MeasureRecycleView) findViewById(R.id.rv_list);
         return this;
     }
 
@@ -87,7 +87,7 @@ public class MeasureCoreRecyclerView extends LinearLayout implements BaseQuickAd
     public MeasureCoreRecyclerView init(RecyclerView.LayoutManager layoutManager, BaseQuickAdapter mQuickAdapter, Boolean isRefresh) {
         if (isRefresh != true) {
             mSwipeRefreshLayout.setVisibility(GONE);
-            mRecyclerView = (RecyclerView) findViewById(R.id.rv_list1);
+            mRecyclerView = (MeasureRecycleView) findViewById(R.id.rv_list1);
             mRecyclerView.setVisibility(VISIBLE);
         }
         mRecyclerView.setLayoutManager(layoutManager != null ? layoutManager : new LinearLayoutManager(getContext()));
@@ -283,7 +283,7 @@ public class MeasureCoreRecyclerView extends LinearLayout implements BaseQuickAd
         return mRecyclerView;
     }
 
-    public void setRecyclerView(RecyclerView mRecyclerView) {
+    public void setRecyclerView(MeasureRecycleView mRecyclerView) {
         this.mRecyclerView = mRecyclerView;
     }
 

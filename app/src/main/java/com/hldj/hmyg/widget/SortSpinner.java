@@ -111,6 +111,17 @@ public class SortSpinner {
         return list_maps;
     }
 
+    /**
+     * NSDictionary *sortDic1=@{@"key":@"综合排序",@"value":@"default_asc"};
+     NSDictionary *sortDic2=@{@"key":@"最新发布",@"value":@"publishDate_desc"};
+     NSDictionary *sortDic3=@{@"key":@"最近距离",@"value":@"distance_asc"};
+     NSDictionary *sortDic4=@{@"key":@"价格从低到高",@"value":@"price_asc"};
+     NSDictionary *sortDic5=@{@"key":@"价格从高到低",@"value":@"price_desc"};
+     * @param key
+     * @param value
+     * @return
+     */
+
     public Map createMap(String key, String value) {
         Map map = new HashMap();
         map.put(key, value);

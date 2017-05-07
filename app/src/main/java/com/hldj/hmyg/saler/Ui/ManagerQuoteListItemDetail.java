@@ -69,7 +69,7 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
 
             initItem(item);
 
-            new Handler().postDelayed( () -> {
+            new Handler().postDelayed(() -> {
 
                 WebViewDialogFragment.newInstance(item.purchaseJson.quoteDesc).show(getSupportFragmentManager(), ManagerQuoteListItemDetail.class.getName());//弹窗显示
             }, 500);
@@ -163,17 +163,25 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
     }
 
 
-    public void setStatus(TextView textView, String status) {
+    public static void setStatus(TextView textView, String status) {
 
         if (TextUtils.isEmpty(status)) {
+            textView.setText("已报价");
+            textView.setTextColor(MyApplication.getInstance().getResources().getColor(R.color.orange));
         } else if (status.equals("unused")) {
             textView.setText("未中标");
             textView.setTextColor(MyApplication.getInstance().getResources().getColor(R.color.red));
         } else if (status.equals("used")) {
             textView.setText("已中标");
             textView.setTextColor(MyApplication.getInstance().getResources().getColor(R.color.main_color));
+        } else if (status.equals("finished")) {
+            textView.setText("未中标");
+            textView.setTextColor(MyApplication.getInstance().getResources().getColor(R.color.red));
+//            textView.setText("已结束");
+//            textView.setTextColor(MyApplication.getInstance().getResources().getColor(R.color.gray));
         } else {
-
+            textView.setText("已报价");
+            textView.setTextColor(MyApplication.getInstance().getResources().getColor(R.color.red));
         }
 
     }

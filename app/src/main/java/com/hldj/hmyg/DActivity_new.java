@@ -22,7 +22,6 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
-import com.kaopiz.kprogresshud.KProgressHUD;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -53,7 +52,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
     private MySwipeAdapter collectAdapter;//收藏列表的  适配器
 
     public static DActivity_new instance;
-    private KProgressHUD hud;
+    //    private KProgressHUD hud;
     private LocalBroadcastReceiver localReceiver;
 
     boolean isFirsh = true;
@@ -61,10 +60,10 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        hud = KProgressHUD.create(DActivity_new.this)
-                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("数据加载中...").setMaxProgress(100).setCancellable(true)
-                .setDimAmount(0f);
+//        hud = KProgressHUD.create(DActivity_new.this)
+//                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+//                .setLabel("数据加载中...").setMaxProgress(100).setCancellable(true)
+//                .setDimAmount(0f);
 
         setContentView(R.layout.activity_d_new);
         instance = this;
@@ -72,7 +71,8 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
         setSwipeBackEnable(false);
         initView();
 
-        hud.show();
+//        hud.show();
+        showLoading();
         initData();
 
         addLocalBrodcast();
@@ -142,6 +142,9 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 
     }
 
+
+//    boolean isRefreshing = false;
+
     private void initData() {
         /**
          * 2.5.8.1 收藏夹苗木列表
@@ -153,7 +156,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
          admin/collect/listSeedling
          */
         // TODO Auto-generated method stub
-
+//        isRefreshing = true;
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, true);
         AjaxParams params = new AjaxParams();
@@ -188,8 +191,10 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
                             D.e("===数据库空空如也====");
                         }
 
-                        hud.dismiss();
+//                        hud.dismiss();
+//                        isRefreshing = false;
 
+                        hindLoading();
                         pageIndex = seedlingBeen.size() / 20;
 
                         D.e("===============collectGsonBean================" + collectGsonBean);
@@ -204,7 +209,9 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
                         findViewById(R.id.xlistView_d_new).setVisibility(View.GONE);
                         findViewById(R.id.rl_refresh).setVisibility(View.VISIBLE);
                         findViewById(R.id.rl_refresh).setOnClickListener(refresh);
-                        hud.dismiss();
+//                        hud.dismiss();
+//                        isRefreshing = false;
+                        hindLoading();
                         super.onFailure(t, errorNo, strMsg);
                     }
 

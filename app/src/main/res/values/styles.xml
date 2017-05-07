@@ -551,6 +551,13 @@
     </style>
 
 
+    <style name="CustomDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="colorAccent">@color/main_color</item>
+    </style>
+
+
     <!--commen  dialog fragmet  北京-->
     <style name="Base_AlertDialog" parent="Base.Theme.AppCompat.Light.Dialog">
 

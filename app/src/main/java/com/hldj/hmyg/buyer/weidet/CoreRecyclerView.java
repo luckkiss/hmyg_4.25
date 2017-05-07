@@ -122,9 +122,9 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
+    @Override
     //添加refresh 接口回调
 
-    @Override
     public void onLoadMoreRequested() {
         mRecyclerView.post(() -> {
             if (mQuickAdapter.getData().size() < page * mQuickAdapter.getPageSize()) {

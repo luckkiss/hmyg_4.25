@@ -15,8 +15,8 @@ import com.white.utils.AndroidUtil;
 public class SplashActivity extends FragmentActivity {
 
     private ImageView img_sp;
-//    private FinalBitmap fb;
-    private long delayMillis = 3000;
+    //    private FinalBitmap fb;
+    private long delayMillis = 1500;
     public Editor e;
 
     @Override
@@ -49,21 +49,34 @@ public class SplashActivity extends FragmentActivity {
 //		new LoadingBarProxy(this).showLoadingDialog();
 //		new LoadingBar(MyApplication.getInstance()).show();
         // fb.display(img_sp, GetServerUrl.TEST_IMG);
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-				Intent toMainActivity = new Intent(SplashActivity.this,
-						MainActivity.class);
-//				LoadingBarProxy.getInstance().dismissWithFailure("shibai");
-				startActivity(toMainActivity);
-				overridePendingTransition(R.anim.slide_bottom_in,
-						R.anim.slide_bottom_out);
-				finish();
-//                StoreActivity_bak.start2StoreActivity(SplashActivity.this, "hellow world");
 
 
-            }
+//        DialogFragmentHelper.showProgress(getSupportFragmentManager(), "正在加载...");
+//
+//        DialogFragmentHelper.showInsertDialog(getSupportFragmentManager(), "title", new IDialogResultListener<String>() {
+//            @Override
+//            public void onDataResult(String result) {
+//
+//                D.e("=====dddd");
+//
+//            }
+//        }, true);
+
+//        .show(this,"hellow world");
+
+
+        com.hldj.hmyg.buyer.weidet.DialogFragment.CustomDialog customDialog = new com.hldj.hmyg.buyer.weidet.DialogFragment.CustomDialog(this);
+
+//        customDialog.show();
+
+        new Handler().postDelayed(() -> {
+            Intent toMainActivity = new Intent(SplashActivity.this,
+                    MainActivity.class);
+            startActivity(toMainActivity);
+            overridePendingTransition(R.anim.slide_bottom_in,
+                    R.anim.slide_bottom_out);
+            finish();
+
         }, delayMillis);
 
     }

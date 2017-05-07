@@ -3,6 +3,7 @@ package com.hldj.hmyg.bean;
 import com.hldj.hmyg.buyer.M.ItemBean;
 import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
 import com.hldj.hmyg.saler.bean.PurchaseItemJsonBean;
+import com.hldj.hmyg.saler.bean.UsedQuoteListBean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class SaveSeedingGsonBean implements Serializable {
     public static class DataBean implements Serializable {
         private SeedlingBean seedling;
         private ItemBean item;
+        public List<UsedQuoteListBean> usedQuoteList = new ArrayList<>();
         private List<TypeListBean> typeList;
         private List<TypeListBean.PlantTypeListBean> plantTypeList;
 
@@ -149,7 +151,7 @@ public class SaveSeedingGsonBean implements Serializable {
             private String nurseryId;
             private int count;
             private int saleCount;
-            private String status;
+            private String status ="";
             private boolean isAudit;
             private String closeDate;
             private String ownerId;

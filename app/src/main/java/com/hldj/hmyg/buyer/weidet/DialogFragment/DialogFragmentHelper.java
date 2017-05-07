@@ -1,9 +1,14 @@
 package com.hldj.hmyg.buyer.weidet.DialogFragment;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.MyApplication;
 
 /**
  * Created by Administrator on 2017/4/27.
@@ -33,6 +38,7 @@ public class DialogFragmentHelper {
 
         CommonDialogFragment dialogFragment = CommonDialogFragment.newInstance(context -> {
             ProgressDialog progressDialog = new ProgressDialog(context, PROGRESS_THEME);
+            progressDialog.setProgressDrawable(MyApplication.getInstance().getResources().getDrawable(R.drawable.load));
             progressDialog.setMessage(message);
             return progressDialog;
         }, cancelable, cancelListener);
@@ -40,33 +46,33 @@ public class DialogFragmentHelper {
         return dialogFragment;
     }
 
-//    /**
-//     * 带输入框的弹出窗
-//     */
-//    private static final int INSERT_THEME = R.style.Base_AlertDialog;
-//    private static final String INSERT_TAG = TAG_HEAD + ":insert";
-//
-//    public static void showInsertDialog(FragmentManager manager, final String title, final IDialogResultListener<String> resultListener, final boolean cancelable) {
-//
-//        CommonDialogFragment dialogFragment = CommonDialogFragment.newInstance(new CommonDialogFragment.OnCallDialog() {
-//            @Override
-//            public Dialog getDialog(Context context) {
-//                // ...
-//                AlertDialog.Builder builder = new AlertDialog.Builder(context, INSERT_THEME);
-//                builder.setPositiveButton(DIALOG_POSITIVE, new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        if (resultListener != null) {
-//                            resultListener.onDataResult(editText.getText().toString());
-//                        }
-//                    }
-//                });
-//                builder.setNegativeButton(DIALOG_NEGATIVE, null);
-//                return builder.create();
-//            }
-//        }, cancelable, null);
-//        dialogFragment.show(manager, INSERT_TAG);
-//    }
+    /**
+     * 带输入框的弹出窗
+     */
+    private static final int INSERT_THEME = R.style.Base_AlertDialog;
+    private static final String INSERT_TAG = TAG_HEAD + ":insert";
+
+    public static void showInsertDialog(FragmentManager manager, final String title, final IDialogResultListener<String> resultListener, final boolean cancelable) {
+
+        CommonDialogFragment dialogFragment = CommonDialogFragment.newInstance(new CommonDialogFragment.OnCallDialog() {
+            @Override
+            public Dialog getDialog(Context context) {
+                // ...
+                AlertDialog.Builder builder = new AlertDialog.Builder(context, INSERT_THEME);
+                builder.setPositiveButton("left", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (resultListener != null) {
+                            resultListener.onDataResult("result");
+                        }
+                    }
+                });
+                builder.setNegativeButton("hellow world", null);
+                return builder.create();
+            }
+        }, cancelable, null);
+        dialogFragment.show(manager, INSERT_TAG);
+    }
 
 
 }

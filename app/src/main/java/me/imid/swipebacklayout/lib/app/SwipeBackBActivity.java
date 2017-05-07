@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
+import com.hldj.hmyg.buyer.weidet.DialogFragment.CustomDialog;
 import com.hldj.hmyg.util.StartBarUtils;
 import com.hy.utils.ToastUtil;
 
@@ -14,12 +15,13 @@ public class SwipeBackBActivity extends FragmentActivity implements
         SwipeBackActivityBase {
     private SwipeBackActivityHelper mHelper;
 
-
+    public CustomDialog dialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dialog = new CustomDialog(this);
         /**
          * 控制状态栏为黑色  miui flyme
          */
