@@ -211,6 +211,16 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
      * @param
      */
     private void showSug2DialogLeft() {
+
+
+//        if (item == null) {
+//            ToastUtil.showShortToast("没有数据！");
+//            return;
+//        }
+//        if (item.buyer == null) {
+//            ToastUtil.showShortToast("没有数据！");
+//            return;
+//        }
         /**
          * buyerDatas.clear();
          buyerDatas.add("采购商家：" + companyName);

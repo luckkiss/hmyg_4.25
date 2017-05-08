@@ -29,13 +29,15 @@
 
             <EditText
                 android:id="@+id/tv_save_seeding_price_min"
-                style="@style/edit_seeding_imput" />
+                style="@style/edit_seeding_imput"
+                android:inputType="number|numberDecimal" />
 
             <TextView style="@style/text_Seeding_line" />
 
             <EditText
                 android:id="@+id/tv_save_seeding_price_max"
-                style="@style/edit_seeding_imput" />
+                style="@style/edit_seeding_imput"
+                android:inputType="number|numberDecimal" />
 
 
         </LinearLayout>

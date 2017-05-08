@@ -88,8 +88,12 @@ public class StorePurchaseListAdapter extends BaseAdapter {
 
         tv_01.setText("[" + data.get(position).get("firstTypeName").toString()
                 + "]" + data.get(position).get("name").toString());
+
+
         tv_ac.setText(data.get(position).get("count").toString()
                 + data.get(position).get("unitTypeName").toString());
+
+
         tv_02.setText("采购单：" + data.get(position).get("num").toString());
         if (data.get(position).get("cityName") != null) {
             tv_03.setText(data.get(position).get("cityName").toString());

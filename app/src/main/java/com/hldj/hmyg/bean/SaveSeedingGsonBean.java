@@ -140,8 +140,8 @@ public class SaveSeedingGsonBean implements Serializable {
             private String name;
             private String seedlingNum;
             private boolean isNego = false;
-            private int minPrice;
-            private int maxPrice;
+            private String minPrice;
+            private String maxPrice;
 
 
             public boolean isQuoted;
@@ -276,19 +276,19 @@ public class SaveSeedingGsonBean implements Serializable {
                 isNego = nego;
             }
 
-            public int getMinPrice() {
+            public String getMinPrice() {
                 return minPrice;
             }
 
-            public void setMinPrice(int minPrice) {
+            public void setMinPrice(String minPrice) {
                 this.minPrice = minPrice;
             }
 
-            public int getMaxPrice() {
+            public String getMaxPrice() {
                 return maxPrice;
             }
 
-            public void setMaxPrice(int maxPrice) {
+            public void setMaxPrice(String maxPrice) {
                 this.maxPrice = maxPrice;
             }
 

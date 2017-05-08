@@ -20,22 +20,23 @@
             android:orientation="horizontal" >
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="2.0dip"
                 android:orientation="horizontal"
                 android:paddingLeft="10.0dip"
-                android:paddingRight="10.0dip" >
+                android:paddingRight="10.0dip"
+                android:layout_toLeftOf="@+id/tv_03" >
 
                 <TextView
                     android:id="@+id/tv_01"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:button="@drawable/agreement_checkbox_bg"
                     android:checked="false"
-                    android:gravity="center"
+                    android:gravity="start"
                     android:textColor="@color/white"
                     android:textSize="14.0sp" />
             </LinearLayout>

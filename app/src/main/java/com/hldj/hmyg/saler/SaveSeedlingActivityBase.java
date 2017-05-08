@@ -758,12 +758,10 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
         SaveSeedingBottomLinearLayout.upLoadDatas upLoadDatas = viewHolder.bottom_ll.getUpLoadDatas();
 
-        if (MyUtil.formateString2Int(upLoadDatas.getPrice_min()) != 0) {
-            seedlingBean.setMinPrice(MyUtil.formateString2Int(upLoadDatas.getPrice_min()));
-        }
-        if (MyUtil.formateString2Int(upLoadDatas.getPrice_max()) != 0) {
-            seedlingBean.setMaxPrice(MyUtil.formateString2Int(upLoadDatas.getPrice_max()));
-        }
+
+        seedlingBean.setMinPrice(upLoadDatas.getPrice_min());
+        seedlingBean.setMaxPrice(upLoadDatas.getPrice_max());
+
         seedlingBean.setIsNego(upLoadDatas.isMeet());
         if (MyUtil.formateString2Int(upLoadDatas.getRepertory_num()) != 0) {
             seedlingBean.setCount(MyUtil.formateString2Int(upLoadDatas.getRepertory_num()));

@@ -86,7 +86,7 @@ public class UsedQuoteListBean implements Serializable{
     public String purchaseId;
     public String purchaseItemId;
     public String sellerId;
-    public int price;
+    public String price;
     public boolean isInvoice;
     public boolean isUsed;
     public String implementRemarks;

@@ -7,6 +7,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -50,6 +51,8 @@ public class WebViewDialogFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_webview_dialog, null);
         initView(view);
 
+        //添加这一行
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         return view;
     }

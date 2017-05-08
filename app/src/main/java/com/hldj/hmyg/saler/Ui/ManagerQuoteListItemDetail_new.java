@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -77,7 +78,13 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
                 View view = LayoutInflater.from(this).inflate(R.layout.item_manager_bottom, cardView);
                 if (i != 0)
                     view.findViewById(R.id.tv_recycle_detail_bottom_title).setVisibility(View.GONE);
-                ((TextView) view.findViewById(R.id.tv_recycle_detail_bottom)).setText(strFilter("价格：￥" + usedQuoteList.get(i).price + "  " + "[" + usedQuoteList.get(i).specText + "]"));
+
+                if (TextUtils.isEmpty(usedQuoteList.get(i).specText)) {
+                    ((TextView) view.findViewById(R.id.tv_recycle_detail_bottom)).setText(strFilter("价格：￥" + usedQuoteList.get(i).price));
+                } else {
+                    ((TextView) view.findViewById(R.id.tv_recycle_detail_bottom)).setText(strFilter("价格：￥" + usedQuoteList.get(i).price + "  " + "[" + usedQuoteList.get(i).specText + "]"));
+
+                }
 
                 recyclerView.addFooterView(cardView);
             }

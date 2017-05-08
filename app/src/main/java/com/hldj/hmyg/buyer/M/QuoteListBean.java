@@ -61,7 +61,7 @@ public class QuoteListBean {
     public String twCode;
     public String firstSeedlingTypeId;
     public String diameterType;
-    public int offbarHeight;
+    public String offbarHeight;
     public String plantType;
     public String imageUrl;
     public String ossUrl;
@@ -78,7 +78,7 @@ public class QuoteListBean {
     public String purchaseId;
     public String purchaseItemId;
     public String sellerId;
-    public int price;
+    public String price;
     public String sellerName;
     public String sellerPhone;
     public String purchaseItemStatus;

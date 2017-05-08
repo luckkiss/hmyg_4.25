@@ -90,7 +90,7 @@ public class ItemBean {
     public SellerQuoteJsonBean sellerQuoteJson;
     public List<String> paramsList;
     public List<SpecListBean> specList;
-    public BuyerBean buyer ;
+    public BuyerBean buyer = new BuyerBean();
 
 
 

@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -26,10 +27,10 @@
             android:paddingBottom="4dp"
             android:paddingLeft="10dp"
             android:paddingTop="4dp"
-            android:text="下架时间：2017-05-09  还剩下34天6小时43分09秒"
             android:textColor="@color/white"
             android:textSize="@dimen/y8"
-            android:visibility="visible" />
+            android:visibility="visible"
+            tools:text="下架时间：2017-05-09  还剩下34天6小时43分09秒" />
 
 
     </RelativeLayout>
@@ -70,9 +71,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:singleLine="true"
-                    android:text="香樟"
                     android:textColor="@color/main_color"
-                    android:textSize="@dimen/y10" />
+                    android:textSize="@dimen/y10"
+                    tools:text="香樟" />
             </LinearLayout>
 
             <com.neopixl.pixlui.components.textview.TextView
@@ -83,9 +84,9 @@
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="福建漳州"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/y10" />
+                android:textSize="@dimen/y10"
+                tools:text="福建漳州" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -114,9 +115,9 @@
                         android:paddingBottom="@dimen/y3"
                         android:paddingTop="@dimen/y6"
                         android:singleLine="true"
-                        android:text="种植类型：假植苗"
                         android:textColor="#666666"
-                        android:textSize="@dimen/y8" />
+                        android:textSize="@dimen/y8"
+                        tools:text="种植类型：假植苗" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -131,9 +132,9 @@
                         android:gravity="center_vertical"
                         android:paddingBottom="@dimen/y3"
                         android:singleLine="true"
-                        android:text="库存：110"
                         android:textColor="#666666"
-                        android:textSize="@dimen/y8" />
+                        android:textSize="@dimen/y8"
+                        tools:text="库存：110" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -158,9 +159,9 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:singleLine="true"
-                            android:text="Y3000-4000"
                             android:textColor="#FA0000"
-                            android:textSize="@dimen/y10" />
+                            android:textSize="@dimen/y10"
+                            tools:text="Y3000-4000" />
 
                         <com.neopixl.pixlui.components.textview.TextView
                             android:id="@+id/tv_unitTypeName"
@@ -261,7 +262,6 @@
             android:padding="@dimen/x2">
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -288,7 +288,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="clip_vertical"
                     android:layout_weight="6"
-                    android:text="漳树(漳州) 园林有限公司" />
+                    tools:text="漳树(漳州) 园林有限公司" />
 
             </LinearLayout>
 
@@ -319,7 +319,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="clip_vertical"
                     android:layout_weight="6"
-                    android:text="福建   漳州" />
+                    tools:text="福建   漳州" />
 
             </LinearLayout>
 
@@ -351,7 +351,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="clip_vertical"
                     android:layout_weight="6"
-                    android:text="吴先生" />
+                    tools:text="吴先生" />
             </LinearLayout>
 
             <LinearLayout
@@ -381,7 +381,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="clip_vertical"
                     android:layout_weight="6"
-                    android:text="15750701573" />
+                    tools:text="15750701573" />
 
 
             </LinearLayout>

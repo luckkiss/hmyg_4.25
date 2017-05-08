@@ -58,6 +58,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:textColor="@color/red"
+                    android:maxLines="1"
                     android:textSize="14.0sp" />
             </LinearLayout>
 
@@ -183,7 +184,7 @@
                 <TextView
                     android:id="@+id/tv_10"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
                     android:singleLine="true"
