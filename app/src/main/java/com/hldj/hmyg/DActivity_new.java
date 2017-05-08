@@ -22,6 +22,7 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
+import com.zf.iosdialog.widget.AlertDialog;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -110,22 +111,26 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 
         findViewById(R.id.tv_clear_all).setOnClickListener(v -> {
                     D.e("==============清空收藏夹============");
+                    new AlertDialog(this).builder()
+                            .setTitle("确定清空所有收藏?")
+                            .setPositiveButton("确定删除", v1 -> {
+                                new CollectPresenter(new ResultCallBack<SimpleGsonBean>() {
+                                    @Override
+                                    public void onSuccess(SimpleGsonBean simpleGsonBean) {
+                                        pageIndex = 0;
+                                        initData();
+                                        seedlingBeen.clear();
+                                        collectAdapter.notifyDataSetChanged();
+                                    }
 
+                                    @Override
+                                    public void onFailure(Throwable t, int errorNo, String strMsg) {
 
-                    new CollectPresenter(new ResultCallBack<SimpleGsonBean>() {
-                        @Override
-                        public void onSuccess(SimpleGsonBean simpleGsonBean) {
-                            pageIndex = 0;
-                            initData();
-                            seedlingBeen.clear();
-                            collectAdapter.notifyDataSetChanged();
-                        }
+                                    }
+                                }).reqClearCollect("seedling");
+                            }).setNegativeButton("取消", v2 -> {
+                    }).show();
 
-                        @Override
-                        public void onFailure(Throwable t, int errorNo, String strMsg) {
-
-                        }
-                    }).reqClearCollect("seedling");
                 }
 
         );

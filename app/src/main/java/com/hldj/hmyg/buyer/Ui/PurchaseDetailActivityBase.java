@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -96,6 +97,16 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
      * @param saveSeedingGsonBean
      */
     public void initDatas(SaveSeedingGsonBean saveSeedingGsonBean) {
+        boolean canQuote = saveSeedingGsonBean.getData().canQuote;
+        if (!canQuote) {
+            ToastUtil.showShortToast("对不起，您没有报价权限");
+
+            new Handler().postDelayed(() -> {
+                finish();
+            }, 2000);
+
+            return;
+        }
         /**
          * obj[@"data"][@"typeList"]   //分类的list
          obj[@"data"][@"plantTypeList"]  //种植类型list

@@ -7,28 +7,32 @@
     android:background="#ffffffff"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/y30"
-        android:background="@color/white">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="报价管理"
-            android:textColor="@color/main_color"
-            android:textSize="@dimen/x18" />
+    <include layout="@layout/toolbar_3_0"/>
+    <!--<RelativeLayout-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="35dp"-->
+        <!--android:background="@color/white">-->
 
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="@dimen/x28"
-            android:layout_height="@dimen/x28"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/x10"
-            android:background="@drawable/btn_back" />
-    </RelativeLayout>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:text="报价管理"-->
+            <!--android:textColor="@color/main_color"-->
+            <!--android:textSize="@dimen/x18" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/btn_back"-->
+            <!--android:layout_width="35dp"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="@dimen/x10"-->
+            <!--android:src="@drawable/btn_back"-->
+            <!--android:padding="5dp"-->
+            <!--/>-->
+    <!--</RelativeLayout>-->
 
 
     <android.support.design.widget.TabLayout

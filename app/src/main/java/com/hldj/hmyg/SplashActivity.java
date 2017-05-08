@@ -12,6 +12,8 @@ import com.hldj.hmyg.application.PermissionUtils;
 import com.hy.utils.GetServerUrl;
 import com.white.utils.AndroidUtil;
 
+import cn.jpush.android.api.JPushInterface;
+
 public class SplashActivity extends FragmentActivity {
 
     private ImageView img_sp;
@@ -90,12 +92,17 @@ public class SplashActivity extends FragmentActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        JPushInterface.onPause(this);
+
 
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
+        JPushInterface.onResume(this);
+
     }
 
 }

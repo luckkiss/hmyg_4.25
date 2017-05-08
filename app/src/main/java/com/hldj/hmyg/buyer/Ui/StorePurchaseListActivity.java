@@ -522,6 +522,7 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
                                         "data").length() > 0) {
                                     JSONArray jsonArray = JsonGetInfo
                                             .getJsonArray(jsonObject2, "data");
+
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         JSONObject jsonObject3 = jsonArray
                                                 .getJSONObject(i);
@@ -646,6 +647,9 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
                                         hMap.put("isQuoted", JsonGetInfo
                                                 .getJsonBoolean(jsonObject3,
                                                         "isQuoted"));
+                                        hMap.put("canQuote", JsonGetInfo
+                                                .getJsonBoolean(jsonObject3,
+                                                        "canQuote"));
                                         if (!"".equals(purchaseFormId)) {
                                             hMap.put("hasShowDialog", true);
                                         } else {

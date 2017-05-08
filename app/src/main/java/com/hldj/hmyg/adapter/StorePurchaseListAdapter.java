@@ -112,9 +112,10 @@ public class StorePurchaseListAdapter extends BaseAdapter {
                 + data.get(position).get("remarks").toString());
         tv_07.setText("种植类型："
                 + data.get(position).get("plantTypeName").toString());
+
+        boolean canQuote = (boolean) data.get(position).get("canQuote");
         // tv_06.setText("其他要求：" +
         // data.get(position).get("remarks").toString());
-
 
 
         if (Boolean.parseBoolean(data.get(position).get("isQuoted").toString())) {
@@ -166,6 +167,12 @@ public class StorePurchaseListAdapter extends BaseAdapter {
                     PurchaseDetailActivity.start2Activity((Activity) context, data.get(position).get("id").toString());//采购详情 界面
 
                 } else {
+
+                    if (!canQuote) {
+
+                        return;
+
+                    }
                     LoginActivity.start2Activity((Activity) context);
                 }
 

@@ -2,7 +2,6 @@ package com.hldj.hmyg.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -228,12 +227,16 @@ public class ProductListAdapterForManager extends BaseAdapter {
         String minPrice = data.get(position).get("minPrice") + "";
         String maxPrice = data.get(position).get("maxPrice") + "";
 
-        if (!TextUtils.isEmpty(minPrice) && !TextUtils.isEmpty(maxPrice)) {
-            String min_max_price = minPrice + "-" + maxPrice;
-            tv_07.setText(min_max_price);
-        } else {
-            tv_07.setText("面议");
-        }
+
+        boolean isNego = (boolean) data.get(position).get("isNego");
+        ProductListAdapter.setPrice(tv_07,maxPrice,minPrice,isNego);
+
+//        if (!TextUtils.isEmpty(minPrice) && !TextUtils.isEmpty(maxPrice)) {
+//            String min_max_price = minPrice + "-" + maxPrice;
+//            tv_07.setText(min_max_price);
+//        } else {
+//            tv_07.setText("面议");
+//        }
 
 
         tv_08.setText("/" + data.get(position).get("unitTypeName").toString());
@@ -347,5 +350,7 @@ public class ProductListAdapterForManager extends BaseAdapter {
                 });
 
     }
+
+
 
 }

@@ -289,11 +289,12 @@ public class ManagerListActivity extends NeedSwipeBackActivity implements
                                         hMap.put("minPrice", JsonGetInfo
                                                 .getJsonString(jsonObject3,
                                                         "minPrice"));
-
                                         hMap.put("maxPrice", JsonGetInfo
                                                 .getJsonString(jsonObject3,
                                                         "maxPrice"));
-
+                                        hMap.put("isNego", JsonGetInfo
+                                                .getJsonBoolean(jsonObject3,
+                                                        "isNego"));
                                         hMap.put("name", JsonGetInfo
                                                 .getJsonString(jsonObject3,
                                                         "standardName"));
@@ -383,6 +384,7 @@ public class ManagerListActivity extends NeedSwipeBackActivity implements
                                         hMap.put("unitTypeName", JsonGetInfo
                                                 .getJsonString(jsonObject3,
                                                         "unitTypeName"));
+
                                         hMap.put("detailAddress", JsonGetInfo
                                                 .getJsonString(JsonGetInfo
                                                                 .getJSONObject(

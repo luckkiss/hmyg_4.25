@@ -43,6 +43,7 @@ import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 import com.kaopiz.kprogresshud.KProgressHUD;
+import com.zf.iosdialog.widget.AlertDialog;
 
 import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.FinalHttp;
@@ -284,21 +285,12 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
                 break;
 
             case R.id.id_tv_edit_all:
-                initDao();
-
-                List<SavaBean> list = qb.list();
-
-
-                for (int i = 0; i < myadapter.checks.length; i++) {
-                    if (myadapter.checks[i]) {
-                        D.e("========删除选项============" + i);
-                        savaBeanDao.delete(list.get(i));
-                    }
-
-                }
-                D.e("========重新初始化============");
-                initData();
-
+                new AlertDialog(this).builder()
+                        .setTitle("确定删除所选草稿?")
+                        .setPositiveButton("确定删除", v1 -> {
+                            dele();//删除
+                        }).setNegativeButton("取消", v2 -> {
+                }).show();
                 break;
             case R.id.tv_all:
                 selectedAll();
@@ -316,6 +308,27 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
             default:
                 break;
         }
+    }
+
+    /**
+     * 删除代码
+     */
+    public void dele() {
+
+        initDao();
+
+        List<SavaBean> list = qb.list();
+
+
+        for (int i = 0; i < myadapter.checks.length; i++) {
+            if (myadapter.checks[i]) {
+                D.e("========删除选项============" + i);
+                savaBeanDao.delete(list.get(i));
+            }
+
+        }
+        D.e("========重新初始化============");
+        initData();
     }
 
     ArrayList arrayList;
@@ -543,46 +556,46 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
 
             if (value.equals(ConstantParams.height))//高度
             {
-                if (!checkNoNull("高度的最大值", "maxHeight", seedlingBean.getMaxHeight() + "", params))
+                if (!checkNoNull("高度的最大值或最小值", "maxHeight", seedlingBean.getMaxHeight() + "", params) && !checkNoNull("高度的最大值或最小值", "minHeight", seedlingBean.getMinHeight() + "", params))
                     return false;
-                if (!checkNoNull("高度的最小值", "minHeight", seedlingBean.getMinHeight() + "", params))
-                    return false;
+//                if (!checkNoNull("高度的最小值", "minHeight", seedlingBean.getMinHeight() + "", params))
+//                    return false;
             }
             if (value.equals(ConstantParams.crown))//冠幅
             {
-                if (!checkNoNull("冠幅的最大值", "maxCrown", seedlingBean.getMaxCrown() + "", params))
+                if (!checkNoNull("冠幅的最大值或最小值", "maxCrown", seedlingBean.getMaxCrown() + "", params) && !checkNoNull("冠幅的最大值或最小值", "minCrown", seedlingBean.getMinCrown() + "", params))
                     return false;
-                if (!checkNoNull("冠幅的最小值", "minCrown", seedlingBean.getMinCrown() + "", params))
-                    return false;
+//                if (!checkNoNull("冠幅的最小值", "minCrown", seedlingBean.getMinCrown() + "", params))
+//                    return false;
             }
             if (value.equals(ConstantParams.dbh))//胸径
             {
-                if (!checkNoNull("胸径的最大值", "maxDbh", seedlingBean.getMaxDbh() + "", params))
+                if (!checkNoNull("胸径的最大值或最小值", "maxDbh", seedlingBean.getMaxDbh() + "", params) && !checkNoNull("胸径的最大值或最小值", "minDbh", seedlingBean.getMinDbh() + "", params))
                     return false;
-                if (!checkNoNull("胸径的最小值", "minDbh", seedlingBean.getMinDbh() + "", params))
-                    return false;
+//                if (!checkNoNull("胸径的最小值", "minDbh", seedlingBean.getMinDbh() + "", params))
+//                    return false;
             }
             if (value.equals(ConstantParams.diameter))//地径
             {
-                if (!checkNoNull("地径的最大值", "maxDiameter", seedlingBean.getMaxDiameter() + "", params))
+                if (!checkNoNull("地径的最大值或最小值", "maxDiameter", seedlingBean.getMaxDiameter() + "", params) && !checkNoNull("地径的最大值或最小值", "minDiameter", seedlingBean.getMinDiameter() + "", params))
                     return false;
-                if (!checkNoNull("地径的最小值", "minDiameter", seedlingBean.getMinDiameter() + "", params))
-                    return false;
+//                if (!checkNoNull("地径的最小值", "minDiameter", seedlingBean.getMinDiameter() + "", params))
+//                    return false;
             }
             if (value.equals(ConstantParams.offbarHeight))//脱杆高
             {
-                if (!checkNoNull("脱杆高的最大值", "maxOffbarHeight", seedlingBean.getMaxOffbarHeight() + "", params))
+                if (!checkNoNull("脱杆高的最大值或最小值", "maxOffbarHeight", seedlingBean.getMaxOffbarHeight() + "", params) && !checkNoNull("脱杆高的最大值或最小值", "minOffbarHeight", seedlingBean.getMinOffbarHeight() + "", params))
                     return false;
-                if (!checkNoNull("脱杆高的最小值", "minOffbarHeight", seedlingBean.getMinOffbarHeight() + "", params))
-                    return false;
+//                if (!checkNoNull("脱杆高的最小值", "minOffbarHeight", seedlingBean.getMinOffbarHeight() + "", params))
+//                    return false;
 
             }
             if (value.equals(ConstantParams.length))//长度
             {
-                if (!checkNoNull("长度的最大值", "maxLength", seedlingBean.getMaxLength() + "", params))
+                if (!checkNoNull("长度的最大值或最小值", "maxLength", seedlingBean.getMaxLength() + "", params) && !checkNoNull("长度的最小值", "minLength", seedlingBean.getMinLength() + "", params))
                     return false;
-                if (!checkNoNull("长度的最小值", "minLength", seedlingBean.getMinLength() + "", params))
-                    return false;
+//                if (!checkNoNull("长度的最小值", "minLength", seedlingBean.getMinLength() + "", params))
+//                    return false;
 
             }
 

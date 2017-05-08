@@ -169,7 +169,28 @@ public class BuyerActivity extends LoginActivity {
         statusCount();
         orderStatusCount();
         loadCarstatusCount();
+        setImage();
+    }
 
+    private void setImage() {
+        if (MyApplication.Userinfo.getBoolean("isLogin", false)
+                    && iv_icon_persion_pic != null) {
+                if (!"".equals(MyApplication.Userinfo.getString("headImage", ""))) {
+                    ImageLoader.getInstance().displayImage(
+                            MyApplication.Userinfo.getString("headImage", ""),
+                            iv_icon_persion_pic);
+                    String headImage = MyApplication.Userinfo.getString("headImage", "") ;
+//                fb.display(iv_icon_persion_pic,headImage);
+                }
+//            getUserInfo(MyApplication.Userinfo.getString("id", ""),
+//                    "SetProfileActivity");
+                tv_user_name.setText(MyApplication.Userinfo.getString(
+                        "showUserName", ""));
+
+            } else {
+                iv_icon_persion_pic.setImageResource(R.drawable.icon_persion_pic);
+                tv_user_name.setText("");
+        }
     }
 
     @Override
@@ -181,6 +202,11 @@ public class BuyerActivity extends LoginActivity {
             orderStatusCount();
             loadCarstatusCount();
         }
+
+        super.onResume();
+    }
+
+    public void getUserData(){
         if (MyApplication.Userinfo.getBoolean("isLogin", false)
                 && iv_icon_persion_pic != null) {
             getUserInfo(MyApplication.Userinfo.getString("id", ""),
@@ -193,8 +219,8 @@ public class BuyerActivity extends LoginActivity {
             tv_user_name.setText(MyApplication.Userinfo.getString(
                     "showUserName", ""));
         }
-        super.onResume();
     }
+
 
     private void unReadCount() {
         // TODO Auto-generated method stub
@@ -1043,6 +1069,7 @@ public class BuyerActivity extends LoginActivity {
                         if (loading != null && !BuyerActivity.this.isFinishing()) {
                             loading.cancel();
                         }
+                        getUserData();
                         super.onSuccess(t);
                     }
 

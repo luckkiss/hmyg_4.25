@@ -123,6 +123,7 @@ public class EActivity extends LoginActivity implements PlatformActionListener {
 
         setContentView(R.layout.activity_e);
         fb = FinalBitmap.create(this);
+        fb.configLoadingImage(R.drawable.icon_persion_pic);
 
         if (platform.contains("1")) {
             PlatformForShare platformForShare = new PlatformForShare("朋友圈",
@@ -179,6 +180,7 @@ public class EActivity extends LoginActivity implements PlatformActionListener {
                 ImageLoader.getInstance().displayImage(
                         MyApplication.Userinfo.getString("headImage", ""),
                         iv_icon_persion_pic);
+//                fb.display(iv_icon_persion_pic, MyApplication.Userinfo.getString("headImage", ""));
             }
             getUserInfo(MyApplication.Userinfo.getString("id", ""),
                     "SetProfileActivity");
@@ -206,6 +208,11 @@ public class EActivity extends LoginActivity implements PlatformActionListener {
         if (iv_msg != null) {
             unReadCount();
         }
+        super.onResume();
+    }
+
+
+    public void getUserData() {
         if (MyApplication.Userinfo.getBoolean("isLogin", false)
                 && iv_icon_persion_pic != null) {
             getUserInfo(MyApplication.Userinfo.getString("id", ""),
@@ -226,7 +233,6 @@ public class EActivity extends LoginActivity implements PlatformActionListener {
             iv_icon_persion_pic.setImageResource(R.drawable.icon_persion_pic);
             tv_user_name.setText("");
         }
-        super.onResume();
     }
 
     private void unReadCount() {
@@ -923,7 +929,10 @@ public class EActivity extends LoginActivity implements PlatformActionListener {
         sp1.setShareType(Platform.SHARE_WEBPAGE);
         sp1.setTitle("欢迎使用花木易购代购型苗木交易平台！");
         sp1.setText("苗木交易原来可以如此简单,配上花木易购APP,指尖轻点,交易无忧。");
+//        sp1.setImageUrl(img);
         sp1.setImageUrl(img);
+//        Uri uri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getResourcePackageName(R.drawable.图片名称) + "/" + r.getResourceTypeName(R.drawable.图片名称) + "/" + r.getResourceEntryName(R.drawable.图片名称))
+
         sp1.setUrl(Data.share);
         sp1.setSiteUrl(Data.share);
         Platform Wechat = ShareSDK.getPlatform("Wechat");

@@ -310,20 +310,22 @@ public class ProductListAdapter extends BaseAdapter {
         if (isNego) {
             tv_07.setText("面议");
         } else {
-            if (TextUtils.isEmpty(maxPrice) && TextUtils.isEmpty(minPrice)) {
-                tv_07.setText("面议");
-            }
-
-            if (!TextUtils.isEmpty(minPrice) && !minPrice.equals("0")) {
+            if (!TextUtils.isEmpty(minPrice) && !minPrice.equals("0") && !minPrice.equals("null")) {
                 price = minPrice;
-                if (!TextUtils.isEmpty(maxPrice)&& !maxPrice.equals("0")) {
+                tv_07.setText(price);
+            }
+            if (!TextUtils.isEmpty(maxPrice) && !maxPrice.equals("0") && !maxPrice.equals("null")) {
+                if (price.equals("")) {
+                    price = maxPrice;
+                } else {
                     price = price + "-" + maxPrice;
                 }
-                tv_07.setText(price);
-            } else {
-                tv_07.setText(maxPrice);
+
+
             }
 
+
+            tv_07.setText(price);
         }
 
 

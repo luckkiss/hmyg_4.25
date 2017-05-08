@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TabActivity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
@@ -50,6 +49,7 @@ import com.hldj.hmyg.buy.bean.CollectCar;
 import com.hldj.hmyg.saler.StorageSaveActivity;
 import com.hldj.hmyg.saler.bean.ChooseManager;
 import com.hldj.hmyg.update.UpdateDialog;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.MyUtil;
 import com.hldj.hmyg.util.StartBarUtils;
 import com.hy.utils.GetServerUrl;
@@ -475,7 +475,7 @@ public class MainActivity extends TabActivity implements
                                     "url");
                             String new_version = JsonGetInfo.getJsonString(
                                     version, "versionNum");
-                            boolean isForce = JsonGetInfo.getJsonBoolean(data,
+                            boolean isForce = JsonGetInfo.getJsonBoolean(version,
                                     "isForce");
                             updateInfo.setVersion(versionNum);
                             updateInfo.setDescription(changelog);
@@ -601,31 +601,37 @@ public class MainActivity extends TabActivity implements
         builder.setAccountName(updateInfo.getDescription());
         builder.setAccountBank("");
         builder.setAccountNum("");
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                if (Environment.getExternalStorageState().equals(
-                        Environment.MEDIA_MOUNTED)) {
-                    // downFile(updateInfo.getUrl());
-                    SettingUtils.launchBrowser(MainActivity.this,
-                            updateInfo.getUrl());
-                } else {
-                    Toast.makeText(MainActivity.this,
-                            R.string.sd_card_is_disable, Toast.LENGTH_SHORT)
-                            .show();
-                }
-                // 设置你的操作事项
+
+
+        builder.setPositiveButton("确定", (dialog12, which) -> {
+            dialog12.dismiss();
+            if (Environment.getExternalStorageState().equals(
+                    Environment.MEDIA_MOUNTED)) {
+                // downFile(updateInfo.getUrl());
+                SettingUtils.launchBrowser(MainActivity.this,
+                        updateInfo.getUrl());
+            } else {
+                Toast.makeText(MainActivity.this,
+                        R.string.sd_card_is_disable, Toast.LENGTH_SHORT)
+                        .show();
             }
+            // 设置你的操作事项
         });
 
-        builder.setNegativeButton("取消",
-                new android.content.DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-        builder.create().show();
+        if (updateInfo.isForce()) {
+            UpdateDialog dialog = builder.create();
+            //强制更新
+            if (ConstantState.ON_OFF)
+            {
+                dialog.setCancelable(false);
+            }
+            dialog.show();
+        } else {
+            builder.setNegativeButton("取消",
+                    (dialog1, which) -> dialog1.dismiss());
+            UpdateDialog dialog = builder.create();
+            dialog.show();
+        }
 
     }
 

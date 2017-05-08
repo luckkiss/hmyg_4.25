@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -143,7 +144,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
     private Dialog dialog;
     private String platform = "1,2,3,4,5,6,7,8";
     private ArrayList<PlatformForShare> shares = new ArrayList<PlatformForShare>();
-    private String img = "";
+    private String img = "";//ower头像
     private String title = "欢迎使用花木易购代购型苗木交易平台！";
     private String text = "苗木交易原来可以如此简单,配上花木易购APP,指尖轻点,交易无忧。";
     private String url = Data.share;
@@ -477,6 +478,8 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                                 tv_store_name.setText(name);
                                 ownerId = JsonGetInfo.getJsonString(store,
                                         "ownerId");
+                                img = JsonGetInfo.getJsonString(store,
+                                        "headImage");
                                 String id = JsonGetInfo.getJsonString(store,
                                         "id");
                                 if (!"".equals(id)) {
@@ -1536,10 +1539,10 @@ public class StoreActivity extends NeedSwipeBackActivity implements
             sp5.setTitle(title);
             sp5.setTitleUrl(url); // 标题的超链接
             sp5.setText(text);
-            sp5.setImageUrl(img);
+//            sp5.setImageUrl(TextUtils.isEmpty(img) ? GetServerUrl.ICON_PAHT : img);
             sp5.setSite(getString(R.string.app_name));
             sp5.setSiteUrl(url);
-            sp5.setImagePath(img_path);
+            sp5.setImagePath(TextUtils.isEmpty(img) ? GetServerUrl.ICON_PAHT : img);
             Platform qzone = ShareSDK.getPlatform(QQ.NAME);
             qzone.setPlatformActionListener(this); // 设置分享事件回调
             // 执行图文分享
@@ -1561,7 +1564,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
             ShareParams sp3 = new ShareParams();
             sp3.setShareType(Platform.SHARE_WEBPAGE);
             sp3.setText(text);
-            sp3.setImagePath(img_path);
+            sp3.setImagePath(TextUtils.isEmpty(img) ? GetServerUrl.ICON_PAHT : img);
             Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
             weibo.setPlatformActionListener(this); // 设置分享事件回调
             // 执行图文分享
@@ -1583,10 +1586,10 @@ public class StoreActivity extends NeedSwipeBackActivity implements
             sp1.setShareType(Platform.SHARE_WEBPAGE);
             sp1.setTitle(title);
             sp1.setText(text);
-            sp1.setImageUrl(img);
+//            sp1.setImageUrl(TextUtils.isEmpty(img) ? GetServerUrl.ICON_PAHT : img);
             sp1.setUrl(url);
             sp1.setSiteUrl(url);
-            sp1.setImagePath(img_path);
+            sp1.setImagePath(TextUtils.isEmpty(img) ? GetServerUrl.ICON_PAHT : img);
             Platform Wechat = ShareSDK.getPlatform("Wechat");
             Wechat.setPlatformActionListener(this);
             Wechat.share(sp1);
@@ -1607,11 +1610,11 @@ public class StoreActivity extends NeedSwipeBackActivity implements
             sp2.setShareType(Platform.SHARE_WEBPAGE);
             sp2.setTitle(title);
             sp2.setText(text);
-            sp2.setImageUrl(img);
+//            sp2.setImageUrl(TextUtils.isEmpty(img) ? GetServerUrl.ICON_PAHT : img);
             sp2.setUrl(url);
             sp2.setTitleUrl(url);
             sp2.setSiteUrl(url);
-            sp2.setImagePath(img_path);
+            sp2.setImagePath(TextUtils.isEmpty(img) ? GetServerUrl.ICON_PAHT : img);
             Platform Wechat_men = ShareSDK.getPlatform("WechatMoments");
             Wechat_men.setPlatformActionListener(this);
             Wechat_men.share(sp2);

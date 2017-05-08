@@ -24,11 +24,13 @@
 
         <ImageView
             android:id="@+id/btn_back"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/x10"
-            android:background="@drawable/btn_back" />
+            android:src="@drawable/btn_back"
+            android:padding="5dp"
+            />
     </RelativeLayout>
 
 

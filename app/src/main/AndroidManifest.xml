@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hldj.hmyg"
     android:versionCode="73"
-    android:versionName="2.0.43">
-
+    android:versionName="2.1.0">
+    <!--android:versionName="2.0.43"  2.1.0-->
     <!--<uses-sdk-->
     <!--android:minSdkVersion="14"-->
     <!--android:targetSdkVersion="25"-->

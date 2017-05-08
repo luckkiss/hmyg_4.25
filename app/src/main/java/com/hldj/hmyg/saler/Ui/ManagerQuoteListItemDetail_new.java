@@ -2,6 +2,7 @@ package com.hldj.hmyg.saler.Ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.saler.bean.UsedQuoteListBean;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hy.utils.ToastUtil;
 
 import java.util.List;
 
@@ -41,6 +43,14 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
         new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
             @Override
             public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
+                boolean canQuote = saveSeedingGsonBean.getData().canQuote;
+                if (!canQuote) {
+                    ToastUtil.showShortToast("您没有报价权限");
+                    new Handler().postDelayed(() -> {
+                        finish();
+                    }, 2000);
+                    return;
+                }
                 usedQuoteList = saveSeedingGsonBean.getData().usedQuoteList;
 
                 initDatas(saveSeedingGsonBean);

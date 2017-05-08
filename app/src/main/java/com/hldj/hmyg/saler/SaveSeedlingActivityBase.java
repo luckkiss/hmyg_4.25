@@ -507,8 +507,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             case "1":
                 //若是必填
                 if (autoAddRelative.isRequiredis()) {
-                    if (TextUtils.isEmpty(autoAddRelative.getViewHolder_rd().et_auto_add_min.getText().toString()) || TextUtils.isEmpty(viewHolder_rd.et_auto_add_max.getText().toString())) {
-                        ToastUtil.showShortToast(autoAddRelative.getViewHolder_rd().tv_auto_add_left1.getText() + " 最大值或最小值必须填写!");
+                    if (TextUtils.isEmpty(autoAddRelative.getViewHolder_rd().et_auto_add_min.getText().toString()) && TextUtils.isEmpty(viewHolder_rd.et_auto_add_max.getText().toString())) {
+                        ToastUtil.showShortToast("请填写 " + autoAddRelative.getViewHolder_rd().tv_auto_add_left1.getText() + " 的最大值或最小值!");
                         D.e("=============checkParames===================" + viewHolder_rd.tv_auto_add_left1.getText() + " 最大值或最小值必须填写!");
                         return false;
                     }
@@ -517,9 +517,9 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             case "2":
                 //若是必填
                 if (autoAddRelative.isRequiredis()) {
-                    if (TextUtils.isEmpty(autoAddRelative.getViewHolder().et_auto_add_min.getText().toString()) || TextUtils.isEmpty(autoAddRelative.getViewHolder().et_auto_add_min.getText().toString())) {
-                        ToastUtil.showShortToast(autoAddRelative.getViewHolder().tv_auto_add_left1.getText() + " 最大值或最小值必须填写!");
-                        D.e("=============checkParames===================" + viewHolder_rd.tv_auto_add_left1.getText() + " 最大值或最小值必须填写!");
+                    if (TextUtils.isEmpty(autoAddRelative.getViewHolder().et_auto_add_min.getText().toString()) && TextUtils.isEmpty(autoAddRelative.getViewHolder().et_auto_add_min.getText().toString())) {
+                        ToastUtil.showShortToast("请填写 " + autoAddRelative.getViewHolder().tv_auto_add_left1.getText() + " 的最大值或最小值!");
+                        D.e("=============checkParames===================" + viewHolder_rd.tv_auto_add_left1.getText() + " 的最大值或最小值!");
                         return false;
                     }
                 }
@@ -639,8 +639,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             //如果面议就不判断价格
         } else {
             //如果不是面议  就判断价格不能为空
-            if (TextUtils.isEmpty(viewHolder.bottom_ll.getUpLoadDatas().getPrice_min()) || TextUtils.isEmpty(viewHolder.bottom_ll.getUpLoadDatas().getPrice_max())) {
-                ToastUtil.showShortToast("请输入最大价格于最小价格");
+            if (TextUtils.isEmpty(viewHolder.bottom_ll.getUpLoadDatas().getPrice_min()) && TextUtils.isEmpty(viewHolder.bottom_ll.getUpLoadDatas().getPrice_max())) {
+                ToastUtil.showShortToast("请输入最大价格或最小价格");
                 return false;
             }
         }

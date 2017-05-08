@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Html;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -1046,6 +1047,8 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                                                 PurchasePyMapActivity.this,
                                                 puchaseDatas);
                                         listview.setAdapter(listAdapter);
+                                    } else {
+                                        listview.deferNotifyDataSetChanged();
                                     }
                                     pageIndex++;
 
@@ -1335,13 +1338,18 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
             }
 
 
-            if (data.get(position).getQuoteCountJson() > 0) {
+            if (!TextUtils.isEmpty(data.get(position).getItemCountJson())) {
                 StringFormatUtil fillColor = new StringFormatUtil(context, "已有"
                         + data.get(position).getItemCountJson() + "条品种", data
                         .get(position).getItemCountJson() + "", R.color.green
                 )
                         .fillColor();
-                tv_10.setText(fillColor.getResult());
+
+                if (null != fillColor.getResult()) {
+                    tv_10.setText(fillColor.getResult());
+                } else {
+                    tv_10.setText("暂无报价");
+                }
             } else {
                 tv_10.setText("暂无报价");
             }

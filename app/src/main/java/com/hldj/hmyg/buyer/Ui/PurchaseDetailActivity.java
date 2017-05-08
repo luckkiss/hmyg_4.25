@@ -202,6 +202,10 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     //发布成功后   刷新界面
     //讲数据进行  动态布局
     private void initTypeListProtocol(List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen) {
+        if (typeListBeen == null) {
+            D.e("=====typeListBeen=====为空");
+            return;
+        }
         autoLayouts.clear();
 //      viewHolder_pur.ll_purc_auto_add.addView(new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("价格", "dbh", true)));
         getViewHolder_pur().ll_purc_auto_add.removeAllViews();//动态添加前先删除所有
@@ -342,7 +346,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     }
 
     public void onDeleteFinish(boolean isSucceed) {
-        D.e("==========删除成功失败==========="+isSucceed);
+        D.e("==========删除成功失败===========" + isSucceed);
     }
 
     //解析 数组数据

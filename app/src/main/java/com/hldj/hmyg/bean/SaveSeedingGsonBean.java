@@ -50,6 +50,7 @@ public class SaveSeedingGsonBean implements Serializable {
     }
 
     public static class DataBean implements Serializable {
+       public   boolean canQuote =false;
         private SeedlingBean seedling;
         private ItemBean item;
         public List<UsedQuoteListBean> usedQuoteList = new ArrayList<>();

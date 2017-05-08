@@ -12,10 +12,13 @@ import net.tsz.afinal.FinalHttp;
 
 public class GetServerUrl {
 
-    public static boolean isTest = true;//测试时使用
+    public static boolean isTest = false;//测试时使用
     static String PGYER = "http://www.pgyer.com/apiv1/app/viewGroup";
-    // 正式 可用
-    static String API_01 = "http://hmeg.cn:93/";
+    // 正式 可用 2.0
+//    static String API_01 = "http://hmeg.cn:93/";
+    // 正式 可用 3.0
+    static String API_01 = "http://api.hmeg.cn/";
+
     static String FIR_01 = "http://api.fir.im/apps/latest/57882cfc748aac17af00001e?api_token=7b3d87a7cb04b3a1624abb900c045c22&type=android&bundle_id=com.hldj.hmyg";
     static String PGYER_UPLOAD_01 = "https://www.pgyer.com/hmeg3";
     static String aId_01 = "87045b497d4eaffc7621c1f2ef75a79f";
@@ -39,7 +42,8 @@ public class GetServerUrl {
     // 测试,xingguo.huang@qq.com
 //   static String API_03 = "http://test.hmeg.cn:93/";
 
-   static String API_03 = "http://test.api.hmeg.cn/";
+   static String API_03 = "http://test.api.hmeg.cn/";//3.0测式库
+
     //http://test.api.hmeg.cn
 //   static String API_03 = "http://192.168.1.146:8091/api/";//罗伟电脑 服务器地址
 
@@ -118,7 +122,8 @@ public class GetServerUrl {
     static String TEST_API = "http://192.168.1.20:83/api/";
     // static String TEST_API = "http://192.168.1.146:8080/api/";
     public final static String WEB = "http://www.hmeg.cn";
-    public final static String ICON_PAHT = "http://p3.so.qhimg.com/sdr/449_800_/t0147220f71d4562943.jpg";
+//    public final static String ICON_PAHT = "http://p3.so.qhimg.com/sdr/449_800_/t0147220f71d4562943.jpg";
+    public final static String ICON_PAHT = "http://m.hmeg.cn/static/images/sharelogo.png";
     public final static String TEST_URL = "https://m.baidu.com";
     public final static String Customer_Care_Phone = "4006579888";
     public final static String Customer_Care_QQ = "873528519";

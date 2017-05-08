@@ -19,6 +19,7 @@ import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.SPUtil;
 import com.hldj.hmyg.util.SPUtils;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -207,12 +208,19 @@ public class MyApplication extends MultiDexApplication {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
                 context).threadPriority(Thread.NORM_PRIORITY - 2)
                 .denyCacheImageMultipleSizesInMemory()
+                .diskCacheSize(50 * 1024 * 1024) // 50 Mb
+                .memoryCache(new LruMemoryCache(4 * 1024 * 1024)).tasksProcessingOrder(QueueProcessingType.LIFO)//
                 .discCacheFileNameGenerator(new Md5FileNameGenerator())
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
                 .writeDebugLogs() // Remove for release app
                 .build();
         // Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config);
+
+
+// Initialize ImageLoader with configuration.
+        ImageLoader.getInstance().init(config);
     }
+
 
 }

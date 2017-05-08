@@ -25,5 +25,6 @@ public interface ConstantState {
 
     String COLLECT_REFRESH = "COLLECT_REFRESH";
 
+    boolean ON_OFF = true;//打开强制更新
 
 }
