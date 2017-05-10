@@ -65,7 +65,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/line" />
+        android:background="@drawable/line_bak" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -147,37 +147,37 @@
             android:paddingRight="@dimen/x13"
             android:paddingTop="@dimen/x3">
 
-            <RelativeLayout
-                android:id="@+id/rl_choose_type"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:visibility="gone">
+            <!--<RelativeLayout-->
+                <!--android:id="@+id/rl_choose_type"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:visibility="gone">-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:text="地区"
-                        android:textSize="@dimen/y9" />
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:gravity="center"-->
+                        <!--android:text="地区"-->
+                        <!--android:textSize="@dimen/y9" />-->
 
-                    <ImageView
-                        android:layout_width="@dimen/x10"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:src="@drawable/icon_seller_arrow5" />
-                </LinearLayout>
-            </RelativeLayout>
+                    <!--<ImageView-->
+                        <!--android:layout_width="@dimen/x10"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:gravity="center"-->
+                        <!--android:src="@drawable/icon_seller_arrow5" />-->
+                <!--</LinearLayout>-->
+            <!--</RelativeLayout>-->
 
             <ImageView
                 android:layout_width="2px"

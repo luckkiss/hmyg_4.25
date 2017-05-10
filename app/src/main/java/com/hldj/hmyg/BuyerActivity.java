@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -174,28 +175,30 @@ public class BuyerActivity extends LoginActivity {
 
     private void setImage() {
         if (MyApplication.Userinfo.getBoolean("isLogin", false)
-                    && iv_icon_persion_pic != null) {
-                if (!"".equals(MyApplication.Userinfo.getString("headImage", ""))) {
-                    ImageLoader.getInstance().displayImage(
-                            MyApplication.Userinfo.getString("headImage", ""),
-                            iv_icon_persion_pic);
-                    String headImage = MyApplication.Userinfo.getString("headImage", "") ;
-//                fb.display(iv_icon_persion_pic,headImage);
-                }
+                && iv_icon_persion_pic != null) {
+            if (!"".equals(MyApplication.Userinfo.getString("headImage", ""))) {
+//                ImageLoader.getInstance().displayImage(
+//                        MyApplication.Userinfo.getString("headImage", ""),
+//                        iv_icon_persion_pic);
+                String headImage = MyApplication.Userinfo.getString("headImage", "");
+                fb.display(iv_icon_persion_pic, headImage);
+            }
 //            getUserInfo(MyApplication.Userinfo.getString("id", ""),
 //                    "SetProfileActivity");
-                tv_user_name.setText(MyApplication.Userinfo.getString(
-                        "showUserName", ""));
+            tv_user_name.setText(MyApplication.Userinfo.getString(
+                    "showUserName", ""));
 
-            } else {
-                iv_icon_persion_pic.setImageResource(R.drawable.icon_persion_pic);
-                tv_user_name.setText("");
+        } else {
+            iv_icon_persion_pic.setImageResource(R.drawable.icon_persion_pic);
+            tv_user_name.setText("");
         }
     }
 
     @Override
     protected void onResume() {
         // TODO Auto-generated method stub
+        new Handler().postDelayed(() -> fb.display(iv_icon_persion_pic, MyApplication.Userinfo.getString("headImage", "")), 4000);
+//        finalBitmapDisplay();
         if (iv_msg != null) {
             unReadCount();
             statusCount();
@@ -206,15 +209,16 @@ public class BuyerActivity extends LoginActivity {
         super.onResume();
     }
 
-    public void getUserData(){
+    public void getUserData() {
         if (MyApplication.Userinfo.getBoolean("isLogin", false)
                 && iv_icon_persion_pic != null) {
             getUserInfo(MyApplication.Userinfo.getString("id", ""),
                     "SetProfileActivity");
             if (!"".equals(MyApplication.Userinfo.getString("headImage", ""))) {
-                ImageLoader.getInstance().displayImage(
-                        MyApplication.Userinfo.getString("headImage", ""),
-                        iv_icon_persion_pic);
+//                ImageLoader.getInstance().displayImage(
+//                        MyApplication.Userinfo.getString("headImage", ""),
+//                        iv_icon_persion_pic);
+                finalBitmapDisplay();
             }
             tv_user_name.setText(MyApplication.Userinfo.getString(
                     "showUserName", ""));
@@ -1058,6 +1062,7 @@ public class BuyerActivity extends LoginActivity {
                                     ImageLoader.getInstance().displayImage(
                                             MyApplication.Userinfo.getString("headImage", ""),
                                             iv_icon_persion_pic);
+//                                    finalBitmapDisplay();
                                 }
 
                             }
@@ -1089,6 +1094,13 @@ public class BuyerActivity extends LoginActivity {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
         return baos.toByteArray();
+    }
+
+
+    public void finalBitmapDisplay() {
+        fb.configLoadingImage(R.drawable.icon_persion_pic);
+        new Handler().postDelayed(() -> fb.display(iv_icon_persion_pic, MyApplication.Userinfo.getString("headImage", "")), 300);
+
     }
 
 }

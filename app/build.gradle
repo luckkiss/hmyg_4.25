@@ -100,4 +100,5 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
 
 //    compile 'com.github.Blincheng:Toast:v1.0'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
 }

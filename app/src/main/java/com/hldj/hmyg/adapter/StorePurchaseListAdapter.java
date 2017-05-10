@@ -172,11 +172,6 @@ public class StorePurchaseListAdapter extends BaseAdapter {
 
                 } else {
 
-                    if (!canQuote) {
-
-                        return;
-
-                    }
                     LoginActivity.start2Activity((Activity) context);
                 }
 

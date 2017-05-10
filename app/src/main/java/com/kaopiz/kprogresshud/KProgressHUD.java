@@ -20,6 +20,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,7 @@ public class KProgressHUD {
     // To avoid redundant APIs, all HUD functions will be forward to
     // a custom dialog
     private ProgressDialog mProgressDialog;
-	private TextView labelText;
+    private TextView labelText;
     private float mDimAmount;
     private int mWindowColor;
     private float mCornerRadius;
@@ -69,6 +70,7 @@ public class KProgressHUD {
     /**
      * Create a new HUD. Have the same effect as the constructor.
      * For convenient only.
+     *
      * @param context Activity context that the HUD bound to
      * @return An unique HUD instance
      */
@@ -78,6 +80,7 @@ public class KProgressHUD {
 
     /**
      * Specify the HUD style (not needed if you use a custom view)
+     *
      * @param style One of the KProgressHUD.Style values
      * @return Current HUD
      */
@@ -104,6 +107,7 @@ public class KProgressHUD {
 
     /**
      * Specify the dim area around the HUD, like in Dialog
+     *
      * @param dimAmount May take value from 0 to 1.
      *                  0 means no dimming, 1 mean darkness
      * @return Current HUD
@@ -117,6 +121,7 @@ public class KProgressHUD {
 
     /**
      * Specify the HUD background color
+     *
      * @param color ARGB color
      * @return Current HUD
      */
@@ -127,6 +132,7 @@ public class KProgressHUD {
 
     /**
      * Specify corner radius of the HUD (default is 10)
+     *
      * @param radius Corner radius in dp
      * @return Current HUD
      */
@@ -137,6 +143,7 @@ public class KProgressHUD {
 
     /**
      * Change animate speed relative to default. Only have effect when use with indeterminate style
+     *
      * @param scale 1 is default, 2 means double speed, 0.5 means half speed..etc.
      * @return Current HUD
      */
@@ -147,6 +154,7 @@ public class KProgressHUD {
 
     /**
      * Optional label to be displayed on the HUD
+     *
      * @return Current HUD
      */
     public KProgressHUD setLabel(String label) {
@@ -156,6 +164,7 @@ public class KProgressHUD {
 
     /**
      * Optional detail description to be displayed on the HUD
+     *
      * @return Current HUD
      */
     public KProgressHUD setDetailsLabel(String detailsLabel) {
@@ -165,6 +174,7 @@ public class KProgressHUD {
 
     /**
      * Max value for use in one of the determinate styles
+     *
      * @return Current HUD
      */
     public KProgressHUD setMaxProgress(int maxProgress) {
@@ -178,22 +188,22 @@ public class KProgressHUD {
      */
     public void setProgress(int progress) {
         mProgressDialog.setProgress(progress);
-       
-    }
-    
-    
-    public void setProgressText(String tex) {
-    	if(labelText!=null){
-    	  	  labelText.setText(tex);
-    	    }
 
-       
     }
-    
-    
-    
+
+
+    public void setProgressText(String tex) {
+        if (labelText != null) {
+            labelText.setText(tex);
+        }
+
+
+    }
+
+
     /**
      * Provide a custom view to be displayed.
+     *
      * @param view Must not be null
      * @return Current HUD
      */
@@ -208,6 +218,7 @@ public class KProgressHUD {
 
     /**
      * Specify whether this HUD can be cancelled by using back button (default is false)
+     *
      * @return Current HUD
      */
     public KProgressHUD setCancellable(boolean isCancellable) {
@@ -217,6 +228,7 @@ public class KProgressHUD {
 
     /**
      * Specify whether this HUD closes itself if progress reaches max. Default is true.
+     *
      * @return Current HUD
      */
     public KProgressHUD setAutoDismiss(boolean isAutoDismiss) {
@@ -227,7 +239,7 @@ public class KProgressHUD {
     public KProgressHUD show() {
         if (!isShowing()) {
             mProgressDialog.show();
-            Log.e("KProgressHUD", "暂时停止show 显示: " );
+            Log.e("KProgressHUD", "暂时停止show 显示: ");
         }
         return this;
     }
@@ -247,7 +259,7 @@ public class KProgressHUD {
         private Determinate mDeterminateView;
         private Indeterminate mIndeterminateView;
         private View mView;
-	
+
 
         public ProgressDialog(Context context) {
             super(context);
@@ -320,5 +332,16 @@ public class KProgressHUD {
                 mView = view;
             }
         }
+
+
     }
+
+    public void updateLable(String newLabel) {
+        if (!TextUtils.isEmpty(newLabel)) {
+
+            labelText.setText(newLabel);
+            labelText.setVisibility(View.VISIBLE);
+        }
+    }
+
 }

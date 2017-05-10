@@ -4,29 +4,27 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".EActivity"
-    >
+    tools:context=".EActivity">
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/gray_bg" >
+        android:background="@color/gray_bg">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/x175"
                 android:background="@drawable/gerenzhongxin_beij"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="@dimen/y34" >
+                    android:layout_height="@dimen/y34">
 
                     <ImageView
                         android:id="@+id/iv_a_msg"
@@ -49,14 +47,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/iv_icon_persion_pic"
                         android:layout_width="@dimen/x72"
                         android:layout_height="@dimen/x72"
                         android:layout_margin="@dimen/y7"
-                        android:src="@drawable/icon_persion_pic" />
+                        android:background="@drawable/icon_persion_pic" />
+
+                    <ImageView
+                        android:id="@+id/meiyong"
+                        android:layout_width="1dp"
+                        android:layout_height="1dp" />
 
                     <TextView
                         android:id="@+id/tv_user_name"
@@ -73,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y8"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/ll_buyer"
@@ -81,7 +84,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/btn_my_list"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="@dimen/x40"
@@ -107,7 +110,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/btn_my_list"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="@dimen/x40"
@@ -134,7 +137,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/btn_my_list"
                     android:orientation="vertical"
-                    android:visibility="gone" >
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="@dimen/x40"
@@ -160,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y9"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/y8" >
+                android:paddingBottom="@dimen/y8">
 
                 <LinearLayout
                     android:id="@+id/ll_personal_profile"
@@ -169,7 +172,7 @@
                     android:background="@drawable/btn_my_list"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/x11"
-                    android:paddingRight="@dimen/x14" >
+                    android:paddingRight="@dimen/x14">
 
                     <ImageView
                         android:layout_width="@dimen/x19"
@@ -197,7 +200,7 @@
                     android:background="@drawable/btn_my_list"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/x11"
-                    android:paddingRight="@dimen/x14" >
+                    android:paddingRight="@dimen/x14">
 
                     <ImageView
                         android:layout_width="@dimen/x19"
@@ -225,7 +228,7 @@
                     android:background="@drawable/btn_my_list"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/x11"
-                    android:paddingRight="@dimen/x14" >
+                    android:paddingRight="@dimen/x14">
 
                     <ImageView
                         android:layout_width="@dimen/x19"
@@ -253,7 +256,7 @@
                     android:background="@drawable/btn_my_list"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/x11"
-                    android:paddingRight="@dimen/x14" >
+                    android:paddingRight="@dimen/x14">
 
                     <ImageView
                         android:layout_width="@dimen/x19"
@@ -281,7 +284,7 @@
                     android:background="@drawable/btn_my_list"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/x11"
-                    android:paddingRight="@dimen/x14" >
+                    android:paddingRight="@dimen/x14">
 
                     <ImageView
                         android:layout_width="@dimen/x19"

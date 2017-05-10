@@ -1,5 +1,6 @@
 package com.hldj.hmyg.buyer.Ui;
 
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.buyer.weidet.DialogFragment.CustomDialog;
 import com.hy.utils.GetServerUrl;
 
 /**
@@ -63,8 +65,9 @@ public class WebViewDialogFragment1 extends DialogFragment {
     }
 
     private void initView(View view) {
-
+        CustomDialog customDialog = new CustomDialog(getActivity());
         view.findViewById(R.id.ic_back).setOnClickListener(v -> dismiss());
+        ((ViewGroup) view.findViewById(R.id.ic_back).getParent()).setBackgroundColor(Color.WHITE);
         TextView textView = (TextView) view.findViewById(R.id.ic_title);
         textView.setText("服务协议");
 
@@ -90,6 +93,7 @@ public class WebViewDialogFragment1 extends DialogFragment {
         settings.setJavaScriptEnabled(true);
         //WebView加载页面优先使用缓存加载
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        customDialog.show();
         //页面加载
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
@@ -97,6 +101,7 @@ public class WebViewDialogFragment1 extends DialogFragment {
                 //newProgress   1-100之间的整数
                 if (newProgress == 100) {
                     //页面加载完成，关闭ProgressDialog
+                    customDialog.dismiss();
 
                 } else {
                     //网页正在加载，打开ProgressDialog

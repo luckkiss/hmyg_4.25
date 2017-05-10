@@ -213,6 +213,8 @@ public class SaveSeedlingPresenter {
 
         mFlowLayout.setOnTagClickListener(onTagClickListener);
 
+
+
         if (index != -1) tagAdapter.setSelectedList(index); // 不为-1 则 不设置默认
 
 

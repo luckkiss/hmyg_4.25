@@ -23,7 +23,7 @@ public class SaveSeedingGsonBean implements Serializable {
 
     private String code;
     private String msg;
-    private DataBean data;
+    private DataBean data = new DataBean();
 
     public String getCode() {
         return code;
@@ -51,7 +51,7 @@ public class SaveSeedingGsonBean implements Serializable {
 
     public static class DataBean implements Serializable {
        public   boolean canQuote =false;
-        private SeedlingBean seedling;
+        private SeedlingBean seedling = new SeedlingBean();
         private ItemBean item;
         public List<UsedQuoteListBean> usedQuoteList = new ArrayList<>();
         private List<TypeListBean> typeList;
@@ -140,8 +140,8 @@ public class SaveSeedingGsonBean implements Serializable {
             private String name;
             private String seedlingNum;
             private boolean isNego = false;
-            private String minPrice;
-            private String maxPrice;
+            private String minPrice = "";
+            private String maxPrice = "";
 
 
             public boolean isQuoted;

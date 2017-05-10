@@ -92,6 +92,7 @@ import cn.sharesdk.tencent.qq.QQ;
 import me.drakeet.materialdialog.MaterialDialog;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
+import static com.hldj.hmyg.R.drawable.code;
 import static com.hldj.hmyg.util.ConstantState.LOGIN_SUCCEED;
 
 
@@ -478,6 +479,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                     public void onSuccess(Object t) {
                         // TODO Auto-generated method stub
 
+
                         D.e("=================");
                         mCache.remove("seedlingdetail" + id);
                         mCache.put("seedlingdetail" + id, t.toString());
@@ -492,6 +494,13 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
                         // TODO Auto-generated method stub
                         saveSeedingGsonBean = GsonUtil.formateJson2Bean(t, SaveSeedingGsonBean.class);
+
+                        if (!saveSeedingGsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
+                            ToastUtil.showShortToast(saveSeedingGsonBean.getMsg());
+                            new Handler().postDelayed(() -> finish(), 2000);
+                            return;
+                        }
+
                         seedlingBean = saveSeedingGsonBean.getData().getSeedling();
 
 
@@ -2279,6 +2288,14 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         }
     }
 
-    ;
 
+    /**
+     * @param context
+     * @param code    商品的  id
+     */
+    public static void start2Activity(Context context, String id) {
+        Intent intent = new Intent(context, StoreActivity.class);
+        intent.putExtra("id", id);
+        context.startActivity(intent);
+    }
 }

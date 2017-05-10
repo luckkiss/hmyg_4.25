@@ -313,8 +313,7 @@ public class ProductListAdapter extends BaseAdapter {
             if (!TextUtils.isEmpty(minPrice) && !minPrice.equals("0") && !minPrice.equals("null")) {
                 price = minPrice;
                 tv_07.setText(price);
-            }
-            if (!TextUtils.isEmpty(maxPrice) && !maxPrice.equals("0") && !maxPrice.equals("null")) {
+            } else if (!TextUtils.isEmpty(maxPrice) && !maxPrice.equals("0") && !maxPrice.equals("null")) {
                 if (price.equals("")) {
                     price = maxPrice;
                 } else {
@@ -322,6 +321,8 @@ public class ProductListAdapter extends BaseAdapter {
                 }
 
 
+            } else {
+                price = "面议";
             }
 
 

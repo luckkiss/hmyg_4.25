@@ -31,7 +31,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/line" />
+        android:background="@drawable/line_bak" />
 
     <me.maxwin.view.XListView
         android:id="@+id/xlistView"

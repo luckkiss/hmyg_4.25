@@ -29,7 +29,6 @@ public class ImageGalleryPageAdapter extends BaseAdapter {
 	private ArrayList<Pic> urlPaths = new ArrayList<Pic>();
 	private ViewHolder holder;
 	private LayoutInflater inflater;
-
 	private DisplayImageOptions options;
 
 	public ImageGalleryPageAdapter(Context context, ArrayList<Pic> urlPaths) {

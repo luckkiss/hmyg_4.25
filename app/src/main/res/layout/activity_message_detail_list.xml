@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/RelativeLayout2"
-        android:background="@drawable/line" />
+        android:background="@drawable/line_bak" />
 
     <me.maxwin.view.XListView
         android:id="@+id/xlistView"

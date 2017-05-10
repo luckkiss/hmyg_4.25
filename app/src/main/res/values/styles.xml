@@ -504,7 +504,7 @@
     <style name="View_line_green">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
-        <item name="android:background">@drawable/line</item>
+        <item name="android:background">@drawable/line_bak</item>
     </style>
 
     <style name="View_line_gray_1dp">

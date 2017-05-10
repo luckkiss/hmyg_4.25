@@ -12,7 +12,7 @@ import net.tsz.afinal.FinalHttp;
 
 public class GetServerUrl {
 
-    public static boolean isTest = false;//测试时使用
+    public static boolean isTest = true;//测试时使用
     static String PGYER = "http://www.pgyer.com/apiv1/app/viewGroup";
     // 正式 可用 2.0
 //    static String API_01 = "http://hmeg.cn:93/";
@@ -26,13 +26,11 @@ public class GetServerUrl {
     static String uKey_01 = "424e35aa2abf90730b5de65b2d7896e4";
 
 
-
     //测试看看是不是
     // 正式 不可用
     // static String API = "http://api.hmeg.cn:81/";
     // static String FIR =
     // "http://api.fir.im/apps/latest/57882cfc748aac17af00001e?api_token=7b3d87a7cb04b3a1624abb900c045c22&type=android&bundle_id=com.hldj.hmyg";
-
 
 
     //http://test.api.hmeg.cn/_____for luocaa
@@ -42,12 +40,12 @@ public class GetServerUrl {
     // 测试,xingguo.huang@qq.com
 //   static String API_03 = "http://test.hmeg.cn:93/";
 
-   static String API_03 = "http://test.api.hmeg.cn/";//3.0测式库
+    static String API_03 = "http://test.api.hmeg.cn/";//3.0测式库
 
     //http://test.api.hmeg.cn
 //   static String API_03 = "http://192.168.1.146:8091/api/";//罗伟电脑 服务器地址
 
-//    static String API_03 = "http://192.168.1.20:83/api/";
+    //    static String API_03 = "http://192.168.1.20:83/api/";
     static String FIR_03 = "http://api.fir.im/apps/latest/574270cc00fc744aef000000?api_token=d5ec18bebb4cd5acd798ffeeccbed6f4&type=android&bundle_id=com.hldj.hmyg";
     static String PGYER_UPLOAD_03 = "https://www.pgyer.com/hmegandroid";
     static String aId_03 = "ca3d2e3158115aa784e85a145acdcb0f";
@@ -122,7 +120,7 @@ public class GetServerUrl {
     static String TEST_API = "http://192.168.1.20:83/api/";
     // static String TEST_API = "http://192.168.1.146:8080/api/";
     public final static String WEB = "http://www.hmeg.cn";
-//    public final static String ICON_PAHT = "http://p3.so.qhimg.com/sdr/449_800_/t0147220f71d4562943.jpg";
+    //    public final static String ICON_PAHT = "http://p3.so.qhimg.com/sdr/449_800_/t0147220f71d4562943.jpg";
     public final static String ICON_PAHT = "http://m.hmeg.cn/static/images/sharelogo.png";
     public final static String TEST_URL = "https://m.baidu.com";
     public final static String Customer_Care_Phone = "4006579888";

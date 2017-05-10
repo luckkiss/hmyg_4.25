@@ -15,6 +15,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
@@ -57,8 +58,10 @@ import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PlatformForShare;
 import com.hldj.hmyg.store.StoreTypeActivity;
 import com.hldj.hmyg.store.TypeEx;
+import com.hldj.hmyg.util.ConstantState;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.white.utils.AndroidUtil;
 import com.white.utils.FileUtil;
@@ -460,6 +463,12 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                                     jsonObject, "code");
                             String msg = JsonGetInfo.getJsonString(jsonObject,
                                     "msg");
+
+                            if (!codes.equals(ConstantState.SUCCEED_CODE)) {
+                                ToastUtil.showShortToast(msg);
+                                new Handler().postDelayed(() -> finish(), 2000);
+                                return;
+                            }
                             JSONObject store = JsonGetInfo.getJSONObject(data,
                                     "store");
                             JSONObject owner = JsonGetInfo.getJSONObject(data,
@@ -472,6 +481,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                                     "typeList");
                             if (!"".equals(msg)) {
                             }
+
                             if ("1".equals(codes)) {
                                 String name = JsonGetInfo.getJsonString(store,
                                         "name");
@@ -1773,5 +1783,17 @@ public class StoreActivity extends NeedSwipeBackActivity implements
 ///////////////////////////////////////////////////////////////////////////////////
         return roundConcerImage;
     }
+
+
+    /**
+     * @param context
+     * @param code    商店的  id
+     */
+    public static void start2Activity(Context context, String code) {
+        Intent intent = new Intent(context, StoreActivity.class);
+        intent.putExtra("code", code);
+        context.startActivity(intent);
+    }
+
 
 }

@@ -21,6 +21,7 @@ public class SplashActivity extends FragmentActivity {
     private long delayMillis = 1500;
     public Editor e;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +72,19 @@ public class SplashActivity extends FragmentActivity {
 
 //        customDialog.show();
 
+
+
+
+
+       start2Main();
+
+    }
+
+//    KProgressHUD hud_numHud; // 上传时显示的等待框
+
+    int i = 0;
+
+    private void start2Main() {
         new Handler().postDelayed(() -> {
             Intent toMainActivity = new Intent(SplashActivity.this,
                     MainActivity.class);
@@ -80,7 +94,6 @@ public class SplashActivity extends FragmentActivity {
             finish();
 
         }, delayMillis);
-
     }
 
     @Override

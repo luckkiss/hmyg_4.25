@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -37,6 +38,7 @@ import com.hldj.hmyg.bean.HomeFunction;
 import com.hldj.hmyg.bean.HomeStore;
 import com.hldj.hmyg.bean.Type;
 import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
+import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.javis.ab.view.AbSlidingPlayView;
@@ -147,6 +149,20 @@ public class AActivity extends FragmentActivity implements OnClickListener {
         findViewById(R.id.tv_a_search).setOnClickListener(this);
         initmPtrFrame();
 
+        initSwipe();
+
+    }
+
+    private void initSwipe() {
+        SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_main);
+        swipeRefreshLayout.setOnRefreshListener(() ->
+                {
+                    D.e("==refresh==");
+                    requestData();
+//                    onCreate(null);
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+        );
     }
 
     private void initmPtrFrame() {
@@ -288,6 +304,14 @@ public class AActivity extends FragmentActivity implements OnClickListener {
             myadapter.notifyDataSetChanged();
         }
 
+
+        requestData();//请求数据
+
+    }
+
+
+    public void requestData() {
+
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, false);
         AjaxParams params = new AjaxParams();
@@ -324,6 +348,8 @@ public class AActivity extends FragmentActivity implements OnClickListener {
 
                     private void LoadCache(String t) {
                         // TODO Auto-generated method stub
+                        datas.clear();
+                        aBanners.clear();
                         try {
                             JSONObject jsonObject = new JSONObject(t);
                             String code = JsonGetInfo.getJsonString(jsonObject,
@@ -429,6 +455,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
                                         gd_00.setAdapter(myadapter);
                                     }
                                 }
+                                gd_datas.clear();
                                 for (int i = 0; i < seedlingTypeList.length(); i++) {
                                     JSONObject jsonObject2 = seedlingTypeList
                                             .getJSONObject(i);
@@ -495,6 +522,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
                                 // JSONArray thematicList = jsonObject
                                 // .getJSONObject("data").getJSONArray(
                                 // "thematicList");
+                                lv_datas.clear();
                                 for (int i = 0; i < thematicList.length(); i++) {
                                     JSONObject jsonObject2 = thematicList
                                             .getJSONObject(i);
@@ -539,6 +567,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
                                 JSONArray storeList = JsonGetInfo.getJsonArray(
                                         JsonGetInfo.getJSONObject(jsonObject,
                                                 "data"), "storeList");
+                                url0s.clear();
                                 for (int i = 0; i < storeList.length(); i++) {
                                     JSONObject jsonObject2 = storeList
                                             .getJSONObject(i);
@@ -586,7 +615,6 @@ public class AActivity extends FragmentActivity implements OnClickListener {
                     }
 
                 });
-
     }
 
 //    private void initAbsViewPager() {

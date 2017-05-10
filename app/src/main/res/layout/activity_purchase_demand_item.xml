@@ -65,7 +65,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/line" />
+            android:background="@drawable/line_bak" />
 
         <LinearLayout
             android:id="@+id/ll_total"
@@ -126,7 +126,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/line" />
+            android:background="@drawable/line_bak" />
 
         <RelativeLayout
             android:id="@+id/rl_segmented"

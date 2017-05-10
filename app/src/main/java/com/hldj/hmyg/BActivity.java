@@ -1,13 +1,10 @@
 package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -15,26 +12,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewConfiguration;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,12 +29,10 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.example.sortlistview.CharacterParser;
 import com.example.sortlistview.PinyinComparator;
 import com.example.sortlistview.SideBar;
-import com.example.sortlistview.SideBar.OnTouchingLetterChangedListener;
 import com.flyco.animation.BaseAnimatorSet;
 import com.flyco.animation.BounceEnter.BounceTopEnter;
 import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
-import com.hldj.hmyg.BActivity.MultipleClickProcess.DaquyuAdapter;
 import com.hldj.hmyg.adapter.ProductGridAdapter;
 import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.application.Data;
@@ -62,7 +47,6 @@ import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.mrwujay.cascade.activity.BaseSecondActivity;
-import com.mrwujay.cascade.activity.GetCodeByName;
 import com.ns.developer.tagview.entity.Tag;
 import com.ns.developer.tagview.widget.TagCloudLinkView;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
@@ -77,14 +61,10 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import kankan.wheel.widget.OnWheelChangedListener;
-import kankan.wheel.widget.WheelView;
-import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 import me.kaede.tagview.OnTagDeleteListener;
 import me.kaede.tagview.TagView;
 import me.maxwin.view.XListView;
@@ -97,8 +77,7 @@ import me.maxwin.view.XListView.IXListViewListener;
 @SuppressLint("NewApi")
 public class BActivity extends BaseSecondActivity implements
         IXListViewListener,
-        com.huewu.pla.lib.me.maxwin.view.PLAXListView.IXListViewListener,
-        OnWheelChangedListener {
+        com.huewu.pla.lib.me.maxwin.view.PLAXListView.IXListViewListener {
     final String hintText = "<img src=\"" + R.drawable.seller_search
             + "\" /> 搜索商店名,商品名";
     String view_type = "list";
@@ -112,8 +91,8 @@ public class BActivity extends BaseSecondActivity implements
     private ImageView iv_seller_arrow3;
     private ProductListAdapter listAdapter;
     private ProductGridAdapter gridAdapter;
-    private DaquyuAdapter daquyuAdapter;
-    private MultipleClickProcess.XiaoquyuAdapter xiaoquyuAdapter;
+    //    private DaquyuAdapter daquyuAdapter;
+//    private MultipleClickProcess.XiaoquyuAdapter xiaoquyuAdapter;
     private String searchKey = "";
     private String minPrice = "";
     private String maxPrice = "";
@@ -177,10 +156,10 @@ public class BActivity extends BaseSecondActivity implements
     private boolean scrollFlag = false;// 标记是否滑动
     private int lastVisibleItemPosition = 0;// 标记上次滑动位置
     private ACache mCache;
-    private Dialog dialog;
-    private WheelView mViewProvince;
-    private WheelView mViewCity;
-    private WheelView mViewDistrict;
+//    private Dialog dialog;
+//    private WheelView mViewProvince;
+//    private WheelView mViewCity;
+//    private WheelView mViewDistrict;
 
     public void setBasIn(BaseAnimatorSet bas_in) {
         this.mBasIn = bas_in;
@@ -199,6 +178,10 @@ public class BActivity extends BaseSecondActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setSwipeBackEnable(false);
+
+
+        getIntentExtral();
+
         setContentView(R.layout.activity_b);
         hud = KProgressHUD.create(BActivity.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -294,7 +277,6 @@ public class BActivity extends BaseSecondActivity implements
         pager.setOffscreenPageLimit(lanmus.size());
         tabs.setViewPager(pager);
         setTabsValue();
-
         if (getIntent().getStringExtra("supportTradeType") != null
                 && getIntent().getStringExtra("supportTradeTypeName") != null) {
             supportTradeType = getIntent().getStringExtra("supportTradeType");
@@ -312,7 +294,7 @@ public class BActivity extends BaseSecondActivity implements
                 pager.setCurrentItem(4);
             }
         }
-        rl_choose_type = (RelativeLayout) findViewById(R.id.rl_choose_type);
+//        rl_choose_type = (RelativeLayout) findViewById(R.id.rl_choose_type);
         relativeLayout2 = (RelativeLayout) findViewById(R.id.RelativeLayout2);
         RelativeLayout rl_choose_price = (RelativeLayout) findViewById(R.id.rl_choose_price);
         RelativeLayout rl_choose_time = (RelativeLayout) findViewById(R.id.rl_choose_time);
@@ -344,7 +326,7 @@ public class BActivity extends BaseSecondActivity implements
 
         MultipleClickProcess multipleClickProcess = new MultipleClickProcess();
         iv_view_type.setOnClickListener(multipleClickProcess);
-        rl_choose_type.setOnClickListener(multipleClickProcess);
+//        rl_choose_type.setOnClickListener(multipleClickProcess);
         rl_choose_price.setOnClickListener(multipleClickProcess);
         rl_choose_time.setOnClickListener(multipleClickProcess);
         rl_choose_screen.setOnClickListener(multipleClickProcess);
@@ -573,12 +555,12 @@ public class BActivity extends BaseSecondActivity implements
                         // TODO Auto-generated method stub
                         mCache.remove("getFirstType");
                         mCache.put("getFirstType", t.toString());
-                        if (daQuYus.size() > 0) {
-                            daQuYus.clear();
-                            if (daquyuAdapter != null) {
-                                daquyuAdapter.notifyDataSetChanged();
-                            }
-                        }
+//                        if (daQuYus.size() > 0) {
+//                            daQuYus.clear();
+//                            if (daquyuAdapter != null) {
+//                                daquyuAdapter.notifyDataSetChanged();
+//                            }
+//                        }
 
                         LoadCache(t.toString());
                         super.onSuccess(t);
@@ -590,12 +572,12 @@ public class BActivity extends BaseSecondActivity implements
                         if (mCache.getAsString("getFirstType") != null
                                 && !"".equals(mCache
                                 .getAsString("getFirstType"))) {
-                            if (daQuYus.size() > 0) {
-                                daQuYus.clear();
-                                if (daquyuAdapter != null) {
-                                    daquyuAdapter.notifyDataSetChanged();
-                                }
-                            }
+//                            if (daQuYus.size() > 0) {
+//                                daQuYus.clear();
+//                                if (daquyuAdapter != null) {
+//                                    daquyuAdapter.notifyDataSetChanged();
+//                                }
+//                            }
                             LoadCache(mCache.getAsString("getFirstType"));
                         }
                         Toast.makeText(BActivity.this, R.string.error_net,
@@ -1024,7 +1006,7 @@ public class BActivity extends BaseSecondActivity implements
     public class MultipleClickProcess implements OnClickListener {
         private boolean flag = true;
         private SideBar sideBar;
-        private ListView listview_xiaoquyu;
+//        private ListView listview_xiaoquyu;
 
         private synchronized void setFlag() {
             flag = false;
@@ -1049,18 +1031,8 @@ public class BActivity extends BaseSecondActivity implements
                             xListView.setVisibility(View.GONE);
                             glistView.setVisibility(View.VISIBLE);
                         }
+                        break;
 
-                        break;
-                    case R.id.rl_choose_type:
-                        showCitys();
-                        // if (popupWindow == null) {
-                        // ChoiceArea();
-                        // } else {
-                        // if (!popupWindow.isShowing()) {
-                        // ChoiceArea();
-                        // }
-                        // }
-                        break;
                     case R.id.rl_choose_price:
                         if (!hud.isShowing() && hud != null) {
                             hud.show();
@@ -1153,33 +1125,29 @@ public class BActivity extends BaseSecondActivity implements
             View view = findViewById(R.id.ll_spanner_line);
             if (sortSpinner == null) {
                 sortSpinner = SortSpinner.getInstance(BActivity.this, view)
-//                .addData(getSortMaps())
-                        .addOnItemClickListener(new OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                D.e("addOnItemClickListener" + position);
-                                switch (position) {
-                                    case 0:
-                                        orderBy = "default_asc";//综合排序
-                                        break;
-                                    case 1:
-                                        orderBy = "publishDate_desc";//最新发布
-                                        break;
-                                    case 2:
-                                        orderBy = "distance_asc";//最近距离
-                                        break;
-                                    case 3:
-                                        orderBy = "price_asc";//价格从低到高
-                                        break;
-                                    case 4:
-                                        orderBy = "price_desc";//综合排序
-                                        break;
-                                }
-                                pos = position;
-                                onRefresh();
-                                sortSpinner.dismiss();
-
+                        .addOnItemClickListener((parent, view1, position, id) -> {
+                            D.e("addOnItemClickListener" + position);
+                            switch (position) {
+                                case 0:
+                                    orderBy = "default_asc";//综合排序
+                                    break;
+                                case 1:
+                                    orderBy = "publishDate_desc";//最新发布
+                                    break;
+                                case 2:
+                                    orderBy = "distance_asc";//最近距离
+                                    break;
+                                case 3:
+                                    orderBy = "price_asc";//价格从低到高
+                                    break;
+                                case 4:
+                                    orderBy = "price_desc";//综合排序
+                                    break;
                             }
+                            pos = position;
+                            onRefresh();
+                            sortSpinner.dismiss();
+
                         });
 
                 sortSpinner.ShowWithPos(pos);
@@ -1232,431 +1200,6 @@ public class BActivity extends BaseSecondActivity implements
 
         }
 
-        private void ChoiceArea() {
-            // TODO Auto-generated method stub
-            View quyu = getLayoutInflater().inflate(R.layout.popo_quyu, null);
-            ListView listview_daquyu = (ListView) quyu
-                    .findViewById(R.id.listview_daquyu);
-            listview_xiaoquyu = (ListView) quyu
-                    .findViewById(R.id.listview_xiaoquyu);
-            sideBar = (SideBar) quyu.findViewById(R.id.sidrbar);
-            TextView dialog = (TextView) quyu.findViewById(R.id.dialog);
-            sideBar.setTextView(dialog);
-            // 设置右侧触摸监听
-            sideBar.setOnTouchingLetterChangedListener(new OnTouchingLetterChangedListener() {
-
-                @Override
-                public void onTouchingLetterChanged(String s) {
-                    // 该字母首次出现的位置
-                    int position = xiaoquyuAdapter.getPositionForSection(s
-                            .charAt(0));
-                    if (position != -1) {
-                        listview_xiaoquyu.setSelection(position);
-                    }
-
-                }
-            });
-            if (daquyuAdapter != null) {
-                listview_daquyu.setAdapter(daquyuAdapter);
-            } else {
-                daquyuAdapter = new DaquyuAdapter();
-                listview_daquyu.setAdapter(daquyuAdapter);
-            }
-            if (xiaoquyuAdapter != null) {
-                listview_xiaoquyu.setAdapter(xiaoquyuAdapter);
-            } else {
-                xiaoquyuAdapter = new XiaoquyuAdapter(BActivity.this, xiaoQuYus);
-                listview_xiaoquyu.setAdapter(xiaoquyuAdapter);
-            }
-
-            listview_daquyu.setOnItemClickListener(new OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view,
-                                        int position, long id) {
-                    if ("不限".equals(daQuYus.get(position).getName())) {
-                        // TODO Auto-generated method stub
-                        firstSeedlingTypeId = "";
-                        secondSeedlingTypeId = "";
-                        firstSeedlingTypeName = "";
-                        secondSeedlingTypeName = "";
-                        daquyuAdapter.setSeclection(position);
-                        xiaoquyuAdapter.notifyDataSetChanged();
-                        if (popupWindow != null) {
-                            popupWindow.dismiss();
-                        }
-                        tagView.removeAllTags();
-                        onRefresh();
-
-                    } else {
-                        firstSeedlingTypeId = daQuYus.get(position).getId();
-                        firstSeedlingTypeName = daQuYus.get(position).getName();
-                        secondSeedlingTypeId = "";
-                        secondSeedlingTypeName = "";
-                        daquyuAdapter.setSeclection(position);
-                        daquyuAdapter.notifyDataSetChanged();
-
-                        tagView.removeAllTags();
-                        me.kaede.tagview.Tag tag = new me.kaede.tagview.Tag(
-                                firstSeedlingTypeName);
-                        tag.layoutColor = getResources().getColor(
-                                R.color.main_color);
-                        tag.isDeletable = true;
-                        tag.id = 2; // 1 搜索 2分类
-                        tagView.addTag(tag);
-
-                        onRefresh();
-
-                        FinalHttp finalHttp = new FinalHttp();
-                        GetServerUrl.addHeaders(finalHttp, false);
-                        AjaxParams params = new AjaxParams();
-                        params.put("firstTypeId", firstSeedlingTypeId);
-                        finalHttp.post(GetServerUrl.getUrl()
-                                        + "seedlingType/getSecondTypeMap", params,
-                                new AjaxCallBack<Object>() {
-
-                                    @Override
-                                    public void onSuccess(Object t) {
-                                        // TODO Auto-generated method stub
-                                        mCache.remove("getSecondTypeMap"
-                                                + firstSeedlingTypeId);
-                                        mCache.put("getSecondTypeMap"
-                                                        + firstSeedlingTypeId,
-                                                t.toString());
-                                        if (xiaoQuYus.size() > 0) {
-                                            xiaoQuYus.clear();
-                                            if (xiaoquyuAdapter != null) {
-                                                xiaoquyuAdapter
-                                                        .notifyDataSetChanged();
-                                            }
-                                        }
-                                        LoadCache(t.toString());
-                                        super.onSuccess(t);
-                                    }
-
-                                    @Override
-                                    public void onFailure(Throwable t,
-                                                          int errorNo, String strMsg) {
-                                        if (mCache
-                                                .getAsString("getSecondTypeMap"
-                                                        + firstSeedlingTypeId) != null
-                                                && !"".equals(mCache
-                                                .getAsString("getSecondTypeMap"
-                                                        + firstSeedlingTypeId))) {
-                                            if (xiaoQuYus.size() > 0) {
-                                                xiaoQuYus.clear();
-                                                if (xiaoquyuAdapter != null) {
-                                                    xiaoquyuAdapter
-                                                            .notifyDataSetChanged();
-                                                }
-                                            }
-                                            LoadCache(mCache
-                                                    .getAsString("getSecondTypeMap"
-                                                            + firstSeedlingTypeId));
-                                        }
-                                        Toast.makeText(BActivity.this,
-                                                R.string.error_net,
-                                                Toast.LENGTH_SHORT).show();
-                                        super.onFailure(t, errorNo, strMsg);
-                                    }
-
-                                    private void LoadCache(String t) {
-                                        // TODO Auto-generated method stub
-                                        try {
-                                            JSONObject jsonObject = new JSONObject(
-                                                    t.toString());
-                                            JSONObject jsonObject2 = JsonGetInfo
-                                                    .getJSONObject(JsonGetInfo
-                                                                    .getJSONObject(
-                                                                            jsonObject,
-                                                                            "data"),
-                                                            "childData");
-                                            for (int i = 0; i < keySort.length; i++) {
-                                                JSONArray jsonArray = JsonGetInfo
-                                                        .getJsonArray(
-                                                                jsonObject2,
-                                                                keySort[i]);
-
-                                                if (jsonArray.length() > 0) {
-
-                                                    for (int j = 0; j < jsonArray
-                                                            .length(); j++) {
-                                                        String id = jsonArray
-                                                                .getJSONObject(
-                                                                        j)
-                                                                .getString("id");
-                                                        String name = jsonArray
-                                                                .getJSONObject(
-                                                                        j)
-                                                                .getString(
-                                                                        "name");
-
-                                                        // String pinyin =
-                                                        // characterParser.getSelling(date[i]);
-                                                        // String sortString =
-                                                        // pinyin.substring(0,
-                                                        // 1).toUpperCase();
-                                                        //
-                                                        // if
-                                                        // (sortString.matches("[A-Z]"))
-                                                        // {
-                                                        // sortModel.setSortLetters(sortString.toUpperCase());
-                                                        // } else {
-                                                        // sortModel.setSortLetters("#");
-                                                        // }
-
-                                                        XiaoQuYu xiaoQuYu = new XiaoQuYu(
-                                                                id,
-                                                                name,
-                                                                keySort[i]
-                                                                        .toUpperCase());
-                                                        xiaoQuYus.add(xiaoQuYu);
-                                                        xiaoquyuAdapter
-                                                                .notifyDataSetChanged();
-
-                                                    }
-                                                    // 根据a-z进行排序源数据
-                                                    Collections.sort(xiaoQuYus,
-                                                            pinyinComparator);
-                                                }
-
-                                            }
-                                            xiaoQuYus.add(0, new XiaoQuYu("",
-                                                    "不限", "#"));
-                                            xiaoquyuAdapter
-                                                    .notifyDataSetChanged();
-                                        } catch (JSONException e) {
-                                            // TODO Auto-generated catch block
-                                            e.printStackTrace();
-                                        }
-
-                                    }
-                                });
-                    }
-
-                }
-
-            });
-            listview_xiaoquyu.setOnItemClickListener(new OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view,
-                                        int position, long id) {
-                    // TODO Auto-generated method stub
-                    secondSeedlingTypeName = xiaoQuYus.get(position).getName();
-                    secondSeedlingTypeId = xiaoQuYus.get(position).getId();
-
-                    me.kaede.tagview.Tag tag = new me.kaede.tagview.Tag(
-                            secondSeedlingTypeName);
-                    tag.layoutColor = getResources().getColor(
-                            R.color.main_color);
-                    tag.isDeletable = true;
-                    tag.id = 3; // 1 搜索 2分类
-                    tagView.addTag(tag);
-
-                    xiaoquyuAdapter.notifyDataSetChanged();
-                    if (popupWindow != null) {
-                        popupWindow.dismiss();
-                    }
-                    onRefresh();
-
-                }
-
-            });
-
-            popupWindow = new PopupWindow(quyu, LayoutParams.MATCH_PARENT,
-                    LayoutParams.MATCH_PARENT);
-            // popupWindow = new PopupWindow(view, getResources()
-            // .getDimensionPixelSize(R.dimen.popmenu_width),
-            // LayoutParams.WRAP_CONTENT);
-            // 这个是为了点击“返回Back”也能使其消失，并且并不会影响你的背景（很神奇的）
-            popupWindow.setBackgroundDrawable(new BitmapDrawable());
-
-            popupWindow.showAsDropDown(rl_choose_type, 1,
-                    // 保证尺寸是根据屏幕像素密度来的
-                    getResources().getDimensionPixelSize(R.dimen.popmenu_yoff));
-
-            // 使其聚集
-            popupWindow.setFocusable(true);
-            // 设置允许在外点击消失
-            popupWindow.setOutsideTouchable(true);
-            // 刷新状态
-            popupWindow.update();
-        }
-
-        class DaquyuAdapter extends BaseAdapter {
-
-            private int clickTemp = 0;
-
-            // 标识选择的Item
-            public void setSeclection(int position) {
-                clickTemp = position;
-            }
-
-            @Override
-            public int getCount() {
-                // TODO Auto-generated method stub
-                return daQuYus.size();
-            }
-
-            @Override
-            public Object getItem(int position) {
-                // TODO Auto-generated method stub
-                return position;
-            }
-
-            @Override
-            public long getItemId(int position) {
-                // TODO Auto-generated method stub
-                return position;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                // TODO Auto-generated method stub
-                View daquyu_list_item = getLayoutInflater().inflate(
-                        R.layout.list_item, null);
-                RelativeLayout da_rl_popo_list_item = (RelativeLayout) daquyu_list_item
-                        .findViewById(R.id.rl_popo_list_item);
-                TextView daquyu_tv_item = (TextView) daquyu_list_item
-                        .findViewById(R.id.tv_item);
-                TextView tvLetter = (TextView) daquyu_list_item
-                        .findViewById(R.id.catalog);
-                tvLetter.setVisibility(View.GONE);
-                daquyu_tv_item.setText(daQuYus.get(position).getName());
-                if (clickTemp == position) {
-                    da_rl_popo_list_item.setBackgroundColor(Color.argb(155,
-                            192, 192, 192)); // #COCOCO
-                } else {
-                    da_rl_popo_list_item.setBackgroundColor(Color.argb(155,
-                            255, 255, 255)); // #FFFFFF
-                }
-                return daquyu_list_item;
-            }
-
-        }
-
-        class XiaoquyuAdapter extends BaseAdapter implements SectionIndexer {
-
-            private int clickTemp = 0;
-            private List<XiaoQuYu> list = null;
-            private Context mContext;
-
-            // 标识选择的Item
-            public void setSeclection(int position) {
-                clickTemp = position;
-            }
-
-            public XiaoquyuAdapter(Context mContext, List<XiaoQuYu> list) {
-                this.mContext = mContext;
-                this.list = list;
-            }
-
-            /**
-             * 当ListView数据发生变化时,调用此方法来更新ListView
-             *
-             * @param list
-             */
-            public void updateListView(List<XiaoQuYu> list) {
-                this.list = list;
-                notifyDataSetChanged();
-            }
-
-            @Override
-            public int getCount() {
-                // TODO Auto-generated method stub
-                return list.size();
-            }
-
-            @Override
-            public Object getItem(int position) {
-                // TODO Auto-generated method stub
-                return position;
-            }
-
-            @Override
-            public long getItemId(int position) {
-                // TODO Auto-generated method stub
-                return position;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                // TODO Auto-generated method stub
-                View xiaoquyu_list_item = getLayoutInflater().inflate(
-                        R.layout.list_item, null);
-                RelativeLayout xiao_rl_popo_list_item = (RelativeLayout) xiaoquyu_list_item
-                        .findViewById(R.id.rl_popo_list_item);
-                TextView xiao_quyu_tv_item = (TextView) xiaoquyu_list_item
-                        .findViewById(R.id.tv_item);
-                TextView tvLetter = (TextView) xiaoquyu_list_item
-                        .findViewById(R.id.catalog);
-                xiao_quyu_tv_item.setText(list.get(position).getName());
-                // 根据position获取分类的首字母的Char ascii值
-                int section = getSectionForPosition(position);
-
-                // 如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
-                if (position == getPositionForSection(section)) {
-                    tvLetter.setVisibility(View.VISIBLE);
-                    tvLetter.setText(list.get(position).getSortLetters());
-                } else {
-                    tvLetter.setVisibility(View.GONE);
-                }
-                if (clickTemp == position) {
-                    xiao_rl_popo_list_item.setBackgroundColor(Color.argb(155,
-                            192, 192, 192));
-                } else {
-                    xiao_rl_popo_list_item.setBackgroundColor(Color.argb(155,
-                            255, 255, 255));
-                }
-                return xiaoquyu_list_item;
-            }
-
-            /**
-             * 根据ListView的当前位置获取分类的首字母的Char ascii值
-             */
-            public int getSectionForPosition(int position) {
-                return list.get(position).getSortLetters().charAt(0);
-            }
-
-            /**
-             * 根据分类的首字母的Char ascii值获取其第一次出现该首字母的位置
-             */
-            public int getPositionForSection(int section) {
-                for (int i = 0; i < getCount(); i++) {
-                    String sortStr = list.get(i).getSortLetters();
-                    char firstChar = sortStr.toUpperCase().charAt(0);
-                    if (firstChar == section) {
-                        return i;
-                    }
-                }
-
-                return -1;
-            }
-
-            /**
-             * 提取英文的首字母，非英文字母用#代替。
-             *
-             * @param str
-             * @return
-             */
-            private String getAlpha(String str) {
-                String sortStr = str.trim().substring(0, 1).toUpperCase();
-                // 正则表达式，判断首字母是否是英文字母
-                if (sortStr.matches("[A-Z]")) {
-                    return sortStr;
-                } else {
-                    return "#";
-                }
-            }
-
-            @Override
-            public Object[] getSections() {
-                return null;
-            }
-
-        }
-
         /**
          * 计时线程（防止在一定时间段内重复点击按钮）
          */
@@ -1702,6 +1245,8 @@ public class BActivity extends BaseSecondActivity implements
             specMinValue = data.getStringExtra("specMinValue");
             specMaxValue = data.getStringExtra("specMaxValue");
             searchKey = data.getStringExtra("searchKey");
+
+
             onRefresh();
         } else if (resultCode == 8) {
             if (hud != null) {
@@ -1908,20 +1453,20 @@ public class BActivity extends BaseSecondActivity implements
 
     }
 
-    final Html.ImageGetter imageGetter = new Html.ImageGetter() {
-
-        @Override
-        public Drawable getDrawable(String source) {
-            Drawable drawable = null;
-            int rId = Integer.parseInt(source);
-            drawable = getResources().getDrawable(rId);
-            // drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
-            // drawable.getIntrinsicHeight());
-            drawable.setBounds(0, 0, 25, 25);
-            return drawable;
-        }
-    };
-    private RelativeLayout rl_choose_type;
+    //    final Html.ImageGetter imageGetter = new Html.ImageGetter() {
+//
+//        @Override
+//        public Drawable getDrawable(String source) {
+//            Drawable drawable = null;
+//            int rId = Integer.parseInt(source);
+//            drawable = getResources().getDrawable(rId);
+//            // drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
+//            // drawable.getIntrinsicHeight());
+//            drawable.setBounds(0, 0, 25, 25);
+//            return drawable;
+//        }
+//    };
+    //    private RelativeLayout rl_choose_type;
     private TagCloudLinkView view;
     private RelativeLayout relativeLayout2;
     private PagerSlidingTabStrip tabs;
@@ -1935,144 +1480,181 @@ public class BActivity extends BaseSecondActivity implements
     private PopupWindow popupWindow2;
     private LinearLayout ll_choice;
 
-    private void showCitys() {
-        View dia_choose_share = getLayoutInflater().inflate(
-                R.layout.dia_choose_city, null);
-        TextView tv_sure = (TextView) dia_choose_share
-                .findViewById(R.id.tv_sure);
-        mViewProvince = (WheelView) dia_choose_share
-                .findViewById(R.id.id_province);
-        mViewCity = (WheelView) dia_choose_share.findViewById(R.id.id_city);
-        mViewDistrict = (WheelView) dia_choose_share
-                .findViewById(R.id.id_district);
-        mViewCity.setVisibility(View.GONE);
-        mViewDistrict.setVisibility(View.GONE);
-        // 添加change事件
-        mViewProvince.addChangingListener(this);
-        // 添加change事件
-        mViewCity.addChangingListener(this);
-        // 添加change事件
-        mViewDistrict.addChangingListener(this);
-        setUpData();
+//    private void showCitys() {
+//        View dia_choose_share = getLayoutInflater().inflate(
+//                R.layout.dia_choose_city, null);
+//        TextView tv_sure = (TextView) dia_choose_share
+//                .findViewById(R.id.tv_sure);
+//        mViewProvince = (WheelView) dia_choose_share
+//                .findViewById(R.id.id_province);
+//        mViewCity = (WheelView) dia_choose_share.findViewById(R.id.id_city);
+//        mViewDistrict = (WheelView) dia_choose_share
+//                .findViewById(R.id.id_district);
+//        mViewCity.setVisibility(View.GONE);
+//        mViewDistrict.setVisibility(View.GONE);
+//        // 添加change事件
+////        mViewProvince.addChangingListener(this);
+//        // 添加change事件
+////        mViewCity.addChangingListener(this);
+//        // 添加change事件
+////        mViewDistrict.addChangingListener(this);
+////        setUpData();
+//
+//        dialog = new Dialog(this, R.style.transparentFrameWindowStyle);
+//        dialog.setContentView(dia_choose_share, new LayoutParams(
+//                LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+//        Window window = dialog.getWindow();
+//        // 设置显示动画
+//        window.setWindowAnimations(R.style.main_menu_animstyle);
+//        WindowManager.LayoutParams wl = window.getAttributes();
+//        wl.x = 0;
+//        wl.y = getWindowManager().getDefaultDisplay().getHeight();
+//        // 以下这两句是为了保证按钮可以水平满屏
+//        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
+//        wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+//
+//        // 设置显示位置
+//        dialog.onWindowAttributesChanged(wl);
+//        // 设置点击外围解散
+//        dialog.setCanceledOnTouchOutside(true);
+//        tv_sure.setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                // TODO Auto-generated method stub
+//                cityName = mCurrentProviceName + "\u0020" + mCurrentCityName
+//                        + "\u0020" + mCurrentDistrictName + "\u0020";
+//                cityCode = mCurrentZipCode;
+//                cityCode = GetCodeByName.initProvinceDatas(BActivity.this,
+//                        mCurrentProviceName, mCurrentCityName);
+//                onRefresh();
+//                // tv_area.setText(cityName);
+//                if (!BActivity.this.isFinishing() && dialog != null) {
+//                    if (dialog.isShowing()) {
+//                        dialog.cancel();
+//                    } else {
+//                        dialog.show();
+//                    }
+//                }
+//
+//            }
+//        });
+//
+//        if (!BActivity.this.isFinishing() && dialog.isShowing()) {
+//            dialog.cancel();
+//        } else if (!BActivity.this.isFinishing() && dialog != null
+//                && !dialog.isShowing()) {
+//            dialog.show();
+//        }
+//    }
 
-        dialog = new Dialog(this, R.style.transparentFrameWindowStyle);
-        dialog.setContentView(dia_choose_share, new LayoutParams(
-                LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-        Window window = dialog.getWindow();
-        // 设置显示动画
-        window.setWindowAnimations(R.style.main_menu_animstyle);
-        WindowManager.LayoutParams wl = window.getAttributes();
-        wl.x = 0;
-        wl.y = getWindowManager().getDefaultDisplay().getHeight();
-        // 以下这两句是为了保证按钮可以水平满屏
-        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+//    private void setUpData() {
+//        initProvinceDatas();
+//        mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(
+//                BActivity.this, mProvinceDatas));
+//        // 设置可见条目数量
+//        mViewProvince.setVisibleItems(7);
+//        mViewCity.setVisibleItems(7);
+//        mViewDistrict.setVisibleItems(7);
+//        updateCities();
+//        updateAreas();
+//    }
 
-        // 设置显示位置
-        dialog.onWindowAttributesChanged(wl);
-        // 设置点击外围解散
-        dialog.setCanceledOnTouchOutside(true);
-        tv_sure.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                cityName = mCurrentProviceName + "\u0020" + mCurrentCityName
-                        + "\u0020" + mCurrentDistrictName + "\u0020";
-                cityCode = mCurrentZipCode;
-                cityCode = GetCodeByName.initProvinceDatas(BActivity.this,
-                        mCurrentProviceName, mCurrentCityName);
-                onRefresh();
-                // tv_area.setText(cityName);
-                if (!BActivity.this.isFinishing() && dialog != null) {
-                    if (dialog.isShowing()) {
-                        dialog.cancel();
-                    } else {
-                        dialog.show();
-                    }
-                }
-
-            }
-        });
-
-        if (!BActivity.this.isFinishing() && dialog.isShowing()) {
-            dialog.cancel();
-        } else if (!BActivity.this.isFinishing() && dialog != null
-                && !dialog.isShowing()) {
-            dialog.show();
-        }
-    }
-
-    private void setUpData() {
-        initProvinceDatas();
-        mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(
-                BActivity.this, mProvinceDatas));
-        // 设置可见条目数量
-        mViewProvince.setVisibleItems(7);
-        mViewCity.setVisibleItems(7);
-        mViewDistrict.setVisibleItems(7);
-        updateCities();
-        updateAreas();
-    }
-
-    @Override
-    public void onChanged(WheelView wheel, int oldValue, int newValue) {
-        // TODO Auto-generated method stub
-        if (wheel == mViewProvince) {
-            updateCities();
-            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[0];
-            // mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
-            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
-                    + mCurrentDistrictName);
-        } else if (wheel == mViewCity) {
-            updateAreas();
-            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[0];
-            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
-                    + mCurrentDistrictName);
-        } else if (wheel == mViewDistrict) {
-            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[newValue];
-            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
-                    + mCurrentDistrictName);
-        }
-    }
+//    @Override
+//    public void onChanged(WheelView wheel, int oldValue, int newValue) {
+//        // TODO Auto-generated method stub
+//        if (wheel == mViewProvince) {
+//            updateCities();
+//            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[0];
+//            // mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
+//            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
+//                    + mCurrentDistrictName);
+//        } else if (wheel == mViewCity) {
+//            updateAreas();
+//            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[0];
+//            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
+//                    + mCurrentDistrictName);
+//        } else if (wheel == mViewDistrict) {
+//            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[newValue];
+//            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
+//                    + mCurrentDistrictName);
+//        }
+//    }
 
     /**
      * 根据当前的市，更新区WheelView的信息
      */
-    private void updateAreas() {
-        int pCurrent = mViewCity.getCurrentItem();
-        mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
-        String[] areas = mDistrictDatasMap.get(mCurrentCityName);
-
-        if (areas == null) {
-            areas = new String[]{""};
-        }
-        mViewDistrict
-                .setViewAdapter(new ArrayWheelAdapter<String>(this, areas));
-        mViewDistrict.setCurrentItem(0);
-    }
+//    private void updateAreas() {
+//        int pCurrent = mViewCity.getCurrentItem();
+//        mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
+//        String[] areas = mDistrictDatasMap.get(mCurrentCityName);
+//
+//        if (areas == null) {
+//            areas = new String[]{""};
+//        }
+//        mViewDistrict
+//                .setViewAdapter(new ArrayWheelAdapter<String>(this, areas));
+//        mViewDistrict.setCurrentItem(0);
+//    }
 
     /**
      * 根据当前的省，更新市WheelView的信息
      */
-    private void updateCities() {
-        int pCurrent = mViewProvince.getCurrentItem();
-        mCurrentProviceName = mProvinceDatas[pCurrent];
-        String[] cities = mCitisDatasMap.get(mCurrentProviceName);
-        if (cities == null) {
-            cities = new String[]{""};
-        }
-        mViewCity.setViewAdapter(new ArrayWheelAdapter<String>(this, cities));
-        mViewCity.setCurrentItem(0);
-        updateAreas();
+//    private void updateCities() {
+//        int pCurrent = mViewProvince.getCurrentItem();
+//        mCurrentProviceName = mProvinceDatas[pCurrent];
+//        String[] cities = mCitisDatasMap.get(mCurrentProviceName);
+//        if (cities == null) {
+//            cities = new String[]{""};
+//        }
+//        mViewCity.setViewAdapter(new ArrayWheelAdapter<String>(this, cities));
+//        mViewCity.setCurrentItem(0);
+//        updateAreas();
+//    }
+
+//    private void showSelectedResult() {
+//        Toast.makeText(
+//                BActivity.this,
+//                "当前选中:" + mCurrentProviceName + "," + mCurrentCityName + ","
+//                        + mCurrentDistrictName + "," + mCurrentZipCode,
+//                Toast.LENGTH_SHORT).show();
+//    }
+
+
+    /**
+     * +
+     *
+     * @param context
+     * @param filTypeId     传进来得 筛选 id
+     * @param StringfilName 传进来得 筛选 种类名称
+     */
+    public static void start2Activity(Context context, String filTypeId, String StringfilName) {
+        Intent intent = new Intent(context, BActivity.class);
+        intent.putExtra("firstSeedlingTypeId", filTypeId);
+        intent.putExtra("firstSeedlingTypeName", StringfilName);
+        intent.putExtra("isOpenSwipe", true);
+        context.startActivity(intent);
     }
 
-    private void showSelectedResult() {
-        Toast.makeText(
-                BActivity.this,
-                "当前选中:" + mCurrentProviceName + "," + mCurrentCityName + ","
-                        + mCurrentDistrictName + "," + mCurrentZipCode,
-                Toast.LENGTH_SHORT).show();
+    /**
+     * +
+     *
+     * @param context
+     * @param from      传进来得 筛选 id
+     * @param searchKey 传进来得 筛选 种类名称
+     */
+    public static void start2ActivitySearch(Context context, String from, String searchKey) {
+        Intent intent = new Intent(context, BActivity.class);
+        intent.putExtra("from", from);
+        intent.putExtra("searchKey", searchKey);
+        intent.putExtra("isOpenSwipe", true);
+        context.startActivity(intent);
+    }
+
+    private void getIntentExtral() {
+//        if (getIntent().getBooleanExtra("isOpenSwipe", false)) {
+            setSwipeBackEnable(getIntent().getBooleanExtra("isOpenSwipe", false));//是的跳转过来的  界面具有滑动功能
+//        }
     }
 
 

@@ -16,55 +16,37 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
+import com.hldj.hmyg.util.ConstantState;
+import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
-import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 import com.mrwujay.cascade.activity.BaseSecondActivity;
 import com.mrwujay.cascade.activity.GetCodeByName;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
+import java.util.List;
 
 import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 import me.drakeet.materialdialog.MaterialDialog;
 
-public class SellectActivity2 extends BaseSecondActivity implements
-        OnWheelChangedListener {
+public class SellectActivity2 extends BaseSecondActivity implements OnWheelChangedListener {
     MaterialDialog mMaterialDialog;
-    private TextView tv_type01;
-    private TextView tv_type02;
-    private TextView tv_type03;
-    private TextView tv_type04;
     private static String type01 = ""; // planted,
     private String type02 = ""; // transplant,
     private String type03 = ""; // heelin,
     private String type04 = ""; // container,
-    private EditText et_minPrice;
-    private EditText et_maxPrice;
-    private EditText et_minDiameter;
-    private EditText et_maxDiameter;
-    private EditText et_minDbh;
-    private EditText et_maxDbh;
-    private EditText et_minHeight;
-    private EditText et_maxHeight;
-    private EditText et_minLength;
-    private EditText et_maxLength;
-    private EditText et_minCrown;
-    private EditText et_maxCrown;
-    private EditText et_minOffbarHeight;
-    private EditText et_maxOffbarHeight;
+
     private LinearLayout ll_area;
     private LinearLayout ll_price;
     private Dialog dialog;
@@ -75,27 +57,20 @@ public class SellectActivity2 extends BaseSecondActivity implements
     private String cityCode = "";
     private String cityName = "";
 
-    private ArrayList<String> guige_names = new ArrayList<String>();
-
-    private ArrayList<String> guige_has_click_names = new ArrayList<String>();
-
-    private ArrayList<String> guige_ids = new ArrayList<String>();
-    private ArrayList<Integer> guige_maxs = new ArrayList<Integer>();
-    private ArrayList<Integer> guige_mins = new ArrayList<Integer>();
     private ArrayList<String> danwei_names = new ArrayList<String>();
     private ArrayList<String> danwei_ids = new ArrayList<String>();
     private ArrayList<String> planttype_names = new ArrayList<String>();
     private ArrayList<String> planttype_ids = new ArrayList<String>();
 
-    private TagFlowLayout mFlowLayout1;
+    //    private TagFlowLayout mFlowLayout1;
     private TagFlowLayout mFlowLayout2;
     private TagFlowLayout mFlowLayout3;
-    private TagAdapter adapter1;
-    private TagAdapter adapter2;
-    private TagAdapter adapter3;
+
     private ACache mCache;
-    private EditText et_min_guige;
-    private EditText et_max_guige;
+
+    private EditText et_min_guige;//最大规格
+    private EditText et_max_guige;//最小规格
+
     private EditText et_pinming;
     private String searchSpec = "";
     private String plantTypes = "";
@@ -108,8 +83,7 @@ public class SellectActivity2 extends BaseSecondActivity implements
         setContentView(R.layout.activity_sellect2);
         mCache = ACache.get(this);
         mMaterialDialog = new MaterialDialog(this);
-        getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         MultipleClickProcess multipleClickProcess = new MultipleClickProcess();
         ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
         TextView iv_reset = (TextView) findViewById(R.id.iv_reset);
@@ -118,27 +92,10 @@ public class SellectActivity2 extends BaseSecondActivity implements
         et_pinming = (EditText) findViewById(R.id.et_pinming);
         et_min_guige = (EditText) findViewById(R.id.et_min_guige);
         et_max_guige = (EditText) findViewById(R.id.et_max_guige);
-        et_minPrice = (EditText) findViewById(R.id.et_minPrice);
-        et_maxPrice = (EditText) findViewById(R.id.et_maxPrice);
-        et_minDiameter = (EditText) findViewById(R.id.et_minDiameter);
-        et_maxDiameter = (EditText) findViewById(R.id.et_maxDiameter);
-        et_minDbh = (EditText) findViewById(R.id.et_minDbh);
-        et_maxDbh = (EditText) findViewById(R.id.et_maxDbh);
-        et_minHeight = (EditText) findViewById(R.id.et_minHeight);
-        et_maxHeight = (EditText) findViewById(R.id.et_maxHeight);
-        et_minLength = (EditText) findViewById(R.id.et_minLength);
-        et_maxLength = (EditText) findViewById(R.id.et_maxLength);
-        et_minCrown = (EditText) findViewById(R.id.et_minCrown);
-        et_maxCrown = (EditText) findViewById(R.id.et_maxCrown);
-        et_minOffbarHeight = (EditText) findViewById(R.id.et_minOffbarHeight);
-        et_maxOffbarHeight = (EditText) findViewById(R.id.et_maxOffbarHeight);
+
+
         tv_area = (TextView) findViewById(R.id.tv_area);
-        tv_type01 = (TextView) findViewById(R.id.tv_type01);
-        tv_type02 = (TextView) findViewById(R.id.tv_type02);
-        tv_type03 = (TextView) findViewById(R.id.tv_type03);
-        tv_type04 = (TextView) findViewById(R.id.tv_type04);
-        mFlowLayout1 = (TagFlowLayout) findViewById(R.id.id_flowlayout1);
-        mFlowLayout1.setMaxSelectCount(1);
+
         mFlowLayout2 = (TagFlowLayout) findViewById(R.id.id_flowlayout2);
         mFlowLayout2.setMaxSelectCount(1);
         mFlowLayout3 = (TagFlowLayout) findViewById(R.id.id_flowlayout3);
@@ -149,10 +106,7 @@ public class SellectActivity2 extends BaseSecondActivity implements
         btn_back.setOnClickListener(multipleClickProcess);
         iv_reset.setOnClickListener(multipleClickProcess);
         ll_area.setOnClickListener(multipleClickProcess);
-        tv_type01.setOnClickListener(multipleClickProcess);
-        tv_type02.setOnClickListener(multipleClickProcess);
-        tv_type03.setOnClickListener(multipleClickProcess);
-        tv_type04.setOnClickListener(multipleClickProcess);
+
         sure.setOnClickListener(multipleClickProcess);
     }
 
@@ -162,286 +116,109 @@ public class SellectActivity2 extends BaseSecondActivity implements
         GetServerUrl.addHeaders(finalHttp, true);
         AjaxParams params = new AjaxParams();
         params.put("searchKey", searchKey);
-        finalHttp.post(GetServerUrl.getUrl() + "seedling/initSearch", params,
-                new AjaxCallBack<Object>() {
+        finalHttp.post(GetServerUrl.getUrl() + "seedling/initSearch", params, new AjaxCallBack<Object>() {
 
-                    @Override
-                    public void onSuccess(Object t) {
-                        // TODO Auto-generated method stub
-                        mCache.remove("initSearch");
-                        mCache.put("initSearch", t.toString());
-                        LoadCache(t.toString());
-                        super.onSuccess(t);
-                    }
+            @Override
+            public void onSuccess(Object t) {
+                // TODO Auto-generated method stub
+                mCache.remove("initSearch");
+                mCache.put("initSearch", t.toString());
+                LoadCache(t.toString());
+                super.onSuccess(t);
+            }
 
-                    @Override
-                    public void onFailure(Throwable t, int errorNo,
-                                          String strMsg) {
-                        // TODO Auto-generated method stub
-                        if (mCache.getAsString("initSearch") != null
-                                && !"".equals(mCache.getAsString("initSearch"))) {
-                            LoadCache(mCache.getAsString("initSearch"));
+            @Override
+            public void onFailure(Throwable t, int errorNo,
+                                  String strMsg) {
+                // TODO Auto-generated method stub
+                if (mCache.getAsString("initSearch") != null && !"".equals(mCache.getAsString("initSearch"))) {
+                    LoadCache(mCache.getAsString("initSearch"));
+                }
+                super.onFailure(t, errorNo, strMsg);
+            }
+
+            private void LoadCache(String t) {
+                // TODO Auto-generated method stub
+
+                TypesBean typesBean = GsonUtil.formateJson2Bean(t, TypesBean.class);
+                if (!typesBean.code.equals(ConstantState.SUCCEED_CODE)) {
+                    ToastUtil.showShortToast(typesBean.msg);
+                    return;
+                }
+                if (typesBean.data.plantTypeList != null) {
+                    initPlantTypeList(typesBean.data.plantTypeList);
+                }
+                if (typesBean.data.specList != null) {
+                    initSpecList(typesBean.data.specList);
+                }
+
+            }
+
+
+        });
+    }
+
+
+    private void initSpecList(List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> specList) {
+        {
+            for (int i = 0; i < specList.size(); i++) {
+                danwei_names.add(specList.get(i).getText());
+                danwei_ids.add(specList.get(i).getValue());
+            }
+            if (danwei_names.size() > 0) {
+                SaveSeedlingPresenter.initAutoLayout2(mFlowLayout2, specList, 1, SellectActivity2.this, (view, position, parent) ->
+                        {
+                            D.e("==view被点击了===" + view.isSelected());
+                            D.e("==parent被点击了===" + parent.isSelected());
+                            return false;
                         }
-                        super.onFailure(t, errorNo, strMsg);
-                    }
+                );
 
-                    private void LoadCache(String t) {
-                        // TODO Auto-generated method stub
-                        try {
-                            JSONObject jsonObject = new JSONObject(t.toString());
-                            String code = JsonGetInfo.getJsonString(jsonObject,
-                                    "code");
-                            String msg = JsonGetInfo.getJsonString(jsonObject,
-                                    "msg");
-                            if (!"".equals(msg)) {
-                            }
-                            if ("1".equals(code)) {
-                                JSONObject data = JsonGetInfo.getJSONObject(
-                                        jsonObject, "data");
-                                JSONArray specRankList = JsonGetInfo
-                                        .getJsonArray(data, "specRankList");
-                                JSONArray specList = JsonGetInfo.getJsonArray(
-                                        data, "specList");
-                                JSONArray plantTypeList = JsonGetInfo
-                                        .getJsonArray(data, "plantTypeList");
-                                if (specRankList.length() > 0) {
+//                for (int i = 0; i < danwei_ids.size(); i++) {
+//                    if (searchSpec.equals(danwei_ids.get(i))) {
+//                        int a = i;
+//                        adapter2.setSelectedList(a);
+//                    }
+//                }
+            }
+        }
+    }
 
-                                    for (int i = 0; i < specRankList.length(); i++) {
+    /**
+     * 初始化  植物选项
+     *
+     * @param plantTypeList 种植类型  集合
+     */
+    private void initPlantTypeList(List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> plantTypeList) {
+        if (plantTypeList.size() > 0) {
 
-                                        guige_names.add(JsonGetInfo
-                                                .getJsonString(specRankList
-                                                                .getJSONObject(i),
-                                                        "text"));
-                                        guige_ids.add(JsonGetInfo
-                                                .getJsonString(specRankList
-                                                                .getJSONObject(i),
-                                                        "value"));
-                                        guige_mins.add(JsonGetInfo.getJsonInt(
-                                                specRankList.getJSONObject(i),
-                                                "min"));
-                                        guige_maxs.add(JsonGetInfo.getJsonInt(
-                                                specRankList.getJSONObject(i),
-                                                "max"));
-                                    }
-                                    if (guige_names.size() > 0) {
+            for (int i = 0; i < plantTypeList.size(); i++) {
+                planttype_names.add(plantTypeList.get(i).getText());
+                planttype_ids.add(plantTypeList.get(i).getValue());
+            }
 
-                                        adapter1 = new com.zhy.view.flowlayout.TagAdapter<String>(
-                                                guige_names) {
+            if (planttype_names.size() > 0) {
 
-                                            @Override
-                                            public View getView(
-                                                    FlowLayout parent,
-                                                    int position, String s) {
-                                                TextView tv = (TextView) getLayoutInflater()
-                                                        .inflate(R.layout.tv,
-                                                                mFlowLayout1,
-                                                                false);
-                                                tv.setText(s);
-                                                return tv;
-                                            }
-                                        };
-                                        mFlowLayout1.setAdapter(adapter1);
-                                        mFlowLayout1
-                                                .setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
-                                                    @Override
-                                                    public boolean onTagClick(
-                                                            View view,
-                                                            int position,
-                                                            FlowLayout parent) {
-                                                        if (guige_has_click_names
-                                                                .toString()
-                                                                .contains(
-                                                                        guige_names
-                                                                                .get(position))) {
-                                                            guige_has_click_names
-                                                                    .remove(guige_names
-                                                                            .get(position));
-                                                        } else {
-                                                            guige_has_click_names
-                                                                    .add(guige_names
-                                                                            .get(position));
-                                                        }
-                                                        if ((guige_maxs
-                                                                .get(position) > 0)) {
-                                                            et_max_guige.setText(guige_maxs
-                                                                    .get(position)
-                                                                    + "");
-                                                        } else {
-                                                            et_max_guige
-                                                                    .setText("");
-                                                        }
-                                                        if (guige_mins
-                                                                .get(position) > 0) {
-                                                            et_min_guige.setText(guige_mins
-                                                                    .get(position)
-                                                                    + "");
-                                                        } else {
-                                                            et_min_guige
-                                                                    .setText("");
-                                                        }
-
-                                                        if (guige_has_click_names
-                                                                .size() > 0
-                                                                && mFlowLayout2
-                                                                .getVisibility() == view.GONE) {
-                                                            mFlowLayout2
-                                                                    .setVisibility(View.VISIBLE);
-                                                        }
-                                                        if (position == 0) {
-                                                            mFlowLayout2
-                                                                    .setAdapter(adapter2);
-                                                            searchSpec = "";
-                                                            // 不限
-                                                        }
-                                                        return true;
-                                                    }
-                                                });
-                                        // for (int i = 0; i < type_ids.size();
-                                        // i++) {
-                                        // if (type.equals(type_ids.get(i))) {
-                                        // a = i;
-                                        // adapter2.setSelectedList(a);
-                                        // }
-                                        // }
-
-                                    }
-                                }
-                                if (specList.length() > 0) {
-
-                                    for (int i = 0; i < specList.length(); i++) {
-                                        danwei_names.add(JsonGetInfo
-                                                .getJsonString(specList
-                                                                .getJSONObject(i),
-                                                        "text"));
-                                        danwei_ids.add(JsonGetInfo
-                                                .getJsonString(specList
-                                                                .getJSONObject(i),
-                                                        "value"));
-
-                                    }
-
-                                    if (danwei_names.size() > 0) {
-
-                                        adapter2 = new com.zhy.view.flowlayout.TagAdapter<String>(
-                                                danwei_names) {
-
-                                            @Override
-                                            public View getView(
-                                                    FlowLayout parent,
-                                                    int position, String s) {
-                                                TextView tv = (TextView) getLayoutInflater()
-                                                        .inflate(R.layout.tv,
-                                                                mFlowLayout2,
-                                                                false);
-                                                tv.setText(s);
-                                                return tv;
-                                            }
-                                        };
-                                        mFlowLayout2.setAdapter(adapter2);
-                                        mFlowLayout2
-                                                .setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
-                                                    @Override
-                                                    public boolean onTagClick(
-                                                            View view,
-                                                            int position,
-                                                            FlowLayout parent) {
-                                                        searchSpec = danwei_ids
-                                                                .get(position);
-                                                        return true;
-                                                    }
-                                                });
-                                        for (int i = 0; i < danwei_ids.size(); i++) {
-                                            if (searchSpec.equals(danwei_ids.get(i))) {
-                                                int a = i;
-                                                adapter2.setSelectedList(a);
-                                            }
-                                        }
-                                    }
-                                }
-
-                                if (plantTypeList.length() > 0) {
-
-                                    for (int i = 0; i < plantTypeList.length(); i++) {
-
-                                        planttype_names.add(JsonGetInfo
-                                                .getJsonString(plantTypeList
-                                                                .getJSONObject(i),
-                                                        "text"));
-                                        planttype_ids.add(JsonGetInfo
-                                                .getJsonString(plantTypeList
-                                                                .getJSONObject(i),
-                                                        "value"));
-
-                                    }
-
-                                    if (planttype_names.size() > 0) {
-
-                                        adapter3 = new com.zhy.view.flowlayout.TagAdapter<String>(
-                                                planttype_names) {
-
-                                            @Override
-                                            public View getView(
-                                                    FlowLayout parent,
-                                                    int position, String s) {
-                                                TextView tv = (TextView) getLayoutInflater()
-                                                        .inflate(R.layout.tv,
-                                                                mFlowLayout3,
-                                                                false);
-                                                tv.setText(s);
-                                                return tv;
-                                            }
-                                        };
-                                        mFlowLayout3.setAdapter(adapter3);
-                                        mFlowLayout3
-                                                .setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
-                                                    @Override
-                                                    public boolean onTagClick(
-                                                            View view,
-                                                            int position,
-                                                            FlowLayout parent) {
-                                                        if (planttype_has_ids
-                                                                .toString()
-                                                                .contains(
-                                                                        planttype_ids
-                                                                                .get(position))) {
-                                                            planttype_has_ids
-                                                                    .remove(planttype_ids
-                                                                            .get(position));
-                                                        } else {
-                                                            planttype_has_ids
-                                                                    .add(planttype_ids
-                                                                            .get(position));
-                                                        }
-                                                        return true;
-                                                    }
-                                                });
-                                        for (int i = 0; i < planttype_has_ids
-                                                .size(); i++) {
-                                            for (int j = 0; j < planttype_ids
-                                                    .size(); j++) {
-                                                if (planttype_ids
-                                                        .get(j)
-                                                        .equals(planttype_has_ids
-                                                                .get(i))) {
-                                                    adapter3.setSelectedList(j);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-
-                            } else {
-
-                            }
-
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
+                SaveSeedlingPresenter.initAutoLayout2(mFlowLayout3, plantTypeList, 1, SellectActivity2.this, (view, position, parent) ->
+                        {
+                            D.e("==view被点击了===" + view.isSelected());
+                            D.e("==parent被点击了===" + parent.isSelected());
+                            return false;
                         }
-                    }
+                );
 
+                mFlowLayout3.setMaxSelectCount(4);
+                mFlowLayout3.getAdapter().setSelectedList(0, 1, 3);
+                mFlowLayout3.setOnSelectListener(selectPosSet -> {
+                    for (Integer setItem : selectPosSet) {
+                        D.e("===================" + setItem);
+                    }
                 });
 
+            }
+
+
+        }
     }
 
     public void initData() {
@@ -451,73 +228,30 @@ public class SellectActivity2 extends BaseSecondActivity implements
         }
         cityCode = getIntent().getStringExtra("cityCode");
         cityName = getIntent().getStringExtra("cityName");
-        String minPrice = getIntent().getStringExtra("minPrice");
-        String maxPrice = getIntent().getStringExtra("maxPrice");
-        String minDiameter = getIntent().getStringExtra("minDiameter");
-        String maxDiameter = getIntent().getStringExtra("maxDiameter");
-        String minDbh = getIntent().getStringExtra("minDbh");
-        String maxDbh = getIntent().getStringExtra("maxDbh");
-        String minHeight = getIntent().getStringExtra("minHeight");
-        String maxHeight = getIntent().getStringExtra("maxHeight");
-        String minLength = getIntent().getStringExtra("minLength");
-        String maxLength = getIntent().getStringExtra("maxLength");
-        String minCrown = getIntent().getStringExtra("minCrown");
-        String maxCrown = getIntent().getStringExtra("maxCrown");
-        String minOffbarHeight = getIntent().getStringExtra("minOffbarHeight");
-        String maxOffbarHeight = getIntent().getStringExtra("maxOffbarHeight");
-        String plantTypes = getIntent().getStringExtra("plantTypes");
+
         planttype_has_ids = getIntent().getStringArrayListExtra(
                 "planttype_has_ids");
         searchSpec = getIntent().getStringExtra("searchSpec");
         String specMinValue = getIntent().getStringExtra("specMinValue");
         String specMaxValue = getIntent().getStringExtra("specMaxValue");
         searchKey = getIntent().getStringExtra("searchKey");
-        et_max_guige.setText(specMaxValue);
-        et_min_guige.setText(specMinValue);
+
+
+        et_max_guige.setText(specMaxValue);//最小厘米
+        et_min_guige.setText(specMinValue);//最大厘米
         if (et_min_guige.getText().toString().length() > 0
                 || et_max_guige.getText().toString().length() > 0) {
             mFlowLayout2.setVisibility(View.VISIBLE);
         } else {
             mFlowLayout2.setVisibility(View.VISIBLE);
         }
+
+
         et_pinming.setText(searchKey);
         mCurrentZipCode = cityCode;
         tv_area.setText(cityName);
-        et_minPrice.setText(minPrice);
-        et_maxPrice.setText(maxPrice);
-        et_minDiameter.setText(minDiameter);
-        et_maxDiameter.setText(maxDiameter);
-        et_minDbh.setText(minDbh);
-        et_maxDbh.setText(maxDbh);
-        et_minHeight.setText(minHeight);
-        et_maxHeight.setText(maxHeight);
-        et_minLength.setText(minLength);
-        et_maxLength.setText(maxLength);
-        et_minCrown.setText(minCrown);
-        et_maxCrown.setText(maxCrown);
-        et_minOffbarHeight.setText(minOffbarHeight);
-        et_maxOffbarHeight.setText(maxOffbarHeight);
 
-        if (plantTypes.contains("planted")) {
-            type01 = "planted,";
-            tv_type01.setTextColor(getResources().getColor(R.color.main_color));
-            tv_type01.setBackgroundResource(R.drawable.search_edit_selector);
-        }
-        if (plantTypes.contains("transplant")) {
-            type02 = "transplant,";
-            tv_type02.setTextColor(getResources().getColor(R.color.main_color));
-            tv_type02.setBackgroundResource(R.drawable.search_edit_selector);
-        }
-        if (plantTypes.contains("heelin")) {
-            type03 = "heelin,";
-            tv_type03.setTextColor(getResources().getColor(R.color.main_color));
-            tv_type03.setBackgroundResource(R.drawable.search_edit_selector);
-        }
-        if (plantTypes.contains("container")) {
-            type04 = "planted,";
-            tv_type04.setTextColor(getResources().getColor(R.color.main_color));
-            tv_type04.setBackgroundResource(R.drawable.search_edit_selector);
-        }
+
     }
 
     public class MultipleClickProcess implements OnClickListener {
@@ -535,18 +269,18 @@ public class SellectActivity2 extends BaseSecondActivity implements
                         break;
                     case R.id.ll_area:
                         showCitys();
+                        initWheelView(cityName);//根据省市名字 滚动到相应位置
                         break;
                     case R.id.iv_reset:
                         searchSpec = "";
-                        guige_has_click_names.clear();
+//                        guige_has_click_names.clear();
                         et_pinming.setText("");
                         et_min_guige.setText("");
                         et_max_guige.setText("");
                         planttype_has_ids.clear();
-                        mFlowLayout1.setAdapter(adapter1);
-                        mFlowLayout2.setAdapter(adapter2);
-                        mFlowLayout3.setAdapter(adapter3);
-
+//                        mFlowLayout1.setAdapter(adapter1);
+                        mFlowLayout2.getAdapter().resetList();
+                        mFlowLayout3.getAdapter().resetList();
                         cityCode = "";
                         cityName = "全国";
                         tv_area.setText(cityName);
@@ -554,150 +288,24 @@ public class SellectActivity2 extends BaseSecondActivity implements
                         type02 = "";
                         type03 = "";
                         type04 = "";
-                        tv_type01.setTextColor(getResources()
-                                .getColor(R.color.gray));
-                        tv_type01
-                                .setBackgroundResource(R.drawable.sellect_edit_selector);
-                        tv_type02.setTextColor(getResources()
-                                .getColor(R.color.gray));
-                        tv_type02
-                                .setBackgroundResource(R.drawable.sellect_edit_selector);
-                        tv_type03.setTextColor(getResources()
-                                .getColor(R.color.gray));
-                        tv_type03
-                                .setBackgroundResource(R.drawable.sellect_edit_selector);
-                        tv_type04.setTextColor(getResources()
-                                .getColor(R.color.gray));
-                        tv_type04
-                                .setBackgroundResource(R.drawable.sellect_edit_selector);
-                        et_minPrice.setText("");
-                        et_maxPrice.setText("");
-                        et_minDiameter.setText("");
-                        et_maxDiameter.setText("");
-                        et_minDbh.setText("");
-                        et_maxDbh.setText("");
-                        et_minHeight.setText("");
-                        et_maxHeight.setText("");
-                        et_minLength.setText("");
-                        et_maxLength.setText("");
-                        et_minCrown.setText("");
-                        et_maxCrown.setText("");
-                        et_minOffbarHeight.setText("");
-                        et_maxOffbarHeight.setText("");
-                        break;
-                    case R.id.tv_type01:
-                        if ("".equals(type01)) {
-                            type01 = "planted,";
-                            tv_type01.setTextColor(getResources().getColor(
-                                    R.color.main_color));
-                            tv_type01
-                                    .setBackgroundResource(R.drawable.search_edit_selector);
-                        } else {
-                            type01 = "";
-                            tv_type01.setTextColor(getResources().getColor(
-                                    R.color.gray));
-                            tv_type01
-                                    .setBackgroundResource(R.drawable.sellect_edit_selector);
 
-                        }
                         break;
 
-                    case R.id.tv_type02:
-                        if ("".equals(type02)) {
-                            type02 = "transplant,";
-                            tv_type02.setTextColor(getResources().getColor(
-                                    R.color.main_color));
-                            tv_type02
-                                    .setBackgroundResource(R.drawable.search_edit_selector);
-                        } else {
-                            type02 = "";
-                            tv_type02.setTextColor(getResources().getColor(
-                                    R.color.gray));
-                            tv_type02
-                                    .setBackgroundResource(R.drawable.sellect_edit_selector);
-
-                        }
-                        break;
-                    case R.id.tv_type03:
-                        if ("".equals(type03)) {
-                            type03 = "heelin,";
-                            tv_type03.setTextColor(getResources().getColor(
-                                    R.color.main_color));
-                            tv_type03
-                                    .setBackgroundResource(R.drawable.search_edit_selector);
-                        } else {
-                            type03 = "";
-                            tv_type03.setTextColor(getResources().getColor(
-                                    R.color.gray));
-                            tv_type03
-                                    .setBackgroundResource(R.drawable.sellect_edit_selector);
-
-                        }
-                        break;
-                    case R.id.tv_type04:
-                        if ("".equals(type04)) {
-                            type04 = "container,";
-                            tv_type04.setTextColor(getResources().getColor(
-                                    R.color.main_color));
-                            tv_type04
-                                    .setBackgroundResource(R.drawable.search_edit_selector);
-                        } else {
-                            type04 = "";
-                            tv_type04.setTextColor(getResources().getColor(
-                                    R.color.gray));
-                            tv_type04
-                                    .setBackgroundResource(R.drawable.sellect_edit_selector);
-                        }
-                        break;
                     case R.id.sure:
                         Intent intent = new Intent();
-
-
                         String str = GetCodeByName.initProvinceDatas(SellectActivity2.this, mCurrentProviceName, mCurrentCityName);
                         if (TextUtils.isEmpty(str)) {
                             intent.putExtra("cityCode", "");
                         } else {
                             intent.putExtra("cityCode", str);
-
                         }
                         intent.putExtra("cityName", cityName);
-                        intent.putExtra("minPrice", et_minPrice.getText()
-                                .toString());
-                        intent.putExtra("maxPrice", et_maxPrice.getText()
-                                .toString());
-                        intent.putExtra("minDiameter", et_minDiameter.getText()
-                                .toString());
-                        intent.putExtra("maxDiameter", et_maxDiameter.getText()
-                                .toString());
-                        intent.putExtra("minDbh", et_minDbh.getText().toString());
-                        intent.putExtra("maxDbh", et_maxDbh.getText().toString());
-                        intent.putExtra("minHeight", et_minHeight.getText()
-                                .toString());
-                        intent.putExtra("maxHeight", et_maxHeight.getText()
-                                .toString());
-                        intent.putExtra("minLength", et_minLength.getText()
-                                .toString());
-                        intent.putExtra("maxLength", et_maxLength.getText()
-                                .toString());
-                        intent.putExtra("minCrown", et_minCrown.getText()
-                                .toString());
-                        intent.putExtra("maxCrown", et_maxCrown.getText()
-                                .toString());
-                        intent.putExtra("minOffbarHeight", et_minOffbarHeight
-                                .getText().toString());
-                        intent.putExtra("maxOffbarHeight", et_maxOffbarHeight
-                                .getText().toString());
-                        intent.putExtra("plantTypes", type01 + type02 + type03
-                                + type04);
-                        intent.putStringArrayListExtra("planttype_has_ids",
-                                planttype_has_ids);
+                        intent.putExtra("plantTypes", type01 + type02 + type03 + type04);
+                        intent.putStringArrayListExtra("planttype_has_ids", planttype_has_ids);
                         intent.putExtra("searchSpec", searchSpec);
-                        intent.putExtra("specMinValue", et_min_guige.getText()
-                                .toString());
-                        intent.putExtra("specMaxValue", et_max_guige.getText()
-                                .toString());
-                        intent.putExtra("searchKey", et_pinming.getText()
-                                .toString());
+                        intent.putExtra("specMinValue", et_min_guige.getText().toString());
+                        intent.putExtra("specMaxValue", et_max_guige.getText().toString());
+                        intent.putExtra("searchKey", et_pinming.getText().toString());
                         setResult(9, intent);
                         finish();
                         break;
@@ -794,15 +402,43 @@ public class SellectActivity2 extends BaseSecondActivity implements
 
     private void setUpData() {
         initProvinceDatas();
-        mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(
-                SellectActivity2.this, mProvinceDatas));
+        mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(SellectActivity2.this, mProvinceDatas));
+
+
         // 设置可见条目数量
         mViewProvince.setVisibleItems(7);
         mViewCity.setVisibleItems(7);
         mViewDistrict.setVisibleItems(7);
         updateCities();
         updateAreas();
+
+
     }
+
+    /**
+     * 根据名字  滚动到选中的位置
+     *
+     * @param cityName
+     */
+    private void initWheelView(String cityName) {
+        int oldItem = getItemByName(cityName, mProvinceDatas);
+        mViewProvince.setCurrentItem(oldItem);
+        String[] cities = mCitisDatasMap.get(mCurrentProviceName);
+        oldItem = getItemByName(cityName, cities);
+        mViewCity.setCurrentItem(oldItem);
+    }
+
+    private int getItemByName(String cityName, String[] mProvinceDatas) {
+        int count = 0;
+        for (String iten : mProvinceDatas) {
+            if (cityName.contains(iten)) {
+                return count;
+            }
+            count++;
+        }
+        return 0;
+    }
+
 
     @Override
     public void onChanged(WheelView wheel, int oldValue, int newValue) {
@@ -862,5 +498,24 @@ public class SellectActivity2 extends BaseSecondActivity implements
                 "当前选中:" + mCurrentProviceName + "," + mCurrentCityName + ","
                         + mCurrentDistrictName + "," + mCurrentZipCode,
                 Toast.LENGTH_SHORT).show();
+    }
+
+
+    private static class TypesBean {
+
+        public String code = "";
+        public String msg;//测试gson 为空时 会不会报错
+        public String msgTest;
+
+
+        public DataBean data;
+
+        public static class DataBean {
+
+            public List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> plantTypeList;
+
+            public List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> specList;
+        }
+
     }
 }

@@ -28,6 +28,7 @@ import com.hldj.hmyg.DaoBean.SaveJson.SavaBean;
 import com.hldj.hmyg.DaoBean.SaveJson.SavaBeanDao;
 import com.hldj.hmyg.ManagerListActivity;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.base.ViewHolders;
@@ -93,6 +94,10 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
         id_tv_edit_all = (TextView) findViewById(R.id.id_tv_edit_all);
         btn_back.setOnClickListener(this);
 
+        hud_numHud = KProgressHUD.create(StorageSaveActivity.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("上传中，请等待...")
+                .setCancellable(true);
 
         initView();
 
@@ -108,7 +113,7 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
                 .setEmptyTextSize(12).setEmptyTextColor(Color.GRAY)
                 .setShowButton(false)
                 .setActionText(getResources().getString(R.string.reload))
-                .setAction(new View.OnClickListener() {
+                .setAction(new OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         // Toast.makeText(getApplicationContext(),
@@ -224,10 +229,6 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
      */
     private void initView() {
 
-        hud_numHud = KProgressHUD.create(StorageSaveActivity.this)
-                .setStyle(KProgressHUD.Style.ANNULAR_DETERMINATE)
-                .setLabel("上传中，请等待...").setMaxProgress(100)
-                .setCancellable(true);
 //        SaveSeedingGsonBean saveSeedingGsonBean = formateJson2Bean(SPUtil.get(this, "save_sp", "").toString(), SaveSeedingGsonBean.class);
 //        SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean = saveSeedingGsonBean.getData().getSeedling();
 //        List<SaveSeedingGsonBean.DataBean.SeedlingBean> seedlingBeen = new ArrayList<>();
@@ -349,17 +350,18 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
         }
 
         if (arrayList.size() != 0) {
-
             hud_numHud.show();
+            hud_numHud.updateLable("正在上传第" + (1) + "/" + arrayList.size() + "张图片");
             //   上传图片  可能多图片
             new SaveSeedlingPresenter().upLoad(arrayList, new ResultCallBack<Pic>() {
                 @Override
 //                        public void onSuccess(UpImageBackGsonBean imageBackGsonBean) {//
                 public void onSuccess(Pic pic) {//
-
-                    hud_numHud.setLabel("正在上传第" + pic.getSort() + 1 + "张图片");
+                    hud_numHud.updateLable("已上传第" + (pic.getSort() + 1) + "/" + arrayList.size() + "张图片");
                     onlinePics.add(pic);
                     if (onlinePics.size() == arrayList.size()) {
+                        hud_numHud.updateLable("图片上传成功");
+
                         putParams(params, "imagesData", GsonUtil.Bean2Json(onlinePics));
                         seedlingSave(params);
                     }
@@ -373,6 +375,7 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
 
                 @Override
                 public void onFailure(Throwable t, int errorNo, String strMsg) {
+                    hud_numHud.dismiss();
                     ToastUtil.showShortToast("上传图片失败");
                 }
             });
@@ -389,6 +392,7 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
 
 
     private void seedlingSave(AjaxParams ajaxParams) {
+        hud_numHud.dismiss();
         showLoading();
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, true);
@@ -529,9 +533,9 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
             params.put("isNego", true + "");//是否面议
 
         } else {
-            if (!checkNoNull("最低价格", "minPrice", seedlingBean.getMinPrice() + "", params))
-                return false;
-            if (!checkNoNull("最高价格", "maxPrice", seedlingBean.getMaxPrice() + "", params))
+//            if (!checkNoNull("最低价格", "minPrice", seedlingBean.getMinPrice() + "", params))
+//                return false;
+            if (!checkNoNullDouble("最低价格或最高价格", "maxPrice", seedlingBean.getMaxPrice(), "minPrice", seedlingBean.getMinPrice() + "", params))
                 return false;
         }
 
@@ -556,43 +560,48 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
 
             if (value.equals(ConstantParams.height))//高度
             {
-                if (!checkNoNull("高度的最大值或最小值", "maxHeight", seedlingBean.getMaxHeight() + "", params) && !checkNoNull("高度的最大值或最小值", "minHeight", seedlingBean.getMinHeight() + "", params))
+                if (!checkNoNullDouble("高度的最大值或最小值", "maxHeight", seedlingBean.getMaxHeight() + "", "minHeight", seedlingBean.getMinHeight() + "", params))
+//                     && !checkNoNull("高度的最大值或最小值", "minHeight", seedlingBean.getMinHeight() + "", params)
                     return false;
 //                if (!checkNoNull("高度的最小值", "minHeight", seedlingBean.getMinHeight() + "", params))
 //                    return false;
             }
             if (value.equals(ConstantParams.crown))//冠幅
             {
-                if (!checkNoNull("冠幅的最大值或最小值", "maxCrown", seedlingBean.getMaxCrown() + "", params) && !checkNoNull("冠幅的最大值或最小值", "minCrown", seedlingBean.getMinCrown() + "", params))
+                if (!checkNoNullDouble("冠幅的最大值或最小值", "maxCrown", seedlingBean.getMaxCrown() + "", "minCrown", seedlingBean.getMinCrown() + "", params))
+//                if (!checkNoNull("冠幅的最大值或最小值", "maxCrown", seedlingBean.getMaxCrown() + "", params) && !checkNoNull("冠幅的最大值或最小值", "minCrown", seedlingBean.getMinCrown() + "", params))
                     return false;
 //                if (!checkNoNull("冠幅的最小值", "minCrown", seedlingBean.getMinCrown() + "", params))
 //                    return false;
             }
             if (value.equals(ConstantParams.dbh))//胸径
             {
-                if (!checkNoNull("胸径的最大值或最小值", "maxDbh", seedlingBean.getMaxDbh() + "", params) && !checkNoNull("胸径的最大值或最小值", "minDbh", seedlingBean.getMinDbh() + "", params))
+                if (!checkNoNullDouble("冠幅的最大值或最小值", "maxDbh", seedlingBean.getMaxDbh() + "", "minDbh", seedlingBean.getMinDbh() + "", params))
+//                    if (!checkNoNull("胸径的最大值或最小值", "maxDbh", seedlingBean.getMaxDbh() + "", params) && !checkNoNull("胸径的最大值或最小值", "minDbh", seedlingBean.getMinDbh() + "", params))
                     return false;
 //                if (!checkNoNull("胸径的最小值", "minDbh", seedlingBean.getMinDbh() + "", params))
 //                    return false;
             }
             if (value.equals(ConstantParams.diameter))//地径
             {
-                if (!checkNoNull("地径的最大值或最小值", "maxDiameter", seedlingBean.getMaxDiameter() + "", params) && !checkNoNull("地径的最大值或最小值", "minDiameter", seedlingBean.getMinDiameter() + "", params))
+                if (!checkNoNullDouble("地径的最大值或最小值", "maxDiameter", seedlingBean.getMaxDiameter() + "", "minDiameter", seedlingBean.getMinDiameter() + "", params))
+//                    if (!checkNoNull("地径的最大值或最小值", "maxDiameter", seedlingBean.getMaxDiameter() + "", params) && !checkNoNull("地径的最大值或最小值", "minDiameter", seedlingBean.getMinDiameter() + "", params))
                     return false;
 //                if (!checkNoNull("地径的最小值", "minDiameter", seedlingBean.getMinDiameter() + "", params))
 //                    return false;
             }
             if (value.equals(ConstantParams.offbarHeight))//脱杆高
             {
-                if (!checkNoNull("脱杆高的最大值或最小值", "maxOffbarHeight", seedlingBean.getMaxOffbarHeight() + "", params) && !checkNoNull("脱杆高的最大值或最小值", "minOffbarHeight", seedlingBean.getMinOffbarHeight() + "", params))
+                if (!checkNoNullDouble("脱杆高的最大值或最小值", "maxOffbarHeight", seedlingBean.getMaxOffbarHeight() + "", "minOffbarHeight", seedlingBean.getMinOffbarHeight() + "", params))
+//                if (!checkNoNull("脱杆高的最大值或最小值", "maxOffbarHeight", seedlingBean.getMaxOffbarHeight() + "", params) && !checkNoNull("脱杆高的最大值或最小值", "minOffbarHeight", seedlingBean.getMinOffbarHeight() + "", params))
                     return false;
 //                if (!checkNoNull("脱杆高的最小值", "minOffbarHeight", seedlingBean.getMinOffbarHeight() + "", params))
 //                    return false;
-
             }
             if (value.equals(ConstantParams.length))//长度
             {
-                if (!checkNoNull("长度的最大值或最小值", "maxLength", seedlingBean.getMaxLength() + "", params) && !checkNoNull("长度的最小值", "minLength", seedlingBean.getMinLength() + "", params))
+                if (!checkNoNullDouble("长度的最大值或最小值", "maxLength", seedlingBean.getMaxLength() + "", "minLength", seedlingBean.getMinLength() + "", params))
+//                    if (!checkNoNull("长度的最大值或最小值", "maxLength", seedlingBean.getMaxLength() + "", params) && !checkNoNull("长度的最小值", "minLength", seedlingBean.getMinLength() + "", params))
                     return false;
 //                if (!checkNoNull("长度的最小值", "minLength", seedlingBean.getMinLength() + "", params))
 //                    return false;
@@ -627,6 +636,34 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
             return false;
         }
         putParams(ajaxParams, key, value);
+        return true;
+    }
+
+    /**
+     * @param faildReason 失败原因
+     * @param key         上传参数的 key
+     * @param value
+     * @param ajaxParams
+     * @return
+     */
+    public boolean checkNoNullDouble(String faildReason, String key, String value, String key1, String value1, AjaxParams ajaxParams) {
+
+        if (TextUtils.isEmpty(value) && TextUtils.isEmpty(value1)) {
+            ToastUtil.showShortToast(faildReason + "不能为空");
+            return false;
+        }
+        if (value.equals("0") && value1.equals("0")) {
+            ToastUtil.showShortToast(faildReason + "不能为空");
+            return false;
+        }
+
+        if (!TextUtils.isEmpty(value)) {
+            putParams(ajaxParams, key, value);
+        }
+        if (!TextUtils.isEmpty(value1)) {
+            putParams(ajaxParams, key1, value1);
+        }
+
         return true;
     }
 
@@ -744,11 +781,7 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
             TextView tv_07 = myViewHolder.getView(R.id.tv_07);//价格
 
 
-            if (seedlingBean.isNego()) {
-                tv_07.setText("面议");
-            } else {
-                tv_07.setText(seedlingBean.getMinPrice() + "-" + seedlingBean.getMaxPrice());
-            }
+            ProductListAdapter.setPrice(tv_07, seedlingBean.getMaxPrice(), seedlingBean.getMinPrice(), seedlingBean.isNego());
 
 
             TextView tv_num_res = myViewHolder.getView(R.id.tv_num_res);//库存

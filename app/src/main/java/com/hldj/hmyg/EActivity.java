@@ -3,6 +3,7 @@ package com.hldj.hmyg;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -11,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -40,7 +42,6 @@ import com.hldj.hmyg.bean.PlatformForShare;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.Loading;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.soundcloud.android.crop.Crop;
 import com.xingguo.huang.mabiwang.util.CacheUtils;
 import com.xingguo.huang.mabiwang.util.PictureManageUtil;
@@ -76,11 +77,12 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 /**
  * 我的 界面
  */
-public class EActivity extends LoginActivity implements PlatformActionListener {
+public class EActivity extends NeedSwipeBackActivity implements PlatformActionListener {
 
     private Dialog dialog;
     private String platform = "1,2,3,4,5,6,7,8";
@@ -90,7 +92,7 @@ public class EActivity extends LoginActivity implements PlatformActionListener {
     private BaseAnimatorSet mBasOut;
     private ImageView iv_msg;
     private FinalBitmap fb;
-    private CircleImageView iv_icon_persion_pic;
+    private ImageView iv_icon_persion_pic;
     private TextView tv_user_name;
     private static final int REQUEST_CODE_ALBUM = 1;
     private static final int REQUEST_CODE_CAMERA = 2;
@@ -99,6 +101,7 @@ public class EActivity extends LoginActivity implements PlatformActionListener {
     private static final int SCALE = 5;// 照片缩小比例
     private Bitmap bitmap;
     private Loading loading;
+    public SharedPreferences.Editor editor;
 
     private Uri photoUri = null;
     private Bitmap cropBitmap = null;
@@ -119,11 +122,13 @@ public class EActivity extends LoginActivity implements PlatformActionListener {
         super.onCreate(savedInstanceState);
         setSwipeBackEnable(false);//不能侧滑
         Log.e(TAG, "onCreate: ");
-
+        editor = MyApplication.Userinfo.edit();
 
         setContentView(R.layout.activity_e);
-        fb = FinalBitmap.create(this);
+//        fb = FinalBitmap.create(this);
+        fb = FinalBitmap.create(this);//必须调用init初始化FinalBitmap模块
         fb.configLoadingImage(R.drawable.icon_persion_pic);
+
 
         if (platform.contains("1")) {
             PlatformForShare platformForShare = new PlatformForShare("朋友圈",
@@ -150,6 +155,7 @@ public class EActivity extends LoginActivity implements PlatformActionListener {
         mBasOut = new SlideBottomExit();
         tv_user_name = (TextView) findViewById(R.id.tv_user_name);
         iv_icon_persion_pic = (CircleImageView) findViewById(R.id.iv_icon_persion_pic);
+        finalBitmapDisplay();
         ImageView iv_setting = (ImageView) findViewById(R.id.iv_setting);
         iv_msg = (ImageView) findViewById(R.id.iv_a_msg);
         LinearLayout ll_buyer = (LinearLayout) findViewById(R.id.ll_buyer);
@@ -174,34 +180,36 @@ public class EActivity extends LoginActivity implements PlatformActionListener {
         ll_feek_back.setOnClickListener(multipleClickProcess);
         iv_icon_persion_pic.setOnClickListener(multipleClickProcess);
         iv_msg.setBackgroundResource(R.drawable.icon_msg);
-        if (MyApplication.Userinfo.getBoolean("isLogin", false)
-                && iv_icon_persion_pic != null) {
-            if (!"".equals(MyApplication.Userinfo.getString("headImage", ""))) {
-                ImageLoader.getInstance().displayImage(
-                        MyApplication.Userinfo.getString("headImage", ""),
-                        iv_icon_persion_pic);
+//        if (MyApplication.Userinfo.getBoolean("isLogin", false)
+//                && iv_icon_persion_pic != null) {
+//            if (!"".equals(MyApplication.Userinfo.getString("headImage", ""))) {
+//                ImageLoader.getInstance().displayImage(
+//                        MyApplication.Userinfo.getString("headImage", ""),
+//                        iv_icon_persion_pic);
 //                fb.display(iv_icon_persion_pic, MyApplication.Userinfo.getString("headImage", ""));
-            }
-            getUserInfo(MyApplication.Userinfo.getString("id", ""),
-                    "SetProfileActivity");
-            tv_user_name.setText(MyApplication.Userinfo.getString(
-                    "showUserName", ""));
-            if (MyApplication.Userinfo.getBoolean("isAgent", false)) {
-                ll_jingji.setVisibility(View.VISIBLE);
-            } else {
-                ll_jingji.setVisibility(View.GONE);
-            }
+//            }
+//            getUserInfo(MyApplication.Userinfo.getString("id", ""),
+//                    "SetProfileActivity");
+        tv_user_name.setText(MyApplication.Userinfo.getString("showUserName", ""));
+        if (MyApplication.Userinfo.getBoolean("isAgent", false)) {
+            ll_jingji.setVisibility(View.VISIBLE);
         } else {
-            iv_icon_persion_pic.setImageResource(R.drawable.icon_persion_pic);
-            tv_user_name.setText("");
+            ll_jingji.setVisibility(View.GONE);
+//            }
+//        } else {
+//            iv_icon_persion_pic.setImageResource(R.drawable.icon_persion_pic);
+//            tv_user_name.setText("");
         }
 
     }
 
     @Override
     protected void onResume() {
+//        fb.configLoadingImage(R.drawable.icon_persion_pic);
+//        new Handler().postDelayed(() -> fb.display(iv_icon_persion_pic, MyApplication.Userinfo.getString("headImage", "")), 500);
 
-
+        new Handler().postDelayed(() -> finalBitmapDisplay(), 3000);
+        finalBitmapDisplayNo();
         Log.e(TAG, "onResume: ");
 //		StateBarUtil.setColorPrimaryDark(R.color.main_color,this.getWindow());
         // TODO Auto-generated method stub
@@ -211,29 +219,35 @@ public class EActivity extends LoginActivity implements PlatformActionListener {
         super.onResume();
     }
 
-
-    public void getUserData() {
-        if (MyApplication.Userinfo.getBoolean("isLogin", false)
-                && iv_icon_persion_pic != null) {
-            getUserInfo(MyApplication.Userinfo.getString("id", ""),
-                    "SetProfileActivity");
-            if (!"".equals(MyApplication.Userinfo.getString("headImage", ""))) {
-                ImageLoader.getInstance().displayImage(
-                        MyApplication.Userinfo.getString("headImage", ""),
-                        iv_icon_persion_pic);
-            }
-            tv_user_name.setText(MyApplication.Userinfo.getString(
-                    "showUserName", ""));
-            if (MyApplication.Userinfo.getBoolean("isAgent", false)) {
-                ll_jingji.setVisibility(View.VISIBLE);
-            } else {
-                ll_jingji.setVisibility(View.GONE);
-            }
-        } else {
-            iv_icon_persion_pic.setImageResource(R.drawable.icon_persion_pic);
-            tv_user_name.setText("");
-        }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        finalBitmapDisplay();
     }
+
+
+    //    public void getUserData() {
+//        if (MyApplication.Userinfo.getBoolean("isLogin", false)
+//                && iv_icon_persion_pic != null) {
+//            getUserInfo(MyApplication.Userinfo.getString("id", ""),
+//                    "SetProfileActivity");
+//            if (!"".equals(MyApplication.Userinfo.getString("headImage", ""))) {
+//                ImageLoader.getInstance().displayImage(
+//                        MyApplication.Userinfo.getString("headImage", ""),
+//                        iv_icon_persion_pic);
+//            }
+//            tv_user_name.setText(MyApplication.Userinfo.getString(
+//                    "showUserName", ""));
+//            if (MyApplication.Userinfo.getBoolean("isAgent", false)) {
+//                ll_jingji.setVisibility(View.VISIBLE);
+//            } else {
+//                ll_jingji.setVisibility(View.GONE);
+//            }
+//        } else {
+//            iv_icon_persion_pic.setImageResource(R.drawable.icon_persion_pic);
+//            tv_user_name.setText("");
+//        }
+//    }
 
     private void unReadCount() {
         // TODO Auto-generated method stub
@@ -688,10 +702,9 @@ public class EActivity extends LoginActivity implements PlatformActionListener {
             // iv_icon_persion_pic.setImageDrawable(null);
             // iv_icon_persion_pic.setImageURI(Crop.getOutput(result));
             File file = FileTools.getFileByUri(this, Crop.getOutput(result));
-            iv_icon_persion_pic.setImageBitmap(getBitmapFromUri(
-                    Crop.getOutput(result), EActivity.this));
-            ImageLoader.getInstance().displayImage(file.getAbsolutePath(),
-                    iv_icon_persion_pic);
+            iv_icon_persion_pic.setImageBitmap(getBitmapFromUri(Crop.getOutput(result), EActivity.this));
+//            ImageLoader.getInstance().displayImage(file.getAbsolutePath(),
+//                    iv_icon_persion_pic);
             updateImage(file.getAbsolutePath(), imagType_tag, "");
         } else if (resultCode == Crop.RESULT_ERROR) {
             Toast.makeText(this, Crop.getError(result).getMessage(),
@@ -764,10 +777,13 @@ public class EActivity extends LoginActivity implements PlatformActionListener {
                                 editor.commit();
                                 if (!"".equals(MyApplication.Userinfo
                                         .getString("headImage", ""))) {
-                                    ImageLoader.getInstance().displayImage(
-                                            MyApplication.Userinfo.getString(
-                                                    "headImage", ""),
-                                            iv_icon_persion_pic);
+//                                    ImageLoader.getInstance().displayImage(
+//                                            MyApplication.Userinfo.getString(
+//                                                    "headImage", ""),
+//                                            iv_icon_persion_pic);
+//                                    fb.display(iv_icon_persion_pic, MyApplication.Userinfo.getString("headImage", ""));
+//                                    finalBitmapDisplay();
+                                    finalBitmapDisplayNo();
                                 }
 
                             }
@@ -1044,6 +1060,22 @@ public class EActivity extends LoginActivity implements PlatformActionListener {
             dialog.show();
         }
 
+    }
+
+
+    public void finalBitmapDisplay() {
+        ImageView meiyong = (ImageView) findViewById(R.id.meiyong);
+//        fb.display(meiyong, MyApplication.Userinfo.getString("headImage", ""));
+        new Handler().postDelayed(() -> fb.display(iv_icon_persion_pic, MyApplication.Userinfo.getString("headImage", "")), 500);
+//        iv_icon_persion_pic.invalidate();
+    }
+
+    public void finalBitmapDisplayNo() {
+        ImageView meiyong = (ImageView) findViewById(R.id.meiyong);
+//        fb.display(meiyong, MyApplication.Userinfo.getString("headImage", ""));
+//        new Handler().postDelayed(() -> fb.display(iv_icon_persion_pic, MyApplication.Userinfo.getString("headImage", "")), 500);
+//        iv_icon_persion_pic.invalidate();
+        fb.display(iv_icon_persion_pic, MyApplication.Userinfo.getString("headImage", ""));
     }
 
 }

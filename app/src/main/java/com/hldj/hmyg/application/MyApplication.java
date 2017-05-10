@@ -208,8 +208,8 @@ public class MyApplication extends MultiDexApplication {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
                 context).threadPriority(Thread.NORM_PRIORITY - 2)
                 .denyCacheImageMultipleSizesInMemory()
-                .diskCacheSize(50 * 1024 * 1024) // 50 Mb
-                .memoryCache(new LruMemoryCache(4 * 1024 * 1024)).tasksProcessingOrder(QueueProcessingType.LIFO)//
+                .diskCacheSize(60 * 1024 * 1024) // 50 Mb
+                .memoryCache(new LruMemoryCache(10 * 1024 * 1024)).tasksProcessingOrder(QueueProcessingType.LIFO)//
                 .discCacheFileNameGenerator(new Md5FileNameGenerator())
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
                 .writeDebugLogs() // Remove for release app

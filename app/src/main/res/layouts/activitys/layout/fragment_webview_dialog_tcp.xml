@@ -5,7 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/include_top_bar"/>
+    <include layout="@layout/include_top_bar" />
 
     <WebView
         android:id="@+id/webview_show_quite_detail"
