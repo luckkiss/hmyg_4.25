@@ -975,6 +975,6 @@ public class SalerActivity extends LoginActivity {
     public void finalBitmapDisplay() {
         fb.configLoadingImage(R.drawable.icon_persion_pic);
         new Handler().postDelayed(() -> fb.display(iv_icon_persion_pic, MyApplication.Userinfo.getString("headImage", "")), 300);
-        new Handler().postDelayed(() -> fb.display(iv_icon_persion_pic, MyApplication.Userinfo.getString("headImage", "")), 300);
+//        new Handler().postDelayed(() -> fb.display(iv_icon_persion_pic, MyApplication.Userinfo.getString("headImage", "")), 300);
     }
 }

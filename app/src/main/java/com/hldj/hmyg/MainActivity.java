@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -50,6 +51,8 @@ import com.hldj.hmyg.saler.StorageSaveActivity;
 import com.hldj.hmyg.saler.bean.ChooseManager;
 import com.hldj.hmyg.update.UpdateDialog;
 import com.hldj.hmyg.util.ConstantState;
+import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.MLocationManager;
 import com.hldj.hmyg.util.MyUtil;
 import com.hldj.hmyg.util.StartBarUtils;
 import com.hy.utils.GetServerUrl;
@@ -74,8 +77,7 @@ import me.drakeet.materialdialog.MaterialDialog;
 
 @SuppressLint("NewApi")
 @SuppressWarnings("deprecation")
-public class MainActivity extends TabActivity implements
-        OnCheckedChangeListener {
+public class MainActivity extends TabActivity implements OnCheckedChangeListener {
     private static TabHost tabHost;
     private static RadioGroup radioderGroup;
     MaterialDialog mMaterialDialog;
@@ -120,6 +122,9 @@ public class MainActivity extends TabActivity implements
         StartBarUtils.FlymeSetStatusBarLightMode(getWindow(), true);
         StartBarUtils.MIUISetStatusBarLightMode(getWindow(), true);
         setContentView(R.layout.activity_main);
+
+        getAddr();
+
         e = MyApplication.Userinfo.edit();//初始化 sp
 
 
@@ -250,6 +255,7 @@ public class MainActivity extends TabActivity implements
         }
 
     }
+
 
     private void initData() {
         // TODO Auto-generated method stub
@@ -621,8 +627,7 @@ public class MainActivity extends TabActivity implements
         if (updateInfo.isForce()) {
             UpdateDialog dialog = builder.create();
             //强制更新
-            if (ConstantState.ON_OFF)
-            {
+            if (ConstantState.ON_OFF) {
                 dialog.setCancelable(false);
             }
             dialog.show();
@@ -828,6 +833,18 @@ public class MainActivity extends TabActivity implements
         Intent intent = new Intent(MainActivity.this, cls);
         startActivityForResult(intent, 4);
         MyUtil.overridePendingTransition_open(MainActivity.this);
+    }
+
+
+    //获取当前地址
+    private void getAddr() {
+
+        MLocationManager.getInstance().startLoaction(result -> {
+                    D.e("=====result===" + result);
+                    if (!TextUtils.isEmpty(result)) {
+                        MLocationManager.getInstance().stopLoaction();
+                    }
+                });
     }
 
 

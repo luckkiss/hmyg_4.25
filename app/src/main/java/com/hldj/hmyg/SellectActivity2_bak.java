@@ -320,13 +320,8 @@ public class SellectActivity2_bak extends BaseSecondActivity implements
                                                 danwei_names) {
 
                                             @Override
-                                            public View getView(
-                                                    FlowLayout parent,
-                                                    int position, String s) {
-                                                TextView tv = (TextView) getLayoutInflater()
-                                                        .inflate(R.layout.tv,
-                                                                mFlowLayout2,
-                                                                false);
+                                            public View getView( FlowLayout parent,  int position, String s) {
+                                                TextView tv = (TextView) getLayoutInflater() .inflate(R.layout.tv, mFlowLayout2,  false);
                                                 tv.setText(s);
                                                 return tv;
                                             }

@@ -161,7 +161,9 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="@dimen/horizontal_margin"
                 android:src="@drawable/btn_location"
-                android:visibility="gone" />
+                android:visibility="gone"
+                tools:visibility="visible"
+                />
 
             <Button
                 android:id="@+id/destination_button"

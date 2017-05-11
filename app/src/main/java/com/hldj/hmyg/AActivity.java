@@ -155,6 +155,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
 
     private void initSwipe() {
         SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_main);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
         swipeRefreshLayout.setOnRefreshListener(() ->
                 {
                     D.e("==refresh==");

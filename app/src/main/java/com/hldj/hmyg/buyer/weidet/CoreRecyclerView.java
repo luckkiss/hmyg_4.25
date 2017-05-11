@@ -16,6 +16,7 @@ import com.hldj.hmyg.buyer.weidet.animation.BaseAnimation;
 import com.hldj.hmyg.buyer.weidet.listener.OnItemClickListener;
 
 
+
 /**
  * Created by hpw on 16/11/1.
  */
@@ -57,6 +58,7 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
     public CoreRecyclerView initView(Context context) {
         View view = LayoutInflater.from(context).inflate(
                 R.layout.layout_recyclerview, null);
+
         view.setLayoutParams(new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));

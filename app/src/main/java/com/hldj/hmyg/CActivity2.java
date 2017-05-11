@@ -10,9 +10,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.widget.GridView;
 
+import com.hldj.hmyg.DaoBean.SaveJson.DaoSession;
+import com.hldj.hmyg.DaoBean.SaveJson.SavaBeanDao;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.broker.adapter.ChooseManagerAdapter;
 import com.hldj.hmyg.buy.bean.CollectCar;
 import com.hldj.hmyg.saler.bean.ChooseManager;
+
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
 
@@ -33,6 +38,7 @@ public class CActivity2 extends Activity {
     private ChooseManagerAdapter myadapter;
     private ChooseManagerAdapter myadapter3;
     private ChooseManagerAdapter myadapter2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +85,12 @@ public class CActivity2 extends Activity {
                 R.drawable.fabuye_1, false);
         ChooseManager chooseManager2 = new ChooseManager("2", "苗木管理", "",
                 R.drawable.fabuye_2, false);
-        if (userList.size() > 0) {
+
+        DaoSession daoSession = MyApplication.getInstance().getDaoSession();
+        SavaBeanDao beanDao = daoSession.getSavaBeanDao();
+        QueryBuilder queryBuilder = beanDao.queryBuilder();
+
+        if (queryBuilder.list().size()>0) {
             chooseManager3 = new ChooseManager("3", "草稿箱", "",
                     R.drawable.caogaoxiang2, true);
         } else {

@@ -442,12 +442,15 @@ public class BuyerActivity extends LoginActivity {
 
                         break;
                     case R.id.ll_03:
-                        Intent toBActivity = new Intent(BuyerActivity.this,
-                                BActivity.class);
-                        toBActivity.putExtra("from", "context");
-                        startActivity(toBActivity);
-                        overridePendingTransition(R.anim.slide_in_left,
-                                R.anim.slide_out_right);
+//                        Intent toBActivity = new Intent(BuyerActivity.this,
+//                                BActivity.class);
+//                        toBActivity.putExtra("from", "context");
+//                        startActivity(toBActivity);
+//                        overridePendingTransition(R.anim.slide_in_left,
+//                                R.anim.slide_out_right);
+                        BActivity.start2ActivitySearch(BuyerActivity.this, "context", "");
+
+
                         break;
                     case R.id.ll_04:
 //                        Intent toDActivity4 = new Intent(BuyerActivity.this,

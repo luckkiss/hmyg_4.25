@@ -203,6 +203,7 @@ public class SaveSeedlingPresenter {
             public View getView(FlowLayout parent, int position, Object o) {
                 TextView tv = (TextView) saveSeedlingActivity.getLayoutInflater().inflate(R.layout.tv, mFlowLayout, false);
                 tv.setText(plantTypeList.get(position).getText());
+                tv.setTag(plantTypeList.get(position).getValue());
                 return tv;
             }
         };
@@ -214,7 +215,6 @@ public class SaveSeedlingPresenter {
         mFlowLayout.setOnTagClickListener(onTagClickListener);
 
 
-
         if (index != -1) tagAdapter.setSelectedList(index); // 不为-1 则 不设置默认
 
 
@@ -224,7 +224,7 @@ public class SaveSeedlingPresenter {
     int a = 0;
 
     public void upLoad(ArrayList<Pic> dataList, ResultCallBack<Pic> resultCallBack) {
-        a = 0 ;
+        a = 0;
         int list_size = dataList.size();
 
         FinalHttp finalHttp = new FinalHttp();
@@ -248,13 +248,10 @@ public class SaveSeedlingPresenter {
                         D.e("===========json=====上传图片成功==========" + json);
                         UpImageBackGsonBean imageBackGsonBean = GsonUtil.formateJson2Bean(json, UpImageBackGsonBean.class);
 
-                        if (imageBackGsonBean.getCode().equals(ConstantState.SUCCEED_CODE))
-                        {
+                        if (imageBackGsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
                             D.e("===上传成功==");
                             resultCallBack.onSuccess(new Pic(imageBackGsonBean.getData().getImage().getId(), false, imageBackGsonBean.getData().getImage().getOssMediumImagePath(), a));
-                        }
-                        else
-                        {
+                        } else {
                             D.e("===上传失败==");
                         }
 

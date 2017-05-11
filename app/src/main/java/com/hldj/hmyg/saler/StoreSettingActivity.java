@@ -32,6 +32,7 @@ import com.hy.utils.BitmapHelper;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.Loading;
+import com.hy.utils.ToastUtil;
 import com.xingguo.huang.mabiwang.util.CacheUtils;
 import com.xingguo.huang.mabiwang.util.ImageTools;
 import com.xingguo.huang.mabiwang.util.PictureManageUtil;
@@ -137,6 +138,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
     }
 
     private void getStore() {
+        showLoading();
         // TODO Auto-generated method stub
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, true);
@@ -229,11 +231,13 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
 
                             } else {
 
+                                ToastUtil.showShortToast(msg);
                             }
-
+                            showLoading();
                         } catch (JSONException e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
+                            showLoading();
                         }
                         super.onSuccess(t);
                     }
@@ -333,23 +337,23 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                                         msg, Toast.LENGTH_SHORT).show();
                             }
                             if ("1".equals(code)) {
-                                Toast.makeText(StoreSettingActivity.this,
-                                        "保存成功", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(StoreSettingActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (JSONException e) {
                             // TODO Auto-generated catch block
+
                             e.printStackTrace();
                         }
+                        hindLoading();
                         super.onSuccess(t);
                     }
 
                     @Override
-                    public void onFailure(Throwable t, int errorNo,
-                                          String strMsg) {
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
                         // TODO Auto-generated method stub
-                        Toast.makeText(StoreSettingActivity.this,
-                                R.string.error_net, Toast.LENGTH_SHORT).show();
+                        hindLoading();
+                        Toast.makeText(StoreSettingActivity.this, R.string.error_net, Toast.LENGTH_SHORT).show();
                         super.onFailure(t, errorNo, strMsg);
                     }
 
@@ -386,10 +390,10 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                         choosePics();
                         break;
                     case R.id.sure:
-                        if ("".equals(et_domian.getText().toString())
-                                || "".equals(et_store_name.getText().toString())) {
-                            // Toast.makeText(StoreSettingActivity.this,
-                            // "请将店铺域名和店铺名称填写完整", Toast.LENGTH_SHORT).show();
+                        showLoading();
+                        if ("".equals(et_domian.getText().toString()) || "".equals(et_store_name.getText().toString())) {
+                            Toast.makeText(StoreSettingActivity.this, "请将店铺域名和店铺名称填写完整", Toast.LENGTH_SHORT).show();
+                            hindLoading();
                             return;
                         }
                         // validate();

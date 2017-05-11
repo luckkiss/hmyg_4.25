@@ -116,6 +116,7 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
                     //成功删除某个item
                     items.remove(i);
                     notifyDataSetChanged();
+                    closeItem(i);
                 }
 
                 @Override
@@ -129,6 +130,18 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
         });
 
     }
+
+    /**
+     * openItem(int position)：打开某个item的侧滑
+     * closeItem(int position)：关闭某个打开的侧滑
+     * getOpenItems()：获取所有打开的item
+     * isOpen(int position):判断某个位置的item是否打开侧滑
+     * getMode()：获取侧滑显示模式
+     * setMode(Attributes.Mode mode)：设置侧滑显示模式
+     *
+     * @param textView
+     * @param bean
+     */
 
     void setName(TextView textView, SaveSeedingGsonBean.DataBean.SeedlingBean bean) {
 

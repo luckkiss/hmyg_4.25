@@ -16,6 +16,10 @@ public interface ConstantParams {
      */
     String diameter = "diameter";
     /**
+     * 米径
+     */
+    String mijing = "mijing";
+    /**
      * 胸径
      */
     String dbh = "dbh";
@@ -72,13 +76,31 @@ public interface ConstantParams {
      */
     String id = "id";
     /**
-     *    代购物
+     * 代购
      */
     String protocol = "protocol";
 
 
     /**
-     *      直购
+     * 地栽苗
+     */
+    String planted = "planted";
+    /**
+     * 容器苗
+     */
+    String container = "container";
+    /**
+     * 移植苗
+     */
+    String heelin = "heelin";
+    /**
+     * 假植苗
+     */
+    String transplant = "transplant";
+
+
+    /**
+     * 直购
      */
     String direct = "direct";
     /**

@@ -1,5 +1,6 @@
 package com.amap.api.car.example;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,6 +44,7 @@ import com.amap.api.maps2d.model.MyLocationStyle;
 import com.hldj.hmyg.MapSearchListActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.StoreActivity;
+import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.zf.iosdialog.widget.ActionSheetDialog;
@@ -90,6 +93,14 @@ public class FindFlowerActivity extends Activity implements
         mapView = (MapView) findViewById(R.id.map);
         mapView.onCreate(savedInstanceState); // 此方法必须重写
         init();
+        getLocationOption().setOnceLocation(true);
+        //获取最近3s内精度最高的一次定位结果：
+        //设置setOnceLocationLatest(boolean b)接口为true，启动定位时SDK会返回最近3s内精度最高的一次定位结果。如果设置其为true，setOnceLocation(boolean b)接口也会被设置为true，反之不会，默认为false。
+        getLocationOption().setOnceLocationLatest(true);
+        //单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒。
+        getLocationOption().setHttpTimeOut(20000);
+
+
         bitmapDescriptor = BitmapDescriptorFactory
                 .fromResource(R.drawable.dw_ziji);
         editButton.setOnClickListener(this);
@@ -178,7 +189,6 @@ public class FindFlowerActivity extends Activity implements
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
-
 
 
     @Override
@@ -521,15 +531,22 @@ public class FindFlowerActivity extends Activity implements
             return;
         }
         new AlertDialog(FindFlowerActivity.this).builder().setTitle(tel)
-                .setPositiveButton("呼叫", new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_CALL, Uri
-                                .parse("tel:" + tel));
+                .setPositiveButton("呼叫", v -> {
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri
+                            .parse("tel:" + tel));
 //						Intent intent = new Intent(Intent.ACTION_DIAL, Uri
 //								.parse("tel:" + tel));
-                        startActivity(intent);
+                    if (ActivityCompat.checkSelfPermission(FindFlowerActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
                     }
+                    startActivity(intent);
                 }).setNegativeButton("取消", new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -563,6 +580,8 @@ public class FindFlowerActivity extends Activity implements
 
 
 
+
+
     /**
      * 停止定位
      */
@@ -584,6 +603,8 @@ public class FindFlowerActivity extends Activity implements
         if (mListener != null && amapLocation != null) {
             if (amapLocation != null && amapLocation.getErrorCode() == 0) {
                 mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
+                D.e("======amapLocation=========" + amapLocation.toString());
+                mlocationClient.stopLocation();
             } else {
                 String errText = "定位失败," + amapLocation.getErrorCode() + ": "
                         + amapLocation.getErrorInfo();

@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -47,7 +48,6 @@ import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.mrwujay.cascade.activity.BaseSecondActivity;
-import com.ns.developer.tagview.entity.Tag;
 import com.ns.developer.tagview.widget.TagCloudLinkView;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
 
@@ -66,9 +66,18 @@ import java.util.HashMap;
 import java.util.List;
 
 import me.kaede.tagview.OnTagDeleteListener;
+import me.kaede.tagview.Tag;
 import me.kaede.tagview.TagView;
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
+
+import static com.hldj.hmyg.util.ConstantParams.container;
+import static com.hldj.hmyg.util.ConstantParams.dbh;
+import static com.hldj.hmyg.util.ConstantParams.diameter;
+import static com.hldj.hmyg.util.ConstantParams.heelin;
+import static com.hldj.hmyg.util.ConstantParams.mijing;
+import static com.hldj.hmyg.util.ConstantParams.planted;
+import static com.hldj.hmyg.util.ConstantParams.transplant;
 
 
 /**
@@ -134,6 +143,11 @@ public class BActivity extends BaseSecondActivity implements
     private String[] keySort = new String[]{"A", "B", "C", "D", "E", "F",
             "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
             "T", "U", "V", "W", "X", "Y", "Z"};
+
+
+    private static final int CITY_ID = 100;
+    private static final int SPACE_TEXT_ID = 101;
+    private static final int SEARCH_SPEC_ID = 102;
     /**
      * 上次第一个可见元素，用于滚动时记录标识。
      */
@@ -306,11 +320,8 @@ public class BActivity extends BaseSecondActivity implements
         xListView = (XListView) findViewById(R.id.xlistView);
         view = (TagCloudLinkView) findViewById(R.id.tag_cloud);
         // view.add(new Tag(1,"TAG TEXT 1  ×"));
-        view.setOnTagDeleteListener(new TagCloudLinkView.OnTagDeleteListener() {
-            @Override
-            public void onTagDeleted(Tag tag, int i) {
-                // write something
-            }
+        view.setOnTagDeleteListener((tag, i) -> {
+            // write something
         });
         xListView.setDivider(null);
         xListView.setPullLoadEnable(true);
@@ -326,13 +337,47 @@ public class BActivity extends BaseSecondActivity implements
 
         MultipleClickProcess multipleClickProcess = new MultipleClickProcess();
         iv_view_type.setOnClickListener(multipleClickProcess);
-//        rl_choose_type.setOnClickListener(multipleClickProcess);
         rl_choose_price.setOnClickListener(multipleClickProcess);
         rl_choose_time.setOnClickListener(multipleClickProcess);
         rl_choose_screen.setOnClickListener(multipleClickProcess);
         relativeLayout2.setOnClickListener(multipleClickProcess);
         iv_close.setOnClickListener(multipleClickProcess);
 
+    }
+
+
+    private me.kaede.tagview.Tag getTagViewByName(String item) {
+        if (!"".equals(getTypeName(item))) {
+            me.kaede.tagview.Tag tag = new me.kaede.tagview.Tag(getTypeName(item));
+            tag.layoutColor = getResources().getColor(R.color.main_color);
+            tag.isDeletable = true;
+            return tag;
+        } else {
+            return null;
+        }
+
+    }
+
+    private String getTypeName(String item) {
+//        planted container transplant heelin
+        switch (item) {
+            case planted:
+                return "地栽苗";
+            case container:
+                return "容器苗";
+            case transplant:
+                return "假植苗";
+            case heelin:
+                return "移植苗";
+            case mijing:
+                return "米径";
+            case diameter:
+                return "地径";
+            case dbh:
+                return "胸径";
+            default:
+                return item;
+        }
     }
 
 
@@ -692,17 +737,18 @@ public class BActivity extends BaseSecondActivity implements
         params.put("secondSeedlingTypeId", secondSeedlingTypeId);
         params.put("cityCode", cityCode);
 
-        plantTypes = "";
-        for (int i = 0; i < planttype_has_ids.size(); i++) {
-            plantTypes = plantTypes + planttype_has_ids.get(i) + ",";
-        }
-        if (plantTypes.length() > 0) {
-            params.put("plantTypes",
-                    plantTypes.substring(0, plantTypes.length() - 1));
-        } else {
-            params.put("plantTypes", plantTypes);
-        }
-
+        plantTypes = filPlantTypes(planttype_has_ids);
+//        for (int i = 0; i < planttype_has_ids.size(); i++) {
+//            plantTypes = plantTypes + planttype_has_ids.get(i) + ",";
+//            addTags(planttype_has_ids);
+//        }
+//        if (plantTypes.length() > 0) {
+//            params.put("plantTypes",
+//                    plantTypes.substring(0, plantTypes.length() - 1));
+//        } else {
+//            params.put("plantTypes", plantTypes);
+//        }
+        params.put("plantTypes", plantTypes);
         // if ("".equals(priceSort) && !"".equals(publishDateSort)) {
         // orderBy = publishDateSort;
         // } else if (!"".equals(priceSort) && "".equals(publishDateSort)) {
@@ -965,6 +1011,93 @@ public class BActivity extends BaseSecondActivity implements
                 });
         getdata = true;
     }
+
+    /**
+     * 通过 list<string> 数组 来动态添加tag</>
+     *
+     * @param mList
+     * @return
+     */
+    private String filPlantTypes(ArrayList<String> mList) {
+        StringBuffer buffer = new StringBuffer();
+        for (int i = 0; i < mList.size(); i++) {
+            buffer.append(mList.get(i) + ",");
+        }
+        if (buffer.length() > 0) {
+            return buffer.toString().substring(0, buffer.length() - 1);
+        }
+        return "";
+//                     ;;
+    }
+
+
+    /**
+     * me.kaede.tagview.Tag tag = new me.kaede.tagview.Tag(
+     * firstSeedlingTypeName);
+     * tag.layoutColor = getResources().getColor(R.color.main_color);
+     * tag.isDeletable = true;
+     * tag.id = 2; // 1 搜索 2分类
+     * tagView.addTag(tag);
+     *
+     * @param list
+     */
+    private void addTags(ArrayList<String> list) {
+        tagView.removeAllTags();
+        for (String item : list) {
+            //此处添加多个可删除 tag
+            tagView.addTag(getTagViewByName(item));
+        }
+        tagView.setOnTagDeleteListener((position, tag) -> {
+            D.e("======position====" + position);
+            if (position < planttype_has_ids.size()) {
+                planttype_has_ids.remove(position);
+            } else {
+                switch (tag.id) {
+                    case CITY_ID:
+                        cityCode = "";
+                        break;
+                    case SPACE_TEXT_ID:
+                        specMinValue = "";
+                        specMaxValue = "";
+                        break;
+                    case SEARCH_SPEC_ID:
+                        searchSpec = "";
+                        break;
+                }
+                /**
+                 * //判断城市是否增加
+                 Tag tag = getTagViewByName(cityName);
+                 tag.id = 100;//城市id
+                 tagView.addTag(tag);
+                 tag = getTagViewByName(spaceText);
+                 tag.id = 101;//城市id
+                 tagView.addTag(tag);
+                 tag = getTagViewByName(searchSpec);
+                 tag.id = 102;//城市id
+                 tagView.addTag(tag);
+                 */
+            }
+
+
+            onRefresh();
+//            if (tag.id == 1) {
+//                searchKey = "";
+//                onRefresh();
+//            } else if (tag.id == 2) {
+//                firstSeedlingTypeId = "";
+//                firstSeedlingTypeName = "";
+//                onRefresh();
+//            } else if (tag.id == 3) {
+//                secondSeedlingTypeId = "";
+//                secondSeedlingTypeName = "";
+//                onRefresh();
+//            }
+
+        });
+
+
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -1239,11 +1372,51 @@ public class BActivity extends BaseSecondActivity implements
             minOffbarHeight = data.getStringExtra("minOffbarHeight");
             maxOffbarHeight = data.getStringExtra("maxOffbarHeight");
             plantTypes = data.getStringExtra("plantTypes");
-            planttype_has_ids = data
-                    .getStringArrayListExtra("planttype_has_ids");
+            planttype_has_ids = data.getStringArrayListExtra("planttype_has_ids");
+
+            if (planttype_has_ids.size() == 0) {
+                tagView.removeAllTags();
+            } else {
+                addTags(planttype_has_ids);//此处添加tag 并 监听删除事件
+            }
+
+
             searchSpec = data.getStringExtra("searchSpec");
+
+
             specMinValue = data.getStringExtra("specMinValue");
             specMaxValue = data.getStringExtra("specMaxValue");
+
+            String spaceText = "";
+
+            if (!TextUtils.isEmpty(specMinValue) && !TextUtils.isEmpty(specMaxValue)) {
+                spaceText = specMinValue + "-" + specMaxValue;
+            } else if (!TextUtils.isEmpty(specMinValue)) {
+                spaceText = specMinValue;
+            } else {
+                spaceText = specMaxValue;
+            }
+            if (!spaceText.isEmpty()) {
+                spaceText = spaceText + "cm";
+            }
+            //判断城市是否增加
+
+            Tag tag = getTagViewByName(cityName);
+            if (tag != null)
+                tag.id = CITY_ID;//城市id
+            if (!cityName.equals("全国"))
+                tagView.addTag(tag);
+
+            tag = getTagViewByName(spaceText);
+            if (tag != null)
+                tag.id = SPACE_TEXT_ID;//城市id
+            tagView.addTag(tag);
+
+            tag = getTagViewByName(searchSpec);
+            if (tag != null)
+                tag.id = SEARCH_SPEC_ID;//城市id
+            tagView.addTag(tag);
+
             searchKey = data.getStringExtra("searchKey");
 
 
@@ -1276,35 +1449,37 @@ public class BActivity extends BaseSecondActivity implements
         params.put("specMinValue", specMinValue);
         params.put("specMaxValue", specMaxValue);
         params.put("searchKey", searchKey);
-        params.put("minPrice", minPrice);
-        params.put("maxPrice", maxPrice);
-        params.put("minDiameter", minDiameter);
-        params.put("maxDiameter", maxDiameter);
-        params.put("minDbh", minDbh);
-        params.put("maxDbh", maxDbh);
-        params.put("minHeight", minHeight);
-        params.put("maxHeight", maxHeight);
-        params.put("minCrown", minCrown);
-        params.put("maxCrown", maxCrown);
-        params.put("minOffbarHeight", minOffbarHeight);
-        params.put("maxOffbarHeight", maxOffbarHeight);
-        params.put("minLength", minLength);
-        params.put("maxLength", maxLength);
+//        params.put("minPrice", minPrice);
+//        params.put("maxPrice", maxPrice);
+//        params.put("minDiameter", minDiameter);
+//        params.put("maxDiameter", maxDiameter);
+//        params.put("minDbh", minDbh);
+//        params.put("maxDbh", maxDbh);
+//        params.put("minHeight", minHeight);
+//        params.put("maxHeight", maxHeight);
+//        params.put("minCrown", minCrown);
+//        params.put("maxCrown", maxCrown);
+//        params.put("minOffbarHeight", minOffbarHeight);
+//        params.put("maxOffbarHeight", maxOffbarHeight);
+//        params.put("minLength", minLength);
+//        params.put("maxLength", maxLength);
         params.put("TradeType", supportTradeType);
         params.put("firstSeedlingTypeId", firstSeedlingTypeId);
         params.put("secondSeedlingTypeId", secondSeedlingTypeId);
         params.put("cityCode", cityCode);
 
         plantTypes = "";
-        for (int i = 0; i < planttype_has_ids.size(); i++) {
-            plantTypes = plantTypes + planttype_has_ids.get(i) + ",";
-        }
-        if (plantTypes.length() > 0) {
-            params.put("plantTypes",
-                    plantTypes.substring(0, plantTypes.length() - 1));
-        } else {
-            params.put("plantTypes", plantTypes);
-        }
+        plantTypes = filPlantTypes(planttype_has_ids);
+        params.put("plantTypes", plantTypes);
+//        for (int i = 0; i < planttype_has_ids.size(); i++) {
+//            plantTypes = plantTypes + planttype_has_ids.get(i) + ",";
+//        }
+//        if (plantTypes.length() > 0) {
+//            params.put("plantTypes",
+//                    plantTypes.substring(0, plantTypes.length() - 1));
+//        } else {
+//            params.put("plantTypes", plantTypes);
+//        }
 
         // if ("".equals(priceSort) && !"".equals(publishDateSort)) {
         // orderBy = publishDateSort;
@@ -1653,7 +1828,7 @@ public class BActivity extends BaseSecondActivity implements
 
     private void getIntentExtral() {
 //        if (getIntent().getBooleanExtra("isOpenSwipe", false)) {
-            setSwipeBackEnable(getIntent().getBooleanExtra("isOpenSwipe", false));//是的跳转过来的  界面具有滑动功能
+        setSwipeBackEnable(getIntent().getBooleanExtra("isOpenSwipe", false));//是的跳转过来的  界面具有滑动功能
 //        }
     }
 

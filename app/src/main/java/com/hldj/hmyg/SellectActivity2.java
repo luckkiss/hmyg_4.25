@@ -152,6 +152,7 @@ public class SellectActivity2 extends BaseSecondActivity implements OnWheelChang
                     initSpecList(typesBean.data.specList);
                 }
 
+
             }
 
 
@@ -166,20 +167,19 @@ public class SellectActivity2 extends BaseSecondActivity implements OnWheelChang
                 danwei_ids.add(specList.get(i).getValue());
             }
             if (danwei_names.size() > 0) {
-                SaveSeedlingPresenter.initAutoLayout2(mFlowLayout2, specList, 1, SellectActivity2.this, (view, position, parent) ->
+                SaveSeedlingPresenter.initAutoLayout2(mFlowLayout2, specList, -1, SellectActivity2.this, (view, position, parent) ->
                         {
                             D.e("==view被点击了===" + view.isSelected());
                             D.e("==parent被点击了===" + parent.isSelected());
+                            searchSpec = danwei_ids.get(position);
                             return false;
                         }
                 );
-
-//                for (int i = 0; i < danwei_ids.size(); i++) {
-//                    if (searchSpec.equals(danwei_ids.get(i))) {
-//                        int a = i;
-//                        adapter2.setSelectedList(a);
-//                    }
-//                }
+                for (int i = 0; i < danwei_ids.size(); i++) {
+                    if (searchSpec.equals(danwei_ids.get(i))) {
+                        mFlowLayout2.getAdapter().setSelectedList(i);
+                    }
+                }
             }
         }
     }
@@ -191,35 +191,50 @@ public class SellectActivity2 extends BaseSecondActivity implements OnWheelChang
      */
     private void initPlantTypeList(List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> plantTypeList) {
         if (plantTypeList.size() > 0) {
-
+            planttype_names.clear();
+            planttype_ids.clear();
             for (int i = 0; i < plantTypeList.size(); i++) {
                 planttype_names.add(plantTypeList.get(i).getText());
                 planttype_ids.add(plantTypeList.get(i).getValue());
             }
 
             if (planttype_names.size() > 0) {
+                SaveSeedlingPresenter.initAutoLayout2(mFlowLayout3, plantTypeList, -1, SellectActivity2.this, (view, position, parent) -> false);
+                mFlowLayout3.setMaxSelectCount(planttype_ids.size());
 
-                SaveSeedlingPresenter.initAutoLayout2(mFlowLayout3, plantTypeList, 1, SellectActivity2.this, (view, position, parent) ->
-                        {
-                            D.e("==view被点击了===" + view.isSelected());
-                            D.e("==parent被点击了===" + parent.isSelected());
-                            return false;
-                        }
-                );
+                int[] pos = new int[planttype_ids.size()];
+                for (int i = 0; i < planttype_ids.size(); i++) {
+                    pos[i] = -1;
+                    if (buffer.toString().contains(planttype_ids.get(i))) {
+                        pos[i] = i;
+                    }
+                }
+                if (buffer.length() != 0) {//没值时  退出循环
+                    mFlowLayout3.getAdapter().setSelectedList(pos);
+                }
 
-                mFlowLayout3.setMaxSelectCount(4);
-                mFlowLayout3.getAdapter().setSelectedList(0, 1, 3);
                 mFlowLayout3.setOnSelectListener(selectPosSet -> {
+                    buffer = new StringBuffer();
+                    planttype_has_ids.clear();
                     for (Integer setItem : selectPosSet) {
                         D.e("===================" + setItem);
+
+                        buffer = buffer.append(planttype_ids.get(setItem));
+                        planttype_has_ids.add(planttype_ids.get(setItem));
+
                     }
+                    D.e("====buffer======" + buffer);
                 });
+
 
             }
 
 
         }
     }
+
+    StringBuffer buffer = new StringBuffer();
+
 
     public void initData() {
         String from = getIntent().getStringExtra("from");
@@ -235,6 +250,7 @@ public class SellectActivity2 extends BaseSecondActivity implements OnWheelChang
         String specMinValue = getIntent().getStringExtra("specMinValue");
         String specMaxValue = getIntent().getStringExtra("specMaxValue");
         searchKey = getIntent().getStringExtra("searchKey");
+        buffer = buffer.append(getIntent().getStringExtra("plantTypes"));
 
 
         et_max_guige.setText(specMaxValue);//最小厘米
@@ -300,7 +316,7 @@ public class SellectActivity2 extends BaseSecondActivity implements OnWheelChang
                             intent.putExtra("cityCode", str);
                         }
                         intent.putExtra("cityName", cityName);
-                        intent.putExtra("plantTypes", type01 + type02 + type03 + type04);
+                        intent.putExtra("plantTypes", buffer.toString());
                         intent.putStringArrayListExtra("planttype_has_ids", planttype_has_ids);
                         intent.putExtra("searchSpec", searchSpec);
                         intent.putExtra("specMinValue", et_min_guige.getText().toString());
@@ -504,8 +520,7 @@ public class SellectActivity2 extends BaseSecondActivity implements OnWheelChang
     private static class TypesBean {
 
         public String code = "";
-        public String msg;//测试gson 为空时 会不会报错
-        public String msgTest;
+        public String msg = "";//测试gson 为空时 会不会报错
 
 
         public DataBean data;

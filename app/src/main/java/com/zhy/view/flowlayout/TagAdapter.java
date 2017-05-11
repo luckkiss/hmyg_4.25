@@ -32,6 +32,7 @@ public abstract class TagAdapter<T> {
     public void setSelectedList(int... poses) {
         Set<Integer> set = new HashSet<Integer>();
         for (int pos : poses) {
+            if (pos != -1)
             set.add(pos);
         }
         setSelectedList(set);
