@@ -16,9 +16,12 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewConfiguration;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -1809,6 +1812,67 @@ public class BActivity extends BaseSecondActivity implements
         intent.putExtra("firstSeedlingTypeName", StringfilName);
         intent.putExtra("isOpenSwipe", true);
         context.startActivity(intent);
+    }
+
+
+    float startY;//开始y坐标
+    float moveY;//移动中的y坐标
+    boolean isOpen = true;
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                startY = ev.getY();
+                D.e("===startY===" + startY);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                moveY = ev.getY();
+                D.e("=====moveY======" + moveY);
+                D.e("=====moveY - startY======" + (moveY - startY));
+                if (moveY - startY < -169) {
+                    closeFilter();
+                    startY = moveY;
+                }
+                if (moveY - startY > 169) {
+                    openFilter();
+                    startY = moveY;
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    TranslateAnimation mHiddenAction;
+
+    public void closeFilter() {
+        if (isOpen) {
+            mHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+                    0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                    -1.0f);
+            mHiddenAction.setDuration(500);
+            relativeLayout1.setAnimation(mHiddenAction);
+            relativeLayout1.setVisibility(View.GONE);
+            isOpen = false;
+        }
+    }
+
+
+    TranslateAnimation mShowAction;
+
+    public void openFilter() {
+        if (!isOpen) {
+            mShowAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                    -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+            mShowAction.setDuration(500);
+            relativeLayout1.setAnimation(mShowAction);
+            relativeLayout1.setVisibility(View.VISIBLE);
+            isOpen = true;
+        }
     }
 
     /**

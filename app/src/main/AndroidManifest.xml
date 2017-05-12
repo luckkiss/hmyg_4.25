@@ -162,6 +162,10 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name="com.hldj.hmyg.AActivity_3_0"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name="com.hldj.hmyg.BActivity"
             android:screenOrientation="portrait"></activity>
         <activity

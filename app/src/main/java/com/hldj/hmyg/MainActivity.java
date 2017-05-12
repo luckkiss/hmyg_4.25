@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -38,6 +37,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
 import com.flyco.animation.BaseAnimatorSet;
 import com.flyco.animation.BounceEnter.BounceTopEnter;
 import com.flyco.animation.SlideExit.SlideBottomExit;
@@ -209,7 +209,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         }
 
         tabHost.addTab(tabHost.newTabSpec("1").setIndicator("1")
-                .setContent(new Intent(this, AActivity.class)));
+                .setContent(new Intent(this, AActivity_3_0.class)));
         tabHost.addTab(tabHost.newTabSpec("2").setIndicator("2")
                 .setContent(new Intent(this, BActivity.class)));
         tabHost.addTab(tabHost.newTabSpec("3").setIndicator("3")
@@ -839,13 +839,34 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     //获取当前地址
     private void getAddr() {
 
-        MLocationManager.getInstance().startLoaction(result -> {
-                    D.e("=====result===" + result);
-                    if (!TextUtils.isEmpty(result)) {
-                        MLocationManager.getInstance().stopLoaction();
-                    }
-                });
+        MLocationManager.getInstance().startLoaction(location -> {
+            if (location != null && location.getErrorCode() == 0) {
+                D.e("=====result===" + location.toString());
+                province_loc = location.getProvince();
+                D.e("==============" + location.getProvince());
+                city_loc = location.getCity();
+                D.e("==============" + location.getCity());
+                district_loc = location.getDistrict();
+                D.e("==============" + location.getDistrict());
+                aMapLocation = location;
+                MLocationManager.getInstance().stopLoaction();//一次成功后关闭定位
+            } else {
+                //多次失败 会超时关闭
+            }
+        });
     }
 
+
+    public static String province_loc = "北京";
+    public static String city_loc = "北京";
+    public static String district_loc = "东城区";
+    public static AMapLocation aMapLocation = null;
+
+    /**
+     * ======amapLocation=========latitude=24.488207longitude=118.09651province=福建省#city=厦门市#district=思明区
+     * #cityCode=0592#adCode=350203#address=福建省厦门市思明区七星西路靠近中国农业银行(厦门岳阳支行)
+     * #country=中国#road=七星西路#poiName=中国农业银行(厦门岳阳支行)#street=七星西路#streetNum=31号#aoiName=七星大厦(七星西路)
+     * #errorCode=0#errorInfo=success#locationDetail=-5 #csid:42a901e6e47042779c9890bb49f2f5fe#locationType=2
+     */
 
 }

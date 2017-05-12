@@ -145,7 +145,8 @@
             android:paddingBottom="@dimen/x3"
             android:paddingLeft="@dimen/x13"
             android:paddingRight="@dimen/x13"
-            android:paddingTop="@dimen/x3">
+            android:paddingTop="@dimen/x3"
+            >
 
             <!--<RelativeLayout-->
                 <!--android:id="@+id/rl_choose_type"-->

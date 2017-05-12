@@ -1,7 +1,6 @@
 package com.hldj.hmyg.saler.purchase;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +13,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.text.Html;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -54,8 +51,8 @@ import com.flyco.animation.BaseAnimatorSet;
 import com.flyco.animation.BounceEnter.BounceTopEnter;
 import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
-import com.hhl.library.FlowTagLayout;
 import com.hldj.hmyg.BFragment;
+import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.LoginActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
@@ -63,13 +60,14 @@ import com.hldj.hmyg.broker.SeedlingMarketSearchActivity;
 import com.hldj.hmyg.broker.SellectMarketPriceActivity;
 import com.hldj.hmyg.broker.bean.SellectPrice;
 import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
+import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
+import com.hldj.hmyg.saler.M.PurchaseBean;
+import com.hldj.hmyg.saler.P.PurchasePyMapPresenter;
 import com.hldj.hmyg.saler.SubscribeManagerListActivity;
 import com.hldj.hmyg.saler.bean.ParamsList;
 import com.hldj.hmyg.saler.bean.Subscribe;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
-import com.hy.utils.StringFormatUtil;
-import com.hy.utils.TagAdapter;
 import com.mrwujay.cascade.activity.BaseSecondActivity;
 import com.mrwujay.cascade.activity.GetCodeByName;
 
@@ -259,6 +257,8 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
             }
         });
         // init();
+        listAdapter = new PurchaseListAdapter(PurchasePyMapActivity.this, null, R.layout.list_item_purchase_list_new);
+        listview.setAdapter(listAdapter);
         initData();
         sideBar = (SideBar) findViewById(R.id.sidrbar);
         TextView dialog = (TextView) findViewById(R.id.dialog);
@@ -671,14 +671,12 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
         // TODO Auto-generated method stub
         listview.setPullLoadEnable(false);
         pageIndex = 0;
-        puchaseDatas.clear();
-        if (listAdapter == null) {
-            listAdapter = new PurchaseListAdapter(PurchasePyMapActivity.this,
-                    puchaseDatas);
-            listview.setAdapter(listAdapter);
-        } else {
-            listAdapter.notifyDataSetChanged();
+
+        if (listAdapter != null) {
+            listAdapter.addData(null);
         }
+
+
         if (getdata == true) {
             initData();
         }
@@ -894,186 +892,28 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
     }
 
     private void initData() {
-        // TODO Auto-generated method stub
-        getdata = false;
-        GetServerUrl.addHeaders(finalHttp, true);
-        AjaxParams params = new AjaxParams();
-        params.put("pageSize", pageSize + "");
-        params.put("pageIndex", pageIndex + "");
-        params.put("type", type);
-        finalHttp.post(GetServerUrl.getUrl() + "purchase/purchaseList", params,
-                new AjaxCallBack<Object>() {
+        //初始化监听接口
+        ResultCallBack<List<PurchaseBean>> callBack = new ResultCallBack<List<PurchaseBean>>() {
+            @Override
+            public void onSuccess(List<PurchaseBean> purchaseBeen) {
+                listAdapter.addData(purchaseBeen);//返回空 就添加到数组中，并刷新  如果为null  listAdapter 会自动清空
+                getdata = true;//成功获取到了
+            }
 
-                    @Override
-                    public void onSuccess(Object t) {
-                        // TODO Auto-generated method stub
-                        try {
-                            JSONObject jsonObject = new JSONObject(t.toString());
-                            String code = JsonGetInfo.getJsonString(jsonObject,
-                                    "code");
-                            String msg = JsonGetInfo.getJsonString(jsonObject,
-                                    "msg");
-                            if (!"".equals(msg)) {
-                            }
-                            if ("1".equals(code)) {
-                                JSONObject data = JsonGetInfo.getJSONObject(
-                                        jsonObject, "data");
-                                JSONObject jsonObject2 = JsonGetInfo
-                                        .getJSONObject(data, "page");
-                                int total = JsonGetInfo.getJsonInt(jsonObject2,
-                                        "total");
-                                if (JsonGetInfo.getJsonArray(jsonObject2,
-                                        "data").length() > 0) {
-                                    JSONArray jsonArray_cartList = JsonGetInfo
-                                            .getJsonArray(jsonObject2, "data");
-                                    for (int j = 0; j < jsonArray_cartList
-                                            .length(); j++) {
-                                        JSONObject jsonObject4 = jsonArray_cartList
-                                                .getJSONObject(j);
-                                        PurchaseList purchaseList = new PurchaseList();
-                                        purchaseList.setId(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "id"));
-                                        purchaseList.setCreateBy(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "createBy"));
-                                        purchaseList.setCreateDate(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "createDate"));
-                                        purchaseList.setCityCode(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "cityCode"));
-                                        purchaseList.setCityName(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "cityName"));
-                                        purchaseList.setPrCode(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "prCode"));
-                                        purchaseList.setCiCode(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "ciCode"));
-                                        purchaseList.setCoCode(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "coCode"));
-                                        purchaseList.setItemCountJson(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "itemCountJson"));
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                getdata = true;//获取到了，但是失败了
+            }
+        };
+        getdata = false;//数据获取到了吗？
+        //根据参数请求数据
+        new PurchasePyMapPresenter()
+                .putParams("pageSize", pageSize + "")
+                .putParams("pageIndex", pageIndex + "")
+                .putParams("type", type)
+                .addResultCallBack(callBack)
+                .requestDatas("purchase/purchaseList");
 
-
-                                        purchaseList.setItemCountJson(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "itemCountJson"));
-                                        purchaseList.setBlurProjectName(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "blurProjectName"));
-
-//                                        "blurProjectName": "海峡****",
-//                                                "blurName": "海峡****"
-
-
-                                        purchaseList.setTwCode(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "twCode"));
-                                        purchaseList.setNum(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "num"));
-                                        purchaseList.setProjectName(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "projectName"));
-                                        purchaseList.setReceiptDate(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "receiptDate"));
-                                        purchaseList.setValidity(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "validity"));
-                                        purchaseList.setPublishDate(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "publishDate"));
-                                        purchaseList.setCloseDate(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "closeDate"));
-                                        purchaseList.setNeedInvoice(JsonGetInfo
-                                                .getJsonBoolean(jsonObject4,
-                                                        "needInvoice"));
-                                        purchaseList.setBuyerId(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "buyerId"));
-                                        purchaseList.setBuyer(JsonGetInfo
-                                                .getJsonString(JsonGetInfo
-                                                                .getJSONObject(
-                                                                        jsonObject4,
-                                                                        "buyer"),
-                                                        "displayName"));
-                                        purchaseList
-                                                .setPurchaseFormId(JsonGetInfo
-                                                        .getJsonString(
-                                                                jsonObject4,
-                                                                "id"));
-                                        purchaseList.setCustomerId(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "customerId"));
-                                        purchaseList.setStatus(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "status"));
-                                        purchaseList.setSource(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "source"));
-                                        purchaseList.setStatusName(JsonGetInfo
-                                                .getJsonString(jsonObject4,
-                                                        "statusName"));
-                                        purchaseList.setQuoteCountJson(JsonGetInfo
-                                                .getJsonInt(jsonObject4,
-                                                        "quoteCountJson"));
-                                        purchaseList.setLastDays(JsonGetInfo
-                                                .getJsonInt(jsonObject4,
-                                                        "lastDays"));
-                                        JSONArray jsonArray = JsonGetInfo
-                                                .getJsonArray(jsonObject4,
-                                                        "itemNameList");
-                                        ArrayList<String> itemNameList = new ArrayList<String>();
-                                        for (int i = 0; i < jsonArray.length(); i++) {
-                                            itemNameList.add(jsonArray
-                                                    .getString(i));
-                                        }
-                                        purchaseList
-                                                .setItemNameList(itemNameList);
-                                        puchaseDatas.add(purchaseList);
-                                        if (listAdapter != null) {
-                                            listAdapter.notifyDataSetChanged();
-                                        }
-                                    }
-                                    if (listAdapter == null) {
-                                        listAdapter = new PurchaseListAdapter(
-                                                PurchasePyMapActivity.this,
-                                                puchaseDatas);
-                                        listview.setAdapter(listAdapter);
-                                    } else {
-                                        listview.deferNotifyDataSetChanged();
-                                    }
-                                    pageIndex++;
-
-                                }
-
-                            } else {
-
-                            }
-
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                        super.onSuccess(t);
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t, int errorNo,
-                                          String strMsg) {
-                        // TODO Auto-generated method stub
-                        super.onFailure(t, errorNo, strMsg);
-                    }
-
-                });
-        getdata = true;
     }
 
     @Override
@@ -1259,261 +1099,6 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                         + mCurrentDistrictName + "," + mCurrentZipCode,
                 Toast.LENGTH_SHORT).show();
     }
-
-
-    public class PurchaseListAdapter extends BaseAdapter {
-        private static final String TAG = "PurchaseListAdapter";
-
-        private ArrayList<PurchaseList> data = null;
-
-        private Context context = null;
-        private FinalBitmap fb;
-
-        public PurchaseListAdapter(Context context, ArrayList<PurchaseList> data) {
-            this.data = data;
-            this.context = context;
-            fb = FinalBitmap.create(context);
-            fb.configLoadingImage(R.drawable.no_image_show);
-        }
-
-        @Override
-        public int getCount() {
-            return this.data.size();
-        }
-
-        @Override
-        public Object getItem(int arg0) {
-            return this.data.get(arg0);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(final int position, View convertView,
-                            ViewGroup parent) {
-            View inflate = LayoutInflater.from(context).inflate(
-                    R.layout.list_item_purchase_list_new, null);
-            TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);
-            TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);
-            TextView tv_04 = (TextView) inflate.findViewById(R.id.tv_04);
-//            TextView tv_08 = (TextView) inflate.findViewById(R.id.tv_08);
-            TextView tv_10 = (TextView) inflate.findViewById(R.id.tv_10);
-            TextView tv_11 = (TextView) inflate.findViewById(R.id.tv_11);
-            TextView tv_caozuo01 = (TextView) inflate
-                    .findViewById(R.id.tv_caozuo01);
-
-            FlowTagLayout mMobileFlowTagLayout = (FlowTagLayout) inflate
-                    .findViewById(R.id.mobile_flow_layout);
-            // 移动研发标签
-            TagAdapter<String> mMobileTagAdapter = new TagAdapter<>(
-                    context);
-            // mMobileFlowTagLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
-            mMobileFlowTagLayout.setAdapter(mMobileTagAdapter);
-
-            mMobileTagAdapter.onlyAddAll(data.get(position).getItemNameList());
-//            Html.fromHtml("北京市发布霾黄色预警，<font color='#ff0000'><big><big>外出携带好</big></big></font>口罩")
-
-            String html_source = data.get(position).getBlurProjectName() + "采购单";
-            String html_source1 = "(" + data.get(position).getNum() + ")";
-
-            tv_01.setText(Html.fromHtml(html_source + "<font color='#FFA19494'><small>" + html_source1 + "</small></font>"));
-
-            tv_03.setText(data.get(position).getCityName());
-            tv_04.setText("采购商家：" + data.get(position).getBuyer());
-
-
-            if (MyApplication.getUserBean().showQuoteCount) {
-                if (data.get(position).getQuoteCountJson() > 0) {
-                    StringFormatUtil fillColor = new StringFormatUtil(context, "已有"
-                            + data.get(position).getQuoteCountJson() + "条报价", data
-                            .get(position).getQuoteCountJson() + "", R.color.red)
-                            .fillColor();
-                    tv_11.setText(fillColor.getResult());
-                } else {
-                    tv_11.setText("暂无报价");
-                }
-            }
-
-
-            if (!TextUtils.isEmpty(data.get(position).getItemCountJson())) {
-                StringFormatUtil fillColor = new StringFormatUtil(context, "已有"
-                        + data.get(position).getItemCountJson() + "条品种", data
-                        .get(position).getItemCountJson() + "", R.color.green
-                )
-                        .fillColor();
-
-                if (null != fillColor.getResult()) {
-                    tv_10.setText(fillColor.getResult());
-                } else {
-                    tv_10.setText("暂无报价");
-                }
-            } else {
-                tv_10.setText("暂无报价");
-            }
-
-            tv_caozuo01.setText("截止时间：" + data.get(position).getCloseDate());
-
-
-            inflate.setOnClickListener(v -> {
-                // TODO Auto-generated method stub
-                Intent intent = new Intent(context,
-                        StorePurchaseListActivity.class);
-                intent.putExtra("purchaseFormId", data.get(position)
-                        .getPurchaseFormId());
-                intent.putExtra("title", data.get(position).getNum());
-                context.startActivity(intent);
-                ((Activity) context).overridePendingTransition(
-                        R.anim.slide_in_left, R.anim.slide_out_right);
-            });
-
-            return inflate;
-        }
-
-        public void notify(ArrayList<PurchaseList> data) {
-            this.data = data;
-            notifyDataSetChanged();
-        }
-
-    }
-
-
-//	public class PurchaseListAdapter extends BaseAdapter {
-//		private static final String TAG = "PurchaseListAdapter";
-//
-//		private ArrayList<PurchaseList> data = null;
-//
-//		private Context context = null;
-//		private FinalBitmap fb;
-//
-//		public PurchaseListAdapter(Context context, ArrayList<PurchaseList> data) {
-//			this.data = data;
-//			this.context = context;
-//			fb = FinalBitmap.create(context);
-//			fb.configLoadingImage(R.drawable.no_image_show);
-//		}
-//
-//		@Override
-//		public int getCount() {
-//			return this.data.size();
-//		}
-//
-//		@Override
-//		public Object getItem(int arg0) {
-//			return this.data.get(arg0);
-//		}
-//
-//		@Override
-//		public long getItemId(int position) {
-//			return position;
-//		}
-//
-//		@Override
-//		public View getView(final int position, View convertView,
-//				ViewGroup parent) {
-//			View inflate = LayoutInflater.from(context).inflate(
-//					R.layout.list_item_purchase_list, null);
-//			TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);
-//			TextView tv_ac = (TextView) inflate.findViewById(R.id.tv_ac);
-//			TextView tv_02 = (TextView) inflate.findViewById(R.id.tv_02);
-//			TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);
-//			TextView tv_04 = (TextView) inflate.findViewById(R.id.tv_04);
-//			TextView tv_05 = (TextView) inflate.findViewById(R.id.tv_05);
-//			TextView tv_06 = (TextView) inflate.findViewById(R.id.tv_06);
-//			TextView tv_07 = (TextView) inflate.findViewById(R.id.tv_07);
-//			TextView tv_08 = (TextView) inflate.findViewById(R.id.tv_08);
-//			TextView tv_09 = (TextView) inflate.findViewById(R.id.tv_09);
-//			TextView tv_10 = (TextView) inflate.findViewById(R.id.tv_10);
-//			TextView tv_11 = (TextView) inflate.findViewById(R.id.tv_11);
-//			TextView tv_caozuo01 = (TextView) inflate
-//					.findViewById(R.id.tv_caozuo01);
-//			TextView tv_caozuo02 = (TextView) inflate
-//					.findViewById(R.id.tv_caozuo02);
-//			TextView tv_caozuo03 = (TextView) inflate
-//					.findViewById(R.id.tv_caozuo03);
-//			FlowTagLayout mMobileFlowTagLayout = (FlowTagLayout) inflate
-//					.findViewById(R.id.mobile_flow_layout);
-//			// 移动研发标签
-//			TagAdapter<String> mMobileTagAdapter = new TagAdapter<String>(
-//					context);
-//			// mMobileFlowTagLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
-//			mMobileFlowTagLayout.setAdapter(mMobileTagAdapter);
-//			// mMobileFlowTagLayout.setOnTagSelectListener(new
-//			// OnTagSelectListener() {
-//			// @Override
-//			// public void onItemSelect(FlowTagLayout parent, List<Integer>
-//			// selectedList) {
-//			// if (selectedList != null && selectedList.size() > 0) {
-//			// StringBuilder sb = new StringBuilder();
-//			//
-//			// for (int i : selectedList) {
-//			// sb.append(parent.getAdapter().getItem(i));
-//			// sb.append(":");
-//			// }
-//			// ToastUtil.showShortToast(PurchasePyMapActivity.this, "移动研发:" +
-//			// sb.toString());
-//			// }else{
-//			// ToastUtil.showShortToast(PurchasePyMapActivity.this, "没有选择标签");
-//			// }
-//			// }
-//			// });
-//			// mMobileFlowTagLayout.setOnTagClickListener(new
-//			// OnTagClickListener() {
-//			//
-//			// @Override
-//			// public void onItemClick(FlowTagLayout parent, View view, int
-//			// position) {
-//			// // TODO Auto-generated method stub
-//			//
-//			// }
-//			// });
-//			mMobileTagAdapter.onlyAddAll(data.get(position).getItemNameList());
-//			tv_01.setText(data.get(position).getNum());
-//			tv_03.setText(data.get(position).getCityName());
-//			tv_04.setText("采购商家：" + data.get(position).getBuyer());
-//			if (data.get(position).isNeedInvoice()) {
-//				tv_08.setText("发票要求：需要");
-//			} else {
-//				tv_08.setText("发票要求：不需要");
-//			}
-//			if (data.get(position).getQuoteCountJson() > 0) {
-//				StringFormatUtil fillColor = new StringFormatUtil(context, "已有"
-//						+ data.get(position).getQuoteCountJson() + "条报价", data
-//						.get(position).getQuoteCountJson() + "", R.color.red)
-//						.fillColor();
-//				tv_10.setText(fillColor.getResult());
-//			} else {
-//				tv_10.setText("暂无报价");
-//			}
-//
-//			tv_caozuo01.setText("截止时间：" + data.get(position).getReceiptDate());
-//			inflate.setOnClickListener(new OnClickListener() {
-//
-//				@Override
-//				public void onClick(View v) {
-//					// TODO Auto-generated method stub
-//					Intent intent = new Intent(context,
-//							StorePurchaseListActivity.class);
-//					intent.putExtra("purchaseFormId", data.get(position)
-//							.getPurchaseFormId());
-//					intent.putExtra("title", data.get(position).getNum());
-//					context.startActivity(intent);
-//					((Activity) context).overridePendingTransition(
-//							R.anim.slide_in_left, R.anim.slide_out_right);
-//				}
-//			});
-//
-//			return inflate;
-//		}
-//
-//		public void notify(ArrayList<PurchaseList> data) {
-//			this.data = data;
-//			notifyDataSetChanged();
-//		}
-//
-////	}
 
     public class MapSearchAdapter extends BaseAdapter implements SectionIndexer {
         private static final String TAG = "MapSearchAdapter";

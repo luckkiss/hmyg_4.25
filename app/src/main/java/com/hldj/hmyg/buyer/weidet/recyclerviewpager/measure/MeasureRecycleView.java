@@ -1,16 +1,15 @@
 package com.hldj.hmyg.buyer.weidet.recyclerviewpager.measure;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-
-import com.hldj.hmyg.buyer.weidet.recyclerviewpager.RecyclerViewPager;
 
 /**
  * Created by Administrator on 2017/5/5.
  */
 
-public class MeasureRecycleView extends RecyclerViewPager {
+public class MeasureRecycleView extends RecyclerView {
     public MeasureRecycleView(Context context) {
         super(context);
     }

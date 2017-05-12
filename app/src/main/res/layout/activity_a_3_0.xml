@@ -38,6 +38,7 @@
                     android:id="@+id/swipe_main"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <ScrollView
                         android:id="@+id/rotate_header_scroll_view"
                         android:layout_width="fill_parent"
@@ -140,6 +141,7 @@
                                     android:layout_height="1dp"
                                     android:background="@color/gray_bg" />
 
+
                                 <com.jarvis.MyView.MyGridView
                                     android:id="@+id/gd"
                                     android:layout_width="match_parent"
@@ -151,18 +153,48 @@
                             </LinearLayout>
 
 
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <!--成交公告-->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="最新：2017/4/18 关于'采购单（P0051）'的成交公告 " />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="最新：2017/4/18 关于'采购单（P0051）'的成交公告 " />
+
+
+                            </LinearLayout>
+
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
                                 <!--此处为超级优惠-->
-                                <ImageView
-                                    android:id="@+id/iv_home_preferential"
+                                <TextView
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/home_preferential"
-                                    android:visibility="visible" />
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:drawableRight="@drawable/ic_arrow_right"
+                                    android:gravity="center"
+                                    android:text="采购单" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="专业数据把握市场方向" />
 
                                 <com.jarvis.MyView.MyListView
                                     android:id="@+id/lv_00"
@@ -171,18 +203,27 @@
                                     android:background="@color/white" />
                             </LinearLayout>
 
-
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
-                                <!--此处为超级优惠-->
-                                <ImageView
-                                    android:id="@+id/iv_home_store"
+
+                                <!--成交公告-->
+                                <TextView
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/home_preferential"
-                                    android:visibility="visible" />
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:drawableRight="@drawable/ic_arrow_right"
+                                    android:gravity="center"
+                                    android:text="猜你需要" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="专业数据把握市场方向" />
+
 
                                 <com.jarvis.MyView.MyListView
                                     android:id="@+id/lv_00_store"
@@ -190,7 +231,6 @@
                                     android:layout_height="wrap_content"
                                     android:background="@color/white" />
                             </LinearLayout>
-
 
 
                             <LinearLayout
@@ -204,6 +244,23 @@
                                     android:layout_height="wrap_content"
                                     android:src="@drawable/home_merchants"
                                     android:visibility="gone" />
+
+                                <!--成交公告-->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="品牌企业" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="合作商家放心购买" />
+
+
                             </LinearLayout>
 
                             <RelativeLayout
@@ -212,7 +269,6 @@
                                 android:layout_height="wrap_content"
                                 android:focusable="false"
                                 android:paddingBottom="@dimen/y8">
-
 
 
                             </RelativeLayout>

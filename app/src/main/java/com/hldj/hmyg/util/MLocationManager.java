@@ -1,5 +1,6 @@
 package com.hldj.hmyg.util;
 
+import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
@@ -91,7 +92,7 @@ public class MLocationManager implements LocationSource {
         mListener = location -> {
 
             if (onAddrResultListener != null) {
-                onAddrResultListener.onAddrResult(location.toString());
+                onAddrResultListener.onAddrResult(location);
             }
         };
         mLocationClient.setLocationListener(mListener);
@@ -142,7 +143,7 @@ public class MLocationManager implements LocationSource {
 
 
     public interface OnAddrResultListener {
-        void onAddrResult(String result);
+        void onAddrResult(AMapLocation result);
     }
 
 

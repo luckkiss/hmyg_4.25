@@ -114,6 +114,8 @@ public class ProductListAdapter extends BaseAdapter {
             childHolder = (ChildHolder) convertView.getTag();
         }
 
+        try {
+
         if (data.get(position).get("isRecommend").toString().contains("true")) {
             childHolder.iv_like.setImageResource(R.drawable.tuijian_lv);
         } else {
@@ -135,8 +137,7 @@ public class ProductListAdapter extends BaseAdapter {
         } else {
             childHolder.tv_01.setVisibility(View.GONE);
         }
-        if ("manage_list"
-                .equals(data.get(position).get("show_type").toString())) {
+        if ("manage_list".equals(data.get(position).get("show_type").toString())) {
 
             childHolder.rl_floorPrice.setVisibility(View.VISIBLE);
             if (data.get(position).get("floorPrice") != null) {
@@ -196,7 +197,6 @@ public class ProductListAdapter extends BaseAdapter {
                         + data.get(position).get("realName").toString());
             }
         }
-        childHolder.tv_02.setText(data.get(position).get("name").toString());
         // tv_04.setText(ValueGetInfo.getValueString(data.get(position).get("dbh")
         // .toString(), data.get(position).get("height").toString(), data
         // .get(position).get("crown").toString(),
@@ -206,13 +206,18 @@ public class ProductListAdapter extends BaseAdapter {
         // .get(position).get("crown").toString(),
         // data.get(position).get("diameter").toString(),
         // data.get(position).get("offbarHeight").toString()));
-        childHolder.tv_04
-                .setText(data.get(position).get("specText").toString());
 
-        boolean isNego = (boolean) data.get(position).get("isNego");
-        String minPrice = data.get(position).get("minPrice") + "";
-        String maxPrice = data.get(position).get("maxPrice") + "";
-        setPrice(childHolder.tv_07, maxPrice, minPrice, isNego);
+
+
+            childHolder.tv_02.setText(data.get(position).get("name").toString());
+
+            childHolder.tv_04
+                    .setText(data.get(position).get("specText").toString());
+
+            boolean isNego = (boolean) data.get(position).get("isNego");
+            String minPrice = data.get(position).get("minPrice") + "";
+            String maxPrice = data.get(position).get("maxPrice") + "";
+            setPrice(childHolder.tv_07, maxPrice, minPrice, isNego);
 //        if (TextUtils.isEmpty(maxPrice) && TextUtils.isEmpty(minPrice)) {
 //            childHolder.tv_07.setText(minPrice + "-" + maxPrice);
 //        } else {
@@ -223,12 +228,15 @@ public class ProductListAdapter extends BaseAdapter {
 //        childHolder.tv_07.setText(ValueGetInfo.doubleTrans1(Double.parseDouble(data.get(position).get("price").toString())));
 
 
-        childHolder.tv_08.setText("  /"
-                + data.get(position).get("unitTypeName").toString());
-        childHolder.tv_09.setText("库存："
-                + data.get(position).get("count").toString());
-        fb.display(childHolder.iv_img, data.get(position).get("imageUrl")
-                .toString());
+            childHolder.tv_08.setText("  /"
+                    + data.get(position).get("unitTypeName").toString());
+            childHolder.tv_09.setText("库存："
+                    + data.get(position).get("count").toString());
+            fb.display(childHolder.iv_img, data.get(position).get("imageUrl")
+                    .toString());
+        } catch (Exception e) {
+
+        }
         childHolder.iv_like.setOnClickListener(new OnClickListener() {
 
             @Override

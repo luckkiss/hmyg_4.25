@@ -125,10 +125,9 @@ public class EActivity extends NeedSwipeBackActivity implements PlatformActionLi
         editor = MyApplication.Userinfo.edit();
 
         setContentView(R.layout.activity_e);
-//        fb = FinalBitmap.create(this);
+//      fb = FinalBitmap.create(this);
         fb = FinalBitmap.create(this);//必须调用init初始化FinalBitmap模块
-        fb.configLoadingImage(R.drawable.icon_persion_pic);
-
+//      fb.configLoadingImage(R.drawable.icon_persion_pic);
 
         if (platform.contains("1")) {
             PlatformForShare platformForShare = new PlatformForShare("朋友圈",

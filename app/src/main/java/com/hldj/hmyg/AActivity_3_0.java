@@ -28,8 +28,10 @@ import android.widget.Toast;
 import com.autoscrollview.adapter.ImagePagerAdapter;
 import com.autoscrollview.widget.AutoScrollViewPager;
 import com.autoscrollview.widget.indicator.CirclePageIndicator;
+import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.adapter.HomeFunctionAdapter;
 import com.hldj.hmyg.adapter.HomePayAdapter;
+import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.adapter.TypeAdapter;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.ABanner;
@@ -37,6 +39,9 @@ import com.hldj.hmyg.bean.HomeFunction;
 import com.hldj.hmyg.bean.HomeStore;
 import com.hldj.hmyg.bean.Type;
 import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
+import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
+import com.hldj.hmyg.saler.M.PurchaseBean;
+import com.hldj.hmyg.saler.P.PurchasePyMapPresenter;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
@@ -55,6 +60,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import aom.xingguo.huang.banner.MyFragment;
 import cn.hugo.android.scanner.CaptureActivity;
@@ -67,7 +73,7 @@ import static com.hldj.hmyg.R.id.iv_Capture;
  * change a list hellow world
  */
 @SuppressLint("NewApi")
-public class AActivity extends FragmentActivity implements OnClickListener {
+public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
     private ArrayList<HashMap<String, Object>> datas = new ArrayList<HashMap<String, Object>>();
     private ArrayList<ABanner> aBanners = new ArrayList<ABanner>();// 底部图片轮播 集合
@@ -107,7 +113,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_a);
+        setContentView(R.layout.activity_a_3_0);
         mCache = ACache.get(this);
         viewPager = (AutoScrollViewPager) findViewById(R.id.view_pager);
         indicator = (CirclePageIndicator) findViewById(R.id.indicator);
@@ -246,7 +252,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
         Log.i(TAG,
                 ScreenUtil.getScreenViewBottomHeight(scrollView) + "  "
                         + scrollView.getScrollY() + " "
-                        + ScreenUtil.getScreenHeight(AActivity.this));
+                        + ScreenUtil.getScreenHeight(AActivity_3_0.this));
 
         // 底部判断
         if (contentView != null
@@ -277,7 +283,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
         gd_home_pay_datas.add(new Type("weituo", "委托购", "",
                 R.drawable.shouye_weitougou));
         if (gd_home_pay_datas.size() > 0) {
-            HomePayAdapter myadapter = new HomePayAdapter(AActivity.this,
+            HomePayAdapter myadapter = new HomePayAdapter(AActivity_3_0.this,
                     gd_home_pay_datas);
             gd_01.setAdapter(myadapter);
         }
@@ -292,11 +298,11 @@ public class AActivity extends FragmentActivity implements OnClickListener {
         //FindFlowerActivity
         if (home_functions.size() > 0) {
             HomeFunctionAdapter homeFunctionAdapter = new HomeFunctionAdapter(
-                    AActivity.this, home_functions);
+                    AActivity_3_0.this, home_functions);
             gd.setAdapter(homeFunctionAdapter);
         }
         if (gd_datas.size() > 0) {
-            TypeAdapter myadapter = new TypeAdapter(AActivity.this, gd_datas);
+            TypeAdapter myadapter = new TypeAdapter(AActivity_3_0.this, gd_datas);
             gd_00.setAdapter(myadapter);
         }
         gd_datas.clear();
@@ -341,7 +347,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
                                 && !"".equals(mCache.getAsString("index"))) {
                             LoadCache(mCache.getAsString("index"));
                         }
-                        Toast.makeText(AActivity.this, R.string.error_net,
+                        Toast.makeText(AActivity_3_0.this, R.string.error_net,
                                 Toast.LENGTH_SHORT).show();
                         super.onFailure(t, errorNo, strMsg);
                     }
@@ -451,7 +457,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
                                         myadapter.notifyDataSetChanged();
                                     } else {
                                         myadapter = new TypeAdapter(
-                                                AActivity.this, gd_datas);
+                                                AActivity_3_0.this, gd_datas);
                                         gd_00.setAdapter(myadapter);
                                     }
                                 }
@@ -499,7 +505,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
                                         myadapter.notifyDataSetChanged();
                                     } else {
                                         myadapter = new TypeAdapter(
-                                                AActivity.this, gd_datas);
+                                                AActivity_3_0.this, gd_datas);
                                         gd_00.setAdapter(myadapter);
                                     }
                                 }
@@ -552,8 +558,57 @@ public class AActivity extends FragmentActivity implements OnClickListener {
                                                     "url"));
                                     lv_datas.add(hMap);
                                 }
-                                if (lv_datas.size() > 0) {//超级优惠
+                                if (lv_datas.size() == 0) {//超级优惠
+//                                    HashMap<String, Object> hMap = new HashMap<String, Object>();
+//                                    hMap.put("title", "title");
+//                                    hMap.put("type", "type");
+//                                    hMap.put("id", "id");
+//                                    hMap.put("ossLargeImagePath", "http://p17.qhimg.com/t01c41fbf578e546dc6.jpg");
+//                                    hMap.put("url", "http://p17.qhimg.com/t01c41fbf578e546dc6.jpg");
+//                                    lv_datas.add(hMap);
+//                                    lv_datas.add(hMap);
+//                                    lv_datas.add(hMap);
+//                                    ThematicAdapter myadapter = new ThematicAdapter(AActivity_3_0.this, lv_datas);
+//                                    lv_00.setAdapter(myadapter);
+////                                    iv_home_preferential.setVisibility(View.VISIBLE);
 
+
+                                    //初始化监听接口
+                                    ResultCallBack<List<PurchaseBean>> callBack = new ResultCallBack<List<PurchaseBean>>() {
+                                        @Override
+                                        public void onSuccess(List<PurchaseBean> purchaseBeen) {
+                                            PurchaseListAdapter adapter = new PurchaseListAdapter(AActivity_3_0.this, purchaseBeen, R.layout.list_item_purchase_list_new);
+                                            lv_00.setAdapter(adapter);
+                                        }
+                                        @Override
+                                        public void onFailure(Throwable t, int errorNo, String strMsg) {
+
+                                        }
+                                    };
+
+                                    //根据参数请求数据
+                                    new PurchasePyMapPresenter()
+                                            .putParams("pageSize", 3 + "")
+                                            .putParams("pageIndex", 0 + "")
+                                            .putParams("type", "quoting")
+                                            .addResultCallBack(callBack)
+                                            .requestDatas("purchase/purchaseList");
+
+
+                                    ArrayList<HashMap<String, Object>> lis = new ArrayList<>();
+                                    HashMap<String, Object> map = new HashMap();
+                                    map.put("fullName", "fullName");
+                                    map.put("specText", "specText");
+                                    map.put("companyName", "companyName");
+                                    map.put("minPrice", "minPrice");
+                                    map.put("isRecommend", "true");
+                                    map.put("plantType", "plantType");
+                                    map.put("show_type", "show_type");
+                                    map.put("isNego", "true");
+                                    lis.add(map);
+                                    lis.add(map);
+                                    lis.add(map);
+                                    ((ListView) findViewById(R.id.lv_00_store)).setAdapter(new ProductListAdapter(AActivity_3_0.this, lis));
                                 }
 
 
@@ -652,7 +707,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
             imagePagerAdapter.notifyDataSetChanged();
             return;
         }
-        imagePagerAdapter = new ImagePagerAdapter(AActivity.this, datas);
+        imagePagerAdapter = new ImagePagerAdapter(AActivity_3_0.this, datas);
         viewPager.setAdapter(imagePagerAdapter);
         indicator.setViewPager(viewPager);
         // imagePagerAdapter.notifyDataSetChanged();
@@ -684,7 +739,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
                 toTopBtn.setVisibility(View.GONE);
                 break;
             case iv_Capture:
-                Intent toCaptureActivity = new Intent(AActivity.this,
+                Intent toCaptureActivity = new Intent(AActivity_3_0.this,
                         CaptureActivity.class);
                 startActivityForResult(toCaptureActivity, 1);
                 getParent().overridePendingTransition(R.anim.slide_in_left,
@@ -695,7 +750,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
                     LoginActivity.start2Activity(this);
                     return;
                 }
-                Intent toMessageListActivity = new Intent(AActivity.this,
+                Intent toMessageListActivity = new Intent(AActivity_3_0.this,
                         MessageListActivity.class);
                 startActivity(toMessageListActivity);
                 getParent().overridePendingTransition(R.anim.slide_in_left,
@@ -710,7 +765,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
 
             case R.id.tv_a_search://搜索按钮 --- new
                 //// TODO: 2017/4/10  需要添加 共享动画
-                Intent intent = new Intent(AActivity.this,
+                Intent intent = new Intent(AActivity_3_0.this,
                         PurchaseSearchListActivity.class);
                 intent.putExtra("from", "AActivity");
                 startActivityForResult(intent, 1);
@@ -729,7 +784,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
             // "此功能预留暂不开放，解析成功，结果为：" + decodeResult, Toast.LENGTH_SHORT)
             // .show();
             if (StringUtil.isHttpUrlPicPath(decodeResult)) {
-                Intent toWebActivity3 = new Intent(AActivity.this,
+                Intent toWebActivity3 = new Intent(AActivity_3_0.this,
                         WebActivity.class);
                 toWebActivity3.putExtra("title", "标题");
                 toWebActivity3.putExtra("url", decodeResult);

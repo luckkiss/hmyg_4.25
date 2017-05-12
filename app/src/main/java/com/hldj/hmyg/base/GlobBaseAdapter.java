@@ -10,6 +10,7 @@ import com.hldj.hmyg.R;
 
 import net.tsz.afinal.FinalBitmap;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,11 +21,14 @@ public abstract class GlobBaseAdapter<T> extends BaseAdapter {
     protected LayoutInflater layoutInflater;
     protected List<T> data;
     private int layoutId;
-     public FinalBitmap finalBitmap;
+    public FinalBitmap finalBitmap;
 
     public GlobBaseAdapter(Context context, List<T> data, int layoutId) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
+        if (data == null) {
+            data = new ArrayList<T>();
+        }
         this.data = data;
         this.layoutId = layoutId;
         finalBitmap = FinalBitmap.create(context);
@@ -56,4 +60,23 @@ public abstract class GlobBaseAdapter<T> extends BaseAdapter {
     }
 
     public abstract void setConverView(ViewHolders myViewHolder, T t, int position);
+
+
+    /**
+     * additional data;
+     *
+     * @param newData
+     */
+    public void addData(List<T> newData) {
+
+        if (newData == null) {
+            this.data.clear();
+        } else {
+            this.data.clear();
+            this.data.addAll(newData);
+        }
+        notifyDataSetChanged();
+    }
+
+
 }
