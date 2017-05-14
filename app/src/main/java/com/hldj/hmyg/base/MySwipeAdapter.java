@@ -158,14 +158,16 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
         }
     }
 
-    void setSrcByType(TextView textView, String type) {
+    public static void setSrcByType(TextView textView, String type) {
         switch (type) {
             case "plantType":
                 textView.setBackgroundResource(R.drawable.icon_seller_di);
                 break;
+            case "planted":
+                textView.setBackgroundResource(R.drawable.icon_seller_di);
+                break;
             case "transplant":
                 textView.setBackgroundResource(R.drawable.icon_seller_yi);
-
                 break;
             case "heelin":
                 textView.setBackgroundResource(R.drawable.icon_seller_jia);

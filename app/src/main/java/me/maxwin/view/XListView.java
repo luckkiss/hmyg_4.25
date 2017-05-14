@@ -186,6 +186,11 @@ public class XListView extends ListView implements OnScrollListener {
         }
     }
 
+
+    public boolean isFootVis() {
+        return mFooterView.getHeight() == 0;
+    }
+
     /**
      * set last refresh time
      *

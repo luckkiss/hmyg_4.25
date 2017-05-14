@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.util.D;
 
 import net.tsz.afinal.FinalBitmap;
 
@@ -62,6 +63,17 @@ public abstract class GlobBaseAdapter<T> extends BaseAdapter {
     public abstract void setConverView(ViewHolders myViewHolder, T t, int position);
 
 
+
+
+    public List<T> getDatas()
+    {
+        if (this.data == null)
+        {
+            this.data = new ArrayList<T>();
+        }
+        return this.data;
+    }
+
     /**
      * additional data;
      *
@@ -69,13 +81,72 @@ public abstract class GlobBaseAdapter<T> extends BaseAdapter {
      */
     public void addData(List<T> newData) {
 
-        if (newData == null) {
-            this.data.clear();
+        if (state == REFRESH) {
+            if (newData == null) {
+                D.e("==刷新，增加了0条==");
+                this.data.clear();
+            } else {
+                D.e("==刷新，增加了" + newData.size() + "条数据");
+                this.data.clear();
+                this.data.addAll(newData);
+            }
+            resetState();
         } else {
-            this.data.clear();
-            this.data.addAll(newData);
+
+            if (newData != null) {
+                D.e("==加载更多" + newData.size() + "条数据");
+                this.data.addAll(newData);
+            } else {
+                D.e("==加载更多" + 0 + "条数据");
+            }
         }
+
+
         notifyDataSetChanged();
+    }
+
+    /**
+     * additional data;
+     *
+     * @param newData
+     */
+    public void addData(List<T> newData, boolean isRefresh) {
+
+        if (isRefresh) {
+            state = REFRESH;
+        } else {
+            state = LOAD_MORE;
+        }
+        if (state == REFRESH) {
+            if (newData == null) {
+                this.data.clear();
+            } else {
+                this.data.clear();
+                this.data.addAll(newData);
+            }
+            resetState();
+        } else {
+
+            if (newData != null) {
+                this.data.addAll(newData);
+            }
+        }
+
+
+        notifyDataSetChanged();
+    }
+
+    private int state = 20;
+
+    public static final int REFRESH = 20;
+    public static final int LOAD_MORE = 21;
+
+    public void setState(int newState) {
+        state = newState;
+    }
+
+    public void resetState() {
+        state = LOAD_MORE;
     }
 
 

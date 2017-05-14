@@ -42,7 +42,7 @@ public class PurchasePyMapPresenter {
     public PurchasePyMapPresenter requestDatas(String path) {
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, true);
-        finalHttp.post(GetServerUrl.getUrl() + "purchase/purchaseList", getAjaxParams(),
+        finalHttp.post(GetServerUrl.getUrl() + path, getAjaxParams(),
                 new AjaxCallBack<Object>() {
                     @Override
                     public void onSuccess(Object t) {

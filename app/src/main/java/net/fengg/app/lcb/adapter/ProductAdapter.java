@@ -1,8 +1,5 @@
 package net.fengg.app.lcb.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +16,9 @@ import com.hldj.hmyg.DActivity2;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Product;
 import com.hy.utils.ValueGetInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductAdapter extends BaseAdapter {
 
@@ -83,6 +83,9 @@ public class ProductAdapter extends BaseAdapter {
 		final LinearLayout le_quantity = holder.ll_edit_quantity;
 
 		final Product product = list.get(position);
+
+
+
 		holder.tv_content.setText(product.getCount() + "");
 		holder.tv_price.setText(ValueGetInfo.doubleTrans1(product.getPrice()) + "");
 

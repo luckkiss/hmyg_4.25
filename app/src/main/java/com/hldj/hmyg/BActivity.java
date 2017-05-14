@@ -1,5 +1,6 @@
 package com.hldj.hmyg;
 
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -14,20 +15,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewConfiguration;
-import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.example.sortlistview.CharacterParser;
@@ -37,30 +34,26 @@ import com.flyco.animation.BaseAnimatorSet;
 import com.flyco.animation.BounceEnter.BounceTopEnter;
 import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
+import com.hldj.hmyg.CallBack.ResultCallBack;
+import com.hldj.hmyg.M.BPageGsonBean;
+import com.hldj.hmyg.M.BProduceAdapt;
+import com.hldj.hmyg.M.BProduceGridAdapt;
+import com.hldj.hmyg.P.BPresenter;
 import com.hldj.hmyg.adapter.ProductGridAdapter;
 import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.bean.DaQuYu;
 import com.hldj.hmyg.bean.XiaoQuYu;
 import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.SortSpinner;
 import com.huewu.pla.lib.me.maxwin.view.PLAXListView;
-import com.hy.utils.GetServerUrl;
-import com.hy.utils.JsonGetInfo;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.mrwujay.cascade.activity.BaseSecondActivity;
 import com.ns.developer.tagview.widget.TagCloudLinkView;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
-
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -68,7 +61,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import me.kaede.tagview.OnTagDeleteListener;
 import me.kaede.tagview.Tag;
 import me.kaede.tagview.TagView;
 import me.maxwin.view.XListView;
@@ -173,7 +165,11 @@ public class BActivity extends BaseSecondActivity implements
     private boolean scrollFlag = false;// 标记是否滑动
     private int lastVisibleItemPosition = 0;// 标记上次滑动位置
     private ACache mCache;
-//    private Dialog dialog;
+    private BProduceAdapt bProduceAdapt;
+    private BProduceGridAdapt gridAdapt;
+
+
+    //    private Dialog dialog;
 //    private WheelView mViewProvince;
 //    private WheelView mViewCity;
 //    private WheelView mViewDistrict;
@@ -194,9 +190,6 @@ public class BActivity extends BaseSecondActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setSwipeBackEnable(false);
-
-
         getIntentExtral();
 
         setContentView(R.layout.activity_b);
@@ -223,24 +216,19 @@ public class BActivity extends BaseSecondActivity implements
 
 
         tagView = (TagView) this.findViewById(R.id.tagview);
-        tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
-
-            @Override
-            public void onTagDeleted(int position, me.kaede.tagview.Tag tag) {
-                // TODO Auto-generated method stub
-                if (tag.id == 1) {
-                    searchKey = "";
-                    onRefresh();
-                } else if (tag.id == 2) {
-                    firstSeedlingTypeId = "";
-                    firstSeedlingTypeName = "";
-                    onRefresh();
-                } else if (tag.id == 3) {
-                    secondSeedlingTypeId = "";
-                    secondSeedlingTypeName = "";
-                    onRefresh();
-                }
-
+        tagView.setOnTagDeleteListener((position, tag) -> {
+            // TODO Auto-generated method stub
+            if (tag.id == 1) {
+                searchKey = "";
+                onRefresh();
+            } else if (tag.id == 2) {
+                firstSeedlingTypeId = "";
+                firstSeedlingTypeName = "";
+                onRefresh();
+            } else if (tag.id == 3) {
+                secondSeedlingTypeId = "";
+                secondSeedlingTypeName = "";
+                onRefresh();
             }
         });
 
@@ -335,8 +323,18 @@ public class BActivity extends BaseSecondActivity implements
         glistView.setPullRefreshEnable(true);
         glistView.setXListViewListener(this);
 
-        initDataGetFirstType();
+
+        bProduceAdapt = new BProduceAdapt(BActivity.this, null, R.layout.list_view_seedling_new);
+        xListView.setAdapter(bProduceAdapt);
+
+        gridAdapt = new BProduceGridAdapt(BActivity.this, null, R.layout.grid_view_seedling);
+        glistView.setAdapter(gridAdapt);
+//        initDataGetFirstType();
+
+
+        hud.show();
         initData();
+
 
         MultipleClickProcess multipleClickProcess = new MultipleClickProcess();
         iv_view_type.setOnClickListener(multipleClickProcess);
@@ -346,7 +344,58 @@ public class BActivity extends BaseSecondActivity implements
         relativeLayout2.setOnClickListener(multipleClickProcess);
         iv_close.setOnClickListener(multipleClickProcess);
 
+
+//        xListView.setOnTouchListener((v, event) -> {
+//
+//            switch (event.getAction()) {
+//                case MotionEvent.ACTION_DOWN:
+//                    mFirstY = (int) event.getY();
+//                    break;
+//
+//                case MotionEvent.ACTION_MOVE:
+//
+//                    mCurrentY = (int) event.getY();
+//                    if (mCurrentY - mFirstY > 0)//下滑
+//                    {
+//                        direction = true;
+//                    } else if (mCurrentY - mFirstY < 0)//上滑
+//                    {
+//                        direction = false;
+//                    }
+//
+//
+//                    if (!direction)//上滑
+//                    {
+//                        RelativeLayout.LayoutParams top = (RelativeLayout.LayoutParams) relativeLayout1.getLayoutParams();
+//                        if (top.topMargin > -marginTop) {
+//                            top.topMargin += mCurrentY - mFirstY;
+//                            relativeLayout1.requestLayout();
+//                        }else
+//                        {
+//                            top.topMargin = -marginTop;
+//                            relativeLayout1.requestLayout();
+//                        }
+//                    }
+//
+//
+//                    break;
+//
+//                case MotionEvent.ACTION_UP:
+//                    break;
+//
+//            }
+//
+//
+//            return false;
+//        });
+
+
     }
+
+    int mFirstY = 0;
+    int mCurrentY = 0;
+    boolean direction;
+    int marginTop = 150 ;
 
 
     private me.kaede.tagview.Tag getTagViewByName(String item) {
@@ -382,19 +431,6 @@ public class BActivity extends BaseSecondActivity implements
                 return item;
         }
     }
-
-
-    // TODO Auto-generated method stub
-//        View popo_shop_type_list = getLayoutInflater().inflate(
-//                R.layout.popo_shop_type_list, null);
-//        ListView listview = (ListView) popo_shop_type_list
-//                .findViewById(R.id.listview);
-//        if (sortListAdapter != null) {
-//            listview.setAdapter(sortListAdapter);
-//        } else {
-//            sortListAdapter = new SortListAdapter();
-//            listview.setAdapter(sortListAdapter);
-//        }
 
 
     private void setOverflowShowingAlways() {
@@ -589,429 +625,408 @@ public class BActivity extends BaseSecondActivity implements
 
         }
     }
-
-    private void initDataGetFirstType() {
-        // TODO Auto-generated method stub
-        FinalHttp finalHttp = new FinalHttp();
-        GetServerUrl.addHeaders(finalHttp, false);
-        AjaxParams params = new AjaxParams();
-        finalHttp.post(GetServerUrl.getUrl() + "seedlingType/getFirstType",
-                params, new AjaxCallBack<Object>() {
-
-                    @Override
-                    public void onSuccess(Object t) {
-                        // TODO Auto-generated method stub
-                        mCache.remove("getFirstType");
-                        mCache.put("getFirstType", t.toString());
-//                        if (daQuYus.size() > 0) {
-//                            daQuYus.clear();
-//                            if (daquyuAdapter != null) {
-//                                daquyuAdapter.notifyDataSetChanged();
-//                            }
+//
+//    private void initDataGetFirstType() {
+//        // TODO Auto-generated method stub
+//        FinalHttp finalHttp = new FinalHttp();
+//        GetServerUrl.addHeaders(finalHttp, false);
+//        AjaxParams params = new AjaxParams();
+//        finalHttp.post(GetServerUrl.getUrl() + "seedlingType/getFirstType",
+//                params, new AjaxCallBack<Object>() {
+//
+//                    @Override
+//                    public void onSuccess(Object t) {
+//                        // TODO Auto-generated method stub
+//                        mCache.remove("getFirstType");
+//                        mCache.put("getFirstType", t.toString());
+////                        if (daQuYus.size() > 0) {
+////                            daQuYus.clear();
+////                            if (daquyuAdapter != null) {
+////                                daquyuAdapter.notifyDataSetChanged();
+////                            }
+////                        }
+//
+//                        LoadCache(t.toString());
+//                        super.onSuccess(t);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Throwable t, int errorNo,
+//                                          String strMsg) {
+//                        if (mCache.getAsString("getFirstType") != null
+//                                && !"".equals(mCache
+//                                .getAsString("getFirstType"))) {
+////                            if (daQuYus.size() > 0) {
+////                                daQuYus.clear();
+////                                if (daquyuAdapter != null) {
+////                                    daquyuAdapter.notifyDataSetChanged();
+////                                }
+////                            }
+//                            LoadCache(mCache.getAsString("getFirstType"));
 //                        }
-
-                        LoadCache(t.toString());
-                        super.onSuccess(t);
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t, int errorNo,
-                                          String strMsg) {
-                        if (mCache.getAsString("getFirstType") != null
-                                && !"".equals(mCache
-                                .getAsString("getFirstType"))) {
-//                            if (daQuYus.size() > 0) {
-//                                daQuYus.clear();
-//                                if (daquyuAdapter != null) {
-//                                    daquyuAdapter.notifyDataSetChanged();
-//                                }
+//                        Toast.makeText(BActivity.this, R.string.error_net,
+//                                Toast.LENGTH_SHORT).show();
+//                        super.onFailure(t, errorNo, strMsg);
+//                    }
+//
+//                    private void LoadCache(String t) {
+//                        // TODO Auto-generated method stub
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(t.toString());
+//                            String code = JsonGetInfo.getJsonString(jsonObject,
+//                                    "code");
+//                            String msg = JsonGetInfo.getJsonString(jsonObject,
+//                                    "msg");
+//                            if (!"".equals(msg)) {
 //                            }
-                            LoadCache(mCache.getAsString("getFirstType"));
-                        }
-                        Toast.makeText(BActivity.this, R.string.error_net,
-                                Toast.LENGTH_SHORT).show();
-                        super.onFailure(t, errorNo, strMsg);
-                    }
-
-                    private void LoadCache(String t) {
-                        // TODO Auto-generated method stub
-                        try {
-                            JSONObject jsonObject = new JSONObject(t.toString());
-                            String code = JsonGetInfo.getJsonString(jsonObject,
-                                    "code");
-                            String msg = JsonGetInfo.getJsonString(jsonObject,
-                                    "msg");
-                            if (!"".equals(msg)) {
-                            }
-                            if ("1".equals(code)) {
-                                daQuYus.add(new DaQuYu("", "不限"));
-                                JSONArray typeList = jsonObject.getJSONObject(
-                                        "data").getJSONArray("typeList");
-                                for (int i = 0; i < typeList.length(); i++) {
-                                    JSONObject jsonObject2 = typeList.getJSONObject(i);
-                                    HashMap<String, Object> hMap = new HashMap<String, Object>();
-                                    hMap.put("id", JsonGetInfo.getJsonString(jsonObject2, "id"));
-                                    hMap.put("isNewRecord", JsonGetInfo.getJsonBoolean(jsonObject2, "isNewRecord"));
-                                    hMap.put("createBy", JsonGetInfo.getJsonString(jsonObject2, "createBy"));
-                                    hMap.put("createDate", JsonGetInfo.getJsonString(jsonObject2, "createDate"));
-                                    hMap.put("updateBy", JsonGetInfo.getJsonString(jsonObject2, "updateBy"));
-                                    hMap.put("updateDate", JsonGetInfo.getJsonString(jsonObject2, "updateDate"));
-                                    hMap.put("delFlag", JsonGetInfo
-                                            .getJsonString(jsonObject2,
-                                                    "delFlag"));
-                                    hMap.put("name", JsonGetInfo.getJsonString(
-                                            jsonObject2, "name"));
-                                    hMap.put("aliasName", JsonGetInfo
-                                            .getJsonString(jsonObject2,
-                                                    "aliasName"));
-                                    hMap.put("parentId", JsonGetInfo
-                                            .getJsonString(jsonObject2,
-                                                    "parentId"));
-                                    hMap.put("level", JsonGetInfo.getJsonInt(
-                                            jsonObject2, "level"));
-                                    hMap.put("firstPinyin", JsonGetInfo
-                                            .getJsonString(jsonObject2,
-                                                    "firstPinyin"));
-                                    hMap.put("fullPinyin", JsonGetInfo
-                                            .getJsonString(jsonObject2,
-                                                    "fullPinyin"));
-                                    hMap.put("seedlingParams", JsonGetInfo
-                                            .getJsonString(jsonObject2, "id"));
-                                    hMap.put("sort", JsonGetInfo.getJsonInt(
-                                            jsonObject2, "sort"));
-                                    hMap.put("isTop",
-                                            JsonGetInfo.getJsonString(
-                                                    jsonObject2, "isTop"));
-                                    hMap.put("url", JsonGetInfo.getJsonString(
-                                            jsonObject2, "url"));
-                                    hMap.put("ossThumbnailImagePath",
-                                            JsonGetInfo.getJsonString(
-                                                    jsonObject2,
-                                                    "ossThumbnailImagePath"));
-                                    DaQuYu daQuYu = new DaQuYu(JsonGetInfo
-                                            .getJsonString(jsonObject2, "id"),
-                                            JsonGetInfo.getJsonString(
-                                                    jsonObject2, "name"));
-                                    daQuYus.add(daQuYu);
-                                }
-
-                            } else {
-
-                            }
-
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                });
-
-    }
+//                            if ("1".equals(code)) {
+//                                daQuYus.add(new DaQuYu("", "不限"));
+//                                JSONArray typeList = jsonObject.getJSONObject(
+//                                        "data").getJSONArray("typeList");
+//                                for (int i = 0; i < typeList.length(); i++) {
+//                                    JSONObject jsonObject2 = typeList.getJSONObject(i);
+//                                    HashMap<String, Object> hMap = new HashMap<String, Object>();
+//                                    hMap.put("id", JsonGetInfo.getJsonString(jsonObject2, "id"));
+//                                    hMap.put("isNewRecord", JsonGetInfo.getJsonBoolean(jsonObject2, "isNewRecord"));
+//                                    hMap.put("createBy", JsonGetInfo.getJsonString(jsonObject2, "createBy"));
+//                                    hMap.put("createDate", JsonGetInfo.getJsonString(jsonObject2, "createDate"));
+//                                    hMap.put("updateBy", JsonGetInfo.getJsonString(jsonObject2, "updateBy"));
+//                                    hMap.put("updateDate", JsonGetInfo.getJsonString(jsonObject2, "updateDate"));
+//                                    hMap.put("delFlag", JsonGetInfo
+//                                            .getJsonString(jsonObject2,
+//                                                    "delFlag"));
+//                                    hMap.put("name", JsonGetInfo.getJsonString(
+//                                            jsonObject2, "name"));
+//                                    hMap.put("aliasName", JsonGetInfo
+//                                            .getJsonString(jsonObject2,
+//                                                    "aliasName"));
+//                                    hMap.put("parentId", JsonGetInfo
+//                                            .getJsonString(jsonObject2,
+//                                                    "parentId"));
+//                                    hMap.put("level", JsonGetInfo.getJsonInt(
+//                                            jsonObject2, "level"));
+//                                    hMap.put("firstPinyin", JsonGetInfo
+//                                            .getJsonString(jsonObject2,
+//                                                    "firstPinyin"));
+//                                    hMap.put("fullPinyin", JsonGetInfo
+//                                            .getJsonString(jsonObject2,
+//                                                    "fullPinyin"));
+//                                    hMap.put("seedlingParams", JsonGetInfo
+//                                            .getJsonString(jsonObject2, "id"));
+//                                    hMap.put("sort", JsonGetInfo.getJsonInt(
+//                                            jsonObject2, "sort"));
+//                                    hMap.put("isTop",
+//                                            JsonGetInfo.getJsonString(
+//                                                    jsonObject2, "isTop"));
+//                                    hMap.put("url", JsonGetInfo.getJsonString(
+//                                            jsonObject2, "url"));
+//                                    hMap.put("ossThumbnailImagePath",
+//                                            JsonGetInfo.getJsonString(
+//                                                    jsonObject2,
+//                                                    "ossThumbnailImagePath"));
+//                                    DaQuYu daQuYu = new DaQuYu(JsonGetInfo
+//                                            .getJsonString(jsonObject2, "id"),
+//                                            JsonGetInfo.getJsonString(
+//                                                    jsonObject2, "name"));
+//                                    daQuYus.add(daQuYu);
+//                                }
+//
+//                            } else {
+//
+//                            }
+//
+//                        } catch (JSONException e) {
+//                            // TODO Auto-generated catch block
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//
+//                });
+//
+//    }
 
     private void initData() {
+
+
         // TODO Auto-generated method stub
         getdata = false;
 
-        FinalHttp finalHttp = new FinalHttp();
-        GetServerUrl.addHeaders(finalHttp, false);
-        final AjaxParams params = new AjaxParams();
-        params.put("searchSpec", searchSpec);
-        params.put("specMinValue", specMinValue);
-        params.put("specMaxValue", specMaxValue);
-        params.put("searchKey", searchKey);
-        params.put("minPrice", minPrice);
-        params.put("maxPrice", maxPrice);
-        params.put("minDiameter", minDiameter);
-        params.put("maxDiameter", maxDiameter);
-        params.put("minDbh", minDbh);
-        params.put("maxDbh", maxDbh);
-        params.put("minHeight", minHeight);
-        params.put("maxHeight", maxHeight);
-        params.put("minCrown", minCrown);
-        params.put("maxCrown", maxCrown);
-        params.put("minOffbarHeight", minOffbarHeight);
-        params.put("maxOffbarHeight", maxOffbarHeight);
-        params.put("minLength", minLength);
-        params.put("maxLength", maxLength);
-        params.put("TradeType", supportTradeType);
-        params.put("firstSeedlingTypeId", firstSeedlingTypeId);
-        params.put("secondSeedlingTypeId", secondSeedlingTypeId);
-        params.put("cityCode", cityCode);
-
-        plantTypes = filPlantTypes(planttype_has_ids);
-//        for (int i = 0; i < planttype_has_ids.size(); i++) {
-//            plantTypes = plantTypes + planttype_has_ids.get(i) + ",";
-//            addTags(planttype_has_ids);
-//        }
-//        if (plantTypes.length() > 0) {
-//            params.put("plantTypes",
-//                    plantTypes.substring(0, plantTypes.length() - 1));
-//        } else {
-//            params.put("plantTypes", plantTypes);
-//        }
-        params.put("plantTypes", plantTypes);
-        // if ("".equals(priceSort) && !"".equals(publishDateSort)) {
-        // orderBy = publishDateSort;
-        // } else if (!"".equals(priceSort) && "".equals(publishDateSort)) {
-        // orderBy = priceSort;
-        // } else if ("".equals(priceSort) && "".equals(publishDateSort)) {
-        // orderBy = "";
-        // } else {
-        // orderBy = priceSort + "," + publishDateSort;
-        // }
-
-        if (orderBy.endsWith(",")) {
-            orderBy = orderBy.substring(0, orderBy.length() - 1);
-        }
-        params.put("orderBy", orderBy);
-        params.put("pageSize", pageSize + "");
-        params.put("pageIndex", pageIndex + "");
-
-        params.put("latitude", MyApplication.Userinfo.getString("latitude", ""));
-        params.put("longitude",
-                MyApplication.Userinfo.getString("longitude", ""));
-
-        finalHttp.post(GetServerUrl.getUrl() + "seedling/list", params,
-                new AjaxCallBack<Object>() {
-
+        BPresenter bPresenter = (BPresenter) new BPresenter()
+                .putParams("searchSpec", searchSpec)
+                .putParams("specMinValue", specMinValue)
+                .putParams("specMaxValue", specMaxValue)
+                .putParams("searchKey", searchKey)
+                .putParams("TradeType", supportTradeType)
+                .putParams("firstSeedlingTypeId", firstSeedlingTypeId)
+                .putParams("secondSeedlingTypeId", secondSeedlingTypeId)
+                .putParams("cityCode", cityCode)
+                .putParams("plantTypes", plantTypes)
+                .putParams("orderBy", orderBy)
+                .putParams("pageSize", pageSize + "")
+                .putParams("pageIndex", pageIndex + "")
+                .putParams("latitude", MyApplication.Userinfo.getString("latitude", ""))
+                .putParams("longitude", MyApplication.Userinfo.getString("longitude", ""))
+                .addResultCallBack(new ResultCallBack<List<BPageGsonBean.DatabeanX.Pagebean.Databean>>() {
                     @Override
-                    public void onStart() {
-                        // TODO Auto-generated method stub
-                        if (!hud.isShowing() && hud != null) {
-                            hud.show();
-                        }
-                        super.onStart();
+                    public void onSuccess(List<BPageGsonBean.DatabeanX.Pagebean.Databean> pageBean) {
+                        D.e("==============");
+                        pageIndex++;
+                        bProduceAdapt.addData(pageBean);
+//                        bProduceAdapt = new BProduceAdapt(BActivity.this, pageBean, R.layout.list_view_seedling_new);
+//                        xListView.setAdapter(bProduceAdapt);
+                        gridAdapt.addData(pageBean);
+//                        gridAdapt = new BProduceGridAdapt(BActivity.this, pageBean, R.layout.grid_view_seedling);
+//                        glistView.setAdapter(gridAdapt);
+                        onLoad();
                     }
 
                     @Override
-                    public void onSuccess(Object t) {
-                        // TODO Auto-generated method stub
-                        AcheData(t.toString());
-                        super.onSuccess(t);
-
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+                        onLoad();
                     }
-
-                    private void AcheData(String t) {
-                        // TODO Auto-generated method stub
-                        Log.e("orderBy", orderBy);
-                        if (hud != null) {
-                            hud.dismiss();
-                        }
-                        try {
-                            JSONObject jsonObject = new JSONObject(t);
-                            String code = JsonGetInfo.getJsonString(jsonObject,
-                                    "code");
-                            String msg = JsonGetInfo.getJsonString(jsonObject,
-                                    "msg");
-                            if (!"".equals(msg)) {
-                            }
-                            if ("1".equals(code)) {
-                                JSONObject jsonObject2 = jsonObject
-                                        .getJSONObject("data").getJSONObject(
-                                                "page");
-                                int total = JsonGetInfo.getJsonInt(jsonObject2,
-                                        "total");
-                                data_ids.clear();
-                                if (JsonGetInfo.getJsonArray(jsonObject2,
-                                        "data").length() > 0) {
-                                    JSONArray jsonArray = JsonGetInfo
-                                            .getJsonArray(jsonObject2, "data");
-                                    for (int i = 0; i < jsonArray.length(); i++) {
-                                        JSONObject jsonObject3 = jsonArray
-                                                .getJSONObject(i);
-                                        HashMap hMap = new HashMap();
-                                        hMap.put("show_type", "seedling_list");
-                                        hMap.put("id", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "id"));
-                                        if (pageIndex == 0) {
-                                            data_ids.add(JsonGetInfo
-                                                    .getJsonString(jsonObject3,
-                                                            "id"));
-                                        }
-                                        hMap.put("specText", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "specText"));
-                                        hMap.put("name", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "standardName"));
-                                        hMap.put("plantType", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "plantType"));
-                                        hMap.put("isSelfSupport", JsonGetInfo
-                                                .getJsonBoolean(jsonObject3,
-                                                        "isSelfSupportJson")); // 自营
-                                        hMap.put("freeValidatePrice",
-                                                JsonGetInfo.getJsonBoolean(
-                                                        jsonObject3,
-                                                        "freeValidatePrice")); // 返验苗费
-                                        hMap.put("cashOnDelivery", JsonGetInfo
-                                                .getJsonBoolean(jsonObject3,
-                                                        "cashOnDelivery")); // 担
-                                        // 资金担保
-                                        hMap.put("freeDeliveryPrice",
-                                                JsonGetInfo.getJsonBoolean(
-                                                        jsonObject3,
-                                                        "freeDeliveryPrice"));// 免发货费
-                                        hMap.put(
-                                                "tagList",
-                                                JsonGetInfo.getJsonArray(
-                                                        jsonObject3, "tagList")
-                                                        .toString());//
-                                        hMap.put(
-                                                "paramsList",
-                                                JsonGetInfo.getJsonArray(
-                                                        jsonObject3,
-                                                        "paramsList")
-                                                        .toString());//
-                                        hMap.put("freeValidate", JsonGetInfo
-                                                .getJsonBoolean(jsonObject3,
-                                                        "freeValidate")); // 免验苗
-                                        hMap.put("isRecommend", JsonGetInfo
-                                                .getJsonBoolean(jsonObject3,
-                                                        "isRecommend")); // 推荐
-                                        hMap.put("isSpecial", JsonGetInfo
-                                                .getJsonBoolean(jsonObject3,
-                                                        "isSpecial")); // 清场
-
-                                        hMap.put("imageUrl", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "mediumImageUrl"));
-
-                                        hMap.put("cityName", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "cityName"));
-                                        hMap.put("price", JsonGetInfo
-                                                .getJsonDouble(jsonObject3,
-                                                        "price"));
-
-                                        hMap.put("minPrice", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "minPrice"));
-
-                                        hMap.put("isNego", JsonGetInfo
-                                                .getJsonBoolean(jsonObject3,
-                                                        "isNeGo"));
-
-                                        hMap.put("maxPrice", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "maxPrice"));
-
-                                        hMap.put("count", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "count"));
-                                        hMap.put("unitTypeName", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "unitTypeName"));
-                                        hMap.put("diameter", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "diameter"));
-                                        hMap.put("dbh", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "dbh"));
-                                        hMap.put("height", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "height"));
-                                        hMap.put("crown", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "crown"));
-                                        hMap.put("offbarHeight", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "offbarHeight"));
-                                        hMap.put("cityName", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "cityName"));
-                                        hMap.put("fullName", JsonGetInfo
-                                                .getJsonString(JsonGetInfo
-                                                                .getJSONObject(
-                                                                        jsonObject3,
-                                                                        "ciCity"),
-                                                        "fullName"));
-
-                                        hMap.put("ciCity_name", JsonGetInfo
-                                                .getJsonString(JsonGetInfo
-                                                                .getJSONObject(
-                                                                        jsonObject3,
-                                                                        "ciCity"),
-                                                        "name"));
-                                        hMap.put("realName", JsonGetInfo
-                                                .getJsonString(JsonGetInfo
-                                                                .getJSONObject(
-                                                                        jsonObject3,
-                                                                        "ownerJson"),
-                                                        "realName"));
-                                        hMap.put("companyName", JsonGetInfo
-                                                .getJsonString(JsonGetInfo
-                                                                .getJSONObject(
-                                                                        jsonObject3,
-                                                                        "ownerJson"),
-                                                        "companyName"));
-                                        hMap.put("publicName", JsonGetInfo
-                                                .getJsonString(JsonGetInfo
-                                                                .getJSONObject(
-                                                                        jsonObject3,
-                                                                        "ownerJson"),
-                                                        "publicName"));
-                                        hMap.put("status", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "status"));
-                                        hMap.put("statusName", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "statusName"));
-                                        datas.add(hMap);
-                                        if (listAdapter != null) {
-                                            listAdapter.notifyDataSetChanged();
-                                        }
-                                        if (gridAdapter != null) {
-                                            gridAdapter.notifyDataSetChanged();
-                                        }
-                                    }
-
-                                    if (listAdapter == null) {
-                                        listAdapter = new ProductListAdapter(
-                                                BActivity.this, datas);
-                                        xListView.setAdapter(listAdapter);
-                                    }
-                                    if (gridAdapter == null) {
-                                        gridAdapter = new ProductGridAdapter(
-                                                BActivity.this, datas);
-                                        glistView.setAdapter(gridAdapter);
-                                    }
-                                    pageIndex++;
-                                    RefreshpageIndex++;
-                                }
-
-                            } else {
-
-                            }
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t, int errorNo,
-                                          String strMsg) {
-                        // TODO Auto-generated method stub
-                        // if (mCache.getAsString("seedling/list"
-                        // + params.toString()) != null
-                        // && !"".equals(mCache
-                        // .getAsString("seedling/list"
-                        // + params.toString()))) {
-                        // AcheData(mCache.getAsString("seedling/list"
-                        // + params.toString()));
-                        // }
-                        if (hud != null) {
-                            hud.dismiss();
-                        }
-                        super.onFailure(t, errorNo, strMsg);
-                    }
-
                 });
+        bPresenter.getDatas("seedling/list", false);
+//
+//        finalHttp.post(GetServerUrl.getUrl() + "seedling/list", params,
+//                new AjaxCallBack<Object>() {
+//
+//                    @Override
+//                    public void onStart() {
+//                        // TODO Auto-generated method stub
+//                        if (!hud.isShowing() && hud != null) {
+//                            hud.show();
+//                        }
+//                        super.onStart();
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(Object t) {
+//                        // TODO Auto-generated method stub
+//                        AcheData(t.toString());
+//                        super.onSuccess(t);
+//
+//                    }
+//
+//                    private void AcheData(String t) {
+//                        // TODO Auto-generated method stub
+//                        Log.e("orderBy", orderBy);
+//                        if (hud != null) {
+//                            hud.dismiss();
+//                        }
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(t);
+//                            String code = JsonGetInfo.getJsonString(jsonObject,
+//                                    "code");
+//                            String msg = JsonGetInfo.getJsonString(jsonObject,
+//                                    "msg");
+//                            if (!"".equals(msg)) {
+//                            }
+//                            if ("1".equals(code)) {
+//                                JSONObject jsonObject2 = jsonObject
+//                                        .getJSONObject("data").getJSONObject(
+//                                                "page");
+//                                int total = JsonGetInfo.getJsonInt(jsonObject2,
+//                                        "total");
+//                                data_ids.clear();
+//                                if (JsonGetInfo.getJsonArray(jsonObject2,
+//                                        "data").length() > 0) {
+//                                    JSONArray jsonArray = JsonGetInfo
+//                                            .getJsonArray(jsonObject2, "data");
+//                                    for (int i = 0; i < jsonArray.length(); i++) {
+//                                        JSONObject jsonObject3 = jsonArray
+//                                                .getJSONObject(i);
+//                                        HashMap hMap = new HashMap();
+//                                        hMap.put("show_type", "seedling_list");
+//                                        hMap.put("id", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "id"));
+//                                        if (pageIndex == 0) {
+//                                            data_ids.add(JsonGetInfo
+//                                                    .getJsonString(jsonObject3,
+//                                                            "id"));
+//                                        }
+//                                        hMap.put("specText", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "specText"));
+//                                        hMap.put("name", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "standardName"));
+//                                        hMap.put("plantType", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "plantType"));
+//                                        hMap.put("isSelfSupport", JsonGetInfo
+//                                                .getJsonBoolean(jsonObject3,
+//                                                        "isSelfSupportJson")); // 自营
+//                                        hMap.put("freeValidatePrice",
+//                                                JsonGetInfo.getJsonBoolean(
+//                                                        jsonObject3,
+//                                                        "freeValidatePrice")); // 返验苗费
+//                                        hMap.put("cashOnDelivery", JsonGetInfo
+//                                                .getJsonBoolean(jsonObject3,
+//                                                        "cashOnDelivery")); // 担
+//                                        // 资金担保
+//                                        hMap.put("freeDeliveryPrice",
+//                                                JsonGetInfo.getJsonBoolean(
+//                                                        jsonObject3,
+//                                                        "freeDeliveryPrice"));// 免发货费
+//                                        hMap.put(
+//                                                "tagList",
+//                                                JsonGetInfo.getJsonArray(
+//                                                        jsonObject3, "tagList")
+//                                                        .toString());//
+//                                        hMap.put(
+//                                                "paramsList",
+//                                                JsonGetInfo.getJsonArray(
+//                                                        jsonObject3,
+//                                                        "paramsList")
+//                                                        .toString());//
+//                                        hMap.put("freeValidate", JsonGetInfo
+//                                                .getJsonBoolean(jsonObject3,
+//                                                        "freeValidate")); // 免验苗
+//                                        hMap.put("isRecommend", JsonGetInfo
+//                                                .getJsonBoolean(jsonObject3,
+//                                                        "isRecommend")); // 推荐
+//                                        hMap.put("isSpecial", JsonGetInfo
+//                                                .getJsonBoolean(jsonObject3,
+//                                                        "isSpecial")); // 清场
+//
+//                                        hMap.put("imageUrl", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "mediumImageUrl"));
+//
+//                                        hMap.put("cityName", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "cityName"));
+//                                        hMap.put("price", JsonGetInfo
+//                                                .getJsonDouble(jsonObject3,
+//                                                        "price"));
+//
+//                                        hMap.put("minPrice", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "minPrice"));
+//
+//                                        hMap.put("isNego", JsonGetInfo
+//                                                .getJsonBoolean(jsonObject3,
+//                                                        "isNeGo"));
+//
+//                                        hMap.put("maxPrice", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "maxPrice"));
+//
+//                                        hMap.put("count", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "count"));
+//                                        hMap.put("unitTypeName", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "unitTypeName"));
+//                                        hMap.put("diameter", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "diameter"));
+//                                        hMap.put("dbh", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "dbh"));
+//                                        hMap.put("height", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "height"));
+//                                        hMap.put("crown", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "crown"));
+//                                        hMap.put("offbarHeight", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "offbarHeight"));
+//                                        hMap.put("cityName", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "cityName"));
+//                                        hMap.put("fullName", JsonGetInfo
+//                                                .getJsonString(JsonGetInfo
+//                                                                .getJSONObject(
+//                                                                        jsonObject3,
+//                                                                        "ciCity"),
+//                                                        "fullName"));
+//
+//                                        hMap.put("ciCity_name", JsonGetInfo
+//                                                .getJsonString(JsonGetInfo
+//                                                                .getJSONObject(
+//                                                                        jsonObject3,
+//                                                                        "ciCity"),
+//                                                        "name"));
+//                                        hMap.put("realName", JsonGetInfo
+//                                                .getJsonString(JsonGetInfo
+//                                                                .getJSONObject(
+//                                                                        jsonObject3,
+//                                                                        "ownerJson"),
+//                                                        "realName"));
+//                                        hMap.put("companyName", JsonGetInfo
+//                                                .getJsonString(JsonGetInfo
+//                                                                .getJSONObject(
+//                                                                        jsonObject3,
+//                                                                        "ownerJson"),
+//                                                        "companyName"));
+//                                        hMap.put("publicName", JsonGetInfo
+//                                                .getJsonString(JsonGetInfo
+//                                                                .getJSONObject(
+//                                                                        jsonObject3,
+//                                                                        "ownerJson"),
+//                                                        "publicName"));
+//                                        hMap.put("status", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "status"));
+//                                        hMap.put("statusName", JsonGetInfo
+//                                                .getJsonString(jsonObject3,
+//                                                        "statusName"));
+//                                        datas.add(hMap);
+//                                        if (listAdapter != null) {
+//                                            listAdapter.notifyDataSetChanged();
+//                                        }
+//                                        if (gridAdapter != null) {
+//                                            gridAdapter.notifyDataSetChanged();
+//                                        }
+//                                    }
+//
+//                                    if (listAdapter == null) {
+//                                        listAdapter = new ProductListAdapter(
+//                                                BActivity.this, datas);
+//                                        xListView.setAdapter(listAdapter);
+//                                    }
+//                                    if (gridAdapter == null) {
+//                                        gridAdapter = new ProductGridAdapter(
+//                                                BActivity.this, datas);
+//                                        glistView.setAdapter(gridAdapter);
+//                                    }
+//                                    pageIndex++;
+//                                    RefreshpageIndex++;
+//                                }
+//
+//                            } else {
+//
+//                            }
+//                        } catch (JSONException e) {
+//                            // TODO Auto-generated catch block
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Throwable t, int errorNo,
+//                                          String strMsg) {
+//                        // TODO Auto-generated method stub
+//                        // if (mCache.getAsString("seedling/list"
+//                        // + params.toString()) != null
+//                        // && !"".equals(mCache
+//                        // .getAsString("seedling/list"
+//                        // + params.toString()))) {
+//                        // AcheData(mCache.getAsString("seedling/list"
+//                        // + params.toString()));
+//                        // }
+//                        if (hud != null) {
+//                            hud.dismiss();
+//                        }
+//                        super.onFailure(t, errorNo, strMsg);
+//                    }
+//
+//                });
         getdata = true;
     }
 
@@ -1195,34 +1210,16 @@ public class BActivity extends BaseSecondActivity implements
                         Intent toSellectActivity = new Intent(BActivity.this,
                                 SellectActivity2.class);
                         toSellectActivity.putExtra("from", "BActivity");
-                        toSellectActivity.putExtra("minPrice", minPrice);
-                        toSellectActivity.putExtra("maxPrice", maxPrice);
-                        toSellectActivity.putExtra("minDiameter", minDiameter);
-                        toSellectActivity.putExtra("maxDiameter", maxDiameter);
-                        toSellectActivity.putExtra("minDbh", minDbh);
-                        toSellectActivity.putExtra("maxDbh", maxDbh);
-                        toSellectActivity.putExtra("minHeight", minHeight);
-                        toSellectActivity.putExtra("maxHeight", maxHeight);
-                        toSellectActivity.putExtra("minLength", minLength);
-                        toSellectActivity.putExtra("maxLength", maxLength);
-                        toSellectActivity.putExtra("minCrown", minCrown);
-                        toSellectActivity.putExtra("maxCrown", maxCrown);
                         toSellectActivity.putExtra("cityCode", cityCode);
                         toSellectActivity.putExtra("cityName", cityName);
-                        toSellectActivity.putExtra("minOffbarHeight",
-                                minOffbarHeight);
-                        toSellectActivity.putExtra("maxOffbarHeight",
-                                maxOffbarHeight);
                         toSellectActivity.putExtra("plantTypes", plantTypes);
-                        toSellectActivity.putStringArrayListExtra(
-                                "planttype_has_ids", planttype_has_ids);
+                        toSellectActivity.putStringArrayListExtra("planttype_has_ids", planttype_has_ids);
                         toSellectActivity.putExtra("searchSpec", searchSpec);
                         toSellectActivity.putExtra("specMinValue", specMinValue);
                         toSellectActivity.putExtra("specMaxValue", specMaxValue);
                         toSellectActivity.putExtra("searchKey", searchKey);
                         startActivityForResult(toSellectActivity, 1);
-                        overridePendingTransition(R.anim.slide_in_left,
-                                R.anim.slide_out_right);
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         break;
 
                     case R.id.RelativeLayout2:
@@ -1360,20 +1357,7 @@ public class BActivity extends BaseSecondActivity implements
             }
             cityCode = data.getStringExtra("cityCode");
             cityName = data.getStringExtra("cityName");
-            minPrice = data.getStringExtra("minPrice");
-            maxPrice = data.getStringExtra("maxPrice");
-            minDiameter = data.getStringExtra("minDiameter");
-            maxDiameter = data.getStringExtra("maxDiameter");
-            minDbh = data.getStringExtra("minDbh");
-            maxDbh = data.getStringExtra("maxDbh");
-            minHeight = data.getStringExtra("minHeight");
-            maxHeight = data.getStringExtra("maxHeight");
-            minLength = data.getStringExtra("minLength");
-            maxLength = data.getStringExtra("maxLength");
-            minCrown = data.getStringExtra("minCrown");
-            maxCrown = data.getStringExtra("maxCrown");
-            minOffbarHeight = data.getStringExtra("minOffbarHeight");
-            maxOffbarHeight = data.getStringExtra("maxOffbarHeight");
+
             plantTypes = data.getStringExtra("plantTypes");
             planttype_has_ids = data.getStringArrayListExtra("planttype_has_ids");
 
@@ -1445,160 +1429,16 @@ public class BActivity extends BaseSecondActivity implements
 
     @Override
     public void onRefresh() {
-        FinalHttp finalHttp = new FinalHttp();
-        GetServerUrl.addHeaders(finalHttp, false);
-        final AjaxParams params = new AjaxParams();
-        params.put("searchSpec", searchSpec);
-        params.put("specMinValue", specMinValue);
-        params.put("specMaxValue", specMaxValue);
-        params.put("searchKey", searchKey);
-//        params.put("minPrice", minPrice);
-//        params.put("maxPrice", maxPrice);
-//        params.put("minDiameter", minDiameter);
-//        params.put("maxDiameter", maxDiameter);
-//        params.put("minDbh", minDbh);
-//        params.put("maxDbh", maxDbh);
-//        params.put("minHeight", minHeight);
-//        params.put("maxHeight", maxHeight);
-//        params.put("minCrown", minCrown);
-//        params.put("maxCrown", maxCrown);
-//        params.put("minOffbarHeight", minOffbarHeight);
-//        params.put("maxOffbarHeight", maxOffbarHeight);
-//        params.put("minLength", minLength);
-//        params.put("maxLength", maxLength);
-        params.put("TradeType", supportTradeType);
-        params.put("firstSeedlingTypeId", firstSeedlingTypeId);
-        params.put("secondSeedlingTypeId", secondSeedlingTypeId);
-        params.put("cityCode", cityCode);
-
-        plantTypes = "";
         plantTypes = filPlantTypes(planttype_has_ids);
-        params.put("plantTypes", plantTypes);
-//        for (int i = 0; i < planttype_has_ids.size(); i++) {
-//            plantTypes = plantTypes + planttype_has_ids.get(i) + ",";
-//        }
-//        if (plantTypes.length() > 0) {
-//            params.put("plantTypes",
-//                    plantTypes.substring(0, plantTypes.length() - 1));
-//        } else {
-//            params.put("plantTypes", plantTypes);
-//        }
-
-        // if ("".equals(priceSort) && !"".equals(publishDateSort)) {
-        // orderBy = publishDateSort;
-        // } else if (!"".equals(priceSort) && "".equals(publishDateSort)) {
-        // orderBy = priceSort;
-        // } else if ("".equals(priceSort) && "".equals(publishDateSort)) {
-        // orderBy = "";
-        // } else {
-        // orderBy = priceSort + "," + publishDateSort;
-        // }
-
         if (orderBy.endsWith(",")) {
             orderBy = orderBy.substring(0, orderBy.length() - 1);
         }
-        params.put("orderBy", orderBy);
-        params.put("pageSize", 10 + "");
-        params.put("pageIndex", 0 + "");
-        params.put("latitude", MyApplication.Userinfo.getString("latitude", ""));
-        params.put("longitude",
-                MyApplication.Userinfo.getString("longitude", ""));
-        finalHttp.post(GetServerUrl.getUrl() + "seedling/list", params,
-                new AjaxCallBack<Object>() {
-
-                    @Override
-                    public void onStart() {
-
-                        super.onStart();
-                    }
-
-                    @Override
-                    public void onSuccess(Object t) {
-                        // TODO Auto-generated method stub
-                        AcheData(t.toString());
-                        super.onSuccess(t);
-
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t, int errorNo,
-                                          String strMsg) {
-                        // TODO Auto-generated method stub
-                        if (hud != null) {
-                            hud.dismiss();
-                        }
-                        super.onFailure(t, errorNo, strMsg);
-                    }
-
-                    private void AcheData(String t) {
-                        // TODO Auto-generated method stub
-                        try {
-                            JSONObject jsonObject = new JSONObject(t);
-                            String code = JsonGetInfo.getJsonString(jsonObject,
-                                    "code");
-                            String msg = JsonGetInfo.getJsonString(jsonObject,
-                                    "msg");
-                            if (!"".equals(msg)) {
-                            }
-                            ArrayList<String> current_data_ids = new ArrayList<String>();
-                            if ("1".equals(code)) {
-                                JSONObject jsonObject2 = jsonObject
-                                        .getJSONObject("data").getJSONObject(
-                                                "page");
-                                if (JsonGetInfo.getJsonArray(jsonObject2,
-                                        "data").length() > 0) {
-                                    JSONArray jsonArray = JsonGetInfo
-                                            .getJsonArray(jsonObject2, "data");
-                                    for (int i = 0; i < jsonArray.length(); i++) {
-                                        JSONObject jsonObject3 = jsonArray
-                                                .getJSONObject(i);
-                                        current_data_ids.add(JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "id"));
-                                    }
-                                }
-
-                                if (!data_ids.toString().equals(
-                                        current_data_ids.toString())) {
-                                    // TODO Auto-generated method stub
-                                    xListView.setPullLoadEnable(false);
-                                    glistView.setPullLoadEnable(false);
-                                    pageIndex = 0;
-                                    datas.clear();
-                                    if (listAdapter == null) {
-                                        listAdapter = new ProductListAdapter(
-                                                BActivity.this, datas);
-                                        xListView.setAdapter(listAdapter);
-                                    } else {
-                                        listAdapter.notifyDataSetChanged();
-                                    }
-                                    if (gridAdapter == null) {
-                                        gridAdapter = new ProductGridAdapter(
-                                                BActivity.this, datas);
-                                        glistView.setAdapter(gridAdapter);
-                                    } else {
-                                        gridAdapter.notifyDataSetChanged();
-                                    }
-                                    if (getdata == true) {
-                                        initData();
-                                    }
-                                    onLoad();
-                                } else {
-                                    onLoad();
-                                }
-                            } else {
-
-                            }
-
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                });
-
+        pageIndex = 0;
+        bProduceAdapt.setState(GlobBaseAdapter.REFRESH);
+        xListView.setAdapter(bProduceAdapt);
+        gridAdapt.setState(GlobBaseAdapter.REFRESH);
+        glistView.setAdapter(gridAdapt);
+        initData();
     }
 
     @Override
@@ -1606,45 +1446,31 @@ public class BActivity extends BaseSecondActivity implements
         xListView.setPullRefreshEnable(false);
         glistView.setPullRefreshEnable(false);
         initData();
-        onLoad();
     }
 
     private void onLoad() {
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                xListView.stopRefresh();
-                xListView.stopLoadMore();
-                xListView.setRefreshTime(new Date().toLocaleString());
+        new Handler().postDelayed(() -> {
+            // TODO Auto-generated method stub
+            xListView.stopRefresh();
+            xListView.stopLoadMore();
+            xListView.setRefreshTime(new Date().toLocaleString());
+            if (gridAdapt.getDatas().size() % pageIndex == 0) {
                 xListView.setPullLoadEnable(true);
-                xListView.setPullRefreshEnable(true);
-                glistView.stopRefresh();
-                glistView.stopLoadMore();
-                glistView.setRefreshTime(new Date().toLocaleString());
-                glistView.setPullLoadEnable(true);
-                glistView.setPullRefreshEnable(true);
-
+            } else {
+                xListView.setPullLoadEnable(false);
             }
+            xListView.setPullRefreshEnable(true);
+            glistView.stopRefresh();
+            glistView.stopLoadMore();
+            glistView.setRefreshTime(new Date().toLocaleString());
+            glistView.setPullLoadEnable(true);
+            glistView.setPullRefreshEnable(true);
+
         }, com.hldj.hmyg.application.Data.refresh_time);
 
     }
 
-    //    final Html.ImageGetter imageGetter = new Html.ImageGetter() {
-//
-//        @Override
-//        public Drawable getDrawable(String source) {
-//            Drawable drawable = null;
-//            int rId = Integer.parseInt(source);
-//            drawable = getResources().getDrawable(rId);
-//            // drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
-//            // drawable.getIntrinsicHeight());
-//            drawable.setBounds(0, 0, 25, 25);
-//            return drawable;
-//        }
-//    };
-    //    private RelativeLayout rl_choose_type;
+
     private TagCloudLinkView view;
     private RelativeLayout relativeLayout2;
     private PagerSlidingTabStrip tabs;
@@ -1657,147 +1483,6 @@ public class BActivity extends BaseSecondActivity implements
     private TagView tagView;
     private PopupWindow popupWindow2;
     private LinearLayout ll_choice;
-
-//    private void showCitys() {
-//        View dia_choose_share = getLayoutInflater().inflate(
-//                R.layout.dia_choose_city, null);
-//        TextView tv_sure = (TextView) dia_choose_share
-//                .findViewById(R.id.tv_sure);
-//        mViewProvince = (WheelView) dia_choose_share
-//                .findViewById(R.id.id_province);
-//        mViewCity = (WheelView) dia_choose_share.findViewById(R.id.id_city);
-//        mViewDistrict = (WheelView) dia_choose_share
-//                .findViewById(R.id.id_district);
-//        mViewCity.setVisibility(View.GONE);
-//        mViewDistrict.setVisibility(View.GONE);
-//        // 添加change事件
-////        mViewProvince.addChangingListener(this);
-//        // 添加change事件
-////        mViewCity.addChangingListener(this);
-//        // 添加change事件
-////        mViewDistrict.addChangingListener(this);
-////        setUpData();
-//
-//        dialog = new Dialog(this, R.style.transparentFrameWindowStyle);
-//        dialog.setContentView(dia_choose_share, new LayoutParams(
-//                LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-//        Window window = dialog.getWindow();
-//        // 设置显示动画
-//        window.setWindowAnimations(R.style.main_menu_animstyle);
-//        WindowManager.LayoutParams wl = window.getAttributes();
-//        wl.x = 0;
-//        wl.y = getWindowManager().getDefaultDisplay().getHeight();
-//        // 以下这两句是为了保证按钮可以水平满屏
-//        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
-//        wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-//
-//        // 设置显示位置
-//        dialog.onWindowAttributesChanged(wl);
-//        // 设置点击外围解散
-//        dialog.setCanceledOnTouchOutside(true);
-//        tv_sure.setOnClickListener(new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                // TODO Auto-generated method stub
-//                cityName = mCurrentProviceName + "\u0020" + mCurrentCityName
-//                        + "\u0020" + mCurrentDistrictName + "\u0020";
-//                cityCode = mCurrentZipCode;
-//                cityCode = GetCodeByName.initProvinceDatas(BActivity.this,
-//                        mCurrentProviceName, mCurrentCityName);
-//                onRefresh();
-//                // tv_area.setText(cityName);
-//                if (!BActivity.this.isFinishing() && dialog != null) {
-//                    if (dialog.isShowing()) {
-//                        dialog.cancel();
-//                    } else {
-//                        dialog.show();
-//                    }
-//                }
-//
-//            }
-//        });
-//
-//        if (!BActivity.this.isFinishing() && dialog.isShowing()) {
-//            dialog.cancel();
-//        } else if (!BActivity.this.isFinishing() && dialog != null
-//                && !dialog.isShowing()) {
-//            dialog.show();
-//        }
-//    }
-
-//    private void setUpData() {
-//        initProvinceDatas();
-//        mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(
-//                BActivity.this, mProvinceDatas));
-//        // 设置可见条目数量
-//        mViewProvince.setVisibleItems(7);
-//        mViewCity.setVisibleItems(7);
-//        mViewDistrict.setVisibleItems(7);
-//        updateCities();
-//        updateAreas();
-//    }
-
-//    @Override
-//    public void onChanged(WheelView wheel, int oldValue, int newValue) {
-//        // TODO Auto-generated method stub
-//        if (wheel == mViewProvince) {
-//            updateCities();
-//            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[0];
-//            // mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
-//            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
-//                    + mCurrentDistrictName);
-//        } else if (wheel == mViewCity) {
-//            updateAreas();
-//            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[0];
-//            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
-//                    + mCurrentDistrictName);
-//        } else if (wheel == mViewDistrict) {
-//            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[newValue];
-//            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
-//                    + mCurrentDistrictName);
-//        }
-//    }
-
-    /**
-     * 根据当前的市，更新区WheelView的信息
-     */
-//    private void updateAreas() {
-//        int pCurrent = mViewCity.getCurrentItem();
-//        mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
-//        String[] areas = mDistrictDatasMap.get(mCurrentCityName);
-//
-//        if (areas == null) {
-//            areas = new String[]{""};
-//        }
-//        mViewDistrict
-//                .setViewAdapter(new ArrayWheelAdapter<String>(this, areas));
-//        mViewDistrict.setCurrentItem(0);
-//    }
-
-    /**
-     * 根据当前的省，更新市WheelView的信息
-     */
-//    private void updateCities() {
-//        int pCurrent = mViewProvince.getCurrentItem();
-//        mCurrentProviceName = mProvinceDatas[pCurrent];
-//        String[] cities = mCitisDatasMap.get(mCurrentProviceName);
-//        if (cities == null) {
-//            cities = new String[]{""};
-//        }
-//        mViewCity.setViewAdapter(new ArrayWheelAdapter<String>(this, cities));
-//        mViewCity.setCurrentItem(0);
-//        updateAreas();
-//    }
-
-//    private void showSelectedResult() {
-//        Toast.makeText(
-//                BActivity.this,
-//                "当前选中:" + mCurrentProviceName + "," + mCurrentCityName + ","
-//                        + mCurrentDistrictName + "," + mCurrentZipCode,
-//                Toast.LENGTH_SHORT).show();
-//    }
-
 
     /**
      * +
@@ -1819,44 +1504,62 @@ public class BActivity extends BaseSecondActivity implements
     float moveY;//移动中的y坐标
     boolean isOpen = true;
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                startY = ev.getY();
-                D.e("===startY===" + startY);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                moveY = ev.getY();
-                D.e("=====moveY======" + moveY);
-                D.e("=====moveY - startY======" + (moveY - startY));
-                if (moveY - startY < -169) {
-                    closeFilter();
-                    startY = moveY;
-                }
-                if (moveY - startY > 169) {
-                    openFilter();
-                    startY = moveY;
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                break;
-        }
-        return super.dispatchTouchEvent(ev);
-    }
+    float height = 150;
+
+    int padingTop = 0;
+
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//        switch (ev.getAction()) {
+//            case MotionEvent.ACTION_DOWN:
+//                startY = ev.getY();
+//                D.e("===startY===" + startY);
+//                padingTop = ((ViewGroup) relativeLayout1.getParent()).getPaddingTop();//0
+//                D.e("===padingTop===" + padingTop);
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//                moveY = ev.getY();
+//
+//                if (moveY - startY < -130) {
+//                    closeFilter();
+//                }
+//                if (moveY - startY > 130) {
+//                    openFilter();
+//                }
+////                if (moveY - startY > 0) {
+////                    D.e("==down==");
+//////                    openFilter();
+////                    if (Math.abs((int) (moveY - startY)) > 0 && Math.abs((int) (moveY - startY)) < height) {
+////                        ((ViewGroup) relativeLayout1.getParent()).setPadding(0, (int) (-height + (moveY - startY)), 0, 0);
+////                    }
+////                    startY = moveY;
+////                }
+//                break;
+//            case MotionEvent.ACTION_UP:
+////                ((ViewGroup) relativeLayout1.getParent()).setPadding(0, 0, 0, 0);
+//                break;
+//        }
+//        return super.dispatchTouchEvent(ev);
+//    }
 
     TranslateAnimation mHiddenAction;
 
     public void closeFilter() {
         if (isOpen) {
-            mHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
-                    0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
-                    Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-                    -1.0f);
-            mHiddenAction.setDuration(500);
-            relativeLayout1.setAnimation(mHiddenAction);
-            relativeLayout1.setVisibility(View.GONE);
-            isOpen = false;
+
+
+            ObjectAnimator anim = ObjectAnimator.ofFloat(relativeLayout1, "y", relativeLayout1.getY(),
+                    relativeLayout1.getY() + relativeLayout1.getHeight());
+            anim.setDuration(300);
+            anim.start();
+//            mHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+//                    0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+//                    Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+//                    -1.0f);
+//            mHiddenAction.setDuration(500);
+//            relativeLayout1.setAnimation(mHiddenAction);
+//            relativeLayout1.setVisibility(View.GONE);
+//            isOpen = false;
         }
     }
 
@@ -1864,15 +1567,20 @@ public class BActivity extends BaseSecondActivity implements
     TranslateAnimation mShowAction;
 
     public void openFilter() {
-        if (!isOpen) {
-            mShowAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
-                    Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-                    -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
-            mShowAction.setDuration(500);
-            relativeLayout1.setAnimation(mShowAction);
-            relativeLayout1.setVisibility(View.VISIBLE);
-            isOpen = true;
-        }
+
+        ObjectAnimator anim = ObjectAnimator.ofFloat(relativeLayout1, "y", relativeLayout1.getY(),
+                relativeLayout1.getY() - relativeLayout1.getHeight());
+        anim.setDuration(300);
+        anim.start();
+//        if (!isOpen) {
+//            mShowAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+//                    Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+//                    -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+//            mShowAction.setDuration(500);
+//            relativeLayout1.setAnimation(mShowAction);
+//            relativeLayout1.setVisibility(View.VISIBLE);
+//            isOpen = true;
+//        }
     }
 
     /**

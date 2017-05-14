@@ -153,9 +153,12 @@
                             </LinearLayout>
 
 
+                            <View style="@style/View_line_gray" />
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:background="@color/white"
                                 android:orientation="vertical">
                                 <!--成交公告-->
                                 <TextView
@@ -163,22 +166,29 @@
                                     android:layout_height="30dp"
                                     android:layout_gravity="center"
                                     android:gravity="center"
-                                    android:text="最新：2017/4/18 关于'采购单（P0051）'的成交公告 " />
+                                    android:text="最新：2017/4/18 关于'采购单（P0051）'的成交公告 "
+                                    android:textColor="@color/black_de"
+                                    android:textSize="13sp" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="30dp"
                                     android:layout_gravity="center"
                                     android:gravity="center"
-                                    android:text="最新：2017/4/18 关于'采购单（P0051）'的成交公告 " />
+                                    android:text="最新：2017/4/18 关于'采购单（P0051）'的成交公告 "
+                                    android:textColor="@color/black_de"
+                                    android:textSize="13sp" />
 
 
                             </LinearLayout>
+
+                            <View style="@style/View_line_gray" />
 
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:background="@color/white"
                                 android:orientation="vertical">
                                 <!--此处为超级优惠-->
                                 <TextView
@@ -187,14 +197,17 @@
                                     android:layout_gravity="center"
                                     android:drawableRight="@drawable/ic_arrow_right"
                                     android:gravity="center"
-                                    android:text="采购单" />
+                                    android:text="采购单"
+                                    android:textColor="@color/black_de"
+                                    android:textSize="14sp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="30dp"
                                     android:layout_gravity="center"
                                     android:gravity="center"
-                                    android:text="专业数据把握市场方向" />
+                                    android:text="专业数据把握市场方向"
+                                    android:textSize="12sp" />
 
                                 <com.jarvis.MyView.MyListView
                                     android:id="@+id/lv_00"
@@ -203,9 +216,13 @@
                                     android:background="@color/white" />
                             </LinearLayout>
 
+                            <View style="@style/View_line_gray" />
+
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:background="@color/white"
                                 android:orientation="vertical">
 
                                 <!--成交公告-->
@@ -215,14 +232,17 @@
                                     android:layout_gravity="center"
                                     android:drawableRight="@drawable/ic_arrow_right"
                                     android:gravity="center"
-                                    android:text="猜你需要" />
+                                    android:text="猜你需要"
+                                    android:textColor="@color/black_de"
+                                    android:textSize="14sp" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="30dp"
                                     android:layout_gravity="center"
                                     android:gravity="center"
-                                    android:text="专业数据把握市场方向" />
+                                    android:text="专业数据把握市场方向"
+                                    android:textSize="12sp" />
 
 
                                 <com.jarvis.MyView.MyListView
@@ -230,12 +250,16 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@color/white" />
+
+                                <View style="@style/View_line_gray" />
+
                             </LinearLayout>
 
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:background="@color/white"
                                 android:orientation="vertical">
                                 <!--此处为热门商家-->
                                 <ImageView
@@ -251,15 +275,19 @@
                                     android:layout_height="30dp"
                                     android:layout_gravity="center"
                                     android:gravity="center"
-                                    android:text="品牌企业" />
+                                    android:text="品牌企业"
+                                    android:textColor="@color/black_de"
+                                    android:textSize="14sp" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="30dp"
                                     android:layout_gravity="center"
                                     android:gravity="center"
-                                    android:text="合作商家放心购买" />
+                                    android:text="合作商家放心购买"
+                                    android:textSize="12sp" />
 
+                                <View style="@style/View_line_gray" />
 
                             </LinearLayout>
 

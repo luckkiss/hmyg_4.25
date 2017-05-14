@@ -29,9 +29,11 @@ import com.autoscrollview.adapter.ImagePagerAdapter;
 import com.autoscrollview.widget.AutoScrollViewPager;
 import com.autoscrollview.widget.indicator.CirclePageIndicator;
 import com.hldj.hmyg.CallBack.ResultCallBack;
+import com.hldj.hmyg.M.BPageGsonBean;
+import com.hldj.hmyg.M.BProduceAdapt;
+import com.hldj.hmyg.P.BPresenter;
 import com.hldj.hmyg.adapter.HomeFunctionAdapter;
 import com.hldj.hmyg.adapter.HomePayAdapter;
-import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.adapter.TypeAdapter;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.ABanner;
@@ -529,35 +531,35 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                                 // .getJSONObject("data").getJSONArray(
                                 // "thematicList");
                                 lv_datas.clear();
-                                for (int i = 0; i < thematicList.length(); i++) {
-                                    JSONObject jsonObject2 = thematicList
-                                            .getJSONObject(i);
-                                    HashMap<String, Object> hMap = new HashMap<String, Object>();
-                                    hMap.put("title",
-                                            JsonGetInfo.getJsonString(
-                                                    jsonObject2, "title"));
-                                    hMap.put("type", JsonGetInfo.getJsonString(
-                                            jsonObject2, "type"));
-                                    hMap.put("id", JsonGetInfo.getJsonString(
-                                            jsonObject2, "id"));
-                                    hMap.put(
-                                            "ossLargeImagePath",
-                                            JsonGetInfo.getJsonString(
-                                                    JsonGetInfo
-                                                            .getJSONObject(
-                                                                    jsonObject2,
-                                                                    "appCoverImageJson"),
-                                                    "ossLargeImagePath"));
-                                    hMap.put(
-                                            "url",
-                                            JsonGetInfo.getJsonString(
-                                                    JsonGetInfo
-                                                            .getJSONObject(
-                                                                    jsonObject2,
-                                                                    "appCoverImageJson"),
-                                                    "url"));
-                                    lv_datas.add(hMap);
-                                }
+//                                for (int i = 0; i < thematicList.length(); i++) {
+//                                    JSONObject jsonObject2 = thematicList
+//                                            .getJSONObject(i);
+//                                    HashMap<String, Object> hMap = new HashMap<String, Object>();
+//                                    hMap.put("title",
+//                                            JsonGetInfo.getJsonString(
+//                                                    jsonObject2, "title"));
+//                                    hMap.put("type", JsonGetInfo.getJsonString(
+//                                            jsonObject2, "type"));
+//                                    hMap.put("id", JsonGetInfo.getJsonString(
+//                                            jsonObject2, "id"));
+//                                    hMap.put(
+//                                            "ossLargeImagePath",
+//                                            JsonGetInfo.getJsonString(
+//                                                    JsonGetInfo
+//                                                            .getJSONObject(
+//                                                                    jsonObject2,
+//                                                                    "appCoverImageJson"),
+//                                                    "ossLargeImagePath"));
+//                                    hMap.put(
+//                                            "url",
+//                                            JsonGetInfo.getJsonString(
+//                                                    JsonGetInfo
+//                                                            .getJSONObject(
+//                                                                    jsonObject2,
+//                                                                    "appCoverImageJson"),
+//                                                    "url"));
+//                                    lv_datas.add(hMap);
+//                                }
                                 if (lv_datas.size() == 0) {//超级优惠
 //                                    HashMap<String, Object> hMap = new HashMap<String, Object>();
 //                                    hMap.put("title", "title");
@@ -580,6 +582,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                                             PurchaseListAdapter adapter = new PurchaseListAdapter(AActivity_3_0.this, purchaseBeen, R.layout.list_item_purchase_list_new);
                                             lv_00.setAdapter(adapter);
                                         }
+
                                         @Override
                                         public void onFailure(Throwable t, int errorNo, String strMsg) {
 
@@ -595,20 +598,23 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                                             .requestDatas("purchase/purchaseList");
 
 
-                                    ArrayList<HashMap<String, Object>> lis = new ArrayList<>();
-                                    HashMap<String, Object> map = new HashMap();
-                                    map.put("fullName", "fullName");
-                                    map.put("specText", "specText");
-                                    map.put("companyName", "companyName");
-                                    map.put("minPrice", "minPrice");
-                                    map.put("isRecommend", "true");
-                                    map.put("plantType", "plantType");
-                                    map.put("show_type", "show_type");
-                                    map.put("isNego", "true");
-                                    lis.add(map);
-                                    lis.add(map);
-                                    lis.add(map);
-                                    ((ListView) findViewById(R.id.lv_00_store)).setAdapter(new ProductListAdapter(AActivity_3_0.this, lis));
+                                    BPresenter bPresenter = (BPresenter) new BPresenter()
+                                            .putParams("pageSize", 4 + "")
+                                            .putParams("pageIndex", 0 + "")
+                                            .putParams("latitude", MyApplication.Userinfo.getString("latitude", ""))
+                                            .putParams("longitude", MyApplication.Userinfo.getString("longitude", ""))
+                                            .addResultCallBack(new ResultCallBack<List<BPageGsonBean.DatabeanX.Pagebean.Databean>>() {
+                                                @Override
+                                                public void onSuccess(List<BPageGsonBean.DatabeanX.Pagebean.Databean> pageBean) {
+
+                                                    BProduceAdapt bProduceAdapt = new BProduceAdapt(AActivity_3_0.this, pageBean, R.layout.list_view_seedling_new);
+                                                    ((ListView) findViewById(R.id.lv_00_store)).setAdapter(bProduceAdapt);
+                                                }
+                                                @Override
+                                                public void onFailure(Throwable t, int errorNo, String strMsg) {
+                                                }
+                                            });
+                                    bPresenter.getDatas("seedling/list", false);
                                 }
 
 
@@ -651,8 +657,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                                     myFragment0 = new MyFragment();
                                     myFragment0.setUrls(url0s);
                                     ft.add(R.id.con0, myFragment0);
-                                    iv_home_merchants
-                                            .setVisibility(View.VISIBLE);
+//                                    iv_home_merchants  .setVisibility(View.VISIBLE);
                                 }
                                 ft.commitAllowingStateLoss();
 

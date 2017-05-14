@@ -56,6 +56,7 @@ import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.LoginActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.broker.SeedlingMarketSearchActivity;
 import com.hldj.hmyg.broker.SellectMarketPriceActivity;
 import com.hldj.hmyg.broker.bean.SellectPrice;
@@ -669,18 +670,15 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
     @Override
     public void onRefresh() {
         // TODO Auto-generated method stub
-        listview.setPullLoadEnable(false);
+//        listview.setPullLoadEnable(false);
         pageIndex = 0;
-
         if (listAdapter != null) {
-            listAdapter.addData(null);
+            listAdapter.setState(GlobBaseAdapter.REFRESH);
         }
-
-
         if (getdata == true) {
             initData();
         }
-        onLoad();
+
     }
 
     private void init() {
@@ -898,11 +896,13 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
             public void onSuccess(List<PurchaseBean> purchaseBeen) {
                 listAdapter.addData(purchaseBeen);//返回空 就添加到数组中，并刷新  如果为null  listAdapter 会自动清空
                 getdata = true;//成功获取到了
+                onLoad();
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 getdata = true;//获取到了，但是失败了
+                onLoad();
             }
         };
         getdata = false;//数据获取到了吗？
@@ -930,9 +930,14 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
             public void run() {
                 // TODO Auto-generated method stub
                 listview.stopRefresh();
+
                 listview.stopLoadMore();
+                if (listAdapter.getDatas().size() % pageSize == 0) {
+                    listview.setPullLoadEnable(true);
+                } else {
+                    listview.setPullLoadEnable(false);
+                }
                 listview.setRefreshTime(new Date().toLocaleString());
-                listview.setPullLoadEnable(true);
                 listview.setPullRefreshEnable(true);
             }
         }, com.hldj.hmyg.application.Data.refresh_time);

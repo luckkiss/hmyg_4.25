@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -16,10 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.weixin_friendcircle.ActionItem;
-import com.example.weixin_friendcircle.TitlePopup;
-import com.example.weixin_friendcircle.TitlePopup.OnItemOnClickListener;
-import com.example.weixin_friendcircle.Util;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
 import com.hy.utils.GetServerUrl;
@@ -116,11 +111,11 @@ public class ProductListAdapter extends BaseAdapter {
 
         try {
 
-        if (data.get(position).get("isRecommend").toString().contains("true")) {
-            childHolder.iv_like.setImageResource(R.drawable.tuijian_lv);
-        } else {
-            childHolder.iv_like.setImageResource(R.drawable.tuijian_hui);
-        }
+//        if (data.get(position).get("isRecommend").toString().contains("true")) {
+//            childHolder.iv_like.setImageResource(R.drawable.tuijian_lv);
+//        } else {
+//            childHolder.iv_like.setImageResource(R.drawable.tuijian_hui);
+//        }
 
         if (data.get(position).get("plantType").toString().contains("planted")) {
             childHolder.tv_01.setBackgroundResource(R.drawable.icon_seller_di);
@@ -137,6 +132,8 @@ public class ProductListAdapter extends BaseAdapter {
         } else {
             childHolder.tv_01.setVisibility(View.GONE);
         }
+
+
         if ("manage_list".equals(data.get(position).get("show_type").toString())) {
 
             childHolder.rl_floorPrice.setVisibility(View.VISIBLE);
@@ -172,7 +169,10 @@ public class ProductListAdapter extends BaseAdapter {
                 childHolder.tv_06.setText("下架日期："
                         + data.get(position).get("closeDate").toString());
             }
-        } else if ("seedling_list".equals(data.get(position).get("show_type")
+        }
+
+
+        else if ("seedling_list".equals(data.get(position).get("show_type")
                 .toString())) {//商城主页列表
             //地区：
             childHolder.tv_03.setText(""
@@ -180,6 +180,7 @@ public class ProductListAdapter extends BaseAdapter {
             //高度冠幅  ：
             childHolder.tv_04.setText(""
                     + data.get(position).get("specText").toString());
+
             if (!"".equals(data.get(position).get("companyName").toString())) {
                 childHolder.tv_06.setText("发布人："
                         + data.get(position).get("companyName").toString());
@@ -230,83 +231,39 @@ public class ProductListAdapter extends BaseAdapter {
 
             childHolder.tv_08.setText("  /"
                     + data.get(position).get("unitTypeName").toString());
-            childHolder.tv_09.setText("库存："
-                    + data.get(position).get("count").toString());
+            childHolder.tv_09.setText("库存：" + data.get(position).get("count").toString());
             fb.display(childHolder.iv_img, data.get(position).get("imageUrl")
                     .toString());
         } catch (Exception e) {
 
         }
-        childHolder.iv_like.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-
-                TitlePopup titlePopup = new TitlePopup(context, Util.dip2px(
-                        context, 165), Util.dip2px(context, 30));
-                if (data.get(position).get("isRecommend").toString()
-                        .contains("true")) {
-                    titlePopup.addAction(new ActionItem(context, "取消推荐苗木",
-                            R.drawable.circle_praise));
-                } else {
-                    titlePopup.addAction(new ActionItem(context, "设为推荐苗木",
-                            R.drawable.circle_praise));
-                }
-                titlePopup.addAction(new ActionItem(context, "赞",
-                        R.drawable.circle_praise));
-                titlePopup.setAnimationStyle(R.style.cricleBottomAnimation);
-                titlePopup.show(v);
-                titlePopup.setItemOnClickListener(new OnItemOnClickListener() {
-
-                    @Override
-                    public void onItemClick(ActionItem item, int popo_position) {
-                        // TODO Auto-generated method stub
-                        if (data.get(position).get("isRecommend").toString()
-                                .contains("true")) {
-                            HashMap<String, Object> hashMap = data
-                                    .get(position);
-                            iv_like.setImageResource(R.drawable.tuijian_lv);
-                        } else {
-                            iv_like.setImageResource(R.drawable.tuijian_hui);
-                        }
-                        setRecommend(data.get(position).get("id").toString());
-
-                    }
-                });
-
+        convertView.setOnClickListener(v -> {
+            if ("manage_list".equals(data.get(position).get("show_type")
+                    .toString())) {
+                // "published".equals(data.get(position).get("status")
+                // .toString())
+                Intent toFlowerDetailActivity = new Intent(context,
+                        FlowerDetailActivity.class);
+                toFlowerDetailActivity.putExtra("id", data.get(position)
+                        .get("id").toString());
+                toFlowerDetailActivity.putExtra("show_type",
+                        data.get(position).get("show_type").toString());
+                context.startActivity(toFlowerDetailActivity);
+                ((Activity) context).overridePendingTransition(
+                        R.anim.slide_in_left, R.anim.slide_out_right);
+            } else {
+                Intent toFlowerDetailActivity = new Intent(context,
+                        FlowerDetailActivity.class);
+                toFlowerDetailActivity.putExtra("id", data.get(position)
+                        .get("id").toString());
+                toFlowerDetailActivity.putExtra("show_type",
+                        data.get(position).get("show_type").toString());
+                context.startActivity(toFlowerDetailActivity);
+                ((Activity) context).overridePendingTransition(
+                        R.anim.slide_in_left, R.anim.slide_out_right);
             }
 
-        });
-        convertView.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if ("manage_list".equals(data.get(position).get("show_type")
-                        .toString())) {
-                    // "published".equals(data.get(position).get("status")
-                    // .toString())
-                    Intent toFlowerDetailActivity = new Intent(context,
-                            FlowerDetailActivity.class);
-                    toFlowerDetailActivity.putExtra("id", data.get(position)
-                            .get("id").toString());
-                    toFlowerDetailActivity.putExtra("show_type",
-                            data.get(position).get("show_type").toString());
-                    context.startActivity(toFlowerDetailActivity);
-                    ((Activity) context).overridePendingTransition(
-                            R.anim.slide_in_left, R.anim.slide_out_right);
-                } else {
-                    Intent toFlowerDetailActivity = new Intent(context,
-                            FlowerDetailActivity.class);
-                    toFlowerDetailActivity.putExtra("id", data.get(position)
-                            .get("id").toString());
-                    toFlowerDetailActivity.putExtra("show_type",
-                            data.get(position).get("show_type").toString());
-                    context.startActivity(toFlowerDetailActivity);
-                    ((Activity) context).overridePendingTransition(
-                            R.anim.slide_in_left, R.anim.slide_out_right);
-                }
-
-            }
         });
 
         return convertView;

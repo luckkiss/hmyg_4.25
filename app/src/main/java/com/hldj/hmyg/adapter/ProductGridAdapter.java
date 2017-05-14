@@ -92,39 +92,6 @@ public class ProductGridAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-//        if (data.get(position).get("tagList").toString().contains(Data.ZIYING)) {
-//            holder.sc_ziying.setVisibility(View.VISIBLE);
-//        }
-//        if (data.get(position).get("tagList").toString().contains(Data.FUWU)) {
-//            holder.sc_fuwufugai.setVisibility(View.VISIBLE);
-//        }
-//        if (data.get(position).get("tagList").toString()
-//                .contains(Data.HEZUOSHANGJIA)) {
-//            holder.sc_hezuoshangjia.setVisibility(View.VISIBLE);
-//        }
-//        if (data.get(position).get("tagList").toString()
-//                .contains(Data.ZIJINDANBAO)) {
-//            holder.sc_huodaofukuan.setVisibility(View.VISIBLE);
-//        }
-
-//        if (data.get(position).get("isSelfSupport").toString().contains("true")) {
-//            holder.tv_status_01.setVisibility(View.VISIBLE);
-//        }
-//        if (data.get(position).get("freeValidatePrice").toString()
-//                .contains("true")) {
-//            holder.tv_status_02.setVisibility(View.VISIBLE);
-//        }
-//        if (data.get(position).get("cashOnDelivery").toString()
-//                .contains("true")) {
-//            holder.tv_status_03.setVisibility(View.VISIBLE);
-//        }
-//        if (data.get(position).get("freeDeliveryPrice").toString()
-//                .contains("true")) {
-//            holder.tv_status_04.setVisibility(View.VISIBLE);
-//        }
-//        if (data.get(position).get("freeValidate").toString().contains("true")) {
-//            holder.tv_status_05.setVisibility(View.VISIBLE);
-//        }
 
         if (data.get(position).get("plantType").toString().contains("planted")) {
             holder.tv_01.setBackgroundResource(R.drawable.icon_seller_di);
@@ -140,7 +107,11 @@ public class ProductGridAdapter extends BaseAdapter {
         } else {
             holder.tv_01.setVisibility(View.GONE);
         }
+
+
         holder.tv_02.setText(data.get(position).get("name").toString());
+
+
         if ("unaudit".equals(data.get(position).get("status").toString())) {
             holder.tv_03.setTextColor(Color.parseColor("#6cd8b0"));
         } else if ("published".equals(data.get(position).get("status")
@@ -155,6 +126,8 @@ public class ProductGridAdapter extends BaseAdapter {
                 .toString())) {
             holder.tv_03.setTextColor(Color.parseColor("#eb8ead"));
         }
+
+
         // tv_03.setText(data.get(position).get("statusName").toString());
         boolean isNego = (boolean) data.get(position).get("isNego");
         String minPrice = data.get(position).get("minPrice") + "";
