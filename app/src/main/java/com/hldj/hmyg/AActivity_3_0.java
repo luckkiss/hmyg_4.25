@@ -28,10 +28,8 @@ import android.widget.Toast;
 import com.autoscrollview.adapter.ImagePagerAdapter;
 import com.autoscrollview.widget.AutoScrollViewPager;
 import com.autoscrollview.widget.indicator.CirclePageIndicator;
-import com.hldj.hmyg.CallBack.ResultCallBack;
-import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.M.BProduceAdapt;
-import com.hldj.hmyg.P.BPresenter;
+import com.hldj.hmyg.M.IndexGsonBean;
 import com.hldj.hmyg.adapter.HomeFunctionAdapter;
 import com.hldj.hmyg.adapter.HomePayAdapter;
 import com.hldj.hmyg.adapter.TypeAdapter;
@@ -42,9 +40,9 @@ import com.hldj.hmyg.bean.HomeStore;
 import com.hldj.hmyg.bean.Type;
 import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
-import com.hldj.hmyg.saler.M.PurchaseBean;
-import com.hldj.hmyg.saler.P.PurchasePyMapPresenter;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.javis.ab.view.AbSlidingPlayView;
@@ -62,7 +60,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import aom.xingguo.huang.banner.MyFragment;
 import cn.hugo.android.scanner.CaptureActivity;
@@ -94,7 +91,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     //	private ImageView iv_Capture;//扫描二维码
     private ImageView iv_msg;
     private DrawerLayout dl_content;
-    private ImageView iv_home_merchants;//热门商家
+    //    private ImageView iv_home_merchants;//热门商家
     private ImageView iv_home_preferential;
     private RelativeLayout relativeLayout2;//
     private PtrClassicFrameLayout mPtrFrame;
@@ -127,7 +124,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         iv_msg = (ImageView) findViewById(R.id.iv_a_msg);
 //		relativeLayout2 = (RelativeLayout) findViewById(R.id.RelativeLayout2);
 //		iv_Capture = (ImageView) findViewById(iv_Capture);
-        iv_home_merchants = (ImageView) findViewById(R.id.iv_home_merchants);
+//        iv_home_merchants = (ImageView) findViewById(R.id.iv_home_merchants);
         iv_home_preferential = (ImageView) findViewById(R.id.iv_home_preferential);
         iv_fuwu = (ImageView) findViewById(R.id.iv_fuwu);
         iv_fenlei = (ImageView) findViewById(R.id.iv_fenlei);
@@ -356,6 +353,14 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
                     private void LoadCache(String t) {
                         // TODO Auto-generated method stub
+
+                        IndexGsonBean indexGsonBean = GsonUtil.formateJson2Bean(t, IndexGsonBean.class);
+                        if (indexGsonBean.code.equals(ConstantState.SUCCEED_CODE))
+                        {
+                            initNewList(indexGsonBean);
+                        }
+
+
                         datas.clear();
                         aBanners.clear();
                         try {
@@ -511,111 +516,10 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                                         gd_00.setAdapter(myadapter);
                                     }
                                 }
-
-                                // LayoutParams l_params = new
-                                // LinearLayout.LayoutParams(
-                                // LayoutParams.MATCH_PARENT,
-                                // LayoutParams.WRAP_CONTENT);
-                                // LayoutParams para =
-                                // ll_fenlei.getLayoutParams();
-                                // l_params.height = para.height;
-                                // l_params.width =para.height*2/5;
-                                // iv_fenlei.setLayoutParams(l_params);
-                                // iv_fuwu.setLayoutParams(l_params);
-
-                                // 专题
-                                JSONArray thematicList = JsonGetInfo.getJsonArray(
-                                        JsonGetInfo.getJSONObject(jsonObject,
-                                                "data"), "thematicList");
-                                // JSONArray thematicList = jsonObject
-                                // .getJSONObject("data").getJSONArray(
-                                // "thematicList");
                                 lv_datas.clear();
-//                                for (int i = 0; i < thematicList.length(); i++) {
-//                                    JSONObject jsonObject2 = thematicList
-//                                            .getJSONObject(i);
-//                                    HashMap<String, Object> hMap = new HashMap<String, Object>();
-//                                    hMap.put("title",
-//                                            JsonGetInfo.getJsonString(
-//                                                    jsonObject2, "title"));
-//                                    hMap.put("type", JsonGetInfo.getJsonString(
-//                                            jsonObject2, "type"));
-//                                    hMap.put("id", JsonGetInfo.getJsonString(
-//                                            jsonObject2, "id"));
-//                                    hMap.put(
-//                                            "ossLargeImagePath",
-//                                            JsonGetInfo.getJsonString(
-//                                                    JsonGetInfo
-//                                                            .getJSONObject(
-//                                                                    jsonObject2,
-//                                                                    "appCoverImageJson"),
-//                                                    "ossLargeImagePath"));
-//                                    hMap.put(
-//                                            "url",
-//                                            JsonGetInfo.getJsonString(
-//                                                    JsonGetInfo
-//                                                            .getJSONObject(
-//                                                                    jsonObject2,
-//                                                                    "appCoverImageJson"),
-//                                                    "url"));
-//                                    lv_datas.add(hMap);
-//                                }
-                                if (lv_datas.size() == 0) {//超级优惠
-//                                    HashMap<String, Object> hMap = new HashMap<String, Object>();
-//                                    hMap.put("title", "title");
-//                                    hMap.put("type", "type");
-//                                    hMap.put("id", "id");
-//                                    hMap.put("ossLargeImagePath", "http://p17.qhimg.com/t01c41fbf578e546dc6.jpg");
-//                                    hMap.put("url", "http://p17.qhimg.com/t01c41fbf578e546dc6.jpg");
-//                                    lv_datas.add(hMap);
-//                                    lv_datas.add(hMap);
-//                                    lv_datas.add(hMap);
-//                                    ThematicAdapter myadapter = new ThematicAdapter(AActivity_3_0.this, lv_datas);
-//                                    lv_00.setAdapter(myadapter);
-////                                    iv_home_preferential.setVisibility(View.VISIBLE);
 
 
-                                    //初始化监听接口
-                                    ResultCallBack<List<PurchaseBean>> callBack = new ResultCallBack<List<PurchaseBean>>() {
-                                        @Override
-                                        public void onSuccess(List<PurchaseBean> purchaseBeen) {
-                                            PurchaseListAdapter adapter = new PurchaseListAdapter(AActivity_3_0.this, purchaseBeen, R.layout.list_item_purchase_list_new);
-                                            lv_00.setAdapter(adapter);
-                                        }
 
-                                        @Override
-                                        public void onFailure(Throwable t, int errorNo, String strMsg) {
-
-                                        }
-                                    };
-
-                                    //根据参数请求数据
-                                    new PurchasePyMapPresenter()
-                                            .putParams("pageSize", 3 + "")
-                                            .putParams("pageIndex", 0 + "")
-                                            .putParams("type", "quoting")
-                                            .addResultCallBack(callBack)
-                                            .requestDatas("purchase/purchaseList");
-
-
-                                    BPresenter bPresenter = (BPresenter) new BPresenter()
-                                            .putParams("pageSize", 4 + "")
-                                            .putParams("pageIndex", 0 + "")
-                                            .putParams("latitude", MyApplication.Userinfo.getString("latitude", ""))
-                                            .putParams("longitude", MyApplication.Userinfo.getString("longitude", ""))
-                                            .addResultCallBack(new ResultCallBack<List<BPageGsonBean.DatabeanX.Pagebean.Databean>>() {
-                                                @Override
-                                                public void onSuccess(List<BPageGsonBean.DatabeanX.Pagebean.Databean> pageBean) {
-
-                                                    BProduceAdapt bProduceAdapt = new BProduceAdapt(AActivity_3_0.this, pageBean, R.layout.list_view_seedling_new);
-                                                    ((ListView) findViewById(R.id.lv_00_store)).setAdapter(bProduceAdapt);
-                                                }
-                                                @Override
-                                                public void onFailure(Throwable t, int errorNo, String strMsg) {
-                                                }
-                                            });
-                                    bPresenter.getDatas("seedling/list", false);
-                                }
 
 
                                 // 商铺
@@ -672,6 +576,37 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                     }
 
                 });
+    }
+
+
+    /**
+     * 新增的2个数据列表
+     *
+     * @param indexGsonBean
+     */
+    private void initNewList(IndexGsonBean indexGsonBean) {
+        try {//采购项目
+            if (indexGsonBean.data.purchaseList.size() != 0) {
+                findViewById(R.id.ll_caigou_parent).setVisibility(View.VISIBLE);
+            }
+            PurchaseListAdapter adapter = new PurchaseListAdapter(AActivity_3_0.this, indexGsonBean.data.purchaseList, R.layout.list_item_purchase_list_new);
+            lv_00.setAdapter(adapter);
+        } catch (Exception e) {
+            findViewById(R.id.ll_caigou_parent).setVisibility(View.GONE);
+            D.e("=============没有采购列表，或者采购数据异常===============");
+            e.printStackTrace();
+        }
+        try {
+            if (indexGsonBean.data.seedlingList.size() != 0) {
+                findViewById(R.id.ll_tuijian_parent).setVisibility(View.VISIBLE);
+            }
+            BProduceAdapt bProduceAdapt = new BProduceAdapt(AActivity_3_0.this, indexGsonBean.data.seedlingList, R.layout.list_view_seedling_new);
+            ((ListView) findViewById(R.id.lv_00_store)).setAdapter(bProduceAdapt);
+        } catch (Exception e) {
+            findViewById(R.id.ll_tuijian_parent).setVisibility(View.GONE);
+            D.e("=============没有推荐列表，或者数据异常===============");
+            e.printStackTrace();
+        }
     }
 
 //    private void initAbsViewPager() {

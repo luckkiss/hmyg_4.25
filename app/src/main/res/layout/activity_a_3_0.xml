@@ -182,32 +182,45 @@
 
                             </LinearLayout>
 
-                            <View style="@style/View_line_gray" />
 
-
+                            <!--如果没有采购，隐藏本项目-->
                             <LinearLayout
+                                android:id="@+id/ll_caigou_parent"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@color/white"
                                 android:orientation="vertical">
-                                <!--此处为超级优惠-->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="30dp"
-                                    android:layout_gravity="center"
-                                    android:drawableRight="@drawable/ic_arrow_right"
-                                    android:gravity="center"
-                                    android:text="采购单"
-                                    android:textColor="@color/black_de"
-                                    android:textSize="14sp" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="30dp"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:text="专业数据把握市场方向"
-                                    android:textSize="12sp" />
+                                <View style="@style/View_line_gray" />
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    android:orientation="vertical"
+                                    android:paddingLeft="10dp"
+                                    android:paddingRight="10dp">
+                                    <!--此处为热门商家  @drawable/home_merchants  -->
+
+                                    <!--成交公告-->
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="30dp"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:text="采购"
+                                        android:textColor="@color/black_de"
+                                        android:textSize="16sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="30dp"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_gravity="end"
+                                        android:gravity="center"
+                                        android:text="更多>>>"
+                                        android:textSize="12sp" />
+                                </RelativeLayout>
 
                                 <com.jarvis.MyView.MyListView
                                     android:id="@+id/lv_00"
@@ -216,33 +229,44 @@
                                     android:background="@color/white" />
                             </LinearLayout>
 
-                            <View style="@style/View_line_gray" />
-
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:id="@+id/ll_tuijian_parent"
+                                >
 
-                                <!--成交公告-->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="30dp"
-                                    android:layout_gravity="center"
-                                    android:drawableRight="@drawable/ic_arrow_right"
-                                    android:gravity="center"
-                                    android:text="猜你需要"
-                                    android:textColor="@color/black_de"
-                                    android:textSize="14sp" />
+                                <View style="@style/View_line_gray" />
 
-                                <TextView
+                                <RelativeLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="30dp"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:text="专业数据把握市场方向"
-                                    android:textSize="12sp" />
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    android:orientation="vertical"
+                                    android:paddingLeft="10dp"
+                                    android:paddingRight="10dp">
+                                    <!--此处为热门商家  @drawable/home_merchants  -->
+
+                                    <!--成交公告-->
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="30dp"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:text="推荐资源"
+                                        android:textColor="@color/black_de"
+                                        android:textSize="16sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="30dp"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_gravity="end"
+                                        android:gravity="center"
+                                        android:text="更多>>>"
+                                        android:textSize="12sp" />
+                                </RelativeLayout>
 
 
                                 <com.jarvis.MyView.MyListView
@@ -250,24 +274,20 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@color/white" />
-
-                                <View style="@style/View_line_gray" />
-
                             </LinearLayout>
 
 
-                            <LinearLayout
+                            <View style="@style/View_line_gray" />
+
+
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@color/white"
-                                android:orientation="vertical">
-                                <!--此处为热门商家-->
-                                <ImageView
-                                    android:id="@+id/iv_home_merchants"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/home_merchants"
-                                    android:visibility="gone" />
+                                android:orientation="vertical"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp">
+                                <!--此处为热门商家  @drawable/home_merchants  -->
 
                                 <!--成交公告-->
                                 <TextView
@@ -275,21 +295,19 @@
                                     android:layout_height="30dp"
                                     android:layout_gravity="center"
                                     android:gravity="center"
-                                    android:text="品牌企业"
+                                    android:text="热门商家"
                                     android:textColor="@color/black_de"
-                                    android:textSize="14sp" />
+                                    android:textSize="16sp" />
 
                                 <TextView
-                                    android:layout_width="match_parent"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="30dp"
-                                    android:layout_gravity="center"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_gravity="end"
                                     android:gravity="center"
-                                    android:text="合作商家放心购买"
+                                    android:text="更多>>>"
                                     android:textSize="12sp" />
-
-                                <View style="@style/View_line_gray" />
-
-                            </LinearLayout>
+                            </RelativeLayout>
 
                             <RelativeLayout
                                 android:id="@+id/con0"

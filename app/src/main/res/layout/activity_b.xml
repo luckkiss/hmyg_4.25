@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/white"
     android:orientation="vertical">
 
 
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/y32"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <RelativeLayout
-            android:id="@+id/RelativeLayout1"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/y32"
-            android:background="@color/white"
+            android:id="@+id/RelativeLayout2"
+            android:layout_width="@dimen/x265"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/y5"
+            android:layout_toLeftOf="@+id/iv_view_type"
+            android:background="@drawable/search_edit_selector"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <RelativeLayout
-                android:id="@+id/RelativeLayout2"
-                android:layout_width="@dimen/x265"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_margin="@dimen/y5"
-                android:layout_toLeftOf="@+id/iv_view_type"
-                android:background="@drawable/search_edit_selector"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="@dimen/x17"
+                    android:layout_height="@dimen/x17"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/seller_search" />
+
+                <TextView
+                    android:id="@+id/tv_search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="@dimen/x17"
-                        android:layout_height="@dimen/x17"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/seller_search" />
-
-                    <TextView
-                        android:id="@+id/tv_search"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:text="找苗/报价/店铺"
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/x14" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <ImageView
-                android:id="@+id/iv_view_type"
-                android:layout_width="@dimen/y18"
-                android:layout_height="@dimen/y18"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/x10"
-                android:src="@drawable/icon_grid_view" />
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="找苗/报价/店铺"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/x14" />
+            </LinearLayout>
         </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_view_type"
+            android:layout_width="@dimen/y18"
+            android:layout_height="@dimen/y18"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x10"
+            android:src="@drawable/icon_grid_view" />
+    </RelativeLayout>
 
 
     <ImageView
@@ -109,7 +109,8 @@
             android:background="@color/main_color"
             android:orientation="horizontal"
             android:padding="1px"
-            android:visibility="gone">
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -138,6 +139,7 @@
                     android:background="@drawable/xiaoxitishi_x2" />
             </LinearLayout>
         </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/ll_choice"

@@ -38,6 +38,7 @@
                     android:id="@+id/swipe_main"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <ScrollView
                         android:id="@+id/rotate_header_scroll_view"
                         android:layout_width="fill_parent"
@@ -151,11 +152,11 @@
                             </LinearLayout>
 
 
-
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:visibility="gone">
                                 <!--此处为超级优惠-->
                                 <ImageView
                                     android:id="@+id/iv_home_preferential"
@@ -175,7 +176,8 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:visibility="gone">
                                 <!--此处为超级优惠-->
                                 <ImageView
                                     android:id="@+id/iv_home_store"
@@ -190,7 +192,6 @@
                                     android:layout_height="wrap_content"
                                     android:background="@color/white" />
                             </LinearLayout>
-
 
 
                             <LinearLayout
@@ -212,7 +213,6 @@
                                 android:layout_height="wrap_content"
                                 android:focusable="false"
                                 android:paddingBottom="@dimen/y8">
-
 
 
                             </RelativeLayout>

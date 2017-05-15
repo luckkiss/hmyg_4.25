@@ -1822,7 +1822,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         }
     }
 
-    class MyCount extends AdvancedCountdownTimer {
+        class MyCount extends AdvancedCountdownTimer {
 
         public MyCount(long millisInFuture, long countDownInterval) { // 这两个参数在AdvancedCountdownTimer.java中均有(在“构造函数”中).
             super(millisInFuture, countDownInterval);

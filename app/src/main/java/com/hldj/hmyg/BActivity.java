@@ -8,6 +8,7 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -16,10 +17,10 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewConfiguration;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -98,20 +99,7 @@ public class BActivity extends BaseSecondActivity implements
     //    private DaquyuAdapter daquyuAdapter;
 //    private MultipleClickProcess.XiaoquyuAdapter xiaoquyuAdapter;
     private String searchKey = "";
-    private String minPrice = "";
-    private String maxPrice = "";
-    private String minDiameter = "";
-    private String maxDiameter = "";
-    private String minDbh = "";
-    private String maxDbh = "";
-    private String minHeight = "";
-    private String maxHeight = "";
-    private String minCrown = "";
-    private String maxCrown = "";
-    private String minOffbarHeight = "";
-    private String maxOffbarHeight = "";
-    private String minLength = "";
-    private String maxLength = "";
+
     private String firstSeedlingTypeId = "";
     private String firstSeedlingTypeName = "";
     private String supportTradeType = "";
@@ -267,38 +255,38 @@ public class BActivity extends BaseSecondActivity implements
             // setSwipeBackEnable(false);
         }
         // 实例化汉字转拼音类
-        characterParser = CharacterParser.getInstance();
-        pinyinComparator = new PinyinComparator();
+//        characterParser = CharacterParser.getInstance();
+//        pinyinComparator = new PinyinComparator();
 
-        pager = (ViewPager) findViewById(R.id.pager);
-        ll_01 = (LinearLayout) findViewById(R.id.ll_01);
-        ll_all = (LinearLayout) findViewById(R.id.ll_all);
-        ll_choice = (LinearLayout) findViewById(R.id.ll_choice);
+//        pager = (ViewPager) findViewById(R.id.pager);
+//        ll_01 = (LinearLayout) findViewById(R.id.ll_01);
+//        ll_all = (LinearLayout) findViewById(R.id.ll_all);
+//        ll_choice = (LinearLayout) findViewById(R.id.ll_choice);
         relativeLayout1 = (RelativeLayout) findViewById(R.id.RelativeLayout1);
-        tv_xiaoxitishi = (TextView) findViewById(R.id.tv_xiaoxitishi);
-        iv_close = (ImageView) findViewById(R.id.iv_close);
-        tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-        pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
-        pager.setOffscreenPageLimit(lanmus.size());
-        tabs.setViewPager(pager);
-        setTabsValue();
-        if (getIntent().getStringExtra("supportTradeType") != null
-                && getIntent().getStringExtra("supportTradeTypeName") != null) {
-            supportTradeType = getIntent().getStringExtra("supportTradeType");
-            supportTradeTypeName = getIntent().getStringExtra(
-                    "supportTradeTypeName");
-            if ("".equals(supportTradeType)) {
-                pager.setCurrentItem(0);
-            } else if ("fangxin".equals(supportTradeType)) {
-                pager.setCurrentItem(1);
-            } else if ("bangwo".equals(supportTradeType)) {
-                pager.setCurrentItem(2);
-            } else if ("danbao".equals(supportTradeType)) {
-                pager.setCurrentItem(3);
-            } else if ("weituo".equals(supportTradeType)) {
-                pager.setCurrentItem(4);
-            }
-        }
+//        tv_xiaoxitishi = (TextView) findViewById(R.id.tv_xiaoxitishi);
+//        iv_close = (ImageView) findViewById(R.id.iv_close);
+//        tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+//        pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+//        pager.setOffscreenPageLimit(lanmus.size());
+//        tabs.setViewPager(pager);
+//        setTabsValue();
+//        if (getIntent().getStringExtra("supportTradeType") != null
+//                && getIntent().getStringExtra("supportTradeTypeName") != null) {
+//            supportTradeType = getIntent().getStringExtra("supportTradeType");
+//            supportTradeTypeName = getIntent().getStringExtra(
+//                    "supportTradeTypeName");
+//            if ("".equals(supportTradeType)) {
+//                pager.setCurrentItem(0);
+//            } else if ("fangxin".equals(supportTradeType)) {
+//                pager.setCurrentItem(1);
+//            } else if ("bangwo".equals(supportTradeType)) {
+//                pager.setCurrentItem(2);
+//            } else if ("danbao".equals(supportTradeType)) {
+//                pager.setCurrentItem(3);
+//            } else if ("weituo".equals(supportTradeType)) {
+//                pager.setCurrentItem(4);
+//            }
+//        }
 //        rl_choose_type = (RelativeLayout) findViewById(R.id.rl_choose_type);
         relativeLayout2 = (RelativeLayout) findViewById(R.id.RelativeLayout2);
         RelativeLayout rl_choose_price = (RelativeLayout) findViewById(R.id.rl_choose_price);
@@ -332,7 +320,6 @@ public class BActivity extends BaseSecondActivity implements
 //        initDataGetFirstType();
 
 
-        hud.show();
         initData();
 
 
@@ -342,60 +329,27 @@ public class BActivity extends BaseSecondActivity implements
         rl_choose_time.setOnClickListener(multipleClickProcess);
         rl_choose_screen.setOnClickListener(multipleClickProcess);
         relativeLayout2.setOnClickListener(multipleClickProcess);
-        iv_close.setOnClickListener(multipleClickProcess);
-
-
-//        xListView.setOnTouchListener((v, event) -> {
-//
-//            switch (event.getAction()) {
-//                case MotionEvent.ACTION_DOWN:
-//                    mFirstY = (int) event.getY();
-//                    break;
-//
-//                case MotionEvent.ACTION_MOVE:
-//
-//                    mCurrentY = (int) event.getY();
-//                    if (mCurrentY - mFirstY > 0)//下滑
-//                    {
-//                        direction = true;
-//                    } else if (mCurrentY - mFirstY < 0)//上滑
-//                    {
-//                        direction = false;
-//                    }
-//
-//
-//                    if (!direction)//上滑
-//                    {
-//                        RelativeLayout.LayoutParams top = (RelativeLayout.LayoutParams) relativeLayout1.getLayoutParams();
-//                        if (top.topMargin > -marginTop) {
-//                            top.topMargin += mCurrentY - mFirstY;
-//                            relativeLayout1.requestLayout();
-//                        }else
-//                        {
-//                            top.topMargin = -marginTop;
-//                            relativeLayout1.requestLayout();
-//                        }
-//                    }
-//
-//
-//                    break;
-//
-//                case MotionEvent.ACTION_UP:
-//                    break;
-//
-//            }
-//
-//
-//            return false;
-//        });
+//        iv_close.setOnClickListener(multipleClickProcess);
 
 
     }
 
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+
+        }
+    };
+
+
+    private int topMargin;
+    LinearLayout.LayoutParams top;
     int mFirstY = 0;
     int mCurrentY = 0;
     boolean direction;
-    int marginTop = 150 ;
+    int marginTop = 150;
+    int height = 150;
 
 
     private me.kaede.tagview.Tag getTagViewByName(String item) {
@@ -417,9 +371,9 @@ public class BActivity extends BaseSecondActivity implements
                 return "地栽苗";
             case container:
                 return "容器苗";
-            case transplant:
-                return "假植苗";
             case heelin:
+                return "假植苗";
+            case transplant:
                 return "移植苗";
             case mijing:
                 return "米径";
@@ -476,20 +430,7 @@ public class BActivity extends BaseSecondActivity implements
                 if ("".equals(lanmu_ids.get(arg0))) {
                     supportTradeType = lanmu_ids.get(arg0);
                     if (listAdapter != null && gridAdapter != null) {
-                        minPrice = "";
-                        maxPrice = "";
-                        minDiameter = "";
-                        maxDiameter = "";
-                        minDbh = "";
-                        maxDbh = "";
-                        minHeight = "";
-                        maxHeight = "";
-                        minCrown = "";
-                        maxCrown = "";
-                        minOffbarHeight = "";
-                        maxOffbarHeight = "";
-                        minLength = "";
-                        maxLength = "";
+
                         firstSeedlingTypeId = "";
                         firstSeedlingTypeName = "";
                         supportTradeType = "";
@@ -625,133 +566,10 @@ public class BActivity extends BaseSecondActivity implements
 
         }
     }
-//
-//    private void initDataGetFirstType() {
-//        // TODO Auto-generated method stub
-//        FinalHttp finalHttp = new FinalHttp();
-//        GetServerUrl.addHeaders(finalHttp, false);
-//        AjaxParams params = new AjaxParams();
-//        finalHttp.post(GetServerUrl.getUrl() + "seedlingType/getFirstType",
-//                params, new AjaxCallBack<Object>() {
-//
-//                    @Override
-//                    public void onSuccess(Object t) {
-//                        // TODO Auto-generated method stub
-//                        mCache.remove("getFirstType");
-//                        mCache.put("getFirstType", t.toString());
-////                        if (daQuYus.size() > 0) {
-////                            daQuYus.clear();
-////                            if (daquyuAdapter != null) {
-////                                daquyuAdapter.notifyDataSetChanged();
-////                            }
-////                        }
-//
-//                        LoadCache(t.toString());
-//                        super.onSuccess(t);
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Throwable t, int errorNo,
-//                                          String strMsg) {
-//                        if (mCache.getAsString("getFirstType") != null
-//                                && !"".equals(mCache
-//                                .getAsString("getFirstType"))) {
-////                            if (daQuYus.size() > 0) {
-////                                daQuYus.clear();
-////                                if (daquyuAdapter != null) {
-////                                    daquyuAdapter.notifyDataSetChanged();
-////                                }
-////                            }
-//                            LoadCache(mCache.getAsString("getFirstType"));
-//                        }
-//                        Toast.makeText(BActivity.this, R.string.error_net,
-//                                Toast.LENGTH_SHORT).show();
-//                        super.onFailure(t, errorNo, strMsg);
-//                    }
-//
-//                    private void LoadCache(String t) {
-//                        // TODO Auto-generated method stub
-//                        try {
-//                            JSONObject jsonObject = new JSONObject(t.toString());
-//                            String code = JsonGetInfo.getJsonString(jsonObject,
-//                                    "code");
-//                            String msg = JsonGetInfo.getJsonString(jsonObject,
-//                                    "msg");
-//                            if (!"".equals(msg)) {
-//                            }
-//                            if ("1".equals(code)) {
-//                                daQuYus.add(new DaQuYu("", "不限"));
-//                                JSONArray typeList = jsonObject.getJSONObject(
-//                                        "data").getJSONArray("typeList");
-//                                for (int i = 0; i < typeList.length(); i++) {
-//                                    JSONObject jsonObject2 = typeList.getJSONObject(i);
-//                                    HashMap<String, Object> hMap = new HashMap<String, Object>();
-//                                    hMap.put("id", JsonGetInfo.getJsonString(jsonObject2, "id"));
-//                                    hMap.put("isNewRecord", JsonGetInfo.getJsonBoolean(jsonObject2, "isNewRecord"));
-//                                    hMap.put("createBy", JsonGetInfo.getJsonString(jsonObject2, "createBy"));
-//                                    hMap.put("createDate", JsonGetInfo.getJsonString(jsonObject2, "createDate"));
-//                                    hMap.put("updateBy", JsonGetInfo.getJsonString(jsonObject2, "updateBy"));
-//                                    hMap.put("updateDate", JsonGetInfo.getJsonString(jsonObject2, "updateDate"));
-//                                    hMap.put("delFlag", JsonGetInfo
-//                                            .getJsonString(jsonObject2,
-//                                                    "delFlag"));
-//                                    hMap.put("name", JsonGetInfo.getJsonString(
-//                                            jsonObject2, "name"));
-//                                    hMap.put("aliasName", JsonGetInfo
-//                                            .getJsonString(jsonObject2,
-//                                                    "aliasName"));
-//                                    hMap.put("parentId", JsonGetInfo
-//                                            .getJsonString(jsonObject2,
-//                                                    "parentId"));
-//                                    hMap.put("level", JsonGetInfo.getJsonInt(
-//                                            jsonObject2, "level"));
-//                                    hMap.put("firstPinyin", JsonGetInfo
-//                                            .getJsonString(jsonObject2,
-//                                                    "firstPinyin"));
-//                                    hMap.put("fullPinyin", JsonGetInfo
-//                                            .getJsonString(jsonObject2,
-//                                                    "fullPinyin"));
-//                                    hMap.put("seedlingParams", JsonGetInfo
-//                                            .getJsonString(jsonObject2, "id"));
-//                                    hMap.put("sort", JsonGetInfo.getJsonInt(
-//                                            jsonObject2, "sort"));
-//                                    hMap.put("isTop",
-//                                            JsonGetInfo.getJsonString(
-//                                                    jsonObject2, "isTop"));
-//                                    hMap.put("url", JsonGetInfo.getJsonString(
-//                                            jsonObject2, "url"));
-//                                    hMap.put("ossThumbnailImagePath",
-//                                            JsonGetInfo.getJsonString(
-//                                                    jsonObject2,
-//                                                    "ossThumbnailImagePath"));
-//                                    DaQuYu daQuYu = new DaQuYu(JsonGetInfo
-//                                            .getJsonString(jsonObject2, "id"),
-//                                            JsonGetInfo.getJsonString(
-//                                                    jsonObject2, "name"));
-//                                    daQuYus.add(daQuYu);
-//                                }
-//
-//                            } else {
-//
-//                            }
-//
-//                        } catch (JSONException e) {
-//                            // TODO Auto-generated catch block
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//
-//                });
-//
-//    }
 
     private void initData() {
-
-
-        // TODO Auto-generated method stub
+        hud.show();
         getdata = false;
-
         BPresenter bPresenter = (BPresenter) new BPresenter()
                 .putParams("searchSpec", searchSpec)
                 .putParams("specMinValue", specMinValue)
@@ -787,246 +605,7 @@ public class BActivity extends BaseSecondActivity implements
                     }
                 });
         bPresenter.getDatas("seedling/list", false);
-//
-//        finalHttp.post(GetServerUrl.getUrl() + "seedling/list", params,
-//                new AjaxCallBack<Object>() {
-//
-//                    @Override
-//                    public void onStart() {
-//                        // TODO Auto-generated method stub
-//                        if (!hud.isShowing() && hud != null) {
-//                            hud.show();
-//                        }
-//                        super.onStart();
-//                    }
-//
-//                    @Override
-//                    public void onSuccess(Object t) {
-//                        // TODO Auto-generated method stub
-//                        AcheData(t.toString());
-//                        super.onSuccess(t);
-//
-//                    }
-//
-//                    private void AcheData(String t) {
-//                        // TODO Auto-generated method stub
-//                        Log.e("orderBy", orderBy);
-//                        if (hud != null) {
-//                            hud.dismiss();
-//                        }
-//                        try {
-//                            JSONObject jsonObject = new JSONObject(t);
-//                            String code = JsonGetInfo.getJsonString(jsonObject,
-//                                    "code");
-//                            String msg = JsonGetInfo.getJsonString(jsonObject,
-//                                    "msg");
-//                            if (!"".equals(msg)) {
-//                            }
-//                            if ("1".equals(code)) {
-//                                JSONObject jsonObject2 = jsonObject
-//                                        .getJSONObject("data").getJSONObject(
-//                                                "page");
-//                                int total = JsonGetInfo.getJsonInt(jsonObject2,
-//                                        "total");
-//                                data_ids.clear();
-//                                if (JsonGetInfo.getJsonArray(jsonObject2,
-//                                        "data").length() > 0) {
-//                                    JSONArray jsonArray = JsonGetInfo
-//                                            .getJsonArray(jsonObject2, "data");
-//                                    for (int i = 0; i < jsonArray.length(); i++) {
-//                                        JSONObject jsonObject3 = jsonArray
-//                                                .getJSONObject(i);
-//                                        HashMap hMap = new HashMap();
-//                                        hMap.put("show_type", "seedling_list");
-//                                        hMap.put("id", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "id"));
-//                                        if (pageIndex == 0) {
-//                                            data_ids.add(JsonGetInfo
-//                                                    .getJsonString(jsonObject3,
-//                                                            "id"));
-//                                        }
-//                                        hMap.put("specText", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "specText"));
-//                                        hMap.put("name", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "standardName"));
-//                                        hMap.put("plantType", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "plantType"));
-//                                        hMap.put("isSelfSupport", JsonGetInfo
-//                                                .getJsonBoolean(jsonObject3,
-//                                                        "isSelfSupportJson")); // 自营
-//                                        hMap.put("freeValidatePrice",
-//                                                JsonGetInfo.getJsonBoolean(
-//                                                        jsonObject3,
-//                                                        "freeValidatePrice")); // 返验苗费
-//                                        hMap.put("cashOnDelivery", JsonGetInfo
-//                                                .getJsonBoolean(jsonObject3,
-//                                                        "cashOnDelivery")); // 担
-//                                        // 资金担保
-//                                        hMap.put("freeDeliveryPrice",
-//                                                JsonGetInfo.getJsonBoolean(
-//                                                        jsonObject3,
-//                                                        "freeDeliveryPrice"));// 免发货费
-//                                        hMap.put(
-//                                                "tagList",
-//                                                JsonGetInfo.getJsonArray(
-//                                                        jsonObject3, "tagList")
-//                                                        .toString());//
-//                                        hMap.put(
-//                                                "paramsList",
-//                                                JsonGetInfo.getJsonArray(
-//                                                        jsonObject3,
-//                                                        "paramsList")
-//                                                        .toString());//
-//                                        hMap.put("freeValidate", JsonGetInfo
-//                                                .getJsonBoolean(jsonObject3,
-//                                                        "freeValidate")); // 免验苗
-//                                        hMap.put("isRecommend", JsonGetInfo
-//                                                .getJsonBoolean(jsonObject3,
-//                                                        "isRecommend")); // 推荐
-//                                        hMap.put("isSpecial", JsonGetInfo
-//                                                .getJsonBoolean(jsonObject3,
-//                                                        "isSpecial")); // 清场
-//
-//                                        hMap.put("imageUrl", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "mediumImageUrl"));
-//
-//                                        hMap.put("cityName", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "cityName"));
-//                                        hMap.put("price", JsonGetInfo
-//                                                .getJsonDouble(jsonObject3,
-//                                                        "price"));
-//
-//                                        hMap.put("minPrice", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "minPrice"));
-//
-//                                        hMap.put("isNego", JsonGetInfo
-//                                                .getJsonBoolean(jsonObject3,
-//                                                        "isNeGo"));
-//
-//                                        hMap.put("maxPrice", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "maxPrice"));
-//
-//                                        hMap.put("count", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "count"));
-//                                        hMap.put("unitTypeName", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "unitTypeName"));
-//                                        hMap.put("diameter", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "diameter"));
-//                                        hMap.put("dbh", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "dbh"));
-//                                        hMap.put("height", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "height"));
-//                                        hMap.put("crown", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "crown"));
-//                                        hMap.put("offbarHeight", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "offbarHeight"));
-//                                        hMap.put("cityName", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "cityName"));
-//                                        hMap.put("fullName", JsonGetInfo
-//                                                .getJsonString(JsonGetInfo
-//                                                                .getJSONObject(
-//                                                                        jsonObject3,
-//                                                                        "ciCity"),
-//                                                        "fullName"));
-//
-//                                        hMap.put("ciCity_name", JsonGetInfo
-//                                                .getJsonString(JsonGetInfo
-//                                                                .getJSONObject(
-//                                                                        jsonObject3,
-//                                                                        "ciCity"),
-//                                                        "name"));
-//                                        hMap.put("realName", JsonGetInfo
-//                                                .getJsonString(JsonGetInfo
-//                                                                .getJSONObject(
-//                                                                        jsonObject3,
-//                                                                        "ownerJson"),
-//                                                        "realName"));
-//                                        hMap.put("companyName", JsonGetInfo
-//                                                .getJsonString(JsonGetInfo
-//                                                                .getJSONObject(
-//                                                                        jsonObject3,
-//                                                                        "ownerJson"),
-//                                                        "companyName"));
-//                                        hMap.put("publicName", JsonGetInfo
-//                                                .getJsonString(JsonGetInfo
-//                                                                .getJSONObject(
-//                                                                        jsonObject3,
-//                                                                        "ownerJson"),
-//                                                        "publicName"));
-//                                        hMap.put("status", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "status"));
-//                                        hMap.put("statusName", JsonGetInfo
-//                                                .getJsonString(jsonObject3,
-//                                                        "statusName"));
-//                                        datas.add(hMap);
-//                                        if (listAdapter != null) {
-//                                            listAdapter.notifyDataSetChanged();
-//                                        }
-//                                        if (gridAdapter != null) {
-//                                            gridAdapter.notifyDataSetChanged();
-//                                        }
-//                                    }
-//
-//                                    if (listAdapter == null) {
-//                                        listAdapter = new ProductListAdapter(
-//                                                BActivity.this, datas);
-//                                        xListView.setAdapter(listAdapter);
-//                                    }
-//                                    if (gridAdapter == null) {
-//                                        gridAdapter = new ProductGridAdapter(
-//                                                BActivity.this, datas);
-//                                        glistView.setAdapter(gridAdapter);
-//                                    }
-//                                    pageIndex++;
-//                                    RefreshpageIndex++;
-//                                }
-//
-//                            } else {
-//
-//                            }
-//                        } catch (JSONException e) {
-//                            // TODO Auto-generated catch block
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Throwable t, int errorNo,
-//                                          String strMsg) {
-//                        // TODO Auto-generated method stub
-//                        // if (mCache.getAsString("seedling/list"
-//                        // + params.toString()) != null
-//                        // && !"".equals(mCache
-//                        // .getAsString("seedling/list"
-//                        // + params.toString()))) {
-//                        // AcheData(mCache.getAsString("seedling/list"
-//                        // + params.toString()));
-//                        // }
-//                        if (hud != null) {
-//                            hud.dismiss();
-//                        }
-//                        super.onFailure(t, errorNo, strMsg);
-//                    }
-//
-//                });
+
         getdata = true;
     }
 
@@ -1450,6 +1029,9 @@ public class BActivity extends BaseSecondActivity implements
 
     private void onLoad() {
         new Handler().postDelayed(() -> {
+            if (hud.isShowing()) {
+                hud.dismiss();
+            }
             // TODO Auto-generated method stub
             xListView.stopRefresh();
             xListView.stopLoadMore();
@@ -1472,7 +1054,7 @@ public class BActivity extends BaseSecondActivity implements
 
 
     private TagCloudLinkView view;
-    private RelativeLayout relativeLayout2;
+    private RelativeLayout relativeLayout2;//搜索框
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
     private TextView tv_xiaoxitishi;
@@ -1504,84 +1086,88 @@ public class BActivity extends BaseSecondActivity implements
     float moveY;//移动中的y坐标
     boolean isOpen = true;
 
-    float height = 150;
 
     int padingTop = 0;
 
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent ev) {
-//        switch (ev.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                startY = ev.getY();
-//                D.e("===startY===" + startY);
-//                padingTop = ((ViewGroup) relativeLayout1.getParent()).getPaddingTop();//0
-//                D.e("===padingTop===" + padingTop);
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//                moveY = ev.getY();
-//
-//                if (moveY - startY < -130) {
-//                    closeFilter();
-//                }
-//                if (moveY - startY > 130) {
-//                    openFilter();
-//                }
-////                if (moveY - startY > 0) {
-////                    D.e("==down==");
-//////                    openFilter();
-////                    if (Math.abs((int) (moveY - startY)) > 0 && Math.abs((int) (moveY - startY)) < height) {
-////                        ((ViewGroup) relativeLayout1.getParent()).setPadding(0, (int) (-height + (moveY - startY)), 0, 0);
-////                    }
-////                    startY = moveY;
-////                }
-//                break;
-//            case MotionEvent.ACTION_UP:
-////                ((ViewGroup) relativeLayout1.getParent()).setPadding(0, 0, 0, 0);
-//                break;
-//        }
-//        return super.dispatchTouchEvent(ev);
-//    }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mFirstY = (int) event.getRawY();
+                top = (LinearLayout.LayoutParams) relativeLayout1.getLayoutParams();
+                topMargin = top.topMargin;
+                D.e("=down===topMargin====" + top.topMargin);
 
-    TranslateAnimation mHiddenAction;
+                break;
 
-    public void closeFilter() {
-        if (isOpen) {
+            case MotionEvent.ACTION_MOVE:
+
+                D.e("=down===topMargin====" + topMargin);
 
 
-            ObjectAnimator anim = ObjectAnimator.ofFloat(relativeLayout1, "y", relativeLayout1.getY(),
-                    relativeLayout1.getY() + relativeLayout1.getHeight());
-            anim.setDuration(300);
-            anim.start();
-//            mHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
-//                    0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
-//                    Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-//                    -1.0f);
-//            mHiddenAction.setDuration(500);
-//            relativeLayout1.setAnimation(mHiddenAction);
-//            relativeLayout1.setVisibility(View.GONE);
-//            isOpen = false;
+                mCurrentY = (int) event.getRawY();
+                D.e("======offset======" + (mCurrentY - mFirstY));
+
+                if (Math.abs(mCurrentY - mFirstY) < 1) {
+
+                    break;
+                }
+                if (mCurrentY - mFirstY > 0)//下滑
+                {
+
+                    direction = true;
+                } else if (mCurrentY - mFirstY < 0)//上滑
+                {
+
+                    direction = false;
+                }
+
+                if (!direction)//上滑
+                {
+                    top = (LinearLayout.LayoutParams) relativeLayout1.getLayoutParams();
+
+//                        animToolBar(0, relativeLayout1);
+                    if (top.topMargin > -marginTop) {
+                        top.topMargin += mCurrentY - mFirstY;
+                        if (top.topMargin < -marginTop) {
+                            top.topMargin = -marginTop;
+                        }
+                        relativeLayout1.requestLayout();
+                    } else {
+                        top.topMargin = -marginTop;
+                        relativeLayout1.requestLayout();
+                    }
+                    D.e("=上===topMargin====" + top.topMargin);
+                    mFirstY = mCurrentY;
+                } else {//下滑
+                    top = (LinearLayout.LayoutParams) relativeLayout1.getLayoutParams();
+
+//                        animToolBar(2,relativeLayout1);
+                    if (top.topMargin < 0) {
+                        top.topMargin += mCurrentY - mFirstY;
+                        if (top.topMargin > 0) {
+                            top.topMargin = 0;
+                        }
+                        relativeLayout1.requestLayout();
+                    } else {
+                        top.topMargin = 0;
+                        relativeLayout1.requestLayout();
+                    }
+                    D.e("=下===topMargin====" + top.topMargin);
+                    mFirstY = mCurrentY;
+                }
+
+
+                break;
+
+            case MotionEvent.ACTION_UP:
+                break;
+
+
         }
+        return super.dispatchTouchEvent(event);
     }
 
-
-    TranslateAnimation mShowAction;
-
-    public void openFilter() {
-
-        ObjectAnimator anim = ObjectAnimator.ofFloat(relativeLayout1, "y", relativeLayout1.getY(),
-                relativeLayout1.getY() - relativeLayout1.getHeight());
-        anim.setDuration(300);
-        anim.start();
-//        if (!isOpen) {
-//            mShowAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
-//                    Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-//                    -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
-//            mShowAction.setDuration(500);
-//            relativeLayout1.setAnimation(mShowAction);
-//            relativeLayout1.setVisibility(View.VISIBLE);
-//            isOpen = true;
-//        }
-    }
 
     /**
      * +
@@ -1602,6 +1188,23 @@ public class BActivity extends BaseSecondActivity implements
 //        if (getIntent().getBooleanExtra("isOpenSwipe", false)) {
         setSwipeBackEnable(getIntent().getBooleanExtra("isOpenSwipe", false));//是的跳转过来的  界面具有滑动功能
 //        }
+    }
+
+
+    ObjectAnimator mAnimator;
+
+    private void animToolBar(int flag, View view) {
+
+        if (mAnimator != null && mAnimator.isRunning()) {
+            mAnimator.cancel();
+        }
+        if (flag == 0) {//向上滑隐藏toolBar
+            mAnimator = new ObjectAnimator().ofFloat(view, "translationY", view.getTranslationY(), -view.getHeight());
+        } else {//向下滑
+            mAnimator = new ObjectAnimator().ofFloat(view, "translationY", view.getTranslationY(), 0);
+        }
+
+        mAnimator.start();
     }
 
 

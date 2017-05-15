@@ -90,11 +90,11 @@ public interface ConstantParams {
      */
     String container = "container";
     /**
-     * 移植苗
+     *  假植苗
      */
     String heelin = "heelin";
     /**
-     * 假植苗
+     *   移植苗
      */
     String transplant = "transplant";
 
