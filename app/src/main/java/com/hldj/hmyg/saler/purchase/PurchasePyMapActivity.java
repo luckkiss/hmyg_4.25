@@ -1211,4 +1211,8 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
 
     }
 
+    public static void start2Activity(Context context) {
+        context.startActivity(new Intent(context, PurchasePyMapActivity.class));
+    }
+
 }

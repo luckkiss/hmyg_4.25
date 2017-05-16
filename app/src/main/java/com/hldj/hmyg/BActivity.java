@@ -1082,6 +1082,13 @@ public class BActivity extends BaseSecondActivity implements
     }
 
 
+    public static void start2ActivityOnly(Context context) {
+        Intent intent = new Intent(context, BActivity.class);
+        intent.putExtra("isOpenSwipe", true);
+        context.startActivity(intent);
+    }
+
+
     float startY;//开始y坐标
     float moveY;//移动中的y坐标
     boolean isOpen = true;
@@ -1097,18 +1104,13 @@ public class BActivity extends BaseSecondActivity implements
                 top = (LinearLayout.LayoutParams) relativeLayout1.getLayoutParams();
                 topMargin = top.topMargin;
                 D.e("=down===topMargin====" + top.topMargin);
-
                 break;
-
             case MotionEvent.ACTION_MOVE:
-
                 D.e("=down===topMargin====" + topMargin);
-
-
                 mCurrentY = (int) event.getRawY();
                 D.e("======offset======" + (mCurrentY - mFirstY));
 
-                if (Math.abs(mCurrentY - mFirstY) < 1) {
+                if (Math.abs(mCurrentY - mFirstY) < 5) {
 
                     break;
                 }
@@ -1124,7 +1126,7 @@ public class BActivity extends BaseSecondActivity implements
 
                 if (!direction)//上滑
                 {
-                    top = (LinearLayout.LayoutParams) relativeLayout1.getLayoutParams();
+//                    top = (LinearLayout.LayoutParams) relativeLayout1.getLayoutParams();
 
 //                        animToolBar(0, relativeLayout1);
                     if (top.topMargin > -marginTop) {
@@ -1140,7 +1142,7 @@ public class BActivity extends BaseSecondActivity implements
                     D.e("=上===topMargin====" + top.topMargin);
                     mFirstY = mCurrentY;
                 } else {//下滑
-                    top = (LinearLayout.LayoutParams) relativeLayout1.getLayoutParams();
+//                    top = (LinearLayout.LayoutParams) relativeLayout1.getLayoutParams();
 
 //                        animToolBar(2,relativeLayout1);
                     if (top.topMargin < 0) {

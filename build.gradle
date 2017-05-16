@@ -11,6 +11,9 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.3.1'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.0'
+
+        // tinkersupport插件, 其中lastest.release指拉取最新版本，也可以指定明确版本号，例如1.0.4
+        classpath "com.tencent.bugly:tinker-support:latest.release"
     }
 }
 
@@ -21,10 +24,10 @@ allprojects {
         maven {
             url "https://jitpack.io"
         }
-        maven {
-//            url "http://dl.bintray.com/fir/maven"
-            url "http://maven.bughd.com/public"
-        }
+//        maven {
+////            url "http://dl.bintray.com/fir/maven"
+//            url "http://maven.bughd.com/public"
+//        }
 
 
     }

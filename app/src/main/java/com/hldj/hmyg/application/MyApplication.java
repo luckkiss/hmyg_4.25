@@ -1,10 +1,13 @@
 package com.hldj.hmyg.application;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.Application;
 import android.app.Service;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
 import android.support.multidex.MultiDexApplication;
@@ -23,13 +26,16 @@ import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 import com.weavey.loading.lib.LoadingLayout;
 
 import java.io.File;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
-import im.fir.sdk.FIR;
+
+import static com.tencent.bugly.beta.tinker.TinkerManager.getApplication;
 
 
 public class MyApplication extends MultiDexApplication {
@@ -78,8 +84,18 @@ public class MyApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
+        // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
+        // 调试时，将第三个参数改为true
+        Bugly.init(this, "be88780120", true);
 
-        FIR.init(this);
+
+        // 安装tinker
+        // TinkerManager.installTinker(this); 替换成下面Bugly提供的方法
+        Beta.installTinker(this);
+
+
+
+//        FIR.init(this);
 //      4e9fef47d1c33625cb0d5495e6856e0a
 //        TestinAgent.init(this, "S9Ip9zGgJzj779e9S849s9z94X9DTUGJ",
 //                "your channel ID");
@@ -220,6 +236,12 @@ public class MyApplication extends MultiDexApplication {
 
 // Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config);
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    public void registerActivityLifecycleCallback(Application.ActivityLifecycleCallbacks callbacks) {
+        getApplication().registerActivityLifecycleCallbacks(callbacks);
     }
 
 

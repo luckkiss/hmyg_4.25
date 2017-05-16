@@ -39,12 +39,17 @@ import com.hldj.hmyg.bean.HomeFunction;
 import com.hldj.hmyg.bean.HomeStore;
 import com.hldj.hmyg.bean.Type;
 import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
+import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
+import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
+import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
+import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 import com.javis.ab.view.AbSlidingPlayView;
 import com.white.utils.ScreenUtil;
 import com.white.utils.StringUtil;
@@ -101,7 +106,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private View contentView;
     private final String TAG = "test";
     private ImageView iv_fuwu;
-    private ImageView iv_fenlei;
+    //    private ImageView iv_fenlei;
     private LinearLayout ll_fenlei;
     private ACache mCache;
     private TypeAdapter myadapter;
@@ -127,7 +132,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //        iv_home_merchants = (ImageView) findViewById(R.id.iv_home_merchants);
         iv_home_preferential = (ImageView) findViewById(R.id.iv_home_preferential);
         iv_fuwu = (ImageView) findViewById(R.id.iv_fuwu);
-        iv_fenlei = (ImageView) findViewById(R.id.iv_fenlei);
+//        iv_fenlei = (ImageView) findViewById(R.id.iv_fenlei);
         gd = (GridView) findViewById(R.id.gd);
         gd_01 = (GridView) findViewById(R.id.gd_01);
         gd_00 = (GridView) findViewById(R.id.gd_00);
@@ -189,6 +194,48 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     }
 
     private void initView() {
+
+        /**
+         * 初始化supertextview
+         */
+
+        findViewById(R.id.stv_home_1).setOnClickListener(v -> {
+            BActivity.start2ActivityOnly(AActivity_3_0.this);
+        });
+        findViewById(R.id.stv_home_2).setOnClickListener(v -> {
+            PurchasePyMapActivity.start2Activity(AActivity_3_0.this);
+        });
+        findViewById(R.id.stv_home_3).setOnClickListener(v -> {
+            ToastUtil.showShortToast("正在开发中...");
+        });
+        findViewById(R.id.stv_home_4).setOnClickListener(v -> {
+            ToastUtil.showShortToast("正在开发中...");
+        });
+        findViewById(R.id.iv_home_more_cg).setOnClickListener(v -> {//采购
+            PurchasePyMapActivity.start2Activity(AActivity_3_0.this);
+        });
+        findViewById(R.id.iv_home_more_tj).setOnClickListener(v -> {//推荐
+            BActivity.start2ActivityOnly(AActivity_3_0.this);
+        });
+        findViewById(R.id.iv_home_more_rm).setOnClickListener(v -> {//热门商家
+            ToastUtil.showShortToast("更多热门商家正在开发中...");
+        });
+
+
+        CoreRecyclerView recyclerView = (CoreRecyclerView) findViewById(R.id.core_rv_home);
+        recyclerView.initView(this).init(new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_home_cjgg) {
+            @Override
+            protected void convert(BaseViewHolder helper, String item) {
+
+            }
+        });
+
+        ArrayList arrayList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            arrayList.add("数据" + i);
+        }
+        recyclerView.getAdapter().addData(arrayList);
+
 
         // http://blog.csdn.net/jiangwei0910410003/article/details/17024287
         /******************** 监听ScrollView滑动停止 *****************************/
@@ -355,8 +402,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                         // TODO Auto-generated method stub
 
                         IndexGsonBean indexGsonBean = GsonUtil.formateJson2Bean(t, IndexGsonBean.class);
-                        if (indexGsonBean.code.equals(ConstantState.SUCCEED_CODE))
-                        {
+                        if (indexGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
                             initNewList(indexGsonBean);
                         }
 
@@ -517,9 +563,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                                     }
                                 }
                                 lv_datas.clear();
-
-
-
 
 
                                 // 商铺

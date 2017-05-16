@@ -19,6 +19,8 @@
     <color name="cl_snappingstepper_text">#000000</color>
     <color name="login_input_color">#111111</color>
     <color name="bg_color">#EDEDED</color>
+    <color name="riple">#19ebede4</color>
+
     <color name="contents_text">#ff000000</color>
     <color name="encode_view">#ffffffff</color>
     <color name="help_button_view">#ffcccccc</color>
