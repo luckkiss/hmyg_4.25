@@ -6,7 +6,37 @@ apply from: 'tinker-support.gradle'
 
 android {
     signingConfigs {
+
+        release {
+            try {
+                storeFile file("./keystore/release.keystore")
+                storePassword "testres"
+                keyAlias "testres"
+                keyPassword "testres"
+            } catch (ex) {
+                throw new InvalidUserDataException(ex.toString())
+            }
+        }
+
+        debug {
+            storeFile file("./keystore/debug.keystore")
+        }
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     sourceSets {
@@ -46,8 +76,15 @@ android {
         schemaVersion 1
         targetGenDir 'src/main/java'
     }
+
+
+
+
+
+
 //    dataBinding.enabled = true
     buildTypes {
+
         release {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable true
