@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
-import android.support.multidex.MultiDexApplication;
+import android.support.multidex.MultiDex;
 import android.widget.TextView;
 
 import com.hldj.hmyg.DaoBean.SaveJson.DaoMaster;
@@ -38,7 +38,7 @@ import cn.sharesdk.framework.ShareSDK;
 import static com.tencent.bugly.beta.tinker.TinkerManager.getApplication;
 
 
-public class MyApplication extends MultiDexApplication {
+public class MyApplication extends Application {
 
     public static SharedPreferences Userinfo;
     public static SharedPreferences Deviceinfo;
@@ -70,6 +70,15 @@ public class MyApplication extends MultiDexApplication {
 
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        // you must install multiDex whatever tinker is installed!
+        MultiDex.install(base);
+        // 安装tinker
+        Beta.installTinker();
+    }
+
     /*
     数据库
      */
@@ -85,11 +94,6 @@ public class MyApplication extends MultiDexApplication {
         // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
         // 调试时，将第三个参数改为true
         Bugly.init(this, "be88780120", true);
-
-
-        // 安装tinker
-        // TinkerManager.installTinker(this); 替换成下面Bugly提供的方法
-        Beta.installTinker(this);
 
 
 //        FIR.init(this);

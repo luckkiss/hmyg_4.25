@@ -57,6 +57,7 @@ import com.hldj.hmyg.util.MyUtil;
 import com.hldj.hmyg.util.StartBarUtils;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 import com.white.update.UpdateInfo;
 import com.white.utils.SettingUtils;
 
@@ -115,6 +116,8 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+//        ToastUtil.showShortToast("heheda  更新包");
 
         /**
          * 控制状态栏为黑色  miui flyme
