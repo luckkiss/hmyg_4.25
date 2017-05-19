@@ -1,6 +1,22 @@
 package com.hldj.hmyg;
 
-import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.hldj.hmyg.application.Data;
+import com.hldj.hmyg.saler.StoreSettingActivity;
+import com.hy.utils.GetServerUrl;
+import com.hy.utils.JsonGetInfo;
+
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
@@ -8,22 +24,7 @@ import net.tsz.afinal.http.AjaxParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.hldj.hmyg.application.Data;
-import com.hldj.hmyg.application.MyApplication;
-import com.hy.utils.GetServerUrl;
-import com.hy.utils.JsonGetInfo;
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 public class FeedBackActivity extends NeedSwipeBackActivity {
 
@@ -90,7 +91,8 @@ public class FeedBackActivity extends NeedSwipeBackActivity {
 		}
 	};
 
-	public class MultipleClickProcess implements OnClickListener {
+
+    public class MultipleClickProcess implements OnClickListener {
 		private boolean flag = true;
 
 		private synchronized void setFlag() {
@@ -191,4 +193,11 @@ public class FeedBackActivity extends NeedSwipeBackActivity {
 		}
 	}
 
+
+
+
+
+	public static void start2Activity(Context mActivity) {
+		mActivity.startActivity(new Intent(mActivity, FeedBackActivity.class));
+	}
 }

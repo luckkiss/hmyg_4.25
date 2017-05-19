@@ -70,6 +70,16 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
         ImageView iv_img = (ImageView) view.findViewById(R.id.iv_img);
         finalBitmap.display(iv_img, seedlingBean.getImageUrl());
 
+
+        TextView tv_right_top = (TextView)view.findViewById(R.id.tv_right_top);
+
+        if (seedlingBean.attrData.ziying) {//自营显示票
+            tv_right_top.setVisibility(View.VISIBLE);
+        } else {
+            tv_right_top.setVisibility(View.GONE);
+        }
+
+
         //设置小图标
         TextView tv_01 = (TextView) view.findViewById(R.id.tv_01);
         setSrcByType(tv_01, seedlingBean.getPlantType());

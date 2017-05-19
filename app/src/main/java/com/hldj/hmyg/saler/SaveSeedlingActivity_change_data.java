@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.bean.UnitTypeBean;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.AutoAddRelative;
 import com.hldj.hmyg.widget.SaveSeedingBottomLinearLayout;
@@ -39,7 +40,8 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
 
                 initExtra(saveSeedingGsonBean);
 
-                return; //直接通过传过来的数据进行 绘制界面  不需要再 请求接口数据进行初始化
+                viewHolder.bottom_ll.setUnitTypeDatas(saveSeedingGsonBean.getData().unitTypeList);
+
 
             } else {
                 ToastUtil.showShortToast("数据初始化失败");
@@ -51,8 +53,7 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
     @Override
     public void initAutoLayout2(List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> plantTypeList) {
         super.initAutoLayout2(plantTypeList);
-        if (autoAddRelative_top!=null)
-        {
+        if (autoAddRelative_top != null) {
             autoAddRelative_top.getViewHolder_top().tv_auto_add_name.setText(saveSeedingGsonBean.getData().getSeedling().getName());
         }
 
@@ -62,7 +63,7 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
 
         List<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean> imagesJsonBeans = saveSeedingGsonBean.getData().getSeedling().getImagesJson();
 
-        if (null != imagesJsonBeans && imagesJsonBeans.size()!=0) {
+        if (null != imagesJsonBeans && imagesJsonBeans.size() != 0) {
 
 
             for (int i = 0; i < imagesJsonBeans.size(); i++) {
@@ -74,11 +75,9 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
                 }
 
             }
-        }else
-        {
-            if (saveSeedingGsonBean.getData().getSeedling().getImageUrl()!=null)
-            {
-                arrayList2Adapter.add(new Pic(saveSeedingGsonBean.getData().getSeedling().getId(),false, saveSeedingGsonBean.getData().getSeedling().getImageUrl() , 0));//网络图片获取
+        } else {
+            if (saveSeedingGsonBean.getData().getSeedling().getImageUrl() != null) {
+                arrayList2Adapter.add(new Pic(saveSeedingGsonBean.getData().getSeedling().getId(), false, saveSeedingGsonBean.getData().getSeedling().getImageUrl(), 0));//网络图片获取
             }
 
         }
@@ -161,11 +160,10 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
 //plant 需要根据  tag  来返回 name 来显示
 
         upLoadDatas.repertory_num = seedling.getCount() + "";
-        String nuit = seedling.getUnitTypeName();
-        upLoadDatas.unit = viewHolder.bottom_ll.setNameByTag(nuit);
+        String nuit = seedling.getUnitTypeName();//中文名用key
+        String value = seedling.getUnitType();
 
-
-        viewHolder.bottom_ll.getHolder().rl_save_seeding_unit.setTag(viewHolder.bottom_ll.getTagByName(nuit));
+        upLoadDatas.setUnit(new UnitTypeBean(nuit, value));
 
         //地址对象
         AdressListActivity.Address address = new AdressListActivity.Address();

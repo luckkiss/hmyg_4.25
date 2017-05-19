@@ -1,19 +1,7 @@
 package com.hldj.hmyg;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
-import me.maxwin.view.XListView;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,10 +12,23 @@ import android.widget.Toast;
 
 import com.hldj.hmyg.adapter.MessageListAdapter;
 import com.hldj.hmyg.application.Data;
-import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.saler.StoreSettingActivity;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.zzy.flowers.widget.popwin.EditP2;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 public class MessageListActivity extends NeedSwipeBackActivity {
 	private ListView xListView;
@@ -163,7 +164,9 @@ public class MessageListActivity extends NeedSwipeBackActivity {
 		getdata = true;
 	}
 
-	public class MultipleClickProcess implements OnClickListener {
+
+
+    public class MultipleClickProcess implements OnClickListener {
 		private boolean flag = true;
 		private EditP2 popwin;
 
@@ -201,4 +204,8 @@ public class MessageListActivity extends NeedSwipeBackActivity {
 		}
 	}
 
+
+	public static void start2Activity(Context mActivity) {
+		mActivity.startActivity(new Intent(mActivity, MessageListActivity.class));
+	}
 }

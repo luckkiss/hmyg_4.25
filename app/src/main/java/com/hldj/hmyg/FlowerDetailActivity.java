@@ -92,7 +92,6 @@ import cn.sharesdk.tencent.qq.QQ;
 import me.drakeet.materialdialog.MaterialDialog;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
-import static com.hldj.hmyg.R.drawable.code;
 import static com.hldj.hmyg.util.ConstantState.LOGIN_SUCCEED;
 
 
@@ -500,10 +499,12 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                             new Handler().postDelayed(() -> finish(), 2000);
                             return;
                         }
-
                         seedlingBean = saveSeedingGsonBean.getData().getSeedling();
-
-
+                        if (seedlingBean.attrData.ziying) {//自营店铺显示发票
+                            findViewById(R.id.stv_is_show_piao).setVisibility(View.VISIBLE);
+                        } else {
+                            findViewById(R.id.stv_is_show_piao).setVisibility(View.GONE);
+                        }
                         D.e("================json==============" + t);
                         try {
                             JSONObject jsonObject = new JSONObject(t);
@@ -1274,6 +1275,8 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                     FlowerDetailActivity.this, StoreActivity.class);
                             toStoreActivity.putExtra("code", store_id);
                             startActivity(toStoreActivity);
+                        } else {
+                            ToastUtil.showShortToast("找不到该店铺");
                         }
 
                         break;
@@ -1822,7 +1825,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         }
     }
 
-        class MyCount extends AdvancedCountdownTimer {
+    class MyCount extends AdvancedCountdownTimer {
 
         public MyCount(long millisInFuture, long countDownInterval) { // 这两个参数在AdvancedCountdownTimer.java中均有(在“构造函数”中).
             super(millisInFuture, countDownInterval);
@@ -2291,7 +2294,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
     /**
      * @param context
-     * @param code    商品的  id
+     * @param    id
      */
     public static void start2Activity(Context context, String id) {
         Intent intent = new Intent(context, StoreActivity.class);

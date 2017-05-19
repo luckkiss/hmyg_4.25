@@ -19,7 +19,7 @@
     <color name="cl_snappingstepper_text">#000000</color>
     <color name="login_input_color">#111111</color>
     <color name="bg_color">#EDEDED</color>
-    <color name="riple">#19ebede4</color>
+    <color name="riple">#03f9f6f6</color>
 
     <color name="contents_text">#ff000000</color>
     <color name="encode_view">#ffffffff</color>
@@ -522,6 +522,7 @@
     <color name="littleblue">#CAEAFB</color>
     <!-- IOSDIALOG COLOR -->
     <color name="trans">#00000000</color>
+    <color name="white_60">#3cdbe6e3</color>
     <color name="alertdialog_line">#8a7777</color>
     <color name="actionsheet_blue">#037BFF</color>
     <color name="actionsheet_red">#FD4A2E</color>

@@ -43,7 +43,7 @@
             android:orientation="horizontal"
             android:paddingBottom="@dimen/y2"
             android:paddingLeft="@dimen/y8"
-            android:paddingRight="@dimen/y8"
+
             android:paddingTop="@dimen/y2">
 
             <RelativeLayout
@@ -67,11 +67,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.neopixl.pixlui.components.textview.TextView
+                    <TextView
+                        android:id="@+id/tv_right_top"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:drawableRight="@drawable/piao_right_top"
                         android:gravity="center_vertical"
                         android:singleLine="true"
                         android:textColor="@color/text_color"
@@ -194,6 +196,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:gravity="center_vertical"
+                        android:paddingRight="@dimen/y8"
                         android:singleLine="true"
                         android:text="200株"
                         android:textColor="@color/little_black_sm"

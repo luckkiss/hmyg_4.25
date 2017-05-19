@@ -48,6 +48,8 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
 
+import static com.zzy.common.widget.MeasureGridView.context;
+
 public class AdressListActivity extends NeedSwipeBackActivity implements
         IXListViewListener {
     ArrayList<HashMap<String, Object>> datas = new ArrayList<HashMap<String, Object>>();
@@ -127,6 +129,7 @@ public class AdressListActivity extends NeedSwipeBackActivity implements
             }
         }
     }
+
 
     public class MultipleClickProcess implements OnClickListener {
         private boolean flag = true;
@@ -404,7 +407,7 @@ public class AdressListActivity extends NeedSwipeBackActivity implements
             }
             if ("SaveSeedlingActivity".equals(from)) {
                 inflate.setOnClickListener(v -> {
-                    if (SaveSeedlingActivity.instance != null ) {
+                    if (SaveSeedlingActivity.instance != null) {
                         if ("".equals(data.get(position).get("twCode").toString())) {
                             Toast.makeText(AdressListActivity.this, "请编辑完整这条地址的所在街道",
                                     Toast.LENGTH_SHORT).show();
@@ -537,12 +540,19 @@ public class AdressListActivity extends NeedSwipeBackActivity implements
      * @param addressId               地址的 id
      * @param onAddressSelectListener
      */
-    public static void start2AdressListActivity(Context context, String addressId , String from, SaveSeedingBottomLinearLayout.onAddressSelectListener onAddressSelectListener) {
-        Intent intent = new Intent(context,AdressListActivity.class);
+    public static void start2AdressListActivity(Context context, String addressId, String from, SaveSeedingBottomLinearLayout.onAddressSelectListener onAddressSelectListener) {
+        Intent intent = new Intent(context, AdressListActivity.class);
         intent.putExtra("addressId", addressId);
         intent.putExtra("from", from);
         AdressListActivity.onAddressSelectListener = onAddressSelectListener;
         context.startActivity(intent);
+    }
+
+
+    public static void start2Activity(Context mActivity) {
+        Intent intent = new Intent(mActivity, AdressListActivity.class);
+//        intent.putExtra("from", from);
+        mActivity.startActivity(intent);
     }
 
 
@@ -551,7 +561,7 @@ public class AdressListActivity extends NeedSwipeBackActivity implements
         public String contactPhone = "";
         public String contactName = "";
         public String cityName = "";
-        public  boolean isDefault = false;
+        public boolean isDefault = false;
 
     }
 

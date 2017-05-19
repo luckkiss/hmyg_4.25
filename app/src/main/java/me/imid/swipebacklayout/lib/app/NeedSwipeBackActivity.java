@@ -1,13 +1,11 @@
 package me.imid.swipebacklayout.lib.app;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.os.Build;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
@@ -15,20 +13,22 @@ import com.hldj.hmyg.util.D;
 
 public class NeedSwipeBackActivity extends SwipeBackBActivity {
 
+    protected NeedSwipeBackActivity mActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
+        this.views = new SparseArray<View>();
 
 
         D.e("======当前界面classname========" + this.getClass().getName());
 
 //		if (Build.VERSION.SDK_INT >= 23) {
+        mActivity = this;
         setSwipeBackEnable(true);
 //		}
     }
-
-
 
 
     /**
@@ -64,61 +64,49 @@ public class NeedSwipeBackActivity extends SwipeBackBActivity {
     }
 
 
+    public void jumpToActivity(Class activity) {
+        Intent intent = new Intent(this, activity);
+        startActivity(intent);
+    }
+
+    protected String getSpS(String key) {
+        return MyApplication.Userinfo.getString(key, "");
+    }
+
+    protected void putSpS(String key, String value) {
+        SharedPreferences.Editor editor = MyApplication.Userinfo.edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+
+    protected boolean getSpB(String key) {
+        return MyApplication.Userinfo.getBoolean(key, false);
+    }
+
+/**
+ *    @SuppressWarnings("unchecked") public <T extends View> T getView(int viewId) {
+View view = views.get(viewId);
+if (view == null) {
+view = convertView.findViewById(viewId);
+views.put(viewId, view);
+}
+return (T) view;
+}
+ */
+
+
     /**
-     * 添加状态栏
+     * Views indexed with their IDs
      */
+    private SparseArray<View> views;
 
-    protected void initStatusBar() {
-//        LinearLayout rootView = (LinearLayout) ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
-        ViewGroup contentView = (ViewGroup) findViewById(android.R.id.content);
-        View statusBar = new View(this);
-        //改变颜色时避免重复添加statusBarView
-        if (contentView != null && contentView.getMeasuredHeight() == getStatusBarHeight(this)) {
-            statusBar.setBackgroundColor(Color.RED);
-            return;
+    protected <T extends View> T getView(int viewId) {
+        View view = views.get(viewId);
+        if (view == null) {
+            view = findViewById(viewId);
+            views.put(viewId, view);
         }
-//        StatusBarUtil.setTransparent();
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(this));
-
-        statusBar.setLayoutParams(layoutParams);
-
-        contentView.addView(statusBar, 0);
-
-    }
-
-    public static int getStatusBarHeight(Context context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
-    /**
-     * 改变状态栏颜色
-     *
-     * @param color
-     */
-
-    protected void setStatusBarColor(int color) {
-
-        View rootView = ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
-
-        rootView.setBackgroundColor(color);
-
-    }
-
-
-    public void addStartBar() {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                initStatusBar();
-                setStatusBarColor(MyApplication.getInstance().getResources().getColor(R.color.main_color));
-            }
-        } catch (Exception e) {
-            D.e("===设置失败===");
-        }
+        return (T) view;
     }
 
 

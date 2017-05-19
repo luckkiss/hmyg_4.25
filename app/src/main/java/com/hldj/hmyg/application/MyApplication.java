@@ -26,8 +26,6 @@ import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.tencent.bugly.Bugly;
-import com.tencent.bugly.beta.Beta;
 import com.weavey.loading.lib.LoadingLayout;
 
 import java.io.File;
@@ -76,7 +74,7 @@ public class MyApplication extends Application {
         // you must install multiDex whatever tinker is installed!
         MultiDex.install(base);
         // 安装tinker
-        Beta.installTinker();
+//        Beta.installTinker();
     }
 
     /*
@@ -93,7 +91,7 @@ public class MyApplication extends Application {
 
         // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
         // 调试时，将第三个参数改为true
-        Bugly.init(this, "be88780120", true);
+//        Bugly.init(this, "be88780120", true);
 
 
 //        FIR.init(this);

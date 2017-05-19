@@ -739,9 +739,7 @@ public class EActivity extends NeedSwipeBackActivity implements PlatformActionLi
         AjaxParams params = new AjaxParams();
         int rotate = PictureManageUtil.getCameraPhotoOrientation(url);
         // 把压缩的图片进行旋转
-        params.put(
-                "headImage",
-                new ByteArrayInputStream(Bitmap2Bytes(PictureManageUtil
+        params.put( "headImage",  new ByteArrayInputStream(Bitmap2Bytes(PictureManageUtil
                         .rotateBitmap(PictureManageUtil.getCompressBm(url),
                                 rotate))), System.currentTimeMillis() + ".png");
 
@@ -881,8 +879,7 @@ public class EActivity extends NeedSwipeBackActivity implements PlatformActionLi
         public View getView(final int position, View convertView,
                             ViewGroup parent) {
             // TODO Auto-generated method stub
-            View inflate = getLayoutInflater().inflate(
-                    R.layout.list_item_share_platform, null);
+            View inflate = getLayoutInflater().inflate( R.layout.list_item_share_platform, null);
             inflate.setBackgroundColor(Color.WHITE);
             ImageView iv_icon = (ImageView) inflate.findViewById(R.id.iv_icon);
             TextView tv_name = (TextView) inflate.findViewById(R.id.tv_name);

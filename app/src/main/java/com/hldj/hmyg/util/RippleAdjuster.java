@@ -16,10 +16,10 @@ import com.coorchice.library.SuperTextView;
  */
 
 public class RippleAdjuster extends SuperTextView.Adjuster {
-    private static final float DEFAULT_RADIUS = 50;
+    private static final float DEFAULT_RADIUS = 10;
 
     private PorterDuffXfermode xfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP);
-    private int rippleColor = Color.parseColor("#ce938d");
+    private int rippleColor = Color.parseColor("#03f9f6f6");
     private float x = -1;
     private float y = -1;
     private Paint paint;
@@ -67,8 +67,9 @@ public class RippleAdjuster extends SuperTextView.Adjuster {
                 Canvas.HAS_ALPHA_LAYER_SAVE_FLAG |
                 Canvas.FULL_COLOR_LAYER_SAVE_FLAG |
                 Canvas.CLIP_TO_LAYER_SAVE_FLAG);
-        paint.setColor(v.getSolid());
-        canvas.drawRoundRect(rectF, height / 2, height / 2, paint);
+        paint.setColor(rippleColor);
+//        canvas.drawRoundRect(rectF, height / 2, height / 2, paint);
+        canvas.drawRect(rectF, paint);
         paint.setXfermode(xfermode);
         paint.setColor(rippleColor);
         canvas.drawCircle(x, y, radius * density, paint);

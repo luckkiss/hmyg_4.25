@@ -2,6 +2,7 @@ package com.hldj.hmyg.saler;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -358,6 +359,10 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                     }
 
                 });
+    }
+
+    public static void start2Activity(Context mActivity) {
+        mActivity.startActivity(new Intent(mActivity, StoreSettingActivity.class));
     }
 
     public class MultipleClickProcess implements OnClickListener {

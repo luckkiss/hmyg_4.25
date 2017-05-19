@@ -1,5 +1,7 @@
 package com.hldj.hmyg.M;
 
+import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+
 import java.util.List;
 
 /**
@@ -205,6 +207,8 @@ public class BPageGsonBean {
                 public List<String> paramsList;
                 public List<SpecListbean> specList;
                 public List<TagListbean> tagList;
+
+                public SaveSeedingGsonBean.DataBean.SeedlingBean.AttrDataBean attrData = new SaveSeedingGsonBean.DataBean.SeedlingBean.AttrDataBean();
 
                 public static class CiCitybean {
                     /**

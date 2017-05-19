@@ -602,7 +602,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         }
         params.put("plantType", tag_ID1);//plantType 种类地址秒，移植苗，假植苗，容器苗 对应的type
 
-        params.put("unitType", upLoadDatas.getUnit());
+        params.put("unitType", upLoadDatas.getUnit().value);
 
 
         params.put("remarks", upLoadDatas.getRemark());
@@ -767,7 +767,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             seedlingBean.setCount(MyUtil.formateString2Int(upLoadDatas.getRepertory_num()));
         }
 //                seedling.getUnitTypeName();
-        seedlingBean.setUnitTypeName(upLoadDatas.getUnit());//plant 需要根据  tag  来返回 name 来显示
+        seedlingBean.setUnitTypeName(upLoadDatas.getUnit().text);//plant 需要根据  tag  来返回 name 来显示
+        seedlingBean.setUnitType(upLoadDatas.getUnit().value);
         seedlingBean.setValidity(MyUtil.formateString2Int(upLoadDatas.getValidity()));
         seedlingBean.setRemarks(upLoadDatas.getRemark());
 

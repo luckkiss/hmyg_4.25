@@ -50,12 +50,15 @@ public class SaveSeedingGsonBean implements Serializable {
     }
 
     public static class DataBean implements Serializable {
-       public   boolean canQuote =false;
+        public boolean canQuote = false;
         private SeedlingBean seedling = new SeedlingBean();
         private ItemBean item;
         public List<UsedQuoteListBean> usedQuoteList = new ArrayList<>();
         private List<TypeListBean> typeList;
         private List<TypeListBean.PlantTypeListBean> plantTypeList;
+
+        public List<UnitTypeBean> unitTypeList = new ArrayList<>();
+
 
         public List<TypeListBean> getTypeList() {
             return typeList;
@@ -152,7 +155,7 @@ public class SaveSeedingGsonBean implements Serializable {
             private String nurseryId;
             private int count;
             private int saleCount;
-            private String status ="";
+            private String status = "";
             private boolean isAudit;
             private String closeDate;
             private String ownerId;
@@ -189,9 +192,11 @@ public class SaveSeedingGsonBean implements Serializable {
             private List<SpecListBean> specList;
             private List<TagListBean> tagList;
 
+            public AttrDataBean attrData = new AttrDataBean();
+
 
             public PurchaseJsonBean purchaseJson = new PurchaseJsonBean();
-//            public PurchaseItemJsonBean purchaseItemJsonBean = new PurchaseItemJsonBean();
+            //            public PurchaseItemJsonBean purchaseItemJsonBean = new PurchaseItemJsonBean();
             public PurchaseItemJsonBean purchaseItemJson = new PurchaseItemJsonBean();
 
 //            public PurchaseJsonBean purchaseJsonBean =new PurchaseJsonBean();
@@ -2664,6 +2669,15 @@ public class SaveSeedingGsonBean implements Serializable {
                 }
 
 
+            }
+
+
+//            	 "attrData": [
+//                         "ziying": true
+//                         ],
+
+            public static class AttrDataBean implements Serializable {
+                public boolean ziying = false;
             }
 
             public static class SpecListBean implements Serializable {

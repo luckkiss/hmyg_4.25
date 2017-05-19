@@ -16,7 +16,7 @@ public abstract class BasePresenter {
 
 
     protected ResultCallBack resultCallBack;
-    AjaxParams ajaxParams;
+    protected AjaxParams ajaxParams;
 
     public AjaxParams getAjaxParams() {
         if (null == ajaxParams) {

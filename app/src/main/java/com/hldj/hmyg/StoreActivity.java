@@ -768,6 +768,8 @@ public class StoreActivity extends NeedSwipeBackActivity implements
     }
 
     public void seedlingList() {
+
+
         Log.e("secondSeedlingTypeId", secondSeedlingTypeId);
         // getdata = false;
         FinalHttp finalHttp = new FinalHttp();
@@ -922,24 +924,11 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                                                                         jsonObject3,
                                                                         "ownerJson"),
                                                         "realName"));
-                                        hMap.put("companyName", JsonGetInfo
-                                                .getJsonString(JsonGetInfo
-                                                                .getJSONObject(
-                                                                        jsonObject3,
-                                                                        "ownerJson"),
-                                                        "companyName"));
-                                        hMap.put("publicName", JsonGetInfo
-                                                .getJsonString(JsonGetInfo
-                                                                .getJSONObject(
-                                                                        jsonObject3,
-                                                                        "ownerJson"),
-                                                        "publicName"));
-                                        hMap.put("status", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "status"));
-                                        hMap.put("statusName", JsonGetInfo
-                                                .getJsonString(jsonObject3,
-                                                        "statusName"));
+                                        hMap.put("companyName", JsonGetInfo  .getJsonString(JsonGetInfo .getJSONObject( jsonObject3, "ownerJson"), "companyName"));
+                                        hMap.put("publicName", JsonGetInfo.getJsonString(JsonGetInfo.getJSONObject(jsonObject3, "ownerJson"), "publicName"));
+                                        hMap.put("status", JsonGetInfo .getJsonString(jsonObject3, "status"));
+                                        hMap.put("statusName", JsonGetInfo.getJsonString(jsonObject3, "statusName"));
+                                        hMap.put("ziying", JsonGetInfo.getJsonBoolean(JsonGetInfo.getJSONObject(jsonObject3, "attrData"), "ziying"));
                                         datas.add(hMap);
                                         // if (AllgridAdapter != null) {
                                         // AllgridAdapter

@@ -43,7 +43,7 @@ public class GetServerUrl {
     static String API_03 = "http://test.api.hmeg.cn/";//3.0测式库
 
     //http://test.api.hmeg.cn
-//   static String API_03 = "http://192.168.1.146:8091/api/";//罗伟电脑 服务器地址
+//   static String API_03 = "http://192.168.1.147:8091/api/";//罗伟电脑 服务器地址
 
     //    static String API_03 = "http://192.168.1.20:83/api/";
     static String FIR_03 = "http://api.fir.im/apps/latest/574270cc00fc744aef000000?api_token=d5ec18bebb4cd5acd798ffeeccbed6f4&type=android&bundle_id=com.hldj.hmyg";

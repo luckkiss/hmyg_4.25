@@ -17,7 +17,7 @@ import android.view.WindowManager;
  * Created by Administrator on 2017/4/27.
  */
 
-public class CommonDialogFragment extends DialogFragment {
+public class CommonDialogFragment extends DialogFragment  {
 
     /**
      * 监听弹出窗是否被取消
@@ -75,6 +75,13 @@ public class CommonDialogFragment extends DialogFragment {
             window.setAttributes(windowParams);
         }
     }
+
+
+
+
+
+
+
 
     @Override
     public void onCancel(DialogInterface dialog) {

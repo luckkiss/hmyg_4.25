@@ -101,7 +101,6 @@
         android:paddingLeft="@dimen/x9"
         android:paddingRight="@dimen/x9"
         android:paddingTop="@dimen/y10"
-
         >
 
         <TextView

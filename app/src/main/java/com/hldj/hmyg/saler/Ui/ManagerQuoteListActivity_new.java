@@ -1,5 +1,6 @@
 package com.hldj.hmyg.saler.Ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -100,6 +101,11 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    public static void start2Activity(Context context) {
+        context.startActivity(new Intent(context, ManagerQuoteListActivity_new.class));
     }
 
 

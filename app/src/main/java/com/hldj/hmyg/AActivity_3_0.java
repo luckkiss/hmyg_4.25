@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.autoscrollview.adapter.ImagePagerAdapter;
@@ -65,6 +67,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import aom.xingguo.huang.banner.MyFragment;
 import cn.hugo.android.scanner.CaptureActivity;
@@ -178,18 +181,18 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private void initmPtrFrame() {
 
 
-        mLayout = (SmartRefreshLayout) findViewById(R.id.rotate_header_web_view_frame);
-        mLayout.setOnRefreshListener(new SmartRefreshLayout.onRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mLayout.stopRefresh();
-            }
-
-            @Override
-            public void onLoadMore() {
-                mLayout.stopLoadMore();
-            }
-        });
+//        mLayout = (SmartRefreshLayout) findViewById(R.id.rotate_header_web_view_frame);
+//        mLayout.setOnRefreshListener(new SmartRefreshLayout.onRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                mLayout.stopRefresh();
+//            }
+//
+//            @Override
+//            public void onLoadMore() {
+//                mLayout.stopLoadMore();
+//            }
+//        });
 
     }
 
@@ -229,6 +232,19 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
             }
         });
+        recyclerView.getRecyclerView().setOnTouchListener((v, event) ->
+                {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            scrollView.smoothScrollTo(0, scrollView.getScrollY() + 1);//平移1个像素 解决滑动冲突
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            scrollView.smoothScrollTo(0, scrollView.getScrollY() - 1);
+                            break;
+                    }
+                    return super.onTouchEvent(event);
+                }
+        );
 
         ArrayList arrayList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -295,24 +311,24 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
      * 当getScrollY()达到最大时加上scrollView的高度就的就等于它内容的高度了啊~
      */
     private void doOnBorderListener() {
-        Log.i(TAG,
-                ScreenUtil.getScreenViewBottomHeight(scrollView) + "  "
-                        + scrollView.getScrollY() + " "
-                        + ScreenUtil.getScreenHeight(AActivity_3_0.this));
+        Log.i(TAG, ScreenUtil.getScreenViewBottomHeight(scrollView) + "  " + scrollView.getScrollY() + " " + ScreenUtil.getScreenHeight(AActivity_3_0.this));
 
         // 底部判断
-        if (contentView != null
-                && contentView.getMeasuredHeight() <= scrollView.getScrollY()
-                + scrollView.getHeight()) {
-            toTopBtn.setVisibility(View.GONE);
+        if (contentView != null && contentView.getMeasuredHeight() <= scrollView.getScrollY() + scrollView.getHeight()) {
+            toTopBtn.setVisibility(View.VISIBLE);
             Log.i(TAG, "bottom");
+            if (myFragment0 != null)
+                myFragment0.setAutoChange(true);
         }
         // 顶部判断
         else if (scrollView.getScrollY() == 0) {
-
+            if (myFragment0 != null) myFragment0.setAutoChange(false);
+            toTopBtn.setVisibility(View.GONE);
             Log.i(TAG, "top");
         } else if (scrollView.getScrollY() > 30) {
-            toTopBtn.setVisibility(View.GONE);
+            toTopBtn.setVisibility(View.VISIBLE);
+            if (myFragment0 != null)
+                myFragment0.setAutoChange(false);
             Log.i(TAG, "test");
         }
 
@@ -361,6 +377,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
     }
 
+    private MyFragment myFragment0;
 
     public void requestData() {
 
@@ -373,7 +390,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         finalHttp.post(GetServerUrl.getUrl() + "index", params,
                 new AjaxCallBack<Object>() {
 
-                    private MyFragment myFragment0;
+
                     private Type type;
 
                     @Override
@@ -596,21 +613,50 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                                         int array = MyFragment.Num
                                                 - url0s.size() % MyFragment.Num;
                                         for (int i = 0; i < array; i++) {
-                                            HomeStore a_first_product = new HomeStore(
-                                                    "", "", "", "", "");
+                                            HomeStore a_first_product = new HomeStore("", "", "", "", "");
                                             url0s.add(a_first_product);
                                         }
                                     }
                                     myFragment0 = new MyFragment();
                                     myFragment0.setUrls(url0s);
                                     ft.add(R.id.con0, myFragment0);
+
 //                                    iv_home_merchants  .setVisibility(View.VISIBLE);
                                 }
                                 ft.commitAllowingStateLoss();
 
-                            } else {
+//                                Rect bounds = new Rect();
+//                                findViewById(R.id.con0).getDrawingRect(bounds);
 
+//                                Rect scrollBounds = new Rect(
+//                                        scrollView.getScrollX(),
+//                                        scrollView.getScrollY(),
+//                                        scrollView.getScrollX() + scrollView.getWidth(),
+//                                        scrollView.getScrollY() + scrollView.getWidth());
+
+
+//                                if (myFragment0.getviewpager() != null) {
+//                                    myFragment0.setAutoChange(false);
+
+
+//                                    scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+//                                        @Override
+//                                        public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                                            if (Rect.intersects(scrollBounds, bounds)) {
+//                                                D.e("======is===visible====");
+//                                                myFragment0.setAutoChange(true);
+//                                            } else {
+//                                                D.e("======no===visible====");
+//                                                myFragment0.setAutoChange(false);
+//                                            }
+//                                        }
+//                                    });
                             }
+
+//
+//                            } else {
+
+//                            }
 
                         } catch (JSONException e) {
                             // TODO Auto-generated catch block
@@ -650,6 +696,27 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             D.e("=============没有推荐列表，或者数据异常===============");
             e.printStackTrace();
         }
+
+        {  // 根据list 显示 title  并且设置点击事件
+            TextView home_title_first = (TextView) findViewById(R.id.home_title_first);
+            TextView home_title_second = (TextView) findViewById(R.id.home_title_second);
+            TextView home_title_third = (TextView) findViewById(R.id.home_title_third);
+            TextView tv_titles[] = new TextView[]{home_title_first, home_title_second, home_title_third};
+
+            View v1 = findViewById(R.id.iv_home_more_cg);
+            View v2 = findViewById(R.id.iv_home_more_tj);
+            View v3 = findViewById(R.id.iv_home_more_rm);
+            View views[] = new View[]{v1, v2, v3};
+
+            try {
+                autoSetTitles(tv_titles, indexGsonBean.data.titleList, views);
+            } catch (Exception e) {
+                D.e("=============没有title 列表===============");
+                e.printStackTrace();
+            }
+        }
+
+
     }
 
 //    private void initAbsViewPager() {
@@ -776,6 +843,31 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    public void autoSetTitles(TextView[] tvs, List<IndexGsonBean.TitleBean> list, View[] views) {
+        if (list.size() == 0) {
+            //all gone
+            for (int i = 0; i < tvs.length; i++) {
+                ((ViewGroup) tvs[i].getParent()).setVisibility(View.GONE);
+            }
+
+        } else {
+            for (int i = 0; i < tvs.length; i++) {
+                tvs[i].setText(list.get(i).title);
+                ((ViewGroup) tvs[i].getParent()).setVisibility(View.VISIBLE);
+
+                if (list.get(i).isClick) {
+                    views[i].setVisibility(View.VISIBLE);
+                } else {
+                    views[i].setVisibility(View.GONE);
+                }
+
+            }
+
+
+        }
     }
 
 }

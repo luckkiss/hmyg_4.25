@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin:'me.tatarka.retrolambda'
 apply plugin: 'org.greenrobot.greendao'
 // 依赖插件脚本
-apply from: 'tinker-support.gradle'
+//apply from: 'tinker-support.gradle'
 
 android {
     signingConfigs {
@@ -50,7 +50,7 @@ android {
     }
     defaultConfig {
         applicationId "com.hldj.hmyg"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
         aaptOptions.cruncherEnabled = false
         aaptOptions.useNewCruncher = false
@@ -60,10 +60,10 @@ android {
 //        }
 
 
-        ndk {
-            //设置支持的SO库架构
-            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
-        }
+//        ndk {
+//            //设置支持的SO库架构
+//            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+//        }
 
 
 
@@ -155,4 +155,7 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     //    compile 'com.github.Blincheng:Toast:v1.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
+
+
+    compile 'com.lqr.optionitemview:library:1.0.7'
 }

@@ -13,7 +13,7 @@ public class SimpleGsonBean implements Serializable {
      */
     public String code = "";
     public String msg = "失败";
-    private DataBean data;
+    private DataBean data = new DataBean();
 
     public DataBean getData() {
         return data;
@@ -24,6 +24,8 @@ public class SimpleGsonBean implements Serializable {
     }
 
     public static class DataBean implements Serializable {
+
+        public String headImage = "";
 
         private boolean isCollect;
 

@@ -1,6 +1,7 @@
 package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
@@ -25,6 +26,7 @@ import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.saler.StoreSettingActivity;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.SPUtil;
 import com.hldj.hmyg.util.SPUtils;
@@ -421,6 +423,8 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         return updateInfo;
     }
 
+
+
     public class MultipleClickProcess implements OnClickListener {
         private boolean flag = true;
 
@@ -512,4 +516,8 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         }
     }
 
+
+    public static void start2Activity(Context mActivity) {
+        mActivity.startActivity(new Intent(mActivity, SettingActivity.class));
+    }
 }

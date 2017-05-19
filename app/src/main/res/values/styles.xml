@@ -382,7 +382,9 @@
 
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
         <item name="android:windowIsTranslucent">true</item>
+
     </style>
+
 
 
     <style name="NoActionBarThemeWhite" parent="Theme.AppCompat.Light">

@@ -1,5 +1,7 @@
 package com.hldj.hmyg.saler;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
@@ -51,6 +53,8 @@ public class SaveSeedlingActivity extends SaveSeedlingActivityBase {
 
                 initAutoLayout2(saveSeedingGsonBean.getData().getPlantTypeList());
 
+                viewHolder.bottom_ll.setUnitTypeDatas(saveSeedingGsonBean.getData().unitTypeList);
+
 
                 //传参数的时候   增加 一个 自动添加布局，不需要点击  （乔木  灌木  庄敬  地被  苏铁  。。。。。。）
             }
@@ -59,11 +63,21 @@ public class SaveSeedlingActivity extends SaveSeedlingActivityBase {
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 D.e("============数据加载失败===========");
 
+
             }
         });
 
 
     }
+
+
+
+    public static void start2Activity(Context context)
+    {
+        context.startActivity(new Intent(context,SaveSeedlingActivity.class));
+    }
+
+
 //
 //    View.OnClickListener onClickListener = v -> {
 //        SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean1 = GsonUtil.formateJson2Bean("", SaveSeedingGsonBean.DataBean.SeedlingBean.class);

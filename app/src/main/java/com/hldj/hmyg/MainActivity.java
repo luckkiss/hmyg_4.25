@@ -42,6 +42,7 @@ import com.flyco.animation.BaseAnimatorSet;
 import com.flyco.animation.BounceEnter.BounceTopEnter;
 import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
+import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.PermissionUtils;
@@ -55,9 +56,9 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.MLocationManager;
 import com.hldj.hmyg.util.MyUtil;
 import com.hldj.hmyg.util.StartBarUtils;
+import com.hldj.hmyg.widget.PublishPopWindow;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
-import com.hy.utils.ToastUtil;
 import com.white.update.UpdateInfo;
 import com.white.utils.SettingUtils;
 
@@ -220,9 +221,22 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         tabHost.addTab(tabHost.newTabSpec("4").setIndicator("4")
                 .setContent(new Intent(this, DActivity_new.class)));//跳转到收藏夹  界面
         tabHost.addTab(tabHost.newTabSpec("5").setIndicator("5")
-                .setContent(new Intent(this, EActivity.class)));
+                .setContent(new Intent(this, Eactivity3_0.class)));
         radioderGroup = (RadioGroup) findViewById(R.id.rg_tab);
-        RadioButton tab_c = (RadioButton) findViewById(R.id.tab_c);
+//        RadioButton tab_c = (RadioButton) findViewById(R.id.tab_c);
+
+
+        findViewById(R.id.iv_publish).setOnClickListener(v -> {
+            View view = findViewById(R.id.main_content);
+            try {
+                new PublishPopWindow(MainActivity.this).showMoreWindow(findViewById(android.R.id.tabcontent));
+            } catch (Exception e1) {
+                new PublishPopWindow(MainActivity.this).showMoreWindow(view);
+                e1.printStackTrace();
+            }
+        });
+
+
         radioderGroup.setOnCheckedChangeListener(this);
         radioderGroup.check(R.id.tab_a);// 默认第一个按钮
         check = "1";
@@ -356,10 +370,12 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                 tabHost.setCurrentTabByTag("2");
                 check = "2";
                 break;
-            case R.id.tab_c:
+            case R.id.iv_publish:
                 tabHost.setCurrentTabByTag("3");
                 check = "3";
                 break;
+
+
             case R.id.tab_d:
                 if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {
                     start2ActivityWithResult(LoginActivity.class, 4);

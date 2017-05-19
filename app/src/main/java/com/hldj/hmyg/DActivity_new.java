@@ -117,10 +117,10 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
                                 new CollectPresenter(new ResultCallBack<SimpleGsonBean>() {
                                     @Override
                                     public void onSuccess(SimpleGsonBean simpleGsonBean) {
-                                        pageIndex = 0;
-                                        initData();
-                                        seedlingBeen.clear();
-                                        collectAdapter.notifyDataSetChanged();
+//                                        pageIndex = 0;
+//                                        seedlingBeen.clear();
+//                                        collectAdapter.notifyDataSetChanged();
+                                        onRefresh();
                                     }
 
                                     @Override
@@ -161,6 +161,8 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
          admin/collect/listSeedling
          */
         // TODO Auto-generated method stub
+
+        getdata = false;
 //        isRefreshing = true;
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, true);
@@ -177,6 +179,9 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
                         D.e("========json=========" + json);
                         if (collectGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
                             if (collectGsonBean.data.page.total != 0 && collectGsonBean.data.page.data.size() != 0) {
+                                if (isFresh) {
+                                    seedlingBeen.clear();
+                                }
                                 seedlingBeen.addAll(collectGsonBean.data.page.data);
                                 collectAdapter.notifyDataSetChanged();
                                 D.e("=====pageIndex=======" + pageIndex);
@@ -201,6 +206,8 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 
                         hindLoading();
                         pageIndex = seedlingBeen.size() / 20;
+                        getdata = true;
+                        isFirsh = false;
 
                         D.e("===============collectGsonBean================" + collectGsonBean);
                     }
@@ -217,19 +224,24 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 //                        hud.dismiss();
 //                        isRefreshing = false;
                         hindLoading();
+                        getdata = true;
+                        isFresh = false;
                         super.onFailure(t, errorNo, strMsg);
                     }
 
                 });
-        getdata = true;
+
     }
+
+
+    public boolean isFresh = false;
 
     @Override
     public void onRefresh() {
         // TODO Auto-generated method stub
         xlistView_d_new.setPullLoadEnable(false);
-        seedlingBeen.clear();
         pageIndex = 0;
+        isFresh = true;
 //        datas.clear();
 //        listAdapter.notifyDataSetChanged();
         if (getdata == true) {

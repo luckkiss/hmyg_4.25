@@ -2,6 +2,7 @@ package com.hldj.hmyg.M;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,6 +34,15 @@ public class BProduceAdapt extends GlobBaseAdapter<BPageGsonBean.DatabeanX.Pageb
         MySwipeAdapter.setSrcByType(tv_01, item.plantType);
 
 
+        TextView tv_right_top = myViewHolder.getView(R.id.tv_right_top);
+
+        if (item.attrData.ziying) {//自营显示票
+            tv_right_top.setVisibility(View.VISIBLE);
+        } else {
+            tv_right_top.setVisibility(View.GONE);
+        }
+
+
         TextView tv_02 = myViewHolder.getView(R.id.tv_02);
         tv_02.setText(item.name);
 
@@ -55,7 +65,7 @@ public class BProduceAdapt extends GlobBaseAdapter<BPageGsonBean.DatabeanX.Pageb
 
 
         TextView tv_08 = myViewHolder.getView(R.id.tv_08);
-        tv_08.setText("元/"+item.unitTypeName);
+        tv_08.setText("元/" + item.unitTypeName);
         TextView tv_09 = myViewHolder.getView(R.id.tv_09);
         tv_09.setText("库存：" + item.count);
 

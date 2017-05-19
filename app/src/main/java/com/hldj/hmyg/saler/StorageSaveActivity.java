@@ -818,4 +818,9 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
     }
 
 
+    public static void start2Activity(Context context)
+    {
+        context.startActivity(new Intent(context,StorageSaveActivity.class));
+    }
+
 }

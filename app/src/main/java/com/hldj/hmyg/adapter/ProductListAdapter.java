@@ -81,6 +81,7 @@ public class ProductListAdapter extends BaseAdapter {
             childHolder.iv_like = (ImageView) convertView
                     .findViewById(R.id.iv_like);
             childHolder.tv_01 = (TextView) convertView.findViewById(R.id.tv_01);
+            childHolder.tv_right_top = (TextView) convertView.findViewById(R.id.tv_right_top);
             childHolder.tv_02 = (TextView) convertView.findViewById(R.id.tv_02);
             childHolder.tv_03 = (TextView) convertView.findViewById(R.id.tv_03);
             childHolder.tv_04 = (TextView) convertView.findViewById(R.id.tv_04);
@@ -111,103 +112,106 @@ public class ProductListAdapter extends BaseAdapter {
 
         try {
 
+            if ((Boolean) data.get(position).get("ziying")) {
+                childHolder.tv_right_top.setVisibility(View.VISIBLE);
+            } else {
+                childHolder.tv_right_top.setVisibility(View.GONE);
+            }
+
+
 //        if (data.get(position).get("isRecommend").toString().contains("true")) {
 //            childHolder.iv_like.setImageResource(R.drawable.tuijian_lv);
 //        } else {
 //            childHolder.iv_like.setImageResource(R.drawable.tuijian_hui);
 //        }
 
-        if (data.get(position).get("plantType").toString().contains("planted")) {
-            childHolder.tv_01.setBackgroundResource(R.drawable.icon_seller_di);
-        } else if (data.get(position).get("plantType").toString()
-                .contains("transplant")) {
-            childHolder.tv_01.setBackgroundResource(R.drawable.icon_seller_yi);
-        } else if (data.get(position).get("plantType").toString()
-                .contains("heelin")) {
-            childHolder.tv_01.setBackgroundResource(R.drawable.icon_seller_jia);
-        } else if (data.get(position).get("plantType").toString()
-                .contains("container")) {
-            childHolder.tv_01
-                    .setBackgroundResource(R.drawable.icon_seller_rong);
-        } else {
-            childHolder.tv_01.setVisibility(View.GONE);
-        }
-
-
-        if ("manage_list".equals(data.get(position).get("show_type").toString())) {
-
-            childHolder.rl_floorPrice.setVisibility(View.VISIBLE);
-            if (data.get(position).get("floorPrice") != null) {
-                childHolder.tv_floorPrice.setText("底价："
-                        + ValueGetInfo.doubleTrans1(Double.parseDouble(data.get(position).get("floorPrice").toString())));
-            }
-            if ("unaudit".equals(data.get(position).get("status").toString())) {
-                childHolder.tv_03.setTextColor(Color.parseColor("#6cd8b0"));
-            } else if ("published".equals(data.get(position).get("status")
-                    .toString())) {
-                childHolder.tv_03.setTextColor(Color.parseColor("#fa7600"));
-                iv_like.setVisibility(View.VISIBLE);
-            } else if ("outline".equals(data.get(position).get("status")
-                    .toString())) {
-                childHolder.tv_03.setTextColor(Color.parseColor("#93c5fc"));
-            } else if ("backed".equals(data.get(position).get("status")
-                    .toString())) {
-                childHolder.tv_03.setTextColor(Color.parseColor("#b8d661"));
-            } else if ("unsubmit".equals(data.get(position).get("status")
-                    .toString())) {
-                childHolder.tv_03.setTextColor(Color.parseColor("#eb8ead"));
-            }
-            childHolder.tv_03.setText(data.get(position).get("statusName")
-                    .toString());
-            childHolder.tv_05.setText("苗源地址："
-                    + data.get(position).get("detailAddress").toString());
-            if (data.get(position).get("closeDate").toString().length() > 10) {
-                childHolder.tv_06.setText("下架日期："
-                        + data.get(position).get("closeDate").toString()
-                        .substring(0, 10));
+            if (data.get(position).get("plantType").toString().contains("planted")) {
+                childHolder.tv_01.setBackgroundResource(R.drawable.icon_seller_di);
+            } else if (data.get(position).get("plantType").toString()
+                    .contains("transplant")) {
+                childHolder.tv_01.setBackgroundResource(R.drawable.icon_seller_yi);
+            } else if (data.get(position).get("plantType").toString()
+                    .contains("heelin")) {
+                childHolder.tv_01.setBackgroundResource(R.drawable.icon_seller_jia);
+            } else if (data.get(position).get("plantType").toString()
+                    .contains("container")) {
+                childHolder.tv_01
+                        .setBackgroundResource(R.drawable.icon_seller_rong);
             } else {
-                childHolder.tv_06.setText("下架日期："
-                        + data.get(position).get("closeDate").toString());
+                childHolder.tv_01.setVisibility(View.GONE);
             }
-        }
 
 
-        else if ("seedling_list".equals(data.get(position).get("show_type")
-                .toString())) {//商城主页列表
-            //地区：
-            childHolder.tv_03.setText(""
-                    + data.get(position).get("fullName").toString());
-            //高度冠幅  ：
-            childHolder.tv_04.setText(""
-                    + data.get(position).get("specText").toString());
+            if ("manage_list".equals(data.get(position).get("show_type").toString())) {
 
-            if (!"".equals(data.get(position).get("companyName").toString())) {
-                childHolder.tv_06.setText("发布人："
-                        + data.get(position).get("companyName").toString());
-            } else if ("".equals(data.get(position).get("companyName")
-                    .toString())
-                    && !"".equals(data.get(position).get("publicName")
-                    .toString())) {
-                childHolder.tv_06.setText("发布人："
-                        + data.get(position).get("publicName").toString());
-            } else if ("".equals(data.get(position).get("companyName")
-                    .toString())
-                    && "".equals(data.get(position).get("publicName")
-                    .toString())) {
-                childHolder.tv_06.setText("发布人："
-                        + data.get(position).get("realName").toString());
+                childHolder.rl_floorPrice.setVisibility(View.VISIBLE);
+                if (data.get(position).get("floorPrice") != null) {
+                    childHolder.tv_floorPrice.setText("底价："
+                            + ValueGetInfo.doubleTrans1(Double.parseDouble(data.get(position).get("floorPrice").toString())));
+                }
+                if ("unaudit".equals(data.get(position).get("status").toString())) {
+                    childHolder.tv_03.setTextColor(Color.parseColor("#6cd8b0"));
+                } else if ("published".equals(data.get(position).get("status")
+                        .toString())) {
+                    childHolder.tv_03.setTextColor(Color.parseColor("#fa7600"));
+                    iv_like.setVisibility(View.VISIBLE);
+                } else if ("outline".equals(data.get(position).get("status")
+                        .toString())) {
+                    childHolder.tv_03.setTextColor(Color.parseColor("#93c5fc"));
+                } else if ("backed".equals(data.get(position).get("status")
+                        .toString())) {
+                    childHolder.tv_03.setTextColor(Color.parseColor("#b8d661"));
+                } else if ("unsubmit".equals(data.get(position).get("status")
+                        .toString())) {
+                    childHolder.tv_03.setTextColor(Color.parseColor("#eb8ead"));
+                }
+                childHolder.tv_03.setText(data.get(position).get("statusName")
+                        .toString());
+                childHolder.tv_05.setText("苗源地址："
+                        + data.get(position).get("detailAddress").toString());
+                if (data.get(position).get("closeDate").toString().length() > 10) {
+                    childHolder.tv_06.setText("下架日期："
+                            + data.get(position).get("closeDate").toString()
+                            .substring(0, 10));
+                } else {
+                    childHolder.tv_06.setText("下架日期："
+                            + data.get(position).get("closeDate").toString());
+                }
+            } else if ("seedling_list".equals(data.get(position).get("show_type")
+                    .toString())) {//商城主页列表
+                //地区：
+                childHolder.tv_03.setText(""
+                        + data.get(position).get("fullName").toString());
+                //高度冠幅  ：
+                childHolder.tv_04.setText(""
+                        + data.get(position).get("specText").toString());
+
+                if (!"".equals(data.get(position).get("companyName").toString())) {
+                    childHolder.tv_06.setText("发布人："
+                            + data.get(position).get("companyName").toString());
+                } else if ("".equals(data.get(position).get("companyName")
+                        .toString())
+                        && !"".equals(data.get(position).get("publicName")
+                        .toString())) {
+                    childHolder.tv_06.setText("发布人："
+                            + data.get(position).get("publicName").toString());
+                } else if ("".equals(data.get(position).get("companyName")
+                        .toString())
+                        && "".equals(data.get(position).get("publicName")
+                        .toString())) {
+                    childHolder.tv_06.setText("发布人："
+                            + data.get(position).get("realName").toString());
+                }
             }
-        }
-        // tv_04.setText(ValueGetInfo.getValueString(data.get(position).get("dbh")
-        // .toString(), data.get(position).get("height").toString(), data
-        // .get(position).get("crown").toString(),
-        // data.get(position).get("diameter").toString(), ""));
-        // tv_04.setText(ValueGetInfo.getValueStringByTag(data.get(position).get("paramsList").toString(),data.get(position).get("dbh")
-        // .toString(), data.get(position).get("height").toString(), data
-        // .get(position).get("crown").toString(),
-        // data.get(position).get("diameter").toString(),
-        // data.get(position).get("offbarHeight").toString()));
-
+            // tv_04.setText(ValueGetInfo.getValueString(data.get(position).get("dbh")
+            // .toString(), data.get(position).get("height").toString(), data
+            // .get(position).get("crown").toString(),
+            // data.get(position).get("diameter").toString(), ""));
+            // tv_04.setText(ValueGetInfo.getValueStringByTag(data.get(position).get("paramsList").toString(),data.get(position).get("dbh")
+            // .toString(), data.get(position).get("height").toString(), data
+            // .get(position).get("crown").toString(),
+            // data.get(position).get("diameter").toString(),
+            // data.get(position).get("offbarHeight").toString()));
 
 
             childHolder.tv_02.setText(data.get(position).get("name").toString());
@@ -306,6 +310,7 @@ public class ProductListAdapter extends BaseAdapter {
         TextView tv_04;
         TextView tv_05;
         TextView tv_06;
+        TextView tv_right_top;
         TextView tv_07;
         TextView tv_08;
         TextView tv_09;

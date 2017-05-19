@@ -116,7 +116,7 @@
 
         android:name="com.hldj.hmyg.application.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/no_image_show"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@style/AppBaseTheme"
         tools:replace="android:icon, android:theme  ">
@@ -164,7 +164,7 @@
         <activity
             android:name="com.hldj.hmyg.AActivity_3_0"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.BActivity"
             android:screenOrientation="portrait"></activity>
@@ -231,6 +231,9 @@
             android:name="com.hldj.hmyg.EActivity"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name=".Ui.Eactivity3_0"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.hldj.hmyg.SettingActivity"
             android:screenOrientation="portrait"></activity>
         <activity
@@ -254,7 +257,7 @@
         <activity
             android:name="com.hldj.hmyg.FlowerDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/e_activity_theme"/>
+            android:theme="@style/e_activity_theme" />
         <!--android:theme="@style/e_activity_theme"-->
         <activity
             android:name="com.hldj.hmyg.GalleryImageActivity"
@@ -670,8 +673,8 @@
             android:name="BaiduMobAd_WIFI_LOCATION"
             android:value="true" />
         <!--<meta-data-->
-            <!--android:name="BUG_HD_SDK_GENERAL_KEY"-->
-            <!--android:value="4e9fef47d1c33625cb0d5495e6856e0a" />  -->
+        <!--android:name="BUG_HD_SDK_GENERAL_KEY"-->
+        <!--android:value="4e9fef47d1c33625cb0d5495e6856e0a" />  -->
         <meta-data
             android:name="BUG_HD_SDK_GENERAL_KEY"
             android:value="4e9fef47d1c33625cb0d5495e6856e0a" />
@@ -909,8 +912,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"></meta-data>
         </provider>
-
-
 
 
     </application>

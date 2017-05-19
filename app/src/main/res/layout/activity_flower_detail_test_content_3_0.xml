@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -201,8 +202,22 @@
             android:layout_width="match_parent"
             android:layout_height="20px"
             android:layout_marginTop="10.0dip"
-            android:background="#F3F5F7" />
+            android:background="@color/white" />
 
+
+        <TextView
+            android:id="@+id/stv_is_show_piao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_bg"
+            android:drawableLeft="@drawable/piao"
+            android:drawablePadding="5dp"
+            android:padding="10dp"
+            android:text="自营商品可免费开取发票"
+            android:textSize="@dimen/y9"
+            android:visibility="gone"
+            tools:visibility="visible" />
+        <!--#F3F5F7-->
 
         <LinearLayout
             android:layout_width="match_parent"

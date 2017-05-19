@@ -16,11 +16,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.bean.UnitTypeBean;
 import com.hldj.hmyg.buy.bean.StorageSave;
 import com.hldj.hmyg.saler.AdressListActivity;
 import com.hldj.hmyg.util.D;
 import com.zf.iosdialog.widget.ActionSheetDialog_new;
 import com.zzy.common.widget.wheelview.popwin.CustomDaysPickPopwin;
+import com.zzy.common.widget.wheelview.popwin.CustomUnitsPickPopwin;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/4/15.
@@ -92,7 +97,7 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
         this.upLoadDatas = upLoadDatas;
         holder.cb_is_meet.setChecked(upLoadDatas.isMeet);
         holder.et_remark.setText(upLoadDatas.remark);
-        holder.tv_save_seeding_unit.setText(upLoadDatas.unit);
+        holder.tv_save_seeding_unit.setText(upLoadDatas.getUnit().text);
         initAddressView(holder.rootView, upLoadDatas.address);
 
 
@@ -116,9 +121,6 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
 
     ActionSheetDialog_new dialog = null;
 
-    public void setTagWithName(String tag) {
-
-    }
 
     public class ViewHolder {
         public View rootView;
@@ -200,21 +202,17 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
 
             //单位点击时间
             this.rl_save_seeding_unit.setOnClickListener(v -> {
+                CustomUnitsPickPopwin pickPopwin = new CustomUnitsPickPopwin(context, unitTypeBean -> {
+                    D.e("======unitTypeBean=====" + unitTypeBean.text);
+                    D.e("======unitTypeBean=====" + unitTypeBean.value);
+                    holder.tv_save_seeding_unit.setText(unitTypeBean.text);
+                    holder.tv_save_seeding_unit.setTag(unitTypeBean.value);
+                    upLoadDatas.setUnit(unitTypeBean);
 
-                if (dialog == null) {
-                    dialog = new ActionSheetDialog_new(context)
-                            .builder()
-                            .setCancelable(false)
-                            .setCanceledOnTouchOutside(false)
-                            .setTitle("单位")
-                            .initItemsAndAddListener(ib -> {
-                                D.e("==========单位返回的对象===============" + ib.toString());
-                                holder.tv_save_seeding_unit.setText(ib.value);//key 用于上传 后台数据接口
-                                holder.tv_save_seeding_unit.setTag(ib.key);//将 key 放入tag  方便取值
-//                              upLoadDatas.unit = ib.key;
-                            });
-                }
-                dialog.show();
+                }, getUnitTypeList());
+
+                pickPopwin.showAtLocation(holder.rootView, Gravity.BOTTOM
+                        | Gravity.CENTER, 0, 0);
 
 
             });
@@ -264,7 +262,7 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
 
     //用于上传的数据
     public static class upLoadDatas {
-        public String unit = "";//单位
+        private UnitTypeBean unit = new UnitTypeBean("株", "plant");//单位
         public String validity = "";//有效期
         public String price_min = "";//最小价格
         public String price_max = "";//最大价格
@@ -273,13 +271,12 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
         public String remark = "";//备注
         public AdressListActivity.Address address = new AdressListActivity.Address();//苗源地
 
-        public String getUnit() {
+        public UnitTypeBean getUnit() {
+            return unit;
+        }
 
-            if (null == holder.tv_save_seeding_unit.getTag()) {
-                return "plant";//默认为株
-            }
-
-            return holder.tv_save_seeding_unit.getTag().toString();
+        public void setUnit(UnitTypeBean unit) {
+            this.unit = unit;
         }
 
         public String getUnitName() {
@@ -358,59 +355,18 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
             "179", "180"};
 
 
-    public String getTagByName(String name) {
-        String tag = "plant";
-        if (name.equals("株")) {
-            tag = "plant";
-        }
-        if (name.equals("丛")) {
-            tag = "crowd";
-        }
-        if (name.equals("斤")) {
-            tag = "jin";
-        }
-        if (name.equals("平方米")) {
-            tag = "squaremeter";
-        }
-        if (name.equals("袋")) {
-            tag = "dai";
-        }
-        if (name.equals("盆")) {
-            tag = "pen";
-        }
-        return tag;
+    private List<UnitTypeBean> unitTypeList = new ArrayList<>();
+
+    public List<UnitTypeBean> getUnitTypeList() {
+        return unitTypeList;
     }
 
+    public void setUnitTypeDatas(List<UnitTypeBean> mUnitTypeList) {
 
-    public String setNameByTag(String tag) {
-        String name = "";
-        if (tag.equals("plant")) {
-            name = "株";
-            return name;
+        if (mUnitTypeList == null) {
+            mUnitTypeList = new ArrayList<>();
         }
-        if (tag.equals("crowd")) {
-            name = "丛";
-            return name;
-        }
-        if (tag.equals("jin")) {
-            name = "斤";
-            return name;
-        }
-        if (tag.equals("squaremeter")) {
-            name = "平方米";
-            return name;
-        }
-        if (tag.equals("dai")) {
-            name = "袋";
-            return name;
-        }
-        if (tag.equals("pen")) {
-            name = "盆";
-            return name;
-        } else {
-            return tag;
-        }
-
+        this.unitTypeList = mUnitTypeList;
     }
 
 }

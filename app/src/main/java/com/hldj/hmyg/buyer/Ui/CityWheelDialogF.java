@@ -71,7 +71,6 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);// 无标题
         getDialog().setCanceledOnTouchOutside(true);// 点击边际可消失
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
         View view = inflater.inflate(R.layout.dia_choose_city_new, null);
         initView(view);
         return view;
