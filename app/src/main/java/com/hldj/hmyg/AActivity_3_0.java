@@ -32,6 +32,7 @@ import com.autoscrollview.widget.AutoScrollViewPager;
 import com.autoscrollview.widget.indicator.CirclePageIndicator;
 import com.hldj.hmyg.M.BProduceAdapt;
 import com.hldj.hmyg.M.IndexGsonBean;
+import com.hldj.hmyg.Ui.NewsActivity;
 import com.hldj.hmyg.adapter.HomeFunctionAdapter;
 import com.hldj.hmyg.adapter.HomePayAdapter;
 import com.hldj.hmyg.adapter.TypeAdapter;
@@ -210,6 +211,8 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         });
         findViewById(R.id.stv_home_3).setOnClickListener(v -> {
             ToastUtil.showShortToast("正在开发中...");
+            NewsActivity.start2Activity(AActivity_3_0.this);
+
         });
         findViewById(R.id.stv_home_4).setOnClickListener(v -> {
             ToastUtil.showShortToast("正在开发中...");

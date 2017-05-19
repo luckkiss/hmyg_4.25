@@ -50,7 +50,7 @@ android {
     }
     defaultConfig {
         applicationId "com.hldj.hmyg"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 25
         aaptOptions.cruncherEnabled = false
         aaptOptions.useNewCruncher = false

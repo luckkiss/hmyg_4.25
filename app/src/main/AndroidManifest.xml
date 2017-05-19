@@ -234,6 +234,9 @@
             android:name=".Ui.Eactivity3_0"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Ui.NewsActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.hldj.hmyg.SettingActivity"
             android:screenOrientation="portrait"></activity>
         <activity
