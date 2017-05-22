@@ -1103,31 +1103,22 @@ public class BActivity extends BaseSecondActivity implements
                 mFirstY = (int) event.getRawY();
                 top = (LinearLayout.LayoutParams) relativeLayout1.getLayoutParams();
                 topMargin = top.topMargin;
-                D.e("=down===topMargin====" + top.topMargin);
                 break;
             case MotionEvent.ACTION_MOVE:
-                D.e("=down===topMargin====" + topMargin);
                 mCurrentY = (int) event.getRawY();
-                D.e("======offset======" + (mCurrentY - mFirstY));
-
                 if (Math.abs(mCurrentY - mFirstY) < 5) {
-
                     break;
                 }
                 if (mCurrentY - mFirstY > 0)//下滑
                 {
-
                     direction = true;
                 } else if (mCurrentY - mFirstY < 0)//上滑
                 {
-
                     direction = false;
                 }
-
                 if (!direction)//上滑
                 {
 //                    top = (LinearLayout.LayoutParams) relativeLayout1.getLayoutParams();
-
 //                        animToolBar(0, relativeLayout1);
                     if (top.topMargin > -marginTop) {
                         top.topMargin += mCurrentY - mFirstY;
@@ -1139,11 +1130,9 @@ public class BActivity extends BaseSecondActivity implements
                         top.topMargin = -marginTop;
                         relativeLayout1.requestLayout();
                     }
-                    D.e("=上===topMargin====" + top.topMargin);
                     mFirstY = mCurrentY;
                 } else {//下滑
 //                    top = (LinearLayout.LayoutParams) relativeLayout1.getLayoutParams();
-
 //                        animToolBar(2,relativeLayout1);
                     if (top.topMargin < 0) {
                         top.topMargin += mCurrentY - mFirstY;
@@ -1155,17 +1144,11 @@ public class BActivity extends BaseSecondActivity implements
                         top.topMargin = 0;
                         relativeLayout1.requestLayout();
                     }
-                    D.e("=下===topMargin====" + top.topMargin);
                     mFirstY = mCurrentY;
                 }
-
-
                 break;
-
             case MotionEvent.ACTION_UP:
                 break;
-
-
         }
         return super.dispatchTouchEvent(event);
     }

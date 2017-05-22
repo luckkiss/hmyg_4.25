@@ -125,7 +125,7 @@ public class MyApplication extends Application {
 
         initDao();
 
-        initLoadingLayout();
+//        initLoadingLayout();
 
 //        ToastUtil.showShortToast("我是打了补丁的");
 

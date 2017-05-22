@@ -17,10 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
+import com.hldj.hmyg.ManagerListActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.saler.SaveSeedlingActivity;
 import com.hldj.hmyg.saler.StorageSaveActivity;
-import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
 import com.jerome.weibo.KickBackAnimator;
 
 /**
@@ -38,8 +38,7 @@ public class PublishPopWindow extends PopupWindow implements View.OnClickListene
     }
 
 
-
-    public void showMoreWindow(View anchor) {
+    public PublishPopWindow showMoreWindow(View anchor) {
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         rootView = inflater.inflate(R.layout.dialog_publish, null);
@@ -84,10 +83,11 @@ public class PublishPopWindow extends PopupWindow implements View.OnClickListene
 
              less.startAnimation(set);
              */
-        }, 300);
+        }, 10);
 
 
         showAtLocation(anchor, Gravity.BOTTOM, 0, 0);
+        return this;
     }
 
     /**
@@ -183,7 +183,7 @@ public class PublishPopWindow extends PopupWindow implements View.OnClickListene
                 SaveSeedlingActivity.start2Activity(mContext);
                 break;
             case R.id.publish_manager:
-                ManagerQuoteListActivity_new.start2Activity(mContext);
+                ManagerListActivity.start2Activity(mContext);
                 break;
             case R.id.publish_storage:
                 StorageSaveActivity.start2Activity(mContext);
@@ -195,7 +195,6 @@ public class PublishPopWindow extends PopupWindow implements View.OnClickListene
                 break;
         }
     }
-
 
 
     private void goCreate() {

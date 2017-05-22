@@ -33,6 +33,7 @@ import com.autoscrollview.widget.indicator.CirclePageIndicator;
 import com.hldj.hmyg.M.BProduceAdapt;
 import com.hldj.hmyg.M.IndexGsonBean;
 import com.hldj.hmyg.Ui.NewsActivity;
+import com.hldj.hmyg.Ui.NoticeActivity;
 import com.hldj.hmyg.adapter.HomeFunctionAdapter;
 import com.hldj.hmyg.adapter.HomePayAdapter;
 import com.hldj.hmyg.adapter.TypeAdapter;
@@ -75,7 +76,6 @@ import cn.hugo.android.scanner.CaptureActivity;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import me.hwang.library.widgit.SmartRefreshLayout;
 
-import static com.hldj.hmyg.R.id.iv_Capture;
 
 /**
  * change a list hellow world
@@ -210,12 +210,10 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             PurchasePyMapActivity.start2Activity(AActivity_3_0.this);
         });
         findViewById(R.id.stv_home_3).setOnClickListener(v -> {
-            ToastUtil.showShortToast("正在开发中...");
-            NewsActivity.start2Activity(AActivity_3_0.this);
-
+            NoticeActivity.start2Activity(AActivity_3_0.this);
         });
         findViewById(R.id.stv_home_4).setOnClickListener(v -> {
-            ToastUtil.showShortToast("正在开发中...");
+            NewsActivity.start2Activity(AActivity_3_0.this);
         });
         findViewById(R.id.iv_home_more_cg).setOnClickListener(v -> {//采购
             PurchasePyMapActivity.start2Activity(AActivity_3_0.this);
@@ -791,7 +789,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 });
                 toTopBtn.setVisibility(View.GONE);
                 break;
-            case iv_Capture:
+            case R.id.iv_Capture:
                 Intent toCaptureActivity = new Intent(AActivity_3_0.this,
                         CaptureActivity.class);
                 startActivityForResult(toCaptureActivity, 1);

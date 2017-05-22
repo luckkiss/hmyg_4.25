@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
-import com.hldj.hmyg.adapter.CartListAdapter;
 import com.hldj.hmyg.base.MySwipeAdapter;
 import com.hldj.hmyg.bean.CollectGsonBean;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
@@ -46,7 +45,6 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
     private ArrayList<HashMap<String, Object>> datas = new ArrayList<HashMap<String, Object>>();
 
     boolean getdata = true; // 避免刷新多出数据
-    private CartListAdapter listAdapter;
 
     private int pageSize = 20;
     private int pageIndex = 0;

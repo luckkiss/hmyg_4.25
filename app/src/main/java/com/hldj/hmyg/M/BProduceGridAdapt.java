@@ -47,7 +47,7 @@ public class BProduceGridAdapt extends GlobBaseAdapter<BPageGsonBean.DatabeanX.P
         TextView tv_08 = myViewHolder.getView(R.id.tv_08);
         tv_08.setText("元/" + item.unitTypeName);
 
-        finalBitmap.display(iv_img, item.mediumImageUrl);
+        finalBitmap.display(iv_img, item.smallImageUrl);
 
         //item 点击事件
         myViewHolder.getConvertView().setOnClickListener(v -> {

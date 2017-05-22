@@ -1,6 +1,7 @@
 package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -229,12 +230,21 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         findViewById(R.id.iv_publish).setOnClickListener(v -> {
             View view = findViewById(R.id.main_content);
             try {
-                new PublishPopWindow(MainActivity.this).showMoreWindow(findViewById(android.R.id.tabcontent));
+                publishPopWindow = new PublishPopWindow(MainActivity.this).showMoreWindow(findViewById(android.R.id.tabcontent));
+                setBackgroundAlpha(MainActivity.this, (float) 0.9);
+                publishPopWindow.setOnDismissListener(() -> {
+                    if (MainActivity.this != null) {
+                        setBackgroundAlpha(MainActivity.this, 1f);
+                        publishPopWindow = null;
+                    }
+                });
             } catch (Exception e1) {
                 new PublishPopWindow(MainActivity.this).showMoreWindow(view);
                 e1.printStackTrace();
             }
         });
+
+
 
 
         radioderGroup.setOnCheckedChangeListener(this);
@@ -887,5 +897,27 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
      * #country=中国#road=七星西路#poiName=中国农业银行(厦门岳阳支行)#street=七星西路#streetNum=31号#aoiName=七星大厦(七星西路)
      * #errorCode=0#errorInfo=success#locationDetail=-5 #csid:42a901e6e47042779c9890bb49f2f5fe#locationType=2
      */
+
+
+    /**
+     * 设置页面的透明度
+     *
+     * @param bgAlpha 1表示不透明
+     */
+    public static void setBackgroundAlpha(Activity activity, float bgAlpha) {
+
+        WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
+        lp.alpha = bgAlpha;
+        if (bgAlpha == 1) {
+            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);//不移除该Flag的话,在有视频的页面上的视频会出现黑屏的bug
+        } else {
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);//此行代码主要是解决在华为手机上半透明效果无效的bug
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        }
+        activity.getWindow().setAttributes(lp);
+    }
+
+    PublishPopWindow publishPopWindow = null;
 
 }

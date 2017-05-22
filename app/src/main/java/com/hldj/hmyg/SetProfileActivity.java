@@ -1,5 +1,6 @@
 package com.hldj.hmyg;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.util.MyUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.loginjudge.LoginJudge;
@@ -647,6 +649,7 @@ public class SetProfileActivity extends LoginActivity implements
 
     public static void start2ActivitySet(Context mActivity) {
         mActivity.startActivity(new Intent(mActivity, SetProfileActivity.class));
+        MyUtil.overridePendingTransition_open((Activity) mActivity);
     }
 
 }

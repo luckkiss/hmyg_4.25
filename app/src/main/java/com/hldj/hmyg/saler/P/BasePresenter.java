@@ -1,5 +1,7 @@
 package com.hldj.hmyg.saler.P;
 
+import android.text.TextUtils;
+
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
@@ -47,7 +49,6 @@ public abstract class BasePresenter {
     }
 
 
-
     /**
      * 先传参数
      *
@@ -56,10 +57,11 @@ public abstract class BasePresenter {
      * @return
      */
     public BasePresenter putParams(String key, String value) {
-        if (value != null) {
+        if (!TextUtils.isEmpty(value)) {
             getAjaxParams().put(key, value);
+            D.e(key + " <=========>" + value);
         } else {
-            D.e(key + "   的值为空" + value);
+            D.e(key + "为空");
         }
 
         return this;

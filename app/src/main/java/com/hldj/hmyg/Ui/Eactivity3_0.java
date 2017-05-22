@@ -67,7 +67,6 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.e_activity_3_0);
         setSwipeBackEnable(false);
-
         LinearLayout ll_me_content = (LinearLayout) findViewById(R.id.ll_me_content);
 
         /**

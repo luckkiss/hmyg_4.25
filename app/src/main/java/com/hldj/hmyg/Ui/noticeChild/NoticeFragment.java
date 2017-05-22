@@ -1,4 +1,4 @@
-package com.hldj.hmyg.Ui.child;
+package com.hldj.hmyg.Ui.noticeChild;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,28 +11,27 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.util.D;
+import com.weavey.loading.lib.LoadingLayout;
 
 /**
  * Created by Administrator on 2017/5/19.
  */
 
-public class NewsFragment extends Fragment {
+public class NoticeFragment extends Fragment {
 
 
-//    private LoadingLayout mLoadingLayout;
+    private LoadingLayout mLoadingLayout;
 
-    public NewsFragment() {
+    public NoticeFragment() {
 
     }
 
-    private ProgressBar pg1;
 
-    public static NewsFragment instance(String url) {
-        NewsFragment newsFragment = new NewsFragment();
+    public static NoticeFragment instance(String url) {
+        NoticeFragment newsFragment = new NoticeFragment();
         Intent intent = new Intent();
         Bundle b = new Bundle();
         b.putString("url", url);
@@ -47,7 +46,7 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         if (null == mFragmentView) {
-            mFragmentView = inflater.inflate(R.layout.fragment_news_content, container, false);
+            mFragmentView = inflater.inflate(R.layout.fragment_notice_content, container, false);
 
             D.e("====inner==onCreateView=======");
         } else {
@@ -61,10 +60,10 @@ public class NewsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        WebView webView = (WebView) view.findViewById(R.id.news_webview);
+        WebView webView = (WebView) view.findViewById(R.id.notice_webview);
+        mLoadingLayout= (LoadingLayout) view.findViewById(R.id.notice_load_layout);
 
-//        mLoadingLayout.setStatus(LoadingLayout.Loading);
-        pg1 = (ProgressBar)view.findViewById(R.id.news_progressBar);
+        mLoadingLayout.setStatus(LoadingLayout.Loading);
         /**
          *
          loadingLayout.setStatus(LoadingLayout.Loading);//表示展示加载界面
@@ -113,17 +112,17 @@ public class NewsFragment extends Fragment {
             public void onProgressChanged(WebView view, int newProgress) {
                 //newProgress   1-100之间的整数
                 if (newProgress == 100) {
-                    pg1.setVisibility(View.GONE);//加载完网页进度条消失
                     //页面加载完成，关闭ProgressDialog
-//                    mLoadingLayout.setStatus(LoadingLayout.Success);
+                } else if (newProgress == 20) {
+                    mLoadingLayout.setStatus(LoadingLayout.Success);
                 } else {
                     //网页正在加载，打开ProgressDialog
-                    pg1.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
-                    pg1.setProgress(newProgress);//设置进度值
+//                    pg1.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
+//                    pg1.setProgress(newProgress);//设置进度值
                 }
             }
         });
-        webView.loadUrl("http://blog.csdn.net/a394268045/article/details/51892015");
+        webView.loadUrl("https://image.baidu.com/search/index?tn=baiduimage&ipn=r&ct=201326592&cl=2&lm=-1&st=-1&fr=&sf=1&fmq=1462357247335_R&pv=&ic=0&nc=1&z=&se=1&showtab=0&fb=0&width=&height=&face=0&istype=2&ie=utf-8&word=%E9%AB%98%E6%B8%85%E5%8A%A8%E6%BC%AB");
     }
 
 

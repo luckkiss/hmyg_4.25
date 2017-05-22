@@ -93,6 +93,11 @@ public class LoginActivity extends BaseActivity {
             //获取验证码
             this.tv_get_code_note = (TextView) findViewById(R.id.tv_get_code_note);
             this.tv_get_code_note.setOnClickListener(v -> {
+
+                if (!this.tv_get_code_note.isSelected()) {
+                    D.e("===no=Selected=");
+                    return;
+                }
                 D.e("======hehe======");
                 //获取验证码，倒计时，变色，不可点
                 LoginPresenter.getCode(MyUtil.getStrWithView(holderNote.et_phone_note), holderNote.tv_get_code_note, 20, new ResultCallBack<LoginGsonBean>() {

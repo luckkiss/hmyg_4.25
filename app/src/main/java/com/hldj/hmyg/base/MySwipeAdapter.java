@@ -68,7 +68,7 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
         int layoutId = R.layout.list_view_seedling_new_shoucan;
 
         ImageView iv_img = (ImageView) view.findViewById(R.id.iv_img);
-        finalBitmap.display(iv_img, seedlingBean.getImageUrl());
+        finalBitmap.display(iv_img, seedlingBean.getSmallImageUrl());
 
 
         TextView tv_right_top = (TextView)view.findViewById(R.id.tv_right_top);
