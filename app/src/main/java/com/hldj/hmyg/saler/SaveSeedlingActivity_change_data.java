@@ -33,6 +33,10 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
             if (bundle != null) {
                 saveSeedingGsonBean = (SaveSeedingGsonBean) bundle.getSerializable(SEEDLING_KEY);
 
+                String proId = bundle.getString("proId");
+                setProId(proId);
+                D.e("=========proId=========" + proId);
+
 
                 initAutoLayout(saveSeedingGsonBean.getData().getTypeList());
                 initAutoLayout2(saveSeedingGsonBean.getData().getPlantTypeList());
@@ -192,6 +196,21 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
     public static void start2Activity(Activity activity, SaveSeedingGsonBean saveSeedingGsonBean, int request_code) {
         Intent intent = new Intent(activity, SaveSeedlingActivity_change_data.class);
         Bundle bundle = new Bundle();
+        bundle.putSerializable(SEEDLING_KEY, saveSeedingGsonBean);
+        intent.putExtras(bundle);
+        activity.startActivityForResult(intent, request_code);
+    }
+
+    /**
+     * 跳转到本届面必须携带  seedling bean  修改就数据，需要携带订单id 过来
+     *
+     * @param activity
+     * @param saveSeedingGsonBean
+     */
+    public static void start2Activity(Activity activity, SaveSeedingGsonBean saveSeedingGsonBean, int request_code, String proId) {
+        Intent intent = new Intent(activity, SaveSeedlingActivity_change_data.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("proId", proId);
         bundle.putSerializable(SEEDLING_KEY, saveSeedingGsonBean);
         intent.putExtras(bundle);
         activity.startActivityForResult(intent, request_code);

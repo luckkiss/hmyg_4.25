@@ -28,6 +28,8 @@ import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
+import static com.hldj.hmyg.buyer.weidet.BaseQuickAdapter.SCALEIN;
+
 
 /**
  * Created by Administrator on 2017/5/2.
@@ -87,7 +89,7 @@ public class Fragment1 extends Fragment {
             initData(page);
         }).openRefresh()
                 .selfRefresh(true);
-
+        recyclerView.openLoadAnimation(SCALEIN);
         return recyclerView;
     }
 

@@ -418,7 +418,6 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
                 mEmptyEnable = true;
                 count += getmEmptyViewCount();
             }
-
         }
         return count;
     }

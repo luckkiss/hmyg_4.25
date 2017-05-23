@@ -2,37 +2,21 @@ apply plugin: 'com.android.application'
 apply plugin:'me.tatarka.retrolambda'
 apply plugin: 'org.greenrobot.greendao'
 // 依赖插件脚本
-//apply from: 'tinker-support.gradle'
+apply from: 'tinker-support.gradle'
 
 android {
     signingConfigs {
-//        release {
-//            try {
-//                storeFile file("./keystore/release.keystore")
-//                storePassword "android"
-//                keyAlias "androiddebugkey"
-//                keyPassword "android"
-//            } catch (ex) {
-//                throw new InvalidUserDataException(ex.toString())
-//            }
-//        }
-//
-//        debug {
-//            storeFile file("./keystore/debug.keystore")
-//        }
         release {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file('D:/android_luocaca/studio_workpase/AndroidStudioProjects/hmyg203/debug.keystore')
-            storePassword 'android'
+            try {
+                storeFile file("./keystore/release.keystore")
+                storePassword "android"
+                keyAlias "androiddebugkey"
+                keyPassword "android"
+            } catch (ex) {
+                throw new InvalidUserDataException(ex.toString())
+            }
         }
-
-    }
-
-
-
-
-
+   }
 
 
     compileSdkVersion 25
@@ -60,15 +44,6 @@ android {
 //        }
 
 
-//        ndk {
-//            //设置支持的SO库架构
-//            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
-//        }
-
-
-
-
-
     }
     greendao {
         schemaVersion 1
@@ -82,14 +57,10 @@ android {
 
 //    dataBinding.enabled = true
     buildTypes {
-
         release {
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
             signingConfig signingConfigs.release
-            debuggable true
-        }
-        debug {
-            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     dexOptions {
@@ -112,12 +83,12 @@ android {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE.txt'
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-        }
-    }
+//    buildTypes {
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+//        }
+//    }
 }
 
 
@@ -149,7 +120,7 @@ dependencies {
     //compile 'com.tencent.bugly:crashreport:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.3.2
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
-    compile 'com.tencent.bugly:nativecrashreport:latest.release'
+//    compile 'com.tencent.bugly:nativecrashreport:latest.release'
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
     compile 'com.pitt.loading.library:library:0.8'
     compile 'com.android.support:multidex:1.0.1'

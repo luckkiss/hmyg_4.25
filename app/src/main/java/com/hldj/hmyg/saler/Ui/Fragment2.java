@@ -24,6 +24,8 @@ import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
+import static com.hldj.hmyg.buyer.weidet.BaseQuickAdapter.SCALEIN;
+
 /**
  * Created by Administrator on 2017/5/2.
  */
@@ -64,6 +66,7 @@ public class Fragment2 extends Fragment {
     public View getContentView() {
 
         recyclerView = new CoreRecyclerView(getActivity());
+
         recyclerView.initView(getActivity()).init(new BaseQuickAdapter<SaveSeedingGsonBean.DataBean.SeedlingBean, BaseViewHolder>(R.layout.item_fragment1) {
             @Override
             protected void convert(BaseViewHolder helper, SaveSeedingGsonBean.DataBean.SeedlingBean item) {
@@ -88,7 +91,7 @@ public class Fragment2 extends Fragment {
         }).openLoadMore(6, page -> {
             initData(page);
         }).openRefresh();
-
+        recyclerView.openLoadAnimation(SCALEIN);
         return recyclerView;
     }
 

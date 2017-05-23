@@ -92,7 +92,6 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                     .setCancellable(true);
             instance = this;
 
-
         }
 //step 2
         {
@@ -417,7 +416,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
                         @Override
                         public void onFailure(Throwable t, int errorNo, String strMsg) {
-                            ToastUtil.showShortToast("上传图片失败");
+                            hud_numHud.dismiss();
+                            ToastUtil.showShortToast("上传图片失败,请稍后尝试！");
                         }
                     });
 
@@ -608,6 +608,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         params.put("remarks", upLoadDatas.getRemark());
 
         params.put("imagesData", GsonUtil.Bean2Json(urlPaths));
+
+        params.put("id", proId);
 
         return params;
     }
@@ -822,6 +824,12 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 //                .list();
 
 
+    }
+
+    String proId = "";//初始化 时候 赋值，
+
+    public void setProId(String proId) {
+        this.proId = proId;
     }
 
 }

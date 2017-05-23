@@ -1343,7 +1343,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 //                toSaveSeedlingActivity.putExtras(bundleObject);
 //                startActivityForResult(toSaveSeedlingActivity, 1);
 
-                SaveSeedlingActivity_change_data.start2Activity(FlowerDetailActivity.this, saveSeedingGsonBean, 1);
+                SaveSeedlingActivity_change_data.start2Activity(FlowerDetailActivity.this, saveSeedingGsonBean, 1,id);
 
             }
         }
