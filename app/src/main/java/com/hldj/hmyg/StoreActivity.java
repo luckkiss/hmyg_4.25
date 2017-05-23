@@ -58,6 +58,7 @@ import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PlatformForShare;
 import com.hldj.hmyg.store.StoreTypeActivity;
 import com.hldj.hmyg.store.TypeEx;
+import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.ConstantState;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
@@ -172,7 +173,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
     private SmartRefreshLayout mLayout;
     private TypeEx typeEx;
     private LinearLayout ll_plant_type;
-    private LinearLayout ll_type;
+    //    private LinearLayout ll_type;
     private TextView tv_store_name;
 
     @Override
@@ -223,7 +224,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
         tv_plant_type = (TextView) findViewById(R.id.tv_plant_type);
         tv_type = (TextView) findViewById(R.id.tv_type);
         ll_plant_type = (LinearLayout) findViewById(R.id.ll_plant_type);
-        ll_type = (LinearLayout) findViewById(R.id.ll_type);
+//        ll_type = (LinearLayout) findViewById(R.id.ll_type);
         tv_name = (TextView) findViewById(R.id.tv_name);
         tv_user_address = (TextView) findViewById(R.id.tv_user_address);
         tv_user_name = (TextView) findViewById(R.id.tv_user_name);
@@ -341,6 +342,20 @@ public class StoreActivity extends NeedSwipeBackActivity implements
         pwMyPopWindow.setBackgroundDrawable(this.getResources().getDrawable(
                 R.drawable.bg_popupwindow));// 设置背景图片，不能在布局中设置，要通过代码来设置
         pwMyPopWindow.setOutsideTouchable(true);// 触摸popupwindow外部，popupwindow消失。这个要求你的popupwindow要有背景图片才可以成功，如上
+    }
+
+    public void setTextByType(TextView tv_plant_type, String textByType) {
+
+        if (textByType.contains(ConstantParams.heelin)) {
+            tv_plant_type.setText("假植苗");
+        } else if (textByType.contains(ConstantParams.container)) {
+            tv_plant_type.setText("容器苗");
+        } else if (textByType.contains(ConstantParams.planted)) {
+            tv_plant_type.setText("地栽苗");
+        } else if (textByType.contains(ConstantParams.transplant)) {
+            tv_plant_type.setText("移植苗");
+        }
+
     }
 
     class SharePoPAdapter extends BaseAdapter {
@@ -924,9 +939,9 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                                                                         jsonObject3,
                                                                         "ownerJson"),
                                                         "realName"));
-                                        hMap.put("companyName", JsonGetInfo  .getJsonString(JsonGetInfo .getJSONObject( jsonObject3, "ownerJson"), "companyName"));
+                                        hMap.put("companyName", JsonGetInfo.getJsonString(JsonGetInfo.getJSONObject(jsonObject3, "ownerJson"), "companyName"));
                                         hMap.put("publicName", JsonGetInfo.getJsonString(JsonGetInfo.getJSONObject(jsonObject3, "ownerJson"), "publicName"));
-                                        hMap.put("status", JsonGetInfo .getJsonString(jsonObject3, "status"));
+                                        hMap.put("status", JsonGetInfo.getJsonString(jsonObject3, "status"));
                                         hMap.put("statusName", JsonGetInfo.getJsonString(jsonObject3, "statusName"));
                                         hMap.put("ziying", JsonGetInfo.getJsonBoolean(JsonGetInfo.getJSONObject(jsonObject3, "attrData"), "ziying"));
                                         datas.add(hMap);
@@ -1363,6 +1378,14 @@ public class StoreActivity extends NeedSwipeBackActivity implements
     }
 
     public void Refresh() {
+
+        if (TextUtils.isEmpty(plantTypes)) {
+            tv_plant_type.setTextColor(getResources().getColor(R.color.text_color666));
+        } else {
+            tv_plant_type.setTextColor(getResources().getColor(R.color.main_color));
+            setTextByType(tv_plant_type, plantTypes);
+        }
+
         datas.clear();
         if (AllgridAdapter != null) {
             AllgridAdapter.notifyDataSetChanged();
@@ -1735,7 +1758,14 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                 typeEx = (TypeEx) bundle.get("TypeEx");
                 secondSeedlingTypeId = typeEx.getFirstSeedlingTypeId();
                 Refresh();
-                tv_type.setText(typeEx.getName());
+                if (typeEx.getName().equals("苗木分类")) {
+                    tv_type.setText(typeEx.getName());
+                    tv_type.setTextColor(getResources().getColor(R.color.text_color666));
+                } else {
+                    tv_type.setText(typeEx.getName());
+                    tv_type.setTextColor(getResources().getColor(R.color.main_color));
+                }
+
             }
         }
         super.onActivityResult(arg0, arg1, arg2);

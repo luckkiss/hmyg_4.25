@@ -79,16 +79,17 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/y34"
+        android:layout_height="38dp"
         android:background="@color/white">
 
         <ImageView
             android:id="@+id/btn_back"
-            android:layout_width="@dimen/x24"
-            android:layout_height="@dimen/x24"
+            android:layout_width="@dimen/x27"
+            android:layout_height="@dimen/x27"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/x10"
-            android:background="@drawable/btn_back" />
+            android:padding="3dp"
+            android:src="@drawable/btn_back" />
 
         <TextView
             android:id="@+id/tv_store_name"
@@ -100,7 +101,7 @@
             android:focusableInTouchMode="true"
             android:text="店铺详情"
             android:textColor="@color/main_color"
-            android:textSize="@dimen/x18" />
+            android:textSize="@dimen/x17" />
 
         <ImageView
             android:id="@+id/iv_fenxiang"
@@ -171,7 +172,9 @@
                         android:background="@color/white"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
-                        android:paddingLeft="10.0dip">
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="8.0dip"
+                        android:paddingTop="5dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -180,95 +183,109 @@
 
                             <ImageView
                                 android:id="@+id/iv_icon_persion_pic"
-                                android:layout_width="65dp"
-                                android:layout_height="65dp"
+                                android:layout_width="53dp"
+                                android:layout_height="53dp"
                                 android:layout_centerVertical="true"
-                                android:layout_margin="@dimen/y5"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/no_image_show" />
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="55dp">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:orientation="vertical"
-                                    android:padding="5.0dip">
+                                    android:weightSum="3">
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                        android:layout_margin="2.0dip"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
                                         android:orientation="horizontal">
 
                                         <ImageView
-                                            android:layout_width="14sp"
-                                            android:layout_height="match_parent"
+                                            android:layout_width="13sp"
+                                            android:layout_height="13sp"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_marginRight="5dp"
                                             android:src="@drawable/gongsi" />
 
                                         <TextView
                                             android:id="@+id/tv_companyName"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:layout_marginBottom="@dimen/x2"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginLeft="5dp"
                                             android:textColor="@color/gray"
-                                            android:textSize="14sp" />
+                                            android:textSize="14sp"
+                                            tools:text="13134646" />
                                     </LinearLayout>
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                        android:layout_margin="2.0dip"
+                                        android:layout_height="0dp"
+
+                                        android:layout_weight="1"
                                         android:orientation="horizontal">
 
                                         <ImageView
-                                            android:layout_width="14sp"
-                                            android:layout_height="match_parent"
-                                            android:layout_weight="1"
+                                            android:layout_width="13sp"
+                                            android:layout_height="13sp"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_marginRight="5dp"
                                             android:src="@drawable/seller_name" />
 
                                         <TextView
                                             android:id="@+id/tv_user_name"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:layout_marginBottom="@dimen/x2"
+                                            android:layout_marginLeft="5dp"
                                             android:layout_weight="1"
                                             android:textColor="@color/gray"
-                                            android:textSize="14sp" />
+                                            android:textSize="14sp"
+                                            tools:text="1346546" />
                                     </LinearLayout>
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_margin="2.0dip"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
                                         android:orientation="horizontal">
 
                                         <ImageView
-                                            android:layout_width="14sp"
-                                            android:layout_height="match_parent"
-                                            android:layout_weight="1"
+                                            android:layout_width="13sp"
+                                            android:layout_height="13sp"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_marginRight="5dp"
                                             android:src="@drawable/seller_phone" />
 
                                         <TextView
                                             android:id="@+id/tv_user_phone"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:layout_marginBottom="@dimen/x2"
+                                            android:layout_marginLeft="5dp"
                                             android:layout_weight="1"
                                             android:textColor="@color/main_color"
-                                            android:textSize="14sp" />
+                                            android:textSize="14sp"
+                                            tools:text="1346546" />
                                     </LinearLayout>
                                 </LinearLayout>
 
                                 <ImageView
                                     android:id="@+id/iv_lianxi"
-                                    android:layout_width="50.0dip"
-                                    android:layout_height="50.0dip"
+                                    android:layout_width="47.0dip"
+                                    android:layout_height="47.0dip"
                                     android:layout_alignParentRight="true"
                                     android:layout_centerVertical="true"
-                                    android:layout_margin="@dimen/x8"
+                                    android:layout_margin="@dimen/x6"
                                     android:gravity="center_vertical"
                                     android:src="@drawable/seller_makingacall_2" />
                             </RelativeLayout>
@@ -465,6 +482,7 @@
                     android:visibility="gone"
                     tools:visibility="visible">
 
+
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
@@ -474,7 +492,7 @@
                         <RelativeLayout
                             android:id="@+id/RelativeLayout1"
                             android:layout_width="fill_parent"
-                            android:layout_height="@dimen/y32"
+                            android:layout_height="wrap_content"
                             android:background="@color/white"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
@@ -491,11 +509,10 @@
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="@dimen/y31"
+                                    android:layout_height="@dimen/y22"
                                     android:gravity="center_vertical"
                                     android:orientation="horizontal"
-                                    android:paddingLeft="@dimen/x13"
-                                    android:paddingRight="@dimen/x13">
+                                    android:weightSum="3">
 
                                     <RelativeLayout
                                         android:id="@+id/rl_choose_type"
@@ -517,14 +534,18 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="center_vertical"
+                                                android:ellipsize="end"
                                                 android:gravity="center"
+                                                android:maxEms="4"
+                                                android:maxLines="1"
                                                 android:text="苗木分类"
                                                 android:textSize="@dimen/y11" />
 
                                             <ImageView
-                                                android:layout_width="@dimen/x10"
-                                                android:layout_height="match_parent"
+                                                android:layout_width="@dimen/x9"
+                                                android:layout_height="wrap_content"
                                                 android:layout_gravity="center_vertical"
+                                                android:layout_marginLeft="3dp"
                                                 android:gravity="center"
                                                 android:src="@drawable/icon_seller_arrow5" />
                                         </LinearLayout>
@@ -608,6 +629,7 @@
                                 android:layout_height="@dimen/y18"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
+                                android:layout_marginLeft="5dp"
                                 android:layout_marginRight="@dimen/x10"
                                 android:src="@drawable/icon_list_view" />
                         </RelativeLayout>

@@ -124,26 +124,23 @@ public abstract class ChooseTypeBottomPopwin extends PopupWindow {
                     return tv;
                 }
             };
+
+            mFlowLayout3.setMaxSelectCount(1);
             mFlowLayout3.setAdapter(adapter3);
-            mFlowLayout3
-                    .setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
-                        @Override
-                        public boolean onTagClick(View view, int position,
-                                                  FlowLayout parent) {
+            mFlowLayout3.setOnTagClickListener((view, position, parent) -> {
 
-                            if (position == 0) {
-                                type01 = "planted,";
-                            } else if (position == 1) {
-                                type01 = "transplant,";
-                            } else if (position == 2) {
-                                type01 = "heelin,";
-                            } else if (position == 3) {
-                                type01 = "container,";
-                            }
-                            return true;
-                        }
-                    });
-
+                if (position == 0) {
+                    type01 = "planted,";
+                } else if (position == 1) {
+                    type01 = "transplant,";
+                } else if (position == 2) {
+                    type01 = "heelin,";
+                } else if (position == 3) {
+                    type01 = "container,";
+                }
+                str = type01;
+                return true;
+            });
 
             if (str.contains("planted")) {
                 adapter3.setSelectedList(0);
@@ -200,7 +197,18 @@ public abstract class ChooseTypeBottomPopwin extends PopupWindow {
                     dismiss();
                     break;
                 case R.id.sure:
-                    str = type01 + type02 + type03 + type04;
+//                    str = type01 + type02 + type03 + type04;
+                    if (mFlowLayout3.getSelectedList().size() == 0) {
+                        str = "";
+                    } else {
+
+                    }
+/**
+ *    private static String type01 = ""; // planted,
+ private String type02 = ""; // transplant,
+ private String type03 = ""; // heelin,
+ private String type04 = ""; // container,
+ */
                     handleClickListener(str);
                     dismiss();
                     break;

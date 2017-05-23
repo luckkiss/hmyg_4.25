@@ -1,18 +1,7 @@
 package com.hldj.hmyg.store;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
@@ -27,7 +16,18 @@ import android.widget.Toast;
 import com.hldj.hmyg.R;
 import com.hy.utils.JsonGetInfo;
 
-public class StoreTypeActivity extends Activity {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+
+public class StoreTypeActivity extends NeedSwipeBackActivity {
 	private ExpandableListView expandList;
 	private List<GroupItem> groupData;// group的数据源
 	private Map<Integer, List<ChildItem>> childData;// child的数据源
