@@ -274,32 +274,27 @@ public class ProductListAdapter extends BaseAdapter {
     }
 
     public static void setPrice(TextView tv_07, String maxPrice, String minPrice, boolean isNego) {
-
         String price = "";
         if (isNego) {
             tv_07.setText("面议");
         } else {
-            if (!TextUtils.isEmpty(minPrice) && !minPrice.equals("0") && !minPrice.equals("null")) {
+            if (!isPriceNull(minPrice) && !isPriceNull(maxPrice)) {
+                price = minPrice + "-" + maxPrice;
+            } else if (isPriceNull(minPrice) && !isPriceNull(maxPrice)) {
+                price = maxPrice;
+            } else if (!isPriceNull(minPrice) && isPriceNull(maxPrice)) {
                 price = minPrice;
-                tv_07.setText(price);
-            } else if (!TextUtils.isEmpty(maxPrice) && !maxPrice.equals("0") && !maxPrice.equals("null")) {
-                if (price.equals("")) {
-                    price = maxPrice;
-                } else {
-                    price = price + "-" + maxPrice;
-                }
-
-
             } else {
                 price = "面议";
             }
-
-
             tv_07.setText(price);
         }
-
-
     }
+
+    public static boolean isPriceNull(String price) {
+        return TextUtils.isEmpty(price) || price.equals("0") || price.equals("null");
+    }
+
 
     private class ChildHolder {
         ImageView iv_img;

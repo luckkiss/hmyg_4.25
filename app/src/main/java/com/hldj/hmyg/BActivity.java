@@ -1126,6 +1126,7 @@ public class BActivity extends BaseSecondActivity implements
                             top.topMargin = -marginTop;
                         }
                         relativeLayout1.requestLayout();
+
                     } else {
                         top.topMargin = -marginTop;
                         relativeLayout1.requestLayout();

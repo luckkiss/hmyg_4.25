@@ -569,11 +569,10 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
     View.OnClickListener showCity = v -> {
         CityWheelDialogF.instance()
-                .addSelectListener((province, city, dis, cityCode) -> {
-                    D.e("===========address==============" + province + city + dis);
-                    D.e("===========cityCode==============" + cityCode);
-                    getViewHolder_pur().tv_purchase_city_name.setText(province + city);
-                    uploadBean.cityCode = cityCode.substring(0, 4);
+                .addSelectListener((child) -> {
+                    D.e("===========child==============" + child.toString());
+                    getViewHolder_pur().tv_purchase_city_name.setText(child.fullName);
+                    uploadBean.cityCode = child.cityCode;
                 })
                 .show(getSupportFragmentManager(), PurchaseDetailActivity.this.getClass().getName());
     };

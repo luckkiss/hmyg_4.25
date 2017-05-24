@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,7 +22,6 @@ import com.hldj.hmyg.saler.purchase.StoreDeteilDialog;
 import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.ToastUtil;
-import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
@@ -303,12 +301,9 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
     //step 1  这一步是一样的
     private void initAutoLayout2(List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> bean) {
 
-        SaveSeedlingPresenter.initAutoLayout2(getViewHolder_pur().tfl_purchase_auto_add_plant, bean, -1, instance, new TagFlowLayout.OnTagClickListener() {
-            @Override
-            public boolean onTagClick(View view, int position, FlowLayout parent) {
-                plantType = bean.get(position).getValue();//上传值
-                return true;
-            }
+        SaveSeedlingPresenter.initAutoLayout2(getViewHolder_pur().tfl_purchase_auto_add_plant, bean, -1, instance, (view, position, parent) -> {
+            plantType = bean.get(position).getValue();//上传值
+            return true;
         });
 
     }
