@@ -1,11 +1,5 @@
 package com.cn2che.androids.swipe;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import me.maxwin.view.XListView;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
@@ -32,6 +26,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import me.maxwin.view.XListView;
 
 @SuppressWarnings("ConstantConditions")
 @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
@@ -387,6 +387,10 @@ public class ListViewSwipeGesture implements OnTouchListener {
 		return false;
 	}
 
+	 public int  getMyId()
+	{
+		return 111111 ;
+	}
 	private void SetBackGroundforList() {
 		// TODO Auto-generated method stub
 		mDownView_parent_txt1 = new TextView(activity.getApplicationContext());
@@ -394,7 +398,7 @@ public class ListViewSwipeGesture implements OnTouchListener {
 				LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		lp1.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-		mDownView_parent_txt1.setId(111111);
+		mDownView_parent_txt1.setId(getMyId());
 		mDownView_parent_txt1.setLayoutParams(lp1);
 		mDownView_parent_txt1.setGravity(Gravity.CENTER_HORIZONTAL);
 		mDownView_parent_txt1.setText(HalfText);

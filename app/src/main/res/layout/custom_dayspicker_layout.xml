@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:wheelViewStyle="http://schemas.android.com/apk/res/com.hldj.hmyg"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    xmlns:wheelViewStyle="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <View
         android:id="@+id/pop_arae_layout"

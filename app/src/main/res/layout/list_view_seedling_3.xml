@@ -97,7 +97,6 @@
                     android:textSize="@dimen/y8" />
 
                 <com.neopixl.pixlui.components.textview.TextView
-                    android:id="@+id/tv_04"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

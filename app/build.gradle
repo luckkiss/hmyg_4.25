@@ -17,7 +17,9 @@ android {
             }
         }
    }
-
+    lintOptions {
+        disable 'MissingTranslation'
+    }
 
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -50,19 +52,17 @@ android {
         targetGenDir 'src/main/java'
     }
 
-
-
-
+/**
+ * buildTypes {
+ release {
+ minifyEnabled true
+ proguardFiles getDefaultProguardFile(‘proguard-Android.txt’), ‘proguard-rules.pro’
+ } }
+ */
 
 
 //    dataBinding.enabled = true
-    buildTypes {
-        release {
-            minifyEnabled true
-            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+
     dexOptions {
         javaMaxHeapSize "4g"
     }
@@ -82,6 +82,15 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE.txt'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+//            proguardFiles 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
     }
 //    buildTypes {
 //        release {

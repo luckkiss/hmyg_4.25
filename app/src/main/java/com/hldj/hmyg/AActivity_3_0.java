@@ -122,6 +122,23 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a_3_0);
+      ToastUtil.showShortToast("补丁测试1.0.5生");
+      ToastUtil.showShortToast("补丁测试1.0.5生");
+      ToastUtil.showShortToast("补丁测试1.0.5生");
+      ToastUtil.showShortToast("补丁测试1.0.5生");
+      ToastUtil.showShortToast("补丁测试1.0.5生");
+      ToastUtil.showShortToast("补丁测试1.0.5生");
+      ToastUtil.showShortToast("补丁测试1.0.5生");
+      ToastUtil.showShortToast("补丁测试1.0.5生");
+      ToastUtil.showShortToast("补丁测试1.0.5生");
+      ToastUtil.showShortToast("补丁测试1.0.5生");
+      ToastUtil.showShortToast("补丁测试1.0.5生");
+      ToastUtil.showShortToast("补丁测试1.0.5生");
+      ToastUtil.showShortToast("补丁测试1.0.5生");
+      ToastUtil.showShortToast("补丁测试1.0.5生");
+      ToastUtil.showShortToast("补丁测试1.0.5生");
+      ToastUtil.showShortToast("补丁测试1.0.5生");
+      ToastUtil.showShortToast("补丁测试1.0.5生");
         mCache = ACache.get(this);
         viewPager = (AutoScrollViewPager) findViewById(R.id.view_pager);
         indicator = (CirclePageIndicator) findViewById(R.id.indicator);

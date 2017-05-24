@@ -1,16 +1,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res/com.hldj.hmyg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:segmentedgroup="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_title"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/y34"
-        android:background="@color/white" >
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/tv_title"
@@ -33,7 +32,7 @@
             app:sc_unchecked_tint_color="@color/white"
             segmentedgroup:sc_border_width="1dp"
             segmentedgroup:sc_corner_radius="5dp"
-            segmentedgroup:sc_tint_color="@color/main_color" >
+            segmentedgroup:sc_tint_color="@color/main_color">
 
             <RadioButton
                 android:id="@+id/button31"
@@ -92,17 +91,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp" >
+            android:layout_height="50dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/delete"
@@ -125,7 +124,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <CheckBox
                     android:id="@+id/all_check"

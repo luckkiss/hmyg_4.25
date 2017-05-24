@@ -96,9 +96,9 @@ public class MyApplication extends Application {
         // 调试时，将第三个参数改为true
         Bugly.setIsDevelopmentDevice(this, true);
         //设置为开发设备
-        CrashReport.setIsDevelopmentDevice(this, true);
-        Bugly.init(this, "be88780120", false);
-        CrashReport.setUserId(this, "13337227273");
+        CrashReport.setIsDevelopmentDevice(this, false);
+        Bugly.init(this, "be88780120", true);
+        CrashReport.setUserId(this, "17074990702");
 
 
 //        FIR.init(this);

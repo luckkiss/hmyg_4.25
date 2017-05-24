@@ -1,10 +1,5 @@
 package com.javis.ab.view;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -26,6 +21,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 名称：AbPlayView 描述：可播放显示的View.
@@ -128,6 +128,10 @@ public class AbSlidingPlayViewForCenterInd extends LinearLayout {
 		initView(context);
 	}
 
+
+	public int getMyId() {
+		return 1985;
+	}
 	/**
 	 * 
 	 * 描述：初始化这个View
@@ -152,7 +156,7 @@ public class AbSlidingPlayViewForCenterInd extends LinearLayout {
 
 		mViewPager = new AbInnerViewPager(context);
 		// 手动创建的ViewPager,如果用fragment必须调用setId()方法设置一个id
-		mViewPager.setId(1985);
+		mViewPager.setId(getMyId());
 		// 导航的点
 		mPageLineLayoutParent = new LinearLayout(context);
 		mPageLineLayoutParent.setPadding(0, 5, 0, 5);
