@@ -95,6 +95,9 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
     private View mLoadingView;
 
 
+    private int datasState = LOAD_MORE;//默认读取更多
+
+
     @IntDef({ALPHAIN, SCALEIN, SLIDEIN_BOTTOM, SLIDEIN_LEFT, SLIDEIN_RIGHT})
     @Retention(RetentionPolicy.SOURCE)
     public @interface AnimationType {
@@ -257,8 +260,6 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
             throw new ArrayIndexOutOfBoundsException("inserted position most greater than 0 and less than data size");
         }
     }
-
-    private int datasState = LOAD_MORE;//默认读取更多
 
 
     public void setDatasState(int datasState) {

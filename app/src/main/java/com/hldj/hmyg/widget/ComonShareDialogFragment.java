@@ -19,8 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.bean.PlatformForShare;
+import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
 
 import java.util.ArrayList;
@@ -37,22 +37,23 @@ import cn.sharesdk.tencent.qq.QQ;
  * Created by Administrator on 2017/5/18.
  */
 
-public class ShareDialogFragment extends DialogFragment implements PlatformActionListener {
+public class ComonShareDialogFragment extends DialogFragment implements PlatformActionListener {
 
 
     private String img = GetServerUrl.ICON_PAHT;
-    private static ShareDialogFragment instance;
+    private static ComonShareDialogFragment instance;
     Dialog dialog;
     private ArrayList<PlatformForShare> shares = new ArrayList<>();
+    private ShareBean shareBean = new ShareBean();
 
-    public static ShareDialogFragment newInstance() {
-        instance = new ShareDialogFragment();
+    public static ComonShareDialogFragment newInstance() {
+        instance = new ComonShareDialogFragment();
         instance.setCancelable(true);
         return instance;
     }
 
 
-    public static ShareDialogFragment getInstance() {
+    public static ComonShareDialogFragment getInstance() {
         return instance;
     }
 
@@ -210,6 +211,9 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
                     ShareToQzone();
                 }
 
+                D.e("=======分享内容=======" + shareBean.toString());
+
+
             });
             return inflate;
         }
@@ -218,12 +222,12 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
 
     private void ShareToQzone() {
         Platform.ShareParams sp5 = new Platform.ShareParams();
-        sp5.setTitle("欢迎使用花木易购代购型苗木交易平台！");
-        sp5.setTitleUrl(Data.share); // 标题的超链接
-        sp5.setText("苗木交易原来可以如此简单,配上花木易购APP,指尖轻点,交易无忧。");
-        sp5.setImageUrl(img);
+        sp5.setTitle(shareBean.title);
+        sp5.setTitleUrl(shareBean.pageUrl); // 标题的超链接
+        sp5.setText(shareBean.text);
+        sp5.setImageUrl(shareBean.imgUrl);
         sp5.setSite(getString(R.string.app_name));
-        sp5.setSiteUrl(Data.share);
+        sp5.setSiteUrl(shareBean.pageUrl);
         Platform qzone = ShareSDK.getPlatform(QQ.NAME);
         qzone.setPlatformActionListener(this); // 设置分享事件回调
         // 执行图文分享
@@ -243,14 +247,13 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
     private void ShareToWechat() {
         Platform.ShareParams sp1 = new Platform.ShareParams();
         sp1.setShareType(Platform.SHARE_WEBPAGE);
-        sp1.setTitle("欢迎使用花木易购代购型苗木交易平台！");
-        sp1.setText("苗木交易原来可以如此简单,配上花木易购APP,指尖轻点,交易无忧。");
+        sp1.setTitle(shareBean.title);
+        sp1.setText(shareBean.text);
 //        sp1.setImageUrl(img);
-        sp1.setImageUrl(img);
+        sp1.setImageUrl(shareBean.imgUrl);
 //        Uri uri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getResourcePackageName(R.drawable.图片名称) + "/" + r.getResourceTypeName(R.drawable.图片名称) + "/" + r.getResourceEntryName(R.drawable.图片名称))
-
-        sp1.setUrl(Data.share);
-        sp1.setSiteUrl(Data.share);
+        sp1.setUrl(shareBean.pageUrl);
+        sp1.setSiteUrl(shareBean.pageUrl);
         Platform Wechat = ShareSDK.getPlatform("Wechat");
         Wechat.setPlatformActionListener(this);
         Wechat.share(sp1);
@@ -259,12 +262,12 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
     private void ShareToWechatMoments() {
         Platform.ShareParams sp2 = new Platform.ShareParams();
         sp2.setShareType(Platform.SHARE_WEBPAGE);
-        sp2.setTitle("欢迎使用花木易购代购型苗木交易平台！");
-        sp2.setText("苗木交易原来可以如此简单,配上花木易购APP,指尖轻点,交易无忧。");
-        sp2.setImageUrl(img);
-        sp2.setUrl(Data.share);
-        sp2.setTitleUrl(Data.share);
-        sp2.setSiteUrl(Data.share);
+        sp2.setTitle(shareBean.title);
+        sp2.setText(shareBean.text);
+        sp2.setImageUrl(shareBean.imgUrl);
+        sp2.setUrl(shareBean.pageUrl);
+        sp2.setTitleUrl(shareBean.pageUrl);
+        sp2.setSiteUrl(shareBean.pageUrl);
         Platform Wechat_men = ShareSDK.getPlatform("WechatMoments");
         Wechat_men.setPlatformActionListener(this);
         Wechat_men.share(sp2);
@@ -278,6 +281,40 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
     }
 
 
+    public ComonShareDialogFragment setShareBean(ShareBean bean) {
+        shareBean = bean;
+        return this;
+    }
+
+    public static class ShareBean {
+        public String title = "";//标题
+        public String text = "苗木交易原来可以如此简单,配上花木易购APP,指尖轻点,交易无忧。";//内容
+        public String desc = "";//描述
+        public String imgUrl = "";//图片链接地址
+        public String pageUrl = "";// 
+
+        public ShareBean(String title, String text, String desc, String imgUrl, String pageUrl) {
+            this.title = title;
+            this.text = text;
+            this.desc = desc;
+            this.imgUrl = imgUrl;
+            this.pageUrl = pageUrl;
+        }
+
+        public ShareBean() {
+        }
+
+        @Override
+        public String toString() {
+            return "ShareBean{" +
+                    "title='" + title + '\'' +
+                    ", text='" + text + '\'' +
+                    ", desc='" + desc + '\'' +
+                    ", imgUrl='" + imgUrl + '\'' +
+                    ", pageUrl='" + pageUrl + '\'' +
+                    '}';
+        }
+    }
 
 
 }

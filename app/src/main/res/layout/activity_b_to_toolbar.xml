@@ -7,19 +7,11 @@
     android:orientation="vertical">
 
 
-    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
-        android:id="@+id/core_rv_b"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:nestedScrollingEnabled="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    </com.hldj.hmyg.buyer.weidet.CoreRecyclerView>
-
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:visibility="visible">
 
         <android.support.v7.widget.Toolbar
@@ -90,95 +82,48 @@
 
         </android.support.v7.widget.Toolbar>
 
+
         <LinearLayout
-            android:id="@+id/ll_choice"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y24"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/x3"
-            android:paddingLeft="@dimen/x13"
-            android:paddingRight="@dimen/x13"
-            android:paddingTop="@dimen/x3"
-            android:visibility="gone">
+            android:layout_height="@dimen/y24">
 
-
-            <ImageView
-                android:layout_width="2px"
-                android:layout_height="15.0dip"
-                android:background="@color/gray"
-                android:visibility="gone" />
-
-            <RelativeLayout
-                android:id="@+id/rl_choose_screen"
-                android:layout_width="wrap_content"
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_b_filter"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:text="@string/bactivity_choose_screen"
-                        android:textSize="@dimen/y9" />
-
-                    <ImageView
-                        android:layout_width="@dimen/x10"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:src="@drawable/icon_seller_arrow5" />
-                </LinearLayout>
-            </RelativeLayout>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="筛选"
+                app:isShowState="true"
+                app:state_drawable="@drawable/icon_seller_arrow5"
+                app:state_drawable_height="6dp"
+                app:state_drawable_mode="center"
+                app:state_drawable_padding_left="24dp"
+                app:state_drawable_width="12dp" />
 
             <ImageView
                 android:layout_width="2px"
                 android:layout_height="15.0dip"
+                android:layout_gravity="center_vertical"
                 android:background="@color/gray" />
 
-
-            <RelativeLayout
-                android:id="@+id/rl_choose_time"
-                android:layout_width="wrap_content"
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_b_sort"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="排序"
+                app:isShowState="true"
+                app:state_drawable="@drawable/icon_seller_arrow5"
+                app:state_drawable_height="6dp"
+                app:state_drawable_mode="center"
+                app:state_drawable_padding_left="24dp"
+                app:state_drawable_width="12dp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:text="排序"
-                        android:textSize="@dimen/y9" />
-
-                    <ImageView
-                        android:id="@+id/iv_seller_arrow3"
-                        android:layout_width="@dimen/x10"
-                        android:layout_height="@dimen/x10"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:src="@drawable/icon_seller_arrow5" />
-                </LinearLayout>
-            </RelativeLayout>
         </LinearLayout>
+
 
         <ImageView
             android:layout_width="match_parent"
@@ -187,6 +132,14 @@
 
 
     </android.support.design.widget.AppBarLayout>
+
+
+    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+        android:id="@+id/core_rv_b"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:nestedScrollingEnabled="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
 </android.support.design.widget.CoordinatorLayout>

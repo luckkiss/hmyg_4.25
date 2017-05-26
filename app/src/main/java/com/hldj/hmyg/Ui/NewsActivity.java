@@ -1,20 +1,27 @@
 package com.hldj.hmyg.Ui;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.Ui.child.NewsFragment;
-import com.hldj.hmyg.saler.Adapter.FragmentPagerAdapter_TabLayout;
-import com.hldj.hmyg.widget.ShareDialogFragment;
+import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.lqr.optionitemview.OptionItemView;
-
-import java.util.ArrayList;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
@@ -27,6 +34,8 @@ public class NewsActivity extends NeedSwipeBackActivity {
 
 
     private ViewHolder viewHolder;//通过geviewholder 来获取
+    private WebView webView;
+    private boolean canClick;
 
     public ViewHolder getViewHolder() {
         if (viewHolder == null) {
@@ -36,47 +45,22 @@ public class NewsActivity extends NeedSwipeBackActivity {
     }
 
 
-    FragmentPagerAdapter_TabLayout mFragmentPagerAdapter_tabLayout;
-    private ArrayList<String> list_title = new ArrayList<String>() {{
-        add("公司新闻");
-        add("行业资讯");
-        add("股东资讯");
-        add("平台公告");
-        add("股东资讯");
-    }};
-
-    private ArrayList<Fragment> list_fragment = new ArrayList<Fragment>() {{
-        add(new NewsFragment());
-        add(new NewsFragment());
-        add(new NewsFragment());
-        add(new NewsFragment());
-        add(new NewsFragment());
-    }};
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
-
-        requestData();//网络请求 ，请求到数据源 初始化数据
-
         initView();
     }
 
-    private void requestData() {
-//        initView();
 
-    }
+    private ProgressBar pg1;
 
     private void initView() {
 
-//        loadingLayout.setStatus(loadingLayout.Loading);
-//        loadingLayout.show
         getViewHolder().news_title.setOnOptionItemClickListener(new OptionItemView.OnOptionItemClickListener() {
             @Override
             public void leftOnClick() {
-                finish();
+                onBackPressed();
             }
 
             @Override
@@ -85,18 +69,143 @@ public class NewsActivity extends NeedSwipeBackActivity {
 
             @Override
             public void rightOnClick() {
-                ShareDialogFragment.newInstance().show(getSupportFragmentManager(), getClass().getName());
+                if (canClick) ComonShareDialogFragment.newInstance()
+                        .setShareBean(new ComonShareDialogFragment.ShareBean(title, desc, desc, cover, pageUrl))
+                        .show(getSupportFragmentManager(), getClass().getName());
             }
         });
 
-        getViewHolder().news_vp_content.setOffscreenPageLimit(2);
-        getViewHolder().news_tb_layout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        getViewHolder().news_tb_layout.setSelectedTabIndicatorHeight(0);
-        mFragmentPagerAdapter_tabLayout = new FragmentPagerAdapter_TabLayout(getSupportFragmentManager(), list_title, list_fragment);
-        getViewHolder().news_vp_content.setAdapter(mFragmentPagerAdapter_tabLayout);
+        webView = (WebView) findViewById(R.id.news_webview);
 
-        getViewHolder().news_tb_layout.setupWithViewPager(getViewHolder().news_vp_content);
+//        mLoadingLayout.setStatus(LoadingLayout.Loading);
+        pg1 = (ProgressBar) findViewById(R.id.news_progressBar);
+        /**
+         *
+         loadingLayout.setStatus(LoadingLayout.Loading);//表示展示加载界面
+         loadingLayout.setStatus(LoadingLayout.Empty);//表示展示无数据界面
+         loadingLayout.setStatus(LoadingLayout.Error);//表示展示加载错误界面
+         loadingLayout.setStatus(LoadingLayout.No_Network);表示无网络连接界面
+         */
+        initWebView(webView);
 
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            finish();
+        }
+    }
+
+
+    @SuppressLint("JavascriptInterface")
+    private void initWebView(WebView webView) {
+        //启用支持Javascript
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        webView.addJavascriptInterface(new InJavaScriptLocalObj(), "java_obj");
+        webView.addJavascriptInterface(new InJavaScriptLocalObj(), "java_obj1");
+        webView.setWebViewClient(new CustomWebViewClient());
+        //WebView加载页面优先使用缓存加载
+        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        //页面加载
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                //newProgress   1-100之间的整数
+                if (newProgress == 100) {
+                    pg1.setVisibility(View.GONE);//加载完网页进度条消失
+                    //页面加载完成，关闭ProgressDialog
+//                    mLoadingLayout.setStatus(LoadingLayout.Success);
+                } else {
+                    //网页正在加载，打开ProgressDialog
+                    pg1.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
+                    pg1.setProgress(newProgress);//设置进度值
+                }
+            }
+        });
+
+
+//          webView.loadUrl("file:///asset/test.html");
+//          webView.loadUrl("file:///android_asset/test.html");
+        webView.loadUrl("http://192.168.1.252:8090/article?isHeader=true");
+//          webView.loadUrl("http://blog.csdn.net/a394268045/article/details/51892015");
+    }
+
+
+    /**
+     * @author linzewu
+     */
+    final class CustomWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            title = view.getTitle();
+            pageUrl = url;
+            D.e("==pageUrl==" + pageUrl);
+            if (url.contains("article/detail/")) {
+                D.e("=====yes=======");
+                OptionItemView optionItemView = (OptionItemView) findViewById(R.id.news_title);
+                optionItemView.showRightImg(true);
+                canClick = true;
+                //showRightImg
+            } else {
+                D.e("=====no=======");
+                OptionItemView optionItemView = (OptionItemView) findViewById(R.id.news_title);
+                optionItemView.showRightImg(false);
+                canClick = false;
+            }
+            cover = "";
+            view.loadUrl("javascript:window.java_obj.getSource(" + "document.getElementById('article-cover').innerHTML);");
+//            view.loadUrl("javascript:window.java_obj.getSource(" + "document.getElementById('article-title').innerHTML);");
+
+            desc = "";
+            view.loadUrl("javascript:window.java_obj1.getSource1(" + "document.getElementById('article-desc').innerHTML);");
+//            view.loadUrl("javascript:window.java_obj1.getSource1(" + "document.getElementById('article-desc').innerHTML);");
+
+        }
+
+
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            D.e("========onReceivedError=========");
+            super.onReceivedError(view, request, error);
+        }
+    }
+
+    String title = "";//title
+    String cover = "";//头像地址
+    String desc = "";//描述
+    String pageUrl = "";//描述
+
+    final class InJavaScriptLocalObj {
+        //cover
+        @JavascriptInterface
+        public void getSource(String html) {
+            D.e("html=" + html);
+            cover = html;
+        }
+
+        // desc
+        @JavascriptInterface
+        public void getSource1(String html) {
+            D.e("html=" + html);
+            desc = html;
+        }
     }
 
     public static void start2Activity(Context context) {

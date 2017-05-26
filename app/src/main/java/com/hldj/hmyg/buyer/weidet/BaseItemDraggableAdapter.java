@@ -11,6 +11,7 @@ import android.view.View;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.buyer.weidet.listener.OnItemDragListener;
 import com.hldj.hmyg.buyer.weidet.listener.OnItemSwipeListener;
+import com.hldj.hmyg.util.D;
 
 import java.util.Collections;
 import java.util.List;
@@ -50,13 +51,13 @@ public abstract class BaseItemDraggableAdapter<T, K extends BaseViewHolder> exte
      */
     @Override
     public void onBindViewHolder(K holder, int positions) {
-        super.onBindViewHolder(holder, positions);
+        D.e("==onBindViewHolder==");
         int viewType = holder.getItemViewType();
-
+        super.onBindViewHolder(holder, positions);
         if (mItemTouchHelper != null && itemDragEnabled && viewType != LOADING_VIEW && viewType != HEADER_VIEW
                 && viewType != EMPTY_VIEW && viewType != FOOTER_VIEW) {
             if (mToggleViewId != NO_TOGGLE_VIEW) {
-                View toggleView = ((BaseViewHolder) holder).getView(mToggleViewId);
+                View toggleView = holder.getView(mToggleViewId);
                 if (toggleView != null) {
                     toggleView.setTag(R.id.BaseQuickAdapter_viewholder_support, holder);
                     if (mDragOnLongPress) {
@@ -70,6 +71,8 @@ public abstract class BaseItemDraggableAdapter<T, K extends BaseViewHolder> exte
                 holder.itemView.setOnLongClickListener(mOnToggleViewLongClickListener);
             }
         }
+
+
     }
 
 
@@ -97,7 +100,8 @@ public abstract class BaseItemDraggableAdapter<T, K extends BaseViewHolder> exte
                 @Override
                 public boolean onLongClick(View v) {
                     if (mItemTouchHelper != null && itemDragEnabled) {
-                        mItemTouchHelper.startDrag((RecyclerView.ViewHolder) v.getTag(R.id.BaseQuickAdapter_viewholder_support));
+                        RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag(R.id.BaseQuickAdapter_viewholder_support);
+                        mItemTouchHelper.startDrag(viewHolder);
                     }
                     return true;
                 }
@@ -159,7 +163,7 @@ public abstract class BaseItemDraggableAdapter<T, K extends BaseViewHolder> exte
 
     /**
      * <p>Enable swipe items.</p>
-     * You should attach {@link ItemTouchHelper} which construct with {@link ItemDragAndSwipeCallback} to the Recycler when you enable this.
+     * You should attach {@link ItemTouchHelper} which construct with {@link  } to the Recycler when you enable this.
      */
     public void enableSwipeItem() {
         itemSwipeEnabled = true;

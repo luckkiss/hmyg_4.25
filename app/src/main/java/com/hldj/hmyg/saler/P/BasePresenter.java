@@ -10,6 +10,8 @@ import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
+import java.lang.reflect.Field;
+
 /**
  * Created by Administrator on 2017/5/12.
  */
@@ -64,6 +66,36 @@ public abstract class BasePresenter {
             D.e(key + "为空");
         }
 
+        return this;
+    }
+
+
+    /**
+     * 通过对象  反射出 key 与value  进行 请求 网络
+     *
+     * @param t
+     * @return
+     */
+    public BasePresenter putParams(Object t) {
+        if (t == null) {
+            throw new NullPointerException("对象不能为空");
+        }
+        D.e("======请求的对象======" + t.toString() + "  --->" + t.getClass().getName());
+        Class cla = (Class) t.getClass();
+        Field[] f = cla.getDeclaredFields();
+        //获取字段名
+        for (int i = 0; i < f.length; i++) {
+            try {
+                if (f[i].get(t) != null && !TextUtils.isEmpty(f[i].get(t).toString())) {
+                    putParams(f[i].getName(), f[i].get(t).toString());
+                } else {
+                    putParams(f[i].getName(), "");
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        D.e("====请求网络的参数====params=======" + getAjaxParams().toString());
         return this;
     }
 

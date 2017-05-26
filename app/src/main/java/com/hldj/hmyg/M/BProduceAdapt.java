@@ -32,27 +32,18 @@ public class BProduceAdapt extends GlobBaseAdapter<BPageGsonBean.DatabeanX.Pageb
         ImageView iv_img = myViewHolder.getView(R.id.iv_img);
         TextView tv_01 = myViewHolder.getView(R.id.tv_01);
         MySwipeAdapter.setSrcByType(tv_01, item.plantType);
-
-
         TextView tv_right_top = myViewHolder.getView(R.id.tv_right_top);
-
         if (item.attrData.ziying) {//自营显示票
             tv_right_top.setVisibility(View.VISIBLE);
         } else {
             tv_right_top.setVisibility(View.GONE);
         }
-
-
         TextView tv_02 = myViewHolder.getView(R.id.tv_02);
         tv_02.setText(item.name);
-
         TextView tv_03 = myViewHolder.getView(R.id.tv_03);
         tv_03.setText(item.ciCity.fullName);
-
-
         TextView tv_04 = myViewHolder.getView(R.id.tv_04);
         tv_04.setText(item.specText);
-
         TextView tv_06 = myViewHolder.getView(R.id.tv_06);
         setPublishName(tv_06,
                 item.ownerJson.companyName,
@@ -80,7 +71,7 @@ public class BProduceAdapt extends GlobBaseAdapter<BPageGsonBean.DatabeanX.Pageb
 
     }
 
-    private void setPublishName(TextView tv_06, String... str) {
+    public static void setPublishName(TextView tv_06, String... str) {
 
         for (int i = 0; i < str.length; i++) {
             if (!TextUtils.isEmpty(str[i])) {

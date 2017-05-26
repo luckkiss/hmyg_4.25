@@ -1,20 +1,28 @@
 package com.hldj.hmyg.Ui.child;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.NewsActivity;
 import com.hldj.hmyg.util.D;
+import com.lqr.optionitemview.OptionItemView;
 
 /**
  * Created by Administrator on 2017/5/19.
@@ -64,7 +72,7 @@ public class NewsFragment extends Fragment {
         WebView webView = (WebView) view.findViewById(R.id.news_webview);
 
 //        mLoadingLayout.setStatus(LoadingLayout.Loading);
-        pg1 = (ProgressBar)view.findViewById(R.id.news_progressBar);
+        pg1 = (ProgressBar) view.findViewById(R.id.news_progressBar);
         /**
          *
          loadingLayout.setStatus(LoadingLayout.Loading);//表示展示加载界面
@@ -76,35 +84,15 @@ public class NewsFragment extends Fragment {
 //        new Handler().postDelayed(()->,2000);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        D.e("===onDestroyView====");
-    }
 
+
+    @SuppressLint("JavascriptInterface")
     private void initWebView(WebView webView) {
-
-
-//        tv_show_html.setText(html);
-
-        //WebView加载本地资源
-//        webView.loadUrl("file:///android_asset/example.html");
-        //WebView加载web资源
-//        webView.loadUrl(html);
-
-        //覆盖WebView默认通过第三方或者是系统浏览器打开网页的行为，使得网页可以在WebView中打开
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                //返回值是true的时候是控制网页在WebView中去打开，如果为false调用系统浏览器或第三方浏览器打开
-                view.loadUrl(url);
-                return true;
-            }
-            //WebViewClient帮助WebView去处理一些页面控制和请求通知
-        });
         //启用支持Javascript
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
+        webView.addJavascriptInterface(new InJavaScriptLocalObj(), "java_obj");
+        webView.setWebViewClient(new CustomWebViewClient());
         //WebView加载页面优先使用缓存加载
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         //页面加载
@@ -123,15 +111,90 @@ public class NewsFragment extends Fragment {
                 }
             }
         });
-        webView.loadUrl("http://blog.csdn.net/a394268045/article/details/51892015");
+        webView.loadUrl("http://192.168.1.252:8090/article?isHeader=true");
+//        webView.loadUrl("http://blog.csdn.net/a394268045/article/details/51892015");
     }
 
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-//        if (null != mFragmentView) {
-//            ((ViewGroup) mFragmentView.getParent()).removeView(mFragmentView);
-//        }
+    @android.webkit.JavascriptInterface
+    public void actionFromJsWithParam(final String str) {
+        getActivity().runOnUiThread(() -> {
+            Toast.makeText(getActivity(), "js调用了Native函数传递参数：" + str, Toast.LENGTH_SHORT).show();
+            String text = "\njs调用了Native函数传递参数：" + str;
+            D.e("======text==========" + text);
+        });
+
     }
+
+
+    /**
+     * @author linzewu
+     */
+    final class CustomWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+//            view.loadUrl("javascript:window.java_obj.getSource('<head>'+" + "document.getElementById('article-cover').innerHTML+'</head>');");
+//            String str = "document.getElementById('article-cover').innerHTML";
+//            D.e("title=" + str);
+            super.onPageFinished(view, url);
+
+            view.getTitle();
+            D.e("==title==" + view.getTitle());
+            D.e("url=" + url);
+
+
+            if (url.contains("article/detail/")) {
+                D.e("=====yes=======");
+                OptionItemView optionItemView = (OptionItemView) ((NewsActivity) getActivity()).findViewById(R.id.news_title);
+                optionItemView.showRightImg(true);
+//showRightImg
+            } else {
+                D.e("=====no=======");
+                OptionItemView optionItemView = (OptionItemView) ((NewsActivity) getActivity()).findViewById(R.id.news_title);
+                optionItemView.showRightImg(false);
+            }
+
+            view.loadUrl("javascript:window.java_obj.getSource(" + "document.getElementById('article-cover').innerHTML);");
+
+//            new Handler().postDelayed(()->{
+//            },1);
+
+//            view.loadUrl("javascript:window.java_obj.showSource('<head>'+"
+//                    + "document.getElementsByTagName('html')[0].innerHTML+'</head>');");
+        }
+
+
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            D.e("========onReceivedError=========");
+            super.onReceivedError(view, request, error);
+        }
+    }
+
+    /**
+     * 逻辑处理
+     *
+     * @author linzewu
+     */
+
+    final class InJavaScriptLocalObj {
+        @JavascriptInterface
+        public void getSource(String html) {
+            D.e("html=" + html);
+        }
+    }
+
+
+
 }

@@ -15,8 +15,6 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.buyer.weidet.animation.BaseAnimation;
 import com.hldj.hmyg.buyer.weidet.listener.OnItemClickListener;
 
-import static com.hldj.hmyg.buyer.weidet.BaseQuickAdapter.SLIDEIN_BOTTOM;
-
 
 /**
  * Created by hpw on 16/11/1.
@@ -95,7 +93,7 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
         mRecyclerView.setLayoutManager(layoutManager != null ? layoutManager : new LinearLayoutManager(getContext()));
         this.mQuickAdapter = mQuickAdapter;
         mRecyclerView.setAdapter(mQuickAdapter);
-        mQuickAdapter.openLoadAnimation(SLIDEIN_BOTTOM);
+        mQuickAdapter.openLoadAnimation();
         mRecyclerView.setAdapter(mQuickAdapter);
         return this;
     }

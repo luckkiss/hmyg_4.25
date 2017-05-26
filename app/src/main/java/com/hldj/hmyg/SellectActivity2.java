@@ -1,21 +1,19 @@
 package com.hldj.hmyg;
 
-import android.app.Dialog;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.hldj.hmyg.bean.QueryBean;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.util.ConstantState;
@@ -35,24 +33,16 @@ import net.tsz.afinal.http.AjaxParams;
 import java.util.ArrayList;
 import java.util.List;
 
-import kankan.wheel.widget.OnWheelChangedListener;
-import kankan.wheel.widget.WheelView;
-import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 import me.drakeet.materialdialog.MaterialDialog;
 
-public class SellectActivity2 extends BaseSecondActivity implements OnWheelChangedListener {
+public class SellectActivity2 extends BaseSecondActivity {
     MaterialDialog mMaterialDialog;
     private static String type01 = ""; // planted,
-    private String type02 = ""; // transplant,
-    private String type03 = ""; // heelin,
-    private String type04 = ""; // container,
+
 
     private LinearLayout ll_area;
     private LinearLayout ll_price;
-    private Dialog dialog;
-    private WheelView mViewProvince;
-    private WheelView mViewCity;
-    private WheelView mViewDistrict;
+
     private TextView tv_area;
     private String cityCode = "";
     private String cityName = "";
@@ -62,7 +52,6 @@ public class SellectActivity2 extends BaseSecondActivity implements OnWheelChang
     private ArrayList<String> planttype_names = new ArrayList<String>();
     private ArrayList<String> planttype_ids = new ArrayList<String>();
 
-    //    private TagFlowLayout mFlowLayout1;
     private TagFlowLayout mFlowLayout2;
     private TagFlowLayout mFlowLayout3;
 
@@ -76,11 +65,14 @@ public class SellectActivity2 extends BaseSecondActivity implements OnWheelChang
     private String plantTypes = "";
     private ArrayList<String> planttype_has_ids = new ArrayList<String>();
     private String searchKey = "";
+    private QueryBean queryBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sellect2);
+
+        getIntentExtral();
         mCache = ACache.get(this);
         mMaterialDialog = new MaterialDialog(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -109,6 +101,7 @@ public class SellectActivity2 extends BaseSecondActivity implements OnWheelChang
 
         sure.setOnClickListener(multipleClickProcess);
     }
+
 
     private void initSearch() {
         // TODO Auto-generated method stub
@@ -284,8 +277,9 @@ public class SellectActivity2 extends BaseSecondActivity implements OnWheelChang
                         onBackPressed();
                         break;
                     case R.id.ll_area:
-                        showCitys();
-                        initWheelView(cityName);//根据省市名字 滚动到相应位置
+
+                        D.e("=选择  地区==");
+
                         break;
                     case R.id.iv_reset:
                         searchSpec = "";
@@ -301,9 +295,7 @@ public class SellectActivity2 extends BaseSecondActivity implements OnWheelChang
                         cityName = "全国";
                         tv_area.setText(cityName);
                         type01 = "";
-                        type02 = "";
-                        type03 = "";
-                        type04 = "";
+
 
                         break;
 
@@ -350,99 +342,6 @@ public class SellectActivity2 extends BaseSecondActivity implements OnWheelChang
         }
     }
 
-    private void showCitys() {
-        View dia_choose_share = getLayoutInflater().inflate(
-                R.layout.dia_choose_city, null);
-        TextView tv_sure = (TextView) dia_choose_share
-                .findViewById(R.id.tv_sure);
-        mViewProvince = (WheelView) dia_choose_share
-                .findViewById(R.id.id_province);
-        mViewCity = (WheelView) dia_choose_share.findViewById(R.id.id_city);
-        mViewDistrict = (WheelView) dia_choose_share
-                .findViewById(R.id.id_district);
-        mViewDistrict.setVisibility(View.GONE);
-        // 添加change事件
-        mViewProvince.addChangingListener(this);
-        // 添加change事件
-        mViewCity.addChangingListener(this);
-        // 添加change事件
-        mViewDistrict.addChangingListener(this);
-        setUpData();
-
-        dialog = new Dialog(this, R.style.transparentFrameWindowStyle);
-        dialog.setContentView(dia_choose_share, new LayoutParams(
-                LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-        Window window = dialog.getWindow();
-        // 设置显示动画
-        window.setWindowAnimations(R.style.main_menu_animstyle);
-        WindowManager.LayoutParams wl = window.getAttributes();
-        wl.x = 0;
-        wl.y = getWindowManager().getDefaultDisplay().getHeight();
-        // 以下这两句是为了保证按钮可以水平满屏
-        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-
-        // 设置显示位置
-        dialog.onWindowAttributesChanged(wl);
-        // 设置点击外围解散
-        dialog.setCanceledOnTouchOutside(true);
-        tv_sure.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                cityName = mCurrentProviceName + "\u0020" + mCurrentCityName
-                        + "\u0020" + mCurrentDistrictName + "\u0020";
-                cityCode = mCurrentZipCode;
-                tv_area.setText(cityName);
-
-                if (!SellectActivity2.this.isFinishing() && dialog != null) {
-                    if (dialog.isShowing()) {
-                        dialog.cancel();
-                    } else {
-                        dialog.show();
-                    }
-                }
-
-            }
-        });
-
-        if (!SellectActivity2.this.isFinishing() && dialog.isShowing()) {
-            dialog.cancel();
-        } else if (!SellectActivity2.this.isFinishing() && dialog != null
-                && !dialog.isShowing()) {
-            dialog.show();
-        }
-
-    }
-
-    private void setUpData() {
-        initProvinceDatas();
-        mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(SellectActivity2.this, mProvinceDatas));
-
-
-        // 设置可见条目数量
-        mViewProvince.setVisibleItems(7);
-        mViewCity.setVisibleItems(7);
-        mViewDistrict.setVisibleItems(7);
-        updateCities();
-        updateAreas();
-
-
-    }
-
-    /**
-     * 根据名字  滚动到选中的位置
-     *
-     * @param cityName
-     */
-    private void initWheelView(String cityName) {
-        int oldItem = getItemByName(cityName, mProvinceDatas);
-        mViewProvince.setCurrentItem(oldItem);
-        String[] cities = mCitisDatasMap.get(mCurrentProviceName);
-        oldItem = getItemByName(cityName, cities);
-        mViewCity.setCurrentItem(oldItem);
-    }
 
     private int getItemByName(String cityName, String[] mProvinceDatas) {
         int count = 0;
@@ -453,67 +352,6 @@ public class SellectActivity2 extends BaseSecondActivity implements OnWheelChang
             count++;
         }
         return 0;
-    }
-
-
-    @Override
-    public void onChanged(WheelView wheel, int oldValue, int newValue) {
-        // TODO Auto-generated method stub
-        if (wheel == mViewProvince) {
-            updateCities();
-            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[0];
-            // mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
-            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
-                    + mCurrentDistrictName);
-        } else if (wheel == mViewCity) {
-            updateAreas();
-            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[0];
-            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
-                    + mCurrentDistrictName);
-        } else if (wheel == mViewDistrict) {
-            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[newValue];
-            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
-                    + mCurrentDistrictName);
-        }
-    }
-
-    /**
-     * 根据当前的市，更新区WheelView的信息
-     */
-    private void updateAreas() {
-        int pCurrent = mViewCity.getCurrentItem();
-        mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
-        String[] areas = mDistrictDatasMap.get(mCurrentCityName);
-
-        if (areas == null) {
-            areas = new String[]{""};
-        }
-        mViewDistrict
-                .setViewAdapter(new ArrayWheelAdapter<String>(this, areas));
-        mViewDistrict.setCurrentItem(0);
-    }
-
-    /**
-     * 根据当前的省，更新市WheelView的信息
-     */
-    private void updateCities() {
-        int pCurrent = mViewProvince.getCurrentItem();
-        mCurrentProviceName = mProvinceDatas[pCurrent];
-        String[] cities = mCitisDatasMap.get(mCurrentProviceName);
-        if (cities == null) {
-            cities = new String[]{""};
-        }
-        mViewCity.setViewAdapter(new ArrayWheelAdapter<String>(this, cities));
-        mViewCity.setCurrentItem(0);
-        updateAreas();
-    }
-
-    private void showSelectedResult() {
-        Toast.makeText(
-                SellectActivity2.this,
-                "当前选中:" + mCurrentProviceName + "," + mCurrentCityName + ","
-                        + mCurrentDistrictName + "," + mCurrentZipCode,
-                Toast.LENGTH_SHORT).show();
     }
 
 
@@ -532,5 +370,22 @@ public class SellectActivity2 extends BaseSecondActivity implements OnWheelChang
             public List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> specList;
         }
 
+    }
+
+
+    private void getIntentExtral() {
+
+        if (getIntent().getExtras() != null) {
+            queryBean = (QueryBean) getIntent().getExtras().getSerializable("queryBean");
+            Log.d("SellectActivity2", queryBean.toString());
+        }
+    }
+
+    public static void start2Activity(Activity context, QueryBean queryBean) {
+        Intent intent = new Intent(context, SellectActivity2.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("queryBean", queryBean);
+        intent.putExtras(bundle);
+        context.startActivityForResult(intent, 110);
     }
 }

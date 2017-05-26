@@ -398,8 +398,6 @@
     </style>
 
 
-
-
     <style name="NoActionBarThemeWhite" parent="Theme.AppCompat.Light">
         <!-- 无ActionBar -->
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
@@ -638,22 +636,22 @@
 
 
     <!--<style name="BottomDialog" parent="@style/Dialog">-->
-        <!--&lt;!&ndash;<item name="android:layout_width">match_parent</item>&ndash;&gt;-->
-        <!--&lt;!&ndash;<item name="android:layout_height">wrap_content</item>&ndash;&gt;-->
-        <!--&lt;!&ndash;<item name="android:windowIsFloating">true</item>&ndash;&gt;-->
-        <!--&lt;!&ndash;<item name="android:backgroundDimEnabled">false</item>&ndash;&gt;-->
-        <!--<item name="android:windowIsFloating">true</item>-->
-        <!--<item name="android:windowIsTranslucent">false</item>-->
-        <!--<item name="android:windowNoTitle">true</item>-->
-        <!--<item name="android:windowFullscreen">false</item>-->
-        <!--<item name="android:windowBackground">@color/float_transparent</item>-->
-        <!--<item name="android:windowAnimationStyle">@null</item>-->
-        <!--<item name="android:backgroundDimEnabled">true</item>-->
-        <!--<item name="android:backgroundDimAmount">0.4</item>-->
+    <!--&lt;!&ndash;<item name="android:layout_width">match_parent</item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<item name="android:layout_height">wrap_content</item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<item name="android:windowIsFloating">true</item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<item name="android:backgroundDimEnabled">false</item>&ndash;&gt;-->
+    <!--<item name="android:windowIsFloating">true</item>-->
+    <!--<item name="android:windowIsTranslucent">false</item>-->
+    <!--<item name="android:windowNoTitle">true</item>-->
+    <!--<item name="android:windowFullscreen">false</item>-->
+    <!--<item name="android:windowBackground">@color/float_transparent</item>-->
+    <!--<item name="android:windowAnimationStyle">@null</item>-->
+    <!--<item name="android:backgroundDimEnabled">true</item>-->
+    <!--<item name="android:backgroundDimAmount">0.4</item>-->
     <!--</style>-->
 
     <!--parent="@android:style/Theme.Dialog"-->
-    <style name="BottomDialog" >
+    <style name="BottomDialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowIsFloating">true</item>
@@ -674,7 +672,6 @@
     </style>
 
 
-
     <style name="Dialog.FullScreen" parent="Theme.AppCompat.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@color/transparent</item>
@@ -690,5 +687,26 @@
         <!--&lt;!&ndash;<item name="fitsSystemWindows">true</item>&ndash;&gt;-->
         <!--<item name="android:statusBarColor">@color/transparent</item>-->
     </style>
+
+
+    <!--android:clickable="true"-->
+    <!--android:foreground="?attr/selectableItemBackground"-->
+    <!--app:cardBackgroundColor="@color/card_view_background"-->
+    <!--app:cardCornerRadius="@dimen/card_corner_radius"-->
+    <!--app:cardElevation="@dimen/card_elevation"-->
+
+    <style name="CardView.Simple">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:layout_marginEnd">6dp</item>
+        <item name="android:layout_marginStart">6dp</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="cardCornerRadius">2dp</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardElevation">4dp</item>
+    </style>
+
 
 </resources>

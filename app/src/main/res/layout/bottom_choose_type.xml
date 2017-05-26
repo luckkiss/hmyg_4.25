@@ -44,7 +44,7 @@
             android:background="@color/white"
             android:padding="2.5dp"
             app:auto_select_effect="true"
-            app:max_select="-1"></com.zhy.view.flowlayout.TagFlowLayout>
+            app:max_select="-1"/>
 
         <LinearLayout
             android:layout_width="match_parent"
