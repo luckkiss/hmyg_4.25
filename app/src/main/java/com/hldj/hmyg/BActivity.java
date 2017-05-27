@@ -353,6 +353,7 @@ public class BActivity extends BaseSecondActivity implements
 
 
     private me.kaede.tagview.Tag getTagViewByName(String item) {
+
         if (!"".equals(getTypeName(item))) {
             me.kaede.tagview.Tag tag = new me.kaede.tagview.Tag(getTypeName(item));
             tag.layoutColor = getResources().getColor(R.color.main_color);
@@ -361,6 +362,7 @@ public class BActivity extends BaseSecondActivity implements
         } else {
             return null;
         }
+
 
     }
 
@@ -674,8 +676,6 @@ public class BActivity extends BaseSecondActivity implements
                  tagView.addTag(tag);
                  */
             }
-
-
             onRefresh();
 //            if (tag.id == 1) {
 //                searchKey = "";
@@ -747,20 +747,20 @@ public class BActivity extends BaseSecondActivity implements
                 switch (view.getId()) {
                     case R.id.iv_view_type:
                         if ("grid".equals(view_type)) {
-                            // gridview
-                            view_type = "list";
-                            iv_view_type
-                                    .setImageResource(R.drawable.icon_grid_view);
-                            glistView.setVisibility(View.GONE);
-                            xListView.setVisibility(View.VISIBLE);
-                        } else if ("list".equals(view_type)) {
-                            // listview
-                            view_type = "grid";
-                            iv_view_type
-                                    .setImageResource(R.drawable.icon_list_view);
-                            xListView.setVisibility(View.GONE);
-                            glistView.setVisibility(View.VISIBLE);
-                        }
+                        // gridview
+                        view_type = "list";
+                        iv_view_type
+                                .setImageResource(R.drawable.icon_grid_view);
+                        glistView.setVisibility(View.GONE);
+                        xListView.setVisibility(View.VISIBLE);
+                    } else if ("list".equals(view_type)) {
+                        // listview
+                        view_type = "grid";
+                        iv_view_type
+                                .setImageResource(R.drawable.icon_list_view);
+                        xListView.setVisibility(View.GONE);
+                        glistView.setVisibility(View.VISIBLE);
+                    }
                         break;
 
                     case R.id.rl_choose_price:
@@ -869,9 +869,7 @@ public class BActivity extends BaseSecondActivity implements
                 } catch (Exception e) {
                     D.e("==baocuo==" + e.getMessage());
                 }
-
             }
-
         }
 
 

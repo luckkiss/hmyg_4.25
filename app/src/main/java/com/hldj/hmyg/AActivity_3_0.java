@@ -122,23 +122,23 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a_3_0);
-      ToastUtil.showShortToast("补丁测试1.0.5生");
-      ToastUtil.showShortToast("补丁测试1.0.5生");
-      ToastUtil.showShortToast("补丁测试1.0.5生");
-      ToastUtil.showShortToast("补丁测试1.0.5生");
-      ToastUtil.showShortToast("补丁测试1.0.5生");
-      ToastUtil.showShortToast("补丁测试1.0.5生");
-      ToastUtil.showShortToast("补丁测试1.0.5生");
-      ToastUtil.showShortToast("补丁测试1.0.5生");
-      ToastUtil.showShortToast("补丁测试1.0.5生");
-      ToastUtil.showShortToast("补丁测试1.0.5生");
-      ToastUtil.showShortToast("补丁测试1.0.5生");
-      ToastUtil.showShortToast("补丁测试1.0.5生");
-      ToastUtil.showShortToast("补丁测试1.0.5生");
-      ToastUtil.showShortToast("补丁测试1.0.5生");
-      ToastUtil.showShortToast("补丁测试1.0.5生");
-      ToastUtil.showShortToast("补丁测试1.0.5生");
-      ToastUtil.showShortToast("补丁测试1.0.5生");
+        ToastUtil.showShortToast("补丁测试1.0.5生");
+        ToastUtil.showShortToast("补丁测试1.0.5生");
+        ToastUtil.showShortToast("补丁测试1.0.5生");
+        ToastUtil.showShortToast("补丁测试1.0.5生");
+        ToastUtil.showShortToast("补丁测试1.0.5生");
+        ToastUtil.showShortToast("补丁测试1.0.5生");
+        ToastUtil.showShortToast("补丁测试1.0.5生");
+        ToastUtil.showShortToast("补丁测试1.0.5生");
+        ToastUtil.showShortToast("补丁测试1.0.5生");
+        ToastUtil.showShortToast("补丁测试1.0.5生");
+        ToastUtil.showShortToast("补丁测试1.0.5生");
+        ToastUtil.showShortToast("补丁测试1.0.5生");
+        ToastUtil.showShortToast("补丁测试1.0.5生");
+        ToastUtil.showShortToast("补丁测试1.0.5生");
+        ToastUtil.showShortToast("补丁测试1.0.5生");
+        ToastUtil.showShortToast("补丁测试1.0.5生");
+        ToastUtil.showShortToast("补丁测试1.0.5生");
         mCache = ACache.get(this);
         viewPager = (AutoScrollViewPager) findViewById(R.id.view_pager);
         indicator = (CirclePageIndicator) findViewById(R.id.indicator);
@@ -221,7 +221,8 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
          */
 
         findViewById(R.id.stv_home_1).setOnClickListener(v -> {
-            BActivity.start2ActivityOnly(AActivity_3_0.this);
+//            BActivity.start2ActivityOnly(AActivity_3_0.this);
+            MainActivity.toB();
         });
         findViewById(R.id.stv_home_2).setOnClickListener(v -> {
             PurchasePyMapActivity.start2Activity(AActivity_3_0.this);
@@ -235,8 +236,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         findViewById(R.id.iv_home_more_cg).setOnClickListener(v -> {//采购
             PurchasePyMapActivity.start2Activity(AActivity_3_0.this);
         });
-        findViewById(R.id.iv_home_more_tj).setOnClickListener(v -> {//推荐
-            BActivity.start2ActivityOnly(AActivity_3_0.this);
+        findViewById(R.id.iv_home_more_tj).setOnClickListener(v -> {//苗木商城 更多
+//            BActivity.start2ActivityOnly(AActivity_3_0.this);
+              MainActivity.toB();
         });
         findViewById(R.id.iv_home_more_rm).setOnClickListener(v -> {//热门商家
             ToastUtil.showShortToast("更多热门商家正在开发中...");
@@ -390,15 +392,17 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             myadapter.notifyDataSetChanged();
         }
 
-
+        if (mCache.getAsString("index") != null && !"".equals(mCache.getAsString("index"))) {
+            LoadCache(mCache.getAsString("index"));
+        }
         requestData();//请求数据
 
     }
 
     private MyFragment myFragment0;
+    private Type type;
 
     public void requestData() {
-
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, false);
         AjaxParams params = new AjaxParams();
@@ -407,16 +411,12 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 MyApplication.Userinfo.getString("longitude", ""));
         finalHttp.post(GetServerUrl.getUrl() + "index", params,
                 new AjaxCallBack<Object>() {
-
-
-                    private Type type;
-
                     @Override
                     public void onSuccess(Object t) {
-                        // TODO Auto-generated method stub
                         mCache.remove("index");
                         mCache.put("index", t.toString());
                         LoadCache(t.toString());
+                        LoadCache(mCache.getAsString("index"));
                         super.onSuccess(t);
                     }
 
@@ -433,215 +433,218 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                         super.onFailure(t, errorNo, strMsg);
                     }
 
-                    private void LoadCache(String t) {
-                        // TODO Auto-generated method stub
 
-                        IndexGsonBean indexGsonBean = GsonUtil.formateJson2Bean(t, IndexGsonBean.class);
-                        if (indexGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
-                            initNewList(indexGsonBean);
+                });
+    }
+
+    private void LoadCache(String t) {
+        // TODO Auto-generated method stub
+        IndexGsonBean indexGsonBean = GsonUtil.formateJson2Bean(t, IndexGsonBean.class);
+        if (indexGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
+            initNewList(indexGsonBean);
+        }
+
+
+        datas.clear();
+        aBanners.clear();
+        try {
+            JSONObject jsonObject = new JSONObject(t);
+            String code = JsonGetInfo.getJsonString(jsonObject,
+                    "code");
+            String msg = JsonGetInfo.getJsonString(jsonObject,
+                    "msg");
+            if (!"".equals(msg)) {
+            }
+            if ("1".equals(code)) {
+
+                JSONArray bannerList = JsonGetInfo
+                        .getJsonArray(JsonGetInfo
+                                .getJSONObject(jsonObject,
+                                        "data"), "bannerList");
+                // 广告
+                // JSONArray bannerList = jsonObject
+                // .getJSONObject("data").getJSONArray(
+                // "bannerList");
+                for (int i = 0; i < bannerList.length(); i++) {
+                    JSONObject jsonObject2 = bannerList
+                            .getJSONObject(i);
+                    HashMap<String, Object> hMap = new HashMap<String, Object>();
+                    hMap.put("isNewRecord", JsonGetInfo
+                            .getJsonBoolean(jsonObject2,
+                                    "isNewRecord"));
+                    hMap.put("delFlag", JsonGetInfo
+                            .getJsonString(jsonObject2,
+                                    "delFlag"));
+                    hMap.put("url", JsonGetInfo.getJsonString(
+                            JsonGetInfo.getJSONObject(
+                                    jsonObject2, "imageJson"),
+                            "url"));
+                    hMap.put("ossThumbnailImagePath",
+                            JsonGetInfo.getJsonString(
+                                    JsonGetInfo.getJSONObject(
+                                            jsonObject2,
+                                            "imageJson"),
+                                    "ossThumbnailImagePath"));
+                    hMap.put("ossMediumImagePath", JsonGetInfo
+                            .getJsonString(JsonGetInfo
+                                            .getJSONObject(jsonObject2,
+                                                    "imageJson"),
+                                    "ossMediumImagePath"));
+                    hMap.put("ossLargeImagePath", JsonGetInfo
+                            .getJsonString(JsonGetInfo
+                                            .getJSONObject(jsonObject2,
+                                                    "imageJson"),
+                                    "ossLargeImagePath"));
+                    hMap.put("href", JsonGetInfo.getJsonString(
+                            jsonObject2, "href"));
+                    hMap.put("name", JsonGetInfo.getJsonString(
+                            jsonObject2, "name"));
+
+                    ABanner aBanner = new ABanner();
+                    aBanner.setNewRecord(JsonGetInfo
+                            .getJsonBoolean(jsonObject2,
+                                    "isNewRecord"));
+                    aBanner.setUrl(JsonGetInfo.getJsonString(
+                            JsonGetInfo.getJSONObject(
+                                    jsonObject2, "imageJson"),
+                            "url"));
+                    aBanner.setOssThumbnailImagePath(JsonGetInfo
+                            .getJsonString(JsonGetInfo
+                                            .getJSONObject(jsonObject2,
+                                                    "imageJson"),
+                                    "ossThumbnailImagePath"));
+                    aBanner.setOssLargeImagePath(JsonGetInfo
+                            .getJsonString(JsonGetInfo
+                                            .getJSONObject(jsonObject2,
+                                                    "imageJson"),
+                                    "ossLargeImagePath"));
+                    aBanner.setOssMediumImagePath(JsonGetInfo
+                            .getJsonString(JsonGetInfo
+                                            .getJSONObject(jsonObject2,
+                                                    "imageJson"),
+                                    "ossMediumImagePath"));
+                    datas.add(hMap);
+                    aBanners.add(aBanner);
+                }
+                if (datas.size() > 0) {
+                    initViewPager();
+                    // initAbsViewPager();
+                }
+                if (aBanners.size() > 0) {
+                }
+
+                // 分类
+                // JSONArray seedlingTypeList = jsonObject
+                // .getJSONObject("data").getJSONArray(
+                // "seedlingTypeList");
+                JSONArray seedlingTypeList = JsonGetInfo
+                        .getJsonArray(JsonGetInfo
+                                        .getJSONObject(jsonObject,
+                                                "data"),
+                                "seedlingTypeList");
+                if (seedlingTypeList.length() > 0) {
+                    gd_datas.clear();
+                    if (myadapter != null) {
+                        myadapter.notifyDataSetChanged();
+                    } else {
+                        myadapter = new TypeAdapter(
+                                AActivity_3_0.this, gd_datas);
+                        gd_00.setAdapter(myadapter);
+                    }
+                }
+                gd_datas.clear();
+                for (int i = 0; i < seedlingTypeList.length(); i++) {
+                    JSONObject jsonObject2 = seedlingTypeList
+                            .getJSONObject(i);
+                    HashMap<String, Object> hMap = new HashMap<String, Object>();
+                    String id = JsonGetInfo.getJsonString(
+                            jsonObject2, "id");
+                    String icon = JsonGetInfo.getJsonString(
+                            jsonObject2, "icon");
+                    String name = JsonGetInfo.getJsonString(
+                            jsonObject2, "name");
+                    if ("乔木".equals(name)) {
+                        type = new Type(id, name, icon,
+                                R.drawable.home_icon_type01);
+                    } else if ("灌木".equals(name)) {
+                        type = new Type(id, name, icon,
+                                R.drawable.home_icon_type02);
+                    } else if ("桩景".equals(name)) {
+                        type = new Type(id, name, icon,
+                                R.drawable.home_icon_type03);
+                    } else if ("地被".equals(name)) {
+                        type = new Type(id, name, icon,
+                                R.drawable.home_icon_type04);
+                    } else if ("草皮".equals(name)) {
+                        type = new Type(id, name, icon,
+                                R.drawable.home_icon_type05);
+                    } else if ("棕榈".equals(name)) {
+                        type = new Type(id, name, icon,
+                                R.drawable.home_icon_type06);
+                    } else if ("苏铁".equals(name)) {
+                        type = new Type(id, name, icon,
+                                R.drawable.home_icon_type07);
+                    } else if ("更多".equals(name)) {
+                        type = new Type(id, name, icon,
+                                R.drawable.home_icon_type08);
+                    }
+                    gd_datas.add(type);
+                }
+
+                if (gd_datas.size() > 0) {
+                    if (myadapter != null) {
+                        myadapter.notifyDataSetChanged();
+                    } else {
+                        myadapter = new TypeAdapter(
+                                AActivity_3_0.this, gd_datas);
+                        gd_00.setAdapter(myadapter);
+                    }
+                }
+                lv_datas.clear();
+
+
+                // 商铺
+                // JSONArray storeList =
+                // jsonObject.getJSONObject(
+                // "data").getJSONArray("storeList");
+                JSONArray storeList = JsonGetInfo.getJsonArray(
+                        JsonGetInfo.getJSONObject(jsonObject,
+                                "data"), "storeList");
+                url0s.clear();
+                for (int i = 0; i < storeList.length(); i++) {
+                    JSONObject jsonObject2 = storeList
+                            .getJSONObject(i);
+                    HomeStore a_first_product = new HomeStore(
+                            JsonGetInfo.getJsonString(
+                                    jsonObject2, "id"),
+                            JsonGetInfo.getJsonString(
+                                    jsonObject2, "code"),
+                            JsonGetInfo.getJsonString(
+                                    jsonObject2, "logoUrl"),
+                            JsonGetInfo.getJsonString(
+                                    jsonObject2, "id"),
+                            JsonGetInfo.getJsonString(
+                                    jsonObject2, "name"));
+                    url0s.add(a_first_product);
+                }
+                FragmentTransaction ft = getSupportFragmentManager()
+                        .beginTransaction();
+                if (url0s.size() > 0) {
+                    if (url0s.size() % MyFragment.Num != 0) {
+                        int array = MyFragment.Num
+                                - url0s.size() % MyFragment.Num;
+                        for (int i = 0; i < array; i++) {
+                            HomeStore a_first_product = new HomeStore("", "", "", "", "");
+                            url0s.add(a_first_product);
                         }
-
-
-                        datas.clear();
-                        aBanners.clear();
-                        try {
-                            JSONObject jsonObject = new JSONObject(t);
-                            String code = JsonGetInfo.getJsonString(jsonObject,
-                                    "code");
-                            String msg = JsonGetInfo.getJsonString(jsonObject,
-                                    "msg");
-                            if (!"".equals(msg)) {
-                            }
-                            if ("1".equals(code)) {
-
-                                JSONArray bannerList = JsonGetInfo
-                                        .getJsonArray(JsonGetInfo
-                                                .getJSONObject(jsonObject,
-                                                        "data"), "bannerList");
-                                // 广告
-                                // JSONArray bannerList = jsonObject
-                                // .getJSONObject("data").getJSONArray(
-                                // "bannerList");
-                                for (int i = 0; i < bannerList.length(); i++) {
-                                    JSONObject jsonObject2 = bannerList
-                                            .getJSONObject(i);
-                                    HashMap<String, Object> hMap = new HashMap<String, Object>();
-                                    hMap.put("isNewRecord", JsonGetInfo
-                                            .getJsonBoolean(jsonObject2,
-                                                    "isNewRecord"));
-                                    hMap.put("delFlag", JsonGetInfo
-                                            .getJsonString(jsonObject2,
-                                                    "delFlag"));
-                                    hMap.put("url", JsonGetInfo.getJsonString(
-                                            JsonGetInfo.getJSONObject(
-                                                    jsonObject2, "imageJson"),
-                                            "url"));
-                                    hMap.put("ossThumbnailImagePath",
-                                            JsonGetInfo.getJsonString(
-                                                    JsonGetInfo.getJSONObject(
-                                                            jsonObject2,
-                                                            "imageJson"),
-                                                    "ossThumbnailImagePath"));
-                                    hMap.put("ossMediumImagePath", JsonGetInfo
-                                            .getJsonString(JsonGetInfo
-                                                            .getJSONObject(jsonObject2,
-                                                                    "imageJson"),
-                                                    "ossMediumImagePath"));
-                                    hMap.put("ossLargeImagePath", JsonGetInfo
-                                            .getJsonString(JsonGetInfo
-                                                            .getJSONObject(jsonObject2,
-                                                                    "imageJson"),
-                                                    "ossLargeImagePath"));
-                                    hMap.put("href", JsonGetInfo.getJsonString(
-                                            jsonObject2, "href"));
-                                    hMap.put("name", JsonGetInfo.getJsonString(
-                                            jsonObject2, "name"));
-
-                                    ABanner aBanner = new ABanner();
-                                    aBanner.setNewRecord(JsonGetInfo
-                                            .getJsonBoolean(jsonObject2,
-                                                    "isNewRecord"));
-                                    aBanner.setUrl(JsonGetInfo.getJsonString(
-                                            JsonGetInfo.getJSONObject(
-                                                    jsonObject2, "imageJson"),
-                                            "url"));
-                                    aBanner.setOssThumbnailImagePath(JsonGetInfo
-                                            .getJsonString(JsonGetInfo
-                                                            .getJSONObject(jsonObject2,
-                                                                    "imageJson"),
-                                                    "ossThumbnailImagePath"));
-                                    aBanner.setOssLargeImagePath(JsonGetInfo
-                                            .getJsonString(JsonGetInfo
-                                                            .getJSONObject(jsonObject2,
-                                                                    "imageJson"),
-                                                    "ossLargeImagePath"));
-                                    aBanner.setOssMediumImagePath(JsonGetInfo
-                                            .getJsonString(JsonGetInfo
-                                                            .getJSONObject(jsonObject2,
-                                                                    "imageJson"),
-                                                    "ossMediumImagePath"));
-                                    datas.add(hMap);
-                                    aBanners.add(aBanner);
-                                }
-                                if (datas.size() > 0) {
-                                    initViewPager();
-                                    // initAbsViewPager();
-                                }
-                                if (aBanners.size() > 0) {
-                                }
-
-                                // 分类
-                                // JSONArray seedlingTypeList = jsonObject
-                                // .getJSONObject("data").getJSONArray(
-                                // "seedlingTypeList");
-                                JSONArray seedlingTypeList = JsonGetInfo
-                                        .getJsonArray(JsonGetInfo
-                                                        .getJSONObject(jsonObject,
-                                                                "data"),
-                                                "seedlingTypeList");
-                                if (seedlingTypeList.length() > 0) {
-                                    gd_datas.clear();
-                                    if (myadapter != null) {
-                                        myadapter.notifyDataSetChanged();
-                                    } else {
-                                        myadapter = new TypeAdapter(
-                                                AActivity_3_0.this, gd_datas);
-                                        gd_00.setAdapter(myadapter);
-                                    }
-                                }
-                                gd_datas.clear();
-                                for (int i = 0; i < seedlingTypeList.length(); i++) {
-                                    JSONObject jsonObject2 = seedlingTypeList
-                                            .getJSONObject(i);
-                                    HashMap<String, Object> hMap = new HashMap<String, Object>();
-                                    String id = JsonGetInfo.getJsonString(
-                                            jsonObject2, "id");
-                                    String icon = JsonGetInfo.getJsonString(
-                                            jsonObject2, "icon");
-                                    String name = JsonGetInfo.getJsonString(
-                                            jsonObject2, "name");
-                                    if ("乔木".equals(name)) {
-                                        type = new Type(id, name, icon,
-                                                R.drawable.home_icon_type01);
-                                    } else if ("灌木".equals(name)) {
-                                        type = new Type(id, name, icon,
-                                                R.drawable.home_icon_type02);
-                                    } else if ("桩景".equals(name)) {
-                                        type = new Type(id, name, icon,
-                                                R.drawable.home_icon_type03);
-                                    } else if ("地被".equals(name)) {
-                                        type = new Type(id, name, icon,
-                                                R.drawable.home_icon_type04);
-                                    } else if ("草皮".equals(name)) {
-                                        type = new Type(id, name, icon,
-                                                R.drawable.home_icon_type05);
-                                    } else if ("棕榈".equals(name)) {
-                                        type = new Type(id, name, icon,
-                                                R.drawable.home_icon_type06);
-                                    } else if ("苏铁".equals(name)) {
-                                        type = new Type(id, name, icon,
-                                                R.drawable.home_icon_type07);
-                                    } else if ("更多".equals(name)) {
-                                        type = new Type(id, name, icon,
-                                                R.drawable.home_icon_type08);
-                                    }
-                                    gd_datas.add(type);
-                                }
-
-                                if (gd_datas.size() > 0) {
-                                    if (myadapter != null) {
-                                        myadapter.notifyDataSetChanged();
-                                    } else {
-                                        myadapter = new TypeAdapter(
-                                                AActivity_3_0.this, gd_datas);
-                                        gd_00.setAdapter(myadapter);
-                                    }
-                                }
-                                lv_datas.clear();
-
-
-                                // 商铺
-                                // JSONArray storeList =
-                                // jsonObject.getJSONObject(
-                                // "data").getJSONArray("storeList");
-                                JSONArray storeList = JsonGetInfo.getJsonArray(
-                                        JsonGetInfo.getJSONObject(jsonObject,
-                                                "data"), "storeList");
-                                url0s.clear();
-                                for (int i = 0; i < storeList.length(); i++) {
-                                    JSONObject jsonObject2 = storeList
-                                            .getJSONObject(i);
-                                    HomeStore a_first_product = new HomeStore(
-                                            JsonGetInfo.getJsonString(
-                                                    jsonObject2, "id"),
-                                            JsonGetInfo.getJsonString(
-                                                    jsonObject2, "code"),
-                                            JsonGetInfo.getJsonString(
-                                                    jsonObject2, "logoUrl"),
-                                            JsonGetInfo.getJsonString(
-                                                    jsonObject2, "id"),
-                                            JsonGetInfo.getJsonString(
-                                                    jsonObject2, "name"));
-                                    url0s.add(a_first_product);
-                                }
-                                FragmentTransaction ft = getSupportFragmentManager()
-                                        .beginTransaction();
-                                if (url0s.size() > 0) {
-                                    if (url0s.size() % MyFragment.Num != 0) {
-                                        int array = MyFragment.Num
-                                                - url0s.size() % MyFragment.Num;
-                                        for (int i = 0; i < array; i++) {
-                                            HomeStore a_first_product = new HomeStore("", "", "", "", "");
-                                            url0s.add(a_first_product);
-                                        }
-                                    }
-                                    myFragment0 = new MyFragment();
-                                    myFragment0.setUrls(url0s);
-                                    ft.add(R.id.con0, myFragment0);
+                    }
+                    myFragment0 = new MyFragment();
+                    myFragment0.setUrls(url0s);
+                    ft.add(R.id.con0, myFragment0);
 
 //                                    iv_home_merchants  .setVisibility(View.VISIBLE);
-                                }
-                                ft.commitAllowingStateLoss();
+                }
+                ft.commitAllowingStateLoss();
 
 //                                Rect bounds = new Rect();
 //                                findViewById(R.id.con0).getDrawingRect(bounds);
@@ -669,20 +672,17 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //                                            }
 //                                        }
 //                                    });
-                            }
+            }
 
 //
 //                            } else {
 
 //                            }
 
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                    }
-
-                });
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
 

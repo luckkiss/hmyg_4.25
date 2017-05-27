@@ -31,6 +31,7 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.amap.api.car.example.MapNurseryList;
 import com.hldj.hmyg.BActivity;
+import com.hldj.hmyg.BActivity_new;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.StoreActivity;
 import com.hldj.hmyg.application.Data;
@@ -58,6 +59,8 @@ import java.util.Map;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.maxwin.view.XListView;
 
+import static com.hldj.hmyg.util.ConstantState.SEARCH_OK;
+
 public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
     private XListView xListView;
     private ArrayList<MapNurseryList> datas = new ArrayList<MapNurseryList>();
@@ -83,6 +86,7 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
     private Spinner mSpinner;
 
     String url = "seedling/search";
+
 
     // /store/search 店铺 搜索
     // /purchase/search 采购报价
@@ -262,7 +266,7 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
                 // 商城搜索
                 Intent intent = new Intent();
                 intent.putExtra("searchKey", et_search.getText().toString());
-                setResult(8, intent);
+                setResult(SEARCH_OK, intent);
                 finish();
             } else if ((from.equals("AActivity") && choose == 1)
                     || (from.equals("BActivity") && choose == 1)) {
@@ -275,11 +279,9 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
 
             } else if (from.equals("AActivity") && choose == 0) {
                 // 首页到商城
-                Intent toBActivity = new Intent(
-                        PurchaseSearchListActivity.this, BActivity.class);
+                Intent toBActivity = new Intent(PurchaseSearchListActivity.this,BActivity_new.class);
                 toBActivity.putExtra("from", "context");
-                toBActivity.putExtra("searchKey", et_search.getText()
-                        .toString());
+                toBActivity.putExtra("searchKey", et_search.getText() .toString());
                 startActivity(toBActivity);
                 finish();
             }
@@ -614,6 +616,10 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
                 @Override
                 public void onClick(View v) {
 
+                    et_search.setText(arrayList.get(position).getName());
+
+                    searchIt2();
+
                     if (choose != 2) {
                         if (from.equals("StorePurchaseListActivity")) {
                             Intent intent = new Intent();
@@ -621,11 +627,12 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
                             setResult(8, intent);
                             finish();
                         } else if (from.equals("BActivity") && choose == 0) {
+
                             // 商城搜索
-                            Intent intent = new Intent();
-                            intent.putExtra("searchKey", arrayList.get(position).getName());
-                            setResult(8, intent);
-                            finish();
+//                            Intent intent = new Intent();
+//                            intent.putExtra("searchKey", arrayList.get(position).getName());
+//                            setResult(8, intent);
+//                            finish();
                         } else if ((from.equals("AActivity") && choose == 1)
                                 || (from.equals("BActivity") && choose == 1)) {
                             // 采购搜索 首页，商城

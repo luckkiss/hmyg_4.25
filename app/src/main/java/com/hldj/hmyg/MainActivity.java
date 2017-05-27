@@ -355,6 +355,9 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     public static void toA() {
         radioderGroup.check(R.id.tab_a);
     }
+    public static void toB() {
+        radioderGroup.check(R.id.tab_b);
+    }
 
     int old_item_id = R.id.tab_a;//默认是 主页
 

@@ -1,12 +1,17 @@
 package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.SparseArray;
+import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
@@ -19,21 +24,34 @@ import com.hldj.hmyg.P.BPresenter;
 import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.base.MySwipeAdapter;
 import com.hldj.hmyg.bean.QueryBean;
+import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
 import com.hldj.hmyg.buyer.weidet.BaseMultAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.widget.SortSpinner;
+import com.hy.utils.ToastUtil;
 import com.mrwujay.cascade.activity.BaseSecondActivity;
 
 import net.tsz.afinal.FinalBitmap;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import me.kaede.tagview.Tag;
+import me.kaede.tagview.TagFactory;
+import me.kaede.tagview.TagView;
 
 import static com.hldj.hmyg.R.id.iv_img;
 import static com.hldj.hmyg.buyer.weidet.BaseMultAdapter.GRID_VIEW;
+import static com.hldj.hmyg.util.ConstantParams.container;
+import static com.hldj.hmyg.util.ConstantParams.heelin;
+import static com.hldj.hmyg.util.ConstantParams.planted;
+import static com.hldj.hmyg.util.ConstantParams.transplant;
+import static com.hldj.hmyg.util.ConstantState.FILTER_OK;
+import static com.hldj.hmyg.util.ConstantState.SEARCH_OK;
 
 
 /**
@@ -44,23 +62,14 @@ public class BActivity_new extends BaseSecondActivity {
 
     private CoreRecyclerView recyclerView1;
 
-    int type = 100;
+    int type = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_b_to_toolbar);
-
-
         initViewClick();
-
-//        final ListView recyclerView = (ListView) findViewById(R.id.xlistView);
-//        ArrayAdapter<String> myAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, getDatas());//适配器
-//        recyclerView.setAdapter(myAdapter);
-
-//(((BaseMultAdapter) recyclerView1.getAdapter())).getDefaultType() == GRID_VIEW
         recyclerView1 = (CoreRecyclerView) findViewById(R.id.core_rv_b);
-        // List<BPageGsonBean.DatabeanX.Pagebean.Databean> data
         recyclerView1.init(new BaseMultAdapter<BPageGsonBean.DatabeanX.Pagebean.Databean, BaseViewHolder>(R.layout.list_view_seedling_new, R.layout.grid_view_seedling) {
             @Override
             protected void convert(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item) {
@@ -75,33 +84,181 @@ public class BActivity_new extends BaseSecondActivity {
                     FlowerDetailActivity.start2Activity(BActivity_new.this, "seedling_list", item.id);
                 });
             }
-
-
         }).openLoadMore(getQueryBean().pageSize, page -> {
-//            recyclerView1.getAdapter().addData(getDatas());
             queryBean.pageIndex = page;
             initData();
         }).openRefresh()
                 .openLoadAnimation(BaseQuickAdapter.SCALEIN)
                 .selfRefresh(true);
 
-        new Handler().postDelayed(() -> {
 
-//            getBeanFileName();
-            initData();
-
-//            recyclerView1.getAdapter().addData(getDatas());
-//            recyclerView1.selfRefresh(false);
-        }, 1500);
+        getExtras();//在初始化数据之前
+        new Handler().postDelayed(() -> initData(), 800);
 
 
-        findViewById(R.id.iv_view_type).setOnClickListener(v -> {
+    }
+
+    private void initViewClick() {
+        //搜索
+
+        getView(R.id.rl_b_search).setOnClickListener(v -> {
+            Intent intent = new Intent(BActivity_new.this, PurchaseSearchListActivity.class);
+            intent.putExtra("from", "BActivity");
+            startActivityForResult(intent, 1);
+        });
+
+        //筛选
+        getView(R.id.tv_b_filter).setOnClickListener(v -> {
+            SellectActivity2.start2Activity(this, queryBean);
+        });
+
+        getView(R.id.iv_view_type).setOnClickListener(v -> {
+            if (v.isSelected())//选中.点击了grid 变换成grid
+            {
+                D.e("==isSelected==" + v.isSelected());
+                changeStyle(v.isSelected());
+                v.setSelected(false);
+            } else//未选中  点击了list 变成list
+            {
+                D.e("==isSelected==" + v.isSelected());
+                changeStyle(v.isSelected());
+                v.setSelected(true);
+            }
+        });
+
+        //排序
+        getView(R.id.tv_b_sort).setOnClickListener(v -> {
+            ChoiceSortList();
+        });
 
 
+    }
+
+
+    int pos = 0;
+    public SortSpinner sortSpinner;
+
+    /**
+     * 排序 显示位置不对. 小米上正确
+     */
+    private void ChoiceSortList() {
+        View view = getView(R.id.tagview_b_act);
+        if (sortSpinner == null) {
+            sortSpinner = SortSpinner.getInstance(BActivity_new.this, view)
+                    .addOnItemClickListener((parent, view1, position, id) -> {
+                        D.e("addOnItemClickListener" + position);
+                        switch (position) {
+                            case 0:
+                                getQueryBean().orderBy = "default_asc";//综合排序
+                                break;
+                            case 1:
+                                getQueryBean().orderBy = "publishDate_desc";//最新发布
+                                break;
+                            case 2:
+                                getQueryBean().orderBy = "distance_asc";//最近距离
+                                break;
+                            case 3:
+                                getQueryBean().orderBy = "price_asc";//价格从低到高
+                                break;
+                            case 4:
+                                getQueryBean().orderBy = "price_desc";//综合排序
+                                break;
+                        }
+                        pos = position;
+                        sortSpinner.dismiss();
+                        refreshRc();
+                    });
+
+            sortSpinner.ShowWithPos(pos);
+        } else {
+            try {
+                sortSpinner.ShowWithPos(pos);
+            } catch (Exception e) {
+                D.e("==baocuo==" + e.getMessage());
+            }
+        }
+    }
+
+
+    public SparseArray<Map<String, String>> mapSparseArray = new SparseArray<>();
+
+    private void addTagsByBean(QueryBean queryBean) {
+        TagView tagView = getView(R.id.tagview_b_act);
+        tagView.removeAllTags();
+        //最小 最大厘米
+        tagView.addTag(TagFactory.createDelTag(queryBean.specMinValue, queryBean.specMaxValue), 97);
+        if (!TextUtils.isEmpty(queryBean.plantTypes)) {
+            String[] strs = queryBean.plantTypes.split(",");
+            for (int i = 0; i < strs.length; i++) {
+                tagView.addTag(TagFactory.createDelTag(strs[i]), getTypeId(strs[i]));
+            }
+        }
+        tagView.addTag(TagFactory.createDelTag(queryBean.cityCode), 99);
+
+        tagView.addTag(TagFactory.createDelTag(queryBean.searchSpec), 100);
+
+        tagView.setOnTagDeleteListener((position, tag) -> {
+            if (tag.id == 100) {
+                ToastUtil.showShortToast("searchSpec,刷新界面");
+                getQueryBean().searchSpec = "";
+            } else if (tag.id == 99) {
+                //城市被删除
+            } else if (tag.id == 90) {
+                // 范围删除
+                queryBean.plantTypes = queryBean.plantTypes.replaceAll(planted + ",", "");
+                queryBean.plantTypes = queryBean.plantTypes.replaceAll(planted, "");
+            } else if (tag.id == 91) {
+                // 范围删除
+                queryBean.plantTypes = queryBean.plantTypes.replaceAll(container + ",", "");
+                queryBean.plantTypes = queryBean.plantTypes.replaceAll(container, "");
+            } else if (tag.id == 92) {
+                // 范围删除
+                queryBean.plantTypes = queryBean.plantTypes.replaceAll(heelin + ",", "");
+                queryBean.plantTypes = queryBean.plantTypes.replaceAll(heelin, "");
+            } else if (tag.id == 93) {
+                // 范围删除
+                queryBean.plantTypes = queryBean.plantTypes.replaceAll(transplant + ",", "");
+                queryBean.plantTypes = queryBean.plantTypes.replaceAll(transplant, "");
+            }
+
+            if (queryBean.plantTypes.endsWith(",")) {
+                queryBean.plantTypes = queryBean.plantTypes.substring(0, queryBean.plantTypes.length() - 1);
+            }
+            D.e("===" + getQueryBean().toString());
+            refreshRc();
+
+        });
+    }
+
+
+    /**
+     * case planted:
+     * return "地栽苗";
+     * case container:
+     * return "容器苗";
+     * case heelin:
+     * return "假植苗";
+     * case transplant:
+     * return "移植苗";
+     *
+     * @param str
+     * @return
+     */
+    private int getTypeId(String str) {
+        if (str.equals(planted)) return 90;
+        if (str.equals(container)) return 91;
+        if (str.equals(heelin)) return 92;
+        if (str.equals(transplant)) return 93;
+        return -1;
+    }
+
+    private void changeStyle(boolean selected) {
+
+        if (!selected)//grid
+        {
             RecyclerView.LayoutManager layoutManager = recyclerView1.getRecyclerView().getLayoutManager();
             //判断是当前layoutManager是否为LinearLayoutManager
             // 只有LinearLayoutManager才有查找第一个和最后一个可见view位置的方法
-
             if (layoutManager instanceof LinearLayoutManager) {
                 LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
                 //获取第一个可见view的位置
@@ -119,9 +276,8 @@ public class BActivity_new extends BaseSecondActivity {
             startAnimation(recyclerView1.getRecyclerView(), R.anim.zoom_in);
             recyclerView1.getRecyclerView().scrollToPosition(now_position);
 
-        });
-        findViewById(R.id.RelativeLayout2).setOnClickListener(v -> {
 
+        } else {//list
             RecyclerView.LayoutManager layoutManager = recyclerView1.getRecyclerView().getLayoutManager();
             //判断是当前layoutManager是否为LinearLayoutManager
             // 只有LinearLayoutManager才有查找第一个和最后一个可见view位置的方法
@@ -131,6 +287,9 @@ public class BActivity_new extends BaseSecondActivity {
             } else if (layoutManager instanceof GridLayoutManager) {
                 D.e("=======GridLayoutManager========");
                 GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
+
+                now_position = gridLayoutManager.findFirstVisibleItemPosition();
+
 
                 //获取第一个可见view的位置
                 D.e("=======firstItemPosition========");
@@ -146,33 +305,8 @@ public class BActivity_new extends BaseSecondActivity {
 
             startAnimation(recyclerView1.getRecyclerView(), R.anim.zoom_in);
 
-        });
 
-
-    }
-
-    private void initViewClick() {
-
-        //筛选
-        getView(R.id.tv_b_filter).setOnClickListener(v -> {
-            SellectActivity2.start2Activity(this, queryBean);
-//            toSellectActivity.putExtra("from", "BActivity");
-//            toSellectActivity.putExtra("cityCode", cityCode);
-//            toSellectActivity.putExtra("cityName", cityName);
-//            toSellectActivity.putExtra("plantTypes", plantTypes);
-//            toSellectActivity.putStringArrayListExtra("planttype_has_ids", planttype_has_ids);
-//            toSellectActivity.putExtra("searchSpec", searchSpec);
-//            toSellectActivity.putExtra("specMinValue", specMinValue);
-//            toSellectActivity.putExtra("specMaxValue", specMaxValue);
-//            toSellectActivity.putExtra("searchKey", searchKey);
-//            startActivityForResult(toSellectActivity, 1);
-//            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-
-        });
-        //排序
-        getView(R.id.tv_b_sort).setOnClickListener(v -> {
-
-        });
+        }
 
 
     }
@@ -191,6 +325,9 @@ public class BActivity_new extends BaseSecondActivity {
 
         TextView tv_01 = helper.getView(R.id.tv_01);
         MySwipeAdapter.setSrcByType(tv_01, item.plantType);
+
+        TextView tv_right_top = helper.getView(R.id.tv_right_top);
+        tv_right_top.setVisibility(item.attrData.ziying ? View.VISIBLE : View.GONE);
 
         TextView tv_02 = helper.getView(R.id.tv_02);
         tv_02.setText(item.name);
@@ -231,29 +368,16 @@ public class BActivity_new extends BaseSecondActivity {
         bitmap.display(iv_img, item.smallImageUrl);
     }
 
-    public List<String> getDatas() {
-        List list_datas = new ArrayList();
-        for (int i = 0; i < 20; i++) {
-            list_datas.add("data" + i);
-        }
-        return list_datas;
-    }
-
-
-    boolean getdata;
-
     private void initData() {
-
-        getdata = false;
-
         BasePresenter bPresenter = new BPresenter()
                 .putParams(getQueryBean())//传一个对象进去
                 .addResultCallBack(new ResultCallBack<List<BPageGsonBean.DatabeanX.Pagebean.Databean>>() {
                     @Override
                     public void onSuccess(List<BPageGsonBean.DatabeanX.Pagebean.Databean> pageBean) {
+                        recyclerView1.selfRefresh(false);
                         D.e("==============");
                         recyclerView1.getAdapter().addData(pageBean);
-                        recyclerView1.selfRefresh(false);
+
                     }
 
                     @Override
@@ -263,14 +387,11 @@ public class BActivity_new extends BaseSecondActivity {
                     }
                 });
         ((BPresenter) bPresenter).getDatas("seedling/list", false);
-
-        getdata = true;
     }
 
     private QueryBean queryBean;
 
     public QueryBean getQueryBean() {
-
         if (queryBean == null) {
             queryBean = new QueryBean();
         }
@@ -282,11 +403,70 @@ public class BActivity_new extends BaseSecondActivity {
      * 开启动画
      */
     private void startAnimation(RecyclerView rv, int anim) {
-
         LayoutAnimationController lac = new LayoutAnimationController(AnimationUtils.loadAnimation(this, anim));
         lac.setOrder(LayoutAnimationController.ORDER_RANDOM);
         rv.setLayoutAnimation(lac);
         rv.startLayoutAnimation();
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == SEARCH_OK) {
+            // 在商城搜索界面过来的
+
+            getQueryBean().searchKey = data.getStringExtra("searchKey");
+
+            addADelTag();
+
+            refreshRc();
+
+        } else if (requestCode == FILTER_OK) {//筛选结束
+            if (data != null && data.getExtras().getSerializable("hellow") != null) {
+                queryBean = (QueryBean) data.getExtras().getSerializable("hellow");
+            }
+            D.e("==" + queryBean.toString());
+            addTagsByBean(queryBean);
+            refreshRc();
+        }
+
+
+    }
+
+    private void addADelTag() {
+        TagView tagView = getView(R.id.tagview_b_act);
+        tagView.removeAllTags();
+        if (!TextUtils.isEmpty(getQueryBean().searchKey)) {
+            Tag tag = new Tag(getQueryBean().searchKey);
+            tag.layoutColor = R.color.main_color;
+            tag.isDeletable = true;
+            tag.id = 1; // 1 搜索 2分类
+            tagView.addTag(tag);
+            tagView.setOnTagDeleteListener((position, tag1) -> getQueryBean().searchKey = "");//删除事件。。。并且刷新
+        }
+    }
+
+
+    public void getExtras() {
+
+        if (!TextUtils.isEmpty(getIntent().getStringExtra("tag"))) {
+            getQueryBean().searchKey = getIntent().getStringExtra("tag");
+            addADelTag();
+        }
+
+    }
+
+    public static void start2Activity(Context context, String tag) {
+        Intent intent = new Intent(context, BActivity_new.class);
+        intent.putExtra("tag", tag);
+        context.startActivity(intent);
+    }
+
+    public void refreshRc() {
+        getQueryBean().pageIndex = 0;
+        recyclerView1.getAdapter().setDatasState(CoreRecyclerView.REFRESH);
+        recyclerView1.selfRefresh(true);
+        new Handler().postDelayed(() -> initData(), 600);
+    }
 }

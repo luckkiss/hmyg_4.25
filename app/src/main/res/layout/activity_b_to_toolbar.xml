@@ -32,7 +32,7 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:id="@+id/RelativeLayout2"
+                    android:id="@+id/rl_b_search"
                     android:layout_width="@dimen/x265"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
@@ -76,7 +76,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/x10"
-                    android:src="@drawable/icon_grid_view" />
+                    android:src="@drawable/selector_list_or_grid" />
             </RelativeLayout>
 
 
@@ -85,7 +85,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y24">
+            android:layout_height="@dimen/y24"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/white">
 
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_b_filter"
@@ -111,6 +114,7 @@
                 android:id="@+id/tv_b_sort"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="排序"
@@ -120,6 +124,33 @@
                 app:state_drawable_mode="center"
                 app:state_drawable_padding_left="24dp"
                 app:state_drawable_width="12dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <me.kaede.tagview.TagView
+                android:id="@+id/tagview_b_act"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                app:lineMargin="5dp"
+                app:tagMargin="3dp"
+                app:textPaddingBottom="3dp"
+                app:textPaddingLeft="10dp"
+                app:textPaddingRight="10dp"
+                app:textPaddingTop="3dp"/>
+
+
+            <!--<View-->
+            <!--android:id="@+id/id_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1px"-->
+            <!--android:background="@color/main_color" />-->
 
 
         </LinearLayout>

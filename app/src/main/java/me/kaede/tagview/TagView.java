@@ -153,7 +153,11 @@ public class TagView extends RelativeLayout {
             tagView.setText(tag.text);
             //tagView.setPadding(textPaddingLeft, textPaddingTop, textPaddingRight, texPaddingBottom);
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tagView.getLayoutParams();
-            params.setMargins(textPaddingLeft, textPaddingTop, textPaddingRight, texPaddingBottom);
+            if (tag.isDeletable) {
+                params.setMargins(textPaddingLeft, textPaddingTop, textPaddingRight / 2, texPaddingBottom);
+            } else {
+                params.setMargins(textPaddingLeft, textPaddingTop, textPaddingRight, texPaddingBottom);
+            }
             tagView.setLayoutParams(params);
             tagView.setTextColor(tag.tagTextColor);
             tagView.setTextSize(TypedValue.COMPLEX_UNIT_SP, tag.tagTextSize);
@@ -175,7 +179,7 @@ public class TagView extends RelativeLayout {
                 deletableView.setVisibility(View.VISIBLE);
                 deletableView.setText(tag.deleteIcon);
                 int offset = ResolutionUtil.dpToPx(getContext(), 2f);
-                deletableView.setPadding(offset, textPaddingTop, textPaddingRight + offset, texPaddingBottom);
+                deletableView.setPadding(0, textPaddingTop, textPaddingRight - offset / 2, texPaddingBottom);
                 /*params = (LinearLayout.LayoutParams) deletableView.getLayoutParams();
                 params.setMargins(offset, textPaddingTop, textPaddingRight+offset, texPaddingBottom);
 				deletableView.setLayoutParams(params);*/
@@ -259,6 +263,16 @@ public class TagView extends RelativeLayout {
         }
         LogUtil.v(TAG, "[addTag]");
 
+        mTags.add(tag);
+        drawTags();
+    }
+
+    public void addTag(Tag tag, int id) {
+        if (tag == null) {
+            return;
+        }
+        LogUtil.v(TAG, "[addTag]");
+        tag.id = id;
         mTags.add(tag);
         drawTags();
     }

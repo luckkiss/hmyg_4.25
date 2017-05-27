@@ -3,14 +3,12 @@ package com.hldj.hmyg.bean;
 import com.hldj.hmyg.application.MyApplication;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/26.
  */
 public class QueryBean implements Serializable {
-    public String searchSpec;
+    public String searchSpec = "";
     public String specMinValue = "";
     public String specMaxValue = "";
     public String searchKey = "";
@@ -24,5 +22,24 @@ public class QueryBean implements Serializable {
     public int pageIndex = 0;
     public String latitude = MyApplication.Userinfo.getString("latitude", "");
     public String longitude = MyApplication.Userinfo.getString("longitude", "");
-    public List<String> listTags = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "QueryBean{" +
+                "searchSpec='" + searchSpec + '\'' +
+                ", specMinValue='" + specMinValue + '\'' +
+                ", specMaxValue='" + specMaxValue + '\'' +
+                ", searchKey='" + searchKey + '\'' +
+                ", supportTradeType='" + supportTradeType + '\'' +
+                ", firstSeedlingTypeId='" + firstSeedlingTypeId + '\'' +
+                ", secondSeedlingTypeId='" + secondSeedlingTypeId + '\'' +
+                ", cityCode='" + cityCode + '\'' +
+                ", plantTypes='" + plantTypes + '\'' +
+                ", orderBy='" + orderBy + '\'' +
+                ", pageSize=" + pageSize +
+                ", pageIndex=" + pageIndex +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                '}';
+    }
 }

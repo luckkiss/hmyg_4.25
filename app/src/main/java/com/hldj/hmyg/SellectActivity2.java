@@ -35,6 +35,8 @@ import java.util.List;
 
 import me.drakeet.materialdialog.MaterialDialog;
 
+import static com.hldj.hmyg.util.ConstantState.FILTER_OK;
+
 public class SellectActivity2 extends BaseSecondActivity {
     MaterialDialog mMaterialDialog;
     private static String type01 = ""; // planted,
@@ -212,7 +214,7 @@ public class SellectActivity2 extends BaseSecondActivity {
                     for (Integer setItem : selectPosSet) {
                         D.e("===================" + setItem);
 
-                        buffer = buffer.append(planttype_ids.get(setItem));
+                        buffer = buffer.append(planttype_ids.get(setItem) + ",");
                         planttype_has_ids.add(planttype_ids.get(setItem));
 
                     }
@@ -230,33 +232,39 @@ public class SellectActivity2 extends BaseSecondActivity {
 
 
     public void initData() {
-        String from = getIntent().getStringExtra("from");
-        if ("StorePurchaseListActivity".equals(from)) {
-            ll_price.setVisibility(View.GONE);
-        }
-        cityCode = getIntent().getStringExtra("cityCode");
-        cityName = getIntent().getStringExtra("cityName");
+//        String from = getIntent().getStringExtra("from");
+//        if ("StorePurchaseListActivity".equals(from)) {
+//            ll_price.setVisibility(View.GONE);
+//        }
+        cityCode = queryBean.cityCode;
+        cityName = queryBean.cityCode;
+//        cityName = getIntent().getStringExtra("cityName");
 
-        planttype_has_ids = getIntent().getStringArrayListExtra(
-                "planttype_has_ids");
-        searchSpec = getIntent().getStringExtra("searchSpec");
-        String specMinValue = getIntent().getStringExtra("specMinValue");
-        String specMaxValue = getIntent().getStringExtra("specMaxValue");
-        searchKey = getIntent().getStringExtra("searchKey");
-        buffer = buffer.append(getIntent().getStringExtra("plantTypes"));
+//        planttype_has_ids = getIntent().getStringArrayListExtra( "planttype_has_ids");
+//        searchSpec = getIntent().getStringExtra("searchSpec");
+        searchSpec = queryBean.searchSpec;
+//        String specMinValue = getIntent().getStringExtra("specMinValue");
+        String specMinValue = queryBean.specMinValue;
+        String specMaxValue = queryBean.specMaxValue;
+//        String specMaxValue = getIntent().getStringExtra("specMaxValue");
 
-
-        et_max_guige.setText(specMaxValue);//最小厘米
-        et_min_guige.setText(specMinValue);//最大厘米
-        if (et_min_guige.getText().toString().length() > 0
-                || et_max_guige.getText().toString().length() > 0) {
-            mFlowLayout2.setVisibility(View.VISIBLE);
-        } else {
-            mFlowLayout2.setVisibility(View.VISIBLE);
-        }
+//        searchKey = getIntent().getStringExtra("searchKey");
+        searchKey = queryBean.searchKey;
+//        buffer = buffer.append(getIntent().getStringExtra("plantTypes"));
+        buffer = buffer.append(queryBean.plantTypes);
 
 
-        et_pinming.setText(searchKey);
+//        et_max_guige.setText(specMaxValue);//最小厘米
+//        et_min_guige.setText(specMinValue);//最大厘米
+//        if (et_min_guige.getText().toString().length() > 0
+//                || et_max_guige.getText().toString().length() > 0) {
+//            mFlowLayout2.setVisibility(View.VISIBLE);
+//        } else {
+//            mFlowLayout2.setVisibility(View.VISIBLE);
+//        }
+
+
+//        et_pinming.setText(searchKey);
         mCurrentZipCode = cityCode;
         tv_area.setText(cityName);
 
@@ -296,6 +304,7 @@ public class SellectActivity2 extends BaseSecondActivity {
                         tv_area.setText(cityName);
                         type01 = "";
 
+                        queryBean = new QueryBean();
 
                         break;
 
@@ -307,14 +316,28 @@ public class SellectActivity2 extends BaseSecondActivity {
                         } else {
                             intent.putExtra("cityCode", str);
                         }
-                        intent.putExtra("cityName", cityName);
-                        intent.putExtra("plantTypes", buffer.toString());
-                        intent.putStringArrayListExtra("planttype_has_ids", planttype_has_ids);
-                        intent.putExtra("searchSpec", searchSpec);
-                        intent.putExtra("specMinValue", et_min_guige.getText().toString());
-                        intent.putExtra("specMaxValue", et_max_guige.getText().toString());
-                        intent.putExtra("searchKey", et_pinming.getText().toString());
-                        setResult(9, intent);
+                        queryBean.cityCode = cityCode;
+                        String stra = "";
+                        if (buffer.length() != 0 && buffer.toString().endsWith(",")) {
+                            stra = buffer.toString().substring(0, buffer.length() - 1);
+                        }
+                        queryBean.plantTypes = stra;
+                        queryBean.searchSpec = searchSpec;
+                        queryBean.specMinValue = et_min_guige.getText().toString();
+                        queryBean.specMaxValue = et_max_guige.getText().toString();
+//                        queryBean.searchKey = searchSpec;
+//                        intent.putExtra("cityName", cityName);
+//                        intent.putExtra("plantTypes", buffer.toString());
+
+//                        intent.putStringArrayListExtra("planttype_has_ids", planttype_has_ids);
+//                        intent.putExtra("searchSpec", searchSpec);
+//                        intent.putExtra("specMinValue", et_min_guige.getText().toString());
+//                        intent.putExtra("specMaxValue", et_max_guige.getText().toString());
+//                        intent.putExtra("searchKey", et_pinming.getText().toString());
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("hellow", queryBean);
+                        intent.putExtras(bundle);
+                        setResult(FILTER_OK, intent);
                         finish();
                         break;
 

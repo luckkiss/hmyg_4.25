@@ -73,4 +73,10 @@ public class Tag {
         this.layoutBorderSize = layoutBorderSize;
         this.layoutBorderColor = layoutBorderColor;
     }
+
+
+    public Tag setId(int id) {
+        this.id = id;
+        return this;
+    }
 }
