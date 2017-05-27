@@ -70,6 +70,8 @@ public class BActivity_new extends BaseSecondActivity {
         setContentView(R.layout.activity_b_to_toolbar);
         initViewClick();
         recyclerView1 = (CoreRecyclerView) findViewById(R.id.core_rv_b);
+        recyclerView1.getRecyclerView().setHasFixedSize(true);
+        D.e("======设置fix======");
         recyclerView1.init(new BaseMultAdapter<BPageGsonBean.DatabeanX.Pagebean.Databean, BaseViewHolder>(R.layout.list_view_seedling_new, R.layout.grid_view_seedling) {
             @Override
             protected void convert(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item) {
@@ -465,6 +467,8 @@ public class BActivity_new extends BaseSecondActivity {
 
     public void refreshRc() {
         getQueryBean().pageIndex = 0;
+
+
         recyclerView1.getAdapter().setDatasState(CoreRecyclerView.REFRESH);
         recyclerView1.selfRefresh(true);
         new Handler().postDelayed(() -> initData(), 600);

@@ -96,7 +96,6 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 @SuppressLint("Override")
 public class StoreActivity extends NeedSwipeBackActivity implements
         PlatformActionListener, onRefreshListener {
-
     private FinalBitmap fb;
     private ImageView iv_icon_persion_pic;
     private TextView tv_user_name;
