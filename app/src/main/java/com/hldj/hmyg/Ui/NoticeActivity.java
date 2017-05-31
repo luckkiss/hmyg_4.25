@@ -21,14 +21,13 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 
 /**
- * Created by Administrator on 2017/5/22.
+ *
  */
 
 public class NoticeActivity extends NeedSwipeBackActivity {
 
 
     private ViewHolder viewHolder;//通过geviewholder 来获取
-
     public ViewHolder getViewHolder() {
         if (viewHolder == null) {
             viewHolder = new ViewHolder(this);

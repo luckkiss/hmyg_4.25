@@ -22,7 +22,7 @@ android {
     }
 
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
     sourceSets {
         main {
             res.srcDirs =
@@ -110,7 +110,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.google.code.gson:gson:2.2.4'
     /*增加 最新布局*/
-    compile 'com.android.support.constraint:constraint-layout:1.0.1'
+//    compile 'com.android.support.constraint:constraint-layout:1.0.1'
     //    compile 'com.android.support:design:25.3.0'
     //    compile 'com.android.support:design:23.2.0'
     //    compile "com.android.support:support-core-utils:24.2.0"
@@ -138,4 +138,5 @@ dependencies {
 
 
     compile 'com.lqr.optionitemview:library:1.0.7'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }

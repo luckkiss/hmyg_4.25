@@ -193,16 +193,19 @@
                                 android:layout_marginRight="0dp"
                                 android:layout_marginTop="5dp"
                                 android:paddingLeft="5dp"
-
-                                android:src="@drawable/home_cj_gg" />
-
-                            <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
-                                android:id="@+id/core_rv_home"
+                                android:src="@drawable/home_cj_gg"
+                                />
+                            
+                            
+                            <com.hldj.hmyg.widget.UPMarqueeView
+                                android:id="@+id/upview1"
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:layout_margin="5dp"
+                                android:layout_height="55dp"
                                 android:layout_toRightOf="@+id/iv_home_left"
-                                android:descendantFocusability="blocksDescendants" />
+                                android:layout_margin="5dp"
+                                />
+
+
                             <!--<LinearLayout-->
                             <!--android:layout_width="match_parent"-->
                             <!--android:layout_height="wrap_content"-->

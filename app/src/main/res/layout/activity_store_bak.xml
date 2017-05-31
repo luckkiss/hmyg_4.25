@@ -85,19 +85,13 @@
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
-
             <TabWidget
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@color/white_60"
-                android:elevation="4dp"
-                app:tl_indicator_color="@color/bili_logo_pink_color"
-                app:tl_indicator_corner_radius="@dimen/tab_indicator_corner_small_radius"
-                app:tl_indicator_height="@dimen/tab_indicator_default_height"
-                app:tl_textSelectColor="@color/pink_text_color"
-                app:tl_textUnselectColor="@color/font_normal"/>
+                />
 
 
             <View
@@ -114,8 +108,6 @@
             android:layout_height="match_parent"
             android:overScrollMode="never"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-
     </android.support.design.widget.CoordinatorLayout>
 
 

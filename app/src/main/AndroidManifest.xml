@@ -244,6 +244,9 @@
             android:name=".Ui.NoticeActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Ui.NoticeActivity_detail"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.hldj.hmyg.SettingActivity"
             android:screenOrientation="portrait"></activity>
         <activity

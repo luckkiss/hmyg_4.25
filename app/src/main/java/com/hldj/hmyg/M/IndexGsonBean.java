@@ -1,5 +1,6 @@
 package com.hldj.hmyg.M;
 
+import com.hldj.hmyg.bean.ArticleBean;
 import com.hldj.hmyg.saler.M.PurchaseBean;
 
 import java.util.ArrayList;
@@ -43,6 +44,8 @@ public class IndexGsonBean {
         public List<TitleBean> titleList = new ArrayList<>();
         public List<PurchaseBean> purchaseList;
         public List<BPageGsonBean.DatabeanX.Pagebean.Databean> seedlingList;
+        public List<ArticleBean> articleList = new ArrayList<>();
+
     }
 
     public static class TitleBean {

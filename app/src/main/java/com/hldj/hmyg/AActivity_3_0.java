@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,23 +35,23 @@ import com.hldj.hmyg.M.BProduceAdapt;
 import com.hldj.hmyg.M.IndexGsonBean;
 import com.hldj.hmyg.Ui.NewsActivity;
 import com.hldj.hmyg.Ui.NoticeActivity;
+import com.hldj.hmyg.Ui.NoticeActivity_detail;
 import com.hldj.hmyg.adapter.HomeFunctionAdapter;
 import com.hldj.hmyg.adapter.HomePayAdapter;
 import com.hldj.hmyg.adapter.TypeAdapter;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.ABanner;
+import com.hldj.hmyg.bean.ArticleBean;
 import com.hldj.hmyg.bean.HomeFunction;
 import com.hldj.hmyg.bean.HomeStore;
 import com.hldj.hmyg.bean.Type;
 import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
-import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
-import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
-import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
 import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hldj.hmyg.widget.UPMarqueeView;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
@@ -166,18 +167,18 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         }
         toTopBtn = (Button) findViewById(R.id.top_btn);
         toTopBtn.setOnClickListener(this);
-        initView();
+
         LayoutParams l_params = new RelativeLayout.LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         WindowManager wm = this.getWindowManager();
         l_params.height = (int) (wm.getDefaultDisplay().getWidth() * 1 / 2);
         viewPager.setLayoutParams(l_params);
+        initView();
         initData();
 //		iv_Capture.setOnClickListener(this);
         iv_msg.setOnClickListener(this);
 //		relativeLayout2.setOnClickListener(this);
         findViewById(R.id.tv_a_search).setOnClickListener(this);
-        initmPtrFrame();
 
         initSwipe();
 
@@ -196,25 +197,74 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         );
     }
 
-    private void initmPtrFrame() {
 
+    /**
+     * 初始化需要循环的View
+     * 为了灵活的使用滚动的View，所以把滚动的内容让用户自定义
+     * 假如滚动的是三条或者一条，或者是其他，只需要把对应的布局，和这个方法稍微改改就可以了，
+     */
+    private void setView() {
+        for (int i = 0; i < data.size(); i = i + 2) {
+            final int position = i;
+            //设置滚动的单个布局
+            LinearLayout moreView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_home_cjgg, null);
+            //初始化布局的控件
+            TextView tv1 = (TextView) moreView.findViewById(R.id.tv_taggle1);
+            TextView tv2 = (TextView) moreView.findViewById(R.id.tv_taggle2);
 
-//        mLayout = (SmartRefreshLayout) findViewById(R.id.rotate_header_web_view_frame);
-//        mLayout.setOnRefreshListener(new SmartRefreshLayout.onRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                mLayout.stopRefresh();
-//            }
-//
-//            @Override
-//            public void onLoadMore() {
-//                mLayout.stopLoadMore();
-//            }
-//        });
+            /**
+             * 设置监听
+             */
+            moreView.findViewById(R.id.tv_taggle1).setOnClickListener(view -> {
+                String url = "http://192.168.1.252:8090/article/detail/" + data.get(position).id + ".html?isHeader=true";
+                Toast.makeText(AActivity_3_0.this, position + "你点击了url=" + url, Toast.LENGTH_SHORT).show();
+                D.e("url=" + url);
+                NoticeActivity_detail.start2Activity(AActivity_3_0.this, url);
+            });
+            /**
+             * 设置监听
+             */
+            moreView.findViewById(R.id.tv_taggle2).setOnClickListener(view -> {
+                String url = "http://192.168.1.252:8090/article/detail/" + data.get(position + 1).id + ".html?isHeader=true";
+                Toast.makeText(AActivity_3_0.this, position + "你点击了url=" + url, Toast.LENGTH_SHORT).show();
+                D.e("url=" + url);
+                NoticeActivity_detail.start2Activity(AActivity_3_0.this, url);
+            });
+            //进行对控件赋值
+            tv1.setText(data.get(i).title);
+            if (data.size() > i + 1) {
+                //因为淘宝那儿是两条数据，但是当数据是奇数时就不需要赋值第二个，所以加了一个判断，还应该把第二个布局给隐藏掉
+                tv2.setText(data.get(i + 1).title);
+            } else {
+                moreView.findViewById(R.id.tv_taggle2).setVisibility(View.GONE);
+            }
 
+            //添加到循环滚动数组里面去
+            views.add(moreView);
+        }
     }
 
+    List<ArticleBean> data = new ArrayList<>();
+    List<View> views = new ArrayList<>();
+
+
+    private void initArticles(List<ArticleBean> articleList) {
+        data.addAll(articleList);
+        setView();//设置数据
+        UPMarqueeView upview1 = (UPMarqueeView) findViewById(R.id.upview1);
+        upview1.setViews(views);
+        /**
+         * 设置item_view的监听
+         */
+        upview1.setOnItemClickListener((position, view) -> ToastUtil.showShortToast("==点击了==" + position + " 个 item"));
+    }
+
+
+    /**
+     * 初始化 今日头条
+     */
     private void initView() {
+
 
         /**
          * 初始化supertextview
@@ -238,39 +288,11 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         });
         findViewById(R.id.iv_home_more_tj).setOnClickListener(v -> {//苗木商城 更多
 //            BActivity.start2ActivityOnly(AActivity_3_0.this);
-              MainActivity.toB();
+            MainActivity.toB();
         });
         findViewById(R.id.iv_home_more_rm).setOnClickListener(v -> {//热门商家
             ToastUtil.showShortToast("更多热门商家正在开发中...");
         });
-
-
-        CoreRecyclerView recyclerView = (CoreRecyclerView) findViewById(R.id.core_rv_home);
-        recyclerView.initView(this).init(new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_home_cjgg) {
-            @Override
-            protected void convert(BaseViewHolder helper, String item) {
-
-            }
-        });
-        recyclerView.getRecyclerView().setOnTouchListener((v, event) ->
-                {
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            scrollView.smoothScrollTo(0, scrollView.getScrollY() + 1);//平移1个像素 解决滑动冲突
-                            break;
-                        case MotionEvent.ACTION_UP:
-                            scrollView.smoothScrollTo(0, scrollView.getScrollY() - 1);
-                            break;
-                    }
-                    return super.onTouchEvent(event);
-                }
-        );
-
-        ArrayList arrayList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            arrayList.add("数据" + i);
-        }
-        recyclerView.getAdapter().addData(arrayList);
 
 
         // http://blog.csdn.net/jiangwei0910410003/article/details/17024287
@@ -441,7 +463,8 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         // TODO Auto-generated method stub
         IndexGsonBean indexGsonBean = GsonUtil.formateJson2Bean(t, IndexGsonBean.class);
         if (indexGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
-            initNewList(indexGsonBean);
+            initNewList(indexGsonBean);//初始化 采购列表
+            initArticles(indexGsonBean.data.articleList);//初始化  头条新闻
         }
 
 
@@ -692,6 +715,8 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
      * @param indexGsonBean
      */
     private void initNewList(IndexGsonBean indexGsonBean) {
+
+
         try {//采购项目
             if (indexGsonBean.data.purchaseList.size() != 0) {
                 findViewById(R.id.ll_caigou_parent).setVisibility(View.VISIBLE);
