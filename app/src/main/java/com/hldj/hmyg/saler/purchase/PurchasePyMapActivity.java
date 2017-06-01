@@ -98,7 +98,9 @@ import me.kaede.tagview.TagView;
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
 
-
+/**
+ * 快速报价
+ */
 @SuppressLint({"NewApi", "ResourceAsColor"})
 public class PurchasePyMapActivity extends BaseSecondActivity implements
 

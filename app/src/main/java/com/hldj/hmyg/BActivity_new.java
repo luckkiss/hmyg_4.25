@@ -23,6 +23,7 @@ import com.hldj.hmyg.M.BProduceAdapt;
 import com.hldj.hmyg.P.BPresenter;
 import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.base.MySwipeAdapter;
+import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.QueryBean;
 import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
 import com.hldj.hmyg.buyer.weidet.BaseMultAdapter;
@@ -195,7 +196,9 @@ public class BActivity_new extends BaseSecondActivity {
                 tagView.addTag(TagFactory.createDelTag(strs[i]), getTypeId(strs[i]));
             }
         }
-        tagView.addTag(TagFactory.createDelTag(queryBean.cityCode), 99);
+
+        if (!TextUtils.isEmpty(SellectActivity2.childBeans.fullName))
+            tagView.addTag(TagFactory.createDelTag(SellectActivity2.childBeans.fullName), 99);
 
         tagView.addTag(TagFactory.createDelTag(queryBean.searchSpec), 100);
 
@@ -205,6 +208,8 @@ public class BActivity_new extends BaseSecondActivity {
                 getQueryBean().searchSpec = "";
             } else if (tag.id == 99) {
                 //城市被删除
+                SellectActivity2.childBeans = new CityGsonBean.ChildBeans();
+                queryBean.cityCode = "";
             } else if (tag.id == 90) {
                 // 范围删除
                 queryBean.plantTypes = queryBean.plantTypes.replaceAll(planted + ",", "");
@@ -277,8 +282,6 @@ public class BActivity_new extends BaseSecondActivity {
             recyclerView1.getAdapter().notifyDataSetChanged();
             startAnimation(recyclerView1.getRecyclerView(), R.anim.zoom_in);
             recyclerView1.getRecyclerView().scrollToPosition(now_position);
-
-
         } else {//list
             RecyclerView.LayoutManager layoutManager = recyclerView1.getRecyclerView().getLayoutManager();
             //判断是当前layoutManager是否为LinearLayoutManager
@@ -309,8 +312,7 @@ public class BActivity_new extends BaseSecondActivity {
 
 
         }
-
-
+        ((BaseMultAdapter) recyclerView1.getAdapter()).onAttachedToRecyclerView(recyclerView1.getRecyclerView());
     }
 
     int now_position = 0;
@@ -424,7 +426,7 @@ public class BActivity_new extends BaseSecondActivity {
 
             refreshRc();
 
-        } else if (requestCode == FILTER_OK) {//筛选结束
+        } else if (resultCode == FILTER_OK) {//筛选结束
             if (data != null && data.getExtras().getSerializable("hellow") != null) {
                 queryBean = (QueryBean) data.getExtras().getSerializable("hellow");
             }
@@ -432,8 +434,6 @@ public class BActivity_new extends BaseSecondActivity {
             addTagsByBean(queryBean);
             refreshRc();
         }
-
-
     }
 
     private void addADelTag() {
@@ -466,11 +466,11 @@ public class BActivity_new extends BaseSecondActivity {
     }
 
     public void refreshRc() {
-        getQueryBean().pageIndex = 0;
-
-
+//        getQueryBean().pageIndex = 0;
         recyclerView1.getAdapter().setDatasState(CoreRecyclerView.REFRESH);
         recyclerView1.selfRefresh(true);
-        new Handler().postDelayed(() -> initData(), 600);
+        recyclerView1.onRefresh();
+//        recyclerView1.selfRefresh(true);
+//        new Handler().postDelayed(() -> initData(), 600);
     }
 }

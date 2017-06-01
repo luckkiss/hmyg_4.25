@@ -18,11 +18,11 @@ import java.util.List;
 public class UPMarqueeView extends ViewFlipper {
     private Context mContext;
     private boolean isSetAnimDuration = false;
-    private int interval = 2000;
+    private int interval = 3500;
     /**
      * 动画时间
      */
-    private int animDuration = 3000;
+    private int animDuration = 2500;
 
     public UPMarqueeView(Context context, AttributeSet attrs) {
         super(context, attrs);

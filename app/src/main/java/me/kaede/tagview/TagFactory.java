@@ -3,6 +3,7 @@ package me.kaede.tagview;
 import android.text.TextUtils;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.MyApplication;
 
 import static com.hldj.hmyg.util.ConstantParams.container;
 import static com.hldj.hmyg.util.ConstantParams.dbh;
@@ -23,8 +24,6 @@ public class TagFactory {
         return getTagViewByName(item);
     }
 
-
-
     public static Tag createDelTag(String item, String item2) {
 
         if (!TextUtils.isEmpty(item) && !TextUtils.isEmpty(item2)) {
@@ -43,6 +42,7 @@ public class TagFactory {
         if (!"".equals(getTypeName(item))) {
             Tag tag = new Tag(getTypeName(item));
             tag.layoutColor = R.color.main_color;
+            tag.layoutColor = MyApplication.getInstance().getResources().getColor(R.color.main_color);
             tag.isDeletable = true;
             return tag;
         } else {

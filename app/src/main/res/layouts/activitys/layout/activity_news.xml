@@ -18,48 +18,6 @@
         app:title="新闻资讯" />
 
 
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="horizontal" android:visibility="gone">-->
-
-    <!--<android.support.design.widget.TabLayout-->
-    <!--android:id="@+id/news_tb_layout"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="32dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:background="#ffffff"-->
-    <!--android:fillViewport="false"-->
-    <!--app:layout_scrollFlags="scroll"-->
-    <!--app:tabGravity="fill"-->
-    <!--app:tabIndicatorColor="#057523"-->
-    <!--app:tabIndicatorHeight="2dp"-->
-    <!--app:tabMode="fixed"-->
-    <!--android:visibility="visible"-->
-    <!--app:tabSelectedTextColor="#057523"-->
-    <!--app:tabTextColor="#ced0d3" />-->
-
-
-    <!--<View-->
-    <!--android:layout_width="1dp"-->
-    <!--android:layout_height="20dp"-->
-    <!--android:layout_gravity="center_vertical"-->
-    <!--android:background="@color/gray_btn_bg_color" />-->
-
-    <!--<com.coorchice.library.SuperTextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center_vertical"-->
-    <!--android:paddingLeft="5dp"-->
-    <!--android:paddingRight="5dp"-->
-    <!--android:text="•••"-->
-    <!--android:textColor="@color/main_color"-->
-    <!--android:visibility="gone"-->
-    <!--android:textSize="14sp" />-->
-
-
-    <!--</LinearLayout>-->
-
 
     <ProgressBar
         android:id="@+id/news_progressBar"

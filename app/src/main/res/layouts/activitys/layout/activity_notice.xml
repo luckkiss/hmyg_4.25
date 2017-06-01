@@ -8,7 +8,7 @@
 
 
     <com.lqr.optionitemview.OptionItemView
-        android:id="@+id/news_title"
+        android:id="@+id/notices_title"
         android:layout_width="match_parent"
         android:layout_height="42sp"
         android:background="@color/white"
@@ -17,53 +17,19 @@
         app:splite_mode="true"
         app:title="成交公告" />
 
-
-    <LinearLayout
+    <ProgressBar
+        android:id="@+id/notices_progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <!--SelectedTabIndicatorHeight-->
-        <android.support.design.widget.TabLayout
-            android:id="@+id/news_tb_layout"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_weight="1"
-            android:background="#ffffff"
-            android:fillViewport="false"
-            app:layout_scrollFlags="scroll"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="#057523"
-            app:tabIndicatorHeight="2dp"
-            app:tabMode="scrollable"
-            app:tabSelectedTextColor="#057523"
-            app:tabTextColor="#ced0d3" />
+        android:layout_height="3dp"
+        android:progressDrawable="@drawable/pg"
+        android:visibility="gone" />
 
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:background="@color/gray_btn_bg_color"
-            android:visibility="gone" />
-
-        <com.coorchice.library.SuperTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="•••"
-            android:textColor="@color/main_color"
-            android:textSize="14sp" android:visibility="gone"/>
-
-
-    </LinearLayout>
-
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/news_vp_content"
+    <WebView
+        android:id="@+id/notices_webview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="visible" />
 
 
 </LinearLayout>

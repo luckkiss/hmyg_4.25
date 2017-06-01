@@ -175,7 +175,9 @@
                         </LinearLayout>
 
 
-                        <View style="@style/View_line_gray" android:visibility="gone"/>
+                        <View
+                            style="@style/View_line_gray"
+                            android:visibility="gone" />
 
 
                         <RelativeLayout
@@ -188,22 +190,21 @@
                                 android:id="@+id/iv_home_left"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
+                                android:layout_centerVertical="true"
                                 android:layout_marginBottom="5dp"
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginRight="0dp"
                                 android:layout_marginTop="5dp"
                                 android:paddingLeft="5dp"
-                                android:src="@drawable/home_cj_gg"
-                                />
-                            
-                            
+                                android:src="@drawable/home_cj_gg" />
+
+
                             <com.hldj.hmyg.widget.UPMarqueeView
                                 android:id="@+id/upview1"
                                 android:layout_width="match_parent"
                                 android:layout_height="55dp"
-                                android:layout_toRightOf="@+id/iv_home_left"
                                 android:layout_margin="5dp"
-                                />
+                                android:layout_toRightOf="@+id/iv_home_left" />
 
 
                             <!--<LinearLayout-->

@@ -13,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.QueryBean;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.buyer.Ui.CityWheelDialogF;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
@@ -22,7 +24,6 @@ import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 import com.mrwujay.cascade.activity.BaseSecondActivity;
-import com.mrwujay.cascade.activity.GetCodeByName;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
@@ -46,8 +47,7 @@ public class SellectActivity2 extends BaseSecondActivity {
     private LinearLayout ll_price;
 
     private TextView tv_area;
-    private String cityCode = "";
-    private String cityName = "";
+
 
     private ArrayList<String> danwei_names = new ArrayList<String>();
     private ArrayList<String> danwei_ids = new ArrayList<String>();
@@ -95,7 +95,12 @@ public class SellectActivity2 extends BaseSecondActivity {
         mFlowLayout3 = (TagFlowLayout) findViewById(R.id.id_flowlayout3);
         TextView sure = (TextView) findViewById(R.id.sure);
         initData();
-        initSearch();
+
+        if (mCache.getAsString("initSearch") != null && !"".equals(mCache.getAsString("initSearch"))) {
+            LoadCache(mCache.getAsString("initSearch"));
+        } else {
+            initSearch();
+        }
 
         btn_back.setOnClickListener(multipleClickProcess);
         iv_reset.setOnClickListener(multipleClickProcess);
@@ -132,26 +137,21 @@ public class SellectActivity2 extends BaseSecondActivity {
                 super.onFailure(t, errorNo, strMsg);
             }
 
-            private void LoadCache(String t) {
-                // TODO Auto-generated method stub
-
-                TypesBean typesBean = GsonUtil.formateJson2Bean(t, TypesBean.class);
-                if (!typesBean.code.equals(ConstantState.SUCCEED_CODE)) {
-                    ToastUtil.showShortToast(typesBean.msg);
-                    return;
-                }
-                if (typesBean.data.plantTypeList != null) {
-                    initPlantTypeList(typesBean.data.plantTypeList);
-                }
-                if (typesBean.data.specList != null) {
-                    initSpecList(typesBean.data.specList);
-                }
-
-
-            }
-
-
         });
+    }
+
+    private void LoadCache(String t) {
+        TypesBean typesBean = GsonUtil.formateJson2Bean(t, TypesBean.class);
+        if (!typesBean.code.equals(ConstantState.SUCCEED_CODE)) {
+            ToastUtil.showShortToast(typesBean.msg);
+            return;
+        }
+        if (typesBean.data.plantTypeList != null) {
+            initPlantTypeList(typesBean.data.plantTypeList);
+        }
+        if (typesBean.data.specList != null) {
+            initSpecList(typesBean.data.specList);
+        }
     }
 
 
@@ -236,8 +236,7 @@ public class SellectActivity2 extends BaseSecondActivity {
 //        if ("StorePurchaseListActivity".equals(from)) {
 //            ll_price.setVisibility(View.GONE);
 //        }
-        cityCode = queryBean.cityCode;
-        cityName = queryBean.cityCode;
+
 //        cityName = getIntent().getStringExtra("cityName");
 
 //        planttype_has_ids = getIntent().getStringArrayListExtra( "planttype_has_ids");
@@ -265,11 +264,18 @@ public class SellectActivity2 extends BaseSecondActivity {
 
 
 //        et_pinming.setText(searchKey);
-        mCurrentZipCode = cityCode;
-        tv_area.setText(cityName);
+
+        if (!TextUtils.isEmpty(childBeans.fullName)) {
+            tv_area.setText(childBeans.fullName);
+            queryBean.cityCode = childBeans.cityCode;
+        } else {
+            tv_area.setText("全国");
+        }
 
 
     }
+
+    public static CityGsonBean.ChildBeans childBeans = new CityGsonBean.ChildBeans();
 
     public class MultipleClickProcess implements OnClickListener {
         private boolean flag = true;
@@ -286,7 +292,12 @@ public class SellectActivity2 extends BaseSecondActivity {
                         break;
                     case R.id.ll_area:
 
-                        D.e("=选择  地区==");
+                        CityWheelDialogF.instance().addSelectListener(childBeans -> {
+                            SellectActivity2.childBeans = childBeans;
+                            D.e("=选择  地区==" + childBeans.toString());
+                            tv_area.setText(SellectActivity2.childBeans.fullName);
+                        }).show(getSupportFragmentManager(), "SellectActivity2");
+
 
                         break;
                     case R.id.iv_reset:
@@ -299,9 +310,8 @@ public class SellectActivity2 extends BaseSecondActivity {
 //                        mFlowLayout1.setAdapter(adapter1);
                         mFlowLayout2.getAdapter().resetList();
                         mFlowLayout3.getAdapter().resetList();
-                        cityCode = "";
-                        cityName = "全国";
-                        tv_area.setText(cityName);
+                        childBeans = new CityGsonBean.ChildBeans();
+                        tv_area.setText("全国");
                         type01 = "";
 
                         queryBean = new QueryBean();
@@ -310,13 +320,13 @@ public class SellectActivity2 extends BaseSecondActivity {
 
                     case R.id.sure:
                         Intent intent = new Intent();
-                        String str = GetCodeByName.initProvinceDatas(SellectActivity2.this, mCurrentProviceName, mCurrentCityName);
-                        if (TextUtils.isEmpty(str)) {
-                            intent.putExtra("cityCode", "");
-                        } else {
-                            intent.putExtra("cityCode", str);
-                        }
-                        queryBean.cityCode = cityCode;
+//                        String str = GetCodeByName.initProvinceDatas(SellectActivity2.this, mCurrentProviceName, mCurrentCityName);
+//                        if (TextUtils.isEmpty(str)) {
+//                            intent.putExtra("cityCode", "");
+//                        } else {
+//                            intent.putExtra("cityCode", str);
+//                        }
+                        queryBean.cityCode = childBeans.cityCode;
                         String stra = "";
                         if (buffer.length() != 0 && buffer.toString().endsWith(",")) {
                             stra = buffer.toString().substring(0, buffer.length() - 1);

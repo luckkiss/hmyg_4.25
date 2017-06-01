@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_taggle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,7 +13,7 @@
         android:id="@+id/tv_taggle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="start"
         android:drawableLeft="@drawable/home_cj_gg_zx"
         android:drawablePadding="3dp"
         android:ellipsize="end"
@@ -20,15 +21,15 @@
         android:layoutDirection="locale"
         android:maxLines="1"
         android:padding="5dp"
-        android:text="2017/4/18 关于'采购单（P0051）'的成交公告 "
         android:textColor="@color/black_de"
-        android:textSize="13sp" />
+        android:textSize="13sp"
+        tools:text="的成交公告 " />
 
     <com.coorchice.library.SuperTextView
         android:id="@+id/tv_taggle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="start"
         android:drawableLeft="@drawable/home_cj_gg_zx"
         android:drawablePadding="3dp"
         android:ellipsize="end"
@@ -36,9 +37,9 @@
         android:layoutDirection="locale"
         android:maxLines="1"
         android:padding="5dp"
-        android:text="2017/4/18 关于'采购单（P0051）'的成交公告 "
         android:textColor="@color/black_de"
-        android:textSize="13sp" />
+        android:textSize="13sp"
+        tools:text="2017/4/18 关于'采购单（P0051）'的成交公告 " />
 
 
 </LinearLayout>

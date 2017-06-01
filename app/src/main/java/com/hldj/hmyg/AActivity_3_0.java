@@ -36,8 +36,6 @@ import com.hldj.hmyg.M.IndexGsonBean;
 import com.hldj.hmyg.Ui.NewsActivity;
 import com.hldj.hmyg.Ui.NoticeActivity;
 import com.hldj.hmyg.Ui.NoticeActivity_detail;
-import com.hldj.hmyg.adapter.HomeFunctionAdapter;
-import com.hldj.hmyg.adapter.HomePayAdapter;
 import com.hldj.hmyg.adapter.TypeAdapter;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.ABanner;
@@ -174,7 +172,12 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         l_params.height = (int) (wm.getDefaultDisplay().getWidth() * 1 / 2);
         viewPager.setLayoutParams(l_params);
         initView();
-        initData();
+
+        if (mCache.getAsString("index") != null && !"".equals(mCache.getAsString("index"))) {
+            LoadCache(mCache.getAsString("index"));
+        }
+        requestData();
+//        initData();
 //		iv_Capture.setOnClickListener(this);
         iv_msg.setOnClickListener(this);
 //		relativeLayout2.setOnClickListener(this);
@@ -217,7 +220,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
              */
             moreView.findViewById(R.id.tv_taggle1).setOnClickListener(view -> {
                 String url = "http://192.168.1.252:8090/article/detail/" + data.get(position).id + ".html?isHeader=true";
-                Toast.makeText(AActivity_3_0.this, position + "你点击了url=" + url, Toast.LENGTH_SHORT).show();
                 D.e("url=" + url);
                 NoticeActivity_detail.start2Activity(AActivity_3_0.this, url);
             });
@@ -226,7 +228,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
              */
             moreView.findViewById(R.id.tv_taggle2).setOnClickListener(view -> {
                 String url = "http://192.168.1.252:8090/article/detail/" + data.get(position + 1).id + ".html?isHeader=true";
-                Toast.makeText(AActivity_3_0.this, position + "你点击了url=" + url, Toast.LENGTH_SHORT).show();
                 D.e("url=" + url);
                 NoticeActivity_detail.start2Activity(AActivity_3_0.this, url);
             });
@@ -264,35 +265,21 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
      * 初始化 今日头条
      */
     private void initView() {
-
-
-        /**
-         * 初始化supertextview
-         */
-
-        findViewById(R.id.stv_home_1).setOnClickListener(v -> {
-//            BActivity.start2ActivityOnly(AActivity_3_0.this);
-            MainActivity.toB();
-        });
-        findViewById(R.id.stv_home_2).setOnClickListener(v -> {
-            PurchasePyMapActivity.start2Activity(AActivity_3_0.this);
-        });
-        findViewById(R.id.stv_home_3).setOnClickListener(v -> {
-            NoticeActivity.start2Activity(AActivity_3_0.this);
-        });
-        findViewById(R.id.stv_home_4).setOnClickListener(v -> {
-            NewsActivity.start2Activity(AActivity_3_0.this);
-        });
-        findViewById(R.id.iv_home_more_cg).setOnClickListener(v -> {//采购
-            PurchasePyMapActivity.start2Activity(AActivity_3_0.this);
-        });
-        findViewById(R.id.iv_home_more_tj).setOnClickListener(v -> {//苗木商城 更多
-//            BActivity.start2ActivityOnly(AActivity_3_0.this);
-            MainActivity.toB();
-        });
-        findViewById(R.id.iv_home_more_rm).setOnClickListener(v -> {//热门商家
-            ToastUtil.showShortToast("更多热门商家正在开发中...");
-        });
+        //商城界面
+        findViewById(R.id.stv_home_1).setOnClickListener(v -> MainActivity.toB());
+        //快速报价
+        findViewById(R.id.stv_home_2).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this));
+        ////成交公告
+        findViewById(R.id.stv_home_3).setOnClickListener(v -> NoticeActivity.start2Activity(AActivity_3_0.this));
+        findViewById(R.id.iv_home_left).setOnClickListener(v -> NoticeActivity.start2Activity(AActivity_3_0.this));
+        //新闻资讯
+        findViewById(R.id.stv_home_4).setOnClickListener(v -> NewsActivity.start2Activity(AActivity_3_0.this));
+        //采购
+        findViewById(R.id.iv_home_more_cg).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this));
+        //苗木商城 更多
+        findViewById(R.id.iv_home_more_tj).setOnClickListener(v -> MainActivity.toB());
+        //热门商家
+        findViewById(R.id.iv_home_more_rm).setOnClickListener(v -> ToastUtil.showShortToast("更多热门商家正在开发中..."));
 
 
         // http://blog.csdn.net/jiangwei0910410003/article/details/17024287
@@ -378,45 +365,43 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
     private void initData() {
 
-        gd_home_pay_datas.add(new Type("fangxin", "放心购", "",
-                R.drawable.shouye_fangxingou));
-        gd_home_pay_datas.add(new Type("bangwo", "帮我购", "",
-                R.drawable.shouye_bangwogou));
-        gd_home_pay_datas.add(new Type("danbao", "担保购", "",
-                R.drawable.shouye_danbaogou));
-        gd_home_pay_datas.add(new Type("weituo", "委托购", "",
-                R.drawable.shouye_weitougou));
-        if (gd_home_pay_datas.size() > 0) {
-            HomePayAdapter myadapter = new HomePayAdapter(AActivity_3_0.this,
-                    gd_home_pay_datas);
-            gd_01.setAdapter(myadapter);
-        }
+//        gd_home_pay_datas.add(new Type("fangxin", "放心购", "",
+//                R.drawable.shouye_fangxingou));
+//        gd_home_pay_datas.add(new Type("bangwo", "帮我购", "",
+//                R.drawable.shouye_bangwogou));
+//        gd_home_pay_datas.add(new Type("danbao", "担保购", "",
+//                R.drawable.shouye_danbaogou));
+//        gd_home_pay_datas.add(new Type("weituo", "委托购", "",
+//                R.drawable.shouye_weitougou));
+//        if (gd_home_pay_datas.size() > 0) {
+//            HomePayAdapter myadapter = new HomePayAdapter(AActivity_3_0.this,
+//                    gd_home_pay_datas);
+//            gd_01.setAdapter(myadapter);
+//        }
 
         // TODO Auto-generated method stub
         // home_functions.add(new HomeFunction(1, "1", "苗木商城", "",
         // R.drawable.shouye_miaomushangcheng));
-        home_functions.add(new HomeFunction(2, "2", "快速报价", "",
-                R.drawable.shouye_caigoubaojia));
-        home_functions.add(new HomeFunction(3, "3", "地图找苗", "",
-                R.drawable.shouye_dituzhaomiao));
-        //FindFlowerActivity
-        if (home_functions.size() > 0) {
-            HomeFunctionAdapter homeFunctionAdapter = new HomeFunctionAdapter(
-                    AActivity_3_0.this, home_functions);
-            gd.setAdapter(homeFunctionAdapter);
-        }
-        if (gd_datas.size() > 0) {
-            TypeAdapter myadapter = new TypeAdapter(AActivity_3_0.this, gd_datas);
-            gd_00.setAdapter(myadapter);
-        }
-        gd_datas.clear();
-        if (myadapter != null) {
-            myadapter.notifyDataSetChanged();
-        }
+//        home_functions.add(new HomeFunction(2, "2", "快速报价", "",
+//                R.drawable.shouye_caigoubaojia));
+//        home_functions.add(new HomeFunction(3, "3", "地图找苗", "",
+//                R.drawable.shouye_dituzhaomiao));
+//        //FindFlowerActivity
+//        if (home_functions.size() > 0) {
+//            HomeFunctionAdapter homeFunctionAdapter = new HomeFunctionAdapter(
+//                    AActivity_3_0.this, home_functions);
+//            gd.setAdapter(homeFunctionAdapter);
+//        }
+//        if (gd_datas.size() > 0) {
+//            TypeAdapter myadapter = new TypeAdapter(AActivity_3_0.this, gd_datas);
+//            gd_00.setAdapter(myadapter);
+//        }
+//        gd_datas.clear();
+//        if (myadapter != null) {
+//            myadapter.notifyDataSetChanged();
+//        }
 
-        if (mCache.getAsString("index") != null && !"".equals(mCache.getAsString("index"))) {
-            LoadCache(mCache.getAsString("index"));
-        }
+
         requestData();//请求数据
 
     }

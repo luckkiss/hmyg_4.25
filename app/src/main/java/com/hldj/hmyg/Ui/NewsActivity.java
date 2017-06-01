@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
@@ -215,13 +213,10 @@ public class NewsActivity extends NeedSwipeBackActivity {
 
     private class ViewHolder {
         public OptionItemView news_title; // title
-        public TabLayout news_tb_layout; // tablayout
-        public ViewPager news_vp_content; // webview
 
         public ViewHolder(Activity rootView) {
             this.news_title = (OptionItemView) rootView.findViewById(R.id.news_title);
-            this.news_tb_layout = (TabLayout) rootView.findViewById(R.id.news_tb_layout);
-            this.news_vp_content = (ViewPager) rootView.findViewById(R.id.news_vp_content);
+
         }
 
     }

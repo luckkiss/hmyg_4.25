@@ -40,6 +40,7 @@ import com.hldj.hmyg.buyer.weidet.animation.SlideInBottomAnimation;
 import com.hldj.hmyg.buyer.weidet.animation.SlideInLeftAnimation;
 import com.hldj.hmyg.buyer.weidet.animation.SlideInRightAnimation;
 import com.hldj.hmyg.buyer.weidet.entity.IExpandable;
+import com.hldj.hmyg.util.D;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -276,8 +277,18 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
         if (datasState == REFRESH) {
             datasState = LOAD_MORE;
             this.mData.clear();
+            D.e("===删除所有数据，重新添加====");
         }
-        this.mData.addAll(newData);
+
+
+        if (newData != null) {
+            D.e("===添加item总数====" + newData.size());
+        }
+        if (newData != null) this.mData.addAll(newData);
+
+
+        D.e("===列表数量总数====" + this.mData.size());
+
         hideLoadingMore();
 //        notifyItemRangeInserted(mData.size() - newData.size() + getHeaderLayoutCount(), newData.size());
         notifyDataSetChanged();

@@ -1,6 +1,10 @@
 package com.hldj.hmyg.buyer.weidet;
 
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
+
+import com.hldj.hmyg.util.D;
 
 public abstract class BaseMultAdapter<T, K extends BaseViewHolder> extends BaseQuickAdapter<T, K> {
 
@@ -43,6 +47,24 @@ public abstract class BaseMultAdapter<T, K extends BaseViewHolder> extends BaseQ
             return createBaseViewHolder(parent, layoutIds[1]);
         } else {
             return super.createBaseViewHolder(parent, layoutIds[0]);
+        }
+
+    }
+
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+        if (manager instanceof GridLayoutManager) {
+            final GridLayoutManager gridManager = ((GridLayoutManager) manager);
+            gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    D.e("======LOADING_VIEW========="+ (getItemViewType(position) == LOADING_VIEW));
+                    return getItemViewType(position) == LOADING_VIEW ? gridManager.getSpanCount() : 1;
+                }
+            });
         }
 
     }
