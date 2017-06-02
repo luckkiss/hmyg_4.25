@@ -44,8 +44,7 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
     private boolean isInfiniteLoop;
     FinalBitmap finalBitmap;
 
-    public ImagePagerAdapter(Context context,
-                             List<HashMap<String, Object>> imageIdList) {
+    public ImagePagerAdapter(Context context, List<HashMap<String, Object>> imageIdList) {
         this.context = context;
         this.imageIdList = imageIdList;
         this.size = ListUtils.getSize(imageIdList);

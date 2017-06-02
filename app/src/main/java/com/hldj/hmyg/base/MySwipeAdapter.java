@@ -64,6 +64,7 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
 //        final CheckBox cb_swipe_tag1 = (CheckBox) view.findViewById(R.id.cb_swipe_tag1);
 
         SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean = items.get(i);
+        closeAllItems();
 
         int layoutId = R.layout.list_view_seedling_new_shoucan;
 
@@ -71,7 +72,7 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
         finalBitmap.display(iv_img, seedlingBean.getSmallImageUrl());
 
 
-        TextView tv_right_top = (TextView)view.findViewById(R.id.tv_right_top);
+        View tv_right_top = view.findViewById(R.id.iv_right_top);
 
         if (seedlingBean.attrData.ziying) {//自营显示票
             tv_right_top.setVisibility(View.VISIBLE);

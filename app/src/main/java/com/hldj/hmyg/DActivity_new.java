@@ -135,7 +135,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 
 
         xlistView_d_new = (XListView) findViewById(R.id.xlistView_d_new);
-        xlistView_d_new.setDivider(null);
+//        xlistView_d_new.setDivider(new BitmapDrawable() );
         xlistView_d_new.setPullLoadEnable(true);
         xlistView_d_new.setPullRefreshEnable(true);
         xlistView_d_new.setXListViewListener(this);

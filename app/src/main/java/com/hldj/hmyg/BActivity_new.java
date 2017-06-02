@@ -3,6 +3,7 @@ package com.hldj.hmyg;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.M.BProduceAdapt;
 import com.hldj.hmyg.P.BPresenter;
 import com.hldj.hmyg.adapter.ProductListAdapter;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.MySwipeAdapter;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.QueryBean;
@@ -33,14 +35,13 @@ import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.SortSpinner;
-import com.hy.utils.ToastUtil;
-import com.mrwujay.cascade.activity.BaseSecondActivity;
 
 import net.tsz.afinal.FinalBitmap;
 
 import java.util.List;
 import java.util.Map;
 
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.kaede.tagview.Tag;
 import me.kaede.tagview.TagFactory;
 import me.kaede.tagview.TagView;
@@ -59,7 +60,7 @@ import static com.hldj.hmyg.util.ConstantState.SEARCH_OK;
  * 商城界面
  */
 @SuppressLint("NewApi")
-public class BActivity_new extends BaseSecondActivity {
+public class BActivity_new extends NeedSwipeBackActivity {
 
     private CoreRecyclerView recyclerView1;
 
@@ -69,9 +70,38 @@ public class BActivity_new extends BaseSecondActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_b_to_toolbar);
+        bitmap = FinalBitmap.create(this);
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+//        ToastUtil.showShortToast("hellow world ");
+
         initViewClick();
         recyclerView1 = (CoreRecyclerView) findViewById(R.id.core_rv_b);
         recyclerView1.getRecyclerView().setHasFixedSize(true);
+        recyclerView1.getRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                outRect.set(0, 0, 0, 1);
+            }
+        });
         D.e("======设置fix======");
         recyclerView1.init(new BaseMultAdapter<BPageGsonBean.DatabeanX.Pagebean.Databean, BaseViewHolder>(R.layout.list_view_seedling_new, R.layout.grid_view_seedling) {
             @Override
@@ -104,12 +134,11 @@ public class BActivity_new extends BaseSecondActivity {
     private void initViewClick() {
         //搜索
 
-        getView(R.id.rl_b_search).setOnClickListener(v -> {
+        getView(R.id.sptv_b_search).setOnClickListener(v -> {
             Intent intent = new Intent(BActivity_new.this, PurchaseSearchListActivity.class);
             intent.putExtra("from", "BActivity");
             startActivityForResult(intent, 1);
         });
-
         //筛选
         getView(R.id.tv_b_filter).setOnClickListener(v -> {
             SellectActivity2.start2Activity(this, queryBean);
@@ -204,7 +233,6 @@ public class BActivity_new extends BaseSecondActivity {
 
         tagView.setOnTagDeleteListener((position, tag) -> {
             if (tag.id == 100) {
-                ToastUtil.showShortToast("searchSpec,刷新界面");
                 getQueryBean().searchSpec = "";
             } else if (tag.id == 99) {
                 //城市被删除
@@ -316,7 +344,7 @@ public class BActivity_new extends BaseSecondActivity {
     }
 
     int now_position = 0;
-    FinalBitmap bitmap = FinalBitmap.create(this);
+    FinalBitmap bitmap;
 
     /**
      * 初始化listview 列表
@@ -441,11 +469,14 @@ public class BActivity_new extends BaseSecondActivity {
         tagView.removeAllTags();
         if (!TextUtils.isEmpty(getQueryBean().searchKey)) {
             Tag tag = new Tag(getQueryBean().searchKey);
-            tag.layoutColor = R.color.main_color;
+            tag.layoutColor = MyApplication.getInstance().getResources().getColor(R.color.main_color);
             tag.isDeletable = true;
             tag.id = 1; // 1 搜索 2分类
             tagView.addTag(tag);
-            tagView.setOnTagDeleteListener((position, tag1) -> getQueryBean().searchKey = "");//删除事件。。。并且刷新
+            tagView.setOnTagDeleteListener((position, tag1) -> {
+                getQueryBean().searchKey = "";
+                refreshRc();
+            });//删除事件。。。并且刷新
         }
     }
 
@@ -455,6 +486,14 @@ public class BActivity_new extends BaseSecondActivity {
         if (!TextUtils.isEmpty(getIntent().getStringExtra("tag"))) {
             getQueryBean().searchKey = getIntent().getStringExtra("tag");
             addADelTag();
+
+            setSwipeBackEnable(true);//默认不可滑动
+            getView(R.id.ib_b_back).setVisibility(View.VISIBLE);
+            getView(R.id.ib_b_back).setOnClickListener(view -> finish());
+
+        } else {
+            setSwipeBackEnable(false);//默认不可滑动
+            getView(R.id.ib_b_back).setVisibility(View.GONE);
         }
 
     }

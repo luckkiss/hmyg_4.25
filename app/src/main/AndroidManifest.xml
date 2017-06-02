@@ -166,6 +166,11 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.hldj.hmyg.AActivity_3_0_alibaba"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            />
+        <activity
             android:name="com.hldj.hmyg.BActivity_new"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />

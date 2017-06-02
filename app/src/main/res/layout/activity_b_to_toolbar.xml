@@ -14,73 +14,79 @@
         android:background="@color/white"
         android:visibility="visible">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <include layout="@layout/activity_b_to_toolbar_include" />
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            app:layout_scrollFlags="scroll|enterAlways">
+            android:layout_height="1dp"
+            android:background="@color/gray_bg" />
+        <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:background="@color/white"-->
+        <!--app:contentInsetLeft="0dp"-->
+        <!--app:contentInsetStart="0dp"-->
+        <!--app:layout_scrollFlags="scroll|enterAlways">-->
 
-            <RelativeLayout
-                android:id="@+id/RelativeLayout1"
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/y32"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+        <!--<RelativeLayout-->
+        <!--android:id="@+id/RelativeLayout1"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="@dimen/y32"-->
+        <!--android:background="@color/white"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="horizontal">-->
 
-                <RelativeLayout
-                    android:id="@+id/rl_b_search"
-                    android:layout_width="@dimen/x265"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_margin="@dimen/y5"
-                    android:layout_toLeftOf="@+id/iv_view_type"
-                    android:background="@drawable/search_edit_selector"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+        <!--<RelativeLayout-->
+        <!--android:id="@+id/rl_b_search"-->
+        <!--android:layout_width="@dimen/x265"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_margin="@dimen/y5"-->
+        <!--android:layout_toLeftOf="@+id/iv_view_type"-->
+        <!--android:background="@drawable/search_edit_selector"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="horizontal">-->
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="horizontal">-->
 
-                        <ImageView
-                            android:layout_width="@dimen/x17"
-                            android:layout_height="@dimen/x17"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/seller_search" />
+        <!--<ImageView-->
+        <!--android:layout_width="@dimen/x17"-->
+        <!--android:layout_height="@dimen/x17"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:src="@drawable/seller_search" />-->
 
-                        <TextView
-                            android:id="@+id/tv_search"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center"
-                            android:text="找苗/报价/店铺"
-                            android:textColor="@color/gray"
-                            android:textSize="@dimen/x14" />
-                    </LinearLayout>
-                </RelativeLayout>
+        <!--<TextView-->
+        <!--android:id="@+id/tv_search"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:gravity="center"-->
+        <!--android:text="找苗/报价/店铺"-->
+        <!--android:textColor="@color/gray"-->
+        <!--android:textSize="@dimen/x14" />-->
+        <!--</LinearLayout>-->
+        <!--</RelativeLayout>-->
 
-                <ImageView
-                    android:id="@+id/iv_view_type"
-                    android:layout_width="@dimen/y18"
-                    android:layout_height="@dimen/y18"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/x10"
-                    android:src="@drawable/selector_list_or_grid" />
-            </RelativeLayout>
+        <!--<ImageView-->
+        <!--android:id="@+id/iv_view_type"-->
+        <!--android:layout_width="@dimen/y18"-->
+        <!--android:layout_height="@dimen/y18"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginRight="@dimen/x10"-->
+        <!--android:src="@drawable/selector_list_or_grid" />-->
+        <!--</RelativeLayout>-->
 
 
-        </android.support.v7.widget.Toolbar>
+        <!--</android.support.v7.widget.Toolbar>-->
 
 
         <LinearLayout
@@ -98,7 +104,7 @@
                 android:gravity="center"
                 android:text="筛选"
                 app:isShowState="true"
-                app:state_drawable="@drawable/icon_seller_arrow5"
+                app:state_drawable="@drawable/ic_arrow_down"
                 app:state_drawable_height="6dp"
                 app:state_drawable_mode="center"
                 app:state_drawable_padding_left="24dp"
@@ -114,12 +120,11 @@
                 android:id="@+id/tv_b_sort"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="排序"
                 app:isShowState="true"
-                app:state_drawable="@drawable/icon_seller_arrow5"
+                app:state_drawable="@drawable/ic_arrow_down"
                 app:state_drawable_height="6dp"
                 app:state_drawable_mode="center"
                 app:state_drawable_padding_left="24dp"
@@ -143,7 +148,7 @@
                 app:textPaddingBottom="3dp"
                 app:textPaddingLeft="10dp"
                 app:textPaddingRight="10dp"
-                app:textPaddingTop="3dp"/>
+                app:textPaddingTop="3dp" />
 
 
             <!--<View-->

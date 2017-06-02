@@ -62,7 +62,7 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
         if (MyApplication.getUserBean().showQuoteCount) {
             if (item.quoteCountJson > 0) {
                 StringFormatUtil fillColor = new StringFormatUtil(context, "已有"
-                        + item.quoteCountJson + "条报价", item.quoteCountJson + "", R.color.red)
+                        + item.quoteCountJson + "条报价", item.quoteCountJson + "", R.color.price_orige)
                         .fillColor();
                 tv_11.setText(fillColor.getResult());
             } else {

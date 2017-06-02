@@ -80,7 +80,7 @@
                 android:paddingTop="2.5dip"
                 android:singleLine="true"
                 android:textColor="@color/orange"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 tools:text="jklfasfasfa" />
         </RelativeLayout>
 

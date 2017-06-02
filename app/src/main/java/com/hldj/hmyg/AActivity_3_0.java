@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.autoscrollview.adapter.ImagePagerAdapter;
 import com.autoscrollview.widget.AutoScrollViewPager;
 import com.autoscrollview.widget.indicator.CirclePageIndicator;
+import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.M.BProduceAdapt;
 import com.hldj.hmyg.M.IndexGsonBean;
 import com.hldj.hmyg.Ui.NewsActivity;
@@ -121,26 +122,11 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a_3_0);
-        ToastUtil.showShortToast("补丁测试1.0.5生");
-        ToastUtil.showShortToast("补丁测试1.0.5生");
-        ToastUtil.showShortToast("补丁测试1.0.5生");
-        ToastUtil.showShortToast("补丁测试1.0.5生");
-        ToastUtil.showShortToast("补丁测试1.0.5生");
-        ToastUtil.showShortToast("补丁测试1.0.5生");
-        ToastUtil.showShortToast("补丁测试1.0.5生");
-        ToastUtil.showShortToast("补丁测试1.0.5生");
-        ToastUtil.showShortToast("补丁测试1.0.5生");
-        ToastUtil.showShortToast("补丁测试1.0.5生");
-        ToastUtil.showShortToast("补丁测试1.0.5生");
-        ToastUtil.showShortToast("补丁测试1.0.5生");
-        ToastUtil.showShortToast("补丁测试1.0.5生");
-        ToastUtil.showShortToast("补丁测试1.0.5生");
-        ToastUtil.showShortToast("补丁测试1.0.5生");
-        ToastUtil.showShortToast("补丁测试1.0.5生");
-        ToastUtil.showShortToast("补丁测试1.0.5生");
         mCache = ACache.get(this);
+
         viewPager = (AutoScrollViewPager) findViewById(R.id.view_pager);
         indicator = (CirclePageIndicator) findViewById(R.id.indicator);
+        indicator.setAlpha((float) 0.6);
 //        absviewPager = (AbSlidingPlayView) findViewById(R.id.viewPager_menu);
 //        // 设置播放方式为顺序播放
 //        absviewPager.setPlayType(1);
@@ -275,11 +261,11 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         //新闻资讯
         findViewById(R.id.stv_home_4).setOnClickListener(v -> NewsActivity.start2Activity(AActivity_3_0.this));
         //采购
-        findViewById(R.id.iv_home_more_cg).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this));
+        findViewById(R.id.home_title_first).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this));
         //苗木商城 更多
-        findViewById(R.id.iv_home_more_tj).setOnClickListener(v -> MainActivity.toB());
+        findViewById(R.id.home_title_second).setOnClickListener(v -> MainActivity.toB());
         //热门商家
-        findViewById(R.id.iv_home_more_rm).setOnClickListener(v -> ToastUtil.showShortToast("更多热门商家正在开发中..."));
+        findViewById(R.id.home_title_third).setOnClickListener(v -> ToastUtil.showShortToast("更多热门商家正在开发中..."));
 
 
         // http://blog.csdn.net/jiangwei0910410003/article/details/17024287
@@ -451,8 +437,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             initNewList(indexGsonBean);//初始化 采购列表
             initArticles(indexGsonBean.data.articleList);//初始化  头条新闻
         }
-
-
         datas.clear();
         aBanners.clear();
         try {
@@ -731,9 +715,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             TextView home_title_third = (TextView) findViewById(R.id.home_title_third);
             TextView tv_titles[] = new TextView[]{home_title_first, home_title_second, home_title_third};
 
-            View v1 = findViewById(R.id.iv_home_more_cg);
-            View v2 = findViewById(R.id.iv_home_more_tj);
-            View v3 = findViewById(R.id.iv_home_more_rm);
+            View v1 = findViewById(R.id.home_title_first);
+            View v2 = findViewById(R.id.home_title_second);
+            View v3 = findViewById(R.id.home_title_third);
             View views[] = new View[]{v1, v2, v3};
 
             try {
@@ -887,9 +871,10 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 ((ViewGroup) tvs[i].getParent()).setVisibility(View.VISIBLE);
 
                 if (list.get(i).isClick) {
-                    views[i].setVisibility(View.VISIBLE);
+                    ((SuperTextView) views[i]).setShowState(true);
                 } else {
-                    views[i].setVisibility(View.GONE);
+                    ((SuperTextView) views[i]).setShowState(false);
+//                    views[i].setVisibility(View.GONE);
                 }
 
             }

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="46dp"
+    android:background="@color/white"
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp"
+    app:layout_scrollFlags="scroll|enterAlways">
+
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <ImageButton
+            android:id="@+id/ib_b_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:foreground="?attr/selectableItemBackground"
+            android:src="@drawable/ic_arrow_left_green"
+            android:textSize="20sp" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/sptv_b_search"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_top_default"
+            android:layout_margin="5dp"
+            android:layout_toLeftOf="@+id/iv_view_type"
+            android:layout_toRightOf="@+id/ib_b_back"
+            android:drawableLeft="@drawable/search_icon"
+            android:drawablePadding="5dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:text="品种名称/别名/品种编号"
+            android:textColor="@color/text_color999"
+            app:corner="5dp"
+            app:left_bottom_corner="true"
+            app:left_top_corner="true"
+            app:right_bottom_corner="true"
+            app:right_top_corner="true"
+            app:solid="#f5f5f5"
+
+
+            />
+
+
+        <!--<RelativeLayout-->
+        <!--android:id="@+id/rl_b_search"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_margin="@dimen/y5"-->
+        <!--android:layout_toLeftOf="@+id/iv_view_type"-->
+        <!--android:layout_toRightOf="@+id/ib_b_back"-->
+        <!--android:background="@drawable/search_edit_selector"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<ImageView-->
+        <!--android:layout_width="@dimen/x17"-->
+        <!--android:layout_height="@dimen/x17"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:src="@drawable/seller_search" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/tv_search"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:gravity="center"-->
+        <!--android:text="找苗/报价/店铺"-->
+        <!--android:textColor="@color/gray"-->
+        <!--android:textSize="@dimen/x14" />-->
+        <!--</LinearLayout>-->
+        <!--</RelativeLayout>-->
+
+        <ImageView
+            android:id="@+id/iv_view_type"
+            android:layout_width="@dimen/y16"
+            android:layout_height="@dimen/y16"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x13"
+            android:layout_marginRight="@dimen/x10"
+            android:foreground="?attr/selectableItemBackground"
+            android:src="@drawable/selector_list_or_grid" />
+    </RelativeLayout>
+
+
+</android.support.v7.widget.Toolbar>
+
+
+
+

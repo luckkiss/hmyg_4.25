@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -30,7 +31,6 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.amap.api.car.example.MapNurseryList;
-import com.hldj.hmyg.BActivity;
 import com.hldj.hmyg.BActivity_new;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.StoreActivity;
@@ -39,6 +39,7 @@ import com.hldj.hmyg.bean.HomeStore;
 import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 import com.white.utils.AndroidUtil;
 import com.zzy.flowers.widget.popwin.EditP2;
 
@@ -279,10 +280,16 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
 
             } else if (from.equals("AActivity") && choose == 0) {
                 // 首页到商城
-                Intent toBActivity = new Intent(PurchaseSearchListActivity.this,BActivity_new.class);
-                toBActivity.putExtra("from", "context");
-                toBActivity.putExtra("searchKey", et_search.getText() .toString());
-                startActivity(toBActivity);
+//                Intent toBActivity = new Intent(PurchaseSearchListActivity.this, BActivity_new.class);
+//                toBActivity.putExtra("from", "context");
+//                toBActivity.putExtra("searchKey", et_search.getText().toString());
+//                startActivity(toBActivity);
+                if (TextUtils.isEmpty(et_search.getText())) {
+                    ToastUtil.showShortToast("请输入关键字");
+                    return;
+                }
+                BActivity_new.start2Activity(PurchaseSearchListActivity.this, et_search.getText().toString());
+
                 finish();
             }
         } else if (choose == 2) {
@@ -618,7 +625,7 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
 
                     et_search.setText(arrayList.get(position).getName());
 
-                    searchIt2();
+//                    searchIt2();
 
                     if (choose != 2) {
                         if (from.equals("StorePurchaseListActivity")) {
@@ -650,7 +657,7 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
 //							toBActivity.putExtra("from", "context");
 //							toBActivity.putExtra("searchKey", arrayList.get(position).getName());
 //							startActivity(toBActivity);
-                            BActivity.start2ActivitySearch(context, "context", arrayList.get(position).getName());
+                            BActivity_new.start2Activity(PurchaseSearchListActivity.this, iv.getText()+"");
                             finish();
 
                         }

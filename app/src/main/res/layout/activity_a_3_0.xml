@@ -13,13 +13,14 @@
         android:background="#FFFFFF"
         android:orientation="vertical">
 
-        <include layout="@layout/activity_a_top_toolbar"></include>
+        <include layout="@layout/activity_a_top_toolbar" />
 
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/line_bak" />
+            android:background="@drawable/line_bak"
+            android:visibility="gone" />
 
         <!--<me.hwang.library.widgit.SmartRefreshLayout-->
         <!--android:id="@+id/rotate_header_web_view_frame"-->
@@ -65,9 +66,7 @@
                             <com.autoscrollview.widget.AutoScrollViewPager
                                 android:id="@+id/view_pager"
                                 android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-
-                                />
+                                android:layout_height="wrap_content" />
 
                             <com.autoscrollview.widget.indicator.CirclePageIndicator
                                 android:id="@+id/indicator"
@@ -177,7 +176,7 @@
 
                         <View
                             style="@style/View_line_gray"
-                            android:visibility="gone" />
+                            android:visibility="visible" />
 
 
                         <RelativeLayout
@@ -191,10 +190,10 @@
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
                                 android:layout_centerVertical="true"
-                                android:layout_marginBottom="5dp"
-                                android:layout_marginLeft="5dp"
+                                android:layout_marginBottom="4dp"
+                                android:layout_marginLeft="4dp"
                                 android:layout_marginRight="0dp"
-                                android:layout_marginTop="5dp"
+                                android:layout_marginTop="4dp"
                                 android:paddingLeft="5dp"
                                 android:src="@drawable/home_cj_gg" />
 
@@ -245,41 +244,51 @@
 
                             <View style="@style/View_line_gray" />
 
-                            <RelativeLayout
+                            <com.coorchice.library.SuperTextView
+                                android:id="@+id/home_title_first"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:orientation="vertical"
-                                android:paddingLeft="10dp">
-                                <!--此处为热门商家  @drawable/home_merchants  -->
-
-                                <!--成交公告-->
-                                <TextView
-                                    android:id="@+id/home_title_first"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="30dp"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_alignParentStart="true"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:textColor="@color/black_de"
-                                    android:textSize="16sp"
-                                    tools:text="采购"
-
-                                    />
+                                android:layout_height="35dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="start|center_vertical"
+                                android:paddingLeft="10dp"
+                                android:textColor="@color/text_color333"
+                                android:textSize="16sp"
+                                app:isShowState="true"
+                                app:state_drawable="@drawable/home_more"
+                                app:state_drawable_height="13dp"
+                                app:state_drawable_mode="right"
+                                app:state_drawable_padding_left="-15dp"
+                                app:state_drawable_width="50dp"
+                                tools:text="最新采购" />
 
 
-                                <ImageView
-                                    android:id="@+id/iv_home_more_cg"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="30dp"
-                                    android:layout_alignParentRight="true"
-                                    android:padding="9dp"
-                                    android:scaleType="fitCenter"
-                                    android:src="@drawable/home_more" />
+                            <!--成交公告-->
+                            <!--<TextView-->
+                            <!--android:id="@+id/home_title_first"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="30dp"-->
+                            <!--android:layout_alignParentLeft="true"-->
+                            <!--android:layout_alignParentStart="true"-->
+                            <!--android:layout_alignParentTop="true"-->
+                            <!--android:layout_gravity="center_vertical"-->
+                            <!--android:gravity="center"-->
+                            <!--android:textColor="@color/text_color333"-->
+                            <!--android:textSize="16sp"-->
+                            <!--tools:text="采购" />-->
 
-                            </RelativeLayout>
+
+                            <!--<ImageView-->
+                            <!--android:id="@+id/iv_home_more_cg"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="30dp"-->
+                            <!--android:layout_alignParentRight="true"-->
+                            <!--android:padding="9dp"-->
+                            <!--android:scaleType="fitCenter"-->
+                            <!--android:src="@drawable/home_more" />-->
+
 
                             <com.jarvis.MyView.MyListView
                                 android:id="@+id/lv_00"
@@ -297,75 +306,119 @@
 
                             <View style="@style/View_line_gray" />
 
-                            <RelativeLayout
+                            <!--<RelativeLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:background="@color/white"-->
+                            <!--android:orientation="vertical"-->
+                            <!--android:paddingLeft="10dp">-->
+                            <!--&lt;!&ndash;此处为热门商家  @drawable/home_merchants  &ndash;&gt;-->
+
+                            <!--&lt;!&ndash;成交公告&ndash;&gt;-->
+                            <!--<TextView-->
+                            <!--android:id="@+id/home_title_second"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="30dp"-->
+                            <!--android:layout_gravity="center"-->
+                            <!--android:gravity="center"-->
+                            <!--android:textColor="@color/text_color333"-->
+                            <!--android:textSize="16sp"-->
+                            <!--tools:text="推荐资源" />-->
+
+
+                            <!--<ImageView-->
+                            <!--android:id="@+id/iv_home_more_tj"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="30dp"-->
+                            <!--android:layout_alignParentRight="true"-->
+                            <!--android:padding="9dp"-->
+                            <!--android:scaleType="fitCenter"-->
+                            <!--android:src="@drawable/home_more" />-->
+                            <!--</RelativeLayout>-->
+                            <com.coorchice.library.SuperTextView
+                                android:id="@+id/home_title_second"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:orientation="vertical"
-                                android:paddingLeft="10dp">
-                                <!--此处为热门商家  @drawable/home_merchants  -->
+                                android:layout_height="35dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="start|center_vertical"
+                                android:paddingLeft="10dp"
+                                android:textColor="@color/text_color333"
+                                android:textSize="16sp"
+                                app:isShowState="true"
+                                app:state_drawable="@drawable/home_more"
+                                app:state_drawable_height="13dp"
+                                app:state_drawable_mode="right"
+                                app:state_drawable_padding_left="-15dp"
+                                app:state_drawable_width="50dp"
+                                tools:text="推荐资源" />
 
-                                <!--成交公告-->
-                                <TextView
-                                    android:id="@+id/home_title_second"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="30dp"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:textColor="@color/black_de"
-                                    android:textSize="16sp"
-                                    tools:text="推荐资源" />
-
-
-                                <ImageView
-                                    android:id="@+id/iv_home_more_tj"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="30dp"
-                                    android:layout_alignParentRight="true"
-                                    android:padding="9dp"
-                                    android:scaleType="fitCenter"
-                                    android:src="@drawable/home_more" />
-                            </RelativeLayout>
-
+                            <View style="@style/View_line_gray_1dp" />
 
                             <com.jarvis.MyView.MyListView
                                 android:id="@+id/lv_00_store"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/white" />
+                                android:background="@color/white"
+                                android:divider="@color/divider_color_bg"
+                                android:dividerHeight="1px" />
                         </LinearLayout>
 
 
                         <View style="@style/View_line_gray" />
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:orientation="vertical"
-                            android:paddingLeft="10dp">
-                            <!--此处为热门商家  @drawable/home_merchants  -->
-                            <!--成交公告-->
-                            <TextView
-                                android:id="@+id/home_title_third"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:textColor="@color/black_de"
-                                android:textSize="16sp"
-                                tools:text="热门商家" />
+                        <!--<RelativeLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@color/white"-->
+                        <!--android:orientation="vertical"-->
+                        <!--android:paddingLeft="10dp">-->
+                        <!--&lt;!&ndash;此处为热门商家  @drawable/home_merchants  &ndash;&gt;-->
+                        <!--&lt;!&ndash;成交公告&ndash;&gt;-->
+                        <!--<TextView-->
+                        <!--android:id="@+id/home_title_third"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="30dp"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:gravity="center"-->
+                        <!--android:textColor="@color/text_color333"-->
+                        <!--android:textSize="16sp"-->
+                        <!--tools:text="热门商家" />-->
 
-                            <ImageView
-                                android:id="@+id/iv_home_more_rm"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_alignParentRight="true"
-                                android:padding="9dp"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/home_more"
-                                android:visibility="visible" />
-                        </RelativeLayout>
+                        <!--<ImageView-->
+                        <!--android:id="@+id/iv_home_more_rm"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="30dp"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:padding="9dp"-->
+                        <!--android:scaleType="fitCenter"-->
+                        <!--android:src="@drawable/home_more"-->
+                        <!--android:visibility="visible" />-->
+                        <!--</RelativeLayout>-->
+                        <com.coorchice.library.SuperTextView
+                            android:id="@+id/home_title_third"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="start|center_vertical"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/text_color333"
+                            android:textSize="16sp"
+                            app:isShowState="true"
+                            app:state_drawable="@drawable/home_more"
+                            app:state_drawable_height="13dp"
+                            app:state_drawable_mode="right"
+                            app:state_drawable_padding_left="-15dp"
+                            app:state_drawable_width="50dp"
+                            tools:text="热门商家" />
+
+
+                        <View style="@style/View_line_gray_1dp" />
 
                         <RelativeLayout
                             android:id="@+id/con0"

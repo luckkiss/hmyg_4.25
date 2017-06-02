@@ -62,6 +62,7 @@
     <color name="primary_color">#009688</color>
     <color name="light_primary_color">#B2DFDB</color>
     <color name="accent_color">#FFC107</color>
+    <color name="price_orige">#e75b45</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#727272</color>
     <color name="radio_button_selected_color">#ff33b5e5</color>
@@ -501,7 +502,9 @@
     <color name="color_submit">#348136</color>
     <color name="main_color_half">#FFA5D9B3</color>
     <color name="dove_gray">#ff767676</color>
-    <color name="gray_bg">#f3f3f3</color>
+    <color name="gray_bg">#ededed</color>
+    <!--<color name="gray_bg">#f3f3f3</color>-->
+    <color name="gray_bg_ed">#ededed</color>
     <color name="light_gray">#494a4c</color>
     <color name="light_gray1">#ffebebeb</color>
     <color name="register_gray">#666666</color>
@@ -533,7 +536,7 @@
     <color name="pink_red">#F63E2A</color>
     <color name="bulegray">#f0f0f0</color>
     <color name="graylight">#cccccc</color>
-    <color name="orange">#FF6600</color>
+    <color name="orange">#f3b473</color>
     <color name="orange_light">#fdaa0b</color>
     <color name="semitransparent">#90000000</color>
     <color name="nearly_hard">#97000000</color>
@@ -557,6 +560,7 @@
     <color name="text_color666">#666666</color>
     <color name="text_color333">#333333</color>
     <color name="text_color999">#999999</color>
+    <color name="divider_color_bg">#dddddd</color>
 
 
 
