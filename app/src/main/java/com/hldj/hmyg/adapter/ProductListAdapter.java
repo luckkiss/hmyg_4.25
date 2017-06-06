@@ -81,7 +81,7 @@ public class ProductListAdapter extends BaseAdapter {
             childHolder.iv_like = (ImageView) convertView
                     .findViewById(R.id.iv_like);
             childHolder.tv_01 = (TextView) convertView.findViewById(R.id.tv_01);
-            childHolder.tv_right_top = (TextView) convertView.findViewById(R.id.tv_right_top);
+            childHolder.iv_right_top = convertView.findViewById(R.id.iv_right_top);
             childHolder.tv_02 = (TextView) convertView.findViewById(R.id.tv_02);
             childHolder.tv_03 = (TextView) convertView.findViewById(R.id.tv_03);
             childHolder.tv_04 = (TextView) convertView.findViewById(R.id.tv_04);
@@ -113,9 +113,9 @@ public class ProductListAdapter extends BaseAdapter {
         try {
 
             if ((Boolean) data.get(position).get("ziying")) {
-                childHolder.tv_right_top.setVisibility(View.VISIBLE);
+                childHolder.iv_right_top.setVisibility(View.VISIBLE);
             } else {
-                childHolder.tv_right_top.setVisibility(View.GONE);
+                childHolder.iv_right_top.setVisibility(View.GONE);
             }
 
 
@@ -179,12 +179,11 @@ public class ProductListAdapter extends BaseAdapter {
                 }
             } else if ("seedling_list".equals(data.get(position).get("show_type")
                     .toString())) {//商城主页列表
-                //地区：
-                childHolder.tv_03.setText(""
-                        + data.get(position).get("fullName").toString());
+
                 //高度冠幅  ：
-                childHolder.tv_04.setText(""
-                        + data.get(position).get("specText").toString());
+                childHolder.tv_03.setText("" + data.get(position).get("specText"));
+                //地区：
+                childHolder.tv_04.setText("苗源地: " + data.get(position).get("fullName"));
 
                 if (!"".equals(data.get(position).get("companyName").toString())) {
                     childHolder.tv_06.setText("发布人："
@@ -279,11 +278,11 @@ public class ProductListAdapter extends BaseAdapter {
             tv_07.setText("面议");
         } else {
             if (!isPriceNull(minPrice) && !isPriceNull(maxPrice)) {
-                price = minPrice + "-" + maxPrice;
+                price = "￥" + minPrice + "-" + maxPrice;
             } else if (isPriceNull(minPrice) && !isPriceNull(maxPrice)) {
-                price = maxPrice;
+                price = "￥" + maxPrice;
             } else if (!isPriceNull(minPrice) && isPriceNull(maxPrice)) {
-                price = minPrice;
+                price = "￥" + minPrice;
             } else {
                 price = "面议";
             }
@@ -305,7 +304,7 @@ public class ProductListAdapter extends BaseAdapter {
         TextView tv_04;
         TextView tv_05;
         TextView tv_06;
-        TextView tv_right_top;
+        View iv_right_top;
         TextView tv_07;
         TextView tv_08;
         TextView tv_09;

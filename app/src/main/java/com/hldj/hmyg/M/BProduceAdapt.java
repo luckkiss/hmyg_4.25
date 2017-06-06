@@ -32,18 +32,21 @@ public class BProduceAdapt extends GlobBaseAdapter<BPageGsonBean.DatabeanX.Pageb
         ImageView iv_img = myViewHolder.getView(R.id.iv_img);
         TextView tv_01 = myViewHolder.getView(R.id.tv_01);
         MySwipeAdapter.setSrcByType(tv_01, item.plantType);
-        TextView tv_right_top = myViewHolder.getView(R.id.tv_right_top);
+        View iv_right_top = myViewHolder.getView(R.id.iv_right_top);
         if (item.attrData.ziying) {//自营显示票
-            tv_right_top.setVisibility(View.VISIBLE);
+            iv_right_top.setVisibility(View.VISIBLE);
         } else {
-            tv_right_top.setVisibility(View.GONE);
+            iv_right_top.setVisibility(View.GONE);
         }
         TextView tv_02 = myViewHolder.getView(R.id.tv_02);
         tv_02.setText(item.name);
-        TextView tv_03 = myViewHolder.getView(R.id.tv_03);
-        tv_03.setText(item.ciCity.fullName);
+
+        TextView tv_03 = myViewHolder.getView(R.id.tv_03);// 高度 官服
+        tv_03.setText(item.specText);
+
         TextView tv_04 = myViewHolder.getView(R.id.tv_04);
-        tv_04.setText(item.specText);
+        tv_04.setText("苗源地: " + item.ciCity.fullName);
+
         TextView tv_06 = myViewHolder.getView(R.id.tv_06);
         setPublishName(tv_06,
                 item.ownerJson.companyName,
@@ -56,7 +59,7 @@ public class BProduceAdapt extends GlobBaseAdapter<BPageGsonBean.DatabeanX.Pageb
 
 
         TextView tv_08 = myViewHolder.getView(R.id.tv_08);
-        tv_08.setText("元/" + item.unitTypeName);
+        tv_08.setText(" /" + item.unitTypeName);
         TextView tv_09 = myViewHolder.getView(R.id.tv_09);
         tv_09.setText("库存：" + item.count);
 
@@ -75,10 +78,10 @@ public class BProduceAdapt extends GlobBaseAdapter<BPageGsonBean.DatabeanX.Pageb
 
         for (int i = 0; i < str.length; i++) {
             if (!TextUtils.isEmpty(str[i])) {
-                tv_06.setText("发布人" + str[i]);
+                tv_06.setText("发布人: " + str[i]);
                 return;
             } else {
-                tv_06.setText("");
+                tv_06.setText("发布人: -");
             }
         }
     }

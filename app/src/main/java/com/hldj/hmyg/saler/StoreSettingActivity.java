@@ -234,12 +234,13 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
 
                                 ToastUtil.showShortToast(msg);
                             }
-                            showLoading();
+
                         } catch (JSONException e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
-                            showLoading();
+
                         }
+                        hindLoading();
                         super.onSuccess(t);
                     }
 
@@ -249,6 +250,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                         // TODO Auto-generated method stub
                         Toast.makeText(StoreSettingActivity.this,
                                 R.string.error_net, Toast.LENGTH_SHORT).show();
+                        hindLoading();
                         super.onFailure(t, errorNo, strMsg);
                     }
 

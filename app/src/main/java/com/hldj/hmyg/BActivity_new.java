@@ -121,7 +121,7 @@ public class BActivity_new extends NeedSwipeBackActivity {
             queryBean.pageIndex = page;
             initData();
         }).openRefresh()
-                .openLoadAnimation(BaseQuickAdapter.SCALEIN)
+                .openLoadAnimation(BaseQuickAdapter.ALPHAIN)
                 .selfRefresh(true);
 
 
@@ -358,17 +358,17 @@ public class BActivity_new extends NeedSwipeBackActivity {
         TextView tv_01 = helper.getView(R.id.tv_01);
         MySwipeAdapter.setSrcByType(tv_01, item.plantType);
 
-        TextView tv_right_top = helper.getView(R.id.tv_right_top);
-        tv_right_top.setVisibility(item.attrData.ziying ? View.VISIBLE : View.GONE);
+        View iv_right_top = helper.getView(R.id.iv_right_top);
+        iv_right_top.setVisibility(item.attrData.ziying ? View.VISIBLE : View.GONE);
 
         TextView tv_02 = helper.getView(R.id.tv_02);
         tv_02.setText(item.name);
 
-        TextView tv_03 = helper.getView(R.id.tv_03);
-        tv_03.setText(item.ciCity.fullName);
+        TextView tv_03 = helper.getView(R.id.tv_03);//sptext
+        tv_03.setText(item.specText);
 
         TextView tv_04 = helper.getView(R.id.tv_04);
-        tv_04.setText(item.specText);
+        tv_04.setText("苗源地: "+item.ciCity.fullName);
 
         TextView tv_06 = helper.getView(R.id.tv_06);
         BProduceAdapt.setPublishName(tv_06,

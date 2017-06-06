@@ -1,13 +1,11 @@
 package com.hldj.hmyg.application;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Application;
 import android.app.Service;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
 import android.support.multidex.MultiDex;
@@ -16,6 +14,7 @@ import android.widget.TextView;
 import com.hldj.hmyg.DaoBean.SaveJson.DaoMaster;
 import com.hldj.hmyg.DaoBean.SaveJson.DaoSession;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.base.Rx.JumpUtil;
 import com.hldj.hmyg.bean.UserBean;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
@@ -26,17 +25,12 @@ import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.tencent.bugly.Bugly;
-import com.tencent.bugly.beta.Beta;
-import com.tencent.bugly.crashreport.CrashReport;
 import com.weavey.loading.lib.LoadingLayout;
 
 import java.io.File;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
-
-import static com.tencent.bugly.beta.tinker.TinkerManager.getApplication;
 
 
 public class MyApplication extends Application {
@@ -77,7 +71,7 @@ public class MyApplication extends Application {
         // you must install multiDex whatever tinker is installed!
         MultiDex.install(base);
         // 安装tinker
-        Beta.installTinker();
+//        Beta.installTinker();
     }
 
     /*
@@ -94,11 +88,11 @@ public class MyApplication extends Application {
 
         // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
         // 调试时，将第三个参数改为true
-        Bugly.setIsDevelopmentDevice(this, true);
-        //设置为开发设备
-        CrashReport.setIsDevelopmentDevice(this, false);
-        Bugly.init(this, "be88780120", true);
-        CrashReport.setUserId(this, "17074990702");
+//        Bugly.setIsDevelopmentDevice(this, true);
+//        //设置为开发设备
+//        CrashReport.setIsDevelopmentDevice(this, false);
+//        Bugly.init(this, "be88780120", true);
+//        CrashReport.setUserId(this, "17074990702");
 
 
 //        FIR.init(this);
@@ -109,7 +103,7 @@ public class MyApplication extends Application {
 //                .initCrashReport(getApplicationContext(), "900021393", false);
         ShareSDK.initSDK(this);
 //        CrashHandler1 crashHandler = CrashHandler1.getInstance();
-//        crashHandler.init(getApplicationContext());
+//        crashHandler.init(this);
         // 本地奔溃保存
         Userinfo = getSharedPreferences("Userinfo", Context.MODE_PRIVATE);
         Deviceinfo = getSharedPreferences("Deviceinfo", Context.MODE_PRIVATE);
@@ -131,6 +125,7 @@ public class MyApplication extends Application {
 //        }
 
         initDao();
+        JumpUtil.init(this);
 
 //        initLoadingLayout();
 
@@ -247,10 +242,10 @@ public class MyApplication extends Application {
     }
 
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    public void registerActivityLifecycleCallback(Application.ActivityLifecycleCallbacks callbacks) {
-        getApplication().registerActivityLifecycleCallbacks(callbacks);
-    }
+//    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+//    public void registerActivityLifecycleCallback(Application.ActivityLifecycleCallbacks callbacks) {
+//        getApplication().registerActivityLifecycleCallbacks(callbacks);
+//    }
 
 
 }

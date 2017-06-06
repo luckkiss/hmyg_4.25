@@ -15,8 +15,18 @@ public class HomeStore implements Serializable{
 	public void setCode(String code) {
 		this.code = code;
 	}
-	String img;
+
+	public String getLogoUrl() {
+		return logoUrl;
+	}
+
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+	}
+
+	private String logoUrl;
 	String index_type;
+
 	String name;
 	public String getId() {
 		return id;
@@ -24,12 +34,7 @@ public class HomeStore implements Serializable{
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getImg() {
-		return img;
-	}
-	public void setImg(String img) {
-		this.img = img;
-	}
+
 	public String getIndex_type() {
 		return index_type;
 	}
@@ -46,7 +51,7 @@ public class HomeStore implements Serializable{
 		super();
 		this.id = id;
 		this.code = code;
-		this.img = img;
+		this.logoUrl = img;
 		this.index_type = index_type;
 		this.name = name;
 	}

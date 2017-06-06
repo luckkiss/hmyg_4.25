@@ -19,12 +19,13 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.HomeStore;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 热门商家 片段
  */
 public class MyFragment extends Fragment implements OnPageChangeListener {
-    ArrayList<HomeStore> urls = new ArrayList<HomeStore>();
+    List<HomeStore> urls = new ArrayList<HomeStore>();
     private ArrayList<View> views;
     private CustomViewPager viewpager;
     private ViewPagerAdapter vpAdapter;
@@ -90,7 +91,7 @@ public class MyFragment extends Fragment implements OnPageChangeListener {
         // TODO Auto-generated method stub
         gv = (GridView) views.get(currentIndex2).findViewById(R.id.gridview);
 
-        ArrayList<HomeStore> arrayList2 = new ArrayList<HomeStore>();
+        List<HomeStore> arrayList2 = new ArrayList<HomeStore>();
         if (urls.size() > Num) {
             if (currentIndex2 == 0) {
                 for (int i = 0; i < Num; i++) {
@@ -187,14 +188,14 @@ public class MyFragment extends Fragment implements OnPageChangeListener {
         initGrids(currentIndex);
     }
 
-    public void setUrls(ArrayList<HomeStore> urls) {
+    public void setUrls(List<HomeStore> urls) {
         // TODO Auto-generated method stub
         this.urls = urls;
     }
 
     private final int AUTO_MSG = 1;
     private final int HANDLE_MSG = AUTO_MSG + 1;
-    private static final int PHOTO_CHANGE_TIME = 8000;// 定时变量
+    private static final int PHOTO_CHANGE_TIME = 6000;// 定时变量
     private int index = 0;
     private Handler mHandler = new Handler() {
 
@@ -221,7 +222,7 @@ public class MyFragment extends Fragment implements OnPageChangeListener {
         ;
     };
 
-    private boolean CanChange;
+    private boolean CanChange = false;
 
     public void setAutoChange(boolean flag) {
 
@@ -230,11 +231,11 @@ public class MyFragment extends Fragment implements OnPageChangeListener {
         }
 
         CanChange = flag;
-        if (flag) {
-            mHandler.sendEmptyMessageDelayed(AUTO_MSG, PHOTO_CHANGE_TIME);
-        } else {
-
-        }
+//        if (flag) {
+//            mHandler.sendEmptyMessageDelayed(AUTO_MSG, PHOTO_CHANGE_TIME);
+//        } else {
+//
+//        }
     }
 
 }

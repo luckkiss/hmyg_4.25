@@ -19,15 +19,15 @@ import com.white.utils.AndroidUtil;
 
 import net.tsz.afinal.FinalBitmap;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class GridViewAdapter extends BaseAdapter {
 	private Context context;
-	private ArrayList<HomeStore> arrayList;
+	private List<HomeStore> arrayList;
 	private int dip20px;
 	private int width;
 
-	public GridViewAdapter(Context context, ArrayList<HomeStore> arrayList) {
+	public GridViewAdapter(Context context, List<HomeStore> arrayList) {
 		this.context = context;
 		this.arrayList = arrayList;
 		dip20px = AndroidUtil.dip2px(context, 2);
@@ -68,9 +68,9 @@ public class GridViewAdapter extends BaseAdapter {
 				R.layout.gird_item_main_image, null);
 		ImageView imageView1 = (ImageView) inflate
 				.findViewById(R.id.imageView1);
-		if(!"".equals(arrayList.get(position).getImg())){
+		if(!"".equals(arrayList.get(position).getLogoUrl())){
 			FinalBitmap.create(context).display(imageView1,
-					arrayList.get(position).getImg());
+					arrayList.get(position).getLogoUrl());
 		}
 		LayoutParams para = imageView1.getLayoutParams();
 		para.width = (width - dip20px) / MyFragment.hang_Num;

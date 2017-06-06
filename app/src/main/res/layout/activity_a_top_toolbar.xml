@@ -6,8 +6,7 @@
     android:layout_height="46dp"
     android:background="#FFFFFF"
     android:padding="4dp"
-    app:layout_scrollFlags="scroll|enterAlways"
-    >
+    app:layout_scrollFlags="scroll|enterAlways">
 
 
     <RelativeLayout

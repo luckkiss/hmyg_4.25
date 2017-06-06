@@ -37,6 +37,7 @@ import com.hldj.hmyg.StoreActivity;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.bean.HomeStore;
 import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
+import com.hldj.hmyg.util.ConstantState;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
@@ -623,7 +624,7 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
                 @Override
                 public void onClick(View v) {
 
-                    et_search.setText(arrayList.get(position).getName());
+//                    et_search.setText(arrayList.get(position).getName());
 
 //                    searchIt2();
 
@@ -636,10 +637,12 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
                         } else if (from.equals("BActivity") && choose == 0) {
 
                             // 商城搜索
-//                            Intent intent = new Intent();
-//                            intent.putExtra("searchKey", arrayList.get(position).getName());
-//                            setResult(8, intent);
-//                            finish();
+                            Intent intent = new Intent();
+                            intent.putExtra("searchKey", arrayList.get(position).getName());
+                            setResult(ConstantState.SEARCH_OK, intent);
+                            finish();
+
+
                         } else if ((from.equals("AActivity") && choose == 1)
                                 || (from.equals("BActivity") && choose == 1)) {
                             // 采购搜索 首页，商城
@@ -657,17 +660,16 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
 //							toBActivity.putExtra("from", "context");
 //							toBActivity.putExtra("searchKey", arrayList.get(position).getName());
 //							startActivity(toBActivity);
-                            BActivity_new.start2Activity(PurchaseSearchListActivity.this, iv.getText()+"");
+                            BActivity_new.start2Activity(PurchaseSearchListActivity.this, arrayList.get(position).getName());
                             finish();
 
                         }
                     } else if (choose == 2) {
                         if (!"".equals(arrayList.get(position).getId())) {
-                            Intent toStoreActivity = new Intent(context,
-                                    StoreActivity.class);
-                            toStoreActivity.putExtra("code", arrayList
-                                    .get(position).getId());
-                            context.startActivity(toStoreActivity);
+//                            Intent toStoreActivity = new Intent(context,  StoreActivity.class);
+//                            toStoreActivity.putExtra("code", arrayList .get(position).getId());
+//                            context.startActivity(toStoreActivity);
+                            StoreActivity.start2Activity(mActivity, arrayList.get(position).getId());
                             finish();
                         }
 

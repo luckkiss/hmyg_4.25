@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/CardView.Simple" android:foreground="?attr/selectableItemBackground">
+    style="@style/CardView.Simple"
+    android:foreground="?attr/selectableItemBackground">
 
     <LinearLayout
         android:id="@+id/layoutRoot"
@@ -40,17 +41,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/tv_right_top"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <ImageView
+                        android:id="@+id/iv_right_top"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:drawableRight="@drawable/piao_right_top"
-                        android:gravity="center_vertical"
-                        android:singleLine="true"
-                        android:textColor="@color/text_color"
-                        android:textSize="@dimen/y8"
+                        android:src="@drawable/piao_right_top"
                         android:visibility="gone"
                         tools:visibility="visible" />
 

@@ -60,9 +60,8 @@ public class PublishPopWindow extends PopupWindow implements View.OnClickListene
         setFocusable(true);
         new Handler().postDelayed(() -> {
             RotateAnimation rotateAnim = new RotateAnimation(0, 45, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-            rotateAnim.setDuration(300);
+            rotateAnim.setDuration(500);
             rotateAnim.setFillAfter(true);
-            rootView.findViewById(R.id.iv_jiahao).setAnimation(rotateAnim);
             rootView.findViewById(R.id.iv_jiahao).startAnimation(rotateAnim);
 //            ObjectAnimator animator = new ObjectAnimator();
 //            animator.setDuration(300);

@@ -20,7 +20,7 @@ public interface ConstantState {
     int DELETE_SUCCEED = 205;//采购详情界面   订单删除成功状态码
 
     int SEARCH_OK = 206;//搜索完成
-    int FILTER_OK = 207;//搜索完成
+    int FILTER_OK = 207;//筛选完成
 
 
     String ERROR_CODE = "1003";

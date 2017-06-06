@@ -117,8 +117,7 @@
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@style/AppBaseTheme"
-        >
+        android:theme="@style/AppBaseTheme">
         <!--xmlns:tools="http://schemas.android.com/tools"  tools:replace="android:icon, android:theme  "-->
         <activity
             android:name="com.example.sortlistview.ActivityAddFriends"
@@ -168,8 +167,7 @@
         <activity
             android:name="com.hldj.hmyg.AActivity_3_0_alibaba"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.BActivity_new"
             android:launchMode="singleTask"
@@ -188,7 +186,7 @@
         <activity
             android:name="com.hldj.hmyg.WebActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.SeedlingMarketWebActivity"
             android:launchMode="singleTask"
@@ -215,7 +213,7 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.buyer.PurchaseSearchListActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.buyer.PurchaseDemandListActivity"
             android:screenOrientation="portrait"></activity>
@@ -260,7 +258,11 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.StoreActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.hldj.hmyg.StoreActivity_new"
+            android:screenOrientation="portrait"
+            android:theme="@style/base_store_theme" />
         <activity
             android:name="com.hldj.hmyg.StoreActivity_bak"
             android:screenOrientation="portrait" />
@@ -359,7 +361,7 @@
         <activity
             android:name="com.hldj.hmyg.SetProfileActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.SetPasswardActivity"
             android:launchMode="singleTask"

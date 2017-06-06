@@ -1,5 +1,10 @@
 <resources>
 
+
+    <style name="base_store_theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
     <!--
         Base application theme for API 14+. This theme completely replaces
         AppBaseTheme from BOTH res/values/styles.xml and
@@ -11,6 +16,9 @@
         <item name="android:fitsSystemWindows">true</item>
 
     </style>
+
+
+
 
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->

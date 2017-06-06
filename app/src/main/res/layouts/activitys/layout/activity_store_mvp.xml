@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/moren_banner" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="8.0dip"
+                    android:paddingTop="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/iv_icon_persion_pic"
+                            android:layout_width="53dp"
+                            android:layout_height="53dp"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/no_image_show" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="3">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="13sp"
+                                        android:layout_height="13sp"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginRight="5dp"
+                                        android:src="@drawable/gongsi" />
+
+                                    <TextView
+                                        android:id="@+id/tv_companyName"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="5dp"
+                                        android:textColor="@color/gray"
+                                        android:textSize="14sp"
+                                        tools:text="13134646" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="13sp"
+                                        android:layout_height="13sp"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginRight="5dp"
+                                        android:src="@drawable/seller_name" />
+
+                                    <TextView
+                                        android:id="@+id/tv_user_name"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_weight="1"
+                                        android:textColor="@color/gray"
+                                        android:textSize="14sp"
+                                        tools:text="1346546" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="13sp"
+                                        android:layout_height="13sp"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginRight="5dp"
+                                        android:src="@drawable/seller_phone" />
+
+                                    <TextView
+                                        android:id="@+id/tv_user_phone"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_weight="1"
+                                        android:textColor="@color/main_color"
+                                        android:textSize="14sp"
+                                        tools:text="1346546" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/tv_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2.5dip"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/gray"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/tv_user_address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="2.5dip"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/gray"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                android:paddingTop="@dimen/top_padding_statu"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin">
+
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="38dp"
+                    android:background="@color/trans">
+
+                    <ImageView
+                        android:id="@+id/btn_back"
+                        android:layout_width="@dimen/x27"
+                        android:layout_height="@dimen/x27"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:padding="3dp"
+                        android:src="@drawable/btn_back" />
+
+                    <TextView
+                        android:id="@+id/tv_store_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:text="店铺详情"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/x17" />
+
+                    <ImageView
+                        android:id="@+id/iv_fenxiang"
+                        android:layout_width="@dimen/x20"
+                        android:layout_height="@dimen/x20"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/x10"
+                        android:src="@drawable/fenxiang" />
+
+                    <ImageView
+                        android:id="@+id/iv_erweima"
+                        android:layout_width="@dimen/x20"
+                        android:layout_height="@dimen/x20"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="45dp"
+                        android:src="@drawable/fenxiang_erweimahui" />
+                </RelativeLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+        android:id="@+id/store_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:nestedScrollingEnabled="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_anchor="@+id/app_bar"
+        app:layout_anchorGravity="bottom|right"
+        app:srcCompat="@drawable/seller_makingacall_2" />
+
+
+</android.support.design.widget.CoordinatorLayout>

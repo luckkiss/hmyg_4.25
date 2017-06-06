@@ -1808,7 +1808,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
      * @param code    商店的  id
      */
     public static void start2Activity(Context context, String code) {
-        Intent intent = new Intent(context, StoreActivity.class);
+        Intent intent = new Intent(context, StoreActivity_new.class);
         intent.putExtra("code", code);
         context.startActivity(intent);
     }

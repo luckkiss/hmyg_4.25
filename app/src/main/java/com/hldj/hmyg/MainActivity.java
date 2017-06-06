@@ -78,6 +78,7 @@ import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 import me.drakeet.materialdialog.MaterialDialog;
 
+
 @SuppressLint("NewApi")
 @SuppressWarnings("deprecation")
 public class MainActivity extends TabActivity implements OnCheckedChangeListener {
@@ -231,7 +232,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
             View view = findViewById(R.id.main_content);
             try {
                 publishPopWindow = new PublishPopWindow(MainActivity.this).showMoreWindow(findViewById(android.R.id.tabcontent));
-                setBackgroundAlpha(MainActivity.this, (float) 0.9);
+                setBackgroundAlpha(MainActivity.this, (float) 0.99);
                 publishPopWindow.setOnDismissListener(() -> {
                     if (MainActivity.this != null) {
                         setBackgroundAlpha(MainActivity.this, 1f);

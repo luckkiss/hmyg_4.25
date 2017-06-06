@@ -89,13 +89,14 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
         TextView tv_02 = (TextView) view.findViewById(R.id.tv_02);
         tv_02.setText(seedlingBean.getName());
 
-        //地区：
-        TextView tv_03 = (TextView) view.findViewById(R.id.tv_03);
-        tv_03.setText(seedlingBean.getCiCity().getFullName());
 
         //拼接的   地径  长度
+        TextView tv_03 = (TextView) view.findViewById(R.id.tv_03);
+        tv_03.setText(seedlingBean.getSpecText());
+
+        //地区：
         TextView tv_04 = (TextView) view.findViewById(R.id.tv_04);
-        tv_04.setText(seedlingBean.getSpecText());
+        tv_03.setText("苗源地: "+seedlingBean.getCiCity().getFullName());
 
 //            发布人
         TextView tv_06 = (TextView) view.findViewById(R.id.tv_06);

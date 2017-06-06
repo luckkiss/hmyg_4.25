@@ -1,5 +1,17 @@
 <resources>
 
+
+
+
+    <style name="base_store_theme" parent="AppTheme.Base">
+        <!--透明状态栏-->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+        <!--使状态栏，导航栏可绘制-->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
     <!--
         Base application theme for API 21+. This theme completely replaces
         AppBaseTheme from BOTH res/values/styles.xml and
@@ -24,11 +36,11 @@
 
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <!-- 无ActionBar -->
-        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/white</item>
         <!--<item name="colorPrimaryDark">@color/main_color</item>-->
-        <item name="colorAccent">@color/accent_color</item>
-        <item name="android:verticalDivider">@color/accent_color</item>
+        <item name="colorAccent">@color/primary_color</item>
+        <item name="android:verticalDivider">@color/primary_color</item>
         <item name="android:textColorPrimary">@color/primary_text</item>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="android:windowTranslucentStatus">false</item>

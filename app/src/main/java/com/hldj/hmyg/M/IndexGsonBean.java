@@ -1,6 +1,8 @@
 package com.hldj.hmyg.M;
 
+import com.autoscrollview.adapter.ImagePagerAdapter_ali;
 import com.hldj.hmyg.bean.ArticleBean;
+import com.hldj.hmyg.bean.HomeStore;
 import com.hldj.hmyg.saler.M.PurchaseBean;
 
 import java.util.ArrayList;
@@ -45,6 +47,47 @@ public class IndexGsonBean {
         public List<PurchaseBean> purchaseList;
         public List<BPageGsonBean.DatabeanX.Pagebean.Databean> seedlingList;
         public List<ArticleBean> articleList = new ArrayList<>();
+
+        public List<HomeStore> storeList = new ArrayList<>();
+
+        public List<ImagePagerAdapter_ali.BannarBean> bannerList = new ArrayList<>();
+
+
+        /**
+         *  HashMap<String, Object> hMap = new HashMap<String, Object>();
+         hMap.put("isNewRecord", JsonGetInfo
+         .getJsonBoolean(jsonObject2,
+         "isNewRecord"));
+         hMap.put("delFlag", JsonGetInfo
+         .getJsonString(jsonObject2,
+         "delFlag"));
+         hMap.put("url", JsonGetInfo.getJsonString(
+         JsonGetInfo.getJSONObject(
+         jsonObject2, "imageJson"),
+         "url"));
+
+         hMap.put("ossThumbnailImagePath",
+         JsonGetInfo.getJsonString(
+         JsonGetInfo.getJSONObject(
+         jsonObject2,
+         "imageJson"),
+         "ossThumbnailImagePath"));
+         hMap.put("ossMediumImagePath", JsonGetInfo
+         .getJsonString(JsonGetInfo
+         .getJSONObject(jsonObject2,
+         "imageJson"),
+         "ossMediumImagePath"));
+         hMap.put("ossLargeImagePath", JsonGetInfo
+         .getJsonString(JsonGetInfo
+         .getJSONObject(jsonObject2,
+         "imageJson"),
+         "ossLargeImagePath"));
+         hMap.put("href", JsonGetInfo.getJsonString(
+         jsonObject2, "href"));
+         hMap.put("name", JsonGetInfo.getJsonString(
+         jsonObject2, "name"));
+         */
+
 
     }
 

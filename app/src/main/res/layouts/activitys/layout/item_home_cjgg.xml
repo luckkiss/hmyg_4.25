@@ -9,37 +9,75 @@
     android:orientation="vertical">
     <!--成交公告-->
 
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="75dp"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:background="@color/white"-->
+    <!--android:orientation="vertical">-->
+
     <com.coorchice.library.SuperTextView
         android:id="@+id/tv_taggle1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:drawableLeft="@drawable/home_cj_gg_zx"
+        android:layout_margin="5dp"
         android:drawablePadding="3dp"
         android:ellipsize="end"
-        android:gravity="start"
+        android:lines="1"
         android:layoutDirection="locale"
-        android:maxLines="1"
-        android:padding="5dp"
+        android:paddingLeft="40dp"
         android:textColor="@color/black_de"
         android:textSize="13sp"
+        app:isShowState="true"
+        app:state_drawable="@drawable/home_cj_gg_zx"
+        app:state_drawable_height="15dp"
+        app:state_drawable_mode="left"
+        app:state_drawable_padding_left="5dp"
+        app:state_drawable_width="28dp"
         tools:text="的成交公告 " />
+
+    <!--<com.coorchice.library.SuperTextView-->
+    <!--android:id="@+id/stv_16"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:layout_margin="5dp"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:gravity="start|center_vertical"-->
+    <!--android:paddingLeft="45dp"-->
+    <!--android:text="状态图 3"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="10sp"-->
+    <!--app:corner="40dp"-->
+    <!--app:isShowState="true"-->
+    <!--app:solid="#4CBDD2"-->
+    <!--app:state_drawable="@drawable/search_bg"-->
+    <!--app:state_drawable_height="20dp"-->
+    <!--app:state_drawable_mode="left"-->
+    <!--app:state_drawable_padding_left="10dp"-->
+    <!--app:state_drawable_width="20dp" />-->
+
 
     <com.coorchice.library.SuperTextView
         android:id="@+id/tv_taggle2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:drawableLeft="@drawable/home_cj_gg_zx"
+        android:layout_margin="5dp"
         android:drawablePadding="3dp"
         android:ellipsize="end"
-        android:gravity="start"
+        android:lines="1"
         android:layoutDirection="locale"
-        android:maxLines="1"
-        android:padding="5dp"
+        android:paddingLeft="40dp"
         android:textColor="@color/black_de"
         android:textSize="13sp"
+        app:isShowState="true"
+        app:state_drawable="@drawable/home_cj_gg_zx"
+        app:state_drawable_height="15dp"
+        app:state_drawable_mode="left"
+        app:state_drawable_padding_left="5dp"
+        app:state_drawable_width="28dp"
         tools:text="2017/4/18 关于'采购单（P0051）'的成交公告 " />
 
 
+    <!--</LinearLayout>-->
 </LinearLayout>
