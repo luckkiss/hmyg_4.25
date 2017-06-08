@@ -31,6 +31,7 @@ import com.hldj.hmyg.saler.purchase.StoreDeteilDialog;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalHttp;
@@ -41,6 +42,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+
+import static com.zzy.common.widget.MeasureGridView.context;
 
 
 /**
@@ -264,7 +267,8 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
 
     private void initItem(SaveSeedingGsonBean.DataBean.SeedlingBean item) {
         //头部与底部是一样的    这里初始化头部
-        getViewHolder_pur().tv_purchase_name.setText(strFilter("[" + item.purchaseItemJson.firstTypeName + "]" + item.purchaseItemJson.name));
+        StringFormatUtil fillColor = new StringFormatUtil(context, item.purchaseItemJson.name + "  " + item.purchaseItemJson.count + item.purchaseItemJson.unitTypeName, item.purchaseItemJson.count + item.purchaseItemJson.unitTypeName, R.color.red).fillColor();
+        getViewHolder_pur().tv_purchase_name.setText(strFilter(item.purchaseItemJson.name));
         getViewHolder_pur().tv_purchase_size.setText(strFilter(item.purchaseItemJson.specText));
         getViewHolder_pur().tv_purchase_type.setText(strFilter(item.getPlantTypeName()));
         getViewHolder_pur().tv_quote_num.setText(strFilter(item.getCount() + item.getUnitTypeName()));

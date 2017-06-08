@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LinearLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -27,9 +28,13 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/btn_back"
             android:ellipsize="end"
-            android:maxLength="1"
+            android:gravity="center"
+            android:lines="1"
+            android:maxEms="15"
+            android:paddingRight="25dp"
             android:textColor="@color/main_color"
-            android:textSize="@dimen/x18" />
+            android:textSize="@dimen/x18"
+            tools:text="title" />
 
         <ImageView
             android:id="@+id/guanbi"
@@ -44,9 +49,9 @@
     </RelativeLayout>
 
     <!--<ImageView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@drawable/line_bak" />-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@drawable/line_bak" />-->
     <ProgressBar
         android:id="@+id/web_progressBar"
         style="?android:attr/progressBarStyleHorizontal"
@@ -70,14 +75,14 @@
                 android:layout_height="fill_parent" />
 
             <!--<ProgressBar-->
-                <!--android:id="@+id/progressBar"-->
-                <!--style="?android:attr/progressBarStyleInverse"-->
-                <!--android:layout_width="25.0dip"-->
-                <!--android:layout_height="25.0dip"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:indeterminateDrawable="@drawable/progress_loading"-->
-                <!--android:indeterminateDuration="750" />-->
+            <!--android:id="@+id/progressBar"-->
+            <!--style="?android:attr/progressBarStyleInverse"-->
+            <!--android:layout_width="25.0dip"-->
+            <!--android:layout_height="25.0dip"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:indeterminateDrawable="@drawable/progress_loading"-->
+            <!--android:indeterminateDuration="750" />-->
 
             <TextView
                 android:id="@+id/tv_loading"

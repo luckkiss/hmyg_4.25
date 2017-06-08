@@ -63,6 +63,7 @@ public class NewsActivity extends NeedSwipeBackActivity {
 
             @Override
             public void centerOnClick() {
+                finish();
             }
 
             @Override
@@ -129,7 +130,8 @@ public class NewsActivity extends NeedSwipeBackActivity {
 
 //          webView.loadUrl("file:///asset/test.html");
 //          webView.loadUrl("file:///android_asset/test.html");
-        webView.loadUrl("http://192.168.1.252:8090/article?isHeader=true");
+//        webView.loadUrl("http://192.168.1.252:8090/article?isHeader=true");
+          webView.loadUrl("http://test.m.hmeg.cn/article?isHeader=true");
 //          webView.loadUrl("http://blog.csdn.net/a394268045/article/details/51892015");
     }
 

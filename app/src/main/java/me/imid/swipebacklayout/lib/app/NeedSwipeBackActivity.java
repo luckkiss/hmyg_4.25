@@ -79,6 +79,12 @@ public class NeedSwipeBackActivity extends SwipeBackBActivity {
         editor.commit();
     }
 
+    protected void putSpB(String key, boolean value) {
+        SharedPreferences.Editor editor = MyApplication.Userinfo.edit();
+        editor.putBoolean(key, value);
+        editor.commit();
+    }
+
     protected boolean getSpB(String key) {
         return MyApplication.Userinfo.getBoolean(key, false);
     }

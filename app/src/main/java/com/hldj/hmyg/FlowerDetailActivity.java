@@ -650,7 +650,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                     max_price = JsonGetInfo.getJsonString(jsonObject2, "maxPrice");
                                     isNego = JsonGetInfo.getJsonBoolean(jsonObject2, "isNego");
 
-                                    ProductListAdapter.setPrice(tv_price, max_price, min_price, isNego);
+                                    ProductListAdapter.setPrice(tv_price, max_price, min_price, isNego,tv_unitTypeName);
 
                                     //库存数量
                                     stock = JsonGetInfo.getJsonInt(jsonObject2, "stock");
@@ -993,6 +993,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                     //登录后显示商家信息
                                     if (isLogin()) {
                                         ll_store.setVisibility(View.VISIBLE);
+                                        findViewById(R.id.login_to_show).setVisibility(View.GONE);
                                         tv_store_name.setText(displayName);//商家信息    公司
                                         tv_store_area.setText(fullName);// 所在地区
                                         tv_store_phone.setText(displayPhone);//电话

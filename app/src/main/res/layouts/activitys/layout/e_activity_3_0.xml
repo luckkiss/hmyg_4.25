@@ -39,6 +39,7 @@
 
 
             <TextView
+                android:id="@+id/tv_usrname_relname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_circle_head"
@@ -88,7 +89,7 @@
             <com.coorchice.library.SuperTextView
                 android:id="@+id/sptv_wd_bjgl"
                 style="@style/home_types"
-                android:text="报价管理"
+                android:text="我的报价"
                 app:state_drawable="@mipmap/wd_bjgl" />
 
             <com.coorchice.library.SuperTextView

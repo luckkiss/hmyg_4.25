@@ -96,7 +96,7 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
 
         //地区：
         TextView tv_04 = (TextView) view.findViewById(R.id.tv_04);
-        tv_03.setText("苗源地: "+seedlingBean.getCiCity().getFullName());
+        tv_04.setText("苗源地:" + seedlingBean.getCiCity().getFullName());
 
 //            发布人
         TextView tv_06 = (TextView) view.findViewById(R.id.tv_06);
@@ -104,20 +104,20 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
 
 //           价格
         TextView tv_07 = (TextView) view.findViewById(R.id.tv_07);
+
+
         boolean isNeGo = seedlingBean.isNego();
         String maxPrice = seedlingBean.getMinPrice() + "";
         String minPrice = seedlingBean.getMaxPrice() + "";
-        ProductListAdapter.setPrice(tv_07, maxPrice, minPrice, isNeGo);
+
+        TextView tv_08 = (TextView) view.findViewById(R.id.tv_08);
+        tv_08.setText("/" + seedlingBean.getUnitTypeName());
+        ProductListAdapter.setPrice(tv_07, maxPrice, minPrice, isNeGo, tv_08);
 
 //           库存
         TextView tv_09 = (TextView) view.findViewById(R.id.tv_09);
         tv_09.setText("库存: " + seedlingBean.getCount() + "");
 
-        view.findViewById(R.id.layoutRoot).setOnClickListener(v -> {
-            //点击布局
-            D.e("==点击布局==");
-            FlowerDetailActivity.start2Activity(context, "show_type", items.get(i).getId());
-        });
 
         view.findViewById(R.id.tv_delete_item).setOnClickListener(v -> {
             ToastUtil.showShortToast("删除");
@@ -141,6 +141,20 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
 
         });
 
+//[model.status isEqualToString:@"published"]
+        // 过期
+        if (!seedlingBean.getStatus().equals("published")) {
+            view.findViewById(R.id.fr_goods_time_out).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.ll_info_content).setAlpha(0.6f);
+            return;
+        }
+
+        view.findViewById(R.id.layoutRoot).setOnClickListener(v -> {
+            //点击布局
+            D.e("==点击布局==");
+            FlowerDetailActivity.start2Activity(context, "show_type", items.get(i).getId());
+        });
+
     }
 
     /**
@@ -158,15 +172,15 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
     void setName(TextView textView, SaveSeedingGsonBean.DataBean.SeedlingBean bean) {
 
         if (bean.getOwnerJson() == null) {
-            textView.setText("");
+            textView.setText("发布人:-");
             return;
         }
         if (!TextUtils.isEmpty(bean.getOwnerJson().getCompanyName())) {
-            textView.setText(bean.getOwnerJson().getCompanyName());
+            textView.setText("发布人:" + bean.getOwnerJson().getCompanyName());
         } else if (!TextUtils.isEmpty(bean.getOwnerJson().getPublicName())) {
-            textView.setText(bean.getOwnerJson().getPublicName());
+            textView.setText("发布人:" + bean.getOwnerJson().getPublicName());
         } else if (!TextUtils.isEmpty(bean.getOwnerJson().getRealName())) {
-            textView.setText(bean.getOwnerJson().getRealName());
+            textView.setText("发布人:" + bean.getOwnerJson().getRealName());
         }
     }
 

@@ -2,7 +2,6 @@ package com.hldj.hmyg;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,12 +19,19 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.bean.LoginGsonBean;
+import com.hldj.hmyg.bean.UserInfoGsonBean;
+import com.hldj.hmyg.presenter.LoginPresenter;
+import com.hldj.hmyg.util.ConstantState;
+import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.MyUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.loginjudge.LoginJudge;
+import com.mrwujay.cascade.activity.BaseActivity;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -39,7 +45,7 @@ import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 
-public class SetProfileActivity extends LoginActivity implements
+public class SetProfileActivity extends BaseActivity implements
         OnWheelChangedListener {
 
     private Dialog dialog;
@@ -88,8 +94,7 @@ public class SetProfileActivity extends LoginActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_profile);
-        getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
         btn_back = (ImageView) findViewById(R.id.btn_back);
         LinearLayout ll_01 = (LinearLayout) findViewById(R.id.ll_01);
         LinearLayout ll_area1 = (LinearLayout) findViewById(R.id.ll_area1);
@@ -203,8 +208,7 @@ public class SetProfileActivity extends LoginActivity implements
                                 SetProfileActivity.this,
                                 SetPhoneByGetCodeActivity.class);
                         startActivity(toSetPhoneByGetCodeActivity);
-                        overridePendingTransition(R.anim.slide_in_left,
-                                R.anim.slide_out_right);
+
                         break;
                     case R.id.ll_save:
                         // if ("".equals(mCurrentZipCode)) {
@@ -331,8 +335,25 @@ public class SetProfileActivity extends LoginActivity implements
                                         Toast.LENGTH_SHORT).show();
                             }
                             if ("1".equals(code)) {
-                                getUserInfo(MyApplication.Userinfo.getString(
-                                        "id", ""), "SetProfileActivity");
+//                                getUserInfo(MyApplication.Userinfo.getString( "id", ""), "SetProfileActivity");
+                                D.e("========登录成功，返回id===========");
+                                //获取个人信息操作
+                                LoginPresenter.getUserInfo(MyApplication.Userinfo.getString("id", ""), new ResultCallBack<UserInfoGsonBean>() {
+                                    @Override
+                                    public void onSuccess(UserInfoGsonBean userInfoGsonBean) {
+                                        D.e("个人信息获取成功" + userInfoGsonBean.toString());
+                                        setResult(ConstantState.CHANGE_DATES);//修该数据成功
+                                        finish();
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+
+                                    }
+                                });
+
+
                             } else {
                             }
 
@@ -647,8 +668,13 @@ public class SetProfileActivity extends LoginActivity implements
                 Toast.LENGTH_SHORT).show();
     }
 
-    public static void start2ActivitySet(Context mActivity) {
-        mActivity.startActivity(new Intent(mActivity, SetProfileActivity.class));
+    //获取个人信息
+    public void getUserInfo(LoginGsonBean loginGsonBean) {
+
+    }
+
+    public static void start2ActivitySet(Activity mActivity,int reqCode) {
+        mActivity.startActivityForResult(new Intent(mActivity, SetProfileActivity.class), reqCode);
         MyUtil.overridePendingTransition_open((Activity) mActivity);
     }
 

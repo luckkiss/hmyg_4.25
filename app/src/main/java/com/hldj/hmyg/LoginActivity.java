@@ -182,7 +182,7 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    ;;
+
 
     //密码登录控件管理
     public void initHolderPwd() {

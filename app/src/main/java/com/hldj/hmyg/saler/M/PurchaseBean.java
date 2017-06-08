@@ -110,5 +110,13 @@ public class PurchaseBean {
     public String blurProjectName;
     public String blurName;
     public List<String> itemNameList;
+    public AttrDataBean attrData  = new AttrDataBean() ;
+
+
+//    "attrData": {"closeDateStr": "2017年06月09日 14点10分"},
+
+    public  static class  AttrDataBean{
+        public String closeDateStr = "" ;
+    }
 
 }

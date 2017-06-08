@@ -43,12 +43,19 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
         TextView tv_caozuo01 = myViewHolder.getView(R.id.tv_caozuo01);
 
         FlowTagLayout mMobileFlowTagLayout = (FlowTagLayout) myViewHolder.getView(R.id.mobile_flow_layout);
+
+
+
         // 移动研发标签
         TagAdapter<String> mMobileTagAdapter = new TagAdapter<>(context);
         // mMobileFlowTagLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
         mMobileFlowTagLayout.setAdapter(mMobileTagAdapter);
 
+
         mMobileTagAdapter.onlyAddAll(item.itemNameList);
+
+        mMobileFlowTagLayout.ClearClickAble(true, view1 -> jump(item));
+
 //            Html.fromHtml("北京市发布霾黄色预警，<font color='#ff0000'><big><big>外出携带好</big></big></font>口罩")
 
         String html_source = item.blurProjectName + "采购单";
@@ -72,7 +79,7 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
 
 
         if (!TextUtils.isEmpty(item.itemCountJson)) {
-            StringFormatUtil fillColor = new StringFormatUtil(context, "已有" + item.itemCountJson + "条品种", item.itemCountJson + "", R.color.green)
+            StringFormatUtil fillColor = new StringFormatUtil(context, "共有" + item.itemCountJson + "个品种", item.itemCountJson + "", R.color.green)
                     .fillColor();
             if (null != fillColor.getResult()) {
                 tv_10.setText(fillColor.getResult());
@@ -83,20 +90,24 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
             tv_10.setText("暂无报价");
         }
 
-        tv_caozuo01.setText("截止时间：" + item.closeDate);
+        tv_caozuo01.setText("截止时间：" + item.attrData.closeDateStr);
 
 
         myViewHolder.getConvertView().setOnClickListener(v -> {
-            // TODO Auto-generated method stub
-            Intent intent = new Intent(context,
-                    StorePurchaseListActivity.class);
-            intent.putExtra("purchaseFormId", item.purchaseFormId);
-            intent.putExtra("title", item.num);
-            context.startActivity(intent);
-            ((Activity) context).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            jump(item);
         });
 
 
+    }
+
+    public void jump(PurchaseBean item) {
+        // TODO Auto-generated method stub
+        Intent intent = new Intent(context,
+                StorePurchaseListActivity.class);
+        intent.putExtra("purchaseFormId", item.purchaseFormId);
+        intent.putExtra("title", item.num);
+        context.startActivity(intent);
+        ((Activity) context).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
 

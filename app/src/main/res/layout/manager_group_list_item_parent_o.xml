@@ -5,14 +5,9 @@
     android:background="#ffffffff"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/list_display_view_container"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="visible" >
 
-        <include layout="@layout/list_view_seedling" />
-    </LinearLayout>
+
+        <include layout="@layout/list_view_seedling_new" />
+
 
 </RelativeLayout>

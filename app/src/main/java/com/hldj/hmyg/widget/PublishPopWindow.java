@@ -43,7 +43,7 @@ public class PublishPopWindow extends PopupWindow implements View.OnClickListene
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         rootView = inflater.inflate(R.layout.dialog_publish, null);
         rootView.setBackgroundColor(Color.WHITE);
-        rootView.setAlpha((float) 0.9);
+        rootView.setAlpha((float) 0.99);
         int h = mContext.getWindowManager().getDefaultDisplay().getHeight();
         int w = mContext.getWindowManager().getDefaultDisplay().getWidth();
         setContentView(rootView);

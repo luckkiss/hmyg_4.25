@@ -208,7 +208,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
             }
         });
-        if (MyApplication.Userinfo.getBoolean("notification", false)) {
+        if (MyApplication.Userinfo.getBoolean("notification", true)) {
             JPushInterface.resumePush(getApplicationContext());
         } else {
             JPushInterface.stopPush(getApplicationContext());

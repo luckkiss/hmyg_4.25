@@ -59,6 +59,8 @@ public class SaveSeedingGsonBean implements Serializable {
 
         public List<UnitTypeBean> unitTypeList = new ArrayList<>();
 
+        public SeedlingBean.NurseryJsonBean nursery = new SeedlingBean.NurseryJsonBean();
+
 
         public List<TypeListBean> getTypeList() {
             return typeList;
@@ -165,6 +167,7 @@ public class SaveSeedingGsonBean implements Serializable {
             private int visitsCount;
             private boolean isSelfSupport;
             private NurseryJsonBean nurseryJson;
+
             private OwnerJsonBean ownerJson;
             private long lastTime;
             private int lastDay;
@@ -938,6 +941,8 @@ public class SaveSeedingGsonBean implements Serializable {
                 this.dbhType = dbhType;
             }
 
+
+
             public static class PrCityBean implements Serializable {
                 /**
                  * id : 16654
@@ -1256,6 +1261,8 @@ public class SaveSeedingGsonBean implements Serializable {
                 private String realName = "";
                 private String phone;
                 private String fullAddress;
+                public boolean isDefault;
+
 
                 @Override
                 public String toString() {
@@ -2678,6 +2685,7 @@ public class SaveSeedingGsonBean implements Serializable {
 
             public static class AttrDataBean implements Serializable {
                 public boolean ziying = false;
+                public String createDate = "";
             }
 
             public static class SpecListBean implements Serializable {

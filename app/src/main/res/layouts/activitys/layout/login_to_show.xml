@@ -6,24 +6,15 @@
 
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:text="登录后查看" />
-
-    <TextView
-        android:layout_marginTop="10dp"
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
         android:background="@color/main_color"
-        android:text="登录 "
-        android:paddingLeft="3dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
         android:gravity="center"
+        android:padding="5dp"
+        android:text="登录查看商家信息"
         android:textColor="@color/white" />
 
 

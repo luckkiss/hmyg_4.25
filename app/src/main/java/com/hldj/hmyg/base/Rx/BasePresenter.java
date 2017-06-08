@@ -11,7 +11,6 @@ public abstract class BasePresenter<E, T> {
     public Context context;
     public E mModel;
     public T mView;
-    public RxManager mRxmRxManage = new RxManager();
 
 
 
@@ -25,9 +24,6 @@ public abstract class BasePresenter<E, T> {
 
     public abstract void onStart();
 
-    public void onDestroy() {
-        mRxmRxManage.clear();
-    }
 
 
 }

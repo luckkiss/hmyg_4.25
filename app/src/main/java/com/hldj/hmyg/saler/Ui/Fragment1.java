@@ -71,11 +71,12 @@ public class Fragment1 extends Fragment {
             protected void convert(BaseViewHolder helper, SaveSeedingGsonBean.DataBean.SeedlingBean item) {
 
                 D.e("==========item=============" + item.toString());
-                helper.setText(R.id.tv_fr_item_plant_name, item.getPlantTypeName());
+                helper.setText(R.id.tv_fr_item_plant_name, item.purchaseJson.name);
                 helper.setText(R.id.tv_fr_item_company_name, item.purchaseJson.buyer.displayName);
                 helper.setText(R.id.tv_fr_item_company_addr_name, item.purchaseJson.cityName);
-                helper.setText(R.id.tv_fr_item_price, item.price);
+                helper.setText(R.id.tv_fr_item_price, "￥"+item.price);
                 helper.setText(R.id.tv_fr_item_specText, item.getSpecText());
+                helper.setText(R.id.stv_fragment_time,"日期：" + item.attrData.createDate);
 
                 setStatus(helper, item.getStatus());//通过状态设置背景颜色
                 helper.addOnClickListener(R.id.cv_root, v -> {
@@ -101,11 +102,11 @@ public class Fragment1 extends Fragment {
         } else if (status.equals("unused")) {
             helper.setVisible(R.id.tv_fr_item_state, true);
             helper.setText(R.id.tv_fr_item_state, "未中标");
-            helper.setBackgroundColor(R.id.tv_fr_item_state, MyApplication.getInstance().getResources().getColor(R.color.orange));
+            helper.setTextColor(R.id.tv_fr_item_state, MyApplication.getInstance().getResources().getColor(R.color.orange));
         } else if (status.equals("used")) {
             helper.setVisible(R.id.tv_fr_item_state, true);
             helper.setText(R.id.tv_fr_item_state, "已中标");
-            helper.setBackgroundColor(R.id.tv_fr_item_state, MyApplication.getInstance().getResources().getColor(R.color.main_color));
+            helper.setTextColor(R.id.tv_fr_item_state, MyApplication.getInstance().getResources().getColor(R.color.main_color));
         } else {
             helper.setVisible(R.id.tv_fr_item_state, false);
         }

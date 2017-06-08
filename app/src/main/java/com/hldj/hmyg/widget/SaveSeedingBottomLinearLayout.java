@@ -369,4 +369,9 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
         this.unitTypeList = mUnitTypeList;
     }
 
+    public void setDefaultAddr(AdressListActivity.Address address) {
+        initAddressView(holder.rootView,address);
+    }
+
+
 }

@@ -21,7 +21,7 @@ public class SaveSeedlingActivity extends SaveSeedlingActivityBase {
 
         //暂存草稿箱
 //        viewHolder.iv_ready_save.setOnClickListener(onClickListener);//
-          getAllData();
+        getAllData();
     }
 
 
@@ -56,6 +56,16 @@ public class SaveSeedlingActivity extends SaveSeedlingActivityBase {
                 viewHolder.bottom_ll.setUnitTypeDatas(saveSeedingGsonBean.getData().unitTypeList);
 
 
+                //地址对象
+                AdressListActivity.Address address = new AdressListActivity.Address();
+                address.addressId = saveSeedingGsonBean.getData().nursery.getId();
+                address.contactPhone = saveSeedingGsonBean.getData().nursery.getPhone();
+                address.contactName = saveSeedingGsonBean.getData().nursery.getRealName();
+                address.cityName = saveSeedingGsonBean.getData().nursery.getCityName();
+                address.isDefault = saveSeedingGsonBean.getData().nursery.isDefault;
+                viewHolder.bottom_ll.setDefaultAddr(address);
+
+
                 //传参数的时候   增加 一个 自动添加布局，不需要点击  （乔木  灌木  庄敬  地被  苏铁  。。。。。。）
             }
 
@@ -71,10 +81,8 @@ public class SaveSeedlingActivity extends SaveSeedlingActivityBase {
     }
 
 
-
-    public static void start2Activity(Context context)
-    {
-        context.startActivity(new Intent(context,SaveSeedlingActivity.class));
+    public static void start2Activity(Context context) {
+        context.startActivity(new Intent(context, SaveSeedlingActivity.class));
     }
 
 

@@ -23,6 +23,7 @@ import net.tsz.afinal.FinalBitmap;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 @SuppressLint("ResourceAsColor")
 public class StorePurchaseListAdapter extends BaseAdapter {
     private static final String TAG = "StorePurchaseListAdapter";
@@ -83,11 +84,10 @@ public class StorePurchaseListAdapter extends BaseAdapter {
         if (MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {
 //            tv_caozuo01.setText("");
         } else {
-            tv_caozuo01.setText("点我登录");
+            tv_caozuo01.setText("马上报价");
         }
 
-        tv_01.setText("[" + data.get(position).get("firstTypeName").toString()
-                + "]" + data.get(position).get("name").toString());
+        tv_01.setText((position + 1) + "、" + data.get(position).get("name").toString());
 
 
         tv_ac.setText(data.get(position).get("count").toString()
@@ -138,14 +138,12 @@ public class StorePurchaseListAdapter extends BaseAdapter {
                     R.color.red).fillColor();
             tv_10.setText(fillColor.getResult());
             tv_10.setVisibility(View.VISIBLE);
-            //跳转到报价列表详情
-            tv_10.setOnClickListener(v -> {
 
-
-                QuoteListActivity_bak.start2Activity((Activity) context, data.get(position).get("id").toString());
-
-
-            });
+            if (data.get(position).get("quoteCountJson") != null && !data.get(position).get("quoteCountJson").toString().equals("0"))
+                //跳转到报价列表详情
+                tv_10.setOnClickListener(v -> {
+                    QuoteListActivity_bak.start2Activity((Activity) context, data.get(position).get("id").toString());
+                });
         } else {
             tv_10.setVisibility(View.GONE);//没有权限 就不显示  和没有点击事件
         }

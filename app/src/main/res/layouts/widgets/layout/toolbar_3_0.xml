@@ -3,15 +3,16 @@
     android:layout_width="fill_parent"
     android:layout_height="35dp"
     android:background="@color/white">
+
     <TextView
         android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="报价管理"
+        android:text="我的报价"
         android:textColor="@color/main_color"
-        android:textSize="@dimen/x18" />
+        android:textSize="@dimen/x16" />
 
     <ImageView
         android:id="@+id/toolbar_back"
@@ -19,6 +20,6 @@
         android:layout_height="35dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/x10"
-        android:padding="5dp"
+        android:padding="6dp"
         android:src="@drawable/btn_back" />
 </RelativeLayout>

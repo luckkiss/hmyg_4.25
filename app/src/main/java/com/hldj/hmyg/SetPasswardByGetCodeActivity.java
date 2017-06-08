@@ -1,14 +1,5 @@
 package com.hldj.hmyg;
 
-import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -31,6 +22,15 @@ import com.hldj.hmyg.application.MyApplication;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.loginjudge.LoginJudge;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 
 /**
@@ -156,12 +156,10 @@ public class SetPasswardByGetCodeActivity extends NeedSwipeBackActivity {
 	public void onBackPressed() {
 		if (LoginJudge.isTabc) {
 			LoginJudge.isTabc = false;
-			startActivity(new Intent(SetPasswardByGetCodeActivity.this,
-					MainActivity.class));
+			startActivity(new Intent(SetPasswardByGetCodeActivity.this, MainActivity.class));
 			finish();
 		}
 		finish();
-		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 	}
 
 	public class MultipleClickProcess implements OnClickListener {

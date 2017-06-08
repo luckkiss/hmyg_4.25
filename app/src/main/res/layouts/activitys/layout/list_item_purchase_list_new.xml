@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutRoot"
     android:layout_width="fill_parent"
@@ -55,15 +56,15 @@
                     tools:text="jklfasfasfa" />
 
                 <!--<TextView-->
-                    <!--android:id="@+id/tv_ac"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="center_vertical"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:gravity="center"-->
-                    <!--android:singleLine="true"-->
-                    <!--android:textColor="@color/red"-->
-                    <!--android:textSize="14.0sp" />-->
+                <!--android:id="@+id/tv_ac"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:singleLine="true"-->
+                <!--android:textColor="@color/red"-->
+                <!--android:textSize="14.0sp" />-->
             </LinearLayout>
 
             <TextView
@@ -107,6 +108,9 @@
             android:id="@+id/horizontalScrollView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:descendantFocusability="beforeDescendants"
+            android:paddingLeft="8dp"
             android:scrollbars="none"
             android:visibility="visible">
 
@@ -114,8 +118,9 @@
                 android:id="@+id/mobile_flow_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                tools:visibility="gone" />
+                tools:visibility="gone"
+
+                />
         </HorizontalScrollView>
 
 
@@ -127,7 +132,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10.0dip"
+                android:paddingLeft="5.0dip"
                 android:paddingRight="10.0dip">
 
                 <TextView
@@ -140,7 +145,7 @@
                     android:singleLine="true"
                     android:textColor="@color/gray"
                     android:textSize="12.0sp"
-                    tools:text="已有一条品种" />
+                    tools:text="共有一条品种" />
 
                 <TextView
                     android:id="@+id/tv_11"
@@ -166,11 +171,11 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:layout_margin="8dp"
             android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/xuxian"
-            android:layerType="software"
-            android:padding="5dp" />
+            android:layerType="software" />
 
 
         <com.coorchice.library.SuperTextView
@@ -181,11 +186,13 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10.0dip"
-            android:gravity="center_vertical|right"
-            android:paddingBottom="2.5dip"
-            android:paddingLeft="5.0dip"
+            android:drawableLeft="@drawable/sy_sj"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical|start"
+            android:paddingBottom="5dip"
+            android:paddingLeft="10.0dip"
             android:paddingRight="5.0dip"
-            android:paddingTop="2.5dip"
+            android:paddingTop="5dip"
             android:singleLine="true"
             android:textColor="@color/gray"
             android:textSize="12.0sp"

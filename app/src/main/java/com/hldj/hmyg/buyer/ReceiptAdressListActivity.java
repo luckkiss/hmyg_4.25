@@ -1,13 +1,27 @@
 package com.hldj.hmyg.buyer;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import me.drakeet.materialdialog.MaterialDialog;
-import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
-import me.maxwin.view.XListView;
-import me.maxwin.view.XListView.IXListViewListener;
+import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.Data;
+import com.hy.utils.GetServerUrl;
+import com.hy.utils.JsonGetInfo;
+
 import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -17,36 +31,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.WindowManager;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
-import com.hldj.hmyg.ManagerListActivity;
-import com.hldj.hmyg.R;
-import com.hldj.hmyg.adapter.ProductListAdapterForManager;
-import com.hldj.hmyg.application.Data;
-import com.hldj.hmyg.application.MyApplication;
-import com.hldj.hmyg.saler.AddAdressActivity;
-import com.hldj.hmyg.saler.AdressListActivity;
-import com.hy.utils.GetServerUrl;
-import com.hy.utils.JsonGetInfo;
+import me.drakeet.materialdialog.MaterialDialog;
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+import me.maxwin.view.XListView;
+import me.maxwin.view.XListView.IXListViewListener;
 
 public class ReceiptAdressListActivity extends NeedSwipeBackActivity implements
 		IXListViewListener {

@@ -21,6 +21,7 @@ import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.saler.purchase.StoreDeteilDialog;
 import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.D;
+import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
@@ -28,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+
+import static com.zzy.common.widget.MeasureGridView.context;
 
 /**
  * Created by Administrator on 2017/4/26.
@@ -167,8 +170,16 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
 //        firstTypeName = "乔木"
 //        name = "香樟"
         this.item = item;
+
+
         //头部与底部是一样的    这里初始化头部
-        getViewHolder_pur().tv_purchase_name.setText(strFilter("[" + item.firstTypeName + "]" + item.name));
+        StringFormatUtil fillColor = new StringFormatUtil(context, item.name + "  " + item.count + item.unitTypeName, item.count + item.unitTypeName, R.color.red).fillColor();
+        getViewHolder_pur().tv_purchase_name.setText(strFilter(item.name));
+
+//        头部与底部是一样的    这里初始化头部
+//        getViewHolder_pur().tv_purchase_name.setText(strFilter( item.name));
+
+
         getViewHolder_pur().tv_purchase_size.setText(strFilter(item.specText));
         getViewHolder_pur().tv_purchase_type.setText(strFilter(item.plantTypeName));
         getViewHolder_pur().tv_quote_num.setText(strFilter(item.count + item.unitTypeName));
@@ -226,12 +237,27 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
          buyerDatas.add("采购数量：" + count);
          buyerDatas.add("已有报价：" + quoteCountJson + "条");
          */
+
+
         ArrayList<String> buyerDatas = new ArrayList<String>();
         buyerDatas.clear();
         buyerDatas.add("采购商家：" + item.buyer.displayName);
         buyerDatas.add("所在地区：" + item.buyer.ciCode);
         buyerDatas.add("采购数量：" + item.count);
         buyerDatas.add("已有报价：" + item.quoteCountJson + "条");
+
+        WebViewDialogFragment2.StoreInfoBean storeInfoBean = new WebViewDialogFragment2.StoreInfoBean();
+        storeInfoBean.sotreName = item.buyer.displayName;
+        storeInfoBean.inTheCity = item.sellerQuoteJson == null ? "-" : item.sellerQuoteJson.cityName;
+        storeInfoBean.phoneNum = item.buyer.displayPhone;
+        storeInfoBean.itemNum = item.purchaseJson.num;
+        storeInfoBean.priced = item.quoteCountJson + "";
+
+        WebViewDialogFragment2 viewDialogFragment2 = WebViewDialogFragment2.newInstance(storeInfoBean);
+        viewDialogFragment2.show(getSupportFragmentManager(), "hellow world");
+
+
+//        viewDialogFragment2.setInfoBean(storeInfoBean);
 
         StoreDeteilDialog.Builder builder = new StoreDeteilDialog.Builder(
                 PurchaseDetailActivityBase.this);
@@ -259,7 +285,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
                     }
                 });
 
-        builder.create().show();
+//        builder.create().show();
 
     }
 

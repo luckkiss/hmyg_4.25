@@ -58,6 +58,9 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
 
     @Override
     public void InitViews() {
+
+        ((TextView) findViewById(R.id.tv_title)).setText("报价列表");
+
         recycle_quit = (CoreRecyclerView) findViewById(R.id.recycle_quit);
 
         recycle_quit.initView(this)

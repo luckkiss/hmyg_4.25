@@ -37,6 +37,7 @@ public class BPresenter extends BasePresenter {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 ToastUtil.showShortToast("网络错误，数据请求失败");
+                resultCallBack.onFailure(t,errorNo,strMsg);
                 super.onFailure(t, errorNo, strMsg);
             }
         };

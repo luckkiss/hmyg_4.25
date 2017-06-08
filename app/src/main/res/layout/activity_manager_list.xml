@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/y34"
-        android:background="@color/white" >
+        android:layout_height="@dimen/title_top_default"
+        android:background="@color/white">
 
         <TextView
             android:layout_width="wrap_content"
@@ -18,7 +18,7 @@
             android:layout_centerVertical="true"
             android:text="苗木管理"
             android:textColor="@color/main_color"
-            android:textSize="@dimen/x18" />
+            android:textSize="@dimen/titleSize" />
 
         <TextView
             android:id="@+id/id_tv_edit_all"
@@ -37,20 +37,22 @@
 
         <ImageView
             android:id="@+id/iv_search"
-            android:layout_width="@dimen/x24"
-            android:layout_height="@dimen/x24"
+            android:layout_width="@dimen/backWH"
+            android:layout_height="@dimen/backWH"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/x15"
-            android:background="@drawable/ic_sousuo" />
+            android:padding="3dp"
+            android:src="@drawable/ic_sousuo" />
 
         <ImageView
             android:id="@+id/btn_back"
-            android:layout_width="@dimen/x24"
-            android:layout_height="@dimen/x24"
+            android:layout_width="@dimen/backWH"
+            android:layout_height="@dimen/backWH"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/x10"
-            android:background="@drawable/btn_back" />
+            android:padding="3dp"
+            android:src="@drawable/btn_back" />
     </RelativeLayout>
 
     <ImageView
@@ -61,9 +63,10 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/ll_counts_content"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y31"
             android:gravity="center_vertical"
@@ -71,13 +74,13 @@
             android:paddingBottom="@dimen/x7"
             android:paddingLeft="@dimen/x10"
             android:paddingRight="@dimen/x10"
-            android:paddingTop="@dimen/x7" >
+            android:paddingTop="@dimen/x7">
 
             <RelativeLayout
                 android:id="@+id/rl_01"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1" >
+                android:layout_weight="1">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -85,7 +88,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_01"
@@ -97,13 +100,11 @@
                         android:textColor="@color/little_gray"
                         android:textSize="@dimen/y10" />
 
-                    <ImageView
-                        android:layout_width="@dimen/x10"
-                        android:layout_height="@dimen/x10"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:src="@drawable/icon_seller_arrow1"
-                        android:visibility="gone" />
+
+                    <TextView
+                        style="@style/Manager_count_text"
+                        android:text="(10)" />
+
                 </LinearLayout>
             </RelativeLayout>
 
@@ -116,7 +117,7 @@
                 android:id="@+id/rl_02"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1" >
+                android:layout_weight="1">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -124,7 +125,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_02"
@@ -136,14 +137,9 @@
                         android:textColor="@color/little_gray"
                         android:textSize="@dimen/y10" />
 
-                    <ImageView
-                        android:id="@+id/iv_seller_arrow2"
-                        android:layout_width="@dimen/x10"
-                        android:layout_height="@dimen/x10"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:src="@drawable/icon_seller_arrow1"
-                        android:visibility="gone" />
+                    <TextView
+                        style="@style/Manager_count_text"
+                        android:text="(10)" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -156,7 +152,7 @@
                 android:id="@+id/rl_03"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1" >
+                android:layout_weight="1">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -164,7 +160,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_03"
@@ -176,14 +172,9 @@
                         android:textColor="@color/little_gray"
                         android:textSize="@dimen/y10" />
 
-                    <ImageView
-                        android:id="@+id/iv_seller_arrow3"
-                        android:layout_width="@dimen/x10"
-                        android:layout_height="@dimen/x10"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:src="@drawable/icon_seller_arrow1"
-                        android:visibility="gone" />
+                    <TextView
+                        style="@style/Manager_count_text"
+                        android:text="(10)" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -196,7 +187,7 @@
                 android:id="@+id/rl_04"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1" >
+                android:layout_weight="1">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -204,7 +195,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_04"
@@ -216,13 +207,9 @@
                         android:textColor="@color/little_gray"
                         android:textSize="@dimen/y10" />
 
-                    <ImageView
-                        android:layout_width="@dimen/x10"
-                        android:layout_height="@dimen/x10"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:src="@drawable/icon_seller_arrow1"
-                        android:visibility="gone" />
+                    <TextView
+                        style="@style/Manager_count_text"
+                        android:text="(10)" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -235,7 +222,7 @@
                 android:id="@+id/rl_05"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1" >
+                android:layout_weight="1">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -243,7 +230,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_05"
@@ -255,13 +242,9 @@
                         android:textColor="@color/little_gray"
                         android:textSize="@dimen/y10" />
 
-                    <ImageView
-                        android:layout_width="@dimen/x10"
-                        android:layout_height="@dimen/x10"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:src="@drawable/icon_seller_arrow1"
-                        android:visibility="gone" />
+                    <TextView
+                        style="@style/Manager_count_text"
+                        android:text="(10)" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -274,7 +257,7 @@
                 android:id="@+id/rl_06"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1" >
+                android:layout_weight="1">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -282,7 +265,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_06"
@@ -294,13 +277,9 @@
                         android:textColor="@color/little_gray"
                         android:textSize="@dimen/y10" />
 
-                    <ImageView
-                        android:layout_width="@dimen/x10"
-                        android:layout_height="@dimen/x10"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:src="@drawable/icon_seller_arrow1"
-                        android:visibility="gone" />
+                    <TextView
+                        style="@style/Manager_count_text"
+                        android:text="(10)" />
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
@@ -320,14 +299,13 @@
             app:textPaddingBottom="3dp"
             app:textPaddingLeft="10dp"
             app:textPaddingRight="10dp"
-            app:textPaddingTop="3dp" >
-        </me.kaede.tagview.TagView>
+            app:textPaddingTop="3dp"></me.kaede.tagview.TagView>
 
         <LinearLayout
             android:id="@+id/ll_data"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <me.maxwin.view.XListView
                 android:id="@+id/xlistView"

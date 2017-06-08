@@ -382,19 +382,41 @@
 
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
         <item name="android:windowIsTranslucent">true</item>
-
         <!-- 设置activity切换动画 -->
         <item name="android:windowAnimationStyle">@style/activityAnimation</item>
-
     </style>
 
 
     <!-- animation 样式 -->
     <style name="activityAnimation" parent="@android:style/Animation">
+        <!--<item name="android:windowEnterTransition">@anim/slide_in_left</item>-->
+        <!--<item name="android:windowExitTransition">@anim/slide_right_out</item>-->
+
+        <!--100  打开的界面 进入动画   0-->
+        <!--当我们从 A1 启动 A2 时，A2 出现在屏幕上，这个动画叫做 android:activityOpenEnterAnimation-->
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>
-        <item name="android:activityOpenExitAnimation">@anim/slide_left_out</item>
-        <item name="android:activityCloseEnterAnimation">@anim/slide_in_right</item>
-        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+
+        <!--50    当前界面消失   -50 -->
+        <!--当我们从 A1 启动 A2 时，A1 从屏幕上消失，这个动画叫做 android:activityOpenExitAnimation-->
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_right</item>
+        <!--<item name="android:activityOpenExitAnimation">@anim/slide_right_out</item>-->
+        <!--<item name="android:activityCloseEnterAnimation">@anim/slide_left_out</item>-->
+        <!--<item name="android:activityCloseExitAnimation">@anim/slide_in_left</item> -->
+
+
+        <!-- 0   当前界面再次出现  100-->
+        <!--当我们从 A2 退出回到 A1 时，A2 从屏幕上消失，这个叫做 android:activityCloseExitAnimation-->
+        <item name="android:activityCloseExitAnimation">@anim/slide_in_right_new_back</item>
+
+        <!--  -100     0  -->
+        <!--当我们从 A2 退出回到 A1 时，A1 出现在屏幕上，这个叫做 android:activityCloseEnterAnimatio-->
+        <item name="android:activityCloseEnterAnimation">@anim/slide_out_right_new</item>
+
+        <!--activityOpenEnterAnimation // 用于设置打开新的Activity并进入新的Activity展示的动画-->
+        <!--activityOpenExitAnimation  // 用于设置打开新的Activity并销毁之前的Activity展示的动画-->
+        <!--activityCloseEnterAnimation  // 用于设置关闭当前Activity进入上一个Activity展示的动画-->
+        <!--activityCloseExitAnimation  // 用于设置关闭当前Activity时展示的动画-->
+
     </style>
 
 
@@ -695,7 +717,7 @@
     </style>
 
 
-    <style name="AppTheme.Base"   parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
 
     </style>
 
@@ -717,6 +739,15 @@
         <item name="cardCornerRadius">2dp</item>
         <item name="cardBackgroundColor">@color/white</item>
         <item name="cardElevation">1dp</item>
+    </style>
+
+
+    <style name="Manager_count_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">@dimen/y6</item>
+        <item name="android:tag">"tag"</item>
     </style>
 
 

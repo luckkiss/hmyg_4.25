@@ -259,7 +259,7 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
         ll_choice = (LinearLayout) findViewById(R.id.ll_choice);
         tv_sorts = (TextView) findViewById(R.id.tv_sorts);
 
-        mainView =  findViewById(R.id.mainView);
+        mainView = findViewById(R.id.mainView);
         xListView = (XListView) findViewById(R.id.xlistView);
         xListView.setDivider(null);
         xListView.setPullLoadEnable(true);
@@ -1741,13 +1741,23 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
     private void showWebViewDialog(String quoteDesc) {
 
 
-        if (webViewDialogFragment == null) {
+        try {
 
-//            webViewDialogFragment = new WebViewDialogFragment();
-            webViewDialogFragment = WebViewDialogFragment.newInstance(quoteDesc);
-            webViewDialogFragment.show(getSupportFragmentManager(), this.getClass().getName());
-        } else {
-            webViewDialogFragment.show(getSupportFragmentManager(), this.getClass().getName());
+            if (StorePurchaseListActivity.this.isFinishing()) {
+                return;
+            }
+
+            if (webViewDialogFragment == null) {
+
+                //            webViewDialogFragment = new WebViewDialogFragment();
+                webViewDialogFragment = WebViewDialogFragment.newInstance(quoteDesc);
+                webViewDialogFragment.show(getSupportFragmentManager(), this.getClass().getName());
+            } else {
+                webViewDialogFragment.show(getSupportFragmentManager(), this.getClass().getName());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            D.e("======e==========" + e.getMessage());
         }
 
 

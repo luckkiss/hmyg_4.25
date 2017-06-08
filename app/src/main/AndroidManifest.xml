@@ -118,6 +118,7 @@
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@style/AppBaseTheme">
+        <!--<item name="android:windowAnimationStyle">@style/activityAnimation</item>-->
         <!--xmlns:tools="http://schemas.android.com/tools"  tools:replace="android:icon, android:theme  "-->
         <activity
             android:name="com.example.sortlistview.ActivityAddFriends"
@@ -185,7 +186,7 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.WebActivity"
-            android:launchMode="singleTask"
+            android:launchMode="standard"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.SeedlingMarketWebActivity"
@@ -361,7 +362,8 @@
         <activity
             android:name="com.hldj.hmyg.SetProfileActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name="com.hldj.hmyg.SetPasswardActivity"
             android:launchMode="singleTask"

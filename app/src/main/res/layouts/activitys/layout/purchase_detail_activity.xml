@@ -11,11 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <View
-            style="@style/View_line_gray"
-            android:background="@color/white" />
 
-        <View style="@style/View_line_green" />
 
         <include layout="@layout/include_top_pur_detail" />
 

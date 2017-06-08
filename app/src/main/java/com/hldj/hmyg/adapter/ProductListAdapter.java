@@ -221,7 +221,8 @@ public class ProductListAdapter extends BaseAdapter {
             boolean isNego = (boolean) data.get(position).get("isNego");
             String minPrice = data.get(position).get("minPrice") + "";
             String maxPrice = data.get(position).get("maxPrice") + "";
-            setPrice(childHolder.tv_07, maxPrice, minPrice, isNego);
+            childHolder.tv_08.setText("  /"  + data.get(position).get("unitTypeName"));
+            setPrice(childHolder.tv_07, maxPrice, minPrice, isNego,childHolder.tv_08);
 //        if (TextUtils.isEmpty(maxPrice) && TextUtils.isEmpty(minPrice)) {
 //            childHolder.tv_07.setText(minPrice + "-" + maxPrice);
 //        } else {
@@ -232,8 +233,7 @@ public class ProductListAdapter extends BaseAdapter {
 //        childHolder.tv_07.setText(ValueGetInfo.doubleTrans1(Double.parseDouble(data.get(position).get("price").toString())));
 
 
-            childHolder.tv_08.setText("  /"
-                    + data.get(position).get("unitTypeName").toString());
+
             childHolder.tv_09.setText("库存：" + data.get(position).get("count").toString());
             fb.display(childHolder.iv_img, data.get(position).get("imageUrl")
                     .toString());
@@ -272,10 +272,13 @@ public class ProductListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public static void setPrice(TextView tv_07, String maxPrice, String minPrice, boolean isNego) {
+    public static void setPrice(TextView tv_07, String maxPrice, String minPrice, boolean isNego, TextView tv_unit) {
         String price = "";
         if (isNego) {
+
             tv_07.setText("面议");
+            if (tv_unit != null)
+            tv_unit.setVisibility(View.GONE);
         } else {
             if (!isPriceNull(minPrice) && !isPriceNull(maxPrice)) {
                 price = "￥" + minPrice + "-" + maxPrice;
@@ -286,6 +289,11 @@ public class ProductListAdapter extends BaseAdapter {
             } else {
                 price = "面议";
             }
+
+            if (tv_unit != null && price.equals("面议")) {
+                tv_unit.setVisibility(View.GONE);
+            }
+
             tv_07.setText(price);
         }
     }

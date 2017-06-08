@@ -26,7 +26,7 @@ import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
-import com.hldj.hmyg.saler.StoreSettingActivity;
+import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.SPUtil;
 import com.hldj.hmyg.util.SPUtils;
@@ -94,10 +94,8 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         LinearLayout ll_05 = (LinearLayout) findViewById(R.id.ll_05);
         newMsgAlertStatusOnOff = (SlipButton) findViewById(R.id.newMsgAlertStatusOnOff);
         SlipButton receiptMsg = (SlipButton) findViewById(R.id.receiptMsg);
-        newMsgAlertStatusOnOff.setCheck(MyApplication.Userinfo.getBoolean(
-                "notification", false));
-        receiptMsg.setCheck(MyApplication.Userinfo.getBoolean("receiptMsg",
-                true));
+        newMsgAlertStatusOnOff.setCheck(MyApplication.Userinfo.getBoolean("notification", true));
+        receiptMsg.setCheck(MyApplication.Userinfo.getBoolean("receiptMsg", true));
         try {
             PackageManager packageManager = getPackageManager();
             PackageInfo packageInfo = packageManager.getPackageInfo(
@@ -128,8 +126,10 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                 e.commit();
                 if (checkState) {
                     JPushInterface.resumePush(getApplicationContext());
+//                    putSpB("notification", true);
                 } else {
                     JPushInterface.stopPush(getApplicationContext());
+//                    putSpB("notification", false);
                 }
                 break;
             case R.id.receiptMsg:
@@ -424,7 +424,6 @@ public class SettingActivity extends NeedSwipeBackActivity implements
     }
 
 
-
     public class MultipleClickProcess implements OnClickListener {
         private boolean flag = true;
 
@@ -450,8 +449,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                         toWebActivity3.putExtra("title", "帮助中心");
                         toWebActivity3.putExtra("url", Data.helpIndex);
                         startActivityForResult(toWebActivity3, 1);
-                        overridePendingTransition(R.anim.slide_in_left,
-                                R.anim.slide_out_right);
+                        overridePendingTransition_open();
                         break;
                     case R.id.ll_04:
                         Intent toWebActivity4 = new Intent(SettingActivity.this,
@@ -459,8 +457,8 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                         toWebActivity4.putExtra("title", "关于我们");
                         toWebActivity4.putExtra("url", Data.About);
                         startActivityForResult(toWebActivity4, 1);
-                        overridePendingTransition(R.anim.slide_in_left,
-                                R.anim.slide_out_right);
+//                        overridePendingTransition_open();
+
                         break;
                     case R.id.ll_05:
                         // getUpDateInfo();
@@ -486,7 +484,6 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                         D.e("===" + SPUtil.get(SettingActivity.this, SPUtils.UserBean, "").toString());
 
                         D.e("====" + MyApplication.getUserBean());
-
 
                         finish();
                         MainActivity.toA();

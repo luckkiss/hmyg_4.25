@@ -3,7 +3,6 @@ package com.hldj.hmyg.saler.Ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,13 +24,13 @@ import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
 import static com.hldj.hmyg.buyer.weidet.BaseQuickAdapter.SCALEIN;
+import static com.hldj.hmyg.saler.Ui.Fragment1.setStatus;
 
 /**
  * Created by Administrator on 2017/5/2.
  */
 
 public class Fragment2 extends Fragment {
-
 
 
     private CoreRecyclerView recyclerView;
@@ -75,8 +74,9 @@ public class Fragment2 extends Fragment {
                 helper.setText(R.id.tv_fr_item_plant_name, item.purchaseJson.name);
                 helper.setText(R.id.tv_fr_item_company_name, item.purchaseJson.buyer.displayName);
                 helper.setText(R.id.tv_fr_item_company_addr_name, item.purchaseJson.cityName);
-                helper.setText(R.id.tv_fr_item_price, item.price);
+                helper.setText(R.id.tv_fr_item_price, "￥"+item.price);
                 helper.setText(R.id.tv_fr_item_specText, item.getSpecText());
+                helper.setText(R.id.stv_fragment_time, "日期：" + item.attrData.createDate);
 
                 setStatus(helper, item.getStatus());//通过状态设置背景颜色
                 helper.addOnClickListener(R.id.cv_root, v -> {
@@ -95,25 +95,6 @@ public class Fragment2 extends Fragment {
         return recyclerView;
     }
 
-    private void setStatus(BaseViewHolder helper, String status) {
-
-
-        if (TextUtils.isEmpty(status)) {
-            helper.setVisible(R.id.tv_fr_item_state, false);
-        } else if (status.equals("unused")) {
-            helper.setVisible(R.id.tv_fr_item_state, true);
-            helper.setText(R.id.tv_fr_item_state, "未中标");
-            helper.setBackgroundColor(R.id.tv_fr_item_state, getResources().getColor(R.color.orange));
-        } else if (status.equals("used")) {
-            helper.setVisible(R.id.tv_fr_item_state, true);
-            helper.setText(R.id.tv_fr_item_state, "已中标");
-            helper.setBackgroundColor(R.id.tv_fr_item_state, getResources().getColor(R.color.main_color));
-        } else {
-            helper.setVisible(R.id.tv_fr_item_state, false);
-        }
-
-    }
-
 
     @Override
     public void onDestroyView() {
@@ -122,8 +103,6 @@ public class Fragment2 extends Fragment {
             ((ViewGroup) view.getParent()).removeView(view); //从父容器中移除，避免重复添加
         super.onDestroyView();
     }
-
-
 
 
     private void initData(int pageIndex) {

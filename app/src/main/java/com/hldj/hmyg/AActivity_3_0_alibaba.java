@@ -2,6 +2,8 @@ package com.hldj.hmyg;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,9 +34,11 @@ import com.hldj.hmyg.M.IndexGsonBean;
 import com.hldj.hmyg.Ui.NewsActivity;
 import com.hldj.hmyg.Ui.NoticeActivity;
 import com.hldj.hmyg.Ui.NoticeActivity_detail;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.ArticleBean;
 import com.hldj.hmyg.bean.HomeStore;
+import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.contract.AAliContract;
 import com.hldj.hmyg.model.AAliModel;
@@ -82,21 +86,30 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
     @Override
     public void initView() {
 
+        getViewHolder().tv_a_search.setOnClickListener(view -> {
+            Intent intent = new Intent(AActivity_3_0_alibaba.this, PurchaseSearchListActivity.class);
+            intent.putExtra("from", "AActivity");
+            startActivityForResult(intent, 1);
+        });
+        getViewHolder().iv_a_msg.setOnClickListener(view -> {
+            if (!MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {//没有登录跳转到登录界面
+                LoginActivity.start2Activity(this);
+                return;
+            }
+            Intent toMessageListActivity = new Intent(AActivity_3_0_alibaba.this, MessageListActivity.class);
+        });
+
 
         getViewHolder().al_refresh_swip.setOnRefreshListener(() -> {
-            ToastUtil.showShortToast("refresh");
+//            ToastUtil.showShortToast("refresh");
             new Handler()
                     .postDelayed(new TimerTask() {
                         @Override
                         public void run() {
-
                             mPresenter.getData("params+url");//view 层请求数据
                             getViewHolder().al_refresh_swip.setRefreshing(false);
-
                         }
                     }, 2000);
-
-
         });
 
     }
@@ -182,6 +195,10 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
         adapters.add(new DelegateAdapter.Adapter<BaseViewHolder>() {
             @Override
             public LayoutHelper onCreateLayoutHelper() {
+//                LinearLayoutHelper layoutHelper = new LinearLayoutHelper();
+//                layoutHelper.setPadding(0, 0, 0, 18);
+//                layoutHelper.setBgColor(ContextCompat.getColor(mContext, R.color.gray_bg_ed));
+
                 return new LinearLayoutHelper();
             }
 
@@ -210,7 +227,12 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
         adapters.add(new DelegateAdapter.Adapter<BaseViewHolder>() {
             @Override
             public LayoutHelper onCreateLayoutHelper() {
-                return new LinearLayoutHelper();
+
+                LinearLayoutHelper layoutHelper = new LinearLayoutHelper();
+                layoutHelper.setPadding(0, 0, 0, 18);
+                layoutHelper.setBgColor(ContextCompat.getColor(mContext, R.color.gray_bg_ed));
+                layoutHelper.setDividerHeight(18);
+                return layoutHelper;
             }
 
             @Override
@@ -272,9 +294,12 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
 
             @Override
             public void onBindViewHolder(BaseViewHolder holder, int position) {
+                holder.convertView.setBackgroundColor(Color.WHITE);
                 UPMarqueeView mUPMarqueeView = holder.getView(upview1);
                 //设置滚动的单个布局
                 LinearLayout moreView = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_home_cjgg, null);
+
+
                 mUPMarqueeView.setViews(getViewsByDatas(getmIndexGsonBean().data.articleList));
             }
 
@@ -618,8 +643,8 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
             //设置滚动的单个布局
             LinearLayout moreView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_home_cjgg, null);
             //初始化布局的控件
-            TextView tv1 = (TextView) moreView.findViewById(R.id.tv_taggle1);
-            TextView tv2 = (TextView) moreView.findViewById(R.id.tv_taggle2);
+            SuperTextView tv1 = (SuperTextView) moreView.findViewById(R.id.tv_taggle1);
+            SuperTextView tv2 = (SuperTextView) moreView.findViewById(R.id.tv_taggle2);
             /**
              * 设置监听
              */
@@ -638,9 +663,26 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
             });
             //进行对控件赋值
             tv1.setText(data.get(i).title);
+
+            if (data.get(i).isNew) {
+                tv1.setShowState(data.get(i).isNew);
+                tv1.setPadding(MyApplication.dp2px(AActivity_3_0_alibaba.this, 40), 0, 0, 0);
+            } else {
+                tv1.setPadding(10, 0, 0, 0);
+                tv1.setShowState(data.get(i).isNew);
+            }
+
             if (data.size() > i + 1) {
                 //因为淘宝那儿是两条数据，但是当数据是奇数时就不需要赋值第二个，所以加了一个判断，还应该把第二个布局给隐藏掉
                 tv2.setText(data.get(i + 1).title);
+
+                if (data.get(i + 1).isNew) {
+                    tv2.setShowState(true);
+                    tv2.setPadding(MyApplication.dp2px(AActivity_3_0_alibaba.this, 40), 0, 0, 0);
+                } else {
+                    tv2.setPadding(10, 0, 0, 0);
+                    tv2.setShowState(false);
+                }
             } else {
                 moreView.findViewById(R.id.tv_taggle2).setVisibility(View.GONE);
             }

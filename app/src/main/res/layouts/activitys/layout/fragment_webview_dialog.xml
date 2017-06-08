@@ -20,6 +20,11 @@
             android:text="报价说明"
             android:textColor="@color/main_color" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray_bg_ed" />
+
         <WebView
             android:id="@+id/webview_show_quite_detail"
             android:layout_width="match_parent"

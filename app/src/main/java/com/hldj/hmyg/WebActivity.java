@@ -159,12 +159,14 @@ public class WebActivity extends NeedSwipeBackActivity {
                         if (webview.canGoBack()) {
                             webview.goBack(); // goBack()表示返回WebView的上一页面
                         } else {
-                            onBackPressed();
+                            finish();
+//                            overridePendingTransition_back();
                         }
 
                         break;
                     case R.id.guanbi:
                         finish();
+//                        overridePendingTransition_open();
                         break;
                     default:
                         break;

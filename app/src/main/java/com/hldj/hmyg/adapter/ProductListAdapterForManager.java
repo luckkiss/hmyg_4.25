@@ -4,29 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.weixin_friendcircle.ActionItem;
-import com.example.weixin_friendcircle.TitlePopup;
-import com.example.weixin_friendcircle.TitlePopup.OnItemOnClickListener;
-import com.example.weixin_friendcircle.Util;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.Data;
-import com.hy.utils.GetServerUrl;
-import com.hy.utils.JsonGetInfo;
 
 import net.tsz.afinal.FinalBitmap;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +27,6 @@ public class ProductListAdapterForManager extends BaseAdapter {
     private Context context = null;
     private FinalBitmap fb;
 
-    private ImageView iv_like;
 
     public ProductListAdapterForManager(Context context,
                                         ArrayList<HashMap<String, Object>> data) {
@@ -68,82 +53,22 @@ public class ProductListAdapterForManager extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        View inflate = LayoutInflater.from(context).inflate(
-                R.layout.manager_group_list_item_parent_o, null);
+        View inflate = LayoutInflater.from(context).inflate(R.layout.list_view_seedling_new, null);
         ImageView iv_img = (ImageView) inflate.findViewById(R.id.iv_img);
-        iv_like = (ImageView) inflate.findViewById(R.id.iv_like);
-        iv_like.setVisibility(View.GONE);
-        TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);
-        TextView tv_02 = (TextView) inflate.findViewById(R.id.tv_02);
-        TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);
-        TextView tv_04 = (TextView) inflate.findViewById(R.id.tv_04);
+
+        TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);//小图标
+        TextView tv_02 = (TextView) inflate.findViewById(R.id.tv_02);//名字
+
+        TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);//米径：15 高度：500 冠幅：400
+        TextView tv_right_top = (TextView) inflate.findViewById(R.id.tv_right_top);//
+        TextView tv_04 = (TextView) inflate.findViewById(R.id.tv_04);//苗源地：134
 //		TextView tv_04_1 = (TextView) inflate.findViewById(R.id.tv_04_1);//多出一个 -1
         TextView tv_05 = (TextView) inflate.findViewById(R.id.tv_05);
-        TextView tv_06 = (TextView) inflate.findViewById(R.id.tv_06);
+        TextView tv_06 = (TextView) inflate.findViewById(R.id.tv_06);//发布人：河南基地
         TextView tv_07 = (TextView) inflate.findViewById(R.id.tv_07);
         TextView tv_08 = (TextView) inflate.findViewById(R.id.tv_08);
         TextView tv_09 = (TextView) inflate.findViewById(R.id.tv_09);
-//        TextView tv_floorPrice = (TextView) inflate
-//                .findViewById(R.id.tv_floorPrice);
-//        RelativeLayout rl_floorPrice = (RelativeLayout) inflate
-//                .findViewById(R.id.rl_floorPrice);
-//        TextView tv_status_01 = (TextView) inflate
-//                .findViewById(R.id.tv_status_01);
-//        TextView tv_status_02 = (TextView) inflate
-//                .findViewById(R.id.tv_status_02);
-//        TextView tv_status_03 = (TextView) inflate
-//                .findViewById(R.id.tv_status_03);
-//        TextView tv_status_04 = (TextView) inflate
-//                .findViewById(R.id.tv_status_04);
-//        TextView tv_status_05 = (TextView) inflate
-//                .findViewById(R.id.tv_status_05);
 
-//        ImageView sc_ziying = (ImageView) inflate.findViewById(R.id.sc_ziying);
-//        ImageView sc_fuwufugai = (ImageView) inflate
-//                .findViewById(R.id.sc_fuwufugai);
-//        ImageView sc_hezuoshangjia = (ImageView) inflate
-//                .findViewById(R.id.sc_hezuoshangjia);
-//        ImageView sc_huodaofukuan = (ImageView) inflate
-//                .findViewById(R.id.sc_huodaofukuan);
-//        if (data.get(position).get("tagList").toString().contains(Data.ZIYING)) {
-//            sc_ziying.setVisibility(View.VISIBLE);
-//        }
-//        if (data.get(position).get("tagList").toString().contains(Data.FUWU)) {
-//            sc_fuwufugai.setVisibility(View.VISIBLE);
-//        }
-//        if (data.get(position).get("tagList").toString()
-//                .contains(Data.HEZUOSHANGJIA)) {
-//            sc_hezuoshangjia.setVisibility(View.VISIBLE);
-//        }
-//        if (data.get(position).get("tagList").toString()
-//                .contains(Data.ZIJINDANBAO)) {
-//            sc_huodaofukuan.setVisibility(View.VISIBLE);
-//        }
-
-//        if (data.get(position).get("isSelfSupport").toString().contains("true")) {
-//            tv_status_01.setVisibility(View.VISIBLE);
-//        }
-//        if (data.get(position).get("freeValidatePrice").toString()
-//                .contains("true")) {
-//            tv_status_02.setVisibility(View.VISIBLE);
-//        }
-//        if (data.get(position).get("cashOnDelivery").toString()
-//                .contains("true")) {
-//            tv_status_03.setVisibility(View.VISIBLE);
-//        }
-//        if (data.get(position).get("freeDeliveryPrice").toString()
-//                .contains("true")) {
-//            tv_status_04.setVisibility(View.VISIBLE);
-//        }
-//        if (data.get(position).get("freeValidate").toString().contains("true")) {
-//            tv_status_05.setVisibility(View.VISIBLE);
-//        }
-
-        if (data.get(position).get("isRecommend").toString().contains("true")) {
-            iv_like.setImageResource(R.drawable.tuijian_lv);
-        } else {
-            iv_like.setImageResource(R.drawable.tuijian_hui);
-        }
 
         if (data.get(position).get("plantType").toString().contains("planted")) {
             tv_01.setBackgroundResource(R.drawable.icon_seller_di);
@@ -160,39 +85,32 @@ public class ProductListAdapterForManager extends BaseAdapter {
             tv_01.setVisibility(View.GONE);
         }
 
-        if ("manage_list"
-                .equals(data.get(position).get("show_type").toString())) {
+        if ("manage_list".equals(data.get(position).get("show_type").toString())) {
 
-//            rl_floorPrice.setVisibility(View.VISIBLE);
-//            if (data.get(position).get("floorPrice") != null) {
-//                tv_floorPrice.setText("底价："
-//                        + ValueGetInfo.doubleTrans1(Double.parseDouble(data.get(position).get("floorPrice").toString())));
-//            }
-//            if (MyApplication.Userinfo.getBoolean("isDirectAgent", false)) {
-//                tv_floorPrice.setVisibility(View.VISIBLE);
-//            } else {
-//                tv_floorPrice.setVisibility(View.INVISIBLE);
-//            }
             if ("unaudit".equals(data.get(position).get("status").toString())) {//审核中
-                tv_03.setTextColor(Data.STATUS_ORANGE);//审核中
+                tv_right_top.setTextColor(Data.STATUS_ORANGE);//审核中
             } else if ("published".equals(data.get(position).get("status")//已发布
                     .toString())) {
-                tv_03.setTextColor(Data.STATUS_STROGE_GREEN);
+                tv_right_top.setTextColor(Data.STATUS_STROGE_GREEN);
                 // iv_like.setVisibility(View.VISIBLE);
                 // 暂时将设置推荐功能苗木隐藏
             } else if ("outline".equals(data.get(position).get("status")//已下架
                     .toString())) {
-                tv_03.setTextColor(Data.STATUS_GREEN);
+                tv_right_top.setTextColor(Data.STATUS_GREEN);
             } else if ("backed".equals(data.get(position).get("status")//被退回
                     .toString())) {
-                tv_03.setTextColor(Data.STATUS_RED);
+                tv_right_top.setTextColor(Data.STATUS_RED);
             } else if ("unsubmit".equals(data.get(position).get("status")//未提交
                     .toString())) {
-                tv_03.setTextColor(Data.STATUS_BLUE);
+                tv_right_top.setTextColor(Data.STATUS_BLUE);
             }
-            tv_03.setText(data.get(position).get("statusName").toString());
-            tv_05.setText("苗源地址："
-                    + data.get(position).get("detailAddress").toString());
+            tv_right_top.setVisibility(View.VISIBLE);
+
+
+            tv_right_top.setText(data.get(position).get("statusName").toString());
+
+            tv_04.setText("苗源地址：" + data.get(position).get("detailAddress").toString());
+
             if (data.get(position).get("closeDate").toString().length() > 10) {
                 tv_06.setText("下架日期："
                         + data.get(position).get("closeDate").toString().substring(0, 10));
@@ -200,89 +118,25 @@ public class ProductListAdapterForManager extends BaseAdapter {
                 tv_06.setText("下架日期："
                         + data.get(position).get("closeDate").toString());
             }
-        } else if ("seedling_list".equals(data.get(position).get("show_type")
-                .toString())) {
-            tv_05.setText("地区：" + data.get(position).get("fullName").toString());
-            if (!"".equals(data.get(position).get("companyName").toString())) {
-                tv_06.setText("发布人："
-                        + data.get(position).get("companyName").toString());
-            } else if ("".equals(data.get(position).get("companyName")
-                    .toString())
-                    && !"".equals(data.get(position).get("publicName")
-                    .toString())) {
-                tv_06.setText("发布人："
-                        + data.get(position).get("publicName").toString());
-            } else if ("".equals(data.get(position).get("companyName")
-                    .toString())
-                    && "".equals(data.get(position).get("publicName")
-                    .toString())) {
-                tv_06.setText("发布人："
-                        + data.get(position).get("realName").toString());
-            }
         }
 
+
         tv_02.setText(data.get(position).get("name").toString());
-        tv_04.setText(data.get(position).get("specText").toString());
+
+        tv_03.setText(data.get(position).get("specText").toString());
 //		tv_04_1.setText(data.get(position).get("specText").toString());
         String minPrice = data.get(position).get("minPrice") + "";
         String maxPrice = data.get(position).get("maxPrice") + "";
 
 
         boolean isNego = (boolean) data.get(position).get("isNego");
-        ProductListAdapter.setPrice(tv_07,maxPrice,minPrice,isNego);
-
-//        if (!TextUtils.isEmpty(minPrice) && !TextUtils.isEmpty(maxPrice)) {
-//            String min_max_price = minPrice + "-" + maxPrice;
-//            tv_07.setText(min_max_price);
-//        } else {
-//            tv_07.setText("面议");
-//        }
 
 
-        tv_08.setText("/" + data.get(position).get("unitTypeName").toString());
-        tv_09.setText(data.get(position).get("count").toString()
-                + data.get(position).get("unitTypeName").toString());
+        tv_08.setText("/" + data.get(position).get("unitTypeName"));
+        ProductListAdapter.setPrice(tv_07, maxPrice, minPrice, isNego, tv_08);
+        tv_09.setText("库存：" + data.get(position).get("count"));
         fb.display(iv_img, data.get(position).get("imageUrl").toString());
-        iv_like.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-
-                TitlePopup titlePopup = new TitlePopup(context, Util.dip2px(
-                        context, 165), Util.dip2px(context, 30));
-                if (data.get(position).get("isRecommend").toString()
-                        .contains("true")) {
-                    titlePopup.addAction(new ActionItem(context, "取消推荐苗木",
-                            R.drawable.circle_praise));
-                } else {
-                    titlePopup.addAction(new ActionItem(context, "设为推荐苗木",
-                            R.drawable.circle_praise));
-                }
-                titlePopup.addAction(new ActionItem(context, "赞",
-                        R.drawable.circle_praise));
-                titlePopup.setAnimationStyle(R.style.cricleBottomAnimation);
-                titlePopup.show(v);
-                titlePopup.setItemOnClickListener(new OnItemOnClickListener() {
-
-                    @Override
-                    public void onItemClick(ActionItem item, int popo_position) {
-                        // TODO Auto-generated method stub
-                        if (data.get(position).get("isRecommend").toString()
-                                .contains("true")) {
-                            HashMap<String, Object> hashMap = data
-                                    .get(position);
-                            iv_like.setImageResource(R.drawable.tuijian_lv);
-                        } else {
-                            iv_like.setImageResource(R.drawable.tuijian_hui);
-                        }
-                        setRecommend(data.get(position).get("id").toString());
-
-                    }
-                });
-
-            }
-
-        });
 
         return inflate;
     }
@@ -302,55 +156,6 @@ public class ProductListAdapterForManager extends BaseAdapter {
             OnGoodsCheckedChangeListener onGoodsCheckedChangeListener) {
         this.onGoodsCheckedChangeListener = onGoodsCheckedChangeListener;
     }
-
-    private void setRecommend(final String id) {
-        // TODO Auto-generated method stub
-        FinalHttp finalHttp = new FinalHttp();
-        GetServerUrl.addHeaders(finalHttp, true);
-        AjaxParams params = new AjaxParams();
-        params.put("id", id);
-        finalHttp.post(GetServerUrl.getUrl() + "admin/seedling/setRecommend",
-                params, new AjaxCallBack<Object>() {
-
-                    @Override
-                    public void onSuccess(Object t) {
-                        // TODO Auto-generated method stub
-                        try {
-                            JSONObject jsonObject = new JSONObject(t.toString());
-                            String code = JsonGetInfo.getJsonString(jsonObject,
-                                    "code");
-                            String msg = JsonGetInfo.getJsonString(jsonObject,
-                                    "msg");
-                            if (!"".equals(msg)) {
-                                Toast.makeText(context, msg, Toast.LENGTH_SHORT)
-                                        .show();
-                            }
-                            if ("1".equals(code)) {
-
-                                onGoodsCheckedChangeListener
-                                        .onGoodsCheckedChange(id, true);
-                            } else {
-
-                            }
-
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                        super.onSuccess(t);
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t, int errorNo,
-                                          String strMsg) {
-                        // TODO Auto-generated method stub
-                        super.onFailure(t, errorNo, strMsg);
-                    }
-
-                });
-
-    }
-
 
 
 }

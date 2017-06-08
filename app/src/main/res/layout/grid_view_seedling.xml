@@ -17,19 +17,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingLeft="3dp">
 
-            <com.neopixl.pixlui.components.textview.TextView
-                android:id="@+id/tv_03"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:gravity="center_vertical"
-                android:singleLine="true"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/y8"
-                tools:text="fjlsjfl" />
 
             <LinearLayout
                 android:id="@+id/ll_left"
@@ -49,7 +39,7 @@
                     android:text="12346"
                     android:textSize="@dimen/y9" />
 
-                <com.neopixl.pixlui.components.textview.TextView
+                <TextView
                     android:id="@+id/tv_02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -57,6 +47,7 @@
                     android:gravity="center_vertical"
                     android:maxEms="5"
                     android:singleLine="true"
+                    android:text="1314646"
                     android:textColor="@color/main_color"
                     android:textSize="@dimen/y9" />
             </LinearLayout>
@@ -64,7 +55,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingLeft="3dp">
 
             <com.neopixl.pixlui.components.textview.TextView
                 android:id="@+id/tv_07"
@@ -73,9 +65,9 @@
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
                 android:singleLine="true"
+                android:text="hellow world "
                 android:textColor="#FA0000"
-                android:textSize="@dimen/y10"
-                tools:text="hellow world " />
+                android:textSize="@dimen/y10" />
 
             <com.neopixl.pixlui.components.textview.TextView
                 android:id="@+id/tv_09"
@@ -99,6 +91,24 @@
                 android:singleLine="true"
                 android:textColor="@color/gray"
                 android:textSize="@dimen/y8" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="3dp">
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:id="@+id/tv_03"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="1346546"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/y8"
+
+                />
         </RelativeLayout>
 
 

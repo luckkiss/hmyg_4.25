@@ -86,7 +86,6 @@
                 android:id="@+id/id_flowlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y8"
                 android:background="@color/white"
                 android:padding="2.5dp"></com.zhy.view.flowlayout.TagFlowLayout>
 
@@ -111,7 +110,6 @@
                 android:id="@+id/id_flowlayout_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y8"
                 android:background="@color/white"
                 android:padding="2.5dp"></com.zhy.view.flowlayout.TagFlowLayout>
 

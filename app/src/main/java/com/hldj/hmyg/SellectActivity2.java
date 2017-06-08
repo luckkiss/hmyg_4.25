@@ -253,8 +253,8 @@ public class SellectActivity2 extends BaseSecondActivity {
         buffer = buffer.append(queryBean.plantTypes);
 
 
-//        et_max_guige.setText(specMaxValue);//最小厘米
-//        et_min_guige.setText(specMinValue);//最大厘米
+        et_max_guige.setText(queryBean.specMaxValue);// 最大厘米
+        et_min_guige.setText(queryBean.specMinValue);// 最小厘米
 //        if (et_min_guige.getText().toString().length() > 0
 //                || et_max_guige.getText().toString().length() > 0) {
 //            mFlowLayout2.setVisibility(View.VISIBLE);
@@ -265,12 +265,15 @@ public class SellectActivity2 extends BaseSecondActivity {
 
 //        et_pinming.setText(searchKey);
 
-        if (!TextUtils.isEmpty(childBeans.fullName)) {
-            tv_area.setText(childBeans.fullName);
+        if (!TextUtils.isEmpty(childBeans.name)) {
+            tv_area.setText(childBeans.name);
             queryBean.cityCode = childBeans.cityCode;
         } else {
             tv_area.setText("全国");
         }
+
+
+//        queryBean.specMinValue, queryBean.specMaxValue, queryBean.searchSpec
 
 
     }
@@ -295,7 +298,7 @@ public class SellectActivity2 extends BaseSecondActivity {
                         CityWheelDialogF.instance().addSelectListener(childBeans -> {
                             SellectActivity2.childBeans = childBeans;
                             D.e("=选择  地区==" + childBeans.toString());
-                            tv_area.setText(SellectActivity2.childBeans.fullName);
+                            tv_area.setText(SellectActivity2.childBeans.name);
                         }).show(getSupportFragmentManager(), "SellectActivity2");
 
 

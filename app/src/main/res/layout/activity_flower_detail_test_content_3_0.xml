@@ -212,7 +212,7 @@
             android:drawableLeft="@drawable/piao"
             android:drawablePadding="5dp"
             android:padding="10dp"
-            android:text="自营商品可免费开取发票"
+            android:text="自营店品种，开具13%增值税专用票"
             android:textSize="@dimen/y9"
             android:visibility="gone"
             tools:visibility="visible" />
@@ -250,10 +250,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="clip_vertical"
-            android:layout_margin="5.0dip"
+            android:layout_margin="@dimen/x7"
             android:text="商家信息"
             android:textColor="#333333"
-            android:textSize="@dimen/x16" />
+            android:textSize="@dimen/y10" />
 
         <View
             android:layout_width="match_parent"
@@ -293,8 +293,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="clip_vertical"
-                    android:layout_weight="2"
-                    android:text="公司名称" />
+                    android:layout_weight="1.5"
+                    android:text="公司名称:" />
 
                 <TextView
                     android:id="@+id/tv_store_name"
@@ -324,8 +324,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="clip_vertical"
-                    android:layout_weight="2"
-                    android:text="所在地区" />
+                    android:layout_weight="1.5"
+                    android:text="所在地区:" />
 
                 <TextView
                     android:id="@+id/tv_store_area"
@@ -356,8 +356,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="clip_vertical"
-                    android:layout_weight="2"
-                    android:text="联系人" />
+                    android:layout_weight="1.5"
+                    android:text="联  系  人:" />
 
                 <TextView
                     android:id="@+id/tv_contanct_name"
@@ -386,8 +386,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="clip_vertical"
-                    android:layout_weight="2"
-                    android:text="电话" />
+                    android:layout_weight="1.5"
+                    android:text="电        话:" />
 
                 <TextView
                     android:id="@+id/tv_store_phone"
@@ -399,6 +399,12 @@
 
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="@dimen/x5"
+                android:orientation="horizontal" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

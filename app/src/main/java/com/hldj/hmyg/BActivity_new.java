@@ -60,7 +60,7 @@ import static com.hldj.hmyg.util.ConstantState.SEARCH_OK;
  * 商城界面
  */
 @SuppressLint("NewApi")
-public class BActivity_new extends NeedSwipeBackActivity {
+public class  BActivity_new extends NeedSwipeBackActivity {
 
     private CoreRecyclerView recyclerView1;
 
@@ -217,8 +217,10 @@ public class BActivity_new extends NeedSwipeBackActivity {
     private void addTagsByBean(QueryBean queryBean) {
         TagView tagView = getView(R.id.tagview_b_act);
         tagView.removeAllTags();
+
         //最小 最大厘米
-        tagView.addTag(TagFactory.createDelTag(queryBean.specMinValue, queryBean.specMaxValue), 97);
+        tagView.addTag(TagFactory.createDelTag(queryBean.specMinValue, queryBean.specMaxValue, queryBean.searchSpec), 97);
+
         if (!TextUtils.isEmpty(queryBean.plantTypes)) {
             String[] strs = queryBean.plantTypes.split(",");
             for (int i = 0; i < strs.length; i++) {
@@ -226,13 +228,15 @@ public class BActivity_new extends NeedSwipeBackActivity {
             }
         }
 
-        if (!TextUtils.isEmpty(SellectActivity2.childBeans.fullName))
-            tagView.addTag(TagFactory.createDelTag(SellectActivity2.childBeans.fullName), 99);
+        if (!TextUtils.isEmpty(SellectActivity2.childBeans.name))
+            tagView.addTag(TagFactory.createDelTag(SellectActivity2.childBeans.name), 99);
 
-        tagView.addTag(TagFactory.createDelTag(queryBean.searchSpec), 100);
+//        tagView.addTag(TagFactory.createDelTag(queryBean.searchSpec), 100);
 
         tagView.setOnTagDeleteListener((position, tag) -> {
-            if (tag.id == 100) {
+            if (tag.id == 97) {
+                getQueryBean().specMinValue = "";
+                getQueryBean().specMaxValue = "";
                 getQueryBean().searchSpec = "";
             } else if (tag.id == 99) {
                 //城市被删除
@@ -368,7 +372,7 @@ public class BActivity_new extends NeedSwipeBackActivity {
         tv_03.setText(item.specText);
 
         TextView tv_04 = helper.getView(R.id.tv_04);
-        tv_04.setText("苗源地: "+item.ciCity.fullName);
+        tv_04.setText("苗源地: " + item.ciCity.fullName);
 
         TextView tv_06 = helper.getView(R.id.tv_06);
         BProduceAdapt.setPublishName(tv_06,
@@ -377,8 +381,9 @@ public class BActivity_new extends NeedSwipeBackActivity {
                 item.ownerJson.realName);
 
         TextView tv_07 = helper.getView(R.id.tv_07);
-        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego);
         TextView tv_08 = helper.getView(R.id.tv_08);
+        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego,tv_08);
+
         tv_08.setText("元/" + item.unitTypeName);
         TextView tv_09 = helper.getView(R.id.tv_09);
         tv_09.setText("库存：" + item.count);
@@ -394,8 +399,9 @@ public class BActivity_new extends NeedSwipeBackActivity {
         TextView tv_03 = helper.getView(R.id.tv_03);
         tv_03.setText(item.ciCity.fullName);
         TextView tv_07 = helper.getView(R.id.tv_07);
-        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego);
         TextView tv_08 = helper.getView(R.id.tv_08);
+        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego,tv_08);
+
         tv_08.setText("元/" + item.unitTypeName);
         bitmap.display(iv_img, item.smallImageUrl);
     }

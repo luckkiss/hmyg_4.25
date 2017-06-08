@@ -12,9 +12,11 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coorchice.library.SuperTextView;
@@ -29,17 +31,21 @@ import com.hldj.hmyg.SetProfileActivity;
 import com.hldj.hmyg.SettingActivity;
 import com.hldj.hmyg.StoreActivity;
 import com.hldj.hmyg.application.PermissionUtils;
+import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.presenter.EPrestenter;
 import com.hldj.hmyg.saler.AdressListActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.StoreSettingActivity;
 import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.RippleAdjuster;
 import com.hldj.hmyg.widget.ShareDialogFragment;
 import com.hy.utils.GetServerUrl;
 import com.lqr.optionitemview.OptionItemView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.soundcloud.android.crop.Crop;
 import com.zf.iosdialog.widget.ActionSheetDialog;
 import com.zym.selecthead.config.Configs;
@@ -67,6 +73,20 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.e_activity_3_0);
         setSwipeBackEnable(false);
+        RxRegi();
+        RxEvent();
+
+//        RxBus.$().OnEvent(, new Action1<Object>() {
+//            @Override
+//            public void call(Object onlineEvent) {
+//                D.e("====RxBus====OnEvent=========");
+//                ToastUtil.showShortToast("denglu");
+//                refresh();
+//                loadHeadImage(getSpB("isLogin"));
+//            }
+//        });
+
+
         LinearLayout ll_me_content = (LinearLayout) findViewById(R.id.ll_me_content);
 
         /**
@@ -76,6 +96,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         addAdjuster(ll_me_content);
 
         loadHeadImage(getSpB("isLogin"));//加载头像
+        setRealName(getSpS("userName"), getSpS("realName"));
 
         this.getView(R.id.sptv_wd_mmgl).setOnClickListener(v -> ManagerListActivity.start2Activity(mActivity));//苗木管理
         this.getView(R.id.sptv_wd_bjgl).setOnClickListener(v -> ManagerQuoteListActivity_new.start2Activity(mActivity));//报价管理
@@ -86,7 +107,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         this.getView(R.id.sptv_wd_fxapp).setOnClickListener(v -> ShareDialogFragment.newInstance().show(getSupportFragmentManager(), getClass().getName()));//分享 app
         this.getView(R.id.sptv_wd_kf).setOnClickListener(v -> Call_Phone()); // 客服
         this.getView(R.id.sptv_wd_yhfk).setOnClickListener(v -> FeedBackActivity.start2Activity(mActivity));//反馈
-        this.getView(R.id.sptv_wd_bjzl).setOnClickListener(v -> SetProfileActivity.start2ActivitySet(mActivity));//编辑资料
+        this.getView(R.id.sptv_wd_bjzl).setOnClickListener(v -> SetProfileActivity.start2ActivitySet(mActivity, 100));//编辑资料
         this.getView(R.id.iv_circle_head).setOnClickListener(v -> {
             if (submit()) setPics();
         });//点击弹窗选择拍照 或者 相册  上传图片
@@ -110,6 +131,19 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
             }
         });
 
+
+    }
+
+    private void setRealName(String username, String realName) {
+
+        if (!TextUtils.isEmpty(realName)) {
+            //
+            ((TextView) this.getView(R.id.tv_usrname_relname)).setText(realName);
+        } else if (!TextUtils.isEmpty(username)) {
+            ((TextView) this.getView(R.id.tv_usrname_relname)).setText(username);
+        } else {
+            ((TextView) this.getView(R.id.tv_usrname_relname)).setText("花木易购");
+        }
 
     }
 
@@ -162,10 +196,30 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
     private void loadHeadImage(boolean isLogin) {
         if (isLogin)
-            ImageLoader.getInstance().displayImage(getSpS("headImage"), (ImageView) getView(R.id.iv_circle_head));
+            ImageLoader.getInstance().displayImage(getSpS("headImage"), (ImageView) getView(R.id.iv_circle_head), new ImageLoadingListener() {
+                @Override
+                public void onLoadingStarted(String s, View view) {
+
+                }
+
+                @Override
+                public void onLoadingFailed(String s, View view, FailReason failReason) {
+
+                    ((ImageView) getView(R.id.iv_circle_head)).setImageResource(R.drawable.icon_persion_pic);
+                }
+
+                @Override
+                public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+
+                }
+
+                @Override
+                public void onLoadingCancelled(String s, View view) {
+
+                }
+            });
 //            ImageLoader.getInstance().displayImage(str, (ImageView) getView(R.id.iv_circle_head));
     }
-
 
     /**
      * .showAnim(mBasIn)//
@@ -240,7 +294,10 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
             beginCrop(data.getData());
         } else if (requestCode == Crop.REQUEST_CROP) {
             handleCrop(resultCode, data);
+        } else if (requestCode == 100 && resultCode == ConstantState.CHANGE_DATES) {
+            refresh();
         }
+
 
     }
 
@@ -268,6 +325,40 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
             Toast.makeText(this, Crop.getError(result).getMessage(),
                     Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxUnRegi();
+    }
+
+
+    public void RxRegi()
+    {
+        RxBus.getInstance().register(OnlineEvent.class);
+    }
+    public void RxUnRegi(){
+        RxBus.getInstance().unRegister(OnlineEvent.class);
+    }
+    public void RxEvent()
+    {
+
+        RxBus.getInstance().tObservable();
+    }
+
+
+    public static class OnlineEvent {
+        boolean isOnline = false;
+
+        public OnlineEvent(boolean isOnline) {
+            this.isOnline = isOnline;
+        }
+    }
+
+    public void refresh() {
+        setRealName(getSpS("userName"), getSpS("realName"));
     }
 
 

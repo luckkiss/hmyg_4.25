@@ -171,8 +171,6 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
     public void onBackPressed() {
         finish();
         instance = null;
-
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
 

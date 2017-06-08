@@ -15,7 +15,7 @@
     <dimen name="crop__bar_height">56dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <!-- 字体大小 -->
-    <dimen name="title_size">18sp</dimen>
+    <dimen name="title_size">19sp</dimen>
     <dimen name="normal_text_size">16sp</dimen>
     <dimen name="vertical_padding">10dp</dimen>
     <dimen name="horizontal_padding">10dp</dimen>
@@ -57,7 +57,7 @@
     <dimen name="top_padding_statu">1dp</dimen>
 
     <dimen name="loadingbar_icon">40dp</dimen>
-    <dimen name="title_top_default">43dp</dimen>
+    <dimen name="title_top_default">39dp</dimen>
 
 
     <dimen name="dp_36">36dp</dimen>

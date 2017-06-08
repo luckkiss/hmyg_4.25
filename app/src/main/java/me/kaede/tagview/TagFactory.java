@@ -24,19 +24,27 @@ public class TagFactory {
         return getTagViewByName(item);
     }
 
-    public static Tag createDelTag(String item, String item2) {
+    public static Tag createDelTag(String item, String item2, String searchSpec) {
+
+        boolean isNull = TextUtils.isEmpty(searchSpec);
 
         if (!TextUtils.isEmpty(item) && !TextUtils.isEmpty(item2)) {
+            if (!isNull)
+                return getTagViewByName(getTypeName(searchSpec) + item + "-" + item2 + " cm");
             return getTagViewByName(item + "-" + item2 + " cm");
         } else if (!TextUtils.isEmpty(item)) {
+            if (!isNull) return getTagViewByName(getTypeName(searchSpec) + item + " cm");
             return getTagViewByName(item + " cm");
         } else if (!TextUtils.isEmpty(item2)) {
+            if (!isNull) return getTagViewByName(getTypeName(searchSpec) + item2 + " cm");
             return getTagViewByName(item2 + " cm");
         } else {
-            return getTagViewByName(item);
+            if (!isNull) return getTagViewByName(getTypeName(searchSpec) + "searchSpec" + item);
+            return getTagViewByName("searchSpec" + item);
         }
 
     }
+
 
     private static Tag getTagViewByName(String item) {
         if (!"".equals(getTypeName(item))) {

@@ -65,7 +65,7 @@
     <color name="price_orige">#e75b45</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#727272</color>
-    <color name="radio_button_selected_color">#ff33b5e5</color>
+    <color name="radio_button_selected_color">@color/main_color</color>
     <color name="radio_button_unselected_color">#e0e0e0</color>
     <!-- 列表分割线   色值#999999 -->
     <color name="list_divider">#999999</color>
@@ -256,6 +256,8 @@
     <color name="skyblue">#87ceeb</color>
     <!-- 天蓝色 -->
     <color name="gray">#808080</color>
+
+    <color name="gray_bg_666">#64ccc3c3</color>
 
     <!-- 线条灰 -->
     <color name="line_gray">#FFCCCCCC</color>

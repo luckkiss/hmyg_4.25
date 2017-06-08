@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 
+
 /**
  * 本届面提供 代购
  */
@@ -561,8 +562,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         bundleObject.putSerializable("urlPaths", myMap);
         toUpdataImageActivity.putExtras(bundleObject);
         startActivityForResult(toUpdataImageActivity, 1);
-        overridePendingTransition(R.anim.slide_in_left,
-                R.anim.slide_out_right);
+
 
     };
 
