@@ -751,4 +751,14 @@
     </style>
 
 
+    <style name="geren_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="left_text_size">@dimen/textSizeX</item>
+        <item name="right_text_size">@dimen/textSizeX</item>
+        <item name="left_text_color">@color/text_color333</item>
+        <item name="right_text_color">@color/text_color666</item>
+    </style>
+
+
 </resources>

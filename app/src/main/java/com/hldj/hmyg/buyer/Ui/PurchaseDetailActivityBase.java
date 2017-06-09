@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.adapter.StorePurchaseListAdapter;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.buyer.M.ItemBean;
@@ -75,7 +76,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         }
 
         //后退
-        findViewById(R.id.btn_back).setOnClickListener(v -> {
+        findViewById(R.id.toolbar_left_icon).setOnClickListener(v -> {
             finish();
         });
 
@@ -178,9 +179,8 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
 
 //        头部与底部是一样的    这里初始化头部
 //        getViewHolder_pur().tv_purchase_name.setText(strFilter( item.name));
+        StorePurchaseListAdapter.setSpaceAndRemark(getViewHolder_pur().tv_purchase_size, item.specText, item.remarks);
 
-
-        getViewHolder_pur().tv_purchase_size.setText(strFilter(item.specText));
         getViewHolder_pur().tv_purchase_type.setText(strFilter(item.plantTypeName));
         getViewHolder_pur().tv_quote_num.setText(strFilter(item.count + item.unitTypeName));
 
@@ -397,11 +397,13 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         public TextView tv_purchase_type;
         public TextView tv_quote_num;
         public EditText et_purchase_remark;
+        public TextView toolbar_title;
 
         public ViewHolder(Activity rootView) {
             this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
             this.et_purchase_remark = (EditText) rootView.findViewById(R.id.et_purchase_remark);//备注
-            this.btn_back = (ImageView) rootView.findViewById(R.id.btn_back);
+            this.btn_back = (ImageView) rootView.findViewById(R.id.toolbar_left_icon);
+            this.toolbar_title = (TextView) rootView.findViewById(R.id.toolbar_title);
             this.tv_purchase_name = (TextView) rootView.findViewById(R.id.tv_quote_name);
             this.tv_purchase_size = (TextView) rootView.findViewById(R.id.tv_quote_size);
             this.tv_purchase_type = (TextView) rootView.findViewById(R.id.tv_quote_type);
@@ -417,6 +419,8 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
             this.tv_purchase_commit = (TextView) rootView.findViewById(R.id.tv_purchase_commit);
             this.ll_purc_auto_add = (LinearLayout) rootView.findViewById(R.id.ll_purc_auto_add);//采购报价 动态加载
             this.ll_mainView_bottom = (LinearLayout) rootView.findViewById(R.id.ll_mainView_bottom);//采购报价 动态加载
+
+            toolbar_title.setText("采购详情");
         }
 
     }

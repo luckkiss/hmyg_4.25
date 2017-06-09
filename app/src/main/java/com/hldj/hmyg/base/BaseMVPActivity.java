@@ -3,7 +3,9 @@ package com.hldj.hmyg.base;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.TextView;
 
+import com.hldj.hmyg.R;
 import com.hldj.hmyg.base.Rx.BaseModel;
 import com.hldj.hmyg.base.Rx.BasePresenter;
 import com.hldj.hmyg.base.Rx.BaseView;
@@ -24,6 +26,8 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
     public E mModel;
     private ProgressDialog progressDialog;
     private CustomDialog customDialog;
+
+    private TextView title;
 
 
     @Override
@@ -46,8 +50,19 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
     protected void init() {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(bindLayoutID());
+
+        title = (TextView) findViewById(R.id.toolbar_title);
+
+        if (title != null) {
+            title.setText(bindTitle());
+            findViewById(R.id.toolbar_left_icon).setOnClickListener(view -> finish());
+        }
+
     }
 
+    public String bindTitle() {
+        return "";
+    }
 
     public abstract void initView();
 

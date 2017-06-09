@@ -562,7 +562,10 @@
     <color name="text_color666">#666666</color>
     <color name="text_color333">#333333</color>
     <color name="text_color999">#999999</color>
+    <color name="text_colorccc">#cccccc</color>
+    <color name="store_bg_coloc">#f1f6f5</color>
     <color name="divider_color_bg">#dddddd</color>
+
 
 
 

@@ -365,6 +365,11 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
+            android:name="com.hldj.hmyg.SetProfileActivity_new"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
             android:name="com.hldj.hmyg.SetPasswardActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>

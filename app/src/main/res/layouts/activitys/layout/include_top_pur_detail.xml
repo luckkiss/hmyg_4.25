@@ -1,36 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_mainView_bottom"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/title_top_default"
-        android:background="@color/white">
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="采购详情"
-            android:textColor="@color/main_color"
-            android:textSize="@dimen/title_size" />
+    <include layout="@layout/toolbar_3_0"/>
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="@dimen/title_top_default"-->
+        <!--android:background="@color/white">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:text="采购详情"-->
+            <!--android:textColor="@color/main_color"-->
+            <!--android:textSize="@dimen/title_size" />-->
 
 
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="@dimen/backWH"
-            android:layout_height="@dimen/backWH"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/x10"
-            android:padding="5dp"
-            android:src="@drawable/btn_back" />
-    </RelativeLayout>
+        <!--<ImageView-->
+            <!--android:id="@+id/btn_back"-->
+            <!--android:layout_width="@dimen/backWH"-->
+            <!--android:layout_height="@dimen/backWH"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="@dimen/x10"-->
+            <!--android:padding="5dp"-->
+            <!--android:src="@drawable/btn_back" />-->
+    <!--</RelativeLayout>-->
 
 
     <View style="@style/View_line_gray" />
@@ -68,9 +72,12 @@
     <View style="@style/View_line_gray_1dp" />
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="32dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
 
         <com.coorchice.library.SuperTextView
             android:id="@+id/tv_guige_left"
@@ -84,17 +91,20 @@
 
         <com.coorchice.library.SuperTextView
             android:id="@+id/tv_quote_size"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_weight="0.8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_toRightOf="@+id/tv_guige_left"
             android:gravity="center_vertical|start"
+            android:maxLines="5"
+            android:minHeight="32dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:textSize="13sp"
-            tools:text="20170524" />
+            tools:text="134646134646134646134646134646134646134646134646134646134646134646134646134646134646134646134646134646134646134646134646134646" />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <View style="@style/View_line_gray_1dp" />
 

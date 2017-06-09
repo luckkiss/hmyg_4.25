@@ -3,57 +3,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/title_top_default"
-        android:background="@color/white">
+    <include layout="@layout/toolbar_3_0"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="苗木管理"
-            android:textColor="@color/main_color"
-            android:textSize="@dimen/titleSize" />
+    <!---->
+    <!--<RelativeLayout-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="@dimen/title_top_default"-->
+        <!--android:background="@color/white">-->
 
-        <TextView
-            android:id="@+id/id_tv_edit_all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/x15"
-            android:background="@drawable/green_btn_selector"
-            android:gravity="center"
-            android:padding="@dimen/x3"
-            android:text="草稿箱"
-            android:textColor="@color/main_color"
-            android:textSize="16dp"
-            android:visibility="gone" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:text="苗木管理"-->
+            <!--android:textColor="@color/main_color"-->
+            <!--android:textSize="@dimen/titleSize" />-->
 
-        <ImageView
-            android:id="@+id/iv_search"
-            android:layout_width="@dimen/backWH"
-            android:layout_height="@dimen/backWH"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/x15"
-            android:padding="3dp"
-            android:src="@drawable/ic_sousuo" />
+        <!--<TextView-->
+            <!--android:id="@+id/id_tv_edit_all"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="@dimen/x15"-->
+            <!--android:background="@drawable/green_btn_selector"-->
+            <!--android:gravity="center"-->
+            <!--android:padding="@dimen/x3"-->
+            <!--android:text="草稿箱"-->
+            <!--android:textColor="@color/main_color"-->
+            <!--android:textSize="16dp"-->
+            <!--android:visibility="gone" />-->
 
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="@dimen/backWH"
-            android:layout_height="@dimen/backWH"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/x10"
-            android:padding="3dp"
-            android:src="@drawable/btn_back" />
-    </RelativeLayout>
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_search"-->
+            <!--android:layout_width="@dimen/backWH"-->
+            <!--android:layout_height="@dimen/backWH"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="@dimen/x15"-->
+            <!--android:padding="3dp"-->
+            <!--android:src="@drawable/ic_sousuo" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/btn_back"-->
+            <!--android:layout_width="@dimen/backWH"-->
+            <!--android:layout_height="@dimen/backWH"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="@dimen/x10"-->
+            <!--android:padding="3dp"-->
+            <!--android:src="@drawable/btn_back" />-->
+    <!--</RelativeLayout>-->
 
     <ImageView
         android:layout_width="match_parent"
@@ -98,12 +102,12 @@
                         android:gravity="center"
                         android:text="@string/manager_all"
                         android:textColor="@color/little_gray"
-                        android:textSize="@dimen/y10" />
+                        android:textSize="@dimen/y9" />
 
 
                     <TextView
                         style="@style/Manager_count_text"
-                        android:text="(10)" />
+                        tools:text="(10)" />
 
                 </LinearLayout>
             </RelativeLayout>
@@ -135,11 +139,11 @@
                         android:gravity="center"
                         android:text="@string/manager_unaudit"
                         android:textColor="@color/little_gray"
-                        android:textSize="@dimen/y10" />
+                        android:textSize="@dimen/y9" />
 
                     <TextView
                         style="@style/Manager_count_text"
-                        android:text="(10)" />
+                        tools:text="(10)" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -170,11 +174,11 @@
                         android:gravity="center"
                         android:text="@string/manager_published"
                         android:textColor="@color/little_gray"
-                        android:textSize="@dimen/y10" />
+                        android:textSize="@dimen/y9" />
 
                     <TextView
                         style="@style/Manager_count_text"
-                        android:text="(10)" />
+                        tools:text="(10)" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -205,11 +209,11 @@
                         android:gravity="center"
                         android:text="@string/manager_outline"
                         android:textColor="@color/little_gray"
-                        android:textSize="@dimen/y10" />
+                        android:textSize="@dimen/y9" />
 
                     <TextView
                         style="@style/Manager_count_text"
-                        android:text="(10)" />
+                        tools:text="(10)" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -240,11 +244,11 @@
                         android:gravity="center"
                         android:text="@string/manager_backed"
                         android:textColor="@color/little_gray"
-                        android:textSize="@dimen/y10" />
+                        android:textSize="@dimen/y9" />
 
                     <TextView
                         style="@style/Manager_count_text"
-                        android:text="(10)" />
+                        tools:text="(10)" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -275,11 +279,11 @@
                         android:gravity="center"
                         android:text="@string/manager_unsubmit"
                         android:textColor="@color/little_gray"
-                        android:textSize="@dimen/y10" />
+                        android:textSize="@dimen/y9" />
 
                     <TextView
                         style="@style/Manager_count_text"
-                        android:text="(10)" />
+                        tools:text="(10)" />
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>

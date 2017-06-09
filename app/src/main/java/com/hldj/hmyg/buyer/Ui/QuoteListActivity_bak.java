@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.adapter.StorePurchaseListAdapter;
 import com.hldj.hmyg.application.PermissionUtils;
 import com.hldj.hmyg.buyer.M.ItemBean;
 import com.hldj.hmyg.buyer.M.QuoteGsonBean;
@@ -59,7 +60,7 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
     @Override
     public void InitViews() {
 
-        ((TextView) findViewById(R.id.tv_title)).setText("报价列表");
+        ((TextView) findViewById(R.id.toolbar_title)).setText("报价列表");
 
         recycle_quit = (CoreRecyclerView) findViewById(R.id.recycle_quit);
 
@@ -96,6 +97,10 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
         helper.setText(R.id.tv_quote_item_price, strFilter(item.price + ""));//价格
         helper.setText(R.id.tv_quote_item_plantTypeName, strFilter(item.plantTypeName));//种植类型
         helper.setText(R.id.tv_quote_item_specText, strFilter(item.specText));//要求规格
+//
+//        StorePurchaseListAdapter.setSpaceAndRemark(helper.getView(R.id.tv_quote_item_specText), item.specText, item.remarks);
+
+
         helper.setText(R.id.tv_quote_item_photo_num, strFilter("1"));//有多少张图片
 
         helper.addOnClickListener(R.id.cv_root, v -> {
@@ -131,7 +136,10 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
         //获取到 item 数据  通过viewholder  来显示
 
         viewHolder_quote.tv_quote_name.setText(strFilter(itemBean.name));
-        viewHolder_quote.tv_quote_size.setText(strFilter(itemBean.specText));
+//        viewHolder_quote.tv_quote_size.setText(strFilter(itemBean.specText));
+
+        StorePurchaseListAdapter.setSpaceAndRemark(viewHolder_quote.tv_quote_size, itemBean.specText, itemBean.remarks);
+
         viewHolder_quote.tv_quote_type.setText(strFilter(itemBean.plantTypeName));
         viewHolder_quote.tv_quote_num.setText(strFilter(itemBean.count + itemBean.unitTypeName));
         viewHolder_quote.tv_quote_close_date.setText(strFilter(itemBean.purchaseJson.closeDate));
@@ -216,7 +224,7 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
 
         public ViewHolder(Activity rootView) {
             this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
-            this.btn_back = (ImageView) rootView.findViewById(R.id.btn_back);
+            this.btn_back = (ImageView) rootView.findViewById(R.id.toolbar_left_icon);
             this.tv_quote_name = (TextView) rootView.findViewById(R.id.tv_quote_name);
             this.tv_quote_size = (SuperTextView) rootView.findViewById(R.id.tv_quote_size);
             this.tv_quote_type = (SuperTextView) rootView.findViewById(R.id.tv_quote_type);

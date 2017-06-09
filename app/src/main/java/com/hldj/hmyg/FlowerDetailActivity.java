@@ -650,7 +650,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                     max_price = JsonGetInfo.getJsonString(jsonObject2, "maxPrice");
                                     isNego = JsonGetInfo.getJsonBoolean(jsonObject2, "isNego");
 
-                                    ProductListAdapter.setPrice(tv_price, max_price, min_price, isNego,tv_unitTypeName);
+                                    ProductListAdapter.setPrice(tv_price, max_price, min_price, isNego, tv_unitTypeName);
 
                                     //库存数量
                                     stock = JsonGetInfo.getJsonInt(jsonObject2, "stock");
@@ -776,9 +776,13 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                         String remarks = JsonGetInfo
                                                 .getJsonString(auditLogJson,
                                                         "remarks");
-                                        tv_01_01.setText("退回原因：" + remarks);
+
+                                        tv_01_01.setText(remarks);
+                                        ((ViewGroup) tv_01_01.getParent()).setVisibility(View.VISIBLE);
+//                                      tv_01_01.setVisibility(View.VISIBLE);
                                         tv_statusName.setText("");
                                         setMainColorText(tv_statusName, "被退回");
+
 
                                     } else if ("unaudit".equals(status)) {
                                         ll_manager_unaudit.setVisibility(View.VISIBLE);
@@ -1344,7 +1348,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 //                toSaveSeedlingActivity.putExtras(bundleObject);
 //                startActivityForResult(toSaveSeedlingActivity, 1);
 
-                SaveSeedlingActivity_change_data.start2Activity(FlowerDetailActivity.this, saveSeedingGsonBean, 1,id);
+                SaveSeedlingActivity_change_data.start2Activity(FlowerDetailActivity.this, saveSeedingGsonBean, 1, id);
 
             }
         }
@@ -2295,7 +2299,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
     /**
      * @param context
-     * @param    id
+     * @param id
      */
     public static void start2Activity(Context context, String id) {
         Intent intent = new Intent(context, StoreActivity.class);

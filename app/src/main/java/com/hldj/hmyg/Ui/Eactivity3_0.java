@@ -32,6 +32,9 @@ import com.hldj.hmyg.SettingActivity;
 import com.hldj.hmyg.StoreActivity;
 import com.hldj.hmyg.application.PermissionUtils;
 import com.hldj.hmyg.base.rxbus.RxBus;
+import com.hldj.hmyg.base.rxbus.annotation.Subscribe;
+import com.hldj.hmyg.base.rxbus.event.EventThread;
+import com.hldj.hmyg.base.rxbus.pojo.Msg;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.presenter.EPrestenter;
 import com.hldj.hmyg.saler.AdressListActivity;
@@ -42,6 +45,7 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.RippleAdjuster;
 import com.hldj.hmyg.widget.ShareDialogFragment;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.ToastUtil;
 import com.lqr.optionitemview.OptionItemView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -64,7 +68,6 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 public class Eactivity3_0 extends NeedSwipeBackActivity {
 
-
     private SuperTextView.Adjuster adjuster;
 
 
@@ -74,7 +77,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         setContentView(R.layout.e_activity_3_0);
         setSwipeBackEnable(false);
         RxRegi();
-        RxEvent();
+
 
 //        RxBus.$().OnEvent(, new Action1<Object>() {
 //            @Override
@@ -335,17 +338,18 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     }
 
 
-    public void RxRegi()
-    {
-        RxBus.getInstance().register(OnlineEvent.class);
+    public void RxRegi() {
+        RxBus.getInstance().register(this);
     }
-    public void RxUnRegi(){
-        RxBus.getInstance().unRegister(OnlineEvent.class);
-    }
-    public void RxEvent()
-    {
 
-        RxBus.getInstance().tObservable();
+    public void RxUnRegi() {
+        RxBus.getInstance().unRegister(this);
+    }
+
+    //订阅
+    @Subscribe(tag = 5, thread = EventThread.MAIN_THREAD)
+    private void dataBinding11(Msg msgs) {
+        ToastUtil.showShortToast(msgs.toString());
     }
 
 

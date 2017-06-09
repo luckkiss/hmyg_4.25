@@ -3,6 +3,8 @@ package com.hldj.hmyg.adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,8 +17,9 @@ import com.hldj.hmyg.LoginActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
-import com.hldj.hmyg.buyer.Ui.QuoteListActivity_bak;
+import com.hldj.hmyg.util.D;
 import com.hy.utils.StringFormatUtil;
+import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalBitmap;
 
@@ -34,6 +37,10 @@ public class StorePurchaseListAdapter extends BaseAdapter {
     private FinalBitmap fb;
 
     private View mainView;
+
+
+    public static boolean isShow = true;
+
 
     public StorePurchaseListAdapter(Context context,
                                     ArrayList<HashMap<String, Object>> data, View mainView) {
@@ -81,10 +88,23 @@ public class StorePurchaseListAdapter extends BaseAdapter {
                 .findViewById(R.id.tv_caozuo02);
         TextView tv_caozuo03 = (TextView) inflate.findViewById(R.id.tv_caozuo03);//立马报价按钮
 
+        boolean expired = (boolean) data.get(position).get("expired");
+
+
         if (MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {
 //            tv_caozuo01.setText("");
         } else {
-            tv_caozuo01.setText("马上报价");
+
+
+            if (expired)//false 未过期
+            {
+                tv_caozuo01.setText("马上报价");
+            } else {//已过期
+                tv_caozuo01.setText("采购已关闭");
+                tv_caozuo01.setTextColor(ContextCompat.getColor(context,R.color.orange));
+            }
+
+
         }
 
         tv_01.setText((position + 1) + "、" + data.get(position).get("name").toString());
@@ -97,7 +117,17 @@ public class StorePurchaseListAdapter extends BaseAdapter {
         tv_02.setText("采购单：" + data.get(position).get("num").toString());
         if (data.get(position).get("cityName") != null) {
             tv_03.setText(data.get(position).get("cityName").toString());
+
+            if (!isShow) {
+                tv_03.setVisibility(View.GONE);
+            } else {
+                tv_03.setVisibility(View.VISIBLE);
+            }
+
+
         }
+
+        D.e("=======isShow======" + isShow);
         tv_04.setText("采购单位："
                 + data.get(position).get("displayName").toString());
         tv_02.setVisibility(View.GONE);
@@ -112,12 +142,20 @@ public class StorePurchaseListAdapter extends BaseAdapter {
         // } else {
         // tv_10.setText("发票要求：不需要");
         // }
-        tv_05.setText(data.get(position).get("specText").toString()
-                + data.get(position).get("remarks").toString());
+
+        String specText = data.get(position).get("specText") + "";
+        String remarks = data.get(position).get("remarks") + "";
+
+
+        setSpaceAndRemark(tv_05, specText, remarks);
+
+
         tv_07.setText("种植类型："
                 + data.get(position).get("plantTypeName").toString());
 
         boolean canQuote = (boolean) data.get(position).get("canQuote");
+
+
         // tv_06.setText("其他要求：" +
         // data.get(position).get("remarks").toString());
 
@@ -142,7 +180,8 @@ public class StorePurchaseListAdapter extends BaseAdapter {
             if (data.get(position).get("quoteCountJson") != null && !data.get(position).get("quoteCountJson").toString().equals("0"))
                 //跳转到报价列表详情
                 tv_10.setOnClickListener(v -> {
-                    QuoteListActivity_bak.start2Activity((Activity) context, data.get(position).get("id").toString());
+                    ToastUtil.showShortToast("暂无报价");
+//                    QuoteListActivity_bak.start2Activity((Activity) context, data.get(position).get("id").toString());
                 });
         } else {
             tv_10.setVisibility(View.GONE);//没有权限 就不显示  和没有点击事件
@@ -154,6 +193,11 @@ public class StorePurchaseListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
+
+                if (expired) {
+                    ToastUtil.showShortToast("采购已关闭");
+                    return;
+                }
 //				Intent toPurchaseDetailActivity = new Intent(context,
 //						PurchaseDetailActivity.class);
 //				toPurchaseDetailActivity.putExtra("id",
@@ -178,6 +222,17 @@ public class StorePurchaseListAdapter extends BaseAdapter {
         });
 
         return inflate;
+    }
+
+    public static void setSpaceAndRemark(TextView tv_05, String specText, String remarks) {
+
+        if (!TextUtils.isEmpty(specText) && !TextUtils.isEmpty(specText)) {
+            tv_05.setText(specText + ":" + remarks);
+        } else if (!TextUtils.isEmpty(specText) && TextUtils.isEmpty(specText)) {
+            tv_05.setText(specText);
+        } else if (TextUtils.isEmpty(specText) && !TextUtils.isEmpty(specText)) {
+            tv_05.setText(remarks);
+        }
     }
 
     public void notify(ArrayList<HashMap<String, Object>> data) {

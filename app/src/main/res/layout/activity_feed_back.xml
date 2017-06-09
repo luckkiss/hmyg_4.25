@@ -3,31 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
->
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/y34"
-        android:background="@color/white" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="用户反馈"
-            android:textColor="@color/main_color"
-            android:textSize="@dimen/x18" />
+    <include layout="@layout/toolbar_3_0"/>
 
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="@dimen/x24"
-            android:layout_height="@dimen/x24"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/x10"
-            android:background="@drawable/btn_back" />
-    </RelativeLayout>
 
     <ImageView
         android:layout_width="match_parent"
@@ -37,20 +17,20 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/gray_bg" >
+        android:background="@color/gray_bg">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y9"
                 android:background="@color/white"
-                android:visibility="gone"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <com.hy.utils.ContainsEmojiEditText
                     android:id="@+id/et_title"
@@ -63,41 +43,42 @@
                     android:textColorHint="@color/gray_edit_hint"
                     android:textSize="@dimen/y11" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y9"
                 android:background="@color/white"
                 android:minHeight="@dimen/y100"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <com.hy.utils.ContainsEmojiEditText
                     android:id="@+id/et_feedback"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_margin="@dimen/y10"
-                    android:background="@color/transparent"
-                    android:hint="欢迎反馈问题，您的意见与建议就是我们的动力！我们会认真查阅您反馈的每一个问题，并尽快给您答复，在这里您可以提出遇到的问题，也可以发表自己的建议和想法。
-                    "
+                    android:background="@null"
+                 android:hint="欢迎反馈问题，您的意见与建议就是我们的动力！我们会认真查阅您反馈的每一个问题，并尽快给您答复，在这里您可以提出遇到的问题，也可以发表自己的建议和想法。"
+                    android:padding="4dp"
+                    android:gravity="start|top"
                     android:textColor="@color/gray_edit_hint"
                     android:textColorHint="@color/gray_edit_hint"
-                    android:textSize="@dimen/y11" />
+                    android:textSize="@dimen/y10" />
             </LinearLayout>
 
             <com.neopixl.pixlui.components.textview.TextView
                 android:id="@+id/feedback"
                 style="@style/NoActionBarTheme.TextHuaWenXiHei"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/x37"
+                android:layout_height="@dimen/x34"
                 android:layout_marginLeft="@dimen/x10"
                 android:layout_marginRight="@dimen/x10"
                 android:layout_marginTop="@dimen/x10"
-                android:background="@drawable/register_btn_selector"
+                android:background="@color/main_color"
                 android:enabled="false"
                 android:gravity="center"
                 android:text="确认反馈"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/main_color"
+                android:textColor="@color/white"
                 android:textSize="@dimen/y11" />
         </LinearLayout>
     </ScrollView>

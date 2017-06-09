@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
@@ -64,8 +63,11 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import info.hoang8f.android.segmented.SegmentedGroup;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
@@ -76,6 +78,9 @@ import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
 import me.mhao.widget.SlipButton;
 import me.mhao.widget.SlipButton.OnChangedListener;
+
+import static com.hldj.hmyg.R.id.button31;
+import static com.hldj.hmyg.R.id.button32;
 
 public class StorePurchaseListActivity extends BaseSecondActivity implements
         IXListViewListener,
@@ -158,8 +163,8 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
     private WheelView mViewDistrict;
     private TextView edit_btn;
     private TextView tv_notifaction;
-    private RadioButton button31;
-    private RadioButton button32;
+    //    private RadioButton button31;
+//    private RadioButton button32;
     private int subscribeUserCount = 0;
 
     private String purchaseFormId = "";
@@ -181,9 +186,10 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_purchase_list);
+        showLoading();
+        View inflate = getLayoutInflater().inflate(R.layout.head_purchase, null);
 
-        View inflate = getLayoutInflater()
-                .inflate(R.layout.head_purchase, null);
+
         tv_01 = (TextView) inflate.findViewById(R.id.tv_01);
         tv_02 = (TextView) inflate.findViewById(R.id.tv_02);
         tv_03 = (TextView) inflate.findViewById(R.id.tv_03);
@@ -191,26 +197,34 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
         tv_05 = (TextView) inflate.findViewById(R.id.tv_05);
         tv_06 = (TextView) inflate.findViewById(R.id.tv_06);
 
-        edit_btn = (TextView) findViewById(R.id.edit_btn);
-        tv_title = (TextView) findViewById(R.id.tv_title);
-        SegmentedGroup segmented3 = (SegmentedGroup) findViewById(R.id.segmented3);
-        button31 = (RadioButton) findViewById(R.id.button31);
-        button32 = (RadioButton) findViewById(R.id.button32);
-        button31.setChecked(true);
-        segmented3.setOnCheckedChangeListener(this);
+        edit_btn = (TextView) findViewById(R.id.toolbar_right_text);
+        tv_title = (TextView) findViewById(R.id.toolbar_title);
+//        SegmentedGroup segmented3 = (SegmentedGroup) findViewById(R.id.segmented3);
+//        button31 = (RadioButton) findViewById(button31);
+//        button32 = (RadioButton) findViewById(R.id.button32);
+//        button31.setChecked(true);
+//        segmented3.setOnCheckedChangeListener(this);
         tagView = (TagView) this.findViewById(R.id.tagview);
+
+
         if (getIntent().getStringExtra("purchaseFormId") != null) {
             purchaseFormId = getIntent().getStringExtra("purchaseFormId");
         }
         if (getIntent().getStringExtra("secondSeedlingTypeId") != null) {
             secondSeedlingTypeId = getIntent().getStringExtra(
                     "secondSeedlingTypeId");
+            StorePurchaseListAdapter.isShow = true;
+        } else {
+
+            StorePurchaseListAdapter.isShow = false;
+
         }
         if (getIntent().getStringExtra("title") != null) {
             title = getIntent().getStringExtra("title");
             tv_title.setText(title);
         }
         if (getIntent().getStringExtra("searchKey") != null) {
+
             searchKey = getIntent().getStringExtra("searchKey");
             tagView.removeAllTags();
             if (!"".equals(searchKey)) {
@@ -246,8 +260,8 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
 
             }
         });
-        ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
-        ImageView iv_sousuo = (ImageView) findViewById(R.id.iv_sousuo);
+        ImageView btn_back = (ImageView) findViewById(R.id.toolbar_left_icon);
+        ImageView iv_sousuo = (ImageView) findViewById(R.id.toolbar_right_icon);
 
         tv_notifaction = (TextView) findViewById(R.id.tv_notifaction);
         // 实例化汉字转拼音类
@@ -268,10 +282,14 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
         if (!"".equals(purchaseFormId)) {
             xListView.addHeaderView(inflate);
         }
+
+//        listAdapter = new StorePurchaseListAdapter(StorePurchaseListActivity.this, datas, mainView);
+//        listAdapter.setNoShowCity(false);
         initSortList();
         initDataGetFirstType();
         // initCount();
         initData();
+
 
         MultipleClickProcess multipleClickProcess = new MultipleClickProcess();
         btn_back.setOnClickListener(multipleClickProcess);
@@ -355,11 +373,11 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
                                         "data").length() > 0) {
                                     isSubscribe = "1";
                                     edit_btn.setVisibility(View.VISIBLE);
-                                    button32.setChecked(true);
+//                                    button32.setChecked(true);
                                 } else {
                                     isSubscribe = "0";
                                     edit_btn.setVisibility(View.INVISIBLE);
-                                    button31.setChecked(true);
+//                                    button31.setChecked(true);
                                 }
                                 initData();
                             } else {
@@ -386,6 +404,8 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
     }
 
     private void initData() {
+
+
         // TODO Auto-generated method stub
         getdata = false;
         FinalHttp finalHttp = new FinalHttp();
@@ -451,6 +471,9 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
                                         .getJSONObject(data, "page");
                                 JSONObject headPurchase = JsonGetInfo
                                         .getJSONObject(data, "headPurchase");
+
+                                boolean expired = JsonGetInfo.getJsonBoolean(data, "expired");
+
                                 String id = JsonGetInfo.getJsonString(
                                         headPurchase, "id");
                                 String blurProjectName = JsonGetInfo
@@ -491,7 +514,7 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
                                  tv_01.setText(Html.fromHtml(html_source + "<font color='#FFA19494'><small>" + html_source1 + "</small></font>"));
                                  */
                                 tv_03.setText("报价说明");
-                                tv_04.setText("用苗地：" + cityName);
+                                tv_04.setText("用  苗  地：" + cityName);
                                 if (!"".equals(dispatchPhone) && "".equals(dispatchName)) {
                                     tv_05.setText("联系电话：" + dispatchPhone);
                                 } else if ("".equals(dispatchPhone) && !"".equals(dispatchName)) {
@@ -650,6 +673,11 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
                                         hMap.put("canQuote", JsonGetInfo
                                                 .getJsonBoolean(jsonObject3,
                                                         "canQuote"));
+
+                                        hMap.put("expired",expired);
+
+
+
                                         if (!"".equals(purchaseFormId)) {
                                             hMap.put("hasShowDialog", true);
                                         } else {
@@ -659,6 +687,7 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
 
                                         datas.add(hMap);
                                         if (listAdapter != null) {
+
                                             listAdapter.notifyDataSetChanged();
                                         }
                                     }
@@ -667,6 +696,7 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
                                         listAdapter = new StorePurchaseListAdapter(
                                                 StorePurchaseListActivity.this,
                                                 datas, mainView);
+
                                         xListView.setAdapter(listAdapter);
                                     }
 
@@ -722,6 +752,7 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
     }
 
     private void initDataGetFirstType() {
+
         // TODO Auto-generated method stub
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, false);
@@ -814,12 +845,14 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
                             // TODO Auto-generated catch block
                             e.printStackTrace();
                         }
+                        hindlo();
                         super.onSuccess(t);
                     }
 
                     @Override
                     public void onFailure(Throwable t, int errorNo,
                                           String strMsg) {
+                        hindlo();
                         // TODO Auto-generated method stub
                         Toast.makeText(StorePurchaseListActivity.this,
                                 R.string.error_net, Toast.LENGTH_SHORT).show();
@@ -1268,7 +1301,7 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
         public void onClick(View view) {
             if (flag) {
                 switch (view.getId()) {
-                    case R.id.btn_back:
+                    case R.id.toolbar_left_icon:
                         finish();
                         break;
                     case R.id.iv_sousuo:
@@ -1699,7 +1732,7 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
     public void onCheckedChanged(RadioGroup group, int checkedId) {
 
         switch (checkedId) {
-            case R.id.button31:
+            case button31:
                 isSubscribe = "0";
                 edit_btn.setVisibility(View.INVISIBLE);
                 seedlingTypeId = "";
@@ -1713,7 +1746,7 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
                 // 全部
                 onRefresh();
                 break;
-            case R.id.button32:
+            case button32:
                 isSubscribe = "1";
                 edit_btn.setVisibility(View.VISIBLE);
                 // 我的订阅
@@ -1790,5 +1823,28 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
 //        }
 
     }
+
+
+    public void hindlo() {
+
+        Observable.timer(300, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(o -> hindLoading());
+
+
+    }
+
+
+//    private void timer() {
+//        Observable.timer(10000, TimeUnit.MILLISECONDS)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Action1<Long>() {
+//                    @Override
+//                    public void call(Long aLong) {
+//                        Log.e("流程", "10秒倒计时已结束");
+//                    }
+//                });
+//    }
 
 }

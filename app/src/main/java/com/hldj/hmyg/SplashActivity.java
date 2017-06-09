@@ -14,6 +14,7 @@ import com.white.utils.AndroidUtil;
 
 import cn.jpush.android.api.JPushInterface;
 
+
 public class SplashActivity extends FragmentActivity {
 
     private ImageView img_sp;
@@ -27,6 +28,10 @@ public class SplashActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
 //        fb = FinalBitmap.create(this);
         setContentView(R.layout.activity_splash);
+
+
+
+
         e = MyApplication.Deviceinfo.edit();
         boolean requestREAD_PHONE_STATE = new PermissionUtils(
                 SplashActivity.this).requestREAD_PHONE_STATE(200);
@@ -46,7 +51,6 @@ public class SplashActivity extends FragmentActivity {
         // StatService.setAppKey("09cd76900b"); //
         // appkey必须在mtj网站上注册生成，该设置建议在AndroidManifest.xml中填写，代码设置容易丢失
 
-        img_sp = (ImageView) findViewById(R.id.img_sp);
 
 //		LoadingBarProxy.getInstance().showLoadingDialog();
 //		new LoadingBarProxy(this).showLoadingDialog();

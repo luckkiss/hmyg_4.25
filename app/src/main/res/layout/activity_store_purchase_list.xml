@@ -8,10 +8,12 @@
     android:background="#ffffffff"
     android:orientation="vertical">
 
+    <include layout="@layout/toolbar_3_0"/>
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/y34"
-        android:background="@color/white">
+        android:background="@color/white" android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_title"
@@ -275,7 +277,7 @@
                 android:gravity="center"
                 android:padding="10.0dip"
                 android:textColor="@color/gray_line"
-
+                android:visibility="gone"
                 />
 
             <me.maxwin.view.XListView

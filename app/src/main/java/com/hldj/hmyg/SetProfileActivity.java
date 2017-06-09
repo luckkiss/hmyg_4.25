@@ -95,7 +95,11 @@ public class SetProfileActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_profile);
 
-        btn_back = (ImageView) findViewById(R.id.btn_back);
+        btn_back = (ImageView) findViewById(R.id.toolbar_left_icon);
+
+        ((TextView) findViewById(R.id.toolbar_title)).setText("个人资料");
+
+
         LinearLayout ll_01 = (LinearLayout) findViewById(R.id.ll_01);
         LinearLayout ll_area1 = (LinearLayout) findViewById(R.id.ll_area1);
         LinearLayout ll_area2 = (LinearLayout) findViewById(R.id.ll_area2);
@@ -200,7 +204,7 @@ public class SetProfileActivity extends BaseActivity implements
         public void onClick(View view) {
             if (flag) {
                 switch (view.getId()) {
-                    case R.id.btn_back:
+                    case R.id.toolbar_left_icon:
                         onBackPressed();
                         break;
                     case R.id.ll_01:
@@ -673,7 +677,7 @@ public class SetProfileActivity extends BaseActivity implements
 
     }
 
-    public static void start2ActivitySet(Activity mActivity,int reqCode) {
+    public static void start2ActivitySet(Activity mActivity, int reqCode) {
         mActivity.startActivityForResult(new Intent(mActivity, SetProfileActivity.class), reqCode);
         MyUtil.overridePendingTransition_open((Activity) mActivity);
     }

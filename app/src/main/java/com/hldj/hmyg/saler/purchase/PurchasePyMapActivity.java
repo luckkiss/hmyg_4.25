@@ -261,6 +261,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
         });
         // init();
         listAdapter = new PurchaseListAdapter(PurchasePyMapActivity.this, null, R.layout.list_item_purchase_list_new);
+
         listview.setAdapter(listAdapter);
         initData();
         sideBar = (SideBar) findViewById(R.id.sidrbar);

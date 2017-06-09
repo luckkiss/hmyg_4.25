@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.saler.Adapter.FragmentPagerAdapter_TabLayout;
@@ -56,6 +57,9 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
         D.e("====");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_quote_list_new);
+
+        ((TextView) findViewById(R.id.toolbar_title)).setText("我的报价");
+
 //        StatusBarUtil.setTranslucent(this,122);
 //        setContentView(R.layout.activity_manager_quote_list_new);
 //        addStartBar();
@@ -73,7 +77,7 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
         mViewPager.setAdapter(mFragmentPagerAdapter_tabLayout);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        findViewById(R.id.toolbar_back).setOnClickListener(v -> {
+        findViewById(R.id.toolbar_left_icon).setOnClickListener(v -> {
             finish();
         });
 

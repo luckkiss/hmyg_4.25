@@ -8,30 +8,34 @@
     android:orientation="vertical">
 
 
-    <include layout="@layout/toolbar_3_0"/>
+    <include layout="@layout/toolbar_3_0" />
+
+    <View style="@style/View_line_green"
+
+        />
     <!--<RelativeLayout-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:background="@color/white">-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="35dp"-->
+    <!--android:background="@color/white">-->
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:text="报价管理"-->
-            <!--android:textColor="@color/main_color"-->
-            <!--android:textSize="@dimen/x18" />-->
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:text="报价管理"-->
+    <!--android:textColor="@color/main_color"-->
+    <!--android:textSize="@dimen/x18" />-->
 
-        <!--<ImageView-->
-            <!--android:id="@+id/btn_back"-->
-            <!--android:layout_width="35dp"-->
-            <!--android:layout_height="35dp"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginLeft="@dimen/x10"-->
-            <!--android:src="@drawable/btn_back"-->
-            <!--android:padding="5dp"-->
-            <!--/>-->
+    <!--<ImageView-->
+    <!--android:id="@+id/btn_back"-->
+    <!--android:layout_width="35dp"-->
+    <!--android:layout_height="35dp"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginLeft="@dimen/x10"-->
+    <!--android:src="@drawable/btn_back"-->
+    <!--android:padding="5dp"-->
+    <!--/>-->
     <!--</RelativeLayout>-->
 
 

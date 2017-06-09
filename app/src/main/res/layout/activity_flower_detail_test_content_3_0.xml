@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -64,7 +63,7 @@
                     android:gravity="center_vertical"
                     android:singleLine="true"
                     android:textSize="@dimen/y11"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <com.neopixl.pixlui.components.textview.TextView
                     android:id="@+id/tv_name"
@@ -150,9 +149,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
+                            android:paddingBottom="@dimen/y3"
                             android:singleLine="true"
+                            android:text="价格："
                             android:textColor="#666666"
-                            android:textSize="@dimen/y10" />
+                            android:textSize="@dimen/y8" />
 
                         <com.neopixl.pixlui.components.textview.TextView
                             android:id="@+id/tv_price"
@@ -170,7 +171,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:singleLine="true"
-                            android:textColor="#666666"
+                            android:textColor="#FA0000"
                             android:textSize="@dimen/y10" />
 
                         <com.neopixl.pixlui.components.textview.TextView
@@ -273,7 +274,8 @@
             android:layout_marginLeft="@dimen/x8"
             android:layout_marginRight="@dimen/x8"
             android:orientation="vertical"
-            android:padding="@dimen/x2">
+            android:padding="@dimen/x2"
+            android:visibility="visible">
 
 
             <LinearLayout
@@ -406,6 +408,45 @@
                 android:layout_marginTop="@dimen/x5"
                 android:orientation="horizontal" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <View style="@style/View_line_gray_1dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="退回理由"
+                android:textColor="@color/text_color333" />
+
+            <View style="@style/View_line_gray_1dp" />
+
+            <TextView
+                android:id="@+id/tv_01_01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:minHeight="30dp"
+                android:text="13146464646464646"
+
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+
+        </LinearLayout>
+
+
     </LinearLayout>
 </LinearLayout>
 

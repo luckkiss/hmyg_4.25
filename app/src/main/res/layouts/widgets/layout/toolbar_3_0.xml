@@ -1,25 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="35dp"
+    android:layout_height="@dimen/title_top_default"
     android:background="@color/white">
 
     <TextView
         android:id="@+id/toolbar_title"
-        android:layout_width="wrap_content"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="我的报价"
+        android:gravity="center"
+        android:singleLine="true"
         android:textColor="@color/main_color"
-        android:textSize="@dimen/x16" />
+        android:textSize="@dimen/x16"
+        tools:text="标题要改" />
 
     <ImageView
-        android:id="@+id/toolbar_back"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:id="@+id/toolbar_left_icon"
+        android:layout_width="@dimen/backWH"
+        android:layout_height="@dimen/backWH"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/x10"
-        android:padding="6dp"
+        android:padding="3dp"
         android:src="@drawable/btn_back" />
+
+
+    <ImageView
+        android:id="@+id/toolbar_right_icon"
+        android:layout_width="@dimen/backWH"
+        android:layout_height="@dimen/backWH"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/x15"
+        android:padding="3dp"
+        android:src="@drawable/ic_sousuo"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+
+    <TextView
+        android:id="@+id/toolbar_right_text"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:gravity="center"
+        android:padding="3dp"
+        android:textSize="@dimen/titleRightTex"
+        android:visibility="gone"
+        tools:text="titile"
+        tools:visibility="visible" />
+
+
 </RelativeLayout>

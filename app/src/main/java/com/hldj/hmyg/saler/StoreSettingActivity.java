@@ -1,7 +1,6 @@
 package com.hldj.hmyg.saler;
 
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,7 +8,6 @@ import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -19,7 +17,7 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,11 +32,11 @@ import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.Loading;
 import com.hy.utils.ToastUtil;
+import com.white.utils.ImageTools;
 import com.xingguo.huang.mabiwang.util.CacheUtils;
-import com.xingguo.huang.mabiwang.util.ImageTools;
 import com.xingguo.huang.mabiwang.util.PictureManageUtil;
 import com.zf.iosdialog.widget.ActionSheetDialog;
-import com.zf.iosdialog.widget.ActionSheetDialog.SheetItemColor;
+import com.zym.selecthead.tools.SelectHeadTools;
 
 import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.FinalHttp;
@@ -66,7 +64,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
     private EditText et_store_name;
     private ImageView iv_logo;
     private ImageView iv_banner;
-    private static final int REQUEST_CODE_ALBUM = 1;
+    private static final int REQUEST_CODE_ALBUM = 6;
     private static final int REQUEST_CODE_CAMERA = 2;
     private static final int CROP_REQUEST_CODE = 4;
     private static final String ROOT_NAME = "UPLOAD_CACHE";
@@ -93,7 +91,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
     private String bannerId = "";
     private String bannerUrl = "";
     private FinalBitmap fb;
-    private RelativeLayout ll_ed;
+    private LinearLayout ll_ed;
     private MultipleClickProcess multipleClickProcess;
     private File mTempCameraFile;
     private File mTempCropFile;
@@ -109,10 +107,14 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         multipleClickProcess = new MultipleClickProcess();
-        ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
+        ImageView btn_back = (ImageView) findViewById(R.id.toolbar_left_icon);
+
+        TextView title = (TextView) findViewById(R.id.toolbar_title);
+        title.setText("店铺设置");
+
         iv_logo = (ImageView) findViewById(R.id.iv_logo);
         iv_banner = (ImageView) findViewById(R.id.iv_banner);
-        ll_ed = (RelativeLayout) findViewById(R.id.ll_ed);
+        ll_ed = (LinearLayout) findViewById(R.id.ll_ed);
         et_domian = (EditText) findViewById(R.id.et_domain);
         et_store_name = (EditText) findViewById(R.id.et_store_name);
         et_detail = (EditText) findViewById(R.id.et_detail);
@@ -341,6 +343,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                             }
                             if ("1".equals(code)) {
                                 Toast.makeText(StoreSettingActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
+                                finish();
                             }
 
                         } catch (JSONException e) {
@@ -377,7 +380,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
         public void onClick(View view) {
             if (flag) {
                 switch (view.getId()) {
-                    case R.id.btn_back:
+                    case R.id.toolbar_left_icon:
                         onBackPressed();
                         break;
                     case R.id.et_domain:
@@ -417,83 +420,79 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
             }
         }
 
+
         public void choosePics() {
-            new ActionSheetDialog(StoreSettingActivity.this)
-                    .builder()
-                    .setCancelable(false)
-                    .setCanceledOnTouchOutside(false)
-                    .addSheetItem("拍照", SheetItemColor.Red,
+            new ActionSheetDialog(mActivity).builder().setCancelable(true).setCanceledOnTouchOutside(true)
+                    .addSheetItem("拍照", ActionSheetDialog.SheetItemColor.Red,
                             which -> {
-                                boolean requestCamerPermissions = new PermissionUtils(StoreSettingActivity.this).requestCamerPermissions(200);
-                                if (requestCamerPermissions) {
-                                    // 方法一
-                                    // 判断是否有SD卡
-                                    // Date date = new Date(System
-                                    // .currentTimeMillis());
-                                    // dateTime = date.getTime() + "";
-                                    // File f = new File(
-                                    // CacheUtils
-                                    // .getCacheDirectory(
-                                    // StoreSettingActivity.this,
-                                    // true, "pic")
-                                    // + dateTime);
-                                    // if (f.exists()) {
-                                    // f.delete();
-                                    // }
-                                    // try {
-                                    // f.createNewFile();
-                                    // } catch (IOException e) {
-                                    // e.printStackTrace();
-                                    // }
-                                    // Uri uri = Uri.fromFile(f);
-                                    // Intent camera = new Intent(
-                                    // MediaStore.ACTION_IMAGE_CAPTURE);
-                                    // camera.putExtra(
-                                    // MediaStore.EXTRA_OUTPUT, uri);
-                                    // startActivityForResult(camera,
-                                    // REQUEST_CODE_CAMERA);
-                                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                    if (intent.resolveActivity(context.getPackageManager()) != null) {
-//                                        /获取当前系统的android版本号/
-                                        int currentApiVersion = Build.VERSION.SDK_INT;
-                                        if (currentApiVersion < Build.VERSION_CODES.N) {
-                                            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(getTempCameraFile()));
-                                            startActivityForResult(intent, REQUEST_CODE_CAMERA);
-                                        } else {
-                                            ContentValues contentValues = new ContentValues(1);
-                                            contentValues.put(MediaStore.Images.Media.DATA, getTempCropFile().getAbsolutePath());
-                                            Uri uri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-                                            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                                            startActivityForResult(intent, REQUEST_CODE_CAMERA);
-                                        }
-                                    } else {
-                                        Toast.makeText(context, "相机不可用", Toast.LENGTH_SHORT).show();
-                                    }
+                                if (PermissionUtils.requestCamerPermissions(200))
+                                    SelectHeadTools.startCamearPicCut(mActivity, Uri.fromFile(getTempCropFile()));
+                            })
+                    .addSheetItem("从相册选择", ActionSheetDialog.SheetItemColor.Blue,
+                            which -> {
 
-
+                                boolean requestReadSDCardPermissions = new PermissionUtils(StoreSettingActivity.this).requestReadSDCardPermissions(200);
+                                if (requestReadSDCardPermissions) {
+                                    Uri.fromFile(getTempCropFile());
+                                    // 打开选择图片界面
+                                    Intent openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                                    openAlbumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                                    startActivityForResult(openAlbumIntent, REQUEST_CODE_ALBUM);
                                 }
 
                             })
-                    .addSheetItem("从相册选择", SheetItemColor.Blue,
-                            which -> {
-
-                                boolean requestReadSDCardPermissions = new PermissionUtils(
-                                        StoreSettingActivity.this)
-                                        .requestReadSDCardPermissions(200);
-                                if (requestReadSDCardPermissions) {
-                                    // 打开选择图片界面
-                                    Intent openAlbumIntent = new Intent(
-                                            Intent.ACTION_GET_CONTENT);
-                                    openAlbumIntent
-                                            .setDataAndType(
-                                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                                                    "image/*");
-                                    startActivityForResult(openAlbumIntent,
-                                            REQUEST_CODE_ALBUM);
-                                }
-
-                            }).show();
+                    .show();
         }
+//
+//        public void choosePics() {
+//            new ActionSheetDialog(StoreSettingActivity.this).builder().setCancelable(true).setCanceledOnTouchOutside(true)
+//                    .addSheetItem("拍照", SheetItemColor.Red,
+//                            which -> {
+//                                boolean requestCamerPermissions = new PermissionUtils(StoreSettingActivity.this).requestCamerPermissions(200);
+//                                if (requestCamerPermissions) {
+//
+//                                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                                    if (intent.resolveActivity(context.getPackageManager()) != null) {
+////                                        /获取当前系统的android版本号/
+//                                        int currentApiVersion = Build.VERSION.SDK_INT;
+//                                        if (currentApiVersion < Build.VERSION_CODES.N) {
+//                                            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(getTempCropFile()));
+//                                            startActivityForResult(intent, REQUEST_CODE_CAMERA);
+//                                        } else {
+//                                            ContentValues contentValues = new ContentValues(1);
+//                                            contentValues.put(MediaStore.Images.Media.DATA, getTempCropFile().getAbsolutePath());
+//                                            Uri uri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+//                                            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+//                                            startActivityForResult(intent, REQUEST_CODE_CAMERA);
+//                                        }
+//                                    } else {
+//                                        Toast.makeText(context, "相机不可用", Toast.LENGTH_SHORT).show();
+//                                    }
+//
+//
+//                                }
+//
+//                            })
+//                    .addSheetItem("从相册选择", SheetItemColor.Blue,
+//                            which -> {
+//
+//                                boolean requestReadSDCardPermissions = new PermissionUtils(
+//                                        StoreSettingActivity.this)
+//                                        .requestReadSDCardPermissions(200);
+//                                if (requestReadSDCardPermissions) {
+//                                    // 打开选择图片界面
+//                                    Intent openAlbumIntent = new Intent(
+//                                            Intent.ACTION_GET_CONTENT);
+//                                    openAlbumIntent
+//                                            .setDataAndType(
+//                                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+//                                                    "image/*");
+//                                    startActivityForResult(openAlbumIntent,
+//                                            REQUEST_CODE_ALBUM);
+//                                }
+//
+//                            }).show();
+//        }
 
         /**
          * 计时线程（防止在一定时间段内重复点击按钮）
@@ -516,14 +515,14 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
         if (resultCode != RESULT_OK)
             return;
         switch (requestCode) {
-            case REQUEST_CODE_ALBUM://相册选择返回的图片
+            case REQUEST_CODE_ALBUM://相册选择返回的图片.
                 ContentResolver resolver = getContentResolver();
                 // 照片的原始资源地址
                 Uri originalUri = data.getData();
+//                Uri originalUri = Uri.fromFile(getTempCropFile());
                 try {
                     // 使用ContentProvider通过URI获取原始图片
-                    Bitmap photo = MediaStore.Images.Media.getBitmap(resolver,
-                            originalUri);
+                    Bitmap photo = MediaStore.Images.Media.getBitmap(resolver, originalUri);
                     if (photo != null) {
                         // 为防止原始图片过大导致内存溢出，这里先缩小原图显示，然后释放原始Bitmap占用的内存
                         Bitmap smallBitmap = ImageTools
@@ -549,7 +548,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                 }
 
                 break;
-            case REQUEST_CODE_CAMERA://拍照返回
+            case 1://拍照返回
 
                 // 方法一
                 // String files = CacheUtils.getCacheDirectory(

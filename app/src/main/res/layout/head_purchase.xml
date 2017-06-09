@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutRoot"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@color/main_color"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingTop="5dp">
 
         <RelativeLayout
             android:id="@+id/RelativeLayout1"
@@ -17,17 +19,17 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="2.5dip"
             android:layout_marginTop="2.5dip"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="2.0dip"
+                android:layout_toLeftOf="@+id/tv_03"
                 android:orientation="horizontal"
                 android:paddingLeft="10.0dip"
-                android:paddingRight="10.0dip"
-                android:layout_toLeftOf="@+id/tv_03" >
+                android:paddingRight="10.0dip">
 
                 <TextView
                     android:id="@+id/tv_01"
@@ -38,7 +40,8 @@
                     android:checked="false"
                     android:gravity="start"
                     android:textColor="@color/white"
-                    android:textSize="14.0sp" />
+                    android:textSize="@dimen/textSizeXXX"
+                    tools:text="股装二路精光" />
             </LinearLayout>
 
             <TextView
@@ -57,7 +60,7 @@
                 android:singleLine="true"
                 android:text="报价说明"
                 android:textColor="@color/main_color"
-                android:textSize="14.0sp" />
+                android:textSize="@dimen/textSizeS" />
         </RelativeLayout>
 
         <LinearLayout
@@ -66,7 +69,7 @@
             android:layout_marginBottom="2.0dip"
             android:layout_marginTop="2.5dip"
             android:paddingLeft="10.0dip"
-            android:paddingRight="10.0dip" >
+            android:paddingRight="10.0dip">
 
             <TextView
                 android:id="@+id/tv_02"
@@ -75,7 +78,8 @@
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:textColor="@color/white"
-                android:textSize="14.0sp" />
+                android:textSize="@dimen/textSize"
+                tools:text="厦门花木易购有心公司" />
         </LinearLayout>
 
         <LinearLayout
@@ -83,16 +87,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2.5dip"
             android:paddingLeft="10.0dip"
-            android:paddingRight="10.0dip" >
+            android:paddingRight="10.0dip">
 
             <TextView
                 android:id="@+id/tv_04"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:textColor="@color/white"
-                android:textSize="14.0sp" />
+                android:textSize="@dimen/textSize"
+                tools:text="用苗地块：厦门" />
         </LinearLayout>
 
         <View
@@ -107,7 +113,7 @@
             android:layout_marginTop="2.5dip"
             android:orientation="vertical"
             android:paddingLeft="10.0dip"
-            android:paddingRight="10.0dip" >
+            android:paddingRight="10.0dip">
 
             <TextView
                 android:id="@+id/tv_05"
@@ -115,9 +121,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
+                android:paddingTop="3dp"
                 android:singleLine="true"
                 android:textColor="@color/white"
-                android:textSize="12.0sp" />
+                android:textSize="@dimen/textSizeS"
+                tools:text="联系电话：14568164" />
 
             <TextView
                 android:id="@+id/tv_06"
@@ -125,8 +133,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:paddingBottom="3dp"
+                android:paddingTop="3dp"
                 android:textColor="@color/white"
-                android:textSize="12.0sp" />
+                android:textSize="@dimen/textSizeS"
+                tools:text="戒指时间" />
         </LinearLayout>
     </LinearLayout>
 

@@ -25,7 +25,6 @@ import com.hldj.hmyg.adapter.ProductListAdapterForManager.OnGoodsCheckedChangeLi
 import com.hldj.hmyg.presenter.ManagerListPresenter;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.SearchActivity;
-import com.hldj.hmyg.saler.StorageSaveActivity;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
@@ -77,7 +76,7 @@ public class ManagerListActivity extends NeedSwipeBackActivity implements IXList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_list);
-        ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
+        ImageView btn_back = (ImageView) findViewById(R.id.toolbar_left_icon);
         RelativeLayout rl_01 = (RelativeLayout) findViewById(R.id.rl_01);
         RelativeLayout rl_02 = (RelativeLayout) findViewById(R.id.rl_02);
         RelativeLayout rl_03 = (RelativeLayout) findViewById(R.id.rl_03);
@@ -90,9 +89,10 @@ public class ManagerListActivity extends NeedSwipeBackActivity implements IXList
         tv_04 = (TextView) findViewById(R.id.tv_04);
         tv_05 = (TextView) findViewById(R.id.tv_05);
         tv_06 = (TextView) findViewById(R.id.tv_06);
-        id_tv_edit_all = (TextView) findViewById(R.id.id_tv_edit_all);
-        iv_search = (ImageView) findViewById(R.id.iv_search);
-        id_tv_edit_all.setVisibility(View.GONE);
+
+        initToolbar();
+
+
         tv_01.setTextColor(getResources().getColor(R.color.main_color));
         xListView = (XListView) findViewById(R.id.xlistView);
         xListView.setDivider(null);
@@ -129,7 +129,7 @@ public class ManagerListActivity extends NeedSwipeBackActivity implements IXList
         rl_04.setOnClickListener(multipleClickProcess);
         rl_05.setOnClickListener(multipleClickProcess);
         rl_06.setOnClickListener(multipleClickProcess);
-        id_tv_edit_all.setOnClickListener(multipleClickProcess);
+
         iv_search.setOnClickListener(multipleClickProcess);
         tagView = (TagView) this.findViewById(R.id.tagview);
         tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
@@ -153,6 +153,14 @@ public class ManagerListActivity extends NeedSwipeBackActivity implements IXList
                     public void onClick(View view) {
                     }
                 }).setShowIcon(true).setShowText(true).bindView(xListView);
+
+    }
+
+    private void initToolbar() {
+
+        iv_search = (ImageView) findViewById(R.id.toolbar_right_icon);
+        iv_search.setVisibility(View.VISIBLE);
+        ((TextView) findViewById(R.id.toolbar_title)).setText("苗木管理");
 
     }
 
@@ -181,22 +189,22 @@ public class ManagerListActivity extends NeedSwipeBackActivity implements IXList
 
                             switch (i) {
                                 case 0:
-                                    ((TextView) list_counts.get(i)).setText(countMapBean.all + "");
+                                    ((TextView) list_counts.get(i)).setText( "("+ countMapBean.all + ")");
                                     break;
                                 case 1:
-                                    ((TextView) list_counts.get(i)).setText(countMapBean.unaudit + "");
+                                    ((TextView) list_counts.get(i)).setText( "("+countMapBean.unaudit + ")");
                                     break;
                                 case 2:
-                                   ((TextView) list_counts.get(i)).setText(countMapBean.published + "");
+                                   ((TextView) list_counts.get(i)).setText( "("+countMapBean.published + ")");
                                     break;
                                 case 3:
-                                   ((TextView) list_counts.get(i)).setText(countMapBean.outline + "");
+                                   ((TextView) list_counts.get(i)).setText( "("+countMapBean.outline + ")");
                                     break;
                                 case 4:
-                                    ((TextView) list_counts.get(i)).setText(countMapBean.backed + "");
+                                    ((TextView) list_counts.get(i)).setText( "("+countMapBean.backed + ")");
                                     break;
                                 case 5:
-                                    ((TextView) list_counts.get(i)).setText(countMapBean.unsubmit + "");
+                                    ((TextView) list_counts.get(i)).setText( "("+countMapBean.unsubmit + ")");
                                     break;
 
                             }
@@ -282,7 +290,7 @@ public class ManagerListActivity extends NeedSwipeBackActivity implements IXList
         }
 
     };
-    private TextView id_tv_edit_all;
+
     private ImageView iv_search;
     private TagView tagView;
 
@@ -570,7 +578,7 @@ public class ManagerListActivity extends NeedSwipeBackActivity implements IXList
         public void onClick(View view) {
             if (flag) {
                 switch (view.getId()) {
-                    case R.id.btn_back:
+                    case R.id.toolbar_left_icon:
                         finish();
                         break;
                     case R.id.rl_01:
@@ -597,14 +605,14 @@ public class ManagerListActivity extends NeedSwipeBackActivity implements IXList
                         unsubmit();
                         onRefresh();
                         break;
-                    case R.id.id_tv_edit_all:
-                        Intent toStorageSaveActivity = new Intent(
-                                ManagerListActivity.this, StorageSaveActivity.class);
-                        startActivity(toStorageSaveActivity);
-                        overridePendingTransition(R.anim.slide_in_left,
-                                R.anim.slide_out_right);
-                        break;
-                    case R.id.iv_search:
+//                    case R.id.id_tv_edit_all:
+//                        Intent toStorageSaveActivity = new Intent(
+//                                ManagerListActivity.this, StorageSaveActivity.class);
+//                        startActivity(toStorageSaveActivity);
+//                        overridePendingTransition(R.anim.slide_in_left,
+//                                R.anim.slide_out_right);
+//                        break;
+                    case R.id.toolbar_right_icon:
                         Intent toSearchActivity = new Intent(
                                 ManagerListActivity.this, SearchActivity.class);
                         toSearchActivity.putExtra("searchKey", searchKey);
