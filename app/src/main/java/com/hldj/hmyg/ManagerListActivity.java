@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,12 +17,8 @@ import android.widget.Toast;
 
 import com.barryzhang.temptyview.TViewUtil;
 import com.cn2che.androids.swipe.ListViewSwipeGesture;
-import com.hldj.hmyg.CallBack.ResultCallBack;
-import com.hldj.hmyg.M.CountTypeGsonBean;
 import com.hldj.hmyg.adapter.ProductListAdapterForManager;
 import com.hldj.hmyg.adapter.ProductListAdapterForManager.OnGoodsCheckedChangeListener;
-import com.hldj.hmyg.presenter.ManagerListPresenter;
-import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.SearchActivity;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
@@ -91,7 +86,6 @@ public class ManagerListActivity extends NeedSwipeBackActivity implements IXList
         tv_06 = (TextView) findViewById(R.id.tv_06);
 
         initToolbar();
-
 
         tv_01.setTextColor(getResources().getColor(R.color.main_color));
         xListView = (XListView) findViewById(R.id.xlistView);
@@ -166,60 +160,59 @@ public class ManagerListActivity extends NeedSwipeBackActivity implements IXList
 
     private void setCounts() {
 
-
-        BasePresenter listPresenter = new ManagerListPresenter()
-                .addResultCallBack(new ResultCallBack<CountTypeGsonBean.DataBean.CountMapBean>() {
-                    @Override
-                    public void onSuccess(CountTypeGsonBean.DataBean.CountMapBean countMapBean) {
-
-                        list_counts.clear();
-                        LinearLayout linearLayout = getView(R.id.ll_counts_content);
-                        findTagTextView(linearLayout);
-
-                        /**
-                         *  public int backed;
-                         public int unaudit;
-                         public int outline;
-                         public int published;
-                         public int unsubmit;
-                         public int all;
-                         */
-                        for (int i = 0; i < list_counts.size(); i++) {
-
-
-                            switch (i) {
-                                case 0:
-                                    ((TextView) list_counts.get(i)).setText( "("+ countMapBean.all + ")");
-                                    break;
-                                case 1:
-                                    ((TextView) list_counts.get(i)).setText( "("+countMapBean.unaudit + ")");
-                                    break;
-                                case 2:
-                                   ((TextView) list_counts.get(i)).setText( "("+countMapBean.published + ")");
-                                    break;
-                                case 3:
-                                   ((TextView) list_counts.get(i)).setText( "("+countMapBean.outline + ")");
-                                    break;
-                                case 4:
-                                    ((TextView) list_counts.get(i)).setText( "("+countMapBean.backed + ")");
-                                    break;
-                                case 5:
-                                    ((TextView) list_counts.get(i)).setText( "("+countMapBean.unsubmit + ")");
-                                    break;
-
-                            }
-
-                        }
-
-
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t, int errorNo, String strMsg) {
-
-                    }
-                });
-        ((ManagerListPresenter) listPresenter).getStatusCount();
+//        BasePresenter listPresenter = new ManagerListPresenter()
+//                .addResultCallBack(new ResultCallBack<CountTypeGsonBean.DataBean.CountMapBean>() {
+//                    @Override
+//                    public void onSuccess(CountTypeGsonBean.DataBean.CountMapBean countMapBean) {
+//
+//                        list_counts.clear();
+//                        LinearLayout linearLayout = getView(R.id.ll_counts_content);
+//                        findTagTextView(linearLayout);
+//
+//                        /**
+//                         *  public int backed;
+//                         public int unaudit;
+//                         public int outline;
+//                         public int published;
+//                         public int unsubmit;
+//                         public int all;
+//                         */
+//                        for (int i = 0; i < list_counts.size(); i++) {
+//
+//
+//                            switch (i) {
+//                                case 0:
+//                                    ((TextView) list_counts.get(i)).setText("(" + countMapBean.all + ")");
+//                                    break;
+//                                case 1:
+//                                    ((TextView) list_counts.get(i)).setText("(" + countMapBean.unaudit + ")");
+//                                    break;
+//                                case 2:
+//                                    ((TextView) list_counts.get(i)).setText("(" + countMapBean.published + ")");
+//                                    break;
+//                                case 3:
+//                                    ((TextView) list_counts.get(i)).setText("(" + countMapBean.outline + ")");
+//                                    break;
+//                                case 4:
+//                                    ((TextView) list_counts.get(i)).setText("(" + countMapBean.backed + ")");
+//                                    break;
+//                                case 5:
+//                                    ((TextView) list_counts.get(i)).setText("(" + countMapBean.unsubmit + ")");
+//                                    break;
+//
+//                            }
+//
+//                        }
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+//
+//                    }
+//                });
+//        ((ManagerListPresenter) listPresenter).getStatusCount();
 
 
 //        findTagTextView(linearLayout);
@@ -496,9 +489,7 @@ public class ManagerListActivity extends NeedSwipeBackActivity implements IXList
                                     if (listAdapter == null) {
                                         listAdapter = new ProductListAdapterForManager(
                                                 ManagerListActivity.this, datas);
-                                        final ListViewSwipeGesture touchListener = new ListViewSwipeGesture(
-                                                xListView, swipeListener,
-                                                ManagerListActivity.this);
+                                        final ListViewSwipeGesture touchListener = new ListViewSwipeGesture(xListView, swipeListener, ManagerListActivity.this);
                                         touchListener.SwipeType = ListViewSwipeGesture.Double; // 设置两个选项列表项的背景
                                         xListView
                                                 .setOnTouchListener(touchListener);

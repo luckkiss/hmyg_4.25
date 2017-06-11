@@ -63,12 +63,8 @@ public abstract class GlobBaseAdapter<T> extends BaseAdapter {
     public abstract void setConverView(ViewHolders myViewHolder, T t, int position);
 
 
-
-
-    public List<T> getDatas()
-    {
-        if (this.data == null)
-        {
+    public List<T> getDatas() {
+        if (this.data == null) {
             this.data = new ArrayList<T>();
         }
         return this.data;
@@ -148,6 +144,10 @@ public abstract class GlobBaseAdapter<T> extends BaseAdapter {
     public void resetState() {
         state = LOAD_MORE;
     }
+
+
+
+
 
 
 }

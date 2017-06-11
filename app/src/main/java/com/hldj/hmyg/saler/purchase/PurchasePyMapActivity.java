@@ -956,16 +956,116 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                 onRefresh();
                 init();
                 showNotice(0);
+                getView(R.id.ll_show_3).setVisibility(View.GONE);
+                getView(R.id.ll_show_12).setVisibility(View.VISIBLE);
                 break;
             case R.id.button32:
                 type = "unquote";
                 onRefresh();
                 init();
                 showNotice(1);
+                getView(R.id.ll_show_3).setVisibility(View.GONE);
+                getView(R.id.ll_show_12).setVisibility(View.VISIBLE);
                 break;
+
+            case R.id.button33:
+
+                showLoading();
+                getView(R.id.ll_show_3).setVisibility(View.VISIBLE);
+                getView(R.id.ll_show_12).setVisibility(View.GONE);
+
+
+                XListView listView = getView(R.id.listview_show_3);
+                listview.setPullLoadEnable(true);
+                listview.setPullRefreshEnable(true);
+                listview.setDivider(null);
+                lv.setPullLoadEnable(false);
+                lv.setPullRefreshEnable(false);
+                GlobBaseAdapter purchaseBeenad = new PurchaseListAdapter(PurchasePyMapActivity.this, null, R.layout.list_item_purchase_list_new);
+                listView.setAdapter(purchaseBeenad);
+                //初始化监听接口
+                ResultCallBack<List<PurchaseBean>> callBack = new ResultCallBack<List<PurchaseBean>>() {
+                    @Override
+                    public void onSuccess(List<PurchaseBean> purchaseBeen) {
+                        purchaseBeenad.addData(purchaseBeen);
+
+                        if (purchaseBeen != null && purchaseBeen.size() % 10 == 0) {
+                            pageIndex3++;
+                        }
+
+                        getdata = true;//成功获取到了
+                        onLoad3(listView);
+                        hindLoading();
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+                        getdata = true;//获取到了，但是失败了
+                        onLoad3(listView);
+                        hindLoading();
+                    }
+                };
+
+
+                listView.setXListViewListener(new IXListViewListener() {
+                    @Override
+                    public void onRefresh() {
+                        req3(callBack, 0);
+                        pageIndex3 = 0;
+                        purchaseBeenad.setState(GlobBaseAdapter.REFRESH);
+                        onLoad3(listView);
+                    }
+
+
+                    @Override
+                    public void onLoadMore() {
+                        listview.setPullRefreshEnable(false);
+                        req3(callBack, pageIndex3);
+                        onLoad3(listView);
+                    }
+                });
+
+
+                req3(callBack, pageIndex3);
+                getdata = false;//数据获取到了吗？
+
+                break;
+
             default:
                 // Nothing to do
         }
+    }
+
+    private void onLoad3(XListView listview) {
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                listview.stopRefresh();
+
+                listview.stopLoadMore();
+                if (listAdapter.getDatas().size() % pageSize == 0) {
+                    listview.setPullLoadEnable(true);
+                } else {
+                    listview.setPullLoadEnable(false);
+                }
+                listview.setRefreshTime(new Date().toLocaleString());
+                listview.setPullRefreshEnable(true);
+            }
+        }, com.hldj.hmyg.application.Data.refresh_time);
+
+    }
+
+    public int pageIndex3 = 0;
+
+    public void req3(ResultCallBack<List<PurchaseBean>> callBack, int index) {
+        //根据参数请求数据
+        new PurchasePyMapPresenter()
+                .putParams("pageSize", 10 + "")
+                .putParams("pageIndex", index + "")
+                .addResultCallBack(callBack)
+                .requestDatas("purchase/historyList");
     }
 
     private void showCitys() {

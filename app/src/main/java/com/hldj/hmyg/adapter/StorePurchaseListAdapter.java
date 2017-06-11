@@ -93,16 +93,16 @@ public class StorePurchaseListAdapter extends BaseAdapter {
 
         if (MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {
 //            tv_caozuo01.setText("");
-        } else {
-
-
-            if (expired)//false 未过期
+            if (!expired)//false 未过期
             {
                 tv_caozuo01.setText("马上报价");
+                tv_caozuo01.setBackground(ContextCompat.getDrawable(context, R.drawable.green_btn_selector));
             } else {//已过期
                 tv_caozuo01.setText("采购已关闭");
-                tv_caozuo01.setTextColor(ContextCompat.getColor(context,R.color.orange));
+                tv_caozuo01.setTextColor(ContextCompat.getColor(context, R.color.orange));
+                tv_caozuo01.setBackground(ContextCompat.getDrawable(context, R.drawable.trans_bg));
             }
+        } else {
 
 
         }
@@ -128,8 +128,7 @@ public class StorePurchaseListAdapter extends BaseAdapter {
         }
 
         D.e("=======isShow======" + isShow);
-        tv_04.setText("采购单位："
-                + data.get(position).get("displayName").toString());
+        tv_04.setText("采购单位：" + data.get(position).get("displayName").toString());
         tv_02.setVisibility(View.GONE);
         tv_04.setVisibility(View.GONE);
         // tv_05.setText("截至日期：" +

@@ -60,7 +60,7 @@ import static com.hldj.hmyg.util.ConstantState.SEARCH_OK;
  * 商城界面
  */
 @SuppressLint("NewApi")
-public class  BActivity_new extends NeedSwipeBackActivity {
+public class BActivity_new extends NeedSwipeBackActivity {
 
     private CoreRecyclerView recyclerView1;
 
@@ -111,7 +111,7 @@ public class  BActivity_new extends NeedSwipeBackActivity {
                     initGridType(helper, item);
                 } else {
                     D.e("=======常规布局========");
-                    initListType(helper, item);
+                    initListType(helper, item, bitmap);
                 }
                 helper.getConvertView().setOnClickListener(v -> {
                     FlowerDetailActivity.start2Activity(BActivity_new.this, "seedling_list", item.id);
@@ -356,7 +356,7 @@ public class  BActivity_new extends NeedSwipeBackActivity {
      * @param helper
      * @param item
      */
-    private void initListType(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item) {
+    public static void initListType(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item, FinalBitmap bitmap) {
         bitmap.display(helper.getView(iv_img), item.smallImageUrl);
 
         TextView tv_01 = helper.getView(R.id.tv_01);
@@ -372,17 +372,36 @@ public class  BActivity_new extends NeedSwipeBackActivity {
         tv_03.setText(item.specText);
 
         TextView tv_04 = helper.getView(R.id.tv_04);
-        tv_04.setText("苗源地: " + item.ciCity.fullName);
+
+
+        if (!TextUtils.isEmpty( item.ciCity.fullName)){
+            tv_04.setText("苗源地: " + item.ciCity.fullName);
+        }else
+        {
+            tv_04.setText("苗源地: " + item.nurseryJson.getDetailAddress());
+        }
+
+
 
         TextView tv_06 = helper.getView(R.id.tv_06);
-        BProduceAdapt.setPublishName(tv_06,
-                item.ownerJson.companyName,
-                item.ownerJson.publicName,
-                item.ownerJson.realName);
+
+
+        if (item.ownerJson != null) {
+            BProduceAdapt.setPublishName(tv_06,
+                    item.ownerJson.companyName,
+                    item.ownerJson.publicName,
+                    item.ownerJson.realName);
+        } else {
+            if (item.closeDate.length() > 10) {
+                tv_06.setText("下架日期：" + item.closeDate.substring(0, 10));
+            } else {
+                tv_06.setText("下架日期：" + item.closeDate);
+            }
+        }
 
         TextView tv_07 = helper.getView(R.id.tv_07);
         TextView tv_08 = helper.getView(R.id.tv_08);
-        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego,tv_08);
+        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego, tv_08);
 
         tv_08.setText("元/" + item.unitTypeName);
         TextView tv_09 = helper.getView(R.id.tv_09);
@@ -400,7 +419,7 @@ public class  BActivity_new extends NeedSwipeBackActivity {
         tv_03.setText(item.ciCity.fullName);
         TextView tv_07 = helper.getView(R.id.tv_07);
         TextView tv_08 = helper.getView(R.id.tv_08);
-        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego,tv_08);
+        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego, tv_08);
 
         tv_08.setText("元/" + item.unitTypeName);
         bitmap.display(iv_img, item.smallImageUrl);

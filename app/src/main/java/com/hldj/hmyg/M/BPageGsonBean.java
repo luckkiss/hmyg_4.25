@@ -208,6 +208,8 @@ public class BPageGsonBean {
                 public List<SpecListbean> specList;
                 public List<TagListbean> tagList;
 
+                public SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean nurseryJson ;
+
                 public SaveSeedingGsonBean.DataBean.SeedlingBean.AttrDataBean attrData = new SaveSeedingGsonBean.DataBean.SeedlingBean.AttrDataBean();
 
                 public static class CiCitybean {

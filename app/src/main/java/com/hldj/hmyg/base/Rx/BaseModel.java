@@ -6,4 +6,6 @@ package com.hldj.hmyg.base.Rx;
 
 public interface BaseModel {
 
+
+
 }

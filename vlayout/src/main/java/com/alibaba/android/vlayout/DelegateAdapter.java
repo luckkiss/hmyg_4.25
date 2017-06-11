@@ -306,6 +306,7 @@ public class DelegateAdapter extends VirtualLayoutAdapter<RecyclerView.ViewHolde
             position = mAdapters.size();
         }
 
+
         List<Adapter> newAdapter = new ArrayList<>();
         Iterator<Pair<AdapterDataObserver, Adapter>> itr = mAdapters.iterator();
         while (itr.hasNext()) {

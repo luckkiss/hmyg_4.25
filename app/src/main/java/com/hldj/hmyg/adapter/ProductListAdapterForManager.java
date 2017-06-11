@@ -112,11 +112,9 @@ public class ProductListAdapterForManager extends BaseAdapter {
             tv_04.setText("苗源地址：" + data.get(position).get("detailAddress").toString());
 
             if (data.get(position).get("closeDate").toString().length() > 10) {
-                tv_06.setText("下架日期："
-                        + data.get(position).get("closeDate").toString().substring(0, 10));
+                tv_06.setText("下架日期：" + data.get(position).get("closeDate").toString().substring(0, 10));
             } else {
-                tv_06.setText("下架日期："
-                        + data.get(position).get("closeDate").toString());
+                tv_06.setText("下架日期：" + data.get(position).get("closeDate").toString());
             }
         }
 
@@ -157,5 +155,28 @@ public class ProductListAdapterForManager extends BaseAdapter {
         this.onGoodsCheckedChangeListener = onGoodsCheckedChangeListener;
     }
 
+
+    public static void setStateColor(TextView tv_right_top, String state, String stateName) {
+        tv_right_top.setVisibility(View.VISIBLE);
+        tv_right_top.setText(stateName);
+        switch (state) {
+            case "unaudit":
+                tv_right_top.setTextColor(Data.STATUS_ORANGE);//审核中
+                tv_right_top.setText("审核中");
+                break;
+            case "published":
+                tv_right_top.setTextColor(Data.STATUS_STROGE_GREEN);
+                break;
+            case "outline":
+                tv_right_top.setTextColor(Data.STATUS_GREEN);
+                break;
+            case "backed":
+                tv_right_top.setTextColor(Data.STATUS_RED);
+                break;
+            case "unsubmit":
+                tv_right_top.setTextColor(Data.STATUS_BLUE);
+                break;
+        }
+    }
 
 }

@@ -23,7 +23,7 @@ import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.FeedBackActivity;
 import com.hldj.hmyg.GalleryImageActivity;
-import com.hldj.hmyg.ManagerListActivity;
+import com.hldj.hmyg.ManagerListActivity_new;
 import com.hldj.hmyg.MessageListActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.SafeAcountActivity;
@@ -101,7 +101,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         loadHeadImage(getSpB("isLogin"));//加载头像
         setRealName(getSpS("userName"), getSpS("realName"));
 
-        this.getView(R.id.sptv_wd_mmgl).setOnClickListener(v -> ManagerListActivity.start2Activity(mActivity));//苗木管理
+        this.getView(R.id.sptv_wd_mmgl).setOnClickListener(v -> ManagerListActivity_new.start2Activity(mActivity));//苗木管理
         this.getView(R.id.sptv_wd_bjgl).setOnClickListener(v -> ManagerQuoteListActivity_new.start2Activity(mActivity));//报价管理
         this.getView(R.id.sptv_wd_wddp).setOnClickListener(v -> StoreActivity.start2Activity(mActivity, getSpS("code")));//我的店铺
         this.getView(R.id.sptv_wd_dpsz).setOnClickListener(v -> StoreSettingActivity.start2Activity(mActivity));//店铺设置
