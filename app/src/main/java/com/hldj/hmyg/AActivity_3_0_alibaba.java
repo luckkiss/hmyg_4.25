@@ -60,7 +60,6 @@ import java.util.TimerTask;
 
 import aom.xingguo.huang.banner.MyFragment;
 
-import static com.hldj.hmyg.R.id.upview1;
 
 public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliModel> implements AAliContract.View {
 
@@ -295,12 +294,11 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
             @Override
             public void onBindViewHolder(BaseViewHolder holder, int position) {
                 holder.convertView.setBackgroundColor(Color.WHITE);
-                UPMarqueeView mUPMarqueeView = holder.getView(upview1);
+                UPMarqueeView mUPMarqueeView = holder.getView(R.id.upview1);
                 //设置滚动的单个布局
                 LinearLayout moreView = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_home_cjgg, null);
 
-
-                mUPMarqueeView.setViews(getViewsByDatas(getmIndexGsonBean().data.articleList));
+                mUPMarqueeView.setViews(getViewsByDatas(mActivity,getmIndexGsonBean().data.articleList));
             }
 
             @Override
@@ -636,12 +634,12 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
      * 为了灵活的使用滚动的View，所以把滚动的内容让用户自定义
      * 假如滚动的是三条或者一条，或者是其他，只需要把对应的布局，和这个方法稍微改改就可以了，
      */
-    private List<View> getViewsByDatas(List<ArticleBean> data) {
+    public static List<View> getViewsByDatas(Activity aActivity,List<ArticleBean> data) {
         List<View> views = new ArrayList<>();
         for (int i = 0; i < data.size(); i = i + 2) {
             final int position = i;
             //设置滚动的单个布局
-            LinearLayout moreView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_home_cjgg, null);
+            LinearLayout moreView = (LinearLayout) LayoutInflater.from(aActivity).inflate(R.layout.item_home_cjgg, null);
             //初始化布局的控件
             SuperTextView tv1 = (SuperTextView) moreView.findViewById(R.id.tv_taggle1);
             SuperTextView tv2 = (SuperTextView) moreView.findViewById(R.id.tv_taggle2);
@@ -651,7 +649,7 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
             moreView.findViewById(R.id.tv_taggle1).setOnClickListener(view -> {
                 String url = "http://192.168.1.252:8090/article/detail/" + data.get(position).id + ".html?isHeader=true";
                 D.e("url=" + url);
-                NoticeActivity_detail.start2Activity(AActivity_3_0_alibaba.this, url);
+                NoticeActivity_detail.start2Activity(aActivity, url);
             });
             /**
              * 设置监听
@@ -659,14 +657,14 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
             moreView.findViewById(R.id.tv_taggle2).setOnClickListener(view -> {
                 String url = "http://192.168.1.252:8090/article/detail/" + data.get(position + 1).id + ".html?isHeader=true";
                 D.e("url=" + url);
-                NoticeActivity_detail.start2Activity(AActivity_3_0_alibaba.this, url);
+                NoticeActivity_detail.start2Activity(aActivity, url);
             });
             //进行对控件赋值
             tv1.setText(data.get(i).title);
 
             if (data.get(i).isNew) {
                 tv1.setShowState(data.get(i).isNew);
-                tv1.setPadding(MyApplication.dp2px(AActivity_3_0_alibaba.this, 40), 0, 0, 0);
+                tv1.setPadding(MyApplication.dp2px(aActivity, 40), 0, 0, 0);
             } else {
                 tv1.setPadding(10, 0, 0, 0);
                 tv1.setShowState(data.get(i).isNew);
@@ -678,7 +676,7 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
 
                 if (data.get(i + 1).isNew) {
                     tv2.setShowState(true);
-                    tv2.setPadding(MyApplication.dp2px(AActivity_3_0_alibaba.this, 40), 0, 0, 0);
+                    tv2.setPadding(MyApplication.dp2px(aActivity, 40), 0, 0, 0);
                 } else {
                     tv2.setPadding(10, 0, 0, 0);
                     tv2.setShowState(false);

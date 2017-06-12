@@ -127,6 +127,7 @@ public class PurchaseDeatilP {
         paramsPut(params, ConstantParams.crown, bean.crown);
         paramsPut(params, ConstantParams.offbarHeight, bean.offbarHeight);
         paramsPut(params, ConstantParams.length, bean.length);
+        paramsPut(params, ConstantParams.count, bean.count);
         paramsPut(params, ConstantParams.diameterType, bean.diameterType);
         paramsPut(params, ConstantParams.remarks, bean.remarks);
         paramsPut(params, ConstantParams.imagesData, bean.imagesData);

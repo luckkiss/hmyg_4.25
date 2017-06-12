@@ -235,15 +235,27 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     List<View> views = new ArrayList<>();
 
 
+    /**
+     * holder.convertView.setBackgroundColor(Color.WHITE);
+     * UPMarqueeView mUPMarqueeView = holder.getView(upview1);
+     * //设置滚动的单个布局
+     * LinearLayout moreView = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_home_cjgg, null);
+     * <p>
+     * <p>
+     * mUPMarqueeView.setViews(getViewsByDatas(mActivity,getmIndexGsonBean().data.articleList));
+     *
+     * @param articleList
+     */
+
     private void initArticles(List<ArticleBean> articleList) {
-        data.addAll(articleList);
-        setView();//设置数据
+//        data.addAll(articleList);
+//        setView();//设置数据
         UPMarqueeView upview1 = (UPMarqueeView) findViewById(R.id.upview1);
-        upview1.setViews(views);
+        upview1.setViews(AActivity_3_0_alibaba.getViewsByDatas(AActivity_3_0.this, articleList));
         /**
          * 设置item_view的监听
          */
-        upview1.setOnItemClickListener((position, view) -> ToastUtil.showShortToast("==点击了==" + position + " 个 item"));
+//        upview1.setOnItemClickListener((position, view) -> ToastUtil.showShortToast("==点击了==" + position + " 个 item"));
     }
 
 
@@ -251,8 +263,10 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
      * 初始化 今日头条
      */
     private void initView() {
-        //商城界面
-        findViewById(R.id.stv_home_1).setOnClickListener(v -> MainActivity.toB());
+        //商城管理
+        findViewById(R.id.stv_home_1).setOnClickListener(v -> {
+            if (isLogin()) ManagerListActivity_new.start2Activity(AActivity_3_0.this);
+        });
         //快速报价
         findViewById(R.id.stv_home_2).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this));
         ////成交公告
@@ -313,6 +327,17 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             }
         });
         /***********************************************************/
+
+    }
+
+    private boolean isLogin() {
+        if (!MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {//没有登录跳转到登录界面
+            LoginActivity.start2Activity(this);
+            return false;
+
+        } else {
+            return true;
+        }
 
     }
 

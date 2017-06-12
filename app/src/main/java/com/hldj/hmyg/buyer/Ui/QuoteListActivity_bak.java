@@ -97,6 +97,8 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
         helper.setText(R.id.tv_quote_item_price, strFilter(item.price + ""));//价格
         helper.setText(R.id.tv_quote_item_plantTypeName, strFilter(item.plantTypeName));//种植类型
         helper.setText(R.id.tv_quote_item_specText, strFilter(item.specText));//要求规格
+        helper.setText(R.id.tv_quote_item_count, strFilter(item.count + ""));// 可供数量
+        helper.setText(R.id.tv_quote_item_remark, strFilter(item.remarks + ""));//  备注信息
 //
 //        StorePurchaseListAdapter.setSpaceAndRemark(helper.getView(R.id.tv_quote_item_specText), item.specText, item.remarks);
 

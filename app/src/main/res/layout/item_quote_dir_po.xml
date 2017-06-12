@@ -70,7 +70,7 @@
                     android:gravity="center|start"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="价       格:"
+                    android:text="价        格:"
                     android:textSize="12sp" />
 
                 <com.coorchice.library.SuperTextView
@@ -117,6 +117,34 @@
 
         </LinearLayout>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_quote_item_left"
+                android:layout_width="wrap_content"
+                android:layout_height="27dp"
+                android:gravity="center|end"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="品种规格:"
+                android:textSize="12sp" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_quote_item_specText"
+                android:layout_width="0dp"
+                android:layout_height="27dp"
+                android:layout_weight="0.8"
+                android:gravity="center_vertical|start"
+                android:paddingRight="5dp"
+                android:textSize="12sp"
+                tools:text="地径：55（0.1m量）高度：5" />
+
+
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -143,31 +171,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.coorchice.library.SuperTextView
-                android:layout_width="wrap_content"
-                android:layout_height="27dp"
-                android:gravity="center|end"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="规格要求:"
-                android:textSize="12sp" />
-
-            <com.coorchice.library.SuperTextView
-                android:id="@+id/tv_quote_item_specText"
-                android:layout_width="0dp"
-                android:layout_height="27dp"
-                android:layout_weight="0.8"
-                android:gravity="center_vertical|start"
-                android:paddingRight="5dp"
-                android:textSize="12sp"
-                tools:text="地径：55（0.1m量）高度：5" />
-
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

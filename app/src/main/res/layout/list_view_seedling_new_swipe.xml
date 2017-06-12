@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cn.fanrunqi.swipelayoutlibrary.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_manager"
+    style="@style/CardView.Simple"
+    android:foreground="?attr/selectableItemBackground"
+    app:drag_edge="right">
+
+    <include layout="@layout/list_view_seedling_new" android:id="@+id/swipe_manager1" />
+
+    <TextView
+        android:id="@+id/btn_delete_manager"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:background="@color/red"
+        android:gravity="center"
+        android:text="删除"
+        android:textColor="@color/white" />
+
+
+</cn.fanrunqi.swipelayoutlibrary.SwipeLayout>

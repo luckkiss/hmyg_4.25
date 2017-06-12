@@ -17,6 +17,7 @@ import com.hldj.hmyg.LoginActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
+import com.hldj.hmyg.buyer.Ui.QuoteListActivity_bak;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
@@ -176,12 +177,15 @@ public class StorePurchaseListAdapter extends BaseAdapter {
             tv_10.setText(fillColor.getResult());
             tv_10.setVisibility(View.VISIBLE);
 
-            if (data.get(position).get("quoteCountJson") != null && !data.get(position).get("quoteCountJson").toString().equals("0"))
+            if (data.get(position).get("quoteCountJson") != null && data.get(position).get("quoteCountJson").toString().equals("0")) {
                 //跳转到报价列表详情
-                tv_10.setOnClickListener(v -> {
-                    ToastUtil.showShortToast("暂无报价");
-//                    QuoteListActivity_bak.start2Activity((Activity) context, data.get(position).get("id").toString());
-                });
+                tv_10.setOnClickListener(v -> ToastUtil.showShortToast("暂无报价"));
+            } else {
+                //跳转到报价列表详情
+                tv_10.setOnClickListener(v -> QuoteListActivity_bak.start2Activity((Activity) context, data.get(position).get("id").toString()));
+            }
+
+
         } else {
             tv_10.setVisibility(View.GONE);//没有权限 就不显示  和没有点击事件
         }
@@ -193,10 +197,7 @@ public class StorePurchaseListAdapter extends BaseAdapter {
             public void onClick(View v) {
 
 
-                if (expired) {
-                    ToastUtil.showShortToast("采购已关闭");
-                    return;
-                }
+
 //				Intent toPurchaseDetailActivity = new Intent(context,
 //						PurchaseDetailActivity.class);
 //				toPurchaseDetailActivity.putExtra("id",
@@ -208,6 +209,11 @@ public class StorePurchaseListAdapter extends BaseAdapter {
 //						R.anim.slide_in_left, R.anim.slide_out_right);
 //                MyApplication.Userinfo.getBoolean("isLogin", false)
                 if (MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {
+
+                    if (expired) {
+                        ToastUtil.showShortToast("采购已关闭");
+                        return;
+                    }
 //                          PurchaseDetailActivity.start2Activity((Activity) context, data.get(position).get("id").toString());//采购详情 界面
                     PurchaseDetailActivity.start2Activity((Activity) context, data.get(position).get("id").toString());//采购详情 界面
 

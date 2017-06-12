@@ -54,13 +54,13 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
         title = (TextView) findViewById(R.id.toolbar_title);
 
         if (title != null) {
-            title.setText(bindTitle());
+            title.setText(setTitle());
             findViewById(R.id.toolbar_left_icon).setOnClickListener(view -> finish());
         }
 
     }
 
-    public String bindTitle() {
+    public String setTitle() {
         return "";
     }
 

@@ -15,11 +15,13 @@ public interface ManagerListContract {
     interface Model extends BaseModel {
         void getDatas(String page ,String status ,String searchKey,ResultCallBack callBack);
         void getCounts(ResultCallBack callBack);
+        void doDelete(String id ,ResultCallBack callBack);
     }
 
     interface View extends BaseView {
         void initXRecycle(BPageGsonBean gsonBean);
         void initCounts(CountTypeGsonBean gsonBean);
+        void onDeled(boolean bo);
         void showError(String errorMsg);
     }
 
@@ -31,6 +33,8 @@ public interface ManagerListContract {
 
 
         public abstract void getCounts();
+
+        public abstract void doDelete(String id);
 
 
     }

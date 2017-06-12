@@ -6,13 +6,19 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.hldj.hmyg.DaoBean.SaveJson.DaoSession;
+import com.hldj.hmyg.DaoBean.SaveJson.SavaBean;
+import com.hldj.hmyg.DaoBean.SaveJson.SavaBeanDao;
 import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.M.CountTypeGsonBean;
 import com.hldj.hmyg.adapter.ProductListAdapterForManager;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
@@ -20,9 +26,20 @@ import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.contract.ManagerListContract;
 import com.hldj.hmyg.model.ManagerListModel;
 import com.hldj.hmyg.presenter.ManagerListPresenter;
+import com.hldj.hmyg.saler.SaveSeedlingActivity;
 import com.hldj.hmyg.saler.SearchActivity;
+import com.hldj.hmyg.saler.StorageSaveActivity;
+import com.hy.utils.GetServerUrl;
+import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalBitmap;
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,19 +64,36 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
     }
 
     @Override
+    public String setTitle() {
+        return "苗木管理";
+    }
+
+    @Override
     public void initView() {
         initToolbar();
         xRecyclerView = getView(R.id.xrecycle);
 //        list_view_seedling_new
 
-        xRecyclerView.init(new BaseQuickAdapter<BPageGsonBean.DatabeanX.Pagebean.Databean, BaseViewHolder>(R.layout.list_view_seedling_new) {
+        xRecyclerView.init(new BaseQuickAdapter<BPageGsonBean.DatabeanX.Pagebean.Databean, BaseViewHolder>(R.layout.list_view_seedling_new_swipe) {
+
+
+//            @Override
+//            public int getSwipeLayoutResourceId(int position) {
+//                return R.id.swipe_manager;
+//            }
+
             @Override
             protected void convert(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item) {
+
+                /**
+                 * add this swipeview
+                 */
+//                SwipeLayout.addSwipeView(helper.getView(R.id.swipe_manager));
+
                 BActivity_new.initListType(helper, item, FinalBitmap.create(mContext));
                 ProductListAdapterForManager.setStateColor(helper.getView(R.id.tv_right_top), item.status, item.statusName);
 
-
-                helper.getConvertView().setOnClickListener(new View.OnClickListener() {
+                helper.addOnClickListener(R.id.swipe_manager1, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent toFlowerDetailActivity = new Intent(ManagerListActivity_new.this, FlowerDetailActivity.class);
@@ -68,6 +102,16 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
                         startActivityForResult(toFlowerDetailActivity, 1);
                     }
                 });
+
+                helper.addOnClickListener(R.id.btn_delete_manager, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ToastUtil.showShortToast("delete");
+                        mPresenter.doDelete(item.id);
+
+                    }
+                });
+
 
             }
         }).openLoadMore(10, page -> {
@@ -83,9 +127,60 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
     }
 
 
+    private void seedlingDoDel(String id, final int pos) {
+        FinalHttp finalHttp = new FinalHttp();
+        GetServerUrl.addHeaders(finalHttp, true);
+        AjaxParams params = new AjaxParams();
+        params.put("ids", id);
+        finalHttp.post(GetServerUrl.getUrl() + "admin/seedling/doDel", params, new AjaxCallBack<Object>() {
+
+            @Override
+            public void onSuccess(Object t) {
+                try {
+                    JSONObject jsonObject = new JSONObject(t.toString());
+                    String code = JsonGetInfo.getJsonString(jsonObject,
+                            "code");
+                    String msg = JsonGetInfo.getJsonString(jsonObject,
+                            "msg");
+                    if (!"".equals(msg)) {
+                        Toast.makeText(mActivity, msg, Toast.LENGTH_SHORT).show();
+                    }
+                    if ("1".equals(code)) {
+                    } else {
+
+                    }
+
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                super.onSuccess(t);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo,
+                                  String strMsg) {
+                // TODO Auto-generated method stub
+                super.onFailure(t, errorNo, strMsg);
+            }
+
+        });
+
+    }
+
+
     @Override
     public void initVH() {
 
+
+        getView(R.id.btn_manager_storege).setOnClickListener(view -> {//草稿箱
+            StorageSaveActivity.start2Activity(mActivity);
+        });
+
+
+        getView(R.id.btn_manager_publish).setOnClickListener(view -> {//发布
+            SaveSeedlingActivity.start2Activity(mActivity);
+        });
         getView(R.id.rl_01).setOnClickListener(view -> {//所有
             switch2Refresh("", 0);
         });
@@ -117,19 +212,25 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
 
 
     TextView[] tvs = null;
+    ImageView[] ivs = null;
 
     private void switch2Refresh(String stat, int index) {
 
         if (tvs == null) {
             tvs = new TextView[]{getView(R.id.tv_01), getView(R.id.tv_02), getView(R.id.tv_03), getView(R.id.tv_04), getView(R.id.tv_05), getView(R.id.tv_06)};
         }
+        if (ivs == null) {
+            ivs = new ImageView[]{getView(R.id.botton_lines_1), getView(R.id.botton_lines_2), getView(R.id.botton_lines_3), getView(R.id.botton_lines_4), getView(R.id.botton_lines_5), getView(R.id.botton_lines_6)};
+        }
 
         status = stat;
         for (int i1 = 0; i1 < tvs.length; i1++) {
             if (index == i1) {
                 tvs[i1].setTextColor(ContextCompat.getColor(mActivity, R.color.main_color));
+                ivs[i1].setVisibility(View.VISIBLE);
             } else {
                 tvs[i1].setTextColor(ContextCompat.getColor(mActivity, R.color.text_color333));
+                ivs[i1].setVisibility(View.INVISIBLE);
             }
         }
         xRecyclerView.onRefresh();
@@ -216,8 +317,12 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
 
     @Override
     protected void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
+        Button button = getView(R.id.btn_manager_storege);
+        DaoSession daoSession = MyApplication.getInstance().getDaoSession();
+        SavaBeanDao savaBeanDao = daoSession.getSavaBeanDao();
+        List<SavaBean> list = savaBeanDao.queryBuilder().list();
+        button.setText("草稿箱" + "(" + list.size() + ")");
     }
 
 
@@ -294,6 +399,13 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
         }
 
     }
+
+    @Override
+    public void onDeled(boolean bo) {
+        if (bo) xRecyclerView.onRefresh();
+
+    }
+
 
     @Override
     public void showError(String errorMsg) {

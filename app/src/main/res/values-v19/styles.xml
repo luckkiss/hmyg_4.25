@@ -18,8 +18,6 @@
     </style>
 
 
-
-
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <!-- 无ActionBar -->
@@ -33,7 +31,9 @@
         <!--<item name="android:fitsSystemWindows">false</item>-->
     </style>
 
-
+    <style name="AppMainTheme" parent="AppBaseTheme">
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
 
 
     <style name="FullScreenTheme" parent="@android:style/Theme.Holo.Light.NoActionBar">
@@ -48,12 +48,6 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
-
-
-
-
-
-
 
 
 </resources>

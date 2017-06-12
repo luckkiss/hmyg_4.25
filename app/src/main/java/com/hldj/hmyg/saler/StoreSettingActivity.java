@@ -32,10 +32,13 @@ import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.Loading;
 import com.hy.utils.ToastUtil;
+import com.soundcloud.android.crop.Crop;
 import com.white.utils.ImageTools;
 import com.xingguo.huang.mabiwang.util.CacheUtils;
 import com.xingguo.huang.mabiwang.util.PictureManageUtil;
 import com.zf.iosdialog.widget.ActionSheetDialog;
+import com.zym.selecthead.config.Configs;
+import com.zym.selecthead.tools.FileTools;
 import com.zym.selecthead.tools.SelectHeadTools;
 
 import net.tsz.afinal.FinalBitmap;
@@ -425,8 +428,12 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
             new ActionSheetDialog(mActivity).builder().setCancelable(true).setCanceledOnTouchOutside(true)
                     .addSheetItem("拍照", ActionSheetDialog.SheetItemColor.Red,
                             which -> {
+                                // Uri.fromFile(getTempCropFile())
                                 if (PermissionUtils.requestCamerPermissions(200))
-                                    SelectHeadTools.startCamearPicCut(mActivity, Uri.fromFile(getTempCropFile()));
+                                    if (submit()) {
+                                        SelectHeadTools.startCamearPicCut(mActivity, photoUri);
+                                    }
+
                             })
                     .addSheetItem("从相册选择", ActionSheetDialog.SheetItemColor.Blue,
                             which -> {
@@ -550,25 +557,16 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                 break;
             case 1://拍照返回
 
-                // 方法一
-                // String files = CacheUtils.getCacheDirectory(
-                // StoreSettingActivity.this, true, "pic") + dateTime;
-                // File file = new File(files);
-                // if (file.exists()) {
-                // bitmap = compressImageFromFile(files);
-                // targeturl = saveToSdCard(bitmap);
-                // if ("storeLogo".equals(imagType_tag)) {
-                // iv_logo.setImageDrawable(new BitmapDrawable(bitmap));
-                // } else if ("storeBanner".equals(imagType_tag)) {
-                // iv_banner.setImageDrawable(new BitmapDrawable(bitmap));
-                // }
-                // updateImage(targeturl, imagType_tag, "");
-                // } else {
-                //
-                // }
+                File file = null ;
+                if (SelectHeadTools.imageUri != null) {
+                      file = FileTools.getFileByUri(this, SelectHeadTools.imageUri);
+                    if (SelectHeadTools.imageUri != null) SelectHeadTools.imageUri = null;
 
+                } else {
+//
+                      file = FileTools.getFileByUri(this, photoUri );
+                }
 //                mTempCameraFile
-                File file = composBitmap(getTempCropFile());
 
 //              startCrop(Uri.fromFile(getTempCropFile()), 2, 1);
                 sendImage(file);
@@ -591,6 +589,29 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void beginCrop(Uri source) {
+        Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
+        Crop.of(source, destination).asSquare().start(this);
+    }
+
+    private Uri photoUri;
+
+    private boolean submit() {
+        if (!FileTools.hasSdcard()) {
+            showToast("没有找到SD卡，请检查SD卡是否存在");
+            return false;
+        }
+        try {
+            photoUri = FileTools.getUriByFileDirAndFileName(
+                    Configs.SystemPicture.SAVE_DIRECTORY,
+                    Configs.SystemPicture.SAVE_PIC_NAME);
+        } catch (IOException e) {
+            showToast("创建文件失败");
+            return false;
+        }
+        return true;
     }
 
     public void updateImage(String url, String imagType, String sourceId) {

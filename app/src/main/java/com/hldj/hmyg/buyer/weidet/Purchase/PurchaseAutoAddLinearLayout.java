@@ -70,6 +70,9 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
         if (plantBean.name.equals("价格")) {
             getViewHolder().et_params_03.setHint("元");
         }
+        if (plantBean.name.equals("数量")) {
+            getViewHolder().et_params_03.setHint("可供数量");
+        }
 
         this.setTag(plantBean);//为这个view 赋值 tag  获取时可以直接 获取当中的tag 判断是哪个上传的值
         //价格直接写在外面

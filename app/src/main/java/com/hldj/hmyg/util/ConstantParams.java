@@ -38,7 +38,10 @@ public interface ConstantParams {
     /**
      * 长度
      */
-    String length = "length";
+    String length = "length"; /**
+     * 数量
+     */
+    String count = "count";
     /**
      * 地径类型
      */

@@ -215,7 +215,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         }
 
         tabHost.addTab(tabHost.newTabSpec("1").setIndicator("1")
-                .setContent(new Intent(this, AActivity_3_0_alibaba.class)));
+                .setContent(new Intent(this, AActivity_3_0.class)));
         tabHost.addTab(tabHost.newTabSpec("2").setIndicator("2")
                 .setContent(new Intent(this, BActivity_new.class)));
         tabHost.addTab(tabHost.newTabSpec("3").setIndicator("3")
@@ -890,9 +890,9 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     }
 
 
-    public static String province_loc = "北京";
-    public static String city_loc = "北京";
-    public static String district_loc = "东城区";
+    public static String province_loc = "";
+    public static String city_loc = "";
+    public static String district_loc = "";
     public static AMapLocation aMapLocation = null;
 
     /**

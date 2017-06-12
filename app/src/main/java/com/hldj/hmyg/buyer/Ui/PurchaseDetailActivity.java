@@ -6,11 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.GalleryImageActivity;
+import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PicSerializableMaplist;
@@ -35,7 +35,6 @@ import com.zf.iosdialog.widget.AlertDialog;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 
 
 /**
@@ -129,6 +128,15 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
             findViewById(R.id.include_bottom_pur_detail).setVisibility(View.VISIBLE);
             //初始化后 设置点击事件
             getViewHolder_pur().tv_purchase_commit.setOnClickListener(commitListener);
+
+            if (!MainActivity.province_loc.equals("")) {
+                getViewHolder_pur().tv_purchase_city_name.setText(MainActivity.province_loc + " " + MainActivity.city_loc);
+            } else {
+                getViewHolder_pur().tv_purchase_city_name.setText("未选择");
+            }
+            getViewHolder_pur().tv_purchase_city_name.setOnClickListener(showCity);
+
+
         }
         getViewHolder_pur().tv_purchase_add_pic.setOnClickListener(choosePic);
 
@@ -147,11 +155,16 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("价格", "price", true));
         autoLayouts.add(layout);
         getViewHolder_pur().ll_purc_auto_add.addView(layout);
+        layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("数量", "count", true));
+        autoLayouts.add(layout);
+        View line = new View(mActivity);
+        getViewHolder_pur().ll_purc_auto_add.addView(layout);
+
 
         //不需要地址栏
 
-        ViewGroup viewGroup = (ViewGroup) getViewHolder_pur().tv_purchase_city_name.getParent();
-        viewGroup.setVisibility(View.GONE);
+//        ViewGroup viewGroup = (ViewGroup) getViewHolder_pur().tv_purchase_city_name.getParent();
+//        viewGroup.setVisibility(View.GONE);
 
     }
 
@@ -263,13 +276,15 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
                         ManagerQuoteListItemDetail.setStatus(helper.getView(R.id.tv_show_is_quote), getStatus());
 
-
+                        helper.setText(R.id.tv_quote_item_cityName, strFilter(item.cityName));//苗源地址
                         if (direce) {//代购
                             helper.setText(R.id.tv_quote_item_specText, strFilter(item.specText));//要求规格
-                            helper.setText(R.id.tv_quote_item_cityName, strFilter(item.cityName));//苗源地址
+
                         } else {//直购  参数比较少，需要隐藏部分
-                            helper.setParentVisible(R.id.tv_quote_item_specText, false);
-                            helper.setParentVisible(R.id.tv_quote_item_cityName, false);
+                            helper.setText(R.id.tv_quote_item_left, "数        量:");
+                            helper.setText(R.id.tv_quote_item_specText, item.count + "");
+//                          helper.setParentVisible(R.id.tv_quote_item_specText, false); // 规格 -》 数量
+//                            helper.setParentVisible(R.id.tv_quote_item_cityName, false); // 地址继续显示
                         }
 
 
@@ -428,6 +443,10 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                     content = uploadBean.length = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
                     isOk = submit(plantBean.name, uploadBean.price, plantBean.required);
                     break;
+                case "count"://长度
+                    content = uploadBean.count = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
+                    isOk = submit(plantBean.name, uploadBean.price, plantBean.required);
+                    break;
 
             }
 
@@ -531,6 +550,8 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         public String dbhType = "";
         public String remarks = "";//备注
         public String imagesData = "";//备注
+
+        public String count = "";
 
         public String purchaseId = "";//
         public String purchaseItemId = "";//

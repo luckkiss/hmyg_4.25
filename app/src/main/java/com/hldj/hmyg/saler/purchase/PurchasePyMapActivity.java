@@ -680,6 +680,8 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
         }
         if (getdata == true) {
             initData();
+        }else {
+            hindLoading();
         }
 
     }
@@ -900,12 +902,14 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                 listAdapter.addData(purchaseBeen);//返回空 就添加到数组中，并刷新  如果为null  listAdapter 会自动清空
                 getdata = true;//成功获取到了
                 onLoad();
+                hindLoading();
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 getdata = true;//获取到了，但是失败了
                 onLoad();
+                hindLoading();
             }
         };
         getdata = false;//数据获取到了吗？
@@ -952,6 +956,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
 
         switch (checkedId) {
             case R.id.button31:
+                showLoading();
                 type = "quoting";
                 onRefresh();
                 init();
@@ -960,6 +965,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                 getView(R.id.ll_show_12).setVisibility(View.VISIBLE);
                 break;
             case R.id.button32:
+                showLoading();
                 type = "unquote";
                 onRefresh();
                 init();

@@ -34,7 +34,10 @@ public class SafeAcountActivity extends NeedSwipeBackActivity {
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         MultipleClickProcess multipleClickProcess = new MultipleClickProcess();
-        ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
+
+
+        initToolbar(multipleClickProcess);
+
         tv_has_bind = (TextView) findViewById(R.id.tv_has_bind);
         tv_phone = (TextView) findViewById(R.id.tv_phone);
         if (!"".equals(publicPhone)) {
@@ -46,12 +49,18 @@ public class SafeAcountActivity extends NeedSwipeBackActivity {
         LinearLayout ll_03 = (LinearLayout) findViewById(R.id.ll_03);
         LinearLayout ll_04 = (LinearLayout) findViewById(R.id.ll_04);
         LinearLayout ll_05 = (LinearLayout) findViewById(R.id.ll_05);
-        btn_back.setOnClickListener(multipleClickProcess);
+
         ll_01.setOnClickListener(multipleClickProcess);
         ll_02.setOnClickListener(multipleClickProcess);
         ll_03.setOnClickListener(multipleClickProcess);
         ll_04.setOnClickListener(multipleClickProcess);
         ll_05.setOnClickListener(multipleClickProcess);
+    }
+
+    private void initToolbar(MultipleClickProcess multipleClickProcess) {
+        ImageView btn_back = (ImageView) findViewById(R.id.toolbar_left_icon);
+        btn_back.setOnClickListener(multipleClickProcess);
+        ((TextView) getView(R.id.toolbar_title)).setText("账户安全");
     }
 
 
@@ -65,7 +74,7 @@ public class SafeAcountActivity extends NeedSwipeBackActivity {
         public void onClick(View view) {
             if (flag) {
                 switch (view.getId()) {
-                    case R.id.btn_back:
+                    case R.id.toolbar_left_icon:
                         onBackPressed();
                         break;
                     case R.id.ll_01:

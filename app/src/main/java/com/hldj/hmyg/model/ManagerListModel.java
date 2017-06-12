@@ -3,6 +3,7 @@ package com.hldj.hmyg.model;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.M.CountTypeGsonBean;
+import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.contract.ManagerListContract;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
@@ -36,18 +37,16 @@ public class ManagerListModel extends BasePresenter implements ManagerListContra
                 BPageGsonBean bPageGsonBean = GsonUtil.formateJson2Bean(json, BPageGsonBean.class);
                 D.e("==========json=============" + json);
 
-                if (bPageGsonBean.code  .equals(ConstantState.SUCCEED_CODE))
-                {
+                if (bPageGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
                     callBack.onSuccess(bPageGsonBean);
-                }else
-                {
-                    callBack.onFailure(null,0,bPageGsonBean.msg);
+                } else {
+                    callBack.onFailure(null, 0, bPageGsonBean.msg);
                 }
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
-                callBack.onFailure(t,errorNo,strMsg);
+                callBack.onFailure(t, errorNo, strMsg);
                 super.onFailure(t, errorNo, strMsg);
             }
         });
@@ -93,6 +92,42 @@ public class ManagerListModel extends BasePresenter implements ManagerListContra
 
 
     }
+
+    @Override
+    public void doDelete(String id, ResultCallBack callBack) {
+        putParams("ids", id);
+        AjaxCallBack acallBack = new AjaxCallBack<String>() {
+            @Override
+            public void onSuccess(String json) {
+                try {
+                    D.e("=json====" + json);
+                    SimpleGsonBean simpleGsonBean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
+
+                    if (simpleGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
+                        callBack.onSuccess(true);
+                    } else {
+                        //失败
+                        callBack.onFailure(null,0,simpleGsonBean.msg);
+                    }
+                } catch (Exception e) {
+                    ToastUtil.showShortToast("获取数据失败" + e.getMessage());
+                    callBack.onFailure(null, -1, e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                ToastUtil.showShortToast("网络错误，数据请求失败");
+                resultCallBack.onFailure(t, errorNo, strMsg);
+                super.onFailure(t, errorNo, strMsg);
+            }
+        };
+
+
+        doRequest("admin/seedling/doDel", true, acallBack);
+    }
+
+
 
 
 }

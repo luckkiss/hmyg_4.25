@@ -28,7 +28,9 @@
         <item name="android:windowAnimationStyle">@style/activityAnimation</item>
     </style>
 
-
+    <style name="AppMainTheme" parent="AppBaseTheme">
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
 
 
 

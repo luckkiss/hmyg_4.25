@@ -86,6 +86,8 @@ public class QuoteListBean {
     public List<String> paramsList;
     public List<SpecListBeanX> specList;
 
+    public int count = 0 ;
+
 
 
 

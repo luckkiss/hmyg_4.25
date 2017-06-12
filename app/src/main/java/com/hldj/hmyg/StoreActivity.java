@@ -1380,6 +1380,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
 
         if (TextUtils.isEmpty(plantTypes)) {
             tv_plant_type.setTextColor(getResources().getColor(R.color.text_color666));
+            tv_plant_type.setText("种植类型");
         } else {
             tv_plant_type.setTextColor(getResources().getColor(R.color.main_color));
             setTextByType(tv_plant_type, plantTypes);

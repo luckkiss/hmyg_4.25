@@ -22,10 +22,8 @@
         style="@style/ll_padleft_15"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-
     </LinearLayout>
-    <View style="@style/View_line_gray_1dp" />
+    <!--<View style="@style/View_line_gray_1dp" />-->
 
     <RelativeLayout style="@style/ll_padleft_15">
 
@@ -34,7 +32,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:gravity="center"
-            android:text="地址" />
+            android:text="苗源地" />
 
         <TextView
             android:id="@+id/tv_purchase_city_name"
@@ -42,7 +40,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:drawablePadding="5dp"
-            android:drawableRight="@drawable/ic_arrow_down_black"
+            android:drawableRight="@drawable/ic_right_icon_new"
             android:gravity="center"
             android:paddingRight="15dp"
             android:text="未选择" />
@@ -58,7 +56,7 @@
         android:id="@+id/tfl_purchase_auto_add_plant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@android:color/white"
         android:paddingLeft="10dp"
         app:max_select="0" />
     <View style="@style/View_line_gray_1dp" />
@@ -126,6 +124,8 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:textColor="@color/text_color"
+            android:hint="请填写备注信息"
+            android:textColorHint="@color/hint_text_color"
             android:textSize="14sp" />
 
     </LinearLayout>

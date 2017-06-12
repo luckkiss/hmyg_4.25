@@ -80,6 +80,7 @@ public class SellerQuoteJsonBean {
     public String purchaseItemStatus;
     public List<String> paramsList;
     public List<SpecListBean> specList;
+    public int  count;
 
 
     public List<ImagesJsonBean> imagesJson = new ArrayList<>();

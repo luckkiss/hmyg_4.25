@@ -8,8 +8,10 @@ import com.hldj.hmyg.contract.StoreContract;
  */
 
 public class StoreModel implements StoreContract.Model {
+
+
     @Override
-    public void requestData(ResultCallBack resultCallBack) {
+    public void getData(ResultCallBack resultCallBack) {
 
     }
 }

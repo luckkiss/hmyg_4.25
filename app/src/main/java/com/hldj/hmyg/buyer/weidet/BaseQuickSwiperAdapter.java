@@ -51,8 +51,8 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static com.hldj.hmyg.buyer.weidet.CoreRecyclerView.LOAD_MORE;
 import static com.hldj.hmyg.buyer.weidet.CoreRecyclerView.REFRESH;
-//RecyclerView.Adapter<K>
-public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends RecyclerView.Adapter<K> {
+//RecyclerView.Adapter<K>   RecyclerSwipeAdapter<K>
+public abstract class BaseQuickSwiperAdapter<T, K extends BaseViewHolder> extends RecyclerView.Adapter<K> {
 
     private boolean mNextLoadEnable = false;
     private boolean mLoadingMoreEnable = false;
@@ -84,7 +84,7 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
      */
     private View loadMoreFailedView;
 
-    protected static final String TAG = BaseQuickAdapter.class.getSimpleName();
+    protected static final String TAG = BaseQuickSwiperAdapter.class.getSimpleName();
     protected Context mContext;
     protected int mLayoutResId;
     protected LayoutInflater mLayoutInflater;
@@ -125,12 +125,6 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
      */
     public static final int SLIDEIN_RIGHT = 0x00000005;
 
-
-//    @Override
-//    public int getSwipeLayoutResourceId(int position) {
-//        return position;
-//    }
-
     public void setOnLoadMoreListener(RequestLoadMoreListener requestLoadMoreListener) {
         this.mRequestLoadMoreListener = requestLoadMoreListener;
     }
@@ -164,7 +158,7 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
         return this.pageSize;
     }
 
-    public BaseQuickAdapter(int layoutResId) {
+    public BaseQuickSwiperAdapter(int layoutResId) {
         this.mData = new ArrayList<T>();
         if (layoutResId != 0) {
             this.mLayoutResId = layoutResId;
@@ -178,14 +172,14 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
      * @param layoutResId The layout resource id of each item.
      * @param data        A new list is created out of this one to avoid mutable list
      */
-    public BaseQuickAdapter(int layoutResId, List<T> data) {
+    public BaseQuickSwiperAdapter(int layoutResId, List<T> data) {
         this.mData = data == null ? new ArrayList<T>() : data;
         if (layoutResId != 0) {
             this.mLayoutResId = layoutResId;
         }
     }
 
-    public BaseQuickAdapter(List<T> data) {
+    public BaseQuickSwiperAdapter(List<T> data) {
         this(0, data);
     }
 

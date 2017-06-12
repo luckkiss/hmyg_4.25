@@ -4,12 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:orientation="vertical" >
+    android:orientation="vertical">
+
+
+    <include layout="@layout/toolbar_3_0" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/y34"
-        android:background="@color/white" >
+        android:background="@color/white"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,12 +41,12 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/gray_bg" >
+        android:background="@color/gray_bg">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/ll_01"
@@ -51,14 +55,14 @@
                 android:layout_marginTop="@dimen/y8"
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
-                android:padding="1px" >
+                android:padding="1px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/btn_my_list"
                     android:orientation="horizontal"
-                    android:paddingRight="@dimen/x7" >
+                    android:paddingRight="@dimen/x7">
 
                     <TextView
                         android:layout_width="0dp"
@@ -101,14 +105,14 @@
                 android:layout_height="@dimen/y34"
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
-                android:padding="1px" >
+                android:padding="1px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/btn_my_list"
                     android:orientation="horizontal"
-                    android:paddingRight="@dimen/x7" >
+                    android:paddingRight="@dimen/x7">
 
                     <TextView
                         android:layout_width="0dp"
@@ -141,14 +145,14 @@
                 android:layout_height="@dimen/y34"
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
-                android:padding="1px" >
+                android:padding="1px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/btn_my_list"
                     android:orientation="horizontal"
-                    android:paddingRight="@dimen/x7" >
+                    android:paddingRight="@dimen/x7">
 
                     <TextView
                         android:layout_width="0dp"
@@ -181,14 +185,14 @@
                 android:layout_height="@dimen/y34"
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
-                android:padding="1px" >
+                android:padding="1px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/btn_my_list"
                     android:orientation="horizontal"
-                    android:paddingRight="@dimen/x7" >
+                    android:paddingRight="@dimen/x7">
 
                     <TextView
                         android:layout_width="0dp"
@@ -221,14 +225,14 @@
                 android:layout_height="@dimen/y34"
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
-                android:padding="1px" >
+                android:padding="1px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/btn_my_list"
                     android:orientation="horizontal"
-                    android:paddingRight="@dimen/x7" >
+                    android:paddingRight="@dimen/x7">
 
                     <TextView
                         android:layout_width="0dp"

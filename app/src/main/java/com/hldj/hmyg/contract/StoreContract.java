@@ -12,13 +12,13 @@ import com.hldj.hmyg.base.Rx.BaseView;
 public interface StoreContract {
 
     public interface View extends BaseView {
-        void initRecycleView(String json);
+        void initStoreData(String json);
 
-        void showError(String errorMsg);
+        void showError(Throwable r ,int errorCode,String errorMsg);
     }
 
     public interface Model extends BaseModel {
-        void requestData(ResultCallBack resultCallBack);
+        void getData(ResultCallBack resultCallBack);
     }
 
     public abstract static class Presenter extends BasePresenter<Model, View> {

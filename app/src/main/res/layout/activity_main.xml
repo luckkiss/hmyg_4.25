@@ -64,7 +64,9 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:src="@mipmap/shouye_fabu" />
+                    android:src="@mipmap/shouye_fabu"
+                    android:visibility="gone"
+                    />
 
 
                 <!--@string/tab_c_text-->

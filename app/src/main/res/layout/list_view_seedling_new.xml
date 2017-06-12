@@ -2,7 +2,9 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/CardView.Simple"
-    android:foreground="?attr/selectableItemBackground">
+    android:foreground="?attr/selectableItemBackground"
+    android:background="@color/gray_bg_ed"
+    >
 
     <LinearLayout
         android:id="@+id/layoutRoot"

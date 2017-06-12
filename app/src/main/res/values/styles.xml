@@ -386,6 +386,9 @@
         <item name="android:windowAnimationStyle">@style/activityAnimation</item>
     </style>
 
+    <style name="AppMainTheme" parent="AppBaseTheme">
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
 
     <!-- animation 样式 -->
     <style name="activityAnimation" parent="@android:style/Animation">
@@ -748,6 +751,7 @@
         <item name="android:layout_gravity">center</item>
         <item name="android:textSize">@dimen/y6</item>
         <item name="android:tag">"tag"</item>
+        <item name="android:textColor">@color/text_color999</item>
     </style>
 
 
@@ -758,6 +762,17 @@
         <item name="right_text_size">@dimen/textSizeX</item>
         <item name="left_text_color">@color/text_color333</item>
         <item name="right_text_color">@color/text_color666</item>
+    </style>
+
+
+    <style name="bottom_view_line">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:src">@drawable/bottom_line</item>
     </style>
 
 
