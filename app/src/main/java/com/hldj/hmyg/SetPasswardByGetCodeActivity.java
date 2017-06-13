@@ -62,6 +62,10 @@ public class SetPasswardByGetCodeActivity extends NeedSwipeBackActivity {
 		btn_back = (ImageView) findViewById(R.id.btn_back);
 		set_passward = (TextView) findViewById(R.id.set_passward);
 		et_phone = (EditText) findViewById(R.id.et_phone);
+
+		et_phone.setText(MyApplication.Userinfo.getString( "phone", ""));
+		phString= MyApplication.Userinfo.getString( "phone", "");
+		et_phone.setFocusable(false);
 		et_passward = (EditText) findViewById(R.id.et_passward);
 		et_code = (EditText) findViewById(R.id.et_code);
 		btn_clear_num = (ImageButton) findViewById(R.id.btn_clear_num);
@@ -88,17 +92,14 @@ public class SetPasswardByGetCodeActivity extends NeedSwipeBackActivity {
 			// TODO Auto-generated method stub
 			if (s.length() > 0) {
 				btn_clear_num.setVisibility(View.VISIBLE);
-				if (et_phone.getText().toString().length() == 11
-						&& et_passward.getText().toString().length() > 5) {
+				if (et_phone.getText().toString().length() == 11 && et_passward.getText().toString().length() > 5) {
 					set_passward.setEnabled(true);
-					set_passward.setTextColor(getResources().getColor(
-							R.color.white));
+					set_passward.setTextColor(getResources().getColor( R.color.white));
 				}
 			} else {
 				btn_clear_num.setVisibility(View.GONE);
 				set_passward.setEnabled(false);
-				set_passward.setTextColor(getResources().getColor(
-						R.color.main_color));
+				set_passward.setTextColor(getResources().getColor( R.color.main_color));
 
 			}
 		}

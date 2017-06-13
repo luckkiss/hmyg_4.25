@@ -1,16 +1,16 @@
 package com.xingguo.huang.mabiwang.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import com.hldj.hmyg.application.Data;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+
+import com.hldj.hmyg.application.Data;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * 图片处理的工具类
@@ -189,8 +189,9 @@ public class PictureManageUtil {
 		// options.inSampleSize = calculateInSampleSize(options, 500, 500);
 		options.inSampleSize = calculateInSampleSize(options, Data.reqWidth, Data.reqHeight);
 		// Decode bitmap with inSampleSize set
-		options.inJustDecodeBounds = false;
 		bm = BitmapFactory.decodeFile(filePath, options);
+		options.inJustDecodeBounds = false;
+
 		return bm;
 	}
 

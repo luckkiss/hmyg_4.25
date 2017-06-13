@@ -50,8 +50,8 @@ public class Data {
 
     public static ArrayList<Pic> pics1 = new ArrayList<Pic>();
 
-    public static int reqWidth = 960;
-    public static int reqHeight = 960;
+    public static int reqWidth = 720;
+    public static int reqHeight = 1080;
     // 热门搜索
     public static final String GetHtml = "http://api1.cn2che.com/Banner/Banner.asmx/GetHtml";
     public static final String About01 = "http://chechengtong.cn2che.com";

@@ -73,8 +73,9 @@
                     android:inputType="phone"
                     android:maxLength="11"
                     android:minHeight="@dimen/x20"
+                    android:text="1231231"
                     android:singleLine="true"
-                    android:textColor="@color/gray_edit_hint"
+                    android:textColor="@color/text_color666"
                     android:textColorHint="@color/gray_edit_hint"
                     android:textSize="@dimen/y11" />
 
@@ -118,7 +119,7 @@
                     android:maxLength="11"
                     android:minHeight="@dimen/x20"
                     android:singleLine="true"
-                    android:textColor="@color/gray_edit_hint"
+                    android:textColor="@color/text_color666"
                     android:textColorHint="@color/gray_edit_hint"
                     android:textSize="@dimen/y11" />
 
@@ -166,7 +167,7 @@
                     android:maxLength="15"
                     android:minHeight="@dimen/x20"
                     android:singleLine="true"
-                    android:textColor="@color/gray_edit_hint"
+                    android:textColor="@color/text_color666"
                     android:textColorHint="@color/gray_edit_hint"
                     android:textSize="@dimen/y11" />
 

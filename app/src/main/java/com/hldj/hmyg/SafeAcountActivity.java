@@ -22,8 +22,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 public class SafeAcountActivity extends NeedSwipeBackActivity {
     private Editor e;
     private TextView tv_phone;
-    private String publicPhone = MyApplication.Userinfo.getString(
-            "phone", "");
+    private String publicPhone = MyApplication.Userinfo.getString( "phone", "");
     private TextView tv_has_bind;
 
     @Override

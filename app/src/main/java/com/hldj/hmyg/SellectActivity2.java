@@ -176,9 +176,10 @@ public class SellectActivity2 extends BaseSecondActivity {
                     for (Integer setItem : selectPosSet) {
                         D.e("===================" + setItem);
                         searchSpec = danwei_ids.get(setItem);
+
                     }
                     queryBean.searchSpec = searchSpec ;
-                    D.e("====buffer======" + queryBean.searchSpec);
+                    D.e("====buffer======" + queryBean.toString());
                 });
 
 
@@ -343,8 +344,15 @@ public class SellectActivity2 extends BaseSecondActivity {
 //                        }
                         queryBean.cityCode = childBeans.cityCode;
                         String stra = "";
-                        if (buffer.length() != 0 && buffer.toString().endsWith(",")) {
-                            stra = buffer.toString().substring(0, buffer.length() - 1);
+                        if (buffer.length() != 0   ) {
+                            if (buffer.toString().endsWith(","))
+                            {
+                                stra = buffer.toString().substring(0, buffer.length() - 1);
+                            }else
+                            {
+                                stra = buffer.toString();
+                            }
+
                         }
                         queryBean.plantTypes = stra;
                         queryBean.searchSpec = searchSpec;
@@ -353,8 +361,12 @@ public class SellectActivity2 extends BaseSecondActivity {
 
                         if (!TextUtils.isEmpty(queryBean.specMinValue) || !TextUtils.isEmpty(queryBean.specMaxValue)) {
                             if (TextUtils.isEmpty(queryBean.searchSpec ))
-                            ToastUtil.showShortToast("请选择种植类型");
-                            return;
+                            {
+                                ToastUtil.showShortToast("请选择种植类型");
+                                return;
+                            }
+
+
                         }
 
 
