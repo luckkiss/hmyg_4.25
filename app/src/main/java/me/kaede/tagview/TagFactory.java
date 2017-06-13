@@ -39,8 +39,8 @@ public class TagFactory {
             if (!isNull) return getTagViewByName(getTypeName(searchSpec) + item2 + " cm");
             return getTagViewByName(item2 + " cm");
         } else {
-            if (!isNull) return getTagViewByName(getTypeName(searchSpec) + "searchSpec" + item);
-            return getTagViewByName("searchSpec" + item);
+            if (!isNull) return getTagViewByName(getTypeName(searchSpec) +   item);
+            return getTagViewByName(searchSpec + item);
         }
 
     }

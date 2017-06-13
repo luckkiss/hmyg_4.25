@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.hldj.hmyg.application.Data;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -26,6 +27,9 @@ import org.json.JSONObject;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
+/**
+ * 用户反馈
+ */
 public class FeedBackActivity extends NeedSwipeBackActivity {
 
     /**
@@ -58,7 +62,7 @@ public class FeedBackActivity extends NeedSwipeBackActivity {
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
     }
 
     TextWatcher watcher_num = new TextWatcher() {
@@ -69,11 +73,10 @@ public class FeedBackActivity extends NeedSwipeBackActivity {
             // TODO Auto-generated method stub
             if (s.length() > 0) {
                 if (et_feedback.getText().toString().length() > 0) {
-                    feedback.setEnabled(true);
                     feedback.setTextColor(getResources().getColor(R.color.white));
                 }
             } else {
-                feedback.setEnabled(false);
+              
                 feedback.setTextColor(getResources().getColor(R.color.white));
 
             }
@@ -112,7 +115,8 @@ public class FeedBackActivity extends NeedSwipeBackActivity {
                     case R.id.feedback:
                         // 判断是否为空
                         if (TextUtils.isEmpty(et_feedback.getText())) {
-                            Toast.makeText(FeedBackActivity.this, "请填写反馈内容☺", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(FeedBackActivity.this, "请填写反馈内容☺", Toast.LENGTH_SHORT).show();
+                            ToastUtil.showShortToast("请填写反馈内容☺");
                             return;
                         }
 

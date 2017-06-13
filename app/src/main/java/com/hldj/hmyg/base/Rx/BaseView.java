@@ -5,4 +5,7 @@ package com.hldj.hmyg.base.Rx;
  */
 
 public interface BaseView {
+
+//    void showErrir(Throwable tr, int erCode, String erMst);
+    void showErrir(String erMst);
 }

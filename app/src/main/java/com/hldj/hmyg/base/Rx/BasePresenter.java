@@ -18,7 +18,6 @@ public abstract class BasePresenter<E, T> {
         this.mView = v;
         this.mModel = m;
         this.onStart();
-
     }
 
 

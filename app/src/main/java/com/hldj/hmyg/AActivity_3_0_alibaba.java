@@ -693,11 +693,11 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
     }
 
 
+
     @Override
-    public void showError(String errorMsg) {
+    public void showErrir(String erMst) {
         //失败的处理
-        D.e("======errorMsg========" +
-                "" + errorMsg);
+        D.e("======errorMsg========" + "" + erMst);
         hindLoading();
     }
 

@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.hldj.hmyg.buyer.weidet.DialogFragment.CustomDialog;
 import com.hldj.hmyg.util.StartBarUtils;
+import com.hy.utils.Loading;
 import com.hy.utils.ToastUtil;
 
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
@@ -17,21 +18,36 @@ public class SwipeBackBActivity extends FragmentActivity implements
 
     public CustomDialog dialog;
 
+    public Loading loading;
+//        && !StoreSettingActivity.this.isFinishing()) {
+//        loading.showToastAlong();
+//    } else if (loading == null
+//            && !StoreSettingActivity.this.isFinishing()) {
+//        loading = new Loading(StoreSettingActivity.this,
+//                "店铺资料修改中.....");
+//        loading.showToastAlong();
 
 
     public void showLoading() {
-        dialog.show();
+        loading.showToastAlong();
+//        dialog.show();
     }
 
     public void hindLoading() {
+        if (loading.isRunning()) {
+            loading.cancel();
+        }
+
         if (dialog.isShowing()) {
             dialog.dismiss();
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dialog = new CustomDialog(this);
+        loading = new Loading(SwipeBackBActivity.this, "努力加载中.....");
         /**
          * 控制状态栏为黑色  miui flyme
          */

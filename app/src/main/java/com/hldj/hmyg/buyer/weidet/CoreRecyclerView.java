@@ -120,7 +120,7 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
         }
         mQuickAdapter.openLoadMore(mQuickAdapter.getPageSize());
         mQuickAdapter.removeAllFooterView();
-        mSwipeRefreshLayout.setRefreshing(false);
+        mSwipeRefreshLayout.setRefreshing(true);
     }
 
     @Override

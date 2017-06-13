@@ -29,9 +29,9 @@ import com.hldj.hmyg.presenter.ManagerListPresenter;
 import com.hldj.hmyg.saler.SaveSeedlingActivity;
 import com.hldj.hmyg.saler.SearchActivity;
 import com.hldj.hmyg.saler.StorageSaveActivity;
+import com.hldj.hmyg.util.ConstantState;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
-import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.FinalHttp;
@@ -44,6 +44,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.fanrunqi.swipelayoutlibrary.SwipeLayout;
 import me.kaede.tagview.TagView;
 
 /**
@@ -93,6 +94,8 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
                 BActivity_new.initListType(helper, item, FinalBitmap.create(mContext));
                 ProductListAdapterForManager.setStateColor(helper.getView(R.id.tv_right_top), item.status, item.statusName);
 
+                ((SwipeLayout) helper.getView(R.id.swipe_manager)).computeScroll();
+
                 helper.addOnClickListener(R.id.swipe_manager1, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -106,17 +109,16 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
                 helper.addOnClickListener(R.id.btn_delete_manager, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        ToastUtil.showShortToast("delete");
                         mPresenter.doDelete(item.id);
-
                     }
                 });
 
 
             }
         }).openLoadMore(10, page -> {
-            xRecyclerView.selfRefresh(true);
+//            xRecyclerView.selfRefresh(true);
             mPresenter.getData(page + "", status, searchKey);
+            mPresenter.getCounts();
         }).openLoadAnimation(BaseQuickAdapter.ALPHAIN)
                 .openRefresh();
 
@@ -345,7 +347,7 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
     @Override
     protected void onActivityResult(int arg0, int arg1, Intent arg2) {
         if (arg2 != null && arg1 == 6) {
-            switch2Refresh("", 0);
+
             searchKey = arg2.getStringExtra("searchKey");
             TagView tagView = getView(R.id.tagview);
             tagView.removeAllTags();
@@ -362,6 +364,12 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
                 });
             }
 
+            switch2Refresh("", 0);
+
+        } else if (arg1 == ConstantState.PUBLIC_SUCCEED) {
+            xRecyclerView.onRefresh();
+
+        } else if (arg1 == ConstantState.FLOW_BACK) {
             xRecyclerView.onRefresh();
         }
 
@@ -402,20 +410,24 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
 
     @Override
     public void onDeled(boolean bo) {
-        if (bo) xRecyclerView.onRefresh();
+        if (bo) {
+            xRecyclerView.onRefresh();
+
+        }
+
 
     }
 
 
     @Override
-    public void showError(String errorMsg) {
+    public void showErrir(String erMst) {
         //此处处理错误 样式
-
         if (xRecyclerView != null) {
             xRecyclerView.selfRefresh(false);
 
         }
     }
+
 
     FinalBitmap bitmap;
 

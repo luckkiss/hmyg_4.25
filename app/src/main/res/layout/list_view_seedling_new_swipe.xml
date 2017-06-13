@@ -3,11 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipe_manager"
-    style="@style/CardView.Simple"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:foreground="?attr/selectableItemBackground"
     app:drag_edge="right">
 
-    <include layout="@layout/list_view_seedling_new" android:id="@+id/swipe_manager1" />
+    <include
+        android:id="@+id/swipe_manager1"
+        layout="@layout/list_view_seedling_new" />
 
     <TextView
         android:id="@+id/btn_delete_manager"

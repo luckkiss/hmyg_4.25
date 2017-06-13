@@ -248,6 +248,7 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
      */
     private void initAddressView(View rootView, AdressListActivity.Address address) {
         ((TextView) rootView.findViewById(R.id.tv_name)).setText(address.contactName);// 名字
+        upLoadDatas.address =address ;
         if (address.isDefault)
             ((TextView) rootView.findViewById(R.id.tv_is_defoloat)).setVisibility(View.VISIBLE);//默认就显示默认地址
         ((TextView) rootView.findViewById(R.id.tv_address_name)).setText(address.cityName); //地址名称

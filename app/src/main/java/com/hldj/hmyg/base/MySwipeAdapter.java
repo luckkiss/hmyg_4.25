@@ -120,11 +120,10 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
 
 
         view.findViewById(R.id.tv_delete_item).setOnClickListener(v -> {
-            ToastUtil.showShortToast("删除");
-
             new CollectPresenter(new ResultCallBack<SimpleGsonBean>() {
                 @Override
                 public void onSuccess(SimpleGsonBean simpleGsonBean) {
+                    ToastUtil.showShortToast("删除成功");
                     //成功删除某个item
                     items.remove(i);
                     notifyDataSetChanged();
@@ -146,14 +145,17 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
         if (!seedlingBean.getStatus().equals("published")) {
             view.findViewById(R.id.fr_goods_time_out).setVisibility(View.VISIBLE);
             view.findViewById(R.id.ll_info_content).setAlpha(0.6f);
-            return;
+
+        } else {
+            view.findViewById(R.id.fr_goods_time_out).setVisibility(View.GONE);
+            view.findViewById(R.id.ll_info_content).setAlpha(1.0f);
+            view.findViewById(R.id.layoutRoot).setOnClickListener(v -> {
+                //点击布局
+                D.e("==点击布局==");
+                FlowerDetailActivity.start2Activity(context, "show_type", items.get(i).getId());
+            });
         }
 
-        view.findViewById(R.id.layoutRoot).setOnClickListener(v -> {
-            //点击布局
-            D.e("==点击布局==");
-            FlowerDetailActivity.start2Activity(context, "show_type", items.get(i).getId());
-        });
 
     }
 

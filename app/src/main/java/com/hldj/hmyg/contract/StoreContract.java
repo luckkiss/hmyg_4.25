@@ -14,7 +14,6 @@ public interface StoreContract {
     public interface View extends BaseView {
         void initStoreData(String json);
 
-        void showError(Throwable r ,int errorCode,String errorMsg);
     }
 
     public interface Model extends BaseModel {

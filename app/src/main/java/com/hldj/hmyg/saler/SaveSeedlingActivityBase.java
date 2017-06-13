@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.DaoBean.SaveJson.SavaBean;
 import com.hldj.hmyg.DaoBean.SaveJson.SavaBeanDao;
-import com.hldj.hmyg.ManagerListActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.V.SaveSeedlingV;
 import com.hldj.hmyg.application.Data;
@@ -481,7 +480,9 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                     ToastUtil.showShortToast("提交完毕");
                     setResult(ConstantState.PUBLIC_SUCCEED);
                     finish();
-                    ManagerListActivity.start2Activity(instance);
+
+
+//                    ManagerListActivity_new.start2Activity(instance);
                 } else {
                     ToastUtil.showShortToast(simpleGsonBean.msg);
                 }

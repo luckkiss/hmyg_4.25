@@ -34,7 +34,6 @@ import com.hldj.hmyg.application.PermissionUtils;
 import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.base.rxbus.annotation.Subscribe;
 import com.hldj.hmyg.base.rxbus.event.EventThread;
-import com.hldj.hmyg.base.rxbus.pojo.Msg;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.presenter.EPrestenter;
 import com.hldj.hmyg.saler.AdressListActivity;
@@ -42,10 +41,10 @@ import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.StoreSettingActivity;
 import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
 import com.hldj.hmyg.util.ConstantState;
+import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.RippleAdjuster;
 import com.hldj.hmyg.widget.ShareDialogFragment;
 import com.hy.utils.GetServerUrl;
-import com.hy.utils.ToastUtil;
 import com.lqr.optionitemview.OptionItemView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -59,7 +58,12 @@ import com.zym.selecthead.tools.SelectHeadTools;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 /**
@@ -348,8 +352,31 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
     //订阅
     @Subscribe(tag = 5, thread = EventThread.MAIN_THREAD)
-    private void dataBinding11(Msg msgs) {
-        ToastUtil.showShortToast(msgs.toString());
+    private void dataBinding11(OnlineEvent event) {
+        D.e("======Rx=======" + event.toString());
+        Observable.just(event)
+                .filter(event1 -> event.isOnline)
+                .map((Function<OnlineEvent, Object>) event12 -> event12.isOnline)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .timeout(500, TimeUnit.MILLISECONDS)
+                .subscribe((b) -> {
+                    loadHeadImage(getSpB("isLogin"));//加载头像
+                    setRealName(getSpS("userName"), getSpS("realName"));
+                });
+
+//        Observable.timer(1, TimeUnit.SECONDS)
+//                .filter(new Observable<OnlineEvent>() {
+//                    @Override
+//                    protected void subscribeActual(Observer<? super OnlineEvent> observer) {
+//
+//                    }
+//                })
+//                .subscribe(aa->{
+//
+//        });
+
+
     }
 
 
@@ -358,6 +385,13 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
         public OnlineEvent(boolean isOnline) {
             this.isOnline = isOnline;
+        }
+
+        @Override
+        public String toString() {
+            return "OnlineEvent{" +
+                    "isOnline=" + isOnline +
+                    '}';
         }
     }
 

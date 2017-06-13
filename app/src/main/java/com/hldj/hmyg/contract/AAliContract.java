@@ -15,7 +15,9 @@ public class AAliContract {
     public interface View extends BaseView {
         void initRecycleView(String json);
 
-        void showError(String errorMsg);
+
+        @Override
+        void showErrir(String erMst);
     }
 
     public interface Model extends BaseModel {

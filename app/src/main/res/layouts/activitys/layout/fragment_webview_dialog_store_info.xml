@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/trans"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
 
 
     <LinearLayout
@@ -13,17 +15,18 @@
         android:layout_centerInParent="true"
         android:background="@color/white"
         android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
 
         >
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:layout_margin="3dp"
             android:gravity="start|center_vertical"
             android:text="商家信息"
-            android:textColor="@color/main_color"
-            android:layout_margin="3dp"
-            />
+            android:textColor="@color/main_color" />
 
         <View style="@style/View_line_gray_1dp" />
 
@@ -155,15 +158,19 @@
 
         </ScrollView>
 
+
         <TextView
             android:id="@+id/tv_ok_to_close"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_width="80dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:background="@color/main_color"
             android:gravity="center"
             android:text="确定"
-            android:textColor="@color/main_color"
-             android:layout_margin="3dp"
-            />
+            android:layout_marginTop="5dp"
+            android:textColor="@color/white"
+            android:textSize="12dp" />
 
     </LinearLayout>
 

@@ -22,7 +22,6 @@ public interface ManagerListContract {
         void initXRecycle(BPageGsonBean gsonBean);
         void initCounts(CountTypeGsonBean gsonBean);
         void onDeled(boolean bo);
-        void showError(String errorMsg);
     }
 
     public abstract static class Presenter extends BasePresenter<Model, View> {

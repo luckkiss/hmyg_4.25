@@ -701,6 +701,8 @@
                             android:textColor="@color/main_color" />
                     </RelativeLayout>
                 </LinearLayout>
+
+
             </LinearLayout>
         </ScrollView>
     </me.hwang.library.widgit.SmartRefreshLayout>

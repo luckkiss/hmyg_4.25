@@ -1,6 +1,6 @@
 package com.hldj.hmyg.saler;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -94,8 +94,8 @@ public class SaveSeedlingActivity extends SaveSeedlingActivityBase {
         viewHolder.bottom_ll.setDefaultAddr(address);
     }
 
-    public static void start2Activity(Context context) {
-        context.startActivity(new Intent(context, SaveSeedlingActivity.class));
+    public static void start2Activity(Activity context) {
+        context.startActivityForResult(new Intent(context, SaveSeedlingActivity.class),666);
     }
 
 

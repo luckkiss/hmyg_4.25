@@ -8,19 +8,17 @@
 
 
     <com.lqr.optionitemview.OptionItemView
-        android:id="@+id/news_title"
+        android:id="@+id/notices_title"
         android:layout_width="match_parent"
         android:layout_height="42sp"
         android:background="@color/white"
         app:left_src="@drawable/ic_back"
-        app:left_text="  X"
         app:right_src="@drawable/ic_winstyle_share"
         app:splite_mode="true"
-        app:title="成交公告"/>
-
+        app:title="成交公告" />
 
     <ProgressBar
-        android:id="@+id/news_progressBar"
+        android:id="@+id/notices_progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="3dp"
@@ -28,14 +26,10 @@
         android:visibility="gone" />
 
     <WebView
-        android:id="@+id/news_webview"
+        android:id="@+id/notices_webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible" />
-    <!--<android.support.v4.view.ViewPager-->
-    <!--android:id="@+id/news_vp_content"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent" />-->
 
 
 </LinearLayout>

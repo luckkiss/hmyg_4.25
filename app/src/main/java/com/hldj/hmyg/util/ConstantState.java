@@ -21,6 +21,9 @@ public interface ConstantState {
 
     int SEARCH_OK = 206;//搜索完成
     int FILTER_OK = 207;//筛选完成
+    int ADD_SUCCEED = 207;//添加地址成功
+
+    public int FLOW_BACK = 208;// 详情界面返回 result 代码
 
 
     String ERROR_CODE = "1003";
@@ -30,5 +33,6 @@ public interface ConstantState {
     String COLLECT_REFRESH = "COLLECT_REFRESH";
 
     boolean ON_OFF = true;//打开强制更新
+
 
 }

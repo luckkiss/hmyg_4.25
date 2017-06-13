@@ -82,8 +82,10 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
 
     }
 
+
+
     @Override
-    public void showError(Throwable r, int errorCode, String errorMsg) {
+    public void showErrir(String erMst) {
 
     }
 }

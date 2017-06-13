@@ -260,7 +260,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
 
         btn_back.setOnClickListener(v -> {
-            finish();
+            onBackPressed();
         });
 
         iv_lianxi = (ImageView) findViewById(R.id.iv_lianxi);
@@ -352,6 +352,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     protected void onDestroy() {
         Log.e("onDestroy", "onDestroy: ");
         findViewById(R.id.ll_detail_toolbar).setAlpha(0);
+
         super.onDestroy();
     }
 
@@ -2297,6 +2298,13 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     }
 
 
+    @Override
+    public void onBackPressed() {
+        setResult(ConstantState.FLOW_BACK);
+        finish();
+        super.onBackPressed();
+    }
+
     /**
      * @param context
      * @param id
@@ -2306,4 +2314,16 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         intent.putExtra("id", id);
         context.startActivity(intent);
     }
+
+    /**
+     * @param context
+     * @param id
+     */
+//    public static void start2ActivityForRes(Activity context, String id) {
+//        Intent intent = new Intent(context, StoreActivity.class);
+//        intent.putExtra("id", id);
+//        context.startActivityForResult(intent, 456);
+//    }
+
+
 }

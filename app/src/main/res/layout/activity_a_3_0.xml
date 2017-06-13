@@ -123,7 +123,7 @@
                                     android:id="@+id/stv_home_1"
                                     style="@style/home_types"
                                     android:text="苗木管理"
-                                    app:state_drawable="@drawable/home_miaobusc" />
+                                    app:state_drawable="@mipmap/home_mmgl" />
 
                                 <com.coorchice.library.SuperTextView
                                     android:id="@+id/stv_home_2"

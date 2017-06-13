@@ -33,7 +33,7 @@ public class AAliPresenter extends AAliContract.Presenter {
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
-                mView.showError("错误类型：" + t.getMessage() + " 错误代码：" + errorNo + " 错误原因 ：" + strMsg);
+                mView.showErrir("错误类型：" + t.getMessage() + " 错误代码：" + errorNo + " 错误原因 ：" + strMsg);
             }
         });
 

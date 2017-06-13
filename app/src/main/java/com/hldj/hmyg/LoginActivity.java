@@ -17,8 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
+import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.bean.LoginGsonBean;
 import com.hldj.hmyg.bean.UserInfoGsonBean;
 import com.hldj.hmyg.buyer.Ui.WebViewDialogFragment1;
@@ -451,6 +453,7 @@ public class LoginActivity extends BaseActivity {
                         setResult(ConstantState.LOGIN_SUCCEED);
                         finish();
 
+                        RxBus.getInstance().post(5,new Eactivity3_0.OnlineEvent(true));
 
                     } else if ("SetProfileActivity".equals(activity.getClass().getName())) {
                         D.e("=========SetProfileActivity===============不消失=====================");

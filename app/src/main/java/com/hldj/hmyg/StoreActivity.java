@@ -111,7 +111,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
     private ImageView iv_02;
     private ImageView iv_03;
     private WebView webview;
-    private TextView tv_loading;
+    //    private TextView tv_loading;
     private ProgressBar bar;
     private String code = "";
     private LinearLayout ll_web;
@@ -257,7 +257,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
         iv_02 = (ImageView) findViewById(R.id.iv_02);
         iv_03 = (ImageView) findViewById(R.id.iv_03);
         webview = (WebView) findViewById(R.id.webview);
-        tv_loading = (TextView) findViewById(R.id.tv_loading);
+//        tv_loading = (TextView) findViewById(tv_loading);
         bar = (ProgressBar) findViewById(R.id.progressBar);
         // webview.setHorizontalScrollBarEnabled(false);// 水平不显示
         // webview.setVerticalScrollBarEnabled(false); // 垂直不显示
@@ -462,7 +462,8 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                     @Override
                     public void onStart() {
                         // TODO Auto-generated method stub
-                        hud.show();
+//                        hud.show();
+                        showLoading();
                         super.onStart();
                     }
 
@@ -760,9 +761,10 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                             e.printStackTrace();
                         }
                         super.onSuccess(t);
-                        if (hud != null) {
-                            hud.dismiss();
-                        }
+                        hindLoading();
+//                        if (hud != null) {
+//                            hud.dismiss();
+//                        }
                     }
 
                     @Override
@@ -772,9 +774,10 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                         Toast.makeText(StoreActivity.this, R.string.error_net,
                                 Toast.LENGTH_SHORT).show();
                         super.onFailure(t, errorNo, strMsg);
-                        if (hud != null) {
-                            hud.dismiss();
-                        }
+                        hindLoading();
+//                        if (hud != null) {
+//                            hud.dismiss();
+//                        }
                     }
 
                 });
@@ -1215,13 +1218,15 @@ public class StoreActivity extends NeedSwipeBackActivity implements
         @Override
         public void onPageFinished(final WebView view, String url) {
             bar.setVisibility(View.INVISIBLE);
-            tv_loading.setVisibility(View.INVISIBLE);
+//            tv_loading.setVisibility(View.INVISIBLE);
+//            showLoading();
         }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             bar.setVisibility(View.INVISIBLE);
-            tv_loading.setVisibility(View.INVISIBLE);
+//            tv_loading.setVisibility(View.INVISIBLE);
+            hindLoading();
             super.onPageStarted(view, url, favicon);
         }
 

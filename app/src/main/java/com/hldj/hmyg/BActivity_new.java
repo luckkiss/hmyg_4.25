@@ -71,26 +71,7 @@ public class BActivity_new extends NeedSwipeBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_b_to_toolbar);
         bitmap = FinalBitmap.create(this);
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
-//        ToastUtil.showShortToast("hellow world ");
+
 
         initViewClick();
         recyclerView1 = (CoreRecyclerView) findViewById(R.id.core_rv_b);
@@ -482,6 +463,7 @@ public class BActivity_new extends NeedSwipeBackActivity {
         } else if (resultCode == FILTER_OK) {//筛选结束
             if (data != null && data.getExtras().getSerializable("hellow") != null) {
                 queryBean = (QueryBean) data.getExtras().getSerializable("hellow");
+                getQueryBean().searchKey = "" ;
             }
             D.e("==" + queryBean.toString());
             addTagsByBean(queryBean);
@@ -531,8 +513,6 @@ public class BActivity_new extends NeedSwipeBackActivity {
 
     public void refreshRc() {
 //        getQueryBean().pageIndex = 0;
-        recyclerView1.getAdapter().setDatasState(CoreRecyclerView.REFRESH);
-        recyclerView1.selfRefresh(true);
         recyclerView1.onRefresh();
 //        recyclerView1.selfRefresh(true);
 //        new Handler().postDelayed(() -> initData(), 600);

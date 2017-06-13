@@ -16,10 +16,10 @@
         android:textColor="@color/srl_text_color"
         android:textSize="@dimen/srl_text_size" />
 
-    <me.hwang.library.widgit.EatBeanLoadingView
-        android:id="@+id/srl_elv_pull_up"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/srl_loading_view_height"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone" />
+    <!--<me.hwang.library.widgit.EatBeanLoadingView-->
+        <!--android:id="@+id/srl_elv_pull_up"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/srl_loading_view_height"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:visibility="visible" />-->
 </RelativeLayout>

@@ -164,12 +164,24 @@ public class SellectActivity2 extends BaseSecondActivity {
             if (danwei_names.size() > 0) {
                 SaveSeedlingPresenter.initAutoLayout2(mFlowLayout2, specList, -1, SellectActivity2.this, (view, position, parent) ->
                         {
-                            D.e("==view被点击了===" + view.isSelected());
-                            D.e("==parent被点击了===" + parent.isSelected());
-                            searchSpec = danwei_ids.get(position);
+//                            D.e("==view被点击了===" + view.isSelected());
+//                            D.e("==parent被点击了===" + parent.isSelected());
+//                            searchSpec = danwei_ids.get(position);
                             return false;
                         }
                 );
+
+                mFlowLayout2.setOnSelectListener(selectPosSet -> {
+                    searchSpec = "";
+                    for (Integer setItem : selectPosSet) {
+                        D.e("===================" + setItem);
+                        searchSpec = danwei_ids.get(setItem);
+                    }
+                    queryBean.searchSpec = searchSpec ;
+                    D.e("====buffer======" + queryBean.searchSpec);
+                });
+
+
                 for (int i = 0; i < danwei_ids.size(); i++) {
                     if (searchSpec.equals(danwei_ids.get(i))) {
                         mFlowLayout2.getAdapter().setSelectedList(i);
@@ -338,6 +350,14 @@ public class SellectActivity2 extends BaseSecondActivity {
                         queryBean.searchSpec = searchSpec;
                         queryBean.specMinValue = et_min_guige.getText().toString();
                         queryBean.specMaxValue = et_max_guige.getText().toString();
+
+                        if (!TextUtils.isEmpty(queryBean.specMinValue) || !TextUtils.isEmpty(queryBean.specMaxValue)) {
+                            if (TextUtils.isEmpty(queryBean.searchSpec ))
+                            ToastUtil.showShortToast("请选择种植类型");
+                            return;
+                        }
+
+
 //                        queryBean.searchKey = searchSpec;
 //                        intent.putExtra("cityName", cityName);
 //                        intent.putExtra("plantTypes", buffer.toString());

@@ -50,7 +50,7 @@ public class SmartRefreshLayout extends ViewGroup {
     // 尾视图(即下拉加载时显示的部分)
     private RelativeLayout mLayoutFooter;
     private TextView tvPullUp;
-    private EatBeanLoadingView elvPullUp;
+//    private EatBeanLoadingView elvPullUp;
 
     // 最后一个content-child-view的index
     private int lastChildIndex;
@@ -152,8 +152,7 @@ public class SmartRefreshLayout extends ViewGroup {
         // 上拉提示
         tvPullUp = (TextView) mLayoutFooter.findViewById(R.id.srl_tv_pull_up);
         // 上拉loading动画
-        elvPullUp = (EatBeanLoadingView) mLayoutFooter
-                .findViewById(R.id.srl_elv_pull_up);
+//        elvPullUp = (EatBeanLoadingView) mLayoutFooter .findViewById(R.id.srl_elv_pull_up);
         // 设置布局参数(宽度为MATCH_PARENT,高度为MATCH_PARENT)
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -329,11 +328,9 @@ public class SmartRefreshLayout extends ViewGroup {
                 if (dy < 0) { // 下拉操作
                     if (mEnablePullDown) {
                         // 如果下拉的距离小于mLayoutHeader1/2的高度,则允许滑动
-                        if (getScrollY() > 0
-                                || Math.abs(getScrollY()) <= mLayoutHeader
-                                .getMeasuredHeight() / 2) {
+                        if (getScrollY() > 0 || Math.abs(getScrollY()) <= mLayoutHeader.getMeasuredHeight() / 2) {
                             if (status != TRY_LOAD_MORE && status != LOAD_MORE) {
-                                scrollBy(0, dy);
+                                scrollBy(0, ((int) (dy / 1.8)));
                                 if (status != REFRESH) {
                                     if (getScrollY() <= 0) {
                                         if (status != TRY_REFRESH)
@@ -481,9 +478,9 @@ public class SmartRefreshLayout extends ViewGroup {
         mLayoutScroller.startScroll(0, getScrollY(), 0,
                 -((getScrollY() - mEffectiveScroll) - mReachBottomScroll),
                 SCROLL_SPEED);
-        tvPullUp.setVisibility(View.GONE);
-        elvPullUp.setVisibility(View.VISIBLE);
-        elvPullUp.startAnim();
+        tvPullUp.setVisibility(View.VISIBLE);
+//        elvPullUp.setVisibility(View.VISIBLE);
+//        elvPullUp.startAnim();
         // 通过Listener接口执行加载时的监听事件
         if (mListener != null)
             mListener.onLoadMore();
@@ -526,8 +523,8 @@ public class SmartRefreshLayout extends ViewGroup {
                             -(getScrollY() - mReachBottomScroll), SCROLL_SPEED);
                     tvPullUp.setText(R.string.srl_keep_pull_up);
                     tvPullUp.setVisibility(View.VISIBLE);
-                    elvPullUp.stopAnim();
-                    elvPullUp.setVisibility(View.GONE);
+//                    elvPullUp.stopAnim();
+//                    elvPullUp.setVisibility(View.GONE);
                     status = NORMAL;
                     break;
                 }

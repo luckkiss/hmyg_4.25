@@ -28,7 +28,7 @@ public class ManagerListPresenter extends ManagerListContract.Presenter {
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
-                mView.showError(strMsg);
+                mView.showErrir(strMsg);
             }
         });
     }
