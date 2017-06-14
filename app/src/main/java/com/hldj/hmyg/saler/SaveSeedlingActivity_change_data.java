@@ -170,7 +170,7 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
         upLoadDatas.setUnit(new UnitTypeBean(nuit, value));
 
         //地址对象
-        AdressListActivity.Address address = new AdressListActivity.Address();
+        AdressActivity.Address address = new AdressActivity.Address();
         address.addressId = seedling.getNurseryId();
         address.contactPhone = seedling.getNurseryJson().getPhone();
         address.contactName = seedling.getNurseryJson().getRealName();

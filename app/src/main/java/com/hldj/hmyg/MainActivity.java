@@ -246,8 +246,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         });
 
 
-
-
         radioderGroup.setOnCheckedChangeListener(this);
         radioderGroup.check(R.id.tab_a);// 默认第一个按钮
         check = "1";
@@ -356,6 +354,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     public static void toA() {
         radioderGroup.check(R.id.tab_a);
     }
+
     public static void toB() {
         radioderGroup.check(R.id.tab_b);
     }
@@ -874,6 +873,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
         MLocationManager.getInstance().startLoaction(location -> {
             if (location != null && location.getErrorCode() == 0) {
+                alocation = location;
                 D.e("=====result===" + location.toString());
                 province_loc = location.getProvince();
                 D.e("==============" + location.getProvince());
@@ -881,15 +881,23 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                 D.e("==============" + location.getCity());
                 district_loc = location.getDistrict();
                 D.e("==============" + location.getDistrict());
+
+                latitude = location.getLatitude() + "";
+                longitude = location.getLongitude() + "";
+
                 aMapLocation = location;
                 MLocationManager.getInstance().stopLoaction();//一次成功后关闭定位
             } else {
                 //多次失败 会超时关闭
+                D.e("======定位失败=========");
             }
         });
     }
 
 
+    public static AMapLocation alocation;
+    public static String latitude = "";
+    public static String longitude = "";
     public static String province_loc = "";
     public static String city_loc = "";
     public static String district_loc = "";

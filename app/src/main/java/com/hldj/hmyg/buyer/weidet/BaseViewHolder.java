@@ -103,7 +103,6 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
      */
 
 
-
     public BaseViewHolder setText(int viewId, @StringRes int strId) {
         TextView view = getView(viewId);
         view.setText(strId);
@@ -217,6 +216,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * 设置某个控件的父控件  隐藏  能够隐藏单行viewgroup
+     *
      * @param viewId
      * @param visible
      * @return
@@ -334,6 +334,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * Sets the on click listener of the view.
+     *
      * @param viewId   The view id.
      * @param listener The on click listener;
      * @return The BaseViewHolder for chaining.
@@ -347,6 +348,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * Sets the on click listener of the view.
+     *
      * @param viewId   The view id.
      * @param listener The on click listener;
      * @return The BaseViewHolder for chaining.
@@ -360,6 +362,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * add childView id
+     *
      * @param viewId add the child view id   can support childview click
      * @return
      */
@@ -371,6 +374,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * add long click view id
+     *
      * @param viewId
      * @return
      */
@@ -503,6 +507,23 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         }
         return this;
     }
+
+    /**
+     * Sets the selected status of a selectable.
+     *
+     * @param viewId  The view id.
+     * @param selected The checked status;
+     * @return The BaseViewHolder for chaining.
+     */
+    public BaseViewHolder setSelected(int viewId, boolean selected) {
+        View view = getView(viewId);
+        // View unable cast to Checkable
+        if (view instanceof TextView) {
+            ((TextView) view).setSelected(selected);
+        }
+        return this;
+    }
+
 
     /**
      * Sets the adapter of a adapter view.

@@ -23,7 +23,7 @@ import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.PermissionUtils;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.buyer.SettingBuyConfigActivity;
-import com.hldj.hmyg.saler.AdressListActivity;
+import com.hldj.hmyg.saler.AdressActivity;
 import com.hldj.hmyg.saler.SalerOrderActivity2;
 import com.hldj.hmyg.saler.SaveSeedlingActivity;
 import com.hldj.hmyg.saler.StorageSaveActivity;
@@ -549,7 +549,7 @@ public class SalerActivity extends LoginActivity {
                         break;
                     case R.id.ll_04:
                         Intent toAdressListActivity = new Intent(
-                                SalerActivity.this, AdressListActivity.class);
+                                SalerActivity.this, AdressActivity.class);
                         toAdressListActivity.putExtra("from", "SalerActivity");
                         startActivity(toAdressListActivity);
                         overridePendingTransition(R.anim.slide_in_left,

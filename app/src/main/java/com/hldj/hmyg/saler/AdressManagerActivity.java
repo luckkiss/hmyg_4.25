@@ -1,7 +1,9 @@
 package com.hldj.hmyg.saler;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.widget.EditText;
 
 import com.hldj.hmyg.M.AddressBean;
@@ -16,6 +18,7 @@ import com.hldj.hmyg.presenter.AdressListPresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.SaveSeedingBottomLinearLayout;
+import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
 
 import java.io.Serializable;
@@ -24,9 +27,9 @@ import java.util.List;
 /**
  * 苗源地址
  */
-public class AdressListActivity extends BaseMVPActivity<AdressListPresenter, AdressListModel> implements AdressListContract.View {
+public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, AdressListModel> implements AdressListContract.View {
 
-    private static final String TAG = "AdressListActivity";
+    private static final String TAG = "AdressActivity";
     CoreRecyclerView coreRecyclerView;
 
 
@@ -73,23 +76,24 @@ public class AdressListActivity extends BaseMVPActivity<AdressListPresenter, Adr
      * @param onAddressSelectListener
      */
     public static void start2AdressListActivity(Context context, String addressId, String from, SaveSeedingBottomLinearLayout.onAddressSelectListener onAddressSelectListener) {
-        Intent intent = new Intent(context, AdressListActivity.class);
+        Intent intent = new Intent(context, AdressManagerActivity.class);
         intent.putExtra("addressId", addressId);
         intent.putExtra("from", from);
-        AdressListActivity.onAddressSelectListener = onAddressSelectListener;
+        AdressManagerActivity.onAddressSelectListener = onAddressSelectListener;
         context.startActivity(intent);
     }
 
 
     public static void start2Activity(Context mActivity) {
-        Intent intent = new Intent(mActivity, AdressListActivity.class);
+        Intent intent = new Intent(mActivity, AdressManagerActivity.class);
 //        intent.putExtra("from", from);
         mActivity.startActivity(intent);
     }
 
+
     @Override
     public int bindLayoutID() {
-        return R.layout.activity_address_list;
+        return R.layout.activity_address_list_manager;
     }
 
     /**
@@ -103,13 +107,14 @@ public class AdressListActivity extends BaseMVPActivity<AdressListPresenter, Adr
         //添加地址
         getView(R.id.btn_add_addt).setOnClickListener(view -> {
             AddAdressActivity.start2Activity(mActivity, null);
-
         });
-        EditText etSearch = getView(R.id.et_addr_search);
+
+
         //搜索关键字
         getView(R.id.iv_search_adress).setOnClickListener(view -> {
 
-            getQueryBean().searchKey = etSearch.getText().toString();
+            EditText etSearch = getView(R.id.et_addr_search);
+            getQueryBean().searchKey = TextUtils.isEmpty(etSearch.getText()) ? "" : etSearch.getText().toString();
             coreRecyclerView.onRefresh();
 
 //            if (!TextUtils.isEmpty(etSearch.getText())) {
@@ -121,30 +126,15 @@ public class AdressListActivity extends BaseMVPActivity<AdressListPresenter, Adr
         });
 
         coreRecyclerView = getView(R.id.address_recycle);
-        coreRecyclerView.init(new BaseQuickAdapter<AddressBean, BaseViewHolder>(R.layout.recy_item_adress) {
-//                    this.tv_recy_item_one = (TextView) rootView.findViewById(R.id.tv_recy_item_one);
-//                    this.tv_recy_item_two = (TextView) rootView.findViewById(R.id.tv_recy_item_two);
-//                    this.tv_recy_item_three = (TextView) rootView.findViewById(R.id.tv_recy_item_three);
-//                    this.cb_is_default = (CheckBox) rootView.findViewById(R.id.cb_is_default);
-//                    this.iv_recy_item_left = (ImageView) rootView.findViewById(R.id.iv_recy_item_left);
-//                    this.tv_recy_item_right = (ImageView) rootView.findViewById(R.id.tv_recy_item_right);
+        coreRecyclerView.init(new BaseQuickAdapter<AddressBean, BaseViewHolder>(R.layout.recy_item_adress_manager) {
 
             @Override
             protected void convert(BaseViewHolder helper, AddressBean item) {
                 D.e("==item====" + item.toString());
-
-                /**
-                 * if(model.detailAddress.length>0){
-                 addressStr=[NSString stringWithFormat:@"%@%@",model.cityName,model.detailAddress];
-                 }else{
-                 addressStr=[NSString stringWithFormat:@"%@",model.cityName];
-                 }
-                 self.addressLab.text=addressStr;
-                 */
-
                 helper.setText(R.id.tv_recy_item_one, item.fullAddress);
-                helper.setText(R.id.tv_recy_item_two, item.detailAddress.length() > 0 ? item.cityName + item.detailAddress : item.detailAddress);
-                helper.setText(R.id.tv_recy_item_three, "联  系  人：" + item.contactName + " " + item.contactPhone);
+                helper.setText(R.id.tv_recy_item_two, "苗圃名称：" + striFil(mActivity,item.name,""));
+                helper.setText(R.id.tv_recy_item_three, "联  系  人：" +   striFil(mActivity,item.contactName,item.contactPhone));
+
                 helper.setChecked(R.id.cb_is_default, item.isDefault);
 
                 helper.addOnClickListener(R.id.cb_is_default, view -> {
@@ -161,11 +151,27 @@ public class AdressListActivity extends BaseMVPActivity<AdressListPresenter, Adr
                     mPresenter.deleteAddr(item.id);
                 });
             }
+
+
         }).openLoadMore(100, page -> {
             mPresenter.getData(getQueryBean());
         }).openRefresh().openLoadAnimation(BaseQuickAdapter.SCALEIN);
         //initRecycle 下一步执行
         mPresenter.getData(getQueryBean());//初始化  地址数据列表
+    }
+
+
+    public static String striFil(Activity activity, String str1, String str2) {
+        if (!TextUtils.isEmpty(str1) && !TextUtils.isEmpty(str2)) {
+            return str1 + " " + str2;
+        } else if (!TextUtils.isEmpty(str1) && TextUtils.isEmpty(str2)) {
+            return str1;
+        } else if (TextUtils.isEmpty(str1) && !TextUtils.isEmpty(str2)) {
+            return str2;
+        } else {
+            StringFormatUtil formatUtil = new StringFormatUtil(activity, "未填写", "未填写", R.color.text_color999).fillColor();
+            return formatUtil.getResult().toString();
+        }
     }
 
     @Override

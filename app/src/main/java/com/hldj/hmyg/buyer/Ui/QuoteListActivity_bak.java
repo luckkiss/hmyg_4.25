@@ -91,7 +91,7 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
      * @param item
      */
     private void initRecycleItem(BaseViewHolder helper, QuoteListBean item) {
-
+        int viewid = R.layout.item_quote ;
         helper.setText(R.id.tv_quote_item_sellerName, strFilter(item.sellerName).equals("") ? strFilter(item.sellerPhone) : strFilter(item.sellerName));//报价人
         helper.setText(R.id.tv_quote_item_cityName, strFilter(item.cityName));//苗源地址
         helper.setText(R.id.tv_quote_item_price, strFilter(item.price + ""));//价格
@@ -111,6 +111,9 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
                 CallPhone(item.sellerPhone);
             }
         });
+
+        PurchaseDetailActivity.setImgCounts(mActivity,helper.getView(R.id.tv_quote_item_photo_num),item.imagesJson);
+
 
 
 //        recycle_quit.addOnItemClickListener(new OnItemClickListener() {

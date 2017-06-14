@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.Html;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
 import com.hhl.library.FlowTagLayout;
@@ -45,7 +46,6 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
         FlowTagLayout mMobileFlowTagLayout = (FlowTagLayout) myViewHolder.getView(R.id.mobile_flow_layout);
 
 
-
         // 移动研发标签
         TagAdapter<String> mMobileTagAdapter = new TagAdapter<>(context);
         // mMobileFlowTagLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
@@ -72,9 +72,13 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
                         + item.quoteCountJson + "条报价", item.quoteCountJson + "", R.color.price_orige)
                         .fillColor();
                 tv_11.setText(fillColor.getResult());
+
             } else {
                 tv_11.setText("暂无报价");
             }
+            tv_11.setVisibility(View.VISIBLE);
+        } else {
+            tv_11.setVisibility(View.GONE);
         }
 
 

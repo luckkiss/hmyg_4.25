@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.UnitTypeBean;
 import com.hldj.hmyg.buy.bean.StorageSave;
-import com.hldj.hmyg.saler.AdressListActivity;
+import com.hldj.hmyg.saler.AdressActivity;
 import com.hldj.hmyg.util.D;
 import com.zf.iosdialog.widget.ActionSheetDialog_new;
 import com.zzy.common.widget.wheelview.popwin.CustomDaysPickPopwin;
@@ -188,7 +188,7 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
             {
                 OnClickListener onClickListener = v -> {
                     D.e("=========苗原地点击===========");
-                    AdressListActivity.start2AdressListActivity(context, upLoadDatas.address.addressId, "SaveSeedlingActivity", address -> {
+                    AdressActivity.start2AdressListActivity(context, upLoadDatas.address.addressId, "SaveSeedlingActivity", address -> {
                         D.e("===========返回的地址==========" + address);
                         initAddressView(rootView, address);
                         upLoadDatas.address = address;
@@ -246,19 +246,26 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
      * @param rootView 根布局
      * @param address  地址对象
      */
-    private void initAddressView(View rootView, AdressListActivity.Address address) {
+    private void initAddressView(View rootView, AdressActivity.Address address) {
         ((TextView) rootView.findViewById(R.id.tv_name)).setText(address.contactName);// 名字
         upLoadDatas.address =address ;
         if (address.isDefault)
+        {
             ((TextView) rootView.findViewById(R.id.tv_is_defoloat)).setVisibility(View.VISIBLE);//默认就显示默认地址
-        ((TextView) rootView.findViewById(R.id.tv_address_name)).setText(address.cityName); //地址名称
+            ((TextView) rootView.findViewById(R.id.tv_address_name)).setText(address.cityName); //地址名称
+        }else
+        {
+            ((TextView) rootView.findViewById(R.id.tv_is_defoloat)).setVisibility(View.GONE);//默认就显示默认地址
+            ((TextView) rootView.findViewById(R.id.tv_address_name)).setText(address.cityName); //地址名称
+        }
+
     }
 
     /**
      * 地址选择后回调接口
      */
     public interface onAddressSelectListener {
-        void onAddressSelect(AdressListActivity.Address address);
+        void onAddressSelect(AdressActivity.Address address);
     }
 
     //用于上传的数据
@@ -270,7 +277,7 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
         public boolean isMeet; // 是否面议
         public String repertory_num = "";//库存
         public String remark = "";//备注
-        public AdressListActivity.Address address = new AdressListActivity.Address();//苗源地
+        public AdressActivity.Address address = new AdressActivity.Address();//苗源地
 
         public UnitTypeBean getUnit() {
             return unit;
@@ -370,7 +377,7 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
         this.unitTypeList = mUnitTypeList;
     }
 
-    public void setDefaultAddr(AdressListActivity.Address address) {
+    public void setDefaultAddr(AdressActivity.Address address) {
         initAddressView(holder.rootView,address);
     }
 

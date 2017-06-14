@@ -53,6 +53,14 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
     }
 
 
+    boolean isShowCity = true;
+
+    public CityWheelDialogF setNoShowCity() {
+        isShowCity = false;
+        return this;
+    }
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +93,9 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
         ((ViewGroup) dialog.findViewById(R.id.ll_wheel_bottom)).setBackgroundColor(Color.WHITE);
 //        View view = dialog.inflate(R.layout.whell_city,null);
         mViewProvince = (WheelView) dialog.findViewById(R.id.id_province);
+
         mViewCity = (WheelView) dialog.findViewById(R.id.id_city);
+        mViewCity.setVisibility(isShowCity ? View.VISIBLE : View.GONE);
         mViewDistrict = (WheelView) dialog.findViewById(R.id.id_district);
         mViewDistrict.setVisibility(View.GONE);
 
@@ -99,7 +109,11 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
 
         TextView tv_sure = (TextView) dialog.findViewById(R.id.tv_sure);
         tv_sure.setOnClickListener(v -> {
-            selectListener.onCitySelect(childBeans);
+
+            if (selectListener != null) {
+                selectListener.onCitySelect(childBeans);
+                selectListener.onProvinceSelect(privBeans);
+            }
             this.dismiss();
         });
 
@@ -164,6 +178,7 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
             pCurrent = mViewProvince.getCurrentItem();
             arrayWheelAdapterNew.notifyAllDatas1(gsonBean.data.bannerList.get(pCurrent).childs);
             mViewCity.setCurrentItem(0);
+            privBeans = gsonBean.data.bannerList.get(pCurrent);
             childBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent);
             D.e("==childBeans==" + childBeans.toString());
         } else if (wheel == mViewCity) {
@@ -175,10 +190,13 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
 
 
     public CityGsonBean.ChildBeans childBeans = null;
+    public CityGsonBean.ChildBeans privBeans = null;
 
 
     public interface OnCitySelectListener {
         void onCitySelect(CityGsonBean.ChildBeans childBeans);
+
+        void onProvinceSelect(CityGsonBean.ChildBeans childBeans);
     }
 
     @Override

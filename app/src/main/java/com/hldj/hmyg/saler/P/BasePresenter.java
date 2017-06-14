@@ -77,6 +77,8 @@ public abstract class BasePresenter {
      * @return
      */
     public BasePresenter putParams(Object t) {
+        ajaxParams = null;//清空参数
+
         if (t == null) {
             throw new NullPointerException("对象不能为空");
         }

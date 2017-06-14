@@ -1044,7 +1044,7 @@ public class SaveSeedlingActivity3_0 extends NeedSwipeBackActivity implements
                             R.anim.slide_out_right);
                 } else if (view.getId() == R.id.list_item_adress) {
                     Intent toAdressListActivity1 = new Intent(
-                            SaveSeedlingActivity3_0.this, AdressListActivity.class);
+                            SaveSeedlingActivity3_0.this, AdressActivity.class);
                     toAdressListActivity1.putExtra("addressId", addressId);
                     toAdressListActivity1.putExtra("from",
                             "SaveSeedlingActivity");
@@ -1053,7 +1053,7 @@ public class SaveSeedlingActivity3_0 extends NeedSwipeBackActivity implements
                             R.anim.slide_out_right);
                 } else if (view.getId() == R.id.ll_05) {
                     Intent toAdressListActivity = new Intent(
-                            SaveSeedlingActivity3_0.this, AdressListActivity.class);
+                            SaveSeedlingActivity3_0.this, AdressActivity.class);
                     toAdressListActivity.putExtra("addressId", addressId);
                     toAdressListActivity.putExtra("from",
                             "SaveSeedlingActivity");

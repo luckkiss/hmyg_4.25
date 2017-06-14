@@ -75,11 +75,8 @@ public class AdressListModel extends BasePresenter implements AdressListContract
                     resultCallBack.onSuccess(false);
                     resultCallBack.onFailure(null, 0, simpleGsonBean.msg);
                 }
-
             }
         };
-
-
         putParams("id", addID);
         doRequest("admin/nursery/delete", true, ajaxCallBack);
 

@@ -6,7 +6,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import kankan.wheel.widget.OnWheelChangedListener;
@@ -22,7 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -34,7 +32,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -70,8 +67,7 @@ import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PicSerializableMaplist;
 import com.hldj.hmyg.bean.PicValiteIsUtils;
 import com.hldj.hmyg.broker.bean.SellectPrice;
-import com.hldj.hmyg.buy.bean.StorageSave;
-import com.hldj.hmyg.saler.AdressListActivity;
+import com.hldj.hmyg.saler.AdressActivity;
 import com.hldj.hmyg.saler.ChooseParamsActivity;
 import com.hldj.hmyg.saler.UpdataImageActivity;
 import com.hldj.hmyg.saler.bean.ParamsList;
@@ -733,7 +729,7 @@ public class SellectMarketPriceActivity extends BaseSecondActivity implements
 				} else if (view.getId() == R.id.list_item_adress) {
 					Intent toAdressListActivity1 = new Intent(
 							SellectMarketPriceActivity.this,
-							AdressListActivity.class);
+							AdressActivity.class);
 					toAdressListActivity1.putExtra("addressId", addressId);
 					toAdressListActivity1.putExtra("from",
 							"SaveSeedlingActivity");

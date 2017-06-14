@@ -169,6 +169,7 @@ public class StorePurchaseListAdapter extends BaseAdapter {
          *     * showQuote : true
          * showQuoteCount : true
          */
+
         if (MyApplication.getInstance().getUserBean().showQuoteCount)//拥有权限
         {
             StringFormatUtil fillColor = new StringFormatUtil(context, "已有"

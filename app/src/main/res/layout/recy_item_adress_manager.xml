@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cd_adress_item"
+    style="@style/CardView.Simple"
+    android:paddingBottom="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:paddingTop="7dp">
+
+
+        <TextView
+            android:id="@+id/tv_recy_item_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y4"
+            android:textColor="@color/text_color111"
+            android:textSize="@dimen/textSizeXXX"
+            tools:text="厦门市思明区曾厝垵北路（默默隔壁）" />
+
+        <TextView
+            android:id="@+id/tv_recy_item_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y4"
+            android:textColor="@color/text_color666"
+
+            tools:text="厦门市思明区曾厝垵北路（默默隔壁）" />
+
+        <TextView
+            android:id="@+id/tv_recy_item_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y5"
+            android:textColor="@color/text_color666"
+            tools:text="厦门市思明区曾厝垵北路（默默隔壁）" />
+
+        <View
+            style="@style/View_line_gray_1dp"
+            android:layout_marginTop="@dimen/y8"
+            />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y28">
+
+
+            <CheckBox
+                android:id="@+id/cb_is_default"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:button="@drawable/dagou_seletor"
+                android:padding="3dp"
+                android:text="默认地址"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/textSize" />
+
+
+            <ImageView
+                android:id="@+id/iv_recy_item_left"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:layout_toLeftOf="@+id/tv_recy_item_right"
+                android:padding="5dp"
+                android:src="@mipmap/bj"
+                android:text="编辑"
+
+                />
+
+            <ImageView
+                android:id="@+id/tv_recy_item_right"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="5dp"
+                android:src="@mipmap/sc"
+                android:text="编辑"
+
+                />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

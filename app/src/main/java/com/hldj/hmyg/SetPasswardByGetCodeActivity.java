@@ -19,8 +19,10 @@ import android.widget.Toast;
 
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 import com.loginjudge.LoginJudge;
 
 import net.tsz.afinal.FinalHttp;
@@ -38,307 +40,356 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
  */
 public class SetPasswardByGetCodeActivity extends NeedSwipeBackActivity {
 
-	/**
-	 */
-	private ImageView btn_back;
-	private TextView set_passward;
-	private EditText et_phone;
-	private EditText et_passward;
-	private EditText et_code;
-	private Editor e;
-	private ImageButton btn_clear_password;
-	private ImageButton btn_clear_num;
-	private String istab_c;
-	private Button btn_get_code;
-	private String phString;
+    /**
+     */
+    private ImageView btn_back;
+    private TextView set_passward;
+    private EditText et_phone;
+    private EditText et_passward;
+    private TextView et_passward_confi;
+    private EditText et_code;
+    private Editor e;
+    private ImageButton btn_clear_password;
+    private ImageButton btn_clear_password_et_passward_confi;
+    private ImageButton btn_clear_num;
+    private String istab_c;
+    private Button btn_get_code;
+    private String phString;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_set_passward_by_get_code);
-		time = new TimeCount(60000, 1000);
-		getWindow().setSoftInputMode(
-				WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-		btn_back = (ImageView) findViewById(R.id.btn_back);
-		set_passward = (TextView) findViewById(R.id.set_passward);
-		et_phone = (EditText) findViewById(R.id.et_phone);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_set_passward_by_get_code);
+        time = new TimeCount(60000, 1000);
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        btn_back = (ImageView) findViewById(R.id.btn_back);
+        set_passward = (TextView) findViewById(R.id.set_passward);
 
-		et_phone.setText(MyApplication.Userinfo.getString( "phone", ""));
-		phString= MyApplication.Userinfo.getString( "phone", "");
-		et_phone.setFocusable(false);
-		et_passward = (EditText) findViewById(R.id.et_passward);
-		et_code = (EditText) findViewById(R.id.et_code);
-		btn_clear_num = (ImageButton) findViewById(R.id.btn_clear_num);
-		btn_clear_password = (ImageButton) findViewById(R.id.btn_clear_password);
-		btn_get_code = (Button) findViewById(R.id.btn_get_code);
+        et_phone = (EditText) findViewById(R.id.et_phone);
 
-		e = MyApplication.Userinfo.edit();
+        et_phone.setText(MyApplication.Userinfo.getString("phone", ""));
+        phString = MyApplication.Userinfo.getString("phone", "");
+        et_phone.setFocusable(false);
+        et_passward = (EditText) findViewById(R.id.et_passward);
+        et_passward_confi = (TextView) findViewById(R.id.et_passward_confi);
 
-		et_phone.addTextChangedListener(watcher_num);
-		et_passward.addTextChangedListener(watcher_password);
-		MultipleClickProcess multipleClickProcess = new MultipleClickProcess();
-		btn_clear_num.setOnClickListener(multipleClickProcess);
-		btn_clear_password.setOnClickListener(multipleClickProcess);
-		btn_get_code.setOnClickListener(multipleClickProcess);
-		btn_back.setOnClickListener(multipleClickProcess);
-		set_passward.setOnClickListener(multipleClickProcess);
-	}
+        et_code = (EditText) findViewById(R.id.et_code);
+        btn_clear_num = (ImageButton) findViewById(R.id.btn_clear_num);
+        btn_clear_password = (ImageButton) findViewById(R.id.btn_clear_password);
+        btn_clear_password_et_passward_confi = (ImageButton) findViewById(R.id.btn_clear_password_et_passward_confi);
+        btn_get_code = (Button) findViewById(R.id.btn_get_code);
 
-	TextWatcher watcher_num = new TextWatcher() {
+        e = MyApplication.Userinfo.edit();
 
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before,
-				int count) {
-			// TODO Auto-generated method stub
-			if (s.length() > 0) {
-				btn_clear_num.setVisibility(View.VISIBLE);
-				if (et_phone.getText().toString().length() == 11 && et_passward.getText().toString().length() > 5) {
-					set_passward.setEnabled(true);
-					set_passward.setTextColor(getResources().getColor( R.color.white));
-				}
-			} else {
-				btn_clear_num.setVisibility(View.GONE);
-				set_passward.setEnabled(false);
-				set_passward.setTextColor(getResources().getColor( R.color.main_color));
+        et_phone.addTextChangedListener(watcher_num);
+        et_passward.addTextChangedListener(watcher_password);
+        et_passward_confi.addTextChangedListener(watcher_password_comfi);
+        MultipleClickProcess multipleClickProcess = new MultipleClickProcess();
+        btn_clear_num.setOnClickListener(multipleClickProcess);
+        btn_clear_password.setOnClickListener(multipleClickProcess);
+        btn_clear_password_et_passward_confi.setOnClickListener(multipleClickProcess);
+        btn_get_code.setOnClickListener(multipleClickProcess);
+        btn_back.setOnClickListener(multipleClickProcess);
+        set_passward.setOnClickListener(multipleClickProcess);
+        et_passward_confi.setOnClickListener(multipleClickProcess);
+    }
 
-			}
-		}
+    TextWatcher watcher_num = new TextWatcher() {
 
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count,
-				int after) {
-			// TODO Auto-generated method stub
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+            // TODO Auto-generated method stub
+            if (s.length() > 0) {
+                btn_clear_num.setVisibility(View.VISIBLE);
+                if (et_phone.getText().toString().length() == 11 && et_passward.getText().toString().length() > 5) {
+                    set_passward.setEnabled(true);
+                    set_passward.setTextColor(getResources().getColor(R.color.white));
+                }
+            } else {
+                btn_clear_num.setVisibility(View.GONE);
+                set_passward.setEnabled(false);
+                set_passward.setTextColor(getResources().getColor(R.color.main_color));
 
-		}
+            }
+        }
 
-		@Override
-		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+            // TODO Auto-generated method stub
 
-		}
-	};
-	TextWatcher watcher_password = new TextWatcher() {
+        }
 
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before,
-				int count) {
-			// TODO Auto-generated method stub
-			if (s.length() > 0) {
-				btn_clear_password.setVisibility(View.VISIBLE);
-				if (et_phone.getText().toString().length() == 11
-						&& et_passward.getText().toString().length() > 5) {
-					set_passward.setEnabled(true);
-					set_passward.setTextColor(getResources().getColor(
-							R.color.white));
-				}
-			} else {
-				btn_clear_password.setVisibility(View.GONE);
-				set_passward.setEnabled(false);
-				set_passward.setTextColor(getResources().getColor(
-						R.color.main_color));
-			}
-		}
+        @Override
+        public void afterTextChanged(Editable s) {
+            // TODO Auto-generated method stub
 
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count,
-				int after) {
-			// TODO Auto-generated method stub
-		}
+        }
+    };
+    TextWatcher watcher_password = new TextWatcher() {
 
-		@Override
-		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+            // TODO Auto-generated method stub
+            if (s.length() > 0) {
+                btn_clear_password.setVisibility(View.VISIBLE);
+                if (et_phone.getText().toString().length() == 11
+                        && et_passward.getText().toString().length() > 5) {
+                    set_passward.setEnabled(true);
+                    set_passward.setTextColor(getResources().getColor(
+                            R.color.white));
+                }
+            } else {
+                btn_clear_password.setVisibility(View.GONE);
+                set_passward.setEnabled(false);
+                set_passward.setTextColor(getResources().getColor(
+                        R.color.main_color));
+            }
+        }
 
-		}
-	};
-	private TimeCount time;
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+            // TODO Auto-generated method stub
+        }
 
-	@Override
-	public void onBackPressed() {
-		if (LoginJudge.isTabc) {
-			LoginJudge.isTabc = false;
-			startActivity(new Intent(SetPasswardByGetCodeActivity.this, MainActivity.class));
-			finish();
-		}
-		finish();
-	}
+        @Override
+        public void afterTextChanged(Editable s) {
+            // TODO Auto-generated method stub
 
-	public class MultipleClickProcess implements OnClickListener {
-		private boolean flag = true;
+        }
+    };
+    TextWatcher watcher_password_comfi = new TextWatcher() {
 
-		private synchronized void setFlag() {
-			flag = false;
-		}
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+            // TODO Auto-generated method stub
+            if (s.length() > 0) {
+                btn_clear_password_et_passward_confi.setVisibility(View.VISIBLE);
 
-		public void onClick(View view) {
-			if (flag) {
-				switch (view.getId()) {
-				case R.id.btn_back:
-					onBackPressed();
-					break;
-				case R.id.btn_clear_num:
-					et_phone.setText("");
-					break;
-				case R.id.btn_clear_password:
-					et_passward.setText("");
-					break;
-				case R.id.btn_get_code:
-					if (!TextUtils.isEmpty(et_phone.getText().toString())) {
-						if(et_phone.getText().toString().length()<11 &&!et_phone.getText().toString().startsWith("1")){
-							Toast.makeText(SetPasswardByGetCodeActivity.this, "手机格式有问题，请检查后重试",
-									Toast.LENGTH_SHORT).show();
-						}
-						phString = et_phone.getText().toString();
-						time.start();
-						Checkphone();
-					} else {
-						Toast.makeText(SetPasswardByGetCodeActivity.this,
-								"电话不能为空", Toast.LENGTH_SHORT).show();
-					}
+            } else {
+                btn_clear_password_et_passward_confi.setVisibility(View.GONE);
 
-					break;
-				case R.id.set_passward:
-					// 判断是否为空
-					if ("".equals(et_code.getText().toString())
-							|| "".equals(et_phone.getText().toString())
-							|| "".equals(et_passward.getText().toString())) {
-						Toast.makeText(SetPasswardByGetCodeActivity.this,
-								"以上内容都需要填写！请检查...", Toast.LENGTH_SHORT).show();
-						return;
-					}
-					resetPassword();
+            }
+        }
 
-					break;
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+            // TODO Auto-generated method stub
+        }
 
-				default:
-					break;
-				}
-				setFlag();
-				// do some things
-				new TimeThread().start();
-			}
-		}
+        @Override
+        public void afterTextChanged(Editable s) {
+            // TODO Auto-generated method stub
 
-		/**
-		 * 计时线程（防止在一定时间段内重复点击按钮）
-		 */
-		private class TimeThread extends Thread {
-			public void run() {
-				try {
-					Thread.sleep(Data.loading_time);
-					flag = true;
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
+        }
+    };
+    private TimeCount time;
 
-	private void Checkphone() {
-		// TODO Auto-generated method stub
-		FinalHttp finalHttp = new FinalHttp();
-		GetServerUrl.addHeaders(finalHttp,false);
-		AjaxParams params = new AjaxParams();
-		params.put("phone", phString);
-		finalHttp.post(GetServerUrl.getUrl() + "common/getSmsCode", params,
-				new AjaxCallBack<Object>() {
+    @Override
+    public void onBackPressed() {
+        if (LoginJudge.isTabc) {
+            LoginJudge.isTabc = false;
+            startActivity(new Intent(SetPasswardByGetCodeActivity.this, MainActivity.class));
+            finish();
+        }
+        finish();
+    }
 
-					@Override
-					public void onSuccess(Object t) {
-						// TODO Auto-generated method stub
-						try {
-							JSONObject jsonObject = new JSONObject(t.toString());
-							String code = JsonGetInfo.getJsonString(jsonObject,
-									"code");
-							String msg = JsonGetInfo.getJsonString(jsonObject,
-									"msg");
-							if (!"".equals(msg)) {
-								Toast.makeText(
-										SetPasswardByGetCodeActivity.this, msg,
-										Toast.LENGTH_SHORT).show();
-							}
-							if ("1".equals(code)) {
-								Toast.makeText(
-										SetPasswardByGetCodeActivity.this,
-										"验证码已经发送", Toast.LENGTH_SHORT).show();
-							} else {
+    public class MultipleClickProcess implements OnClickListener {
+        private boolean flag = true;
 
-							}
+        private synchronized void setFlag() {
+            flag = false;
+        }
 
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						super.onSuccess(t);
-					}
+        public void onClick(View view) {
+            if (flag) {
+                switch (view.getId()) {
+                    case R.id.btn_back:
+                        onBackPressed();
+                        break;
+                    case R.id.btn_clear_num:
+                        et_phone.setText("");
+                        break;
+                    case R.id.btn_clear_password:
+                        et_passward.setText("");
+                        break;
+                    case R.id.btn_clear_password_et_passward_confi:
+                        et_passward_confi.setText("");
+                        break;
+                    case R.id.btn_get_code:
+                        if (!TextUtils.isEmpty(et_phone.getText().toString())) {
+                            if (et_phone.getText().toString().length() < 11 && !et_phone.getText().toString().startsWith("1")) {
+                                Toast.makeText(SetPasswardByGetCodeActivity.this, "手机格式有问题，请检查后重试",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            phString = et_phone.getText().toString();
+                            time.start();
+                            Checkphone();
+                        } else {
+                            Toast.makeText(SetPasswardByGetCodeActivity.this,
+                                    "电话不能为空", Toast.LENGTH_SHORT).show();
+                        }
 
-					@Override
-					public void onFailure(Throwable t, int errorNo,
-							String strMsg) {
-						// TODO Auto-generated method stub
-						Toast.makeText(SetPasswardByGetCodeActivity.this,
-								R.string.error_net, Toast.LENGTH_SHORT).show();
-						super.onFailure(t, errorNo, strMsg);
-					}
+                        break;
+                    case R.id.set_passward:
+                        // 判断是否为空
+                        if ("".equals(et_code.getText().toString())
+                                || "".equals(et_phone.getText().toString())
+                                || "".equals(et_passward.getText().toString()) || TextUtils.isEmpty(et_passward_confi.getText())) {
+                            Toast.makeText(SetPasswardByGetCodeActivity.this,
+                                    "以上内容都需要填写！请检查...", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
-				});
-	}
+                        String str1 = et_passward.getText().toString() ;
+                        String str2 = et_passward_confi.getText().toString() ;
+                        D.e("str1=="+str1);
+                        D.e("str2=="+str2);
+                        if (!str1.equals(str2)) {
+                            ToastUtil.showShortToast("两次输入密码不一致，请重新输入！");
+                            return;
+                        }
 
-	private void resetPassword() {
-		FinalHttp finalHttp = new FinalHttp();
-		GetServerUrl.addHeaders(finalHttp,false);
-		AjaxParams params = new AjaxParams();
-		params.put("phone", phString);
-		params.put("newPassword", et_passward.getText().toString());
-		params.put("smsCode", et_code.getText().toString());
-		finalHttp.post(GetServerUrl.getUrl() + "/user/resetPassword", params,
-				new AjaxCallBack<Object>() {
+                        resetPassword();
 
-					@Override
-					public void onSuccess(Object t) {
-						// TODO Auto-generated method stub
-						try {
-							JSONObject jsonObject = new JSONObject(t.toString());
-							String code = jsonObject.getString("code");
-							String msg = jsonObject.getString("msg");
-							if (!"".equals(msg)) {
-								Toast.makeText(
-										SetPasswardByGetCodeActivity.this, msg,
-										Toast.LENGTH_SHORT).show();
-							}
-							if ("1".equals(code)) {
-								onBackPressed();
-							} else if ("1006".equals(code)) {
-								// 已注册
-							}
+                        break;
 
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						super.onSuccess(t);
-					}
-				});
+                    default:
+                        break;
+                }
+                setFlag();
+                // do some things
+                new TimeThread().start();
+            }
+        }
 
-	}
+        /**
+         * 计时线程（防止在一定时间段内重复点击按钮）
+         */
+        private class TimeThread extends Thread {
+            public void run() {
+                try {
+                    Thread.sleep(Data.loading_time);
+                    flag = true;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
-	class TimeCount extends CountDownTimer {
+    private void Checkphone() {
+        // TODO Auto-generated method stub
+        FinalHttp finalHttp = new FinalHttp();
+        GetServerUrl.addHeaders(finalHttp, false);
+        AjaxParams params = new AjaxParams();
+        params.put("phone", phString);
+        finalHttp.post(GetServerUrl.getUrl() + "common/getSmsCode", params,
+                new AjaxCallBack<Object>() {
 
-		public TimeCount(long millisInFuture, long countDownInterval) {
-			super(millisInFuture, countDownInterval);
-		}
+                    @Override
+                    public void onSuccess(Object t) {
+                        // TODO Auto-generated method stub
+                        try {
+                            JSONObject jsonObject = new JSONObject(t.toString());
+                            String code = JsonGetInfo.getJsonString(jsonObject,
+                                    "code");
+                            String msg = JsonGetInfo.getJsonString(jsonObject,
+                                    "msg");
+                            if (!"".equals(msg)) {
+                                Toast.makeText(
+                                        SetPasswardByGetCodeActivity.this, msg,
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            if ("1".equals(code)) {
+                                Toast.makeText(
+                                        SetPasswardByGetCodeActivity.this,
+                                        "验证码已经发送", Toast.LENGTH_SHORT).show();
+                            } else {
 
-		@Override
-		public void onTick(long millisUntilFinished) {
-			btn_get_code.setClickable(false);
-			btn_get_code.setText(millisUntilFinished / 1000 + "S");
-		}
+                            }
 
-		@Override
-		public void onFinish() {
-			btn_get_code.setText("重新获取");
-			btn_get_code.setClickable(true);
-		}
-	}
+                        } catch (JSONException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        super.onSuccess(t);
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo,
+                                          String strMsg) {
+                        // TODO Auto-generated method stub
+                        Toast.makeText(SetPasswardByGetCodeActivity.this,
+                                R.string.error_net, Toast.LENGTH_SHORT).show();
+                        super.onFailure(t, errorNo, strMsg);
+                    }
+
+                });
+    }
+
+    private void resetPassword() {
+        FinalHttp finalHttp = new FinalHttp();
+        GetServerUrl.addHeaders(finalHttp, false);
+        AjaxParams params = new AjaxParams();
+        params.put("phone", phString);
+        params.put("newPassword", et_passward.getText().toString());
+        params.put("smsCode", et_code.getText().toString());
+        finalHttp.post(GetServerUrl.getUrl() + "/user/resetPassword", params,
+                new AjaxCallBack<Object>() {
+
+                    @Override
+                    public void onSuccess(Object t) {
+                        // TODO Auto-generated method stub
+                        try {
+                            JSONObject jsonObject = new JSONObject(t.toString());
+                            String code = jsonObject.getString("code");
+                            String msg = jsonObject.getString("msg");
+                            if (!"".equals(msg)) {
+                                Toast.makeText(
+                                        SetPasswardByGetCodeActivity.this, msg,
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            if ("1".equals(code)) {
+                                onBackPressed();
+                            } else if ("1006".equals(code)) {
+                                // 已注册
+                            }
+
+                        } catch (JSONException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        super.onSuccess(t);
+                    }
+                });
+
+    }
+
+    class TimeCount extends CountDownTimer {
+
+        public TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            btn_get_code.setClickable(false);
+            btn_get_code.setText(millisUntilFinished / 1000 + "S");
+        }
+
+        @Override
+        public void onFinish() {
+            btn_get_code.setText("重新获取");
+            btn_get_code.setClickable(true);
+        }
+    }
 
 }

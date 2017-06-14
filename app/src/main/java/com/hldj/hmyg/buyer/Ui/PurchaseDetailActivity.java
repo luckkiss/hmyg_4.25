@@ -12,6 +12,7 @@ import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PicSerializableMaplist;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
@@ -286,24 +287,10 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 //                          helper.setParentVisible(R.id.tv_quote_item_specText, false); // 规格 -》 数量
 //                            helper.setParentVisible(R.id.tv_quote_item_cityName, false); // 地址继续显示
                         }
-
-
                         SuperTextView textView = helper.getView(R.id.tv_quote_item_photo_num);
-                        if (item.imagesJson.size() != 0) {
-                            helper.setText(R.id.tv_quote_item_photo_num, strFilter("有" + item.imagesJson.size() + "张图片"));//有多少张图片
-
-                        } else {
-                            textView.setShowState(false);
-                            helper.setText(R.id.tv_quote_item_photo_num, strFilter("未上传图片"));//有多少张图片
-                        }
 
 
-                        if (item.imagesJson.size() != 0) {
-                            helper.addOnClickListener(R.id.tv_quote_item_photo_num, v -> {
-                                //穿list pic 集合到新的activity 显示 所有的图片
-                                GalleryImageActivity.startGalleryImageActivity(PurchaseDetailActivity.this, 0, getPicList(item.imagesJson));
-                            });
-                        }
+                        setImgCounts(mActivity,textView, item.imagesJson);
 
                         if (getStatus().equals("")) {//""表示  已经报价  但是结果还没出来   允许删除
                             helper.setVisible(R.id.tv_delete_item, true);
@@ -359,6 +346,22 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         recyclerView.getAdapter().addData(sellerQuoteJsonBean);
 
 
+    }
+
+    public static void setImgCounts(Activity activity, SuperTextView textView, List<ImagesJsonBean> imagesJson) {
+        if (imagesJson.size() != 0) {
+            textView.setText(strFilter("有" + imagesJson.size() + "张图片"));//有多少张图片
+        } else {
+            textView.setShowState(false);
+            textView.setText(strFilter("未上传图片"));//有多少张图片
+        }
+        if (imagesJson.size() != 0) {
+            textView.setOnClickListener(view -> {
+                //穿list pic 集合到新的activity 显示 所有的图片
+                GalleryImageActivity.startGalleryImageActivity(activity, 0, getPicList(imagesJson));
+            });
+
+        }
     }
 
     public void onDeleteFinish(boolean isSucceed) {
@@ -590,10 +593,18 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
     View.OnClickListener showCity = v -> {
         CityWheelDialogF.instance()
-                .addSelectListener((child) -> {
-                    D.e("===========child==============" + child.toString());
-                    getViewHolder_pur().tv_purchase_city_name.setText(child.fullName);
-                    uploadBean.cityCode = child.cityCode;
+                .addSelectListener(new CityWheelDialogF.OnCitySelectListener() {
+                    @Override
+                    public void onCitySelect(CityGsonBean.ChildBeans child) {
+                        D.e("===========child==============" + child.toString());
+                        getViewHolder_pur().tv_purchase_city_name.setText(child.fullName);
+                        uploadBean.cityCode = child.cityCode;
+                    }
+
+                    @Override
+                    public void onProvinceSelect(CityGsonBean.ChildBeans childBeans) {
+
+                    }
                 })
                 .show(getSupportFragmentManager(), PurchaseDetailActivity.this.getClass().getName());
     };

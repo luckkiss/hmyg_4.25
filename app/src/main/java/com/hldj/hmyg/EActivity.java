@@ -636,12 +636,12 @@ public class EActivity extends NeedSwipeBackActivity implements PlatformActionLi
                 break;
             case Configs.SystemPicture.PHOTO_REQUEST_TAKEPHOTO: // 拍照
                 Log.i("onActivityResult", "PHOTO_REQUEST_TAKEPHOTO");
-                if (SelectHeadTools.imageUri != null) {
-                    beginCrop(SelectHeadTools.imageUri);
-                    if (SelectHeadTools.imageUri != null) SelectHeadTools.imageUri = null;
-                } else {
+//                if (SelectHeadTools.imageUri != null) {
+//                    beginCrop(SelectHeadTools.imageUri);
+//                    if (SelectHeadTools.imageUri != null) SelectHeadTools.imageUri = null;
+//                } else {
                     beginCrop(photoUri);
-                }
+//                }
                 break;
             case Configs.SystemPicture.PHOTO_REQUEST_GALLERY:// 相册获取
                 if (data != null)

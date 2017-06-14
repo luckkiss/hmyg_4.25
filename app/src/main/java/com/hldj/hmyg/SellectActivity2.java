@@ -178,7 +178,7 @@ public class SellectActivity2 extends BaseSecondActivity {
                         searchSpec = danwei_ids.get(setItem);
 
                     }
-                    queryBean.searchSpec = searchSpec ;
+                    queryBean.searchSpec = searchSpec;
                     D.e("====buffer======" + queryBean.toString());
                 });
 
@@ -308,11 +308,19 @@ public class SellectActivity2 extends BaseSecondActivity {
                         break;
                     case R.id.ll_area:
 
-                        CityWheelDialogF.instance().addSelectListener(childBeans -> {
-                            SellectActivity2.childBeans = childBeans;
-                            D.e("=选择  地区==" + childBeans.toString());
-                            tv_area.setText(SellectActivity2.childBeans.name);
-                        }).show(getSupportFragmentManager(), "SellectActivity2");
+                        CityWheelDialogF.instance()
+                                .setNoShowCity()
+                                .addSelectListener(new CityWheelDialogF.OnCitySelectListener() {
+                                    @Override
+                                    public void onCitySelect(CityGsonBean.ChildBeans childBeans) {
+                                    }
+                                    @Override
+                                    public void onProvinceSelect(CityGsonBean.ChildBeans childBeans) {
+                                        SellectActivity2.childBeans = childBeans;
+                                        D.e("=选择  地区==" + childBeans.toString());
+                                        tv_area.setText(SellectActivity2.childBeans.name);
+                                    }
+                                }).show(getSupportFragmentManager(), "SellectActivity2");
 
 
                         break;
@@ -344,12 +352,10 @@ public class SellectActivity2 extends BaseSecondActivity {
 //                        }
                         queryBean.cityCode = childBeans.cityCode;
                         String stra = "";
-                        if (buffer.length() != 0   ) {
-                            if (buffer.toString().endsWith(","))
-                            {
+                        if (buffer.length() != 0) {
+                            if (buffer.toString().endsWith(",")) {
                                 stra = buffer.toString().substring(0, buffer.length() - 1);
-                            }else
-                            {
+                            } else {
                                 stra = buffer.toString();
                             }
 
@@ -360,16 +366,19 @@ public class SellectActivity2 extends BaseSecondActivity {
                         queryBean.specMaxValue = et_max_guige.getText().toString();
 
                         if (!TextUtils.isEmpty(queryBean.specMinValue) || !TextUtils.isEmpty(queryBean.specMaxValue)) {
-                            if (TextUtils.isEmpty(queryBean.searchSpec ))
-                            {
-                                ToastUtil.showShortToast("请选择种植类型");
+                            if (TextUtils.isEmpty(queryBean.searchSpec)) {
+                                ToastUtil.showShortToast("确定规格后必须选择规格");
+
                                 return;
                             }
-
-
                         }
 
-
+                        if (!TextUtils.isEmpty(queryBean.searchSpec)) {
+                            if (TextUtils.isEmpty(queryBean.specMinValue) && TextUtils.isEmpty(queryBean.specMaxValue)) {
+                                ToastUtil.showShortToast("选择类型后必须填写规格");
+                                return;
+                            }
+                        }
 //                        queryBean.searchKey = searchSpec;
 //                        intent.putExtra("cityName", cityName);
 //                        intent.putExtra("plantTypes", buffer.toString());

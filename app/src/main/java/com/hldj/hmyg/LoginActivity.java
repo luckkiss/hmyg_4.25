@@ -462,7 +462,8 @@ public class LoginActivity extends BaseActivity {
                 //失败
                 if (userInfoGsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
 
-                    D.e("================获取个人信息失败失败=====================================");
+                    D.e("================获取个人信息失败成功====================================");
+                    D.e("================userInfoGsonBean===================================="+userInfoGsonBean.toString());
                 }
             }
 

@@ -513,7 +513,7 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity implements
 					onBackPressed();
 				} else if (view.getId() == R.id.list_item_adress) {
 					// Intent toAdressListActivity1 = new Intent(
-					// MiaoDetailActivity.this, AdressListActivity.class);
+					// MiaoDetailActivity.this, AdressActivity.class);
 					// toAdressListActivity1.putExtra("from",
 					// "SaveSeedlingActivity");
 					// startActivityForResult(toAdressListActivity1, 1);
@@ -521,7 +521,7 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity implements
 					// R.anim.slide_out_right);
 				} else if (view.getId() == R.id.ll_05) {
 					// Intent toAdressListActivity = new Intent(
-					// MiaoDetailActivity.this, AdressListActivity.class);
+					// MiaoDetailActivity.this, AdressActivity.class);
 					// toAdressListActivity.putExtra("from",
 					// "SaveSeedlingActivity");
 					// startActivityForResult(toAdressListActivity, 1);

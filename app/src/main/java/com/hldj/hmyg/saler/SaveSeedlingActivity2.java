@@ -12,10 +12,8 @@ import net.tsz.afinal.http.AjaxParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,17 +30,13 @@ import android.widget.Toast;
 
 import com.example.listedittext.ParamsListActivity;
 import com.google.gson.Gson;
-import com.hldj.hmyg.ChoosePicsActivity;
-import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.Pic;
-import com.hldj.hmyg.buyer.SavePurchaseActivity;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.kaopiz.kprogresshud.KProgressHUD;
-import com.photo.choosephotos.ChooseMorePicsActivity;
 import com.photo.choosephotos.ChooseMorePicsActivity2;
 import com.xingguo.huang.mabiwang.util.PictureManageUtil;
 import com.zzy.common.widget.wheelview.popwin.CustomDaysPickPopwin;
@@ -258,7 +252,7 @@ public class SaveSeedlingActivity2 extends NeedSwipeBackActivity {
 				case R.id.ll_05:
 					Intent toAdressListActivity = new Intent(
 							SaveSeedlingActivity2.this,
-							AdressListActivity.class);
+							AdressActivity.class);
 					toAdressListActivity.putExtra("from",
 							"SaveSeedlingActivity");
 					startActivityForResult(toAdressListActivity, 1);

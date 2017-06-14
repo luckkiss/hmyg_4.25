@@ -1,16 +1,21 @@
 package com.hldj.hmyg.saler;
 
-import android.content.ContentResolver;
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,22 +29,22 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.StoreActivity;
+import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.application.Data;
-import com.hldj.hmyg.application.PermissionUtils;
 import com.hldj.hmyg.bean.Pic;
+import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.UploadHeadUtil;
 import com.hy.utils.BitmapHelper;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.Loading;
 import com.hy.utils.ToastUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.soundcloud.android.crop.Crop;
-import com.white.utils.ImageTools;
 import com.xingguo.huang.mabiwang.util.CacheUtils;
-import com.xingguo.huang.mabiwang.util.PictureManageUtil;
 import com.zf.iosdialog.widget.ActionSheetDialog;
 import com.zym.selecthead.config.Configs;
 import com.zym.selecthead.tools.FileTools;
-import com.zym.selecthead.tools.SelectHeadTools;
 
 import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.FinalHttp;
@@ -56,13 +61,20 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+
+import static com.hldj.hmyg.util.UploadHeadUtil.CHOOSE_PHOTO;
+import static com.hldj.hmyg.util.UploadHeadUtil.CROP_PHOTO;
+import static com.hldj.hmyg.util.UploadHeadUtil.TAKE_PHOTO;
+import static com.hldj.hmyg.util.UploadHeadUtil.getDiskCacheDir;
 
 public class StoreSettingActivity extends NeedSwipeBackActivity {
 
     StoreSettingActivity context;
-
+    //动态获取权限监听
+    private static Eactivity3_0.PermissionListener mListener;
     private EditText et_domian;
     private EditText et_store_name;
     private ImageView iv_logo;
@@ -98,11 +110,21 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
     private MultipleClickProcess multipleClickProcess;
     private File mTempCameraFile;
     private File mTempCropFile;
+    UploadHeadUtil uploadHeadUtil;
+
+
+    private String cachPath;
+    private File cacheFile;
+    private File cameraFile;
+    private Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_setting);
+        uploadHeadUtil = new UploadHeadUtil(mActivity);
+        cachPath = getDiskCacheDir(this) + "/handimg.jpg";//图片路径
+        cacheFile = uploadHeadUtil.getCacheFile(new File(getDiskCacheDir(this)), "handimg.jpg");
         context = this;
         gson = new Gson();
         fb = FinalBitmap.create(this);
@@ -191,10 +213,10 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                                                 "logoJson"), "url");
                                 bannerId = JsonGetInfo.getJsonString(
                                         JsonGetInfo.getJSONObject(jsonObject3,
-                                                "bannerJson"), "id");
+                                                "appBannerJson"), "id");
                                 bannerUrl = JsonGetInfo.getJsonString(
                                         JsonGetInfo.getJSONObject(jsonObject3,
-                                                "bannerJson"), "url");
+                                                "appBannerJson"), "url");
                                 if (code.length() > 0) {
                                     et_domian.setText(code + ".hmeg.cn");
                                     et_domian.setEnabled(false);
@@ -424,82 +446,47 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
         }
 
 
-        public void choosePics() {
-            new ActionSheetDialog(mActivity).builder().setCancelable(true).setCanceledOnTouchOutside(true)
-                    .addSheetItem("拍照", ActionSheetDialog.SheetItemColor.Red,
-                            which -> {
-                                // Uri.fromFile(getTempCropFile())
-                                if (PermissionUtils.requestCamerPermissions(200))
-                                    if (submit()) {
-                                        SelectHeadTools.startCamearPicCut(mActivity, photoUri);
-                                    }
+        private void takePhotoForAlbum() {
+            String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+            requestRuntimePermission(permissions, new Eactivity3_0.PermissionListener() {
+                @Override
+                public void onGranted() {
+                    openAlbum();
+                }
 
-                            })
-                    .addSheetItem("从相册选择", ActionSheetDialog.SheetItemColor.Blue,
-                            which -> {
-
-                                boolean requestReadSDCardPermissions = new PermissionUtils(StoreSettingActivity.this).requestReadSDCardPermissions(200);
-                                if (requestReadSDCardPermissions) {
-                                    Uri.fromFile(getTempCropFile());
-                                    // 打开选择图片界面
-                                    Intent openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                                    openAlbumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                                    startActivityForResult(openAlbumIntent, REQUEST_CODE_ALBUM);
-                                }
-
-                            })
-                    .show();
+                @Override
+                public void onDenied(List<String> deniedPermission) {
+                    //没有获取到权限，什么也不执行，看你心情
+                }
+            });
         }
-//
-//        public void choosePics() {
-//            new ActionSheetDialog(StoreSettingActivity.this).builder().setCancelable(true).setCanceledOnTouchOutside(true)
-//                    .addSheetItem("拍照", SheetItemColor.Red,
-//                            which -> {
-//                                boolean requestCamerPermissions = new PermissionUtils(StoreSettingActivity.this).requestCamerPermissions(200);
-//                                if (requestCamerPermissions) {
-//
-//                                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                                    if (intent.resolveActivity(context.getPackageManager()) != null) {
-////                                        /获取当前系统的android版本号/
-//                                        int currentApiVersion = Build.VERSION.SDK_INT;
-//                                        if (currentApiVersion < Build.VERSION_CODES.N) {
-//                                            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(getTempCropFile()));
-//                                            startActivityForResult(intent, REQUEST_CODE_CAMERA);
-//                                        } else {
-//                                            ContentValues contentValues = new ContentValues(1);
-//                                            contentValues.put(MediaStore.Images.Media.DATA, getTempCropFile().getAbsolutePath());
-//                                            Uri uri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-//                                            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-//                                            startActivityForResult(intent, REQUEST_CODE_CAMERA);
-//                                        }
-//                                    } else {
-//                                        Toast.makeText(context, "相机不可用", Toast.LENGTH_SHORT).show();
-//                                    }
-//
-//
-//                                }
-//
-//                            })
-//                    .addSheetItem("从相册选择", SheetItemColor.Blue,
-//                            which -> {
-//
-//                                boolean requestReadSDCardPermissions = new PermissionUtils(
-//                                        StoreSettingActivity.this)
-//                                        .requestReadSDCardPermissions(200);
-//                                if (requestReadSDCardPermissions) {
-//                                    // 打开选择图片界面
-//                                    Intent openAlbumIntent = new Intent(
-//                                            Intent.ACTION_GET_CONTENT);
-//                                    openAlbumIntent
-//                                            .setDataAndType(
-//                                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-//                                                    "image/*");
-//                                    startActivityForResult(openAlbumIntent,
-//                                            REQUEST_CODE_ALBUM);
-//                                }
-//
-//                            }).show();
-//        }
+
+        /**
+         *
+         */
+        private void openAlbum() {
+            Intent intent = new Intent("android.intent.action.GET_CONTENT");
+            intent.setType("image/*");
+            startActivityForResult(intent, CHOOSE_PHOTO); // 打开相册
+        }
+
+
+        //andrpoid 6.0 需要写运行时权限
+        public void requestRuntimePermission(String[] permissions, Eactivity3_0.PermissionListener listener) {
+
+            mListener = listener;
+            List<String> permissionList = new ArrayList<>();
+            for (String permission : permissions) {
+                if (ContextCompat.checkSelfPermission(mActivity, permission) != PackageManager.PERMISSION_GRANTED) {
+                    permissionList.add(permission);
+                }
+            }
+            if (!permissionList.isEmpty()) {
+                ActivityCompat.requestPermissions(mActivity, permissionList.toArray(new String[permissionList.size()]), 1);
+            } else {
+                mListener.onGranted();
+            }
+        }
 
         /**
          * 计时线程（防止在一定时间段内重复点击按钮）
@@ -516,78 +503,246 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
         }
     }
 
+    //andrpoid 6.0 需要写运行时权限
+    public void requestRuntimePermission(String[] permissions, Eactivity3_0.PermissionListener listener) {
+
+        mListener = listener;
+        List<String> permissionList = new ArrayList<>();
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(mActivity, permission) != PackageManager.PERMISSION_GRANTED) {
+                permissionList.add(permission);
+            }
+        }
+        if (!permissionList.isEmpty()) {
+            ActivityCompat.requestPermissions(mActivity, permissionList.toArray(new String[permissionList.size()]), 1);
+        } else {
+            mListener.onGranted();
+        }
+    }
+
+    /**
+     *
+     */
+    private void openAlbum() {
+        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        intent.setType("image/*");
+        startActivityForResult(intent, CHOOSE_PHOTO); // 打开相册
+    }
+
+    private void takePhotoForAlbum() {
+        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+        requestRuntimePermission(permissions, new Eactivity3_0.PermissionListener() {
+            @Override
+            public void onGranted() {
+                openAlbum();
+            }
+
+            @Override
+            public void onDenied(List<String> deniedPermission) {
+                //没有获取到权限，什么也不执行，看你心情
+            }
+        });
+    }
+
+    private void openCamera() {
+        cameraFile = uploadHeadUtil.getCacheFile(new File(getDiskCacheDir(this)), "output_image.jpg");
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            imageUri = Uri.fromFile(cameraFile);
+        } else {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//            com.hldj.hmyg.fileprovider
+            imageUri = FileProvider.getUriForFile(mActivity, "com.hldj.hmyg.fileprovider", cameraFile);
+        }
+        // 启动相机程序
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(intent, TAKE_PHOTO);
+    }
+
+    private void takePhotoForCamera() {
+        String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        requestRuntimePermission(permissions, new Eactivity3_0.PermissionListener() {
+            @Override
+            public void onGranted() {
+                openCamera();
+            }
+
+            @Override
+            public void onDenied(List<String> deniedPermission) {
+                //有权限被拒绝，什么也不做好了，看你心情
+            }
+        });
+    }
+
+
+    public void choosePics() {
+        new ActionSheetDialog(mActivity).builder().setCancelable(true).setCanceledOnTouchOutside(true)
+                .addSheetItem("拍照", ActionSheetDialog.SheetItemColor.Red,
+                        which -> {
+                            takePhotoForCamera();//
+
+                        })
+                .addSheetItem("从相册选择", ActionSheetDialog.SheetItemColor.Blue,
+                        which -> {
+                            takePhotoForAlbum();//相册获取
+//                            boolean requestReadSDCardPermissions = new PermissionUtils(StoreSettingActivity.this).requestReadSDCardPermissions(200);
+//                            if (requestReadSDCardPermissions) {
+//                                Uri.fromFile(getTempCropFile());
+//                                // 打开选择图片界面
+//                                Intent openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
+//                                openAlbumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+//                                startActivityForResult(openAlbumIntent, REQUEST_CODE_ALBUM);
+//                            }
+
+                        })
+                .show();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        if (resultCode != RESULT_OK)
+        if (resultCode == Activity.RESULT_CANCELED) {
             return;
+        }
         switch (requestCode) {
-            case REQUEST_CODE_ALBUM://相册选择返回的图片.
-                ContentResolver resolver = getContentResolver();
-                // 照片的原始资源地址
-                Uri originalUri = data.getData();
-//                Uri originalUri = Uri.fromFile(getTempCropFile());
+            case TAKE_PHOTO:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        // 将拍摄的照片显示出来
+                        uploadHeadUtil.startPhotoZoom(cameraFile, 2,1, cacheFile);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+
+            case CHOOSE_PHOTO:
+                if (resultCode == RESULT_OK) {
+                    // 判断手机系统版本号
+                    if (Build.VERSION.SDK_INT >= 19) {
+                        // 4.4及以上系统使用这个方法处理图片
+                        uploadHeadUtil.handleImageOnKitKat(data, cacheFile);
+                    } else {
+                        // 4.4以下系统使用这个方法处理图片
+                        uploadHeadUtil.handleImageBeforeKitKat(data, cacheFile);
+                    }
+                }
+                break;
+
+            case CROP_PHOTO://裁剪成功
                 try {
-                    // 使用ContentProvider通过URI获取原始图片
-                    Bitmap photo = MediaStore.Images.Media.getBitmap(resolver, originalUri);
-                    if (photo != null) {
-                        // 为防止原始图片过大导致内存溢出，这里先缩小原图显示，然后释放原始Bitmap占用的内存
-                        Bitmap smallBitmap = ImageTools
-                                .zoomBitmap(photo, photo.getWidth() / SCALE,
-                                        photo.getHeight() / SCALE);
-                        // 释放原始图片占用的内存，防止out of memory异常发生
-                        photo.recycle();
-                        targeturl = saveToSdCard(smallBitmap);
-                        if ("storeLogo".equals(imagType_tag)) {
-                            iv_logo.setImageDrawable(new BitmapDrawable(smallBitmap));
+                    if (resultCode == RESULT_OK) {
+                        Uri uri = Uri.fromFile(new File(cachPath));
+                        File file = FileTools.getFileByUri(this, uri);
 
-                        } else if ("storeBanner".equals(imagType_tag)) {
-                            iv_banner.setImageDrawable(new BitmapDrawable(
-                                    smallBitmap));
-                        }
-                        updateImage(targeturl, imagType_tag, "");
+                        D.e("===========" + file.length() / 1024);
+                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(Uri.fromFile(new File(cachPath))));
 
-                    }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                break;
-            case 1://拍照返回
-
-                File file = null ;
-                if (SelectHeadTools.imageUri != null) {
-                      file = FileTools.getFileByUri(this, SelectHeadTools.imageUri);
-                    if (SelectHeadTools.imageUri != null) SelectHeadTools.imageUri = null;
-
-                } else {
+                        updateImage("", imagType_tag, "", bitmap);
+//                        Drawable drawable = new BitmapDrawable(bitmap);
+////                     D.e("=========bitmap======="+bitmap.getByteCount()/1024/1024);
+//                        RelativeLayout relativeLayout = getView(R.id.e_background);
+//                        relativeLayout.setBackgroundDrawable(drawable);
+//                        BasePresenter presenter = new EPrestenter()
+//                                .addResultCallBack(new ResultCallBack<String>() {
+//                                    @Override
+//                                    public void onSuccess(String str) {
 //
-                      file = FileTools.getFileByUri(this, photoUri );
-                }
-//                mTempCameraFile
-
-//              startCrop(Uri.fromFile(getTempCropFile()), 2, 1);
-                sendImage(file);
-                if (file.exists()) {
-                    bitmap = compressImageFromFile(file.getAbsolutePath());
-                    targeturl = saveToSdCard(bitmap);
-                    if ("storeLogo".equals(imagType_tag)) {
-                        iv_logo.setImageDrawable(new BitmapDrawable(bitmap));
-                    } else if ("storeBanner".equals(imagType_tag)) {
-                        iv_banner.setImageDrawable(new BitmapDrawable(bitmap));
+//                                        new Handler().postDelayed(() -> {
+//                                            bitmap.recycle();
+//                                            D.e("===str=====" + str);
+//                                            ImageLoader.getInstance().displayImage(str, (ImageView) getView(R.id.iv_logo));
+//                                            ImageLoader.getInstance().displayImage(str, (ImageView) getView(R.id.iv_banner));
+//                                        }, 500);
+//                                    }
+//
+//                                    @Override
+//                                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+//                                    }
+//                                });
+//
+//                        ((EPrestenter) presenter).upLoadHeadImg("admin/file/uploadHeadImage", true, cachPath, bitmap);
                     }
-                    updateImage(targeturl, imagType_tag, "");
-                } else {
-
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    D.e("====报错==" + e.getMessage());
                 }
 
-                break;
-
-            default:
                 break;
         }
+
+
+        // TODO Auto-generated method stub
+//        if (resultCode != RESULT_OK)
+//            return;
+//        switch (requestCode) {
+//            case REQUEST_CODE_ALBUM://相册选择返回的图片.
+//                ContentResolver resolver = getContentResolver();
+//                // 照片的原始资源地址
+//                Uri originalUri = data.getData();
+////                Uri originalUri = Uri.fromFile(getTempCropFile());
+//                try {
+//                    // 使用ContentProvider通过URI获取原始图片
+//                    Bitmap photo = MediaStore.Images.Media.getBitmap(resolver, originalUri);
+//                    if (photo != null) {
+//                        // 为防止原始图片过大导致内存溢出，这里先缩小原图显示，然后释放原始Bitmap占用的内存
+//                        Bitmap smallBitmap = ImageTools
+//                                .zoomBitmap(photo, photo.getWidth() / SCALE,
+//                                        photo.getHeight() / SCALE);
+//                        // 释放原始图片占用的内存，防止out of memory异常发生
+//                        photo.recycle();
+//                        targeturl = saveToSdCard(smallBitmap);
+//                        if ("storeLogo".equals(imagType_tag)) {
+//                            iv_logo.setImageDrawable(new BitmapDrawable(smallBitmap));
+//
+//                        } else if ("storeBanner".equals(imagType_tag)) {
+//                            iv_banner.setImageDrawable(new BitmapDrawable(
+//                                    smallBitmap));
+//                        }
+//                        updateImage(targeturl, imagType_tag, "");
+//
+//                    }
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                break;
+//            case 1://拍照返回
+//
+//                File file = null ;
+////                if (SelectHeadTools.imageUri != null) {
+////                      file = FileTools.getFileByUri(this, SelectHeadTools.imageUri);
+////                    if (SelectHeadTools.imageUri != null) SelectHeadTools.imageUri = null;
+////
+////                } else {
+//////
+////                      file = FileTools.getFileByUri(this, photoUri );
+////                }
+//
+//                file = FileTools.getFileByUri(this, photoUri );
+////                mTempCameraFile
+//
+////              startCrop(Uri.fromFile(getTempCropFile()), 2, 1);
+//                sendImage(file);
+//                if (file.exists()) {
+//                    bitmap = compressImageFromFile(file.getAbsolutePath());
+//                    targeturl = saveToSdCard(bitmap);
+//                    if ("storeLogo".equals(imagType_tag)) {
+//                        iv_logo.setImageDrawable(new BitmapDrawable(bitmap));
+//                    } else if ("storeBanner".equals(imagType_tag)) {
+//                        iv_banner.setImageDrawable(new BitmapDrawable(bitmap));
+//                    }
+//                    updateImage(targeturl, imagType_tag, "");
+//                } else {
+//
+//                }
+//
+//                break;
+//
+//            default:
+//                break;
+//        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -614,17 +769,14 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
         return true;
     }
 
-    public void updateImage(String url, String imagType, String sourceId) {
+    public void updateImage(String url, String imagType, String sourceId, Bitmap upBmp) {
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, true);
         AjaxParams params = new AjaxParams();
-        int rotate = PictureManageUtil.getCameraPhotoOrientation(url);
+//        int rotate = PictureManageUtil.getCameraPhotoOrientation(url);
         // 把压缩的图片进行旋转
-        params.put(
-                "file",
-                new ByteArrayInputStream(Bitmap2Bytes(PictureManageUtil
-                        .rotateBitmap(PictureManageUtil.getCompressBm(url),
-                                rotate))), System.currentTimeMillis() + ".png");
+//        params.put(  "file",  new ByteArrayInputStream(Bitmap2Bytes(PictureManageUtil  .rotateBitmap(PictureManageUtil.getCompressBm(url),  rotate))), System.currentTimeMillis() + ".png");
+        params.put("file", new ByteArrayInputStream(Bitmap2Bytes(upBmp)), System.currentTimeMillis() + ".png");
         params.put("imagType", imagType);
         params.put("sourceId", sourceId);
         finalHttp.post(GetServerUrl.getUrl() + "admin/file/image", params,
@@ -638,8 +790,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                             loading.showToastAlong();
                         } else if (loading == null
                                 && !StoreSettingActivity.this.isFinishing()) {
-                            loading = new Loading(StoreSettingActivity.this,
-                                    "店铺资料修改中.....");
+                            loading = new Loading(StoreSettingActivity.this, "店铺资料修改中.....");
                             loading.showToastAlong();
                         }
                         super.onStart();
@@ -654,12 +805,19 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                             if (code == 1) {
                                 Toast.makeText(StoreSettingActivity.this,
                                         "图片上传成功", Toast.LENGTH_SHORT).show();
-                                JSONObject jsonObject2 = jsonObject
-                                        .getJSONObject("data").getJSONObject(
-                                                "image");
-                                Pic pic = new Pic(JsonGetInfo.getJsonString(
-                                        jsonObject2, "id"), false, JsonGetInfo
-                                        .getJsonString(jsonObject2, "url"), 0);
+                                JSONObject jsonObject2 = jsonObject.getJSONObject("data").getJSONObject("image");
+                                String image = jsonObject2.getString("ossSmallImagePath");
+
+                                if (imagType_tag.equals("storeLogo")) {
+
+                                    ImageLoader.getInstance().displayImage(image, (ImageView) getView(R.id.iv_logo));
+                                } else {
+
+                                    ImageLoader.getInstance().displayImage(image, (ImageView) getView(R.id.iv_banner));
+                                }
+
+
+                                Pic pic = new Pic(JsonGetInfo.getJsonString(jsonObject2, "id"), false, JsonGetInfo.getJsonString(jsonObject2, "url"), 0);
                                 ArrayList<Pic> pics = new ArrayList<Pic>();
                                 pics.add(pic);
                                 if ("storeLogo".equals(imagType_tag)) {

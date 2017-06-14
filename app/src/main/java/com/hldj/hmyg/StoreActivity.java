@@ -301,7 +301,6 @@ public class StoreActivity extends NeedSwipeBackActivity implements
     }
 
     private void iniPopupWindow2() {
-
         LayoutInflater inflater = (LayoutInflater) this
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.task_detail_popupwindow, null);
@@ -1551,32 +1550,8 @@ public class StoreActivity extends NeedSwipeBackActivity implements
         }
     }
 
-    private void ShareToQzone() {
-        if (SHARE_TYPE == 1) {
-            ShareParams sp5 = new ShareParams();
-            sp5.setShareType(Platform.SHARE_IMAGE);
-            sp5.setImagePath(img_path);
-            Platform qzone = ShareSDK.getPlatform(QQ.NAME);
-            qzone.setPlatformActionListener(this); // 设置分享事件回调
-            // 执行图文分享
-            qzone.share(sp5);
-        } else if (SHARE_TYPE == 2) {
-            ShareParams sp5 = new ShareParams();
-            sp5.setShareType(Platform.SHARE_WEBPAGE);
-            sp5.setTitle(title);
-            sp5.setTitleUrl(url); // 标题的超链接
-            sp5.setText(text);
-//            sp5.setImageUrl(TextUtils.isEmpty(img) ? GetServerUrl.ICON_PAHT : img);
-            sp5.setSite(getString(R.string.app_name));
-            sp5.setSiteUrl(url);
-            sp5.setImagePath(TextUtils.isEmpty(img) ? GetServerUrl.ICON_PAHT : img);
-            Platform qzone = ShareSDK.getPlatform(QQ.NAME);
-            qzone.setPlatformActionListener(this); // 设置分享事件回调
-            // 执行图文分享
-            qzone.share(sp5);
-        }
 
-    }
+
 
     private void ShareToSinaWeibo() {
         if (SHARE_TYPE == 1) {
@@ -1600,6 +1575,33 @@ public class StoreActivity extends NeedSwipeBackActivity implements
 
     }
 
+    private void ShareToQzone() {
+        if (SHARE_TYPE == 1) {
+            ShareParams sp5 = new ShareParams();
+            sp5.setShareType(Platform.SHARE_IMAGE);
+            sp5.setImagePath(img_path);
+            Platform qzone = ShareSDK.getPlatform(QQ.NAME);
+            qzone.setPlatformActionListener(this); // 设置分享事件回调
+            // 执行图文分享
+            qzone.share(sp5);
+        } else if (SHARE_TYPE == 2) {
+            ShareParams sp5 = new ShareParams();
+            sp5.setShareType(Platform.SHARE_WEBPAGE);
+            sp5.setTitle(title);
+            sp5.setText(text);
+//            sp5.setUrl("http://download.csdn.net/detail/liufatao/9844983?web=web");
+//            sp5.setImageUrl(TextUtils.isEmpty(img) ? GetServerUrl.ICON_PAHT : img);
+            sp5.setSiteUrl(url);
+            sp5.setImagePath(TextUtils.isEmpty(img) ? GetServerUrl.ICON_PAHT : img);
+//            sp5.setImagePath("http://f11.baidu.com/it/u=1805479168,3437334559&fm=76");
+            Platform qzone = ShareSDK.getPlatform(QQ.NAME);
+            qzone.setPlatformActionListener(this); // 设置分享事件回调
+            // 执行图文分享
+            qzone.share(sp5);
+        }
+
+    }
+
     private void ShareToWechat() {
         if (SHARE_TYPE == 1) {
             ShareParams sp1 = new ShareParams();
@@ -1613,9 +1615,11 @@ public class StoreActivity extends NeedSwipeBackActivity implements
             sp1.setShareType(Platform.SHARE_WEBPAGE);
             sp1.setTitle(title);
             sp1.setText(text);
-//            sp1.setImageUrl(TextUtils.isEmpty(img) ? GetServerUrl.ICON_PAHT : img);
+            sp1.setImageUrl(TextUtils.isEmpty(img) ? GetServerUrl.ICON_PAHT : img);
+//            sp1.setUrl("http://download.csdn.net/detail/liufatao/9844983?web=web");
             sp1.setUrl(url);
-            sp1.setSiteUrl(url);
+//            sp1.setSiteUrl(url);
+//            sp1.setImagePath("http://f11.baidu.com/it/u=1805479168,3437334559&fm=76");
             sp1.setImagePath(TextUtils.isEmpty(img) ? GetServerUrl.ICON_PAHT : img);
             Platform Wechat = ShareSDK.getPlatform("Wechat");
             Wechat.setPlatformActionListener(this);

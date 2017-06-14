@@ -19,7 +19,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -315,7 +314,7 @@ public class SaveSeedlingActivity3 extends NeedSwipeBackActivity implements
 					break;
 				case R.id.ll_05:
 					Intent toAdressListActivity = new Intent(
-							SaveSeedlingActivity3.this, AdressListActivity.class);
+							SaveSeedlingActivity3.this, AdressActivity.class);
 					toAdressListActivity.putExtra("from",
 							"SaveSeedlingActivity");
 					startActivityForResult(toAdressListActivity, 1);

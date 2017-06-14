@@ -30,11 +30,14 @@ public class SplashActivity extends FragmentActivity {
         setContentView(R.layout.activity_splash);
 
 
-
-
         e = MyApplication.Deviceinfo.edit();
-        boolean requestREAD_PHONE_STATE = new PermissionUtils(
-                SplashActivity.this).requestREAD_PHONE_STATE(200);
+
+        boolean requestREAD_PHONE_STATE = false;
+        try {
+            requestREAD_PHONE_STATE = new PermissionUtils(SplashActivity.this).requestREAD_PHONE_STATE(200);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
         if (!requestREAD_PHONE_STATE) {
             e.putString("version", "");
             e.putString("deviceId", "");
@@ -77,10 +80,7 @@ public class SplashActivity extends FragmentActivity {
 //        customDialog.show();
 
 
-
-
-
-       start2Main();
+        start2Main();
 
     }
 

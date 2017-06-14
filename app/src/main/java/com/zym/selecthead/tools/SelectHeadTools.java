@@ -40,12 +40,10 @@ public class SelectHeadTools {
         if (iconDir != null) {
             name = UUID.randomUUID().toString() + name;
         }
-
-
         return new File(iconDir, name);
     }
 
-    public static Uri imageUri;
+//    public static Uri imageUri;
 
 
     /****
@@ -60,9 +58,9 @@ public class SelectHeadTools {
         try {
             //适配7.0
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                imageUri = FileProvider.getUriForFile(context, "com.hldj.hmyg.fileprovider", file);
+                uri = FileProvider.getUriForFile(context, "com.hldj.hmyg.fileprovider", file);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件   intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);//设置Action为拍照
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);//将拍取的照片保存到指定URI
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);//将拍取的照片保存到指定URI
 //              ContentValues contentValues = new ContentValues(1);
 //              contentValues.put(MediaStore.Images.Media.DATA, flowerInfoPhotoPath);
 //              Uri uri_new = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
@@ -92,8 +90,8 @@ public class SelectHeadTools {
             String filename = "head_" + str + ".png";
             File photoFile = new File(FileUtil.getFlowerPicPath(""), filename);
             contentValues.put(MediaStore.Images.Media.DATA, FileUtil.getFlowerPicPath(filename));
-            imageUri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            uri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
             context.startActivityForResult(intent, Configs.SystemPicture.PHOTO_REQUEST_TAKEPHOTO);
 //            ToastUtil.showShortToast("没有权限");
         }

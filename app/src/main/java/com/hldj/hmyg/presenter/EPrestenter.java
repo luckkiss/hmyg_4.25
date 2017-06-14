@@ -8,7 +8,6 @@ import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.ToastUtil;
-import com.xingguo.huang.mabiwang.util.PictureManageUtil;
 
 import net.tsz.afinal.http.AjaxCallBack;
 
@@ -22,10 +21,14 @@ import java.io.ByteArrayOutputStream;
 public class EPrestenter extends BasePresenter {
 
 
-    public EPrestenter upLoadHeadImg(String path, boolean isAddHead, String imgUrl) {
+    public EPrestenter upLoadHeadImg(String path, boolean isAddHead, String imgUrl,Bitmap bmp) {
 
-        int rotate = PictureManageUtil.getCameraPhotoOrientation(imgUrl);
-        getAjaxParams().put("headImage", new ByteArrayInputStream(Bitmap2Bytes(PictureManageUtil.rotateBitmap(PictureManageUtil.getCompressBm(imgUrl), rotate))), System.currentTimeMillis() + ".png");
+//        int rotate = PictureManageUtil.getCameraPhotoOrientation(imgUrl);
+
+//        Bitmap bitmap = PictureManageUtil.getCompressBm(imgUrl) ;
+//        Bitmap bitmap1 = PictureManageUtil.rotateBitmap(bitmap, rotate);
+
+        getAjaxParams().put("headImage", new ByteArrayInputStream(Bitmap2Bytes(bmp)), System.currentTimeMillis() + ".png");
 
         AjaxCallBack callBack = new AjaxCallBack<String>() {
             @Override
@@ -46,6 +49,7 @@ public class EPrestenter extends BasePresenter {
             }
         };
         return (EPrestenter) doRequest(path, isAddHead, callBack);
+//        return this;
     }
 
 

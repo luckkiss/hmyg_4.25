@@ -86,7 +86,7 @@ import com.hldj.hmyg.broker.bean.MarketPrice;
 import com.hldj.hmyg.broker.bean.Price;
 import com.hldj.hmyg.broker.bean.SellectPrice;
 import com.hldj.hmyg.buy.bean.StorageSave;
-import com.hldj.hmyg.saler.AdressListActivity;
+import com.hldj.hmyg.saler.AdressActivity;
 import com.hldj.hmyg.saler.ChooseParamsActivity;
 import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin4;
 import com.hldj.hmyg.saler.UpdataImageActivity;
@@ -907,7 +907,7 @@ public class SaveMarketPriceActivity extends BaseSecondActivity implements
 				} else if (view.getId() == R.id.list_item_adress) {
 					Intent toAdressListActivity1 = new Intent(
 							SaveMarketPriceActivity.this,
-							AdressListActivity.class);
+							AdressActivity.class);
 					toAdressListActivity1.putExtra("addressId", addressId);
 					toAdressListActivity1.putExtra("from",
 							"SaveSeedlingActivity");

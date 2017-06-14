@@ -7,7 +7,6 @@
     tools:context=".RegisterActivity">
 
 
-
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/y34"
@@ -73,8 +72,8 @@
                     android:inputType="phone"
                     android:maxLength="11"
                     android:minHeight="@dimen/x20"
-                    android:text="1231231"
                     android:singleLine="true"
+                    android:text="1231231"
                     android:textColor="@color/text_color666"
                     android:textColorHint="@color/gray_edit_hint"
                     android:textSize="@dimen/y11" />
@@ -173,6 +172,50 @@
 
                 <ImageButton
                     android:id="@+id/btn_clear_password"
+                    android:layout_width="40.0dip"
+                    android:layout_height="40.0dip"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/transparent"
+                    android:padding="10.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/clear_icon"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/y34"
+                android:layout_marginTop="1px"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/x20"
+                    android:layout_height="@dimen/x20"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/regisrer_passward" />
+
+                <EditText
+                    android:id="@+id/et_passward_confi"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_weight="1.0"
+                    android:background="@color/transparent"
+                    android:hint="请再次输入登录密码"
+                    android:inputType="textPassword"
+                    android:maxLength="15"
+                    android:minHeight="@dimen/x20"
+                    android:singleLine="true"
+                    android:textColor="@color/text_color666"
+                    android:textColorHint="@color/gray_edit_hint"
+                    android:textSize="@dimen/y11" />
+
+                <ImageButton
+                    android:id="@+id/btn_clear_password_et_passward_confi"
                     android:layout_width="40.0dip"
                     android:layout_height="40.0dip"
                     android:layout_gravity="center_vertical"

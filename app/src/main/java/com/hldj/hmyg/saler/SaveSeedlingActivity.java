@@ -85,7 +85,7 @@ public class SaveSeedlingActivity extends SaveSeedlingActivityBase {
 
 
         //地址对象
-        AdressListActivity.Address address = new AdressListActivity.Address();
+        AdressActivity.Address address = new AdressActivity.Address();
         address.addressId = this.saveSeedingGsonBean.getData().nursery.getId();
         address.contactPhone = this.saveSeedingGsonBean.getData().nursery.getPhone();
         address.contactName = this.saveSeedingGsonBean.getData().nursery.getRealName();
@@ -167,7 +167,7 @@ public class SaveSeedlingActivity extends SaveSeedlingActivityBase {
 //                = new SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean();
 //
 //        //地址对象
-//        AdressListActivity.Address address = upLoadDatas.address;
+//        AdressActivity.Address address = upLoadDatas.address;
 //        seedlingBean.setNurseryId(address.addressId);
 //        nurseryJsonBean.setPhone(address.contactPhone);
 //        nurseryJsonBean.setRealName(address.contactName);

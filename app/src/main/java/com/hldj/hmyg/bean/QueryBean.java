@@ -1,5 +1,6 @@
 package com.hldj.hmyg.bean;
 
+import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.application.MyApplication;
 
 import java.io.Serializable;
@@ -20,8 +21,16 @@ public class QueryBean implements Serializable {
     public String orderBy = "";
     public int pageSize = 20;
     public int pageIndex = 0;
-    public String latitude = MyApplication.Userinfo.getString("latitude", "");
-    public String longitude = MyApplication.Userinfo.getString("longitude", "");
+    //    public String latitude = MyApplication.Userinfo.getString("latitude", "");
+//    public String longitude = MyApplication.Userinfo.getString("longitude", "");
+    public String latitude = MainActivity.latitude.equals("") ? MyApplication.Userinfo.getString("latitude", "") : MainActivity.latitude;
+    public String longitude = MainActivity.longitude.equals("") ? MyApplication.Userinfo.getString("longitude", "") : MainActivity.longitude;
+
+    /**
+     * latitude=24.488284 longitude=118.09649
+     *
+     * @return
+     */
 
     @Override
     public String toString() {

@@ -56,7 +56,7 @@ import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PicSerializableMaplist;
 import com.hldj.hmyg.bean.PicValiteIsUtils;
 import com.hldj.hmyg.buy.bean.StorageSave;
-import com.hldj.hmyg.saler.AdressListActivity;
+import com.hldj.hmyg.saler.AdressActivity;
 import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin3;
 import com.hldj.hmyg.saler.UpdataImageActivity;
 import com.hy.utils.GetServerUrl;
@@ -553,7 +553,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements
 					onBackPressed();
 				} else if (view.getId() == R.id.list_item_adress) {
 					Intent toAdressListActivity1 = new Intent(
-							SaveMiaoActivity.this, AdressListActivity.class);
+							SaveMiaoActivity.this, AdressActivity.class);
 					toAdressListActivity1.putExtra("addressId", addressId);
 					toAdressListActivity1.putExtra("from",
 							"SaveSeedlingActivity");
@@ -562,7 +562,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements
 							R.anim.slide_out_right);
 				} else if (view.getId() == R.id.ll_05) {
 					Intent toAdressListActivity = new Intent(
-							SaveMiaoActivity.this, AdressListActivity.class);
+							SaveMiaoActivity.this, AdressActivity.class);
 					toAdressListActivity.putExtra("addressId", addressId);
 					toAdressListActivity.putExtra("from",
 							"SaveSeedlingActivity");

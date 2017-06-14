@@ -780,7 +780,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                 = new SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean();
 
         //地址对象
-        AdressListActivity.Address address = upLoadDatas.address;
+        AdressActivity.Address address = upLoadDatas.address;
         seedlingBean.setNurseryId(address.addressId);
         nurseryJsonBean.setPhone(address.contactPhone);
         nurseryJsonBean.setRealName(address.contactName);

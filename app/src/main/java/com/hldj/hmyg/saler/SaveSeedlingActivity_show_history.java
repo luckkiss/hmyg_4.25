@@ -175,7 +175,7 @@
 //        viewHolder.bottom_ll.getHolder().rl_save_seeding_unit.setTag(viewHolder.bottom_ll.getTagByName(nuit));
 //
 //        //地址对象
-//        AdressListActivity.Address address = new AdressListActivity.Address();
+//        AdressActivity.Address address = new AdressActivity.Address();
 //        address.addressId = seedling.getNurseryId();
 //        address.contactPhone = seedling.getNurseryJson().getPhone();
 //        address.contactName = seedling.getNurseryJson().getRealName();

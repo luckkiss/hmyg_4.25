@@ -1,7 +1,6 @@
 package com.hldj.hmyg.buyer.M;
 
-import com.hldj.hmyg.bean.SaveSeedingGsonBean;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -82,7 +81,7 @@ public class QuoteListBean {
     public String sellerName;
     public String sellerPhone;
     public String purchaseItemStatus;
-    public List<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean> imagesJson;
+    public List<ImagesJsonBean> imagesJson = new ArrayList<>();
     public List<String> paramsList;
     public List<SpecListBeanX> specList;
 

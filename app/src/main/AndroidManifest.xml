@@ -495,8 +495,11 @@
             android:name="com.hldj.hmyg.saler.AddAdressActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.hldj.hmyg.saler.AdressListActivity"
-            android:screenOrientation="portrait"></activity>
+            android:name="com.hldj.hmyg.saler.AdressManagerActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.hldj.hmyg.saler.AdressActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.hldj.hmyg.saler.SalerOrderActivity2"
             android:launchMode="singleTask"

@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/y34"
+        android:layout_height="@dimen/y30"
         android:background="@color/white">
 
         <ImageView
@@ -47,6 +47,9 @@
             android:visibility="gone" />
 
     </RelativeLayout>
+
+
+    <View style="@style/View_line_green" android:layout_height="2px"/>
 
     <!--<ImageView-->
     <!--android:layout_width="match_parent"-->

@@ -548,7 +548,7 @@ public class AdressListActivitt_bak extends NeedSwipeBackActivity implements IXL
     }
 
 
-    public static class Address extends AdressListActivity.Address {
+    public static class Address extends AdressActivity.Address {
         public String addressId = "";
         public String contactPhone = "";
         public String contactName = "";
