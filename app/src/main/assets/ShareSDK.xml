@@ -70,7 +70,7 @@
         Enable="true"
         Id="1"
         RedirectUrl="https://api.weibo.com/oauth2/default.html"
-        ShareByAppClient="false"
+        ShareByAppClient="true"
         SortId="1" />
 
     <Wechat
@@ -113,7 +113,7 @@
         AppKey="P8KKvMbAeFu4m1lC"
         Enable="true"
         Id="3"
-        ShareByAppClient="false"
+        ShareByAppClient="true"
         SortId="3" />
 
     <!--
