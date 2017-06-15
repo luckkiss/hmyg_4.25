@@ -216,14 +216,15 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
     }
 
 
+
     private void ShareToQzone() {
         Platform.ShareParams sp5 = new Platform.ShareParams();
-        sp5.setTitle("欢迎使用花木易购代购型苗木交易平台！");
-        sp5.setTitleUrl(Data.share); // 标题的超链接
-        sp5.setText("苗木交易原来可以如此简单,配上花木易购APP,指尖轻点,交易无忧。");
+        sp5.setTitle("花木易购APP下载 ");
+        sp5.setTitleUrl(Data.appDoloadUrl); // 标题的超链接
+        sp5.setText("欢迎使用花木易购代购型苗木交易平台。指尖轻点，交易无忧！ ");
         sp5.setImageUrl(img);
         sp5.setSite(getString(R.string.app_name));
-        sp5.setSiteUrl(Data.share);
+        sp5.setSiteUrl(Data.appDoloadUrl);
         Platform qzone = ShareSDK.getPlatform(QQ.NAME);
         qzone.setPlatformActionListener(this); // 设置分享事件回调
         // 执行图文分享
@@ -232,7 +233,11 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
 
     private void ShareToSinaWeibo() {
         Platform.ShareParams sp3 = new Platform.ShareParams();
-        sp3.setText("苗木交易原来可以如此简单,配上花木易购APP,指尖轻点,交易无忧。");
+        sp3.setShareType(Platform.SHARE_WEBPAGE);
+        sp3.setTitle("花木易购APP下载 ");
+        sp3.setText("欢迎使用花木易购代购型苗木交易平台。指尖轻点，交易无忧！ ");
+        sp3.setUrl(Data.appDoloadUrl);
+        sp3.setImageUrl(img);
         // sp3.setImagePath("/mnt/sdcard/share/" + system_time + ".jpg");
         Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
         weibo.setPlatformActionListener(this); // 设置分享事件回调
@@ -243,14 +248,14 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
     private void ShareToWechat() {
         Platform.ShareParams sp1 = new Platform.ShareParams();
         sp1.setShareType(Platform.SHARE_WEBPAGE);
-        sp1.setTitle("欢迎使用花木易购代购型苗木交易平台！");
-        sp1.setText("苗木交易原来可以如此简单,配上花木易购APP,指尖轻点,交易无忧。");
+        sp1.setTitle("花木易购APP下载 ");
+        sp1.setText("欢迎使用花木易购代购型苗木交易平台。指尖轻点，交易无忧！ ");
 //        sp1.setImageUrl(img);
         sp1.setImageUrl(img);
 //        Uri uri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getResourcePackageName(R.drawable.图片名称) + "/" + r.getResourceTypeName(R.drawable.图片名称) + "/" + r.getResourceEntryName(R.drawable.图片名称))
 
-        sp1.setUrl(Data.share);
-        sp1.setSiteUrl(Data.share);
+        sp1.setUrl(Data.appDoloadUrl);
+        sp1.setSiteUrl(Data.appDoloadUrl);
         Platform Wechat = ShareSDK.getPlatform("Wechat");
         Wechat.setPlatformActionListener(this);
         Wechat.share(sp1);
@@ -259,12 +264,12 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
     private void ShareToWechatMoments() {
         Platform.ShareParams sp2 = new Platform.ShareParams();
         sp2.setShareType(Platform.SHARE_WEBPAGE);
-        sp2.setTitle("欢迎使用花木易购代购型苗木交易平台！");
-        sp2.setText("苗木交易原来可以如此简单,配上花木易购APP,指尖轻点,交易无忧。");
+        sp2.setTitle("花木易购APP下载 ");
+        sp2.setText("欢迎使用花木易购代购型苗木交易平台。指尖轻点，交易无忧！ ");
         sp2.setImageUrl(img);
-        sp2.setUrl(Data.share);
-        sp2.setTitleUrl(Data.share);
-        sp2.setSiteUrl(Data.share);
+        sp2.setUrl(Data.appDoloadUrl);
+        sp2.setTitleUrl(Data.appDoloadUrl);
+        sp2.setSiteUrl(Data.appDoloadUrl);
         Platform Wechat_men = ShareSDK.getPlatform("WechatMoments");
         Wechat_men.setPlatformActionListener(this);
         Wechat_men.share(sp2);

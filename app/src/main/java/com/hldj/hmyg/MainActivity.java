@@ -60,6 +60,7 @@ import com.hldj.hmyg.util.StartBarUtils;
 import com.hldj.hmyg.widget.PublishPopWindow;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 import com.white.update.UpdateInfo;
 import com.white.utils.SettingUtils;
 
@@ -412,11 +413,28 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     }
 
 
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//
+//        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            ToastUtil.showShortToast("hellow world");
+//            Intent home = new Intent(Intent.ACTION_MAIN);
+//            home.addCategory(Intent.CATEGORY_HOME);
+//            startActivity(home);
+//            return true;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
+
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
-                && event.getAction() == KeyEvent.ACTION_DOWN) {
-            finishAc();
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            Intent home = new Intent(Intent.ACTION_MAIN);
+            home.addCategory(Intent.CATEGORY_HOME);
+            startActivity(home);
+            return true;
+
         }
+
         return super.dispatchKeyEvent(event);
     }
 

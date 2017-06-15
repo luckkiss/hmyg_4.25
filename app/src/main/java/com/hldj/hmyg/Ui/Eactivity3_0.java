@@ -94,6 +94,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         RxRegi();
 
 
+
 //        RxBus.$().OnEvent(, new Action1<Object>() {
 //            @Override
 //            public void call(Object onlineEvent) {
@@ -366,7 +367,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                 if (resultCode == RESULT_OK) {
                     try {
                         // 将拍摄的照片显示出来
-                        uploadHeadUtil.startPhotoZoom(cameraFile, 350, cacheFile);
+                        uploadHeadUtil.startPhotoZoom(cameraFile,1, cacheFile);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -378,10 +379,10 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                     // 判断手机系统版本号
                     if (Build.VERSION.SDK_INT >= 19) {
                         // 4.4及以上系统使用这个方法处理图片
-                       uploadHeadUtil. handleImageOnKitKat(data,cacheFile);
+                       uploadHeadUtil. handleImageOnKitKat(data,1,cacheFile);
                     } else {
                         // 4.4以下系统使用这个方法处理图片
-                        uploadHeadUtil.handleImageBeforeKitKat(data,cacheFile);
+                        uploadHeadUtil.handleImageBeforeKitKat(data,1,cacheFile);
                     }
                 }
                 break;
@@ -493,6 +494,12 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                     "isOnline=" + isOnline +
                     '}';
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refresh();
     }
 
     public void refresh() {

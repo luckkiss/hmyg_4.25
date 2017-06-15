@@ -29,6 +29,7 @@ public class SplashActivity extends FragmentActivity {
 //        fb = FinalBitmap.create(this);
         setContentView(R.layout.activity_splash);
 
+//        ToastUtil.showShortToast("hellow world");
 
         e = MyApplication.Deviceinfo.edit();
 

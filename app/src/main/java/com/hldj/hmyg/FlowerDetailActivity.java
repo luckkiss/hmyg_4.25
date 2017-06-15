@@ -62,7 +62,6 @@ import com.hy.utils.ToastUtil;
 import com.hy.utils.ValueGetInfo;
 import com.javis.ab.view.AbOnItemClickListener;
 import com.javis.ab.view.AbSlidingPlayView;
-import com.kaopiz.kprogresshud.KProgressHUD;
 import com.neopixl.pixlui.components.relativelayout.RelativeLayout;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -144,8 +143,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     private View mainView;
     private int saleCount = 0;
     private int stock = 0;
-    private KProgressHUD hud;
-    ;
+//    private KProgressHUD hud;
     private String store_id = "";
     public String displayPhone = "";
     private LinearLayout ll_01;
@@ -229,13 +227,14 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         super.onCreate(savedInstanceState);
         isFirst = true;
         setar();
+        showLoading();
 
-        hud = KProgressHUD
-                .create(FlowerDetailActivity.this)
-                .setStyle(
-                        KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("努力加载中...").setMaxProgress(100)
-                .setCancellable(true).show();
+//        hud = KProgressHUD
+//                .create(FlowerDetailActivity.this)
+//                .setStyle(
+//                        KProgressHUD.Style.SPIN_INDETERMINATE)
+//                .setLabel("努力加载中...").setMaxProgress(100)
+//                .setCancellable(true).show();
 
 //		StateBarUtil.setStatusBarIconDark(this,true);
         setContentView(R.layout.activity_flower_detail_test_toobar_3_0);
@@ -485,9 +484,10 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                         mCache.put("seedlingdetail" + id, t.toString());
                         AcheData(t.toString());
                         super.onSuccess(t);
-                        if (hud != null) {
-                            hud.dismiss();
-                        }
+                        hindLoading();
+//                        if (hud != null) {
+//                            hud.dismiss();
+//                        }
                     }
 
                     private void AcheData(String t) {
@@ -1078,9 +1078,10 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                         Toast.makeText(FlowerDetailActivity.this,
                                 R.string.error_net, Toast.LENGTH_SHORT).show();
                         super.onFailure(t, errorNo, strMsg);
-                        if (hud != null) {
-                            hud.dismiss();
-                        }
+                        hindLoading();
+//                        if (hud != null) {
+//                            hud.dismiss();
+//                        }
                     }
 
                 });

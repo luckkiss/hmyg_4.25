@@ -106,16 +106,14 @@ public class UploadHeadUtil {
             intent.putExtra("crop", "true");
 
             if (Build.MODEL.contains("HUAWEI")) {
-                intent.putExtra("aspectX", 9998);
+                intent.putExtra("aspectX", 9998 *size);
                 intent.putExtra("aspectY", 9999);
             } else {
-                intent.putExtra("aspectX", 1);
+                intent.putExtra("aspectX", 1*size);
                 intent.putExtra("aspectY", 1);
-
             }
-
-            intent.putExtra("outputX", 360);
-            intent.putExtra("outputY", 180);
+            intent.putExtra("outputX", 320*size);
+            intent.putExtra("outputY", 320);
             intent.putExtra("scale", true);
             intent.putExtra("return-data", false);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cacheFile));//定义输出的File Uri
@@ -139,11 +137,17 @@ public class UploadHeadUtil {
             Intent intent = new Intent("com.android.camera.action.CROP");
             intent.setDataAndType(UploadHeadUtil.getImageContentUri(mContext, file), "image/*");//自己使用Content Uri替换File Uri
             intent.putExtra("crop", "true");
-            intent.putExtra("aspectX", 1);
-            intent.putExtra("aspectY", 1);
-            intent.putExtra("outputX", 150);
-            intent.putExtra("outputY", 150);
-            intent.putExtra("scale", false);
+
+            if (Build.MODEL.contains("HUAWEI")) {
+                intent.putExtra("aspectX", 9998);
+                intent.putExtra("aspectY", 9999);
+            } else {
+                intent.putExtra("aspectX", x);
+                intent.putExtra("aspectY", y);
+            }
+            intent.putExtra("outputX", 320);
+            intent.putExtra("outputY", 320);
+            intent.putExtra("scale", true);
             intent.putExtra("return-data", false);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cacheFile));//定义输出的File Uri
             intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
@@ -207,7 +211,18 @@ public class UploadHeadUtil {
 //        displayImage(imagePath); // 根据图片路径显示图片
 
         Log.i("TAG", "file://" + imagePath + "选择图片的URI" + uri);
-        startPhotoZoom(new File(imagePath), 2, 1, cacheFile);
+        startPhotoZoom(new File(imagePath), 1, 1, cacheFile);
+    }
+
+    @TargetApi(19)
+    public void handleImageOnKitKat(Intent data,int size, File cacheFile) {
+        Uri uri = data.getData();
+        Log.d("TAG", "handleImageOnKitKat: uri is " + uri);
+        String imagePath = uriToPath(uri);
+//        displayImage(imagePath); // 根据图片路径显示图片
+
+        Log.i("TAG", "file://" + imagePath + "选择图片的URI" + uri);
+        startPhotoZoom(new File(imagePath), size, cacheFile);
     }
 
     public void handleImageBeforeKitKat(Intent data, File cacheFile) {
@@ -215,7 +230,14 @@ public class UploadHeadUtil {
         String imagePath = getImagePath(uri, null);
 //        displayImage(imagePath);
         Log.i("TAG", "file://" + imagePath + "选择图片的URI" + uri);
-        startPhotoZoom(new File(imagePath), 2, 1, cacheFile);
+        startPhotoZoom(new File(imagePath), 1, 1, cacheFile);
+    }
+    public void handleImageBeforeKitKat(Intent data,int size, File cacheFile) {
+        Uri uri = data.getData();
+        String imagePath = getImagePath(uri, null);
+//        displayImage(imagePath);
+        Log.i("TAG", "file://" + imagePath + "选择图片的URI" + uri);
+        startPhotoZoom(new File(imagePath), size, cacheFile);
     }
 
 

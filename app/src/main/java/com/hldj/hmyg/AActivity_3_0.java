@@ -205,15 +205,16 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
              * 设置监听
              */
             moreView.findViewById(R.id.tv_taggle1).setOnClickListener(view -> {
-                String url = "http://192.168.1.252:8090/article/detail/" + data.get(position).id + ".html?isHeader=true";
+                String url = GetServerUrl.getHtmlUrl() + "article/detail/" + data.get(position).id + ".html?isHeader=true";
                 D.e("url=" + url);
+                // static String API_01 = "http://api.hmeg.cn/";
                 NoticeActivity_detail.start2Activity(AActivity_3_0.this, url);
             });
             /**
              * 设置监听
              */
             moreView.findViewById(R.id.tv_taggle2).setOnClickListener(view -> {
-                String url = "http://192.168.1.252:8090/article/detail/" + data.get(position + 1).id + ".html?isHeader=true";
+                String url = GetServerUrl.getHtmlUrl() + "article/detail/" + data.get(position + 1).id + ".html?isHeader=true";
                 D.e("url=" + url);
                 NoticeActivity_detail.start2Activity(AActivity_3_0.this, url);
             });
@@ -456,8 +457,15 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     }
 
     private void LoadCache(String t) {
+        if (t == null) {
+            ToastUtil.showShortToast("数据请求失败");
+            return;
+        }
+
         // TODO Auto-generated method stub
         IndexGsonBean indexGsonBean = GsonUtil.formateJson2Bean(t, IndexGsonBean.class);
+
+
         if (indexGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
             initNewList(indexGsonBean);//初始化 采购列表
             initArticles(indexGsonBean.data.articleList);//初始化  头条新闻
@@ -658,7 +666,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                     myFragment0 = new MyFragment();
                     myFragment0.setUrls(url0s);
                     ft.add(R.id.con0, myFragment0);
-
+//                    myFragment0.setAutoChange(true);
 //                                    iv_home_merchants  .setVisibility(View.VISIBLE);
                 }
                 ft.commitAllowingStateLoss();

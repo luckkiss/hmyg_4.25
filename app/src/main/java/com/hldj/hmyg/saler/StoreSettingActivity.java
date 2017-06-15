@@ -31,6 +31,7 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.StoreActivity;
 import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.application.Data;
+import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.UploadHeadUtil;
@@ -368,6 +369,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                             }
                             if ("1".equals(code)) {
                                 Toast.makeText(StoreSettingActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
+                                RxBus.getInstance().post(5,new Eactivity3_0.OnlineEvent(true));
                                 finish();
                             }
 
@@ -580,7 +582,6 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                 .addSheetItem("拍照", ActionSheetDialog.SheetItemColor.Red,
                         which -> {
                             takePhotoForCamera();//
-
                         })
                 .addSheetItem("从相册选择", ActionSheetDialog.SheetItemColor.Blue,
                         which -> {
@@ -607,8 +608,14 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
             case TAKE_PHOTO:
                 if (resultCode == RESULT_OK) {
                     try {
-                        // 将拍摄的照片显示出来
-                        uploadHeadUtil.startPhotoZoom(cameraFile, 2,1, cacheFile);
+                        if (imagType_tag.equals("storeLogo")) {
+                            // 将拍摄的照片显示出来
+                            uploadHeadUtil.startPhotoZoom(cameraFile, 1, cacheFile);
+                        } else {
+                            // 将拍摄的照片显示出来
+                            uploadHeadUtil.startPhotoZoom(cameraFile, 2, cacheFile);
+                        }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -619,11 +626,29 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                 if (resultCode == RESULT_OK) {
                     // 判断手机系统版本号
                     if (Build.VERSION.SDK_INT >= 19) {
-                        // 4.4及以上系统使用这个方法处理图片
-                        uploadHeadUtil.handleImageOnKitKat(data, cacheFile);
+                        if (imagType_tag.equals("storeLogo")) {
+                            // 4.4及以上系统使用这个方法处理图片
+                            uploadHeadUtil.handleImageOnKitKat(data,1, cacheFile);
+                        } else {
+
+                            // 4.4及以上系统使用这个方法处理图片
+                            uploadHeadUtil.handleImageOnKitKat(data,2, cacheFile);
+                        }
+
+
                     } else {
-                        // 4.4以下系统使用这个方法处理图片
-                        uploadHeadUtil.handleImageBeforeKitKat(data, cacheFile);
+
+                        if (imagType_tag.equals("storeLogo")) {
+                            // 4.4以下系统使用这个方法处理图片
+                            uploadHeadUtil.handleImageBeforeKitKat(data,1, cacheFile);
+                        } else {
+
+
+                            // 4.4以下系统使用这个方法处理图片
+                            uploadHeadUtil.handleImageBeforeKitKat(data,2, cacheFile);
+                        }
+
+
                     }
                 }
                 break;

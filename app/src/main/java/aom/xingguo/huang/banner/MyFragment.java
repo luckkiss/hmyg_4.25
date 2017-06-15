@@ -206,13 +206,14 @@ public class MyFragment extends Fragment implements OnPageChangeListener {
                         viewpager.setCurrentItem((viewpager.getCurrentItem() + 1) % views.size());
                         // viewpager.setCurrentItem(index++ % views.size());//
                         // 收到消息后设置当前要显示的图片
-                        mHandler.sendEmptyMessageDelayed(AUTO_MSG, PHOTO_CHANGE_TIME);
                     }
+                    mHandler.sendEmptyMessageDelayed(AUTO_MSG, PHOTO_CHANGE_TIME);
                     break;
                 case HANDLE_MSG:
                     if (CanChange) {
-                        mHandler.sendEmptyMessageDelayed(AUTO_MSG, PHOTO_CHANGE_TIME);
+//                        mHandler.sendEmptyMessageDelayed(AUTO_MSG, PHOTO_CHANGE_TIME);
                     }
+                    mHandler.sendEmptyMessageDelayed(AUTO_MSG, PHOTO_CHANGE_TIME);
                     break;
                 default:
                     break;
@@ -225,17 +226,10 @@ public class MyFragment extends Fragment implements OnPageChangeListener {
     private boolean CanChange = false;
 
     public void setAutoChange(boolean flag) {
-
         if (CanChange == flag) {
             return;
         }
-
         CanChange = flag;
-//        if (flag) {
-//            mHandler.sendEmptyMessageDelayed(AUTO_MSG, PHOTO_CHANGE_TIME);
-//        } else {
-//
-//        }
     }
 
 }

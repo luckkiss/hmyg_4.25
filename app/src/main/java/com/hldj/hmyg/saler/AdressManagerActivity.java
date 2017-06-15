@@ -62,6 +62,7 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
         if (resultCode == ConstantState.CHANGE_DATES) {
             //修改成功
             coreRecyclerView.onRefresh();
+            ToastUtil.showShortToast("修改成功 ^_^ ");
         }
 
     }
@@ -132,8 +133,8 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
             protected void convert(BaseViewHolder helper, AddressBean item) {
                 D.e("==item====" + item.toString());
                 helper.setText(R.id.tv_recy_item_one, item.fullAddress);
-                helper.setText(R.id.tv_recy_item_two, "苗圃名称：" + striFil(mActivity,item.name,""));
-                helper.setText(R.id.tv_recy_item_three, "联  系  人：" +   striFil(mActivity,item.contactName,item.contactPhone));
+                helper.setText(R.id.tv_recy_item_two, "苗圃名称：" + striFil(mActivity, item.name, ""));
+                helper.setText(R.id.tv_recy_item_three, "联  系  人：" + striFil(mActivity, item.contactName, item.contactPhone));
 
                 helper.setChecked(R.id.cb_is_default, item.isDefault);
 
@@ -178,6 +179,7 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
     public void initRecycle(List<AddressBean> beens) {
         coreRecyclerView.getAdapter().addData(beens);
         coreRecyclerView.selfRefresh(false);
+
     }
 
     @Override

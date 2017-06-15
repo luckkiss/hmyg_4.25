@@ -99,6 +99,8 @@
             android:layout_centerVertical="true"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:maxWidth="200dp"
+            android:singleLine="true"
             android:text="店铺详情"
             android:textColor="@color/main_color"
             android:textSize="@dimen/x17" />
@@ -162,8 +164,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/moren_banner"
-                            />
+                            android:src="@drawable/moren_banner" />
                     </LinearLayout>
                     <!--ImageView的android:adjustViewBounds属性为是否保持原图的长宽比，单独设置不起作用，需要配合maxWidth或maxHeight一起使用。-->
 
@@ -633,7 +634,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginRight="@dimen/x10"
-                                android:src="@drawable/icon_list_view" />
+                                android:src="@drawable/selector_list_or_grid" />
                         </RelativeLayout>
 
                         <ImageView
@@ -691,14 +692,14 @@
                             android:indeterminateDuration="750" />
 
                         <!--<TextView-->
-                            <!--android:id="@+id/tv_loading"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_centerHorizontal="true"-->
-                            <!--android:layout_centerVertical="true"-->
-                            <!--android:paddingTop="60.0dip"-->
-                            <!--android:text="加载中..."-->
-                            <!--android:textColor="@color/main_color" />-->
+                        <!--android:id="@+id/tv_loading"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_centerHorizontal="true"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:paddingTop="60.0dip"-->
+                        <!--android:text="加载中..."-->
+                        <!--android:textColor="@color/main_color" />-->
                     </RelativeLayout>
                 </LinearLayout>
 

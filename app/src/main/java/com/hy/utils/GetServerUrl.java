@@ -7,12 +7,12 @@ import com.hldj.hmyg.application.MyApplication;
 import net.tsz.afinal.FinalHttp;
 
 /**
- * 获取服务器IP地址
+ * 获取服务器IP址
  */
 
 public class GetServerUrl {
 
-    public static boolean isTest = true;//测试时使用
+    public static boolean isTest = false;//测试时使用
     static String PGYER = "http://www.pgyer.com/apiv1/app/viewGroup";
     // 正式 可用 2.0
 //    static String API_01 = "http://hmeg.cn:93/";
@@ -90,6 +90,18 @@ public class GetServerUrl {
             // return getTestUrl();
         } else {
             return API_01;
+        }
+    }
+
+    private static final String api_html = "http://m.hmeg.cn/";
+    private static final String api_html_test = "http://test.m.hmeg.cn/";
+
+    public static String getHtmlUrl() {
+        if (isTest) {
+            return api_html_test;
+            // return getTestUrl();
+        } else {
+            return api_html;
         }
     }
 

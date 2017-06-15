@@ -74,6 +74,8 @@ public class Data {
     public static final String weituogou = GetServerUrl.getUrl()
             + "h5/page/weituogou.html";
 
+    public static final String appDoloadUrl = "http://m.hmeg.cn/page/appdown.html";
+
 
     public static final String shareUrl = "http://m.hmeg.cn/seedling/detail/";
 //    SString *shareUrl=

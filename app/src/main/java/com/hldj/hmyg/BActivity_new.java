@@ -208,6 +208,9 @@ public class BActivity_new extends NeedSwipeBackActivity {
                 tagView.addTag(TagFactory.createDelTag(strs[i]), getTypeId(strs[i]));
             }
         }
+        if (!TextUtils.isEmpty(queryBean.searchKey)) {
+            tagView.addTag(TagFactory.createDelTag(queryBean.searchKey), 98);
+        }
 
         if (!TextUtils.isEmpty(SellectActivity2.childBeans.name))
             tagView.addTag(TagFactory.createDelTag(SellectActivity2.childBeans.name), 99);
@@ -219,6 +222,8 @@ public class BActivity_new extends NeedSwipeBackActivity {
                 getQueryBean().specMinValue = "";
                 getQueryBean().specMaxValue = "";
                 getQueryBean().searchSpec = "";
+            } else if (tag.id == 98) {
+                getQueryBean().searchKey = "";
             } else if (tag.id == 99) {
                 //城市被删除
                 SellectActivity2.childBeans = new CityGsonBean.ChildBeans();
@@ -355,13 +360,11 @@ public class BActivity_new extends NeedSwipeBackActivity {
         TextView tv_04 = helper.getView(R.id.tv_04);
 
 
-        if (!TextUtils.isEmpty( item.ciCity.fullName)){
+        if (!TextUtils.isEmpty(item.ciCity.fullName)) {
             tv_04.setText("苗源地: " + item.ciCity.fullName);
-        }else
-        {
+        } else {
             tv_04.setText("苗源地: " + item.nurseryJson.getDetailAddress());
         }
-
 
 
         TextView tv_06 = helper.getView(R.id.tv_06);
@@ -456,14 +459,15 @@ public class BActivity_new extends NeedSwipeBackActivity {
 
             getQueryBean().searchKey = data.getStringExtra("searchKey");
 
-            addADelTag();
+//            addADelTag();
+            addTagsByBean(queryBean);
 
             refreshRc();
 
         } else if (resultCode == FILTER_OK) {//筛选结束
             if (data != null && data.getExtras().getSerializable("hellow") != null) {
                 queryBean = (QueryBean) data.getExtras().getSerializable("hellow");
-                getQueryBean().searchKey = "" ;
+//                getQueryBean().searchKey = "";
             }
             D.e("==" + queryBean.toString());
             addTagsByBean(queryBean);

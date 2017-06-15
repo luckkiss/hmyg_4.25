@@ -49,6 +49,7 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.UPMarqueeView;
+import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -647,7 +648,7 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
              * 设置监听
              */
             moreView.findViewById(R.id.tv_taggle1).setOnClickListener(view -> {
-                String url = "http://192.168.1.252:8090/article/detail/" + data.get(position).id + ".html?isHeader=true";
+                String url = GetServerUrl.getHtmlUrl()+ "article/detail/" + data.get(position).id + ".html?isHeader=true";
                 D.e("url=" + url);
                 NoticeActivity_detail.start2Activity(aActivity, url);
             });
@@ -655,7 +656,7 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
              * 设置监听
              */
             moreView.findViewById(R.id.tv_taggle2).setOnClickListener(view -> {
-                String url = "http://192.168.1.252:8090/article/detail/" + data.get(position + 1).id + ".html?isHeader=true";
+                String url = GetServerUrl.getHtmlUrl()+  "article/detail/" + data.get(position + 1).id + ".html?isHeader=true";
                 D.e("url=" + url);
                 NoticeActivity_detail.start2Activity(aActivity, url);
             });

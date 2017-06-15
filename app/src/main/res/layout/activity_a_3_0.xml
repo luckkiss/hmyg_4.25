@@ -128,7 +128,7 @@
                                 <com.coorchice.library.SuperTextView
                                     android:id="@+id/stv_home_2"
                                     style="@style/home_types"
-                                    android:text="快速报价"
+                                    android:text="采购报价"
                                     app:state_drawable="@drawable/home_kuaisubj" />
 
                                 <com.coorchice.library.SuperTextView
@@ -201,7 +201,7 @@
                             <com.hldj.hmyg.widget.UPMarqueeView
                                 android:id="@+id/upview1"
                                 android:layout_width="match_parent"
-                                android:layout_height="55dp"
+                                android:layout_height="60dp"
                                 android:layout_margin="5dp"
                                 android:layout_toRightOf="@+id/iv_home_left" />
 

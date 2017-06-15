@@ -47,6 +47,7 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 import com.mrwujay.cascade.activity.BaseSecondActivity;
 import com.mrwujay.cascade.activity.GetCodeByName;
 
@@ -674,8 +675,7 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
                                                 .getJsonBoolean(jsonObject3,
                                                         "canQuote"));
 
-                                        hMap.put("expired",expired);
-
+                                        hMap.put("expired", expired);
 
 
                                         if (!"".equals(purchaseFormId)) {
@@ -727,11 +727,11 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
                                 }
 
                             } else {
-
+                                ToastUtil.showShortToast(msg);
                             }
 
                         } catch (JSONException e) {
-                            // TODO Auto-generated catch block
+                            ToastUtil.showShortToast("请求数据失败" + e.getMessage());
                             e.printStackTrace();
                         }
                         super.onSuccess(t);
@@ -741,8 +741,7 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
                     public void onFailure(Throwable t, int errorNo,
                                           String strMsg) {
                         // TODO Auto-generated method stub
-                        Toast.makeText(StorePurchaseListActivity.this,
-                                R.string.error_net, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StorePurchaseListActivity.this, R.string.error_net, Toast.LENGTH_SHORT).show();
                         super.onFailure(t, errorNo, strMsg);
                     }
 

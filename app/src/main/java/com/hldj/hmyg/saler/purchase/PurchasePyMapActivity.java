@@ -339,7 +339,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
         dialog.title("温馨提示").content(string)
                 //
                 .btnText("不再提示", "取消")//
-                .showAnim(mBasIn)//
+//                .showAnim(mBasIn)//
                 .dismissAnim(mBasOut)//
                 .show();
 

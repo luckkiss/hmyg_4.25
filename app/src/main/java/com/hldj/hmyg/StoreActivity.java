@@ -1281,13 +1281,13 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                     if ("grid".equals(view_type)) {
                         // gridview
                         view_type = "list";
-                        iv_view_type.setImageResource(R.drawable.icon_list_view);
+                        iv_view_type.setImageResource(R.drawable.icon_grid_view);
                         gd_all.setVisibility(View.GONE);
                         lv_all.setVisibility(View.VISIBLE);
                     } else if ("list".equals(view_type)) {
                         // listview
                         view_type = "grid";
-                        iv_view_type.setImageResource(R.drawable.icon_grid_view);
+                        iv_view_type.setImageResource(R.drawable.icon_list_view);
                         lv_all.setVisibility(View.GONE);
                         gd_all.setVisibility(View.VISIBLE);
                     }
@@ -1588,6 +1588,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
             ShareParams sp5 = new ShareParams();
             sp5.setShareType(Platform.SHARE_WEBPAGE);
             sp5.setTitle(title);
+            sp5.setTitleUrl(url);
             sp5.setText(text);
 //            sp5.setUrl("http://download.csdn.net/detail/liufatao/9844983?web=web");
 //            sp5.setImageUrl(TextUtils.isEmpty(img) ? GetServerUrl.ICON_PAHT : img);
@@ -1595,6 +1596,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
             sp5.setSiteUrl(url);
             sp5.setUrl(url);
             sp5.setImageUrl(TextUtils.isEmpty(img) ? GetServerUrl.ICON_PAHT : img);
+//            sp5.setImageUrl(url);
 //            sp5.setImagePath("http://f11.baidu.com/it/u=1805479168,3437334559&fm=76");
             Platform qzone = ShareSDK.getPlatform(QQ.NAME);
             qzone.setPlatformActionListener(this); // 设置分享事件回调

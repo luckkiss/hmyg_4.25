@@ -1,8 +1,14 @@
 apply plugin: 'com.android.application'
-apply plugin:'me.tatarka.retrolambda'
+apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'org.greenrobot.greendao'
 // 依赖插件脚本
-//apply from: 'tinker-support.gradle'
+//
+
+def isDebug = false
+
+if (!isDebug) {
+    apply from: 'tinker-support.gradle'
+}
 
 android {
     signingConfigs {
@@ -28,7 +34,9 @@ android {
 //                }
 //            }
 //        }
-   }
+    }
+
+
     lintOptions {
         disable 'MissingTranslation'
     }
@@ -65,13 +73,8 @@ android {
     }
 
 /**
- * buildTypes {
- release {
- minifyEnabled true
- proguardFiles getDefaultProguardFile(‘proguard-Android.txt’), ‘proguard-rules.pro’
- } }
- */
-
+ * buildTypes {release {minifyEnabled true
+ proguardFiles getDefaultProguardFile(‘proguard-Android.txt’), ‘proguard-rules.pro’}}*/
 
 //    dataBinding.enabled = true
 
@@ -117,8 +120,6 @@ android {
 //    }
 }
 
-
-
 //    android{
 //        dataBinding { enabled = true }
 //    }
@@ -144,13 +145,12 @@ dependencies {
     //    compile 'im.fir:fir-sdk:latest.integration@aar'
     //注释掉原有bugly的仓库
 
-
-
-
     //compile 'com.tencent.bugly:crashreport:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.3.2
-//    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
 
-
+    if (!isDebug) {
+        compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    }
 
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
 //    compile 'com.tencent.bugly:nativecrashreport:latest.release'
@@ -163,8 +163,6 @@ dependencies {
 
     compile 'com.lqr.optionitemview:library:1.0.7'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-
-
 
     /*  rxjava库*/
 

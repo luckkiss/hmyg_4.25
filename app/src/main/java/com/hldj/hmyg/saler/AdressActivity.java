@@ -62,6 +62,7 @@ public class AdressActivity extends BaseMVPActivity<AdressListPresenter, AdressL
         if (resultCode == ConstantState.CHANGE_DATES) {
             //修改成功
             coreRecyclerView.onRefresh();
+            ToastUtil.showShortToast("修改成功");
         }
 
     }

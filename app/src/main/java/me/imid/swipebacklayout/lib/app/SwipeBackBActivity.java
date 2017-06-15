@@ -18,7 +18,7 @@ public class SwipeBackBActivity extends FragmentActivity implements
 
     public CustomDialog dialog;
 
-    public Loading loading;
+    public Loading loading ;
 //        && !StoreSettingActivity.this.isFinishing()) {
 //        loading.showToastAlong();
 //    } else if (loading == null
@@ -29,13 +29,13 @@ public class SwipeBackBActivity extends FragmentActivity implements
 
 
     public void showLoading() {
-        loading.showToastAlong();
+        getLoad().showToastAlong();
 //        dialog.show();
     }
 
     public void hindLoading() {
-        if (loading.isRunning()) {
-            loading.cancel();
+        if (getLoad().isRunning()) {
+            getLoad().cancel();
         }
 
         if (dialog.isShowing()) {
@@ -43,11 +43,19 @@ public class SwipeBackBActivity extends FragmentActivity implements
         }
     }
 
+
+    public Loading getLoad() {
+        if (loading == null) {
+            loading = new Loading(SwipeBackBActivity.this, "努力加载中.....");
+        }
+        return loading;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dialog = new CustomDialog(this);
-        loading = new Loading(SwipeBackBActivity.this, "努力加载中.....");
+//        loading = new Loading(SwipeBackBActivity.this, "努力加载中.....");
         /**
          * 控制状态栏为黑色  miui flyme
          */

@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.hldj.hmyg.adapter.MessageListAdapter;
 import com.hldj.hmyg.application.Data;
-import com.hldj.hmyg.saler.StoreSettingActivity;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.zzy.flowers.widget.popwin.EditP2;
@@ -44,6 +43,7 @@ public class MessageListActivity extends NeedSwipeBackActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_message_list);
+		showLoading();
 		ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
 		TextView tv_title = (TextView) findViewById(R.id.tv_title);
 		tv_title.setText("消息列表");
@@ -148,15 +148,15 @@ public class MessageListActivity extends NeedSwipeBackActivity {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						hindLoading();
 						super.onSuccess(t);
 					}
 
 					@Override
-					public void onFailure(Throwable t, int errorNo,
-							String strMsg) {
+					public void onFailure(Throwable t, int errorNo, String strMsg) {
 						// TODO Auto-generated method stub
-						Toast.makeText(MessageListActivity.this,
-								R.string.error_net, Toast.LENGTH_SHORT).show();
+						Toast.makeText(MessageListActivity.this, R.string.error_net, Toast.LENGTH_SHORT).show();
+						hindLoading();
 						super.onFailure(t, errorNo, strMsg);
 					}
 
