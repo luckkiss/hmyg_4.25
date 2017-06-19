@@ -143,7 +143,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     private View mainView;
     private int saleCount = 0;
     private int stock = 0;
-//    private KProgressHUD hud;
+    //    private KProgressHUD hud;
     private String store_id = "";
     public String displayPhone = "";
     private LinearLayout ll_01;
@@ -1939,6 +1939,10 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     protected void onActivityResult(int arg0, int arg1, Intent arg2) {
         // TODO Auto-generated method stub
         if (arg1 == LOGIN_SUCCEED) {
+            initData();
+        } else if (arg1 == ConstantState.PUBLIC_SUCCEED) {//发布成功  刷新界面
+            initData();
+        } else if (arg1 == ConstantState.CHANGE_DATES) {//修改 发布信息 成功
             initData();
         }
         super.onActivityResult(arg0, arg1, arg2);

@@ -340,7 +340,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                 //
                 .btnText("不再提示", "取消")//
 //                .showAnim(mBasIn)//
-                .dismissAnim(mBasOut)//
+//                .dismissAnim(mBasOut)//
                 .show();
 
         dialog.setOnBtnClickL(new OnBtnClickL() {// left btn click listener
@@ -681,7 +681,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
         }
         if (getdata == true) {
             initData();
-        }else {
+        } else {
             hindLoading();
         }
 

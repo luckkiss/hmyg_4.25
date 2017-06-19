@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.Data;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
@@ -36,8 +37,6 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
-
-import static com.hldj.hmyg.util.ConstantState.CHANGE_DATES;
 
 
 public class SavePriceAndCountAndOutlineActivity extends NeedSwipeBackActivity {
@@ -221,8 +220,8 @@ public class SavePriceAndCountAndOutlineActivity extends NeedSwipeBackActivity {
 
             String et_price_str = et_price.getText().toString().trim();
             String et_price_max_str = et_price_max.getText().toString().trim();
-            if (TextUtils.isEmpty(et_price_str) || TextUtils.isEmpty(et_price_max_str)) {
-                ToastUtil.showShortToast("请先输入价格区间");
+            if (TextUtils.isEmpty(et_price_str) && TextUtils.isEmpty(et_price_max_str)) {
+                ToastUtil.showShortToast("请先输入价格");
                 return;
             }
 
@@ -355,7 +354,7 @@ public class SavePriceAndCountAndOutlineActivity extends NeedSwipeBackActivity {
                                         msg, Toast.LENGTH_SHORT).show();
                             }
                             if ("1".equals(code)) {
-                                setResult(CHANGE_DATES);
+                                setResult(ConstantState.CHANGE_DATES);
                                 finish();
                             } else {
                             }

@@ -879,9 +879,7 @@ public class BActivity extends BaseSecondActivity implements
             final com.flyco.dialog.widget.MaterialDialog dialog = new com.flyco.dialog.widget.MaterialDialog(
                     BActivity.this);
             dialog.title("温馨提示").content(string)
-                    //
                     .btnText("不再提示", "取消")//
-                    .showAnim(mBasIn)//
                     .dismissAnim(mBasOut)//
                     .show();
 

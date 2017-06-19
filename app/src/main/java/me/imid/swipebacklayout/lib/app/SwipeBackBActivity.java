@@ -18,7 +18,7 @@ public class SwipeBackBActivity extends FragmentActivity implements
 
     public CustomDialog dialog;
 
-    public Loading loading ;
+    public Loading loading;
 //        && !StoreSettingActivity.this.isFinishing()) {
 //        loading.showToastAlong();
 //    } else if (loading == null
@@ -33,6 +33,10 @@ public class SwipeBackBActivity extends FragmentActivity implements
 //        dialog.show();
     }
 
+    public void showLoading(String str) {
+        getLoad().setText(str).showToastAlong();
+    }
+
     public void hindLoading() {
         if (getLoad().isRunning()) {
             getLoad().cancel();
@@ -41,6 +45,14 @@ public class SwipeBackBActivity extends FragmentActivity implements
         if (dialog.isShowing()) {
             dialog.dismiss();
         }
+    }
+
+    public void hindLoading(String str ,long delay) {
+        if (getLoad().isRunning()) {
+            getLoad().cancel(str, delay);
+        }
+
+
     }
 
 

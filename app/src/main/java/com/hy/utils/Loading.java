@@ -1,28 +1,34 @@
 
 package com.hy.utils;
 
-import java.lang.ref.WeakReference;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.Gravity;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Loading {
     private static final String TAG = "ToastUtils";
 
     private WeakReference<ProgressDialog> mProgress;
+    ProgressDialog dialog;
 
     public Loading(Context context, String str) {
         if (mProgress == null) {
-            ProgressDialog dialog = new ProgressDialog(context);
+            dialog = new ProgressDialog(context);
             dialog.setCancelable(true);
             dialog.setIndeterminate(false);
             dialog.setMessage(str);
             mProgress = new WeakReference<ProgressDialog>(dialog);
         }
+    }
+
+    public Loading setText(String str) {
+        dialog.setMessage(str);
+        return this;
     }
 
     public Loading(Context context) {
@@ -71,6 +77,13 @@ public class Loading {
         };
         timer.schedule(task, delay);
     }
+
+
+    public void cancel(String str, long delay) {
+        this.setText(str);
+        showToastAlong(delay);
+    }
+
 
     public static void showToast(Context context, String str) {
         Toast toast = Toast.makeText(context, str, Toast.LENGTH_SHORT);

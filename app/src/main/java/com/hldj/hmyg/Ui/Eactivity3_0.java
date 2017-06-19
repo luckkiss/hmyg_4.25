@@ -94,7 +94,6 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         RxRegi();
 
 
-
 //        RxBus.$().OnEvent(, new Action1<Object>() {
 //            @Override
 //            public void call(Object onlineEvent) {
@@ -169,7 +168,6 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     String headImg;
 
 
-
     private void loadHeadImage(boolean isLogin) {
         if (isLogin)
             ImageLoader.getInstance().displayImage(getSpS("headImage"), (ImageView) getView(R.id.iv_circle_head), new ImageLoadingListener() {
@@ -230,9 +228,6 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     }
 
 
-
-
-
     public interface PermissionListener {
         /**
          * 成功获取权限
@@ -275,6 +270,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
             public void onGranted() {
                 openAlbum();
             }
+
             @Override
             public void onDenied(List<String> deniedPermission) {
                 //没有获取到权限，什么也不执行，看你心情
@@ -367,7 +363,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                 if (resultCode == RESULT_OK) {
                     try {
                         // 将拍摄的照片显示出来
-                        uploadHeadUtil.startPhotoZoom(cameraFile,1, cacheFile);
+                        uploadHeadUtil.startPhotoZoom(cameraFile, 1, cacheFile);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -379,10 +375,10 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                     // 判断手机系统版本号
                     if (Build.VERSION.SDK_INT >= 19) {
                         // 4.4及以上系统使用这个方法处理图片
-                       uploadHeadUtil. handleImageOnKitKat(data,1,cacheFile);
+                        uploadHeadUtil.handleImageOnKitKat(data, 1, cacheFile);
                     } else {
                         // 4.4以下系统使用这个方法处理图片
-                        uploadHeadUtil.handleImageBeforeKitKat(data,1,cacheFile);
+                        uploadHeadUtil.handleImageBeforeKitKat(data, 1, cacheFile);
                     }
                 }
                 break;
@@ -399,6 +395,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 ////                     D.e("=========bitmap======="+bitmap.getByteCount()/1024/1024);
 //                        RelativeLayout relativeLayout = getView(R.id.e_background);
 //                        relativeLayout.setBackgroundDrawable(drawable);
+                        showLoading("头像上传中...");
                         BasePresenter presenter = new EPrestenter()
                                 .addResultCallBack(new ResultCallBack<String>() {
                                     @Override
@@ -408,11 +405,13 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                                             bitmap.recycle();
                                             D.e("===str=====" + str);
                                             ImageLoader.getInstance().displayImage(getSpS("headImage"), (ImageView) getView(R.id.iv_circle_head));
-                                        }, 500);
+                                            hindLoading("上传成功", 1500);
+                                        }, 200);
                                     }
 
                                     @Override
                                     public void onFailure(Throwable t, int errorNo, String strMsg) {
+                                        hindLoading("上传失败" + strMsg, 2000);
                                     }
                                 });
 
@@ -420,6 +419,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    hindLoading("上传失败" + e.getMessage(), 2000);
                     D.e("====报错==" + e.getMessage());
                 }
 
@@ -428,13 +428,6 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
 
     }
-
-
-
-
-
-
-
 
 
     public void RxRegi() {
