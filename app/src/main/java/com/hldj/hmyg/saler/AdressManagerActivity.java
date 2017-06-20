@@ -185,12 +185,16 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
     @Override
     public void OnDeleteAddr(boolean bo) {
         if (bo) coreRecyclerView.onRefresh();//删除成功。刷新界面
+        ToastUtil.showShortToast("地址删除成功");
 
     }
 
     @Override
     public void OnChangeAddrAddr(boolean bo) {
-        if (bo) coreRecyclerView.onRefresh();//修改地址。刷新界面
+        if (bo) {
+            coreRecyclerView.onRefresh();//修改地址。刷新界面
+            ToastUtil.showShortToast("地址修改成功");
+        }
     }
 
 

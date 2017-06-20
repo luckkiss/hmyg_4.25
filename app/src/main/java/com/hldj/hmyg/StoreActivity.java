@@ -1,6 +1,7 @@
 package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -480,7 +482,12 @@ public class StoreActivity extends NeedSwipeBackActivity implements
 
                             if (!codes.equals(ConstantState.SUCCEED_CODE)) {
                                 ToastUtil.showShortToast(msg);
-                                new Handler().postDelayed(() -> finish(), 2000);
+                                new Handler().postDelayed(() -> {
+                                    setResult(ConstantState.STORE_OPEN_FAILD);//商店打开失败
+                                    finish();
+//                                    StoreSettingActivity.start2Activity(mActivity);
+                                }, 2000);
+
                                 return;
                             }
                             JSONObject store = JsonGetInfo.getJSONObject(data,
@@ -1551,8 +1558,6 @@ public class StoreActivity extends NeedSwipeBackActivity implements
     }
 
 
-
-
     private void ShareToSinaWeibo() {
         if (SHARE_TYPE == 1) {
             ShareParams sp3 = new ShareParams();
@@ -1845,6 +1850,40 @@ public class StoreActivity extends NeedSwipeBackActivity implements
         Intent intent = new Intent(context, StoreActivity.class);
         intent.putExtra("code", code);
         context.startActivity(intent);
+    }
+
+    /**
+     * @param context
+     * @param code    商店的  id
+     */
+    public static void start2Activity(Activity context, String code, ImageView imageView) {
+        Intent intent = new Intent(context, StoreActivity.class);
+        intent.putExtra("code", code);
+//        CommonUtils
+//        store_string_trans_tag
+//        ActivityOptionsCompat options =
+//                ActivityOptionsCompat.makeSceneTransitionAnimation(context,
+//                        imageView, "aaa");//与xml文件对应
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeScaleUpAnimation(imageView, imageView.getWidth() / 2, imageView.getHeight() / 2, imageView.getWidth(), imageView.getHeight());
+//        Pair<View, String> imagePair = Pair.create(imageView, context.getString(R.string.store_string_trans_tag));
+//        ActivityOptionsCompat options = ActivityOptionsCompat  .makeSceneTransitionAnimation(context, imagePair);
+//        context.startActivity(intent);
+//        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        /**
+         *     ActivityOptionsCompat compat = ActivityOptionsCompat.makeScaleUpAnimation(view,
+         view.getWidth() / 2, view.getHeight() / 2, 0, 0);
+         */
+        ActivityCompat.startActivity(context, intent, options.toBundle());
+    }
+
+    /**
+     * @param context
+     * @param code    商店的  id
+     */
+    public static void start2ActivityForRsl(Activity context, String code) {
+        Intent intent = new Intent(context, StoreActivity.class);
+        intent.putExtra("code", code);
+        context.startActivityForResult(intent, ConstantState.STORE_OPEN_FAILD);//店铺打开失败
     }
 
 

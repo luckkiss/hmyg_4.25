@@ -61,7 +61,7 @@ public class AdressListPresenter extends AdressListContract.Presenter {
         mModel.changeAddr(new ResultCallBack<Boolean>() {
             @Override
             public void onSuccess(Boolean boo) {
-                mView.OnDeleteAddr(boo);
+                mView.OnChangeAddrAddr(boo);
             }
 
             @Override

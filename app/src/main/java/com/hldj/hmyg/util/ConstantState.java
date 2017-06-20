@@ -24,6 +24,7 @@ public interface ConstantState {
     int ADD_SUCCEED = 207;//添加地址成功
 
     public int FLOW_BACK = 208;// 详情界面返回 result 代码
+    public int STORE_OPEN_FAILD = 209;//  商店打开失败
 
 
     String ERROR_CODE = "1003";

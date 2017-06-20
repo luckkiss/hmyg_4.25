@@ -69,6 +69,7 @@ import com.hldj.hmyg.saler.bean.ParamsList;
 import com.hldj.hmyg.saler.bean.Subscribe;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 import com.mrwujay.cascade.activity.BaseSecondActivity;
 import com.mrwujay.cascade.activity.GetCodeByName;
 
@@ -86,8 +87,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
+import io.reactivex.Observable;
 import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
@@ -185,6 +188,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase_py_map);
+
         SegmentedGroup segmented3 = (SegmentedGroup) findViewById(R.id.segmented3);
         button31 = (RadioButton) findViewById(R.id.button31);
         button32 = (RadioButton) findViewById(R.id.button32);
@@ -232,6 +236,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
         segmented3.setOnCheckedChangeListener(this);
         button31.setChecked(true);
         tagView = (TagView) this.findViewById(R.id.tagview);
+
         tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
 
             @Override
@@ -264,6 +269,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
 
         listview.setAdapter(listAdapter);
         showLoading();
+
         initData();
         sideBar = (SideBar) findViewById(R.id.sidrbar);
         TextView dialog = (TextView) findViewById(R.id.dialog);
@@ -472,7 +478,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
 
                     case R.id.iv_close:
                         // TODO Auto-generated method stub
-                        DialogNoti("");
+                        DialogNoti("关闭提示");
                         break;
                     case R.id.rl_choose_price:
                         if ("".equals(priceSort)) {
@@ -896,6 +902,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
     }
 
     private void initData() {
+        showLoading();
         //初始化监听接口
         ResultCallBack<List<PurchaseBean>> callBack = new ResultCallBack<List<PurchaseBean>>() {
             @Override
@@ -903,14 +910,23 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                 listAdapter.addData(purchaseBeen);//返回空 就添加到数组中，并刷新  如果为null  listAdapter 会自动清空
                 getdata = true;//成功获取到了
                 onLoad();
-                hindLoading();
+
+                Observable.timer(500, TimeUnit.MILLISECONDS).subscribe(delay -> {
+                    hindLoading();
+                });
+
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 getdata = true;//获取到了，但是失败了
                 onLoad();
-                hindLoading();
+                ToastUtil.showShortToast(strMsg);
+                Observable.timer(500, TimeUnit.MILLISECONDS).subscribe(delay -> {
+                    hindLoading();
+                });
+
             }
         };
         getdata = false;//数据获取到了吗？

@@ -2,9 +2,11 @@ package com.hldj.hmyg;
 
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 
 import com.hldj.hmyg.application.MyApplication;
@@ -12,7 +14,10 @@ import com.hldj.hmyg.application.PermissionUtils;
 import com.hy.utils.GetServerUrl;
 import com.white.utils.AndroidUtil;
 
+import java.util.concurrent.TimeUnit;
+
 import cn.jpush.android.api.JPushInterface;
+import io.reactivex.Observable;
 
 
 public class SplashActivity extends FragmentActivity {
@@ -31,74 +36,51 @@ public class SplashActivity extends FragmentActivity {
 
 //        ToastUtil.showShortToast("hellow world");
 
-        e = MyApplication.Deviceinfo.edit();
 
         boolean requestREAD_PHONE_STATE = false;
+        if (Build.VERSION.SDK_INT >= 23) {//大于6.0
+//            requestREAD_PHONE_STATE = new PermissionUtils(SplashActivity.this).requestREAD_PHONE_STATE(200);
+            int checkCallPhonePermission = ContextCompat.checkSelfPermission(SplashActivity.this, android.Manifest.permission.READ_PHONE_STATE);
+            if (checkCallPhonePermission == PackageManager.PERMISSION_GRANTED) {
+                putSpInfo_Before_6();
+                return;
+            }
+        } else {//小于6.0
+            putSpInfo_Before_6();
+        }
+
+
         try {
             requestREAD_PHONE_STATE = new PermissionUtils(SplashActivity.this).requestREAD_PHONE_STATE(200);
         } catch (Exception e1) {
             e1.printStackTrace();
         }
-        if (!requestREAD_PHONE_STATE) {
-            e.putString("version", "");
-            e.putString("deviceId", "");
-        } else {
-            e.putString("version", AndroidUtil.getVersion(this));
-            e.putString("deviceId", AndroidUtil.getDeviceIMEI(this));
-        }
+
+
+    }
+
+    public void putSpInfo_Before_6() {
+        e = MyApplication.Deviceinfo.edit();
+        e.putString("version", AndroidUtil.getVersion(this));
+        e.putString("deviceId", AndroidUtil.getDeviceIMEI(this));
         e.commit();
         GetServerUrl.version = AndroidUtil.getVersion(this);
         GetServerUrl.deviceId = AndroidUtil.getDeviceIMEI(this);
-        boolean isWear = getPackageManager().hasSystemFeature(
-                "android.hardware.type.watch");
-        // 设置AppKey
-        // StatService.setAppKey("09cd76900b"); //
-        // appkey必须在mtj网站上注册生成，该设置建议在AndroidManifest.xml中填写，代码设置容易丢失
-
-
-//		LoadingBarProxy.getInstance().showLoadingDialog();
-//		new LoadingBarProxy(this).showLoadingDialog();
-//		new LoadingBar(MyApplication.getInstance()).show();
-        // fb.display(img_sp, GetServerUrl.TEST_IMG);
-
-
-//        DialogFragmentHelper.showProgress(getSupportFragmentManager(), "正在加载...");
-//
-//        DialogFragmentHelper.showInsertDialog(getSupportFragmentManager(), "title", new IDialogResultListener<String>() {
-//            @Override
-//            public void onDataResult(String result) {
-//
-//                D.e("=====dddd");
-//
-//            }
-//        }, true);
-
-//        .show(this,"hellow world");
-
-
-        com.hldj.hmyg.buyer.weidet.DialogFragment.CustomDialog customDialog = new com.hldj.hmyg.buyer.weidet.DialogFragment.CustomDialog(this);
-
-//        customDialog.show();
-
-
         start2Main();
-
     }
+
 
 //    KProgressHUD hud_numHud; // 上传时显示的等待框
 
     int i = 0;
 
     private void start2Main() {
-        new Handler().postDelayed(() -> {
-            Intent toMainActivity = new Intent(SplashActivity.this,
-                    MainActivity.class);
-            startActivity(toMainActivity);
-            overridePendingTransition(R.anim.slide_bottom_in,
-                    R.anim.slide_bottom_out);
-            finish();
-
-        }, delayMillis);
+        Observable.timer(delayMillis, TimeUnit.MICROSECONDS)
+                .subscribe(delay -> {
+                    Intent toMainActivity = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(toMainActivity);
+                    finish();
+                });
     }
 
     @Override
@@ -111,8 +93,6 @@ public class SplashActivity extends FragmentActivity {
     protected void onPause() {
         super.onPause();
         JPushInterface.onPause(this);
-
-
     }
 
 
@@ -123,4 +103,22 @@ public class SplashActivity extends FragmentActivity {
 
     }
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 200:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    putSpInfo_Before_6();
+                } else {
+                    e = MyApplication.Deviceinfo.edit();
+                    e.putString("version", AndroidUtil.getVersion(this));
+                    e.commit();
+                    start2Main();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
 }

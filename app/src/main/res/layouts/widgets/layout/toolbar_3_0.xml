@@ -6,7 +6,8 @@
     android:layout_height="@dimen/title_top_default"
     android:background="@color/white"
     app:contentInsetLeft="0dp"
-    app:contentInsetStart="0dp">
+    app:contentInsetStart="0dp"
+    app:layout_scrollFlags="scroll|enterAlways">
 
     <RelativeLayout
         android:layout_width="fill_parent"

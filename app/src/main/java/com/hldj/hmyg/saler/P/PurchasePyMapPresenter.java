@@ -47,9 +47,11 @@ public class PurchasePyMapPresenter {
                     @Override
                     public void onSuccess(Object t) {
                         // TODO Auto-generated method stub
+                        String reson = "";
                         try {
                             String json = t.toString();
                             PurchaseListGsonBean purchaseListGsonBean = GsonUtil.formateJson2Bean(json, PurchaseListGsonBean.class);
+                            reson = purchaseListGsonBean.msg;
                             if (!purchaseListGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
                                 ToastUtil.showShortToast("数据加载失败！");
                                 return;
@@ -57,16 +59,14 @@ public class PurchasePyMapPresenter {
                                 resultCallBack.onSuccess(purchaseListGsonBean.data.page.data);
                             }
                         } catch (Exception e) {
-                            resultCallBack.onSuccess(null);
+                            resultCallBack.onFailure(null, 0, "数据获取失败");
                         }
-
-
                     }
 
                     @Override
                     public void onFailure(Throwable t, int errorNo, String strMsg) {
-                        ToastUtil.showShortToast("网络错误，数据请求失败");
-                        super.onFailure(t, errorNo, strMsg);
+//                        ToastUtil.showShortToast("网络错误，数据请求失败");
+                        resultCallBack.onFailure(null, 0, "网络错误，数据请求失败");
                     }
 
                 });

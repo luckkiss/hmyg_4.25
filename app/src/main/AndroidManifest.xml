@@ -120,7 +120,9 @@
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@style/AppBaseTheme">
+        android:theme="@style/AppBaseTheme"
+        android:largeHeap="true"
+        >
         <!--<item name="android:windowAnimationStyle">@style/activityAnimation</item>-->
         <!--xmlns:tools="http://schemas.android.com/tools"  tools:replace="android:icon, android:theme  "-->
         <activity
@@ -361,7 +363,7 @@
         <activity
             android:name="com.hldj.hmyg.FeedBackActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.hldj.hmyg.SetProfileActivity"
             android:launchMode="singleTask"

@@ -224,9 +224,8 @@ public class SavePriceAndCountAndOutlineActivity extends NeedSwipeBackActivity {
                 ToastUtil.showShortToast("请先输入价格");
                 return;
             }
-
             //不能小于0  价格
-            if (Double.parseDouble(et_price_str) <= 0 || Double.parseDouble(et_price_max_str) <= 0) {
+            if (!TextUtils.isEmpty(et_price_str) && Double.parseDouble(et_price_str) <= 0 || !TextUtils.isEmpty(et_price_max_str) && Double.parseDouble(et_price_max_str) <= 0) {
                 Toast.makeText(SavePriceAndCountAndOutlineActivity.this, "请输入超过0的价格", Toast.LENGTH_SHORT).show();
                 return;
             }

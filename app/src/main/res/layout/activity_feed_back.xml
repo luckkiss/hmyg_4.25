@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
 
-    <include layout="@layout/toolbar_3_0"/>
+    <include layout="@layout/toolbar_3_0" />
 
 
     <ImageView
@@ -58,10 +58,10 @@
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/y10"
                     android:background="@null"
-                 android:hint="欢迎反馈问题，您的意见与建议就是我们的动力！我们会认真查阅您反馈的每一个问题，并尽快给您答复，在这里您可以提出遇到的问题，也可以发表自己的建议和想法。"
-                    android:padding="4dp"
                     android:gravity="start|top"
-                    android:textColor="@color/gray_edit_hint"
+                    android:hint="欢迎反馈问题，您的意见与建议就是我们的动力！我们会认真查阅您反馈的每一个问题，并尽快给您答复，在这里您可以提出遇到的问题，也可以发表自己的建议和想法。"
+                    android:padding="4dp"
+                    android:textColor="@color/text_color333"
                     android:textColorHint="@color/gray_edit_hint"
                     android:textSize="@dimen/y10" />
             </LinearLayout>

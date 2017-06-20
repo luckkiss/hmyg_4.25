@@ -37,6 +37,7 @@ import java.util.List;
  */
 public class ImagePagerAdapter extends RecyclingPagerAdapter {
 
+    private static final String TAG = "ImagePagerAdapter";
     private Context context;
     private List<HashMap<String, Object>> imageIdList;
 
@@ -50,6 +51,7 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
         this.size = ListUtils.getSize(imageIdList);
         isInfiniteLoop = false;
         finalBitmap = FinalBitmap.create(context);
+        D.e("====================" + TAG);
 
     }
 
@@ -128,7 +130,7 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
                         FlowerDetailActivity.start2Activity(context, typeBean.sourceId);
                         break;
                     case "store":
-                        StoreActivity.start2Activity(context, typeBean.sourceId);
+                        StoreActivity.start2Activity((Activity) context, typeBean.sourceId, holder.imageView);
                         break;
                     case "purchase":
                         //报价 详情

@@ -66,6 +66,7 @@ public class SwipeBackBActivity extends FragmentActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getLoad();
         dialog = new CustomDialog(this);
 //        loading = new Loading(SwipeBackBActivity.this, "努力加载中.....");
         /**

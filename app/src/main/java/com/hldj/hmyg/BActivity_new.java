@@ -92,7 +92,7 @@ public class BActivity_new extends NeedSwipeBackActivity {
                     initGridType(helper, item);
                 } else {
                     D.e("=======常规布局========");
-                    initListType(helper, item, bitmap);
+                    initListType(helper, item, bitmap, "BActivity_new");
                 }
                 helper.getConvertView().setOnClickListener(v -> {
                     FlowerDetailActivity.start2Activity(BActivity_new.this, "seedling_list", item.id);
@@ -342,29 +342,30 @@ public class BActivity_new extends NeedSwipeBackActivity {
      * @param helper
      * @param item
      */
-    public static void initListType(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item, FinalBitmap bitmap) {
+    public static void initListType(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item, FinalBitmap bitmap, String tag) {
         bitmap.display(helper.getView(iv_img), item.smallImageUrl);
 
         TextView tv_01 = helper.getView(R.id.tv_01);
         MySwipeAdapter.setSrcByType(tv_01, item.plantType);
 
         View iv_right_top = helper.getView(R.id.iv_right_top);
-        iv_right_top.setVisibility(item.attrData.ziying ? View.VISIBLE : View.GONE);
+        TextView tv_04 = helper.getView(R.id.tv_04);
+
+        if (tag.equals("BActivity_new")) {
+            iv_right_top.setVisibility(item.attrData.ziying ? View.VISIBLE : View.GONE);
+            tv_04.setText("苗源地: " + item.ciCity.fullName);
+        } else {
+            iv_right_top.setVisibility(View.GONE);
+            tv_04.setText("苗源地: " + item.nurseryJson.getCityName());
+
+        }
+
 
         TextView tv_02 = helper.getView(R.id.tv_02);
         tv_02.setText(item.name);
 
         TextView tv_03 = helper.getView(R.id.tv_03);//sptext
         tv_03.setText(item.specText);
-
-        TextView tv_04 = helper.getView(R.id.tv_04);
-
-
-        if (!TextUtils.isEmpty(item.ciCity.fullName)) {
-            tv_04.setText("苗源地: " + item.ciCity.fullName);
-        } else {
-            tv_04.setText("苗源地: " + item.nurseryJson.getDetailAddress());
-        }
 
 
         TextView tv_06 = helper.getView(R.id.tv_06);

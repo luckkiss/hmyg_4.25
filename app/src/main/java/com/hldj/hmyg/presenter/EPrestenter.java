@@ -44,7 +44,6 @@ public class EPrestenter extends BasePresenter {
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
-                ToastUtil.showShortToast("上传失败" + t.getMessage() + " " + errorNo + " " + strMsg);
                 resultCallBack.onFailure(t, errorNo, strMsg);
             }
         };

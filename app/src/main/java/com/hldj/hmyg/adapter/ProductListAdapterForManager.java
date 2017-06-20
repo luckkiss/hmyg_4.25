@@ -2,6 +2,7 @@ package com.hldj.hmyg.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.Data;
+import com.hldj.hmyg.application.MyApplication;
 
 import net.tsz.afinal.FinalBitmap;
 
@@ -156,25 +158,25 @@ public class ProductListAdapterForManager extends BaseAdapter {
     }
 
 
+    //被退回  未提交 已下架 #e75b45        审核中#f3b473   已上架 主体颜色
     public static void setStateColor(TextView tv_right_top, String state, String stateName) {
         tv_right_top.setVisibility(View.VISIBLE);
         tv_right_top.setText(stateName);
         switch (state) {
             case "unaudit":
-                tv_right_top.setTextColor(Data.STATUS_ORANGE);//审核中
-                tv_right_top.setText("审核中");
+                tv_right_top.setTextColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.state_for_manager_doing));//审核中 #f3b473
                 break;
             case "published":
-                tv_right_top.setTextColor(Data.STATUS_STROGE_GREEN);
+                tv_right_top.setTextColor(Data.STATUS_STROGE_GREEN);//已上架
                 break;
             case "outline":
-                tv_right_top.setTextColor(Data.STATUS_GREEN);
+                tv_right_top.setTextColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.state_for_manager_no));//已下架  #e75b45
                 break;
             case "backed":
-                tv_right_top.setTextColor(Data.STATUS_RED);
+                tv_right_top.setTextColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.state_for_manager_no));//被撤回  #e75b45
                 break;
             case "unsubmit":
-                tv_right_top.setTextColor(Data.STATUS_BLUE);
+                tv_right_top.setTextColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.state_for_manager_no));//未提交  #e75b45
                 break;
         }
     }

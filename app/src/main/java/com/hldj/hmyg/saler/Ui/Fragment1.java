@@ -95,14 +95,12 @@ public class Fragment1 extends Fragment {
     }
 
     public static void setStatus(BaseViewHolder helper, String status) {
-
-
         if (TextUtils.isEmpty(status)) {
             helper.setVisible(R.id.tv_fr_item_state, false);
         } else if (status.equals("unused")) {
             helper.setVisible(R.id.tv_fr_item_state, true);
             helper.setText(R.id.tv_fr_item_state, "未中标");
-            helper.setTextColor(R.id.tv_fr_item_state, MyApplication.getInstance().getResources().getColor(R.color.orange));
+            helper.setTextColor(R.id.tv_fr_item_state, MyApplication.getInstance().getResources().getColor(R.color.state_for_manager_no));
         } else if (status.equals("used")) {
             helper.setVisible(R.id.tv_fr_item_state, true);
             helper.setText(R.id.tv_fr_item_state, "已中标");

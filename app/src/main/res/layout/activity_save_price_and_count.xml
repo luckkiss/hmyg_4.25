@@ -114,7 +114,9 @@
 
                     <EditText
                         android:id="@+id/et_price"
-                        style="@style/edit_seeding_imput" />
+                        style="@style/edit_seeding_imput"
+
+                        />
 
                     <TextView style="@style/text_Seeding_line" />
 

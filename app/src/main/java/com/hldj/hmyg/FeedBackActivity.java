@@ -1,19 +1,23 @@
 package com.hldj.hmyg;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hldj.hmyg.application.Data;
+import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
@@ -32,6 +36,8 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
  */
 public class FeedBackActivity extends NeedSwipeBackActivity {
 
+
+    private static final String TAG = "FeedBackActivity";
     /**
      */
     private ImageView btn_back;
@@ -43,6 +49,8 @@ public class FeedBackActivity extends NeedSwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed_back);
+
+
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         btn_back = (ImageView) findViewById(R.id.toolbar_left_icon);
@@ -62,7 +70,6 @@ public class FeedBackActivity extends NeedSwipeBackActivity {
     @Override
     public void onBackPressed() {
         finish();
-
     }
 
     TextWatcher watcher_num = new TextWatcher() {
@@ -76,7 +83,7 @@ public class FeedBackActivity extends NeedSwipeBackActivity {
                     feedback.setTextColor(getResources().getColor(R.color.white));
                 }
             } else {
-              
+
                 feedback.setTextColor(getResources().getColor(R.color.white));
 
             }
@@ -120,6 +127,8 @@ public class FeedBackActivity extends NeedSwipeBackActivity {
                             return;
                         }
 
+                        showLoading();
+
                         FinalHttp finalHttp = new FinalHttp();
                         GetServerUrl.addHeaders(finalHttp, true);
                         AjaxParams params = new AjaxParams();
@@ -133,40 +142,40 @@ public class FeedBackActivity extends NeedSwipeBackActivity {
                                     @Override
                                     public void onSuccess(Object t) {
                                         // TODO Auto-generated method stub
+                                        hindLoading();
                                         try {
-                                            JSONObject jsonObject = new JSONObject(
-                                                    t.toString());
-                                            String code = JsonGetInfo
-                                                    .getJsonString(jsonObject,
-                                                            "code");
-                                            String msg = JsonGetInfo.getJsonString(
-                                                    jsonObject, "msg");
-                                            if (!"".equals(msg)) {
-                                            }
+                                            JSONObject jsonObject = new JSONObject(t.toString());
+                                            String code = JsonGetInfo.getJsonString(jsonObject, "code");
+                                            String msg = JsonGetInfo.getJsonString(jsonObject, "msg");
+
                                             if ("1".equals(code)) {
-                                                Toast.makeText(
-                                                        FeedBackActivity.this,
-                                                        "反馈成功", Toast.LENGTH_SHORT)
-                                                        .show();
-                                                onBackPressed();
+                                                CommonDialogFragment.newInstance(context -> {
+                                                    Dialog dialog1 = new Dialog(context, R.style.DialogTheme);
+                                                    dialog1.setContentView(R.layout.feed_back_succeed);
+                                                    ((ViewGroup) dialog1.findViewById(R.id.ll_feed_content)).setBackgroundColor(Color.WHITE);
+                                                    dialog1.findViewById(R.id.tv_feed_ok).setOnClickListener(view1 -> onBackPressed());
+                                                    return dialog1;
+                                                }, true, () -> {
+                                                    onBackPressed();
+                                                }).show(getSupportFragmentManager(), TAG);
+
                                             } else {
 
+                                                ToastUtil.showShortToast(msg);
                                             }
 
                                         } catch (JSONException e) {
-                                            // TODO Auto-generated catch block
+                                            ToastUtil.showShortToast("提交失败");
                                             e.printStackTrace();
                                         }
                                         super.onSuccess(t);
                                     }
 
                                     @Override
-                                    public void onFailure(Throwable t, int errorNo,
-                                                          String strMsg) {
+                                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+                                        hindLoading();
                                         // TODO Auto-generated method stub
-                                        Toast.makeText(FeedBackActivity.this,
-                                                R.string.error_net,
-                                                Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(FeedBackActivity.this, R.string.error_net, Toast.LENGTH_SHORT).show();
                                         super.onFailure(t, errorNo, strMsg);
                                     }
 

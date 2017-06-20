@@ -569,9 +569,8 @@
     <color name="divider_color_bg">#dddddd</color>
 
 
-
-
-
+    <color name="state_for_manager_no">#e75b45</color>
+    <color name="state_for_manager_doing">#f3b473</color>
 
 
 </resources>

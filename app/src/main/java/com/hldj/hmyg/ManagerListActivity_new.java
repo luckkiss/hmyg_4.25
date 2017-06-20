@@ -91,7 +91,8 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
                  */
 //                SwipeLayout.addSwipeView(helper.getView(R.id.swipe_manager));
 
-                BActivity_new.initListType(helper, item, FinalBitmap.create(mContext));
+                BActivity_new.initListType(helper, item, FinalBitmap.create(mContext),"Manager");
+
                 ProductListAdapterForManager.setStateColor(helper.getView(R.id.tv_right_top), item.status, item.statusName);
 
                 ((SwipeLayout) helper.getView(R.id.swipe_manager)).computeScroll();

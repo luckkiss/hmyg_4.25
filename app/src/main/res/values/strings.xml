@@ -107,6 +107,7 @@
     <string name="car">购物车</string>
     <string name="collect">收藏</string>
     <string name="add_car">加入购物车</string>
+
     <string name="sure_to_exit">是否确定退出？</string>
     <string name="close_str">关闭</string>
     <string name="please_input_right_tel">请输入正确的电话号码</string>
@@ -249,5 +250,14 @@
     <string name="tcp">《花木易购服务协议》</string>
     <string name="login_succeed">登录成功</string>
     <string name="load_failed">加载失败</string>
+
+
+    <string name="feed_back_succeed">您的意见已提交成功，感谢您的反馈！您也可以拨打客服热线400-6579-888
+        与我们取得联系，谢谢！
+</string>
+
+
+    <string name="store_string_trans_tag">"store_string_trans_tag"</string>
+
 
 </resources>

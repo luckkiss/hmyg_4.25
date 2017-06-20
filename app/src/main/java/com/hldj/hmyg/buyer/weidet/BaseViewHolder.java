@@ -354,6 +354,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
      * @return The BaseViewHolder for chaining.
      */
     public BaseViewHolder addOnClickListener(int viewId, View.OnClickListener listener) {
+
         View view = getView(viewId);
         view.setOnClickListener(listener);
         return this;

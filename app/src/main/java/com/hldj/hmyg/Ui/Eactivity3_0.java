@@ -42,6 +42,7 @@ import com.hldj.hmyg.saler.AdressManagerActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.StoreSettingActivity;
 import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.RippleAdjuster;
 import com.hldj.hmyg.util.UploadHeadUtil;
@@ -118,7 +119,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
         this.getView(R.id.sptv_wd_mmgl).setOnClickListener(v -> ManagerListActivity_new.start2Activity(mActivity));//苗木管理
         this.getView(R.id.sptv_wd_bjgl).setOnClickListener(v -> ManagerQuoteListActivity_new.start2Activity(mActivity));//报价管理
-        this.getView(R.id.sptv_wd_wddp).setOnClickListener(v -> StoreActivity.start2Activity(mActivity, getSpS("code")));//我的店铺
+        this.getView(R.id.sptv_wd_wddp).setOnClickListener(v -> StoreActivity.start2ActivityForRsl(mActivity, getSpS("code")));//我的店铺
         this.getView(R.id.sptv_wd_dpsz).setOnClickListener(v -> StoreSettingActivity.start2Activity(mActivity));//店铺设置
         this.getView(R.id.sptv_wd_zhaq).setOnClickListener(v -> SafeAcountActivity.start2Activity(mActivity));//账户安全
         this.getView(R.id.sptv_wd_mydz).setOnClickListener(v -> AdressManagerActivity.start2Activity(mActivity));//苗源地址管理
@@ -358,7 +359,11 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         if (resultCode == Activity.RESULT_CANCELED) {
             return;
         }
+
         switch (requestCode) {
+            case ConstantState.STORE_OPEN_FAILD://店铺打开失败的时候
+                StoreSettingActivity.start2Activity(mActivity);
+                break;
             case TAKE_PHOTO:
                 if (resultCode == RESULT_OK) {
                     try {
@@ -411,7 +416,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
                                     @Override
                                     public void onFailure(Throwable t, int errorNo, String strMsg) {
-                                        hindLoading("上传失败" + strMsg, 2000);
+                                        hindLoading("网路错误,上传失败", 2000);
                                     }
                                 });
 

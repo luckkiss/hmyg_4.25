@@ -503,6 +503,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                         seedlingBean = saveSeedingGsonBean.getData().getSeedling();
                         if (seedlingBean.attrData.ziying) {//自营店铺显示发票
                             findViewById(R.id.stv_is_show_piao).setVisibility(View.VISIBLE);
+                            ((TextView) findViewById(R.id.stv_is_show_piao)).setText(seedlingBean.attrData.ziyingRemarks);
                         } else {
                             findViewById(R.id.stv_is_show_piao).setVisibility(View.GONE);
                         }

@@ -164,7 +164,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/moren_banner" />
+                            android:src="@drawable/moren_banner"
+                            android:transitionName="@string/store_string_trans_tag"
+                            />
                     </LinearLayout>
                     <!--ImageView的android:adjustViewBounds属性为是否保持原图的长宽比，单独设置不起作用，需要配合maxWidth或maxHeight一起使用。-->
 

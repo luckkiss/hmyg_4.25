@@ -361,7 +361,20 @@
     </style>
 
     <!-- 自定义Dialog样式 -->
-    <style name="Dialog" parent="android:Theme.Dialog"></style>
+    <style name="Dialog" parent="android:Theme.Dialog">
+
+        <!--背景颜色及透明程度-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否有标题 -->
+        <item name="android:windowNoTitle">false</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否模糊-->
+        <item name="android:backgroundDimEnabled">true</item>
+
+        <item name="android:windowFrame">@null</item>
+
+    </style>
 
     <style name="alert_dialog" parent="android:Theme.Dialog">
         <item name="android:windowIsFloating">true</item>
@@ -435,7 +448,7 @@
 
     <style name="DialogTheme" parent="android:Theme.Dialog">
 
-        <item name="android:windowBackground">@drawable/dialog_background_new</item>
+        <item name="android:windowBackground">@drawable/material_dialog_window</item>
     </style>
 
     <style name="login_rb">
@@ -476,7 +489,7 @@
         <item name="android:textColorHint">@color/hint_text_color</item>
         <item name="android:maxLines">1</item>
         <item name="android:maxLength">6</item>
-        <item name="android:inputType">number</item>
+        <item name="android:inputType">number|numberSigned|numberDecimal</item>
 
 
     </style>

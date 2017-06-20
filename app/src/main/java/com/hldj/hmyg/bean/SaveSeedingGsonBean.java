@@ -2686,6 +2686,8 @@ public class SaveSeedingGsonBean implements Serializable {
             public static class AttrDataBean implements Serializable {
                 public boolean ziying = false;
                 public String createDate = "";
+                public String ziyingRemarks = "";
+
             }
 
             public static class SpecListBean implements Serializable {
