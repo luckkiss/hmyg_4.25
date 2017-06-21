@@ -122,11 +122,7 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
             mPresenter.getCounts();
         }).openLoadAnimation(BaseQuickAdapter.ALPHAIN)
                 .openRefresh();
-
         switch2Refresh("", 0);
-        mPresenter.getCounts();
-
-
     }
 
 

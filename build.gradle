@@ -24,9 +24,10 @@ allprojects {
     repositories {
         jcenter()
 //        maven { url 'https://jitpack.io' }
-        maven {
-            url "https://jitpack.io"
-        }
+        maven { url "https://jitpack.io" }
+
+        // 添加这一行即可
+        maven { url "https://raw.githubusercontent.com/miomin/mvn-repo-ione/master" }
 //        maven {
 ////            url "http://dl.bintray.com/fir/maven"
 //            url "http://maven.bughd.com/public"

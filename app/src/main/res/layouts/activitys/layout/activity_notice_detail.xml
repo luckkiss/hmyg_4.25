@@ -12,9 +12,11 @@
         android:layout_height="42sp"
         android:background="@color/white"
         app:left_src="@drawable/ic_back"
+        app:left_text="  X"
         app:right_src="@drawable/ic_winstyle_share"
         app:splite_mode="true"
-        app:title="成交公告" />
+        app:title="成交公告"
+        />
 
 
     <ProgressBar

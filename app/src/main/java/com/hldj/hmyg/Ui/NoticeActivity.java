@@ -17,9 +17,9 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.ComonShareDialogFragment;
-import com.hy.utils.GetServerUrl;
 import com.lqr.optionitemview.OptionItemView;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
@@ -133,7 +133,7 @@ public class NoticeActivity extends NeedSwipeBackActivity {
 //          webView.loadUrl("file:///android_asset/test.html");
 //        webView.loadUrl("http://192.168.1.252:8090/article?isHeader=true");
 //       http://test.m.hmeg.cn/noticeArticle?isHeader=true
-          webView.loadUrl(GetServerUrl.getHtmlUrl()+"noticeArticle?isHeader=true");
+          webView.loadUrl(Data.noticesUrls);
              //"http://api.hmeg.cn/"
 //          webView.loadUrl("http://blog.csdn.net/a394268045/article/details/51892015");
     }

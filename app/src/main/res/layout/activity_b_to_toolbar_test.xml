@@ -103,11 +103,10 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+    <com.hldj.hmyg.buyer.weidet.CoreHeadRecyclerView
         android:id="@+id/core_rv_b"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:nestedScrollingEnabled="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 

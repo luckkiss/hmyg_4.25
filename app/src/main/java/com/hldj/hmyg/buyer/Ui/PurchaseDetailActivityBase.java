@@ -34,7 +34,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import static com.zzy.common.widget.MeasureGridView.context;
 
 /**
- * Created by Administrator on 2017/4/26.
+ *  采购详情  基础类
  */
 
 public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity implements PurchaseDeatilV {

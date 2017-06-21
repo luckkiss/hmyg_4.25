@@ -62,6 +62,7 @@ import com.hldj.hmyg.store.StoreTypeActivity;
 import com.hldj.hmyg.store.TypeEx;
 import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.ConstantState;
+import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
@@ -514,14 +515,9 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                                 String id = JsonGetInfo.getJsonString(store,
                                         "id");
                                 if (!"".equals(id)) {
-                                    if (GetServerUrl.isTest) {
-                                        webview.loadUrl(Data.Store_Page + id
-                                                + ".html");
-                                    } else {
-                                        webview.loadUrl(Data.Store_Page3 + id
-                                                + ".html");
-                                    }
-
+                                    D.e("=======url=======" + Data.Store_Page + id + ".html");
+                                    webview.loadUrl(Data.getStorePageById(id));
+                                    // http://192.168.1.252:8090/page/store/2cc8ee147a194a6ab43ba2036074242d.html
                                 }
 
                                 String appBannerUrl = JsonGetInfo

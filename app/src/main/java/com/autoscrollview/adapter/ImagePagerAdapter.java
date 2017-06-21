@@ -130,7 +130,7 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
                         FlowerDetailActivity.start2Activity(context, typeBean.sourceId);
                         break;
                     case "store":
-                        StoreActivity.start2Activity((Activity) context, typeBean.sourceId, holder.imageView);
+                        StoreActivity.start2Activity((Activity) context, typeBean.sourceId);
                         break;
                     case "purchase":
                         //报价 详情

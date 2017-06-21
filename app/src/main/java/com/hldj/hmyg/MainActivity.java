@@ -60,7 +60,6 @@ import com.hldj.hmyg.util.StartBarUtils;
 import com.hldj.hmyg.widget.PublishPopWindow;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
-import com.hy.utils.ToastUtil;
 import com.white.update.UpdateInfo;
 import com.white.utils.SettingUtils;
 
@@ -129,7 +128,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         StartBarUtils.FlymeSetStatusBarLightMode(getWindow(), true);
         StartBarUtils.MIUISetStatusBarLightMode(getWindow(), true);
         setContentView(R.layout.activity_main);
-
         getAddr();
 
         e = MyApplication.Userinfo.edit();//初始化 sp
@@ -216,9 +214,10 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         }
 
         tabHost.addTab(tabHost.newTabSpec("1").setIndicator("1")
+//                .setContent(new Intent(this, BActivity_new_test.class)));
                 .setContent(new Intent(this, AActivity_3_0.class)));
         tabHost.addTab(tabHost.newTabSpec("2").setIndicator("2")
-                .setContent(new Intent(this, BActivity_new.class)));
+                .setContent(new Intent(this, BActivity_new_test.class)));
         tabHost.addTab(tabHost.newTabSpec("3").setIndicator("3")
                 .setContent(new Intent(this, CActivity2.class)));
         tabHost.addTab(tabHost.newTabSpec("4").setIndicator("4")

@@ -22,6 +22,8 @@ package com.hldj.hmyg.util;
 
 import android.util.Log;
 
+import com.hy.utils.GetServerUrl;
+
 
 /**
  * @author Mr.Zheng
@@ -50,7 +52,7 @@ public class D {
      * @return
      */
     public static boolean isDebuggable() {
-        return isDebug;
+        return GetServerUrl.isTest;
     }
 
     /**

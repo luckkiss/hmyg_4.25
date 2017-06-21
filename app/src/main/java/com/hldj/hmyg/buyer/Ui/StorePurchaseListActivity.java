@@ -83,6 +83,9 @@ import me.mhao.widget.SlipButton.OnChangedListener;
 import static com.hldj.hmyg.R.id.button31;
 import static com.hldj.hmyg.R.id.button32;
 
+/**
+ * 报价列表
+ */
 public class StorePurchaseListActivity extends BaseSecondActivity implements
         IXListViewListener,
         com.huewu.pla.lib.me.maxwin.view.PLAXListView.IXListViewListener,

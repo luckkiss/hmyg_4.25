@@ -23,7 +23,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 public class WebActivity extends NeedSwipeBackActivity {
     private WebView webview;
-    private TextView tv_loading;
+//    private TextView tv_loading;
     private ProgressBar bar;
     private String url = "";
     private String title = "";
@@ -50,7 +50,7 @@ public class WebActivity extends NeedSwipeBackActivity {
         btn_back.setOnClickListener(multipleClickProcess);
         guanbi.setOnClickListener(multipleClickProcess);
         webview = (WebView) findViewById(R.id.webview);
-        tv_loading = (TextView) findViewById(R.id.tv_loading);
+//        tv_loading = (TextView) findViewById(R.id.tv_loading);
         bar = (ProgressBar) findViewById(R.id.web_progressBar);
         // webview.setHorizontalScrollBarEnabled(false);// 水平不显示
         // webview.setVerticalScrollBarEnabled(false); // 垂直不显示
@@ -121,7 +121,7 @@ public class WebActivity extends NeedSwipeBackActivity {
         @Override
         public void onPageFinished(final WebView view, String url) {
             bar.setVisibility(View.INVISIBLE);
-            tv_loading.setVisibility(View.INVISIBLE);
+//            tv_loading.setVisibility(View.INVISIBLE);
             if (webview.canGoBack()) {
                 //
                 guanbi.setVisibility(View.VISIBLE);
@@ -133,7 +133,7 @@ public class WebActivity extends NeedSwipeBackActivity {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             bar.setVisibility(View.VISIBLE);
-            tv_loading.setVisibility(View.VISIBLE);
+//            tv_loading.setVisibility(View.VISIBLE);
             super.onPageStarted(view, url, favicon);
         }
 

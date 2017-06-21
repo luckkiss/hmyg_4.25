@@ -238,7 +238,8 @@
 
                 <ImageView
                     android:id="@+id/botton_lines_1"
-                    style="@style/bottom_view_line" />
+                    style="@style/bottom_view_line"
+                    />
 
                 <ImageView
                     android:id="@+id/botton_lines_2"
@@ -272,7 +273,7 @@
                 android:id="@+id/tagview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="2dp"
+                android:paddingTop="3dp"
                 app:lineMargin="5dp"
                 app:tagMargin="3dp"
                 app:textPaddingLeft="10dp"

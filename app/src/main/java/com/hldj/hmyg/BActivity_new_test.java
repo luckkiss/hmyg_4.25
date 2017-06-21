@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,7 +30,7 @@ import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
 import com.hldj.hmyg.buyer.weidet.BaseMultAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
-import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
+import com.hldj.hmyg.buyer.weidet.CoreHeadRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.SortSpinner;
@@ -60,20 +59,19 @@ import static com.hldj.hmyg.util.ConstantState.SEARCH_OK;
  * 商城界面
  */
 @SuppressLint("NewApi")
-public class BActivity_new extends NeedSwipeBackActivity {
+public class BActivity_new_test extends NeedSwipeBackActivity {
 
-    private CoreRecyclerView recyclerView1;
+    private CoreHeadRecyclerView recyclerView1;
 
     int type = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_b_to_toolbar);
+        setContentView(R.layout.activity_b_to_toolbar_test);
         bitmap = FinalBitmap.create(this);
-
         initViewClick();
-        recyclerView1 = (CoreRecyclerView) findViewById(R.id.core_rv_b);
+        recyclerView1 = (CoreHeadRecyclerView) findViewById(R.id.core_rv_b);
         recyclerView1.getRecyclerView().setHasFixedSize(true);
         recyclerView1.getRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
@@ -94,10 +92,11 @@ public class BActivity_new extends NeedSwipeBackActivity {
                     initListType(helper, item, bitmap, "BActivity_new");
                 }
                 helper.getConvertView().setOnClickListener(v -> {
-                    FlowerDetailActivity.start2Activity(BActivity_new.this, "seedling_list", item.id);
+                    FlowerDetailActivity.start2Activity(BActivity_new_test.this, "seedling_list", item.id);
                 });
             }
         }).openLoadMore(getQueryBean().pageSize, page -> {
+            showLoading();
             queryBean.pageIndex = page;
             initData();
         }).openRefresh()
@@ -106,8 +105,8 @@ public class BActivity_new extends NeedSwipeBackActivity {
 
 
         getExtras();//在初始化数据之前
-        new Handler().postDelayed(() -> initData(), 800);
 
+        recyclerView1.onRefresh();
 
     }
 
@@ -115,7 +114,7 @@ public class BActivity_new extends NeedSwipeBackActivity {
         //搜索
 
         getView(R.id.sptv_b_search).setOnClickListener(v -> {
-            Intent intent = new Intent(BActivity_new.this, PurchaseSearchListActivity.class);
+            Intent intent = new Intent(BActivity_new_test.this, PurchaseSearchListActivity.class);
             intent.putExtra("from", "BActivity");
             startActivityForResult(intent, 1);
         });
@@ -156,7 +155,7 @@ public class BActivity_new extends NeedSwipeBackActivity {
     private void ChoiceSortList() {
         View view = getView(R.id.tagview_b_act);
         if (sortSpinner == null) {
-            sortSpinner = SortSpinner.getInstance(BActivity_new.this, view)
+            sortSpinner = SortSpinner.getInstance(BActivity_new_test.this, view)
                     .addOnItemClickListener((parent, view1, position, id) -> {
                         D.e("addOnItemClickListener" + position);
                         switch (position) {
@@ -295,7 +294,7 @@ public class BActivity_new extends NeedSwipeBackActivity {
             ((BaseMultAdapter) recyclerView1.getAdapter()).setDefaultType(GRID_VIEW);
 
             type = GRID_VIEW;
-            recyclerView1.getRecyclerView().setLayoutManager(new GridLayoutManager(BActivity_new.this, 2));
+            recyclerView1.getRecyclerView().setLayoutManager(new GridLayoutManager(BActivity_new_test.this, 2));
             recyclerView1.getAdapter().notifyDataSetChanged();
             startAnimation(recyclerView1.getRecyclerView(), R.anim.zoom_in);
             recyclerView1.getRecyclerView().scrollToPosition(now_position);
@@ -320,7 +319,7 @@ public class BActivity_new extends NeedSwipeBackActivity {
 
             ((BaseMultAdapter) recyclerView1.getAdapter()).setDefaultType(0);
             type = 0;
-            recyclerView1.getRecyclerView().setLayoutManager(new LinearLayoutManager(BActivity_new.this));
+            recyclerView1.getRecyclerView().setLayoutManager(new LinearLayoutManager(BActivity_new_test.this));
             recyclerView1.getAdapter().notifyDataSetChanged();
 
             recyclerView1.getRecyclerView().scrollToPosition(now_position);
@@ -418,13 +417,13 @@ public class BActivity_new extends NeedSwipeBackActivity {
                         recyclerView1.selfRefresh(false);
                         D.e("==============");
                         recyclerView1.getAdapter().addData(pageBean);
-
+                        hindLoading();
                     }
-
                     @Override
                     public void onFailure(Throwable t, int errorNo, String strMsg) {
                         D.e("==============");
                         recyclerView1.selfRefresh(false);
+                        hindLoading();
                     }
                 });
         ((BPresenter) bPresenter).getDatas("seedling/list", false);
@@ -510,7 +509,7 @@ public class BActivity_new extends NeedSwipeBackActivity {
     }
 
     public static void start2Activity(Context context, String tag) {
-        Intent intent = new Intent(context, BActivity_new.class);
+        Intent intent = new Intent(context, BActivity_new_test.class);
         intent.putExtra("tag", tag);
         context.startActivity(intent);
     }

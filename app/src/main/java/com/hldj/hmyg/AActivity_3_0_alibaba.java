@@ -34,6 +34,7 @@ import com.hldj.hmyg.M.IndexGsonBean;
 import com.hldj.hmyg.Ui.NewsActivity;
 import com.hldj.hmyg.Ui.NoticeActivity;
 import com.hldj.hmyg.Ui.NoticeActivity_detail;
+import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.ArticleBean;
@@ -49,7 +50,6 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.UPMarqueeView;
-import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -299,7 +299,7 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
                 //设置滚动的单个布局
                 LinearLayout moreView = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_home_cjgg, null);
 
-                mUPMarqueeView.setViews(getViewsByDatas(mActivity,getmIndexGsonBean().data.articleList));
+                mUPMarqueeView.setViews(getViewsByDatas(mActivity, getmIndexGsonBean().data.articleList));
             }
 
             @Override
@@ -635,7 +635,7 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
      * 为了灵活的使用滚动的View，所以把滚动的内容让用户自定义
      * 假如滚动的是三条或者一条，或者是其他，只需要把对应的布局，和这个方法稍微改改就可以了，
      */
-    public static List<View> getViewsByDatas(Activity aActivity,List<ArticleBean> data) {
+    public static List<View> getViewsByDatas(Activity aActivity, List<ArticleBean> data) {
         List<View> views = new ArrayList<>();
         for (int i = 0; i < data.size(); i = i + 2) {
             final int position = i;
@@ -648,7 +648,7 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
              * 设置监听
              */
             moreView.findViewById(R.id.tv_taggle1).setOnClickListener(view -> {
-                String url = GetServerUrl.getHtmlUrl()+ "article/detail/" + data.get(position).id + ".html?isHeader=true";
+                String url = Data.getNotices_and_news_url_only_by_id(data.get(position).id);
                 D.e("url=" + url);
                 NoticeActivity_detail.start2Activity(aActivity, url);
             });
@@ -656,7 +656,7 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
              * 设置监听
              */
             moreView.findViewById(R.id.tv_taggle2).setOnClickListener(view -> {
-                String url = GetServerUrl.getHtmlUrl()+  "article/detail/" + data.get(position + 1).id + ".html?isHeader=true";
+                String url = Data.getNotices_and_news_url_only_by_id(data.get(position + 1).id);
                 D.e("url=" + url);
                 NoticeActivity_detail.start2Activity(aActivity, url);
             });
@@ -692,7 +692,6 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
 
         return views;
     }
-
 
 
     @Override

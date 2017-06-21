@@ -29,7 +29,9 @@ import com.zf.iosdialog.widget.AlertDialog;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
-
+/**
+ * 报价列表
+ */
 public class QuoteListActivity_bak extends NeedSwipeBackActivity implements PurchaseDeatilV {
 
 
@@ -91,7 +93,7 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
      * @param item
      */
     private void initRecycleItem(BaseViewHolder helper, QuoteListBean item) {
-        int viewid = R.layout.item_quote ;
+        int viewid = R.layout.item_quote;
         helper.setText(R.id.tv_quote_item_sellerName, strFilter(item.sellerName).equals("") ? strFilter(item.sellerPhone) : strFilter(item.sellerName));//报价人
         helper.setText(R.id.tv_quote_item_cityName, strFilter(item.cityName));//苗源地址
         helper.setText(R.id.tv_quote_item_price, strFilter(item.price + ""));//价格
@@ -112,8 +114,7 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
             }
         });
 
-        PurchaseDetailActivity.setImgCounts(mActivity,helper.getView(R.id.tv_quote_item_photo_num),item.imagesJson);
-
+        PurchaseDetailActivity.setImgCounts(mActivity, helper.getView(R.id.tv_quote_item_photo_num), item.imagesJson);
 
 
 //        recycle_quit.addOnItemClickListener(new OnItemClickListener() {

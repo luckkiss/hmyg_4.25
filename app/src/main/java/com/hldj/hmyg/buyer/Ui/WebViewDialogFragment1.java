@@ -17,7 +17,9 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.buyer.weidet.DialogFragment.CustomDialog;
+import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
 
 /**
@@ -29,8 +31,9 @@ public class WebViewDialogFragment1 extends DialogFragment {
 
     private WebView webView;
     private TextView tv_ok_to_close;
-    String url = GetServerUrl.getUrl() + "h5/page/serviceagreement.html";
-
+//    String url = GetServerUrl.getUrl() + "h5/page/serviceagreement.html";
+    String url = Data.LOGIN_TCP;
+//http://192.168.1.252:8090/page/help/serviceagreement.html?isApp=true
 
     public static WebViewDialogFragment1 newInstance() {
         WebViewDialogFragment1 f = new WebViewDialogFragment1();
@@ -74,6 +77,7 @@ public class WebViewDialogFragment1 extends DialogFragment {
 //        tv_show_html.setText(html);
         webView = (WebView) view.findViewById(R.id.webview_show_quite_detail);
         //WebView加载本地资源
+        D.e("====url====="+url);
         webView.loadUrl(url);
         //WebView加载web资源
 //        webView.loadUrl(html);
@@ -84,6 +88,7 @@ public class WebViewDialogFragment1 extends DialogFragment {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 //返回值是true的时候是控制网页在WebView中去打开，如果为false调用系统浏览器或第三方浏览器打开
                 view.loadUrl(url);
+
                 return true;
             }
             //WebViewClient帮助WebView去处理一些页面控制和请求通知

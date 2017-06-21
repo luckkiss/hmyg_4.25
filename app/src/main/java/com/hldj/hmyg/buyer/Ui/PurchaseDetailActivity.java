@@ -39,7 +39,7 @@ import java.util.Map;
 
 
 /**
- * 本届面提供 代购
+ * 本届面提供 代购  采购详情
  */
 @SuppressLint("NewApi")
 public class PurchaseDetailActivity extends PurchaseDetailActivityBase {

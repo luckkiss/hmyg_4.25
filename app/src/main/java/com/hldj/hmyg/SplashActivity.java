@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.PermissionUtils;
+import com.hldj.hmyg.buyer.weidet.DialogFragment.CustomDialog;
 import com.hy.utils.GetServerUrl;
 import com.white.utils.AndroidUtil;
 
@@ -35,6 +36,14 @@ public class SplashActivity extends FragmentActivity {
         setContentView(R.layout.activity_splash);
 
 //        ToastUtil.showShortToast("hellow world");
+        boolean test = false;
+
+
+        if (test) {
+            CustomDialog dialog = new CustomDialog(SplashActivity.this, R.style.Dialog);
+            dialog.show();
+            return;
+        }
 
 
         boolean requestREAD_PHONE_STATE = false;
@@ -48,8 +57,6 @@ public class SplashActivity extends FragmentActivity {
         } else {//小于6.0
             putSpInfo_Before_6();
         }
-
-
         try {
             requestREAD_PHONE_STATE = new PermissionUtils(SplashActivity.this).requestREAD_PHONE_STATE(200);
         } catch (Exception e1) {

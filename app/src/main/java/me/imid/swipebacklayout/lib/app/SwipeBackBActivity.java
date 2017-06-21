@@ -29,8 +29,11 @@ public class SwipeBackBActivity extends FragmentActivity implements
 
 
     public void showLoading() {
-        getLoad().showToastAlong();
-//        dialog.show();
+//        getLoad().showToastAlong();
+        if (!dialog.isShowing()) {
+            dialog.show();
+        }
+
     }
 
     public void showLoading(String str) {
@@ -47,7 +50,7 @@ public class SwipeBackBActivity extends FragmentActivity implements
         }
     }
 
-    public void hindLoading(String str ,long delay) {
+    public void hindLoading(String str, long delay) {
         if (getLoad().isRunning()) {
             getLoad().cancel(str, delay);
         }

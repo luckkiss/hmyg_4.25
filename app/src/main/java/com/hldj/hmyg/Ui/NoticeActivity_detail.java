@@ -9,6 +9,7 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.hldj.hmyg.R;
@@ -49,6 +50,16 @@ public class NoticeActivity_detail extends NeedSwipeBackActivity {
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        if (getViewHolder().webview_notice_detail.canGoBack()) {
+            getViewHolder().webview_notice_detail.goBack();
+        } else {
+            finish();
+        }
+    }
+
     private void initView() {
 
 //        loadingLayout.setStatus(loadingLayout.Loading);
@@ -56,11 +67,12 @@ public class NoticeActivity_detail extends NeedSwipeBackActivity {
         getViewHolder().news_title.setOnOptionItemClickListener(new OptionItemView.OnOptionItemClickListener() {
             @Override
             public void leftOnClick() {
-                finish();
+                onBackPressed();
             }
 
             @Override
             public void centerOnClick() {
+                finish();
             }
 
             @Override
@@ -83,6 +95,7 @@ public class NoticeActivity_detail extends NeedSwipeBackActivity {
         //WebView加载页面优先使用缓存加载
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         //页面加载
+        webView.setWebViewClient(new CustomWebViewClient());
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
@@ -100,9 +113,28 @@ public class NoticeActivity_detail extends NeedSwipeBackActivity {
         });
 //          webView.loadUrl("file:///asset/test.html");
 //          webView.loadUrl("file:///android_asset/test.html");
-           webView.loadUrl(url);
+        webView.loadUrl(url);
 //          webView.loadUrl("http://blog.csdn.net/a394268045/article/details/51892015");
     }
+
+
+    String title = "";//title
+    String cover = "";//头像地址
+    String desc = "";//描述
+    String pageUrl = "";//描述
+
+    /**
+     * @author linzewu
+     */
+    final class CustomWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+
+    }
+
 
     public static void start2Activity(Context context) {
         context.startActivity(new Intent(context, NoticeActivity_detail.class));

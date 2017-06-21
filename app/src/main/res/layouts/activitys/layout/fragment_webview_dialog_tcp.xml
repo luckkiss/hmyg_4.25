@@ -7,6 +7,7 @@
 
     <include layout="@layout/include_top_bar" />
 
+
     <WebView
         android:id="@+id/webview_show_quite_detail"
         android:layout_width="match_parent"

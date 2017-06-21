@@ -87,15 +87,6 @@
             <!--android:indeterminateDrawable="@drawable/progress_loading"-->
             <!--android:indeterminateDuration="750" />-->
 
-            <TextView
-                android:id="@+id/tv_loading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:paddingTop="60.0dip"
-                android:text="加载中..."
-                android:textColor="@color/main_color" />
         </RelativeLayout>
     </LinearLayout>
 

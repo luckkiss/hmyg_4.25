@@ -24,7 +24,6 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
         store_recycle.init(new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_home_cjgg) {
             @Override
             protected void convert(BaseViewHolder helper, String item) {
-
             }
         });
 

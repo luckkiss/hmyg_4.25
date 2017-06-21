@@ -52,7 +52,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 
 /**
- * 发布苗木资源
+ * 发布苗木资源  基类
  */
 public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements SaveSeedlingV {
     private ACache mCache;

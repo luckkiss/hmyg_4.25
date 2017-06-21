@@ -111,7 +111,7 @@ public class GridViewAdapter extends BaseAdapter {
                 if (!"".equals(arrayList.get(position).getId())) {
 
                     StoreActivity.start2Activity((Activity) context, arrayList.get(position)
-                            .getId(), imageView1);
+                            .getId());
 
 
                 }

@@ -8,7 +8,6 @@ import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -45,6 +44,7 @@ import com.hldj.hmyg.bean.HomeFunction;
 import com.hldj.hmyg.bean.HomeStore;
 import com.hldj.hmyg.bean.Type;
 import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
+import com.hldj.hmyg.buyer.weidet.SwipeViewHeader;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
 import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
 import com.hldj.hmyg.util.ConstantState;
@@ -55,6 +55,7 @@ import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
 import com.javis.ab.view.AbSlidingPlayView;
+import com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout;
 import com.white.utils.ScreenUtil;
 import com.white.utils.StringUtil;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
@@ -70,10 +71,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import aom.xingguo.huang.banner.MyFragment;
 import cn.hugo.android.scanner.CaptureActivity;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import me.hwang.library.widgit.SmartRefreshLayout;
 
 
@@ -174,16 +179,79 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     }
 
     private void initSwipe() {
-        SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_main);
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
-        swipeRefreshLayout.setOnRefreshListener(() ->
-                {
-                    D.e("==refresh==");
-                    requestData();
-//                    onCreate(null);
-                    swipeRefreshLayout.setRefreshing(false);
+        SHSwipeRefreshLayout swipeRefreshLayout = (SHSwipeRefreshLayout) findViewById(R.id.swipe_main);
+//        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
+
+        SwipeViewHeader swipeViewHeader = new SwipeViewHeader(AActivity_3_0.this);
+        swipeRefreshLayout.setHeaderView(swipeViewHeader);
+        swipeRefreshLayout.setOnRefreshListener(new SHSwipeRefreshLayout.SHSOnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                requestData();
+                D.e("==requestData==");
+
+                /**
+                 * Observable.just(event)
+                 .filter(event1 -> event.isOnline)
+                 .map((Function<OnlineEvent, Object>) event12 -> event12.isOnline)
+                 .subscribeOn(Schedulers.io())
+                 .observeOn(AndroidSchedulers.mainThread())
+                 .timeout(500, TimeUnit.MILLISECONDS)
+                 .subscribe((b) -> {
+                 loadHeadImage(getSpB("isLogin"));//加载头像
+                 setRealName(getSpS("userName"), getSpS("realName"));
+                 });
+                 */
+
+                Observable
+                        .timer(1500,TimeUnit.MILLISECONDS)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(delay -> {
+                                    {
+                                        D.e("==delay=="+delay);
+                                        swipeRefreshLayout.finishRefresh();
+                                        swipeViewHeader.setState(3);
+                                    }
+                                }
+                        );
+
+            }
+
+            @Override
+            public void onLoading() {
+            }
+
+            @Override
+            public void onRefreshPulStateChange(float parent, int state) {
+                switch (state) {
+                    case SHSwipeRefreshLayout.NOT_OVER_TRIGGER_POINT:
+//                mViewHeader.setLoaderViewText("下拉刷新");
+                        swipeViewHeader.setState(0);
+                        break;
+                    case SHSwipeRefreshLayout.OVER_TRIGGER_POINT:
+//                swipeRefreshLayout.setLoaderViewText("松开刷新");
+                        swipeViewHeader.setState(1);
+                        break;
+                    case SHSwipeRefreshLayout.START:
+//                swipeRefreshLayout.setLoaderViewText("正在刷新");
+                        swipeViewHeader.setState(2);
+                        break;
                 }
-        );
+            }
+
+            @Override
+            public void onLoadmorePullStateChange(float v, int i) {
+            }
+        });
+//        swipeRefreshLayout.setOnRefreshListener(() ->
+//                {
+//                    D.e("==refresh==");
+//
+////                    onCreate(null);
+//                    swipeRefreshLayout.setRefreshing(false);
+//                }
+//        );
     }
 
 
@@ -376,42 +444,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     }
 
     private void initData() {
-
-//        gd_home_pay_datas.add(new Type("fangxin", "放心购", "",
-//                R.drawable.shouye_fangxingou));
-//        gd_home_pay_datas.add(new Type("bangwo", "帮我购", "",
-//                R.drawable.shouye_bangwogou));
-//        gd_home_pay_datas.add(new Type("danbao", "担保购", "",
-//                R.drawable.shouye_danbaogou));
-//        gd_home_pay_datas.add(new Type("weituo", "委托购", "",
-//                R.drawable.shouye_weitougou));
-//        if (gd_home_pay_datas.size() > 0) {
-//            HomePayAdapter myadapter = new HomePayAdapter(AActivity_3_0.this,
-//                    gd_home_pay_datas);
-//            gd_01.setAdapter(myadapter);
-//        }
-
-        // TODO Auto-generated method stub
-        // home_functions.add(new HomeFunction(1, "1", "苗木商城", "",
-        // R.drawable.shouye_miaomushangcheng));
-//        home_functions.add(new HomeFunction(2, "2", "快速报价", "",
-//                R.drawable.shouye_caigoubaojia));
-//        home_functions.add(new HomeFunction(3, "3", "地图找苗", "",
-//                R.drawable.shouye_dituzhaomiao));
-//        //FindFlowerActivity
-//        if (home_functions.size() > 0) {
-//            HomeFunctionAdapter homeFunctionAdapter = new HomeFunctionAdapter(
-//                    AActivity_3_0.this, home_functions);
-//            gd.setAdapter(homeFunctionAdapter);
-//        }
-//        if (gd_datas.size() > 0) {
-//            TypeAdapter myadapter = new TypeAdapter(AActivity_3_0.this, gd_datas);
-//            gd_00.setAdapter(myadapter);
-//        }
-//        gd_datas.clear();
-//        if (myadapter != null) {
-//            myadapter.notifyDataSetChanged();
-//        }
 
 
         requestData();//请求数据
