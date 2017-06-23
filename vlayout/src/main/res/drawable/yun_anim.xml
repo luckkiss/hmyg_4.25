@@ -3,16 +3,16 @@
     android:oneshot="false">
 
     <item
-        android:drawable="@drawable/app_loading0"
+        android:drawable="@drawable/app_loading007"
         android:duration="150" />
     <item
-        android:drawable="@drawable/app_loading1"
+        android:drawable="@drawable/app_loading008"
         android:duration="150" />
     <item
-        android:drawable="@drawable/app_loading2"
+        android:drawable="@drawable/app_loading009"
         android:duration="150" />
     <item
-        android:drawable="@drawable/app_loading3"
+        android:drawable="@drawable/app_loading110"
         android:duration="150" />
 
 </animation-list>  

@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.buyer.weidet.animation.BaseAnimation;
 import com.hldj.hmyg.buyer.weidet.listener.OnItemClickListener;
+import com.hldj.hmyg.widget.MySwipeRefreshLayout;
 import com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout;
 
 
@@ -21,9 +22,9 @@ import com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout;
  * Created by hpw on 16/11/1.
  */
 
-public class CoreHeadRecyclerView extends LinearLayout implements BaseQuickAdapter.RequestLoadMoreListener, SHSwipeRefreshLayout.SHSOnRefreshListener{
+public class CoreHeadRecyclerView extends LinearLayout implements BaseQuickAdapter.RequestLoadMoreListener, MySwipeRefreshLayout.SHSOnRefreshListener{
     private RecyclerView mRecyclerView;
-    private SHSwipeRefreshLayout mSwipeRefreshLayout;
+    private MySwipeRefreshLayout mSwipeRefreshLayout;
     BaseQuickAdapter mQuickAdapter;
     addDataListener addDataListener;
     RefreshListener refreshListener;
@@ -63,7 +64,8 @@ public class CoreHeadRecyclerView extends LinearLayout implements BaseQuickAdapt
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         addView(view);
-        mSwipeRefreshLayout = (SHSwipeRefreshLayout) findViewById(R.id.swipeLayout_head);
+        mSwipeRefreshLayout = (MySwipeRefreshLayout) findViewById(R.id.swipeLayout_head);
+        mSwipeRefreshLayout.setLoadmoreEnable(false);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            mSwipeRefreshLayout.setNestedScrollingEnabled(true);
 //        }

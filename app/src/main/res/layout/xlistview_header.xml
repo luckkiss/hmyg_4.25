@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:gravity="bottom" >
+    android:gravity="bottom">
 
     <RelativeLayout
         android:id="@+id/xlistview_header_content"
         android:layout_width="fill_parent"
-        android:layout_height="60.0dip" >
+        android:layout_height="60.0dip">
 
         <LinearLayout
             android:id="@+id/xlistview_header_text"
@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/xlistview_header_hint_textview"
@@ -26,7 +26,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3.0dip" >
+                android:layout_marginTop="3.0dip">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -58,9 +58,10 @@
             android:layout_alignLeft="@+id/xlistview_header_text"
             android:layout_centerVertical="true"
             android:layout_marginLeft="-40.0dip"
-            android:indeterminateDrawable="@drawable/progress_loading"
             android:indeterminateDuration="750"
             android:visibility="invisible" />
     </RelativeLayout>
+    <!--            android:indeterminateDrawable="@drawable/progress_loading"
+-->
 
 </LinearLayout>

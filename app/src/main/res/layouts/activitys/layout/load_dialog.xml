@@ -26,12 +26,19 @@
         android:orientation="vertical"
         android:padding="11dp">
 
-        <com.weidget.GifView
-            android:id="@+id/gif1"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:enabled="false"
-            loadingview:gif="@mipmap/loding_gif1" />
+        <!--<com.weidget.GifView-->
+        <!--android:id="@+id/gif1"-->
+        <!--android:layout_width="70dp"-->
+        <!--android:layout_height="70dp"-->
+        <!--android:enabled="false"-->
+        <!--loadingview:gif="@mipmap/loding_gif1" />-->
+
+        <ImageView
+            android:id="@+id/iv_amin_flowar"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/floawer_anim" />
+
 
         <TextView
             android:layout_width="wrap_content"

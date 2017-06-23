@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -50,6 +51,7 @@ import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hldj.hmyg.widget.MySwipeRefreshLayout;
 import com.hldj.hmyg.widget.UPMarqueeView;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
@@ -109,7 +111,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private ImageView iv_home_preferential;
     private RelativeLayout relativeLayout2;//
     private PtrClassicFrameLayout mPtrFrame;
-    private ScrollView scrollView;
+    private NestedScrollView scrollView;
     private Button toTopBtn;// 返回顶部的按钮
     private int scrollY = 0;// 标记上次滑动位置
     private View contentView;
@@ -150,7 +152,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         lv_00 = (ListView) findViewById(R.id.lv_00);
         ll_fenlei = (LinearLayout) findViewById(R.id.ll_fenlei);
         lv_00.setDivider(null);
-        scrollView = (ScrollView) findViewById(R.id.rotate_header_scroll_view);
+        scrollView = (NestedScrollView) findViewById(R.id.rotate_header_scroll_view);
         if (contentView == null) {
             contentView = scrollView.getChildAt(0);
         }
@@ -179,12 +181,13 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     }
 
     private void initSwipe() {
-        SHSwipeRefreshLayout swipeRefreshLayout = (SHSwipeRefreshLayout) findViewById(R.id.swipe_main);
+        MySwipeRefreshLayout swipeRefreshLayout = (MySwipeRefreshLayout) findViewById(R.id.swipe_main);
+        swipeRefreshLayout.setLoadmoreEnable(false);
 //        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
 
         SwipeViewHeader swipeViewHeader = new SwipeViewHeader(AActivity_3_0.this);
         swipeRefreshLayout.setHeaderView(swipeViewHeader);
-        swipeRefreshLayout.setOnRefreshListener(new SHSwipeRefreshLayout.SHSOnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(new MySwipeRefreshLayout.SHSOnRefreshListener() {
             @Override
             public void onRefresh() {
                 requestData();
@@ -389,7 +392,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             private void handleStop(Object view) {
 
                 Log.i(TAG, "handleStop");
-                ScrollView scroller = (ScrollView) view;
+                NestedScrollView scroller = (NestedScrollView) view;
                 scrollY = scroller.getScrollY();
 
                 doOnBorderListener();

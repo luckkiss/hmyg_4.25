@@ -531,6 +531,7 @@
         <item name="android:imeOptions">actionNext</item>
         <item name="android:textColorHint">@color/hint_text_color</item>
         <item name="android:textSize">@dimen/x14</item>
+        <item name="android:singleLine">true</item>
     </style>
 
 
@@ -729,6 +730,7 @@
 
     <style name="base_store_theme" parent="AppTheme.Base">
 
+        <item name="android:windowIsTranslucent">true</item>
 
     </style>
 

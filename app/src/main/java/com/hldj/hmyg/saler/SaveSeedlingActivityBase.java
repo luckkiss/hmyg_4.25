@@ -63,6 +63,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
     ViewHolder viewHolder;//控件管理类
     protected ArrayList<Pic> urlPaths = new ArrayList<>();
+    protected ArrayList<Pic> uploadPaths = new ArrayList<>();
 
     public SaveSeedingGsonBean saveSeedingGsonBean;
     ArrayList<Pic> arrayList2Adapter = new ArrayList(); // 传入 适配器的图片列表
@@ -389,6 +390,17 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         holder.save.setOnClickListener(v ->
                 {
 
+                    //上传之前判断  图片是否已经上传
+
+//                    if (uploadPaths.size() != 0 && uploadPaths.toString().equals(urlPaths.toString())) {
+//                        //已经上传  ---- 直接提交
+//                        D.e("=====已经上传  ---- 直接提交========");
+//                        seedlingSave();
+//                        return;
+//                    } else {
+//                        D.e("=====图片还没上传，，先上传图片========");
+//                    }
+
 
                     urlPaths.clear();//点击的时候需要初始化
                     a = 0;//上传开始后需要初始化
@@ -408,6 +420,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                         public void onSuccess(Pic pic) {//
 
                             urlPaths.add(pic);
+//                          urlPaths.replaceAll(,pic);
                             a = pic.getSort();
                             a++;
                             hudProgress();
@@ -442,6 +455,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                         Data.pics1.add(urlPaths.get(i));
                     }
                     D.e("============上传保存结果==============");
+
+                    viewHolder.publish_flower_info_gv.getAdapter().notify(Data.pics1);
                     seedlingSave();
                 } else {
                 }
@@ -554,10 +569,10 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         D.e("=========checkParames1=========");
 
         if (autoAddRelative_rd != null) {
-            if (!checkParames(autoAddRelative_rd, "1")) {
-                D.e("=========null======1===");
-                return null;
-            }
+//            if (!checkParames(autoAddRelative_rd, "1")) {
+//                D.e("=========null======1===");
+//                return null;
+//            }
 
             if (autoAddRelative_rd.getMTag().equals("dbh")) {
                 params.put("dbhType", autoAddRelative_rd.getDiameterType());
@@ -574,10 +589,10 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
         for (int i = 0; i < arrayList_holders.size(); i++) {
             D.e("=========checkParames2=========");
-            if (!checkParames(arrayList_holders.get(i), "2")) {
-                D.e("=========null=====2===");
-                return null;
-            }
+//            if (!checkParames(arrayList_holders.get(i), "2")) {
+//                D.e("=========null=====2===");
+//                return null;
+//            }
 
             if (arrayList_holders.get(i).getTag().equals("高度")) {
                 //有高度 参数

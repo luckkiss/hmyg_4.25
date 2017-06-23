@@ -274,7 +274,7 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
         public String validity = "";//有效期
         public String price_min = "";//最小价格
         public String price_max = "";//最大价格
-        public boolean isMeet; // 是否面议
+        public Boolean isMeet = false; // 是否面议
         public String repertory_num = "";//库存
         public String remark = "";//备注
         public AdressActivity.Address address = new AdressActivity.Address();//苗源地

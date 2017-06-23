@@ -5,6 +5,8 @@ import com.hldj.hmyg.base.Rx.BaseModel;
 import com.hldj.hmyg.base.Rx.BasePresenter;
 import com.hldj.hmyg.base.Rx.BaseView;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2017/6/6 0006.
  */
@@ -17,14 +19,14 @@ public interface StoreContract {
     }
 
     public interface Model extends BaseModel {
-        void getData(ResultCallBack resultCallBack);
+        void getData(ResultCallBack resultCallBack ,Serializable serializable);
     }
 
     public abstract static class Presenter extends BasePresenter<Model, View> {
 
         public abstract void onStart();
 
-        public abstract void getData(String url);
+        public abstract void getData(Serializable serializable);
 
 
     }

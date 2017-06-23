@@ -787,8 +787,6 @@ public class StoreActivity extends NeedSwipeBackActivity implements
     }
 
     public void seedlingList() {
-
-
         Log.e("secondSeedlingTypeId", secondSeedlingTypeId);
         // getdata = false;
         FinalHttp finalHttp = new FinalHttp();
@@ -1450,9 +1448,10 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                             // .parse("tel:" + displayPhone));
                             if (ActivityCompat.checkSelfPermission(StoreActivity.this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                                 // TODO: Consider calling
-                                startActivity(intent);
+//                                startActivity(intent);
                                 return;
                             }
+                            startActivity(intent);
 
                         }
                     }).setNegativeButton("取消", new OnClickListener() {
@@ -1843,7 +1842,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
      * @param code    商店的  id
      */
     public static void start2Activity(Context context, String code) {
-        Intent intent = new Intent(context, StoreActivity.class);
+        Intent intent = new Intent(context, StoreActivity_new.class);
         intent.putExtra("code", code);
         context.startActivity(intent);
     }

@@ -911,9 +911,9 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                 uploadDatas.jsonArray = specList;
 
 
-                                if (isFirst)
+//                                if (isFirst)
                                     ((AutoAdd2DetailLinearLayout) findViewById(R.id.ll_auto_detail)).setDatas(uploadDatas);
-                                isFirst = false;
+//                                isFirst = false;
 
                                 // if (specList.length() > 0) {
                                 // for (int i = 0; i < specList.length(); i++) {

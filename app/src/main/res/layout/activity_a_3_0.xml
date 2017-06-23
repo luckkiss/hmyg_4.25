@@ -30,19 +30,21 @@
         <!--app:enablePullDown="true"-->
         <!--app:enablePullUp="true">-->
 
+
+        <!--com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white">
 
-            <com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout
+            <com.hldj.hmyg.widget.MySwipeRefreshLayout
                 android:id="@+id/swipe_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:loadmore_enable="false"
                 app:pull_refresh_enable="true">
 
-                <com.scu.miomin.shswiperefresh.view.ShareScrollView
+                <android.support.v4.widget.NestedScrollView
                     android:id="@+id/rotate_header_scroll_view"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
@@ -431,9 +433,9 @@
 
 
                     </LinearLayout>
-                </com.scu.miomin.shswiperefresh.view.ShareScrollView>
+                </android.support.v4.widget.NestedScrollView>
 
-            </com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout>
+            </com.hldj.hmyg.widget.MySwipeRefreshLayout>
             <!--<android.support.design.widget.FloatingActionButton-->
             <!--android:id="@+id/top_btn"-->
             <!--android:layout_width="wrap_content"-->

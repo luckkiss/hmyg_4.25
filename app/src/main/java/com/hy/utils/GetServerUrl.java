@@ -13,11 +13,15 @@ import net.tsz.afinal.FinalHttp;
 public class GetServerUrl {
 
     public static boolean isTest = true;//测试时使用
+    /*发布时主要版本号   后面需要加 / */
+    public static String apiVersion = "";//发布的时候修改 api 版本号
+
+
     static String PGYER = "http://www.pgyer.com/apiv1/app/viewGroup";
     // 正式 可用 2.0
 //    static String API_01 = "http://hmeg.cn:93/";
     // 正式 可用 3.0
-    static String API_01 = "http://api.hmeg.cn/";
+    static String API_01 = "http://api.hmeg.cn/"+apiVersion;
 
     static String FIR_01 = "http://api.fir.im/apps/latest/57882cfc748aac17af00001e?api_token=7b3d87a7cb04b3a1624abb900c045c22&type=android&bundle_id=com.hldj.hmyg";
     static String PGYER_UPLOAD_01 = "https://www.pgyer.com/hmeg3";
@@ -40,7 +44,7 @@ public class GetServerUrl {
     // 测试,xingguo.huang@qq.com
 //   static String API_03 = "http://test.hmeg.cn:93/";
 
-    static String API_03 = "http://test.api.hmeg.cn/";//3.0测式库
+    static String API_03 = "http://test.api.hmeg.cn/"+apiVersion;//3.0测式库
 
     //http://test.api.hmeg.cn
 //   static String API_03 = "http://192.168.1.147:8091/api/";//罗伟电脑 服务器地址
@@ -105,7 +109,6 @@ public class GetServerUrl {
             return api_html;
         }
     }
-
 
 
     public static String getaId() {

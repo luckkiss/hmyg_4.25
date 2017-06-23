@@ -154,8 +154,11 @@ public class AdressActivity extends BaseMVPActivity<AdressListPresenter, AdressL
                     helper.setText(R.id.tv_recy_item_one, item.fullAddress);//默认地址
                 }
                 helper.setText(R.id.tv_recy_item_two, "苗圃名称：" + AdressManagerActivity.striFil(mActivity, item.name, ""));
-                helper.setText(R.id.tv_recy_item_three, "联  系  人：" + AdressManagerActivity.striFil(mActivity, item.companyName, item.contactPhone));
-
+                helper.setText(R.id.tv_recy_item_three, "联  系  人：" + AdressManagerActivity.striFil(mActivity, item.contactName, item.contactPhone));
+                /**
+                 *    helper.setText(R.id.tv_recy_item_two, "苗圃名称：" + striFil(mActivity, item.name, ""));
+                 helper.setText(R.id.tv_recy_item_three, "联  系  人：" + striFil(mActivity, item.contactName, item.contactPhone));
+                 */
                 helper.convertView.setOnClickListener(view -> {
                     Address address = new Address();
                     address.addressId = item.id;

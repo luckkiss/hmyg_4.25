@@ -17,6 +17,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/4/19.
  */
@@ -45,7 +48,7 @@ public class AutoAdd2DetailLinearLayout extends BaseLinearLayout {
     @Override
     protected int setContextView() {
         return R.layout.activity_flower_detail_test_content_self_view;
-}
+    }
 
     @Override
     public BaseLinearLayout initViewHolder(View viewRoot) {
@@ -62,6 +65,8 @@ public class AutoAdd2DetailLinearLayout extends BaseLinearLayout {
     }
 
 
+    List<View> listViews = new ArrayList<>();
+
     public BaseLinearLayout setDatas(UploadDatas t) {
 
         viewHolder_derail.remarks.setText(t.remarks);
@@ -69,15 +74,24 @@ public class AutoAdd2DetailLinearLayout extends BaseLinearLayout {
         viewHolder_derail.seedlingNum.setText(t.seedlingNum);
 
         try {
+
+            if (listViews.size() != 0) {
+                ((ViewGroup) this.getChildAt(0)).removeViews(3, listViews.size());
+                listViews.clear();
+            }
+
             D.e("");
             for (int i = 0; i < t.jsonArray.length(); i++) {
                 JSONObject object = t.jsonArray.getJSONObject(i);
                 // TODO: 2017/4/19  这里有多少个值就动态产生多少个列表
 
                 TableRow tableRow = new TableRow(context);
+
                 View view = inflate(context, R.layout.auto_add_tablerow_view, tableRow);
                 ((TextView) view.findViewById(R.id.table_row_left)).setText(object.get("name").toString());
                 ((TextView) view.findViewById(R.id.table_row_right)).setText(object.get("value").toString());
+
+                listViews.add(tableRow);
 
                 int index = ((ViewGroup) this.getChildAt(0)).getChildCount();//取子布局的  控件数量
 
