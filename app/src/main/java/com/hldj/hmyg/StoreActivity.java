@@ -186,7 +186,8 @@ public class StoreActivity extends NeedSwipeBackActivity implements
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         fb = FinalBitmap.create(this);
-        fb.configLoadingImage(R.drawable.no_image_show);
+        fb.configLoadingImage(R.drawable.logo);
+
         hud = KProgressHUD.create(StoreActivity.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel("努力加载中...").setMaxProgress(100).setCancellable(true);
@@ -1842,7 +1843,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
      * @param code    商店的  id
      */
     public static void start2Activity(Context context, String code) {
-        Intent intent = new Intent(context, StoreActivity_new.class);
+        Intent intent = new Intent(context, StoreActivity.class);
         intent.putExtra("code", code);
         context.startActivity(intent);
     }

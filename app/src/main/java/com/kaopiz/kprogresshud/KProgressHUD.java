@@ -237,9 +237,9 @@ public class KProgressHUD {
     }
 
     public KProgressHUD show() {
-        if (!isShowing()) {
+        if (mProgressDialog != null  &! mProgressDialog.isShowing()) {
             mProgressDialog.show();
-            Log.e("KProgressHUD", "暂时停止show 显示: ");
+            Log.e("KProgressHUD", "开始显示 loading: ");
         }
         return this;
     }
@@ -251,6 +251,7 @@ public class KProgressHUD {
     public void dismiss() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
+            Log.e("KProgressHUD", "关闭显示 loading: ");
         }
     }
 

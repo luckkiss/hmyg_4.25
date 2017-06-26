@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="2px"
         android:background="#fff0f0f0" />
+    <!--android:background="#fff0f0f0" />-->
 
     <LinearLayout
         android:id="@+id/ll_item_broker"
@@ -23,8 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginBottom="2.0dip"
-            android:layout_marginLeft="10.0dip"
-            android:background="#CCCCCC" />
+            android:background="@color/divider_color_bg" />
 
         <RelativeLayout
             android:id="@+id/RelativeLayout1"
@@ -99,7 +99,7 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="#5A5A5A"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 tools:text="jklfasfasfa" />
         </LinearLayout>
 
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:descendantFocusability="beforeDescendants"
-            android:paddingLeft="8dp"
+            android:paddingLeft="6dp"
             android:scrollbars="none"
             android:visibility="visible">
 
@@ -144,7 +144,7 @@
                     android:padding="5dp"
                     android:singleLine="true"
                     android:textColor="@color/gray"
-                    android:textSize="12.0sp"
+                    android:textSize="13.0sp"
                     tools:text="共有一条品种" />
 
                 <TextView
@@ -173,7 +173,7 @@
             android:layout_height="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/y2"
             android:background="@drawable/xuxian"
             android:layerType="software" />
 
@@ -181,13 +181,13 @@
         <com.coorchice.library.SuperTextView
             android:id="@+id/tv_caozuo01"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/y20"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10.0dip"
             android:drawableLeft="@drawable/sy_sj"
-            android:drawablePadding="5dp"
+            android:drawablePadding="@dimen/x5"
             android:gravity="center_vertical|start"
             android:paddingBottom="5dip"
             android:paddingLeft="10.0dip"
@@ -195,7 +195,7 @@
             android:paddingTop="5dip"
             android:singleLine="true"
             android:textColor="@color/gray"
-            android:textSize="12.0sp"
+            android:textSize="13.0sp"
             tools:text="截止日期" />
 
         <LinearLayout

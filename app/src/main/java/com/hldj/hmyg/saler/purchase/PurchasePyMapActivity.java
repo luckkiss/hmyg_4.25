@@ -346,6 +346,9 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
             @Override
             public Dialog getDialog(Context context) {
                 Dialog dialog = new Dialog(context);
+                //添加这一行
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
                 dialog.setContentView(R.layout.purchase_tips);
                 TextView textView = ((TextView) dialog.findViewById(R.id.tv_pur_content));
 
@@ -360,7 +363,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                     if ("quoting".equals(type)) {
                         e.putBoolean("NeedShowquoting", false);
                     } else if ("unquote".equals(type)) {
-                        e.putBoolean("NeedShowbangwo", false);
+                        e.putBoolean("NeedShowunquote", false);
                     }
                     e.commit();
                     dialog.cancel();

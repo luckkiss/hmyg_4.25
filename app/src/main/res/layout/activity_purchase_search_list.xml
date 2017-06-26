@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LinearLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#ffffffff"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/y34"
-        android:background="@color/white" >
+        android:background="@color/white">
 
         <LinearLayout
             android:id="@+id/LinearLayout2"
@@ -20,14 +21,15 @@
             android:layout_toRightOf="@+id/btn_back"
             android:background="@drawable/search_edit_selector"
             android:gravity="center_vertical"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/ll_sp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:visibility="gone" >
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <Spinner
                     android:id="@+id/spinner1"
@@ -50,9 +52,11 @@
 
                 <ImageView
                     android:id="@+id/iv_seller_arrow2"
-                    android:layout_width="@dimen/x12"
+                    android:layout_width="@dimen/x8"
                     android:layout_height="@dimen/x5"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
                     android:gravity="center"
                     android:src="@drawable/seller_arrow4x" />
             </LinearLayout>
@@ -60,7 +64,10 @@
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/main_color" />
+                android:background="@color/main_color"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                />
 
             <EditText
                 android:id="@+id/et_search"
@@ -76,8 +83,7 @@
                 android:paddingRight="2.5dip"
                 android:textColor="@color/gray"
                 android:textColorHint="@color/gray"
-                android:textSize="14.5sp" >
-            </EditText>
+                android:textSize="14.5sp"></EditText>
         </LinearLayout>
 
         <ImageView
@@ -91,16 +97,16 @@
 
         <Button
             android:id="@+id/edit_btn"
-            android:layout_width="@dimen/x46"
-            android:layout_height="@dimen/x22"
+            android:layout_width="@dimen/x55"
+            android:layout_height="@dimen/x27"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/x15"
+            android:layout_marginRight="@dimen/x9"
             android:background="@drawable/r_o_green"
             android:gravity="center"
-            android:textSize="@dimen/textSize"
             android:text="搜索"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSize" />
     </RelativeLayout>
 
     <ImageView

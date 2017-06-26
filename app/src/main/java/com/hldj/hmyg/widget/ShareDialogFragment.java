@@ -101,23 +101,25 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
     private void showDialog(View dia_choose_share) {
         shares.clear();
         if (platform.contains("1")) {
-            PlatformForShare platformForShare = new PlatformForShare("朋友圈",
-                    "WechatMoments", "1", R.drawable.sns_icon_23);
-            shares.add(platformForShare);
-        }
-        if (platform.contains("2")) {
+
             PlatformForShare platformForShare = new PlatformForShare("微信好友",
                     "Wechat", "2", R.drawable.sns_icon_22);
             shares.add(platformForShare);
         }
+        if (platform.contains("2")) {
+            PlatformForShare platformForShare = new PlatformForShare("朋友圈",
+                    "WechatMoments", "1", R.drawable.sns_icon_23);
+            shares.add(platformForShare);
+        }
         if (platform.contains("3")) {
-            PlatformForShare platformForShare = new PlatformForShare("新浪微博",
-                    "SinaWeibo", "3", R.drawable.sns_icon_1);
+            PlatformForShare platformForShare = new PlatformForShare("QQ好友",
+                    "QZone", "4", R.drawable.sns_icon_24);
             shares.add(platformForShare);
         }
         if (platform.contains("4")) {
-            PlatformForShare platformForShare = new PlatformForShare("QQ好友",
-                    "QZone", "4", R.drawable.sns_icon_24);
+
+            PlatformForShare platformForShare = new PlatformForShare("新浪微博",
+                    "SinaWeibo", "3", R.drawable.sns_icon_1);
             shares.add(platformForShare);
         }
 
@@ -216,7 +218,6 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
     }
 
 
-
     private void ShareToQzone() {
         Platform.ShareParams sp5 = new Platform.ShareParams();
         sp5.setTitle("花木易购APP下载 ");
@@ -281,8 +282,6 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
         super.dismiss();
         instance = null;
     }
-
-
 
 
 }

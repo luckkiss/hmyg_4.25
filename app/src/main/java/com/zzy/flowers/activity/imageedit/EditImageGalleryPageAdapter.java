@@ -1,8 +1,5 @@
 package com.zzy.flowers.activity.imageedit;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -28,6 +25,9 @@ import com.white.utils.StringUtil;
 import com.zzy.common.widget.gestureimageview.GestureImageView;
 import com.zzy.common.widget.gestureimageview.RomateOverCallback;
 
+import java.io.File;
+import java.util.ArrayList;
+
 public class EditImageGalleryPageAdapter extends BaseAdapter {
 
 	private ArrayList<Pic> urlPaths = new ArrayList<Pic>();
@@ -41,7 +41,8 @@ public class EditImageGalleryPageAdapter extends BaseAdapter {
 		this.context = context;
 		inflater = LayoutInflater.from(context);
 		options = new DisplayImageOptions.Builder()
-		.showImageOnLoading(R.drawable.no_image_big_show)
+		.showImageOnLoading(R.drawable.no_image_show)
+//		.showImageOnLoading(R.drawable.no_image_big_show)
 		.showImageOnFail(R.drawable.no_image_big_show_2)
 		.bitmapConfig(Bitmap.Config.ARGB_8888).cacheOnDisc(true)
 		.cacheInMemory(true).build();

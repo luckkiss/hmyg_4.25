@@ -401,6 +401,15 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 //                        D.e("=====图片还没上传，，先上传图片========");
 //                    }
 
+                    if (!hud_numHud.isShowing() || hud_numHud == null) {
+                        hud_numHud = KProgressHUD.create(SaveSeedlingActivityBase.this)
+                                .setStyle(KProgressHUD.Style.ANNULAR_DETERMINATE)
+                                .setLabel("上传中，请等待...").setMaxProgress(100)
+                                .setCancellable(true).show();
+                    } else {
+                        hud_numHud.show();
+                    }
+
 
                     urlPaths.clear();//点击的时候需要初始化
                     a = 0;//上传开始后需要初始化
@@ -411,7 +420,10 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
 
                     //通过检测  上传图片
-                    hud_numHud.show();
+                    hud_numHud = KProgressHUD.create(SaveSeedlingActivityBase.this)
+                            .setStyle(KProgressHUD.Style.ANNULAR_DETERMINATE)
+                            .setLabel("上传中，请等待...").setMaxProgress(100)
+                            .setCancellable(true).show();
 
                     //   上传图片  可能多图片
                     saveSeedlingPresenter.upLoad(holder.publish_flower_info_gv.getAdapter().getDataList(), new ResultCallBack<Pic>() {
@@ -442,6 +454,14 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
     public void hudProgress() {
 
         if (hud_numHud != null && !SaveSeedlingActivityBase.this.isFinishing()) {
+            hud_numHud.setProgress(a * 100 / urlPaths.size());
+            hud_numHud.setLabel("上传(" + a + "/" + urlPaths.size()
+                    + "张)");
+        } else {
+            hud_numHud = KProgressHUD.create(SaveSeedlingActivityBase.this)
+                    .setStyle(KProgressHUD.Style.ANNULAR_DETERMINATE)
+                    .setLabel("上传中，请等待...").setMaxProgress(100)
+                    .setCancellable(true).show();
             hud_numHud.setProgress(a * 100 / urlPaths.size());
             hud_numHud.setLabel("上传(" + a + "/" + urlPaths.size()
                     + "张)");
@@ -658,7 +678,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         } else {
             //如果不是面议  就判断价格不能为空
             if (TextUtils.isEmpty(viewHolder.bottom_ll.getUpLoadDatas().getPrice_min()) && TextUtils.isEmpty(viewHolder.bottom_ll.getUpLoadDatas().getPrice_max())) {
-                ToastUtil.showShortToast("请输入最大价格或最小价格");
+                ToastUtil.showShortToast("请输入价格");
                 return false;
             }
         }
@@ -841,6 +861,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
 
     }
+
+
 
     String proId = "";//初始化 时候 赋值，
 

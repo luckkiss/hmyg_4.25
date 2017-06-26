@@ -698,11 +698,11 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
 
                                     //是否在本公司的服务范围
-                                    if (JsonGetInfo.getJsonArray(jsonObject2, "tagList").length() == 0) {
-                                        tv_no_server_area.setVisibility(View.VISIBLE);
-                                    } else {
-                                        tv_no_server_area.setVisibility(View.GONE);
-                                    }
+//                                    if (JsonGetInfo.getJsonArray(jsonObject2, "tagList").length() == 0) {
+//                                        tv_no_server_area.setVisibility(View.VISIBLE);
+//                                    } else {
+//                                        tv_no_server_area.setVisibility(View.GONE);
+//                                    }
 
 
                                 }

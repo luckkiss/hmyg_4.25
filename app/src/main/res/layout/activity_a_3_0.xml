@@ -201,12 +201,11 @@
                                 android:paddingLeft="5dp"
                                 android:src="@drawable/home_cj_gg" />
 
-
+                            <!--android:layout_margin="5dp"-->
                             <com.hldj.hmyg.widget.UPMarqueeView
                                 android:id="@+id/upview1"
                                 android:layout_width="match_parent"
                                 android:layout_height="60dp"
-                                android:layout_margin="5dp"
                                 android:layout_toRightOf="@+id/iv_home_left" />
 
 
@@ -292,7 +291,6 @@
                             <!--android:padding="9dp"-->
                             <!--android:scaleType="fitCenter"-->
                             <!--android:src="@drawable/home_more" />-->
-
 
                             <com.jarvis.MyView.MyListView
                                 android:id="@+id/lv_00"
