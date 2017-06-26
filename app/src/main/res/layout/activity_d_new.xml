@@ -10,8 +10,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/title_top_default"
         android:layout_margin="5dp"
+
         android:visibility="visible">
 
 
@@ -22,7 +23,9 @@
             android:padding="3dp"
             android:src="@drawable/back_nol"
             android:visibility="gone"
-            tools:visibility="visible" />
+            tools:visibility="visible"
+            android:layout_centerVertical="true"
+            />
 
         <TextView
             android:layout_width="wrap_content"

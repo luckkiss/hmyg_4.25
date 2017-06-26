@@ -136,8 +136,6 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                 getViewHolder_pur().tv_purchase_city_name.setText("未选择");
             }
             getViewHolder_pur().tv_purchase_city_name.setOnClickListener(showCity);
-
-
         }
         getViewHolder_pur().tv_purchase_add_pic.setOnClickListener(choosePic);
 
@@ -190,7 +188,11 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
             findViewById(R.id.recycle_pur_one).setVisibility(View.GONE);
             findViewById(R.id.include_bottom_pur_detail).setVisibility(View.VISIBLE);
 
-
+            if (!MainActivity.province_loc.equals("")) {
+                getViewHolder_pur().tv_purchase_city_name.setText(MainActivity.province_loc + " " + MainActivity.city_loc);
+            } else {
+                getViewHolder_pur().tv_purchase_city_name.setText("未选择");
+            }
             //初始化后 设置点击事件
             getViewHolder_pur().tv_purchase_commit.setOnClickListener(commitListener);
             getViewHolder_pur().tv_purchase_city_name.setOnClickListener(showCity);

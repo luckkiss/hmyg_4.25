@@ -86,7 +86,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
             protected void convert(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item) {
                 if (type == GRID_VIEW) {
                     D.e("=======GRID_VIEW========");
-                    initGridType(helper, item);
+                    initGridType(helper ,bitmap, item);
                 } else {
                     D.e("=======常规布局========");
                     initListType(helper, item, bitmap, "BActivity_new");
@@ -392,7 +392,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 
     }
 
-    private void initGridType(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item) {
+    public static void initGridType(BaseViewHolder helper,FinalBitmap bitmap,BPageGsonBean.DatabeanX.Pagebean.Databean item) {
         ImageView iv_img = helper.getView(R.id.iv_img);
         TextView tv_01 = helper.getView(R.id.tv_01);
         MySwipeAdapter.setSrcByType(tv_01, item.plantType);

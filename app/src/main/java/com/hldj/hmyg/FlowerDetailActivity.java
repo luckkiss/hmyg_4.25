@@ -620,6 +620,14 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                         jsonObject2, "isCollect");
                                 findViewById(R.id.iv_shou_can).setSelected(isCollect);
 
+                                if(isCollect)
+                                {
+                                    ((TextView)getView(R.id.tv_shou_can)).setText("已收藏");
+                                }else
+                                {
+                                    ((TextView)getView(R.id.tv_shou_can)).setText("收藏");
+                                }
+
                                 if (floorPrice > 0
                                         && "manage_list".equals(show_type)) {
                                     tv_dijia.setText("底价："
@@ -1504,6 +1512,14 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
             @Override
             public void onSuccess(SimpleGsonBean simpleGsonBean) {
                 findViewById(R.id.iv_shou_can).setSelected(simpleGsonBean.getData().isCollect());
+
+                if(simpleGsonBean.getData().isCollect())
+                {
+                    ((TextView)getView(R.id.tv_shou_can)).setText("已收藏");
+                }else
+                {
+                    ((TextView)getView(R.id.tv_shou_can)).setText("收藏");
+                }
                 LocalBroadcastManager.getInstance(FlowerDetailActivity.this).sendBroadcast(new Intent(ConstantState.COLLECT_REFRESH));
 
                 /**

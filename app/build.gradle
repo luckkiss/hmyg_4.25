@@ -4,9 +4,9 @@ apply plugin: 'org.greenrobot.greendao'
 // 依赖插件脚本
 //
 
-def isDebug = false
+def isDebug = true
 
-if (!isDebug) {
+if (!isDebug) {m
     apply from: 'tinker-support.gradle'
 }
 

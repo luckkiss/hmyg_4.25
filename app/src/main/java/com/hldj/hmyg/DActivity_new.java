@@ -159,6 +159,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
          admin/collect/listSeedling
          */
         // TODO Auto-generated method stub
+        showLoading();
 
         getdata = false;
 //        isRefreshing = true;

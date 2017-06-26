@@ -12,6 +12,7 @@ import com.hldj.hmyg.base.Rx.BaseView;
 import com.hldj.hmyg.base.Rx.JumpUtil;
 import com.hldj.hmyg.base.Rx.TUtil;
 import com.hldj.hmyg.buyer.weidet.DialogFragment.CustomDialog;
+import com.hy.utils.ToastUtil;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
@@ -20,7 +21,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
  * at 2017/6/5
  */
 
-public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseModel> extends NeedSwipeBackActivity implements JumpUtil.JumpInterface {
+public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseModel> extends NeedSwipeBackActivity implements JumpUtil.JumpInterface ,BaseView{
 
     public T mPresenter;
     public E mModel;
@@ -82,4 +83,20 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
 
 
     public abstract int bindLayoutID();
+
+
+    @Override
+    public void showLoading() {
+        super.showLoading();
+    }
+
+    @Override
+    public void hindLoading() {
+        super.hindLoading();
+    }
+
+    @Override
+    public void showErrir(String erMst) {
+        ToastUtil.showShortToast(erMst);
+    }
 }

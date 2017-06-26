@@ -61,6 +61,7 @@ import com.hldj.hmyg.broker.SeedlingMarketSearchActivity;
 import com.hldj.hmyg.broker.SellectMarketPriceActivity;
 import com.hldj.hmyg.broker.bean.SellectPrice;
 import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
+import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment1;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
 import com.hldj.hmyg.saler.M.PurchaseBean;
 import com.hldj.hmyg.saler.P.PurchasePyMapPresenter;
@@ -69,6 +70,7 @@ import com.hldj.hmyg.saler.bean.ParamsList;
 import com.hldj.hmyg.saler.bean.Subscribe;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
 import com.mrwujay.cascade.activity.BaseSecondActivity;
 import com.mrwujay.cascade.activity.GetCodeByName;
@@ -340,6 +342,42 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
     private void DialogNoti(String string) {
         // TODO Auto-generated method stub
 
+        CommonDialogFragment1.newInstance(new CommonDialogFragment1.OnCallDialog() {
+            @Override
+            public Dialog getDialog(Context context) {
+                Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.purchase_tips);
+                TextView textView = ((TextView) dialog.findViewById(R.id.tv_pur_content));
+
+                if ("quoting".equals(type)) {
+                    StringFormatUtil formatUtil = new StringFormatUtil(context, "[采购中]：已经确认采购且即将调苗的采购项目。", "[采购中]", R.color.red).fillColor();
+                    textView.setText(formatUtil.getResult());
+                } else if ("unquote".equals(type)) {
+                    StringFormatUtil formatUtil = new StringFormatUtil(context, "[待采购]：已经确认采购且即将调苗的采购项目。", "[待采购]", R.color.red).fillColor();
+                    textView.setText(formatUtil.getResult());
+                }
+                dialog.findViewById(R.id.btn_left).setOnClickListener(view -> {
+                    if ("quoting".equals(type)) {
+                        e.putBoolean("NeedShowquoting", false);
+                    } else if ("unquote".equals(type)) {
+                        e.putBoolean("NeedShowbangwo", false);
+                    }
+                    e.commit();
+                    dialog.cancel();
+                    ll_01.setVisibility(View.GONE);
+                });
+                dialog.findViewById(R.id.btn_right).setOnClickListener(view -> {
+                    dialog.cancel();
+                    ll_01.setVisibility(View.GONE);
+                });
+                //[待采购]：已经确认采购且即将调苗的采购项目。
+
+
+                return dialog;
+            }
+        }, true)
+                .show(getSupportFragmentManager(), getClass().getName());
+
         final com.flyco.dialog.widget.MaterialDialog dialog = new com.flyco.dialog.widget.MaterialDialog(
                 PurchasePyMapActivity.this);
         dialog.title("温馨提示").content(string)
@@ -347,7 +385,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                 .btnText("不再提示", "取消")//
 //                .showAnim(mBasIn)//
 //                .dismissAnim(mBasOut)//
-                .show();
+        ;
 
         dialog.setOnBtnClickL(new OnBtnClickL() {// left btn click listener
             @Override
@@ -1033,6 +1071,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                 listView.setXListViewListener(new IXListViewListener() {
                     @Override
                     public void onRefresh() {
+                        showLoading();
                         req3(callBack, 0);
                         pageIndex3 = 0;
                         purchaseBeenad.setState(GlobBaseAdapter.REFRESH);

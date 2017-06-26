@@ -52,7 +52,7 @@
                 android:textSize="16sp" />
 
 
-            <com.coorchice.library.SuperTextView
+            <ImageView
                 android:id="@+id/sptv_wd_bjzl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,19 +60,31 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="30dp"
                 android:layout_marginRight="8dp"
-                android:paddingBottom="3dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="3dp"
-                android:text="编辑资料"
-                android:textColor="@color/white"
-                android:textSize="13sp"
-                app:corner="@dimen/x9"
-                app:left_bottom_corner="true"
-                app:left_top_corner="true"
-                app:right_bottom_corner="true"
-                app:right_top_corner="true"
-                app:solid="@color/white_60" />
+                android:src="@drawable/wd_bjzl_seletor" />
+
+            <!--<com.coorchice.library.SuperTextView-->
+            <!--android:id="@+id/sptv_wd_bjzl"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginBottom="30dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:paddingBottom="3dp"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:paddingRight="10dp"-->
+            <!--android:paddingTop="3dp"-->
+            <!--android:text="编辑资料"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:background="@drawable/app_loading0"-->
+            <!--android:textSize="13sp"-->
+            <!--app:corner="@dimen/x9"-->
+            <!--app:left_bottom_corner="true"-->
+            <!--app:left_top_corner="true"-->
+            <!--app:right_bottom_corner="true"-->
+            <!--app:right_top_corner="true"-->
+            <!--app:solid="@color/white_60"-->
+            <!--/>-->
 
 
         </RelativeLayout>
@@ -151,10 +163,12 @@
 
         <com.lqr.optionitemview.OptionItemView
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="35dp"
             android:background="@color/white"
             app:left_text="其他"
-            app:left_text_color="@color/black" />
+            app:left_text_color="@color/black"
+
+            />
 
         <View style="@style/View_line_gray_1dp" />
 

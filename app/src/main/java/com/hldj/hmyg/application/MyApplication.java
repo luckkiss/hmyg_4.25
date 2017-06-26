@@ -25,9 +25,6 @@ import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.tencent.bugly.Bugly;
-import com.tencent.bugly.beta.Beta;
-import com.tencent.bugly.crashreport.CrashReport;
 import com.weavey.loading.lib.LoadingLayout;
 
 import java.io.File;
@@ -74,7 +71,7 @@ public class MyApplication extends Application {
         // you must install multiDex whatever tinker is installed!
         MultiDex.install(base);
         // 安装tinker
-        Beta.installTinker();
+//        Beta.installTinker();
     }
 
     /*
@@ -89,13 +86,14 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+
         // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
         // 调试时，将第三个参数改为true
-        Bugly.setIsDevelopmentDevice(this, true);
-        //设置为开发设备
-        CrashReport.setIsDevelopmentDevice(this, false);
-        Bugly.init(this, "be88780120", true);
-        CrashReport.setUserId(this, "17074990702");
+//        Bugly.setIsDevelopmentDevice(this, true);
+//        //设置为开发设备
+//        CrashReport.setIsDevelopmentDevice(this, false);
+//        Bugly.init(this, "be88780120", true);
+//        CrashReport.setUserId(this, "17074990702");
 
 
 //        FIR.init(this);

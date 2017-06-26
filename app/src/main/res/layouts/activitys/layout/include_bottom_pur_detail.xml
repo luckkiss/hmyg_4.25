@@ -25,6 +25,8 @@
     </LinearLayout>
     <!--<View style="@style/View_line_gray_1dp" />-->
 
+
+
     <RelativeLayout style="@style/ll_padleft_15">
 
         <TextView
@@ -49,7 +51,7 @@
     </RelativeLayout>
 
 
-
+    <View style="@style/View_line_gray_1dp" />
 
     <!--动态 tag -->
     <com.zhy.view.flowlayout.TagFlowLayout

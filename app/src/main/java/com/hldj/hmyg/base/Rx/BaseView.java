@@ -8,4 +8,10 @@ public interface BaseView {
 
 //    void showErrir(Throwable tr, int erCode, String erMst);
     void showErrir(String erMst);
+
+    void showLoading();
+    void hindLoading();
+
+
+
 }

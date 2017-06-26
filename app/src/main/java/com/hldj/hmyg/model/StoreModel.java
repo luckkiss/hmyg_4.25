@@ -3,7 +3,6 @@ package com.hldj.hmyg.model;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.contract.StoreContract;
 import com.hldj.hmyg.saler.P.BasePresenter;
-import com.hldj.hmyg.util.D;
 
 import net.tsz.afinal.http.AjaxCallBack;
 
@@ -23,18 +22,12 @@ public class StoreModel extends BasePresenter implements StoreContract.Model {
         AjaxCallBack ajaxCallBack = new AjaxCallBack<String>() {
             @Override
             public void onSuccess(String json) {
-                D.e("=======json==========" + json);
-                try {
-                    resultCallBack.onSuccess(json);
-                } catch (Exception e) {
-                    D.e("==报错了===" + e.getMessage());
-                    resultCallBack.onFailure(e, 0, e.getMessage());
-                }
+                resultCallBack.onSuccess(json);
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
-                resultCallBack.onFailure(t, 0, strMsg);
+                resultCallBack.onFailure(t, errorNo, strMsg);
             }
         };
         doRequest("seedling/list", false, ajaxCallBack);
@@ -42,6 +35,38 @@ public class StoreModel extends BasePresenter implements StoreContract.Model {
 
     }
 
+    @Override
+    public void getIndexData(ResultCallBack resultCallBack, String string) {
+
+        putParams("id", string);
+        AjaxCallBack ajaxCallBack = new AjaxCallBack<String>() {
+            @Override
+            public void onSuccess(String json) {
+                resultCallBack.onSuccess(json);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                resultCallBack.onFailure(t, 0, strMsg);
+            }
+        };
+        doRequest("store/index", false, ajaxCallBack);
+    }
+
+
+    /**
+     *  try {
+     StoreGsonBean storeGsonBean = GsonUtil.formateJson2Bean(json, StoreGsonBean.class);
+     if (storeGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
+     resultCallBack.onSuccess(storeGsonBean.data);
+     } else {
+     resultCallBack.onFailure(null, -1, storeGsonBean.msg);
+     }
+     } catch (Exception e) {
+     D.e("==报错了===" + e.getMessage());
+     resultCallBack.onFailure(e, 0, e.getMessage());
+     }
+     */
     /**
      *   AjaxCallBack ajaxCallBack = new AjaxCallBack<String>() {
     @Override public void onSuccess(String json) {

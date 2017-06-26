@@ -2,6 +2,7 @@ package com.hldj.hmyg.M;
 
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class BPageGsonBean {
             public int total;
             public int firstResult;
             public int maxResults;
-            public List<Databean> data;
+            public List<Databean> data = new ArrayList<>();
 
             public static class Databean {
 

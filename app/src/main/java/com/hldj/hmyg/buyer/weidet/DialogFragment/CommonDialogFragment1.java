@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -17,7 +18,7 @@ import android.view.WindowManager;
  * Created by Administrator on 2017/4/27.
  */
 
-public class CommonDialogFragment extends DialogFragment {
+public class CommonDialogFragment1 extends DialogFragment {
 
     /**
      * 监听弹出窗是否被取消
@@ -37,12 +38,12 @@ public class CommonDialogFragment extends DialogFragment {
         Dialog getDialog(Context context);
     }
 
-    public static CommonDialogFragment newInstance(OnCallDialog call, boolean cancelable) {
+    public static CommonDialogFragment1 newInstance(OnCallDialog call, boolean cancelable) {
         return newInstance(call, cancelable, null);
     }
 
-    public static CommonDialogFragment newInstance(OnCallDialog call, boolean cancelable, OnDialogCancelListener cancelListener) {
-        CommonDialogFragment instance = new CommonDialogFragment();
+    public static CommonDialogFragment1 newInstance(OnCallDialog call, boolean cancelable, OnDialogCancelListener cancelListener) {
+        CommonDialogFragment1 instance = new CommonDialogFragment1();
         instance.setCancelable(cancelable);
         instance.mCancelListener = cancelListener;
         instance.mOnCallDialog = call;
@@ -71,8 +72,12 @@ public class CommonDialogFragment extends DialogFragment {
                 }
             }
             Window window = getDialog().getWindow();
+            WindowManager m =getActivity(). getWindowManager();
             WindowManager.LayoutParams windowParams = window.getAttributes();
             windowParams.dimAmount = 0.5f;
+
+            Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
+            windowParams.width = (int) (d.getWidth() * 0.85); // 宽度设置为屏幕的0.65
             window.setAttributes(windowParams);
 
 

@@ -51,6 +51,8 @@ public abstract class BasePresenter {
     }
 
 
+
+
     /**
      * 先传参数
      *

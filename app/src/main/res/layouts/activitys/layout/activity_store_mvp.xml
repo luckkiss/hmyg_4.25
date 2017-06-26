@@ -240,6 +240,15 @@
     </android.support.design.widget.AppBarLayout>
 
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_store_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/red"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    </android.support.v4.view.ViewPager>
+
     <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
         android:id="@+id/store_recycle"
         android:layout_width="match_parent"

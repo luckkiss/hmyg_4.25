@@ -91,13 +91,14 @@
 
         <Button
             android:id="@+id/edit_btn"
-            android:layout_width="@dimen/x48"
-            android:layout_height="@dimen/x24"
+            android:layout_width="@dimen/x46"
+            android:layout_height="@dimen/x22"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/x15"
             android:background="@drawable/r_o_green"
             android:gravity="center"
+            android:textSize="@dimen/textSize"
             android:text="搜索"
             android:textColor="@color/white" />
     </RelativeLayout>
