@@ -902,6 +902,11 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                 latitude = location.getLatitude() + "";
                 longitude = location.getLongitude() + "";
 
+
+                if (location.getAdCode() != null && location.getAdCode().length() >= 4) {
+                    cityCode = location.getAdCode().substring(0, 4);
+                }
+
                 aMapLocation = location;
                 MLocationManager.getInstance().stopLoaction();//一次成功后关闭定位
             } else {
@@ -919,6 +924,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     public static String city_loc = "";
     public static String district_loc = "";
     public static AMapLocation aMapLocation = null;
+    public static String cityCode = "";
 
     /**
      * ======amapLocation=========latitude=24.488207longitude=118.09651province=福建省#city=厦门市#district=思明区

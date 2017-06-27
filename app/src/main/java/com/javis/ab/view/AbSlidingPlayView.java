@@ -452,6 +452,11 @@ public class AbSlidingPlayView extends LinearLayout {
      * 描述：自动轮播. sleepTime 播放的间隔时间
      */
     public void startPlay() {
+        if(play)
+        {
+            return;
+        }
+
         if (handler != null) {
             play = true;
             handler.postDelayed(runnable, sleepTime);
@@ -466,6 +471,11 @@ public class AbSlidingPlayView extends LinearLayout {
             play = false;
             handler.removeCallbacks(runnable);
         }
+    }
+
+    public boolean isPlaying()
+    {
+        return play;
     }
 
     /**

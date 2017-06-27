@@ -96,7 +96,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     @Override
     public void initItem(ItemBean item) {
         super.initItem(item);//返回给父类实现
-
+        uploadBean.cityCode = MainActivity.cityCode ;
         sellerQuoteJsonBean = item.sellerQuoteJson;
 
 
@@ -132,6 +132,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
             if (!MainActivity.province_loc.equals("")) {
                 getViewHolder_pur().tv_purchase_city_name.setText(MainActivity.province_loc + " " + MainActivity.city_loc);
+                uploadBean.cityCode = MainActivity.cityCode ;
             } else {
                 getViewHolder_pur().tv_purchase_city_name.setText("未选择");
             }
@@ -190,6 +191,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
             if (!MainActivity.province_loc.equals("")) {
                 getViewHolder_pur().tv_purchase_city_name.setText(MainActivity.province_loc + " " + MainActivity.city_loc);
+                uploadBean.cityCode = MainActivity.cityCode ;
             } else {
                 getViewHolder_pur().tv_purchase_city_name.setText("未选择");
             }
@@ -685,6 +687,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
             data.getExtras().get("urlPaths");
 
             PicSerializableMaplist myMap = (PicSerializableMaplist) data.getExtras().get("urlPaths");
+
 
             listPicsOnline.addAll(myMap.getMaplist());
 

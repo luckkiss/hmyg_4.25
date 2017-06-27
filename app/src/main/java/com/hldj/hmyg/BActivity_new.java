@@ -3,7 +3,6 @@ package com.hldj.hmyg;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -75,13 +74,13 @@ public class BActivity_new extends NeedSwipeBackActivity {
         initViewClick();
         recyclerView1 = (CoreRecyclerView) findViewById(R.id.core_rv_b);
         recyclerView1.getRecyclerView().setHasFixedSize(true);
-        recyclerView1.getRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                outRect.set(0, 0, 0, 1);
-            }
-        });
+//        recyclerView1.getRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
+//            @Override
+//            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+//                super.getItemOffsets(outRect, view, parent, state);
+//                outRect.set(0, 0, 0, 1);
+//            }
+//        });
         D.e("======设置fix======");
         recyclerView1.init(new BaseMultAdapter<BPageGsonBean.DatabeanX.Pagebean.Databean, BaseViewHolder>(R.layout.list_view_seedling_new, R.layout.grid_view_seedling) {
             @Override

@@ -105,7 +105,7 @@ public class EditGalleryImageActivity extends CoreActivity implements
 		backBtn = (Button) findViewById(R.id.common_titlebar_leftBtn);
 		delBtn = (Button) findViewById(R.id.common_titlebar_rightBtn);
 		backBtn.setText("返回");
-		delBtn.setText(R.string.delete);
+//		delBtn.setText(R.string.delete);
 
 		imageGallery = (ImageGalleryView) findViewById(R.id.gallery_image);
 		pageTv = (TextView) findViewById(R.id.pageTv);
@@ -118,7 +118,7 @@ public class EditGalleryImageActivity extends CoreActivity implements
 
 		BtnOnClickListener listener = new BtnOnClickListener();
 		backBtn.setOnClickListener(listener);
-		delBtn.setOnClickListener(listener);
+//		delBtn.setOnClickListener(listener);
 	}
 
 	private class BtnOnClickListener implements OnClickListener {

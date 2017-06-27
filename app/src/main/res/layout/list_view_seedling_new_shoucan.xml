@@ -66,13 +66,15 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/y2"
                 android:paddingLeft="@dimen/y8"
-                android:paddingTop="@dimen/y2">
+               >
 
                 <RelativeLayout
                     android:layout_width="@dimen/x85"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="@dimen/y3"
+                    >
 
                     <ImageView
                         android:id="@+id/iv_img"
@@ -83,7 +85,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="130dp"
                     android:layout_marginLeft="@dimen/x5"
                     android:orientation="vertical">
 
@@ -93,8 +95,8 @@
 
                         <ImageView
                             android:id="@+id/iv_right_top"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
                             android:layout_alignParentRight="true"
                             android:src="@drawable/piao_right_top" />
 
@@ -102,9 +104,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingTop="7dp"
+                            >
 
                             <com.neopixl.pixlui.components.textview.TextView
                                 android:id="@+id/tv_01"
@@ -112,6 +115,7 @@
                                 android:layout_height="@dimen/y11"
                                 android:gravity="center_vertical"
                                 android:maxLines="1"
+
                                 android:textSize="@dimen/y11" />
 
                             <com.neopixl.pixlui.components.textview.TextView
@@ -196,7 +200,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dip"
-                        android:layout_weight="1">
+                        android:layout_weight="1.2">
 
                         <com.neopixl.pixlui.components.textview.TextView
                             android:id="@+id/tv_07"
@@ -235,6 +239,11 @@
                             android:textColor="@color/little_black_sm"
                             android:textSize="@dimen/y7" />
                     </RelativeLayout>
+
+
+                    <View style="@style/View_line_gray_1dp"
+                        android:layout_marginTop="2dp"
+                        />
 
                     <RelativeLayout
                         android:id="@+id/rl_floorPrice"

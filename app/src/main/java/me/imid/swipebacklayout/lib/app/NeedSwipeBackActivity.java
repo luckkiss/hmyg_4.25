@@ -31,6 +31,8 @@ public class NeedSwipeBackActivity extends SwipeBackBActivity {
     }
 
 
+
+
     /**
      * 打开activity 动画
      */
@@ -115,5 +117,10 @@ return (T) view;
         return (T) view;
     }
 
+
+
+    public void retry(){
+
+    }
 
 }

@@ -6,9 +6,9 @@ apply plugin: 'org.greenrobot.greendao'
 
 def isDebug = true
 
-if (!isDebug) {m
-    apply from: 'tinker-support.gradle'
-}
+//if (!isDebug) {
+//    apply from: 'tinker-support.gradle'
+//}
 
 android {
     signingConfigs {

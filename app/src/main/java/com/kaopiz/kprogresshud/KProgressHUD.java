@@ -20,6 +20,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -237,7 +238,7 @@ public class KProgressHUD {
     }
 
     public KProgressHUD show() {
-        if (mProgressDialog != null  &! mProgressDialog.isShowing()) {
+        if (mProgressDialog != null ) {
             mProgressDialog.show();
             Log.e("KProgressHUD", "开始显示 loading: ");
         }
@@ -249,9 +250,14 @@ public class KProgressHUD {
     }
 
     public void dismiss() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-            Log.e("KProgressHUD", "关闭显示 loading: ");
+        Log.e("KProgressHUD", "进入 loading: 方法");
+        if (mProgressDialog != null) {
+            new Handler().postDelayed(()->{
+                mProgressDialog.dismiss();
+                Log.e("KProgressHUD", "延迟 关闭显示 loading: ");
+            },300);
+
+
         }
     }
 

@@ -1158,7 +1158,11 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
         viewPager.addViews(allListView);
         // 开始轮播
-        viewPager.startPlay();
+        if (!viewPager.isPlaying())
+        {
+            viewPager.startPlay();
+        }
+
 
         viewPager.setOnItemClickListener(new AbOnItemClickListener() {
             @Override

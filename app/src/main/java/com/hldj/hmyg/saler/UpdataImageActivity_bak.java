@@ -111,10 +111,26 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
     public void save() {
 
         int size = measureGridView.getAdapter().getDataList().size();
-        if (measureGridView != null || size != 0) {
+//        if (measureGridView != null || size == 0)
+//        {
+//            finish();
+//            return;
+//        }
+        if (measureGridView != null && size != 0) {
             D.e("======图片的地址数量====" + size);
             D.e("======图片的地址====" + this.measureGridView.getAdapter().getDataList().get(0).getUrl());
 //            uploadBean.imagesData = PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList().get(0).getUrl();
+        } else {
+            //传回地址。到上一个界面
+            Intent intent = new Intent();
+            Bundle bundleObject = new Bundle();
+            final PicSerializableMaplist myMap = new PicSerializableMaplist();
+            myMap.setMaplist(new ArrayList<>());
+            bundleObject.putSerializable("urlPaths", myMap);
+            intent.putExtras(bundleObject);
+            setResult(5, intent);
+            finish();
+            return;
         }
 
         D.e("============上传报价===================");
