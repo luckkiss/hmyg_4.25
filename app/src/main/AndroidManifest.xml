@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hldj.hmyg"
     android:versionCode="74"
-    android:versionName="3.0.1">
+    android:versionName="3.0.2">
     <!--android:versionCode="73"-->
     <!--android:versionName="2.1.1">-->
 
@@ -120,9 +120,8 @@
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@style/AppBaseTheme"
         android:largeHeap="true"
-        >
+        android:theme="@style/AppBaseTheme">
         <!--<item name="android:windowAnimationStyle">@style/activityAnimation</item>-->
         <!--xmlns:tools="http://schemas.android.com/tools"  tools:replace="android:icon, android:theme  "-->
         <activity
@@ -141,7 +140,8 @@
         <activity
             android:name="com.hldj.hmyg.MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" android:theme="@style/AppMainTheme">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppMainTheme">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -156,6 +156,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".Ui.MyProgramActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Ui.myProgramChild.ProgramDirctActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name="cn.hugo.android.scanner.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -367,17 +377,15 @@
         <activity
             android:name="com.hldj.hmyg.FeedBackActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.SetProfileActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-          />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.SetProfileActivity_new"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-          />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.SetPasswardActivity"
             android:launchMode="singleTask"
@@ -505,10 +513,10 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.saler.AdressManagerActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.saler.AdressActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.saler.SalerOrderActivity2"
             android:launchMode="singleTask"
@@ -665,7 +673,7 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.ManagerListActivity_new"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.LoginActivity"
             android:screenOrientation="portrait"

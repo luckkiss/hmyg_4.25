@@ -12,6 +12,7 @@ import com.hldj.hmyg.base.Rx.BaseView;
 import com.hldj.hmyg.base.Rx.JumpUtil;
 import com.hldj.hmyg.base.Rx.TUtil;
 import com.hldj.hmyg.buyer.weidet.DialogFragment.CustomDialog;
+import com.hldj.hmyg.util.D;
 import com.hy.utils.ToastUtil;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
@@ -21,7 +22,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
  * at 2017/6/5
  */
 
-public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseModel> extends NeedSwipeBackActivity implements JumpUtil.JumpInterface ,BaseView{
+public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseModel> extends NeedSwipeBackActivity implements JumpUtil.JumpInterface, BaseView {
 
     public T mPresenter;
     public E mModel;
@@ -40,7 +41,14 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
         init();
         mPresenter = TUtil.getT(this, 0);
         mModel = TUtil.getT(this, 1);
-        if (this instanceof BaseView) mPresenter.setVM(this, mModel);
+        try {
+            if (this instanceof BaseView)
+                mPresenter.setVM(this, mModel);
+        } catch (Exception e) {
+            D.e("===mvp 设置失败====e=====" + e.getMessage());
+            e.printStackTrace();
+        }
+
 
         initView();
         initVH();

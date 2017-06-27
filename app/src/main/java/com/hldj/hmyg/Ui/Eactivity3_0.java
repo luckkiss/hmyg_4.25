@@ -127,6 +127,9 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         this.getView(R.id.sptv_wd_kf).setOnClickListener(v -> Call_Phone()); // 客服
         this.getView(R.id.sptv_wd_yhfk).setOnClickListener(v -> FeedBackActivity.start2Activity(mActivity));//反馈
         this.getView(R.id.sptv_wd_bjzl).setOnClickListener(v -> SetProfileActivity.start2ActivitySet(mActivity, 100));//编辑资料
+        this.getView(R.id.sptv_wd_wdxm).setOnClickListener(v ->MyProgramActivity.start(mActivity));//我的项目
+
+
         this.getView(R.id.iv_circle_head).setOnClickListener(v -> {
             setPics();
         });//点击弹窗选择拍照 或者 相册  上传图片

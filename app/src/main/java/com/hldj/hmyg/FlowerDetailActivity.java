@@ -2108,13 +2108,19 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
     }
 
+
+
     private void ShareToQzone() {
         Platform.ShareParams sp5 = new Platform.ShareParams();
+
         sp5.setTitle(seedlingBean.getName());
+        sp5.setTitleUrl(Data.getSharePlantUrl(seedlingBean.getId())); // 标题的超链接
 //        sp5.setTitleUrl(Data.getSharePlantUrl(seedlingBean.getId())); // 标题的超链接
         sp5.setText(seedlingBean.getSpecText());
-        sp5.setImageUrl(seedlingBean.getSmallImageUrl());
+        sp5.setImageUrl(seedlingBean.getMediumImageUrl());
         sp5.setUrl(Data.getSharePlantUrl(seedlingBean.getId()));
+        sp5.setSite(seedlingBean.getSpecText());
+        sp5.setSiteUrl(Data.getSharePlantUrl(seedlingBean.getId()));
 //        sp5.setSite(getString(R.string.app_name));
 //        sp5.setSiteUrl(Data.share);
         Platform qzone = ShareSDK.getPlatform(QQ.NAME);
@@ -2125,8 +2131,9 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
     private void ShareToSinaWeibo() {
         Platform.ShareParams sp3 = new Platform.ShareParams();
+        sp3.setShareType(Platform.SHARE_WEBPAGE);
         sp3.setText(seedlingBean.getSpecText());
-        sp3.setImageUrl(seedlingBean.getSmallImageUrl());
+        sp3.setImageUrl(seedlingBean.getMediumImageUrl());
         sp3.setTitle(seedlingBean.getName());
         sp3.setUrl(Data.getSharePlantUrl(seedlingBean.getId()));
         Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
@@ -2182,7 +2189,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         sp1.setShareType(Platform.SHARE_WEBPAGE);
         sp1.setTitle(seedlingBean.getName());
         sp1.setText(seedlingBean.getSpecText());
-        sp1.setImageUrl(seedlingBean.getSmallImageUrl());//小图
+        sp1.setImageUrl(seedlingBean.getMediumImageUrl());//小图
         String url = Data.getSharePlantUrl(seedlingBean.getId());
         D.e("===url==" + url);
         sp1.setUrl(url);
@@ -2196,7 +2203,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         sp2.setShareType(Platform.SHARE_WEBPAGE);
         sp2.setTitle(seedlingBean.getName());
         sp2.setText(seedlingBean.getSpecText());
-        sp2.setImageUrl(seedlingBean.getSmallImageUrl());//小图
+        sp2.setImageUrl(seedlingBean.getMediumImageUrl());//小图
         sp2.setUrl(Data.getSharePlantUrl(seedlingBean.getId()));
         Platform Wechat_men = ShareSDK.getPlatform("WechatMoments");
         Wechat_men.setPlatformActionListener(this);

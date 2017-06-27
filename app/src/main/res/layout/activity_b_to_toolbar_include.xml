@@ -38,7 +38,7 @@
             android:layout_margin="5dp"
             android:layout_toLeftOf="@+id/iv_view_type"
             android:layout_toRightOf="@+id/ib_b_back"
-           app:state_drawable_mode="left"
+            app:state_drawable_mode="left"
             app:isShowState="true"
             app:state_drawable_height="18dp"
             app:state_drawable_width="18dp"
@@ -56,8 +56,6 @@
             app:right_bottom_corner="true"
             app:right_top_corner="true"
             app:solid="#f5f5f5"
-
-
             />
 
 

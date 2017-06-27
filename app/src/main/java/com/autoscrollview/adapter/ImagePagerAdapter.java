@@ -50,7 +50,8 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
         this.imageIdList = imageIdList;
         this.size = ListUtils.getSize(imageIdList);
         isInfiniteLoop = false;
-        finalBitmap = FinalBitmap.create(context);
+        finalBitmap = FinalBitmap.create(context)
+        .configLoadingImage(R.drawable.no_image_big_show);
         D.e("====================" + TAG);
 
     }
