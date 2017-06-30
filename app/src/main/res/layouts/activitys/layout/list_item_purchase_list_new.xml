@@ -43,6 +43,22 @@
                 android:paddingRight="10.0dip">
 
                 <TextView
+                    android:id="@+id/tv_pos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="6dp"
+                    android:background="@color/main_color"
+                    android:gravity="center"
+                    android:minHeight="18dp"
+                    android:minWidth="18dp"
+                    android:padding="1dp"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    tools:text="1"
+                    tools:visibility="visible" />
+
+
+                <TextView
                     android:id="@+id/tv_01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -52,8 +68,8 @@
                     android:gravity="center|start"
                     android:maxLines="2"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
-                    tools:text="jklfasfasfa" />
+                    android:textSize="@dimen/textSizeXXX"
+                    tools:text="tv_01" />
 
                 <!--<TextView-->
                 <!--android:id="@+id/tv_ac"-->
@@ -82,7 +98,7 @@
                 android:singleLine="true"
                 android:textColor="@color/orange"
                 android:textSize="13sp"
-                tools:text="jklfasfasfa" />
+                tools:text="tv_03" />
         </RelativeLayout>
 
         <LinearLayout
@@ -95,12 +111,13 @@
                 android:id="@+id/tv_04"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:layout_weight="1"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="#5A5A5A"
                 android:textSize="13sp"
-                tools:text="jklfasfasfa" />
+                tools:text="tv_04" />
         </LinearLayout>
 
 
@@ -145,7 +162,7 @@
                     android:singleLine="true"
                     android:textColor="@color/gray"
                     android:textSize="13.0sp"
-                    tools:text="共有一条品种" />
+                    tools:text="共有一条品种tv_10" />
 
                 <TextView
                     android:id="@+id/tv_11"
@@ -159,7 +176,7 @@
                     android:textColor="#5A5A5A"
                     android:textSize="12.0sp"
                     android:visibility="gone"
-                    tools:text="已有一条报价"
+                    tools:text="已有一条报价tv_11"
                     tools:visibility="visible" />
                 <!--默认隐藏，预览界面通过tools 来显示布局-->
             </RelativeLayout>
@@ -196,7 +213,7 @@
             android:singleLine="true"
             android:textColor="@color/gray"
             android:textSize="13.0sp"
-            tools:text="截止日期" />
+            tools:text="截止日期tv_caozuo01" />
 
         <LinearLayout
             android:layout_width="match_parent"

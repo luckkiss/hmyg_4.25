@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="@color/white"
+
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <!--app:expandedTitleMarginBottom="100dp"-->
+            <LinearLayout
+                android:id="@+id/ll_activity_purchase_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="78dp"
+                android:visibility="gone"
+                app:layout_collapseMode="parallax"
+                tools:visibility="visible">
+
+                <include layout="@layout/activity_program_purchase_head" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="78dp"
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_activity_purchase_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/title_top_default"
+                        android:drawableLeft="@drawable/ic_arrow_left_green"
+                        android:gravity="center"
+                        android:text="P05346"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/textSizeXXXX" />
+
+                    <include layout="@layout/include_search_layout" />
+                </LinearLayout>
+
+
+            </android.support.v7.widget.Toolbar>
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <com.weavey.loading.lib.LoadingLayout
+        android:id="@+id/loading_layout_program_purchase"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:isFirstVisible="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+            android:id="@+id/recycle_program_purchase"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </com.weavey.loading.lib.LoadingLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

@@ -9,17 +9,17 @@ import com.neopixl.pixlui.components.textview.FontFactory;
 import com.neopixl.pixlui.intern.FontStyleView;
 import com.neopixl.pixlui.intern.PixlUIUtils;
 
-public class EditText extends android.widget.EditText implements FontStyleView {
+public class MyEditText extends android.widget.EditText implements FontStyleView {
 
-	public EditText(Context context) {
+	public MyEditText(Context context) {
         super(context, null);
 	}
 
-	public EditText(Context context, AttributeSet attrs) {
+	public MyEditText(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
-	public EditText(Context context, AttributeSet attrs, int defStyle) {
+	public MyEditText(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		setCustomFont(context, attrs, defStyle);
 	}

@@ -3,11 +3,13 @@ package com.hldj.hmyg.contract;
 import android.view.ViewGroup;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
-import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.M.CountTypeGsonBean;
 import com.hldj.hmyg.base.Rx.BaseModel;
 import com.hldj.hmyg.base.Rx.BasePresenter;
 import com.hldj.hmyg.base.Rx.BaseView;
+import com.hldj.hmyg.model.MyProgramGsonBean;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/6/11 0011.
@@ -15,13 +17,13 @@ import com.hldj.hmyg.base.Rx.BaseView;
 
 public interface MyProgramContract {
     interface Model extends BaseModel {
-        void getDatas(String page, String status, String searchKey, ResultCallBack callBack);
+        void getDatas(String page, String searchKey, ResultCallBack callBack);
         void getCounts(ResultCallBack callBack);
         void doDelete(String id, ResultCallBack callBack);
     }
 
     interface View extends BaseView {
-        void initXRecycle(BPageGsonBean gsonBean);
+        void initXRecycle(List<MyProgramGsonBean.DataBeanX.PageBean.DataBean> gsonBean);
         void initCounts(CountTypeGsonBean gsonBean);
         void onDeled(boolean bo);
         String getSearchText();
@@ -32,7 +34,7 @@ public interface MyProgramContract {
 
         public abstract void onStart();
 
-        public abstract void getData(String page , String status,String searchKey  );
+        public abstract void getData(String page ,String searchKey  );
 
 
         public abstract void getCounts();

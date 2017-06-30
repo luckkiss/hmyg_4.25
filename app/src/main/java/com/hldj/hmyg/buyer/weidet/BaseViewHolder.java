@@ -22,6 +22,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.util.Linkify;
 import android.util.SparseArray;
@@ -36,6 +37,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.MyApplication;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -91,6 +95,22 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     public BaseViewHolder setText(int viewId, CharSequence value) {
         TextView view = getView(viewId);
         view.setText(value);
+        return this;
+    }
+
+    /**
+     * Will set the text of a TextView.
+     *
+     * @param viewId The view id.
+     * @param resId  The  left drawable res id
+     * @return The BaseViewHolder for chaining.
+     */
+    public BaseViewHolder setDrawableLeft(int viewId, int resId) {
+        TextView view = getView(viewId);
+        Drawable drawable = ContextCompat.getDrawable(MyApplication.getInstance(), R.mipmap.ic_location);
+        drawable.setBounds(5, 5, drawable.getMinimumWidth() + 5, drawable.getMinimumHeight() + 5);
+        view.setCompoundDrawablePadding(25);
+        view.setCompoundDrawables(drawable, null, null, null);
         return this;
     }
 
@@ -512,7 +532,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     /**
      * Sets the selected status of a selectable.
      *
-     * @param viewId  The view id.
+     * @param viewId   The view id.
      * @param selected The checked status;
      * @return The BaseViewHolder for chaining.
      */

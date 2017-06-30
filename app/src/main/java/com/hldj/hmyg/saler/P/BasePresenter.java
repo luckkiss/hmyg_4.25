@@ -29,6 +29,10 @@ public abstract class BasePresenter {
         return ajaxParams;
     }
 
+    public void resetAjaxParams() {
+        ajaxParams = null;
+    }
+
     //初始化清空
     public BasePresenter() {
         ajaxParams = null;
@@ -45,12 +49,11 @@ public abstract class BasePresenter {
             FinalHttp finalHttp = new FinalHttp();
             GetServerUrl.addHeaders(finalHttp, isAddHeaders);
             finalHttp.post(GetServerUrl.getUrl() + path, getAjaxParams(), callBack);
+            resetAjaxParams();
             return this;
 
         }
     }
-
-
 
 
     /**

@@ -17,7 +17,7 @@ import com.hldj.hmyg.buyer.weidet.listener.OnItemClickListener;
 
 
 /**
- * Created by hpw on 16/11/1.
+ * Created by 罗擦擦 on 16/11/1.
  */
 
 public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener{

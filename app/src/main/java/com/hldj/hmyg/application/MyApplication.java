@@ -141,7 +141,7 @@ public class MyApplication extends Application {
                 .setEmptyText("抱歉，暂无数据")
                 .setNoNetworkText("无网络连接，请检查您的网络···")
                 .setErrorImage(R.mipmap.error)
-                .setEmptyImage(R.mipmap.empty)
+                .setEmptyImage(R.drawable.wushuju)
                 .setNoNetworkImage(R.mipmap.no_network)
                 .setAllTipTextColor(R.color.gray)
                 .setAllTipTextSize(14)

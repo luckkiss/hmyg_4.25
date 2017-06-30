@@ -27,8 +27,6 @@ public class StringFormatUtil {
         this.wholeStr=wholeStr;
         this.highlightStr=highlightStr;
         this.color=color;
-         
-         
     }
      
      

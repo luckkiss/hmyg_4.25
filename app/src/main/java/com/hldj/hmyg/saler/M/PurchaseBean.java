@@ -102,8 +102,8 @@ public class PurchaseBean {
     public String authcPhone;
     public BuyerBean buyer;
     public String statusName;
-    public int quoteCountJson;
-    public String itemCountJson;
+    public int quoteCountJson = 0;
+    public String itemCountJson = "0";
     public String lastDays;
     public String purchaseFormId;
     public String typeName;
@@ -117,6 +117,9 @@ public class PurchaseBean {
 
     public  static class  AttrDataBean{
         public String closeDateStr = "" ;
+        public Boolean isSupplier =false;
+        public double servicePrice  ;
+
     }
 
 }

@@ -9,7 +9,7 @@ public interface IExpandable<T> {
 
     /**
      * Get the level of this item. The level start from 0.
-     * If you don't care about the level, just return a negative.
+     * If you don't care about the level, just return a negative.  负数
      */
     int getLevel();
 }

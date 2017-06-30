@@ -1,5 +1,6 @@
 package com.hldj.hmyg.bean;
 
+import com.hldj.hmyg.M.QuoteListJsonBean;
 import com.hldj.hmyg.buyer.M.ItemBean;
 import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
 import com.hldj.hmyg.saler.bean.PurchaseItemJsonBean;
@@ -147,6 +148,28 @@ public class SaveSeedingGsonBean implements Serializable {
             private boolean isNego = false;
             private String minPrice = "";
             private String maxPrice = "";
+
+            public List<QuoteListJsonBean> quoteListJson = new ArrayList<>();
+
+            public int getQuoteUsedCountJson() {
+                return quoteUsedCountJson;
+            }
+
+            public void setQuoteUsedCountJson(int quoteUsedCountJson) {
+                this.quoteUsedCountJson = quoteUsedCountJson;
+            }
+
+            private int quoteUsedCountJson;
+
+            public int getQuoteCountJson() {
+                return quoteCountJson;
+            }
+
+            public void setQuoteCountJson(int quoteCountJson) {
+                this.quoteCountJson = quoteCountJson;
+            }
+
+            private int quoteCountJson;
 
 
             public boolean isQuoted;
@@ -940,7 +963,6 @@ public class SaveSeedingGsonBean implements Serializable {
             public void setDbhType(String dbhType) {
                 this.dbhType = dbhType;
             }
-
 
 
             public static class PrCityBean implements Serializable {

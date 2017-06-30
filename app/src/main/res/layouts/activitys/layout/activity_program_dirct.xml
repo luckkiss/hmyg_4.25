@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
 
-    <include layout="@layout/toolbar_3_0" />
+    <include layout="@layout/toolbar_radio_3_0" />
 
 
     <android.support.v4.view.ViewPager

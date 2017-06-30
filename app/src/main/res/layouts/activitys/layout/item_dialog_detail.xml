@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:layout_editor_absoluteY="25dp"
+    tools:layout_editor_absoluteX="0dp">
+
+
+    <TextView
+        android:id="@+id/tv_item_detail_project_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:text="莆田市区项目莆田市莆田市区项目"
+        android:visibility="gone"
+        app:layout_constraintLeft_toRightOf="@+id/textView7"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/text_color333"
+        android:textSize="@dimen/textSizeXX"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tv_item_detail_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="1. 红豆杉  "
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_detail_project_name" />
+
+    <TextView
+        android:id="@+id/tv_item_detail_load_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="10株"
+        android:textColor="@color/main_color"
+        app:layout_constraintLeft_toRightOf="@+id/tv_item_detail_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_detail_project_name" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="7dp"
+        android:text="采购单价:"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_detail_name" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        android:text="小计："
+        app:layout_constraintLeft_toLeftOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_detail_load_count" />
+
+    <TextView
+        android:id="@+id/tv_item_detail_totalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="￥495"
+        android:textColor="@color/price_orige"
+        app:layout_constraintLeft_toRightOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_detail_load_count" />
+
+
+    <View
+        style="@style/View_line_gray"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/xuxian"
+        android:layerType="software"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_detail_spec_text" />
+
+    <TextView
+        android:id="@+id/tv_item_detail_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="6dp"
+        android:text="111"
+        android:textColor="@color/price_orige"
+        app:layout_constraintLeft_toRightOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_detail_load_count" />
+
+    <TextView
+        android:id="@+id/tv_item_detail_spec_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView15"
+        tools:text="高度 90"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="3dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/main_color"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+</android.support.constraint.ConstraintLayout>

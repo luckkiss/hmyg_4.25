@@ -1,5 +1,6 @@
 package com.hldj.hmyg.base;
 
+import android.accounts.NetworkErrorException;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -11,9 +12,11 @@ import com.hldj.hmyg.base.Rx.BasePresenter;
 import com.hldj.hmyg.base.Rx.BaseView;
 import com.hldj.hmyg.base.Rx.JumpUtil;
 import com.hldj.hmyg.base.Rx.TUtil;
+import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.buyer.weidet.DialogFragment.CustomDialog;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.ToastUtil;
+import com.weavey.loading.lib.LoadingLayout;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
@@ -106,5 +109,41 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
     @Override
     public void showErrir(String erMst) {
         ToastUtil.showShortToast(erMst);
+    }
+
+
+
+
+    //成功时进来
+    public static void setLoadingState(CoreRecyclerView recyclerView, LoadingLayout layout) {
+        if (recyclerView.getAdapter().getData().size() == 0) {
+            layout.setStatus(LoadingLayout.Empty);
+        } else {
+            layout.setStatus(LoadingLayout.Success);
+        }
+    }
+
+    //失败时进来
+    public static void setLoadingState(CoreRecyclerView recyclerView, LoadingLayout layout, String errorMsg, LoadingLayout.OnReloadListener reloadListener) {
+        layout.setOnReloadListener(reloadListener);
+        layout.setErrorText(errorMsg);
+        layout.setStatus(LoadingLayout.Error);
+    }
+
+    //失败时进来
+    public static void setLoadingState(CoreRecyclerView recyclerView, LoadingLayout layout, String errorMsg) {
+        layout.setErrorText(errorMsg);
+        layout.setStatus(LoadingLayout.Error);
+    }
+
+    //网络请求错误时进来
+    public static void setLoadingState(CoreRecyclerView recyclerView, LoadingLayout layout, Throwable t, String errorMsg) {
+        if (t instanceof NetworkErrorException) {
+            //NetworkErrorException
+            layout.setStatus(LoadingLayout.No_Network);
+        } else {
+            layout.setErrorText("连接服务器失败");
+            layout.setStatus(LoadingLayout.Error);
+        }
     }
 }

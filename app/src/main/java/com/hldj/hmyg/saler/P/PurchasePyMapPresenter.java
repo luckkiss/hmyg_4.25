@@ -13,7 +13,7 @@ import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
 /**
- * Created by Administrator on 2017/5/12.
+ * Created by 罗擦擦
  */
 
 public class PurchasePyMapPresenter {

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
 
 
@@ -17,13 +18,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="项目编号" />
+            android:text="项目编号"
+            android:textColor="@color/text_color333" />
 
         <TextView
+            android:id="@+id/program3_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="xm0000253" />
+            tools:text="xm0000253" />
     </LinearLayout>
 
     <View style="@style/View_line_gray_1dp" />
@@ -39,13 +42,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="项目名称" />
+            android:text="项目名称"
+            android:textColor="@color/text_color333" />
 
         <TextView
+            android:id="@+id/program3_projectName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="莆田市区项目" />
+            tools:text="莆田市区项目" />
     </LinearLayout>
 
     <View style="@style/View_line_gray_1dp" />
@@ -61,9 +66,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="项目全称" />
+            android:text="项目全称"
+            android:textColor="@color/text_color333" />
 
         <TextView
+            android:id="@+id/program3_projectFullName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -83,13 +90,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="项目类型" />
+            android:text="项目类型"
+            android:textColor="@color/text_color333" />
 
         <TextView
+            android:id="@+id/program3_typeName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="代购" />
+            tools:text="代购" />
     </LinearLayout>
 
     <View style="@style/View_line_gray_1dp" />
@@ -105,13 +114,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="负  责  人" />
+            android:text="负  责  人"
+            android:textColor="@color/text_color333" />
 
         <TextView
+            android:id="@+id/program3_consumerUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="花木配" />
+            tools:text="花木配" />
     </LinearLayout>
 
     <View style="@style/View_line_gray_1dp" />
@@ -127,9 +138,36 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="区        域" />
+            android:text="区        域"
+            android:textColor="@color/text_color333" />
 
         <TextView
+            android:id="@+id/program3_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="" />
+    </LinearLayout>
+
+    <View style="@style/View_line_gray_1dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="6dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="6dp">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="客        户"
+            android:textColor="@color/text_color333" />
+
+        <TextView
+            android:id="@+id/program3_consumerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -149,35 +187,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="客        户" />
+            android:text="业  务  员"
+            android:textColor="@color/text_color333" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/program3_displayName"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="" />
-    </LinearLayout>
+            tools:text="花木易购"
 
-    <View style="@style/View_line_gray_1dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="6dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="6dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="业   务   员" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="花木易购" />
+            />
     </LinearLayout>
 
     <View style="@style/View_line_gray_1dp" />

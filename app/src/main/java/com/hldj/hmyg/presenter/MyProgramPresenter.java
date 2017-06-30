@@ -1,9 +1,10 @@
 package com.hldj.hmyg.presenter;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
-import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.M.CountTypeGsonBean;
 import com.hldj.hmyg.contract.MyProgramContract;
+import com.hldj.hmyg.model.MyProgramGsonBean;
+import com.hldj.hmyg.util.ConstantState;
 import com.hy.utils.ToastUtil;
 
 /**
@@ -17,13 +18,17 @@ public class MyProgramPresenter extends MyProgramContract.Presenter {
     }
 
     @Override
-    public void getData(String page, String status, String searchKey) {
+    public void getData(String page,  String searchKey) {
 
-        mModel.getDatas(page, status, searchKey, new ResultCallBack<BPageGsonBean>() {
+        mModel.getDatas(page, searchKey, new ResultCallBack<MyProgramGsonBean>() {
             @Override
-            public void onSuccess(BPageGsonBean gsonBean) {
-
-                mView.initXRecycle(gsonBean);
+            public void onSuccess(MyProgramGsonBean gsonBean) {
+                if (gsonBean.code.equals(ConstantState.SUCCEED_CODE))
+                {
+                    mView.initXRecycle(gsonBean.data.page.data);
+                }else {
+                    mView.showErrir(gsonBean.msg);
+                }
             }
 
             @Override

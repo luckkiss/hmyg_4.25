@@ -5,28 +5,45 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+
+    <RadioGroup
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:orientation="horizontal">
+        android:layout_height="@dimen/y16"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/y5"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-        <TextView
+        <RadioButton
             android:id="@+id/tv_no_get"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            style="@style/login_rb"
+            android:layout_marginLeft="50dp"
+            android:checked="true"
             android:gravity="center"
-            android:text="待收货" />
+            android:onClick="showNoteLogin"
+            android:padding="0dp"
+            android:text="待收货"
+            android:textSize="@dimen/textSizeXX" />
 
-        <TextView
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@color/divider_color" />
+
+        <RadioButton
             android:id="@+id/tv_yes_get"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="已收货" />
-
-    </LinearLayout>
+            style="@style/login_rb"
+            android:layout_marginRight="50dp"
+            android:checked="false"
+            android:onClick="showPwdLogin"
+            android:padding="0dp"
+            android:text="已收货"
+            android:textSize="@dimen/textSizeXX" />
+    </RadioGroup>
 
 
     <com.weavey.loading.lib.LoadingLayout
@@ -38,8 +55,8 @@
         <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
             android:id="@+id/recycle_program2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </com.hldj.hmyg.buyer.weidet.CoreRecyclerView>
+            android:layout_height="match_parent" />
+
 
     </com.weavey.loading.lib.LoadingLayout>
 

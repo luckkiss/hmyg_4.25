@@ -4,6 +4,8 @@
     package="com.hldj.hmyg"
     android:versionCode="74"
     android:versionName="3.0.2">
+    <!--发布时version code  记得加 1 -->
+
     <!--android:versionCode="73"-->
     <!--android:versionName="2.1.1">-->
 
@@ -163,6 +165,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Ui.myProgramChild.ProgramDirctActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Ui.myProgramChild.ProgramPurchaseActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 

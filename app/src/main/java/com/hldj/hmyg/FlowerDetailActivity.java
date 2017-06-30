@@ -2,6 +2,7 @@ package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -620,12 +621,10 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                         jsonObject2, "isCollect");
                                 findViewById(R.id.iv_shou_can).setSelected(isCollect);
 
-                                if(isCollect)
-                                {
-                                    ((TextView)getView(R.id.tv_shou_can)).setText("已收藏");
-                                }else
-                                {
-                                    ((TextView)getView(R.id.tv_shou_can)).setText("收藏");
+                                if (isCollect) {
+                                    ((TextView) getView(R.id.tv_shou_can)).setText("已收藏");
+                                } else {
+                                    ((TextView) getView(R.id.tv_shou_can)).setText("收藏");
                                 }
 
                                 if (floorPrice > 0
@@ -920,7 +919,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
 
 //                                if (isFirst)
-                                    ((AutoAdd2DetailLinearLayout) findViewById(R.id.ll_auto_detail)).setDatas(uploadDatas);
+                                ((AutoAdd2DetailLinearLayout) findViewById(R.id.ll_auto_detail)).setDatas(uploadDatas);
 //                                isFirst = false;
 
                                 // if (specList.length() > 0) {
@@ -1158,8 +1157,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
         viewPager.addViews(allListView);
         // 开始轮播
-        if (!viewPager.isPlaying())
-        {
+        if (!viewPager.isPlaying()) {
             viewPager.startPlay();
         }
 
@@ -1517,12 +1515,10 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
             public void onSuccess(SimpleGsonBean simpleGsonBean) {
                 findViewById(R.id.iv_shou_can).setSelected(simpleGsonBean.getData().isCollect());
 
-                if(simpleGsonBean.getData().isCollect())
-                {
-                    ((TextView)getView(R.id.tv_shou_can)).setText("已收藏");
-                }else
-                {
-                    ((TextView)getView(R.id.tv_shou_can)).setText("收藏");
+                if (simpleGsonBean.getData().isCollect()) {
+                    ((TextView) getView(R.id.tv_shou_can)).setText("已收藏");
+                } else {
+                    ((TextView) getView(R.id.tv_shou_can)).setText("收藏");
                 }
                 LocalBroadcastManager.getInstance(FlowerDetailActivity.this).sendBroadcast(new Intent(ConstantState.COLLECT_REFRESH));
 
@@ -1809,7 +1805,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                     // contacts-related task you need to do.
                     // 同意给与权限 可以再此处调用拍照
                     Log.i("用户同意权限", "user granted the permission!");
-                    CallPhone(displayPhone);
+                    CallPhone(displayPhone,mActivity);
                 } else {
 
                     // permission denied, boo! Disable the
@@ -1825,10 +1821,10 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    private void CallPhone(final String displayPhone) {
+    public static void CallPhone(final String displayPhone, Activity mAct) {
         // TODO Auto-generated method stub
         if (!"".equals(displayPhone)) {
-            new AlertDialog(FlowerDetailActivity.this).builder()
+            new AlertDialog(mAct).builder()
                     .setTitle(displayPhone)
                     .setPositiveButton("呼叫", new OnClickListener() {
                         @Override
@@ -1838,11 +1834,11 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                             // Intent intent = new Intent(Intent.ACTION_DIAL,
                             // Uri
                             // .parse("tel:" + displayPhone));
-                            if (ActivityCompat.checkSelfPermission(FlowerDetailActivity.this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            if (ActivityCompat.checkSelfPermission(mAct, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                                 // TODO: Consider calling
                                 return;
                             }
-                            startActivity(intent);
+                            mAct.startActivity(intent);
                         }
                     }).setNegativeButton("取消", new OnClickListener() {
                 @Override
@@ -1978,7 +1974,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         if (isLogin()) {
             boolean requesCallPhonePermissions = new PermissionUtils(FlowerDetailActivity.this).requesCallPhonePermissions(200);
             if (requesCallPhonePermissions) {
-                CallPhone(displayPhone);
+                CallPhone(displayPhone,mActivity);
             }
         } else {
             Intent toLoginActivity = new Intent(FlowerDetailActivity.this, LoginActivity.class);
@@ -2107,7 +2103,6 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         return shareUrl;
 
     }
-
 
 
     private void ShareToQzone() {

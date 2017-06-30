@@ -45,7 +45,6 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
 
         FlowTagLayout mMobileFlowTagLayout = (FlowTagLayout) myViewHolder.getView(R.id.mobile_flow_layout);
 
-
         // 移动研发标签
         TagAdapter<String> mMobileTagAdapter = new TagAdapter<>(context);
         // mMobileFlowTagLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
@@ -54,7 +53,7 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
 
         mMobileTagAdapter.onlyAddAll(item.itemNameList);
 
-        mMobileFlowTagLayout.ClearClickAble(true, view1 -> jump(item));
+        mMobileFlowTagLayout.ClearClickAble(true, view1 -> jump((Activity) context,item));
 
 //            Html.fromHtml("北京市发布霾黄色预警，<font color='#ff0000'><big><big>外出携带好</big></big></font>口罩")
 
@@ -98,20 +97,20 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
 
 
         myViewHolder.getConvertView().setOnClickListener(v -> {
-            jump(item);
+            jump((Activity) context,item);
         });
 
 
     }
 
-    public void jump(PurchaseBean item) {
+    public static void jump(Activity context,PurchaseBean item) {
         // TODO Auto-generated method stub
         Intent intent = new Intent(context,
                 StorePurchaseListActivity.class);
         intent.putExtra("purchaseFormId", item.purchaseFormId);
         intent.putExtra("title", item.num);
         context.startActivity(intent);
-        ((Activity) context).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
     }
 
 
