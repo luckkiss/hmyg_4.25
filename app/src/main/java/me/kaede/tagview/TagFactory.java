@@ -24,6 +24,21 @@ public class TagFactory {
         return getTagViewByName(item);
     }
 
+
+    public static Tag createDelTag(String item, String item2) {
+
+
+        if (!TextUtils.isEmpty(item) && !TextUtils.isEmpty(item2)) {
+            return getTagViewByName(item + "-" + item2 + " cm");
+        } else if (!TextUtils.isEmpty(item)) {
+            return getTagViewByName(item + " cm");
+        } else if (!TextUtils.isEmpty(item2)) {
+            return getTagViewByName(item2 + " cm");
+        }
+        return null;
+
+    }
+
     public static Tag createDelTag(String item, String item2, String searchSpec) {
 
         boolean isNull = TextUtils.isEmpty(searchSpec);
@@ -39,7 +54,7 @@ public class TagFactory {
             if (!isNull) return getTagViewByName(getTypeName(searchSpec) + item2 + " cm");
             return getTagViewByName(item2 + " cm");
         } else {
-            if (!isNull) return getTagViewByName(getTypeName(searchSpec) +   item);
+            if (!isNull) return getTagViewByName(getTypeName(searchSpec) + item);
             return getTagViewByName(searchSpec + item);
         }
 

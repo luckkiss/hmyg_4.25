@@ -17,7 +17,7 @@
         android:id="@+id/ll_edit"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:orientation="vertical">
 
@@ -134,7 +134,7 @@
                 android:maxLength="7"
                 android:padding="@dimen/x2"
                 android:textColor="@color/gray"
-                android:textColorHint="@color/gray"
+                android:textColorHint="@color/hint_text_color"
                 android:textSize="@dimen/x15" />
 
             <TextView
@@ -160,9 +160,10 @@
                 android:maxLength="7"
                 android:padding="@dimen/x2"
                 android:textColor="@color/gray"
-                android:textColorHint="@color/gray"
+                android:textColorHint="@color/hint_text_color"
                 android:textSize="@dimen/x15" />
         </LinearLayout>
+
 
         <com.zhy.view.flowlayout.TagFlowLayout
             android:id="@+id/id_flowlayout1"
@@ -174,6 +175,125 @@
             android:visibility="gone"
             app:auto_select_effect="true"
             app:max_select="1"></com.zhy.view.flowlayout.TagFlowLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y28"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/x10"
+            android:paddingRight="@dimen/x10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:text="高   度："
+                android:textSize="@dimen/x15" />
+
+            <EditText
+                android:id="@+id/et_minHeight"
+                android:layout_width="0.0dip"
+                android:layout_height="@dimen/x23"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/green_btn_selector"
+                android:gravity="center_vertical|left"
+                android:hint="厘米"
+                android:inputType="number"
+
+                android:maxLength="7"
+                android:padding="@dimen/x2"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/hint_text_color"
+                android:textSize="@dimen/x15" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:padding="@dimen/x2"
+                android:text="--"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/x15" />
+
+            <EditText
+                android:id="@+id/et_maxHeight"
+                android:layout_width="0.0dip"
+                android:layout_height="@dimen/x23"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/green_btn_selector"
+                android:gravity="center_vertical|left"
+                android:hint="厘米"
+                android:inputType="number"
+                android:maxLength="7"
+                android:padding="@dimen/x2"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/hint_text_color"
+                android:textSize="@dimen/x15" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y28"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/x10"
+            android:paddingRight="@dimen/x10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:text="冠   幅："
+                android:textSize="@dimen/x15" />
+
+            <EditText
+                android:id="@+id/et_minCrown"
+                android:layout_width="0.0dip"
+                android:layout_height="@dimen/x23"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/green_btn_selector"
+                android:gravity="center_vertical|left"
+                android:hint="厘米"
+                android:inputType="number"
+                android:maxLength="7"
+                android:padding="@dimen/x2"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/hint_text_color"
+                android:textSize="@dimen/x15" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:padding="@dimen/x2"
+                android:text="--"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/x15" />
+
+            <EditText
+                android:id="@+id/et_maxCrown"
+                android:layout_width="0.0dip"
+                android:layout_height="@dimen/x23"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/green_btn_selector"
+                android:gravity="center_vertical|left"
+                android:hint="厘米"
+                android:inputType="number"
+                android:maxLength="7"
+                android:padding="@dimen/x2"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/hint_text_color"
+                android:textSize="@dimen/x15" />
+        </LinearLayout>
 
         <com.zhy.view.flowlayout.TagFlowLayout
             android:id="@+id/id_flowlayout2"

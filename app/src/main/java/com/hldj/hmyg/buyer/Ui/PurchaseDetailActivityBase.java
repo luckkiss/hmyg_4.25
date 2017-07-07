@@ -96,6 +96,9 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
     public abstract void desposeNoPermission();
 
 
+    /*供应商 是否同意协议*/
+    public abstract void supplierProtocol();
+
     /**
      * 接口请求到数据后 调用
      *
@@ -103,16 +106,25 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
      */
     public void initDatas(SaveSeedingGsonBean saveSeedingGsonBean) {
         boolean canQuote = saveSeedingGsonBean.getData().canQuote;
-        if (!canQuote) {
 
-            desposeNoPermission();
+       /*没有权限*/
+//        if (!canQuote) {
+//            //申请权限
+//            desposeNoPermission();
+////            new Handler().postDelayed(() -> {
+////                finish();
+////            }, 2000);
+//
+//            return;
+//        }
 
-//            new Handler().postDelayed(() -> {
-//                finish();
-//            }, 2000);
-
+        /*没有同意协议，跳转协议界面 h5*/
+        if (false) {
+            supplierProtocol();
             return;
         }
+
+
         /**
          * obj[@"data"][@"typeList"]   //分类的list
          obj[@"data"][@"plantTypeList"]  //种植类型list

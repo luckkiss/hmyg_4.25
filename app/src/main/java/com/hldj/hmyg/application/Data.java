@@ -81,6 +81,7 @@ public class Data {
     }
 
     //* 用户同意采购协议  http://192.168.1.252:8090/page/protocol.html
+    public static final String Protocol_Url = "http://m.hmeg.cn/" + "page/protocol.html";
 
     //成交公告
     public static final String noticesUrls = GetServerUrl.getHtmlUrl() + "noticeArticle?isApp=true";
@@ -94,7 +95,7 @@ public class Data {
      * http://192.168.1.252:8090/article/detail/a6bd580083d640a3b8e47df9323f408d.html?isApp=true
      * http://192.168.1.252:8090/article?isHeader=truearticle/detail/10caf1ddc10a4296b0c3c1d23bc63566.html?isApp=true
      */
-    private static final String Notices_and_news_url_only = GetServerUrl.getHtmlUrl()+"article/detail/";
+    private static final String Notices_and_news_url_only = GetServerUrl.getHtmlUrl() + "article/detail/";
 
     // 苗木分享 http://192.168.1.252:8090/742147bb8a1f4ad98430c04c88b56f0c
     //苗木分享

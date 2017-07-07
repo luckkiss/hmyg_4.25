@@ -36,10 +36,11 @@
         <EditText
             android:id="@+id/et_auto_add_min"
             style="@style/edit_seeding_imput"
-            android:inputType="number"
-            />
+            android:inputType="number" />
 
-        <TextView style="@style/text_Seeding_line" />
+        <TextView
+            style="@style/text_Seeding_line"
+            android:text="至" />
 
         <EditText
             android:id="@+id/et_auto_add_max"

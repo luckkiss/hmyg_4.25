@@ -86,7 +86,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
             protected void convert(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item) {
                 if (type == GRID_VIEW) {
                     D.e("=======GRID_VIEW========");
-                    initGridType(helper ,bitmap, item);
+                    initGridType(helper, bitmap, item);
                 } else {
                     D.e("=======常规布局========");
                     initListType(helper, item, bitmap, "BActivity_new");
@@ -197,6 +197,13 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
         TagView tagView = getView(R.id.tagview_b_act);
         tagView.removeAllTags();
 
+
+        //最小 最大 hight
+        tagView.addTag(TagFactory.createDelTag(queryBean.minHeight, queryBean.maxHeight, "高度"), 95);
+
+        //最小 最大  crow
+        tagView.addTag(TagFactory.createDelTag(queryBean.minCrown, queryBean.maxCrown, "冠幅"), 96);
+
         //最小 最大厘米
         tagView.addTag(TagFactory.createDelTag(queryBean.specMinValue, queryBean.specMaxValue, queryBean.searchSpec), 97);
 
@@ -216,7 +223,19 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 //        tagView.addTag(TagFactory.createDelTag(queryBean.searchSpec), 100);
 
         tagView.setOnTagDeleteListener((position, tag) -> {
-            if (tag.id == 97) {
+            //最小 最大 hight
+//            tagView.addTag(TagFactory.createDelTag(queryBean.minHeight, queryBean.maxHeight, "高度"), 95);
+
+            //最小 最大  crow
+//            tagView.addTag(TagFactory.createDelTag(queryBean.minCrown, queryBean.maxCrown, "冠幅"), 96);
+
+            if (tag.id == 95) {
+                getQueryBean().minHeight = "";
+                getQueryBean().maxHeight = "";
+            } else if (tag.id == 96) {
+                getQueryBean().minCrown = "";
+                getQueryBean().maxCrown = "";
+            } else if (tag.id == 97) {
                 getQueryBean().specMinValue = "";
                 getQueryBean().specMaxValue = "";
                 getQueryBean().searchSpec = "";
@@ -392,7 +411,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 
     }
 
-    public static void initGridType(BaseViewHolder helper,FinalBitmap bitmap,BPageGsonBean.DatabeanX.Pagebean.Databean item) {
+    public static void initGridType(BaseViewHolder helper, FinalBitmap bitmap, BPageGsonBean.DatabeanX.Pagebean.Databean item) {
         ImageView iv_img = helper.getView(R.id.iv_img);
         TextView tv_01 = helper.getView(R.id.tv_01);
         MySwipeAdapter.setSrcByType(tv_01, item.plantType);
@@ -419,6 +438,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
                         recyclerView1.getAdapter().addData(pageBean);
                         hindLoading();
                     }
+
                     @Override
                     public void onFailure(Throwable t, int errorNo, String strMsg) {
                         D.e("==============");

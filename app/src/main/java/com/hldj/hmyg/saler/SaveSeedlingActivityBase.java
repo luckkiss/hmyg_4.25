@@ -400,7 +400,9 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 //                    } else {
 //                        D.e("=====图片还没上传，，先上传图片========");
 //                    }
-                    hud_numHud.show();
+                    showLoading();
+                    UpdateLoading("加载中...");
+//                    hud_numHud.show();
 //                    if (!hud_numHud.isShowing() || hud_numHud == null) {
 //                        hud_numHud = KProgressHUD.create(SaveSeedlingActivityBase.this)
 //                                .setStyle(KProgressHUD.Style.ANNULAR_DETERMINATE)
@@ -415,10 +417,12 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                     a = 0;//上传开始后需要初始化
                     if (getParames() == null) {
                         //检查参数  本地检查
-                        hud_numHud.dismiss();
+//                        hud_numHud.dismiss();
+                        hindLoading();
                         return;
                     }
-
+                    int size = viewHolder.publish_flower_info_gv.getAdapter().getDataList().size();
+                    UpdateLoading("正在上传第 (" + a + "/" + size + "张) 图片");
 
                     //通过检测  上传图片
 //                    hud_numHud = KProgressHUD.create(SaveSeedlingActivityBase.this)
@@ -441,7 +445,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
                         @Override
                         public void onFailure(Throwable t, int errorNo, String strMsg) {
-                            hud_numHud.dismiss();
+//                            hud_numHud.dismiss();
+                            hindLoading();
                             ToastUtil.showShortToast("上传图片失败,请稍后尝试！");
                         }
                     });
@@ -458,11 +463,11 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             int size = viewHolder.publish_flower_info_gv.getAdapter().getDataList().size();
 //            hud_numHud.setProgress(a * 100 / urlPaths.size());
 //            hud_numHud.setLabel("上传(" + a + "/" + urlPaths.size() + "张)");
-            D.e("=======a * 100 / urlPaths.size()===========");
-            D.e("上传(" + a + "/" + urlPaths.size() + "张)");
-            hud_numHud.updateLable("正在上传第 (" + a + "/" + size + "张) 图片");
-            hud_numHud.show();
-
+//            D.e("=======a * 100 / urlPaths.size()===========");
+//            D.e("上传(" + a + "/" + urlPaths.size() + "张)");
+            UpdateLoading("正在上传第 (" + a + "/" + size + "张) 图片");
+//            hud_numHud.updateLable("正在上传第 (" + a + "/" + size + "张) 图片");
+//            hud_numHud.show();
         }
 
         if (a == viewHolder.publish_flower_info_gv.getAdapter().getDataList().size()) {

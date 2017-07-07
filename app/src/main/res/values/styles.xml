@@ -472,7 +472,7 @@
         <item name="android:layout_weight">0.5</item>
         <item name="android:background">@null</item>
         <item name="android:gravity">center</item>
-        <item name="android:text">-</item>
+        <item name="android:text">至</item>
     </style>
 
 
@@ -480,7 +480,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:background">@null</item>
+        <item name="android:background">@drawable/conner_edit</item>
         <item name="android:textSize">@dimen/x14</item>
         <item name="android:gravity">center</item>
         <item name="android:hint">0</item>
@@ -524,8 +524,10 @@
     <style name="et_seeding_common">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">@dimen/x19</item>
-        <item name="android:background">@null</item>
+        <item name="android:layout_marginLeft">@dimen/x10</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:background">@drawable/conner_edit</item>
         <item name="android:imeOptions">actionNext</item>
         <item name="android:textColorHint">@color/hint_text_color</item>
         <item name="android:textSize">@dimen/x14</item>
@@ -547,7 +549,7 @@
         <item name="android:background">@drawable/feedback_content_edittext_shape</item>
         <item name="android:paddingLeft">@dimen/x9</item>
         <item name="android:paddingRight">@dimen/x9</item>
-        <item name="android:paddingTop">@dimen/y10</item>
+        <item name="android:paddingTop">@dimen/y8</item>
     </style>
 
 
@@ -748,8 +750,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">3dp</item>
-        <item name="android:layout_marginEnd">6dp</item>
-        <item name="android:layout_marginStart">6dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:layout_marginLeft">6dp</item>
         <item name="android:layout_marginTop">3dp</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
         <item name="cardCornerRadius">2dp</item>

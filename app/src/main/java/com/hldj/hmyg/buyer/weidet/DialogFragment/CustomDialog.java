@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 
@@ -18,6 +19,7 @@ import com.hldj.hmyg.R;
 public class CustomDialog extends Dialog {
 
     private AnimationDrawable mAnimationDrawable;
+    public TextView tv_loading_text;
 
     public CustomDialog(Context context) {
         super(context, R.style.CustomDialog);
@@ -34,12 +36,17 @@ public class CustomDialog extends Dialog {
         init(getContext());
     }
 
+
     private void init(Context context) {
         //设置不可取消，点击其他区域不能取消，实际中可以抽出去封装供外包设置
         setCancelable(true);
         setCanceledOnTouchOutside(true);
 
         setContentView(R.layout.load_dialog);
+
+        tv_loading_text = (TextView)this.findViewById(R.id.tv_loading_text);
+
+
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.width = WindowManager.LayoutParams.WRAP_CONTENT;
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;

@@ -197,8 +197,17 @@ public class BActivity_new extends NeedSwipeBackActivity {
         TagView tagView = getView(R.id.tagview_b_act);
         tagView.removeAllTags();
 
+
+        //最小 最大 hight
+        tagView.addTag(TagFactory.createDelTag(queryBean.minHeight, queryBean.maxHeight, "高度"), 95);
+
+        //最小 最大  crow
+        tagView.addTag(TagFactory.createDelTag(queryBean.minCrown, queryBean.maxCrown, "冠幅"), 96);
+
+
         //最小 最大厘米
         tagView.addTag(TagFactory.createDelTag(queryBean.specMinValue, queryBean.specMaxValue, queryBean.searchSpec), 97);
+
 
         if (!TextUtils.isEmpty(queryBean.plantTypes)) {
             String[] strs = queryBean.plantTypes.split(",");

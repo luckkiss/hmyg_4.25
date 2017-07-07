@@ -92,11 +92,11 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
                  */
 //                SwipeLayout.addSwipeView(helper.getView(R.id.swipe_manager));
 
-                BActivity_new.initListType(helper, item, FinalBitmap.create(mContext),"Manager");
+                BActivity_new.initListType(helper, item, FinalBitmap.create(mContext), "Manager");
 
                 ProductListAdapterForManager.setStateColor(helper.getView(R.id.tv_right_top), item.status, item.statusName);
 
-                ((SwipeLayout) helper.getView(R.id.swipe_manager)).computeScroll();
+//                ((SwipeLayout) helper.getView(R.id.swipe_manager)).computeScroll();
 
                 helper.addOnClickListener(R.id.swipe_manager1, new View.OnClickListener() {
                     @Override
@@ -111,6 +111,7 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
                 helper.addOnClickListener(R.id.btn_delete_manager, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        ((SwipeLayout) helper.getView(R.id.swipe_manager)).SimulateScroll(SwipeLayout.SHRINK);
                         mPresenter.doDelete(item.id);
                     }
                 });
@@ -410,10 +411,7 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
     public void onDeled(boolean bo) {
         if (bo) {
             xRecyclerView.onRefresh();
-
         }
-
-
     }
 
 

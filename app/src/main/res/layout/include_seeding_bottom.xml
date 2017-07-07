@@ -15,9 +15,9 @@
         <TextView
             android:id="@+id/tv_price_"
             style="@style/tv_seeding_include_bottom_left"
-            android:text="价格"
             android:layout_alignBottom="@+id/ll_center"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignParentLeft="true"
+            android:text="价格" />
 
         <LinearLayout
             android:id="@+id/ll_center"
@@ -84,11 +84,14 @@
         <TextView
             android:id="@+id/tv_seeding_kucun"
             style="@style/text_left_name_style"
+            android:padding="3dp"
             android:text="库存" />
 
         <EditText
             android:id="@+id/et_repertory_num"
             style="@style/et_seeding_common"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/tv_seeding_kucun"
             android:layout_toRightOf="@+id/tv_seeding_kucun"
             android:hint="0"
             android:inputType="number"
@@ -102,8 +105,7 @@
         android:background="@drawable/feedback_content_edittext_shape"
         android:paddingLeft="@dimen/x9"
         android:paddingRight="@dimen/x9"
-        android:paddingTop="@dimen/y10"
-        >
+        android:paddingTop="@dimen/y10">
 
         <TextView
             style="@style/tv_seeding_include_bottom_left"
@@ -196,14 +198,17 @@
         <TextView
             android:id="@+id/tv_seeding_beizhu"
             style="@style/text_left_name_style"
+            android:padding="3dp"
             android:text="备注" />
 
         <EditText
             android:id="@+id/et_remark"
             style="@style/et_seeding_common"
+            android:layout_height="match_parent"
             android:layout_alignBottom="@+id/tv_seeding_beizhu"
             android:layout_toRightOf="@+id/tv_seeding_beizhu"
-            android:hint="请填写备注信息" />
+            android:hint="请填写备注信息"
+            android:textSize="@dimen/x14" />
     </RelativeLayout>
-
+    <!-- android:layout_alignBaseline="@+id/tv_seeding_beizhu"-->
 </LinearLayout>

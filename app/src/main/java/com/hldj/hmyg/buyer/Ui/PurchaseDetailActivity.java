@@ -738,6 +738,13 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     }
 
 
+    /*当  没有同意 供应商协议时 执行*/
+    @Override
+    public void supplierProtocol() {
+        WebViewDialogFragment3.newInstance().show(getSupportFragmentManager(), TAG);
+    }
+
+
     @Override
     public void desposeNoPermission() {
 

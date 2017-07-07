@@ -38,10 +38,12 @@
             android:id="@+id/iv_amin_flowar"
             android:layout_width="65dp"
             android:layout_height="65dp"
+            android:layout_gravity="center_horizontal"
             android:src="@drawable/floawer_anim" />
 
 
         <TextView
+            android:id="@+id/tv_loading_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

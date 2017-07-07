@@ -120,13 +120,14 @@
         <EditText
             android:id="@+id/et_purchase_remark"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:background="@null"
+            android:layout_height="29dp"
+            android:background="@drawable/conner_edit"
             android:gravity="center_vertical"
+            android:hint="请填写备注信息"
+            android:layout_marginRight="15dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:textColor="@color/text_color"
-            android:hint="请填写备注信息"
             android:textColorHint="@color/hint_text_color"
             android:textSize="14sp" />
 

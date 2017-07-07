@@ -1,7 +1,6 @@
 package com.hldj.hmyg.Ui.myProgramChild;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Handler;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
@@ -28,7 +26,6 @@ import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.buyer.Ui.WebViewDialogFragment;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
-import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment1;
 import com.hldj.hmyg.buyer.weidet.ExpandableItemAdapter;
 import com.hldj.hmyg.buyer.weidet.entity.IExpandable;
 import com.hldj.hmyg.buyer.weidet.entity.MultiItemEntity;
@@ -190,39 +187,42 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                                 .setSelected(R.id.tv_program_purch_sub_use_state, false); // 供应商 采用
 
                         helper.addOnClickListener(R.id.tv_program_purch_sub_use_state, view -> {
-
-                            CommonDialogFragment1.newInstance(context -> {
-                                Dialog dialog = new Dialog(mActivity);
-
-                                dialog.setContentView(R.layout.dialog_select_supplier);
-
-                                RadioButton button1 = (RadioButton) dialog.findViewById(R.id.radioButton);
-                                RadioButton button2 = (RadioButton) dialog.findViewById(R.id.radioButton2);
-                                View ok = dialog.findViewById(R.id.btn_ok);
-                                View cancle = dialog.findViewById(R.id.btn_cancl);
-                                ok.setOnClickListener(v -> {
-                                    if (button1.isChecked()) {
-                                        hah(helper, item, "hmeg");
-                                        Log.e(TAG, "supplier");
-                                    } else {
-                                        hah(helper, item, "supplier");
-                                        Log.e(TAG, "hmeg");
-                                    }
-                                    dialog.dismiss();
-                                });
-                                cancle.setOnClickListener(v -> {
-                                    dialog.dismiss();
-                                });
-                                button1.setOnClickListener(v -> {
-                                    button2.setChecked(false);
-                                });
-                                button2.setOnClickListener(v -> {
-                                    button1.setChecked(false);
-                                });
-
-                                return dialog;
-                            }, true).show(getSupportFragmentManager(), "呵呵哒");
+                            hah(helper, item, "");
                         });
+//                        helper.addOnClickListener(R.id.tv_program_purch_sub_use_state, view -> {
+//
+//                            CommonDialogFragment1.newInstance(context -> {
+//                                Dialog dialog = new Dialog(mActivity);
+//
+//                                dialog.setContentView(R.layout.dialog_select_supplier);
+//
+//                                RadioButton button1 = (RadioButton) dialog.findViewById(R.id.radioButton);
+//                                RadioButton button2 = (RadioButton) dialog.findViewById(R.id.radioButton2);
+//                                View ok = dialog.findViewById(R.id.btn_ok);
+//                                View cancle = dialog.findViewById(R.id.btn_cancl);
+//                                ok.setOnClickListener(v -> {
+//                                    if (button1.isChecked()) {
+//                                        hah(helper, item, "hmeg");
+//                                        Log.e(TAG, "supplier");
+//                                    } else {
+//                                        hah(helper, item, "supplier");
+//                                        Log.e(TAG, "hmeg");
+//                                    }
+//                                    dialog.dismiss();
+//                                });
+//                                cancle.setOnClickListener(v -> {
+//                                    dialog.dismiss();
+//                                });
+//                                button1.setOnClickListener(v -> {
+//                                    button2.setChecked(false);
+//                                });
+//                                button2.setOnClickListener(v -> {
+//                                    button1.setChecked(false);
+//                                });
+//
+//                                return dialog;
+//                            }, true).show(getSupportFragmentManager(), "呵呵哒");
+//                        });
 
                     /* <!-- 已采用&&未落实显示取消按钮 -->*/
                     } else if (item.isUsed && (TextUtils.isEmpty(item.quoteImplementStatus)) || item.quoteImplementStatus.equals("uncovered")) {
@@ -235,7 +235,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                      /*<!-- 已采用&&合格的显示已采用并且锁定不可修改 -->*/
                     } else if (item.isUsed && item.quoteImplementStatus.equals("qualified")) {
                         helper.setText(R.id.tv_program_purch_sub_use_state, "已采用")
-                                .addOnClickListener(R.id.tv_program_purch_sub_use_state,null)
+                                .addOnClickListener(R.id.tv_program_purch_sub_use_state, null)
                                 .setSelected(R.id.tv_program_purch_sub_use_state, true)
                                 .setTextColorRes(R.id.tv_program_purch_sub_use_state, R.color.text_login_type)
                                 .setSelected(R.id.imageView, true);

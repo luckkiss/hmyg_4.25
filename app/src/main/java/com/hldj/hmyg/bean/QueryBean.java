@@ -12,6 +12,13 @@ public class QueryBean implements Serializable {
     public String searchSpec = "";
     public String specMinValue = "";
     public String specMaxValue = "";
+
+    public String minHeight = "" ;
+    public String maxHeight = "" ;
+    public String minCrown = "" ;
+    public String maxCrown = "" ;
+
+
     public String searchKey = "";
     public String supportTradeType = "";
     public String firstSeedlingTypeId = "";

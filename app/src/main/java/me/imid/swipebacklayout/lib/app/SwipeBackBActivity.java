@@ -50,6 +50,15 @@ public class SwipeBackBActivity extends FragmentActivity implements
         }
     }
 
+
+    public void UpdateLoading(String loadingMsg) {
+        if (dialog.isShowing()) {
+            if (dialog.tv_loading_text != null) {
+                dialog.tv_loading_text.setText(loadingMsg);
+            }
+        }
+    }
+
     public void hindLoading(String str, long delay) {
         if (getLoad().isRunning()) {
             getLoad().cancel(str, delay);

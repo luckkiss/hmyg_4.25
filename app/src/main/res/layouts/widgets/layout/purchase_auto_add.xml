@@ -4,10 +4,9 @@
     android:layout_height="40dp"
     android:layout_gravity="center_vertical"
     android:layout_marginBottom="5dp"
-    android:layout_marginTop="5dp"
     android:layout_marginRight="5dp"
-    android:background="@drawable/login_bottom_line"
-    >
+    android:layout_marginTop="5dp"
+    android:background="@drawable/login_bottom_line">
 
     <TextView
         android:id="@+id/tv_params_01"
@@ -30,16 +29,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="30dp"
-        android:background="@null"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/conner_edit"
+        android:gravity="center_vertical"
         android:hint="cm"
         android:inputType="number"
         android:maxLength="6"
         android:minWidth="70dp"
+        android:padding="5dp"
+        android:paddingLeft="5dp"
         android:textColor="@color/hint_text_color"
         android:textColorHint="@color/hint_text_color"
         android:textSize="16sp" />
 
+    <View
+        android:layout_width="30dp"
+        android:layout_height="1px" />
 
 
     <!--<RelativeLayout-->

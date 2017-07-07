@@ -6,13 +6,30 @@
     <TextView
         android:id="@+id/tv_auto_add_left1"
         style="@style/text_left_name_style"
+        android:padding="3dp"
         android:text="品名" />
 
     <EditText
         android:id="@+id/tv_auto_add_name"
         style="@style/et_seeding_common"
+        android:layout_height="match_parent"
         android:layout_toRightOf="@+id/tv_auto_add_left1"
-        android:hint="请输入品种名称" />
+        android:hint="请输入品种名称"
+        android:layout_alignBottom="@+id/tv_auto_add_left1"
+        />
+
+
+
+    <!--<EditText-->
+        <!--android:id="@+id/et_repertory_num"-->
+        <!--style="@style/et_seeding_common"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignBottom="@+id/tv_seeding_kucun"-->
+        <!--android:layout_toRightOf="@+id/tv_seeding_kucun"-->
+        <!--android:hint="0"-->
+        <!--android:inputType="number"-->
+        <!--android:textSize="@dimen/x14" />-->
+
 
 
 </RelativeLayout>

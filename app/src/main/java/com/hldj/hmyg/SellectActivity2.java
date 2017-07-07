@@ -68,6 +68,10 @@ public class SellectActivity2 extends BaseSecondActivity {
     private ArrayList<String> planttype_has_ids = new ArrayList<String>();
     private String searchKey = "";
     private QueryBean queryBean;
+    private EditText et_minHeight;
+    private EditText et_maxHeight;
+    private EditText et_minCrown;
+    private EditText et_maxCrown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +88,14 @@ public class SellectActivity2 extends BaseSecondActivity {
         ll_area = (LinearLayout) findViewById(R.id.ll_area);
         ll_price = (LinearLayout) findViewById(R.id.ll_price);
         et_pinming = (EditText) findViewById(R.id.et_pinming);
+
         et_min_guige = (EditText) findViewById(R.id.et_min_guige);
         et_max_guige = (EditText) findViewById(R.id.et_max_guige);
+
+        et_minHeight = (EditText) findViewById(R.id.et_minHeight);
+        et_maxHeight = (EditText) findViewById(R.id.et_maxHeight);
+        et_minCrown = (EditText) findViewById(R.id.et_minCrown);
+        et_maxCrown = (EditText) findViewById(R.id.et_maxCrown);
 
 
         tv_area = (TextView) findViewById(R.id.tv_area);
@@ -268,6 +278,14 @@ public class SellectActivity2 extends BaseSecondActivity {
 
         et_max_guige.setText(queryBean.specMaxValue);// 最大厘米
         et_min_guige.setText(queryBean.specMinValue);// 最小厘米
+
+        et_minHeight.setText(queryBean.minHeight);//最小高度
+        et_maxHeight.setText(queryBean.maxHeight);//最大高度
+
+        et_minCrown.setText(queryBean.minCrown);//最小冠幅
+        et_maxCrown.setText(queryBean.maxCrown);//最大冠幅
+
+
 //        if (et_min_guige.getText().toString().length() > 0
 //                || et_max_guige.getText().toString().length() > 0) {
 //            mFlowLayout2.setVisibility(View.VISIBLE);
@@ -314,6 +332,7 @@ public class SellectActivity2 extends BaseSecondActivity {
                                     @Override
                                     public void onCitySelect(CityGsonBean.ChildBeans childBeans) {
                                     }
+
                                     @Override
                                     public void onProvinceSelect(CityGsonBean.ChildBeans childBeans) {
                                         SellectActivity2.childBeans = childBeans;
@@ -330,6 +349,14 @@ public class SellectActivity2 extends BaseSecondActivity {
                         et_pinming.setText("");
                         et_min_guige.setText("");
                         et_max_guige.setText("");
+
+                        et_minHeight.setText("");//最小高度
+                        et_maxHeight.setText("");//最大高度
+
+                        et_minCrown.setText("");//最小冠幅
+                        et_maxCrown.setText("");//最大冠幅
+
+
                         planttype_has_ids.clear();
 //                        mFlowLayout1.setAdapter(adapter1);
                         mFlowLayout2.getAdapter().resetList();
@@ -364,6 +391,13 @@ public class SellectActivity2 extends BaseSecondActivity {
                         queryBean.searchSpec = searchSpec;
                         queryBean.specMinValue = et_min_guige.getText().toString();
                         queryBean.specMaxValue = et_max_guige.getText().toString();
+
+
+                        queryBean.minHeight = et_minHeight.getText().toString();
+                        queryBean.maxHeight = et_maxHeight.getText().toString();
+                        queryBean.minCrown = et_minCrown.getText().toString();
+                        queryBean.maxCrown = et_maxCrown.getText().toString();
+
 
                         if (!TextUtils.isEmpty(queryBean.specMinValue) || !TextUtils.isEmpty(queryBean.specMaxValue)) {
                             if (TextUtils.isEmpty(queryBean.searchSpec)) {
