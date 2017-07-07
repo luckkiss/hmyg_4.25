@@ -81,7 +81,8 @@ public class CommonDialogFragment1 extends DialogFragment {
             windowParams.dimAmount = 0.5f;
 
             Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
-            windowParams.width = (int) (d.getWidth() * 0.85); // 宽度设置为屏幕的0.65
+            windowParams.width = (int) (d.getWidth() * 0.90); // 宽度设置为屏幕的0.65
+//            windowParams.width = (int) (d.getWidth() * 0.85); // 宽度设置为屏幕的0.65
             window.setAttributes(windowParams);
 
 

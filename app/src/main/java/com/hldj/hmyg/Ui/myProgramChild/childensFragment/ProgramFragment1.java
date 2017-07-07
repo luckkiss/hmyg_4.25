@@ -98,6 +98,7 @@ public class ProgramFragment1 extends BaseFragment {
 
                 ((FlowTagLayout) helper.getView(R.id.mobile_flow_layout)).ClearClickAble(true, view1 -> ProgramPurchaseActivity.start(mActivity, item.id));
 
+                helper.convertView.setOnClickListener(view -> ProgramPurchaseActivity.start(mActivity, item.id));
 
             }
         }, false)
@@ -188,7 +189,7 @@ public class ProgramFragment1 extends BaseFragment {
                 @Override
                 public void onFailure(Throwable t, int errorNo, String strMsg) {
                     coreRecyclerView.selfRefresh(false);
-                    setLoadingState(coreRecyclerView, loadingLayout, t, strMsg);
+                    loadingLayout.setStatus(LoadingLayout.No_Network);
                 }
             };
             doRequest("admin/project/purchaseList", true, ajaxCallBack);

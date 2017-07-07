@@ -33,7 +33,7 @@
         android:layout_marginLeft="30dp"
         android:background="@null"
         android:hint="cm"
-        android:inputType="number|numberDecimal"
+        android:inputType="number"
         android:maxLength="6"
         android:minWidth="70dp"
         android:textColor="@color/hint_text_color"

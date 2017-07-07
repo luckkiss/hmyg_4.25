@@ -672,22 +672,24 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
     }
 
     private boolean check_bottom_UpLoadDatas(SaveSeedingBottomLinearLayout.upLoadDatas upLoadDatas) {
-        if (viewHolder.bottom_ll.getUpLoadDatas().isMeet()) {
+        D.e("=================upLoadDatas=====isMeet()=============" + upLoadDatas.isMeet());
+        if (upLoadDatas.isMeet()) {
+//        if (viewHolder.bottom_ll.getUpLoadDatas().isMeet()) {
             //如果面议就不判断价格
         } else {
             //如果不是面议  就判断价格不能为空
-            if (TextUtils.isEmpty(viewHolder.bottom_ll.getUpLoadDatas().getPrice_min()) && TextUtils.isEmpty(viewHolder.bottom_ll.getUpLoadDatas().getPrice_max())) {
+            if (TextUtils.isEmpty(upLoadDatas.getPrice_min()) && TextUtils.isEmpty(upLoadDatas.getPrice_max())) {
                 ToastUtil.showShortToast("请输入价格");
                 return false;
             }
         }
         //库存
-        if (TextUtils.isEmpty(viewHolder.bottom_ll.getUpLoadDatas().getRepertory_num())) {
+        if (TextUtils.isEmpty(upLoadDatas.getRepertory_num())) {
             ToastUtil.showShortToast("请输入库存数量");
             return false;
         }
         //地址
-        if (viewHolder.bottom_ll.getUpLoadDatas().address.addressId.equals("")) {
+        if (upLoadDatas.address.addressId.equals("")) {
             ToastUtil.showShortToast("请填写地址");
             return false;
         }

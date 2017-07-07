@@ -10,23 +10,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.buyer.weidet.animation.BaseAnimation;
 import com.hldj.hmyg.buyer.weidet.listener.OnItemClickListener;
+import com.hldj.hmyg.util.D;
 
 
 /**
  * Created by 罗擦擦 on 16/11/1.
  */
 
-public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener{
+public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     BaseQuickAdapter mQuickAdapter;
     addDataListener addDataListener;
     RefreshListener refreshListener;
-
 
 
     public CoreRecyclerView addRefreshListener(RefreshListener refreshListener) {
@@ -96,6 +97,11 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
         mRecyclerView.setAdapter(mQuickAdapter);
         mQuickAdapter.openLoadAnimation();
         mRecyclerView.setAdapter(mQuickAdapter);
+
+
+        D.e("=======CoreRecyclerView====init===========设置默认的空数据界面==");
+        setDefaultEmptyView();
+
         return this;
     }
 
@@ -244,7 +250,33 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
         return this;
     }
 
+
+    public CoreRecyclerView setDefaultEmptyView() {
+        View empty = LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null);
+//        View empty  = getContext(). inflate(R.layout.empty_view, null);
+        empty.setOnClickListener(view1 -> onRefresh());
+        final RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT);
+        final ViewGroup.LayoutParams lp = empty.getLayoutParams();
+        if (lp != null) {
+            layoutParams.width = lp.width;
+            layoutParams.height = lp.height;
+        }
+        empty.setLayoutParams(layoutParams);
+        mQuickAdapter.setEmptyView(empty);
+        return this;
+    }
+
     public CoreRecyclerView setEmptyView(View emptyView) {
+        View empty = LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null);
+//        View empty  = getContext(). inflate(R.layout.empty_view, null);
+        empty.setOnClickListener(view1 -> onRefresh());
+        final RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT);
+        final ViewGroup.LayoutParams lp = emptyView.getLayoutParams();
+        if (lp != null) {
+            layoutParams.width = lp.width;
+            layoutParams.height = lp.height;
+        }
+        emptyView.setLayoutParams(layoutParams);
         mQuickAdapter.setEmptyView(emptyView);
         return this;
     }
@@ -290,6 +322,15 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
 
     public CoreRecyclerView selfRefresh(boolean b) {
         mSwipeRefreshLayout.setRefreshing(b);
+        return this;
+    }
+
+    public CoreRecyclerView selfRefresh(boolean b, String errMsg) {
+        mSwipeRefreshLayout.setRefreshing(b);
+        TextView tv_empty_err = (TextView) mQuickAdapter.getEmptyView().findViewById(R.id.t_emptyTextView);
+        if (tv_empty_err != null) {
+            tv_empty_err.setText(errMsg);
+        }
         return this;
     }
 

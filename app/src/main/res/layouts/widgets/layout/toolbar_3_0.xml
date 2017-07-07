@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="46dp"
+    android:layout_height="44dp"
     android:background="@color/white"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
@@ -11,7 +11,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/title_top_default"
+        android:layout_height="44dp"
         android:background="@color/white">
 
         <TextView
@@ -63,6 +63,11 @@
             tools:text="titile"
             tools:visibility="visible" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/main_color" />
 
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

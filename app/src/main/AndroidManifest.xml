@@ -164,7 +164,16 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Ui.myProgramChild.ProgramFragment2DetailActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".Ui.myProgramChild.ProgramDirctActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Ui.myProgramChild.ProgramProtocolActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity

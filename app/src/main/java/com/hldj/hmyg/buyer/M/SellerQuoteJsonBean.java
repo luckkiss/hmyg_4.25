@@ -73,7 +73,7 @@ public class SellerQuoteJsonBean {
     public String purchaseId;
     public String purchaseItemId;
     public String sellerId;
-    public int price;
+    public String price;
     public String status ;
     public String sellerName;
     public String sellerPhone;

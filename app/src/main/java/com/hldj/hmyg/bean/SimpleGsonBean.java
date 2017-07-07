@@ -36,6 +36,9 @@ public class SimpleGsonBean implements Serializable {
         public void setCollect(boolean collect) {
             isCollect = collect;
         }
+
+        public int quoteUsedCount;
+
     }
 
 

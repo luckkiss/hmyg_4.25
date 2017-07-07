@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,7 +33,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import static com.zzy.common.widget.MeasureGridView.context;
 
 /**
- *  采购详情  基础类
+ * 采购详情  基础类
  */
 
 public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity implements PurchaseDeatilV {
@@ -93,6 +92,10 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
 
     public abstract void setContentView();
 
+    /*处理没有权限事件*/
+    public abstract void desposeNoPermission();
+
+
     /**
      * 接口请求到数据后 调用
      *
@@ -101,11 +104,12 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
     public void initDatas(SaveSeedingGsonBean saveSeedingGsonBean) {
         boolean canQuote = saveSeedingGsonBean.getData().canQuote;
         if (!canQuote) {
-            ToastUtil.showShortToast("对不起，您没有报价权限");
 
-            new Handler().postDelayed(() -> {
-                finish();
-            }, 2000);
+            desposeNoPermission();
+
+//            new Handler().postDelayed(() -> {
+//                finish();
+//            }, 2000);
 
             return;
         }

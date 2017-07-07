@@ -2,10 +2,15 @@ package com.hldj.hmyg.buyer.Ui;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.CallBack.ResultCallBack;
@@ -16,6 +21,7 @@ import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PicSerializableMaplist;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.buyer.M.ItemBean;
 import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
@@ -23,15 +29,20 @@ import com.hldj.hmyg.buyer.P.PurchaseDeatilP;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
+import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment1;
 import com.hldj.hmyg.buyer.weidet.Purchase.PurchaseAutoAddLinearLayout;
+import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.Ui.ManagerQuoteListItemDetail;
 import com.hldj.hmyg.saler.UpdataImageActivity_bak;
 import com.hldj.hmyg.util.ConstantParams;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.TakePhotoUtil;
 import com.hy.utils.ToastUtil;
 import com.zf.iosdialog.widget.AlertDialog;
+
+import net.tsz.afinal.http.AjaxCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +55,7 @@ import java.util.Map;
 @SuppressLint("NewApi")
 public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
+    private static final String TAG = "PurchaseDetailActivity";
 
     private String purchaseId;//采购id
 
@@ -96,7 +108,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     @Override
     public void initItem(ItemBean item) {
         super.initItem(item);//返回给父类实现
-        uploadBean.cityCode = MainActivity.cityCode ;
+        uploadBean.cityCode = MainActivity.cityCode;
         sellerQuoteJsonBean = item.sellerQuoteJson;
 
 
@@ -132,7 +144,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
             if (!MainActivity.province_loc.equals("")) {
                 getViewHolder_pur().tv_purchase_city_name.setText(MainActivity.province_loc + " " + MainActivity.city_loc);
-                uploadBean.cityCode = MainActivity.cityCode ;
+                uploadBean.cityCode = MainActivity.cityCode;
             } else {
                 getViewHolder_pur().tv_purchase_city_name.setText("未选择");
             }
@@ -191,7 +203,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
             if (!MainActivity.province_loc.equals("")) {
                 getViewHolder_pur().tv_purchase_city_name.setText(MainActivity.province_loc + " " + MainActivity.city_loc);
-                uploadBean.cityCode = MainActivity.cityCode ;
+                uploadBean.cityCode = MainActivity.cityCode;
             } else {
                 getViewHolder_pur().tv_purchase_city_name.setText("未选择");
             }
@@ -294,7 +306,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                         SuperTextView textView = helper.getView(R.id.tv_quote_item_photo_num);
 
 
-                        setImgCounts(mActivity,textView, item.imagesJson);
+                        setImgCounts(mActivity, textView, item.imagesJson);
 
                         if (getStatus().equals("")) {//""表示  已经报价  但是结果还没出来   允许删除
                             helper.setVisible(R.id.tv_delete_item, true);
@@ -377,7 +389,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
         ArrayList pics = new ArrayList<Pic>();
         for (int i = 0; i < imagesJson.size(); i++) {
-            pics.add(new Pic(imagesJson.get(i).id, false, imagesJson.get(i).ossMediumImagePath, i));
+            pics.add(new Pic(imagesJson.get(i).id, false, imagesJson.get(i).ossAppLargeImagePath, i));
         }
         return pics;
     }
@@ -428,35 +440,33 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                     break;
                 case ConstantParams.diameter://地径
                     content = uploadBean.diameter = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
-                    isOk = submit(plantBean.name, uploadBean.price, plantBean.required);
+                    isOk = submit(plantBean.name, uploadBean.diameter, plantBean.required);
                     break;
                 case ConstantParams.dbh://胸径
                     content = uploadBean.dbh = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
-                    isOk = submit(plantBean.name, uploadBean.price, plantBean.required);
+                    isOk = submit(plantBean.name, uploadBean.dbh, plantBean.required);
                     break;
                 case ConstantParams.height://高度
                     content = uploadBean.height = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
-                    isOk = submit(plantBean.name, uploadBean.price, plantBean.required);
+                    isOk = submit(plantBean.name, uploadBean.height, plantBean.required);
                     break;
                 case ConstantParams.crown://冠幅
                     content = uploadBean.crown = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
-                    isOk = submit(plantBean.name, uploadBean.price, plantBean.required);
+                    isOk = submit(plantBean.name, uploadBean.crown, plantBean.required);
                     break;
                 case ConstantParams.offbarHeight://脱杆高
                     content = uploadBean.offbarHeight = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
-                    isOk = submit(plantBean.name, uploadBean.price, plantBean.required);
+                    isOk = submit(plantBean.name, uploadBean.offbarHeight, plantBean.required);
                     break;
                 case ConstantParams.length://长度
                     content = uploadBean.length = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
-                    isOk = submit(plantBean.name, uploadBean.price, plantBean.required);
+                    isOk = submit(plantBean.name, uploadBean.length, plantBean.required);
                     break;
                 case "count"://长度
                     content = uploadBean.count = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
-                    isOk = submit(plantBean.name, uploadBean.price, plantBean.required);
+                    isOk = submit(plantBean.name, uploadBean.count, plantBean.required);
                     break;
-
             }
-
             if (!isOk) {
                 return;
             }
@@ -728,38 +738,86 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     }
 
 
-//    @Override
-//    public void getDatas() {
-//        super.getDatas();
-//    }
+    @Override
+    public void desposeNoPermission() {
 
-//    public View.OnClickListener clic2Del = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            {
-//
-//                showLoading();
-//                new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
-//                    @Override
-//                    public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
-//
-//                        ToastUtil.showShortToast("删除成功");
-//                        //删除该项目 并且刷新界面
-//                        recyclerView.getAdapter().remove(0);
-//                        recyclerView.getAdapter().notifyItemRemoved(0);
-//                        getDatas();
-//                        setResult(-1);
-//                        hindLoading();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Throwable t, int errorNo, String strMsg) {
-//                        hindLoading();
-//                    }
-//                })
-//                        .quoteDdel(purchaseId);
-//
-//            }
-//        }
-//    };
+        CommonDialogFragment1.newInstance(new CommonDialogFragment1.OnCallDialog() {
+            @Override
+            public Dialog getDialog(Context context) {
+                Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.dialog_required_no_permission);
+
+                TextView tv_request = (TextView) dialog.findViewById(R.id.tv_request);
+                TextView tv_content = (TextView) dialog.findViewById(R.id.textView17);
+                TextView tv_dismiss = (TextView) dialog.findViewById(R.id.tv_dismiss);
+                tv_request.setOnClickListener(view -> {
+
+                    showLoading();
+                    MyPresenter myPresenter = new MyPresenter();
+                    myPresenter.addResultCallBack(new ResultCallBack<String>() {
+                        @Override
+                        public void onSuccess(String o) {
+                            if (o.equals("申请成功")) {
+                                tv_request.setVisibility(View.GONE);
+                                tv_content.setText("权限申请已经提交成功，请等待客服与您联系！");
+                                tv_dismiss.setText("确定");
+                                tv_dismiss.setTextColor(ContextCompat.getColor(context, R.color.main_color));
+                            }
+                            hindLoading();
+                        }
+
+                        @Override
+                        public void onFailure(Throwable t, int errorNo, String strMsg) {
+                            tv_request.setText("再次申请!");
+                            tv_content.setText(strMsg + "如果多次申请失败，您也可以直接联系我们的客服热线： 4006-579-888 " + " 感谢您的配合^_^ ");
+                            tv_dismiss.setText("确定");
+                            tv_dismiss.setTextColor(ContextCompat.getColor(context, R.color.main_color));
+                            new Handler().postDelayed(() -> {
+                                hindLoading();
+                            }, 300);
+                        }
+                    });
+                    myPresenter.doRequestPermi();
+
+
+                });
+                tv_dismiss.setOnClickListener(v -> {
+                    dialog.dismiss();
+                    finish();
+                });
+
+
+                return dialog;
+            }
+        }, false).show(getSupportFragmentManager(), TAG);
+    }
+
+
+    private class MyPresenter extends BasePresenter {
+
+        public void doRequestPermi() {
+            AjaxCallBack ajaxCallBack = new AjaxCallBack<String>() {
+                @Override
+                public void onSuccess(String json) {
+                    SimpleGsonBean gsonBean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
+                    if (gsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
+                        resultCallBack.onSuccess("申请成功");
+                    } else {
+                        resultCallBack.onFailure(null, 0, gsonBean.msg);
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t, int errorNo, String strMsg) {
+                    resultCallBack.onFailure(null, 0, "请检查您的网络连接！");
+
+                }
+            };
+            doRequest("admin/feedback/applyQuote", true, ajaxCallBack);
+        }
+
+
+    }
+
+
 }

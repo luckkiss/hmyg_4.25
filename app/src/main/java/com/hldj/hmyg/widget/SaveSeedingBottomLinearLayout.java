@@ -89,6 +89,11 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
 
     //获取上传的数据
     public SaveSeedingBottomLinearLayout.upLoadDatas getUpLoadDatas() {
+
+        if (upLoadDatas == null)
+        {
+            upLoadDatas = new SaveSeedingBottomLinearLayout.upLoadDatas();
+        }
         return upLoadDatas;
     }
 

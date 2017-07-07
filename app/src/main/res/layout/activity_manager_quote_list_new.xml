@@ -10,8 +10,6 @@
 
     <include layout="@layout/toolbar_3_0" />
 
-    <View style="@style/View_line_green"
-
         />
     <!--<RelativeLayout-->
     <!--android:layout_width="fill_parent"-->

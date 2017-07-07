@@ -2,16 +2,22 @@ package com.hldj.hmyg.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hldj.hmyg.R;
 import com.hldj.hmyg.util.D;
+import com.weavey.loading.lib.LoadingLayout;
 
 /**
  * Created by Administrator on 2017/5/22.
@@ -27,6 +33,9 @@ public abstract class BaseFragment extends Fragment {
 
     public View rootView;
 
+    LoadingLayout loadingLayout;
+    private View loadPage;
+
 
     @Nullable
     @Override
@@ -34,9 +43,108 @@ public abstract class BaseFragment extends Fragment {
         View mRootView = inflater.inflate(bindLayoutID(), null);
         initView(mRootView);
         this.rootView = mRootView;
+        initLoadingView(rootView);
         D.e("======当前Fragment===位置=====" + this.getClass().getName());
         return rootView;
     }
+
+    // 获取loading view
+    protected final void initLoadingView(View rootView) {
+        loadingLayout = (LoadingLayout) rootView.findViewById(bindLoadingLayout());
+        //自定义刷新界面
+        loadPage = LayoutInflater.from(mActivity).inflate(R.layout.load_dialog, null);
+
+
+        final FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        final ViewGroup.LayoutParams lp = loadPage.getLayoutParams();
+        if (lp != null) {
+            layoutParams.width = lp.width;
+            layoutParams.height = lp.height;
+        }
+        loadPage.setLayoutParams(layoutParams);
+
+        if (loadingLayout != null) {
+            loadingLayout.setLoadingPage(loadPage);
+            loadingLayout.setOnReloadListener(v -> loadData());
+
+//            默认进入页面就开启动画
+//            if (!mAnimationDrawable.isRunning()) {
+//                mAnimationDrawable.start();
+//            }
+            /**
+             *   ImageView img = (ImageView) this.findViewById(R.id.iv_amin_flowar);
+
+             // 加载动画
+             mAnimationDrawable = (AnimationDrawable) img.getDrawable();
+             默认进入页面就开启动画
+             if (!mAnimationDrawable.isRunning()) {
+             mAnimationDrawable.start();
+             }
+             */
+        }
+
+    }
+
+    public int bindLoadingLayout() {
+        return 0;
+    }
+
+    public void showLoading() {
+
+        if (loadingLayout == null) {
+            return;
+        }
+        ImageView img = (ImageView) loadPage.findViewById(R.id.iv_amin_flowar);
+        // 加载动画
+        AnimationDrawable mAnimationDrawable = (AnimationDrawable) img.getDrawable();
+//            默认进入页面就开启动画
+        if (!mAnimationDrawable.isRunning()) {
+            mAnimationDrawable.start();
+        }
+        loadingLayout.setStatus(LoadingLayout.Loading);
+        /**
+         *   ImageView img = (ImageView) this.findViewById(R.id.iv_amin_flowar);
+
+         // 加载动画
+         mAnimationDrawable = (AnimationDrawable) img.getDrawable();
+         默认进入页面就开启动画
+         if (!mAnimationDrawable.isRunning()) {
+         mAnimationDrawable.start();
+         }
+         */
+    }
+
+    public void hideLoading(int loadState) {
+        if (loadingLayout == null) {
+            return;
+        }
+        ImageView img = (ImageView) loadPage.findViewById(R.id.iv_amin_flowar);
+        // 加载动画
+        AnimationDrawable mAnimationDrawable = (AnimationDrawable) img.getDrawable();
+//            默认进入页面就开启动画
+        if (mAnimationDrawable.isRunning()) {
+            mAnimationDrawable.stop();
+        }
+        loadingLayout.setStatus(loadState);
+    }
+
+    public void hideLoading(int loadState, String str) {
+        if (loadingLayout == null) {
+            return;
+        }
+        ImageView img = (ImageView) loadPage.findViewById(R.id.iv_amin_flowar);
+        // 加载动画
+        AnimationDrawable mAnimationDrawable = (AnimationDrawable) img.getDrawable();
+//            默认进入页面就开启动画
+        if (mAnimationDrawable.isRunning()) {
+            mAnimationDrawable.stop();
+        }
+        if (!TextUtils.isEmpty(str)) {
+            loadingLayout.setErrorText(str);
+        }
+        loadingLayout.setStatus(loadState);
+    }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -112,7 +220,6 @@ public abstract class BaseFragment extends Fragment {
         }
         return (T) view;
     }
-
 
 
 }

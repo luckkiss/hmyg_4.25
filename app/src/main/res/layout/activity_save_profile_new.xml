@@ -15,9 +15,7 @@
 
         <include layout="@layout/toolbar_3_0" />
 
-        <View
-            style="@style/View_line_green"
-            android:layout_height="2px" />
+
 
         <com.lqr.optionitemview.OptionItemView
             android:id="@+id/set_phone"

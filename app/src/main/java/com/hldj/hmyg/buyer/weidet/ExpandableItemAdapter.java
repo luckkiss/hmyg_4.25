@@ -24,7 +24,7 @@ public abstract class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<Mu
      *
      * @param
      */
-    public ExpandableItemAdapter(Integer... layoutResIds) {
+    public ExpandableItemAdapter(Integer... layoutResIds){
         super(layoutResIds[0]);
 
         int length = layoutResIds.length;
@@ -53,7 +53,7 @@ public abstract class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<Mu
 
 
     public class SoMuchLayoutsException extends Exception {
-        public SoMuchLayoutsException(String errMsg) {
+         SoMuchLayoutsException(String errMsg) {
             super(errMsg);
         }
     }

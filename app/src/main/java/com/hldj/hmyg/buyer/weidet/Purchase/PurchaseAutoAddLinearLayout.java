@@ -7,6 +7,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewStub;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -69,6 +70,9 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
 
         if (plantBean.name.equals("价格")) {
             getViewHolder().et_params_03.setHint("元");
+            getViewHolder().et_params_03.setInputType(EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.TYPE_NUMBER_FLAG_DECIMAL );
+//            getViewHolder().et_params_03.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+
         }
         if (plantBean.name.equals("数量")) {
             getViewHolder().et_params_03.setHint("可供数量");

@@ -1,11 +1,9 @@
 package com.hldj.hmyg.Ui.myProgramChild.childensFragment;
 
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.M.PorgramDetailGsonBean;
@@ -16,7 +14,6 @@ import com.hldj.hmyg.model.MyProgramGsonBean;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.GsonUtil;
-import com.hy.utils.ToastUtil;
 import com.weavey.loading.lib.LoadingLayout;
 
 import net.tsz.afinal.http.AjaxCallBack;
@@ -40,6 +37,11 @@ public class ProgramFragment3 extends BaseFragment {
     }
 
     @Override
+    public int bindLoadingLayout() {
+        return R.id.program3_loading;
+    }
+
+    @Override
     protected void initView(View rootView) {
         myPresenter = new MyPresenter();
     }
@@ -49,14 +51,17 @@ public class ProgramFragment3 extends BaseFragment {
         isFirst = false;
         this.setText(getView(R.id.program3_num), project.num);
         this.setText(getView(R.id.program3_projectName), project.projectName);
+        this.setText(getView(R.id.program3_typeName), project.typeName);
         this.setText(getView(R.id.program3_projectFullName), project.projectFullName);
-        this.setText(getView(R.id.program3_consumerUserName), project.consumerUserName);
+        this.setText(getView(R.id.program3_consumerUserName), project.consumerUserName  + " "+project.consumerUserPhone);
         this.setText(getView(R.id.program3_address), project.address);
         this.setText(getView(R.id.program3_consumerName), project.consumerName);
-        this.setText(getView(R.id.program3_displayName), project.clerk.displayName);
-        ((TextView) getView(R.id.program3_displayName)).getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        this.setText(getView(R.id.program3_displayName), project.clerk.displayName + " " + project.clerk.displayPhone);
+//        ((TextView) getView(R.id.program3_displayName)).getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+//        ((TextView) getView(R.id.program3_consumerName)).getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 
-        this.getView(R.id.program3_displayName).setOnClickListener(view -> FlowerDetailActivity.CallPhone(project.clerk.publicPhone, mActivity));
+        this.getView(R.id.program3_displayName).setOnClickListener(view -> FlowerDetailActivity.CallPhone(project.clerk.displayPhone, mActivity));
+        this.getView(R.id.program3_consumerUserName).setOnClickListener(view -> FlowerDetailActivity.CallPhone(project.consumerUserPhone, mActivity));
 
     }
 
@@ -85,6 +90,7 @@ public class ProgramFragment3 extends BaseFragment {
             Log.e(TAG, "加载数据" + mIsVisible + "  mIsPrepared=" + mIsPrepared + " isFirst = " + isFirst);
         }
 
+        showLoading();
         myPresenter.getDatas();
 
     }
@@ -100,13 +106,21 @@ public class ProgramFragment3 extends BaseFragment {
             AjaxCallBack ajaxCallBack = new AjaxCallBack<String>() {
                 @Override
                 public void onSuccess(String json) {
-
                     PorgramDetailGsonBean gsonBean = GsonUtil.formateJson2Bean(json, PorgramDetailGsonBean.class);
                     if (gsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
                         initBean(gsonBean.data.project);
+                        hideLoading(LoadingLayout.Success);
                     } else {
-                        ToastUtil.showShortToast(gsonBean.msg);
+//                        ToastUtil.showShortToast(gsonBean.msg);
+//                        loadingLayout.setStatus(LoadingLayout.Error);
+                        hideLoading(LoadingLayout.Error, gsonBean.msg);
                     }
+                }
+
+                @Override
+                public void onFailure(Throwable t, int errorNo, String strMsg) {
+//                    loadingLayout.setStatus(LoadingLayout.No_Network);
+                    hideLoading(LoadingLayout.No_Network, strMsg);
                 }
             };
             doRequest("admin/project/projectInfo", true, ajaxCallBack);

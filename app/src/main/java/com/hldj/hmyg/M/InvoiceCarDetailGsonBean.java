@@ -46,6 +46,9 @@ public class InvoiceCarDetailGsonBean {
                 public List<ItemListBean> itemList = new ArrayList<>();
 
                 public static class ItemListBean {
+
+                    public int index = 1;
+                    public String projectName = "";
                     /**
                      * id : 520bd5c813dc4d0c9e1c6fd2cdabe056
                      * createBy : b9cef730fa6142eb80bbd7d646e40c66

@@ -10,6 +10,10 @@ import java.util.List;
 
 public class PurchaseBean {
 
+    public boolean showQuote;
+    public String servicePoint = "0.0";
+
+    public long lastTime;
     /**
      * id : 21fdc65b66d7408ca0f546518efb9081
      * createBy : 1
@@ -36,21 +40,21 @@ public class PurchaseBean {
      * status : published
      * source : admin
      * quoteDesc : <p>
-     报价截止时间：XXXX年XX月XX日
-     </p>
-     <p>
-     用苗地：XXXX&nbsp;<br />
-     报价要求：<span style="color:#E53333;">XXX</span>（包含以下费用：1、上车费用。2、税金。）&nbsp;<br />
-     发票要求：XXXX&nbsp;<br />
-     <span style="color:#E53333;">质量要求：XXXX（接近房地产货）</span><br />
-     <span style="color:#E53333;">测量要求：XXXXX。</span>
-     </p>
-     <p>
-     <span style="color:#E53333;line-height:1.5;">种植要求：XXXX</span>
-     </p>
-     <p>
-     报价限制：请供应商报价时对应品种必须上传真实有效的图片，（Ps:有照片者优先考虑）
-     </p>
+     * 报价截止时间：XXXX年XX月XX日
+     * </p>
+     * <p>
+     * 用苗地：XXXX&nbsp;<br />
+     * 报价要求：<span style="color:#E53333;">XXX</span>（包含以下费用：1、上车费用。2、税金。）&nbsp;<br />
+     * 发票要求：XXXX&nbsp;<br />
+     * <span style="color:#E53333;">质量要求：XXXX（接近房地产货）</span><br />
+     * <span style="color:#E53333;">测量要求：XXXXX。</span>
+     * </p>
+     * <p>
+     * <span style="color:#E53333;line-height:1.5;">种植要求：XXXX</span>
+     * </p>
+     * <p>
+     * 报价限制：请供应商报价时对应品种必须上传真实有效的图片，（Ps:有照片者优先考虑）
+     * </p>
      * isCooper : false
      * type : quoting
      * dispatchPhone : 18250876026
@@ -110,15 +114,15 @@ public class PurchaseBean {
     public String blurProjectName;
     public String blurName;
     public List<String> itemNameList;
-    public AttrDataBean attrData  = new AttrDataBean() ;
+    public AttrDataBean attrData = new AttrDataBean();
 
 
 //    "attrData": {"closeDateStr": "2017年06月09日 14点10分"},
 
-    public  static class  AttrDataBean{
-        public String closeDateStr = "" ;
-        public Boolean isSupplier =false;
-        public double servicePrice  ;
+    public static class AttrDataBean {
+        public String closeDateStr = "";
+        public Boolean isSupplier = false;
+        public double servicePrice;
 
     }
 

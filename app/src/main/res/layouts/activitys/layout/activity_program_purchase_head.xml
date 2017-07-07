@@ -97,12 +97,12 @@
 
 
             <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:paddingTop="3dp"
-                android:src="@drawable/icon_phone" />
+                android:src="@drawable/dianhua" />
 
             <TextView
                 android:id="@+id/tv_program_pur_phone_num"
@@ -121,7 +121,7 @@
 
 
         <TextView
-            android:id="@+id/tv_06"
+            android:id="@+id/tv_program_pur_close_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -135,16 +135,17 @@
             tools:text="截止时间" />
 
         <TextView
+            android:id="@+id/tv_head_ser_po"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white_60"
-            android:drawableLeft="@drawable/weituogou_tongzhikefu2"
+            android:drawableLeft="@drawable/xiaoxiti"
             android:drawablePadding="6dp"
             android:gravity="center_vertical"
             android:paddingBottom="5dp"
             android:paddingLeft="10dp"
             android:paddingTop="5dp"
-            android:text="134646546"
+            android:text="一下报价未包含10%服务费"
             android:textColor="@color/white"
             android:textSize="@dimen/textSize" />
 

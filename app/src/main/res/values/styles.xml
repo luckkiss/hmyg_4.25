@@ -487,7 +487,7 @@
         <item name="android:textColorHint">@color/hint_text_color</item>
         <item name="android:maxLines">1</item>
         <item name="android:maxLength">6</item>
-        <item name="android:inputType">number|numberSigned|numberDecimal</item>
+        <item name="android:inputType">number</item>
 
 
     </style>

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 
 /**
- * 我的项目 -----  直购界面
+ * 我的项目 -----  直购界面 protocol
  */
 
 public class ProgramDirctActivity extends BaseMVPActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, RadioGroup.OnCheckedChangeListener {
@@ -44,8 +44,12 @@ public class ProgramDirctActivity extends BaseMVPActivity implements View.OnClic
     }};
 
 
+
+
+
     @Override
     public void initView() {
+
         FragmentPagerAdapter_TabLayout mFragmentPagerAdapter_tabLayout = new FragmentPagerAdapter_TabLayout(getSupportFragmentManager(), list_title, list_fragment);
         getVpContent().setAdapter(mFragmentPagerAdapter_tabLayout);
         getVpContent().addOnPageChangeListener(this);
@@ -55,6 +59,7 @@ public class ProgramDirctActivity extends BaseMVPActivity implements View.OnClic
         getView(R.id.toolbar_left_icon).setOnClickListener(view -> finish());
 
     }
+
 
     private ViewPager getVpContent() {
         return getView(R.id.vp_content);

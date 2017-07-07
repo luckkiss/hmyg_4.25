@@ -18,9 +18,8 @@ import java.util.List;
 
 public interface ProgramPurchaseContract {
     interface Model extends BaseModel {
-        void getDatas(String page, String searchKey, ResultCallBack callBack);
-
-        void getHeadDatas(ResultCallBack callBack,String purchaseId);
+        void getDatas(String page, String proId ,String searchKey, ResultCallBack callBack);
+        void getIndexDatas(ResultCallBack callBack,String purchaseId);
         void doDelete(String id, ResultCallBack callBack);
     }
 
@@ -37,7 +36,7 @@ public interface ProgramPurchaseContract {
 
         public abstract void onStart();
 
-        public abstract void getData(String page ,String searchKey  );
+        public abstract void getData(String page ,String proId ,String searchKey  );
 
 
         public abstract void getIndexDatas(String purchaseId);

@@ -3,7 +3,6 @@ package com.hldj.hmyg.Ui.myProgramChild.childensFragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.hldj.hmyg.M.InvoiceCarDetailGsonBean;
 import com.hldj.hmyg.R;
@@ -47,8 +46,8 @@ public class DetailDialogFragment extends BaseDialogFragment {
     }
 
     public void setTitle(String title) {
-        TextView textView = getView(R.id.sptv_detail_close);
-        textView.setText(title);
+//        TextView textView = getView(R.id.sptv_detail_close);
+//        textView.setText(title);
     }
 
     @Override
@@ -109,7 +108,7 @@ public class DetailDialogFragment extends BaseDialogFragment {
 
     @Override
     public void initListener() {
-        getView(R.id.sptv_detail_close).setOnClickListener(view -> dismiss());
+//        getView(R.id.sptv_detail_close).setOnClickListener(view -> dismiss());
         loadingLayout.setOnReloadListener(v -> initData());//刷新
     }
 

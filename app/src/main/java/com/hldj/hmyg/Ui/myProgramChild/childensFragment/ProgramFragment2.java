@@ -1,8 +1,9 @@
 package com.hldj.hmyg.Ui.myProgramChild.childensFragment;
 
-import android.accounts.NetworkErrorException;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
@@ -10,6 +11,7 @@ import com.hldj.hmyg.M.InvoiceCarBean;
 import com.hldj.hmyg.M.ProjectPageGsonBean;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.myProgramChild.ProgramDirctActivity;
+import com.hldj.hmyg.Ui.myProgramChild.ProgramFragment2DetailActivity;
 import com.hldj.hmyg.base.BaseFragment;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
@@ -59,6 +61,14 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
         loadingLayout.setStatus(LoadingLayout.Loading);
         initListener(rootView);
         coreRecyclerView = (CoreRecyclerView) rootView.findViewById(R.id.recycle_program2);
+
+        coreRecyclerView.getRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                //设定底部边距为1px
+                outRect.set(0, 0, 0, 2);
+            }
+        });
         myPresenter = new MyPresenter();
 
         coreRecyclerView.init(new BaseQuickAdapter<InvoiceCarBean, BaseViewHolder>(R.layout.item_program_two) {
@@ -68,23 +78,23 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
                 helper.setText(R.id.item_program_car_card, item.carNum);//车牌号码
                 helper.setText(R.id.item_program_time, item.receiptDate);//创建时间
                 helper.setText(R.id.item_program_car_type, item.carTypeName);// 车型
-                helper.setText(R.id.item_program_trans_price, item.carPrice);//  运费
+                helper.setText(R.id.item_program_trans_price, "￥" + item.carPrice);//  运费
                 helper.setText(R.id.item_program_project_name, item.projectNames);//  项目名称
 
                 helper.addOnClickListener(R.id.item_program_confirmation, view1 -> ToastUtil.showShortToast("确认收货"));
                 helper.addOnClickListener(R.id.item_program_detail, view1 ->
                         {
-                            ToastUtil.showShortToast("查看明细");
-                            DetailDialogFragment.instance(item.id).show(getChildFragmentManager(), "葫芦娃");
+//                            DetailDialogFragment.instance(item.id).show(getChildFragmentManager(), "葫芦娃");
+                            ProgramFragment2DetailActivity.start(mActivity, item.id);
                         }
 
                 );
                 helper.setVisible(R.id.item_program_confirmation, getStatus().equals(SENDED));//待收货 显示 确认收货按钮
 
                 String str = item.carFirstItemName + "等" + item.carItemsCount + "个品种";
-                StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, item.carFirstItemName, R.color.main_color).fillColor();
-                StringFormatUtil stringFormatUtil2 = new StringFormatUtil(mActivity, stringFormatUtil.getResult() + "", item.carItemsCount + "", R.color.main_color).fillColor();
-                helper.setText(R.id.item_program_plant_type, stringFormatUtil2.getResult());//
+                StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, item.carFirstItemName ,item.carItemsCount + "", R.color.main_color).fillColor();
+//                StringFormatUtil stringFormatUtil2 = new StringFormatUtil(mActivity, stringFormatUtil.getResult() + "", item.carItemsCount + "", R.color.main_color).fillColor();
+                helper.setText(R.id.item_program_plant_type, stringFormatUtil.getResult());//
 
 
                 /**
@@ -155,10 +165,10 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
     public void onClick(View view) {
         if (view.getId() == R.id.tv_no_get) {
             //未收货
-            ToastUtil.showShortToast("已发车");
+//            ToastUtil.showShortToast("已发车");
             setStatus(SENDED);
         } else if (view.getId() == R.id.tv_yes_get) {
-            ToastUtil.showShortToast("已收货");
+//            ToastUtil.showShortToast("已收货");
             setStatus(RECEIPED);
         }
         coreRecyclerView.onRefresh();
@@ -180,6 +190,7 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
             AjaxCallBack ajaxCallBack = new AjaxCallBack<String>() {
                 @Override
                 public void onSuccess(String json) {
+
 //                    ToastUtil.showShortToast("json" + json);
                     Log.i(TAG, "onSuccess: " + json.toString());
                     ProjectPageGsonBean gsonBean = GsonUtil.formateJson2Bean(json, ProjectPageGsonBean.class);
@@ -196,20 +207,13 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
                         loadingLayout.setErrorText(gsonBean.msg);
                         loadingLayout.setStatus(LoadingLayout.Error);
                     }
-
 //                    ToastUtil.showShortToast(json);
                     coreRecyclerView.selfRefresh(false);
                 }
 
                 @Override
                 public void onFailure(Throwable t, int errorNo, String strMsg) {
-
-                    if (t instanceof NetworkErrorException) {
-                        loadingLayout.setStatus(LoadingLayout.No_Network);
-                    } else {
-                        loadingLayout.setErrorText(strMsg);
-                        loadingLayout.setStatus(LoadingLayout.Error);
-                    }
+                    loadingLayout.setStatus(LoadingLayout.No_Network);
                 }
             };
 

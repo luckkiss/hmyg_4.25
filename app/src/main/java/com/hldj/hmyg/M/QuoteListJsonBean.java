@@ -2,6 +2,7 @@ package com.hldj.hmyg.M;
 
 import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.buyer.M.ItemBean;
+import com.hldj.hmyg.buyer.weidet.entity.IExpandable;
 import com.hldj.hmyg.buyer.weidet.entity.MultiItemEntity;
 import com.hldj.hmyg.saler.M.PurchaseBean;
 
@@ -15,10 +16,10 @@ import static com.hldj.hmyg.buyer.weidet.ExpandableItemAdapter.TYPE_LEVEL_1;
  * Created by 罗擦擦  实现  多级菜单 数据 on 2017/6/30 0030.
  */
 
-public class QuoteListJsonBean implements Serializable ,MultiItemEntity{
+public class QuoteListJsonBean implements Serializable, MultiItemEntity, IExpandable {
 
 
-    public static final int QuoteListJsonBean_Type = 666 ;
+    public static final int QuoteListJsonBean_Type = 666;
     /**
      * id : fe96fde19e1445c2955fb9155f6cd22c
      * remarks : 一株胸径19.8分左右，一株胸径23分
@@ -103,9 +104,9 @@ public class QuoteListJsonBean implements Serializable ,MultiItemEntity{
     public String price;
     public boolean isInvoice;
     public boolean isUsed;
-    public String sendType;
+    public String sendType = "";
     public String implementRemarks;
-    public String quoteImplementStatus;
+    public String quoteImplementStatus = "";
     public String statusName;
     public String sellerName;
     public String sellerPhone;
@@ -135,5 +136,25 @@ public class QuoteListJsonBean implements Serializable ,MultiItemEntity{
     @Override
     public int getItemType() {
         return TYPE_LEVEL_1;
+    }
+
+    @Override
+    public boolean isExpanded() {
+        return false;
+    }
+
+    @Override
+    public void setExpanded(boolean expanded) {
+
+    }
+
+    @Override
+    public List getSubItems() {
+        return null;
+    }
+
+    @Override
+    public int getLevel() {
+        return 1;
     }
 }

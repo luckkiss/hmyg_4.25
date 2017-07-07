@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.hldj.hmyg.M.CountTypeGsonBean;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.myProgramChild.ProgramDirctActivity;
+import com.hldj.hmyg.Ui.myProgramChild.ProgramProtocolActivity;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
@@ -39,40 +40,48 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
 
     @Override
     public void initView() {
+
         recyclerView = new CoreRecyclerView(mActivity);
         //初始化recycleview
         recyclerView.init(new BaseQuickAdapter<MyProgramGsonBean.DataBeanX.PageBean.DataBean, BaseViewHolder>(R.layout.item_program_list) {
             @Override
             protected void convert(BaseViewHolder helper, MyProgramGsonBean.DataBeanX.PageBean.DataBean item) {
                 helper.convertView.setOnClickListener(view -> {
-                    ProgramDirctActivity.start(mActivity, item.id);
-                });
 
+                    if (!item.typeName.equals("直购")) {
+                        ProgramDirctActivity.start(mActivity, item.id);
+                    } else {
+                        ProgramProtocolActivity.start(mActivity, item.id);
+                    }
+                });
                 helper.setText(R.id.tv_program_pos, (helper.getAdapterPosition() + 1) + "");//获取位置 pos
                 helper.setText(R.id.tv_program_name, item.projectName);//获取 项目的 名称
-                helper.setText(R.id.tv_program_service_price, item.servicePoint + "%");//
-                helper.setText(R.id.tv_program_load_car_count, item.loadCarCount + "车");//
+                helper.setText(R.id.tv_program_service_price, item.servicePoint + "%")
+                        .setVisible(R.id.tv_program_text, item.servicePoint != 0.0)
+                        .setVisible(R.id.tv_program_service_price, item.servicePoint != 0.0)
+                ;//
+
+                helper.setText(R.id.tv_program_load_car_count, filterColor(item.loadCarCount + "车", item.loadCarCount + "", R.color.main_color));//
                 helper.setText(R.id.tv_program_alreay_order, "￥" + item.totalAmount);//
                 helper.setText(R.id.tv_program_state, item.typeName);//
                 int colorId = item.typeName.equals("直购") ? ContextCompat.getColor(mActivity, R.color.price_orige) : ContextCompat.getColor(mActivity, R.color.main_color);
                 helper.setTextColor(R.id.tv_program_state, colorId);
-
             }
         }, false)
                 .openLoadMore(10, page -> {
 //                    mPresenter.getData(page + "", search_key, "params2");
+//                    showLoading();
                     mPresenter.getData(page + "", search_key);
-                });
+                })
+                .openRefresh();
         getContentView().addView(recyclerView);
-
         recyclerView.onRefresh();
-
     }
 
     @Override
     public void showErrir(String erMst) {
-        super.showErrir(erMst);
-        recyclerView.selfRefresh(false);
+        recyclerView.selfRefresh(false, erMst);
+        hindLoading();
     }
 
     @Override
@@ -88,6 +97,7 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
     public void initXRecycle(List<MyProgramGsonBean.DataBeanX.PageBean.DataBean> gsonBean) {
         recyclerView.getAdapter().addData(gsonBean);
         recyclerView.selfRefresh(false);
+        hindLoading();
     }
 
     @Override

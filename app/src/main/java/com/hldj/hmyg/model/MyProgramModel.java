@@ -39,8 +39,8 @@ public class MyProgramModel extends BasePresenter implements MyProgramContract.M
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
-                callBack.onFailure(t, errorNo, strMsg);
-                super.onFailure(t, errorNo, strMsg);
+                callBack.onFailure(t, errorNo, "无网络连接，请检查您的网络···");
+
             }
 
         };
@@ -70,15 +70,13 @@ public class MyProgramModel extends BasePresenter implements MyProgramContract.M
                         resultCallBack.onSuccess(gsonBean.msg);
                     }
                 } catch (Exception e) {
-                    ToastUtil.showShortToast("获取数据失败" + e.getMessage());
                     resultCallBack.onFailure(null, -1, e.getMessage());
                 }
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
-                ToastUtil.showShortToast("网络错误，数据请求失败");
-                resultCallBack.onFailure(t, errorNo, strMsg);
+                resultCallBack.onFailure(t, errorNo, "无网络连接，请检查您的网络···");
                 super.onFailure(t, errorNo, strMsg);
             }
         };

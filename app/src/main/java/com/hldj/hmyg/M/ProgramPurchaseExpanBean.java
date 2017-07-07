@@ -14,7 +14,7 @@ import static com.hldj.hmyg.buyer.weidet.ExpandableItemAdapter.TYPE_LEVEL_0;
  * Created by 罗擦擦   实现  多级列表   impl iexpanbale  on 2017/6/30 0030.
  */
 
-public class ProgramPurchaseExpanBean extends AbstractExpandableItem<QuoteListJsonBean> implements Serializable ,MultiItemEntity{
+public class ProgramPurchaseExpanBean extends AbstractExpandableItem<QuoteListJsonBean> implements Serializable, MultiItemEntity {
 
     /**
      * id : f52f8fd5e7e74c0fa97abd1f3cfd1228
@@ -127,6 +127,12 @@ public class ProgramPurchaseExpanBean extends AbstractExpandableItem<QuoteListJs
 //    public int getLevel() {
 //        return 1;
 //    }
+
+
+    public int index = 1;
+
+
+
 
 
 }

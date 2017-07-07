@@ -35,7 +35,9 @@
 
         <EditText
             android:id="@+id/et_auto_add_min"
-            style="@style/edit_seeding_imput" />
+            style="@style/edit_seeding_imput"
+            android:inputType="number"
+            />
 
         <TextView style="@style/text_Seeding_line" />
 

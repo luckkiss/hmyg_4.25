@@ -53,6 +53,7 @@ import me.kaede.tagview.TagView;
 @SuppressLint("ClickableViewAccessibility")
 public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresenter, ManagerListModel> implements ManagerListContract.View {
 
+    private static final String TAG = "ManagerListActivity_new";
     private String status = "";
     private String searchKey = "";
     CoreRecyclerView xRecyclerView;

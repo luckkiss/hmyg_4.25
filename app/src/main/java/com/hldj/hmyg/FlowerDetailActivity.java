@@ -680,7 +680,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                             myCount.cancel();
                                             myCount = null;
                                         }
-                                        myCount = new MyCount(lastTime, 1000l);
+                                        myCount = new MyCount(lastTime, 100l);
                                         myCount.start();
                                     }
 

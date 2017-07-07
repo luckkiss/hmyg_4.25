@@ -1,206 +1,216 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.weavey.loading.lib.LoadingLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/program3_loading"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:orientation="vertical">
-
+    app:isFirstVisible="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="6dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="6dp">
+        android:background="@color/white"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="项目编号"
-            android:textColor="@color/text_color333" />
 
-        <TextView
-            android:id="@+id/program3_num"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            tools:text="xm0000253" />
+            android:orientation="horizontal"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="项目编号"
+                android:textColor="@color/text_color333" />
+
+            <TextView
+                android:id="@+id/program3_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                tools:text="xm0000253" />
+        </LinearLayout>
+
+        <View style="@style/View_line_gray_1dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="项目名称"
+                android:textColor="@color/text_color333" />
+
+            <TextView
+                android:id="@+id/program3_projectName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                tools:text="莆田市区项目" />
+        </LinearLayout>
+
+        <View style="@style/View_line_gray_1dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="项目全称"
+                android:textColor="@color/text_color333" />
+
+            <TextView
+                android:id="@+id/program3_projectFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="" />
+        </LinearLayout>
+
+        <View style="@style/View_line_gray_1dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="项目类型"
+                android:textColor="@color/text_color333" />
+
+            <TextView
+                android:id="@+id/program3_typeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                tools:text="代购" />
+        </LinearLayout>
+
+        <View style="@style/View_line_gray_1dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="负  责  人"
+                android:textColor="@color/text_color333" />
+
+            <TextView
+                android:id="@+id/program3_consumerUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:autoLink="phone"
+                tools:text="花木配" />
+        </LinearLayout>
+
+        <View style="@style/View_line_gray_1dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="区        域"
+                android:textColor="@color/text_color333" />
+
+            <TextView
+                android:id="@+id/program3_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="" />
+        </LinearLayout>
+
+        <View style="@style/View_line_gray_1dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="6dp">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="客        户"
+                android:textColor="@color/text_color333" />
+
+            <TextView
+                android:id="@+id/program3_consumerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:autoLink="phone"
+                android:text="" />
+        </LinearLayout>
+
+        <View style="@style/View_line_gray_1dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="业  务  员"
+                android:textColor="@color/text_color333" />
+
+            <TextView
+                android:id="@+id/program3_displayName"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:autoLink="phone"
+                tools:text="花木易购" />
+        </LinearLayout>
+
+        <View style="@style/View_line_gray_1dp" />
+
+
     </LinearLayout>
+</com.weavey.loading.lib.LoadingLayout>
 
-    <View style="@style/View_line_gray_1dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="6dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="6dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="项目名称"
-            android:textColor="@color/text_color333" />
-
-        <TextView
-            android:id="@+id/program3_projectName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            tools:text="莆田市区项目" />
-    </LinearLayout>
-
-    <View style="@style/View_line_gray_1dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="6dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="6dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="项目全称"
-            android:textColor="@color/text_color333" />
-
-        <TextView
-            android:id="@+id/program3_projectFullName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="" />
-    </LinearLayout>
-
-    <View style="@style/View_line_gray_1dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="6dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="6dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="项目类型"
-            android:textColor="@color/text_color333" />
-
-        <TextView
-            android:id="@+id/program3_typeName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            tools:text="代购" />
-    </LinearLayout>
-
-    <View style="@style/View_line_gray_1dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="6dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="6dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="负  责  人"
-            android:textColor="@color/text_color333" />
-
-        <TextView
-            android:id="@+id/program3_consumerUserName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            tools:text="花木配" />
-    </LinearLayout>
-
-    <View style="@style/View_line_gray_1dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="6dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="6dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="区        域"
-            android:textColor="@color/text_color333" />
-
-        <TextView
-            android:id="@+id/program3_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="" />
-    </LinearLayout>
-
-    <View style="@style/View_line_gray_1dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="6dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="6dp">
-
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="客        户"
-            android:textColor="@color/text_color333" />
-
-        <TextView
-            android:id="@+id/program3_consumerName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="" />
-    </LinearLayout>
-
-    <View style="@style/View_line_gray_1dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="6dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="6dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="业  务  员"
-            android:textColor="@color/text_color333" />
-
-        <TextView
-            android:id="@+id/program3_displayName"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            tools:text="花木易购"
-
-            />
-    </LinearLayout>
-
-    <View style="@style/View_line_gray_1dp" />
-
-
-</LinearLayout>

@@ -1,8 +1,8 @@
 package com.hldj.hmyg.base;
 
-import android.accounts.NetworkErrorException;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -15,6 +15,7 @@ import com.hldj.hmyg.base.Rx.TUtil;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.buyer.weidet.DialogFragment.CustomDialog;
 import com.hldj.hmyg.util.D;
+import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
 import com.weavey.loading.lib.LoadingLayout;
 
@@ -55,7 +56,12 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
 
         initView();
         initVH();
+        initData();
 
+
+    }
+
+    public void initData() {
 
     }
 
@@ -76,13 +82,21 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
         return "";
     }
 
+    public void setTitle(String tit) {
+        if (title != null) {
+            title.setText(tit);
+        }
+    }
+
     public abstract void initView();
 
 
     /**
      * 初始化viewHolder
      */
-    public abstract void initVH();
+    public void initVH() {
+
+    }
 
 
     /**
@@ -109,9 +123,8 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
     @Override
     public void showErrir(String erMst) {
         ToastUtil.showShortToast(erMst);
+        hindLoading();
     }
-
-
 
 
     //成功时进来
@@ -138,12 +151,18 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
 
     //网络请求错误时进来
     public static void setLoadingState(CoreRecyclerView recyclerView, LoadingLayout layout, Throwable t, String errorMsg) {
-        if (t instanceof NetworkErrorException) {
-            //NetworkErrorException
-            layout.setStatus(LoadingLayout.No_Network);
-        } else {
-            layout.setErrorText("连接服务器失败");
-            layout.setStatus(LoadingLayout.Error);
-        }
+        layout.setStatus(LoadingLayout.No_Network);
     }
+
+    public SpannableStringBuilder filterColor(String wholeStr, String hightLightStr) {
+
+        return filterColor(wholeStr, hightLightStr, R.color.red);
+    }
+
+    public SpannableStringBuilder filterColor(String wholeStr, String hightLightStr, int color) {
+        StringFormatUtil formatUtil = new StringFormatUtil(mActivity, wholeStr, hightLightStr, color).fillColor();
+        return formatUtil.getResult();
+    }
+
+
 }

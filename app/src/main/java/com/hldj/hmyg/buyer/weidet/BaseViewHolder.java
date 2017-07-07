@@ -108,7 +108,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     public BaseViewHolder setDrawableLeft(int viewId, int resId) {
         TextView view = getView(viewId);
         Drawable drawable = ContextCompat.getDrawable(MyApplication.getInstance(), R.mipmap.ic_location);
-        drawable.setBounds(5, 5, drawable.getMinimumWidth() + 5, drawable.getMinimumHeight() + 5);
+        drawable.setBounds(5, 5, drawable.getMinimumWidth()+5, drawable.getMinimumHeight());
         view.setCompoundDrawablePadding(25);
         view.setCompoundDrawables(drawable, null, null, null);
         return this;
@@ -178,6 +178,19 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     public BaseViewHolder setTextColor(int viewId, int textColor) {
         TextView view = getView(viewId);
         view.setTextColor(textColor);
+        return this;
+    }
+
+    /**
+     * Will set text color of a TextView.
+     *
+     * @param viewId    The view id.
+     * @param textColor The text color (not a resource id).
+     * @return The BaseViewHolder for chaining.
+     */
+    public BaseViewHolder setTextColorRes(int viewId, int textColor) {
+        TextView view = getView(viewId);
+        view.setTextColor(ContextCompat.getColor(MyApplication.getInstance(), textColor));
         return this;
     }
 
@@ -538,10 +551,9 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
      */
     public BaseViewHolder setSelected(int viewId, boolean selected) {
         View view = getView(viewId);
-        // View unable cast to Checkable
-        if (view instanceof TextView) {
-            ((TextView) view).setSelected(selected);
-        }
+
+        view.setSelected(selected);
+
         return this;
     }
 

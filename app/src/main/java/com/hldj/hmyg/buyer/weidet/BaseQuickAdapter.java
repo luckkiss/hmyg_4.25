@@ -51,6 +51,7 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static com.hldj.hmyg.buyer.weidet.CoreRecyclerView.LOAD_MORE;
 import static com.hldj.hmyg.buyer.weidet.CoreRecyclerView.REFRESH;
+
 //RecyclerView.Adapter<K>
 public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends RecyclerView.Adapter<K> {
 
@@ -268,6 +269,10 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
         }
     }
 
+
+    public int getDatasState() {
+        return datasState;
+    }
 
     public void setDatasState(int datasState) {
         this.datasState = datasState;

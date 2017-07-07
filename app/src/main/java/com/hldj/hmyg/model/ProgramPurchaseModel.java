@@ -2,6 +2,7 @@ package com.hldj.hmyg.model;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.M.ProgramPageGsonBean;
+import com.hldj.hmyg.M.ProgramPurchaseIndexGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.contract.ProgramPurchaseContract;
 import com.hldj.hmyg.saler.P.BasePresenter;
@@ -18,11 +19,12 @@ import net.tsz.afinal.http.AjaxCallBack;
 
 public class ProgramPurchaseModel extends BasePresenter implements ProgramPurchaseContract.Model {
     @Override
-    public void getDatas(String page, String purchaseId, ResultCallBack callBack) {
+    public void getDatas(String page, String purchaseId, String searchKey, ResultCallBack callBack) {
 
         putParams("pageSize", "10");
         putParams("pageIndex", page);
         putParams("purchaseId", purchaseId);
+        putParams("searchKey", searchKey);
 
         AjaxCallBack ajaxCallBack = new AjaxCallBack<String>() {
             @Override
@@ -54,32 +56,32 @@ public class ProgramPurchaseModel extends BasePresenter implements ProgramPurcha
 
     }
 
-    public void getHeadDatas(ResultCallBack resultCallBack,String purchaseId) {
+
+    public void getIndexDatas(ResultCallBack resultCallBack, String purchaseId) {
         putParams("purchaseId", purchaseId);
         AjaxCallBack acallBack = new AjaxCallBack<String>() {
             @Override
             public void onSuccess(String json) {
                 try {
                     D.e("=json====" + json);
-
-
-//                    if (gsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
-//                        resultCallBack.onSuccess(gsonBean);
-//                    } else {
-//                        //失败
-//                        resultCallBack.onSuccess(gsonBean.msg);
-//                    }
+                    ProgramPurchaseIndexGsonBean gsonBean = GsonUtil.formateJson2Bean(json, ProgramPurchaseIndexGsonBean.class);
+                    if (gsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
+                        gsonBean.data.purchase.showQuote = gsonBean.data.showQuote;
+                        gsonBean.data.purchase.servicePoint = gsonBean.data.servicePoint;
+                        gsonBean.data.purchase.lastTime = gsonBean.data.lastTime;
+                        resultCallBack.onSuccess(gsonBean.data.purchase);
+                    } else {
+                        //失败
+                        resultCallBack.onSuccess(gsonBean.msg);
+                    }
                 } catch (Exception e) {
-                    ToastUtil.showShortToast("获取数据失败" + e.getMessage());
                     resultCallBack.onFailure(null, -1, e.getMessage());
                 }
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
-                ToastUtil.showShortToast("网络错误，数据请求失败");
                 resultCallBack.onFailure(t, errorNo, strMsg);
-                super.onFailure(t, errorNo, strMsg);
             }
         };
 

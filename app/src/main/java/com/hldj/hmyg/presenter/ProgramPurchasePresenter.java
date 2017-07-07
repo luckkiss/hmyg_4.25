@@ -17,17 +17,13 @@ public class ProgramPurchasePresenter extends ProgramPurchaseContract.Presenter 
     }
 
     @Override
-    public void getData(String page, String purchaseId) {
+    public void getData(String page, String purchaseId ,String searchKey) {
 
-        mModel.getDatas(page, purchaseId, new ResultCallBack<ProgramPageGsonBean>() {
+        mModel.getDatas(page, purchaseId ,searchKey, new ResultCallBack<ProgramPageGsonBean>() {
             @Override
             public void onSuccess(ProgramPageGsonBean gsonBean) {
-                if (page.equals("0")) {
-                    mView.initHeadDatas(gsonBean.data.purchase);
-                }
                 mView.initXRecycle(gsonBean.data.page.data);
             }
-
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 mView.showErrir(strMsg);
@@ -37,18 +33,17 @@ public class ProgramPurchasePresenter extends ProgramPurchaseContract.Presenter 
 
     @Override
     public void getIndexDatas(String purchaseId) {
-        mModel.getHeadDatas(new ResultCallBack<PurchaseBean>() {
+        mModel.getIndexDatas(new ResultCallBack<PurchaseBean>() {
             @Override
             public void onSuccess(PurchaseBean gsonBean) {
-
                 mView.initHeadDatas(gsonBean);
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
-
+                mView.showErrir(strMsg);
             }
-        },purchaseId);
+        }, purchaseId);
     }
 
     @Override

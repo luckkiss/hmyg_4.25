@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_rectangle_white_bg"
+    android:orientation="vertical">
+
+
+    <com.coorchice.library.SuperTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="花木易购"
+        android:textColor="@color/text_color666"
+        android:textSize="@dimen/textSizeXXX"
+        app:corner="5dp"
+        app:left_top_corner="true"
+        app:right_top_corner="true" />
+
+
+    <TextView
+        android:autoLink="phone"
+        android:id="@+id/textView17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:padding="12dp"
+        android:text="您还没有报价权限！\n是否申请开通？"
+        android:textSize="@dimen/textSizeXX" />
+
+    <View style="@style/View_line_gray_1dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/tv_request"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="申请权限"
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/textSizeXX"
+            app:corner="5dp"
+            app:left_bottom_corner="true" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/tv_dismiss"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="取消"
+            android:textColor="@color/text_color333"
+            android:textSize="@dimen/textSizeXX"
+            app:corner="5dp"
+            app:right_bottom_corner="true" />
+
+    </LinearLayout>
+
+</LinearLayout>

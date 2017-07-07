@@ -6,8 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <include layout="@layout/toolbar_3_0" />
 
+    <View
+        style="@style/View_line_green"
+        android:layout_height="0px"
+        android:layout_marginBottom="5dp" />
 
     <include layout="@layout/include_search_layout" />
 
