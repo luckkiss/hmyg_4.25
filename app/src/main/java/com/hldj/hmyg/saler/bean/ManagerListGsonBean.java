@@ -105,7 +105,7 @@ public class ManagerListGsonBean {
                 public String purchaseId;
                 public String purchaseItemId;
                 public String sellerId;
-                public int price;
+                public String price;
                 public PurchaseJsonBean purchaseJson;
                 public PurchaseItemJsonBean purchaseItemJson;
                 public String sellerName;

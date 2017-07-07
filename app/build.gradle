@@ -7,7 +7,7 @@ apply plugin: 'org.greenrobot.greendao'
 def isDebug = true
 
 //if (!isDebug) {
-//    apply from: 'tinker-support.gradle'
+apply from: 'tinker-support.gradle'
 //}
 
 android {
@@ -148,9 +148,9 @@ dependencies {
     //compile 'com.tencent.bugly:crashreport:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.3.2
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
 
-    if (!isDebug) {
+//    if (!isDebug) {
         compile 'com.tencent.bugly:nativecrashreport:latest.release'
-    }
+//    }
 
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
 //    compile 'com.tencent.bugly:nativecrashreport:latest.release'
