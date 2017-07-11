@@ -277,6 +277,10 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     //请求一个报价列表
     public void initRceycle(boolean direce) {
 
+//        if (recyclerView != null) {
+//            recyclerView.getAdapter().notifyItemChanged(0, sellerQuoteJsonBean);
+//            return;
+//        }
         recyclerView = (CoreRecyclerView) findViewById(R.id.recycle_pur_one);
         recyclerView.initView(this)
                 .init(new BaseQuickAdapter<SellerQuoteJsonBean, BaseViewHolder>(R.layout.item_quote_dir_po) {
@@ -324,8 +328,10 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
                                                     ToastUtil.showShortToast("删除成功");
                                                     //删除该项目 并且刷新界面
+                                                    recyclerView.getRecyclerView().getRecycledViewPool().clear();
+//                                                    recyclerView.getRecyclerView().notifyDataSetChanged();
                                                     recyclerView.getAdapter().remove(0);
-                                                    recyclerView.getAdapter().notifyItemRemoved(0);
+//                                                    recyclerView.getAdapter().notifyItemRemoved(0);
                                                     getDatas();
                                                     setResult(-1);
                                                     hindLoading();
@@ -353,12 +359,8 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                         } else {
                             helper.setVisible(R.id.tv_delete_item, false);
                         }
-
-
                     }
-                });
-
-
+                }).closeDefaultEmptyView();//关闭默认的空 view 避免重复加载  。奔溃
         recyclerView.getAdapter().addData(sellerQuoteJsonBean);
 
 
@@ -377,6 +379,8 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                 GalleryImageActivity.startGalleryImageActivity(activity, 0, getPicList(imagesJson));
             });
 
+        } else {
+            textView.setOnClickListener(null);
         }
     }
 
@@ -741,7 +745,20 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     /*当  没有同意 供应商协议时 执行*/
     @Override
     public void supplierProtocol() {
-        WebViewDialogFragment3.newInstance().show(getSupportFragmentManager(), TAG);
+        WebViewDialogFragment3.newInstance(new WebViewDialogFragment3.OnAgreeListener() {
+            @Override
+            public void OnAgree(boolean b) {
+                if (b) {
+                    //true 同意协议
+                    getDatas();
+                    //false 不同意协议
+                } else {
+                    finish();
+                }
+            }
+        }).show(getSupportFragmentManager(), TAG);
+//        Intent toMarketListActivity = new Intent(mActivity, SeedlingMarketPyMapActivity.class);
+//        mActivity.startActivity(toMarketListActivity);
     }
 
 

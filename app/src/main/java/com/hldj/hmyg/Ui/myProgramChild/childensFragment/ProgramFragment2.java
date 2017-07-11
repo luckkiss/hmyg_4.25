@@ -13,6 +13,7 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.myProgramChild.ProgramDirctActivity;
 import com.hldj.hmyg.Ui.myProgramChild.ProgramFragment2DetailActivity;
 import com.hldj.hmyg.base.BaseFragment;
+import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
@@ -20,7 +21,6 @@ import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.StringFormatUtil;
-import com.hy.utils.ToastUtil;
 import com.weavey.loading.lib.LoadingLayout;
 
 import net.tsz.afinal.http.AjaxCallBack;
@@ -66,7 +66,7 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 //设定底部边距为1px
-                outRect.set(0, 0, 0, 2);
+                outRect.set(0, 0, 0, 4);
             }
         });
         myPresenter = new MyPresenter();
@@ -81,7 +81,34 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
                 helper.setText(R.id.item_program_trans_price, "￥" + item.carPrice);//  运费
                 helper.setText(R.id.item_program_project_name, item.projectNames);//  项目名称
 
-                helper.addOnClickListener(R.id.item_program_confirmation, view1 -> ToastUtil.showShortToast("确认收货"));
+                helper.addOnClickListener(R.id.item_program_confirmation, view1 ->
+//                        ToastUtil.showShortToast("确认收货")
+                        myPresenter.deCommit(item.id, new AjaxCallBack<String>() {
+                            @Override
+                            public void onLoading(long count, long current) {
+                                coreRecyclerView.selfRefresh(true);
+                            }
+
+                            @Override
+                            public void onSuccess(String s) {
+                                SimpleGsonBean simpleGsonBean = GsonUtil.formateJson2Bean(s, SimpleGsonBean.class);
+                                if (simpleGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
+                                    coreRecyclerView.onRefresh();
+                                } else {
+                                    loadingLayout.setErrorText(simpleGsonBean.msg);
+                                    loadingLayout.setStatus(LoadingLayout.Error);
+                                }
+                                coreRecyclerView.selfRefresh(false);
+                            }
+
+                            @Override
+                            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                                loadingLayout.setStatus(LoadingLayout.No_Network);
+                                coreRecyclerView.selfRefresh(false);
+                            }
+                        }));
+
+
                 helper.addOnClickListener(R.id.item_program_detail, view1 ->
                         {
 //                            DetailDialogFragment.instance(item.id).show(getChildFragmentManager(), "葫芦娃");
@@ -92,7 +119,7 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
                 helper.setVisible(R.id.item_program_confirmation, getStatus().equals(SENDED));//待收货 显示 确认收货按钮
 
                 String str = item.carFirstItemName + "等" + item.carItemsCount + "个品种";
-                StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, item.carFirstItemName ,item.carItemsCount + "", R.color.main_color).fillColor();
+                StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, item.carFirstItemName, item.carItemsCount + "", R.color.main_color).fillColor();
 //                StringFormatUtil stringFormatUtil2 = new StringFormatUtil(mActivity, stringFormatUtil.getResult() + "", item.carItemsCount + "", R.color.main_color).fillColor();
                 helper.setText(R.id.item_program_plant_type, stringFormatUtil.getResult());//
 
@@ -181,6 +208,12 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
     }
 
     private class MyPresenter extends BasePresenter {
+
+
+        public void deCommit(String carId, AjaxCallBack<String> callBack) {
+            putParams("carId", carId);
+            doRequest("admin/project/invoiceCarReceipted", true, callBack);
+        }
 
         public void getDatas(String page) {
             putParams("projectId", getProjectId());

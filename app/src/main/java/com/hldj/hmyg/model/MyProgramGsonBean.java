@@ -1,5 +1,6 @@
 package com.hldj.hmyg.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,12 +10,12 @@ import java.util.List;
 public class MyProgramGsonBean {
     public String code;
     public String msg;
-    public DataBeanX data;
+    public DataBeanX data = new DataBeanX();
 
     public static class DataBeanX {
 
 
-        public PageBean page;
+        public PageBean page = new PageBean();
 
         public static class PageBean {
 
@@ -24,7 +25,7 @@ public class MyProgramGsonBean {
             public int total;
             public int firstResult;
             public int maxResults;
-            public List<DataBean> data;
+            public List<DataBean> data = new ArrayList<>();
 
             public static class DataBean {
 

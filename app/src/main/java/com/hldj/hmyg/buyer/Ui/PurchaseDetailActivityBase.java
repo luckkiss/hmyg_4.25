@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.adapter.StorePurchaseListAdapter;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.buyer.M.ItemBean;
@@ -108,18 +109,18 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         boolean canQuote = saveSeedingGsonBean.getData().canQuote;
 
        /*没有权限*/
-//        if (!canQuote) {
-//            //申请权限
-//            desposeNoPermission();
-////            new Handler().postDelayed(() -> {
-////                finish();
-////            }, 2000);
-//
-//            return;
-//        }
+        if (!canQuote) {
+            //申请权限
+            desposeNoPermission();
+//            new Handler().postDelayed(() -> {
+//                finish();
+//            }, 2000);
+
+            return;
+        }
 
         /*没有同意协议，跳转协议界面 h5*/
-        if (false) {
+        if (!MyApplication.getUserBean().supplierIsAgree) {
             supplierProtocol();
             return;
         }

@@ -156,7 +156,8 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
 
         SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean = saveSeedingGsonBean.getData().getSeedling();
 
-        SaveSeedingBottomLinearLayout.upLoadDatas upLoadDatas = new SaveSeedingBottomLinearLayout.upLoadDatas();
+//        SaveSeedingBottomLinearLayout.upLoadDatas upLoadDatas = new SaveSeedingBottomLinearLayout.upLoadDatas();
+        SaveSeedingBottomLinearLayout.upLoadDatas upLoadDatas = viewHolder.bottom_ll.getUpLoadDatas();
 //        upLoadDatas.price_max =seedlingBean.get ;
         upLoadDatas.price_min = seedling.getMinPrice() + "";
         upLoadDatas.price_max = seedling.getMaxPrice() + "";

@@ -492,6 +492,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         GetServerUrl.addHeaders(finalHttp, true);
         AjaxParams params = getParames();
         if (params == null) {
+            hindLoading();
             hud_numHud.dismiss();
             return;
         }
@@ -505,6 +506,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                 if (hud_numHud != null) {
                     hud_numHud.dismiss();
                 }
+                hindLoading();
             }
 
             @Override
@@ -526,6 +528,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                     ToastUtil.showShortToast(simpleGsonBean.msg);
 
                 }
+                hindLoading();
+
                 if (hud_numHud != null) {
                     hud_numHud.dismiss();
                 }

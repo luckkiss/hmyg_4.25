@@ -334,5 +334,24 @@ public class CoreHeadRecyclerView extends LinearLayout implements BaseQuickAdapt
         return this;
     }
 
+
+
+    public CoreHeadRecyclerView setDefaultEmptyView() {
+        View empty = LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null);
+//        View empty  = getContext(). inflate(R.layout.empty_view, null);
+        empty.setOnClickListener(view1 -> onRefresh());
+        final RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT);
+        final ViewGroup.LayoutParams lp = empty.getLayoutParams();
+        if (lp != null) {
+            layoutParams.width = lp.width ;
+            layoutParams.height = lp.height;
+//            layoutParams.width = lp.width;
+//            layoutParams.height = lp.height;
+        }
+        empty.setLayoutParams(layoutParams);
+        mQuickAdapter.setEmptyView(empty);
+        return this;
+    }
+
 }
 

@@ -81,7 +81,8 @@ public class Data {
     }
 
     //* 用户同意采购协议  http://192.168.1.252:8090/page/protocol.html
-    public static final String Protocol_Url = "http://m.hmeg.cn/" + "page/protocol.html";
+    public static final String Protocol_Url = GetServerUrl.getHtmlUrl()+ "page/protocol.html";
+//    public static final String Protocol_Url = "http://m.hmeg.cn/" + "page/protocol.html";
 
     //成交公告
     public static final String noticesUrls = GetServerUrl.getHtmlUrl() + "noticeArticle?isApp=true";

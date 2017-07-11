@@ -5,26 +5,47 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
+import android.webkit.JsPromptResult;
+import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
+import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.Data;
+import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.bean.SimpleGsonBean;
+import com.hldj.hmyg.bean.UserInfoGsonBean;
 import com.hldj.hmyg.buyer.weidet.DialogFragment.CustomDialog;
+import com.hldj.hmyg.presenter.LoginPresenter;
+import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.ToastUtil;
+
+import net.tsz.afinal.http.AjaxCallBack;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2017/4/28.
@@ -32,11 +53,31 @@ import com.hy.utils.ToastUtil;
 
 public class WebViewDialogFragment3 extends DialogFragment {
 
+    private static final String TAG = "WebViewDialogFragment3";
+
     private WebView webView;
     private TextView tv_ok_to_close;
     //    String url = GetServerUrl.getUrl() + "h5/page/serviceagreement.html";
     String url = Data.Protocol_Url;
 //http://192.168.1.252:8090/page/help/serviceagreement.html?isApp=true
+
+    public interface OnAgreeListener {
+        void OnAgree(boolean b);
+    }
+
+    OnAgreeListener onAgreeListener;
+    /**
+     * 监听弹出窗是否被取消
+     */
+    private OnAgreeListener mCancelListener;
+
+    public static WebViewDialogFragment3 newInstance(OnAgreeListener onAgreeListener) {
+        WebViewDialogFragment3 f = new WebViewDialogFragment3();
+        f.setCancelable(true);
+        f.onAgreeListener = onAgreeListener;
+        return f;
+    }
+
 
     public static WebViewDialogFragment3 newInstance() {
         WebViewDialogFragment3 f = new WebViewDialogFragment3();
@@ -92,7 +133,13 @@ public class WebViewDialogFragment3 extends DialogFragment {
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
 
+
+        //注册接口
         webView.addJavascriptInterface(new InJavaScriptLocalObj(), "java_obj");
+
+//        webView.addJavascriptInterface(this, "android");
+
+
         //覆盖WebView默认通过第三方或者是系统浏览器打开网页的行为，使得网页可以在WebView中打开
         webView.setWebViewClient(new CustomWebViewClient());
 
@@ -114,6 +161,24 @@ public class WebViewDialogFragment3 extends DialogFragment {
                 }
             }
 
+            //拦截js 的alert 方法
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                return super.onJsAlert(view, url, message, result);
+            }
+
+
+            //拦截js 的Confirm 方法
+            @Override
+            public boolean onJsConfirm(WebView view, String url, String message, JsResult result) {
+                return super.onJsConfirm(view, url, message, result);
+            }
+
+            @Override
+            public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
+                return super.onJsPrompt(view, url, message, defaultValue, result);
+            }
+
 
         });
 
@@ -127,6 +192,8 @@ public class WebViewDialogFragment3 extends DialogFragment {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
+            ToastUtil.showShortToast_All(getActivity(), url);
+            Log.e(TAG, "shouldOverrideUrlLoading: " + url);
             return true;
         }
 
@@ -138,17 +205,33 @@ public class WebViewDialogFragment3 extends DialogFragment {
         @Override
         public void onPageFinished(WebView view, String url) {
 
-            super.onPageFinished(view, url);
 
 //            view.loadUrl("javascript:window.java_obj.getResult(" + "document.getElementById('article-cover').innerHTML);");
 
-            view.loadUrl("javascript:(function(){document.getElementById('child-btn cancel').onclick=function(){window.java_obj.getResult();}})()");
+            //动态注入监听函数
+            view.loadUrl("javascript:(function(){document.getElementById('agree').onclick=function(){window.java_obj.supplierAgree();}})()");
 
-            view.loadUrl("javascript:(function(){document.getElementById('child-btn agree').onclick=function(){window.java_obj.onResultSelectOk();}})()");
+            view.loadUrl("javascript:(function(){document.getElementById('disagree').onclick=function(){window.java_obj.supplierDisagree();}})()");
 
+//            view.loadUrl("javascript:(function(){document.getElementById('child-btn agree').onclick=function(){window.java_obj.onResultSelectOk();}})()");
+            super.onPageFinished(view, url);
+
+            /**
+             *  mWebview.loadUrl("javascript:function getSub(){alert(\"Welcome\");" +
+             "document.forms[0].submit();};getSub();");
+             }        });
+             */
         }
 
     }
+
+
+    // 注入js函数监听
+//    private void supplierAgree() {
+//        // 这段js函数的功能就是，遍历所有的img几点，并添加onclick函数，函数的功能是在图片点击的时候调用本地java接口并传递url过去
+//        webView.loadUrl("javascript:(function(){" + "java_obj.supplierAgree();"
+//                + "})()");
+//    }
 
     /**
      * 逻辑处理
@@ -158,21 +241,128 @@ public class WebViewDialogFragment3 extends DialogFragment {
 
     final class InJavaScriptLocalObj {
         @JavascriptInterface
-        public void getResult() {
-
-            new Handler().post(() -> {
-                ToastUtil.showShortToast("getResult");
-            });
-
+        public void supplierDisagree() {
+            Observable.just("disAgree")
+                    .observeOn(Schedulers.io())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe(next -> {
+                        onAgreeListener.OnAgree(false);
+                        dismiss();
+                    });
         }
 
         @JavascriptInterface
-        public void onResultSelectOk() {
-            new Handler().post(() -> {
-                ToastUtil.showShortToast("getResult ok");
-            });
+        public void supplierAgree() {
+            RequestUtil requestUtil = new RequestUtil();
+            ///admin/user/supplierIsAgree
+            requestUtil.requestAgree()
+                    .flatMap(new Function<String, Observable<String>>() {
+                        @Override
+                        public Observable<String> apply(@NonNull String s) throws Exception {
+                            Log.e(TAG, "---aggre请求成功调用-----继续请求个人信息----apply: s=" + s);
+//                            ToastUtil.showShortToast("aggre请求成功调用-----继续请求个人信息");
+                            return requestUtil.requestUserInfo();
+                        }
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(next -> {
+                        Log.e(TAG, "supplierAgree: ");
+                        if (next.equals(ConstantState.SUCCEED_CODE)) {
+                            onAgreeListener.OnAgree(true);
+                            dismiss();
+//                            ToastUtil.showShortToast("rxjava_    next=" + next);
+                        } else {
+                            onAgreeListener.OnAgree(false);
+                            dismiss();
+//                            ToastUtil.showShortToast("rxjava_ but  faild   next=" + next);
+                        }
+
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(@NonNull Throwable throwable) throws Exception {
+                            ToastUtil.showShortToast("出错了！");
+                            onAgreeListener.OnAgree(false);
+                            dismiss();
+                        }
+                    });
         }
     }
+
+
+    private class RequestUtil {
+
+        /**
+         * 执行修改个人数据接口
+         */
+
+
+        public Observable<String> requestUserInfo() {
+            return Observable.create(new ObservableOnSubscribe<String>() {
+                @Override
+                public void subscribe(ObservableEmitter<String> e) throws Exception {
+                    LoginPresenter.getUserInfo(MyApplication.Userinfo.getString("id", ""), new ResultCallBack<UserInfoGsonBean>() {
+                        @Override
+                        public void onSuccess(UserInfoGsonBean userInfoGsonBean) {
+                            e.onNext(userInfoGsonBean.getCode());
+
+                        }
+
+                        @Override
+                        public void onFailure(Throwable t, int errorNo, String strMsg) {
+                            e.onError(t);
+                        }
+                    });
+                }
+            }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        }
+
+
+        /**
+         * 声明一个被观察者对象，作为结果返回
+         */
+
+        public Observable<String> requestAgree() {
+
+            return Observable.create(new ObservableOnSubscribe<String>() {
+                @Override
+                public void subscribe(ObservableEmitter<String> e) throws Exception {
+
+                    new MyPrestener().doingReq(new AjaxCallBack<String>() {
+                        @Override
+                        public void onSuccess(String s) {
+                            Log.e(TAG, "requestAgree  onSuccess: ");
+                            SimpleGsonBean gsonBean = GsonUtil.formateJson2Bean(s, SimpleGsonBean.class);
+                            e.onNext(gsonBean.code);
+                        }
+
+                        @Override
+                        public void onFailure(Throwable t, int errorNo, String strMsg) {
+                            e.onError(t);
+                        }
+                    });
+                }
+            }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+
+        }
+
+
+    }
+
+
+    private class MyPrestener extends BasePresenter {
+
+        public void doingReq(AjaxCallBack<String> callBack) {
+            doRequest("admin/user/supplierIsAgree", true, callBack);
+        }
+    }
+
+
+    @JavascriptInterface
+    public void show(String s) {
+        ToastUtil.showShortToast("网页的按钮被点击了被点击了");
+    }
+
 
     OnResultListener onResult;
 
@@ -181,4 +371,6 @@ public class WebViewDialogFragment3 extends DialogFragment {
 
         boolean onResultSelectOk();
     }
+
+
 }

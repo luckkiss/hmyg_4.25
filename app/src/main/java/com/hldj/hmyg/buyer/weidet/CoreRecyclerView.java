@@ -251,6 +251,11 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
     }
 
 
+    public CoreRecyclerView closeDefaultEmptyView() {
+        mQuickAdapter.setEmptyView(null);
+        return this;
+    }
+
     public CoreRecyclerView setDefaultEmptyView() {
         View empty = LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null);
 //        View empty  = getContext(). inflate(R.layout.empty_view, null);

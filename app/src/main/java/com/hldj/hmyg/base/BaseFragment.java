@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.weavey.loading.lib.LoadingLayout;
 
 /**
@@ -186,7 +187,7 @@ public abstract class BaseFragment extends Fragment {
 
 
     protected void setText(TextView tv, String str) {
-        tv.setText(str);
+        tv.setText(FUtil.$(str));
     }
 
 

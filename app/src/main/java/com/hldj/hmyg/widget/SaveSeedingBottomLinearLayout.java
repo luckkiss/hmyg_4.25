@@ -79,11 +79,12 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
     }
 
     public ViewHolder getHolder() {
+
         return holder;
     }
 
 
-    static ViewHolder holder;
+     static ViewHolder holder;
 
     private SaveSeedingBottomLinearLayout.upLoadDatas upLoadDatas = new SaveSeedingBottomLinearLayout.upLoadDatas();
 
@@ -274,7 +275,7 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
     }
 
     //用于上传的数据
-    public static class upLoadDatas {
+    public  class upLoadDatas {
         private UnitTypeBean unit = new UnitTypeBean("株", "plant");//单位
         public String validity = "";//有效期
         public String price_min = "";//最小价格

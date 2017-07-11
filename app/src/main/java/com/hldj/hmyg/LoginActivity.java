@@ -31,7 +31,6 @@ import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.JpushUtil;
 import com.hldj.hmyg.util.MyUtil;
 import com.hldj.hmyg.util.SPUtil;
-import com.hldj.hmyg.util.SPUtils;
 import com.hy.utils.GetServerUrl;
 import com.loginjudge.LoginJudge;
 import com.mrwujay.cascade.activity.BaseActivity;
@@ -477,18 +476,6 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void save2SP(String json) {
-        //把userbean 存入 application 中
-        UserInfoGsonBean gsonBean = GsonUtil.formateJson2Bean(json, UserInfoGsonBean.class);
-        if (gsonBean.getCode().equals(ConstantState.SUCCEED_CODE) && gsonBean.getData() != null) {
-            if (gsonBean.getData().getUser() != null) {
-                SPUtil.put(LoginActivity.this, SPUtils.UserBean, GsonUtil.Bean2Json(gsonBean.getData().getUser()));//把json 存储在sp中，需要的话直接通过gson 转换
-                MyApplication.getInstance().setUserBean(gsonBean.getData().getUser());
-            } else {
-                D.e("======getUser====为空，后台数据改变=====");
-            }
-        }
-
-
         String str = MyApplication.getUserBean().toString();
         D.e("====str====" + str);
 

@@ -227,9 +227,9 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                     /* <!-- 已采用&&未落实显示取消按钮 -->*/
                     } else if (item.isUsed && (TextUtils.isEmpty(item.quoteImplementStatus)) || item.quoteImplementStatus.equals("uncovered")) {
                         helper.setText(R.id.tv_program_purch_sub_use_state, "取消");//    取消
-                        helper.setBackgroundRes(R.id.tv_program_purch_sub_use_state, R.drawable.round_rectangle_bg_is_ok);
+                        helper.setBackgroundRes(R.id.tv_program_purch_sub_use_state, R.drawable.round_rectangle_bg_red);
                         helper.setTextColorRes(R.id.tv_program_purch_sub_use_state, R.color.price_orige);
-//                        helper.setSelected(R.id.imageView, false);
+//                        helper.setSelected(R.id.tv_program_purch_sub_use_state, false);
                         helper.addOnClickListener(R.id.tv_program_purch_sub_use_state, v -> hah(helper, item, ""));
 
                      /*<!-- 已采用&&合格的显示已采用并且锁定不可修改 -->*/

@@ -3,7 +3,9 @@ package com.hldj.hmyg.presenter;
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -20,6 +22,8 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.JpushUtil;
+import com.hldj.hmyg.util.SPUtil;
+import com.hldj.hmyg.util.SPUtils;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
@@ -133,7 +137,56 @@ public class LoginPresenter {
     }
 
 
+    public static void getUserInfo(String userId) {
+        if (TextUtils.isEmpty(userId)) {
+            Log.e("userId", "getUserInfo: 为空 无法获取数据");
+            return;
+        }
+        FinalHttp finalHttp = new FinalHttp();
+        GetServerUrl.addHeaders(finalHttp, false);
+        finalHttp.addHeader("authc", userId);
+        AjaxParams params = new AjaxParams();
+        finalHttp.post(GetServerUrl.getUrl() + "admin/user/getInfo", params, new AjaxCallBack<String>() {
+            @Override
+            public void onSuccess(String json) {
+
+                UserInfoGsonBean gsonBean = new GsonUtil().formateJson2Bean(json, UserInfoGsonBean.class);
+                if (gsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
+                    Save2Sp(MyApplication.Userinfo.edit(), json);
+                    if (gsonBean.getData().getUser() != null) {
+                        SPUtil.put(MyApplication.getInstance(), SPUtils.UserBean, GsonUtil.Bean2Json(gsonBean.getData().getUser()));//把json 存储在sp中，需要的话直接通过gson 转换
+                        MyApplication.getInstance().setUserBean(gsonBean.getData().getUser());
+                    } else {
+                        D.e("======getUser====为空，后台数据改变=====");
+                    }
+
+                } else {
+                    ToastUtil.showShortToast("获取个人信息失败");
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+
+            }
+        });
+
+    }
+
+
     public static void Save2Sp(SharedPreferences.Editor editor, String json) {
+        //把userbean 存入 application 中
+        UserInfoGsonBean gsonBean = GsonUtil.formateJson2Bean(json, UserInfoGsonBean.class);
+        if (gsonBean.getCode().equals(ConstantState.SUCCEED_CODE) && gsonBean.getData() != null) {
+            if (gsonBean.getData().getUser() != null) {
+                SPUtil.put(MyApplication.getInstance(), SPUtils.UserBean, GsonUtil.Bean2Json(gsonBean.getData().getUser()));//把json 存储在sp中，需要的话直接通过gson 转换
+                MyApplication.getInstance().setUserBean(gsonBean.getData().getUser());
+            } else {
+                D.e("======getUser====为空，后台数据改变=====");
+            }
+        }
+
+
         JSONObject user = null;
         try {
             JSONObject jsonObject = new JSONObject(json);
@@ -296,8 +349,6 @@ public class LoginPresenter {
      * @param resultCallBack
      */
     public static void getUserInfo(final String userId, final ResultCallBack<UserInfoGsonBean> resultCallBack) {
-
-
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, false);
         finalHttp.addHeader("authc", userId);
@@ -312,8 +363,6 @@ public class LoginPresenter {
                 if (userInfoGsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
                     String id = userInfoGsonBean.getData().getUser().id;
                     JpushUtil.setAlias(id);
-
-
                     Save2Sp(MyApplication.Userinfo.edit(), json);
 
 

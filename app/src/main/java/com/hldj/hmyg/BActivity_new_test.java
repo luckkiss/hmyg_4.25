@@ -95,15 +95,15 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
                     FlowerDetailActivity.start2Activity(BActivity_new_test.this, "seedling_list", item.id);
                 });
             }
-        }).openLoadMore(getQueryBean().pageSize, page -> {
-            showLoading();
-            queryBean.pageIndex = page;
-            initData();
-        }).openRefresh()
+        })       .setDefaultEmptyView()
+
+                .openLoadMore(getQueryBean().pageSize, page -> {
+                    showLoading();
+                    queryBean.pageIndex = page;
+                    initData();
+                }).openRefresh()
                 .openLoadAnimation(BaseQuickAdapter.ALPHAIN)
                 .selfRefresh(true);
-
-
         getExtras();//在初始化数据之前
 
         recyclerView1.onRefresh();

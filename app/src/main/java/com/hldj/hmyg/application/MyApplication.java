@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
 import android.support.multidex.MultiDex;
@@ -20,6 +21,7 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.SPUtil;
 import com.hldj.hmyg.util.SPUtils;
+import com.hy.utils.GetServerUrl;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -97,6 +99,10 @@ public class MyApplication extends Application {
         CrashReport.setIsDevelopmentDevice(this, false);
         Bugly.init(this, "be88780120", true);
         CrashReport.setUserId(this, "17074990702");
+
+        GetServerUrl.sdk_version = Build.VERSION.SDK_INT + "";
+        GetServerUrl.device_type = Build.MODEL;
+        GetServerUrl.manufacturer = Build.MANUFACTURER;
 
 
 //        FIR.init(this);

@@ -175,9 +175,23 @@ public class GetServerUrl {
         finalHttp.addHeader("deviceId", deviceId);
         finalHttp.addHeader("type", "Android");
 
+//        GetServerUrl.sdk_version = Build.VERSION.SDK_INT + "";
+//        GetServerUrl.device_type = Build.MODEL;
+//        GetServerUrl.manufacturer = Build.MANUFACTURER;
+
         Log.e("authc", MyApplication.Userinfo.getString("id", ""));
     }
 
     public static String version = "";
     public static String deviceId = "";
+
+
+    public static String sdk_version = "";
+
+    //机型
+    public static String device_type = "" ;
+
+    //厂商
+    public static String manufacturer= "" ;
+
 }

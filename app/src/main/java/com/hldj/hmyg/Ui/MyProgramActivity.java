@@ -63,7 +63,8 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
 
                 helper.setText(R.id.tv_program_load_car_count, filterColor(item.loadCarCount + "车", item.loadCarCount + "", R.color.main_color));//
                 helper.setText(R.id.tv_program_alreay_order, "￥" + item.totalAmount);//
-                helper.setText(R.id.tv_program_state, item.typeName);//
+                helper.setText(R.id.tv_program_state, strFilter(item.typeName));//
+//                helper.setText(R.id.tv_program_state, item.typeName);//
                 int colorId = item.typeName.equals("直购") ? ContextCompat.getColor(mActivity, R.color.price_orige) : ContextCompat.getColor(mActivity, R.color.main_color);
                 helper.setTextColor(R.id.tv_program_state, colorId);
             }

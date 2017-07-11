@@ -54,7 +54,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
-                android:text="报价要求"
+                android:text="报价说明"
                 android:textColor="@color/white"
                 android:textSize="11sp"
                 app:solid="@color/main_color"

@@ -1,5 +1,57 @@
 package com.hldj.hmyg.broker;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RelativeLayout;
+import android.widget.SectionIndexer;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
+
+import com.example.sortlistview.CharacterParser;
+import com.example.sortlistview.PinyinComparatorSubscribe;
+import com.example.sortlistview.SideBar;
+import com.example.sortlistview.SideBar.OnTouchingLetterChangedListener;
+import com.hldj.hmyg.R;
+import com.hldj.hmyg.SeedlingMarketWebActivity;
+import com.hldj.hmyg.broker.bean.SellectPrice;
+import com.hldj.hmyg.saler.bean.ParamsList;
+import com.hldj.hmyg.saler.bean.Subscribe;
+import com.hy.utils.GetServerUrl;
+import com.hy.utils.JsonGetInfo;
+import com.mrwujay.cascade.activity.BaseSecondActivity;
+import com.mrwujay.cascade.activity.GetCodeByName;
+
+import net.tsz.afinal.FinalBitmap;
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -14,59 +66,6 @@ import me.kaede.tagview.Tag;
 import me.kaede.tagview.TagView;
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
-import net.tsz.afinal.FinalBitmap;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.inputmethod.EditorInfo;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.TextView.OnEditorActionListener;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.SectionIndexer;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.sortlistview.CharacterParser;
-import com.example.sortlistview.PinyinComparatorSubscribe;
-import com.example.sortlistview.SideBar;
-import com.example.sortlistview.SideBar.OnTouchingLetterChangedListener;
-import com.hldj.hmyg.R;
-import com.hldj.hmyg.SeedlingMarketWebActivity;
-import com.hldj.hmyg.application.MyApplication;
-import com.hldj.hmyg.broker.SearchAgent4TransferValidateApplyAActivity.MultipleClickProcess;
-import com.hldj.hmyg.broker.bean.SellectPrice;
-import com.hldj.hmyg.saler.bean.ParamsList;
-import com.hldj.hmyg.saler.bean.Subscribe;
-import com.hy.utils.GetServerUrl;
-import com.hy.utils.JsonGetInfo;
-import com.mrwujay.cascade.activity.BaseSecondActivity;
-import com.mrwujay.cascade.activity.GetCodeByName;
 
 @SuppressLint({ "NewApi", "ResourceAsColor" })
 public class SeedlingMarketPyMapActivity extends BaseSecondActivity implements
