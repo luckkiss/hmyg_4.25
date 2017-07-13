@@ -9,7 +9,7 @@
         android:id="@+id/loading_program1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:isFirstVisible="true">
+        >
 
         <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
             android:id="@+id/recycle_program1"

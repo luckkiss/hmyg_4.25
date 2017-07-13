@@ -1,12 +1,10 @@
 package com.hldj.hmyg.Ui.myProgramChild.childensFragment;
-
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-
 import com.hldj.hmyg.M.InvoiceCarBean;
 import com.hldj.hmyg.M.ProjectPageGsonBean;
 import com.hldj.hmyg.R;
@@ -22,9 +20,7 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.StringFormatUtil;
 import com.weavey.loading.lib.LoadingLayout;
-
 import net.tsz.afinal.http.AjaxCallBack;
-
 import static android.content.ContentValues.TAG;
 
 /**
@@ -55,10 +51,13 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
 
 
     @Override
+    public int bindLoadingLayout() {
+        return R.id.loading_program2;
+    }
+
+    @Override
     protected void initView(View rootView) {
 
-        loadingLayout = (LoadingLayout) rootView.findViewById(R.id.loading_program2);
-        loadingLayout.setStatus(LoadingLayout.Loading);
         initListener(rootView);
         coreRecyclerView = (CoreRecyclerView) rootView.findViewById(R.id.recycle_program2);
 
@@ -184,6 +183,7 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
             Log.e(TAG, "不加载数据 mIsVisible=" + mIsVisible + "  mIsPrepared=" + mIsPrepared + " isFirst = " + isFirst);
             return;
         }
+        showLoading();
         coreRecyclerView.onRefresh();
 
     }
@@ -230,23 +230,16 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
 
                     if (gsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
                         coreRecyclerView.getAdapter().addData(gsonBean.data.page.data);
-                        if (coreRecyclerView.getAdapter().getData().size() != 0) {
-                            loadingLayout.setStatus(LoadingLayout.Success);
-                        } else {
-                            loadingLayout.setStatus(LoadingLayout.Empty);
-                        }
-
+                        hideLoading(coreRecyclerView);
                     } else {
-                        loadingLayout.setErrorText(gsonBean.msg);
-                        loadingLayout.setStatus(LoadingLayout.Error);
+                        hideLoading(LoadingLayout.Error, gsonBean.msg);
                     }
-//                    ToastUtil.showShortToast(json);
                     coreRecyclerView.selfRefresh(false);
                 }
 
                 @Override
                 public void onFailure(Throwable t, int errorNo, String strMsg) {
-                    loadingLayout.setStatus(LoadingLayout.No_Network);
+                    hideLoading(LoadingLayout.No_Network, strMsg);
                 }
             };
 

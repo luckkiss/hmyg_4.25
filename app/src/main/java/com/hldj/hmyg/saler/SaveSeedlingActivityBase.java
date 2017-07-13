@@ -682,16 +682,29 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
     private boolean check_bottom_UpLoadDatas(SaveSeedingBottomLinearLayout.upLoadDatas upLoadDatas) {
         D.e("=================upLoadDatas=====isMeet()=============" + upLoadDatas.isMeet());
-        if (upLoadDatas.isMeet()) {
-//        if (viewHolder.bottom_ll.getUpLoadDatas().isMeet()) {
-            //如果面议就不判断价格
-        } else {
+
+
+        try {
+            if (upLoadDatas.isMeet()) {
+                //        if (viewHolder.bottom_ll.getUpLoadDatas().isMeet()) {
+                //如果面议就不判断价格
+            } else {
+                //如果不是面议  就判断价格不能为空
+                if (TextUtils.isEmpty(upLoadDatas.getPrice_min()) && TextUtils.isEmpty(upLoadDatas.getPrice_max())) {
+                    ToastUtil.showShortToast("请输入价格");
+                    return false;
+                }
+            }
+        } catch (Exception e) {
             //如果不是面议  就判断价格不能为空
             if (TextUtils.isEmpty(upLoadDatas.getPrice_min()) && TextUtils.isEmpty(upLoadDatas.getPrice_max())) {
                 ToastUtil.showShortToast("请输入价格");
                 return false;
             }
+            e.printStackTrace();
         }
+
+
         //库存
         if (TextUtils.isEmpty(upLoadDatas.getRepertory_num())) {
             ToastUtil.showShortToast("请输入库存数量");

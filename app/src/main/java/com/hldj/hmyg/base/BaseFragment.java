@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.weavey.loading.lib.LoadingLayout;
@@ -113,6 +114,25 @@ public abstract class BaseFragment extends Fragment {
          mAnimationDrawable.start();
          }
          */
+    }
+
+    public void hideLoading(CoreRecyclerView coreRecyclerView) {
+        if (loadingLayout == null) {
+            return;
+        }
+        ImageView img = (ImageView) loadPage.findViewById(R.id.iv_amin_flowar);
+        // 加载动画
+        AnimationDrawable mAnimationDrawable = (AnimationDrawable) img.getDrawable();
+//            默认进入页面就开启动画
+        if (mAnimationDrawable.isRunning()) {
+            mAnimationDrawable.stop();
+        }
+
+        if (coreRecyclerView.getAdapter().getData().size() != 0) {
+            loadingLayout.setStatus(LoadingLayout.Success);
+        } else {
+            loadingLayout.setStatus(LoadingLayout.Empty);
+        }
     }
 
     public void hideLoading(int loadState) {

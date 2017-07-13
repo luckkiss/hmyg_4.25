@@ -123,11 +123,13 @@ public class Fragment2 extends Fragment {
 
                 }
                 super.onSuccess(json);
+                recyclerView.selfRefresh(false);
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                recyclerView.selfRefresh(false);
             }
         });
     }

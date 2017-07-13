@@ -571,9 +571,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         public String dbhType = "";
         public String remarks = "";//备注
         public String imagesData = "";//备注
-
         public String count = "";
-
         public String purchaseId = "";//
         public String purchaseItemId = "";//
 

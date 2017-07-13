@@ -26,7 +26,6 @@ import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.DaoBean.SaveJson.DaoSession;
 import com.hldj.hmyg.DaoBean.SaveJson.SavaBean;
 import com.hldj.hmyg.DaoBean.SaveJson.SavaBeanDao;
-import com.hldj.hmyg.ManagerListActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.application.MyApplication;
@@ -419,14 +418,13 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
                 if (simpleGsonBean.code.equals("1")) {
                     //成功
                     ToastUtil.showShortToast("提交完毕");
+                    RemoveOne(myadapter.change_item);
                     setResult(ConstantState.PUBLIC_SUCCEED);
                     finish();
-                    ManagerListActivity.start2Activity(StorageSaveActivity.this);
+//                    ManagerListActivity_new.start2Activity(StorageSaveActivity.this);
                 } else {
                     ToastUtil.showShortToast(simpleGsonBean.msg);
                 }
-
-
                 hud_numHud.dismiss();
                 hindLoading();
 
@@ -437,6 +435,7 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
 
     public void putParams(AjaxParams ajaxParams, String key, String value) {
         if (!TextUtils.isEmpty(value)) {
+            D.e("===参数===" + key + "-------->" + "" + value);
             ajaxParams.put(key, value);
         } else {
             D.e("===参数===" + key + "==的值是空的==");
@@ -542,7 +541,7 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
 
         if (!checkNoNull("库存", "count", seedlingBean.getCount() + "", params)) return false;
 
-        if (!checkNoNull("单位", "unitType", seedlingBean.getUnitTypeName(), params))
+        if (!checkNoNull("单位", "unitType", seedlingBean.getUnitType(), params))
             return false;
 
         if (!checkNoNull("地址", "nurseryId", seedlingBean.getNurseryId(), params)) return false;
@@ -780,8 +779,7 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
             TextView tv_07 = myViewHolder.getView(R.id.tv_07);//价格
 
 
-            ProductListAdapter.setPrice(tv_07, seedlingBean.getMaxPrice(), seedlingBean.getMinPrice(), seedlingBean.isNego(),null);
-
+            ProductListAdapter.setPrice(tv_07, seedlingBean.getMaxPrice(), seedlingBean.getMinPrice(), seedlingBean.isNego(), null);
 
 
             TextView tv_num_res = myViewHolder.getView(R.id.tv_num_res);//库存
@@ -818,9 +816,8 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
     }
 
 
-    public static void start2Activity(Context context)
-    {
-        context.startActivity(new Intent(context,StorageSaveActivity.class));
+    public static void start2Activity(Context context) {
+        context.startActivity(new Intent(context, StorageSaveActivity.class));
     }
 
 }

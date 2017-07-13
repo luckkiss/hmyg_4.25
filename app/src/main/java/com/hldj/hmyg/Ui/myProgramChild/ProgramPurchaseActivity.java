@@ -74,7 +74,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
     }
 
 
-    //    public int shouldOpenPos = 666;
+    //public int shouldOpenPos = 666;
     public String pareId = "";
     private String searchKey = "";
 
@@ -95,6 +95,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
             }
         });
         loadingLayout = getView(R.id.loading_layout_program_purchase);
+        showLoading();
         loadingLayout.setStatus(LoadingLayout.Loading);
         getView(R.id.tv_activity_purchase_back).setOnClickListener(view -> finish());
         ll_head = getView(R.id.ll_activity_purchase_head);
@@ -390,6 +391,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
     @Override
     public void showLoading() {
+
         loadingLayout.setStatus(LoadingLayout.Loading);
     }
 
@@ -408,6 +410,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
     @Override
     public void showErrir(String erMst) {
+        hindLoading();
         loadingLayout.setOnReloadListener(v -> coreRecyclerView.onRefresh());
         loadingLayout.setErrorText(erMst);
         loadingLayout.setStatus(LoadingLayout.Error);
@@ -431,6 +434,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
         }
         coreRecyclerView.getAdapter().addData(gsonBean);
         loadingLayout.setStatus(LoadingLayout.Success);
+        hindLoading();
         coreRecyclerView.selfRefresh(false);
     }
 

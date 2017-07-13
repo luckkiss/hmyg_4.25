@@ -18,7 +18,6 @@ import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.M.PurchaseBean;
 import com.hldj.hmyg.saler.M.PurchaseListGsonBean;
 import com.hldj.hmyg.saler.P.BasePresenter;
-import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.StringFormatUtil;
@@ -27,8 +26,6 @@ import com.hy.utils.ToastUtil;
 import com.weavey.loading.lib.LoadingLayout;
 
 import net.tsz.afinal.http.AjaxCallBack;
-
-import static com.hldj.hmyg.base.BaseMVPActivity.setLoadingState;
 
 /**
  * 采购单
@@ -39,22 +36,22 @@ public class ProgramFragment1 extends BaseFragment {
     private static final String TAG = "ProgramFragment1";
     private CoreRecyclerView coreRecyclerView;
     private boolean mIsPrepared = false;
-    private LoadingLayout loadingLayout;
     private boolean isFirst = true;
 
     private MyPresenter myPresenter;
+
+    @Override
+    public int bindLoadingLayout() {
+        return R.id.loading_program1;
+    }
 
     @Override
     protected void initView(View rootView) {
         Log.e(TAG, "initView: ");
         coreRecyclerView = (CoreRecyclerView) rootView.findViewById(R.id.recycle_program1);
 
-        loadingLayout = (LoadingLayout) rootView.findViewById(R.id.loading_program1);
-        loadingLayout.setStatus(LoadingLayout.Loading);
+        showLoading();
 
-        loadingLayout.setOnReloadListener(v -> {
-            coreRecyclerView.onRefresh();
-        });
         myPresenter = new MyPresenter();
 
         coreRecyclerView.init(new BaseQuickAdapter<PurchaseBean, BaseViewHolder>(R.layout.item_program_one) {
@@ -175,21 +172,15 @@ public class ProgramFragment1 extends BaseFragment {
                     Log.i(TAG, "onSuccess: " + json.toString());
 
                     PurchaseListGsonBean listGsonBean = GsonUtil.formateJson2Bean(json, PurchaseListGsonBean.class);
-
-                    if (listGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
-                        coreRecyclerView.getAdapter().addData(listGsonBean.data.purchaseList);
-                        setLoadingState(coreRecyclerView, loadingLayout);
-                    } else {
-                        //失败
-                        setLoadingState(coreRecyclerView, loadingLayout, listGsonBean.msg);
-                    }
+                    coreRecyclerView.getAdapter().addData(listGsonBean.data.purchaseList);
+                    hideLoading(coreRecyclerView);
                     coreRecyclerView.selfRefresh(false);
                 }
 
                 @Override
                 public void onFailure(Throwable t, int errorNo, String strMsg) {
                     coreRecyclerView.selfRefresh(false);
-                    loadingLayout.setStatus(LoadingLayout.No_Network);
+                    hideLoading(LoadingLayout.No_Network);
                 }
             };
             doRequest("admin/project/purchaseList", true, ajaxCallBack);
