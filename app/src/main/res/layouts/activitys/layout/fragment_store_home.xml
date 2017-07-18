@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_store_home_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <com.hldj.hmyg.widget.DrawableCenterText
+            android:id="@+id/dctv_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/ic_arrow_down"
+            android:ellipsize="end"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:maxLength="5"
+            android:singleLine="true"
+            android:text="苗木分类"
+            android:textColor="@color/text_color666" />
+
+        <com.hldj.hmyg.widget.DrawableCenterText
+            android:id="@+id/dctv_center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/ic_arrow_down"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:maxLength="5"
+            android:singleLine="true"
+            android:text="种植类型"
+            android:textColor="@color/text_color666" />
+
+        <com.hldj.hmyg.widget.DrawableCenterText
+            android:id="@+id/dctv_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/ic_arrow_down"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="价格"
+            android:textColor="@color/text_color666" />
+
+
+        <ImageView
+            android:id="@+id/iv_store_l_g"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="8dp"
+            android:src="@drawable/selector_list_or_grid" />
+
+    </LinearLayout>
+
+
+    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+        android:id="@+id/store_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+</LinearLayout>

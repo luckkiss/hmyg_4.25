@@ -15,7 +15,6 @@ import com.hldj.hmyg.bean.PicSerializableMaplist;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.TakePhotoUtil;
-import com.kaopiz.kprogresshud.KProgressHUD;
 import com.white.utils.SystemSetting;
 import com.zzy.common.widget.MeasureGridView;
 
@@ -23,6 +22,8 @@ import net.tsz.afinal.FinalHttp;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
@@ -34,7 +35,7 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
     private ViewGroup mainView;
     public static UpdataImageActivity_bak instance;
     private TextView fabu;
-    private KProgressHUD hud_numHud;
+    //    private KProgressHUD hud_numHud;
     FinalHttp finalHttp = new FinalHttp();
     public int a = 0;
 
@@ -42,15 +43,14 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_updata_img);
-        hud_numHud = KProgressHUD.create(UpdataImageActivity_bak.this)
-                .setStyle(KProgressHUD.Style.ANNULAR_DETERMINATE)
-                .setLabel("上传中，请等待...").setMaxProgress(100)
-                .setCancellable(true);
+//        hud_numHud = KProgressHUD.create(UpdataImageActivity_bak.this)
+//                .setStyle(KProgressHUD.Style.ANNULAR_DETERMINATE)
+//                .setLabel("上传中，请等待...").setMaxProgress(100)
+//                .setCancellable(true);
         instance = this;
         SystemSetting.getInstance(UpdataImageActivity_bak.this).choosePhotoDirId = "";
         Bundle bundle = getIntent().getExtras();
-        urlPaths = ((PicSerializableMaplist) bundle.get("urlPaths"))
-                .getMaplist();
+        urlPaths = ((PicSerializableMaplist) bundle.get("urlPaths"))  .getMaplist();
 
 
         // 初始化
@@ -66,7 +66,9 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
         });
 
         findViewById(R.id.fabu).setOnClickListener(v -> {
-            hud_numHud.show();
+            showLoading();
+            UpdateLoading("加载中...");
+//            hud_numHud.show();
             save();
         });
 
@@ -78,6 +80,7 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
     MeasureGridView measureGridView;
 
     public void initGv() {
+
         measureGridView = (MeasureGridView) findViewById(R.id.publish_flower_info_gv);
         arrayList.clear();
         arrayList.addAll(urlPaths);
@@ -116,9 +119,12 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
 //            finish();
 //            return;
 //        }
+        a = 1;
         if (measureGridView != null && size != 0) {
+
             D.e("======图片的地址数量====" + size);
             D.e("======图片的地址====" + this.measureGridView.getAdapter().getDataList().get(0).getUrl());
+            UpdateLoading("正在上传第 (" + a + "/" + size + "张) 图片");
 //            uploadBean.imagesData = PurchaseDetailActivity.this.measureGridView.getAdapter().getDataList().get(0).getUrl();
         } else {
             //传回地址。到上一个界面
@@ -144,12 +150,16 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
             new SaveSeedlingPresenter().upLoad(this.measureGridView.getAdapter().getDataList(), new ResultCallBack<Pic>() {
                 @Override
                 public void onSuccess(Pic pic) {
+
+                    ++a ;
                     listPicsOnline.add(pic);
+                    UpdateLoading("正在上传第 (" + a + "/" + size + "张) 图片");
                     if (listPicsOnline.size() == piclistLocal.size()) {
 //                        uploadBean.imagesData = GsonUtil.Bean2Json(listPicsOnline);
 //                        save();//如果没有图片，直接上传数据
+                        UpdateLoading("上传成功");
 
-                        hud_numHud.dismiss();
+//                        hud_numHud.dismiss();
 
                         //传回地址。到上一个界面
                         Intent intent = new Intent();
@@ -160,15 +170,19 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
                         intent.putExtras(bundleObject);
                         setResult(5, intent);
                         finish();
-
-
                     }
 
                 }
 
                 @Override
                 public void onFailure(Throwable t, int errorNo, String strMsg) {
-
+                    UpdateLoading("上传失败：" + strMsg);
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            hindLoading();
+                        }
+                    }, 2000);
                 }
             });
         } else {
@@ -191,20 +205,20 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
 
 
     public void hudProgress() {
-        if (hud_numHud != null && !UpdataImageActivity_bak.this.isFinishing()) {
-            hud_numHud.setProgress(a * 100 / urlPaths.size());
-            hud_numHud.setProgressText("上传中(" + a + "/" + urlPaths.size()
-                    + "张)");
-        }
-        if (a == urlPaths.size()) {
-            if (urlPaths.size() > 0) {
-                if (hud_numHud != null
-                        && !UpdataImageActivity_bak.this.isFinishing()) {
-                    hud_numHud.dismiss();
-                }
-
-            }
-        }
+//        if (hud_numHud != null && !UpdataImageActivity_bak.this.isFinishing()) {
+//            hud_numHud.setProgress(a * 100 / urlPaths.size());
+//            hud_numHud.setProgressText("上传中(" + a + "/" + urlPaths.size() + "张)");
+        UpdateLoading("正在上传第 (" + a + "/" + urlPaths.size() + "张) 图片");
+//        }
+//        if (a == urlPaths.size()) {
+//            if (urlPaths.size() > 0) {
+//                if (hud_numHud != null
+//                        && !UpdataImageActivity_bak.this.isFinishing()) {
+//                    hud_numHud.dismiss();
+//                }
+//
+//            }
+//        }
 
     }
 

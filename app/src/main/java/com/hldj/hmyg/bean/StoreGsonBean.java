@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- *  luocaca   6.23   create for a  new  activity  overwrite the old activity
+ * luocaca   6.23   create for a  new  activity  overwrite the old activity
  */
 
-public class StoreGsonBean implements Serializable{
+public class StoreGsonBean implements Serializable {
 
 
     /**
@@ -31,7 +31,7 @@ public class StoreGsonBean implements Serializable{
         public OwnerBean owner;
         public List<TypeListBean> typeList;
 
-        public static class StoreBean implements Serializable{
+        public static class StoreBean implements Serializable {
             /**
              * id : 534c6ef74f1045779f19e17313295017
              * remarks : 花木易购自营店是花木易购科技股份有限公司全力打造的苗木单品交易店铺。主营各苗产地优势品种，单品苗木量大价优，免费开具13%增值税专用发票，交易全程提供一站式服务（包含验苗、点苗、安排运输车辆、起苗、装苗、货车运输路途追踪等）。花木易购自营店，让购苗更便利，购苗者足不出户，苗木保质保量送达目的地。 ;
@@ -45,7 +45,7 @@ public class StoreGsonBean implements Serializable{
              * appBannerUrl : http://image.hmeg.cn/upload/image/201705/c7b8e4fe68be4e3b9821126822280754.jpg
              * mainType : 凤凰木、蓝花楹、香樟、秋枫、鸡蛋花、小叶榄仁、宫粉紫荆、菩提榕、黄花槐
              * description : <p>									</p><p>									</p><p>									</p><p>									</p><p>									</p><p>									</p><p>									</p><p>									</p><p>
-             &nbsp;								</p><p>&nbsp;								</p><p>&nbsp;								</p><p>&nbsp;								</p><p>&nbsp;								</p><p>&nbsp;								</p><p>&nbsp;								</p><p>&nbsp;								</p><p>&nbsp;								</p>
+             * &nbsp;								</p><p>&nbsp;								</p><p>&nbsp;								</p><p>&nbsp;								</p><p>&nbsp;								</p><p>&nbsp;								</p><p>&nbsp;								</p><p>&nbsp;								</p><p>&nbsp;								</p>
              * ownerId : f56e3bef-6909-437a-a9f3-1a48c2ccaf9b
              * shareTitle : 花木易购自营店
              * shareContent : 凤凰木、蓝花楹、香樟、秋枫、鸡蛋花、小叶榄仁、宫粉紫荆、菩提榕、黄花槐
@@ -62,7 +62,7 @@ public class StoreGsonBean implements Serializable{
             public String name;
             public String logoUrl;
             public String bannerUrl;
-            public String appBannerUrl;
+            public String appBannerUrl = "";
             public String mainType;
             public String description;
             public String ownerId;
@@ -172,7 +172,7 @@ public class StoreGsonBean implements Serializable{
             public String permissionsName;
         }
 
-        public static class TypeListBean implements Serializable{
+        public static class TypeListBean implements Serializable {
             /**
              * id : 74b0e9c44dd0499381a1adcadae6b4c9
              * count : 73

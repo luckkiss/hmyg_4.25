@@ -18,6 +18,7 @@ import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.M.PurchaseBean;
 import com.hldj.hmyg.saler.M.PurchaseListGsonBean;
 import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.StringFormatUtil;
@@ -172,8 +173,13 @@ public class ProgramFragment1 extends BaseFragment {
                     Log.i(TAG, "onSuccess: " + json.toString());
 
                     PurchaseListGsonBean listGsonBean = GsonUtil.formateJson2Bean(json, PurchaseListGsonBean.class);
-                    coreRecyclerView.getAdapter().addData(listGsonBean.data.purchaseList);
-                    hideLoading(coreRecyclerView);
+                    if (listGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
+                        coreRecyclerView.getAdapter().addData(listGsonBean.data.purchaseList);
+                        hideLoading(coreRecyclerView);
+                    } else {
+                        hideLoading(LoadingLayout.Error, listGsonBean.msg);
+                    }
+
                     coreRecyclerView.selfRefresh(false);
                 }
 

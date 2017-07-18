@@ -11,13 +11,11 @@
         android:layout_height="wrap_content">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/coll_toolbar_layout"
+            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="@color/white"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:title="我是collapsebar的标题">
-
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -25,57 +23,17 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/iv_store_banner"
+                    android:id="@+id/imageView5"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
                     android:scaleType="fitXY"
                     android:src="@drawable/moren_banner" />
 
-                <include layout="@layout/include_store_user_info" />
 
-                <View style="@style/View_line_gray_1dp" />
+                <include layout="@layout/include_store_user_info"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp">
-
-                    <com.coorchice.library.SuperTextView
-                        android:id="@+id/sptv_store_home"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="bottom|center_horizontal"
-                        android:paddingBottom="2dp"
-                        android:paddingTop="20dp"
-                        android:text="店铺首页"
-                        app:isShowState="true"
-                        app:state_drawable="@drawable/dpsy"
-                        app:state_drawable_height="18dp"
-                        app:state_drawable_mode="top"
-                        app:state_drawable_padding_top="4dp"
-                        app:state_drawable_width="18dp" />
-
-                    <com.coorchice.library.SuperTextView
-                        android:id="@+id/sptv_store_detail"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="bottom|center_horizontal"
-                        android:paddingBottom="2dp"
-                        android:paddingTop="20dp"
-                        android:text="店铺详情"
-                        app:isShowState="true"
-                        app:state_drawable="@drawable/dpxq_selector"
-                        app:state_drawable_height="18dp"
-                        app:state_drawable_mode="top"
-                        app:state_drawable_padding_top="4dp"
-                        app:state_drawable_width="18dp" />
-
-
-                </LinearLayout>
-
-                <View style="@style/View_line_gray_1dp" />
             </LinearLayout>
+
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -134,19 +92,20 @@
                 </RelativeLayout>
 
             </android.support.v7.widget.Toolbar>
+
+
         </android.support.design.widget.CollapsingToolbarLayout>
 
 
     </android.support.design.widget.AppBarLayout>
 
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_store_content"
+    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+        android:id="@+id/store_recycle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    </android.support.v4.view.ViewPager>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -156,7 +115,7 @@
         android:layout_margin="20dp"
         android:src="@drawable/seller_makingacall_2"
         app:backgroundTint="@color/white"
-        app:borderWidth="0dp"
+        app:borderWidth="2dp"
         app:elevation="2dp"
         app:fabSize="normal"
         app:layout_anchor="@+id/app_bar"
@@ -164,5 +123,5 @@
         app:pressedTranslationZ="10dp"
         app:rippleColor="#ff87ffeb" />
 
-<!--seller_makingacall_2-->
+
 </android.support.design.widget.CoordinatorLayout>

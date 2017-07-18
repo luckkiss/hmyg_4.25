@@ -21,6 +21,7 @@ import com.autoscrollview.utils.ListUtils;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.StoreActivity;
+import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.WebActivity;
 import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.util.D;
@@ -131,7 +132,7 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
                         FlowerDetailActivity.start2Activity(context, typeBean.sourceId);
                         break;
                     case "store":
-                        StoreActivity.start2Activity((Activity) context, typeBean.sourceId);
+                        StoreActivity_new.start2Activity((Activity) context, typeBean.sourceId);
                         break;
                     case "purchase":
                         //报价 详情

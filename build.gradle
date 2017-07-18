@@ -5,6 +5,16 @@ buildscript {
         jcenter()
     }
 
+
+//    dex {
+//        dexMode = "jar"
+//
+//        pattern = ["classes*.dex",
+//                   "assets/secondary-dex-?.jar"]
+//
+//        loader = []
+//    }
+
 //    useOldManifestMerger true
 
     dependencies {
@@ -18,7 +28,13 @@ buildscript {
         // tinker gradle插件
 //        classpath ('com.tencent.tinker:tinker-patch-gradle-plugin:1.7.9')
     }
+
+
+
 }
+
+
+
 
 allprojects {
     repositories {
@@ -35,7 +51,17 @@ allprojects {
 
 
     }
+
 }
+
+
+task ('processWithJavassist') << {
+    String classPath = file('build/intermediates/classes/debug')//项目编译class所在目录
+    com.cuieney.groovy.PatchClass.process(classPath, project(':hookdex').buildDir
+            .absolutePath + '/intermediates/classes/debug')//第二个参数是hackdex的class所在目录
+
+}
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir

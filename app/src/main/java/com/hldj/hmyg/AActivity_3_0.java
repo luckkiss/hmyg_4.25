@@ -131,6 +131,8 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         setContentView(R.layout.activity_a_3_0);
         mCache = ACache.get(this);
 
+
+        ToastUtil.showShortToast("bugly 热更新生效");
         viewPager = (AutoScrollViewPager) findViewById(R.id.view_pager);
         indicator = (CirclePageIndicator) findViewById(R.id.indicator);
         indicator.setAlpha((float) 0.6);
@@ -207,12 +209,12 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                  */
 
                 Observable
-                        .timer(1500,TimeUnit.MILLISECONDS)
+                        .timer(1500, TimeUnit.MILLISECONDS)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(delay -> {
                                     {
-                                        D.e("==delay=="+delay);
+                                        D.e("==delay==" + delay);
                                         swipeRefreshLayout.finishRefresh();
                                         swipeViewHeader.setState(3);
                                     }

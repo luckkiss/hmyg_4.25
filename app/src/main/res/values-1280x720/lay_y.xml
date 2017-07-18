@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources><dimen name="y1">3.2px</dimen>
+<resources>
+    <dimen name="store_width">2px</dimen>
+    <dimen name="y1">3.2px</dimen>
 <dimen name="y2">6.4px</dimen>
 <dimen name="y3">9.6px</dimen>
 <dimen name="y4">12.8px</dimen>

@@ -1,8 +1,5 @@
 package com.hldj.hmyg.store;
 
-import java.util.List;
-import java.util.Map;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * ExpandListView的适配器，继承自BaseExpandableListAdapter
@@ -153,9 +153,9 @@ public class StoreBaseExpandableListAdapter extends BaseExpandableListAdapter
 			groupHolder = (GroupHolder) convertView.getTag();
 		}
 		if (isExpanded) {
-			groupHolder.groupImg.setBackgroundResource(R.drawable.downarrow);
+			groupHolder.groupImg.setImageResource(R.drawable.ic_arrow_down_black);
 		} else {
-			groupHolder.groupImg.setBackgroundResource(R.drawable.rightarrow);
+			groupHolder.groupImg.setImageResource(R.drawable.ic_right_new);
 		}
 		groupHolder.groupText.setText(groupTitle.get(groupPosition).getName()
 				+ "[" + groupTitle.get(groupPosition).getImageId() + "]");
@@ -198,7 +198,7 @@ public class StoreBaseExpandableListAdapter extends BaseExpandableListAdapter
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_group_function:
-			Log.d("MyBaseExpandableListAdapter", "你点击了group button");
+			Log.d("MyBaseEx", "你点击了group button");
 		default:
 			break;
 		}

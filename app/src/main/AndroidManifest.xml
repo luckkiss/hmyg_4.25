@@ -295,7 +295,7 @@
             android:name="com.hldj.hmyg.StoreActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hldj.hmyg.StoreActivity_new"
+            android:name="com.hldj.hmyg.Ui.StoreActivity_new"
             android:screenOrientation="portrait"
             android:theme="@style/base_store_theme" />
         <activity

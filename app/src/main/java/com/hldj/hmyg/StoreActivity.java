@@ -305,15 +305,12 @@ public class StoreActivity extends NeedSwipeBackActivity implements
     }
 
     private void iniPopupWindow2() {
-        LayoutInflater inflater = (LayoutInflater) this
-                .getSystemService(LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.task_detail_popupwindow, null);
         lvPopupList = (ListView) layout.findViewById(R.id.lv_popup_list);
-        pwMyPopWindow = new PopupWindow(layout, AndroidUtil.dip2px(
-                StoreActivity.this, 130), LayoutParams.WRAP_CONTENT);
+        pwMyPopWindow = new PopupWindow(layout, AndroidUtil.dip2px(StoreActivity.this, 130), LayoutParams.WRAP_CONTENT);
         pwMyPopWindow.setFocusable(true);// 加上这个popupwindow中的ListView才可以接收点击事件
-        SharePoPAdapter sharePoPAdapter = new SharePoPAdapter(
-                StoreActivity.this, shares);
+        SharePoPAdapter sharePoPAdapter = new SharePoPAdapter(StoreActivity.this, shares);
         lvPopupList.setAdapter(sharePoPAdapter);
         lvPopupList.setOnItemClickListener(new OnItemClickListener() {
 
@@ -341,12 +338,11 @@ public class StoreActivity extends NeedSwipeBackActivity implements
         // pwMyPopWindow.setHeight((lvPopupList.getMeasuredHeight())
         // * NUM_OF_VISIBLE_LIST_ROWS + 20);
         // 控制popupwindow点击屏幕其他地方消失
-        pwMyPopWindow.setBackgroundDrawable(this.getResources().getDrawable(
-                R.drawable.bg_popupwindow));// 设置背景图片，不能在布局中设置，要通过代码来设置
+        pwMyPopWindow.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.bg_popupwindow));// 设置背景图片，不能在布局中设置，要通过代码来设置
         pwMyPopWindow.setOutsideTouchable(true);// 触摸popupwindow外部，popupwindow消失。这个要求你的popupwindow要有背景图片才可以成功，如上
     }
 
-    public void setTextByType(TextView tv_plant_type, String textByType) {
+    public static void setTextByType(TextView tv_plant_type, String textByType) {
 
         if (textByType.contains(ConstantParams.heelin)) {
             tv_plant_type.setText("假植苗");
@@ -529,8 +525,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                                         store, "shareTitle");
                                 String shareContent = JsonGetInfo
                                         .getJsonString(store, "shareContent");
-                                String shareUrl = JsonGetInfo.getJsonString(
-                                        store, "shareUrl");
+                                String shareUrl = JsonGetInfo.getJsonString(store, "shareUrl");
                                 title = shareTitle;
                                 text = shareContent;
                                 url = shareUrl;
@@ -731,14 +726,10 @@ public class StoreActivity extends NeedSwipeBackActivity implements
 //                                    Bitmap qrCodeBitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_add);
                                     qrCodeBitmap = getRoundCornerImage(qrCodeBitmap, 3);
                                     try {
-                                        img_path = FileUtil.saveMyBitmap(
-                                                System.currentTimeMillis() + "",
-                                                qrCodeBitmap);
+                                        img_path = FileUtil.saveMyBitmap(System.currentTimeMillis() + "", qrCodeBitmap);
                                         if (!"".equals(img_path)) {
-                                            ossImagePaths.add(new Pic("",
-                                                    false, img_path, 0));
+                                            ossImagePaths.add(new Pic("", false, img_path, 0));
                                         }
-
 //                                        ((ImageView) findViewById(R.id.iv_show_qc)).setImageBitmap(BitmapFactory.decodeFile(img_path));
                                     } catch (IOException e) {
                                         // TODO Auto-generated catch block
@@ -1261,9 +1252,9 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                     break;
                 case R.id.iv_erweima:
                     if (ossImagePaths.size() > 0) {
-                        GalleryImageActivity.startGalleryImageActivity(
-                                StoreActivity.this, 0, ossImagePaths);
+                        GalleryImageActivity.startGalleryImageActivity(StoreActivity.this, 0, ossImagePaths);
                     } else {
+
                     }
                     break;
                 case R.id.ll_01:
@@ -1809,7 +1800,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
     /**
      * 画成圆角图片
      */
-    public Bitmap getRoundCornerImage(Bitmap bitmap, int roundPixels) {
+    public static Bitmap getRoundCornerImage(Bitmap bitmap, int roundPixels) {
         /**创建一个和原始图片一样大小位图*/
         Bitmap roundConcerImage = Bitmap.createBitmap(bitmap.getWidth(),
                 bitmap.getHeight(), Bitmap.Config.ARGB_8888);

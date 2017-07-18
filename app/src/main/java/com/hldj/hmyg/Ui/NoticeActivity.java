@@ -26,7 +26,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 
 /**
- * Created by Administrator on 2017/5/19.
+ *  成交公告   界面
  */
 
 public class NoticeActivity extends NeedSwipeBackActivity {

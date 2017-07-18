@@ -8,6 +8,19 @@ import android.text.TextUtils;
 
 public class FUtil {
 
+
+    public static String choseOne(String str1, String str2) {
+        if (!TextUtils.isEmpty(str1)) {
+            return str1;
+        }
+
+        if (!TextUtils.isEmpty(str2)) {
+            return str2;
+        }
+        return "";
+    }
+
+
     public static String $(String str) {
         if (TextUtils.isEmpty(str)) {
             return "";

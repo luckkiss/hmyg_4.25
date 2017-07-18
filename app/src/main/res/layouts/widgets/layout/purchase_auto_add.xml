@@ -26,10 +26,11 @@
 
     <EditText
         android:id="@+id/et_params_03"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="20dp"
+        android:layout_weight="1"
         android:background="@drawable/conner_edit"
         android:gravity="center_vertical"
         android:hint="cm"
@@ -38,12 +39,12 @@
         android:minWidth="70dp"
         android:padding="5dp"
         android:paddingLeft="5dp"
-        android:textColor="@color/hint_text_color"
+        android:textColor="@color/text_color333"
         android:textColorHint="@color/hint_text_color"
-        android:textSize="16sp" />
+        android:textSize="15sp" />
 
     <View
-        android:layout_width="30dp"
+        android:layout_width="5dp"
         android:layout_height="1px" />
 
 
@@ -57,12 +58,12 @@
     <!--<include layout="@layout/view_stub_item_radio" android:id="@+id/vb_radions"/>-->
     <ViewStub
         android:id="@+id/vb_radions"
-        android:layout_width="0dp"
-        android:layout_height="25dp"
         android:layout_gravity="center_vertical"
-        android:layout_weight="1"
         android:layout="@layout/view_stub_item_radio"
-        android:paddingRight="10dp" />
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:minWidth="160dp"
+        />
 
 
     <!--</RelativeLayout>-->

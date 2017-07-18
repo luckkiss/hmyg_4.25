@@ -12,9 +12,10 @@
 
         <ImageView
             android:id="@+id/img_indicator"
-            android:layout_width="@dimen/x21"
-            android:layout_height="@dimen/x21"
+            android:layout_width="@dimen/x11"
+            android:layout_height="@dimen/x11"
             android:layout_centerVertical="true"
+            android:src="@drawable/ic_arrow_down_black"
             android:layout_marginLeft="15dp" />
 
         <TextView

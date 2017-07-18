@@ -59,10 +59,6 @@ public class DrawableCenterText extends TextView {
         }
 
 
-
-
-
-
         super.onDraw(canvas);
     }
 }

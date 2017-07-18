@@ -62,7 +62,7 @@ public abstract class BaseMultAdapter<T, K extends BaseViewHolder> extends BaseQ
                 @Override
                 public int getSpanSize(int position) {
                     D.e("======LOADING_VIEW========="+ (getItemViewType(position) == LOADING_VIEW));
-                    return getItemViewType(position) == LOADING_VIEW ? gridManager.getSpanCount() : 1;
+                    return getItemViewType(position) == LOADING_VIEW  | getItemViewType(position) == EMPTY_VIEW ? gridManager.getSpanCount() : 1;
                 }
             });
         }

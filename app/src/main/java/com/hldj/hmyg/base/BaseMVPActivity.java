@@ -57,9 +57,14 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
         initView();
         initVH();
         initData();
+        initListener();
 
 
     }
+
+    protected   void initListener(){
+
+    };
 
     public void initData() {
 

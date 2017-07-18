@@ -31,6 +31,7 @@ import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.weavey.loading.lib.LoadingLayout;
+import com.white.utils.ScreenUtil;
 
 import java.io.File;
 
@@ -92,6 +93,7 @@ public class MyApplication extends Application {
         super.onCreate();
 
 
+        D.e("=========本手机分辨率========" + "width=" + ScreenUtil.getScreenWidth(this) + "  height=" + ScreenUtil.getScreenHeight(this));
         // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
         // 调试时，将第三个参数改为true
         Bugly.setIsDevelopmentDevice(this, true);
@@ -104,6 +106,7 @@ public class MyApplication extends Application {
         GetServerUrl.device_type = Build.MODEL;
         GetServerUrl.manufacturer = Build.MANUFACTURER;
 
+        D.e("" + GetServerUrl.sdk_version + " \n" + GetServerUrl.device_type + "\n" + GetServerUrl.manufacturer);
 
 //        FIR.init(this);
 //      4e9fef47d1c33625cb0d5495e6856e0a
@@ -257,5 +260,22 @@ public class MyApplication extends Application {
 //        getApplication().registerActivityLifecycleCallbacks(callbacks);
 //    }
 
+
+    public boolean checkDalvk() {
+        StringBuilder ret = new StringBuilder();
+
+        String version = System.getProperty("java.vm.version");
+        ret.append("Current VM version:").append(version).append("\n");
+        if (Integer.valueOf(version.substring(0, version.indexOf("."))) >= 2) {
+            ret.append("You are currently using ART!");
+            return false;
+        } else {
+            ret.append("You are currently using Dalvik!");
+            return true;
+        }
+
+//        Toast.makeText(this,ret.toString(),Toast.LENGTH_LONG).show();
+//        Log.d("Hello", ret.toString());
+    }
 
 }

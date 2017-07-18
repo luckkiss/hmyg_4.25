@@ -767,10 +767,8 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
                         // TODO Auto-generated method stub
                         try {
                             JSONObject jsonObject = new JSONObject(t.toString());
-                            String code = JsonGetInfo.getJsonString(jsonObject,
-                                    "code");
-                            String msg = JsonGetInfo.getJsonString(jsonObject,
-                                    "msg");
+                            String code = JsonGetInfo.getJsonString(jsonObject, "code");
+                            String msg = JsonGetInfo.getJsonString(jsonObject, "msg");
                             if (!"".equals(msg)) {
                             }
                             if ("1".equals(code)) {

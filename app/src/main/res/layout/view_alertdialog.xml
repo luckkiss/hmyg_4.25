@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lLayout_bg"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/alert_bg"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/txt_title"
@@ -16,7 +17,8 @@
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        tools:text="164646465"
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/txt_msg"
@@ -27,7 +29,9 @@
         android:layout_marginTop="15dp"
         android:gravity="center"
         android:textColor="@color/main_color"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        tools:text="164646465"
+        />
 
     <ImageView
         android:layout_width="match_parent"
@@ -48,7 +52,10 @@
             android:background="@drawable/alertdialog_left_selector"
             android:gravity="center"
             android:textColor="@color/actionsheet_blue"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:typeface="normal"
+            tools:text="123131"
+            />
 
         <ImageView
             android:id="@+id/img_line"
@@ -65,7 +72,10 @@
             android:gravity="center"
             android:textColor="@color/actionsheet_blue"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="normal"
+            tools:text="123131"
+
+            />
     </LinearLayout>
 
 </LinearLayout>

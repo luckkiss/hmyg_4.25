@@ -15,6 +15,8 @@ import net.tsz.afinal.http.AjaxParams;
 import java.io.Serializable;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
@@ -32,28 +34,42 @@ public class StorePresenter extends StoreContract.Presenter {
 
 
     @Override
-    public void getIndexData() {
-        mView.showLoading();
-        mModel.getIndexData(new ResultCallBack<String>() {
+    public Observable<String> getIndexData() {
+
+
+        return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void onSuccess(String json) {
+            public void subscribe(ObservableEmitter<String> e) throws Exception {
 
-                StoreGsonBean storeGsonBean = GsonUtil.formateJson2Bean(json, StoreGsonBean.class);
-                if (storeGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
-                    mView.initIndexBean(storeGsonBean.data);
-                } else {
-                    mView.showErrir(storeGsonBean.msg);
-                }
+                mModel.getIndexData(new ResultCallBack<String>() {
+                    @Override
+                    public void onSuccess(String json) {
 
-                mView.hindLoading();
+                        StoreGsonBean storeGsonBean = GsonUtil.formateJson2Bean(json, StoreGsonBean.class);
+                        if (storeGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
+                            mView.initIndexBean(storeGsonBean.data);
+
+                            e.onNext(storeGsonBean.data.owner.id);
+
+                        } else {
+                            mView.showErrir(storeGsonBean.msg);
+                        }
+
+                        mView.hindLoading();
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+                        mView.showErrir(strMsg);
+                        mView.hindLoading();
+                    }
+                }, mView.getStoreID());
             }
+        });
 
-            @Override
-            public void onFailure(Throwable t, int errorNo, String strMsg) {
-                mView.showErrir(strMsg);
-                mView.hindLoading();
-            }
-        }, mView.getStoreID());
+
+//        mView.showLoading();
+
 
     }
 
@@ -105,8 +121,7 @@ public class StorePresenter extends StoreContract.Presenter {
                             }
                         }, serializable);
                     }
-                })
-                ;
+                });
 
 
         /**

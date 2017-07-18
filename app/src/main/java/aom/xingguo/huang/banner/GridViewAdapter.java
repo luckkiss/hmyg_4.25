@@ -13,7 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.StoreActivity;
+import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.bean.HomeStore;
 import com.hldj.hmyg.util.CommonUtils;
 import com.white.utils.AndroidUtil;
@@ -110,8 +110,7 @@ public class GridViewAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if (!"".equals(arrayList.get(position).getId())) {
 
-                    StoreActivity.start2Activity((Activity) context, arrayList.get(position)
-                            .getId());
+                    StoreActivity_new.start2Activity((Activity) context, arrayList.get(position) .getId());
 
 
                 }

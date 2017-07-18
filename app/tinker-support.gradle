@@ -5,7 +5,7 @@ def bakPath = file("${buildDir}/bakApk/")
 /**
  * 此处填写每次构建生成的基准包目录
  */
-def baseApkDir = "app-0615-14-51-31"
+def baseApkDir = "app-0713-09-09-45"
 
 /**
  * 对于插件各参数的详细解析请参考
@@ -32,8 +32,8 @@ tinkerSupport {
     baseApkResourceMapping = "${bakPath}/${baseApkDir}/app-release-R.txt"
 
     // 构建基准包和补丁包都要指定不同的tinkerId，并且必须保证唯一性
-          tinkerId = "base-3.0.2"
-//            tinkerId = "patch-3.0.1"
+//          tinkerId = "base-3.0.2"
+    tinkerId = "patch-3.0.2"
 
     // 是否启用覆盖tinkerPatch配置功能，默认值false
     // 开启后tinkerPatch配置不生效，即无需添加tinkerPatch
@@ -43,7 +43,7 @@ tinkerSupport {
     // buildAllFlavorsDir = "${bakPath}/${baseApkDir}"
 
     // 是否启用加固模式，默认为false.(tinker-spport 1.0.7起支持）
-    isProtectedApp = true
+    isProtectedApp = false
 
     // 是否开启反射Application模式
     enableProxyApplication = true
@@ -63,9 +63,17 @@ tinkerPatch {
     useSign = true
     dex {
         dexMode = "jar"
-        pattern = ["classes*.dex"]
-        loader = []
+        pattern = ["classes.dex", "classes2.dex", "assets/secondary-dex-?.jar"]
+        loader = ["com.hldj.hmyg.util.ConstantState"
+                  //use sample, let BaseBuildInfo unchangeable with tinker
+//                      "tinker.sample.android.app.BaseBuildInfo"
+        ]
     }
+
+
+
+
+
     lib {
         pattern = ["lib/*/*.so"]
     }

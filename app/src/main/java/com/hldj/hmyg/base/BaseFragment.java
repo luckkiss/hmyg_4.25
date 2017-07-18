@@ -43,11 +43,16 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mRootView = inflater.inflate(bindLayoutID(), null);
-        initView(mRootView);
         this.rootView = mRootView;
+        initView(mRootView);
         initLoadingView(rootView);
+        initListener();
         D.e("======当前Fragment===位置=====" + this.getClass().getName());
         return rootView;
+    }
+
+    protected void initListener() {
+
     }
 
     // 获取loading view

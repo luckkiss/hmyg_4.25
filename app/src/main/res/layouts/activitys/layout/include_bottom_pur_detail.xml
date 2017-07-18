@@ -58,7 +58,6 @@
         android:id="@+id/tfl_purchase_auto_add_plant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
         android:paddingLeft="10dp"
         app:max_select="0" />
     <View style="@style/View_line_gray_1dp" />

@@ -20,7 +20,7 @@ import com.autoscrollview.jakewharton.salvage.RecyclingPagerAdapter;
 import com.autoscrollview.utils.ListUtils;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.StoreActivity;
+import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.WebActivity;
 import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
@@ -32,7 +32,7 @@ import net.tsz.afinal.FinalBitmap;
 import java.util.List;
 
 /**
- * ImagePagerAdapter
+ * 首页轮播  顶部
  */
 public class ImagePagerAdapter_ali extends RecyclingPagerAdapter {
 
@@ -119,7 +119,8 @@ public class ImagePagerAdapter_ali extends RecyclingPagerAdapter {
                         FlowerDetailActivity.start2Activity(context, typeBean.sourceId);
                         break;
                     case "store":
-                        StoreActivity.start2Activity(context, typeBean.sourceId);
+                        //首页轮播  顶部
+                        StoreActivity_new.start2Activity(context, typeBean.sourceId);
                         break;
                     case "purchase":
                         //报价 详情
