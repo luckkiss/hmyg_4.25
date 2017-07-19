@@ -73,7 +73,7 @@
 //
 //    private void initExtra(SaveSeedingGsonBean saveSeedingGsonBean) {
 //
-//        List<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean> imagesJsonBeans = saveSeedingGsonBean.getData().getSeedling().getImagesJson();
+//        List<SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean.ImagesJsonBean> imagesJsonBeans = saveSeedingGsonBean.getData().getSeedling().getImagesJson();
 //
 //        if (null != imagesJsonBeans) {
 //
@@ -94,7 +94,7 @@
 //
 ////        initAutoLayout(saveSeedingGsonBean.getData().getTypeList());
 //
-//        SaveSeedingGsonBean.DataBean.SeedlingBean seedling = saveSeedingGsonBean.getData().getSeedling();
+//        SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean seedling = saveSeedingGsonBean.getData().getSeedling();
 //
 //        tag_ID = seedling.getFirstSeedlingTypeId();
 //        initAutoLayout(saveSeedingGsonBean.getData().getTypeList());
@@ -158,7 +158,7 @@
 //        D.e("===========先完成底部区域===价格  库存  单位 苗原地  备注等等======" + seedling);
 //
 //
-//        SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean = saveSeedingGsonBean.getData().getSeedling();
+//        SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean seedlingBean = saveSeedingGsonBean.getData().getSeedling();
 //
 //        SaveSeedingBottomLinearLayout.upLoadDatas upLoadDatas = new SaveSeedingBottomLinearLayout.upLoadDatas();
 ////        upLoadDatas.price_max =seedlingBean.get ;

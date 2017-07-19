@@ -53,37 +53,65 @@
 
 
     <RadioGroup
-        android:layout_width="@dimen/x160"
-        android:layout_height="@dimen/y17"
-        android:layout_alignLeft="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/linearLayout2"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         android:visibility="visible">
 
+
         <RadioButton
             android:id="@+id/rb_auto_add_left"
-            style="@style/radio_seedling_common"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tag_bg2"
+            android:button="@null"
             android:checked="true"
+            android:paddingBottom="6dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="6dp"
+            android:text="0.3m量"
+            android:textColor="@color/rb_left_selecteor"
+            android:textSize="12sp">
+        </RadioButton>
 
-            android:background="@drawable/rb_left_selecteor"
-            android:textColor="@color/rb_left_selecteor" />
 
         <RadioButton
             android:id="@+id/rb_auto_add_center"
-            style="@style/radio_seedling_common"
-            android:layout_marginLeft="-1px"
-            android:background="@drawable/rb_center_selecteor"
-            android:text="1.0M量"
-            android:textColor="@color/rb_left_selecteor" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tag_bg2"
+            android:button="@null"
+            android:paddingBottom="6dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="6dp"
+            android:layout_marginLeft="-2dp"
+            android:text="1.0m量"
+            android:textColor="@color/rb_left_selecteor"
+            android:textSize="12sp">
+        </RadioButton>
+
 
         <RadioButton
             android:id="@+id/rb_auto_add_right"
-            style="@style/radio_seedling_common"
-            android:background="@drawable/rb_right_selecteor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tag_bg2"
+            android:button="@null"
+            android:paddingBottom="6dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:layout_marginLeft="-2dp"
+            android:paddingTop="6dp"
             android:text="1.3M量"
             android:textColor="@color/rb_left_selecteor"
+            android:textSize="12sp">
+        </RadioButton>
+
 
             />
     </RadioGroup>

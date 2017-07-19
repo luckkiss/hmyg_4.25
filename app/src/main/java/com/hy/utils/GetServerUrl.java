@@ -7,7 +7,7 @@ import com.hldj.hmyg.application.MyApplication;
 import net.tsz.afinal.FinalHttp;
 
 /**
- * 获取服务器IP址
+ * 获取服务器I址
  */
 
 public class GetServerUrl {

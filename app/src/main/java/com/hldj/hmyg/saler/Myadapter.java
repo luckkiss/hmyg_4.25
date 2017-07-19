@@ -44,7 +44,7 @@
 //	private Handler mHandler;
 //	private int resourceId; // 适配器视图资源ID
 //	private Context context; // 上下午对象
-//	private ArrayList<SaveSeedingGsonBean.DataBean.SeedlingBean> list; // 数据集合List
+//	private ArrayList<SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean> list; // 数据集合List
 //	private LayoutInflater inflater; // 布局填充器
 //	public static HashMap<Integer, Boolean> isSelected;
 //	private Gson gson;
@@ -52,9 +52,9 @@
 //	private StorageSave fromJson;
 //	private LinearLayout ll_reason;
 //	private TextView reason;
-////	List<SaveSeedingGsonBean.DataBean.SeedlingBean> data
+////	List<SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean> data
 //	@SuppressLint("UseSparseArrays")
-//	public Myadapter(Context context, ArrayList<SaveSeedingGsonBean.DataBean.SeedlingBean> list,
+//	public Myadapter(Context context, ArrayList<SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean> list,
 //			Handler mHandler) {
 //		this.list = list;
 //		fb = FinalBitmap.create(context);

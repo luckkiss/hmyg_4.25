@@ -9,7 +9,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:text="高度"
-        android:textSize="@dimen/x15" />
+        android:textSize="@dimen/x15"
+        android:drawablePadding="2dp"
+        />
 
     <TextView
         android:id="@+id/tv_auto_add_left2"

@@ -27,7 +27,7 @@
                 <ImageView
                     android:id="@+id/iv_store_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="180dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/moren_banner" />
 
@@ -150,19 +150,19 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|left"
-        android:layout_margin="20dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/seller_makingacall_2"
+        android:visibility="gone"
         app:backgroundTint="@color/white"
         app:borderWidth="0dp"
         app:elevation="2dp"
         app:fabSize="normal"
         app:layout_anchor="@+id/app_bar"
-        app:layout_anchorGravity="center_vertical|right"
+        app:layout_anchorGravity="bottom|right"
         app:pressedTranslationZ="10dp"
-        app:rippleColor="#ff87ffeb" />
+        app:rippleColor="#ff87ffeb"
+        tools:visibility="visible" />
 
-<!--seller_makingacall_2-->
+    <!--seller_makingacall_2-->
 </android.support.design.widget.CoordinatorLayout>

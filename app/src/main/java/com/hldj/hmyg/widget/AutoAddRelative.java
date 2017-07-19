@@ -1,6 +1,7 @@
 package com.hldj.hmyg.widget;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,12 @@ public class AutoAddRelative extends RelativeLayout {
         requiredis = paramsListBean.isRequired();
         if (!requiredis)
             viewHolder_add.tv_auto_add_left2.setText("(选填)");//不是必须的话 写选填
+
+        //如果必填  显示*
+
+            isShowLeft(requiredis,viewHolder_add.tv_auto_add_left1,R.drawable.seller_redstar);
+
+
     }
 
     //是否必填
@@ -60,6 +67,9 @@ public class AutoAddRelative extends RelativeLayout {
         if (paramsListBean.getValue().equals("dbh")) {
             if (isChangeName)
                 viewHolder_rd.initListener();
+            viewHolder_rd.rb_auto_add_center.setChecked(true);
+            viewHolder_rd.tv_auto_add_left1.setText("米径");
+
             isChangeName = false;
         }//如果是胸径 就不会自动改变左边的字
 
@@ -67,11 +77,24 @@ public class AutoAddRelative extends RelativeLayout {
         requiredis = paramsListBean.isRequired();
         if (!requiredis)
             viewHolder_rd.tv_auto_add_left2.setText("(选填)");//不是必须的话 写选填
+
+        isShowLeft(requiredis,viewHolder_rd.tv_auto_add_left1,R.drawable.seller_redstar);
+
+
 //        if (!paramsListBean.isRequired())
 //            viewHolder_rd.tv_auto_add_left2.setText("(选填)");//不是必须的话 写选填
 
         return this;
     }
+
+    public AutoAddRelative setDefaultSelect(String value) {
+
+        if (viewHolder_rd != null) {
+            viewHolder_rd.rb_auto_add_center.setChecked(true);
+        }
+        return this;
+    }
+
 
 //    int layoutId;
 
@@ -288,5 +311,23 @@ public class AutoAddRelative extends RelativeLayout {
             this.tv_auto_add_name = (EditText) rootView.findViewById(R.id.tv_auto_add_name);
         }
 
+    }
+
+
+
+
+
+
+
+    public void isShowLeft(boolean flag, TextView textView, int drawableId) {
+        if (flag) {
+            Drawable drawable = getResources().getDrawable(drawableId);
+            /// 这一步必须要做,否则不会显示.
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            textView.setCompoundDrawables(drawable, null, null, null);
+        } else {
+            //隐藏Drawables
+            textView.setCompoundDrawables(null, null, null, null);
+        }
     }
 }

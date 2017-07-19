@@ -24,6 +24,7 @@ import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.buyer.M.ItemBean;
+import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
 import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
 import com.hldj.hmyg.buyer.P.PurchaseDeatilP;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
@@ -322,9 +323,9 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                                         .setTitle("提示")
                                         .setPositiveButton("确定", v1 -> {
                                             showLoading();
-                                            new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
+                                            new PurchaseDeatilP(new ResultCallBack<PurchaseItemBean_new>() {
                                                 @Override
-                                                public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
+                                                public void onSuccess(PurchaseItemBean_new itemBean_new) {
 
                                                     ToastUtil.showShortToast("删除成功");
                                                     //删除该项目 并且刷新界面
@@ -333,7 +334,11 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                                                     recyclerView.getAdapter().remove(0);
 //                                                    recyclerView.getAdapter().notifyItemRemoved(0);
                                                     getDatas();
-                                                    setResult(-1);
+
+                                                    Intent intent = new Intent();
+                                                    intent.putExtra("bean", itemBean_new);
+//                                                  setResult(1, intent);
+                                                    setResult(ConstantState.DELETE_SUCCEED, intent);//删除成功
                                                     hindLoading();
                                                     onDeleteFinish(true);
                                                 }
@@ -531,17 +536,17 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 //        } else {
 //            save();//如果没有图片，直接上传数据
 //        }
-
-
     };
 
 
     public void save() {
-        new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
+        new PurchaseDeatilP(new ResultCallBack<PurchaseItemBean_new>() {
             @Override
-            public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
+            public void onSuccess(PurchaseItemBean_new itemBean_new) {
                 getDatas();
-                setResult(1);
+                Intent intent = new Intent();
+                intent.putExtra("bean", itemBean_new);
+                setResult(ConstantState.PUBLIC_SUCCEED, intent);//发布成功
             }
 
             @Override

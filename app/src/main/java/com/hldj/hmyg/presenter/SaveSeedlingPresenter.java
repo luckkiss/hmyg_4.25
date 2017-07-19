@@ -92,7 +92,7 @@ public class SaveSeedlingPresenter {
     //第一行 标签乔木 灌木  庄景   地被  。。。。
     private static TagAdapter<String> mtypeListAdapter;
 
-//    public static void initAutoLayout(final TagFlowLayout mFlowLayout, List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen, final Activity Activity, TagFlowLayout.OnTagClickListener onTagClickListener) {
+//    public static void initAutoLayout(final TagFlowLayout mFlowLayout, List<SaveSeedingGsonBean.PurchaseItemBean_new.TypeListBean> typeListBeen, final Activity Activity, TagFlowLayout.OnTagClickListener onTagClickListener) {
 //
 //        final List str_typeLists = getListNames(typeListBeen);
 //
@@ -174,7 +174,7 @@ public class SaveSeedlingPresenter {
     }
 
     //     * plantTypeList : [{"text":"地栽苗","value":"planted"},{"text":"移植苗","value":"transplant"},{"text":"假植苗","value":"heelin"},{"text":"容器苗","value":"container"}]
-//    public static void initAutoLayout2(final TagFlowLayout mFlowLayout, List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> plantTypeList , final Activity saveSeedlingActivity, TagFlowLayout.OnTagClickListener onTagClickListener) {
+//    public static void initAutoLayout2(final TagFlowLayout mFlowLayout, List<SaveSeedingGsonBean.PurchaseItemBean_new.TypeListBean.PlantTypeListBean> plantTypeList , final Activity saveSeedlingActivity, TagFlowLayout.OnTagClickListener onTagClickListener) {
 //
 //        com.zhy.view.flowlayout.TagAdapter tagAdapter = new com.zhy.view.flowlayout.TagAdapter(plantTypeList) {
 //            @Override

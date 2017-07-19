@@ -3,6 +3,8 @@ package com.hldj.hmyg.util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.lang.reflect.Type;
+
 /**
  * Created by Administrator on 2017/4/12.
  */
@@ -45,7 +47,15 @@ public class GsonUtil<T> {
 //        System.out.println(t.getClass());
 
 
+//        return (E) getGson().fromJson(json, cls);
         return (E) getGson().fromJson(json, cls);
+    }
+
+    public static <E> E formateJson2Bean(String json, Type beanType) {
+
+//        System.out.println(t.getClass());
+//        return (E) getGson().fromJson(json, cls);
+        return (E) getGson().fromJson(json, beanType);
     }
 
 

@@ -67,7 +67,7 @@ public class LoginGsonBean {
 
         @Override
         public String toString() {
-            return "DataBean{" +
+            return "PurchaseItemBean_new{" +
                     "userId='" + userId + '\'' +
                     '}';
         }

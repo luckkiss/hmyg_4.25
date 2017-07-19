@@ -317,7 +317,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
 
 
     //step 1   2个界面不一样的实现
-//    public abstract void initAutoLayout(List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen);
+//    public abstract void initAutoLayout(List<SaveSeedingGsonBean.PurchaseItemBean_new.TypeListBean> typeListBeen);
 //    {
 //        getViewHolder_pur().ll_purc_auto_add.addView(new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("价格", "dbh", true)));
 //

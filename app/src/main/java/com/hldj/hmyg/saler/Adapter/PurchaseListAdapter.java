@@ -110,8 +110,12 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
         intent.putExtra("purchaseFormId", item.purchaseFormId);
         intent.putExtra("title", item.num);
         context.startActivity(intent);
-
     }
+
+
+
+
+
 
 
 }

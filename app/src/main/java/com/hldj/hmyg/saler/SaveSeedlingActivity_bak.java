@@ -85,15 +85,15 @@
 //
 //            //暂存草稿箱
 //            viewHolder.iv_ready_save.setOnClickListener(v -> {
-//                SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean = new SaveSeedingGsonBean.DataBean.SeedlingBean();
+//                SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean seedlingBean = new SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean();
 //                //step 1  图片如何插入
 //                if (viewHolder.publish_flower_info_gv.getAdapter().getDataList().size() != 0) {//
 //
-//                    List<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean> list_imgs
-//                            = new ArrayList<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean>();
+//                    List<SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean.ImagesJsonBean> list_imgs
+//                            = new ArrayList<SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean.ImagesJsonBean>();
 //                    for (int i = 0; i < viewHolder.publish_flower_info_gv.getAdapter().getDataList().size(); i++) {
-//                        SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean
-//                                imagesJsonBean = new SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean().setLocal_url("");
+//                        SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean.ImagesJsonBean
+//                                imagesJsonBean = new SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean.ImagesJsonBean().setLocal_url("");
 //                        list_imgs.add(imagesJsonBean);
 //                    }
 //                    seedlingBean.setImagesJson(list_imgs);
@@ -140,8 +140,8 @@
 //                seedlingBean.setRemarks(upLoadDatas.getRemark());
 //
 //
-//                SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean nurseryJsonBean
-//                        = new SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean();
+//                SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean.NurseryJsonBean nurseryJsonBean
+//                        = new SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean.NurseryJsonBean();
 //
 //                //地址对象
 //                AdressActivity.Address address = upLoadDatas.address;
@@ -240,7 +240,7 @@
 //
 //    private void initExtra(SaveSeedingGsonBean saveSeedingGsonBean) {
 //
-//        List<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean> imagesJsonBeans = saveSeedingGsonBean.getData().getSeedling().getImagesJson();
+//        List<SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean.ImagesJsonBean> imagesJsonBeans = saveSeedingGsonBean.getData().getSeedling().getImagesJson();
 //
 //        if (null != imagesJsonBeans) {
 //
@@ -261,7 +261,7 @@
 //
 ////        initAutoLayout(saveSeedingGsonBean.getData().getTypeList());
 //
-//        SaveSeedingGsonBean.DataBean.SeedlingBean seedling = saveSeedingGsonBean.getData().getSeedling();
+//        SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean seedling = saveSeedingGsonBean.getData().getSeedling();
 //
 //        tag_ID = seedling.getFirstSeedlingTypeId();
 //        initAutoLayout(saveSeedingGsonBean.getData().getTypeList());
@@ -325,7 +325,7 @@
 //        D.e("===========先完成底部区域===价格  库存  单位 苗原地  备注等等======" + seedling);
 //
 //
-//        SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean = saveSeedingGsonBean.getData().getSeedling();
+//        SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean seedlingBean = saveSeedingGsonBean.getData().getSeedling();
 //
 //        SaveSeedingBottomLinearLayout.upLoadDatas upLoadDatas = new SaveSeedingBottomLinearLayout.upLoadDatas();
 ////        upLoadDatas.price_max =seedlingBean.get ;
@@ -453,7 +453,7 @@
 //    }
 //
 //    @Override
-//    public void initAutoLayout(List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen) {
+//    public void initAutoLayout(List<SaveSeedingGsonBean.PurchaseItemBean_new.TypeListBean> typeListBeen) {
 //        D.e("===============");
 //        for (int i = 0; i < typeListBeen.size(); i++) {
 //            if (tag_ID.equals(typeListBeen.get(i).getId()) && !TextUtils.isEmpty(tag_ID)) {
@@ -487,7 +487,7 @@
 //     * @param typeListBeen
 //     * @param type_id
 //     */
-////    public void initAutoLayout(List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen, String type_id) {
+////    public void initAutoLayout(List<SaveSeedingGsonBean.PurchaseItemBean_new.TypeListBean> typeListBeen, String type_id) {
 ////
 ////        //设置默认
 ////        //动态添加标签
@@ -515,7 +515,7 @@
 //    int index = -1;
 //
 //    @Override
-//    public void initAutoLayout2(List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> plantTypeList) {
+//    public void initAutoLayout2(List<SaveSeedingGsonBean.PurchaseItemBean_new.TypeListBean.PlantTypeListBean> plantTypeList) {
 //        //设置默认       初始化
 //
 //        for (int i = 0; i < plantTypeList.size(); i++) {
@@ -567,7 +567,7 @@
 //    AutoAddRelative autoAddRelative_rd;
 //
 //    //根据 参数来动态添加布局
-//    private void addParamViews(List<SaveSeedingGsonBean.DataBean.TypeListBean.ParamsListBean> paramsListBean) {
+//    private void addParamViews(List<SaveSeedingGsonBean.PurchaseItemBean_new.TypeListBean.ParamsListBean> paramsListBean) {
 //        int size = paramsListBean.size();
 //        viewHolder.ll_auto_add_layout.removeAllViews();
 //        arrayList_holders.clear();
@@ -603,7 +603,7 @@
 //
 //    }
 //
-//    private List<SaveSeedingGsonBean.DataBean.TypeListBean.ParamsListBean> paramsListBean;
+//    private List<SaveSeedingGsonBean.PurchaseItemBean_new.TypeListBean.ParamsListBean> paramsListBean;
 //
 //
 //    public void removePicUrls(int currentPage) {

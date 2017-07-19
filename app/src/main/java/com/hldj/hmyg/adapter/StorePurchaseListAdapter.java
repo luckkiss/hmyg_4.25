@@ -69,8 +69,7 @@ public class StorePurchaseListAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        View inflate = LayoutInflater.from(context).inflate(
-                R.layout.list_item_store_purchase, null);
+        View inflate = LayoutInflater.from(context).inflate(  R.layout.list_item_store_purchase, null);
         ImageView iv_img2 = (ImageView) inflate.findViewById(R.id.iv_img2);
         TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);
         TextView tv_ac = (TextView) inflate.findViewById(R.id.tv_ac);
@@ -104,8 +103,6 @@ public class StorePurchaseListAdapter extends BaseAdapter {
                 tv_caozuo01.setBackground(ContextCompat.getDrawable(context, R.drawable.trans_bg));
             }
         } else {
-
-
         }
 
         tv_01.setText((position + 1) + "、" + data.get(position).get("name").toString());
@@ -193,22 +190,9 @@ public class StorePurchaseListAdapter extends BaseAdapter {
 
 
         inflate.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
 
-
-
-//				Intent toPurchaseDetailActivity = new Intent(context,
-//						PurchaseDetailActivity.class);
-//				toPurchaseDetailActivity.putExtra("id",
-//						data.get(position).get("id").toString());
-//				toPurchaseDetailActivity.putExtra("hasShowDialog",
-//						(Boolean) data.get(position).get("hasShowDialog"));
-//				context.startActivity(toPurchaseDetailActivity);
-//				((Activity) context).overridePendingTransition(
-//						R.anim.slide_in_left, R.anim.slide_out_right);
-//                MyApplication.Userinfo.getBoolean("isLogin", false)
                 if (MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {
 
                     if (expired) {

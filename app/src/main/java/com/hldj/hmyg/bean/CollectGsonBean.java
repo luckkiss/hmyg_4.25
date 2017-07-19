@@ -80,7 +80,7 @@ public class CollectGsonBean {
 //            public int total;
 //            public int firstResult;
 //            public int maxResults;
-//            public List<SaveSeedingGsonBean.DataBean.SeedlingBean> data;
+//            public List<SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean> data;
 //
 //
 //        }

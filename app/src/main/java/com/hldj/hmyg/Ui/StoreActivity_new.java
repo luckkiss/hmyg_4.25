@@ -48,6 +48,7 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -175,6 +176,8 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
     //step 2    网络请求
     @Override
     public void initVH() {
+
+        showLoading();
         // 使用rx java  尝试嵌套 请求 网络
         /**
          * {@link StoreActivity_new.QueryBean}
@@ -198,7 +201,6 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
                     public void accept(@NonNull String persion_id) throws Exception {
 
                         ArrayList<Fragment> fragments = new ArrayList<Fragment>() {
-
                             {
                                 add(StoreHomeFragment.Instance(persion_id));
                                 add(StoreDetailFragment.Instance(getStoreID()));
@@ -211,9 +213,18 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
                                 add("titile2");
                             }
                         };
-
-
                         getViewPager().setAdapter(new FragmentPagerAdapter_TabLayout(getSupportFragmentManager(), titles, fragments));
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        hindLoading();
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        hindLoading();
+                        ToastUtil.showShortToast("error");
                     }
                 });
 
@@ -284,8 +295,11 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
         TextView tv_infot3 = getView(R.id.tv_infot3);
         tv_infot3.setText(indexBean.owner.displayPhone);
         //拨打电话
-        if (!TextUtils.isEmpty(indexBean.owner.displayPhone))
+        if (!TextUtils.isEmpty(indexBean.owner.displayPhone)) {
             getView(R.id.fab).setOnClickListener(v -> FlowerDetailActivity.CallPhone(indexBean.owner.displayPhone, mActivity));
+            getView(R.id.imageView6).setOnClickListener(v -> FlowerDetailActivity.CallPhone(indexBean.owner.displayPhone, mActivity));
+        }
+
 
         SuperTextView sptv_store_home_head = getView(R.id.sptv_store_home_head);
 

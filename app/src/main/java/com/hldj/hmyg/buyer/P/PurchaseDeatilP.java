@@ -2,12 +2,15 @@ package com.hldj.hmyg.buyer.P;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.widget.Toast;
+import android.util.Log;
 
+import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.bean.SimpleGsonBean_new;
+import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
 import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.ConstantState;
@@ -20,6 +23,8 @@ import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
+import java.lang.reflect.Type;
+
 /**
  * Created by Administrator on 2017/4/25.
  */
@@ -27,9 +32,9 @@ import net.tsz.afinal.http.AjaxParams;
 public class PurchaseDeatilP {
 
 
-    ResultCallBack<SaveSeedingGsonBean> resultCallBack;
+    ResultCallBack resultCallBack;
 
-    public PurchaseDeatilP(ResultCallBack<SaveSeedingGsonBean> resultCallBack) {
+    public PurchaseDeatilP(ResultCallBack resultCallBack) {
         this.resultCallBack = resultCallBack;
     }
 
@@ -143,18 +148,27 @@ public class PurchaseDeatilP {
                     public void onSuccess(String t) {
                         try {
                             D.e("=========json=======" + t);
-                            SaveSeedingGsonBean saveSeedingGsonBean = GsonUtil.formateJson2Bean(t, SaveSeedingGsonBean.class);
-                            if (saveSeedingGsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
-                                resultCallBack.onSuccess(saveSeedingGsonBean);
+//                            Type beanType = new TypeToken<SimpleGsonBean_new>() { }.getType();
+                            Type beanType = new TypeToken<SimpleGsonBean_new<PurchaseItemBean_new>>() {
+                            }.getType();
+
+                            SimpleGsonBean_new gsonBean_new = GsonUtil.formateJson2Bean(t, beanType);
+//                            ToastUtil.showShortToast(gsonBean_new.data.purchaseItem.toString());
+//                            SaveSeedingGsonBean saveSeedingGsonBean = GsonUtil.formateJson2Bean(t, SaveSeedingGsonBean.class);
+                            if (gsonBean_new.isSucceed()) {
+
+                                PurchaseItemBean_new itemBean_new = (PurchaseItemBean_new) gsonBean_new.data.purchaseItem;
+
+                                Log.e("onSuccess", "onSuccess: " + gsonBean_new.data.purchaseItem + " itemBean_new= " + itemBean_new.toString());
+
+                                resultCallBack.onSuccess(itemBean_new);
                             } else {
-                                ToastUtil.showShortToast(saveSeedingGsonBean.getMsg());
-                                Toast.makeText(MyApplication.getInstance(), saveSeedingGsonBean.getMsg(), Toast.LENGTH_SHORT).show();
+                                ToastUtil.showShortToast(gsonBean_new.msg);
+//                                Toast.makeText(MyApplication.getInstance(), saveSeedingGsonBean.getMsg(), Toast.LENGTH_SHORT).show();
                             }
-
-
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
-                            D.e("===网络失错误==");
+                            D.e("===网络失错误==" + e.getMessage());
                             ToastUtil.showShortToast("网络错误");
                             e.printStackTrace();
                         }
@@ -184,6 +198,7 @@ public class PurchaseDeatilP {
     }
 
 
+    /*报价删除*/
     public void quoteDdel(String sellerQuoteJson_id) {
         // TODO Auto-generated method stub
 
@@ -204,13 +219,16 @@ public class PurchaseDeatilP {
                         // TODO Auto-generated method stub
                         try {
 
-                            SaveSeedingGsonBean saveSeedingGsonBean = GsonUtil.formateJson2Bean(json, SaveSeedingGsonBean.class);
-                            if ("1".equals(saveSeedingGsonBean.getCode())) {
-                                resultCallBack.onSuccess(saveSeedingGsonBean);
-                            } else {
+                            Type beanType = new TypeToken<SimpleGsonBean_new<PurchaseItemBean_new>>() {
+                            }.getType();
 
-                                ToastUtil.showShortToast("删除失败"+saveSeedingGsonBean.getMsg());
-                                onFailure(null,-1,saveSeedingGsonBean.getMsg());
+                            SimpleGsonBean_new gsonBean_new = GsonUtil.formateJson2Bean(json, beanType);
+//                            SaveSeedingGsonBean saveSeedingGsonBean = GsonUtil.formateJson2Bean(json, SaveSeedingGsonBean.class);
+                            if (gsonBean_new.isSucceed()) {
+                                resultCallBack.onSuccess(gsonBean_new.data.purchaseItem);
+                            } else {
+                                ToastUtil.showShortToast("删除失败" + gsonBean_new.msg);
+                                onFailure(null, -1, gsonBean_new.msg);
                             }
 
                         } catch (Exception e) {

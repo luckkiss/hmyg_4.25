@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#5A5A5A"
                 android:textSize="12.0sp"
-                tools:text="采购商家：花木易购有限公司" />
+                tools:text="采购商家：花木易购有限公司" android:visibility="gone"/>
         </LinearLayout>
 
         <LinearLayout
@@ -110,7 +110,7 @@
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:textColor="#5A5A5A"
-                android:textSize="12.0sp" />
+                android:textSize="12.0sp" android:visibility="gone"/>
         </LinearLayout>
 
         <LinearLayout
@@ -300,7 +300,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <ImageView
             android:id="@+id/iv_img2"

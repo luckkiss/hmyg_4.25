@@ -258,9 +258,9 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
 
 //    private void setCounts() {
 //        BasePresenter listPresenter = new ManagerListPresenter()
-//                .addResultCallBack(new ResultCallBack<CountTypeGsonBean.DataBean.CountMapBean>() {
+//                .addResultCallBack(new ResultCallBack<CountTypeGsonBean.PurchaseItemBean_new.CountMapBean>() {
 //                    @Override
-//                    public void onSuccess(CountTypeGsonBean.DataBean.CountMapBean countMapBean) {
+//                    public void onSuccess(CountTypeGsonBean.PurchaseItemBean_new.CountMapBean countMapBean) {
 //                        list_counts.clear();
 //                        LinearLayout linearLayout = getView(R.id.ll_counts_content);
 //                        findTagTextView(linearLayout);

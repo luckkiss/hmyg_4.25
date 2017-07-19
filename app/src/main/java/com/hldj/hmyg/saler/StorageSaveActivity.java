@@ -229,8 +229,8 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
     private void initView() {
 
 //        SaveSeedingGsonBean saveSeedingGsonBean = formateJson2Bean(SPUtil.get(this, "save_sp", "").toString(), SaveSeedingGsonBean.class);
-//        SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean = saveSeedingGsonBean.getData().getSeedling();
-//        List<SaveSeedingGsonBean.DataBean.SeedlingBean> seedlingBeen = new ArrayList<>();
+//        SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean seedlingBean = saveSeedingGsonBean.getData().getSeedling();
+//        List<SaveSeedingGsonBean.PurchaseItemBean_new.SeedlingBean> seedlingBeen = new ArrayList<>();
 //        seedlingBeen.add(seedlingBean);
         myadapter = new MyAdapter_now(this, seedlingBeens, R.layout.manager_group_list_item_new);
         GroupManList = (ListView) findViewById(R.id.GroupManList);
