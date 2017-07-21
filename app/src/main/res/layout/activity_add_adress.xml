@@ -1,563 +1,371 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FFFFFF"
-    android:orientation="vertical"
-    tools:context="com.hldj.hmyg.saler.SaveSeedlingActivity">
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/y34"
-        android:background="@color/white">
+    <include layout="@layout/toolbar_3_0"
+        android:id="@+id/include" />
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="新增苗源地址"
-            android:textColor="@color/main_color"
-            android:textSize="@dimen/x18" />
+    <View
+        android:id="@+id/view5"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="14dp"
+        android:background="@color/gray_bg_ed"
+        android:text="TextView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
-        <Button
-            android:id="@+id/edit_btn"
-            android:layout_width="@dimen/x48"
-            android:layout_height="@dimen/x24"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/x15"
-            android:background="@drawable/red_btn_selector"
-            android:gravity="center"
-            android:text="删除"
-            android:textColor="@color/red"
-            android:visibility="invisible" />
+    <View
+        android:id="@+id/view6"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="14dp"
+        android:background="@color/gray_bg_ed"
+        android:text="TextView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="@dimen/x24"
-            android:layout_height="@dimen/x24"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/x10"
-            android:background="@drawable/btn_back" />
-    </RelativeLayout>
+    <View
+        android:id="@+id/view8"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="14dp"
+        android:background="@color/gray_bg_ed"
+        android:text="TextView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
-    <ImageView
-        android:layout_width="match_parent"
+    <View
+        android:id="@+id/view11"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="14dp"
+        android:background="@color/gray_bg_ed"
+        android:text="TextView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+    <View
+        android:id="@+id/view7"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="14dp"
+        android:background="@color/gray_bg_ed"
+        android:text="TextView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/line_bak" />
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="14dp"
+        android:text="苗圃名称："
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/gray_bg">
+    <View
+        android:id="@+id/textView19"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="14dp"
+        android:background="@color/gray_bg_ed"
+        android:text="TextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y34"
-                android:layout_marginTop="@dimen/y8"
-                android:background="@drawable/feedback_content_edittext_shape"
-                android:orientation="horizontal"
-                android:padding="1px">
+    <View
+        android:id="@+id/textView36"
+        android:layout_width="0dp"
+        android:layout_height="12dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/gray_bg_ed"
+        android:text="TextView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/more_item_selector"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+    <View
+        android:id="@+id/view3"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="14dp"
+        android:background="@color/gray_bg_ed"
+        android:text="TextView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/x12"
-                        android:text="苗圃名称："
-                        android:textSize="@dimen/x15" />
+    <View
+        android:id="@+id/view4"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="14dp"
+        android:background="@color/gray_bg_ed"
+        android:text="TextView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
-                    <EditText
-                        android:id="@+id/et_nursery_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:gravity="center_vertical"
-                        android:maxLength="11"
-                        android:paddingLeft="@dimen/x12"
-                        android:textSize="@dimen/x15" />
-                </LinearLayout>
-            </LinearLayout>
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="14dp"
+        android:text="联  系  人："
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
-            <LinearLayout
-                android:id="@+id/ll_06"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y34"
-                android:background="@drawable/feedback_content_edittext_shape"
-                android:orientation="horizontal"
-                android:padding="1px">
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="14dp"
+        android:text="联系电话："
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/more_item_selector"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="14dp"
+        android:drawableLeft="@drawable/seller_redstar"
+        android:text="所在区域"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view5" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/x12"
-                        android:text="联系人："
-                        android:textSize="@dimen/x15" />
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="14dp"
+        android:text="所在街道"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view7" />
 
-                    <EditText
-                        android:id="@+id/et_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:gravity="center_vertical"
-                        android:maxLength="11"
-                        android:paddingLeft="@dimen/x12"
-                        android:textSize="@dimen/x15" />
-                </LinearLayout>
-            </LinearLayout>
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="14dp"
+        android:text="联系地址："
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view8" />
 
-            <LinearLayout
-                android:id="@+id/ll_07"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y34"
-                android:background="@drawable/feedback_content_edittext_shape"
-                android:orientation="horizontal"
-                android:padding="1px">
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="14dp"
+        android:text="地图标注"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view6" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/more_item_selector"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="14dp"
+        android:button="@drawable/agreement_checkbox_bg"
+        android:paddingLeft="8dp"
+        android:text="设为默认地址"
+        android:textColor="@color/text_color666"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view11" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/x12"
-                        android:text="联系电话："
-                        android:textSize="@dimen/x15" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="100dp" />
 
-                    <EditText
-                        android:id="@+id/et_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:gravity="center_vertical"
-                        android:inputType="number"
-                        android:paddingLeft="@dimen/x12"
-                        android:textSize="@dimen/x15" />
-                </LinearLayout>
-            </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_01"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y34"
-                android:background="@drawable/feedback_content_edittext_shape"
-                android:orientation="horizontal"
-                android:padding="1px"
-                android:visibility="gone">
+    <EditText
+        android:id="@+id/et_aaa_contactPhone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/trans"
+        tools:text="1345464646"
+        android:textColor="@color/text_color333"
+        android:textSize="15sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline6"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/btn_my_list"
-                    android:orientation="horizontal"
-                    android:paddingRight="@dimen/x7">
+    <EditText
+        android:id="@+id/et_aaa_contactName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/trans"
+        tools:text="1345464646"
+        android:textColor="@color/text_color333"
+        android:textSize="15sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView20"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline6"
+        app:layout_constraintRight_toRightOf="parent" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:drawableLeft="@drawable/seller_redstar"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/x12"
-                        android:text="苗圃类型"
-                        android:textSize="@dimen/x15" />
+    <EditText
+        android:id="@+id/et_aaa_detailAddress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/trans"
+        android:textColor="@color/text_color333"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/view11"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline6"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view8"
+        app:layout_constraintVertical_bias="0.695"
+        tools:text="鼓浪屿" />
 
-                    <TextView
-                        android:id="@+id/tv_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/x15"
-                        android:visibility="gone" />
+    <EditText
+        android:id="@+id/et_aaa_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/trans"
+        android:textColor="@color/text_color333"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView19"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline6"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView36"
+        app:layout_constraintVertical_bias="0.437"
+        tools:text="苗圃名称" />
 
-                    <ImageView
-                        style="@style/more_triangle"
-                        android:background="@drawable/ic_arrow_right" />
-                </LinearLayout>
-            </LinearLayout>
+    <TextView
+        android:id="@+id/tv_aaa_loac"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:drawablePadding="5dp"
+        android:drawableRight="@drawable/ic_arrow_right"
+        android:gravity="end"
+        android:text="点击智能定位"
+        app:layout_constraintBottom_toTopOf="@+id/view8"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline6"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view6" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y34"
-                android:background="@drawable/feedback_content_edittext_shape"
-                android:orientation="horizontal"
-                android:padding="1px"
-                android:visibility="gone">
+    <TextView
+        android:id="@+id/tv_aaa_street"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:drawablePadding="5dp"
+        android:drawableRight="@drawable/ic_arrow_right"
+        android:gravity="end"
+        app:layout_constraintBottom_toTopOf="@+id/view6"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline6"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view7"
+        app:layout_constraintVertical_bias="0.666"
+        tools:text="鼓浪屿街道" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/btn_my_list"
-                    android:orientation="horizontal"
-                    android:paddingRight="@dimen/x7">
+    <TextView
+        android:id="@+id/tv_aaa_area"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:drawablePadding="5dp"
+        android:drawableRight="@drawable/ic_arrow_right"
+        android:gravity="end"
+        app:layout_constraintBottom_toTopOf="@+id/view7"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline6"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view5"
+        app:layout_constraintVertical_bias="0.695"
+        tools:text="福建省厦门市思明区" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:drawableLeft="@drawable/seller_redstar"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/x12"
-                        android:text="苗圃类型"
-                        android:textSize="@dimen/x15" />
+    <TextView
+        android:id="@+id/tv_aaa_save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="39dp"
+        android:background="@drawable/register_btn_selector"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="保存"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSizeXXX"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
 
-                    <com.zhy.view.flowlayout.TagFlowLayout
-                        android:id="@+id/id_flowlayout2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:background="@color/white"
-                        android:padding="2.5dp"
-                        app:auto_select_effect="false"
-                        app:max_select="1"></com.zhy.view.flowlayout.TagFlowLayout>
-                </LinearLayout>
-            </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_02"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y34"
-                android:background="@drawable/feedback_content_edittext_shape"
-                android:orientation="horizontal"
-                android:padding="1px">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/btn_my_list"
-                    android:orientation="horizontal"
-                    android:paddingRight="@dimen/x7">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:drawableLeft="@drawable/seller_redstar"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/x12"
-                        android:text="所在区域"
-                        android:textSize="@dimen/x15" />
-
-                    <TextView
-                        android:id="@+id/tv_area"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/x15" />
-
-                    <ImageView
-                        style="@style/more_triangle"
-                        android:background="@drawable/ic_arrow_right" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_03"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y34"
-                android:background="@drawable/feedback_content_edittext_shape"
-                android:orientation="horizontal"
-                android:padding="1px">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/btn_my_list"
-                    android:orientation="horizontal"
-                    android:paddingRight="@dimen/x7">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:drawableLeft="@drawable/seller_redstar"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/x12"
-                        android:text="所在街道"
-                        android:textSize="@dimen/x15" />
-
-                    <TextView
-                        android:id="@+id/tv_street"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/x15" />
-
-                    <ImageView
-                        style="@style/more_triangle"
-                        android:background="@drawable/ic_arrow_right" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_04"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y34"
-                android:background="@drawable/feedback_content_edittext_shape"
-                android:orientation="horizontal"
-                android:padding="1px">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/btn_my_list"
-                    android:orientation="horizontal"
-                    android:paddingRight="@dimen/x7">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/x12"
-                        android:text="地图标注"
-                        android:textSize="@dimen/x15" />
-
-                    <TextView
-                        android:id="@+id/tv_map"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:text="点击智能定位"
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/x15" />
-
-                    <ImageView
-                        style="@style/more_triangle"
-                        android:background="@drawable/ic_arrow_right" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_05"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y34"
-                android:background="@drawable/feedback_content_edittext_shape"
-                android:orientation="horizontal"
-                android:padding="1px"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/more_item_selector"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/x12"
-                        android:text="联系地址："
-                        android:textSize="@dimen/x15" />
-
-                    <EditText
-                        android:id="@+id/et_adress"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/x12"
-                        android:textSize="@dimen/x15" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_08"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y34"
-                android:background="@drawable/feedback_content_edittext_shape"
-                android:orientation="horizontal"
-                android:padding="1px"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/y34"
-                    android:background="@drawable/feedback_content_edittext_shape"
-                    android:orientation="horizontal"
-                    android:padding="1px">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/more_item_selector"
-                        android:clickable="true"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/x12"
-                            android:text="主营品种："
-                            android:textSize="@dimen/x15" />
-
-                        <EditText
-                            android:id="@+id/et_zhuyin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:background="@null"
-                            android:gravity="center_vertical"
-                            android:maxLength="11"
-                            android:paddingLeft="@dimen/x12"
-                            android:textSize="@dimen/x15" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <com.amap.api.maps2d.MapView
-                android:id="@+id/map"
-                android:layout_width="fill_parent"
-                android:layout_height="1px"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y34"
-                android:layout_marginTop="@dimen/y8"
-                android:background="@drawable/feedback_content_edittext_shape"
-                android:orientation="horizontal"
-                android:padding="1px"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/more_item_selector"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/x12"
-                        android:text="苗圃面积："
-                        android:textSize="@dimen/x15" />
-
-                    <EditText
-                        android:id="@+id/et_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:gravity="center_vertical"
-                        android:hint="亩"
-                        android:inputType="number"
-                        android:maxLength="11"
-                        android:paddingLeft="@dimen/x12"
-                        android:textSize="@dimen/x15" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50.0dip"
-                android:background="@color/white"
-                android:orientation="horizontal"
-                android:visibility="visible"
-                tools:visibility="visible">
-
-                <CheckBox
-                    android:id="@+id/remmber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10.0dip"
-                    android:button="@drawable/agreement_checkbox_bg"
-                    android:checked="false"
-                    android:text="设为默认地址"
-                    android:textColor="#5A5A5A"
-                    android:textSize="15.0sp" />
-            </LinearLayout>
-
-            <com.neopixl.pixlui.components.textview.TextView
-                android:id="@+id/save"
-                style="@style/NoActionBarTheme.TextHuaWenXiHei"
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/x37"
-                android:layout_marginLeft="@dimen/x10"
-                android:layout_marginRight="@dimen/x10"
-                android:layout_marginTop="@dimen/x10"
-                android:background="@drawable/register_btn_selector"
-                android:enabled="true"
-                android:gravity="center"
-                android:text="保存"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white"
-                android:textSize="@dimen/y11" />
-        </LinearLayout>
-    </ScrollView>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

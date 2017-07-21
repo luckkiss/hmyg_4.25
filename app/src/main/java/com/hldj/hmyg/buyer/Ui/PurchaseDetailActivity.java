@@ -333,12 +333,11 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 //                                                    recyclerView.getRecyclerView().notifyDataSetChanged();
                                                     recyclerView.getAdapter().remove(0);
 //                                                    recyclerView.getAdapter().notifyItemRemoved(0);
-                                                    getDatas();
 
                                                     Intent intent = new Intent();
                                                     intent.putExtra("bean", itemBean_new);
-//                                                  setResult(1, intent);
                                                     setResult(ConstantState.DELETE_SUCCEED, intent);//删除成功
+                                                    getDatas();
                                                     hindLoading();
                                                     onDeleteFinish(true);
                                                 }
@@ -543,10 +542,11 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         new PurchaseDeatilP(new ResultCallBack<PurchaseItemBean_new>() {
             @Override
             public void onSuccess(PurchaseItemBean_new itemBean_new) {
-                getDatas();
+
                 Intent intent = new Intent();
                 intent.putExtra("bean", itemBean_new);
                 setResult(ConstantState.PUBLIC_SUCCEED, intent);//发布成功
+                getDatas();
             }
 
             @Override

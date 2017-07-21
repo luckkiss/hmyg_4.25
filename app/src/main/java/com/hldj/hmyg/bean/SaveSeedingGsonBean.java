@@ -1258,11 +1258,11 @@ public class SaveSeedingGsonBean implements Serializable {
                  * fullAddress : 福建省厦门市思明区梧村街道无
                  */
 
-                private String id;
+                private String id = "";
                 private String createBy;
                 private String createDate;
                 private String cityCode;
-                private String cityName;
+                private String cityName = "";
                 private String prCode;
                 private String ciCode;
                 private String coCode;
@@ -1281,9 +1281,9 @@ public class SaveSeedingGsonBean implements Serializable {
                 private String companyName = "";
                 private String publicName = "";
                 private String realName = "";
-                private String phone;
+                private String phone = "";
                 private String fullAddress;
-                public boolean isDefault;
+                public Boolean isDefault = false;
 
 
                 @Override

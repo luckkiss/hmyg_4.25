@@ -31,4 +31,34 @@ public class AddressBean implements Serializable{
     public String phone;
     public String fullAddress;
     public int nurseryArea;
+
+    @Override
+    public String toString() {
+        return "AddressBean{" +
+                "id='" + id + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", createDate='" + createDate + '\'' +
+                ", cityCode='" + cityCode + '\'' +
+                ", cityName='" + cityName + '\'' +
+                ", prCode='" + prCode + '\'' +
+                ", ciCode='" + ciCode + '\'' +
+                ", coCode='" + coCode + '\'' +
+                ", twCode='" + twCode + '\'' +
+                ", name='" + name + '\'' +
+                ", detailAddress='" + detailAddress + '\'' +
+                ", contactName='" + contactName + '\'' +
+                ", contactPhone='" + contactPhone + '\'' +
+                ", isDefault=" + isDefault +
+                ", mainType='" + mainType + '\'' +
+                ", typeName='" + typeName + '\'' +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                ", companyName='" + companyName + '\'' +
+                ", publicName='" + publicName + '\'' +
+                ", realName='" + realName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", fullAddress='" + fullAddress + '\'' +
+                ", nurseryArea=" + nurseryArea +
+                '}';
+    }
 }

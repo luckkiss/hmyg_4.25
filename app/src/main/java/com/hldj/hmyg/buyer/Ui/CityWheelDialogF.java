@@ -39,6 +39,7 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
     private OnCitySelectListener selectListener;
     private CityGsonBean gsonBean;
     private ArrayWheelAdapter_new arrayWheelAdapterNew;
+    private ArrayWheelAdapter_new arrayWheelAdapterNew_dir;
 
     public CityWheelDialogF addSelectListener(OnCitySelectListener selectListener) {
         this.selectListener = selectListener;
@@ -53,10 +54,21 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
     }
 
 
-    boolean isShowCity = true;
+    boolean isShowCity = false;
+    boolean isShowDistrict = false;
 
     public CityWheelDialogF setNoShowCity() {
         isShowCity = false;
+        return this;
+    }
+
+    public CityWheelDialogF isShowCity(boolean flag) {
+        isShowCity = flag;
+        return this;
+    }
+
+    public CityWheelDialogF isShowDistrict(boolean flag) {
+        isShowDistrict = flag;
         return this;
     }
 
@@ -97,7 +109,7 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
         mViewCity = (WheelView) dialog.findViewById(R.id.id_city);
         mViewCity.setVisibility(isShowCity ? View.VISIBLE : View.GONE);
         mViewDistrict = (WheelView) dialog.findViewById(R.id.id_district);
-        mViewDistrict.setVisibility(View.GONE);
+        mViewDistrict.setVisibility(isShowDistrict ? View.VISIBLE : View.GONE);
 
         // 添加change事件
         mViewProvince.addChangingListener(this);
@@ -114,6 +126,9 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
                 selectListener.onCitySelect(childBeans);
                 selectListener.onProvinceSelect(privBeans);
             }
+            if (selectListener instanceof OnCitySelectListenerWrap) {
+                ((OnCitySelectListenerWrap) selectListener).onDistrectSelect(disBeans);
+            }
             this.dismiss();
         });
 
@@ -127,6 +142,9 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
     protected void initProvinceDatas() {
         arrayWheelAdapterNew = new ArrayWheelAdapter_new(getActivity(), null);
         mViewCity.setViewAdapter(arrayWheelAdapterNew);
+        arrayWheelAdapterNew_dir = new ArrayWheelAdapter_new(getActivity(), null);
+        mViewDistrict.setViewAdapter(arrayWheelAdapterNew_dir);
+
         /**
          *  // InputStream input = asset.open("city_json2.rtf");
          InputStream input = asset.open("document.json");
@@ -163,13 +181,22 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
     private void setUpData() {
         initProvinceDatas();//获取省集合  与省集合代表的code 集合
         mViewProvince.setViewAdapter(new ArrayWheelAdapter_new(getActivity(), gsonBean.data.bannerList));
-        arrayWheelAdapterNew.notifyAllDatas1(gsonBean.data.bannerList.get(0).childs);
-        childBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent);
+        if (isShowCity) {
+            arrayWheelAdapterNew.notifyAllDatas1(gsonBean.data.bannerList.get(0).childs);
+            childBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent);
+        }
+
+        if (isShowDistrict) {
+            arrayWheelAdapterNew_dir.notifyAllDatas1(gsonBean.data.bannerList.get(0).childs.get(0).childs);
+            disBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent).childs.get(dCurrent);
+        }
+
 
     }
 
     int pCurrent = 0;
     int cCurrent = 0;
+    int dCurrent = 0;
 
     @Override
     public void onChanged(WheelView wheel, int oldValue, int newValue) {
@@ -178,17 +205,45 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
             pCurrent = mViewProvince.getCurrentItem();
             arrayWheelAdapterNew.notifyAllDatas1(gsonBean.data.bannerList.get(pCurrent).childs);
             mViewCity.setCurrentItem(0);
+            arrayWheelAdapterNew_dir.notifyAllDatas1(gsonBean.data.bannerList.get(pCurrent).childs.get(0).childs);
+            mViewDistrict.setCurrentItem(0);
             privBeans = gsonBean.data.bannerList.get(pCurrent);
-            childBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent);
-            D.e("==childBeans==" + childBeans.toString());
+            if (isShowCity) {
+                childBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent);
+                D.e("==childBeans==" + childBeans.toString());
+            }
+            if (isShowDistrict) {
+                disBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent).childs.get(0);
+            }
+
+
         } else if (wheel == mViewCity) {
-            cCurrent = mViewCity.getCurrentItem();
-            childBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent);
+
+            if (isShowCity) {
+                cCurrent = mViewCity.getCurrentItem();
+                childBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent);
+
+                arrayWheelAdapterNew_dir.notifyAllDatas1(childBeans.childs);
+                disBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent).childs.get(0);
+            }
+
+            /**
+             *  private WheelView mViewCity;
+             private WheelView mViewProvince;
+             private WheelView mViewDistrict;
+             */
             D.e("==childBeans==" + childBeans.toString());
+        } else if (wheel == mViewDistrict) {
+            if (isShowDistrict) {
+                dCurrent = mViewDistrict.getCurrentItem();
+                disBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent).childs.get(dCurrent);
+            }
+
         }
     }
 
 
+    public CityGsonBean.ChildBeans disBeans = null;
     public CityGsonBean.ChildBeans childBeans = null;
     public CityGsonBean.ChildBeans privBeans = null;
 
@@ -197,6 +252,25 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
         void onCitySelect(CityGsonBean.ChildBeans childBeans);
 
         void onProvinceSelect(CityGsonBean.ChildBeans childBeans);
+    }
+
+
+    /**
+     * 包装类 ，，，提出没用接口
+     */
+    public abstract static class OnCitySelectListenerWrap implements OnCitySelectListener {
+
+        @Override
+        public void onCitySelect(CityGsonBean.ChildBeans childBeans) {
+
+        }
+
+        @Override
+        public void onProvinceSelect(CityGsonBean.ChildBeans childBeans) {
+
+        }
+
+        public abstract void onDistrectSelect(CityGsonBean.ChildBeans distrect);
     }
 
     @Override

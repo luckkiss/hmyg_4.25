@@ -1,5 +1,7 @@
 package com.hldj.hmyg.bean;
 
+import com.hldj.hmyg.util.ConstantState;
+
 import java.io.Serializable;
 
 /**
@@ -39,6 +41,12 @@ public class SimpleGsonBean implements Serializable {
 
         public int quoteUsedCount;
 
+    }
+
+
+    public boolean isSucceed()
+    {
+        return code.equals(ConstantState.SUCCEED_CODE);
     }
 
 

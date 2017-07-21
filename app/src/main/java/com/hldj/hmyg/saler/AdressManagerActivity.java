@@ -59,10 +59,15 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == ConstantState.CHANGE_DATES) {
+        if (resultCode == ConstantState.CHANGE_DATES) {//地址 修改成功
             //修改成功
             coreRecyclerView.onRefresh();
             ToastUtil.showShortToast("修改成功 ^_^ ");
+        }
+        if (resultCode == ConstantState.ADD_SUCCEED) {
+            //修改成功
+            coreRecyclerView.onRefresh();
+            ToastUtil.showShortToast("添加成功 ^_^ ");
         }
 
     }

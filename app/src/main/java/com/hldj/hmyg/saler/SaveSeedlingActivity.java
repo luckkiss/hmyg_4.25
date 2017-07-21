@@ -31,13 +31,6 @@ public class SaveSeedlingActivity extends SaveSeedlingActivityBase {
     private void getAllData() {
 //        aCache.put("publish_data",saveSeedingGsonBean);
 
-        if (aCache.getAsObject("publish_data") != null) {
-            SaveSeedingGsonBean saveSeedingGsonBean = (SaveSeedingGsonBean) aCache.getAsObject("publish_data");
-            loadCache(saveSeedingGsonBean);
-            D.e("========getAllData=========get from acache===");
-            return;
-        }
-
 //       获取所有数据  本页
         SaveSeedlingPresenter.getAllDatas(new ResultCallBack<SaveSeedingGsonBean>() {
             @Override
@@ -51,6 +44,12 @@ public class SaveSeedlingActivity extends SaveSeedlingActivityBase {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 D.e("============数据加载失败===========");
+                if (aCache.getAsObject("publish_data") != null) {
+                    SaveSeedingGsonBean saveSeedingGsonBean = (SaveSeedingGsonBean) aCache.getAsObject("publish_data");
+                    loadCache(saveSeedingGsonBean);
+                    D.e("========getAllData=========get from acache===");
+                    return;
+                }
 
 
             }

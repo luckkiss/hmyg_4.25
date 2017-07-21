@@ -10,7 +10,7 @@ public interface ConstantState {
 
     int LOGIN_SUCCEED = 200;
 
-    int CHANGE_DATES = 201; //
+    int CHANGE_DATES = 201; //地址修改成功
 
     int SAVE_SUCCEED = 202;//保存成功 状态码
     int SAVE_REQUEST = 203;//保存成功 状态码

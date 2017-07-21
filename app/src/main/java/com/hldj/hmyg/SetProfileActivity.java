@@ -447,7 +447,6 @@ public class SetProfileActivity extends BaseActivity implements
                 && !dialog.isShowing()) {
             dialog.show();
         }
-
     }
 
     private void initChildsData(String parentCode) {

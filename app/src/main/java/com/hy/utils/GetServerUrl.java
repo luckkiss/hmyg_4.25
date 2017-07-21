@@ -47,7 +47,7 @@ public class GetServerUrl {
     static String API_03 = "http://test.api.hmeg.cn/" + apiVersion;//3.0测式库
 
     //http://test.api.hmeg.cn
-//   static String API_03 = "http://192.168.0.147:8091/api/";//罗伟电脑 服务器地址
+//    static String API_03 = "http://192.168.0.147:8091/api/";//罗伟电脑 服务器地址
 
     //    static String API_03 = "http://192.168.1.20:83/api/";
     static String FIR_03 = "http://api.fir.im/apps/latest/574270cc00fc744aef000000?api_token=d5ec18bebb4cd5acd798ffeeccbed6f4&type=android&bundle_id=com.hldj.hmyg";
@@ -175,6 +175,11 @@ public class GetServerUrl {
         finalHttp.addHeader("deviceId", deviceId);
         finalHttp.addHeader("type", "Android");
 
+        finalHttp.addHeader("sdkVersion", SdkChangeByTagUtil.getVersionByLevel(sdk_version));
+        finalHttp.addHeader("deviceType", device_type);
+        finalHttp.addHeader("manufacturer", manufacturer);
+
+
 //        GetServerUrl.sdk_version = Build.VERSION.SDK_INT + "";
 //        GetServerUrl.device_type = Build.MODEL;
 //        GetServerUrl.manufacturer = Build.MANUFACTURER;
@@ -189,9 +194,9 @@ public class GetServerUrl {
     public static String sdk_version = "";
 
     //机型
-    public static String device_type = "" ;
+    public static String device_type = "";
 
     //厂商
-    public static String manufacturer= "" ;
+    public static String manufacturer = "";
 
 }

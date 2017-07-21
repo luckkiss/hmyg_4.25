@@ -24,7 +24,6 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
-import com.mrwujay.cascade.activity.BaseSecondActivity;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -39,18 +38,18 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
 import me.mhao.widget.SlipButton;
 
 import static com.hldj.hmyg.R.id.tv_03;
 
+
 /**
  * 报价列表
  */
-public class StorePurchaseListActivity extends BaseSecondActivity implements
-        IXListViewListener,
-        com.huewu.pla.lib.me.maxwin.view.PLAXListView.IXListViewListener, OnClickListener {
+public class StorePurchaseListActivity extends NeedSwipeBackActivity implements IXListViewListener, OnClickListener {
     private XListView xListView;
     private ArrayList<HashMap<String, Object>> datas = new ArrayList<HashMap<String, Object>>();
 
@@ -74,7 +73,7 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
     //    private ArrayList<DaQuYu> daQuYus = new ArrayList<DaQuYu>();
 //    private List<XiaoQuYu> xiaoQuYus = new ArrayList<XiaoQuYu>();
     private PopupWindow popupWindow;
-
+    private TextView tv_title;
     /**
      * 上次第一个可见元素，用于滚动时记录标识。
      */
@@ -127,6 +126,8 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
         }
         if (getIntent().getStringExtra("title") != null) {
             title = getIntent().getStringExtra("title");
+            tv_title = (TextView) findViewById(R.id.toolbar_title);
+            tv_title.setText(title);
         }
         if (getIntent().getStringExtra("searchKey") != null) {
 
@@ -266,8 +267,8 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
                         /*显示名称*/
                 ((TextView) getView(R.id.tv_02)).setText(headPurchase.buyer.displayName);
                         /*报价说明*/
-                ((TextView) getView(R.id.tv_03)).setText("报价说明");
-                getView(R.id.tv_03).setOnClickListener(StorePurchaseListActivity.this);
+                ((TextView) getView(tv_03)).setText("报价说明");
+                getView(tv_03).setOnClickListener(StorePurchaseListActivity.this);
 
                         /* 用  苗  地*/
                 ((TextView) getView(R.id.tv_04)).setText("用  苗  地：" + headPurchase.cityName);
@@ -298,11 +299,10 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         D.e("===onActivityResult===" + resultCode);
-        super.onActivityResult(requestCode, resultCode, data);
-
+//        ToastUtil.showShortToast("onActivityResult" + resultCode);
         /*发布成功    删除成功返回 itme  用来更新 列表*/
         if (resultCode == ConstantState.DELETE_SUCCEED || resultCode == ConstantState.PUBLIC_SUCCEED) {
             PurchaseItemBean_new itemBean_new = (PurchaseItemBean_new) data.getSerializableExtra("bean");
@@ -318,6 +318,7 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
         if (resultCode == ConstantState.LOGIN_SUCCEED) {
             onRefresh();
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     public class MultipleClickProcess implements OnClickListener {
@@ -407,7 +408,7 @@ public class StorePurchaseListActivity extends BaseSecondActivity implements
     public void onClick(View v) {
         // TODO Auto-generated method stub
         switch (v.getId()) {
-            case tv_03:
+            case R.id.tv_03:
                 showWebViewDialog(getQuoteDesc());
                 break;
             default:

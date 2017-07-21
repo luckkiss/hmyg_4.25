@@ -22,6 +22,7 @@ import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.SPUtil;
 import com.hldj.hmyg.util.SPUtils;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.SdkChangeByTagUtil;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -103,10 +104,12 @@ public class MyApplication extends Application {
         CrashReport.setUserId(this, "17074990702");
 
         GetServerUrl.sdk_version = Build.VERSION.SDK_INT + "";
+
         GetServerUrl.device_type = Build.MODEL;
         GetServerUrl.manufacturer = Build.MANUFACTURER;
 
         D.e("" + GetServerUrl.sdk_version + " \n" + GetServerUrl.device_type + "\n" + GetServerUrl.manufacturer);
+        D.e("====android_level========" + SdkChangeByTagUtil.getVersionByLevel(GetServerUrl.sdk_version));
 
 //        FIR.init(this);
 //      4e9fef47d1c33625cb0d5495e6856e0a
