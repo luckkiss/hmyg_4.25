@@ -110,13 +110,10 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
         /*分享*/
         getView(R.id.iv_fenxiang).setOnClickListener(v -> {
 //            ToastUtil.showShortToast("share");
-            SharePopupWindow window = new SharePopupWindow(mActivity, new ComonShareDialogFragment.ShareBean(
-                    "title",
-                    "text",
-                    "desc",
-                    "https://o1wh05aeh.qnssl.com/image/view/app_icons/9301261c8a35492659faf52d2cb95b63/120",
-                    "https://www.pgyer.com/wu1a"
-            ));
+            if (null == shareBean) {
+                ToastUtil.showShortToast("获取分享数据失败");
+            }
+            SharePopupWindow window = new SharePopupWindow(mActivity, shareBean);
             window.showAsDropDown(getView(R.id.iv_fenxiang));
         });
 
@@ -316,8 +313,28 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
         bitmap.display(getView(R.id.iv_store_banner), indexBean.store.appBannerUrl);
 
         shareUrl = indexBean.store.shareUrl;
+        /**
+         *   SharePopupWindow window = new SharePopupWindow(mActivity, new ComonShareDialogFragment.ShareBean(
+         "title",
+         "text",
+         "desc",
+         "https://o1wh05aeh.qnssl.com/image/view/app_icons/9301261c8a35492659faf52d2cb95b63/120",
+         "https://www.pgyer.com/wu1a"
+         ));
+         */
+        createShareBean(indexBean);
+    }
 
+    private ComonShareDialogFragment.ShareBean shareBean;
 
+    private void createShareBean(StoreGsonBean.DataBean indexBean) {
+        shareBean = new ComonShareDialogFragment.ShareBean(
+                indexBean.store.shareTitle,
+                indexBean.store.shareContent,
+                indexBean.store.shareUrl,
+                indexBean.owner.headImage,
+                indexBean.store.shareUrl
+        );
     }
 
     @Override

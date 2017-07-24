@@ -6,8 +6,9 @@
     android:background="#FFFFFF"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_3_0"
-        android:id="@+id/include" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar_3_0" />
 
     <View
         android:id="@+id/view5"
@@ -57,13 +58,13 @@
         android:layout_height="1dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="16dp"
         android:background="@color/gray_bg_ed"
         android:text="TextView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+        app:layout_constraintTop_toBottomOf="@+id/et_aaa_detailAddress" />
 
     <View
         android:id="@+id/view7"
@@ -234,13 +235,13 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="15dp"
         android:background="@color/trans"
-        tools:text="1345464646"
         android:textColor="@color/text_color333"
         android:textSize="15sp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/guideline6"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view4" />
+        app:layout_constraintTop_toBottomOf="@+id/view4"
+        tools:text="1345464646" />
 
     <EditText
         android:id="@+id/et_aaa_contactName"
@@ -249,13 +250,13 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:background="@color/trans"
-        tools:text="1345464646"
         android:textColor="@color/text_color333"
         android:textSize="15sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView20"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/guideline6"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="1345464646" />
 
     <EditText
         android:id="@+id/et_aaa_detailAddress"
@@ -266,12 +267,13 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="0dp"
         android:background="@color/trans"
+        android:maxLines="2"
         android:textColor="@color/text_color333"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/view11"
         app:layout_constraintLeft_toLeftOf="@+id/guideline6"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view8"
+        app:layout_constraintTop_toTopOf="@+id/textView24"
         app:layout_constraintVertical_bias="0.695"
         tools:text="鼓浪屿" />
 

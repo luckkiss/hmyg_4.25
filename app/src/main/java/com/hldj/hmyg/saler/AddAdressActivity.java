@@ -11,7 +11,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.hldj.hmyg.M.AddressBean;
+import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
@@ -20,6 +22,7 @@ import com.hldj.hmyg.buyer.Ui.OnlyDirstreetWheelDialogF;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.ToastUtil;
 import com.mrwujay.cascade.activity.GetCitiyNameByCode;
@@ -58,12 +61,32 @@ public class AddAdressActivity extends BaseMVPActivity {
         } else {
             //添加数据
             setTitle("新增苗源地址");
+            autoSetLoc();
 
             //获取定位
             //右上角 删除按钮的显示
         }
 
 
+    }
+
+    /**
+     * 通过定位  获取地址
+     */
+    private void autoSetLoc() {
+
+        if (MainActivity.aMapLocation != null) {
+            addressBean.cityCode = MainActivity.aMapLocation.getAdCode();
+            addressBean.longitude = Double.parseDouble(MainActivity.longitude);
+            addressBean.latitude = Double.parseDouble(MainActivity.latitude);
+            addressBean.detailAddress = FUtil.$(" ", MainActivity.aMapLocation.getStreet(), MainActivity.aMapLocation.getStreetNum(), MainActivity.aMapLocation.getAoiName());
+        }
+        addressBean.contactPhone = MyApplication.getUserBean().phone;
+        addressBean.contactName = MyApplication.getUserBean().realName;
+        initExtral(addressBean);
+        /**
+         * street=七星西路#streetNum=31号#aoiName=七星大厦(七星西路)
+         */
     }
 
     @Override
@@ -84,12 +107,11 @@ public class AddAdressActivity extends BaseMVPActivity {
                 @Override
                 public void onSuccess(String json) {
                     SimpleGsonBean bean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
+                    hindLoading();
                     if (bean.isSucceed()) {
-                        if (isAddAddr())
-                        {
+                        if (isAddAddr()) {
                             setResult(ConstantState.ADD_SUCCEED);
-                        }else
-                        {
+                        } else {
                             setResult(ConstantState.CHANGE_DATES);
                         }
 
@@ -103,6 +125,7 @@ public class AddAdressActivity extends BaseMVPActivity {
                 @Override
                 public void onFailure(Throwable t, int errorNo, String strMsg) {
                     ToastUtil.showShortToast("网络错误，请稍后重试");
+                    hindLoading();
                     super.onFailure(t, errorNo, strMsg);
                 }
             });
@@ -290,6 +313,14 @@ public class AddAdressActivity extends BaseMVPActivity {
         }
 
         public void getStreets(String cityCode) {
+//            141121
+            if (TextUtils.isEmpty(cityCode)) {
+                ToastUtil.showShortToast("请先选择地区");
+                return;
+            }
+            if (cityCode.length() > 6) {
+                cityCode = cityCode.substring(0, 6);
+            }
             showLoading();
             AjaxCallBack callBack = new AjaxCallBack<String>() {
                 @Override

@@ -58,7 +58,7 @@
     <style name="e_activity_theme" parent="Theme.AppCompat.Light.NoActionBar">
         <!--<item name="android:windowLightStatusBar">true</item>-->
         <!--&lt;!&ndash;<item name="colorPrimaryDark">@android:color/transparent</item>&ndash;&gt;-->
-        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <item name="android:windowIsTranslucent">true</item>
         <!--&lt;!&ndash;<item name="fitsSystemWindows">true</item>&ndash;&gt;-->
         <!--<item name="android:statusBarColor">@color/transparent</item>-->
     </style>

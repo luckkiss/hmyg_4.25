@@ -918,8 +918,8 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
 
     public static AMapLocation alocation;
-    public static String latitude = "";
-    public static String longitude = "";
+    public static String latitude = "0.0";
+    public static String longitude = "0.0";
     public static String province_loc = "";
     public static String city_loc = "";
     public static String district_loc = "";
