@@ -208,14 +208,14 @@ public class MySwipeRefreshLayout extends FrameLayout implements NestedScrolling
     //开始滑动
     @Override
     public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
-        Log.i(TAG, "onStartNestedScroll:开始滑动 " + nestedScrollAxes);
+//        Log.i(TAG, "onStartNestedScroll:开始滑动 " + nestedScrollAxes);
         //target 发起滑动的 view，可以不是当前view的直接子view
         //child 包含target的直接子view
         //返回true表示要与target配套滑动，为true则下面的accepted也会被调用
         //mReturningToStart是为了配合onTouchEvent的，这里我们不扩展
         boolean b = !mRefreshing && (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
 //        Log.i(TAG, "onStartNestedScroll: 是否拦截" + b);
-        Log.i(TAG, "onStartNestedScroll: 强制拦截" + b);
+//        Log.i(TAG, "onStartNestedScroll: 强制拦截" + b);
 //        return  !mRefreshing  && (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
         return true;
 
@@ -308,7 +308,7 @@ public class MySwipeRefreshLayout extends FrameLayout implements NestedScrolling
     @Override
     public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
 
-        Log.i(TAG, "onNestedPreScroll: dx=" + dx + "   dy=" + dy + "  mTotalUnconsumed=" + mTotalUnconsumed + "  isConfirm =" + isConfirm);
+//        Log.i(TAG, "onNestedPreScroll: dx=" + dx + "   dy=" + dy + "  mTotalUnconsumed=" + mTotalUnconsumed + "  isConfirm =" + isConfirm);
         if (this.mPullRefreshEnable || this.mPullLoadEnable) {
             if (Math.abs(dy) <= 200 && mTotalUnconsumed > 0) {//&& Math.abs(dy) >= 50
 //                if (dy > 0) {
@@ -335,7 +335,7 @@ public class MySwipeRefreshLayout extends FrameLayout implements NestedScrolling
                 if (this.moveGuidanceView((float) (-dy))) {
 //                if (this.moveGuidanceView((float) (-dy))) {
                     consumed[1] += dy;
-                    Log.i(TAG, "consumed: " + consumed);
+//                    Log.i(TAG, "consumed: " + consumed);
                 }
 
             }
@@ -689,8 +689,8 @@ public class MySwipeRefreshLayout extends FrameLayout implements NestedScrolling
 
     @Override
     public void setNestedScrollingEnabled(boolean enabled) {
-        Log.i(TAG, "setNestedScrollingEnabled: " + enabled);
-        Log.i(TAG, " getScrollingChildHelper() " + getScrollingChildHelper());
+//        Log.i(TAG, "setNestedScrollingEnabled: " + enabled);
+//        Log.i(TAG, " getScrollingChildHelper() " + getScrollingChildHelper());
         getScrollingChildHelper().setNestedScrollingEnabled(enabled);
     }
 

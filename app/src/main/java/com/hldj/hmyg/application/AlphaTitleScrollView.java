@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -36,21 +35,21 @@ public class AlphaTitleScrollView extends ScrollView {
 
     private void init(Context context) {
         // mSlop = ViewConfiguration.get(context).getScaledDoubleTapSlop();
-        mSlop = 10;
+        mSlop = 25;
         Log.i(TAG, mSlop + "");
     }
 
 
     private LinearLayout toolbar;
+    OnStateChange stateChange;
+
     /**
-     *
-     * @param toolbar
-     *            头部布局
-     * @param headView
-     *            标题
+     * @param toolbar  头部布局
+     * @param headView 标题
      */
-    public void setTitleAndHead(LinearLayout toolbar, View headView) {
+    public void setTitleAndHead(LinearLayout toolbar, View headView, OnStateChange stateChange) {
         this.toolbar = toolbar;
+        this.stateChange = stateChange;
 //        toolbar.setAlpha(0);
 //        ViewGroup.LayoutParams params =headView.getLayoutParams();
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -70,6 +69,12 @@ public class AlphaTitleScrollView extends ScrollView {
 
     }
 
+    public static interface OnStateChange {
+        void onShow();
+
+        void onHiden();
+    }
+
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         Log.i(TAG, mSlop + "");
@@ -81,7 +86,14 @@ public class AlphaTitleScrollView extends ScrollView {
         if (alpha <= mSlop)
             alpha = 0;
 //        toolbar.getBackground().setAlpha(alpha);
-          toolbar.getBackground().setAlpha(alpha);
+
+        if (alpha >= 200) {//大于100  出现
+            stateChange.onShow();
+        }
+        if (alpha < 150) {// 隐藏
+            stateChange.onHiden();
+        }
+        toolbar.getBackground().setAlpha(alpha);
 //        headView.getBackground().setAlpha(alpha);
 //        toolbar.setBackgroundColor(android.R.color.black);
 

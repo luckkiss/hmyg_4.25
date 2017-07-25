@@ -51,6 +51,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.WriterException;
+import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.adapter.ProductGridAdapter;
 import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.application.Data;
@@ -1834,7 +1835,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
      * @param code    商店的  id
      */
     public static void start2Activity(Context context, String code) {
-        Intent intent = new Intent(context, StoreActivity.class);
+        Intent intent = new Intent(context, StoreActivity_new.class);
         intent.putExtra("code", code);
         context.startActivity(intent);
     }
@@ -1868,7 +1869,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
      * @param code    商店的  id
      */
     public static void start2ActivityForRsl(Activity context, String code) {
-        Intent intent = new Intent(context, StoreActivity.class);
+        Intent intent = new Intent(context, StoreActivity_new.class);
         intent.putExtra("code", code);
         context.startActivityForResult(intent, ConstantState.STORE_OPEN_FAILD);//店铺打开失败
     }

@@ -132,7 +132,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         mCache = ACache.get(this);
 
 
-        ToastUtil.showShortToast("bugly 热更新生效");
+//      ToastUtil.showShortToast("bugly 热更新生效");
         viewPager = (AutoScrollViewPager) findViewById(R.id.view_pager);
         indicator = (CirclePageIndicator) findViewById(R.id.indicator);
         indicator.setAlpha((float) 0.6);

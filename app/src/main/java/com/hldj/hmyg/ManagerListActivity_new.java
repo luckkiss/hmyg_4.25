@@ -3,7 +3,9 @@ package com.hldj.hmyg;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -75,9 +77,13 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
         initToolbar();
         xRecyclerView = getView(R.id.xrecycle);
 //        list_view_seedling_new
-
+        xRecyclerView.getRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                outRect.set(0, 0, 0, 14);
+            }
+        });
         xRecyclerView.init(new BaseQuickAdapter<BPageGsonBean.DatabeanX.Pagebean.Databean, BaseViewHolder>(R.layout.list_view_seedling_new_swipe) {
-
 
 //            @Override
 //            public int getSwipeLayoutResourceId(int position) {

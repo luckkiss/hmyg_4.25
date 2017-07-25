@@ -68,8 +68,8 @@
                     android:checked="false"
                     android:gravity="center|start"
                     android:maxLines="2"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textSizeXXX"
+                    android:textColor="@color/text_color333"
+                    android:textSize="14sp"
                     tools:text="tv_01" />
 
                 <!--<TextView-->
@@ -116,7 +116,7 @@
                 android:layout_weight="1"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="#5A5A5A"
+                android:textColor="@color/text_color666"
                 android:textSize="13sp"
                 tools:text="tv_04" />
         </LinearLayout>
@@ -161,7 +161,7 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:singleLine="true"
-                    android:textColor="@color/gray"
+                    android:textColor="@color/text_color666"
                     android:textSize="13.0sp"
                     tools:text="共有一条品种tv_10" />
 
@@ -174,8 +174,8 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:singleLine="true"
-                    android:textColor="#5A5A5A"
-                    android:textSize="12.0sp"
+                    android:textColor="@color/text_color666"
+                    android:textSize="13.0sp"
                     android:visibility="gone"
                     tools:text="已有一条报价tv_11"
                     tools:visibility="visible" />
@@ -212,7 +212,7 @@
             android:paddingRight="5.0dip"
             android:paddingTop="5dip"
             android:singleLine="true"
-            android:textColor="@color/gray"
+            android:textColor="@color/text_color666"
             android:textSize="13.0sp"
             tools:text="截止日期tv_caozuo01" />
 

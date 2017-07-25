@@ -77,6 +77,7 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
         mViewPager.setAdapter(mFragmentPagerAdapter_tabLayout);
         mTabLayout.setupWithViewPager(mViewPager);
 
+
         findViewById(R.id.toolbar_left_icon).setOnClickListener(v -> {
             finish();
         });

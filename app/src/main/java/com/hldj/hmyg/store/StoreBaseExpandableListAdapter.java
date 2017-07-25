@@ -153,9 +153,9 @@ public class StoreBaseExpandableListAdapter extends BaseExpandableListAdapter
 			groupHolder = (GroupHolder) convertView.getTag();
 		}
 		if (isExpanded) {
-			groupHolder.groupImg.setImageResource(R.drawable.ic_arrow_down_black);
+			groupHolder.groupImg.setImageResource(R.drawable.ic_arrow_down_green);
 		} else {
-			groupHolder.groupImg.setImageResource(R.drawable.ic_right_new);
+			groupHolder.groupImg.setImageResource(R.drawable.ic_arrow_right_green);
 		}
 		groupHolder.groupText.setText(groupTitle.get(groupPosition).getName()
 				+ "[" + groupTitle.get(groupPosition).getImageId() + "]");

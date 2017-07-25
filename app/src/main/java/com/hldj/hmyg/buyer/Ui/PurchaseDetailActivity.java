@@ -614,6 +614,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
     View.OnClickListener showCity = v -> {
         CityWheelDialogF.instance()
+                .isShowCity(true)
                 .addSelectListener(new CityWheelDialogF.OnCitySelectListener() {
                     @Override
                     public void onCitySelect(CityGsonBean.ChildBeans child) {

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 
 import com.hldj.hmyg.M.AddressBean;
@@ -148,12 +149,22 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
                     mPresenter.changeAddr(item.id);
                 });
 
+                helper.convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        D.e("编辑");
+                        AddAdressActivity.start2Activity(mActivity, item);
+                    }
+                });
+
                 helper.addOnClickListener(R.id.iv_recy_item_left, view -> {
 //                    ToastUtil.showShortToast("编辑");
+                    D.e("编辑");
                     AddAdressActivity.start2Activity(mActivity, item);
                 });
                 helper.addOnClickListener(R.id.tv_recy_item_right, view -> {
 //                    ToastUtil.showShortToast("删除");
+                    D.e("删除");
                     mPresenter.deleteAddr(item.id);
                 });
             }

@@ -50,7 +50,7 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
         instance = this;
         SystemSetting.getInstance(UpdataImageActivity_bak.this).choosePhotoDirId = "";
         Bundle bundle = getIntent().getExtras();
-        urlPaths = ((PicSerializableMaplist) bundle.get("urlPaths"))  .getMaplist();
+        urlPaths = ((PicSerializableMaplist) bundle.get("urlPaths")).getMaplist();
 
 
         // 初始化
@@ -151,7 +151,7 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
                 @Override
                 public void onSuccess(Pic pic) {
 
-                    ++a ;
+                    ++a;
                     listPicsOnline.add(pic);
                     UpdateLoading("正在上传第 (" + a + "/" + size + "张) 图片");
                     if (listPicsOnline.size() == piclistLocal.size()) {
@@ -193,6 +193,7 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
 
     @Override
     public void finish() {
+        hindLoading();
         super.finish();
         instance = null;
     }

@@ -46,7 +46,7 @@ public class AutoAddRelative extends RelativeLayout {
 
         requiredis = paramsListBean.isRequired();
         if (!requiredis)
-            viewHolder_add.tv_auto_add_left2.setText("(选填)");//不是必须的话 写选填
+            viewHolder_add.tv_auto_add_left2.setText("");//不是必须的话 写选填
 
         //如果必填  显示*
 

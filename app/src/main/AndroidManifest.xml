@@ -525,7 +525,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.saler.AddAdressActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.hldj.hmyg.saler.AdressManagerActivity"
             android:screenOrientation="portrait" />

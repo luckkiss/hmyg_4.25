@@ -18,6 +18,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -40,6 +41,7 @@ import android.widget.Toast;
 import com.example.listedittext.paramsData;
 import com.google.gson.Gson;
 import com.hldj.hmyg.CallBack.ResultCallBack;
+import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.application.AlphaTitleScrollView;
 import com.hldj.hmyg.application.Data;
@@ -429,8 +431,23 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     public void setToolBarAlfaScr() {
         final AlphaTitleScrollView scroll = (AlphaTitleScrollView) findViewById(R.id.alfa_scroll);
         LinearLayout title = (LinearLayout) findViewById(R.id.ll_detail_toolbar);
+        TextView tv_title = getView(R.id.tv_title);
         View head = findViewById(R.id.view_detail_top);
-        scroll.setTitleAndHead(title, head);
+        ImageView btn_back = getView(R.id.btn_back);
+        btn_back.setSelected(false);
+        scroll.setTitleAndHead(title, head, new AlphaTitleScrollView.OnStateChange() {
+            @Override
+            public void onShow() {
+                tv_title.setVisibility(View.VISIBLE);
+                btn_back.setSelected(false);
+            }
+
+            @Override
+            public void onHiden() {
+                tv_title.setVisibility(View.GONE);
+                btn_back.setSelected(true);
+            }
+        });
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -671,17 +688,12 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                     tv_seedlingNum.setText("种植类型：" + type);
 
 //                                    tv_closeDate.setText("下架时间：" + closeDate);
-                                    //下架时间
-                                    long lastTime = JsonGetInfo.getJsonLong(jsonObject2, "lastTime");
-                                    if (lastTime > 0) {
-                                        tv_last_time.setVisibility(View.VISIBLE);
 
-                                        if (myCount != null) {
-                                            myCount.cancel();
-                                            myCount = null;
-                                        }
-                                        myCount = new MyCount(lastTime, 100l);
-                                        myCount.start();
+
+                                    if ("manage_list".equals(show_type)) {
+                                        setNotingTimeManager(jsonObject2);
+                                    } else {
+                                        setNotingTime(jsonObject2);
                                     }
 
 
@@ -695,41 +707,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                     }
                                     uploadDatas.remarks = remarks;
 
-
-                                    //是否在本公司的服务范围
-//                                    if (JsonGetInfo.getJsonArray(jsonObject2, "tagList").length() == 0) {
-//                                        tv_no_server_area.setVisibility(View.VISIBLE);
-//                                    } else {
-//                                        tv_no_server_area.setVisibility(View.GONE);
-//                                    }
-
-
                                 }
-
-
-//                                if (JsonGetInfo.getJsonBoolean(jsonObject2,
-//                                        "isSelfSupport")) {
-//                                    tv_status_01.setVisibility(View.VISIBLE);
-//                                }
-//                                if (JsonGetInfo.getJsonBoolean(jsonObject2,
-//                                        "freeValidatePrice")) {
-//                                    tv_status_02.setVisibility(View.VISIBLE);
-//                                }
-//                                if (JsonGetInfo.getJsonBoolean(jsonObject2,
-//                                        "cashOnDelivery")) {
-//                                    tv_status_03.setVisibility(View.VISIBLE);
-//                                }
-//                                if (JsonGetInfo.getJsonBoolean(jsonObject2,
-//                                        "freeDeliveryPrice")) {
-//                                    tv_status_04.setVisibility(View.VISIBLE);
-//                                }
-//                                if (JsonGetInfo.getJsonBoolean(jsonObject2,
-//                                        "freeValidate")) {
-//                                    tv_status_05.setVisibility(View.VISIBLE);
-//                                }
-
-                                //
-
 
                                 {
 
@@ -749,29 +727,6 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                     }
                                 }
 
-
-//                                if (JsonGetInfo
-//                                        .getJsonArray(jsonObject2, "tagList")
-//                                        .toString().contains(Data.ZIYING)) {
-//                                    sc_ziying.setVisibility(View.VISIBLE);
-//                                }
-//                                if (JsonGetInfo
-//                                        .getJsonArray(jsonObject2, "tagList")
-//                                        .toString().contains(Data.FUWU)) {
-//                                    sc_fuwufugai.setVisibility(View.VISIBLE);
-//                                }
-//                                if (JsonGetInfo
-//                                        .getJsonArray(jsonObject2, "tagList")
-//                                        .toString()
-//                                        .contains(Data.HEZUOSHANGJIA)) {
-//                                    sc_hezuoshangjia
-//                                            .setVisibility(View.VISIBLE);
-//                                }
-//                                if (JsonGetInfo
-//                                        .getJsonArray(jsonObject2, "tagList")
-//                                        .toString().contains(Data.ZIJINDANBAO)) {
-//                                    sc_huodaofukuan.setVisibility(View.VISIBLE);
-//                                }
 
                                 if ("manage_list".equals(show_type)) {
                                     iv_lianxi.setVisibility(View.GONE);
@@ -1074,6 +1029,38 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                         }
                     }
 
+                    private void setNotingTime(JSONObject jsonObject2) {
+                        //下架时间
+                        String createTime = JsonGetInfo.getJsonString(jsonObject2, "publishDate");
+//                        "publishDate" -> "2017-06-20 14:05:21"
+
+                        if (TextUtils.isEmpty(createTime)) {
+                            tv_last_time.setVisibility(View.GONE);
+                        } else {
+                            tv_last_time.setVisibility(View.VISIBLE);
+                            tv_last_time.setGravity(Gravity.CENTER_HORIZONTAL);
+                            String showTime = createTime.split(" ") != null ? createTime.split(" ")[0] : "";
+                            tv_last_time.setText("上架日期:" + showTime);
+                        }
+
+
+                    }
+
+                    private void setNotingTimeManager(JSONObject jsonObject2) {
+                        //下架时间
+                        long lastTime = JsonGetInfo.getJsonLong(jsonObject2, "lastTime");
+                        if (lastTime > 0) {
+                            tv_last_time.setVisibility(View.VISIBLE);
+
+                            if (myCount != null) {
+                                myCount.cancel();
+                                myCount = null;
+                            }
+                            myCount = new MyCount(lastTime, 100l);
+                            myCount.start();
+                        }
+                    }
+
                     @Override
                     public void onFailure(Throwable t, int errorNo,
                                           String strMsg) {
@@ -1289,10 +1276,10 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
                     case R.id.ll_to_d3://跳转到店铺
                         if (!"".equals(store_id)) {
-                            Intent toStoreActivity = new Intent(
-                                    FlowerDetailActivity.this, StoreActivity.class);
-                            toStoreActivity.putExtra("code", store_id);
-                            startActivity(toStoreActivity);
+//                            Intent toStoreActivity = new Intent(  FlowerDetailActivity.this, StoreActivity.class);
+                            StoreActivity_new.start2Activity(mActivity, store_id);
+//                            toStoreActivity.putExtra("code", store_id);
+//                            startActivity(toStoreActivity);
                         } else {
                             ToastUtil.showShortToast("找不到该店铺");
                         }
@@ -1805,7 +1792,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                     // contacts-related task you need to do.
                     // 同意给与权限 可以再此处调用拍照
                     Log.i("用户同意权限", "user granted the permission!");
-                    CallPhone(displayPhone,mActivity);
+                    CallPhone(displayPhone, mActivity);
                 } else {
 
                     // permission denied, boo! Disable the
@@ -1974,7 +1961,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         if (isLogin()) {
             boolean requesCallPhonePermissions = new PermissionUtils(FlowerDetailActivity.this).requesCallPhonePermissions(200);
             if (requesCallPhonePermissions) {
-                CallPhone(displayPhone,mActivity);
+                CallPhone(displayPhone, mActivity);
             }
         } else {
             Intent toLoginActivity = new Intent(FlowerDetailActivity.this, LoginActivity.class);

@@ -60,7 +60,6 @@
             android:gravity="center"
             android:text="搜索"
             android:textColor="@color/main_color"
-
             android:textSize="@dimen/textSizeXXX" />
         <!--<ImageView-->
         <!--android:id="@+id/iv_add_adress"-->

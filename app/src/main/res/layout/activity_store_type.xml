@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_title"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/y34"
-        android:background="@color/white" >
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/btn_back"
@@ -38,8 +38,7 @@
             android:gravity="center"
             android:text="重置"
             android:textColor="@color/main_color"
-            android:textSize="16dp"
-   />
+            android:textSize="16dp" />
     </RelativeLayout>
 
     <ImageView
@@ -52,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:cacheColorHint="#00000000"
-        android:divider="@android:color/white"
+        android:divider="@color/gray_bg_ed"
         android:dividerHeight="1dp" />
 
 </LinearLayout>

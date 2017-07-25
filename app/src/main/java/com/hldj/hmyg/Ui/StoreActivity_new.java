@@ -1,9 +1,9 @@
 package com.hldj.hmyg.Ui;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -31,6 +31,7 @@ import com.hldj.hmyg.model.StoreModel;
 import com.hldj.hmyg.presenter.StorePresenter;
 import com.hldj.hmyg.saler.Adapter.FragmentPagerAdapter_TabLayout;
 import com.hldj.hmyg.util.AppBarStateChangeListener;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
@@ -55,9 +56,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.hldj.hmyg.StoreActivity.getRoundCornerImage;
 
-@SuppressLint("Override")
 public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreModel> implements StoreContract.View {
-
 
     @Override
     public int bindLayoutID() {
@@ -76,6 +75,7 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
     @Override
     public void initView() {
 
+        (((ViewGroup) getView(R.id.cons_store))).setBackgroundColor(getColorByRes(R.color.white));
 
         AppBarLayout layout = getView(R.id.app_bar);
         layout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
@@ -109,6 +109,7 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
 
         /*分享*/
         getView(R.id.iv_fenxiang).setOnClickListener(v -> {
+            D.d("分享");
 //            ToastUtil.showShortToast("share");
             if (null == shareBean) {
                 ToastUtil.showShortToast("获取分享数据失败");
@@ -236,6 +237,16 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
 
 
     @Override
+    public void showErrir(String erMst) {
+        super.showErrir(erMst);
+        new Handler().postDelayed(() -> {
+            setResult(ConstantState.STORE_OPEN_FAILD);//商店打开失败
+            finish();
+//                                    StoreSettingActivity.start2Activity(mActivity);
+        }, 2000);
+    }
+
+    @Override
     public boolean setSwipeBackEnable() {
         return true;
     }
@@ -308,7 +319,7 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         WindowManager wm = this.getWindowManager();
-        l_params.height = (int) (wm.getDefaultDisplay().getWidth() * 1 / 2);
+        l_params.height = (int) (wm.getDefaultDisplay().getWidth() * 1 / 1.8);
         getView(R.id.iv_store_banner).setLayoutParams(l_params);
         bitmap.display(getView(R.id.iv_store_banner), indexBean.store.appBannerUrl);
 

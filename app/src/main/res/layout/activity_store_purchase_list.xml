@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainView"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -9,10 +10,12 @@
     <include layout="@layout/toolbar_3_0" />
 
 
-    <LinearLayout
+    <com.weavey.loading.lib.LoadingLayout
+        android:id="@+id/loading_spa"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:isFirstVisible="true">
 
         <me.maxwin.view.XListView
             android:id="@+id/xlistView"
@@ -20,6 +23,6 @@
             android:layout_height="fill_parent"
             android:background="#fff0f0f0"
             android:visibility="visible" />
-    </LinearLayout>
+    </com.weavey.loading.lib.LoadingLayout>
 
 </LinearLayout>

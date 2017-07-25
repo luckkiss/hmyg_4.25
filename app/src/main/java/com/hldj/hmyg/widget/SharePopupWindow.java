@@ -36,6 +36,10 @@ public class SharePopupWindow extends PopupWindow implements PlatformActionListe
     private ListView lvPopupList;
     private ComonShareDialogFragment.ShareBean shareBean;
 
+    public int bindLoadingLayout() {
+        return 0;
+    }
+
     public SharePopupWindow(Context context, ComonShareDialogFragment.ShareBean shareBean) {
         this.mContext = context;
         // 设置弹窗的布局界面
@@ -43,7 +47,7 @@ public class SharePopupWindow extends PopupWindow implements PlatformActionListe
         this.shareBean = shareBean;
 
         setContentView(view);
-        setWidth(AndroidUtil.dip2px(context, 130));
+        setWidth(AndroidUtil.dip2px(context, 140));
         setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         initView(view);
     }
@@ -83,7 +87,6 @@ public class SharePopupWindow extends PopupWindow implements PlatformActionListe
 
         setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_popupwindow));// 设置背景图片，不能在布局中设置，要通过代码来设置
 
-
     }
 
 
@@ -108,6 +111,7 @@ public class SharePopupWindow extends PopupWindow implements PlatformActionListe
             PlatformForShare platformForShare = new PlatformForShare("分享qq", "QZone", "4", R.drawable.fenxiang_qq);
             shares.add(platformForShare);
         }
+
         return shares;
     }
 

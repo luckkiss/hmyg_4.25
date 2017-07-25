@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -95,7 +96,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
                     FlowerDetailActivity.start2Activity(BActivity_new_test.this, "seedling_list", item.id);
                 });
             }
-        })       .setDefaultEmptyView()
+        }).setDefaultEmptyView()
 
                 .openLoadMore(getQueryBean().pageSize, page -> {
                     showLoading();
@@ -110,6 +111,17 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 
     }
 
+
+    public void setColor(TextView tvLeft, TextView tvRight, String tag) {
+        if (tag.equals("0")) {
+            tvLeft.setTextColor(ContextCompat.getColor(mActivity, R.color.main_color));
+            tvRight.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color));
+        } else {
+            tvLeft.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color));
+            tvRight.setTextColor(ContextCompat.getColor(mActivity, R.color.main_color));
+        }
+    }
+
     private void initViewClick() {
         //搜索
 
@@ -121,6 +133,8 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
         //筛选
         getView(R.id.tv_b_filter).setOnClickListener(v -> {
             SellectActivity2.start2Activity(this, queryBean);
+            setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "0");
+
         });
 
         getView(R.id.iv_view_type).setOnClickListener(v -> {
@@ -140,6 +154,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
         //排序
         getView(R.id.tv_b_sort).setOnClickListener(v -> {
             ChoiceSortList();
+            setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "1");
         });
 
 
@@ -153,9 +168,27 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
      * 排序 显示位置不对. 小米上正确
      */
     private void ChoiceSortList() {
-        View view = getView(R.id.tagview_b_act);
+        View view = getView(R.id.ll_sor_contennt);
+        D.e("view getBottom " + view.getBottom());
+        View ll_sor_contennt = getView(R.id.ll_sor_contennt);
+        View app_bar = getView(R.id.appbar);
+        D.e("bar heigth=" + app_bar.getBottom());
+        D.e("bar heigth=" + app_bar.getHeight());
+        D.e("top=" + view.getTop());
+        D.e("top=" + ll_sor_contennt.getTop());
+        D.e("======== ll_sor_contennt.getTop=======" + ll_sor_contennt.getTop());
+        Rect currentViewRect = new Rect();
+        view.getLocalVisibleRect(currentViewRect);
+        view.getGlobalVisibleRect(currentViewRect);
+
+        D.e("======== currentViewRect.left=======" + currentViewRect.left);
+        D.e("======== currentViewRect.r=======" + currentViewRect.right);
+        D.e("======== currentViewRect.t=======" + currentViewRect.top);
+        D.e("======== currentViewRect.b=======" + currentViewRect.bottom);
+
+
         if (sortSpinner == null) {
-            sortSpinner = SortSpinner.getInstance(BActivity_new_test.this, view)
+            sortSpinner = SortSpinner.getInstance(BActivity_new_test.this, app_bar)
                     .addOnItemClickListener((parent, view1, position, id) -> {
                         D.e("addOnItemClickListener" + position);
                         switch (position) {

@@ -114,7 +114,7 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
                 tv_10.setOnClickListener(v -> QuoteListActivity_bak.start2Activity((Activity) context, purchaseItemBeanNew.id));
             }
         } else {
-            tv_10.setVisibility(View.GONE);//没有权限 就不显示  和没有点击事件
+            tv_10.setVisibility(View.INVISIBLE);//没有权限 就不显示  和没有点击事件
         }
     }
 

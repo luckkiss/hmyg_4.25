@@ -16,7 +16,6 @@
         android:id="@+id/btn_delete_manager"
         android:layout_width="80dp"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
         android:background="@color/red"
         android:gravity="center"
         android:text="删除"

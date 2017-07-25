@@ -2,6 +2,7 @@ package com.hldj.hmyg.base;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.SpannableStringBuilder;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -62,9 +63,11 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
 
     }
 
-    protected   void initListener(){
+    protected void initListener() {
 
-    };
+    }
+
+    ;
 
     public void initData() {
 
@@ -169,5 +172,9 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
         return formatUtil.getResult();
     }
 
+
+    public int getColorByRes(int resColorId) {
+     return    ContextCompat.getColor(mActivity, resColorId);
+    }
 
 }

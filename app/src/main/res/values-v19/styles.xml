@@ -19,6 +19,19 @@
     </style>
 
 
+    <!--6.0之后 提供亮色状态栏，，能黑白交换-->
+    <style name="e_activity_theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--<item name="android:windowLightStatusBar">true</item>-->
+        <!--&lt;!&ndash;<item name="colorPrimaryDark">@android:color/transparent</item>&ndash;&gt;-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--透明状态栏-->
+        <item name="android:windowTranslucentStatus">true</item>
+        <!--使状态栏，导航栏可绘制-->
+        <!--&lt;!&ndash;<item name="fitsSystemWindows">true</item>&ndash;&gt;-->
+        <!--<item name="android:statusBarColor">@color/transparent</item>-->
+    </style>
+
+
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <!-- 无ActionBar -->

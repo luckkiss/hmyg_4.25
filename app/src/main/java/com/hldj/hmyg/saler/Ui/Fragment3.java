@@ -3,6 +3,7 @@ package com.hldj.hmyg.saler.Ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +65,7 @@ public class Fragment3 extends Fragment {
     public View getContentView() {
 
         recyclerView = new CoreRecyclerView(getActivity());
+        recyclerView.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.gray_bg_ed));
         recyclerView.initView(getActivity()).init(new BaseQuickAdapter<SaveSeedingGsonBean.DataBean.SeedlingBean, BaseViewHolder>(R.layout.item_fragment1) {
             @Override
             protected void convert(BaseViewHolder helper, SaveSeedingGsonBean.DataBean.SeedlingBean item) {

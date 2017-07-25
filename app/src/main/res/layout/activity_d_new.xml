@@ -8,6 +8,7 @@
     android:background="#ffffffff"
     android:orientation="vertical">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_top_default"
@@ -20,12 +21,11 @@
             android:id="@+id/iv_back"
             android:layout_width="@dimen/backWH"
             android:layout_height="@dimen/backWH"
+            android:layout_centerVertical="true"
             android:padding="3dp"
             android:src="@drawable/back_nol"
             android:visibility="gone"
-            tools:visibility="visible"
-            android:layout_centerVertical="true"
-            />
+            tools:visibility="visible" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -68,8 +68,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="#fff0f0f0"
-            android:divider="@null"
-          />
+            android:divider="@null" />
 
         <RelativeLayout
             android:id="@+id/rl_refresh"

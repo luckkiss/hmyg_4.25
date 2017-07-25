@@ -331,7 +331,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view7"
         app:layout_constraintVertical_bias="0.666"
-        tools:text="鼓浪屿街道" />
+        tools:text="鼓浪屿街道tools" />
 
     <TextView
         android:id="@+id/tv_aaa_area"
@@ -350,7 +350,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view5"
         app:layout_constraintVertical_bias="0.695"
-        tools:text="福建省厦门市思明区" />
+        tools:text="福建省厦门市思明区tools" />
 
     <TextView
         android:id="@+id/tv_aaa_save"

@@ -59,6 +59,12 @@
         <!--<item name="android:windowLightStatusBar">true</item>-->
         <!--&lt;!&ndash;<item name="colorPrimaryDark">@android:color/transparent</item>&ndash;&gt;-->
         <item name="android:windowIsTranslucent">true</item>
+        <!--透明状态栏-->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <!--使状态栏，导航栏可绘制-->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <!--&lt;!&ndash;<item name="fitsSystemWindows">true</item>&ndash;&gt;-->
         <!--<item name="android:statusBarColor">@color/transparent</item>-->
     </style>

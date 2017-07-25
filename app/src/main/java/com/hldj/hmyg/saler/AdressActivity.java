@@ -3,7 +3,6 @@ package com.hldj.hmyg.saler;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.widget.EditText;
 
 import com.hldj.hmyg.M.AddressBean;
@@ -167,10 +166,10 @@ public class AdressActivity extends BaseMVPActivity<AdressListPresenter, AdressL
                     address.contactPhone = item.contactPhone;
                     address.isDefault = item.isDefault;
                     D.e("====" + item.isDefault);
-                    if (TextUtils.isEmpty(item.twCode)) {
-                        ToastUtil.showShortToast("请编辑完整这条地址的所在街道!");
-                        return;
-                    }
+//                    if (TextUtils.isEmpty(item.twCode)) {
+//                        ToastUtil.showShortToast("请编辑完整这条地址的所在街道!");
+//                        return;
+//                    }
 
                     onAddressSelectListener.onAddressSelect(address);
                     finish();

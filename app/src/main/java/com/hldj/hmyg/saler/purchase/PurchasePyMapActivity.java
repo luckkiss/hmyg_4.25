@@ -231,7 +231,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
         lv = (XListView) findViewById(R.id.lv);
         listview.setPullLoadEnable(true);
         listview.setPullRefreshEnable(true);
-        listview.setDivider(null);
+//        listview.setDivider(null);
         lv.setPullLoadEnable(false);
         lv.setPullRefreshEnable(false);
         listview.setXListViewListener(this);

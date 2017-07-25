@@ -1,10 +1,12 @@
 package com.hldj.hmyg.Ui.myProgramChild.childensFragment;
+
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+
 import com.hldj.hmyg.M.InvoiceCarBean;
 import com.hldj.hmyg.M.ProjectPageGsonBean;
 import com.hldj.hmyg.R;
@@ -20,7 +22,9 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.StringFormatUtil;
 import com.weavey.loading.lib.LoadingLayout;
+
 import net.tsz.afinal.http.AjaxCallBack;
+
 import static android.content.ContentValues.TAG;
 
 /**
@@ -108,13 +112,9 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
                         }));
 
 
-                helper.addOnClickListener(R.id.item_program_detail, view1 ->
-                        {
-//                            DetailDialogFragment.instance(item.id).show(getChildFragmentManager(), "葫芦娃");
-                            ProgramFragment2DetailActivity.start(mActivity, item.id);
-                        }
+                helper.convertView.setOnClickListener(v -> ProgramFragment2DetailActivity.start(mActivity, item.id));
+                helper.addOnClickListener(R.id.item_program_detail, view1 -> ProgramFragment2DetailActivity.start(mActivity, item.id));
 
-                );
                 helper.setVisible(R.id.item_program_confirmation, getStatus().equals(SENDED));//待收货 显示 确认收货按钮
 
                 String str = item.carFirstItemName + "等" + item.carItemsCount + "个品种";

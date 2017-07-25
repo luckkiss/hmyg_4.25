@@ -29,7 +29,6 @@ import net.tsz.afinal.http.AjaxParams;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
@@ -42,7 +41,6 @@ import me.maxwin.view.XListView.IXListViewListener;
  */
 public class DActivity_new extends NeedSwipeBackActivity implements IXListViewListener {
     private XListView xlistView_d_new;
-    private ArrayList<HashMap<String, Object>> datas = new ArrayList<HashMap<String, Object>>();
 
     boolean getdata = true; // 避免刷新多出数据
 
@@ -50,11 +48,10 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
     private int pageIndex = 0;
     private MySwipeAdapter collectAdapter;//收藏列表的  适配器
 
-    public static DActivity_new instance;
+//    public static DActivity_new instance;
     //    private KProgressHUD hud;
     private LocalBroadcastReceiver localReceiver;
 
-    boolean isFirsh = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,13 +62,12 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 //                .setDimAmount(0f);
 
         setContentView(R.layout.activity_d_new);
-        instance = this;
+//        instance = this;
 
         setSwipeBackEnable(false);
         initView();
 
 //        hud.show();
-        showLoading();
         initData();
 
         addLocalBrodcast();
@@ -79,15 +75,17 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 
     }
 
-    public static DActivity_new getInstance() {
 
-        if (instance != null) {
-            return instance;
-        } else {
-            return null;
-        }
 
-    }
+//    public static DActivity_new getInstance() {
+//
+//        if (instance != null) {
+//            return instance;
+//        } else {
+//            return null;
+//        }
+//
+//    }
 
 
     List<SaveSeedingGsonBean.DataBean.SeedlingBean> seedlingBeen = new ArrayList<>();
@@ -206,7 +204,6 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
                         hindLoading();
                         pageIndex = seedlingBeen.size() / 20;
                         getdata = true;
-                        isFirsh = false;
 
                         D.e("===============collectGsonBean================" + collectGsonBean);
                     }
@@ -276,7 +273,6 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 
     private void onLoad() {
         new Handler().postDelayed(new Runnable() {
-
             @Override
             public void run() {
                 // TODO Auto-generated method stub

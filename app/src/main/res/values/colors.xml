@@ -529,6 +529,7 @@
     <!-- IOSDIALOG COLOR -->
     <color name="trans">#00000000</color>
     <color name="white_60">#3cdbe6e3</color>
+    <color name="white_20">#14dbe6e3</color>
     <color name="alertdialog_line">#8a7777</color>
     <color name="actionsheet_blue">#037BFF</color>
     <color name="actionsheet_red">#FD4A2E</color>

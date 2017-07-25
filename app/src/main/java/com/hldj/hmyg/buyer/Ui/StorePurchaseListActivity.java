@@ -24,6 +24,7 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
+import com.weavey.loading.lib.LoadingLayout;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -50,6 +51,7 @@ import static com.hldj.hmyg.R.id.tv_03;
  * 报价列表
  */
 public class StorePurchaseListActivity extends NeedSwipeBackActivity implements IXListViewListener, OnClickListener {
+    private static final String TAG = "StorePurchaseListActivi";
     private XListView xListView;
     private ArrayList<HashMap<String, Object>> datas = new ArrayList<HashMap<String, Object>>();
 
@@ -104,6 +106,8 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
     boolean isFirstLoading = true;
 
+    private LoadingLayout loadingLayout;
+
     /**
      * 快速报价
      */
@@ -111,6 +115,11 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_purchase_list);
+
+        loadingLayout = (LoadingLayout) findViewById(R.id.loading_spa);
+        loadingLayout.setOnReloadListener(v -> {
+            onRefresh();
+        });
         showLoading();
         View headView = getLayoutInflater().inflate(R.layout.head_purchase, null);
 
@@ -167,6 +176,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
     /*三*/
     private void initData() {
+        showLoading();
         // TODO Auto-generated method stub
         getdata = false;
         FinalHttp finalHttp = new FinalHttp();
@@ -193,6 +203,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                 // TODO Auto-generated method stub
                 Toast.makeText(StorePurchaseListActivity.this, R.string.error_net, Toast.LENGTH_SHORT).show();
                 hindLoading();
+                loadingLayout.setStatus(LoadingLayout.No_Network);
                 getdata = true;
             }
 
@@ -209,9 +220,14 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                         is = gsonBean.data.expired;
                     }
                     initPageBeans(gsonBean.data.page.data);
+                    loadingLayout.setStatus(LoadingLayout.Success);
 
-
+                } else {
+                    loadingLayout.setErrorText(gsonBean.msg);
+                    loadingLayout.setStatus(LoadingLayout.Error);
                 }
+
+
                 hindLoading();
                 onLoad();
                 getdata = true;
@@ -277,7 +293,8 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                 choseOne2Show(getView(R.id.tv_05), headPurchase.dispatchPhone, headPurchase.dispatchName, headPurchase.displayPhone);
 
                         /*   tv_06.setText("截止时间：" + closeDate);*/
-                ((TextView) getView(R.id.tv_06)).setText("用  苗  地：" + headPurchase.closeDate);
+//                ((TextView) getView(R.id.tv_06)).setText("用  苗  地：" + headPurchase.closeDate);
+                ((TextView) getView(R.id.tv_06)).setText("截止时间：" + headPurchase.closeDate);
             }
 
             private void choseOne2Show(TextView tv_05, String dispatchPhone, String dispatchName, String displayPhone) {

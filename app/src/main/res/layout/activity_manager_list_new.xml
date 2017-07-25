@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:visibility="visible">
+        android:visibility="visible"
+        app:elevation="0dp"
+        >
 
         <include layout="@layout/toolbar_3_0" />
 
@@ -264,7 +266,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray" />
+                android:background="@color/gray_bg_ed" />
 
             <me.kaede.tagview.TagView
                 android:id="@+id/tagview"
