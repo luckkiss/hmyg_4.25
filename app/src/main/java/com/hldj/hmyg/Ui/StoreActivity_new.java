@@ -70,7 +70,6 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
     FinalBitmap bitmap;
     private ArrayList<Pic> ossImagePaths = new ArrayList<Pic>();
 
-
     //step 1   初始化 控件
     @Override
     public void initView() {
@@ -319,7 +318,7 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         WindowManager wm = this.getWindowManager();
-        l_params.height = (int) (wm.getDefaultDisplay().getWidth() * 1 / 1.8);
+        l_params.height = (int) (wm.getDefaultDisplay().getWidth() * 1 / 1.9);
         getView(R.id.iv_store_banner).setLayoutParams(l_params);
         bitmap.display(getView(R.id.iv_store_banner), indexBean.store.appBannerUrl);
 

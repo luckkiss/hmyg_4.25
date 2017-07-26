@@ -12,10 +12,10 @@ import com.hldj.hmyg.R;
  * create by 罗擦擦   建造者模式初体验 ，参考dagger2 commponent 的自动生成代码
  */
 
-public class BasePopupWindow extends PopupWindow {
+public class CommonPopupWindow extends PopupWindow {
 
 
-    private BasePopupWindow(Builder builder) {
+    protected CommonPopupWindow(Builder builder) {
         initWithBuilder(builder);
     }
 
@@ -69,36 +69,69 @@ public class BasePopupWindow extends PopupWindow {
             this.mContext = context;
         }
 
-        public BasePopupWindow build() {
+        public CommonPopupWindow build() {
 
-            return new BasePopupWindow(this);
+            return new CommonPopupWindow(this);
         }
 
-        public Builder setWidth(int w) {
+
+        /**
+         * 传入  布局id
+         *
+         * @param layoutId
+         * @return
+         */
+        public Builder bindLayoutId(int layoutId) {
+            this.layoutId = layoutId;
+            return this;
+        }
+
+        public Builder setWidthDp(int w) {
+            this.width = dp2px(mContext, w);
+            return this;
+        }
+
+        public Builder setHeightDp(int h) {
+            this.height = dp2px(mContext, h);
+            return this;
+        }
+
+        public Builder setWidthPx(int w) {
             this.width = w;
             return this;
         }
 
-        public Builder setHeight(int h) {
+
+
+        public Builder setHeightPx(int h) {
             this.height = h;
             return this;
         }
 
 
-        public void setOutsideTouchable(boolean outsideTouchable) {
+        public Builder setOutsideTouchable(boolean outsideTouchable) {
             isOutsideTouchable = outsideTouchable;
+            return this;
         }
 
-        public void setTouchable(boolean touchable) {
+        public Builder setTouchable(boolean touchable) {
             isTouchable = touchable;
+            return this;
         }
 
-        public void setFocusable(boolean focusable) {
+        public Builder setFocusable(boolean focusable) {
             isFocusable = focusable;
+            return this;
         }
 
-        public void setCovertViewListener(OnCovertViewListener listener) {
+        public Builder setCovertViewListener(OnCovertViewListener listener) {
             this.listener = listener;
+            return this;
+        }
+
+        private int dp2px(Context context, int dp) {
+            float scale = context.getResources().getDisplayMetrics().density;
+            return (int) (dp * scale + 0.5f);
         }
     }
 
@@ -106,5 +139,6 @@ public class BasePopupWindow extends PopupWindow {
     public interface OnCovertViewListener {
         void covertView(View viewRoot);
     }
+
 
 }

@@ -23,6 +23,8 @@ import com.hldj.hmyg.buyer.SortList;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hldj.hmyg.widget.ComonShareDialogFragment;
+import com.hldj.hmyg.widget.SharePopupWindow;
 import com.hy.utils.GetServerUrl;
 import com.weavey.loading.lib.LoadingLayout;
 
@@ -116,6 +118,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_purchase_list);
 
+
         loadingLayout = (LoadingLayout) findViewById(R.id.loading_spa);
         loadingLayout.setOnReloadListener(v -> {
             onRefresh();
@@ -126,13 +129,22 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
         if (getIntent().getStringExtra("purchaseFormId") != null) {
             purchaseFormId = getIntent().getStringExtra("purchaseFormId");
+            shareBean.pageUrl = "http://m.hmeg.cn/purchase/order/list/" + purchaseFormId + ".html ";
+//            "http://m.hmeg.cn/purchase/order/list/f945f5ba092046b58b4f50682b2c9978.html"
         }
         if (getIntent().getStringExtra("secondSeedlingTypeId") != null) {
             secondSeedlingTypeId = getIntent().getStringExtra("secondSeedlingTypeId");
-            StorePurchaseListAdapter_new.isShow = true;
+
+            StorePurchaseListAdapter_new.isShow = true;//表示   不可分享
         } else {
-            StorePurchaseListAdapter_new.isShow = false;
+            StorePurchaseListAdapter_new.isShow = false;//表示可以分享
         }
+
+        /**
+         * 展示分享按钮  通过条件判断是否显示
+         */
+        showToolbarRightText(!StorePurchaseListAdapter_new.isShow);
+
         if (getIntent().getStringExtra("title") != null) {
             title = getIntent().getStringExtra("title");
             tv_title = (TextView) findViewById(R.id.toolbar_title);
@@ -236,6 +248,10 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
             private void initPageBeans(List<PurchaseItemBean_new> data) {
 
+                for (int i = 0; i < data.size(); i++) {
+                    shareBean.text += data.get(i).name + ",";
+                }
+
                 if (listAdapter == null) {
                     listAdapter = new StorePurchaseListAdapter_new(StorePurchaseListActivity.this, data, R.layout.list_item_store_purchase) {
                         @Override
@@ -279,6 +295,8 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                 int headViewId = R.layout.head_purchase;
                         /*项目名*/
                 String res = headPurchase.blurProjectName + "采购单" + "<font color='#FFA19494'><small>" + "(" + headPurchase.num + ")" + "</small></font>";
+                shareBean.title = headPurchase.blurProjectName + "【" + headPurchase.num + "】";
+
                 ((TextView) getView(R.id.tv_01)).setText(Html.fromHtml(res));
                         /*显示名称*/
                 ((TextView) getView(R.id.tv_02)).setText(headPurchase.buyer.displayName);
@@ -295,6 +313,9 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                         /*   tv_06.setText("截止时间：" + closeDate);*/
 //                ((TextView) getView(R.id.tv_06)).setText("用  苗  地：" + headPurchase.closeDate);
                 ((TextView) getView(R.id.tv_06)).setText("截止时间：" + headPurchase.closeDate);
+
+                shareBean.text = "用  苗  地：" + headPurchase.cityName + "\n" + "截止时间：" + headPurchase.closeDate + "\n";
+
             }
 
             private void choseOne2Show(TextView tv_05, String dispatchPhone, String dispatchName, String displayPhone) {
@@ -462,6 +483,42 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(o -> hindLoading());
+    }
+
+
+    private void showToolbarRightText(boolean isShow) {
+        ImageView imageView = getView(R.id.toolbar_right_icon);
+        if (isShow) {
+            imageView.setImageResource(R.drawable.fenxiang);
+            imageView.setVisibility(View.VISIBLE);
+            imageView.setOnClickListener(v -> {
+                D.e("采购单 分享");
+                SharePopupWindow window = new SharePopupWindow(mActivity, constructionShareBean());
+                window.showAsDropDown(imageView);
+            });
+        }
+    }
+
+
+    /**
+     * 默认的分享
+     */
+    ComonShareDialogFragment.ShareBean shareBean = new ComonShareDialogFragment.ShareBean(
+            "采购单分享",
+            "",
+            "",
+            "" + GetServerUrl.ICON_PAHT,
+            "http://m.hmeg.cn/purchase/order/list/f945f5ba092046b58b4f50682b2c9978.html"
+    );
+
+    /**
+     * 构造一个分享的bean
+     *
+     * @return
+     */
+    private ComonShareDialogFragment.ShareBean constructionShareBean() {
+
+        return shareBean;
     }
 
 

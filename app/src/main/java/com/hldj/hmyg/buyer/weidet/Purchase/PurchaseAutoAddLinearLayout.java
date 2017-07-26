@@ -1,6 +1,7 @@
 package com.hldj.hmyg.buyer.weidet.Purchase;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -70,7 +71,7 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
 
         if (plantBean.name.equals("价格")) {
             getViewHolder().et_params_03.setHint("元");
-            getViewHolder().et_params_03.setInputType(EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.TYPE_NUMBER_FLAG_DECIMAL );
+            getViewHolder().et_params_03.setInputType(EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.TYPE_NUMBER_FLAG_DECIMAL);
 //            getViewHolder().et_params_03.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
 
         }
@@ -84,9 +85,11 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
 
         required = plantBean.required;
         if (plantBean.required) {//必须
-            getViewHolder().tv_params_02.setVisibility(View.INVISIBLE);//隐藏
+            //必填情况 添加* 号
+            isShowLeft(true, getViewHolder().tv_params_01, R.drawable.seller_redstar);
+            getViewHolder().tv_params_02.setVisibility(View.GONE);//隐藏
         } else {
-            getViewHolder().tv_params_02.setVisibility(View.VISIBLE);//显示
+            getViewHolder().tv_params_02.setVisibility(View.GONE);//显示
         }
 
         if (plantBean.value.equals("dbh"))//为胸径时显示 radiobutton
@@ -217,5 +220,17 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
 //            this.vb_radions = (RadioGroup) viewRroot.findViewById(R.id.vb_radions);
         }
 
+    }
+
+    public void isShowLeft(boolean flag, TextView textView, int drawableId) {
+        if (flag) {
+            Drawable drawable = getResources().getDrawable(drawableId);
+            /// 这一步必须要做,否则不会显示.
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            textView.setCompoundDrawables(drawable, null, null, null);
+        } else {
+            //隐藏Drawables
+            textView.setCompoundDrawables(null, null, null, null);
+        }
     }
 }

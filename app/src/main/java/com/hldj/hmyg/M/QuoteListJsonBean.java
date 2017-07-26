@@ -129,9 +129,51 @@ public class QuoteListJsonBean implements Serializable, MultiItemEntity, IExpand
                 ", createBy='" + createBy + '\'' +
                 ", createDate='" + createDate + '\'' +
                 ", attrData=" + attrData +
+                ", cityCode='" + cityCode + '\'' +
+                ", cityName='" + cityName + '\'' +
+                ", prCode='" + prCode + '\'' +
+                ", ciCode='" + ciCode + '\'' +
+                ", coCode='" + coCode + '\'' +
+                ", twCode='" + twCode + '\'' +
+                ", firstSeedlingTypeId='" + firstSeedlingTypeId + '\'' +
+                ", secondSeedlingTypeId='" + secondSeedlingTypeId + '\'' +
+                ", dbh=" + dbh +
+                ", dbhType='" + dbhType + '\'' +
+                ", plantType='" + plantType + '\'' +
+                ", unitType='" + unitType + '\'' +
+                ", unitTypeName='" + unitTypeName + '\'' +
+                ", plantTypeName='" + plantTypeName + '\'' +
+                ", diameterTypeName='" + diameterTypeName + '\'' +
+                ", dbhTypeName='" + dbhTypeName + '\'' +
+                ", thumbnailImageUrl='" + thumbnailImageUrl + '\'' +
+                ", smallImageUrl='" + smallImageUrl + '\'' +
+                ", mediumImageUrl='" + mediumImageUrl + '\'' +
+                ", largeImageUrl='" + largeImageUrl + '\'' +
+                ", seedlingParams='" + seedlingParams + '\'' +
+                ", specText='" + specText + '\'' +
+                ", purchaseId='" + purchaseId + '\'' +
+                ", purchaseItemId='" + purchaseItemId + '\'' +
+                ", sellerId='" + sellerId + '\'' +
+                ", price='" + price + '\'' +
+                ", isInvoice=" + isInvoice +
+                ", isUsed=" + isUsed +
+                ", sendType='" + sendType + '\'' +
+                ", implementRemarks='" + implementRemarks + '\'' +
+                ", quoteImplementStatus='" + quoteImplementStatus + '\'' +
+                ", statusName='" + statusName + '\'' +
+                ", sellerName='" + sellerName + '\'' +
+                ", sellerPhone='" + sellerPhone + '\'' +
+                ", status='" + status + '\'' +
+                ", purchaseItemStatus='" + purchaseItemStatus + '\'' +
+                ", height=" + height +
+                ", crown=" + crown +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", ossUrl='" + ossUrl + '\'' +
+                ", imagesJson=" + imagesJson +
+                ", paramsList=" + paramsList +
+                ", specList=" + specList +
                 '}';
     }
-
 
     @Override
     public int getItemType() {

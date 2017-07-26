@@ -56,6 +56,7 @@ import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.LoginActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.base.CommonPopupWindow;
 import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.broker.SeedlingMarketSearchActivity;
 import com.hldj.hmyg.broker.SellectMarketPriceActivity;
@@ -68,6 +69,8 @@ import com.hldj.hmyg.saler.P.PurchasePyMapPresenter;
 import com.hldj.hmyg.saler.SubscribeManagerListActivity;
 import com.hldj.hmyg.saler.bean.ParamsList;
 import com.hldj.hmyg.saler.bean.Subscribe;
+import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.StringFormatUtil;
@@ -562,35 +565,38 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                         overridePendingTransition(R.anim.slide_in_left,
                                 R.anim.slide_out_right);
                         break;
-                    // case R.id.id_tv_edit_all:
-                    // // Intent toMyMarketListActivity = new Intent(
-                    // // SeedlingMarketPyMapActivity.this,
-                    // // MyMarketListActivity.class);
-                    // // startActivityForResult(toMyMarketListActivity, 1);
-                    // // overridePendingTransition(R.anim.slide_in_left,
-                    // // R.anim.slide_out_right);
-                    // if (et_search.getText().toString().length() != 0) {
-                    //
-                    // Intent intent = new Intent(PurchasePyMapActivity.this,
-                    // SeedlingMarketSearchActivity.class);
-                    // intent.putExtra("name", et_search.getText().toString());
-                    // startActivity(intent);
-                    // }
-                    // break;
+
                     case R.id.id_tv_edit_all:
-                        if (MyApplication.Userinfo.getBoolean("isLogin", false) == false) {
-                            Intent toLoginActivity = new Intent(
-                                    PurchasePyMapActivity.this, LoginActivity.class);
-                            startActivityForResult(toLoginActivity, 4);
-                            overridePendingTransition(R.anim.slide_in_left,
-                                    R.anim.slide_out_right);
-                        } else {
-                            Intent toSubscribeManagerListActivity = new Intent(
-                                    PurchasePyMapActivity.this,
-                                    SubscribeManagerListActivity.class);
-                            startActivityForResult(toSubscribeManagerListActivity,
-                                    1);
-                        }
+                        D.e("订阅 与 分享");
+
+
+                        CommonPopupWindow.builder(mActivity)
+                                .bindLayoutId(R.layout.popuplayout)
+                                .setCovertViewListener(new CommonPopupWindow.OnCovertViewListener() {
+                                    @Override
+                                    public void covertView(View viewRoot) {
+                                        //订阅
+                                        viewRoot.findViewById(R.id.pup_subscriber).setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                subscriber();
+
+                                            }
+                                        });
+                                        //分享
+                                        viewRoot.findViewById(R.id.pup_show_share).setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                share();
+                                            }
+                                        });
+                                    }
+                                })
+                                .setWidthDp(100)
+                                .setHeightDp(115)
+                                .build()
+                                .showAsDropDown(view);
+
 
                         break;
                     default:
@@ -614,6 +620,39 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    /**
+     * 执行分享方法
+     */
+    private void share() {
+        D.e("分享");
+        ComonShareDialogFragment.newInstance()
+                .setShareBean(new ComonShareDialogFragment.ShareBean(
+                        "花木易购采购单",
+                        "花木易购采购订单，百分百真实，等你来报！",
+                        "花木易购采购订单，百分百真实，等你来报！",
+                        GetServerUrl.ICON_PAHT,
+                        "http://m.hmeg.cn/purchase"))
+                .show(getSupportFragmentManager(), getClass().getName());
+    }
+
+    /**
+     * 执行订阅方法
+     */
+    private void subscriber() {
+        D.e("订阅");
+        if (MyApplication.Userinfo.getBoolean("isLogin", false) == false) {
+            Intent toLoginActivity = new Intent(
+                    PurchasePyMapActivity.this, LoginActivity.class);
+            startActivityForResult(toLoginActivity, 4);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        } else {
+            Intent toSubscribeManagerListActivity = new Intent(
+                    PurchasePyMapActivity.this,
+                    SubscribeManagerListActivity.class);
+            startActivityForResult(toSubscribeManagerListActivity, 1);
         }
     }
 

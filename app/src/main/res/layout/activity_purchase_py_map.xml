@@ -121,11 +121,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/x15"
             android:gravity="center"
-            android:text="订阅"
+            android:padding="18dp"
+            android:text="●●●"
             android:textColor="@color/main_color"
-            android:textSize="16dp" />
+            android:textSize="7dp" />
     </RelativeLayout>
 
 
@@ -233,8 +233,7 @@
                 android:layout_height="match_parent"
                 android:background="#fff0f0f0"
                 android:divider="@color/gray_bg_ed"
-                android:dividerHeight="20px"
-                />
+                android:dividerHeight="20px" />
 
             <FrameLayout
                 android:id="@+id/fl_type"

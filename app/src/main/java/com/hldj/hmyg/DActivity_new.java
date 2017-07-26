@@ -48,7 +48,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
     private int pageIndex = 0;
     private MySwipeAdapter collectAdapter;//收藏列表的  适配器
 
-//    public static DActivity_new instance;
+    //    public static DActivity_new instance;
     //    private KProgressHUD hud;
     private LocalBroadcastReceiver localReceiver;
 
@@ -76,7 +76,6 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
     }
 
 
-
 //    public static DActivity_new getInstance() {
 //
 //        if (instance != null) {
@@ -96,8 +95,8 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
         if (getIntent().getExtras() != null) {
             boolean isShow = (boolean) getIntent().getExtras().get(IS_SHOW);
             if (isShow) {
-                findViewById(R.id.iv_back).setVisibility(View.VISIBLE);
-                findViewById(R.id.iv_back).setOnClickListener(v -> finish());
+                getView(R.id.iv_back).setVisibility(View.VISIBLE);
+                getView(R.id.iv_back).setOnClickListener(v -> finish());
                 setSwipeBackEnable(true);
             }
         } else {
@@ -105,7 +104,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
         }
 
 
-        findViewById(R.id.tv_clear_all).setOnClickListener(v -> {
+        getView(R.id.tv_clear_all).setOnClickListener(v -> {
                     D.e("==============清空收藏夹============");
                     new AlertDialog(this).builder()
                             .setTitle("确定清空所有收藏?")
@@ -132,7 +131,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
         );
 
 
-        xlistView_d_new = (XListView) findViewById(R.id.xlistView_d_new);
+        xlistView_d_new = (XListView) getView(R.id.xlistView_d_new);
 //        xlistView_d_new.setDivider(new BitmapDrawable() );
         xlistView_d_new.setPullLoadEnable(true);
         xlistView_d_new.setPullRefreshEnable(true);
@@ -182,19 +181,19 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
                                 seedlingBeen.addAll(collectGsonBean.data.page.data);
                                 collectAdapter.notifyDataSetChanged();
                                 D.e("=====pageIndex=======" + pageIndex);
-                                findViewById(R.id.xlistView_d_new).setVisibility(View.VISIBLE);
-                                findViewById(R.id.rl_refresh).setVisibility(View.GONE);
+                                getView(R.id.xlistView_d_new).setVisibility(View.VISIBLE);
+                                getView(R.id.rl_refresh).setVisibility(View.GONE);
 
                             } else {
-                                findViewById(R.id.xlistView_d_new).setVisibility(View.GONE);
-                                findViewById(R.id.rl_refresh).setVisibility(View.VISIBLE);
+                                getView(R.id.xlistView_d_new).setVisibility(View.GONE);
+                                getView(R.id.rl_refresh).setVisibility(View.VISIBLE);
                             }
 
 
                         } else {
-                            findViewById(R.id.xlistView_d_new).setVisibility(View.GONE);
-                            findViewById(R.id.rl_refresh).setVisibility(View.VISIBLE);
-                            findViewById(R.id.rl_refresh).setOnClickListener(refresh);
+                            getView(R.id.xlistView_d_new).setVisibility(View.GONE);
+                            getView(R.id.rl_refresh).setVisibility(View.VISIBLE);
+
                             D.e("===数据库空空如也====");
                         }
 
@@ -204,6 +203,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
                         hindLoading();
                         pageIndex = seedlingBeen.size() / 20;
                         getdata = true;
+                        getView(R.id.rl_refresh).setOnClickListener(refresh);
 
                         D.e("===============collectGsonBean================" + collectGsonBean);
                     }
@@ -214,15 +214,16 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
                         // TODO Auto-generated method stub
                         Toast.makeText(DActivity_new.this, R.string.error_net,
                                 Toast.LENGTH_SHORT).show();
-                        findViewById(R.id.xlistView_d_new).setVisibility(View.GONE);
-                        findViewById(R.id.rl_refresh).setVisibility(View.VISIBLE);
-                        findViewById(R.id.rl_refresh).setOnClickListener(refresh);
+                        getView(R.id.xlistView_d_new).setVisibility(View.GONE);
+                        getView(R.id.rl_refresh).setVisibility(View.VISIBLE);
+                        getView(R.id.rl_refresh).setOnClickListener(refresh);
 //                        hud.dismiss();
 //                        isRefreshing = false;
                         hindLoading();
                         getdata = true;
                         isFresh = false;
                         super.onFailure(t, errorNo, strMsg);
+                        getView(R.id.rl_refresh).setOnClickListener(refresh);
                     }
 
                 });

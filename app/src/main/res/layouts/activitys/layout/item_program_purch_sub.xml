@@ -45,7 +45,6 @@
         android:gravity="center"
         android:minWidth="55dp"
         android:padding="3dp"
-
         android:text="采用"
         android:textColor="@color/color_purch_sub"
         app:layout_constraintRight_toRightOf="parent"
@@ -104,6 +103,7 @@
         android:layout_marginTop="8dp"
         android:text="由花木易购发货"
         android:textColor="@color/text_color999"
+        android:visibility="gone"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_price_cont_serv_pric" />
 

@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:text="(选填)"
-        android:textColor="@color/hint_text_color" />
+        android:textColor="@color/hint_text_color"
+        android:visibility="gone"/>
 
 
     <EditText
@@ -29,7 +30,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_weight="1"
         android:background="@drawable/conner_edit"
         android:gravity="center_vertical"
