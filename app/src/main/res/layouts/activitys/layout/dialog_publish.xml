@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true">
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="32dp"
-            android:src="@drawable/fabuye_wenzi" />
+            android:src="@drawable/app_loading0" />
 
 
     </RelativeLayout>
@@ -71,7 +71,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="5dp"
-            android:src="@drawable/fabuye_2" />
+            android:src="@drawable/conner_edit" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="5dp"
-            android:src="@drawable/fabuye_1" />
+            android:src="@drawable/rb_left_selecteor" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -122,7 +122,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="5dp"
-            android:src="@drawable/caogao_selector" />
+            android:src="@drawable/rb_left_select" />
 
         <TextView
             android:layout_width="wrap_content"

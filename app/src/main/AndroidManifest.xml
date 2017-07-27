@@ -210,14 +210,8 @@
         <activity
             android:name="com.hldj.hmyg.BActivity"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.CActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.CActivity2"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+
+
         <activity
             android:name="com.hldj.hmyg.WebActivity"
             android:launchMode="standard"

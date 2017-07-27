@@ -1,7 +1,6 @@
 package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -25,13 +24,6 @@ import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.GridView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -47,17 +39,14 @@ import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.PermissionUtils;
-import com.hldj.hmyg.broker.adapter.ChooseManagerAdapter;
 import com.hldj.hmyg.buy.bean.CollectCar;
 import com.hldj.hmyg.saler.StorageSaveActivity;
-import com.hldj.hmyg.saler.bean.ChooseManager;
 import com.hldj.hmyg.update.UpdateDialog;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.MLocationManager;
 import com.hldj.hmyg.util.MyUtil;
 import com.hldj.hmyg.util.StartBarUtils;
-import com.hldj.hmyg.widget.PublishPopWindow;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.white.update.UpdateInfo;
@@ -95,8 +84,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     private static final int DB_VERSION = 1;
     private SQLiteDatabase db;
     private ArrayList<CollectCar> userList = new ArrayList<CollectCar>();
-    ArrayList<ChooseManager> chooseManagers = new ArrayList<ChooseManager>();
-    private ChooseManager chooseManager3;
+
     private String check = "1";
 
     public void setBasIn(BaseAnimatorSet bas_in) {
@@ -195,7 +183,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
             }
         }
 
-        initData();
 
         tabHost = this.getTabHost();
         JPushInterface.setAlias(MainActivity.this, MyApplication.Userinfo
@@ -218,8 +205,8 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                 .setContent(new Intent(this, AActivity_3_0.class)));
         tabHost.addTab(tabHost.newTabSpec("2").setIndicator("2")
                 .setContent(new Intent(this, BActivity_new_test.class)));
-        tabHost.addTab(tabHost.newTabSpec("3").setIndicator("3")
-                .setContent(new Intent(this, CActivity2.class)));
+//        tabHost.addTab(tabHost.newTabSpec("3").setIndicator("3")
+//                .setContent(new Intent(this, CActivity2.class)));
         tabHost.addTab(tabHost.newTabSpec("4").setIndicator("4")
                 .setContent(new Intent(this, DActivity_new.class)));//跳转到收藏夹  界面
         tabHost.addTab(tabHost.newTabSpec("5").setIndicator("5")
@@ -227,23 +214,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         radioderGroup = (RadioGroup) findViewById(R.id.rg_tab);
 //        RadioButton tab_c = (RadioButton) findViewById(R.id.tab_c);
 
-
-        findViewById(R.id.iv_publish).setOnClickListener(v -> {
-            View view = findViewById(R.id.main_content);
-            try {
-                publishPopWindow = new PublishPopWindow(MainActivity.this).showMoreWindow(findViewById(android.R.id.tabcontent));
-                setBackgroundAlpha(MainActivity.this, (float) 0.99);
-                publishPopWindow.setOnDismissListener(() -> {
-                    if (MainActivity.this != null) {
-                        setBackgroundAlpha(MainActivity.this, 1f);
-                        publishPopWindow = null;
-                    }
-                });
-            } catch (Exception e1) {
-                new PublishPopWindow(MainActivity.this).showMoreWindow(view);
-                e1.printStackTrace();
-            }
-        });
 
 
         radioderGroup.setOnCheckedChangeListener(this);
@@ -282,74 +252,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
     }
 
-
-    private void initData() {
-        // TODO Auto-generated method stub
-        userList.clear();
-        DBOpenHelper dbOpenHelper = new DBOpenHelper(MainActivity.this,
-                DB_NAME, null, DB_VERSION);
-        try {
-            db = dbOpenHelper.getWritableDatabase();
-        } catch (SQLiteException ex) {
-            db = dbOpenHelper.getReadableDatabase();
-        }
-        // 执行SQL语句
-        Cursor cursor = db.query(DB_TABLE, null, null, null, null, null,
-                "_id DESC");
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            int id = cursor.getInt(0);
-            String img = cursor.getString(1);
-            String title = cursor.getString(2);
-            String time = cursor.getString(3);
-            String money = cursor.getString(4);
-            String storage_save_id = cursor.getString(5);
-            CollectCar car = new CollectCar(img, title, time, money, id,
-                    storage_save_id, false, false, "");
-            userList.add(car);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        ChooseManager chooseManager1 = new ChooseManager("1", "发布苗木", "",
-                R.drawable.fabuye_1, false);
-        ChooseManager chooseManager2 = new ChooseManager("2", "苗木管理", "",
-                R.drawable.fabuye_2, false);
-        if (userList.size() > 0) {
-            chooseManager3 = new ChooseManager("3", "草稿箱", "",
-                    R.drawable.caogaoxiang2, true);
-        } else {
-            chooseManager3 = new ChooseManager("3", "草稿箱", "",
-                    R.drawable.fabuye_3, false);
-        }
-        ChooseManager chooseManager4 = new ChooseManager("4", "发布采购", "",
-                R.drawable.fabuye_4, false);
-        ChooseManager chooseManager5 = new ChooseManager("5", "采购管理", "",
-                R.drawable.fabuye_5, false);
-        ChooseManager chooseManager6 = new ChooseManager("6", "快速记苗", "",
-                R.drawable.fabuyemian_kuaisujimiao, false);
-        ChooseManager chooseManager7 = new ChooseManager("7", "记苗本", "",
-                R.drawable.fabuyemian_jimiaoben, false);
-        ChooseManager chooseManager8 = new ChooseManager("8", "发布行情", "",
-                R.drawable.fabuye_fabuhangqing, false);
-        ChooseManager chooseManager9 = new ChooseManager("9", "实时行情", "",
-                R.drawable.fabuye_shishihangqing, false);
-        chooseManagers.add(chooseManager1);
-        chooseManagers.add(chooseManager2);
-        chooseManagers.add(chooseManager3);
-        // chooseManagers.add(chooseManager4);
-        // chooseManagers.add(chooseManager5);
-        chooseManagers.add(chooseManager6);
-        chooseManagers.add(chooseManager7);
-
-        if (MyApplication.Userinfo.getBoolean("isLogin", false)) {
-            if (MyApplication.Userinfo.getBoolean("isDirectAgent", false)) {
-                chooseManagers.add(chooseManager8);
-                chooseManagers.add(chooseManager9);
-            } else {
-            }
-        }
-
-    }
 
     public static void toA() {
         radioderGroup.check(R.id.tab_a);
@@ -643,7 +545,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         ;
     };
     private Dialog dialog;
-    private ChooseManagerAdapter myadapter;
+//    private ChooseManagerAdapter myadapter;
 
     private void showUpdateDialog2() {
 
@@ -770,80 +672,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         }
     }
 
-    private void showDialog() {
-        View dia_choose_share = getLayoutInflater().inflate(
-                R.layout.dia_choose_publish, null);
-        GridView gridView = (GridView) dia_choose_share
-                .findViewById(R.id.gridView);
-        Button btn_cancle = (Button) dia_choose_share
-                .findViewById(R.id.btn_cancle);
-        if (chooseManagers.size() > 0) {
-            if (myadapter == null) {
-                myadapter = new ChooseManagerAdapter(MainActivity.this,
-                        chooseManagers);
-                gridView.setAdapter(myadapter);
-            } else {
-                myadapter.notify(chooseManagers);
-            }
-
-        }
-        dialog = new Dialog(this, R.style.transparentFrameWindowStyle);
-        dialog.setContentView(dia_choose_share, new LayoutParams(
-                LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-        Window window = dialog.getWindow();
-        // 设置显示动画
-        window.setWindowAnimations(R.style.main_menu_animstyle);
-        WindowManager.LayoutParams wl = window.getAttributes();
-        wl.x = 0;
-        wl.y = getWindowManager().getDefaultDisplay().getHeight();
-        // 以下这两句是为了保证按钮可以水平满屏
-        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-
-        // 设置显示位置
-        dialog.onWindowAttributesChanged(wl);
-        // 设置点击外围解散
-        dialog.setCanceledOnTouchOutside(true);
-        dia_choose_share.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                if (!MainActivity.this.isFinishing() && dialog != null) {
-                    if (dialog.isShowing()) {
-                        dialog.cancel();
-                    } else {
-                        dialog.show();
-                    }
-                }
-
-            }
-        });
-        btn_cancle.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                if (!MainActivity.this.isFinishing() && dialog != null) {
-                    if (dialog.isShowing()) {
-                        dialog.cancel();
-                    } else {
-                        dialog.show();
-                    }
-                }
-
-            }
-        });
-
-        if (!MainActivity.this.isFinishing() && dialog.isShowing()) {
-            dialog.cancel();
-        } else if (!MainActivity.this.isFinishing() && dialog != null
-                && !dialog.isShowing()) {
-            dialog.show();
-        }
-
-    }
-
 
     /**
      * 显示进度条对话框
@@ -934,25 +762,5 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
      */
 
 
-    /**
-     * 设置页面的透明度
-     *
-     * @param bgAlpha 1表示不透明
-     */
-    public static void setBackgroundAlpha(Activity activity, float bgAlpha) {
-
-        WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
-        lp.alpha = bgAlpha;
-        if (bgAlpha == 1) {
-            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);//不移除该Flag的话,在有视频的页面上的视频会出现黑屏的bug
-        } else {
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);//此行代码主要是解决在华为手机上半透明效果无效的bug
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-        }
-        activity.getWindow().setAttributes(lp);
-    }
-
-    PublishPopWindow publishPopWindow = null;
 
 }
