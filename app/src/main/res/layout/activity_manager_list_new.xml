@@ -230,7 +230,6 @@
 
 
             <LinearLayout
-                android:id="@+id/ll_bottom_lines"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:orientation="horizontal">

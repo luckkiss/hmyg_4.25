@@ -739,7 +739,6 @@
                     </RelativeLayout>
 
                     <LinearLayout
-                        android:id="@+id/ll_seller_quote_json_caozuo"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"

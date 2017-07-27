@@ -871,13 +871,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 });
                 toTopBtn.setVisibility(View.GONE);
                 break;
-            case R.id.iv_Capture:
-                Intent toCaptureActivity = new Intent(AActivity_3_0.this,
-                        CaptureActivity.class);
-                startActivityForResult(toCaptureActivity, 1);
-                getParent().overridePendingTransition(R.anim.slide_in_left,
-                        R.anim.slide_out_right);
-                break;
+
             case R.id.iv_a_msg:
                 if (!MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {//没有登录跳转到登录界面
                     LoginActivity.start2Activity(this);

@@ -28,7 +28,6 @@
 
 
             <com.coorchice.library.SuperTextView
-                android:id="@+id/tv_title_show_name"
                 android:layout_width="wrap_content"
                 android:layout_height="27dp"
                 android:gravity="center|start"
@@ -236,7 +235,6 @@
         <View style="@style/View_line_green" />
 
         <LinearLayout
-            android:id="@+id/ll_bottom_is_quote_del"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

@@ -31,7 +31,6 @@
             android:visibility="visible" />
 
         <ImageView
-            android:id="@+id/iv_adapter_list_pic"
             android:layout_width="85dp"
             android:layout_height="85dp"
             android:layout_marginBottom="15dp"
@@ -75,7 +74,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_type_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

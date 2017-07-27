@@ -28,7 +28,7 @@ public class DataCleanManager {
 	 * @param context
 	 */
 	public static void cleanDatabases(Context context) {
-		deleteFilesByDirectory(new File("/data/data/"
+		deleteFilesByDirectory(new File(context.getFilesDir().getPath()
 				+ context.getPackageName() + "/databases"));
 	}
 
@@ -38,7 +38,7 @@ public class DataCleanManager {
 	 * @param context
 	 */
 	public static void cleanSharedPreference(Context context) {
-		deleteFilesByDirectory(new File("/data/data/"
+		deleteFilesByDirectory(new File(context.getFilesDir().getPath()
 				+ context.getPackageName() + "/shared_prefs"));
 	}
 

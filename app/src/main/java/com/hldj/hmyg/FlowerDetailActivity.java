@@ -1262,17 +1262,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                     case R.id.tv_05_02: // 上架
                         savePriceAndCountAndOutline();
                         break;
-                    case R.id.ll_open:
-                        if (lv_00.getVisibility() == View.GONE) {
-                            lv_00.setVisibility(View.VISIBLE);
-                            tv_open.setText("收起");
-                            iv_open.setImageResource(R.drawable.xiangqing_shouqi);
-                        } else if (lv_00.getVisibility() == View.VISIBLE) {
-                            lv_00.setVisibility(View.GONE);
-                            tv_open.setText("更多");
-                            iv_open.setImageResource(R.drawable.xiangqing_gengduo);
-                        }
-                        break;
+
 
                     case R.id.ll_to_d3://跳转到店铺
                         if (!"".equals(store_id)) {

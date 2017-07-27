@@ -17,7 +17,6 @@
     <!-- android:focusable="false" 不占用原有View点击事件 -->
 
     <RelativeLayout
-        android:id="@+id/id_ll_parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/white"

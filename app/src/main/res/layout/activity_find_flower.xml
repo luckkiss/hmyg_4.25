@@ -61,7 +61,6 @@
             android:layout_height="match_parent" />
 
         <LinearLayout
-            android:id="@+id/fromto_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
@@ -89,7 +88,6 @@
                     android:src="@drawable/icon_start" />
 
                 <TextView
-                    android:id="@+id/address_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -101,7 +99,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/destination_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
@@ -118,7 +115,6 @@
                     android:src="@drawable/ic_launcher" />
 
                 <TextView
-                    android:id="@+id/destination_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -130,7 +126,6 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/routecost_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -166,7 +161,6 @@
                 />
 
             <Button
-                android:id="@+id/destination_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"

@@ -6,13 +6,11 @@
     android:orientation="vertical" >
 
     <RelativeLayout
-        android:id="@+id/menu"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/y34"
         android:background="@color/white" >
 
         <Button
-            android:id="@+id/cancelBtn"
             android:layout_width="@dimen/x24"
             android:layout_height="@dimen/x24"
             android:layout_centerVertical="true"

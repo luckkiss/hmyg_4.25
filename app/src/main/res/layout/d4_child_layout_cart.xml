@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/FrameLayout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#EEEEEE" >
@@ -9,7 +8,6 @@
     <!-- android:focusable="false" 不占用原有View点击事件 -->
 
     <LinearLayout
-        android:id="@+id/id_back"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:gravity="right" >
@@ -315,7 +313,6 @@
                         android:textColor="#FA0000" />
 
                     <LinearLayout
-                        android:id="@+id/ll_change_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10.0dip"

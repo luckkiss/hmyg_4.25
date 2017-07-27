@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/capture_frame"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
@@ -42,7 +41,6 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/capture_top_hint"
             android:layout_width="0.0dip"
             android:layout_height="85.0dip"
             android:layout_gravity="top|center"
@@ -79,7 +77,6 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/capture_button_cancel"
             android:layout_width="70.0dip"
             android:layout_height="40.0dip"
             android:layout_gravity="center_vertical"
@@ -88,7 +85,6 @@
             android:textSize="14.0sp" />
 
         <Button
-            android:id="@+id/capture_button_createcode"
             android:layout_width="70.0dip"
             android:layout_height="40.0dip"
             android:layout_gravity="center_vertical"
@@ -98,7 +94,6 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/capture_bottom_hint"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center_vertical"

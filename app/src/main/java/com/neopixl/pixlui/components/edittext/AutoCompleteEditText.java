@@ -17,8 +17,6 @@ permissions and limitations under the License.
  */
 package com.neopixl.pixlui.components.edittext;
 
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -52,12 +50,14 @@ import com.neopixl.pixlui.components.textview.FontFactory;
 import com.neopixl.pixlui.intern.CustomPasswordTransformationMethod;
 import com.neopixl.pixlui.intern.PixlUIContants;
 
+import java.util.List;
+
 /**
  * Provide more possibility with EditText and enable new methods on old api
  * 
  * @author Olivier Demolliens. @odemolliens Dev with Neopixl
  */
-public class AutoCompleteEditText extends android.widget.AutoCompleteTextView {
+public class AutoCompleteEditText extends android.support.v7.widget.AppCompatAutoCompleteTextView {
 
 	/**
 	 * XML Attribute
@@ -286,8 +286,8 @@ public class AutoCompleteEditText extends android.widget.AutoCompleteTextView {
 	 * Use this method to set a custom font in your code (/assets/fonts/) a
 	 * 
 	 * @param ctx
-	 * @param Font
-	 *            Name, don't forget to add file extension
+	 * @param
+	 *            , don't forget to add file extension
 	 * @return
 	 */
 	public boolean setCustomFont(Context ctx, String font) {

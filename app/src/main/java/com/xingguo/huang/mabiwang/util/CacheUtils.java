@@ -22,7 +22,7 @@ public class CacheUtils {
             appCacheDir=context.getFilesDir();
         }
         if(appCacheDir == null) {
-            String cacheDirPath="/data/data/" + context.getPackageName() + "/files/";
+            String cacheDirPath=context.getFilesDir().getPath() + context.getPackageName() + "/files/";
             appCacheDir=new File(cacheDirPath);
         }
         return appCacheDir;
@@ -39,7 +39,7 @@ public class CacheUtils {
             appCacheDir = context.getCacheDir();
         }
         if (appCacheDir == null) {
-            String cacheDirPath = "/data/data/" + context.getPackageName() + "/cache/";
+            String cacheDirPath = context.getFilesDir().getPath() + context.getPackageName() + "/cache/";
             Log.w("Can't define system cache directory! '%s' will be used.", cacheDirPath);
             appCacheDir = new File(cacheDirPath);
         }

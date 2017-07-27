@@ -57,11 +57,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import aom.xingguo.huang.banner.MyFragment;
-import cn.hugo.android.scanner.CaptureActivity;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import me.hwang.library.widgit.SmartRefreshLayout;
 
-import static com.hldj.hmyg.R.id.iv_Capture;
 
 /**
  * change a list hellow world
@@ -683,13 +681,7 @@ public class AActivity extends FragmentActivity implements OnClickListener {
                 });
                 toTopBtn.setVisibility(View.GONE);
                 break;
-            case iv_Capture:
-                Intent toCaptureActivity = new Intent(AActivity.this,
-                        CaptureActivity.class);
-                startActivityForResult(toCaptureActivity, 1);
-                getParent().overridePendingTransition(R.anim.slide_in_left,
-                        R.anim.slide_out_right);
-                break;
+
             case R.id.iv_a_msg:
                 if (!MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {//没有登录跳转到登录界面
                     LoginActivity.start2Activity(this);

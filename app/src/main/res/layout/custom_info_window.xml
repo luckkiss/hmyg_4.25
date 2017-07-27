@@ -117,7 +117,6 @@
         android:background="@color/gray" />
 
     <ImageView
-        android:id="@+id/badge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
@@ -179,7 +178,6 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/snippet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"

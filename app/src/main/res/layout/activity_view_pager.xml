@@ -46,7 +46,6 @@
             android:background="@drawable/image_unselected_icon"/>
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/footer"     
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
         <RelativeLayout

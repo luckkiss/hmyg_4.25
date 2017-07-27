@@ -1,10 +1,5 @@
 package com.meinvtupian.album;
 
-import java.io.File;
-import java.io.IOException;
-
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
 import android.annotation.SuppressLint;
 import android.app.WallpaperManager;
 import android.content.Intent;
@@ -23,6 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hldj.hmyg.R;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+
+import java.io.File;
+import java.io.IOException;
 
 @SuppressLint("NewApi")
 public class ImagePagerActivity extends FragmentActivity implements
@@ -172,7 +173,7 @@ public class ImagePagerActivity extends FragmentActivity implements
 							FinalHttp finalHttp = new FinalHttp();
 							picname = System.currentTimeMillis() + "";
 							finalHttp.download(urls[mPager.getCurrentItem()],
-									"/mnt/sdcard/hmyg/" + picname + ".jpg",
+									 Environment.getExternalStorageDirectory().getPath() + picname + ".jpg",
 									true, new AjaxCallBack() {
 
 										public void onLoading(long count,
@@ -187,7 +188,7 @@ public class ImagePagerActivity extends FragmentActivity implements
 											try {
 												wallpaperManager
 														.setBitmap(BitmapFactory
-																.decodeFile("/mnt/sdcard/hmyg/"
+																.decodeFile(Environment.getExternalStorageDirectory().getPath()
 																		+ picname
 																		+ ".jpg"));
 												Toast.makeText(

@@ -7,7 +7,6 @@
 
 
     <RadioGroup
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y16"
         android:layout_alignParentBottom="true"

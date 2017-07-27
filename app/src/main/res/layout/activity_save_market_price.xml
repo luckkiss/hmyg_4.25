@@ -9,7 +9,6 @@
     tools:context="com.hldj.hmyg.saler.SaveSeedlingActivity">
 
     <RelativeLayout
-        android:id="@+id/id_rl_top"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/y34"
         android:background="@color/white" >

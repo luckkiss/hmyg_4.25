@@ -51,7 +51,6 @@
         </RelativeLayout>
 
         <ImageView
-            android:id="@+id/iv_line"
             android:layout_width="match_parent"
             android:layout_height="1.0dip"
             android:background="@drawable/line_bak" />

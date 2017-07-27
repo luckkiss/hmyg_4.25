@@ -23,7 +23,6 @@
     </Button>
 
     <Button
-        android:id="@+id/common_titlebar_cancelBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -69,7 +68,6 @@
     </TextView>
 
     <Button
-        android:id="@+id/common_titlebar_right_iv_btn"
         style="@style/titlebar_rightib"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"

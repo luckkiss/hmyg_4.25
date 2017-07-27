@@ -10,7 +10,6 @@
         android:orientation="vertical" >
 
         <RelativeLayout
-            android:id="@+id/id_rl_head"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y34"
             android:background="@color/white" >
@@ -59,7 +58,6 @@
         </RelativeLayout>
 
         <ImageView
-            android:id="@+id/iv_line"
             android:layout_width="match_parent"
             android:layout_height="1.0dip"
             android:background="@drawable/line_bak" />
@@ -82,7 +80,6 @@
             android:background="@drawable/ic_shopping_cart_empty" />
 
         <TextView
-            android:id="@+id/id_rl_cart_is_empty_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/id_rl_cart_is_empty_image"
@@ -165,7 +162,6 @@
                     android:textSize="13sp" />
 
                 <TextView
-                    android:id="@+id/tvPostPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"

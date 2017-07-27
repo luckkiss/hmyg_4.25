@@ -91,7 +91,6 @@
     <View style="@style/View_line_gray_1dp" />
 
     <com.zzy.common.widget.MeasureGridView
-        android:id="@+id/gv_show_images"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="5dip"

@@ -137,7 +137,6 @@
         app:enablePullUp="true">
 
         <ScrollView
-            android:id="@+id/sc_dad"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@color/gray_bg">
@@ -148,7 +147,6 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/LinearLayout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -171,7 +169,6 @@
                     <!--ImageView的android:adjustViewBounds属性为是否保持原图的长宽比，单独设置不起作用，需要配合maxWidth或maxHeight一起使用。-->
 
                     <LinearLayout
-                        android:id="@+id/LinearLayout2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
@@ -526,7 +523,6 @@
                                         android:layout_weight="1">
 
                                         <LinearLayout
-                                            android:id="@+id/ll_type"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerHorizontal="true"
