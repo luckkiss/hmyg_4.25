@@ -134,7 +134,6 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
         getView(R.id.tv_b_filter).setOnClickListener(v -> {
             SellectActivity2.start2Activity(this, queryBean);
             setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "0");
-
         });
 
         getView(R.id.iv_view_type).setOnClickListener(v -> {

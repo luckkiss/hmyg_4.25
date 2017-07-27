@@ -38,7 +38,10 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 import static com.hldj.hmyg.util.ConstantState.FILTER_OK;
 
-public class SellectActivity2 extends NeedSwipeBackActivity {
+/**
+ * 备份  需要修改成  老总要的模式
+ */
+public class SellectActivity2_bak2_7_27 extends NeedSwipeBackActivity {
     MaterialDialog mMaterialDialog;
     private static String type01 = ""; // planted,
 
@@ -171,7 +174,7 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
                 danwei_ids.add(specList.get(i).getValue());
             }
             if (danwei_names.size() > 0) {
-                SaveSeedlingPresenter.initAutoLayout2(mFlowLayout2, specList, -1, SellectActivity2.this, (view, position, parent) ->
+                SaveSeedlingPresenter.initAutoLayout2(mFlowLayout2, specList, -1, SellectActivity2_bak2_7_27.this, (view, position, parent) ->
                         {
 //                            D.e("==view被点击了===" + view.isSelected());
 //                            D.e("==parent被点击了===" + parent.isSelected());
@@ -216,7 +219,7 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
             }
 
             if (planttype_names.size() > 0) {
-                SaveSeedlingPresenter.initAutoLayout2(mFlowLayout3, plantTypeList, -1, SellectActivity2.this, (view, position, parent) -> false);
+                SaveSeedlingPresenter.initAutoLayout2(mFlowLayout3, plantTypeList, -1, SellectActivity2_bak2_7_27.this, (view, position, parent) -> false);
                 mFlowLayout3.setMaxSelectCount(planttype_ids.size());
 
                 int[] pos = new int[planttype_ids.size()];
@@ -334,9 +337,9 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
 
                                     @Override
                                     public void onProvinceSelect(CityGsonBean.ChildBeans childBeans) {
-                                        SellectActivity2.childBeans = childBeans;
+                                        SellectActivity2_bak2_7_27.childBeans = childBeans;
                                         D.e("=选择  地区==" + childBeans.toString());
-                                        tv_area.setText(SellectActivity2.childBeans.name);
+                                        tv_area.setText(SellectActivity2_bak2_7_27.childBeans.name);
                                     }
                                 }).show(getSupportFragmentManager(), "SellectActivity2");
 
@@ -492,7 +495,7 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
     }
 
     public static void start2Activity(Activity context, QueryBean queryBean) {
-        Intent intent = new Intent(context, SellectActivity2.class);
+        Intent intent = new Intent(context, SellectActivity2_bak2_7_27.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("queryBean", queryBean);
         intent.putExtras(bundle);

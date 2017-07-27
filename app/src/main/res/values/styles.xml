@@ -112,6 +112,7 @@
 
 
     <style name="FullScreenTheme" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
+        <item name="android:windowBackground">@drawable/ic_splash_3_0</item>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
 
     </style>

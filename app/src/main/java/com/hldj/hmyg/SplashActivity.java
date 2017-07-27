@@ -25,7 +25,7 @@ public class SplashActivity extends FragmentActivity {
 
     private ImageView img_sp;
     //    private FinalBitmap fb;
-    private long delayMillis = 1500;
+    private long delayMillis = 0;
     public Editor e;
 
 
@@ -33,7 +33,7 @@ public class SplashActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        fb = FinalBitmap.create(this);
-        setContentView(R.layout.activity_splash);
+//        setContentView(R.layout.activity_splash);
 
 //        ToastUtil.showShortToast("hellow world");
         boolean test = false;
@@ -42,6 +42,7 @@ public class SplashActivity extends FragmentActivity {
         if (test) {
             CustomDialog dialog = new CustomDialog(SplashActivity.this, R.style.Dialog);
             dialog.show();
+
             return;
         }
 
@@ -82,7 +83,7 @@ public class SplashActivity extends FragmentActivity {
     int i = 0;
 
     private void start2Main() {
-        Observable.timer(delayMillis, TimeUnit.MICROSECONDS)
+        Observable.timer(delayMillis, TimeUnit.MILLISECONDS)
                 .subscribe(delay -> {
                     Intent toMainActivity = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(toMainActivity);
