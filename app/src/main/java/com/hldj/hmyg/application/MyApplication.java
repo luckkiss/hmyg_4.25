@@ -97,9 +97,9 @@ public class MyApplication extends Application {
         D.e("=========本手机分辨率========" + "width=" + ScreenUtil.getScreenWidth(this) + "  height=" + ScreenUtil.getScreenHeight(this));
         // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
         // 调试时，将第三个参数改为true
-        Bugly.setIsDevelopmentDevice(this, true);
+        Bugly.setIsDevelopmentDevice(this, GetServerUrl.isTest);
         //设置为开发设备
-        CrashReport.setIsDevelopmentDevice(this, false);
+        CrashReport.setIsDevelopmentDevice(this, GetServerUrl.isTest);
         Bugly.init(this, "be88780120", true);
         CrashReport.setUserId(this, "17074990702");
 
@@ -124,7 +124,7 @@ public class MyApplication extends Application {
         Userinfo = getSharedPreferences("Userinfo", Context.MODE_PRIVATE);
         Deviceinfo = getSharedPreferences("Deviceinfo", Context.MODE_PRIVATE);
 
-        JPushInterface.setDebugMode(true);
+        JPushInterface.setDebugMode(GetServerUrl.isTest);
         JPushInterface.init(this);
         initImageLoader(getApplicationContext());
         createSDCardDir(getApplicationContext());

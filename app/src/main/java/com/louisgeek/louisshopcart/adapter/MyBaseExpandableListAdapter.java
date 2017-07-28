@@ -1,21 +1,5 @@
 package com.louisgeek.louisshopcart.adapter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import me.drakeet.materialdialog.MaterialDialog;
-
-import net.tsz.afinal.FinalBitmap;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -41,19 +25,34 @@ import com.dyr.custom.GetValidatePriceCustomDialog2;
 import com.google.gson.Gson;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.preSaveForCart;
 import com.hldj.hmyg.bean.saveForCart;
 import com.hldj.hmyg.bean.validateApply;
 import com.hldj.hmyg.buyer.ArithUtil;
-import com.hldj.hmyg.buyer.CheckOutValidateActivity;
-import com.hldj.hmyg.buyer.SaveForCartActivity;
 import com.hldj.hmyg.buyer.SerializableMaplist;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.louisgeek.louisshopcart.bean.GoodsBean;
 import com.louisgeek.louisshopcart.bean.StoreBean;
+
+import net.tsz.afinal.FinalBitmap;
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import me.drakeet.materialdialog.MaterialDialog;
 
 /**
  * Created by louisgeek on 2016/4/27.
@@ -546,9 +545,7 @@ public class MyBaseExpandableListAdapter extends BaseExpandableListAdapter {
         // 原价是多少
         // childViewHolder.id_tv_price.getPaint().setFlags(
         // Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并抗锯齿
-        childViewHolder.id_tv_discount_price
-                .setText(String.format(context.getString(R.string.price),
-                        goodsBean.getDiscountPrice()));
+        childViewHolder.id_tv_discount_price  .setText(String.format(context.getString(R.string.price),  goodsBean.getDiscountPrice()+""));
 
         childViewHolder.tv_items_child_desc.setText(String.valueOf(goodsBean
                 .getDesc()));
@@ -561,7 +558,7 @@ public class MyBaseExpandableListAdapter extends BaseExpandableListAdapter {
         double priceNow = ArithUtil.mul(goodsBean.getDiscountPrice(),
                 goodsBean.getCount());// 小结
         childViewHolder.id_tv_price_now.setText(String.format(
-                context.getString(R.string.price), priceNow));
+                context.getString(R.string.price), priceNow+""));
         childViewHolder.id_tv_des_now.setText(goodsBean.getDesc());
 
         childViewHolder.id_cb_select_child.setChecked(goodsBean.isChecked());
@@ -650,7 +647,7 @@ public class MyBaseExpandableListAdapter extends BaseExpandableListAdapter {
                         }
 
                         if (itemDatas.size() <= 0) {
-                            Toast.makeText(context, "请勾选需要操作的苗源", 1).show();
+                            Toast.makeText(context, "请勾选需要操作的苗源",Toast.LENGTH_SHORT ).show();
                             return;
                         }
 
@@ -1477,8 +1474,7 @@ public class MyBaseExpandableListAdapter extends BaseExpandableListAdapter {
                                         && childMapList_list_tocheck.size() > 0
                                         && (parentMapList_tocheck.size() == childMapList_list_tocheck
                                         .size())) {
-                                    Intent intent = new Intent(context,
-                                            CheckOutValidateActivity.class);
+                                    Intent intent = new Intent(context,  Eactivity3_0.class);
                                     Bundle bundleObject = new Bundle();
                                     final SerializableMaplist myMap = new SerializableMaplist();
                                     myMap.setMap(parentMapList_tocheck);
@@ -1544,7 +1540,7 @@ public class MyBaseExpandableListAdapter extends BaseExpandableListAdapter {
                             if ("1".equals(code) && !jsonObject.isNull("data")) {
                                 // 传递值到下单页面
                                 Intent intent = new Intent(context,
-                                        SaveForCartActivity.class);
+                                        Eactivity3_0.class);
                                 intent.putExtra("str_SaveForCart",
                                         str_SaveForCart);
                                 intent.putExtra("str_itemData", str_itemData);

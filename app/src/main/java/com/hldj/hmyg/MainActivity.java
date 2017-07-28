@@ -107,6 +107,8 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+//        String str = null ;
+//        D.e("======="+ str.toString() );
 
 //        ToastUtil.showShortToast("heheda  更新包");
 

@@ -1,16 +1,5 @@
 package com.hldj.hmyg.saler;
 
-import java.util.HashMap;
-import java.util.List;
-
-import net.tsz.afinal.FinalBitmap;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -35,12 +24,21 @@ import com.dyr.custom.MyDialog;
 import com.dyr.custom.MyDialog.Dialogcallback;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.Data;
-import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.buyer.ArithUtil;
 import com.hldj.hmyg.buyer.BuyOrderBean;
-import com.hldj.hmyg.buyer.ShopAdapter.onNeedRefreshListener;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+
+import net.tsz.afinal.FinalBitmap;
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.List;
 
 @SuppressLint("HandlerLeak")
 public class SalerOrderAdapter extends BaseAdapter {

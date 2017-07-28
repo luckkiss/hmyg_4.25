@@ -149,6 +149,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
             @Override
             public void rightOnClick() {
+                //消息
                 MessageListActivity.start2Activity(mActivity);
             }
         });

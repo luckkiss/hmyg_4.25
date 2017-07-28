@@ -1,18 +1,5 @@
 package com.hldj.hmyg.buyer;
 
-import info.hoang8f.android.segmented.SegmentedGroup;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,7 +10,6 @@ import android.text.Html;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +29,6 @@ import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.barryzhang.temptyview.TViewUtil;
-import com.hldj.hmyg.BActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.PermissionUtils;
 import com.hldj.hmyg.bean.Pic;
@@ -57,6 +42,19 @@ import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ValueGetInfo;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.zf.iosdialog.widget.AlertDialog;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import info.hoang8f.android.segmented.SegmentedGroup;
 
 public class PurchaseDemandItem4BuyActivity extends Activity implements
 		OnCheckedChangeListener, OnGoodsCheckedChangeListener, OnClickListener {
@@ -215,8 +213,7 @@ public class PurchaseDemandItem4BuyActivity extends Activity implements
 					@Override
 					public void onSuccess(Object t) {
 						// TODO Auto-generated method stub
-						Log.e("admin/buyer/purchaseDemandItem/initData",
-								t.toString());
+						Log.e("admin/buyer/purch", t.toString());
 						try {
 							JSONObject jsonObject = new JSONObject(t.toString());
 							String code = JsonGetInfo.getJsonString(jsonObject,

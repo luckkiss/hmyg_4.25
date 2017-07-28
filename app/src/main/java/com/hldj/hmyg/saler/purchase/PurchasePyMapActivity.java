@@ -14,7 +14,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -58,9 +57,6 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.CommonPopupWindow;
 import com.hldj.hmyg.base.GlobBaseAdapter;
-import com.hldj.hmyg.broker.SeedlingMarketSearchActivity;
-import com.hldj.hmyg.broker.SellectMarketPriceActivity;
-import com.hldj.hmyg.broker.bean.SellectPrice;
 import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
 import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment1;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
@@ -101,7 +97,6 @@ import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 import me.drakeet.materialdialog.MaterialDialog;
 import me.kaede.tagview.OnTagDeleteListener;
-import me.kaede.tagview.Tag;
 import me.kaede.tagview.TagView;
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
@@ -144,7 +139,6 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
     private WheelView mViewDistrict;
     private TagView tagView;
     MaterialDialog mMaterialDialog;
-    private SellectPrice sellectPrice;
     private String[] keySort = new String[]{"A", "B", "C", "D", "E", "F",
             "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
             "T", "U", "V", "W", "X", "Y", "Z"};
@@ -218,7 +212,6 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
         characterParser = CharacterParser.getInstance();
         pinyinComparator = new PinyinComparatorSubscribe();
         mMaterialDialog = new MaterialDialog(this);
-        sellectPrice = new SellectPrice();
         ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
         TextView id_tv_edit_all = (TextView) findViewById(R.id.id_tv_edit_all);
         rl_choose_type = (RelativeLayout) findViewById(R.id.rl_choose_type);
@@ -301,10 +294,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     if (et_search.getText().toString().length() != 0) {
 
-                        Intent intent = new Intent(PurchasePyMapActivity.this,
-                                SeedlingMarketSearchActivity.class);
-                        intent.putExtra("name", et_search.getText().toString());
-                        startActivity(intent);
+
                     }
 
                 }
@@ -556,15 +546,6 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                         }
                         onRefresh();
                         break;
-                    case R.id.RelativeLayout2:
-                        Intent toSellectActivity = new Intent(
-                                PurchasePyMapActivity.this,
-                                SellectMarketPriceActivity.class);
-                        toSellectActivity.putExtra("sellectPrice", sellectPrice);
-                        startActivityForResult(toSellectActivity, 1);
-                        overridePendingTransition(R.anim.slide_in_left,
-                                R.anim.slide_out_right);
-                        break;
 
                     case R.id.id_tv_edit_all:
                         D.e("订阅 与 分享");
@@ -663,95 +644,6 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
             onRefresh();
         } else if (resultCode == 8) {
             onRefresh();
-        } else if (resultCode == 16) {
-            if (data.getExtras() != null) {
-                Bundle extras = data.getExtras();
-                sellectPrice = (SellectPrice) extras.get("sellectPrice");
-                List<Tag> tags = tagView.getTags();
-                for (int i = 0; i < tags.size(); i++) {
-                    Log.e("List<Tag> tags", "tagView" + i);
-                    tagView.remove(i);
-                    // if (tags.get(i).id == 1 || tags.get(i).id == 2
-                    // || tags.get(i).id == 3 || tags.get(i).id == 4
-                    // || tags.get(i).id == 5 || tags.get(i).id == 6
-                    // || tags.get(i).id == 7) {
-                    // tagView.remove(i);
-                    // }
-                }
-                if (!"".equals(sellectPrice.getName())) {
-                    me.kaede.tagview.Tag tag = new me.kaede.tagview.Tag("品名："
-                            + sellectPrice.getName());
-                    tag.layoutColor = getResources().getColor(
-                            R.color.main_color);
-                    tag.isDeletable = true;
-                    tag.id = 1;
-                    tagView.addTag(tag);
-                }
-                if (!"".equals(sellectPrice.getDiameter())) {
-                    me.kaede.tagview.Tag tag = new me.kaede.tagview.Tag("地径："
-                            + sellectPrice.getDiameter());
-                    tag.layoutColor = getResources().getColor(
-                            R.color.main_color);
-                    tag.isDeletable = true;
-                    tag.id = 2;
-                    tagView.addTag(tag);
-                }
-                if (!"".equals(sellectPrice.getDbh())) {
-                    me.kaede.tagview.Tag tag = new me.kaede.tagview.Tag("规格："
-                            + sellectPrice.getDbh());
-                    tag.layoutColor = getResources().getColor(
-                            R.color.main_color);
-                    tag.isDeletable = true;
-                    tag.id = 3;
-                    tagView.addTag(tag);
-                }
-                if (!"".equals(sellectPrice.getCityName())) {
-                    me.kaede.tagview.Tag tag = new me.kaede.tagview.Tag("区域："
-                            + sellectPrice.getCityName());
-                    tag.layoutColor = getResources().getColor(
-                            R.color.main_color);
-                    tag.isDeletable = true;
-                    tag.id = 4;
-                    tagView.addTag(tag);
-                }
-                if (!"".equals(sellectPrice.getPlantType())) {
-                    me.kaede.tagview.Tag tag = new me.kaede.tagview.Tag(
-                            sellectPrice.getPlantTypeName());
-                    tag.layoutColor = getResources().getColor(
-                            R.color.main_color);
-                    tag.isDeletable = true;
-                    tag.id = 5;
-                    tagView.addTag(tag);
-                }
-                if (!"".equals(sellectPrice.getQualityType())) {
-                    me.kaede.tagview.Tag tag = new me.kaede.tagview.Tag(
-                            sellectPrice.getQualityTypeName());
-                    tag.layoutColor = getResources().getColor(
-                            R.color.main_color);
-                    tag.isDeletable = true;
-                    tag.id = 6;
-                    tagView.addTag(tag);
-                }
-                if (!"".equals(sellectPrice.getQualityGrade())) {
-                    me.kaede.tagview.Tag tag = new me.kaede.tagview.Tag(
-                            sellectPrice.getQualityGradeName());
-                    tag.layoutColor = getResources().getColor(
-                            R.color.main_color);
-                    tag.isDeletable = true;
-                    tag.id = 7; // 1 品名 2.规格 3.地径 4.区域 5.种植类型 6.品质 7.等级
-                    tagView.addTag(tag);
-                }
-
-            }
-            onRefresh();
-        } else if (resultCode == 18) {
-            Intent toSellectActivity = new Intent(PurchasePyMapActivity.this,
-                    SellectMarketPriceActivity.class);
-            sellectPrice = new SellectPrice();
-            toSellectActivity.putExtra("sellectPrice", sellectPrice);
-            startActivityForResult(toSellectActivity, 1);
-            overridePendingTransition(R.anim.slide_in_left,
-                    R.anim.slide_out_right);
         }
 
         super.onActivityResult(requestCode, resultCode, data);

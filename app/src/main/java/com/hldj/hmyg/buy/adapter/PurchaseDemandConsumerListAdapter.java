@@ -1,7 +1,5 @@
 package com.hldj.hmyg.buy.adapter;
 
-import java.util.ArrayList;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -15,10 +13,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hldj.hmyg.BrokerActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.buy.bean.PurchaseDemandConsumer;
 import com.hldj.hmyg.buyer.PurchaseDemandListActivity;
+
+import java.util.ArrayList;
 
 /**
  * 

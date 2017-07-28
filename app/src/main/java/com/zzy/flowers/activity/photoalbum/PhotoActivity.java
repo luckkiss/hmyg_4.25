@@ -19,8 +19,6 @@ import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Pic;
-import com.hldj.hmyg.broker.AddCarActivity;
-import com.hldj.hmyg.broker.SaveMarketPriceActivity;
 import com.hldj.hmyg.jimiao.SaveMiaoActivity;
 import com.hldj.hmyg.saler.ChoosePhotoGalleryActivity;
 import com.hldj.hmyg.saler.CoreActivity;
@@ -355,12 +353,7 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
         if (SaveMiaoActivity.instance != null) {
             SaveMiaoActivity.instance.addPicUrls(resultPathList);
         }
-        if (SaveMarketPriceActivity.instance != null) {
-            SaveMarketPriceActivity.instance.addPicUrls(resultPathList);
-        }
-        if (AddCarActivity.instance != null) {
-            AddCarActivity.instance.addPicUrls(resultPathList);
-        }
+
         if (UpdataImageActivity_bak.instance != null)
         {
             UpdataImageActivity_bak.instance.addPicUrls(resultPathList);

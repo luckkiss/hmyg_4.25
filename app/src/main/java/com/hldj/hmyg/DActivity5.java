@@ -1,31 +1,13 @@
 package com.hldj.hmyg;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
@@ -36,14 +18,27 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hldj.hmyg.application.MyApplication;
-import com.hldj.hmyg.buyer.BuyOrderActivity2;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.louisgeek.louisshopcart.adapter.MyBaseExpandableListAdapter;
 import com.louisgeek.louisshopcart.adapter.MyBaseExpandableListAdapter.onNeedChangeNum;
 import com.louisgeek.louisshopcart.bean.GoodsBean;
 import com.louisgeek.louisshopcart.bean.StoreBean;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 public class DActivity5 extends SwipeBackActivity implements OnClickListener,
 		onNeedChangeNum {
@@ -253,14 +248,14 @@ public class DActivity5 extends SwipeBackActivity implements OnClickListener,
 
 						if ("admin/cart/order/list".equals(post_url)) {
 							id_tv_totalPrice.setText(String.format(
-									getString(R.string.total), totalPrice));
+									getString(R.string.total), totalPrice+""));
 							id_tv_totalCount_jiesuan.setText(String.format(
-									getString(R.string.xiadan), totalCount));
+									getString(R.string.xiadan), totalCount+""));
 						} else if ("admin/cart/validate/list".equals(post_url)) {
 							id_tv_totalPrice.setText(String.format(
-									getString(R.string.total), totalPrice));
+									getString(R.string.total), totalPrice+""));
 							id_tv_totalCount_jiesuan.setText(String.format(
-									getString(R.string.yanmiao), totalCount));
+									getString(R.string.yanmiao), totalCount+""));
 						}
 
 					}

@@ -1,21 +1,5 @@
 package com.hldj.hmyg;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-
-import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
-import me.maxwin.view.XListView;
-import me.maxwin.view.XListView.IXListViewListener;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,11 +13,25 @@ import android.widget.Toast;
 import com.barryzhang.temptyview.TViewUtil;
 import com.hldj.hmyg.adapter.BrokerListAdapter;
 import com.hldj.hmyg.application.Data;
-import com.hldj.hmyg.application.MyApplication;
-import com.hldj.hmyg.buyer.BuyOrderActivity2;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.zzy.flowers.widget.popwin.EditP2;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+import me.maxwin.view.XListView;
+import me.maxwin.view.XListView.IXListViewListener;
 
 public class BrokerListActivity extends NeedSwipeBackActivity implements
 		IXListViewListener {

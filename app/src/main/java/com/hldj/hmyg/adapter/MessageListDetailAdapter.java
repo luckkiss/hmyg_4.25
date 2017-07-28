@@ -1,7 +1,5 @@
 package com.hldj.hmyg.adapter;
 
-import java.util.ArrayList;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -16,20 +14,17 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.hldj.hmyg.BActivity;
 import com.hldj.hmyg.BrokerListActivity;
-import com.hldj.hmyg.BrokerOrderListActivity;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Message;
-import com.hldj.hmyg.buyer.BuyOrderActivity2;
-import com.hldj.hmyg.buyer.BuyerOrderDetailActivity;
-import com.hldj.hmyg.buyer.BuyerValidateApplyActivity;
 import com.hldj.hmyg.buyer.LoadCarListActivity2;
 import com.hldj.hmyg.buyer.ManagerPurchaseActivity;
 import com.hldj.hmyg.saler.ManagerQuoteListActivity;
 import com.hldj.hmyg.saler.OrderDetailActivity;
 import com.hldj.hmyg.saler.ValidateDetailActivity;
+
+import java.util.ArrayList;
 
 @SuppressLint("ResourceAsColor")
 public class MessageListDetailAdapter extends BaseAdapter {
@@ -121,16 +116,9 @@ public class MessageListDetailAdapter extends BaseAdapter {
 
 				if ("buyer".equals(data.get(position).getTargetUserType())) {
 					// 验苗申请受理，跳转到验苗申请的“验苗中”列表
-					if ("validateSeedling".equals(data.get(position)
-							.getContentType())) {
-						Intent validateSeedling = new Intent(context,
-								BuyerValidateApplyActivity.class);
-						validateSeedling.putExtra("acceptStatus", "verifing");
-						validateSeedling.putExtra("loadItems", true);
-						context.startActivity(validateSeedling);
-					}
+
 					// 经纪提交验苗结果，跳转到验苗申请详情
-					else if ("validateResultAudit".equals(data.get(position)
+					  if ("validateResultAudit".equals(data.get(position)
 							.getContentType())) {
 						Intent toValidateDetailActivity = new Intent(context,
 								ValidateDetailActivity.class);
@@ -151,15 +139,7 @@ public class MessageListDetailAdapter extends BaseAdapter {
 						sendLoadCar.putExtra("loadItems", true);
 						context.startActivity(sendLoadCar);
 					}
-					// 退货申请，跳转到订单详情
-					else if ("orderReturn".equals(data.get(position)
-							.getContentType())) {
-						Intent orderReturn = new Intent(context,
-								BuyerOrderDetailActivity.class);
-						orderReturn.putExtra("id", data.get(position)
-								.getSourceId());
-						context.startActivity(orderReturn);
-					}
+
 					// 审核采购单，跳转到采购详情
 					else if ("auditPurchase".equals(data.get(position)
 							.getContentType())) {
@@ -170,26 +150,8 @@ public class MessageListDetailAdapter extends BaseAdapter {
 						((Activity) context).overridePendingTransition(
 								R.anim.slide_in_left, R.anim.slide_out_right);
 					}
-					// 卖家修改了订单价格修改，跳转到订单详情
-					else if ("orderEditPrice".equals(data.get(position)
-							.getContentType())) {
-						Intent orderEditPrice = new Intent(context,
-								BuyerOrderDetailActivity.class);
-						orderEditPrice.putExtra("id", data.get(position)
-								.getSourceId());
-						context.startActivity(orderEditPrice);
-					}
-					// 买家线下付款，客服确认收款，跳转到订单“待收货”
-					else if ("orderAssurePay".equals(data.get(position)
-							.getContentType())) {
-						Intent orderAssurePay = new Intent(context,
-								BuyOrderActivity2.class);
-						orderAssurePay.putExtra("status", "unreceipt");
-						orderAssurePay.putExtra("loadItems", false);
-						context.startActivity(orderAssurePay);
-						((Activity) context).overridePendingTransition(
-								R.anim.slide_in_left, R.anim.slide_out_right);
-					}
+
+
 				}
 				// 卖家
 				else if ("seller"
@@ -209,14 +171,7 @@ public class MessageListDetailAdapter extends BaseAdapter {
 						seedlingAudit.putExtra("show_type", "manage_list");
 						context.startActivity(seedlingAudit);
 					}
-					// 苗木资源清场推荐，跳转到苗木商城
-					else if ("seedlingSpecialRecommend".equals(data.get(
-							position).getContentType())) {
-						Intent seedlingSpecialRecommend = new Intent(context,
-								BActivity.class);
-						seedlingSpecialRecommend.putExtra("from", "context");
-						context.startActivity(seedlingSpecialRecommend);
-					}
+
 					// 审核报价，跳转到报价详情
 					else if ("auditQuote".equals(data.get(position)
 							.getContentType())) {
@@ -302,17 +257,7 @@ public class MessageListDetailAdapter extends BaseAdapter {
 						validateResultAudit.putExtra("tag", "broker");
 						context.startActivity(validateResultAudit);
 					}
-					// 客服创建发货单，跳转到订单发货详情
-					else if ("createDelivery".equals(data.get(position)
-							.getContentType())) {
-						// url = adminPath + "/agent/sendGoods/detail/" +
-						// sourceId
-						// + ".html";
-						Intent createDelivery = new Intent(context,
-								BrokerOrderListActivity.class);
-						createDelivery.putExtra("status", "unsend");
-						context.startActivity(createDelivery);
-					}
+
 				}
 
 			}

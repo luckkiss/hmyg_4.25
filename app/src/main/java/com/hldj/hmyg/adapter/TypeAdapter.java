@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hldj.hmyg.BActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Type;
 import com.hldj.hmyg.util.D;
@@ -92,7 +91,7 @@ public class TypeAdapter extends BaseAdapter {
 //						R.anim.slide_in_left, R.anim.slide_out_right);
                 D.e("======"+item.getId());
                 D.e("======"+item.getName());
-                BActivity.start2Activity(context, item.getId(), item.getName());
+//                BActivity_new_test.start2Activity(context, item.getId(), item.getName());
             }
         });
 

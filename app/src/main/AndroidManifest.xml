@@ -187,10 +187,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
-        <activity
-            android:name="com.hldj.hmyg.AActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.AActivity_3_0"
             android:launchMode="singleTask"
@@ -207,9 +204,7 @@
             android:name="com.hldj.hmyg.BActivity_new_test"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="com.hldj.hmyg.BActivity"
-            android:screenOrientation="portrait"></activity>
+
 
 
         <activity
@@ -220,10 +215,7 @@
             android:name="com.hldj.hmyg.SeedlingMarketWebActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.WeituoActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.DActivity"
             android:launchMode="singleTask"
@@ -263,9 +255,7 @@
             android:name="com.hldj.hmyg.DActivity5"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.EActivity"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name=".Ui.Eactivity3_0"
             android:screenOrientation="portrait" />
@@ -326,14 +316,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.hldj.hmyg.MessageListDetailActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.SaveForCartActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+
+
         <activity
             android:name="com.hldj.hmyg.buyer.SavePurchaseActivity"
             android:screenOrientation="portrait"></activity>
@@ -355,12 +339,8 @@
         <activity
             android:name="com.hldj.hmyg.buyer.SaveReceipptActivity"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.CheckOrderActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.CheckOutValidateActivity"
-            android:screenOrientation="portrait"></activity>
+
+
         <activity
             android:name="com.hldj.hmyg.buyer.ManagerPurchaseListActivity"
             android:screenOrientation="portrait"></activity>
@@ -412,14 +392,7 @@
         <activity
             android:name="com.hldj.hmyg.SetPhoneByGetCodeActivity"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.BuyerActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.SalerActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.ThematicActivity"
             android:launchMode="singleTask"
@@ -526,10 +499,7 @@
         <activity
             android:name="com.hldj.hmyg.saler.AdressActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="com.hldj.hmyg.saler.SalerOrderActivity2"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.saler.OrderDetailActivity"
             android:launchMode="singleTask"
@@ -549,19 +519,12 @@
         <activity
             android:name="com.hldj.hmyg.saler.StorageSaveActivity"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.saler.purchaseconfirmlist.PurchaseConfirmListActivity"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.saler.purchaseconfirmlist.ConfirmWebActivity"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.saler.purchaseconfirmlist.SellectForPurchaseConfirmActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.BrokerActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+
+
         <activity
             android:name="com.hldj.hmyg.BrokerListActivity"
             android:launchMode="singleTask"
@@ -570,30 +533,12 @@
             android:name="com.hldj.hmyg.BrokerListDetailActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.BrokerOrderListActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.BrokerOrderDetailActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.BrokerSendProductsActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.BrokerSendCarDetailActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.BuyerValidateApplyListActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.BuyerValidateApplyActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.buyer.SettingBuyConfigActivity"
             android:launchMode="singleTask"
@@ -606,14 +551,8 @@
             android:name="com.hldj.hmyg.BuyOrderActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.BuyOrderActivity2"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.BuyerOrderDetailActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+
+
         <activity
             android:name="com.hldj.hmyg.buyer.LoadCarListActivity"
             android:launchMode="singleTask"
@@ -635,48 +574,7 @@
         <activity
             android:name="com.hldj.hmyg.buyer.AddReceiptAdressActivity"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.broker.AddCarActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.broker.AddReceiptActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.broker.ChooseReceptListActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.broker.SaveChooseReceptListActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.broker.SaveMarketPriceActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.broker.SellectMarketPriceActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.broker.SubscribeSearchList4MarketPriceActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.broker.MarketListActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.broker.MyMarketListActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.broker.MarketDetailActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.broker.BrokerYanmiaoOrderActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.broker.SearchAgent4TransferValidateApplyAActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.broker.SeedlingMarketPyMapActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.broker.SeedlingMarketSearchActivity"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.ManagerListActivity"
             android:screenOrientation="portrait"></activity>
@@ -860,15 +758,8 @@
             android:name="com.hldj.hmyg.MapSearchListActivity"
             android:screenOrientation="portrait"></activity>
 
-        <activity
-            android:name="com.unionpay.uppay.PayActivity"
-            android:configChanges="orientation|keyboardHidden|keyboard"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.unionpay.UPPayWapActivity"
-            android:configChanges="orientation|keyboardHidden|fontScale"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"></activity>
+
+
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
