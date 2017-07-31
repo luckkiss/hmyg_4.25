@@ -47,7 +47,7 @@ android {
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
-            jniLibs.srcDirs = ['jniLibs']
+            jniLibs.srcDirs = ['src/main/jniLibs']
             res.srcDirs =
                     [
                             'src/main/res/layouts/activitys',
@@ -177,6 +177,5 @@ dependencies {
     /*  rxjava库*/
     compile 'cn.fanrunqi:swipelayoutlibrary:1.0.1'
     compile 'com.miomin:shswiperefreshlayout:1.3.0'
-    compile files('libs/jcore-android-1.1.6.jar')
-    compile files('libs/jpush-android-3.0.8.jar')
+
 }

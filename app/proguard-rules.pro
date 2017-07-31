@@ -200,6 +200,17 @@
 -keep class com.hldj.hmyg.model.** { *;}
 -keep class com.hldj.hmyg.saler.bean.** { *;}
 -keep class com.hldj.hmyg.saler.M.** { *;}
+-keepattributes Exceptions,InnerClasses,...
+-keep class com.hldj.hmyg.SellectActivity2$* {
+       * ;
+}
+
+
+#-keepattributes Exceptions,InnerClasses,...
+#-keep class com.xxx.A{ *; }
+#-keep class com.xxx.A$B { *; }
+#-keep class com.xxx.A$C { *; }
+
 
 
 
