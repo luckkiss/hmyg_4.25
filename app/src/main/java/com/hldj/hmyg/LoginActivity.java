@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -104,7 +105,7 @@ public class LoginActivity extends BaseActivity {
                 LoginPresenter.getCode(MyUtil.getStrWithView(holderNote.et_phone_note), holderNote.tv_get_code_note, 20, new ResultCallBack<LoginGsonBean>() {
                     @Override
                     public void onSuccess(LoginGsonBean loginGsonBean) {
-                        D.e("======短信发送成功=========id=");
+                        D.e("======短信发送成功=========id="+loginGsonBean.toString());
                         holderNote.login_note.setSelected(true);
                         holderNote.login_note.setClickable(true);
                         //通过id 获取个人 信息 userinfo
@@ -310,11 +311,16 @@ public class LoginActivity extends BaseActivity {
     public void showNoteLogin(View view) {
         findViewById(R.id.include_login_note).setVisibility(View.VISIBLE);//短信登录显示
         findViewById(R.id.include_login_pwd).setVisibility(View.GONE);//密码登录显示
+        RadioButton button = (RadioButton) findViewById(R.id.login_rb_right);
+        button.setChecked(false);
+
     }
 
     public void showPwdLogin(View view) {
         findViewById(R.id.include_login_note).setVisibility(View.GONE);
         findViewById(R.id.include_login_pwd).setVisibility(View.VISIBLE);
+        RadioButton button = (RadioButton) findViewById(R.id.login_rb_left);
+        button.setChecked(false);
     }
 
 

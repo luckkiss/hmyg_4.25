@@ -156,12 +156,13 @@ public class PurchaseDeatilP {
 //                            ToastUtil.showShortToast(gsonBean_new.data.purchaseItem.toString());
 //                            SaveSeedingGsonBean saveSeedingGsonBean = GsonUtil.formateJson2Bean(t, SaveSeedingGsonBean.class);
                             if (gsonBean_new.isSucceed()) {
+                                if (gsonBean_new.data != null && gsonBean_new.data.purchaseItem != null) {
+                                    PurchaseItemBean_new itemBean_new = (PurchaseItemBean_new) gsonBean_new.data.purchaseItem;
+                                    Log.e("onSuccess", "onSuccess: " + gsonBean_new.data.purchaseItem + " itemBean_new= " + itemBean_new.toString());
+                                } else {
+                                    resultCallBack.onSuccess(null);
+                                }
 
-                                PurchaseItemBean_new itemBean_new = (PurchaseItemBean_new) gsonBean_new.data.purchaseItem;
-
-                                Log.e("onSuccess", "onSuccess: " + gsonBean_new.data.purchaseItem + " itemBean_new= " + itemBean_new.toString());
-
-                                resultCallBack.onSuccess(itemBean_new);
                             } else {
                                 ToastUtil.showShortToast(gsonBean_new.msg);
 //                                Toast.makeText(MyApplication.getInstance(), saveSeedingGsonBean.getMsg(), Toast.LENGTH_SHORT).show();
@@ -225,7 +226,16 @@ public class PurchaseDeatilP {
                             SimpleGsonBean_new gsonBean_new = GsonUtil.formateJson2Bean(json, beanType);
 //                            SaveSeedingGsonBean saveSeedingGsonBean = GsonUtil.formateJson2Bean(json, SaveSeedingGsonBean.class);
                             if (gsonBean_new.isSucceed()) {
-                                resultCallBack.onSuccess(gsonBean_new.data.purchaseItem);
+
+                                if (gsonBean_new.data!=null && gsonBean_new.data.purchaseItem != null) {
+                                    PurchaseItemBean_new itemBean_new = (PurchaseItemBean_new) gsonBean_new.data.purchaseItem;
+                                    Log.e("onSuccess", "onSuccess: " + gsonBean_new.data.purchaseItem + " itemBean_new= " + itemBean_new.toString());
+                                }else
+                                {
+                                    resultCallBack.onSuccess(null);
+                                }
+
+
                             } else {
                                 ToastUtil.showShortToast("删除失败" + gsonBean_new.msg);
                                 onFailure(null, -1, gsonBean_new.msg);

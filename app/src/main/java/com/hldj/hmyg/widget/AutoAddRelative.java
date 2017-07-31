@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.neopixl.pixlui.components.relativelayout.RelativeLayout;
 
@@ -319,9 +320,9 @@ public class AutoAddRelative extends RelativeLayout {
 
 
 
-    public void isShowLeft(boolean flag, TextView textView, int drawableId) {
+    public static void isShowLeft(boolean flag, TextView textView, int drawableId) {
         if (flag) {
-            Drawable drawable = getResources().getDrawable(drawableId);
+            Drawable drawable = MyApplication.getInstance().getResources().getDrawable(drawableId);
             /// 这一步必须要做,否则不会显示.
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             textView.setCompoundDrawables(drawable, null, null, null);

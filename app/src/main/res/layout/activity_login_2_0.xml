@@ -5,8 +5,6 @@
     android:orientation="vertical">
 
 
-
-
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/y26"
@@ -65,18 +63,20 @@
                     android:weightSum="2">
 
                     <RadioButton
+                        android:id="@+id/login_rb_left"
                         style="@style/login_rb"
-                        android:layout_marginLeft="@dimen/x15"
                         android:checked="false"
                         android:onClick="showNoteLogin"
-                        android:text="@string/login_note" />
+                        android:text="@string/login_note"
+                        />
 
                     <RadioButton
+                        android:id="@+id/login_rb_right"
                         style="@style/login_rb"
-                        android:layout_marginRight="@dimen/x15"
                         android:checked="true"
                         android:onClick="showPwdLogin"
-                        android:text="@string/login_pwd" />
+                        android:text="@string/login_pwd"
+                        android:layout_height="wrap_content" />
                 </RadioGroup>
             </RelativeLayout>
 

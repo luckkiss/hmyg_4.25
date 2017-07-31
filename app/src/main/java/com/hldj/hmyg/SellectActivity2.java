@@ -30,6 +30,7 @@ import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -149,8 +150,11 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
         });
     }
 
+    TypesBean.DataBean.MainSpecBean mainSpecBean;
+
     private void LoadCache(String t) {
         TypesBean typesBean = GsonUtil.formateJson2Bean(t, TypesBean.class);
+
         if (!typesBean.code.equals(ConstantState.SUCCEED_CODE)) {
             ToastUtil.showShortToast(typesBean.msg);
             return;
@@ -161,6 +165,23 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
         if (typesBean.data.specList != null) {
             initSpecList(typesBean.data.specList);
         }
+        mainSpecBean = typesBean.data.mainSpec;
+        if (GetServerUrl.isTest)
+            ToastUtil.showShortToast("text: \n" + mainSpecBean.toString());
+        this.setText(getView(R.id.tv_sa_type), typesBean.data.mainSpec.name);//地径
+
+        //必填 写 *  号
+//        AutoAddRelative.isShowLeft(mainSpecBean.required, getView(R.id.tv_sa_type), R.drawable.seller_redstar);//是否必填
+
+        /**
+         "mainSpec": {
+         "name": "地径",
+         "value": "diameter",
+         "required": true
+         },
+         */
+
+
     }
 
 
@@ -376,6 +397,8 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
 //                        } else {
 //                            intent.putExtra("cityCode", str);
 //                        }
+//
+
                         queryBean.cityCode = childBeans.cityCode;
                         String stra = "";
                         if (buffer.length() != 0) {
@@ -387,9 +410,20 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
 
                         }
                         queryBean.plantTypes = stra;
-                        queryBean.searchSpec = searchSpec;
-                        queryBean.specMinValue = et_min_guige.getText().toString();
-                        queryBean.specMaxValue = et_max_guige.getText().toString();
+
+//                        searchSpec :"diameter"     specMinValue  : 10
+
+
+//                        if (mainSpecBean.required) {
+                        if (!TextUtils.isEmpty(getText(getView(R.id.et_sa_type)))) {
+                            queryBean.searchSpec = mainSpecBean.value;
+                            queryBean.specMinValue = getText(getView(R.id.et_sa_type));
+//                                ToastUtil.showShortToast(mainSpecBean.name + " 必须填写");
+                        }
+//                        }
+//                        queryBean.searchSpec = getText(getView(R.id.et_sa_type));
+//                        queryBean.specMinValue = et_min_guige.getText().toString();
+//                        queryBean.specMaxValue = et_max_guige.getText().toString();
 
 
 //                        queryBean.minHeight = et_minHeight.getText().toString();
@@ -398,20 +432,20 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
 //                        queryBean.maxCrown = et_maxCrown.getText().toString();
 
 
-                        if (!TextUtils.isEmpty(queryBean.specMinValue) || !TextUtils.isEmpty(queryBean.specMaxValue)) {
-                            if (TextUtils.isEmpty(queryBean.searchSpec)) {
-                                ToastUtil.showShortToast("确定规格后必须选择规格");
+//                        if (!TextUtils.isEmpty(queryBean.specMinValue) || !TextUtils.isEmpty(queryBean.specMaxValue)) {
+//                            if (TextUtils.isEmpty(queryBean.searchSpec)) {
+//                                ToastUtil.showShortToast("确定规格后必须选择规格");
+//
+//                                return;
+//                            }
+//                        }
 
-                                return;
-                            }
-                        }
-
-                        if (!TextUtils.isEmpty(queryBean.searchSpec)) {
-                            if (TextUtils.isEmpty(queryBean.specMinValue) && TextUtils.isEmpty(queryBean.specMaxValue)) {
-                                ToastUtil.showShortToast("选择类型后必须填写规格");
-                                return;
-                            }
-                        }
+//                        if (!TextUtils.isEmpty(queryBean.searchSpec)) {
+//                            if (TextUtils.isEmpty(queryBean.specMinValue) && TextUtils.isEmpty(queryBean.specMaxValue)) {
+//                                ToastUtil.showShortToast("选择类型后必须填写规格");
+//                                return;
+//                            }
+//                        }
 //                        queryBean.searchKey = searchSpec;
 //                        intent.putExtra("cityName", cityName);
 //                        intent.putExtra("plantTypes", buffer.toString());
@@ -473,12 +507,31 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
 
         public DataBean data;
 
-        public static class DataBean {
+        static class DataBean {
 
             public List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> plantTypeList;
 
             public List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> specList;
+
+            MainSpecBean mainSpec = new MainSpecBean();
+
+
+            class MainSpecBean implements Serializable {
+                String name = "";
+
+                public String value = "";
+
+                public boolean required = false;
+
+                @Override
+                public String toString() {
+                    return "MainSpecBean{" + "name='" + name + '\'' + ", value='" + value + '\'' + ", required=" + required +
+                            '}';
+                }
+            }
+
         }
+
 
     }
 

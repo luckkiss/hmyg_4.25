@@ -102,6 +102,44 @@
                 android:textSize="@dimen/x13" />
         </LinearLayout>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x33"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_sa_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/x10"
+                android:text="地   区："
+                android:textSize="@dimen/x15"
+                tools:text="地径："
+                />
+
+            <EditText
+                android:id="@+id/et_sa_type"
+                android:layout_width="0.0dip"
+                android:layout_height="@dimen/x33"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="14dp"
+                android:layout_weight="1"
+                android:background="@drawable/green_btn_selector"
+                android:gravity="center"
+                android:hint="厘米"
+                android:inputType="number"
+                android:maxLength="7"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/hint_text_color"
+                android:textSize="@dimen/x15" />
+
+
+        </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/y28"
@@ -109,7 +147,9 @@
             android:background="@color/white"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/x10"
-            android:paddingRight="@dimen/x10">
+            android:paddingRight="@dimen/x10"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -181,7 +221,8 @@
             android:layout_height="@dimen/y28"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/x10"
-            android:paddingRight="@dimen/x10" android:visibility="gone">
+            android:paddingRight="@dimen/x10"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -241,7 +282,8 @@
             android:layout_height="@dimen/y28"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/x10"
-            android:paddingRight="@dimen/x10" android:visibility="gone">
+            android:paddingRight="@dimen/x10"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -302,6 +344,7 @@
             android:layout_marginTop="@dimen/x8"
             android:background="@color/white"
             android:padding="2.5dp"
+            android:visibility="gone"
             app:auto_select_effect="true"
             app:max_select="1" />
 

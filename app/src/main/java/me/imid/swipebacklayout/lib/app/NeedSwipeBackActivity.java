@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
@@ -29,8 +30,6 @@ public class NeedSwipeBackActivity extends SwipeBackBActivity {
         setSwipeBackEnable(true);
 //		}
     }
-
-
 
 
     /**
@@ -118,9 +117,16 @@ return (T) view;
     }
 
 
+    public void retry() {
 
-    public void retry(){
+    }
 
+    public void setText(TextView tv, String str) {
+        tv.setText(str);
+    }
+
+    public String getText(TextView tv) {
+        return TextUtils.isEmpty(tv.getText()) ? "" : tv.getText().toString();
     }
 
 }
