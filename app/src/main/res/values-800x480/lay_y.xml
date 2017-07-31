@@ -12,8 +12,7 @@
 <dimen name="y11">22.0px</dimen>
 <dimen name="y12">24.0px</dimen>
     <dimen name="y14">28.0px</dimen>
-<dimen name="y15">30.0px</dimen>
-<dimen name="y16">32.0px</dimen>
+    <dimen name="y16">32.0px</dimen>
 <dimen name="y17">34.0px</dimen>
 <dimen name="y18">36.0px</dimen>
     <dimen name="y20">40.0px</dimen>
@@ -26,9 +25,7 @@
     <dimen name="y28">56.0px</dimen>
     <dimen name="y30">60.0px</dimen>
 <dimen name="y31">62.0px</dimen>
-<dimen name="y32">64.0px</dimen>
     <dimen name="y34">68.0px</dimen>
-    <dimen name="y37">74.0px</dimen>
     <dimen name="y40">80.0px</dimen>
     <dimen name="y46">92.0px</dimen>
     <dimen name="y61">122.0px</dimen>
@@ -37,7 +34,6 @@
     <dimen name="y95">190.0px</dimen>
 <dimen name="y96">192.0px</dimen>
     <dimen name="y100">200.0px</dimen>
-    <dimen name="y105">210.0px</dimen>
     <dimen name="y110">220.0px</dimen>
     <dimen name="y128">256.0px</dimen>
     <dimen name="y131">262.0px</dimen>

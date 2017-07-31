@@ -216,17 +216,9 @@
             android:screenOrientation="portrait"></activity>
 
         <activity
-            android:name="com.hldj.hmyg.DActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity
             android:name="com.hldj.hmyg.DActivity_new"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="com.hldj.hmyg.DActivity2"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.buyer.DActivity3"
             android:launchMode="singleTask"
@@ -245,14 +237,6 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.buyer.PurchaseDemandItem4BuyActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.DActivity4"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.DActivity5"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
 
         <activity
@@ -319,17 +303,11 @@
             android:name=".MessageListDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hldj.hmyg.buyer.SavePurchaseActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
             android:name="com.hldj.hmyg.buyer.QuoteListActivity"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.QuoteListActivity_bak"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="com.hldj.hmyg.buyer.PurchaseListActivity"
-            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.buyer.AddPurchaseActivity"
             android:screenOrientation="portrait"></activity>
@@ -341,9 +319,6 @@
             android:screenOrientation="portrait"></activity>
 
 
-        <activity
-            android:name="com.hldj.hmyg.buyer.ManagerPurchaseListActivity"
-            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.saler.QuoteDetailActivity"
             android:screenOrientation="portrait"></activity>
@@ -505,14 +480,6 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.hldj.hmyg.saler.ManagerQuoteActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.saler.ManagerQuoteListActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
@@ -575,9 +542,6 @@
             android:name="com.hldj.hmyg.buyer.AddReceiptAdressActivity"
             android:screenOrientation="portrait"></activity>
 
-        <activity
-            android:name="com.hldj.hmyg.ManagerListActivity"
-            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.ManagerListActivity_new"
             android:screenOrientation="portrait" />

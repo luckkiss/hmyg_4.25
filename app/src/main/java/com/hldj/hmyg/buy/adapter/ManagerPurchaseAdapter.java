@@ -1,8 +1,5 @@
 package com.hldj.hmyg.buy.adapter;
 
-import java.util.ArrayList;
-
-import net.tsz.afinal.FinalBitmap;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -18,12 +15,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
-import cn.bingoogolapple.badgeview.BGABadgeViewHelper.BadgeGravity;
-
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.buy.bean.ManagerPurchase;
-import com.hldj.hmyg.buyer.ManagerPurchaseListActivity;
+import com.hldj.hmyg.buyer.ManagerPurchaseListDetailActivity;
+
+import net.tsz.afinal.FinalBitmap;
+
+import java.util.ArrayList;
+
+import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
+import cn.bingoogolapple.badgeview.BGABadgeViewHelper.BadgeGravity;
 
 /**
  * 
@@ -89,8 +90,7 @@ public class ManagerPurchaseAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
-				Intent toBActivity = new Intent(context,
-						ManagerPurchaseListActivity.class);
+				Intent toBActivity = new Intent(context, ManagerPurchaseListDetailActivity.class);
 				toBActivity.putExtra("name", data.get(position).getName());
 				toBActivity.putExtra("status", data.get(position).getStatus());
 				context.startActivity(toBActivity);

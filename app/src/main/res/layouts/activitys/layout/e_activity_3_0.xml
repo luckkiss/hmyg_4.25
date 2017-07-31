@@ -18,7 +18,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:background="@drawable/me_bg">
+            android:background="@drawable/me_bg_no_alf">
 
             <com.lqr.optionitemview.OptionItemView
                 android:id="@+id/top_bar_option"

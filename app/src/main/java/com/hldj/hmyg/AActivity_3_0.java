@@ -76,7 +76,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import aom.xingguo.huang.banner.MyFragment;
-import cn.hugo.android.scanner.CaptureActivity;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -108,7 +107,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private ImageView iv_msg;
     private DrawerLayout dl_content;
     //    private ImageView iv_home_merchants;//热门商家
-    private ImageView iv_home_preferential;
+//    private ImageView iv_home_preferential;
     private RelativeLayout relativeLayout2;//
     private PtrClassicFrameLayout mPtrFrame;
     private NestedScrollView scrollView;
@@ -145,7 +144,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //		relativeLayout2 = (RelativeLayout) findViewById(R.id.RelativeLayout2);
 //		iv_Capture = (ImageView) findViewById(iv_Capture);
 //        iv_home_merchants = (ImageView) findViewById(R.id.iv_home_merchants);
-        iv_home_preferential = (ImageView) findViewById(R.id.iv_home_preferential);
+//        iv_home_preferential = (ImageView) findViewById(R.id.iv_home_preferential);
         iv_fuwu = (ImageView) findViewById(R.id.iv_fuwu);
 //        iv_fenlei = (ImageView) findViewById(R.id.iv_fenlei);
         gd = (GridView) findViewById(R.id.gd);

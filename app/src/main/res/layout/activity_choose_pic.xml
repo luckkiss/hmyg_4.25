@@ -6,7 +6,6 @@
     android:paddingBottom="20.0dip" >
 
     <RelativeLayout
-        android:id="@+id/rl_title"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/y34"
         android:background="@color/white" >

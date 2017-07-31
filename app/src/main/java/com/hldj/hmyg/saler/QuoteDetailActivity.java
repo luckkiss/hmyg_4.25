@@ -286,8 +286,7 @@ public class QuoteDetailActivity extends BaseActivity implements
 							String msg = JsonGetInfo.getJsonString(jsonObject,
 									"msg");
 							if (!"".equals(msg)) {
-								// Toast.makeText(ManagerListActivity.this, msg,
-								// Toast.LENGTH_SHORT).show();
+
 							}
 							if ("1".equals(code)) {
 								JSONObject item = JsonGetInfo.getJSONObject(

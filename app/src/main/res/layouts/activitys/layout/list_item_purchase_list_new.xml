@@ -28,7 +28,6 @@
             android:background="@color/divider_color_bg" />
 
         <RelativeLayout
-            android:id="@+id/RelativeLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

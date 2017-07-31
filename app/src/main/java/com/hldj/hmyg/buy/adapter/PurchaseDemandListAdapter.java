@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.buy.bean.PurchaseDemand;
-import com.hldj.hmyg.buyer.ManagerPurchaseListActivity;
 import com.hldj.hmyg.buyer.PurchaseDemandItem4BuyActivity;
 import com.hldj.hmyg.buyer.PurchaseDemandItemActivity;
 import com.hy.utils.StringFormatUtil;

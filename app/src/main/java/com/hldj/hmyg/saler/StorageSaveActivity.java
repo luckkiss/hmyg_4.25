@@ -20,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.barryzhang.temptyview.TViewUtil;
-import com.cn2che.androids.swipe.OnlyListViewSwipeGesture;
 import com.google.gson.Gson;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.DaoBean.SaveJson.DaoSession;
@@ -103,10 +102,7 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
         initDao();
         initData();
 
-        final OnlyListViewSwipeGesture touchListener = new OnlyListViewSwipeGesture(
-                GroupManList, swipeListener, this);
-        touchListener.SwipeType = OnlyListViewSwipeGesture.Double; // 设置两个选项列表项的背景
-        GroupManList.setOnTouchListener(touchListener);
+
         TViewUtil.EmptyViewBuilder.getInstance(StorageSaveActivity.this)
                 .setEmptyText(getResources().getString(R.string.nodata))
                 .setEmptyTextSize(12).setEmptyTextColor(Color.GRAY)
@@ -153,49 +149,6 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
         }
     };
 
-
-    OnlyListViewSwipeGesture.TouchCallbacks swipeListener = new OnlyListViewSwipeGesture.TouchCallbacks() {
-
-        @Override
-        public void FullSwipeListView(int position) {
-            // TODO Auto-generated method stub
-            Toast.makeText(StorageSaveActivity.this, "Action_2",
-                    Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void HalfSwipeListView(int position) {
-            // TODO Auto-generated method stub
-            db.delete(DB_TABLE, "storage_save_id="
-                    + userList.get(position).getStorage_save_id(), null);
-            userList.remove(position);
-            baseAdapter.notifyDataSetChanged();
-        }
-
-        @Override
-        public void LoadDataForScroll(int count) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-            // TODO Auto-generated method stub
-            // Toast.makeText(StorageSaveActivity.this, "Delete",
-            // Toast.LENGTH_SHORT).show();
-            // for(int i:reverseSortedPositions){
-            // data.remove(i);
-            // new MyAdapter().notifyDataSetChanged();
-            // }
-        }
-
-        @Override
-        public void OnClickListView(int position) {
-            // TODO Auto-generated method stub
-
-        }
-
-    };
     private MyAdapter_now myadapter;
     private TextView id_tv_edit_all;
 

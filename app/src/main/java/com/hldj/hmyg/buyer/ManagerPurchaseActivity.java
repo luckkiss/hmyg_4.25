@@ -1,18 +1,6 @@
 package com.hldj.hmyg.buyer;
 
-import java.util.ArrayList;
-
-import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.R.integer;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,13 +8,21 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.buy.adapter.ManagerPurchaseAdapter;
-import com.hldj.hmyg.buy.adapter.ManagerQuoteAdapter;
 import com.hldj.hmyg.buy.bean.ManagerPurchase;
-import com.hldj.hmyg.saler.ManagerQuoteActivity;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 @SuppressLint("NewApi")
 public class ManagerPurchaseActivity extends NeedSwipeBackActivity implements

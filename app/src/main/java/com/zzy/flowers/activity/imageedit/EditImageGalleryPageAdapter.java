@@ -45,7 +45,7 @@ public class EditImageGalleryPageAdapter extends BaseAdapter {
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.no_image_big_show)
 //		.showImageOnLoading(R.drawable.no_image_big_show)
-                .showImageOnFail(R.drawable.no_image_big_show_2)
+                .showImageOnFail(R.drawable.no_image_big_show)
                 .bitmapConfig(Bitmap.Config.ARGB_8888)
                 .cacheOnDisc(true)
                 .build();

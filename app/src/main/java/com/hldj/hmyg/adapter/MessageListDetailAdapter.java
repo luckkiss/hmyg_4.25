@@ -20,8 +20,8 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Message;
 import com.hldj.hmyg.buyer.LoadCarListActivity2;
 import com.hldj.hmyg.buyer.ManagerPurchaseActivity;
-import com.hldj.hmyg.saler.ManagerQuoteListActivity;
 import com.hldj.hmyg.saler.OrderDetailActivity;
+import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
 import com.hldj.hmyg.saler.ValidateDetailActivity;
 
 import java.util.ArrayList;
@@ -176,7 +176,7 @@ public class MessageListDetailAdapter extends BaseAdapter {
 					else if ("auditQuote".equals(data.get(position)
 							.getContentType())) {
 						Intent auditQuote = new Intent(context,
-								ManagerQuoteListActivity.class);
+								ManagerQuoteListActivity_new.class);
 						auditQuote.putExtra("name", "审核中");
 						auditQuote.putExtra("status", "unaudit");
 						context.startActivity(auditQuote);
@@ -185,7 +185,7 @@ public class MessageListDetailAdapter extends BaseAdapter {
 					else if ("useQuote".equals(data.get(position)
 							.getContentType())) {
 						Intent useQuote = new Intent(context,
-								ManagerQuoteListActivity.class);
+								ManagerQuoteListActivity_new.class);
 						useQuote.putExtra("name", "已报价");
 						useQuote.putExtra("status", "quoted");
 						context.startActivity(useQuote);

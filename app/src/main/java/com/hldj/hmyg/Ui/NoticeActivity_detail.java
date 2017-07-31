@@ -111,8 +111,7 @@ public class NoticeActivity_detail extends NeedSwipeBackActivity {
                 }
             }
         });
-//          webView.loadUrl("file:///asset/test.html");
-//          webView.loadUrl("file:///android_asset/test.html");
+
         webView.loadUrl(url);
 //          webView.loadUrl("http://blog.csdn.net/a394268045/article/details/51892015");
     }

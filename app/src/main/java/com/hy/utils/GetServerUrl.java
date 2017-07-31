@@ -11,7 +11,6 @@ import net.tsz.afinal.FinalHttp;
  */
 
 public class GetServerUrl {
-
     public static boolean isTest = true;//测试时使用true 表示正在测试
     /*发布时主要版本号   后面需要加 / */
     public static String apiVersion = "";//发布的时候修改 api 版本号

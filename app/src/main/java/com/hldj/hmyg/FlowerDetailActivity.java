@@ -250,7 +250,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         mCache = ACache.get(this);
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.no_image_big_show)
-                .showImageOnFail(R.drawable.no_image_big_show_2)
+                .showImageOnFail(R.drawable.no_image_big_show)
                 .bitmapConfig(Bitmap.Config.ARGB_8888).cacheOnDisc(true)
                 .cacheInMemory(true).build();
         getWindow().setSoftInputMode(
@@ -1289,12 +1289,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
                         add2Collect();
 
-//                        Intent toDActivity4 = new Intent(FlowerDetailActivity.this,
-//                                DActivity5.class);
-//                        toDActivity4.putExtra("type", "1");
-//                        startActivity(toDActivity4);
-//                        overridePendingTransition(R.anim.slide_in_left,
-//                                R.anim.slide_out_right);
+
                         break;
                     case R.id.tv_add_car://分享
                         if (!isLogin()) {//没登录就直接登录
