@@ -1,19 +1,5 @@
 package com.hldj.hmyg.buyer;
 
-import java.util.ArrayList;
-import java.util.Date;
-
-import me.drakeet.materialdialog.MaterialDialog;
-import me.maxwin.view.XListView;
-import me.maxwin.view.XListView.IXListViewListener;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -24,14 +10,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-
-import cn.jpush.a.a.n;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.buy.adapter.PurchaseDemandConsumerListAdapter;
@@ -40,6 +22,20 @@ import com.huewu.pla.lib.me.maxwin.view.PLAXListView;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.mrwujay.cascade.activity.BaseSecondActivity;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+import me.drakeet.materialdialog.MaterialDialog;
+import me.maxwin.view.XListView.IXListViewListener;
 
 @SuppressLint("NewApi")
 public class PurchaseDemandConsumerListActivity extends BaseSecondActivity

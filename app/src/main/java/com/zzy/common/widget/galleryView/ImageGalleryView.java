@@ -11,11 +11,8 @@ import android.view.View;
 import android.widget.Gallery;
 import android.widget.RelativeLayout;
 
-import cn.jpush.a.a.z;
-
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.Data;
-import com.white.utils.GlobalData;
 import com.zzy.common.widget.gestureimageview.GestureImageView;
 
 public class ImageGalleryView extends Gallery {

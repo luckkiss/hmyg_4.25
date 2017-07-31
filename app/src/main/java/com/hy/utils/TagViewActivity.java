@@ -1,24 +1,21 @@
 package com.hy.utils;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.hldj.hmyg.R;
+
 import java.util.Random;
 
 import me.kaede.tagview.OnTagClickListener;
 import me.kaede.tagview.OnTagDeleteListener;
 import me.kaede.tagview.Tag;
 import me.kaede.tagview.TagView;
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
-import cn.jpush.android.ui.ListViewActivity;
-
-import com.hldj.hmyg.R;
 
 
 public class TagViewActivity extends Activity implements View.OnClickListener{
@@ -142,9 +139,9 @@ public class TagViewActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.tv_start_activity:
                 break;
-            case R.id.tv_list_activity:
-                startActivity(new Intent(TagViewActivity.this, ListViewActivity.class));
-                break;
+//            case R.id.tv_list_activity:
+//                startActivity(new Intent(TagViewActivity.this, ListViewActivity.class));
+//                break;
             case R.id.tv_recyclerview_activity:
                 break;
         }

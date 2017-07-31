@@ -206,7 +206,6 @@
             android:screenOrientation="portrait" />
 
 
-
         <activity
             android:name="com.hldj.hmyg.WebActivity"
             android:launchMode="standard"
@@ -316,8 +315,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
+        <activity
+            android:name=".MessageListDetailActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.buyer.SavePurchaseActivity"
             android:screenOrientation="portrait"></activity>
@@ -492,7 +492,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.saler.AddAdressActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.saler.AdressManagerActivity"
             android:screenOrientation="portrait" />
@@ -757,7 +757,6 @@
         <activity
             android:name="com.hldj.hmyg.MapSearchListActivity"
             android:screenOrientation="portrait"></activity>
-
 
 
         <activity

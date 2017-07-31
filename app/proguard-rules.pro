@@ -249,25 +249,15 @@
 
 
 #greendao3.2.0,此是针对3.2.0，如果是之前的，可能需要更换下包名
+-ignorewarnings
 -keep class org.greenrobot.greendao.**{*;}
 -keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
 public static java.lang.String TABLENAME;
 }
 -keep class **$Properties
 
--ignorewarnings
--keep class org.greenrobot.dao.** {*;}
--keep class org.greenrobot.greendao.** {*;}
-
--keep class **$Properties
-
 -keep  class **.rx{*;}
 -keep  class com.hldj.hmyg.DaoBean.SaveJson{*;}
-
-
--keepclassmembers class * extends org.greenrobot.dao.AbstractDao {
-    public static Java.lang.String TABLENAME;
-}
 
 -keep class data.db.dao.*$Properties {
     public static <fields>;

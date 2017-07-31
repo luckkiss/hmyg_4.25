@@ -17,6 +17,7 @@ import com.white.utils.AndroidUtil;
 
 import java.util.concurrent.TimeUnit;
 
+import cn.jpush.android.api.JPushInterface;
 import io.reactivex.Observable;
 
 
@@ -99,14 +100,14 @@ public class SplashActivity extends FragmentActivity {
     @Override
     protected void onPause() {
         super.onPause();
-//        JPushInterface.onPause(this);
+        JPushInterface.onPause(this);
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-//        JPushInterface.onResume(this);
+        JPushInterface.onResume(this);
 
     }
 
