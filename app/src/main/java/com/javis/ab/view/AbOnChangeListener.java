@@ -19,6 +19,6 @@ public interface AbOnChangeListener {
      *
      * @param position the position
      */
-    public void onChange(int position); 
+    void onChange(int position);
 
 }

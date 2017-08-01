@@ -440,11 +440,7 @@ public class AutoCompleteEditText extends android.support.v7.widget.AppCompatAut
 	 * @return
 	 */
 	public boolean isASenseKeyboard() {
-		if (getKeyboardName().equals(EDITTEXT_KEYBOARD_SENSE)) {
-			return true;
-		} else {
-			return false;
-		}
+        return getKeyboardName().equals(EDITTEXT_KEYBOARD_SENSE);
 	}
 
 	/**
@@ -453,11 +449,7 @@ public class AutoCompleteEditText extends android.support.v7.widget.AppCompatAut
 	 * @return
 	 */
 	public boolean isASwypeDragonKeyboard() {
-		if (getKeyboardName().equals(EDITTEXT_KEYBOARD_SWYPE_DRAGON)) {
-			return true;
-		} else {
-			return false;
-		}
+        return getKeyboardName().equals(EDITTEXT_KEYBOARD_SWYPE_DRAGON);
 	}
 
 	/**
@@ -466,11 +458,7 @@ public class AutoCompleteEditText extends android.support.v7.widget.AppCompatAut
 	 * @return
 	 */
 	public boolean isASwiftKeyTrialKeyboard() {
-		if (getKeyboardName().equals(EDITTEXT_KEYBOARD_SWIFTKEY_TRIAL)) {
-			return true;
-		} else {
-			return false;
-		}
+        return getKeyboardName().equals(EDITTEXT_KEYBOARD_SWIFTKEY_TRIAL);
 	}
 
 	/**
@@ -479,11 +467,7 @@ public class AutoCompleteEditText extends android.support.v7.widget.AppCompatAut
 	 * @return
 	 */
 	public boolean isASwiftKeyKeyboard() {
-		if (getKeyboardName().equals(EDITTEXT_KEYBOARD_SWIFTKEY)) {
-			return true;
-		} else {
-			return false;
-		}
+        return getKeyboardName().equals(EDITTEXT_KEYBOARD_SWIFTKEY);
 	}
 
 	/**
@@ -492,11 +476,7 @@ public class AutoCompleteEditText extends android.support.v7.widget.AppCompatAut
 	 * @return
 	 */
 	public boolean isAOldSamsungKeyboard() {
-		if (getKeyboardName().equals(EDITTEXT_KEYBOARD_OLD_SAMSUNG)) {
-			return true;
-		} else {
-			return false;
-		}
+        return getKeyboardName().equals(EDITTEXT_KEYBOARD_OLD_SAMSUNG);
 	}
 
 	/**
@@ -505,11 +485,7 @@ public class AutoCompleteEditText extends android.support.v7.widget.AppCompatAut
 	 * @return
 	 */
 	public boolean isASamsungKeyboard() {
-		if (getKeyboardName().equals(EDITTEXT_KEYBOARD_SAMSUNG)) {
-			return true;
-		} else {
-			return false;
-		}
+        return getKeyboardName().equals(EDITTEXT_KEYBOARD_SAMSUNG);
 	}
 
 	/**
@@ -518,11 +494,7 @@ public class AutoCompleteEditText extends android.support.v7.widget.AppCompatAut
 	 * @return
 	 */
 	public boolean isALGKeyboard() {
-		if (getKeyboardName().equals(EDITTEXT_KEYBOARD_LG)) {
-			return true;
-		} else {
-			return false;
-		}
+        return getKeyboardName().equals(EDITTEXT_KEYBOARD_LG);
 	}
 
 	/**

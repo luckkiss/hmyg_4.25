@@ -19,7 +19,7 @@ public class ZzyUtil {
 				.getSystemService(Context.ACTIVITY_SERVICE);
 		List<RunningTaskInfo> task_info = manager.getRunningTasks(20);
 		if (task_info != null && task_info.size() > 0) {
-			ComponentName cname = ((RunningTaskInfo) (task_info.get(0))).baseActivity;
+			ComponentName cname = task_info.get(0).baseActivity;
 			return cname.getClassName();
 		}
 		return "";

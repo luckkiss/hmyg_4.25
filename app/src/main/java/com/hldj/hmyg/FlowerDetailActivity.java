@@ -38,7 +38,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.listedittext.paramsData;
 import com.google.gson.Gson;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.Ui.StoreActivity_new;
@@ -50,7 +49,6 @@ import com.hldj.hmyg.application.PermissionUtils;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PlatformForShare;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
-import com.hldj.hmyg.bean.SeedlingParm;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.presenter.CollectPresenter;
 import com.hldj.hmyg.saler.SavePriceAndCountAndOutlineActivity;
@@ -154,8 +152,8 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     private TextView tv_01;
     //    private TextView tv_02;
     private ListView lv_00;
-    ArrayList<SeedlingParm> msSeedlingParms = new ArrayList<SeedlingParm>();
-    public ArrayList<paramsData> paramsDatas = new ArrayList<paramsData>();
+//    ArrayList<SeedlingParm> msSeedlingParms = new ArrayList<SeedlingParm>();
+//    public ArrayList<paramsData> paramsDatas = new ArrayList<paramsData>();
     private TextView tv_status_01;
     private TextView tv_status_02;
     private TextView tv_status_03;
@@ -535,7 +533,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                             if (!"".equals(msg)) {
                             }
                             if ("1".equals(code)) {
-                                msSeedlingParms.clear();
+//                                msSeedlingParms.clear();
                                 banners.clear();
                                 JSONObject jsonObject2 = JsonGetInfo
                                         .getJSONObject(JsonGetInfo
@@ -796,20 +794,16 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                     ll_buy_car.setOnClickListener(multipleClickProcess);
                                 }
 
-                                if (!"".equals(seedlingNum)) {
-                                    msSeedlingParms.add(new SeedlingParm(
-                                            "商品编号：", seedlingNum));
-                                    uploadDatas.firstTypeName = seedlingNum;
-
-                                }
-                                if (!"".equals(firstTypeName)) {
-                                    msSeedlingParms.add(new SeedlingParm("分类：",
-                                            firstTypeName));
-                                    uploadDatas.firstTypeName = firstTypeName;
-                                }
-                                String plantTypeName = JsonGetInfo
-                                        .getJsonString(jsonObject2,
-                                                "plantTypeName");
+//                                if (!"".equals(seedlingNum)) {
+//                                    msSeedlingParms.add(new SeedlingParm(  "商品编号：", seedlingNum));
+//                                    uploadDatas.firstTypeName = seedlingNum;
+//                                }
+//                                if (!"".equals(firstTypeName)) {
+//                                    msSeedlingParms.add(new SeedlingParm("分类：",
+//                                            firstTypeName));
+//                                    uploadDatas.firstTypeName = firstTypeName;
+//                                }
+                                String plantTypeName = JsonGetInfo  .getJsonString(jsonObject2,  "plantTypeName");
                                 // tv_remarks.setText("备注：" + remarks);
 //                                tv_remarks.setText("种植类型：" + plantTypeName);
                                 // if (!"".equals(firstTypeName)) {
@@ -895,34 +889,24 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                 // }
                                 // }
                                 if (extParamsList.length() > 0) {
-                                    paramsDatas.clear();
+//                                    paramsDatas.clear();
                                     for (int i = 0; i < extParamsList.length(); i++) {
-                                        if (!"".equals(JsonGetInfo
-                                                .getJsonString(extParamsList
-                                                                .getJSONObject(i),
-                                                        "value"))) {
-                                            msSeedlingParms.add(new SeedlingParm(
-                                                    JsonGetInfo.getJsonString(
-                                                            extParamsList
-                                                                    .getJSONObject(i),
-                                                            "name") + " :",
-                                                    JsonGetInfo.getJsonString(
-                                                            extParamsList
-                                                                    .getJSONObject(i),
-                                                            "value")));
+                                        if (!"".equals(JsonGetInfo  .getJsonString(extParamsList   .getJSONObject(i),    "value"))) {
+//                                            msSeedlingParms.add(new SeedlingParm(    JsonGetInfo.getJsonString(     extParamsList     .getJSONObject(i), "name") + " :",
+//                                                    JsonGetInfo.getJsonString(  extParamsList  .getJSONObject(i),   "value")));
                                         }
 
-                                        paramsData n = new paramsData();
-                                        n.setValue(JsonGetInfo.getJsonString(
-                                                extParamsList.getJSONObject(i),
-                                                "value"));
-                                        n.setCode(JsonGetInfo.getJsonString(
-                                                extParamsList.getJSONObject(i),
-                                                "code"));
-                                        n.setName(JsonGetInfo.getJsonString(
-                                                extParamsList.getJSONObject(i),
-                                                "name"));
-                                        paramsDatas.add(n);
+//                                        paramsData n = new paramsData();
+//                                        n.setValue(JsonGetInfo.getJsonString(
+//                                                extParamsList.getJSONObject(i),
+//                                                "value"));
+//                                        n.setCode(JsonGetInfo.getJsonString(
+//                                                extParamsList.getJSONObject(i),
+//                                                "code"));
+//                                        n.setName(JsonGetInfo.getJsonString(
+//                                                extParamsList.getJSONObject(i),
+//                                                "name"));
+//                                        paramsDatas.add(n);
                                     }
 
                                 }
@@ -930,15 +914,14 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 //									msSeedlingParms.add(new SeedlingParm("地区：",
 //											fullName));
 //								}
-                                msSeedlingParms.add(new SeedlingParm("备注：",
-                                        remarks));
+//                                msSeedlingParms.add(new SeedlingParm("备注：",  remarks));
 
-                                if (msSeedlingParms.size() > 0) {
+//                                if (msSeedlingParms.size() > 0) {
 //                                    SeedlingParmAdapter myadapter = new SeedlingParmAdapter(
 //                                            FlowerDetailActivity.this,
 //                                            msSeedlingParms);
 //                                    lv_00.setAdapter(myadapter);
-                                }
+//                                }
                                 JSONObject ownerJson = JsonGetInfo
                                         .getJSONObject(jsonObject2, "ownerJson");
                                 JSONObject coCity = JsonGetInfo.getJSONObject(

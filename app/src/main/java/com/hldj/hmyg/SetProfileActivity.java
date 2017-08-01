@@ -678,7 +678,7 @@ public class SetProfileActivity extends BaseActivity implements
 
     public static void start2ActivitySet(Activity mActivity, int reqCode) {
         mActivity.startActivityForResult(new Intent(mActivity, SetProfileActivity.class), reqCode);
-        MyUtil.overridePendingTransition_open((Activity) mActivity);
+        MyUtil.overridePendingTransition_open(mActivity);
     }
 
 }

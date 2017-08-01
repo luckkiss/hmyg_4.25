@@ -79,7 +79,7 @@ public class StoreTypeActivity extends NeedSwipeBackActivity {
                             JSONObject childs = childsJson.getJSONObject(i);
                             ChildItem childItem = new ChildItem(
                                     JsonGetInfo.getJsonString(childs, "name"),
-                                    R.drawable.ic_launcher,
+                                    R.drawable.logo,
                                     JsonGetInfo.getJsonString(childs, "id"),
                                     JsonGetInfo.getJsonString(childs, "name"),
                                     JsonGetInfo.getJsonString(childs, "aliasName"),

@@ -163,7 +163,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         LayoutParams l_params = new RelativeLayout.LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         WindowManager wm = this.getWindowManager();
-        l_params.height = (int) (wm.getDefaultDisplay().getWidth() * 1 / 2);
+        l_params.height = wm.getDefaultDisplay().getWidth() * 1 / 2;
         viewPager.setLayoutParams(l_params);
         initView();
 
@@ -404,7 +404,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     }
 
     private boolean isLogin() {
-        if (!MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {//没有登录跳转到登录界面
+        if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {//没有登录跳转到登录界面
             LoginActivity.start2Activity(this);
             return false;
 
@@ -872,7 +872,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 break;
 
             case R.id.iv_a_msg:
-                if (!MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {//没有登录跳转到登录界面
+                if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {//没有登录跳转到登录界面
                     LoginActivity.start2Activity(this);
                     return;
                 }

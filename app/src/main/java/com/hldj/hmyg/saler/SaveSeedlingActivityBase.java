@@ -627,7 +627,6 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                 params.put("minHeight", arrayList_holders.get(i).getViewHolder().et_auto_add_min.getText().toString());
                 params.put("maxHeight", arrayList_holders.get(i).getViewHolder().et_auto_add_max.getText().toString());
             }
-            ;
             if (arrayList_holders.get(i).getTag().equals("冠幅")) {
                 params.put("minCrown", arrayList_holders.get(i).getViewHolder().et_auto_add_min.getText().toString());
                 params.put("maxCrown", arrayList_holders.get(i).getViewHolder().et_auto_add_max.getText().toString());

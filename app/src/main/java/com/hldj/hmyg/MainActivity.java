@@ -544,7 +544,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
             }
         }
 
-        ;
     };
     private Dialog dialog;
 //    private ChooseManagerAdapter myadapter;

@@ -43,7 +43,7 @@ public class CommonBitmapUtil {
 	 */
 	public static Bitmap getFromCache(String paramString) {
 		Bitmap localBitmap = null;
-		ImageSoftReference localabt2 = (ImageSoftReference) cacheMap
+		ImageSoftReference localabt2 = cacheMap
 				.get(paramString);
 		if (localabt2 != null) {
 			localBitmap = localabt2.get();

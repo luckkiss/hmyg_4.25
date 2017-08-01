@@ -24,6 +24,6 @@ package com.neopixl.pixlui.components.edittext;
  */
 public interface EditTextBatchListener
 {
-	public void addNewChar(MyEditText edittext);
-	public void deleteKeyboardButton(MyEditText edittext, boolean emptyText);
+	void addNewChar(MyEditText edittext);
+	void deleteKeyboardButton(MyEditText edittext, boolean emptyText);
 }

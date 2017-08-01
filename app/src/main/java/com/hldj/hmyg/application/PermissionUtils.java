@@ -23,7 +23,7 @@ public class PermissionUtils {
 	static ArrayList<String> allNeedPermissions = new ArrayList<String>();
 
 	public PermissionUtils(Activity context) {
-		this.context = context;
+		PermissionUtils.context = context;
 	}
 
 	public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 200;

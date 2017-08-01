@@ -45,7 +45,7 @@ public class CustomDaysPickPopwin extends PopupWindow {
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		popView = inflater.inflate(R.layout.custom_dayspicker_layout, null);
-		araeView = (View) popView.findViewById(R.id.pop_arae_layout);
+		araeView = popView.findViewById(R.id.pop_arae_layout);
 		cancelBtn = (Button) popView.findViewById(R.id.cancel_btn);
 		confirmBtn = (Button) popView.findViewById(R.id.confirm_btn);
 		customBtn = (Button) popView.findViewById(R.id.custom_btn);

@@ -13,7 +13,7 @@ public class RomateOverCallback {
 	
 	public interface IRomateOverListener {
 
-		public void notifyRomateOver(int type, long id, int rotation);
+		void notifyRomateOver(int type, long id, int rotation);
 	}
 
 	/** 软引用队列 */

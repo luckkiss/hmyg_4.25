@@ -43,7 +43,7 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
         TextView tv_11 = myViewHolder.getView(R.id.tv_11);
         TextView tv_caozuo01 = myViewHolder.getView(R.id.tv_caozuo01);
 
-        FlowTagLayout mMobileFlowTagLayout = (FlowTagLayout) myViewHolder.getView(R.id.mobile_flow_layout);
+        FlowTagLayout mMobileFlowTagLayout = myViewHolder.getView(R.id.mobile_flow_layout);
 
         // 移动研发标签
         TagAdapter<String> mMobileTagAdapter = new TagAdapter<>(context);

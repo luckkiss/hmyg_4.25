@@ -116,7 +116,7 @@ public class UpdataImageActivity extends Activity {
 		urlPaths = ((PicSerializableMaplist) bundle.get("urlPaths"))
 				.getMaplist();
 		// 初始化
-		mainView = (View) findViewById(R.id.ll_mainView);
+		mainView = findViewById(R.id.ll_mainView);
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 		btn_back = (ImageView) findViewById(R.id.btn_back);

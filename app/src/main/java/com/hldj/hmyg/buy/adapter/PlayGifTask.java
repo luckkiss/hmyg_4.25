@@ -37,8 +37,8 @@ class PlayGifTask implements Runnable {
 				iv.setImageBitmap((Bitmap) msg.obj);
 				break;
 			}
-		};
-	};
+		}
+    };
 
 	@Override
 	public void run() {

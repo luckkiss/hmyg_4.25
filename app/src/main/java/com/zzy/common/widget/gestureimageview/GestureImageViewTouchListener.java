@@ -127,7 +127,7 @@ import android.view.View.OnTouchListener;
 		if (!isChoosePic) {
 			this.centerY = (float) displayHeight / 2.0f;
 		} else {
-			this.centerY = (float) ((chooseframeRect.bottom - chooseframeRect.top) / 2.0f + chooseframeRect.top);
+			this.centerY = (chooseframeRect.bottom - chooseframeRect.top) / 2.0f + chooseframeRect.top;
 		}
 		this.centerX = (float) displayWidth / 2.0f;
 
@@ -277,13 +277,9 @@ import android.view.View.OnTouchListener;
 		} else {
 			rotation = 360.0f;
 		}
-		if ((((int) lastRotation / 90) != ((int) rotation / 90))
-				&& (MathUtils.calculateCurrentRotation(rotation) != MathUtils
-						.calculateCurrentRotation(lastRotation))) {
-			isRotation = true;
-		} else {
-			isRotation = false;
-		}
+        isRotation = (((int) lastRotation / 90) != ((int) rotation / 90))
+                && (MathUtils.calculateCurrentRotation(rotation) != MathUtils
+                .calculateCurrentRotation(lastRotation));
 		romateAnimation.reset();
 		romateAnimation.setNeedScale(isRotation);
 		romateAnimation.setStartRotation(currentRotation);
@@ -602,13 +598,13 @@ import android.view.View.OnTouchListener;
 			}
 		} else {
 			if (canDragX) {
-				float diff = (float) (effectiveWidth - chooseframeWidth) / 2.0f;
+				float diff = (effectiveWidth - chooseframeWidth) / 2.0f;
 				boundaryLeft = centerX - diff;
 				boundaryRight = centerX + diff;
 			}
 
 			if (canDragY) {
-				float diff = (float) (effectiveHeight - chooseframeHeight) / 2.0f;
+				float diff = (effectiveHeight - chooseframeHeight) / 2.0f;
 				boundaryTop = centerY - diff;
 				boundaryBottom = centerY + diff;
 			}

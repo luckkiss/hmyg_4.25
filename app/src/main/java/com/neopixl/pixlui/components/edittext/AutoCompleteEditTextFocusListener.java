@@ -24,6 +24,6 @@ package com.neopixl.pixlui.components.edittext;
  */
 public interface AutoCompleteEditTextFocusListener
 {
-	public void requestFocus(AutoCompleteEditText edittext);
-	public void loseFocus(AutoCompleteEditText edittext);
+	void requestFocus(AutoCompleteEditText edittext);
+	void loseFocus(AutoCompleteEditText edittext);
 }

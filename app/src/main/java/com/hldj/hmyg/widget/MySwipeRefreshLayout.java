@@ -85,7 +85,7 @@ public class MySwipeRefreshLayout extends FrameLayout implements NestedScrolling
     public MySwipeRefreshLayout(Context context) {
         super(context);
 
-        this.initAttrs(context, (AttributeSet) null);
+        this.initAttrs(context, null);
 
     }
 
@@ -200,7 +200,7 @@ public class MySwipeRefreshLayout extends FrameLayout implements NestedScrolling
             return false;
         }
 
-        return !this.mPullRefreshEnable && !this.mPullLoadEnable ? false : super.onInterceptTouchEvent(ev);
+        return !(!this.mPullRefreshEnable && !this.mPullLoadEnable) && super.onInterceptTouchEvent(ev);
 //        return true;
     }
 
@@ -460,7 +460,7 @@ public class MySwipeRefreshLayout extends FrameLayout implements NestedScrolling
 
     private void startRefresh(int headerViewHeight) {
         this.mRefreshing = true;
-        ValueAnimator animator = ValueAnimator.ofFloat(new float[]{(float) headerViewHeight, this.guidanceViewHeight});
+        ValueAnimator animator = ValueAnimator.ofFloat((float) headerViewHeight, this.guidanceViewHeight);
         animator.addUpdateListener(new AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
                 LayoutParams lp = (LayoutParams) MySwipeRefreshLayout.this.headerView.getLayoutParams();
@@ -485,7 +485,7 @@ public class MySwipeRefreshLayout extends FrameLayout implements NestedScrolling
     private void resetHeaderView(int headerViewHeight) {
         this.headerView.stopAnimation();
         this.headerView.setStartEndTrim(0.0F, 0.75F);
-        ValueAnimator animator = ValueAnimator.ofFloat(new float[]{(float) headerViewHeight, 0.0F});
+        ValueAnimator animator = ValueAnimator.ofFloat((float) headerViewHeight, 0.0F);
         animator.addUpdateListener(new AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
                 LayoutParams lp = (LayoutParams) MySwipeRefreshLayout.this.headerView.getLayoutParams();
@@ -511,7 +511,7 @@ public class MySwipeRefreshLayout extends FrameLayout implements NestedScrolling
 
     private void startLoadmore(int headerViewHeight) {
         this.mRefreshing = true;
-        ValueAnimator animator = ValueAnimator.ofFloat(new float[]{(float) headerViewHeight, this.guidanceViewHeight});
+        ValueAnimator animator = ValueAnimator.ofFloat((float) headerViewHeight, this.guidanceViewHeight);
         animator.addUpdateListener(new AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
                 LayoutParams lp = (LayoutParams) MySwipeRefreshLayout.this.footerView.getLayoutParams();
@@ -536,7 +536,7 @@ public class MySwipeRefreshLayout extends FrameLayout implements NestedScrolling
     private void resetFootView(int headerViewHeight) {
         this.footerView.stopAnimation();
         this.footerView.setStartEndTrim(0.5F, 1.25F);
-        ValueAnimator animator = ValueAnimator.ofFloat(new float[]{(float) headerViewHeight, 0.0F});
+        ValueAnimator animator = ValueAnimator.ofFloat((float) headerViewHeight, 0.0F);
         animator.addUpdateListener(new AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
                 LayoutParams lp = (LayoutParams) MySwipeRefreshLayout.this.footerView.getLayoutParams();
@@ -584,7 +584,7 @@ public class MySwipeRefreshLayout extends FrameLayout implements NestedScrolling
                 return false;
             } else {
                 int lastChildBottom = absListView.getChildAt(absListView.getChildCount() - 1).getBottom();
-                return absListView.getLastVisiblePosition() == ((ListAdapter) absListView.getAdapter()).getCount() - 1 && lastChildBottom <= absListView.getMeasuredHeight();
+                return absListView.getLastVisiblePosition() == absListView.getAdapter().getCount() - 1 && lastChildBottom <= absListView.getMeasuredHeight();
             }
         } else {
             return ViewCompat.canScrollVertically(this.mTargetView, 1) || this.mTargetView.getScrollY() > 0;

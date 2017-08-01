@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PicSerializableMaplist;
-import com.hldj.hmyg.jimiao.SaveMiaoActivity;
 import com.hldj.hmyg.saler.CoreActivity;
 import com.hldj.hmyg.saler.SaveSeedlingActivity;
 import com.hldj.hmyg.saler.UpdataImageActivity;
@@ -136,9 +135,10 @@ public class EditGalleryImageActivity extends CoreActivity implements
 
 						SaveSeedlingActivity.instance .removePicUrls(currentPage);
 
-					} else if (SaveMiaoActivity.instance != null) {
-						SaveMiaoActivity.instance.removePicUrls(currentPage);
 					}
+//					else if (SaveMiaoActivity.instance != null) {
+//						SaveMiaoActivity.instance.removePicUrls(currentPage);
+//					}
 
 				} else {
 				}

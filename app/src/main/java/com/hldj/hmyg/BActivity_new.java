@@ -337,7 +337,7 @@ public class BActivity_new extends NeedSwipeBackActivity {
 
 
         }
-        ((BaseMultAdapter) recyclerView1.getAdapter()).onAttachedToRecyclerView(recyclerView1.getRecyclerView());
+        recyclerView1.getAdapter().onAttachedToRecyclerView(recyclerView1.getRecyclerView());
     }
 
     int now_position = 0;

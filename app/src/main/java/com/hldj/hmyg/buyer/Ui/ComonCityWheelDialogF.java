@@ -91,7 +91,7 @@ public class ComonCityWheelDialogF extends DialogFragment implements OnWheelChan
         super.onStart();
         WindowManager.LayoutParams lp = getDialog().getWindow().getAttributes();
         lp.gravity = Gravity.BOTTOM;
-        lp.width = (int) (getDialog().getWindow().getWindowManager().getDefaultDisplay().getWidth());
+        lp.width = getDialog().getWindow().getWindowManager().getDefaultDisplay().getWidth();
         getDialog().getWindow().setGravity(Gravity.BOTTOM);
     }
 
@@ -122,7 +122,7 @@ public class ComonCityWheelDialogF extends DialogFragment implements OnWheelChan
 //    }
 
     private void initView(View dialog) {
-        ((ViewGroup) dialog.findViewById(R.id.ll_wheel_bottom)).setBackgroundColor(Color.WHITE);
+        dialog.findViewById(R.id.ll_wheel_bottom).setBackgroundColor(Color.WHITE);
 //        View view = dialog.inflate(R.layout.whell_city,null);
         mViewProvince = (WheelView) dialog.findViewById(R.id.id_province);
         mViewCity = (WheelView) dialog.findViewById(R.id.id_city);

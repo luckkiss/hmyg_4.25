@@ -158,7 +158,7 @@ public class SortSpinner {
      */
     private void initPopuWindow() {
         // PopupWindow浮动下拉框布局
-        View loginwindow = (View) activity.getLayoutInflater().inflate(R.layout.popo_shop_type_list, null);
+        View loginwindow = activity.getLayoutInflater().inflate(R.layout.popo_shop_type_list, null);
 
 
         loginwindow.findViewById(R.id.fr_out).setOnClickListener(new View.OnClickListener() {

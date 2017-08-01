@@ -67,8 +67,6 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
 
     }
 
-    ;
-
     public void initData() {
 
     }

@@ -69,7 +69,7 @@ public class AlphaTitleScrollView extends ScrollView {
 
     }
 
-    public static interface OnStateChange {
+    public interface OnStateChange {
         void onShow();
 
         void onHiden();

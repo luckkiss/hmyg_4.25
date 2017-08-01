@@ -1,10 +1,9 @@
 package com.hldj.hmyg.buy.bean;
 
+import com.hldj.hmyg.bean.Pic;
+
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import com.example.listedittext.paramsData;
-import com.hldj.hmyg.bean.Pic;
 
 public class StorageSave implements Serializable {
 	/**

@@ -55,7 +55,7 @@ PasswordTransformationMethod {
 			this.mSource = mSource;
 		}
 	}
-};
+}
 /*
 0 value:锟斤拷
 33 value:!

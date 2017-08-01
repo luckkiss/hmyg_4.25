@@ -10,5 +10,5 @@ import java.io.IOException;
  */
 public interface ICompress {
 	
-	public byte[] compress(byte[] bytes) throws IOException;
+	byte[] compress(byte[] bytes) throws IOException;
 }

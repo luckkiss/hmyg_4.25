@@ -91,7 +91,7 @@ public class StorePurchaseListAdapter extends BaseAdapter {
         boolean expired = (boolean) data.get(position).get("expired");
 
 
-        if (MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {
+        if (MyApplication.Userinfo.getBoolean("isLogin", false)) {
 //            tv_caozuo01.setText("");
             if (!expired)//false 未过期
             {
@@ -167,7 +167,7 @@ public class StorePurchaseListAdapter extends BaseAdapter {
          * showQuoteCount : true
          */
 
-        if (MyApplication.getInstance().getUserBean().showQuoteCount)//拥有权限
+        if (MyApplication.getUserBean().showQuoteCount)//拥有权限
         {
             StringFormatUtil fillColor = new StringFormatUtil(context, "已有"
                     + data.get(position).get("quoteCountJson").toString() + "条报价", data.get(position).get("quoteCountJson").toString(),
@@ -193,7 +193,7 @@ public class StorePurchaseListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                if (MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {
+                if (MyApplication.Userinfo.getBoolean("isLogin", false)) {
 
                     if (expired) {
                         ToastUtil.showShortToast("采购已关闭");

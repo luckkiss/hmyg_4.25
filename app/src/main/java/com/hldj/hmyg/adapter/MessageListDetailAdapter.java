@@ -14,7 +14,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.hldj.hmyg.BrokerListActivity;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Message;
@@ -22,7 +21,6 @@ import com.hldj.hmyg.buyer.LoadCarListActivity2;
 import com.hldj.hmyg.buyer.ManagerPurchaseActivity;
 import com.hldj.hmyg.saler.OrderDetailActivity;
 import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
-import com.hldj.hmyg.saler.ValidateDetailActivity;
 
 import java.util.ArrayList;
 
@@ -120,10 +118,8 @@ public class MessageListDetailAdapter extends BaseAdapter {
 					// 经纪提交验苗结果，跳转到验苗申请详情
 					  if ("validateResultAudit".equals(data.get(position)
 							.getContentType())) {
-						Intent toValidateDetailActivity = new Intent(context,
-								ValidateDetailActivity.class);
-						toValidateDetailActivity.putExtra("id",
-								data.get(position).getSourceId());
+						Intent toValidateDetailActivity = new Intent(context, FlowerDetailActivity.class);
+						toValidateDetailActivity.putExtra("id", data.get(position).getSourceId());
 						toValidateDetailActivity.putExtra("status", "verifyed");
 						toValidateDetailActivity.putExtra("tag", "buyer");
 						context.startActivity(toValidateDetailActivity);
@@ -145,7 +141,7 @@ public class MessageListDetailAdapter extends BaseAdapter {
 							.getContentType())) {
 						Intent toManagerPurchaseActivity = new Intent(context,
 								ManagerPurchaseActivity.class);
-						((Activity) context)
+						context
 								.startActivity(toManagerPurchaseActivity);
 						((Activity) context).overridePendingTransition(
 								R.anim.slide_in_left, R.anim.slide_out_right);
@@ -239,19 +235,17 @@ public class MessageListDetailAdapter extends BaseAdapter {
 				// 经纪
 				else if ("agent".equals(data.get(position).getTargetUserType())) {
 					// 验苗请求，跳转到验苗处理的“新验苗”列表
-					if ("validateSeedling".equals(data.get(position)
-							.getContentType())) {
-						Intent validateSeedling = new Intent(context,
-								BrokerListActivity.class);
-						validateSeedling.putExtra("acceptStatus", "accepted");
-						validateSeedling.putExtra("loadItems", true);
-						context.startActivity(validateSeedling);
+					if ("validateSeedling".equals(data.get(position) .getContentType())) {
+//						Intent validateSeedling = new Intent(context, BrokerListActivity.class);
+//						validateSeedling.putExtra("acceptStatus", "accepted");
+//						validateSeedling.putExtra("loadItems", true);
+//						context.startActivity(validateSeedling);
 					}
 					// 验苗结果审核，跳转到验苗处理详情
 					else if ("validateResultAudit".equals(data.get(position)
 							.getContentType())) {
 						Intent validateResultAudit = new Intent(context,
-								ValidateDetailActivity.class);
+								FlowerDetailActivity.class);
 						validateResultAudit.putExtra("id", data.get(position)
 								.getSourceId());
 						validateResultAudit.putExtra("tag", "broker");

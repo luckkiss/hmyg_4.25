@@ -67,7 +67,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         //初始化 holder  将其设置为private 不让外部访问  避免编译器提示
 
 
-        this.instance = this;
+        instance = this;
         //提供跳转方式的定义。。规范开发
         if (null == getIntent()) {
             ToastUtil.showShortToast("用 start2activity来条状本届面");

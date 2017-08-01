@@ -24,7 +24,7 @@ public class EditP2 extends EditBottomPopwin {
 	protected void handleClickListener(EditText et) {
 		// TODO Auto-generated method stub
 		InputMethodManager imm = (InputMethodManager) activity
-				.getSystemService(context.INPUT_METHOD_SERVICE);
+				.getSystemService(Context.INPUT_METHOD_SERVICE);
 		if (imm.isActive() && activity.getCurrentFocus() != null
 				&& activity.getCurrentFocus().getWindowToken() != null) {
 			imm.hideSoftInputFromWindow(et.getWindowToken(), 0);

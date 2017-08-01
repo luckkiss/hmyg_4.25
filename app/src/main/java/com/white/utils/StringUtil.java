@@ -365,13 +365,9 @@ public class StringUtil {
 		Date temp_date = new Date(Integer.parseInt(year),
 				Integer.parseInt(month) - 1, Integer.parseInt(day));
 		// 对于老身份证中的你年龄则不需考虑千年虫问题而使用getYear()方法
-		if (temp_date.getYear() != Integer.parseInt(year)
-				|| temp_date.getMonth() != Integer.parseInt(month) - 1
-				|| temp_date.getDate() != Integer.parseInt(day)) {
-			return false;
-		} else {
-			return true;
-		}
+        return !(temp_date.getYear() != Integer.parseInt(year)
+                || temp_date.getMonth() != Integer.parseInt(month) - 1
+                || temp_date.getDate() != Integer.parseInt(day));
 	}
 
 	private static boolean isValidityBrithBy18IdCard(String idCard18) {
@@ -381,13 +377,9 @@ public class StringUtil {
 		Date temp_date = new Date(Integer.parseInt(year),
 				Integer.parseInt(month) - 1, Integer.parseInt(day));
 		// 这里用getFullYear()获取年份，避免千年虫问题
-		if ((temp_date.getYear()) != Integer.parseInt(year)
-				|| temp_date.getMonth() != Integer.parseInt(month) - 1
-				|| temp_date.getDate() != Integer.parseInt(day)) {
-			return false;
-		} else {
-			return true;
-		}
+        return !((temp_date.getYear()) != Integer.parseInt(year)
+                || temp_date.getMonth() != Integer.parseInt(month) - 1
+                || temp_date.getDate() != Integer.parseInt(day));
 	}
 
 	private static boolean isTrueValidateCodeBy18IdCard(List<String> char_idCard) {
@@ -400,11 +392,7 @@ public class StringUtil {
 			sum += Wi[i] * j;// 加权求和
 		}
 		int valCodePosition = sum % 11;// 得到验证码所位置
-		if (char_idCard.get(17).equals(
-				Integer.toString(ValideCode[valCodePosition]))) {
-			return true;
-		} else {
-			return false;
-		}
+        return char_idCard.get(17).equals(
+                Integer.toString(ValideCode[valCodePosition]));
 	}
 }

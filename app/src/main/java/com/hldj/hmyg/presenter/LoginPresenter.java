@@ -155,7 +155,7 @@ public class LoginPresenter {
                     Save2Sp(MyApplication.Userinfo.edit(), json);
                     if (gsonBean.getData().getUser() != null) {
                         SPUtil.put(MyApplication.getInstance(), SPUtils.UserBean, GsonUtil.Bean2Json(gsonBean.getData().getUser()));//把json 存储在sp中，需要的话直接通过gson 转换
-                        MyApplication.getInstance().setUserBean(gsonBean.getData().getUser());
+                        MyApplication.setUserBean(gsonBean.getData().getUser());
                     } else {
                         D.e("======getUser====为空，后台数据改变=====");
                     }
@@ -180,7 +180,7 @@ public class LoginPresenter {
         if (gsonBean.getCode().equals(ConstantState.SUCCEED_CODE) && gsonBean.getData() != null) {
             if (gsonBean.getData().getUser() != null) {
                 SPUtil.put(MyApplication.getInstance(), SPUtils.UserBean, GsonUtil.Bean2Json(gsonBean.getData().getUser()));//把json 存储在sp中，需要的话直接通过gson 转换
-                MyApplication.getInstance().setUserBean(gsonBean.getData().getUser());
+                MyApplication.setUserBean(gsonBean.getData().getUser());
             } else {
                 D.e("======getUser====为空，后台数据改变=====");
             }

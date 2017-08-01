@@ -70,7 +70,7 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
         myViewHolder.getConvertView().setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {
+                if (MyApplication.Userinfo.getBoolean("isLogin", false)) {
                     if (isExpired()) {
                         ToastUtil.showShortToast("采购已关闭");
                         return;
@@ -99,7 +99,7 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
     }
 
     private void setTv10(TextView tv_10, PurchaseItemBean_new purchaseItemBeanNew) {
-        if (MyApplication.getInstance().getUserBean().showQuoteCount)//拥有权限
+        if (MyApplication.getUserBean().showQuoteCount)//拥有权限
         {
             StringFormatUtil fillColor = new StringFormatUtil(context, "已有"
                     + purchaseItemBeanNew.quoteCountJson + "条报价", purchaseItemBeanNew.quoteCountJson + "",

@@ -45,7 +45,6 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.example.sortlistview.CharacterParser;
 import com.example.sortlistview.PinyinComparatorSubscribe;
 import com.example.sortlistview.SideBar;
-import com.example.sortlistview.SideBar.OnTouchingLetterChangedListener;
 import com.flyco.animation.BaseAnimatorSet;
 import com.flyco.animation.BounceEnter.BounceTopEnter;
 import com.flyco.animation.SlideExit.SlideBottomExit;
@@ -273,7 +272,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
         TextView dialog = (TextView) findViewById(R.id.dialog);
         sideBar.setTextView(dialog);
         // 设置右侧触摸监听
-        sideBar.setOnTouchingLetterChangedListener(new OnTouchingLetterChangedListener() {
+        sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
 
             @Override
             public void onTouchingLetterChanged(String s) {

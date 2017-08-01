@@ -38,7 +38,7 @@ public class AndroidUtil {
 				.getSystemService(Context.ACTIVITY_SERVICE);
 		List<RunningTaskInfo> task_info = manager.getRunningTasks(20);
 		if (task_info != null && task_info.size() > 0) {
-			ComponentName cname = ((RunningTaskInfo) (task_info.get(0))).topActivity;
+			ComponentName cname = task_info.get(0).topActivity;
 			if (cname != null
 					&& context.getPackageName().equals(
 							cname.getPackageName().trim())) {
@@ -57,11 +57,8 @@ public class AndroidUtil {
 	public static boolean isInKeyguardRestrictedInputMode(Context context) {
 		KeyguardManager mKeyguardManager = (KeyguardManager) context
 				.getSystemService(Context.KEYGUARD_SERVICE);
-		if (mKeyguardManager.inKeyguardRestrictedInputMode()) {// 锁屏
-			return true;
-		} else {
-			return false;
-		}
+        // 锁屏
+        return mKeyguardManager.inKeyguardRestrictedInputMode();
 	}
 
 	/**
@@ -80,11 +77,7 @@ public class AndroidUtil {
 			packageInfo = null;
 			e.printStackTrace();
 		}
-		if (packageInfo == null) {
-			return false;
-		} else {
-			return true;
-		}
+        return packageInfo != null;
 	}
 
 	/**

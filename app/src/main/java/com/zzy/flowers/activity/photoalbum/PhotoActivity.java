@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Pic;
-import com.hldj.hmyg.jimiao.SaveMiaoActivity;
 import com.hldj.hmyg.saler.ChoosePhotoGalleryActivity;
 import com.hldj.hmyg.saler.CoreActivity;
 import com.hldj.hmyg.saler.GlobalConstant;
@@ -350,9 +349,9 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
         if (SaveSeedlingActivity.instance != null) {
             SaveSeedlingActivity.instance.addPicUrls(resultPathList);
         }
-        if (SaveMiaoActivity.instance != null) {
-            SaveMiaoActivity.instance.addPicUrls(resultPathList);
-        }
+//        if (SaveMiaoActivity.instance != null) {
+//            SaveMiaoActivity.instance.addPicUrls(resultPathList);
+//        }
 
         if (UpdataImageActivity_bak.instance != null)
         {

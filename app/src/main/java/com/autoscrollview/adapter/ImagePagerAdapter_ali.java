@@ -83,13 +83,13 @@ public class ImagePagerAdapter_ali extends RecyclingPagerAdapter {
         }
 
 
-        BannarBean mbBannarBean = (BannarBean) bannanList.get(position);
+        BannarBean mbBannarBean = bannanList.get(position);
         mbBannarBean.url = mbBannarBean.imageJson.url;
 
         if (mbBannarBean.url.startsWith("http")) {
             finalBitmap.display(holder.imageView, mbBannarBean.url);
         } else {
-            holder.imageView.setImageResource(R.drawable.ic_launcher);
+            holder.imageView.setImageResource(R.drawable.logo);
         }
 
         holder.imageView.setOnClickListener(v -> {

@@ -109,7 +109,7 @@ public class PurchaseDemandItemBaseExpandableListAdapter extends
 			childHolder.tv_07 = (TextView) convertView.findViewById(R.id.tv_07);
 			childHolder.tv_08 = (TextView) convertView.findViewById(R.id.tv_08);
 			childHolder.tv_09 = (TextView) convertView.findViewById(R.id.tv_09);
-			childHolder.line = (View) convertView.findViewById(R.id.line);
+			childHolder.line = convertView.findViewById(R.id.line);
 			childHolder.tv_status = (TextView) convertView
 					.findViewById(R.id.tv_status);
 			childHolder.iv_baojia_chakantupian = (ImageView) convertView

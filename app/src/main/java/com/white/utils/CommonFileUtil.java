@@ -218,11 +218,7 @@ public class CommonFileUtil {
 			}
 		}
 		// 删除当前目录
-		if (dirFile.delete()) {
-			flag = true;
-		} else {
-			flag = false;
-		}
+        flag = dirFile.delete();
 		return flag;
 	}
 

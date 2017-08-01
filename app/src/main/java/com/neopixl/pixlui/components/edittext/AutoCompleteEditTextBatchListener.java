@@ -24,6 +24,6 @@ package com.neopixl.pixlui.components.edittext;
  */
 public interface AutoCompleteEditTextBatchListener
 {
-	public void addNewChar(AutoCompleteEditText edittext);
-	public void deleteKeyboardButton(AutoCompleteEditText edittext, boolean emptyText);
+	void addNewChar(AutoCompleteEditText edittext);
+	void deleteKeyboardButton(AutoCompleteEditText edittext, boolean emptyText);
 }

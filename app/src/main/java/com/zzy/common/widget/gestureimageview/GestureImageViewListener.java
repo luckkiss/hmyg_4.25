@@ -21,12 +21,12 @@ package com.zzy.common.widget.gestureimageview;
  */
 public interface GestureImageViewListener {
 
-	public void onTouch(float x, float y);
+	void onTouch(float x, float y);
 	
-	public void onScale(float scale);
+	void onScale(float scale);
 	
-	public void onRotation(float rotation);
+	void onRotation(float rotation);
 	
-	public void onPosition(float x, float y);
+	void onPosition(float x, float y);
 	
 }

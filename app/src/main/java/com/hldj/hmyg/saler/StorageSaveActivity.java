@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,7 +18,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.barryzhang.temptyview.TViewUtil;
 import com.google.gson.Gson;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.DaoBean.SaveJson.DaoSession;
@@ -103,19 +101,19 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
         initData();
 
 
-        TViewUtil.EmptyViewBuilder.getInstance(StorageSaveActivity.this)
-                .setEmptyText(getResources().getString(R.string.nodata))
-                .setEmptyTextSize(12).setEmptyTextColor(Color.GRAY)
-                .setShowButton(false)
-                .setActionText(getResources().getString(R.string.reload))
-                .setAction(new OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        // Toast.makeText(getApplicationContext(),
-                        // "Yes, clicked~",Toast.LENGTH_SHORT).show();
-                        onRefresh();
-                    }
-                }).setShowIcon(false).setShowText(false).bindView(GroupManList);
+//        TViewUtil.EmptyViewBuilder.getInstance(StorageSaveActivity.this)
+//                .setEmptyText(getResources().getString(R.string.nodata))
+//                .setEmptyTextSize(12).setEmptyTextColor(Color.GRAY)
+//                .setShowButton(false)
+//                .setActionText(getResources().getString(R.string.reload))
+//                .setAction(new OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        // Toast.makeText(getApplicationContext(),
+//                        // "Yes, clicked~",Toast.LENGTH_SHORT).show();
+//                        onRefresh();
+//                    }
+//                }).setShowIcon(false).setShowText(false).bindView(GroupManList);
         btn_back.setOnClickListener(this);
         tv_all.setOnClickListener(this);
         tv_begin.setOnClickListener(this);
@@ -499,10 +497,8 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
 
         if (!checkNoNull("地址", "nurseryId", seedlingBean.getNurseryId(), params)) return false;
 
-        if (!checkNoNull("有效期", "validity", seedlingBean.getValidity() + "", params))
-            return false;
+        return checkNoNull("有效期", "validity", seedlingBean.getValidity() + "", params);
 
-        return true;
     }
 
     private boolean submitParamsLis(SaveSeedingGsonBean.DataBean.TypeListBean.ParamsListBean item, SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean, AjaxParams params) {

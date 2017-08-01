@@ -210,7 +210,7 @@ public class TagCloudLinkView extends RelativeLayout {
             final Tag tag = item;
 
             // inflate tag layout
-            View tagLayout = (View) mInflater.inflate(R.layout.tag, null);
+            View tagLayout = mInflater.inflate(R.layout.tag, null);
             tagLayout.setId(index);
             tagLayout.setBackgroundColor(mTagLayoutColor);
 

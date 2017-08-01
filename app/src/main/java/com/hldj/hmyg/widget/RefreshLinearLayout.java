@@ -47,7 +47,7 @@ public class RefreshLinearLayout extends LinearLayout {
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             autoScrollerHandler();
-        };
+        }
     };
     private View fixedView;
 

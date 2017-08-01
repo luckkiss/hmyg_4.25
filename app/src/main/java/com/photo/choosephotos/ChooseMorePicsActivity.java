@@ -347,8 +347,8 @@ public class ChooseMorePicsActivity extends Activity implements OnClickListener 
 			default:
 				break;
 			}
-		};
-	};
+		}
+    };
 	private KProgressHUD hud;
 	private TextView fabu;
 

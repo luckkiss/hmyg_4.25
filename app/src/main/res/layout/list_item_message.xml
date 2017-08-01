@@ -27,7 +27,7 @@
                 android:layout_height="@dimen/y25"
                        android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/logo" />
         </cn.bingoogolapple.badgeview.BGABadgeLinearLayout>
 
         <LinearLayout

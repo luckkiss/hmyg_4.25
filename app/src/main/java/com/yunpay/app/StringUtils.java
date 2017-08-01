@@ -204,11 +204,7 @@ public class StringUtils {
 	 */
 	public static boolean Section(String str, int min, int max) {
 		int ln = str.length();
-		if (ln >= min && ln <= max) {
-			return true;
-		} else {
-			return false;
-		}
+        return ln >= min && ln <= max;
 	}
 
 	public static int spliteStr(String str) {
@@ -271,7 +267,7 @@ public class StringUtils {
 		Set<Map.Entry<String, Object>> set2 = hm.entrySet();
 		for (Iterator<Map.Entry<String, Object>> iterator = set2.iterator(); iterator
 				.hasNext();) {
-			Map.Entry<String, Object> entry = (Map.Entry<String, Object>) iterator
+			Map.Entry<String, Object> entry = iterator
 					.next();
 			String key = entry.getKey();
 			// Object valueString=entry.getValue();

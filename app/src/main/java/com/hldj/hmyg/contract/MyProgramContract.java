@@ -30,7 +30,7 @@ public interface MyProgramContract {
         ViewGroup getContentView();
     }
 
-    public abstract static class Presenter extends BasePresenter<Model, View> {
+    abstract class Presenter extends BasePresenter<Model, View> {
 
         public abstract void onStart();
 

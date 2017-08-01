@@ -126,9 +126,7 @@
         android:theme="@style/AppBaseTheme">
         <!--<item name="android:windowAnimationStyle">@style/activityAnimation</item>-->
         <!--xmlns:tools="http://schemas.android.com/tools"  tools:replace="android:icon, android:theme  "-->
-        <activity
-            android:name="com.example.sortlistview.ActivityAddFriends"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.SplashActivity"
             android:screenOrientation="portrait"
@@ -231,9 +229,6 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.buyer.PurchaseDemandConsumerListActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.PurchaseDemandItemActivity"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.buyer.PurchaseDemandItem4BuyActivity"

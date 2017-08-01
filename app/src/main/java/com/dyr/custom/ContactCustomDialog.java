@@ -172,7 +172,7 @@ public class ContactCustomDialog extends Dialog {
 				((Button) layout.findViewById(R.id.positiveButton))
 						.setText(positiveButtonText);
 				if (positiveButtonClickListener != null) {
-					((Button) layout.findViewById(R.id.positiveButton))
+					layout.findViewById(R.id.positiveButton)
 							.setOnClickListener(new View.OnClickListener() {
 								public void onClick(View v) {
 									positiveButtonClickListener.onClick(dialog,
@@ -190,7 +190,7 @@ public class ContactCustomDialog extends Dialog {
 				((Button) layout.findViewById(R.id.negativeButton))
 						.setText(negativeButtonText);
 				if (negativeButtonClickListener != null) {
-					((Button) layout.findViewById(R.id.negativeButton))
+					layout.findViewById(R.id.negativeButton)
 							.setOnClickListener(new View.OnClickListener() {
 								public void onClick(View v) {
 									negativeButtonClickListener.onClick(dialog,

@@ -58,7 +58,7 @@ public class ImageViewerActivity extends Activity {
         String filePath = this.getIntent().getStringExtra(PATH);
 //        Drawable bitmap = Drawable.createFromPath(filePath);
         
-        Drawable bitmap = getResources().getDrawable(R.drawable.ic_launcher);
+        Drawable bitmap = getResources().getDrawable(R.drawable.logo);
         mImageView.setImageDrawable(bitmap);
 
         // The MAGIC happens here!

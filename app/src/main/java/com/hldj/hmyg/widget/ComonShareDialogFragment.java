@@ -93,7 +93,7 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
         super.onStart();
         WindowManager.LayoutParams lp = getDialog().getWindow().getAttributes();
         lp.gravity = Gravity.BOTTOM;
-        lp.width = (int) (getDialog().getWindow().getWindowManager().getDefaultDisplay().getWidth());
+        lp.width = getDialog().getWindow().getWindowManager().getDefaultDisplay().getWidth();
         getDialog().getWindow().setGravity(Gravity.BOTTOM);
     }
 

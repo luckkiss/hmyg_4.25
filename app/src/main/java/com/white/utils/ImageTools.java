@@ -345,7 +345,7 @@ public final class ImageTools {
 	 */
 	public static Bitmap getFromCache(String paramString) {
 		Bitmap localBitmap = null;
-		ImageSoftReference localabt2 = (ImageSoftReference) cacheMap
+		ImageSoftReference localabt2 = cacheMap
 				.get(paramString);
 		if (localabt2 != null) {
 			localBitmap = localabt2.get();
@@ -496,8 +496,7 @@ public final class ImageTools {
 		BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
 		Bitmap bitmap = bitmapDrawable.getBitmap();
 		byte[] bytes = bitmapToBytes(bitmap);
-		;
-		return bytes;
+        return bytes;
 	}
 
 	/**

@@ -55,7 +55,7 @@ public class AddAdressActivity extends BaseMVPActivity {
             setTitle("编辑苗源地址");
             this.setBackgroAndTextAndVis(getView(R.id.toolbar_right_text), "删除", R.drawable.red_btn_selector);
             getView(R.id.toolbar_right_text).setOnClickListener(v -> {
-                AddAdressActivity_bak.DelAdress(mActivity, getExtral().id);
+//                AddAdressActivity_bak.DelAdress(mActivity, getExtral().id);
             });
 
         } else {

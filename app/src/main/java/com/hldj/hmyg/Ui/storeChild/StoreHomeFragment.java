@@ -243,7 +243,7 @@ public class StoreHomeFragment extends BaseFragment implements StoreContract.Vie
 
 
         }
-        ((BaseMultAdapter) store_recycle.getAdapter()).onAttachedToRecyclerView(store_recycle.getRecyclerView());
+        store_recycle.getAdapter().onAttachedToRecyclerView(store_recycle.getRecyclerView());
     }
 
     int now_position = 0;

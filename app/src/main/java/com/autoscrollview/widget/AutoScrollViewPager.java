@@ -100,7 +100,7 @@ public class AutoScrollViewPager extends InsideViewPager {
      */
     public void startAutoScroll() {
         isAutoScroll = true;
-        sendScrollMessage((long) (interval));
+        sendScrollMessage(interval);
         // sendScrollMessage((long) (interval + scroller.getDuration()/
         // autoScrollFactor * swipeScrollFactor));
     }

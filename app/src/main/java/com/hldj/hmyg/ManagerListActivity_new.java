@@ -390,22 +390,22 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
         for (int i = 0; i < list_counts.size(); i++) {
             switch (i) {
                 case 0:
-                    ((TextView) list_counts.get(i)).setText("(" + gsonBean.data.countMap.all + ")");
+                    list_counts.get(i).setText("(" + gsonBean.data.countMap.all + ")");
                     break;
                 case 1:
-                    ((TextView) list_counts.get(i)).setText("(" + gsonBean.data.countMap.unaudit + ")");
+                    list_counts.get(i).setText("(" + gsonBean.data.countMap.unaudit + ")");
                     break;
                 case 2:
-                    ((TextView) list_counts.get(i)).setText("(" + gsonBean.data.countMap.published + ")");
+                    list_counts.get(i).setText("(" + gsonBean.data.countMap.published + ")");
                     break;
                 case 3:
-                    ((TextView) list_counts.get(i)).setText("(" + gsonBean.data.countMap.outline + ")");
+                    list_counts.get(i).setText("(" + gsonBean.data.countMap.outline + ")");
                     break;
                 case 4:
-                    ((TextView) list_counts.get(i)).setText("(" + gsonBean.data.countMap.backed + ")");
+                    list_counts.get(i).setText("(" + gsonBean.data.countMap.backed + ")");
                     break;
                 case 5:
-                    ((TextView) list_counts.get(i)).setText("(" + gsonBean.data.countMap.unsubmit + ")");
+                    list_counts.get(i).setText("(" + gsonBean.data.countMap.unsubmit + ")");
                     break;
 
             }

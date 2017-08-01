@@ -21,7 +21,7 @@ import io.reactivex.Observable;
 
 public interface StoreContract {
 
-    public interface View extends BaseView {
+    interface View extends BaseView {
         void initStoreData(List<BPageGsonBean.DatabeanX.Pagebean.Databean> bPageGsonBean);
         void initIndexBean(StoreGsonBean.DataBean indexBean);
         StoreHomeFragment.QueryBean getQueryBean ();
@@ -30,12 +30,12 @@ public interface StoreContract {
 
     }
 
-    public interface Model extends BaseModel {
+    interface Model extends BaseModel {
         void getData(ResultCallBack resultCallBack ,Serializable serializable);
         void getIndexData(ResultCallBack resultCallBack ,String string);
     }
 
-    public abstract static class Presenter extends BasePresenter<Model, View> {
+    abstract class Presenter extends BasePresenter<Model, View> {
 
         public abstract void onStart();
 

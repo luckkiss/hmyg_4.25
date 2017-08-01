@@ -1,8 +1,5 @@
 package com.meinvtupian.album;
 
-import net.tsz.afinal.FinalBitmap;
-import uk.co.senab.photoview.PhotoViewAttacher;
-import uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +9,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.hldj.hmyg.R;
+
+import net.tsz.afinal.FinalBitmap;
+
+import uk.co.senab.photoview.PhotoViewAttacher;
+import uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener;
 
 public class ImageDetailFragment extends Fragment {
 	private String mImageUrl;
@@ -37,7 +39,7 @@ public class ImageDetailFragment extends Fragment {
 				: null;
 
 		fb = FinalBitmap.create(getActivity());
-		fb.configLoadingImage(R.drawable.ic_launcher);
+		fb.configLoadingImage(R.drawable.logo);
 
 	}
 

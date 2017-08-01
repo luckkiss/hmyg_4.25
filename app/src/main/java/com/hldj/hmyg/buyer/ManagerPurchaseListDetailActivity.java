@@ -83,7 +83,7 @@ public class ManagerPurchaseListDetailActivity extends NeedSwipeBackActivity imp
                 .findViewById(R.id.tv_caozuo03);
         ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
         edit_btn = (Button) findViewById(R.id.edit_btn);
-        mainView = (View) findViewById(R.id.mainView);
+        mainView = findViewById(R.id.mainView);
         xListView = (XListView) findViewById(R.id.xlistView);
         xListView.setDivider(null);
         xListView.setPullLoadEnable(false);

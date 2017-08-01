@@ -70,9 +70,6 @@ public class TagTypeAdapter<T> extends BaseAdapter implements
 
 	@Override
 	public boolean isSelectedPosition(int position) {
-		if (position % 2 == 0) {
-			return true;
-		}
-		return false;
-	}
+        return position % 2 == 0;
+    }
 }

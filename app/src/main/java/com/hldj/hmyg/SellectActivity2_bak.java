@@ -278,7 +278,7 @@ public class SellectActivity2_bak extends BaseSecondActivity implements
                                                     if (guige_has_click_names
                                                             .size() > 0
                                                             && mFlowLayout2
-                                                            .getVisibility() == view.GONE) {
+                                                            .getVisibility() == View.GONE) {
                                                         mFlowLayout2
                                                                 .setVisibility(View.VISIBLE);
                                                     }

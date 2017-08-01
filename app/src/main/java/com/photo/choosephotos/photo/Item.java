@@ -102,11 +102,7 @@ public class Item implements Parcelable, Serializable, Comparable<Item> {
 			p.photoPath = source.readString();
 			p.dateTaken = source.readString();
 			int selectInt = source.readInt();
-			if(selectInt == 1){
-				p.select = true;
-			}else{
-				p.select = false;
-			}
+            p.select = selectInt == 1;
 			return p;
 		}
 

@@ -20,7 +20,6 @@ import com.autoscrollview.jakewharton.salvage.RecyclingPagerAdapter;
 import com.autoscrollview.utils.ListUtils;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.StoreActivity;
 import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.WebActivity;
 import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
@@ -97,7 +96,7 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
             finalBitmap.display(holder.imageView, imageIdList.get(position).get("url").toString());
             // holder.imageView.setImageResource(imageIdList.get(getPosition(position)));
         } else {
-            holder.imageView.setImageResource(R.drawable.ic_launcher);
+            holder.imageView.setImageResource(R.drawable.logo);
         }
 
         holder.imageView.setOnClickListener(v -> {
@@ -132,7 +131,7 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
                         FlowerDetailActivity.start2Activity(context, typeBean.sourceId);
                         break;
                     case "store":
-                        StoreActivity_new.start2Activity((Activity) context, typeBean.sourceId);
+                        StoreActivity_new.start2Activity(context, typeBean.sourceId);
                         break;
                     case "purchase":
                         //报价 详情

@@ -267,7 +267,6 @@ public class SettingActivity extends NeedSwipeBackActivity implements
             }
         }
 
-        ;
     };
     private TextView tv_version;
     private SlipButton newMsgAlertStatusOnOff;
@@ -478,7 +477,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                         //把userbean 存入 application 中
 //					SPUtil.clear( SPUtils.UserBean,SettingActivity.this);
                         SPUtil.remove(SettingActivity.this, SPUtils.UserBean);
-                        MyApplication.getInstance().setUserBean(null);
+                        MyApplication.setUserBean(null);
 
 
                         D.e("===" + SPUtil.get(SettingActivity.this, SPUtils.UserBean, "").toString());

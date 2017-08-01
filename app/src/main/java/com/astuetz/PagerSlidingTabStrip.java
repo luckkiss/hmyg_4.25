@@ -45,7 +45,7 @@ import com.hldj.hmyg.R;
 public class PagerSlidingTabStrip extends HorizontalScrollView {
 
 	public interface IconTabProvider {
-		public int getPageIconResId(int position);
+		int getPageIconResId(int position);
 	}
 
 	// @formatter:off

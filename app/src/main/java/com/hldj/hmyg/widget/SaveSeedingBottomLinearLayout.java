@@ -257,11 +257,11 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
         upLoadDatas.address =address ;
         if (address.isDefault)
         {
-            ((TextView) rootView.findViewById(R.id.tv_is_defoloat)).setVisibility(View.VISIBLE);//默认就显示默认地址
+            rootView.findViewById(R.id.tv_is_defoloat).setVisibility(View.VISIBLE);//默认就显示默认地址
             ((TextView) rootView.findViewById(R.id.tv_address_name)).setText(address.cityName); //地址名称
         }else
         {
-            ((TextView) rootView.findViewById(R.id.tv_is_defoloat)).setVisibility(View.GONE);//默认就显示默认地址
+            rootView.findViewById(R.id.tv_is_defoloat).setVisibility(View.GONE);//默认就显示默认地址
             ((TextView) rootView.findViewById(R.id.tv_address_name)).setText(address.cityName); //地址名称
         }
 

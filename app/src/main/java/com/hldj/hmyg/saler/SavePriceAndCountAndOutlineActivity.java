@@ -193,7 +193,7 @@ public class SavePriceAndCountAndOutlineActivity extends NeedSwipeBackActivity {
     };
 
     private void initView() {
-        mainView = (View) findViewById(R.id.ll_mainView);
+        mainView = findViewById(R.id.ll_mainView);
         save = (Button) findViewById(R.id.save);
         ll_save = (LinearLayout) findViewById(R.id.ll_save);
         tv_day = (TextView) findViewById(R.id.tv_day);

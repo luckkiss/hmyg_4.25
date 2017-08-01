@@ -30,21 +30,21 @@ public class MeasureGridView extends GridView {
     public MeasureGridView(Context context, AttributeSet attrs,
                            int defStyle) {
         super(context, attrs, defStyle);
-        this.context = context;
+        MeasureGridView.context = context;
 
 
     }
 
     public MeasureGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.context = context;
+        MeasureGridView.context = context;
 
 
     }
 
     public MeasureGridView(Context context) {
         super(context);
-        this.context = context;
+        MeasureGridView.context = context;
 
     }
 
@@ -103,12 +103,12 @@ public class MeasureGridView extends GridView {
                     ToastUtil.showShortToast("您未同意应用读取SD卡权限");
                     return;
                 }
-                popwin = new FlowerInfoPhotoChoosePopwin2((Activity) context, listener);
+                popwin = new FlowerInfoPhotoChoosePopwin2(context, listener);
                 popwin.showAtLocation(mainView, Gravity.BOTTOM
                         | Gravity.CENTER_HORIZONTAL, 0, 0);
             } else {
                 EditGalleryImageActivity.startEditGalleryImageActivity(
-                        (Activity) context,
+                        context,
                         EditGalleryImageActivity.TO_EDIT_PUBLISH_IMAGE,
                         position, adapter.getDataList());
             }

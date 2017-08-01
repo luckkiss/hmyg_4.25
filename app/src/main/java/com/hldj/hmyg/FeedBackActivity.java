@@ -152,7 +152,7 @@ public class FeedBackActivity extends NeedSwipeBackActivity {
                                                 CommonDialogFragment.newInstance(context -> {
                                                     Dialog dialog1 = new Dialog(context, R.style.DialogTheme);
                                                     dialog1.setContentView(R.layout.feed_back_succeed);
-                                                    ((ViewGroup) dialog1.findViewById(R.id.ll_feed_content)).setBackgroundColor(Color.WHITE);
+                                                    dialog1.findViewById(R.id.ll_feed_content).setBackgroundColor(Color.WHITE);
                                                     dialog1.findViewById(R.id.tv_feed_ok).setOnClickListener(view1 -> onBackPressed());
                                                     return dialog1;
                                                 }, true, () -> {

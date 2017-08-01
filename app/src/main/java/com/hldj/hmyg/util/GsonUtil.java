@@ -48,7 +48,7 @@ public class GsonUtil<T> {
 
 
 //        return (E) getGson().fromJson(json, cls);
-        return (E) getGson().fromJson(json, cls);
+        return getGson().fromJson(json, cls);
     }
 
     public static <E> E formateJson2Bean(String json, Type beanType) {
