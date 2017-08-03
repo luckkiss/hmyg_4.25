@@ -49,6 +49,7 @@ import com.hldj.hmyg.util.MyUtil;
 import com.hldj.hmyg.util.StartBarUtils;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 import com.white.update.UpdateInfo;
 import com.white.utils.SettingUtils;
 
@@ -110,7 +111,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 //        String str = null ;
 //        D.e("======="+ str.toString() );
 
-//        ToastUtil.showShortToast("heheda  更新包");
+        ToastUtil.showShortToast("9次修复混淆问题   热更新生效 \n    修复消息界面奔溃，采购报价 无数据界面显示问题");
 
         /**
          * 控制状态栏为黑色  miui flyme
@@ -215,7 +216,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                 .setContent(new Intent(this, Eactivity3_0.class)));
         radioderGroup = (RadioGroup) findViewById(R.id.rg_tab);
 //        RadioButton tab_c = (RadioButton) findViewById(R.id.tab_c);
-
 
 
         radioderGroup.setOnCheckedChangeListener(this);
@@ -761,7 +761,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
      * #country=中国#road=七星西路#poiName=中国农业银行(厦门岳阳支行)#street=七星西路#streetNum=31号#aoiName=七星大厦(七星西路)
      * #errorCode=0#errorInfo=success#locationDetail=-5 #csid:42a901e6e47042779c9890bb49f2f5fe#locationType=2
      */
-
 
 
 }

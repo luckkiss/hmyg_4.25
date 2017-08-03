@@ -26,12 +26,13 @@ import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
-import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.SPUtil;
 import com.hldj.hmyg.util.SPUtils;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
+import com.tencent.bugly.beta.Beta;
 import com.white.update.UpdateInfo;
 import com.white.utils.SettingUtils;
 
@@ -70,6 +71,52 @@ public class SettingActivity extends NeedSwipeBackActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+        findViewById(R.id.test_show_pach).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.showShortToast("9次修复混淆问题   热更新生效 \n    修复消息界面奔溃，采购报价 无数据界面显示问题");
+
+                /**
+                 * Beta.cleanTinkerPatch();
+                 注：清除补丁之后，就会回退基线版本状态。
+
+                 主动检查更新
+
+                 Beta.checkUpgrade();
+                 */
+            }
+        });
+        findViewById(R.id.test_show_pach1).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.showShortToast("9次补丁下发。清除 补丁");
+                Beta.cleanTinkerPatch();
+
+                /**
+                 * Beta.cleanTinkerPatch();
+                 注：清除补丁之后，就会回退基线版本状态。
+
+                 主动检查更新
+
+                 Beta.checkUpgrade();
+                 */
+            }
+        });
+        findViewById(R.id.test_show_pach2).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.showShortToast("重新下载补丁");
+                Beta.checkUpgrade();
+                /**
+                 * Beta.cleanTinkerPatch();
+                 注：清除补丁之后，就会回退基线版本状态。
+                 主动检查更新
+                 Beta.checkUpgrade();
+                 */
+            }
+        });
+
         mBasIn = new BounceTopEnter();
         mBasOut = new SlideBottomExit();
         e = MyApplication.Userinfo.edit();

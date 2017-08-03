@@ -20,6 +20,7 @@ import com.google.zxing.WriterException;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.M.BPageGsonBean;
+import com.hldj.hmyg.M.QueryBean;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.storeChild.StoreDetailFragment;
 import com.hldj.hmyg.Ui.storeChild.StoreHomeFragment;
@@ -348,7 +349,7 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
     }
 
     @Override
-    public StoreHomeFragment.QueryBean getQueryBean() {
+    public QueryBean getQueryBean() {
         return null;
     }
 

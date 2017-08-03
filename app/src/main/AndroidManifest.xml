@@ -2,8 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hldj.hmyg"
-    android:versionCode="74"
-    android:versionName="3.0.2">
+    android:versionCode="75"
+    android:versionName="3.0.3">
+
+    <!--android:versionCode="74"-->
+    <!--android:versionName="3.0.2" -->
+
     <!--发布时version code  记得加 1 -->
 
     <!--android:versionCode="73"-->
@@ -217,22 +221,12 @@
             android:name="com.hldj.hmyg.DActivity_new"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="com.hldj.hmyg.buyer.DActivity3"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.buyer.PurchaseSearchListActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="com.hldj.hmyg.buyer.PurchaseDemandListActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.PurchaseDemandConsumerListActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.PurchaseDemandItem4BuyActivity"
-            android:screenOrientation="portrait"></activity>
+
+
 
         <activity
             android:name=".Ui.Eactivity3_0"
@@ -260,10 +254,7 @@
             android:name="com.hldj.hmyg.Ui.StoreActivity_new"
             android:screenOrientation="portrait"
             android:theme="@style/e_activity_theme" />
-        <activity
-            android:name="com.hldj.hmyg.StoreActivity_bak"
-            android:screenOrientation="portrait" />
-        <!--android:theme="@style/e_activity_theme"-->
+
         <activity
             android:name="com.hldj.hmyg.store.StoreTypeActivity"
             android:screenOrientation="portrait"></activity>
@@ -353,12 +344,7 @@
             android:name="com.hldj.hmyg.SetPasswardByGetCodeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="com.hldj.hmyg.ChoosePicsActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.example.listedittext.ParamsListActivity"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.SetPhoneByGetCodeActivity"
             android:screenOrientation="portrait"></activity>
@@ -408,33 +394,14 @@
         <activity
             android:name="com.hldj.hmyg.saler.purchase.PurchasePyMapActivity"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.jimiao.SaveMiaoActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.jimiao.MiaoNoteListActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.jimiao.MiaoDetailActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.jimiao.SellectMiaoActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.saler.SaveSeedlingActivity2"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.saler.ValidateDetailActivity"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.saler.EventsActivity"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.saler.SavePriceAndCountAndOutlineActivity"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.saler.ChooseParamsActivity"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.saler.StoreSettingActivity"
             android:screenOrientation="portrait"></activity>
@@ -487,14 +454,7 @@
             android:screenOrientation="portrait"></activity>
 
 
-        <activity
-            android:name="com.hldj.hmyg.BrokerListActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.BrokerListDetailActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+
 
         <activity
             android:name="com.hldj.hmyg.BuyerValidateApplyListActivity"
@@ -756,9 +716,7 @@
         <activity
             android:name="com.photo.choosephotos.ChooseMorePicsActivity"
             android:theme="@android:style/Theme.NoTitleBar"></activity>
-        <activity
-            android:name="com.photo.choosephotos.ChooseMorePicsActivity2"
-            android:theme="@android:style/Theme.NoTitleBar"></activity>
+
         <activity
             android:name="com.photo.choosephotos.photoviewer.photoviewerinterface.ImageViewerActivity"
             android:screenOrientation="portrait"
@@ -796,7 +754,7 @@
         <activity
             android:name="com.hy.utils.FlowTagActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.ericssonlabs.BarCodeTestActivity"></activity>
+
         <activity
             android:name="com.zxing.activity.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"

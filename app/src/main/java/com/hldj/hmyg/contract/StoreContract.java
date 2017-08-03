@@ -4,7 +4,7 @@ import android.support.v4.view.ViewPager;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.M.BPageGsonBean;
-import com.hldj.hmyg.Ui.storeChild.StoreHomeFragment;
+import com.hldj.hmyg.M.QueryBean;
 import com.hldj.hmyg.base.Rx.BaseModel;
 import com.hldj.hmyg.base.Rx.BasePresenter;
 import com.hldj.hmyg.base.Rx.BaseView;
@@ -24,7 +24,7 @@ public interface StoreContract {
     interface View extends BaseView {
         void initStoreData(List<BPageGsonBean.DatabeanX.Pagebean.Databean> bPageGsonBean);
         void initIndexBean(StoreGsonBean.DataBean indexBean);
-        StoreHomeFragment.QueryBean getQueryBean ();
+        QueryBean getQueryBean ();
         String getStoreID();
         ViewPager getViewPager();
 

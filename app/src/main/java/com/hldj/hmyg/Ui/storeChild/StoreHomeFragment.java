@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.hldj.hmyg.BActivity_new_test;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.M.BPageGsonBean;
+import com.hldj.hmyg.M.QueryBean;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.StoreActivity;
 import com.hldj.hmyg.Ui.StoreActivity_new;
@@ -46,7 +47,6 @@ import net.tsz.afinal.http.AjaxCallBack;
 
 import org.json.JSONArray;
 
-import java.io.Serializable;
 import java.util.List;
 
 import static com.hldj.hmyg.buyer.weidet.BaseMultAdapter.GRID_VIEW;
@@ -400,26 +400,6 @@ public class StoreHomeFragment extends BaseFragment implements StoreContract.Vie
 
     }
 
+//    StoreHomeFragment
 
-    public class QueryBean implements Serializable {
-        public String ownerId = "";
-        public String orderBy = "";
-        public String plantTypes = "";
-        public String firstSeedlingTypeId = "";
-        public String secondSeedlingTypeId = "";
-        public int pageSize = 10;
-        public String pageIndex = "0";
-
-        @Override
-        public String toString() {
-            return "QueryBean{" +
-                    "ownerId='" + ownerId + '\'' +
-                    ", orderBy='" + orderBy + '\'' +
-                    ", plantTypes='" + plantTypes + '\'' +
-                    ", firstSeedlingTypeId='" + firstSeedlingTypeId + '\'' +
-                    ", pageSize=" + pageSize +
-                    ", pageIndex='" + pageIndex + '\'' +
-                    '}';
-        }
-    }
 }
