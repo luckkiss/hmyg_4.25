@@ -78,7 +78,7 @@ public class UserBean {
     public boolean isClerk;
     public boolean isInvoices;
     public String permissions;
-    public String storeId;
+    public String storeId = "";
     public String headImage;
     public boolean isPartners;
     public boolean cashOnDelivery;

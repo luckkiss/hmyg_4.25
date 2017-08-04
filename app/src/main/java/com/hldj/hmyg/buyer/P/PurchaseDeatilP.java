@@ -159,6 +159,7 @@ public class PurchaseDeatilP {
                                 if (gsonBean_new.data != null && gsonBean_new.data.purchaseItem != null) {
                                     PurchaseItemBean_new itemBean_new = (PurchaseItemBean_new) gsonBean_new.data.purchaseItem;
                                     Log.e("onSuccess", "onSuccess: " + gsonBean_new.data.purchaseItem + " itemBean_new= " + itemBean_new.toString());
+                                    resultCallBack.onSuccess(gsonBean_new.data.purchaseItem);
                                 } else {
                                     resultCallBack.onSuccess(null);
                                 }
@@ -230,6 +231,7 @@ public class PurchaseDeatilP {
                                 if (gsonBean_new.data!=null && gsonBean_new.data.purchaseItem != null) {
                                     PurchaseItemBean_new itemBean_new = (PurchaseItemBean_new) gsonBean_new.data.purchaseItem;
                                     Log.e("onSuccess", "onSuccess: " + gsonBean_new.data.purchaseItem + " itemBean_new= " + itemBean_new.toString());
+                                    resultCallBack.onSuccess(gsonBean_new.data.purchaseItem);
                                 }else
                                 {
                                     resultCallBack.onSuccess(null);

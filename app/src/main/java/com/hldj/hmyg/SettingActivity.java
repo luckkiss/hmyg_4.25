@@ -75,7 +75,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         findViewById(R.id.test_show_pach).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showShortToast("9次修复混淆问题   热更新生效 \n    修复消息界面奔溃，采购报价 无数据界面显示问题");
+                ToastUtil.showShortToast("10次修复混淆问题   热更新生效 \n   修复  搜索 位置  混淆导致无法 搜索成功，，，，");
 
                 /**
                  * Beta.cleanTinkerPatch();
@@ -90,7 +90,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         findViewById(R.id.test_show_pach1).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showShortToast("9次补丁下发。清除 补丁");
+                ToastUtil.showShortToast("10次补丁下发。清除 补丁");
                 Beta.cleanTinkerPatch();
 
                 /**

@@ -55,7 +55,7 @@ public class MessageListDetailActivity extends NeedSwipeBackActivity implements
     private Button editButton, selectAll, invertSelection;
     private LinearLayout title_ll;
     private boolean listViewState = true;
-    private   CheckBox id_cb_select_all;
+    private CheckBox id_cb_select_all;
     private TextView id_tv_delete_all;
     private TextView id_tv_save_star_all;
 
@@ -397,6 +397,13 @@ public class MessageListDetailActivity extends NeedSwipeBackActivity implements
                     sbf.append(datas.get(i).getId() + ",");
                 }
             }
+
+            id_cb_select_all.setChecked(false);
+            if (sbf.length() == 0) {
+                ToastUtil.showShortToast("请选择要删除的项目");
+                return;
+            }
+
             sbf.deleteCharAt(sbf.length() - 1);
 
             FinalHttp finalHttp = new FinalHttp();
@@ -523,8 +530,7 @@ public class MessageListDetailActivity extends NeedSwipeBackActivity implements
     }
 
 
-    public static void resetChecked()
-    {
+    public static void resetChecked() {
 
     }
 

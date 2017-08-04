@@ -200,8 +200,17 @@
 -keep class com.hldj.hmyg.model.** { *;}
 -keep class com.hldj.hmyg.saler.bean.** { *;}
 -keep class com.hldj.hmyg.saler.M.** { *;}
+
+
 -keepattributes Exceptions,InnerClasses,...
 -keep class com.hldj.hmyg.SellectActivity2$* { * ; }
+-keep class com.hldj.hmyg.saler.AdressManagerActivity$* { * ; }
+
+
+#-keepattributes Exceptions,InnerClasses,...
+#-keep class com.hldj.hmyg.saler.AdressManagerActivity$AdressQueryBean { * ; }
+#-keepattributes Exceptions,InnerClasses,...
+#-keep class com.hldj.hmyg.saler.AdressManagerActivity$AdressQueryBean {  public <fields>; }
 #-keep class com.hldj.hmyg.Ui.storeChild.StoreHomeFragment$QueryBean {
 #         public <fields>;
 # }

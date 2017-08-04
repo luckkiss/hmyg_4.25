@@ -16,13 +16,13 @@ import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.contract.AdressListContract;
 import com.hldj.hmyg.model.AdressListModel;
 import com.hldj.hmyg.presenter.AdressListPresenter;
+import com.hldj.hmyg.saler.M.AdressQueryBean;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.SaveSeedingBottomLinearLayout;
 import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -41,12 +41,12 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
         ToastUtil.showShortToast(erMst);
     }
 
-    private class AdressQueryBean implements Serializable {
-        public String pageIndex = "0";
-        public String pageSize = "20";
-        public String type = "";
-        public String searchKey = "";
-    }
+//    private static class AdressQueryBean implements Serializable {
+//        public String pageIndex = "0";
+//        public String pageSize = "20";
+//        public String type = "";
+//        public String searchKey = "";
+//    }
 
     private AdressQueryBean queryBean = null;
 

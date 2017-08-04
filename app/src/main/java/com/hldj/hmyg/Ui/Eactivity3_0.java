@@ -33,6 +33,7 @@ import com.hldj.hmyg.SafeAcountActivity;
 import com.hldj.hmyg.SetProfileActivity;
 import com.hldj.hmyg.SettingActivity;
 import com.hldj.hmyg.StoreActivity;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.base.rxbus.annotation.Subscribe;
 import com.hldj.hmyg.base.rxbus.event.EventThread;
@@ -119,7 +120,8 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
         this.getView(R.id.sptv_wd_mmgl).setOnClickListener(v -> ManagerListActivity_new.start2Activity(mActivity));//苗木管理
         this.getView(R.id.sptv_wd_bjgl).setOnClickListener(v -> ManagerQuoteListActivity_new.start2Activity(mActivity));//报价管理
-        this.getView(R.id.sptv_wd_wddp).setOnClickListener(v -> StoreActivity.start2ActivityForRsl(mActivity, getSpS("code")));//我的店铺
+        D.e("======商店id======" + MyApplication.getUserBean().storeId);
+        this.getView(R.id.sptv_wd_wddp).setOnClickListener(v -> StoreActivity.start2ActivityForRsl(mActivity, MyApplication.getUserBean().storeId));//我的店铺
         this.getView(R.id.sptv_wd_dpsz).setOnClickListener(v -> StoreSettingActivity.start2Activity(mActivity));//店铺设置
         this.getView(R.id.sptv_wd_zhaq).setOnClickListener(v -> SafeAcountActivity.start2Activity(mActivity));//账户安全
         this.getView(R.id.sptv_wd_mydz).setOnClickListener(v -> AdressManagerActivity.start2Activity(mActivity));//苗源地址管理
@@ -127,7 +129,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         this.getView(R.id.sptv_wd_kf).setOnClickListener(v -> Call_Phone()); // 客服
         this.getView(R.id.sptv_wd_yhfk).setOnClickListener(v -> FeedBackActivity.start2Activity(mActivity));//反馈
         this.getView(R.id.sptv_wd_bjzl).setOnClickListener(v -> SetProfileActivity.start2ActivitySet(mActivity, 100));//编辑资料
-        this.getView(R.id.sptv_wd_wdxm).setOnClickListener(v ->MyProgramActivity.start(mActivity));//我的项目
+        this.getView(R.id.sptv_wd_wdxm).setOnClickListener(v -> MyProgramActivity.start(mActivity));//我的项目
 
 
         this.getView(R.id.iv_circle_head).setOnClickListener(v -> {
