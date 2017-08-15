@@ -120,20 +120,20 @@ public class QuoteAdapter extends BaseAdapter {
 		if (convertView == null) {
 			convertView = inflater.inflate(resourceId, null);
 			holder = new ViewHolder();
-			holder.shop_photo = (ImageView) convertView
+			holder.shop_photo = convertView
 					.findViewById(R.id.iv_img);
-			holder.iv_img2 = (ImageView) convertView.findViewById(R.id.iv_img2);
-			holder.tv_01 = (TextView) convertView.findViewById(R.id.tv_01);
-			holder.tv_02 = (TextView) convertView.findViewById(R.id.tv_02);
-			holder.tv_03 = (TextView) convertView.findViewById(R.id.tv_03);
-			holder.tv_04 = (TextView) convertView.findViewById(R.id.tv_04);
-			holder.tv_05 = (TextView) convertView.findViewById(R.id.tv_05);
-			holder.tv_06 = (TextView) convertView.findViewById(R.id.tv_06);
-			holder.tv_07 = (TextView) convertView.findViewById(R.id.tv_07);
-			holder.tv_08 = (TextView) convertView.findViewById(R.id.tv_08);
-			holder.tv_09 = (TextView) convertView.findViewById(R.id.tv_09);
-			holder.tv_10 = (TextView) convertView.findViewById(R.id.tv_10);
-			holder.shop_check = (CheckBox) convertView
+			holder.iv_img2 = convertView.findViewById(R.id.iv_img2);
+			holder.tv_01 = convertView.findViewById(R.id.tv_01);
+			holder.tv_02 = convertView.findViewById(R.id.tv_02);
+			holder.tv_03 = convertView.findViewById(R.id.tv_03);
+			holder.tv_04 = convertView.findViewById(R.id.tv_04);
+			holder.tv_05 = convertView.findViewById(R.id.tv_05);
+			holder.tv_06 = convertView.findViewById(R.id.tv_06);
+			holder.tv_07 = convertView.findViewById(R.id.tv_07);
+			holder.tv_08 = convertView.findViewById(R.id.tv_08);
+			holder.tv_09 = convertView.findViewById(R.id.tv_09);
+			holder.tv_10 = convertView.findViewById(R.id.tv_10);
+			holder.shop_check = convertView
 					.findViewById(R.id.remmber);
 
 			convertView.setTag(holder);

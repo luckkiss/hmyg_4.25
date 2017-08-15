@@ -58,7 +58,7 @@ public class ThematicActivity extends NeedSwipeBackActivity implements
 		View inflate = getLayoutInflater().inflate(
 				R.layout.thematic_detail_head, null);
 		tv_type = (TextView) findViewById(R.id.tv_type);
-		ImageView iv_img = (ImageView) inflate.findViewById(R.id.iv_img);
+		ImageView iv_img = inflate.findViewById(R.id.iv_img);
 		fb.display(iv_img, ossLargeImagePath);
 		tv_type.setText(title);
 		btn_back = (ImageView) findViewById(R.id.btn_back);

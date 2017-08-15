@@ -144,13 +144,13 @@ public class MyBaseExpandableListAdapter extends BaseExpandableListAdapter {
 			convertView = LayoutInflater.from(context).inflate(
 					R.layout.d4_parent_layout, null);
 			groupViewHolder = new GroupViewHolder();
-			groupViewHolder.tv_title_parent = (TextView) convertView
+			groupViewHolder.tv_title_parent = convertView
 					.findViewById(R.id.tv_title_parent);
-			groupViewHolder.id_tv_edit = (TextView) convertView
+			groupViewHolder.id_tv_edit = convertView
 					.findViewById(R.id.id_tv_edit);
-			groupViewHolder.id_tv_apply = (TextView) convertView
+			groupViewHolder.id_tv_apply = convertView
 					.findViewById(R.id.id_tv_apply);
-			groupViewHolder.id_cb_select_parent = (CheckBox) convertView
+			groupViewHolder.id_cb_select_parent = convertView
 					.findViewById(R.id.id_cb_select_parent);
 
 			convertView.setTag(groupViewHolder);
@@ -316,55 +316,55 @@ public class MyBaseExpandableListAdapter extends BaseExpandableListAdapter {
 					R.layout.d4_child_layout2, null);
 
 			childViewHolder = new ChildViewHolder();
-			childViewHolder.tv_01 = (TextView) convertView
+			childViewHolder.tv_01 = convertView
 					.findViewById(R.id.tv_01);
-			childViewHolder.tv_04 = (TextView) convertView
+			childViewHolder.tv_04 = convertView
 					.findViewById(R.id.tv_04);
-			childViewHolder.tv_05 = (TextView) convertView
+			childViewHolder.tv_05 = convertView
 					.findViewById(R.id.tv_05);
-			childViewHolder.tv_status_01 = (TextView) convertView
+			childViewHolder.tv_status_01 = convertView
 					.findViewById(R.id.tv_status_01);
-			childViewHolder.tv_status_02 = (TextView) convertView
+			childViewHolder.tv_status_02 = convertView
 					.findViewById(R.id.tv_status_02);
-			childViewHolder.tv_status_03 = (TextView) convertView
+			childViewHolder.tv_status_03 = convertView
 					.findViewById(R.id.tv_status_03);
-			childViewHolder.tv_status_04 = (TextView) convertView
+			childViewHolder.tv_status_04 = convertView
 					.findViewById(R.id.tv_status_04);
-			childViewHolder.tv_status_05 = (TextView) convertView
+			childViewHolder.tv_status_05 = convertView
 					.findViewById(R.id.tv_status_05);
-			childViewHolder.id_iv_logo = (ImageView) convertView
+			childViewHolder.id_iv_logo = convertView
 					.findViewById(R.id.id_iv_logo);
-			childViewHolder.tv_items_child = (TextView) convertView
+			childViewHolder.tv_items_child = convertView
 					.findViewById(R.id.tv_items_child);
-			childViewHolder.id_cb_select_child = (CheckBox) convertView
+			childViewHolder.id_cb_select_child = convertView
 					.findViewById(R.id.id_cb_select_child);
-			childViewHolder.id_ll_normal = (LinearLayout) convertView
+			childViewHolder.id_ll_normal = convertView
 					.findViewById(R.id.id_ll_normal);
-			childViewHolder.id_ll_edtoring = (LinearLayout) convertView
+			childViewHolder.id_ll_edtoring = convertView
 					.findViewById(R.id.id_ll_edtoring);
 			// 常规下：
-			childViewHolder.tv_items_child_desc = (TextView) convertView
+			childViewHolder.tv_items_child_desc = convertView
 					.findViewById(R.id.tv_items_child_desc);
-			childViewHolder.id_tv_price = (TextView) convertView
+			childViewHolder.id_tv_price = convertView
 					.findViewById(R.id.id_tv_price);
-			childViewHolder.id_tv_discount_price = (TextView) convertView
+			childViewHolder.id_tv_discount_price = convertView
 					.findViewById(R.id.id_tv_discount_price);
-			childViewHolder.id_tv_count = (TextView) convertView
+			childViewHolder.id_tv_count = convertView
 					.findViewById(R.id.id_tv_count);
 			// 编辑下：
-			childViewHolder.id_iv_reduce = (ImageView) convertView
+			childViewHolder.id_iv_reduce = convertView
 					.findViewById(R.id.id_iv_reduce);
-			childViewHolder.id_iv_add = (ImageView) convertView
+			childViewHolder.id_iv_add = convertView
 					.findViewById(R.id.id_iv_add);
-			childViewHolder.id_tv_count_now = (TextView) convertView
+			childViewHolder.id_tv_count_now = convertView
 					.findViewById(R.id.id_tv_count_now);
-			childViewHolder.id_tv_price_now = (TextView) convertView
+			childViewHolder.id_tv_price_now = convertView
 					.findViewById(R.id.id_tv_price_now);
-			childViewHolder.id_tv_des_now = (TextView) convertView
+			childViewHolder.id_tv_des_now = convertView
 					.findViewById(R.id.id_tv_des_now);
-			childViewHolder.id_tv_goods_star = (TextView) convertView
+			childViewHolder.id_tv_goods_star = convertView
 					.findViewById(R.id.id_tv_goods_star);
-			childViewHolder.id_tv_goods_delete = (TextView) convertView
+			childViewHolder.id_tv_goods_delete = convertView
 					.findViewById(R.id.id_tv_goods_delete);
 
 			convertView.setTag(childViewHolder);

@@ -59,7 +59,7 @@ public class MyFragment extends Fragment implements OnPageChangeListener {
         initData();
 
         views = new ArrayList<View>();
-        viewpager = (CustomViewPager) inflate.findViewById(R.id.viewpager);
+        viewpager = inflate.findViewById(R.id.viewpager);
         LayoutParams para = viewpager.getLayoutParams();
         para.height = width / hang_Num * lie_Num / 2;
         // viewpager.setLayoutParams(para);
@@ -89,7 +89,7 @@ public class MyFragment extends Fragment implements OnPageChangeListener {
 
     private void initGrids(int currentIndex2) {
         // TODO Auto-generated method stub
-        gv = (GridView) views.get(currentIndex2).findViewById(R.id.gridview);
+        gv = views.get(currentIndex2).findViewById(R.id.gridview);
 
         List<HomeStore> arrayList2 = new ArrayList<HomeStore>();
         if (urls.size() > Num) {
@@ -119,7 +119,7 @@ public class MyFragment extends Fragment implements OnPageChangeListener {
      * 初始化小点
      */
     private void initViewPagerPoint() {
-        LinearLayout linerLayout = (LinearLayout) inflate
+        LinearLayout linerLayout = inflate
                 .findViewById(R.id.viewpager_point);
         viewpager_points = new ImageView[(urls.size() - 1) / Num + 1];
         // 清空linerLayout中的小点

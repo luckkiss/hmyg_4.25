@@ -142,14 +142,14 @@ public class Banner extends FrameLayout implements
 		imageViews.clear();
 		View view = LayoutInflater.from(context).inflate(R.layout.banner, this,
 				true);
-		viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-		titleView = (LinearLayout) view.findViewById(R.id.titleView);
-		indicator = (LinearLayout) view.findViewById(R.id.indicator);
-		indicatorInside = (LinearLayout) view
+		viewPager = view.findViewById(R.id.viewpager);
+		titleView = view.findViewById(R.id.titleView);
+		indicator = view.findViewById(R.id.indicator);
+		indicatorInside = view
 				.findViewById(R.id.indicatorInside);
-		bannerTitle = (TextView) view.findViewById(R.id.bannerTitle);
-		numIndicator = (TextView) view.findViewById(R.id.numIndicator);
-		numIndicatorInside = (TextView) view
+		bannerTitle = view.findViewById(R.id.bannerTitle);
+		numIndicator = view.findViewById(R.id.numIndicator);
+		numIndicatorInside = view
 				.findViewById(R.id.numIndicatorInside);
 		handleTypedArray(context, attrs);
 	}

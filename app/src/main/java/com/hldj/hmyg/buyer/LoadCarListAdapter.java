@@ -72,15 +72,15 @@ public class LoadCarListAdapter extends BaseAdapter {
 		View inflate = LayoutInflater.from(context).inflate(
 				R.layout.list_item_loadcar, null);
 		final int mPosition = position;
-		remmber = (CheckBox) inflate.findViewById(R.id.remmber);
-		remmber_tv = (TextView) inflate.findViewById(R.id.remmber_tv);
-		TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);
-		TextView tv_02 = (TextView) inflate.findViewById(R.id.tv_02);
-		TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);
-		TextView tv_04 = (TextView) inflate.findViewById(R.id.tv_04);
-		TextView tv_05 = (TextView) inflate.findViewById(R.id.tv_05);
-		TextView tv_ac = (TextView) inflate.findViewById(R.id.tv_ac);
-		ListView lv_waitpay_nei = (ListView) inflate.findViewById(R.id.lv_waitpay_nei);
+		remmber = inflate.findViewById(R.id.remmber);
+		remmber_tv = inflate.findViewById(R.id.remmber_tv);
+		TextView tv_01 = inflate.findViewById(R.id.tv_01);
+		TextView tv_02 = inflate.findViewById(R.id.tv_02);
+		TextView tv_03 = inflate.findViewById(R.id.tv_03);
+		TextView tv_04 = inflate.findViewById(R.id.tv_04);
+		TextView tv_05 = inflate.findViewById(R.id.tv_05);
+		TextView tv_ac = inflate.findViewById(R.id.tv_ac);
+		ListView lv_waitpay_nei = inflate.findViewById(R.id.lv_waitpay_nei);
 
 		
 		if(data.get(position).isShowCheck()){

@@ -384,18 +384,18 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
         public TextView tv_guige_left;
 
         public ViewHolder(Activity rootView) {
-            this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
-            this.tv_guige_left = (TextView) rootView.findViewById(R.id.tv_guige_left);
-            this.btn_back = (ImageView) rootView.findViewById(R.id.btn_back);
-            this.tv_purchase_name = (TextView) rootView.findViewById(R.id.tv_quote_name);
-            this.tv_purchase_size = (TextView) rootView.findViewById(R.id.tv_quote_size);
-            this.tv_purchase_type = (TextView) rootView.findViewById(R.id.tv_quote_type);
-            this.tv_quote_num = (TextView) rootView.findViewById(R.id.tv_quote_num);
-            this.tv_purchase_address = (SuperTextView) rootView.findViewById(R.id.tv_quote_address);
-            this.tv_purchase_close_date = (SuperTextView) rootView.findViewById(R.id.tv_quote_close_date);
-            this.tv_purchase_store_detail = (Button) rootView.findViewById(R.id.tv_quote_store_detail);//采购商家信息
-            this.tv_purchase_price_sug = (Button) rootView.findViewById(R.id.tv_quote_price_sug);//报价要求
-            this.tv_purchase_city_name = (TextView) rootView.findViewById(R.id.tv_purchase_city_name);
+            this.tv_title = rootView.findViewById(R.id.tv_title);
+            this.tv_guige_left = rootView.findViewById(R.id.tv_guige_left);
+            this.btn_back = rootView.findViewById(R.id.btn_back);
+            this.tv_purchase_name = rootView.findViewById(R.id.tv_quote_name);
+            this.tv_purchase_size = rootView.findViewById(R.id.tv_quote_size);
+            this.tv_purchase_type = rootView.findViewById(R.id.tv_quote_type);
+            this.tv_quote_num = rootView.findViewById(R.id.tv_quote_num);
+            this.tv_purchase_address = rootView.findViewById(R.id.tv_quote_address);
+            this.tv_purchase_close_date = rootView.findViewById(R.id.tv_quote_close_date);
+            this.tv_purchase_store_detail = rootView.findViewById(R.id.tv_quote_store_detail);//采购商家信息
+            this.tv_purchase_price_sug = rootView.findViewById(R.id.tv_quote_price_sug);//报价要求
+            this.tv_purchase_city_name = rootView.findViewById(R.id.tv_purchase_city_name);
 
 
         }

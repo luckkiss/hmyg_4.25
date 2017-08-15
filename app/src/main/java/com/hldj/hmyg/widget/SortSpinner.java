@@ -173,7 +173,7 @@ public class SortSpinner {
 //        activity.getWindow().setAttributes(lp);
 
 
-        listView = (ListView) loginwindow.findViewById(R.id.listview);
+        listView = loginwindow.findViewById(R.id.listview);
         // 设置自定义Adapter
         optionsAdapter = new SortListAdapter();
         listView.setAdapter(optionsAdapter);
@@ -317,11 +317,11 @@ public class SortSpinner {
             // TODO Auto-generated method stub
 //            View view = LayoutInflater.from(context).inflate(R.layout.list_item_sort_new, null);
             View sort_list_item = activity.getLayoutInflater().inflate(R.layout.list_item_sort, null);
-            TextView area_tv_item = (TextView) sort_list_item.findViewById(R.id.tv_item);
+            TextView area_tv_item = sort_list_item.findViewById(R.id.tv_item);
             for (Map.Entry<String, String> entry : list_map.get(position).entrySet()) {
                 area_tv_item.setText(entry.getValue());
             }
-            ImageView is_check = (ImageView) sort_list_item.findViewById(R.id.is_check);
+            ImageView is_check = sort_list_item.findViewById(R.id.is_check);
             if (clickTemp == position) {
                 area_tv_item.setTextColor(ContextCompat.getColor(activity, R.color.main_color));
                 is_check.setVisibility(View.VISIBLE);

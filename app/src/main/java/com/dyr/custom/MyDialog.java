@@ -29,10 +29,10 @@ public class MyDialog {
 //		dialog.getWindow().setBackgroundDrawableResource(
 //				R.drawable.material_dialog_window);
 		dialog.setContentView(R.layout.dialog_edit);
-		textView = (TextView) dialog.findViewById(R.id.textview);
-		sure = (Button) dialog.findViewById(R.id.button1);
-		cancle = (Button) dialog.findViewById(R.id.button0);
-		editText = (EditText) dialog.findViewById(R.id.editText1);
+		textView = dialog.findViewById(R.id.textview);
+		sure = dialog.findViewById(R.id.button1);
+		cancle = dialog.findViewById(R.id.button0);
+		editText = dialog.findViewById(R.id.editText1);
 		sure.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

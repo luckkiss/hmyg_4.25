@@ -78,14 +78,14 @@ public abstract class ChooseTypeBottomPopwin extends PopupWindow {
         inflater = LayoutInflater.from(context);
         mainView = inflater.inflate(R.layout.bottom_choose_type, null);
         mainView.findViewById(R.id.ll_botom_parent).setBackgroundColor(Color.WHITE);
-        mFlowLayout3 = (TagFlowLayout) mainView
+        mFlowLayout3 = mainView
                 .findViewById(R.id.id_flowlayout3);
-        tv_type01 = (TextView) mainView.findViewById(R.id.tv_type01);
-        tv_type02 = (TextView) mainView.findViewById(R.id.tv_type02);
-        tv_type03 = (TextView) mainView.findViewById(R.id.tv_type03);
-        tv_type04 = (TextView) mainView.findViewById(R.id.tv_type04);
-        iv_reset = (TextView) mainView.findViewById(R.id.iv_reset);
-        sure = (TextView) mainView.findViewById(R.id.sure);
+        tv_type01 = mainView.findViewById(R.id.tv_type01);
+        tv_type02 = mainView.findViewById(R.id.tv_type02);
+        tv_type03 = mainView.findViewById(R.id.tv_type03);
+        tv_type04 = mainView.findViewById(R.id.tv_type04);
+        iv_reset = mainView.findViewById(R.id.iv_reset);
+        sure = mainView.findViewById(R.id.sure);
         if (str.contains("planted")) {
             type01 = "planted,";
             tv_type01.setTextColor(context.getResources().getColor(

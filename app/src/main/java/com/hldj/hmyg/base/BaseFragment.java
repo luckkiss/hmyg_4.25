@@ -57,7 +57,7 @@ public abstract class BaseFragment extends Fragment {
 
     // 获取loading view
     protected final void initLoadingView(View rootView) {
-        loadingLayout = (LoadingLayout) rootView.findViewById(bindLoadingLayout());
+        loadingLayout = rootView.findViewById(bindLoadingLayout());
         //自定义刷新界面
         loadPage = LayoutInflater.from(mActivity).inflate(R.layout.load_dialog, null);
 
@@ -101,7 +101,7 @@ public abstract class BaseFragment extends Fragment {
         if (loadingLayout == null) {
             return;
         }
-        ImageView img = (ImageView) loadPage.findViewById(R.id.iv_amin_flowar);
+        ImageView img = loadPage.findViewById(R.id.iv_amin_flowar);
         // 加载动画
         AnimationDrawable mAnimationDrawable = (AnimationDrawable) img.getDrawable();
 //            默认进入页面就开启动画
@@ -125,7 +125,7 @@ public abstract class BaseFragment extends Fragment {
         if (loadingLayout == null) {
             return;
         }
-        ImageView img = (ImageView) loadPage.findViewById(R.id.iv_amin_flowar);
+        ImageView img = loadPage.findViewById(R.id.iv_amin_flowar);
         // 加载动画
         AnimationDrawable mAnimationDrawable = (AnimationDrawable) img.getDrawable();
 //            默认进入页面就开启动画
@@ -144,7 +144,7 @@ public abstract class BaseFragment extends Fragment {
         if (loadingLayout == null) {
             return;
         }
-        ImageView img = (ImageView) loadPage.findViewById(R.id.iv_amin_flowar);
+        ImageView img = loadPage.findViewById(R.id.iv_amin_flowar);
         // 加载动画
         AnimationDrawable mAnimationDrawable = (AnimationDrawable) img.getDrawable();
 //            默认进入页面就开启动画
@@ -158,7 +158,7 @@ public abstract class BaseFragment extends Fragment {
         if (loadingLayout == null) {
             return;
         }
-        ImageView img = (ImageView) loadPage.findViewById(R.id.iv_amin_flowar);
+        ImageView img = loadPage.findViewById(R.id.iv_amin_flowar);
         // 加载动画
         AnimationDrawable mAnimationDrawable = (AnimationDrawable) img.getDrawable();
 //            默认进入页面就开启动画

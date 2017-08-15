@@ -59,10 +59,10 @@ public abstract class ChooseTypeListPopwin extends PopupWindow {
 		}
 		inflater = LayoutInflater.from(context);
 		mainView = inflater.inflate(R.layout.bottom_choose_type_list, null);
-		ListView listView = (ListView) mainView.findViewById(R.id.listView);
+		ListView listView = mainView.findViewById(R.id.listView);
 		listView.setAdapter(new Myadapter());
-		iv_reset = (TextView) mainView.findViewById(R.id.iv_reset);
-		sure = (TextView) mainView.findViewById(R.id.sure);
+		iv_reset = mainView.findViewById(R.id.iv_reset);
+		sure = mainView.findViewById(R.id.sure);
 		sure.setOnClickListener(new myOnclick());
 		iv_reset.setOnClickListener(new myOnclick());
 		setContentView(mainView);
@@ -129,7 +129,7 @@ public abstract class ChooseTypeListPopwin extends PopupWindow {
 			// TODO Auto-generated method stub
 			View inflate = LayoutInflater.from(context).inflate(
 					R.layout.list_item_store_type_list, null);
-			TextView tv_item = (TextView) inflate.findViewById(R.id.tv_item);
+			TextView tv_item = inflate.findViewById(R.id.tv_item);
 			try {
 				tv_item.setText(JsonGetInfo.getJsonString(
 						typeList.getJSONObject(position), "name"));

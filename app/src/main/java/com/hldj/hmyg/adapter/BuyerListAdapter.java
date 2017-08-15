@@ -68,16 +68,16 @@ public class BuyerListAdapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View inflate = LayoutInflater.from(context).inflate(
 				R.layout.list_item_buyer_order, null);
-		TextView remmber = (TextView) inflate.findViewById(R.id.remmber);
-		LinearLayout ll_item_broker = (LinearLayout) inflate
+		TextView remmber = inflate.findViewById(R.id.remmber);
+		LinearLayout ll_item_broker = inflate
 				.findViewById(R.id.ll_item_broker);
-		TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);
-		TextView tv_02 = (TextView) inflate.findViewById(R.id.tv_02);
-		TextView tv_ac = (TextView) inflate.findViewById(R.id.tv_ac);
-		TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);
-		TextView tv_04 = (TextView) inflate.findViewById(R.id.tv_04);
-		TextView tv_05 = (TextView) inflate.findViewById(R.id.tv_05);
-		ListView lv_waitpay_nei = (ListView) inflate
+		TextView tv_01 = inflate.findViewById(R.id.tv_01);
+		TextView tv_02 = inflate.findViewById(R.id.tv_02);
+		TextView tv_ac = inflate.findViewById(R.id.tv_ac);
+		TextView tv_03 = inflate.findViewById(R.id.tv_03);
+		TextView tv_04 = inflate.findViewById(R.id.tv_04);
+		TextView tv_05 = inflate.findViewById(R.id.tv_05);
+		ListView lv_waitpay_nei = inflate
 				.findViewById(R.id.lv_waitpay_nei);
 		remmber.setText(data.get(position).get("cityName").toString());
 		tv_01.setText("时间："

@@ -825,9 +825,9 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                 Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.dialog_required_no_permission);
 
-                TextView tv_request = (TextView) dialog.findViewById(R.id.tv_request);
-                TextView tv_content = (TextView) dialog.findViewById(R.id.textView17);
-                TextView tv_dismiss = (TextView) dialog.findViewById(R.id.tv_dismiss);
+                TextView tv_request = dialog.findViewById(R.id.tv_request);
+                TextView tv_content = dialog.findViewById(R.id.textView17);
+                TextView tv_dismiss = dialog.findViewById(R.id.tv_dismiss);
                 tv_request.setOnClickListener(view -> {
 
                     showLoading();

@@ -21,7 +21,7 @@ public class ZzyProgressDiologUtil {
 		pd = new Dialog(activity, R.style.myDialogTheme);
 		View layout = activity.getLayoutInflater().inflate(
 				R.layout.menu_refresh_popwin, null);
-		TextView popWinMes = (TextView) layout
+		TextView popWinMes = layout
 				.findViewById(R.id.menuRefreshMesTv);
 		popWinMes.setText(text);
 		pd.setContentView(layout);
@@ -40,7 +40,7 @@ public class ZzyProgressDiologUtil {
 		pd = new Dialog(activity, R.style.myDialogTheme);
 		View layout = activity.getLayoutInflater().inflate(
 				R.layout.menu_refresh_popwin, null);
-		TextView popWinMes = (TextView) layout
+		TextView popWinMes = layout
 				.findViewById(R.id.menuRefreshMesTv);
 		popWinMes.setText(Rid);
 		pd.setContentView(layout);
@@ -60,7 +60,7 @@ public class ZzyProgressDiologUtil {
 		pd = new Dialog(activity, R.style.myDialogTheme);
 		View layout = activity.getLayoutInflater().inflate(
 				R.layout.menu_refresh_popwin, null);
-		TextView popWinMes = (TextView) layout
+		TextView popWinMes = layout
 				.findViewById(R.id.menuRefreshMesTv);
 		popWinMes.setText(text);
 		pd.setContentView(layout);
@@ -79,7 +79,7 @@ public class ZzyProgressDiologUtil {
 		pd = new Dialog(activity, R.style.myDialogTheme);
 		View layout = activity.getLayoutInflater().inflate(
 				R.layout.menu_refresh_popwin, null);
-		TextView popWinMes = (TextView) layout
+		TextView popWinMes = layout
 				.findViewById(R.id.menuRefreshMesTv);
 		popWinMes.setText(Rid);
 		pd.setContentView(layout);

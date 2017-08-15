@@ -132,32 +132,32 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
 
 //      ToastUtil.showShortToast("bugly 热更新生效");
-        viewPager = (AutoScrollViewPager) findViewById(R.id.view_pager);
-        indicator = (CirclePageIndicator) findViewById(R.id.indicator);
+        viewPager = findViewById(R.id.view_pager);
+        indicator = findViewById(R.id.indicator);
         indicator.setAlpha((float) 0.6);
 //        absviewPager = (AbSlidingPlayView) findViewById(R.id.viewPager_menu);
 //        // 设置播放方式为顺序播放
 //        absviewPager.setPlayType(1);
 //        // 设置播放间隔时间
 //        absviewPager.setSleepTime(7500);
-        iv_msg = (ImageView) findViewById(R.id.iv_a_msg);
+        iv_msg = findViewById(R.id.iv_a_msg);
 //		relativeLayout2 = (RelativeLayout) findViewById(R.id.RelativeLayout2);
 //		iv_Capture = (ImageView) findViewById(iv_Capture);
 //        iv_home_merchants = (ImageView) findViewById(R.id.iv_home_merchants);
 //        iv_home_preferential = (ImageView) findViewById(R.id.iv_home_preferential);
-        iv_fuwu = (ImageView) findViewById(R.id.iv_fuwu);
+        iv_fuwu = findViewById(R.id.iv_fuwu);
 //        iv_fenlei = (ImageView) findViewById(R.id.iv_fenlei);
-        gd = (GridView) findViewById(R.id.gd);
-        gd_01 = (GridView) findViewById(R.id.gd_01);
-        gd_00 = (GridView) findViewById(R.id.gd_00);
-        lv_00 = (ListView) findViewById(R.id.lv_00);
-        ll_fenlei = (LinearLayout) findViewById(R.id.ll_fenlei);
+        gd = findViewById(R.id.gd);
+        gd_01 = findViewById(R.id.gd_01);
+        gd_00 = findViewById(R.id.gd_00);
+        lv_00 = findViewById(R.id.lv_00);
+        ll_fenlei = findViewById(R.id.ll_fenlei);
         lv_00.setDivider(null);
-        scrollView = (NestedScrollView) findViewById(R.id.rotate_header_scroll_view);
+        scrollView = findViewById(R.id.rotate_header_scroll_view);
         if (contentView == null) {
             contentView = scrollView.getChildAt(0);
         }
-        toTopBtn = (Button) findViewById(R.id.top_btn);
+        toTopBtn = findViewById(R.id.top_btn);
         toTopBtn.setOnClickListener(this);
 
         LayoutParams l_params = new RelativeLayout.LayoutParams(
@@ -182,7 +182,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     }
 
     private void initSwipe() {
-        MySwipeRefreshLayout swipeRefreshLayout = (MySwipeRefreshLayout) findViewById(R.id.swipe_main);
+        MySwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe_main);
         swipeRefreshLayout.setLoadmoreEnable(false);
 //        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
 
@@ -270,8 +270,8 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             //设置滚动的单个布局
             LinearLayout moreView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_home_cjgg, null);
             //初始化布局的控件
-            TextView tv1 = (TextView) moreView.findViewById(R.id.tv_taggle1);
-            TextView tv2 = (TextView) moreView.findViewById(R.id.tv_taggle2);
+            TextView tv1 = moreView.findViewById(R.id.tv_taggle1);
+            TextView tv2 = moreView.findViewById(R.id.tv_taggle2);
 
             /**
              * 设置监听
@@ -323,7 +323,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private void initArticles(List<ArticleBean> articleList) {
 //        data.addAll(articleList);
 //        setView();//设置数据
-        UPMarqueeView upview1 = (UPMarqueeView) findViewById(R.id.upview1);
+        UPMarqueeView upview1 = findViewById(R.id.upview1);
         upview1.setViews(AActivity_3_0_alibaba.getViewsByDatas(AActivity_3_0.this, articleList));
         /**
          * 设置item_view的监听
@@ -780,9 +780,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         }
 
         {  // 根据list 显示 title  并且设置点击事件
-            TextView home_title_first = (TextView) findViewById(R.id.home_title_first);
-            TextView home_title_second = (TextView) findViewById(R.id.home_title_second);
-            TextView home_title_third = (TextView) findViewById(R.id.home_title_third);
+            TextView home_title_first = findViewById(R.id.home_title_first);
+            TextView home_title_second = findViewById(R.id.home_title_second);
+            TextView home_title_third = findViewById(R.id.home_title_third);
             TextView tv_titles[] = new TextView[]{home_title_first, home_title_second, home_title_third};
 
             View v1 = findViewById(R.id.home_title_first);

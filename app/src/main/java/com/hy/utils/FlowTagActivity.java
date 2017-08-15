@@ -26,9 +26,9 @@ public class FlowTagActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_flowtag);
 
-        mColorFlowTagLayout = (FlowTagLayout) findViewById(R.id.color_flow_layout);
-        mSizeFlowTagLayout = (FlowTagLayout) findViewById(R.id.size_flow_layout);
-        mMobileFlowTagLayout = (FlowTagLayout) findViewById(R.id.mobile_flow_layout);
+        mColorFlowTagLayout = findViewById(R.id.color_flow_layout);
+        mSizeFlowTagLayout = findViewById(R.id.size_flow_layout);
+        mMobileFlowTagLayout = findViewById(R.id.mobile_flow_layout);
 
         //颜色
         mColorTagAdapter = new TagAdapter<String>(this);

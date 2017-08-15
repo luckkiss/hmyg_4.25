@@ -59,13 +59,13 @@ public class WebViewDialogFragment2 extends DialogFragment {
     }
 
     private void initView(View view) {
-        TextView tv_ok_to_close = (TextView) view.findViewById(R.id.tv_ok_to_close);
+        TextView tv_ok_to_close = view.findViewById(R.id.tv_ok_to_close);
 
-        tv_sotreName = ((TextView) view.findViewById(R.id.tv_sotreName));
-        tv_inTheCity = ((TextView) view.findViewById(R.id.tv_inTheCity));
-        tv_phoneNum = ((TextView) view.findViewById(R.id.tv_phoneNum));
-        tv_itemNum = ((TextView) view.findViewById(R.id.tv_itemNum));
-        tv_priced = ((TextView) view.findViewById(R.id.tv_priced));
+        tv_sotreName = view.findViewById(R.id.tv_sotreName);
+        tv_inTheCity = view.findViewById(R.id.tv_inTheCity);
+        tv_phoneNum = view.findViewById(R.id.tv_phoneNum);
+        tv_itemNum = view.findViewById(R.id.tv_itemNum);
+        tv_priced = view.findViewById(R.id.tv_priced);
 
 
         tv_ok_to_close.setOnClickListener(new View.OnClickListener() {

@@ -84,15 +84,15 @@ public class ChoosePhotoGalleryActivity extends CoreActivity implements
 	}
 
 	private void initView() {
-		titleLayout = (RelativeLayout) findViewById(R.id.titleLayout);
-		backBtn = (Button) findViewById(R.id.common_titlebar_leftBtn);
-		isCheckBtn = (CheckBox) findViewById(R.id.photo_choose_check_iv);
-		imageGallery = (ImageGalleryView) findViewById(R.id.gallery_image);
-		bottomLayout = (RelativeLayout) findViewById(R.id.bottomLayout);
-		isSourceCheckBtn = (CheckBox) findViewById(R.id.photo_choose_source_check_iv);
-		sourceSizeTv = (TextView) findViewById(R.id.choose_photo_source_size_tv);
-		chooseNumTv = (TextView) findViewById(R.id.choose_photo_num_tv);
-		sendBtn = (Button) findViewById(R.id.choose_photo_send_btn);
+		titleLayout = findViewById(R.id.titleLayout);
+		backBtn = findViewById(R.id.common_titlebar_leftBtn);
+		isCheckBtn = findViewById(R.id.photo_choose_check_iv);
+		imageGallery = findViewById(R.id.gallery_image);
+		bottomLayout = findViewById(R.id.bottomLayout);
+		isSourceCheckBtn = findViewById(R.id.photo_choose_source_check_iv);
+		sourceSizeTv = findViewById(R.id.choose_photo_source_size_tv);
+		chooseNumTv = findViewById(R.id.choose_photo_num_tv);
+		sendBtn = findViewById(R.id.choose_photo_send_btn);
 
 		backBtn.setText("      ");
 	}

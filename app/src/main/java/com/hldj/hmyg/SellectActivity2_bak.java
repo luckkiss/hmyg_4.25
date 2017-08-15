@@ -676,12 +676,12 @@ public class SellectActivity2_bak extends BaseSecondActivity implements
     private void showCitys() {
         View dia_choose_share = getLayoutInflater().inflate(
                 R.layout.dia_choose_city, null);
-        TextView tv_sure = (TextView) dia_choose_share
+        TextView tv_sure = dia_choose_share
                 .findViewById(R.id.tv_sure);
-        mViewProvince = (WheelView) dia_choose_share
+        mViewProvince = dia_choose_share
                 .findViewById(R.id.id_province);
-        mViewCity = (WheelView) dia_choose_share.findViewById(R.id.id_city);
-        mViewDistrict = (WheelView) dia_choose_share
+        mViewCity = dia_choose_share.findViewById(R.id.id_city);
+        mViewDistrict = dia_choose_share
                 .findViewById(R.id.id_district);
         mViewDistrict.setVisibility(View.GONE);
         // 添加change事件

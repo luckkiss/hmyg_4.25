@@ -159,9 +159,9 @@ public class NoticeActivity_detail extends NeedSwipeBackActivity {
         public ProgressBar pg1; // tablayout
 
         public ViewHolder(Activity rootView) {
-            this.news_title = (OptionItemView) rootView.findViewById(R.id.news_title_detail);
-            this.webview_notice_detail = (WebView) rootView.findViewById(R.id.webview_notice_detail);
-            this.pg1 = (ProgressBar) rootView.findViewById(R.id.news_progressBar_detail);
+            this.news_title = rootView.findViewById(R.id.news_title_detail);
+            this.webview_notice_detail = rootView.findViewById(R.id.webview_notice_detail);
+            this.pg1 = rootView.findViewById(R.id.news_progressBar_detail);
         }
 
     }

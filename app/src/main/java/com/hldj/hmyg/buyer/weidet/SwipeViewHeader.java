@@ -62,14 +62,14 @@ public class SwipeViewHeader extends LinearLayout implements BaseRefreshHeader {
         // 初始情况，设置下拉刷新view高度为0
 
         LayoutInflater.from(context).inflate(R.layout.swipe_rc_view_header, this);
-        mContainer = (RelativeLayout) findViewById(R.id.xlistview_header_content);
+        mContainer = findViewById(R.id.xlistview_header_content);
         mMeasuredHeight = getMeasuredHeight();
 
-        mArrowImageView = (ImageView) findViewById(R.id.xlistview_header_arrow);
-        mHintTextView = (TextView) findViewById(R.id.xlistview_header_hint_textview);
-        xlistview_header_time = (TextView) findViewById(R.id.xlistview_header_time);
-        mProgressBar = (ProgressBar) findViewById(R.id.xlistview_header_progressbar);
-        mIvState = (ImageView) findViewById(R.id.xlistview_header_state);
+        mArrowImageView = findViewById(R.id.xlistview_header_arrow);
+        mHintTextView = findViewById(R.id.xlistview_header_hint_textview);
+        xlistview_header_time = findViewById(R.id.xlistview_header_time);
+        mProgressBar = findViewById(R.id.xlistview_header_progressbar);
+        mIvState = findViewById(R.id.xlistview_header_state);
 
         mRotateUpAnim = new RotateAnimation(0.0f, -180.0f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,

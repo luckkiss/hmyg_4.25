@@ -57,10 +57,10 @@ public class SubscribeSearchListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_subscribe_search_list);
-		ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
-		edit_btn = (Button) findViewById(R.id.edit_btn);
-		et_search = (EditText) findViewById(R.id.et_search);
-		xListView = (XListView) findViewById(R.id.xlistView);
+		ImageView btn_back = findViewById(R.id.btn_back);
+		edit_btn = findViewById(R.id.edit_btn);
+		et_search = findViewById(R.id.et_search);
+		xListView = findViewById(R.id.xlistView);
 		xListView.setPullLoadEnable(false);
 		xListView.setPullRefreshEnable(false);
 		multipleClickProcess = new MultipleClickProcess();
@@ -312,9 +312,9 @@ public class SubscribeSearchListActivity extends Activity {
 				ViewGroup parent) {
 			View inflate = LayoutInflater.from(context).inflate(
 					R.layout.list_item_subscribe_search, null);
-			TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);
-			TextView tv_02 = (TextView) inflate.findViewById(R.id.tv_02);
-			TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);
+			TextView tv_01 = inflate.findViewById(R.id.tv_01);
+			TextView tv_02 = inflate.findViewById(R.id.tv_02);
+			TextView tv_03 = inflate.findViewById(R.id.tv_03);
 			tv_01.setText("[" + data.get(position).getParentName() + "]");
 			tv_02.setText(data.get(position).getName());
 			tv_03.setText(data.get(position).getAliasName());

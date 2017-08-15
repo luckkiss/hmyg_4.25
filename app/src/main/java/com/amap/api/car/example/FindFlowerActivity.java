@@ -87,10 +87,10 @@ public class FindFlowerActivity extends Activity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_flower);
-        editButton = (Button) findViewById(R.id.edit_btn);
-        btn_back = (ImageView) findViewById(R.id.btn_back);
-        location_image = (ImageView) findViewById(R.id.location_image);
-        mapView = (MapView) findViewById(R.id.map);
+        editButton = findViewById(R.id.edit_btn);
+        btn_back = findViewById(R.id.btn_back);
+        location_image = findViewById(R.id.location_image);
+        mapView = findViewById(R.id.map);
         mapView.onCreate(savedInstanceState); // 此方法必须重写
         init();
         getLocationOption().setOnceLocation(true);
@@ -221,18 +221,18 @@ public class FindFlowerActivity extends Activity implements
     public void render(Marker marker, View view,
                        final MapNurseryList mapNurseryList) {
 
-        TextView tv_mp = ((TextView) view.findViewById(R.id.tv_mp));
-        TextView tv_companyName = ((TextView) view
-                .findViewById(R.id.tv_companyName));
-        TextView tv_contactName = ((TextView) view
-                .findViewById(R.id.tv_contactName));
-        TextView tv_dianhua = ((TextView) view.findViewById(R.id.tv_dianhua));
-        TextView tv_zhuyingpz = ((TextView) view
-                .findViewById(R.id.tv_zhuyingpz));
-        TextView tv_count = ((TextView) view.findViewById(R.id.tv_count));
-        TextView iv_toHere = ((TextView) view.findViewById(R.id.iv_toHere));
-        LinearLayout ll_toHere = ((LinearLayout) view
-                .findViewById(R.id.ll_toHere));
+        TextView tv_mp = view.findViewById(R.id.tv_mp);
+        TextView tv_companyName = view
+                .findViewById(R.id.tv_companyName);
+        TextView tv_contactName = view
+                .findViewById(R.id.tv_contactName);
+        TextView tv_dianhua = view.findViewById(R.id.tv_dianhua);
+        TextView tv_zhuyingpz = view
+                .findViewById(R.id.tv_zhuyingpz);
+        TextView tv_count = view.findViewById(R.id.tv_count);
+        TextView iv_toHere = view.findViewById(R.id.iv_toHere);
+        LinearLayout ll_toHere = view
+                .findViewById(R.id.ll_toHere);
         tv_mp.setText("苗圃名称：" + mapNurseryList.getName());
         tv_companyName.setText("苗圃名称：" + mapNurseryList.getCompanyName());
         tv_contactName.setText("联系人：" + mapNurseryList.getContactName());

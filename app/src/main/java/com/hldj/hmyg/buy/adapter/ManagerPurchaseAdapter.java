@@ -72,10 +72,10 @@ public class ManagerPurchaseAdapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View inflate = LayoutInflater.from(context).inflate(
 				R.layout.grid_item_manager_purchase, null);
-		BGABadgeLinearLayout ll_daifahuo_00 = (BGABadgeLinearLayout) inflate
+		BGABadgeLinearLayout ll_daifahuo_00 = inflate
 				.findViewById(R.id.ll_daifahuo_00);
-		ImageView iv_img = (ImageView) inflate.findViewById(R.id.iv_img);
-		TextView tv_title = (TextView) inflate.findViewById(R.id.tv_title);
+		ImageView iv_img = inflate.findViewById(R.id.iv_img);
+		TextView tv_title = inflate.findViewById(R.id.tv_title);
 		// iv_img.setLayoutParams(l_params);
 		iv_img.setImageResource(data.get(position).getDrawable());
 		tv_title.setText(data.get(position).getName());

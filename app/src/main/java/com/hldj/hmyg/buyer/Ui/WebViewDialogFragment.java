@@ -58,13 +58,13 @@ public class WebViewDialogFragment extends DialogFragment {
     }
 
     private void initView(View view) {
-        TextView tv_show_html = (TextView) view.findViewById(R.id.tv_show_html);
+        TextView tv_show_html = view.findViewById(R.id.tv_show_html);
 
         tv_show_html.setText(Html.fromHtml(html, null, null));
 
 
 //        tv_show_html.setText(html);
-        webView = (WebView) view.findViewById(R.id.webview_show_quite_detail);
+        webView = view.findViewById(R.id.webview_show_quite_detail);
         //WebView加载本地资源
 //        webView.loadUrl("file:///android_asset/example.html");
         //WebView加载web资源
@@ -101,7 +101,7 @@ public class WebViewDialogFragment extends DialogFragment {
 
 
         });
-        tv_ok_to_close = (TextView) view.findViewById(R.id.tv_ok_to_close);
+        tv_ok_to_close = view.findViewById(R.id.tv_ok_to_close);
         tv_ok_to_close.setOnClickListener(v -> {
             dismiss();
         });

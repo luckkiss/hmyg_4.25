@@ -104,11 +104,11 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
     private void initView(View dialog) {
         dialog.findViewById(R.id.ll_wheel_bottom).setBackgroundColor(Color.WHITE);
 //        View view = dialog.inflate(R.layout.whell_city,null);
-        mViewProvince = (WheelView) dialog.findViewById(R.id.id_province);
+        mViewProvince = dialog.findViewById(R.id.id_province);
 
-        mViewCity = (WheelView) dialog.findViewById(R.id.id_city);
+        mViewCity = dialog.findViewById(R.id.id_city);
         mViewCity.setVisibility(isShowCity ? View.VISIBLE : View.GONE);
-        mViewDistrict = (WheelView) dialog.findViewById(R.id.id_district);
+        mViewDistrict = dialog.findViewById(R.id.id_district);
         mViewDistrict.setVisibility(isShowDistrict ? View.VISIBLE : View.GONE);
 
         // 添加change事件
@@ -119,7 +119,7 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
         mViewDistrict.addChangingListener(this);
         setUpData();
 
-        TextView tv_sure = (TextView) dialog.findViewById(R.id.tv_sure);
+        TextView tv_sure = dialog.findViewById(R.id.tv_sure);
         tv_sure.setOnClickListener(v -> {
 
             if (selectListener != null) {

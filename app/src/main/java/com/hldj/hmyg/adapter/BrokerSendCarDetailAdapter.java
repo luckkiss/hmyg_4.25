@@ -50,11 +50,11 @@ public class BrokerSendCarDetailAdapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View inflate = LayoutInflater.from(context).inflate(
 				R.layout.list_item_send_car_detail, null);
-		TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);
-		TextView tv_02 = (TextView) inflate.findViewById(R.id.tv_02);
-		TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);
-		TextView tv_04 = (TextView) inflate.findViewById(R.id.tv_04);
-		TextView tv_set = (TextView) inflate.findViewById(R.id.tv_set);
+		TextView tv_01 = inflate.findViewById(R.id.tv_01);
+		TextView tv_02 = inflate.findViewById(R.id.tv_02);
+		TextView tv_03 = inflate.findViewById(R.id.tv_03);
+		TextView tv_04 = inflate.findViewById(R.id.tv_04);
+		TextView tv_set = inflate.findViewById(R.id.tv_set);
 
 		tv_01.setText("车牌号：" + data.get(position).get("carNum").toString());
 		tv_02.setText("司机姓名：" + data.get(position).get("driverName").toString());

@@ -162,9 +162,9 @@ public class AutoAdd2DetailLinearLayout extends BaseLinearLayout {
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
-            this.seedlingNum = (TextView) rootView.findViewById(R.id.seedlingNum);
-            this.firstTypeName = (TextView) rootView.findViewById(R.id.firstTypeName);
-            this.remarks = (TextView) rootView.findViewById(R.id.remarks);
+            this.seedlingNum = rootView.findViewById(R.id.seedlingNum);
+            this.firstTypeName = rootView.findViewById(R.id.firstTypeName);
+            this.remarks = rootView.findViewById(R.id.remarks);
         }
 
     }

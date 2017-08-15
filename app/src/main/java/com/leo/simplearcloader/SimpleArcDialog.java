@@ -68,9 +68,9 @@ public class SimpleArcDialog extends Dialog {
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         setContentView(R.layout.loader_layout);
 
-        mLoaderView = (SimpleArcLoader) findViewById(R.id.loader);
-        mLoadingText = (TextView) findViewById(R.id.loadertext);
-        mLayout = (LinearLayout) findViewById(R.id.window);
+        mLoaderView = findViewById(R.id.loader);
+        mLoadingText = findViewById(R.id.loadertext);
+        mLayout = findViewById(R.id.window);
         mLoadingText.setTextColor(Color.BLACK);
 
         if (mConfiguration != null) {

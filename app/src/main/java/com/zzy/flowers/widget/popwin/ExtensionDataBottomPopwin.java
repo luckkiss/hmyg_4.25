@@ -56,17 +56,17 @@ public abstract class ExtensionDataBottomPopwin extends PopupWindow {
 		}
 		inflater = LayoutInflater.from(context);
 		mainView = inflater.inflate(R.layout.bottom_edit, null);
-		TextView tv_less = (TextView) mainView.findViewById(R.id.tv_less);
+		TextView tv_less = mainView.findViewById(R.id.tv_less);
 		tv_less.setText(str);
-		pop_add = (TextView) mainView.findViewById(R.id.pop_add);
-		pop_reduce = (TextView) mainView.findViewById(R.id.pop_reduce);
-		tv_remark = (TextView) mainView.findViewById(R.id.tv_remark);
+		pop_add = mainView.findViewById(R.id.pop_add);
+		pop_reduce = mainView.findViewById(R.id.pop_reduce);
+		tv_remark = mainView.findViewById(R.id.tv_remark);
 		tv_remark.setText("延期天数");
 		pop_add.setVisibility(View.INVISIBLE);
 		pop_reduce.setVisibility(View.INVISIBLE);
-		pop_num = (EditText) mainView.findViewById(R.id.pop_num);
+		pop_num = mainView.findViewById(R.id.pop_num);
 		pop_num.setText(maxDay+"");
-		TextView tv_add_car = (TextView) mainView.findViewById(R.id.tv_add_car);
+		TextView tv_add_car = mainView.findViewById(R.id.tv_add_car);
 		tv_add_car.setText("确认延期");
 		pop_add.setOnClickListener(new myOnclick());
 		pop_reduce.setOnClickListener(new myOnclick());

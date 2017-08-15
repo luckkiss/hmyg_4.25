@@ -57,10 +57,10 @@ public class SearchActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
 		searchKey = getIntent().getStringExtra("searchKey");
-		ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
-		edit_btn = (Button) findViewById(R.id.edit_btn);
-		et_search = (EditText) findViewById(R.id.et_search);
-		xListView = (XListView) findViewById(R.id.xlistView);
+		ImageView btn_back = findViewById(R.id.btn_back);
+		edit_btn = findViewById(R.id.edit_btn);
+		et_search = findViewById(R.id.et_search);
+		xListView = findViewById(R.id.xlistView);
 		xListView.setPullLoadEnable(false);
 		xListView.setPullRefreshEnable(false);
 		multipleClickProcess = new MultipleClickProcess();
@@ -312,9 +312,9 @@ public class SearchActivity extends Activity {
 				ViewGroup parent) {
 			View inflate = LayoutInflater.from(context).inflate(
 					R.layout.list_item_map_search, null);
-			TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);
-			TextView tv_02 = (TextView) inflate.findViewById(R.id.tv_02);
-			TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);
+			TextView tv_01 = inflate.findViewById(R.id.tv_01);
+			TextView tv_02 = inflate.findViewById(R.id.tv_02);
+			TextView tv_03 = inflate.findViewById(R.id.tv_03);
 			tv_01.setText("苗圃名称：" + data.get(position).getName());
 			tv_02.setText("公司名称：" + data.get(position).getCompanyName());
 			tv_03.setText("主营品种：" + data.get(position).getMainType());

@@ -63,8 +63,8 @@ public abstract class BaseBubblePopup<T extends BaseBubblePopup<T>> extends Inte
     @Override
     public View onCreateView() {
         View inflate = View.inflate(mContext, R.layout.popup_bubble, null);
-        mLlContent = (LinearLayout) inflate.findViewById(R.id.ll_content);
-        mTriangleView = (TriangleView) inflate.findViewById(R.id.triangle_view);
+        mLlContent = inflate.findViewById(R.id.ll_content);
+        mTriangleView = inflate.findViewById(R.id.triangle_view);
         mLlContent.addView(mWrappedView);
 
         mLayoutParams = (RelativeLayout.LayoutParams) mLlContent.getLayoutParams();

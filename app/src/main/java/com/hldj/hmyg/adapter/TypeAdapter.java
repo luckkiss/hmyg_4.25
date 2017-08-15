@@ -66,8 +66,8 @@ public class TypeAdapter extends BaseAdapter {
         Type item = data.get(position);
         View inflate = LayoutInflater.from(context).inflate(
                 R.layout.grid_item_type, null);
-        ImageView iv_img = (ImageView) inflate.findViewById(R.id.iv_img);
-        TextView tv_title = (TextView) inflate.findViewById(R.id.tv_title);
+        ImageView iv_img = inflate.findViewById(R.id.iv_img);
+        TextView tv_title = inflate.findViewById(R.id.tv_title);
         // iv_img.setLayoutParams(l_params);
         if ("".equals(data.get(position).getUrlString())) {
             iv_img.setImageResource(data.get(position).getImg());

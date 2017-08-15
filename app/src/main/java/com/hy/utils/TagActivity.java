@@ -24,7 +24,7 @@ public class TagActivity extends Activity implements TagCloudView.OnTagClickList
             tags.add("标签" + i);
         }
 
-        TagCloudView tagCloudView0 = (TagCloudView) findViewById(R.id.tag_cloud_view_0);
+        TagCloudView tagCloudView0 = findViewById(R.id.tag_cloud_view_0);
         tagCloudView0.setTags(tags.subList(0, 4));
         tagCloudView0.setOnTagClickListener(this);
         tagCloudView0.setOnClickListener(new View.OnClickListener() {
@@ -35,7 +35,7 @@ public class TagActivity extends Activity implements TagCloudView.OnTagClickList
             }
         });
 
-        final TagCloudView tagCloudView1 = (TagCloudView) findViewById(R.id.tag_cloud_view_1);
+        final TagCloudView tagCloudView1 = findViewById(R.id.tag_cloud_view_1);
         tagCloudView1.setTags(tags);
         tagCloudView1.setOnTagClickListener(new TagCloudView.OnTagClickListener() {
             @Override
@@ -60,7 +60,7 @@ public class TagActivity extends Activity implements TagCloudView.OnTagClickList
         });
 
 
-        TagCloudView tagCloudView2 = (TagCloudView) findViewById(R.id.tag_cloud_view_2);
+        TagCloudView tagCloudView2 = findViewById(R.id.tag_cloud_view_2);
         tagCloudView2.setTags(tags);
         tagCloudView2.setOnTagClickListener(this);
         tagCloudView2.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +71,7 @@ public class TagActivity extends Activity implements TagCloudView.OnTagClickList
             }
         });
 
-        TagCloudView tagCloudView3 = (TagCloudView) findViewById(R.id.tag_cloud_view_3);
+        TagCloudView tagCloudView3 = findViewById(R.id.tag_cloud_view_3);
         tagCloudView3.setTags(tags);
         tagCloudView3.setOnTagClickListener(this);
         tagCloudView3.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +82,7 @@ public class TagActivity extends Activity implements TagCloudView.OnTagClickList
             }
         });
 
-        TagCloudView tagCloudView4 = (TagCloudView) findViewById(R.id.tag_cloud_view_4);
+        TagCloudView tagCloudView4 = findViewById(R.id.tag_cloud_view_4);
         tagCloudView4.setTags(tags);
         tagCloudView4.setOnTagClickListener(this);
         tagCloudView4.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +93,7 @@ public class TagActivity extends Activity implements TagCloudView.OnTagClickList
             }
         });
 
-        TagCloudView tagCloudView5 = (TagCloudView) findViewById(R.id.tag_cloud_view_5);
+        TagCloudView tagCloudView5 = findViewById(R.id.tag_cloud_view_5);
         tagCloudView5.setTags(tags);
         tagCloudView5.setOnTagClickListener(this);
         tagCloudView5.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +104,7 @@ public class TagActivity extends Activity implements TagCloudView.OnTagClickList
             }
         });
 
-        TagCloudView tagCloudView6 = (TagCloudView) findViewById(R.id.tag_cloud_view_6);
+        TagCloudView tagCloudView6 = findViewById(R.id.tag_cloud_view_6);
         tagCloudView6.setTags(tags);
         tagCloudView6.setOnTagClickListener(this);
         tagCloudView6.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +115,7 @@ public class TagActivity extends Activity implements TagCloudView.OnTagClickList
             }
         });
 
-        TagCloudView tagCloudView7 = (TagCloudView) findViewById(R.id.tag_cloud_view_7);
+        TagCloudView tagCloudView7 = findViewById(R.id.tag_cloud_view_7);
         tagCloudView7.setTags(tags);
         tagCloudView7.setOnTagClickListener(this);
         tagCloudView7.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +126,7 @@ public class TagActivity extends Activity implements TagCloudView.OnTagClickList
             }
         });
 
-        TagCloudView tagCloudView8 = (TagCloudView) findViewById(R.id.tag_cloud_view_8);
+        TagCloudView tagCloudView8 = findViewById(R.id.tag_cloud_view_8);
         tagCloudView8.setTags(tags);
         tagCloudView8.setOnTagClickListener(this);
         tagCloudView8.setOnClickListener(new View.OnClickListener() {

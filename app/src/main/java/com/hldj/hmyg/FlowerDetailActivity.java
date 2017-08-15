@@ -1118,7 +1118,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
             // 导入ViewPager的布局
             View view = LayoutInflater.from(this).inflate(R.layout.pic_item,
                     null);
-            ImageView imageView = (ImageView) view.findViewById(R.id.pic_item);
+            ImageView imageView = view.findViewById(R.id.pic_item);
             // fb.display(imageView, banners.get(i));
             imageView.setScaleType(ScaleType.CENTER_CROP);
             ImageLoader.getInstance().displayImage(banners.get(i), imageView);
@@ -2003,8 +2003,8 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
             View inflate = getLayoutInflater().inflate(
                     R.layout.list_item_share_platform, null);
             inflate.setBackgroundColor(Color.WHITE);
-            ImageView iv_icon = (ImageView) inflate.findViewById(R.id.iv_icon);
-            TextView tv_name = (TextView) inflate.findViewById(R.id.tv_name);
+            ImageView iv_icon = inflate.findViewById(R.id.iv_icon);
+            TextView tv_name = inflate.findViewById(R.id.tv_name);
             iv_icon.setImageResource(shares.get(position).getPic());
             tv_name.setText(shares.get(position).getName());
             inflate.setOnClickListener(new OnClickListener() {
@@ -2192,9 +2192,9 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     private void showDialog() {
         View dia_choose_share = getLayoutInflater().inflate(
                 R.layout.dia_choose_share, null);
-        GridView gridView = (GridView) dia_choose_share
+        GridView gridView = dia_choose_share
                 .findViewById(R.id.gridView);
-        Button btn_cancle = (Button) dia_choose_share
+        Button btn_cancle = dia_choose_share
                 .findViewById(R.id.btn_cancle);
         gridView.setAdapter(new SharePlatformAdapter());
         dialog = new Dialog(this, R.style.transparentFrameWindowStyle);

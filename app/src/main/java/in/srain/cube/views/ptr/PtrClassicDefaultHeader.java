@@ -61,8 +61,8 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
 
         mRotateView = header.findViewById(R.id.ptr_classic_header_rotate_view);
 
-        mTitleTextView = (TextView) header.findViewById(R.id.ptr_classic_header_rotate_view_header_title);
-        mLastUpdateTextView = (TextView) header.findViewById(R.id.ptr_classic_header_rotate_view_header_last_update);
+        mTitleTextView = header.findViewById(R.id.ptr_classic_header_rotate_view_header_title);
+        mLastUpdateTextView = header.findViewById(R.id.ptr_classic_header_rotate_view_header_last_update);
         mProgressBar = header.findViewById(R.id.ptr_classic_header_rotate_view_progressbar);
 
         resetView();

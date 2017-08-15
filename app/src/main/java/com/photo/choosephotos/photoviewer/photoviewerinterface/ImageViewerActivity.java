@@ -52,8 +52,8 @@ public class ImageViewerActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_image_viewer);
 
-        ImageView mImageView = (ImageView) findViewById(R.id.iv_photo);
-        mCurrMatrixTv = (TextView) findViewById(R.id.tv_current_matrix);
+        ImageView mImageView = findViewById(R.id.iv_photo);
+        mCurrMatrixTv = findViewById(R.id.tv_current_matrix);
         
         String filePath = this.getIntent().getStringExtra(PATH);
 //        Drawable bitmap = Drawable.createFromPath(filePath);

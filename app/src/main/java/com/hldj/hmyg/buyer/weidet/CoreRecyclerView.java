@@ -64,10 +64,10 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         addView(view);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeLayout);
+        mSwipeRefreshLayout = findViewById(R.id.swipeLayout);
         mSwipeRefreshLayout.setEnabled(false);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_list);
+        mRecyclerView = findViewById(R.id.rv_list);
         return this;
     }
 
@@ -89,7 +89,7 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
     public CoreRecyclerView init(RecyclerView.LayoutManager layoutManager, BaseQuickAdapter mQuickAdapter, Boolean isRefresh) {
         if (isRefresh != true) {
             mSwipeRefreshLayout.setVisibility(GONE);
-            mRecyclerView = (RecyclerView) findViewById(R.id.rv_list1);
+            mRecyclerView = findViewById(R.id.rv_list1);
             mRecyclerView.setVisibility(VISIBLE);
         }
         mRecyclerView.setLayoutManager(layoutManager != null ? layoutManager : new LinearLayoutManager(getContext()));
@@ -332,7 +332,7 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
 
     public CoreRecyclerView selfRefresh(boolean b, String errMsg) {
         mSwipeRefreshLayout.setRefreshing(b);
-        TextView tv_empty_err = (TextView) mQuickAdapter.getEmptyView().findViewById(R.id.t_emptyTextView);
+        TextView tv_empty_err = mQuickAdapter.getEmptyView().findViewById(R.id.t_emptyTextView);
         if (tv_empty_err != null) {
             tv_empty_err.setText(errMsg);
         }

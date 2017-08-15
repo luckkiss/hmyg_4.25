@@ -28,8 +28,8 @@ public class PhotoGridItem extends RelativeLayout implements Checkable {
 		super(context, attrs, defStyle);
 		mContext = context;
 		LayoutInflater.from(mContext).inflate(R.layout.list_album_gridview_item, this);
-		mImageView = (ImageView)findViewById(R.id.photo_img_view);
-		mSelect = (ImageView)findViewById(R.id.photo_select);
+		mImageView = findViewById(R.id.photo_img_view);
+		mSelect = findViewById(R.id.photo_select);
 	}
 
 	@Override

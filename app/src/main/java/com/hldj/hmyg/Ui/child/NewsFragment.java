@@ -69,10 +69,10 @@ public class NewsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        WebView webView = (WebView) view.findViewById(R.id.news_webview);
+        WebView webView = view.findViewById(R.id.news_webview);
 
 //        mLoadingLayout.setStatus(LoadingLayout.Loading);
-        pg1 = (ProgressBar) view.findViewById(R.id.news_progressBar);
+        pg1 = view.findViewById(R.id.news_progressBar);
         /**
          *
          loadingLayout.setStatus(LoadingLayout.Loading);//表示展示加载界面
@@ -156,12 +156,12 @@ public class NewsFragment extends Fragment {
 
             if (url.contains("article/detail/")) {
                 D.e("=====yes=======");
-                OptionItemView optionItemView = (OptionItemView) getActivity().findViewById(R.id.news_title);
+                OptionItemView optionItemView = getActivity().findViewById(R.id.news_title);
                 optionItemView.showRightImg(true);
 //showRightImg
             } else {
                 D.e("=====no=======");
-                OptionItemView optionItemView = (OptionItemView) getActivity().findViewById(R.id.news_title);
+                OptionItemView optionItemView = getActivity().findViewById(R.id.news_title);
                 optionItemView.showRightImg(false);
             }
 

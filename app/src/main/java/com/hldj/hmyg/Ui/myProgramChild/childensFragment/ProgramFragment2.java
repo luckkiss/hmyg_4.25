@@ -63,7 +63,7 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
     protected void initView(View rootView) {
 
         initListener(rootView);
-        coreRecyclerView = (CoreRecyclerView) rootView.findViewById(R.id.recycle_program2);
+        coreRecyclerView = rootView.findViewById(R.id.recycle_program2);
 
         coreRecyclerView.getRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override

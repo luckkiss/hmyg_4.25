@@ -120,8 +120,8 @@ public class GalleryImageActivity extends CoreActivity implements
 	}
 
 	private void initView() {
-		imageGallery = (ImageGalleryView) findViewById(R.id.gallery_image);
-		pageTv = (TextView) findViewById(R.id.pageTv);
+		imageGallery = findViewById(R.id.gallery_image);
+		pageTv = findViewById(R.id.pageTv);
 	}
 
 	private void initListener() {

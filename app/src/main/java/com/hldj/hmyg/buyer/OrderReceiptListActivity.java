@@ -1,21 +1,5 @@
 package com.hldj.hmyg.buyer;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-
-import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
-import me.maxwin.view.XListView;
-import me.maxwin.view.XListView.IXListViewListener;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,10 +11,25 @@ import android.widget.Toast;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.Data;
-import com.hldj.hmyg.application.MyApplication;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.zzy.flowers.widget.popwin.EditP2;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+import me.maxwin.view.XListView;
+import me.maxwin.view.XListView.IXListViewListener;
 
 public class OrderReceiptListActivity extends NeedSwipeBackActivity implements
 		IXListViewListener {
@@ -282,16 +281,16 @@ public class OrderReceiptListActivity extends NeedSwipeBackActivity implements
 				case R.id.btn_back:
 					onBackPressed();
 					break;
-				case R.id.tv_add:
-					// 添加收货要求
-					Intent toSaveReceipptActivity = new Intent(
-							OrderReceiptListActivity.this,
-							SaveReceipptActivity.class);
-					toSaveReceipptActivity.putExtra("orderId", id);
-					toSaveReceipptActivity.putExtra("allowReceiptInfoCount",
-							allowReceiptInfoCount);
-					startActivityForResult(toSaveReceipptActivity, 1);
-					break;
+//				case R.id.tv_add:
+//					// 添加收货要求
+//					Intent toSaveReceipptActivity = new Intent(
+//							OrderReceiptListActivity.this,
+//							SaveReceipptActivity.class);
+//					toSaveReceipptActivity.putExtra("orderId", id);
+//					toSaveReceipptActivity.putExtra("allowReceiptInfoCount",
+//							allowReceiptInfoCount);
+//					startActivityForResult(toSaveReceipptActivity, 1);
+//					break;
 				default:
 					break;
 				}

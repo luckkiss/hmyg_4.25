@@ -67,7 +67,7 @@ public class GridViewAdapter extends BaseAdapter {
     public View getView(final int position, View currentView, ViewGroup arg2) {
         View inflate = LayoutInflater.from(context).inflate(
                 R.layout.gird_item_main_image, null);
-        ImageView imageView1 = (ImageView) inflate
+        ImageView imageView1 = inflate
                 .findViewById(R.id.imageView1);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             imageView1.setTransitionName(CommonUtils.getString(R.string.store_string_trans_tag));

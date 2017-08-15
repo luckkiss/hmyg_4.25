@@ -68,11 +68,11 @@ public class StoreBaseExpandableListAdapter extends BaseExpandableListAdapter
 			convertView = LayoutInflater.from(mContext).inflate(
 					R.layout.store_childitem, null);
 			childHolder = new ChildHolder();
-			childHolder.childImg = (ImageView) convertView
+			childHolder.childImg = convertView
 					.findViewById(R.id.img_child);
-			childHolder.childText = (TextView) convertView
+			childHolder.childText = convertView
 					.findViewById(R.id.tv_child_text);
-			childHolder.tv_count = (TextView) convertView
+			childHolder.tv_count = convertView
 					.findViewById(R.id.tv_count);
 			convertView.setTag(childHolder);
 		} else {
@@ -142,11 +142,11 @@ public class StoreBaseExpandableListAdapter extends BaseExpandableListAdapter
 			convertView = LayoutInflater.from(mContext).inflate(
 					R.layout.store_groupitem, null);
 			groupHolder = new GroupHolder();
-			groupHolder.groupImg = (ImageView) convertView
+			groupHolder.groupImg = convertView
 					.findViewById(R.id.img_indicator);
-			groupHolder.groupText = (TextView) convertView
+			groupHolder.groupText = convertView
 					.findViewById(R.id.tv_group_text);
-			groupHolder.tv_count = (TextView) convertView
+			groupHolder.tv_count = convertView
 					.findViewById(R.id.tv_count);
 			convertView.setTag(groupHolder);
 		} else {
@@ -160,7 +160,7 @@ public class StoreBaseExpandableListAdapter extends BaseExpandableListAdapter
 		groupHolder.groupText.setText(groupTitle.get(groupPosition).getName()
 				+ "[" + groupTitle.get(groupPosition).getImageId() + "]");
 
-		groupButton = (Button) convertView
+		groupButton = convertView
 				.findViewById(R.id.btn_group_function);
 		groupButton.setOnClickListener(this);
 		return convertView;

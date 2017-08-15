@@ -60,14 +60,14 @@ public class MessageListAdapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View inflate = LayoutInflater.from(context).inflate(
 				R.layout.list_item_message, null);
-		ll_yanmiao_nei_01 = (BGABadgeLinearLayout) inflate
+		ll_yanmiao_nei_01 = inflate
 				.findViewById(R.id.ll_yanmiao_nei_01);
-		TextView tv_name = (TextView) inflate.findViewById(R.id.tv_name);
-		TextView tv_message = (TextView) inflate.findViewById(R.id.tv_message);
-		TextView tv_createDateStr = (TextView) inflate
+		TextView tv_name = inflate.findViewById(R.id.tv_name);
+		TextView tv_message = inflate.findViewById(R.id.tv_message);
+		TextView tv_createDateStr = inflate
 				.findViewById(R.id.tv_createDateStr);
-		TextView tv_num = (TextView) inflate.findViewById(R.id.tv_num);
-		ImageView iv_img = (ImageView) inflate.findViewById(R.id.iv_img);
+		TextView tv_num = inflate.findViewById(R.id.tv_num);
+		ImageView iv_img = inflate.findViewById(R.id.iv_img);
 		fb.display(iv_img, data.get(position).get("icon").toString());
 		tv_name.setText(data.get(position).get("text").toString());
 		if ("".equals(data.get(position).get("message").toString())) {

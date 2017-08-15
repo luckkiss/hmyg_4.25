@@ -99,7 +99,7 @@ public class StoreHomeFragment extends BaseFragment implements StoreContract.Vie
         MyPresenter myPresenter = new MyPresenter();
         bitmap = FinalBitmap.create(mActivity);
 //        store_recycle = (CoreRecyclerView) getView(R.id.store_recycle);
-        store_recycle = (CoreRecyclerView) rootView.findViewById(R.id.store_recycle);
+        store_recycle = rootView.findViewById(R.id.store_recycle);
         store_recycle.init(new BaseMultAdapter<BPageGsonBean.DatabeanX.Pagebean.Databean, BaseViewHolder>(R.layout.list_view_seedling_new, R.layout.grid_view_seedling) {
             @Override
             protected void convert(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item) {

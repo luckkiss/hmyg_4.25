@@ -63,7 +63,7 @@ public class SharePopupWindow extends PopupWindow implements PlatformActionListe
         // 设置弹窗外可点击
         setOutsideTouchable(true);
 
-        lvPopupList = (ListView) viewRoot.findViewById(R.id.lv_popup_list);
+        lvPopupList = viewRoot.findViewById(R.id.lv_popup_list);
         SharePoPAdapter sharePoPAdapter = new SharePoPAdapter(mContext, getSharesLists());
         lvPopupList.setAdapter(sharePoPAdapter);
 
@@ -219,8 +219,8 @@ public class SharePopupWindow extends PopupWindow implements PlatformActionListe
         public View getView(int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
             View inflate = LayoutInflater.from(mContext).inflate(R.layout.list_item_pop_share, null);
-            TextView tv_list_item = (TextView) inflate.findViewById(R.id.tv_list_item);
-            icon = (ImageView) inflate.findViewById(R.id.icon);
+            TextView tv_list_item = inflate.findViewById(R.id.tv_list_item);
+            icon = inflate.findViewById(R.id.icon);
             tv_list_item.setText(shares.get(position).getName());
             icon.setImageResource(shares.get(position).getPic());
             return inflate;

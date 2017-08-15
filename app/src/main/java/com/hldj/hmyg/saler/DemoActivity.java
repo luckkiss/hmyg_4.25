@@ -19,7 +19,7 @@ public class DemoActivity extends Activity {
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 		MultipleClickProcess multipleClickProcess = new MultipleClickProcess();
-		ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
+		ImageView btn_back = findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(multipleClickProcess);
 	}
 

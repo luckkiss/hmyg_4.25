@@ -48,12 +48,12 @@ public class ImagePagerActivity extends FragmentActivity implements
 		pagerPosition = getIntent().getIntExtra(EXTRA_IMAGE_INDEX, 0);
 		urls = getIntent().getStringArrayExtra(EXTRA_IMAGE_URLS);
 
-		mPager = (HackyViewPager) findViewById(R.id.pager);
+		mPager = findViewById(R.id.pager);
 
 		ImagePagerAdapter mAdapter = new ImagePagerAdapter(
 				getSupportFragmentManager(), urls);
 		mPager.setAdapter(mAdapter);
-		indicator = (TextView) findViewById(R.id.indicator);
+		indicator = findViewById(R.id.indicator);
 
 		CharSequence text = getString(R.string.viewpager_indicator, 1, mPager
 				.getAdapter().getCount());

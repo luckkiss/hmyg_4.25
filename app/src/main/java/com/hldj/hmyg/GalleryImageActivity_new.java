@@ -23,7 +23,7 @@ public class GalleryImageActivity_new extends FragmentActivity {
 
         setContentView(R.layout.qc_code_image);
 
-        imageView = ((ImageView) findViewById(R.id.iv_show_qc));
+        imageView = findViewById(R.id.iv_show_qc);
     }
 
     public static void setBit(Bitmap bt) {

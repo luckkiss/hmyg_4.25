@@ -65,11 +65,11 @@ public class MessageListDetailAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         View inflate = LayoutInflater.from(context).inflate(
                 R.layout.list_item_message_detail, null);
-        CheckBox id_cb_select_child = (CheckBox) inflate
+        CheckBox id_cb_select_child = inflate
                 .findViewById(R.id.id_cb_select_child);
-        TextView tv_name = (TextView) inflate.findViewById(R.id.tv_name);
-        TextView tv_02 = (TextView) inflate.findViewById(R.id.tv_02);
-        TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);
+        TextView tv_name = inflate.findViewById(R.id.tv_name);
+        TextView tv_02 = inflate.findViewById(R.id.tv_02);
+        TextView tv_03 = inflate.findViewById(R.id.tv_03);
 //        id_cb_select_child.setOnClickListener(new OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

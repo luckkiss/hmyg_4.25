@@ -221,7 +221,7 @@ public class NewsActivity extends NeedSwipeBackActivity {
         public OptionItemView news_title; // title
 
         public ViewHolder(Activity rootView) {
-            this.news_title = (OptionItemView) rootView.findViewById(R.id.news_title);
+            this.news_title = rootView.findViewById(R.id.news_title);
 
         }
 

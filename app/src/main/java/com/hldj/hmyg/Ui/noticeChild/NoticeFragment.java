@@ -60,8 +60,8 @@ public class NoticeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        WebView webView = (WebView) view.findViewById(R.id.notice_webview);
-        mLoadingLayout= (LoadingLayout) view.findViewById(R.id.notice_load_layout);
+        WebView webView = view.findViewById(R.id.notice_webview);
+        mLoadingLayout= view.findViewById(R.id.notice_load_layout);
 
         mLoadingLayout.setStatus(LoadingLayout.Loading);
         /**

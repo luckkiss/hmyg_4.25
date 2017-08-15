@@ -62,23 +62,23 @@ public class ManagerQuoteListAdapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View inflate = LayoutInflater.from(context).inflate(
 				R.layout.list_item_manager_quote, null);
-		ImageView iv_img = (ImageView) inflate.findViewById(R.id.iv_img);
-		iv_like = (ImageView) inflate.findViewById(R.id.iv_like);
-		TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);
-		TextView tv_ac = (TextView) inflate.findViewById(R.id.tv_ac);
-		TextView tv_02 = (TextView) inflate.findViewById(R.id.tv_02);
-		TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);
-		TextView tv_04 = (TextView) inflate.findViewById(R.id.tv_04);
-		TextView tv_05 = (TextView) inflate.findViewById(R.id.tv_05);
-		TextView tv_06 = (TextView) inflate.findViewById(R.id.tv_06);
-		TextView tv_07 = (TextView) inflate.findViewById(R.id.tv_07);
-		TextView tv_08 = (TextView) inflate.findViewById(R.id.tv_08);
-		TextView tv_09 = (TextView) inflate.findViewById(R.id.tv_09);
-		TextView tv_caozuo01 = (TextView) inflate
+		ImageView iv_img = inflate.findViewById(R.id.iv_img);
+		iv_like = inflate.findViewById(R.id.iv_like);
+		TextView tv_01 = inflate.findViewById(R.id.tv_01);
+		TextView tv_ac = inflate.findViewById(R.id.tv_ac);
+		TextView tv_02 = inflate.findViewById(R.id.tv_02);
+		TextView tv_03 = inflate.findViewById(R.id.tv_03);
+		TextView tv_04 = inflate.findViewById(R.id.tv_04);
+		TextView tv_05 = inflate.findViewById(R.id.tv_05);
+		TextView tv_06 = inflate.findViewById(R.id.tv_06);
+		TextView tv_07 = inflate.findViewById(R.id.tv_07);
+		TextView tv_08 = inflate.findViewById(R.id.tv_08);
+		TextView tv_09 = inflate.findViewById(R.id.tv_09);
+		TextView tv_caozuo01 = inflate
 				.findViewById(R.id.tv_caozuo01);
-		TextView tv_caozuo02 = (TextView) inflate
+		TextView tv_caozuo02 = inflate
 				.findViewById(R.id.tv_caozuo02);
-		TextView tv_caozuo03 = (TextView) inflate
+		TextView tv_caozuo03 = inflate
 				.findViewById(R.id.tv_caozuo03);
 		tv_01.setText("品种名称：" + data.get(position).get("name").toString());
 		tv_ac.setText(data.get(position).get("statusName").toString());

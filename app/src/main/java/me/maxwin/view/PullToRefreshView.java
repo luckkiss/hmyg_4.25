@@ -170,10 +170,10 @@ public class PullToRefreshView extends LinearLayout {
 		// header view
 		mHeaderView = mInflater.inflate(R.layout.refresh_header, this, false);
 
-		mHeaderImageView = (ImageView) mHeaderView.findViewById(R.id.pull_to_refresh_image);
-		mHeaderTextView = (TextView) mHeaderView.findViewById(R.id.pull_to_refresh_text);
-		mHeaderUpdateTextView = (TextView) mHeaderView.findViewById(R.id.pull_to_refresh_updated_at);
-		mHeaderProgressBar = (ProgressBar) mHeaderView.findViewById(R.id.pull_to_refresh_progress);
+		mHeaderImageView = mHeaderView.findViewById(R.id.pull_to_refresh_image);
+		mHeaderTextView = mHeaderView.findViewById(R.id.pull_to_refresh_text);
+		mHeaderUpdateTextView = mHeaderView.findViewById(R.id.pull_to_refresh_updated_at);
+		mHeaderProgressBar = mHeaderView.findViewById(R.id.pull_to_refresh_progress);
 		// header layout
 		measureView(mHeaderView);
 		mHeaderViewHeight = mHeaderView.getMeasuredHeight();
@@ -188,9 +188,9 @@ public class PullToRefreshView extends LinearLayout {
 	private void addFooterView() {
 		// footer view
 		mFooterView = mInflater.inflate(R.layout.refresh_footer, this, false);
-		mFooterImageView = (ImageView) mFooterView.findViewById(R.id.pull_to_load_image);
-		mFooterTextView = (TextView) mFooterView.findViewById(R.id.pull_to_load_text);
-		mFooterProgressBar = (ProgressBar) mFooterView.findViewById(R.id.pull_to_load_progress);
+		mFooterImageView = mFooterView.findViewById(R.id.pull_to_load_image);
+		mFooterTextView = mFooterView.findViewById(R.id.pull_to_load_text);
+		mFooterProgressBar = mFooterView.findViewById(R.id.pull_to_load_progress);
 		// footer layout
 		measureView(mFooterView);
 		mFooterViewHeight = mFooterView.getMeasuredHeight();

@@ -56,10 +56,10 @@ public class LoadingBar extends Dialog {
 		this.setCanceledOnTouchOutside(false);
 		this.context = context;
 		view = getLayoutInflater().inflate(R.layout.dialog_progress, null);
-		tvMessage = (TextView) view.findViewById(R.id.textview_message);
-		ivSuccess = (ImageView) view.findViewById(R.id.imageview_success);
-		ivFailure = (ImageView) view.findViewById(R.id.imageview_failure);
-		ivProgressSpinner = (ImageView) view
+		tvMessage = view.findViewById(R.id.textview_message);
+		ivSuccess = view.findViewById(R.id.imageview_success);
+		ivFailure = view.findViewById(R.id.imageview_failure);
+		ivProgressSpinner = view
 				.findViewById(R.id.imageview_progress_spinner);
 
 		setSpinnerType(FADED_ROUND_SPINNER);

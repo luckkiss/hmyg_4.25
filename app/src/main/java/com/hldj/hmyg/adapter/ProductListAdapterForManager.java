@@ -56,20 +56,20 @@ public class ProductListAdapterForManager extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View inflate = LayoutInflater.from(context).inflate(R.layout.list_view_seedling_new, null);
-        ImageView iv_img = (ImageView) inflate.findViewById(R.id.iv_img);
+        ImageView iv_img = inflate.findViewById(R.id.iv_img);
 
-        TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);//小图标
-        TextView tv_02 = (TextView) inflate.findViewById(R.id.tv_02);//名字
+        TextView tv_01 = inflate.findViewById(R.id.tv_01);//小图标
+        TextView tv_02 = inflate.findViewById(R.id.tv_02);//名字
 
-        TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);//米径：15 高度：500 冠幅：400
-        TextView tv_right_top = (TextView) inflate.findViewById(R.id.tv_right_top);//
-        TextView tv_04 = (TextView) inflate.findViewById(R.id.tv_04);//苗源地：134
+        TextView tv_03 = inflate.findViewById(R.id.tv_03);//米径：15 高度：500 冠幅：400
+        TextView tv_right_top = inflate.findViewById(R.id.tv_right_top);//
+        TextView tv_04 = inflate.findViewById(R.id.tv_04);//苗源地：134
 //		TextView tv_04_1 = (TextView) inflate.findViewById(R.id.tv_04_1);//多出一个 -1
-        TextView tv_05 = (TextView) inflate.findViewById(R.id.tv_05);
-        TextView tv_06 = (TextView) inflate.findViewById(R.id.tv_06);//发布人：河南基地
-        TextView tv_07 = (TextView) inflate.findViewById(R.id.tv_07);
-        TextView tv_08 = (TextView) inflate.findViewById(R.id.tv_08);
-        TextView tv_09 = (TextView) inflate.findViewById(R.id.tv_09);
+        TextView tv_05 = inflate.findViewById(R.id.tv_05);
+        TextView tv_06 = inflate.findViewById(R.id.tv_06);//发布人：河南基地
+        TextView tv_07 = inflate.findViewById(R.id.tv_07);
+        TextView tv_08 = inflate.findViewById(R.id.tv_08);
+        TextView tv_09 = inflate.findViewById(R.id.tv_09);
 
 
         if (data.get(position).get("plantType").toString().contains("planted")) {

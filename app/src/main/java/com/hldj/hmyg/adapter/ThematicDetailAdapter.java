@@ -57,18 +57,18 @@ public class ThematicDetailAdapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View inflate = LayoutInflater.from(context).inflate(
 				R.layout.grid_view_seedling, null);
-		ImageView iv_img = (ImageView) inflate.findViewById(R.id.iv_img);
-		TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);
-		TextView tv_02 = (TextView) inflate.findViewById(R.id.tv_02);
-		TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);
-		TextView tv_status_01 = (TextView) inflate.findViewById(R.id.tv_status_01);
-		TextView tv_status_02 = (TextView) inflate.findViewById(R.id.tv_status_02);
-		TextView tv_status_03 = (TextView) inflate.findViewById(R.id.tv_status_03);
-		TextView tv_status_04 = (TextView) inflate.findViewById(R.id.tv_status_04);
-		TextView tv_status_05 = (TextView) inflate.findViewById(R.id.tv_status_05);
-		TextView tv_07 = (TextView) inflate.findViewById(R.id.tv_07);
-		TextView tv_08 = (TextView) inflate.findViewById(R.id.tv_08);
-		TextView tv_09 = (TextView) inflate.findViewById(R.id.tv_09);
+		ImageView iv_img = inflate.findViewById(R.id.iv_img);
+		TextView tv_01 = inflate.findViewById(R.id.tv_01);
+		TextView tv_02 = inflate.findViewById(R.id.tv_02);
+		TextView tv_03 = inflate.findViewById(R.id.tv_03);
+		TextView tv_status_01 = inflate.findViewById(R.id.tv_status_01);
+		TextView tv_status_02 = inflate.findViewById(R.id.tv_status_02);
+		TextView tv_status_03 = inflate.findViewById(R.id.tv_status_03);
+		TextView tv_status_04 = inflate.findViewById(R.id.tv_status_04);
+		TextView tv_status_05 = inflate.findViewById(R.id.tv_status_05);
+		TextView tv_07 = inflate.findViewById(R.id.tv_07);
+		TextView tv_08 = inflate.findViewById(R.id.tv_08);
+		TextView tv_09 = inflate.findViewById(R.id.tv_09);
 		if(data.get(position).get("isSelfSupport").toString()
 				.contains("true")){
 			tv_status_01.setVisibility(View.VISIBLE);

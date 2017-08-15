@@ -67,10 +67,10 @@ public class ViewPagerActivity extends Activity {
 				chooseNum++;
 			}
 		}
-		tv = (TextView)findViewById(R.id.photo_album_chooseNum);
+		tv = findViewById(R.id.photo_album_chooseNum);
 		tv.setText("选中"+chooseNum+"个");
 		
-		Button btnBack = (Button)findViewById(R.id.btnBack);
+		Button btnBack = findViewById(R.id.btnBack);
 		btnBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -80,7 +80,7 @@ public class ViewPagerActivity extends Activity {
 				ViewPagerActivity.this.finish();
 			}
 		});
-		btnCheck = (Button)findViewById(R.id.btnCheck);
+		btnCheck = findViewById(R.id.btnCheck);
 		btnCheck.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -129,7 +129,7 @@ public class ViewPagerActivity extends Activity {
 			}
 		});
 		//完成
-		Button btnFinish = (Button)findViewById(R.id.btnFinish);
+		Button btnFinish = findViewById(R.id.btnFinish);
 		btnFinish.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {				

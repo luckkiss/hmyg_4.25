@@ -47,11 +47,11 @@ public class ActionSheetDialog_new {
         view.setMinimumWidth(display.getWidth());
 
         // 获取自定义Dialog布局中的控件
-        sLayout_content = (ScrollView) view.findViewById(R.id.sLayout_content);
-        lLayout_content = (LinearLayout) view
+        sLayout_content = view.findViewById(R.id.sLayout_content);
+        lLayout_content = view
                 .findViewById(R.id.lLayout_content);
-        txt_title = (TextView) view.findViewById(R.id.txt_title);
-        txt_cancel = (TextView) view.findViewById(R.id.txt_cancel);
+        txt_title = view.findViewById(R.id.txt_title);
+        txt_cancel = view.findViewById(R.id.txt_cancel);
         txt_cancel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

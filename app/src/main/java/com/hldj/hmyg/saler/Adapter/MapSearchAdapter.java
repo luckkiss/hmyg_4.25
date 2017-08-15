@@ -56,9 +56,9 @@ public class MapSearchAdapter extends BaseAdapter implements SectionIndexer {
     public View getView(final int position, View convertView,
                         ViewGroup parent) {
         View inflate = LayoutInflater.from(context).inflate(R.layout.list_item, null);
-        RelativeLayout xiao_rl_popo_list_item = (RelativeLayout) inflate.findViewById(R.id.rl_popo_list_item);
-        TextView xiao_quyu_tv_item = (TextView) inflate.findViewById(R.id.tv_item);
-        TextView tvLetter = (TextView) inflate.findViewById(R.id.catalog);
+        RelativeLayout xiao_rl_popo_list_item = inflate.findViewById(R.id.rl_popo_list_item);
+        TextView xiao_quyu_tv_item = inflate.findViewById(R.id.tv_item);
+        TextView tvLetter = inflate.findViewById(R.id.catalog);
         xiao_quyu_tv_item.setText("[" + data.get(position).getParentName()
                 + "]" + data.get(position).getName());
         // 根据position获取分类的首字母的Char ascii值

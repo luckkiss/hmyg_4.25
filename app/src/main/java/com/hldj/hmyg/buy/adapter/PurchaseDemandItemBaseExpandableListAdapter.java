@@ -89,32 +89,32 @@ public class PurchaseDemandItemBaseExpandableListAdapter extends
 			convertView = LayoutInflater.from(mContext).inflate(
 					R.layout.purchase_demand_childitem, null);
 			childHolder = new ChildHolder();
-			childHolder.childImg = (ImageView) convertView
+			childHolder.childImg = convertView
 					.findViewById(R.id.img_child);
-			childHolder.iv_img2 = (ImageView) convertView
+			childHolder.iv_img2 = convertView
 					.findViewById(R.id.iv_img2);
-			childHolder.childText = (TextView) convertView
+			childHolder.childText = convertView
 					.findViewById(R.id.tv_child_text);
-			childHolder.tv_count = (TextView) convertView
+			childHolder.tv_count = convertView
 					.findViewById(R.id.tv_count);
-			childHolder.tv_00 = (TextView) convertView.findViewById(R.id.tv_00);
-			childHolder.tv_01 = (TextView) convertView.findViewById(R.id.tv_01);
-			childHolder.tv_floorPrice = (TextView) convertView
+			childHolder.tv_00 = convertView.findViewById(R.id.tv_00);
+			childHolder.tv_01 = convertView.findViewById(R.id.tv_01);
+			childHolder.tv_floorPrice = convertView
 					.findViewById(R.id.tv_floorPrice);
-			childHolder.tv_02 = (TextView) convertView.findViewById(R.id.tv_02);
-			childHolder.tv_03 = (TextView) convertView.findViewById(R.id.tv_03);
-			childHolder.tv_04 = (TextView) convertView.findViewById(R.id.tv_04);
-			childHolder.tv_05 = (TextView) convertView.findViewById(R.id.tv_05);
-			childHolder.tv_06 = (TextView) convertView.findViewById(R.id.tv_06);
-			childHolder.tv_07 = (TextView) convertView.findViewById(R.id.tv_07);
-			childHolder.tv_08 = (TextView) convertView.findViewById(R.id.tv_08);
-			childHolder.tv_09 = (TextView) convertView.findViewById(R.id.tv_09);
+			childHolder.tv_02 = convertView.findViewById(R.id.tv_02);
+			childHolder.tv_03 = convertView.findViewById(R.id.tv_03);
+			childHolder.tv_04 = convertView.findViewById(R.id.tv_04);
+			childHolder.tv_05 = convertView.findViewById(R.id.tv_05);
+			childHolder.tv_06 = convertView.findViewById(R.id.tv_06);
+			childHolder.tv_07 = convertView.findViewById(R.id.tv_07);
+			childHolder.tv_08 = convertView.findViewById(R.id.tv_08);
+			childHolder.tv_09 = convertView.findViewById(R.id.tv_09);
 			childHolder.line = convertView.findViewById(R.id.line);
-			childHolder.tv_status = (TextView) convertView
+			childHolder.tv_status = convertView
 					.findViewById(R.id.tv_status);
-			childHolder.iv_baojia_chakantupian = (ImageView) convertView
+			childHolder.iv_baojia_chakantupian = convertView
 					.findViewById(R.id.iv_baojia_chakantupian);
-			childHolder.new_gif = (ImageView) convertView
+			childHolder.new_gif = convertView
 					.findViewById(R.id.new_gif);
 			convertView.setTag(childHolder);
 		} else {
@@ -279,25 +279,25 @@ public class PurchaseDemandItemBaseExpandableListAdapter extends
 			convertView = LayoutInflater.from(mContext).inflate(
 					R.layout.purchase_demand_groupitem, null);
 			groupHolder = new GroupHolder();
-			groupHolder.groupImg = (ImageView) convertView
+			groupHolder.groupImg = convertView
 					.findViewById(R.id.img_indicator);
-			groupHolder.groupText = (TextView) convertView
+			groupHolder.groupText = convertView
 					.findViewById(R.id.tv_group_text);
-			groupHolder.tv_count = (TextView) convertView
+			groupHolder.tv_count = convertView
 					.findViewById(R.id.tv_count);
-			groupHolder.tv_00 = (TextView) convertView.findViewById(R.id.tv_00);
-			groupHolder.tv_01 = (TextView) convertView.findViewById(R.id.tv_01);
-			groupHolder.tv_02 = (TextView) convertView.findViewById(R.id.tv_02);
-			groupHolder.tv_03 = (TextView) convertView.findViewById(R.id.tv_03);
-			groupHolder.tv_04 = (TextView) convertView.findViewById(R.id.tv_04);
-			groupHolder.tv_05 = (TextView) convertView.findViewById(R.id.tv_05);
-			groupHolder.tv_06 = (TextView) convertView.findViewById(R.id.tv_06);
-			groupHolder.tv_07 = (TextView) convertView.findViewById(R.id.tv_07);
-			groupHolder.tv_08 = (TextView) convertView.findViewById(R.id.tv_08);
-			groupHolder.tv_09 = (TextView) convertView.findViewById(R.id.tv_09);
-			groupHolder.tv_status = (TextView) convertView
+			groupHolder.tv_00 = convertView.findViewById(R.id.tv_00);
+			groupHolder.tv_01 = convertView.findViewById(R.id.tv_01);
+			groupHolder.tv_02 = convertView.findViewById(R.id.tv_02);
+			groupHolder.tv_03 = convertView.findViewById(R.id.tv_03);
+			groupHolder.tv_04 = convertView.findViewById(R.id.tv_04);
+			groupHolder.tv_05 = convertView.findViewById(R.id.tv_05);
+			groupHolder.tv_06 = convertView.findViewById(R.id.tv_06);
+			groupHolder.tv_07 = convertView.findViewById(R.id.tv_07);
+			groupHolder.tv_08 = convertView.findViewById(R.id.tv_08);
+			groupHolder.tv_09 = convertView.findViewById(R.id.tv_09);
+			groupHolder.tv_status = convertView
 					.findViewById(R.id.tv_status);
-			groupHolder.iv_img2 = (ImageView) convertView
+			groupHolder.iv_img2 = convertView
 					.findViewById(R.id.iv_img2);
 			convertView.setTag(groupHolder);
 		} else {
@@ -347,7 +347,7 @@ public class PurchaseDemandItemBaseExpandableListAdapter extends
 				ValueGetInfo.formatFloatNumber(groupTitle.get(groupPosition)
 						.getQuoteTotalPrice()) + "", R.color.red).fillColor();
 		groupHolder.tv_07.setText(fillColor.getResult());
-		groupButton = (Button) convertView
+		groupButton = convertView
 				.findViewById(R.id.btn_group_function);
 		groupButton.setOnClickListener(this);
 		// groupHolder.tv_09.setOnClickListener(new OnClickListener() {

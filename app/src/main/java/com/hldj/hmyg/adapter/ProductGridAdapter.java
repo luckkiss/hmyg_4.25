@@ -67,14 +67,14 @@ public class ProductGridAdapter extends BaseAdapter {
         if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.grid_view_seedling, null);
             holder = new ViewHolder();
-            holder.iv_img = (ImageView) view.findViewById(R.id.iv_img);
+            holder.iv_img = view.findViewById(R.id.iv_img);
 
-            holder.tv_01 = (TextView) view.findViewById(tv_01);
-            holder.tv_02 = (TextView) view.findViewById(tv_02);
-            holder.tv_03 = (TextView) view.findViewById(tv_03);
-            holder.tv_07 = (TextView) view.findViewById(tv_07);
-            holder.tv_08 = (TextView) view.findViewById(tv_08);
-            holder.tv_09 = (TextView) view.findViewById(tv_09);
+            holder.tv_01 = view.findViewById(tv_01);
+            holder.tv_02 = view.findViewById(tv_02);
+            holder.tv_03 = view.findViewById(tv_03);
+            holder.tv_07 = view.findViewById(tv_07);
+            holder.tv_08 = view.findViewById(tv_08);
+            holder.tv_09 = view.findViewById(tv_09);
 
 //            holder.tv_status_01 = (TextView) view.findViewById(tv_status_01);
 //            holder.tv_status_02 = (TextView) view.findViewById(tv_status_02);

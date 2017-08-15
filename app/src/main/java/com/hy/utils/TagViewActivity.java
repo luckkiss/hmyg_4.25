@@ -32,8 +32,8 @@ public class TagViewActivity extends Activity implements View.OnClickListener{
         findViewById(R.id.tv_start_activity).setOnClickListener(this);
         findViewById(R.id.tv_list_activity).setOnClickListener(this);
         findViewById(R.id.tv_recyclerview_activity).setOnClickListener(this);
-        editText = (EditText) findViewById(R.id.edit_tag);
-        tagView = (TagView) this.findViewById(R.id.tagview);
+        editText = findViewById(R.id.edit_tag);
+        tagView = this.findViewById(R.id.tagview);
         //SET LISTENER
         tagView.setOnTagClickListener(new OnTagClickListener() {
 

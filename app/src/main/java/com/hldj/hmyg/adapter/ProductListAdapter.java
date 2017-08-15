@@ -76,33 +76,33 @@ public class ProductListAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(
                     R.layout.list_view_seedling_new, null);
             childHolder = new ChildHolder();
-            childHolder.iv_img = (ImageView) convertView
+            childHolder.iv_img = convertView
                     .findViewById(R.id.iv_img);
-            childHolder.iv_like = (ImageView) convertView
+            childHolder.iv_like = convertView
                     .findViewById(R.id.iv_like);
-            childHolder.tv_01 = (TextView) convertView.findViewById(R.id.tv_01);
+            childHolder.tv_01 = convertView.findViewById(R.id.tv_01);
             childHolder.iv_right_top = convertView.findViewById(R.id.iv_right_top);
-            childHolder.tv_02 = (TextView) convertView.findViewById(R.id.tv_02);
-            childHolder.tv_03 = (TextView) convertView.findViewById(R.id.tv_03);
-            childHolder.tv_04 = (TextView) convertView.findViewById(R.id.tv_04);
-            childHolder.tv_05 = (TextView) convertView.findViewById(R.id.tv_05);
-            childHolder.tv_06 = (TextView) convertView.findViewById(R.id.tv_06);
-            childHolder.tv_07 = (TextView) convertView.findViewById(R.id.tv_07);
-            childHolder.tv_08 = (TextView) convertView.findViewById(R.id.tv_08);
-            childHolder.tv_09 = (TextView) convertView.findViewById(R.id.tv_09);
-            childHolder.tv_floorPrice = (TextView) convertView
+            childHolder.tv_02 = convertView.findViewById(R.id.tv_02);
+            childHolder.tv_03 = convertView.findViewById(R.id.tv_03);
+            childHolder.tv_04 = convertView.findViewById(R.id.tv_04);
+            childHolder.tv_05 = convertView.findViewById(R.id.tv_05);
+            childHolder.tv_06 = convertView.findViewById(R.id.tv_06);
+            childHolder.tv_07 = convertView.findViewById(R.id.tv_07);
+            childHolder.tv_08 = convertView.findViewById(R.id.tv_08);
+            childHolder.tv_09 = convertView.findViewById(R.id.tv_09);
+            childHolder.tv_floorPrice = convertView
                     .findViewById(R.id.tv_floorPrice);
-            childHolder.rl_floorPrice = (RelativeLayout) convertView
+            childHolder.rl_floorPrice = convertView
                     .findViewById(R.id.rl_floorPrice);
-            childHolder.tv_status_01 = (TextView) convertView
+            childHolder.tv_status_01 = convertView
                     .findViewById(R.id.tv_status_01);
-            childHolder.tv_status_02 = (TextView) convertView
+            childHolder.tv_status_02 = convertView
                     .findViewById(R.id.tv_status_02);
-            childHolder.tv_status_03 = (TextView) convertView
+            childHolder.tv_status_03 = convertView
                     .findViewById(R.id.tv_status_03);
-            childHolder.tv_status_04 = (TextView) convertView
+            childHolder.tv_status_04 = convertView
                     .findViewById(R.id.tv_status_04);
-            childHolder.tv_status_05 = (TextView) convertView
+            childHolder.tv_status_05 = convertView
                     .findViewById(R.id.tv_status_05);
 
             convertView.setTag(childHolder);

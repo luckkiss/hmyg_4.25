@@ -81,8 +81,8 @@ public class DateTimePickDialogUtil implements OnDateChangedListener,
 	public AlertDialog dateTimePicKDialog(final EditText inputDate) {
 		LinearLayout dateTimeLayout = (LinearLayout) activity
 				.getLayoutInflater().inflate(R.layout.common_datetime, null);
-		datePicker = (DatePicker) dateTimeLayout.findViewById(R.id.datepicker);
-		timePicker = (TimePicker) dateTimeLayout.findViewById(R.id.timepicker);
+		datePicker = dateTimeLayout.findViewById(R.id.datepicker);
+		timePicker = dateTimeLayout.findViewById(R.id.timepicker);
 		init(datePicker, timePicker);
 		timePicker.setIs24HourView(true);
 		timePicker.setOnTimeChangedListener(this);

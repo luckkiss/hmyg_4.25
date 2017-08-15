@@ -55,8 +55,8 @@ public class AddImageGridAdapterD extends BaseAdapter implements
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = LayoutInflater.from(context).inflate(
 				R.layout.image_add_grid_item, null);
-		ImageView imageView = (ImageView) view.findViewById(R.id.img_view);
-		ImageView iv_img2 = (ImageView) view.findViewById(R.id.iv_img2);
+		ImageView imageView = view.findViewById(R.id.img_view);
+		ImageView iv_img2 = view.findViewById(R.id.iv_img2);
 		if(imageList.size()>1){
 			if(position ==0){
 				iv_img2.setImageResource(R.drawable.fengmian);

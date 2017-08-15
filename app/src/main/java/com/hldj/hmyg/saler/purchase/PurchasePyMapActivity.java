@@ -251,7 +251,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.purchase_tips);
-                TextView textView = ((TextView) dialog.findViewById(R.id.tv_pur_content));
+                TextView textView = dialog.findViewById(R.id.tv_pur_content);
 
                 if ("quoting".equals(type)) {
                     StringFormatUtil formatUtil = new StringFormatUtil(context, "[采购中]：已经确认采购且即将调苗的采购项目。", "[采购中]", R.color.red).fillColor();

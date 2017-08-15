@@ -1,8 +1,5 @@
 package com.hldj.hmyg.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +10,9 @@ import android.widget.TextView;
 import com.hhl.library.OnInitSelectedPosition;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Type;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by HanHailong on 15/10/19.
@@ -49,7 +49,7 @@ public class TagTypeAdapter<T> extends BaseAdapter implements
 		View view = LayoutInflater.from(mContext).inflate(R.layout.tag_item,
 				null);
 
-		TextView textView = (TextView) view.findViewById(R.id.tv_tag);
+		TextView textView = view.findViewById(R.id.tv_tag);
 		T t = mDataList.get(position);
 
 		if (t instanceof Type) {

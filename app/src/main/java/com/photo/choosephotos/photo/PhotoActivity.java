@@ -30,8 +30,8 @@ public class PhotoActivity extends Activity implements View.OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list_album_gridview);
-		tv = (TextView)findViewById(R.id.photo_album_chooseNum);
-		finishBtn = (Button)findViewById(R.id.finishBtn);
+		tv = findViewById(R.id.photo_album_chooseNum);
+		finishBtn = findViewById(R.id.finishBtn);
 		album = (Album)getIntent().getExtras().get("album");
 		/**获取已经选择的图片**/
 		for (int i = 0; i < album.getBitList().size(); i++) {
@@ -39,7 +39,7 @@ public class PhotoActivity extends Activity implements View.OnClickListener{
 				chooseNum++;
 			}
 		}
-		gv =(GridView)findViewById(R.id.photo_gridview);
+		gv = findViewById(R.id.photo_gridview);
 		adapter = new PicAdappter(this,album);
 		gv.setAdapter(adapter);
 		tv.setText("选中"+chooseNum+"个");

@@ -300,9 +300,6 @@
         <activity
             android:name="com.hldj.hmyg.buyer.SaveReturnApplyActivity"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.SaveReceipptActivity"
-            android:screenOrientation="portrait"></activity>
 
 
         <activity
@@ -481,19 +478,6 @@
         <activity
             android:name="com.hldj.hmyg.buyer.LoadCarListActivity2"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.ReceiptListActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.OrderReceiptListActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.ReceiptAdressListActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.AddReceiptAdressActivity"
             android:screenOrientation="portrait"></activity>
 
         <activity

@@ -66,8 +66,8 @@ public class PurchaseSeedlingParmAdapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View inflate = LayoutInflater.from(context).inflate(
 				R.layout.list_item_purchase_parm, null);
-		TextView name = (TextView) inflate.findViewById(R.id.name);
-		TextView values = (TextView) inflate.findViewById(R.id.values);
+		TextView name = inflate.findViewById(R.id.name);
+		TextView values = inflate.findViewById(R.id.values);
 		name.setText(data.get(position).getName() + ":"
 				+ data.get(position).getValue());
 		values.setText(data.get(position).getValue());

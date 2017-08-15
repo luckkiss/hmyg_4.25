@@ -51,12 +51,12 @@ public class BrokerSendProductListAdapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View inflate = LayoutInflater.from(context).inflate(
 				R.layout.list_item_send_products, null);
-		TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);
-		TextView tv_02 = (TextView) inflate.findViewById(R.id.tv_02);
-		TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);
-		TextView tv_04 = (TextView) inflate.findViewById(R.id.tv_04);
-		TextView tv_05 = (TextView) inflate.findViewById(R.id.tv_05);
-		TextView tv_06 = (TextView) inflate.findViewById(R.id.tv_06);
+		TextView tv_01 = inflate.findViewById(R.id.tv_01);
+		TextView tv_02 = inflate.findViewById(R.id.tv_02);
+		TextView tv_03 = inflate.findViewById(R.id.tv_03);
+		TextView tv_04 = inflate.findViewById(R.id.tv_04);
+		TextView tv_05 = inflate.findViewById(R.id.tv_05);
+		TextView tv_06 = inflate.findViewById(R.id.tv_06);
 
 		tv_01.setText("品种名称：" + data.get(position).get("orderName").toString());
 		if( data.get(position).get("receiptDate").toString().length()>10){

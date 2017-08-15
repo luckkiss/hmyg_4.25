@@ -662,8 +662,8 @@ public class AActivity_3_0_alibaba extends BaseMVPActivity<AAliPresenter, AAliMo
             //设置滚动的单个布局
             LinearLayout moreView = (LinearLayout) LayoutInflater.from(aActivity).inflate(R.layout.item_home_cjgg, null);
             //初始化布局的控件
-            SuperTextView tv1 = (SuperTextView) moreView.findViewById(R.id.tv_taggle1);
-            SuperTextView tv2 = (SuperTextView) moreView.findViewById(R.id.tv_taggle2);
+            SuperTextView tv1 = moreView.findViewById(R.id.tv_taggle1);
+            SuperTextView tv2 = moreView.findViewById(R.id.tv_taggle2);
             /**
              * 设置监听
              */

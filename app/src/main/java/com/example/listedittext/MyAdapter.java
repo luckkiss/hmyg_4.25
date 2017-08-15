@@ -67,9 +67,9 @@ public class MyAdapter extends BaseAdapter {
 			convertView = LayoutInflater.from(context).inflate(
 					R.layout.listrow_item, null);
 			holder = new ViewHolder();
-			holder.tv_position = (TextView) convertView
+			holder.tv_position = convertView
 					.findViewById(R.id.tv_position);
-			holder.et_number = (EditText) convertView
+			holder.et_number = convertView
 					.findViewById(R.id.et_number);
 			holder.et_number.setTag(position);
 //			holder.et_number.setInputType(EditorInfo.TYPE_CLASS_PHONE);
@@ -90,7 +90,7 @@ public class MyAdapter extends BaseAdapter {
 					list.set(position, n);
 				}
 			});
-			holder.btn_delete = (Button) convertView
+			holder.btn_delete = convertView
 					.findViewById(R.id.btn_delete);
 			holder.btn_delete.setOnClickListener(new MyOnClickListener(holder) {
 				@Override
@@ -203,7 +203,7 @@ public class MyAdapter extends BaseAdapter {
 
 	// 删除操作回调
 	public interface OnListRemovedListener {
-		public void onRemoved();
+		void onRemoved();
 	}
 
 }

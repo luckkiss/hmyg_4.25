@@ -145,22 +145,22 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
-            this.tv_save_seeding_price_min = (EditText) rootView.findViewById(R.id.tv_save_seeding_price_min);
-            this.tv_save_seeding_price_max = (EditText) rootView.findViewById(R.id.tv_save_seeding_price_max);
-            this.cb_is_meet = (CheckBox) rootView.findViewById(R.id.cb_is_meet);
-            this.et_repertory_num = (EditText) rootView.findViewById(R.id.et_repertory_num);
+            this.tv_save_seeding_price_min = rootView.findViewById(R.id.tv_save_seeding_price_min);
+            this.tv_save_seeding_price_max = rootView.findViewById(R.id.tv_save_seeding_price_max);
+            this.cb_is_meet = rootView.findViewById(R.id.cb_is_meet);
+            this.et_repertory_num = rootView.findViewById(R.id.et_repertory_num);
 
-            this.rl_save_seeding_unit = (RelativeLayout) rootView.findViewById(R.id.rl_save_seeding_unit);//单位 点击区域
-            this.tv_save_seeding_unit = (TextView) rootView.findViewById(R.id.tv_save_seeding_unit);//单位 显示
+            this.rl_save_seeding_unit = rootView.findViewById(R.id.rl_save_seeding_unit);//单位 点击区域
+            this.tv_save_seeding_unit = rootView.findViewById(R.id.tv_save_seeding_unit);//单位 显示
 
-            this.rl_save_seeding_useful = (RelativeLayout) rootView.findViewById(R.id.rl_save_seeding_useful);//有效期  点击
-            this.tv_save_seeding_useful = (TextView) rootView.findViewById(R.id.tv_save_seeding_useful);//有效期  显示
+            this.rl_save_seeding_useful = rootView.findViewById(R.id.rl_save_seeding_useful);//有效期  点击
+            this.tv_save_seeding_useful = rootView.findViewById(R.id.tv_save_seeding_useful);//有效期  显示
 
-            this.rl_save_seeding_home = (RelativeLayout) rootView.findViewById(R.id.rl_save_seeding_home);//苗源地  点击区域
-            this.tv_save_seeding_home = (TextView) rootView.findViewById(R.id.tv_save_seeding_home);//苗源地  显示（废弃）
-            this.list_item_adress = (LinearLayout) rootView.findViewById(R.id.list_item_adress);//苗源地显示
+            this.rl_save_seeding_home = rootView.findViewById(R.id.rl_save_seeding_home);//苗源地  点击区域
+            this.tv_save_seeding_home = rootView.findViewById(R.id.tv_save_seeding_home);//苗源地  显示（废弃）
+            this.list_item_adress = rootView.findViewById(R.id.list_item_adress);//苗源地显示
 
-            this.et_remark = (EditText) rootView.findViewById(R.id.et_remark);
+            this.et_remark = rootView.findViewById(R.id.et_remark);
 
 
             this.cb_is_meet.setOnClickListener(v ->

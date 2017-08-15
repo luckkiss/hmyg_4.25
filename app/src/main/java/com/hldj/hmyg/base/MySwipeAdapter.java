@@ -68,7 +68,7 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
 
         int layoutId = R.layout.list_view_seedling_new_shoucan;
 
-        ImageView iv_img = (ImageView) view.findViewById(R.id.iv_img);
+        ImageView iv_img = view.findViewById(R.id.iv_img);
         finalBitmap.display(iv_img, seedlingBean.getSmallImageUrl());
 
 
@@ -82,40 +82,40 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
 
 
         //设置小图标
-        TextView tv_01 = (TextView) view.findViewById(R.id.tv_01);
+        TextView tv_01 = view.findViewById(R.id.tv_01);
         setSrcByType(tv_01, seedlingBean.getPlantType());
 
         //名字
-        TextView tv_02 = (TextView) view.findViewById(R.id.tv_02);
+        TextView tv_02 = view.findViewById(R.id.tv_02);
         tv_02.setText(seedlingBean.getName());
 
 
         //拼接的   地径  长度
-        TextView tv_03 = (TextView) view.findViewById(R.id.tv_03);
+        TextView tv_03 = view.findViewById(R.id.tv_03);
         tv_03.setText(seedlingBean.getSpecText());
 
         //地区：
-        TextView tv_04 = (TextView) view.findViewById(R.id.tv_04);
+        TextView tv_04 = view.findViewById(R.id.tv_04);
         tv_04.setText("苗源地:" + seedlingBean.getCiCity().getFullName());
 
 //            发布人
-        TextView tv_06 = (TextView) view.findViewById(R.id.tv_06);
+        TextView tv_06 = view.findViewById(R.id.tv_06);
         setName(tv_06, seedlingBean);
 
 //           价格
-        TextView tv_07 = (TextView) view.findViewById(R.id.tv_07);
+        TextView tv_07 = view.findViewById(R.id.tv_07);
 
 
         boolean isNeGo = seedlingBean.isNego();
         String maxPrice = seedlingBean.getMinPrice() + "";
         String minPrice = seedlingBean.getMaxPrice() + "";
 
-        TextView tv_08 = (TextView) view.findViewById(R.id.tv_08);
+        TextView tv_08 = view.findViewById(R.id.tv_08);
         tv_08.setText("/" + seedlingBean.getUnitTypeName());
         ProductListAdapter.setPrice(tv_07, maxPrice, minPrice, isNeGo, tv_08);
 
 //           库存
-        TextView tv_09 = (TextView) view.findViewById(R.id.tv_09);
+        TextView tv_09 = view.findViewById(R.id.tv_09);
         tv_09.setText("库存: " + seedlingBean.getCount() + "");
 
 

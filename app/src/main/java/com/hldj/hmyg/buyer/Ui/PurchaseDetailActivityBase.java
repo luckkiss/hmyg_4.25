@@ -420,24 +420,24 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         public ViewHolder(Activity rootView) {
 //            this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
 
-            this.btn_back = (ImageView) rootView.findViewById(R.id.toolbar_left_icon);
-            this.toolbar_title = (TextView) rootView.findViewById(R.id.toolbar_title);
-            this.tv_purchase_name = (TextView) getHeadView().findViewById(R.id.tv_quote_name);
-            this.tv_purchase_size = (TextView) getHeadView().findViewById(R.id.tv_quote_size);
-            this.tv_purchase_type = (TextView) getHeadView().findViewById(R.id.tv_quote_type);
-            this.tv_quote_num = (TextView) getHeadView().findViewById(R.id.tv_quote_num);
-            this.tv_purchase_address = (SuperTextView) getHeadView().findViewById(R.id.tv_quote_address);
-            this.tv_purchase_close_date = (SuperTextView) getHeadView().findViewById(R.id.tv_quote_close_date);
-            this.tv_purchase_store_detail = (Button) getHeadView().findViewById(R.id.tv_quote_store_detail);//采购商家信息
-            this.tv_purchase_price_sug = (Button) getHeadView().findViewById(R.id.tv_quote_price_sug);//报价要求
-            this.tv_purchase_city_name = (TextView) getBootomBiew().findViewById(R.id.tv_purchase_city_name);
-            this.tfl_purchase_auto_add_plant = (TagFlowLayout) getBootomBiew().findViewById(R.id.tfl_purchase_auto_add_plant);
-            this.tv_purchase_add_pic = (TextView) getBootomBiew().findViewById(R.id.tv_purchase_add_pic);
-            this.tv_purchase_remark = (TextView) getBootomBiew().findViewById(R.id.tv_purchase_remark);
-            this.tv_purchase_commit = (TextView) getBootomBiew().findViewById(R.id.tv_purchase_commit);
-            this.ll_purc_auto_add = (LinearLayout) getBootomBiew().findViewById(R.id.ll_purc_auto_add);//采购报价 动态加载
+            this.btn_back = rootView.findViewById(R.id.toolbar_left_icon);
+            this.toolbar_title = rootView.findViewById(R.id.toolbar_title);
+            this.tv_purchase_name = getHeadView().findViewById(R.id.tv_quote_name);
+            this.tv_purchase_size = getHeadView().findViewById(R.id.tv_quote_size);
+            this.tv_purchase_type = getHeadView().findViewById(R.id.tv_quote_type);
+            this.tv_quote_num = getHeadView().findViewById(R.id.tv_quote_num);
+            this.tv_purchase_address = getHeadView().findViewById(R.id.tv_quote_address);
+            this.tv_purchase_close_date = getHeadView().findViewById(R.id.tv_quote_close_date);
+            this.tv_purchase_store_detail = getHeadView().findViewById(R.id.tv_quote_store_detail);//采购商家信息
+            this.tv_purchase_price_sug = getHeadView().findViewById(R.id.tv_quote_price_sug);//报价要求
+            this.tv_purchase_city_name = getBootomBiew().findViewById(R.id.tv_purchase_city_name);
+            this.tfl_purchase_auto_add_plant = getBootomBiew().findViewById(R.id.tfl_purchase_auto_add_plant);
+            this.tv_purchase_add_pic = getBootomBiew().findViewById(R.id.tv_purchase_add_pic);
+            this.tv_purchase_remark = getBootomBiew().findViewById(R.id.tv_purchase_remark);
+            this.tv_purchase_commit = getBootomBiew().findViewById(R.id.tv_purchase_commit);
+            this.ll_purc_auto_add = getBootomBiew().findViewById(R.id.ll_purc_auto_add);//采购报价 动态加载
 //            this.ll_mainView_bottom = (LinearLayout) rootView.findViewById(R.id.ll_mainView_bottom);//采购报价 动态加载
-            this.et_purchase_remark = (EditText) getBootomBiew().findViewById(R.id.et_purchase_remark);//备注
+            this.et_purchase_remark = getBootomBiew().findViewById(R.id.et_purchase_remark);//备注
 
             toolbar_title.setText("采购详情");
         }

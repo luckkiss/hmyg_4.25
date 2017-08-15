@@ -61,9 +61,9 @@ public class PhotoAdapter extends BaseAdapter {
 		PhotoItem item = dataList.get(position);
 		if (convertView == null) {
 			convertView = inflater.inflate(R.layout.photo_choose_item, null);
-			holder.imageIv = (ImageView) convertView
+			holder.imageIv = convertView
 					.findViewById(R.id.photo_choose_iv);
-			holder.checkIv = (CheckBox) convertView
+			holder.checkIv = convertView
 					.findViewById(R.id.photo_choose_check_iv);
 			LayoutParams params = holder.imageIv.getLayoutParams();
 			params.height = itemWidth;

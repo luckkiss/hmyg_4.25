@@ -80,8 +80,8 @@ public class TitlePopup extends PopupWindow {
 		View view = LayoutInflater.from(mContext).inflate(
 				R.layout.comment_popu, null);
 		setContentView(view);
-		priase = (TextView) view.findViewById(R.id.popu_praise);
-		comment = (TextView) view.findViewById(R.id.popu_comment);
+		priase = view.findViewById(R.id.popu_praise);
+		comment = view.findViewById(R.id.popu_comment);
 		priase.setOnClickListener(onclick);
 		comment.setOnClickListener(onclick);
 	}
@@ -164,7 +164,7 @@ public class TitlePopup extends PopupWindow {
 	/**
 	 * @author yangyu 功能描述：弹窗子类项按钮监听事件
 	 */
-	public static interface OnItemOnClickListener {
-		public void onItemClick(ActionItem item, int position);
+	public interface OnItemOnClickListener {
+		void onItemClick(ActionItem item, int position);
 	}
 }

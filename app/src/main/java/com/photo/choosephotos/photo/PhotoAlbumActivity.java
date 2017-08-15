@@ -42,7 +42,7 @@ public class PhotoAlbumActivity extends Activity {
 		// ActivityManager是自己写的用来管理Activity的类，主要用来跨页面finish
 		ActivityManager.addActivity(this, "PhotoAlbumActivity");
 
-		albumGV = (GridView) findViewById(R.id.album_gridview);
+		albumGV = findViewById(R.id.album_gridview);
 		albumList = getPhotoAlbum();
 		albumGV.setAdapter(new AlbumAdapter(albumList, this));
 		albumGV.setOnItemClickListener(albumClickListener);

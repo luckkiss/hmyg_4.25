@@ -54,7 +54,7 @@ public class ViewPagerBitmapActivity extends Activity {
         ViewPager mViewPager = (HackyViewPager) findViewById(R.id.view_pager);
 //		setContentView(mViewPager);
 		
-        header = (RelativeLayout)findViewById(R.id.header);
+        header = findViewById(R.id.header);
         photoView = new PhotoView(this);
         receiveBmList = (List<Bitmap>)ApplicationContent.get("mImageBm");
 		this.index = this.getIntent().getIntExtra(CURRENT_INDEX, 0);

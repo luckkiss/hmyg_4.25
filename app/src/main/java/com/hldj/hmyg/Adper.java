@@ -46,8 +46,8 @@ public class Adper extends BaseAdapter {
         if(convertView==null){
             convertView=View.inflate(context, R.layout.list_item_buy_order, null);
          viewHolder=new ViewHolder();
-         viewHolder.textView=(TextView) convertView.findViewById(R.id.text);
-        viewHolder.checkBox=(CheckBox) convertView.findViewById(R.id.checkbox); 
+         viewHolder.textView= convertView.findViewById(R.id.text);
+        viewHolder.checkBox= convertView.findViewById(R.id.checkbox);
         convertView.setTag(viewHolder);
         }else{
             viewHolder=(ViewHolder) convertView.getTag();

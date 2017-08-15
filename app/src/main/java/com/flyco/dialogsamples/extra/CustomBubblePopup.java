@@ -21,8 +21,8 @@ public class CustomBubblePopup extends BaseBubblePopup<CustomBubblePopup> {
     @Override
     public View onCreateBubbleView() {
         View inflate = View.inflate(mContext, R.layout.popup_bubble_image, null);
-        mTvBubble = (TextView) inflate.findViewById(R.id.tv_bubble);
-        mIvBubble = (ImageView) inflate.findViewById(R.id.iv_bubble);
+        mTvBubble = inflate.findViewById(R.id.tv_bubble);
+        mIvBubble = inflate.findViewById(R.id.iv_bubble);
         return inflate;
     }
 

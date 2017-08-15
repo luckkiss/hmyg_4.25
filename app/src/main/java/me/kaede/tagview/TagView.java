@@ -149,7 +149,7 @@ public class TagView extends RelativeLayout {
             tagLayout.setId(listIndex);
             tagLayout.setBackgroundDrawable(getSelector(tag));
             // tag text
-            TextView tagView = (TextView) tagLayout.findViewById(R.id.tv_tag_item_contain);
+            TextView tagView = tagLayout.findViewById(R.id.tv_tag_item_contain);
             tagView.setText(tag.text);
             //tagView.setPadding(textPaddingLeft, textPaddingTop, textPaddingRight, texPaddingBottom);
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tagView.getLayoutParams();
@@ -174,7 +174,7 @@ public class TagView extends RelativeLayout {
             // tagView padding (left & right)
             // deletable text
 
-            TextView deletableView = (TextView) tagLayout.findViewById(R.id.tv_tag_item_delete);
+            TextView deletableView = tagLayout.findViewById(R.id.tv_tag_item_delete);
             if (tag.isDeletable) {
                 deletableView.setVisibility(View.VISIBLE);
                 deletableView.setText(tag.deleteIcon);

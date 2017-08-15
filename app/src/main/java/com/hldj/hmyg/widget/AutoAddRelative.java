@@ -239,12 +239,12 @@ public class AutoAddRelative extends RelativeLayout {
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
-            this.tv_auto_add_left1 = (TextView) rootView.findViewById(R.id.tv_auto_add_left1);
-            this.tv_auto_add_left2 = (TextView) rootView.findViewById(R.id.tv_auto_add_left2);
-            this.et_auto_add_min = (EditText) rootView.findViewById(R.id.et_auto_add_min);
-            this.et_auto_add_max = (EditText) rootView.findViewById(R.id.et_auto_add_max);
-            this.linearLayout2 = (LinearLayout) rootView.findViewById(R.id.linearLayout2);
-            this.et_auto_add_unit = (TextView) rootView.findViewById(R.id.et_auto_add_unit);
+            this.tv_auto_add_left1 = rootView.findViewById(R.id.tv_auto_add_left1);
+            this.tv_auto_add_left2 = rootView.findViewById(R.id.tv_auto_add_left2);
+            this.et_auto_add_min = rootView.findViewById(R.id.et_auto_add_min);
+            this.et_auto_add_max = rootView.findViewById(R.id.et_auto_add_max);
+            this.linearLayout2 = rootView.findViewById(R.id.linearLayout2);
+            this.et_auto_add_unit = rootView.findViewById(R.id.et_auto_add_unit);
         }
 
     }
@@ -263,15 +263,15 @@ public class AutoAddRelative extends RelativeLayout {
 
         public ViewHolder_rd(View rootView) {
             this.rootView = rootView;
-            this.tv_auto_add_left1 = (TextView) rootView.findViewById(R.id.tv_auto_add_left1);
-            this.tv_auto_add_left2 = (TextView) rootView.findViewById(R.id.tv_auto_add_left2);
-            this.et_auto_add_min = (EditText) rootView.findViewById(R.id.et_auto_add_min);
-            this.et_auto_add_max = (EditText) rootView.findViewById(R.id.et_auto_add_max);
-            this.linearLayout2 = (LinearLayout) rootView.findViewById(R.id.linearLayout2);
-            this.et_auto_add_unit = (TextView) rootView.findViewById(R.id.et_auto_add_unit);
-            this.rb_auto_add_left = (RadioButton) rootView.findViewById(R.id.rb_auto_add_left);
-            this.rb_auto_add_center = (RadioButton) rootView.findViewById(R.id.rb_auto_add_center);
-            this.rb_auto_add_right = (RadioButton) rootView.findViewById(R.id.rb_auto_add_right);
+            this.tv_auto_add_left1 = rootView.findViewById(R.id.tv_auto_add_left1);
+            this.tv_auto_add_left2 = rootView.findViewById(R.id.tv_auto_add_left2);
+            this.et_auto_add_min = rootView.findViewById(R.id.et_auto_add_min);
+            this.et_auto_add_max = rootView.findViewById(R.id.et_auto_add_max);
+            this.linearLayout2 = rootView.findViewById(R.id.linearLayout2);
+            this.et_auto_add_unit = rootView.findViewById(R.id.et_auto_add_unit);
+            this.rb_auto_add_left = rootView.findViewById(R.id.rb_auto_add_left);
+            this.rb_auto_add_center = rootView.findViewById(R.id.rb_auto_add_center);
+            this.rb_auto_add_right = rootView.findViewById(R.id.rb_auto_add_right);
 
 
         }
@@ -308,8 +308,8 @@ public class AutoAddRelative extends RelativeLayout {
 
         public ViewHolder_top(View rootView) {
             this.rootView = rootView;
-            this.tv_auto_add_left1 = (TextView) rootView.findViewById(R.id.tv_auto_add_left1);
-            this.tv_auto_add_name = (EditText) rootView.findViewById(R.id.tv_auto_add_name);
+            this.tv_auto_add_left1 = rootView.findViewById(R.id.tv_auto_add_left1);
+            this.tv_auto_add_name = rootView.findViewById(R.id.tv_auto_add_name);
         }
 
     }

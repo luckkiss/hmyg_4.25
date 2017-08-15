@@ -56,17 +56,17 @@ public class ActivityAddFriends extends Activity implements SectionIndexer {
 	}
 
 	private void initViews() {
-		titleLayout = (LinearLayout) findViewById(R.id.title_layout);
-		title = (TextView) this.findViewById(R.id.title_layout_catalog);
-		tvNofriends = (TextView) this
+		titleLayout = findViewById(R.id.title_layout);
+		title = this.findViewById(R.id.title_layout_catalog);
+		tvNofriends = this
 				.findViewById(R.id.title_layout_no_friends);
 		// 实例化汉字转拼音类
 		characterParser = CharacterParser.getInstance();
 
 		pinyinComparator = new PinyinComparator();
 
-		sideBar = (SideBar) findViewById(R.id.sidrbar);
-		dialog = (TextView) findViewById(R.id.dialog);
+		sideBar = findViewById(R.id.sidrbar);
+		dialog = findViewById(R.id.dialog);
 		sideBar.setTextView(dialog);
 
 		// 设置右侧触摸监听
@@ -83,7 +83,7 @@ public class ActivityAddFriends extends Activity implements SectionIndexer {
 			}
 		});
 
-		sortListView = (ListView) findViewById(R.id.country_lvcountry);
+		sortListView = findViewById(R.id.country_lvcountry);
 		sortListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -144,7 +144,7 @@ public class ActivityAddFriends extends Activity implements SectionIndexer {
 				lastFirstVisibleItem = firstVisibleItem;
 			}
 		});
-		mClearEditText = (ClearEditText) findViewById(R.id.filter_edit);
+		mClearEditText = findViewById(R.id.filter_edit);
 
 		// 根据输入框输入值的改变来过滤搜索
 		mClearEditText.addTextChangedListener(new TextWatcher() {

@@ -124,8 +124,8 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
         }
 
 
-        GridView gridView = (GridView) dia_choose_share.findViewById(R.id.gridView);
-        Button btn_cancle = (Button) dia_choose_share.findViewById(R.id.btn_cancle);
+        GridView gridView = dia_choose_share.findViewById(R.id.gridView);
+        Button btn_cancle = dia_choose_share.findViewById(R.id.btn_cancle);
         gridView.setAdapter(new SharePlatformAdapter());
 
         btn_cancle.setOnClickListener(v -> {
@@ -190,8 +190,8 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
             // TODO Auto-generated method stub
             View inflate = getActivity().getLayoutInflater().inflate(R.layout.list_item_share_platform, null);
             inflate.setBackgroundColor(Color.WHITE);
-            ImageView iv_icon = (ImageView) inflate.findViewById(R.id.iv_icon);
-            TextView tv_name = (TextView) inflate.findViewById(R.id.tv_name);
+            ImageView iv_icon = inflate.findViewById(R.id.iv_icon);
+            TextView tv_name = inflate.findViewById(R.id.tv_name);
             iv_icon.setImageResource(shares.get(position).getPic());
             tv_name.setText(shares.get(position).getName());
             inflate.setOnClickListener(v -> {

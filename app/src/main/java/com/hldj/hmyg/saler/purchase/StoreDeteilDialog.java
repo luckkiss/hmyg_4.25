@@ -1,33 +1,21 @@
 package com.hldj.hmyg.saler.purchase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import net.tsz.afinal.FinalBitmap;
-
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.buyer.AddReceiptAdressActivity;
-import com.hldj.hmyg.buyer.ReceiptAdressListActivity;
-import com.hldj.hmyg.saler.purchase.WebViewDialog.Builder;
 
 public class StoreDeteilDialog extends Dialog {
 
@@ -188,7 +176,7 @@ public class StoreDeteilDialog extends Dialog {
                     .setText(accountBank);
             ((TextView) layout.findViewById(R.id.tv_accountNum))
                     .setText(accountNum);
-            ListView lv = (ListView) layout.findViewById(R.id.lv);
+            ListView lv = layout.findViewById(R.id.lv);
             MyAdapter myAdapter = new MyAdapter(context, data);
             lv.setAdapter(myAdapter);
             // set the confirm button
@@ -287,7 +275,7 @@ public class StoreDeteilDialog extends Dialog {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             View inflate = LayoutInflater.from(context).inflate(R.layout.list_item_buyer_info, null);
-            TextView title = (TextView) inflate.findViewById(R.id.title);
+            TextView title = inflate.findViewById(R.id.title);
             title.setText(data.get(position));
             return inflate;
         }

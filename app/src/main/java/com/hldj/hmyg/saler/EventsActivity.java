@@ -59,7 +59,7 @@ public class EventsActivity extends Activity implements OnMapClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.events_activity);
-		mapView = (MapView) findViewById(R.id.map);
+		mapView = findViewById(R.id.map);
 		mapView.onCreate(savedInstanceState);// 此方法必须重写
 		init();
 	}
@@ -72,10 +72,10 @@ public class EventsActivity extends Activity implements OnMapClickListener,
 			aMap = mapView.getMap();
 			setUpMap();
 		}
-		mTapTextView = (TextView) findViewById(R.id.tap_text);
-		mCameraTextView = (TextView) findViewById(R.id.camera_text);
-		btn_back = (ImageView) findViewById(R.id.btn_back);
-		id_tv_edit_all = (TextView) findViewById(R.id.id_tv_edit_all);
+		mTapTextView = findViewById(R.id.tap_text);
+		mCameraTextView = findViewById(R.id.camera_text);
+		btn_back = findViewById(R.id.btn_back);
+		id_tv_edit_all = findViewById(R.id.id_tv_edit_all);
 		id_tv_edit_all.setOnClickListener(this);
 		btn_back.setOnClickListener(this);
 	}

@@ -189,7 +189,7 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
         LayoutInflater inflater = (LayoutInflater) this
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.task_detail_popupwindow, null);
-        lvPopupList = (ListView) layout.findViewById(R.id.lv_popup_list);
+        lvPopupList = layout.findViewById(R.id.lv_popup_list);
         pwMyPopWindow = new PopupWindow(layout, LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT);
         pwMyPopWindow.setFocusable(true);// 加上这个popupwindow中的ListView才可以接收点击事件
@@ -537,9 +537,9 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
                             ViewGroup parent) {
             View inflate = LayoutInflater.from(context).inflate(
                     R.layout.list_item_map_search, null);
-            TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);
-            TextView tv_02 = (TextView) inflate.findViewById(R.id.tv_02);
-            TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);
+            TextView tv_01 = inflate.findViewById(R.id.tv_01);
+            TextView tv_02 = inflate.findViewById(R.id.tv_02);
+            TextView tv_03 = inflate.findViewById(R.id.tv_03);
             tv_01.setText("苗圃名称：" + data.get(position).getName());
             tv_02.setText("公司名称：" + data.get(position).getCompanyName());
             tv_03.setText("主营品种：" + data.get(position).getMainType());
@@ -617,7 +617,7 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
         public View getView(final int position, View currentView, ViewGroup arg2) {
             View inflate = LayoutInflater.from(context).inflate(
                     R.layout.list_item_store, null);
-            TextView iv = (TextView) inflate.findViewById(R.id.iv);
+            TextView iv = inflate.findViewById(R.id.iv);
             iv.setText(arrayList.get(position).getName());
             inflate.setOnClickListener(new OnClickListener() {
 

@@ -49,7 +49,7 @@ public class ProgramFragment1 extends BaseFragment {
     @Override
     protected void initView(View rootView) {
         Log.e(TAG, "initView: ");
-        coreRecyclerView = (CoreRecyclerView) rootView.findViewById(R.id.recycle_program1);
+        coreRecyclerView = rootView.findViewById(R.id.recycle_program1);
 
         showLoading();
 

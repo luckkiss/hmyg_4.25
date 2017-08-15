@@ -57,9 +57,9 @@ public class ChoosePhotoGalleryAdapter extends BaseAdapter {
 		if (convertView == null) {
 			holder = new ViewHolder();
 			convertView = inflater.inflate(R.layout.image_gallery_item, null);
-			holder.mGestureView = (GestureImageView) convertView
+			holder.mGestureView = convertView
 					.findViewById(R.id.image_gallery_item_image);
-			holder.gifImageView = (GifImageView) convertView
+			holder.gifImageView = convertView
 					.findViewById(R.id.image_gallery_item_gif_image);
 			convertView.setTag(holder);
 		} else {

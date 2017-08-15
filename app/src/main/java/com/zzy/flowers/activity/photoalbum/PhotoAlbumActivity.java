@@ -85,15 +85,15 @@ public class PhotoAlbumActivity extends CoreActivity implements
     }
 
     private void initView() {
-        titleTv = (TextView) findViewById(R.id.common_titlebar_titleName);
-        backBtn = (Button) findViewById(R.id.common_titlebar_leftBtn);
-        rightBtn = (Button) findViewById(R.id.common_titlebar_rightBtn);
+        titleTv = findViewById(R.id.common_titlebar_titleName);
+        backBtn = findViewById(R.id.common_titlebar_leftBtn);
+        rightBtn = findViewById(R.id.common_titlebar_rightBtn);
 
         titleTv.setText(R.string.photo_album_title);
         backBtn.setText("返回");
         rightBtn.setVisibility(View.INVISIBLE);
 
-        photoAlbumGv = (GridView) findViewById(R.id.album_gridview);
+        photoAlbumGv = findViewById(R.id.album_gridview);
     }
 
     private void initListener() {

@@ -250,7 +250,7 @@ public class ChooseFirstTypeActivity extends NeedSwipeBackActivity {
 				ViewGroup parent) {
 			View inflate = LayoutInflater.from(context).inflate(
 					R.layout.list_item_first_type, null);
-			TextView title = (TextView) inflate.findViewById(R.id.title);
+			TextView title = inflate.findViewById(R.id.title);
 			title.setText(data.get(position).get("name").toString());
 			inflate.setOnClickListener(new OnClickListener() {
 

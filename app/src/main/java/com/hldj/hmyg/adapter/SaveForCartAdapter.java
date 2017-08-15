@@ -64,13 +64,13 @@ public class SaveForCartAdapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View inflate = LayoutInflater.from(context).inflate(
 				R.layout.list_item_save_for_cart, null);
-		LinearLayout ll_item_broker = (LinearLayout) inflate
+		LinearLayout ll_item_broker = inflate
 				.findViewById(R.id.ll_item_broker);
-		TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);
-		TextView tv_02 = (TextView) inflate.findViewById(R.id.tv_02);
-		TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);
-		TextView tv_04 = (TextView) inflate.findViewById(R.id.tv_04);
-		TextView tv_05 = (TextView) inflate.findViewById(R.id.tv_05);
+		TextView tv_01 = inflate.findViewById(R.id.tv_01);
+		TextView tv_02 = inflate.findViewById(R.id.tv_02);
+		TextView tv_03 = inflate.findViewById(R.id.tv_03);
+		TextView tv_04 = inflate.findViewById(R.id.tv_04);
+		TextView tv_05 = inflate.findViewById(R.id.tv_05);
 		tv_01.setText("时间："
 				+ data.get(position).get("createDate").toString()
 						.substring(0, 10));

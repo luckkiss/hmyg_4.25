@@ -64,7 +64,7 @@ public class CoreHeadRecyclerView extends LinearLayout implements BaseQuickAdapt
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         addView(view);
-        mSwipeRefreshLayout = (MySwipeRefreshLayout) findViewById(R.id.swipeLayout_head);
+        mSwipeRefreshLayout = findViewById(R.id.swipeLayout_head);
         mSwipeRefreshLayout.setLoadmoreEnable(false);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            mSwipeRefreshLayout.setNestedScrollingEnabled(true);
@@ -74,7 +74,7 @@ public class CoreHeadRecyclerView extends LinearLayout implements BaseQuickAdapt
         mViewHeader = new SwipeViewHeader(context);
         mSwipeRefreshLayout.setHeaderView(mViewHeader);
 //        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_list);
+        mRecyclerView = findViewById(R.id.rv_list);
         return this;
     }
 
@@ -96,7 +96,7 @@ public class CoreHeadRecyclerView extends LinearLayout implements BaseQuickAdapt
     public CoreHeadRecyclerView init(RecyclerView.LayoutManager layoutManager, BaseQuickAdapter mQuickAdapter, Boolean isRefresh) {
         if (isRefresh != true) {
             mSwipeRefreshLayout.setVisibility(GONE);
-            mRecyclerView = (RecyclerView) findViewById(R.id.rv_list1);
+            mRecyclerView = findViewById(R.id.rv_list1);
             mRecyclerView.setVisibility(VISIBLE);
         }
         mRecyclerView.setLayoutManager(layoutManager != null ? layoutManager : new LinearLayoutManager(getContext()));

@@ -117,10 +117,10 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
             convertView = inflater.inflate(
                     R.layout.publish_flower_info_photo_list_item_view, null);
             holder = new ViewHolder();
-            holder.photoIv = (ImageView) convertView
+            holder.photoIv = convertView
                     .findViewById(R.id.publish_flower_info_photo_item_iv);
-            holder.iv_img2 = (ImageView) convertView.findViewById(R.id.iv_img2);
-            holder.iv_img1 = (ImageView) convertView.findViewById(R.id.iv_img1);
+            holder.iv_img2 = convertView.findViewById(R.id.iv_img2);
+            holder.iv_img1 = convertView.findViewById(R.id.iv_img1);
             LayoutParams para = holder.photoIv.getLayoutParams();
             para.width = (width - dip30px) / 4;
             para.height = para.width * 4 / 3;

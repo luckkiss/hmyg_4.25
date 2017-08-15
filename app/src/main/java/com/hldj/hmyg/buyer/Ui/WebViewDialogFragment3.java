@@ -117,11 +117,11 @@ public class WebViewDialogFragment3 extends DialogFragment {
         CustomDialog customDialog = new CustomDialog(getActivity());
         view.findViewById(R.id.ic_back).setOnClickListener(v -> dismiss());
         ((ViewGroup) view.findViewById(R.id.ic_back).getParent()).setBackgroundColor(Color.WHITE);
-        TextView textView = (TextView) view.findViewById(R.id.ic_title);
+        TextView textView = view.findViewById(R.id.ic_title);
         textView.setText("苗木供应商合作框架协议");
 
 //        tv_show_html.setText(html);
-        webView = (WebView) view.findViewById(R.id.webview_show_quite_detail);
+        webView = view.findViewById(R.id.webview_show_quite_detail);
         //WebView加载本地资源
         D.e("====url=====" + url);
         webView.loadUrl(url);

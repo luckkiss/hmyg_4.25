@@ -68,23 +68,23 @@ public class SaveForCartSeedlingAdapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View inflate = LayoutInflater.from(context).inflate(
 				R.layout.list_item_save_for_cart_seedling, null);
-		ImageView sc_ziying = (ImageView) inflate.findViewById(R.id.sc_ziying);
+		ImageView sc_ziying = inflate.findViewById(R.id.sc_ziying);
 
-		ImageView sc_fuwufugai = (ImageView) inflate
+		ImageView sc_fuwufugai = inflate
 				.findViewById(R.id.sc_fuwufugai);
-		ImageView sc_hezuoshangjia = (ImageView) inflate
+		ImageView sc_hezuoshangjia = inflate
 				.findViewById(R.id.sc_hezuoshangjia);
-		ImageView sc_huodaofukuan = (ImageView) inflate
+		ImageView sc_huodaofukuan = inflate
 				.findViewById(R.id.sc_huodaofukuan);
 
-		TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);
-		TextView tv_02 = (TextView) inflate.findViewById(R.id.tv_02);
-		TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);
-		TextView tv_04 = (TextView) inflate.findViewById(R.id.tv_04);
-		TextView tv_05 = (TextView) inflate.findViewById(R.id.tv_05);
-		ImageView iv_status_01 = (ImageView) inflate
+		TextView tv_01 = inflate.findViewById(R.id.tv_01);
+		TextView tv_02 = inflate.findViewById(R.id.tv_02);
+		TextView tv_03 = inflate.findViewById(R.id.tv_03);
+		TextView tv_04 = inflate.findViewById(R.id.tv_04);
+		TextView tv_05 = inflate.findViewById(R.id.tv_05);
+		ImageView iv_status_01 = inflate
 				.findViewById(R.id.iv_status_01);
-		ImageView iv_status_02 = (ImageView) inflate
+		ImageView iv_status_02 = inflate
 				.findViewById(R.id.iv_status_02);
 		if (data.get(position).getTagList().contains(Data.ZIYING)) {
 			sc_ziying.setVisibility(View.VISIBLE);

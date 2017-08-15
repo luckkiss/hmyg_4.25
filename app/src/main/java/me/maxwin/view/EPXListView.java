@@ -90,9 +90,9 @@ public class EPXListView extends ExpandableListView implements OnScrollListener 
 
 		// init header view
 		mHeaderView = new XListViewHeader(context);
-		mHeaderViewContent = (RelativeLayout) mHeaderView
+		mHeaderViewContent = mHeaderView
 				.findViewById(R.id.xlistview_header_content);
-		mHeaderTimeView = (TextView) mHeaderView
+		mHeaderTimeView = mHeaderView
 				.findViewById(R.id.xlistview_header_time);
 		addHeaderView(mHeaderView);
 

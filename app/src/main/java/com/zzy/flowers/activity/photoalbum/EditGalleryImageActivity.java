@@ -98,14 +98,14 @@ public class EditGalleryImageActivity extends CoreActivity implements
 	}
 
 	private void initView() {
-		titleTv = (TextView) findViewById(R.id.common_titlebar_titleName);
-		backBtn = (Button) findViewById(R.id.common_titlebar_leftBtn);
-		delBtn = (Button) findViewById(R.id.common_titlebar_rightBtn);
+		titleTv = findViewById(R.id.common_titlebar_titleName);
+		backBtn = findViewById(R.id.common_titlebar_leftBtn);
+		delBtn = findViewById(R.id.common_titlebar_rightBtn);
 		backBtn.setText("返回");
 //		delBtn.setText(R.string.delete);
 
-		imageGallery = (ImageGalleryView) findViewById(R.id.gallery_image);
-		pageTv = (TextView) findViewById(R.id.pageTv);
+		imageGallery = findViewById(R.id.gallery_image);
+		pageTv = findViewById(R.id.pageTv);
 
 		titleTv.setText(R.string.review_image);
 	}

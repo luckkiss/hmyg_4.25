@@ -26,7 +26,7 @@ public abstract class BasePopup<T extends BasePopup<T>> extends InternalBasePopu
     @Override
     public View onCreateView() {
         View inflate = View.inflate(mContext, R.layout.popup_base, null);
-        mLlContent = (LinearLayout) inflate.findViewById(R.id.ll_content);
+        mLlContent = inflate.findViewById(R.id.ll_content);
         mLlContent.addView(mWrappedView);
 
         //让mOnCreateView充满父控件,防止ViewHelper.setXY导致点击事件无效

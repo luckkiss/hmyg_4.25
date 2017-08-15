@@ -61,11 +61,11 @@ public class CustomUnitsPickPopwin extends PopupWindow {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         popView = inflater.inflate(R.layout.custom_dayspicker_layout, null);
         araeView = popView.findViewById(R.id.pop_arae_layout);
-        cancelBtn = (Button) popView.findViewById(R.id.cancel_btn);
-        confirmBtn = (Button) popView.findViewById(R.id.confirm_btn);
-        customBtn = (Button) popView.findViewById(R.id.custom_btn);
+        cancelBtn = popView.findViewById(R.id.cancel_btn);
+        confirmBtn = popView.findViewById(R.id.confirm_btn);
+        customBtn = popView.findViewById(R.id.custom_btn);
         customBtn.setVisibility(View.GONE);
-        wv_string = (WheelView) popView.findViewById(R.id.stringwheel);
+        wv_string = popView.findViewById(R.id.stringwheel);
         this.onUnitSelect = onUnitSelect;
         this.dataSource = dataSource;
         initListener(context);

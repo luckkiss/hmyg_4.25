@@ -204,12 +204,12 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
         public RadioButton rb_auto_add_left;
 
         public ViewHolder(View viewRroot) {
-            this.tv_params_01 = (TextView) viewRroot.findViewById(R.id.tv_params_01);
-            this.tv_params_02 = (TextView) viewRroot.findViewById(R.id.tv_params_02);
-            this.et_params_03 = (EditText) viewRroot.findViewById(R.id.et_params_03);
-            this.vb_radions = (ViewStub) viewRroot.findViewById(R.id.vb_radions);
+            this.tv_params_01 = viewRroot.findViewById(R.id.tv_params_01);
+            this.tv_params_02 = viewRroot.findViewById(R.id.tv_params_02);
+            this.et_params_03 = viewRroot.findViewById(R.id.et_params_03);
+            this.vb_radions = viewRroot.findViewById(R.id.vb_radions);
 
-            rb_auto_add_left = (RadioButton) viewRroot.findViewById(R.id.rb_auto_add_left);
+            rb_auto_add_left = viewRroot.findViewById(R.id.rb_auto_add_left);
 
 
 //            vb_radions.findViewById(R.id.rb_auto_add_left).setOnClickListener(clickListener);

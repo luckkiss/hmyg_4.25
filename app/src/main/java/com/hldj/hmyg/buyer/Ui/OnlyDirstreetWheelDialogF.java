@@ -76,7 +76,7 @@ public class OnlyDirstreetWheelDialogF extends DialogFragment implements OnWheel
 
 
     private void initView(View dia_choose_share) {
-        WheelView wheelView = (WheelView) dia_choose_share.findViewById(R.id.id_Childs);
+        WheelView wheelView = dia_choose_share.findViewById(R.id.id_Childs);
         wheelView.setViewAdapter(new ArrayWheelAdapter_new(getActivity(), childBeans));
 
         dia_choose_share.setOnClickListener(v -> {

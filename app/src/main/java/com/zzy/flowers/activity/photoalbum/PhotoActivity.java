@@ -165,14 +165,14 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
     }
 
     private void initView() {
-        titleTv = (TextView) findViewById(R.id.common_titlebar_titleName);
-        backBtn = (Button) findViewById(R.id.common_titlebar_leftBtn);
-        cancelBtn = (Button) findViewById(R.id.common_titlebar_rightBtn);
+        titleTv = findViewById(R.id.common_titlebar_titleName);
+        backBtn = findViewById(R.id.common_titlebar_leftBtn);
+        cancelBtn = findViewById(R.id.common_titlebar_rightBtn);
 
-        photoGv = (GridView) findViewById(R.id.choose_photo_gridview);
-        previewBtn = (Button) findViewById(R.id.choose_photo_preview_btn);
-        numTv = (TextView) findViewById(R.id.choose_photo_num_tv);
-        sendBtn = (Button) findViewById(R.id.choose_photo_send_btn);
+        photoGv = findViewById(R.id.choose_photo_gridview);
+        previewBtn = findViewById(R.id.choose_photo_preview_btn);
+        numTv = findViewById(R.id.choose_photo_num_tv);
+        sendBtn = findViewById(R.id.choose_photo_send_btn);
 
         backBtn.setText("返回");
         cancelBtn.setText(R.string.cancel);

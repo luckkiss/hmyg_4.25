@@ -291,11 +291,11 @@ public class KProgressHUD {
         }
 
         private void initViews() {
-            BackgroundLayout background = (BackgroundLayout) findViewById(R.id.background);
+            BackgroundLayout background = findViewById(R.id.background);
             background.setBaseColor(mWindowColor);
             background.setCornerRadius(mCornerRadius);
 
-            FrameLayout containerFrame = (FrameLayout) findViewById(R.id.container);
+            FrameLayout containerFrame = findViewById(R.id.container);
             int wrapParam = ViewGroup.LayoutParams.WRAP_CONTENT;
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(wrapParam, wrapParam);
             containerFrame.addView(mView, params);
@@ -308,12 +308,12 @@ public class KProgressHUD {
             }
 
             if (mLabel != null) {
-                labelText = (TextView) findViewById(R.id.label);
+                labelText = findViewById(R.id.label);
                 labelText.setText(mLabel);
                 labelText.setVisibility(View.VISIBLE);
             }
             if (mDetailsLabel != null) {
-                TextView detailsText = (TextView) findViewById(R.id.details_label);
+                TextView detailsText = findViewById(R.id.details_label);
                 detailsText.setText(mDetailsLabel);
                 detailsText.setVisibility(View.VISIBLE);
             }

@@ -215,7 +215,7 @@ public class TagCloudLinkView extends RelativeLayout {
             tagLayout.setBackgroundColor(mTagLayoutColor);
 
             // tag text
-            TextView tagView = (TextView) tagLayout.findViewById(R.id.tag_txt);
+            TextView tagView = tagLayout.findViewById(R.id.tag_txt);
             tagView.setText(tag.getText());
             tagView.setPadding(INNER_VIEW_PADDING, INNER_VIEW_PADDING, INNER_VIEW_PADDING, INNER_VIEW_PADDING);
             tagView.setTextColor(mTagTextColor);
@@ -234,7 +234,7 @@ public class TagCloudLinkView extends RelativeLayout {
                     + INNER_VIEW_PADDING * 2;  // tagView padding (left & right)
 
             // deletable text
-            TextView deletableView = (TextView) tagLayout.findViewById(R.id.delete_txt);
+            TextView deletableView = tagLayout.findViewById(R.id.delete_txt);
             if(mIsDeletable) {
                 deletableView.setVisibility(View.VISIBLE);
                 deletableView.setText(DEFAULT_DELETABLE_STRING);

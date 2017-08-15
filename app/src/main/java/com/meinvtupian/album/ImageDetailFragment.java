@@ -48,7 +48,7 @@ public class ImageDetailFragment extends Fragment {
 			Bundle savedInstanceState) {
 		final View v = inflater.inflate(R.layout.image_detail_fragment,
 				container, false);
-		mImageView = (ImageView) v.findViewById(R.id.image);
+		mImageView = v.findViewById(R.id.image);
 		mAttacher = new PhotoViewAttacher(mImageView);
 
 		mAttacher.setOnPhotoTapListener(new OnPhotoTapListener() {
@@ -59,7 +59,7 @@ public class ImageDetailFragment extends Fragment {
 			}
 		});
 
-		progressBar = (ProgressBar) v.findViewById(R.id.loading);
+		progressBar = v.findViewById(R.id.loading);
 		return v;
 	}
 

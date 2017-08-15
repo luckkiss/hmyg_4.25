@@ -66,7 +66,7 @@ public class ViewPagerDeleteActivity extends Activity {
 			remainIndexs.add(i);
 		}
 		
-		Button btnBack = (Button)findViewById(R.id.btnBack);
+		Button btnBack = findViewById(R.id.btnBack);
 		btnBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -78,7 +78,7 @@ public class ViewPagerDeleteActivity extends Activity {
 				ViewPagerDeleteActivity.this.finish();
 			}
 		});
-		btnDelete = (Button)findViewById(R.id.btnCheck);
+		btnDelete = findViewById(R.id.btnCheck);
 		btnDelete.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

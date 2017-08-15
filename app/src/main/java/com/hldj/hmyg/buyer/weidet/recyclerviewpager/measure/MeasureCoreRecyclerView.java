@@ -62,10 +62,10 @@ public class MeasureCoreRecyclerView extends LinearLayout implements BaseQuickAd
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         addView(view);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeLayout);
+        mSwipeRefreshLayout = findViewById(R.id.swipeLayout);
         mSwipeRefreshLayout.setEnabled(false);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
-        mRecyclerView = (MeasureRecycleView) findViewById(R.id.rv_list);
+        mRecyclerView = findViewById(R.id.rv_list);
         return this;
     }
 
@@ -87,7 +87,7 @@ public class MeasureCoreRecyclerView extends LinearLayout implements BaseQuickAd
     public MeasureCoreRecyclerView init(RecyclerView.LayoutManager layoutManager, BaseQuickAdapter mQuickAdapter, Boolean isRefresh) {
         if (isRefresh != true) {
             mSwipeRefreshLayout.setVisibility(GONE);
-            mRecyclerView = (MeasureRecycleView) findViewById(R.id.rv_list1);
+            mRecyclerView = findViewById(R.id.rv_list1);
             mRecyclerView.setVisibility(VISIBLE);
         }
         mRecyclerView.setLayoutManager(layoutManager != null ? layoutManager : new LinearLayoutManager(getContext()));

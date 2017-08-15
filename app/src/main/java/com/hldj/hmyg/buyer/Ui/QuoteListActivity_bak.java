@@ -229,15 +229,15 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
         public SuperTextView tv_quote_price_sug;
 
         public ViewHolder(Activity rootView) {
-            this.tv_title = (TextView) rootView.findViewById(R.id.toolbar_title);
-            this.btn_back = (ImageView) rootView.findViewById(R.id.toolbar_left_icon);
-            this.tv_quote_name = (TextView) rootView.findViewById(R.id.tv_quote_name);
-            this.tv_quote_size = (SuperTextView) rootView.findViewById(R.id.tv_quote_size);
-            this.tv_quote_type = (SuperTextView) rootView.findViewById(R.id.tv_quote_type);
-            this.tv_left = (SuperTextView) rootView.findViewById(R.id.tv_left);
-            this.tv_quote_num = (SuperTextView) rootView.findViewById(R.id.tv_quote_num);
-            this.tv_quote_address = (SuperTextView) rootView.findViewById(R.id.tv_quote_address);
-            this.tv_quote_close_date = (SuperTextView) rootView.findViewById(R.id.tv_quote_close_date);
+            this.tv_title = rootView.findViewById(R.id.toolbar_title);
+            this.btn_back = rootView.findViewById(R.id.toolbar_left_icon);
+            this.tv_quote_name = rootView.findViewById(R.id.tv_quote_name);
+            this.tv_quote_size = rootView.findViewById(R.id.tv_quote_size);
+            this.tv_quote_type = rootView.findViewById(R.id.tv_quote_type);
+            this.tv_left = rootView.findViewById(R.id.tv_left);
+            this.tv_quote_num = rootView.findViewById(R.id.tv_quote_num);
+            this.tv_quote_address = rootView.findViewById(R.id.tv_quote_address);
+            this.tv_quote_close_date = rootView.findViewById(R.id.tv_quote_close_date);
 //            this.tv_quote_store_detail = (SuperTextView) rootView.findViewById(R.id.tv_quote_store_detail);
 //            this.tv_quote_price_sug = (SuperTextView) rootView.findViewById(R.id.tv_quote_price_sug);
         }

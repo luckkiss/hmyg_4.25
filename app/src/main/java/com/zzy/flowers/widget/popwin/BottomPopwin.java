@@ -62,7 +62,7 @@ public abstract class BottomPopwin extends PopupWindow {
 		inflater = LayoutInflater.from(context);
 		mainView = inflater.inflate(R.layout.bottom_popwin, null);
 		setContentView(mainView);
-		ListView listView = (ListView) mainView.findViewById(R.id.bpContentLv);
+		ListView listView = mainView.findViewById(R.id.bpContentLv);
 		listView.setAdapter(new ItemAdapter());
 		initPopwin();
 	}
@@ -108,7 +108,7 @@ public abstract class BottomPopwin extends PopupWindow {
 				holder = new Holder();
 				convertView = inflater.inflate(R.layout.bottom_popwin_item,
 						null);
-				holder.itemBtn = (Button) convertView
+				holder.itemBtn = convertView
 						.findViewById(R.id.bpItemBtn);
 				convertView.setTag(holder);
 			} else {

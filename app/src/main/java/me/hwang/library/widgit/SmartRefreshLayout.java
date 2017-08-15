@@ -126,10 +126,10 @@ public class SmartRefreshLayout extends ViewGroup {
             mLayoutHeader.setBackgroundDrawable(mPullBgDrawable);
 
         // 获取上拉刷新的文字描述
-        tvPullDown = (TextView) mLayoutHeader
+        tvPullDown = mLayoutHeader
                 .findViewById(R.id.srl_tv_pull_down);
         // 获取上拉刷新的loading-view
-        glvPullDown = (GhostLoadingView) mLayoutHeader
+        glvPullDown = mLayoutHeader
                 .findViewById(R.id.srl_glv_pull_down);
         // 设置布局参数(宽度为MATCH_PARENT,高度为MATCH_PARENT)
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
@@ -150,7 +150,7 @@ public class SmartRefreshLayout extends ViewGroup {
             mLayoutFooter.setBackgroundDrawable(mPullBgDrawable);
 
         // 上拉提示
-        tvPullUp = (TextView) mLayoutFooter.findViewById(R.id.srl_tv_pull_up);
+        tvPullUp = mLayoutFooter.findViewById(R.id.srl_tv_pull_up);
         // 上拉loading动画
 //        elvPullUp = (EatBeanLoadingView) mLayoutFooter .findViewById(R.id.srl_elv_pull_up);
         // 设置布局参数(宽度为MATCH_PARENT,高度为MATCH_PARENT)

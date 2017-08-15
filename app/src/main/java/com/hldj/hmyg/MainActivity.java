@@ -214,7 +214,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                 .setContent(new Intent(this, DActivity_new.class)));//跳转到收藏夹  界面
         tabHost.addTab(tabHost.newTabSpec("5").setIndicator("5")
                 .setContent(new Intent(this, Eactivity3_0.class)));
-        radioderGroup = (RadioGroup) findViewById(R.id.rg_tab);
+        radioderGroup = findViewById(R.id.rg_tab);
 //        RadioButton tab_c = (RadioButton) findViewById(R.id.tab_c);
 
 

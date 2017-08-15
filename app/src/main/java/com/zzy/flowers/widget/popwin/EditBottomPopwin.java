@@ -53,12 +53,12 @@ public abstract class EditBottomPopwin extends PopupWindow {
 		}
 		inflater = LayoutInflater.from(context);
 		mainView = inflater.inflate(R.layout.bottom_edit, null);
-		TextView tv_less = (TextView) mainView.findViewById(R.id.tv_less);
+		TextView tv_less = mainView.findViewById(R.id.tv_less);
 		tv_less.setText("库存：" + str);
-		pop_add = (TextView) mainView.findViewById(R.id.pop_add);
-		pop_reduce = (TextView) mainView.findViewById(R.id.pop_reduce);
-		pop_num = (EditText) mainView.findViewById(R.id.pop_num);
-		TextView tv_add_car = (TextView) mainView.findViewById(R.id.tv_add_car);
+		pop_add = mainView.findViewById(R.id.pop_add);
+		pop_reduce = mainView.findViewById(R.id.pop_reduce);
+		pop_num = mainView.findViewById(R.id.pop_num);
+		TextView tv_add_car = mainView.findViewById(R.id.tv_add_car);
 		pop_add.setOnClickListener(new myOnclick());
 		pop_reduce.setOnClickListener(new myOnclick());
 		tv_add_car.setOnClickListener(new ClickListener(pop_num));

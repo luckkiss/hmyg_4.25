@@ -118,7 +118,7 @@ public class ImageGalleryView extends Gallery {
 		View selectView = ImageGalleryView.this.getSelectedView();
 		// if (view instanceof GestureImageView) {
 		if (selectView instanceof RelativeLayout) {
-			imageView = (GestureImageView) selectView
+			imageView = selectView
 					.findViewById(R.id.image_gallery_item_image);
 			if (imageView.getVisibility() == View.VISIBLE) {
 				if (imageView.gestureImageViewTouchListener != null
@@ -148,7 +148,7 @@ public class ImageGalleryView extends Gallery {
 			return result;
 		View view = ImageGalleryView.this.getSelectedView();
 		if (view instanceof RelativeLayout) {
-			imageView = (GestureImageView) view
+			imageView = view
 					.findViewById(R.id.image_gallery_item_image);
 			float v[] = new float[9];
 			Matrix m = imageView.getImageMatrix();
@@ -199,7 +199,7 @@ public class ImageGalleryView extends Gallery {
 		View view = ImageGalleryView.this.getSelectedView();
 		// if (view instanceof GestureImageView) {
 		if (view instanceof RelativeLayout) {
-			imageView = (GestureImageView) view
+			imageView = view
 					.findViewById(R.id.image_gallery_item_image);
 			float v[] = new float[9];
 			Matrix m = imageView.getImageMatrix();
@@ -269,7 +269,7 @@ public class ImageGalleryView extends Gallery {
 				View view = ImageGalleryView.this.getSelectedView();
 				// if (view instanceof GestureImageView) {
 				if (view instanceof RelativeLayout) {
-					imageView = (GestureImageView) view
+					imageView = view
 							.findViewById(R.id.image_gallery_item_image);
 					if (imageView.getVisibility() == View.VISIBLE) {
 						imageView.gestureImageViewTouchListener.startZoom(e);

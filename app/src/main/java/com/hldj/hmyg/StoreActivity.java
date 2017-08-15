@@ -308,7 +308,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
     private void iniPopupWindow2() {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.task_detail_popupwindow, null);
-        lvPopupList = (ListView) layout.findViewById(R.id.lv_popup_list);
+        lvPopupList = layout.findViewById(R.id.lv_popup_list);
         pwMyPopWindow = new PopupWindow(layout, AndroidUtil.dip2px(StoreActivity.this, 130), LayoutParams.WRAP_CONTENT);
         pwMyPopWindow.setFocusable(true);// 加上这个popupwindow中的ListView才可以接收点击事件
         SharePoPAdapter sharePoPAdapter = new SharePoPAdapter(StoreActivity.this, shares);
@@ -392,9 +392,9 @@ public class StoreActivity extends NeedSwipeBackActivity implements
             // TODO Auto-generated method stub
             View inflate = getLayoutInflater().inflate(
                     R.layout.list_item_pop_share, null);
-            TextView tv_list_item = (TextView) inflate
+            TextView tv_list_item = inflate
                     .findViewById(R.id.tv_list_item);
-            icon = (ImageView) inflate.findViewById(R.id.icon);
+            icon = inflate.findViewById(R.id.icon);
             tv_list_item.setText(shares.get(position).getName());
             icon.setImageResource(shares.get(position).getPic());
             return inflate;
@@ -406,9 +406,9 @@ public class StoreActivity extends NeedSwipeBackActivity implements
         LayoutInflater inflater = (LayoutInflater) this
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.store_share_popupwindow, null);
-        LinearLayout ll_share_erweima = (LinearLayout) layout
+        LinearLayout ll_share_erweima = layout
                 .findViewById(R.id.ll_share_erweima);
-        LinearLayout ll_share_lianjie = (LinearLayout) layout
+        LinearLayout ll_share_lianjie = layout
                 .findViewById(R.id.ll_share_lianjie);
         pwMyPopWindow = new PopupWindow(layout);
         pwMyPopWindow.setFocusable(true);// 加上这个popupwindow中的ListView才可以接收点击事件
@@ -1494,8 +1494,8 @@ public class StoreActivity extends NeedSwipeBackActivity implements
             // TODO Auto-generated method stub
             View inflate = getLayoutInflater().inflate(
                     R.layout.list_item_share_platform, null);
-            ImageView iv_icon = (ImageView) inflate.findViewById(R.id.iv_icon);
-            TextView tv_name = (TextView) inflate.findViewById(R.id.tv_name);
+            ImageView iv_icon = inflate.findViewById(R.id.iv_icon);
+            TextView tv_name = inflate.findViewById(R.id.tv_name);
             iv_icon.setImageResource(shares.get(position).getPic());
             tv_name.setText(shares.get(position).getName());
             inflate.setOnClickListener(new OnClickListener() {
@@ -1700,9 +1700,9 @@ public class StoreActivity extends NeedSwipeBackActivity implements
     private void showDialog() {
         View dia_choose_share = getLayoutInflater().inflate(
                 R.layout.dia_choose_share, null);
-        GridView gridView = (GridView) dia_choose_share
+        GridView gridView = dia_choose_share
                 .findViewById(R.id.gridView);
-        Button btn_cancle = (Button) dia_choose_share
+        Button btn_cancle = dia_choose_share
                 .findViewById(R.id.btn_cancle);
         gridView.setAdapter(new SharePlatformAdapter());
         dialog = new Dialog(this, R.style.transparentFrameWindowStyle);

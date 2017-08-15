@@ -174,7 +174,7 @@ public class WebViewDialog extends Dialog {
 					.setText(accountBank);
 			((TextView) layout.findViewById(R.id.tv_accountNum))
 					.setText(accountNum);
-			WebView webView1 = (WebView) layout.findViewById(R.id.webView1);
+			WebView webView1 = layout.findViewById(R.id.webView1);
 			webView1.loadData(accountName, "text/html; charset=UTF-8", null);
 			// set the confirm button
 			if (positiveButtonText != null) {

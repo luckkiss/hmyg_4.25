@@ -119,9 +119,9 @@ public class UpdataImageActivity extends Activity {
 		mainView = findViewById(R.id.ll_mainView);
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-		btn_back = (ImageView) findViewById(R.id.btn_back);
-		photoGv = (MeasureGridView) findViewById(R.id.publish_flower_info_gv);
-		fabu = (TextView) findViewById(R.id.fabu);
+		btn_back = findViewById(R.id.btn_back);
+		photoGv = findViewById(R.id.publish_flower_info_gv);
+		fabu = findViewById(R.id.fabu);
 		adapter = new PublishFlowerInfoPhotoAdapter(UpdataImageActivity.this,
 				urlPaths);
 		photoGv.setAdapter(adapter);

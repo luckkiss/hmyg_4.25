@@ -95,7 +95,7 @@ public class CropImageActivity extends MonitoredActivity {
     private void setupViews() {
         setContentView(R.layout.crop__activity_crop);
 
-        imageView = (CropImageView) findViewById(R.id.crop_image);
+        imageView = findViewById(R.id.crop_image);
         imageView.context = this;
         imageView.setRecycler(new ImageViewTouchBase.Recycler() {
             @Override

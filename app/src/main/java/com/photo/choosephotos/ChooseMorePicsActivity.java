@@ -128,10 +128,10 @@ public class ChooseMorePicsActivity extends Activity implements OnClickListener 
 				.setStyle(KProgressHUD.Style.ANNULAR_DETERMINATE)
 				.setLabel("上传中，请等待...").setMaxProgress(100)
 				.setCancellable(true).setDimAmount(0.5f);
-		ImageView btn_back = (ImageView) findViewById(R.id.back);
-		TextView tv_public = (TextView) findViewById(R.id.tv_public);
+		ImageView btn_back = findViewById(R.id.back);
+		TextView tv_public = findViewById(R.id.tv_public);
 		tv_public.setVisibility(View.INVISIBLE);
-		fabu = (TextView) findViewById(R.id.fabu);
+		fabu = findViewById(R.id.fabu);
 		btn_back.setOnClickListener(this);
 		tv_public.setOnClickListener(this);
 		fabu.setOnClickListener(this);
@@ -139,7 +139,7 @@ public class ChooseMorePicsActivity extends Activity implements OnClickListener 
 			PHOTO_DIR.mkdirs();
 		}
 		// 添加图片
-		gridView = (DragGridView) findViewById(R.id.allPic);
+		gridView = findViewById(R.id.allPic);
 		// 加号图片
 		addNewPic = BitmapFactory.decodeResource(this.getResources(),
 				R.drawable.tianjia);

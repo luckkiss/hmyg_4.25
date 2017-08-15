@@ -44,7 +44,7 @@ public class CustomDialog extends Dialog {
 
         setContentView(R.layout.load_dialog);
 
-        tv_loading_text = (TextView)this.findViewById(R.id.tv_loading_text);
+        tv_loading_text = this.findViewById(R.id.tv_loading_text);
 
 
         WindowManager.LayoutParams params = getWindow().getAttributes();
@@ -67,7 +67,7 @@ public class CustomDialog extends Dialog {
     @Override
     public void show() {
         super.show();
-        ImageView img = (ImageView) this.findViewById(R.id.iv_amin_flowar);
+        ImageView img = this.findViewById(R.id.iv_amin_flowar);
 
         // 加载动画
         mAnimationDrawable = (AnimationDrawable) img.getDrawable();

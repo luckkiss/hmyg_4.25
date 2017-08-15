@@ -49,11 +49,11 @@ public class PhotoAlbumAdapter extends BaseAdapter {
 		if (convertView == null) {
 			convertView = inflater.inflate(R.layout.photo_album_item, null);
 			holder = new ViewHolder();
-			holder.photoAlbumIv = (ImageView) convertView
+			holder.photoAlbumIv = convertView
 					.findViewById(R.id.photo_album_iamge_iv);
-			holder.photoAlbumNumTv = (TextView) convertView
+			holder.photoAlbumNumTv = convertView
 					.findViewById(R.id.photo_album_num_tv);
-			holder.photoAlbumNameTv = (TextView) convertView
+			holder.photoAlbumNameTv = convertView
 					.findViewById(R.id.photo_album_path_name_tv);
 			convertView.setTag(holder);
 		} else {

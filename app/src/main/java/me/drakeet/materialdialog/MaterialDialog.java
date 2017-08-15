@@ -249,17 +249,17 @@ public class MaterialDialog {
 
 			mAlertDialogWindow.setContentView(contentView);
 
-			mTitleView = (TextView) mAlertDialogWindow.findViewById(R.id.title);
-			mMessageView = (TextView) mAlertDialogWindow
+			mTitleView = mAlertDialogWindow.findViewById(R.id.title);
+			mMessageView = mAlertDialogWindow
 					.findViewById(R.id.message);
-			mButtonLayout = (LinearLayout) mAlertDialogWindow
+			mButtonLayout = mAlertDialogWindow
 					.findViewById(R.id.buttonLayout);
-			mPositiveButton = (Button) mButtonLayout.findViewById(R.id.btn_p);
-			mNegativeButton = (Button) mButtonLayout.findViewById(R.id.btn_n);
-			mMessageContentRoot = (ViewGroup) mAlertDialogWindow
+			mPositiveButton = mButtonLayout.findViewById(R.id.btn_p);
+			mNegativeButton = mButtonLayout.findViewById(R.id.btn_n);
+			mMessageContentRoot = mAlertDialogWindow
 					.findViewById(R.id.message_content_root);
 			if (mView != null) {
-				LinearLayout linearLayout = (LinearLayout) mAlertDialogWindow
+				LinearLayout linearLayout = mAlertDialogWindow
 						.findViewById(R.id.contentView);
 				linearLayout.removeAllViews();
 				linearLayout.addView(mView);
@@ -319,12 +319,12 @@ public class MaterialDialog {
 				mNegativeButton.setVisibility(View.GONE);
 			}
 			if (mBackgroundResId != -1) {
-				LinearLayout linearLayout = (LinearLayout) mAlertDialogWindow
+				LinearLayout linearLayout = mAlertDialogWindow
 						.findViewById(R.id.material_background);
 				linearLayout.setBackgroundResource(mBackgroundResId);
 			}
 			if (mBackgroundDrawable != null) {
-				LinearLayout linearLayout = (LinearLayout) mAlertDialogWindow
+				LinearLayout linearLayout = mAlertDialogWindow
 						.findViewById(R.id.material_background);
 				linearLayout.setBackground(mBackgroundDrawable);
 			}
@@ -415,7 +415,7 @@ public class MaterialDialog {
 		}
 
 		public void setView(View view) {
-			LinearLayout l = (LinearLayout) mAlertDialogWindow
+			LinearLayout l = mAlertDialogWindow
 					.findViewById(R.id.contentView);
 			l.removeAllViews();
 			ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
@@ -470,7 +470,7 @@ public class MaterialDialog {
 			if (contentView instanceof ListView) {
 				setListViewHeightBasedOnChildren((ListView) contentView);
 			}
-			LinearLayout linearLayout = (LinearLayout) mAlertDialogWindow
+			LinearLayout linearLayout = mAlertDialogWindow
 					.findViewById(R.id.message_content_view);
 			if (linearLayout != null) {
 				linearLayout.removeAllViews();
@@ -505,13 +505,13 @@ public class MaterialDialog {
 		}
 
 		public void setBackground(Drawable drawable) {
-			LinearLayout linearLayout = (LinearLayout) mAlertDialogWindow
+			LinearLayout linearLayout = mAlertDialogWindow
 					.findViewById(R.id.material_background);
 			linearLayout.setBackground(drawable);
 		}
 
 		public void setBackgroundResource(int resId) {
-			LinearLayout linearLayout = (LinearLayout) mAlertDialogWindow
+			LinearLayout linearLayout = mAlertDialogWindow
 					.findViewById(R.id.material_background);
 			linearLayout.setBackgroundResource(resId);
 		}
