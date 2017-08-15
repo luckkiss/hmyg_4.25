@@ -105,7 +105,7 @@ public class LoginActivity extends BaseActivity {
                 LoginPresenter.getCode(MyUtil.getStrWithView(holderNote.et_phone_note), holderNote.tv_get_code_note, 20, new ResultCallBack<LoginGsonBean>() {
                     @Override
                     public void onSuccess(LoginGsonBean loginGsonBean) {
-                        D.e("======短信发送成功=========id="+loginGsonBean.toString());
+                        D.e("======短信发送成功=========id=" + loginGsonBean.toString());
                         holderNote.login_note.setSelected(true);
                         holderNote.login_note.setClickable(true);
                         //通过id 获取个人 信息 userinfo
@@ -183,7 +183,6 @@ public class LoginActivity extends BaseActivity {
             }
         });
     }
-
 
 
     //密码登录控件管理
@@ -355,10 +354,11 @@ public class LoginActivity extends BaseActivity {
                         overridePendingTransition_open();
                         break;
                     case R.id.find_passward:
-                        Intent toSetPasswardByGetCodeActivity = new Intent(LoginActivity.this,
-                                SetPasswardByGetCodeActivity.class);
-                        startActivity(toSetPasswardByGetCodeActivity);
-                        overridePendingTransition_open();
+//                        Intent toSetPasswardByGetCodeActivity
+//                                = new Intent(LoginActivity.this, SetPasswardByGetCodeActivity.class);
+//                        startActivity(toSetPasswardByGetCodeActivity);
+//                        overridePendingTransition_open();
+                        SetPasswardByGetCodeActivity.start(LoginActivity.this, true);
                         break;
 
                     default:
@@ -458,7 +458,7 @@ public class LoginActivity extends BaseActivity {
                         setResult(ConstantState.LOGIN_SUCCEED);
                         finish();
 
-                        RxBus.getInstance().post(5,new Eactivity3_0.OnlineEvent(true));
+                        RxBus.getInstance().post(5, new Eactivity3_0.OnlineEvent(true));
 
                     } else if ("SetProfileActivity".equals(activity.getClass().getName())) {
                         D.e("=========SetProfileActivity===============不消失=====================");
@@ -468,7 +468,7 @@ public class LoginActivity extends BaseActivity {
                 if (userInfoGsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
 
                     D.e("================获取个人信息失败成功====================================");
-                    D.e("================userInfoGsonBean===================================="+userInfoGsonBean.toString());
+                    D.e("================userInfoGsonBean====================================" + userInfoGsonBean.toString());
                 }
             }
 

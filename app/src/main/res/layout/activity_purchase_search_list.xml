@@ -81,7 +81,7 @@
                 android:paddingRight="2.5dip"
                 android:textColor="@color/gray"
                 android:textColorHint="@color/gray"
-                android:textSize="14.5sp"></EditText>
+                android:textSize="14.5sp"/>
         </LinearLayout>
 
         <ImageView

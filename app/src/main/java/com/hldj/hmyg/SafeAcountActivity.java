@@ -84,8 +84,11 @@ public class SafeAcountActivity extends NeedSwipeBackActivity {
                                 R.anim.slide_out_right);
                         break;
                     case R.id.ll_02:
-                        Intent toSetPasswardByGetCodeActivity = new Intent(SafeAcountActivity.this, SetPasswardByGetCodeActivity.class);
-                        startActivity(toSetPasswardByGetCodeActivity);
+//                        Intent toSetPasswardByGetCodeActivity
+//                                = new Intent(SafeAcountActivity.this, SetPasswardByGetCodeActivity.class);
+//                        startActivity(toSetPasswardByGetCodeActivity);
+                        SetPasswardByGetCodeActivity.start(mActivity,false);
+
                         break;
                     case R.id.ll_03:
                         Intent toSetPhoneByGetCodeActivity = new Intent(

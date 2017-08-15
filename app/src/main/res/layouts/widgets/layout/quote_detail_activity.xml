@@ -5,6 +5,9 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+
+    <include layout="@layout/toolbar_3_0" />
+
     <include layout="@layout/include_top_pur_detail" />
 
 
@@ -14,8 +17,7 @@
     <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
         android:id="@+id/recycle_quit"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </com.hldj.hmyg.buyer.weidet.CoreRecyclerView>
+        android:layout_height="match_parent"></com.hldj.hmyg.buyer.weidet.CoreRecyclerView>
 
 
 </LinearLayout>

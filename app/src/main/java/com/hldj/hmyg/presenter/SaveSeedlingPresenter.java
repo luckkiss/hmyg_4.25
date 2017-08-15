@@ -236,6 +236,10 @@ public class SaveSeedlingPresenter {
                 AjaxParams params1 = new AjaxParams();
                 params1.put("sourceId", "");
                 File file1 = new File(dataList.get(i).getUrl());
+
+
+
+
                 try {
                     params1.put("file", file1);
                 } catch (FileNotFoundException e1) {

@@ -3,6 +3,7 @@ package com.hldj.hmyg.buyer.Ui;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -80,6 +81,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         });
 
 
+        InitViews();
         InitHolder();
 
         /**
@@ -357,10 +359,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         return plantType;
     }
 
-    @Override
-    public void InitViews() {
 
-    }
 
     private ViewHolder viewHolder_pur;
 
@@ -392,10 +391,13 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         instance = null;
     }
 
+    public abstract View getBootomBiew();
+    public abstract View getHeadView();
+
 
     protected class ViewHolder {
 
-        public TextView tv_title;
+//        public TextView tv_title;
         public ImageView btn_back;
         public SuperTextView tv_purchase_address;
         public SuperTextView tv_purchase_close_date;
@@ -416,25 +418,26 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         public TextView toolbar_title;
 
         public ViewHolder(Activity rootView) {
-            this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
-            this.et_purchase_remark = (EditText) rootView.findViewById(R.id.et_purchase_remark);//备注
+//            this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
+
             this.btn_back = (ImageView) rootView.findViewById(R.id.toolbar_left_icon);
             this.toolbar_title = (TextView) rootView.findViewById(R.id.toolbar_title);
-            this.tv_purchase_name = (TextView) rootView.findViewById(R.id.tv_quote_name);
-            this.tv_purchase_size = (TextView) rootView.findViewById(R.id.tv_quote_size);
-            this.tv_purchase_type = (TextView) rootView.findViewById(R.id.tv_quote_type);
-            this.tv_quote_num = (TextView) rootView.findViewById(R.id.tv_quote_num);
-            this.tv_purchase_address = (SuperTextView) rootView.findViewById(R.id.tv_quote_address);
-            this.tv_purchase_close_date = (SuperTextView) rootView.findViewById(R.id.tv_quote_close_date);
-            this.tv_purchase_store_detail = (Button) rootView.findViewById(R.id.tv_quote_store_detail);//采购商家信息
-            this.tv_purchase_price_sug = (Button) rootView.findViewById(R.id.tv_quote_price_sug);//报价要求
-            this.tv_purchase_city_name = (TextView) rootView.findViewById(R.id.tv_purchase_city_name);
-            this.tfl_purchase_auto_add_plant = (TagFlowLayout) rootView.findViewById(R.id.tfl_purchase_auto_add_plant);
-            this.tv_purchase_add_pic = (TextView) rootView.findViewById(R.id.tv_purchase_add_pic);
-            this.tv_purchase_remark = (TextView) rootView.findViewById(R.id.tv_purchase_remark);
-            this.tv_purchase_commit = (TextView) rootView.findViewById(R.id.tv_purchase_commit);
-            this.ll_purc_auto_add = (LinearLayout) rootView.findViewById(R.id.ll_purc_auto_add);//采购报价 动态加载
-            this.ll_mainView_bottom = (LinearLayout) rootView.findViewById(R.id.ll_mainView_bottom);//采购报价 动态加载
+            this.tv_purchase_name = (TextView) getHeadView().findViewById(R.id.tv_quote_name);
+            this.tv_purchase_size = (TextView) getHeadView().findViewById(R.id.tv_quote_size);
+            this.tv_purchase_type = (TextView) getHeadView().findViewById(R.id.tv_quote_type);
+            this.tv_quote_num = (TextView) getHeadView().findViewById(R.id.tv_quote_num);
+            this.tv_purchase_address = (SuperTextView) getHeadView().findViewById(R.id.tv_quote_address);
+            this.tv_purchase_close_date = (SuperTextView) getHeadView().findViewById(R.id.tv_quote_close_date);
+            this.tv_purchase_store_detail = (Button) getHeadView().findViewById(R.id.tv_quote_store_detail);//采购商家信息
+            this.tv_purchase_price_sug = (Button) getHeadView().findViewById(R.id.tv_quote_price_sug);//报价要求
+            this.tv_purchase_city_name = (TextView) getBootomBiew().findViewById(R.id.tv_purchase_city_name);
+            this.tfl_purchase_auto_add_plant = (TagFlowLayout) getBootomBiew().findViewById(R.id.tfl_purchase_auto_add_plant);
+            this.tv_purchase_add_pic = (TextView) getBootomBiew().findViewById(R.id.tv_purchase_add_pic);
+            this.tv_purchase_remark = (TextView) getBootomBiew().findViewById(R.id.tv_purchase_remark);
+            this.tv_purchase_commit = (TextView) getBootomBiew().findViewById(R.id.tv_purchase_commit);
+            this.ll_purc_auto_add = (LinearLayout) getBootomBiew().findViewById(R.id.ll_purc_auto_add);//采购报价 动态加载
+//            this.ll_mainView_bottom = (LinearLayout) rootView.findViewById(R.id.ll_mainView_bottom);//采购报价 动态加载
+            this.et_purchase_remark = (EditText) getBootomBiew().findViewById(R.id.et_purchase_remark);//备注
 
             toolbar_title.setText("采购详情");
         }

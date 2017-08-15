@@ -110,8 +110,8 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
 //        String str = null ;
 //        D.e("======="+ str.toString() );
-
-        ToastUtil.showShortToast("10次修复混淆问题   热更新生效 \n   修复  搜索 位置  混淆导致无法 搜索成功，，，，");
+        //补丁修改
+        ToastUtil.showShortToast("12次修复混淆问题   热更新生效 \n    发布 价格无法显示      发布后 返回偶尔出现 null 错误 ，try catch ");
 
         /**
          * 控制状态栏为黑色  miui flyme

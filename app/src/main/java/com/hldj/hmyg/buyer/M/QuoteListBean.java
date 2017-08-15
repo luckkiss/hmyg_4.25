@@ -49,7 +49,7 @@ public class QuoteListBean {
      */
 
     public String id;
-    public String remarks;
+    public String remarks = "";
     public String createBy;
     public String createDate;
     public String cityCode;

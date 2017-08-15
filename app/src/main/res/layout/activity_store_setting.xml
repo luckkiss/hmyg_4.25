@@ -67,6 +67,7 @@
                     android:gravity="center_vertical"
                     android:hint="最少输入4个数字或字母组成的字符"
                     android:singleLine="true"
+                    android:digits = "abcdefghijklmnopqrstuvwxyz1234567890"
                     android:textColor="@color/text_color666"
                     android:textColorHint="@color/text_colorccc"
                     android:textSize="@dimen/textSizeXX" />

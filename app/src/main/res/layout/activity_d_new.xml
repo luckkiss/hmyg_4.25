@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_top_default"
         android:layout_margin="5dp"
-
         android:visibility="visible">
 
 
@@ -60,13 +59,14 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
-
         <me.maxwin.view.XListView
             android:id="@+id/xlistView_d_new"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="#fff0f0f0"
-            android:divider="@null" />
+            android:divider="@null"
+            tools:listitem="@layout/list_view_seedling_new_shoucan"
+            />
 
         <RelativeLayout
             android:id="@+id/rl_refresh"

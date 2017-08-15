@@ -119,7 +119,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
 
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_quote_item_left"
@@ -134,19 +135,24 @@
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_quote_item_specText"
                 android:layout_width="0dp"
-                android:layout_height="27dp"
+                android:layout_height="wrap_content"
+
                 android:layout_weight="0.8"
                 android:gravity="center_vertical|start"
+                android:minHeight="27dp"
                 android:paddingRight="5dp"
                 android:textSize="12sp"
-                tools:text="地径：55（0.1m量）高度：5" />
+                tools:text="27dp27dp27dp27dp地径：27dp27dp27dp27dp地径27dp27dp27dp27dp地径27dp27dp27dp27dp地径27dp27dp27dp27dp地径27dp27dp27dp27dp地径27dp27dp27dp27dp地径27dp27dp27dp27dp地径27dp27dp27dp27dp地径27dp27dp27dp27dp地径27dp27dp27dp27dp地径55（0.1m量）高度：5地径：55（0.1m量）高度：5地径：55（0.1m量）高度：5地径：55（0.1m量）高度：5"
+
+                />
 
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
 
             <com.coorchice.library.SuperTextView
                 android:layout_width="wrap_content"
@@ -160,12 +166,13 @@
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_quote_item_cityName"
                 android:layout_width="0dp"
-                android:layout_height="27dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.8"
                 android:gravity="center_vertical|start"
+                android:minHeight="27dp"
                 android:paddingRight="5dp"
                 android:textSize="12sp"
-                tools:text="福建 厦门" />
+                tools:text="福建 厦门27dp27dp27dp27dp地径27dp27dp27dp27dp地径27dp27dp27dp27dp地径" />
 
 
         </LinearLayout>
@@ -173,7 +180,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
 
             <com.coorchice.library.SuperTextView
                 android:layout_width="wrap_content"
@@ -193,7 +201,7 @@
                 android:gravity="center_vertical|start"
                 android:paddingRight="5dp"
                 android:textSize="12sp"
-                tools:text="134654646" />
+                tools:text="134654646134654646134654646134654646134654646134654646134654646" />
 
 
         </LinearLayout>

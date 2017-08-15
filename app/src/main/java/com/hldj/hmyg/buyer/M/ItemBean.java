@@ -88,10 +88,10 @@ public class ItemBean {
     public String source;
     public String purchaseType;
     public SellerQuoteJsonBean sellerQuoteJson;
+    public List<SellerQuoteJsonBean> sellerQuoteListJson;
     public List<String> paramsList;
     public List<SpecListBean> specList;
     public BuyerBean buyer = new BuyerBean();
-
 
 
     public boolean isQuoted;

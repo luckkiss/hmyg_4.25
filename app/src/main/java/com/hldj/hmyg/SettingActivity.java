@@ -71,11 +71,11 @@ public class SettingActivity extends NeedSwipeBackActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-
+        //补丁修改
         findViewById(R.id.test_show_pach).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showShortToast("10次修复混淆问题   热更新生效 \n   修复  搜索 位置  混淆导致无法 搜索成功，，，，");
+                ToastUtil.showShortToast("12次修复混淆问题   热更新生效 \n    发布 价格无法显示      发布后 返回偶尔出现 null 错误 ，try catch ");
 
                 /**
                  * Beta.cleanTinkerPatch();
@@ -90,7 +90,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         findViewById(R.id.test_show_pach1).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showShortToast("10次补丁下发。清除 补丁");
+                ToastUtil.showShortToast("12次补丁下发。清除 补丁");
                 Beta.cleanTinkerPatch();
 
                 /**

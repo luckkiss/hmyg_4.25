@@ -8,8 +8,20 @@ import android.widget.PopupWindow;
 
 import com.hldj.hmyg.R;
 
+
 /**
- * create by 罗擦擦   建造者模式初体验 ，参考dagger2 commponent 的自动生成代码
+ *
+ * 版权：公司 版权所有
+ *
+ * 作者：罗擦擦
+ *
+ * 版本：
+ *
+ * 创建日期：2017/8/9 0009
+ *
+ * 描述：大傻出品避暑精品
+ * 建造者模式初体验 ，参考dagger2 commponent 的自动生成代码
+ *
  */
 
 public class CommonPopupWindow extends PopupWindow {
@@ -20,10 +32,6 @@ public class CommonPopupWindow extends PopupWindow {
     }
 
     private void initWithBuilder(Builder builder) {
-
-        if (builder.layoutId == 0) {
-            throw new NullPointerException("布局id 必须设置,不然没有界面显示");
-        }
 
         View rootView = LayoutInflater.from(builder.mContext).inflate(builder.layoutId, null);
         this.setContentView(rootView);
@@ -70,6 +78,10 @@ public class CommonPopupWindow extends PopupWindow {
         }
 
         public CommonPopupWindow build() {
+
+            if ( layoutId == 0) {
+                throw new NullPointerException("布局id 必须设置,不然没有界面显示");
+            }
 
             return new CommonPopupWindow(this);
         }

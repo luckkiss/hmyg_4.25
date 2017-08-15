@@ -105,8 +105,8 @@
                 android:layout_width="0dp"
                 android:layout_height="28dp"
                 android:layout_weight="0.8"
-                android:paddingLeft="10dp"
                 android:gravity="center_vertical|start"
+                android:paddingLeft="10dp"
                 android:paddingRight="5dp"
                 android:textColor="@color/red"
                 android:textSize="12sp"
@@ -182,12 +182,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
 
             <com.coorchice.library.SuperTextView
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
-                android:gravity="center|end"
+                android:gravity="end|center"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:text="规格要求:"
@@ -196,24 +197,26 @@
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_quote_item_specText"
                 android:layout_width="0dp"
-                android:layout_height="28dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.8"
-                android:gravity="center_vertical|start"
+
+                android:minHeight="28dp"
                 android:paddingRight="5dp"
                 android:textSize="12sp"
-                tools:text="134654646" />
+                tools:text="134654646134654646134654646134654646134134654646134654646134654646134654646134654646134654646134654646654646134654646134654646" />
 
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
 
             <com.coorchice.library.SuperTextView
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
-                android:gravity="center|end"
+                android:gravity="end|center"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:text="报价要求:"
@@ -222,12 +225,13 @@
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_quote_item_remark"
                 android:layout_width="0dp"
-                android:layout_height="28dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.8"
                 android:gravity="center_vertical|start"
+                android:minHeight="28dp"
                 android:paddingRight="5dp"
                 android:textSize="12sp"
-                tools:text="我是备注" />
+                tools:text="我是备注134654646134654646134654646134654646134654646134654646134654646" />
 
 
         </LinearLayout>

@@ -345,12 +345,16 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         if (resultCode == ConstantState.DELETE_SUCCEED || resultCode == ConstantState.PUBLIC_SUCCEED) {
             PurchaseItemBean_new itemBean_new = (PurchaseItemBean_new) data.getSerializableExtra("bean");
 //            ToastUtil.showShortToast("toast" + itemBean_new.toString());
-            for (int i = 0; i < listAdapter.getDatas().size(); i++) {
-                if (listAdapter.getDatas().get(i).id.equals(itemBean_new.id)) {
-                    listAdapter.getDatas().set(i, itemBean_new);
-                    listAdapter.notifyDataSetChanged();
-                    break;
+            try {
+                for (int i = 0; i < listAdapter.getDatas().size(); i++) {
+                    if (listAdapter.getDatas().get(i).id.equals(itemBean_new.id)) {
+                        listAdapter.getDatas().set(i, itemBean_new);
+                        listAdapter.notifyDataSetChanged();
+                        break;
+                    }
                 }
+            } catch (Exception e) {
+                onRefresh();
             }
         }
         if (resultCode == ConstantState.LOGIN_SUCCEED) {

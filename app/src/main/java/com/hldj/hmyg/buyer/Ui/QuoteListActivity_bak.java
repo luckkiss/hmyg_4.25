@@ -100,7 +100,7 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
         helper.setText(R.id.tv_quote_item_plantTypeName, strFilter(item.plantTypeName));//种植类型
         helper.setText(R.id.tv_quote_item_specText, strFilter(item.specText));//要求规格
         helper.setText(R.id.tv_quote_item_count, strFilter(item.count + ""));// 可供数量
-        helper.setText(R.id.tv_quote_item_remark, strFilter(item.remarks + ""));//  备注信息
+        helper.setText(R.id.tv_quote_item_remark, strFilter(item.remarks));//  备注信息
 //
 //        StorePurchaseListAdapter.setSpaceAndRemark(helper.getView(R.id.tv_quote_item_specText), item.specText, item.remarks);
 
@@ -229,7 +229,7 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
         public SuperTextView tv_quote_price_sug;
 
         public ViewHolder(Activity rootView) {
-            this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
+            this.tv_title = (TextView) rootView.findViewById(R.id.toolbar_title);
             this.btn_back = (ImageView) rootView.findViewById(R.id.toolbar_left_icon);
             this.tv_quote_name = (TextView) rootView.findViewById(R.id.tv_quote_name);
             this.tv_quote_size = (SuperTextView) rootView.findViewById(R.id.tv_quote_size);

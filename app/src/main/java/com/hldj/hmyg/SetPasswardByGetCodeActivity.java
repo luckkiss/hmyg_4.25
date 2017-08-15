@@ -1,5 +1,6 @@
 package com.hldj.hmyg;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
  */
 public class SetPasswardByGetCodeActivity extends NeedSwipeBackActivity {
 
+    private static final String TAG = "SetPasswardByGetCodeAct";
     /**
      */
     private ImageView btn_back;
@@ -70,7 +72,7 @@ public class SetPasswardByGetCodeActivity extends NeedSwipeBackActivity {
 
         et_phone.setText(MyApplication.Userinfo.getString("phone", ""));
         phString = MyApplication.Userinfo.getString("phone", "");
-        et_phone.setFocusable(false);
+        et_phone.setFocusable(getExtral());
         et_passward = (EditText) findViewById(R.id.et_passward);
         et_passward_confi = (TextView) findViewById(R.id.et_passward_confi);
 
@@ -248,10 +250,10 @@ public class SetPasswardByGetCodeActivity extends NeedSwipeBackActivity {
                             return;
                         }
 
-                        String str1 = et_passward.getText().toString() ;
-                        String str2 = et_passward_confi.getText().toString() ;
-                        D.e("str1=="+str1);
-                        D.e("str2=="+str2);
+                        String str1 = et_passward.getText().toString();
+                        String str2 = et_passward_confi.getText().toString();
+                        D.e("str1==" + str1);
+                        D.e("str2==" + str2);
                         if (!str1.equals(str2)) {
                             ToastUtil.showShortToast("两次输入密码不一致，请重新输入！");
                             return;
@@ -390,6 +392,23 @@ public class SetPasswardByGetCodeActivity extends NeedSwipeBackActivity {
             btn_get_code.setText("重新获取");
             btn_get_code.setClickable(true);
         }
+    }
+
+
+    public boolean getExtral() {
+        return getIntent().getBooleanExtra(TAG, true);
+    }
+
+    /**
+     * 传递 参数 进行 判断是否需要修改手机号码还是 使用默认 手机号码
+     *
+     * @param context
+     * @param modify
+     */
+    public static void start(Context context, boolean modify) {
+        Intent intent = new Intent(context, SetPasswardByGetCodeActivity.class);
+        intent.putExtra(TAG, modify);
+        context.startActivity(intent);
     }
 
 }

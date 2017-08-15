@@ -59,12 +59,16 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     private static final String TAG = "PurchaseDetailActivity";
 
     private String purchaseId;//采购id
+    protected boolean direce;
+    public View head;
+    public View bottomBiew;
 
     public String getPurchaseId() {
         return purchaseId;
     }
 
     private boolean isFinish = false;
+
 
     public void setFinish(boolean finish) {
         isFinish = finish;
@@ -78,6 +82,11 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 //      initGv();
         getDatas();
 
+//        findViewById(R.id.recycle_pur_one).setVisibility(View.VISIBLE);
+
+
+//        getViewHolder_pur().re
+
     }
 
     @Override
@@ -87,7 +96,108 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
 
     @Override
+    public void InitViews() {
+        //给recycle view 添加头
+        recyclerView = (CoreRecyclerView) findViewById(R.id.recycle_pur_one);
+        recyclerView.initView(this)
+                .init(new BaseQuickAdapter<SellerQuoteJsonBean, BaseViewHolder>(R.layout.item_quote_dir_po) {
+                    @Override
+                    protected void convert(BaseViewHolder helper, SellerQuoteJsonBean item) {
+//                        helper.setText(R.id.tv_quote_item_sellerName, strFilter(item.sellerName).equals("") ? strFilter(item.sellerPhone) : strFilter(item.sellerName));//报价人
+
+                        helper.setText(R.id.tv_quote_item_price, strFilter(item.price + ""));//价格
+                        helper.setText(R.id.tv_quote_item_plantTypeName, strFilter(item.plantTypeName));//种植类型
+                        helper.setText(R.id.tv_quote_item_declare, strFilter(item.remarks));//种植类型
+
+//                        helper.setText(R.id.tv_show_is_quote, strFilter("已报价"));//种植类型
+//                        helper.setText(R.id.tv_show_is_quote, strFilter("已报价"));//种植类型
+
+                        ManagerQuoteListItemDetail.setStatus(helper.getView(R.id.tv_show_is_quote), getStatus());
+
+                        helper.setText(R.id.tv_quote_item_cityName, strFilter(item.cityName));//苗源地址
+                        if (direce) {//代购
+                            helper.setText(R.id.tv_quote_item_specText, strFilter(item.specText));//要求规格
+
+                        } else {//直购  参数比较少，需要隐藏部分
+                            helper.setText(R.id.tv_quote_item_left, "数        量:");
+                            helper.setText(R.id.tv_quote_item_specText, item.count + "");
+//                          helper.setParentVisible(R.id.tv_quote_item_specText, false); // 规格 -》 数量
+//                            helper.setParentVisible(R.id.tv_quote_item_cityName, false); // 地址继续显示
+                        }
+                        SuperTextView textView = helper.getView(R.id.tv_quote_item_photo_num);
+
+
+                        setImgCounts(mActivity, textView, item.imagesJson);
+
+                        if (getStatus().equals("")) {//""表示  已经报价  但是结果还没出来   允许删除
+                            helper.setVisible(R.id.tv_delete_item, true);
+
+                            helper.addOnClickListener(R.id.tv_delete_item, v -> {
+
+                                new AlertDialog(PurchaseDetailActivity.this)
+                                        .builder()
+                                        .setTitle("提示")
+                                        .setPositiveButton("确定", v1 -> {
+                                            showLoading();
+                                            new PurchaseDeatilP(new ResultCallBack<PurchaseItemBean_new>() {
+                                                @Override
+                                                public void onSuccess(PurchaseItemBean_new itemBean_new) {
+
+                                                    ToastUtil.showShortToast("删除成功");
+                                                    //删除该项目 并且刷新界面
+                                                    recyclerView.getRecyclerView().getRecycledViewPool().clear();
+//                                                    recyclerView.getRecyclerView().notifyDataSetChanged();
+//                                                    recyclerView.getAdapter().remove(0);
+                                                    recyclerView.getAdapter().reFreshDatas(new ArrayList());
+//                                                    recyclerView.getAdapter().notifyItemRemoved(0);
+                                                    if (itemBean_new != null) {
+                                                        Intent intent = new Intent();
+                                                        intent.putExtra("bean", itemBean_new);
+                                                        setResult(ConstantState.DELETE_SUCCEED, intent);//删除成功
+                                                    }
+
+                                                    getDatas();
+                                                    hindLoading();
+                                                    onDeleteFinish(true);
+                                                }
+
+                                                @Override
+                                                public void onFailure(Throwable t, int errorNo, String strMsg) {
+                                                    onDeleteFinish(false);
+                                                    hindLoading();
+                                                }
+                                            })
+                                                    .quoteDdel(item.id);
+
+
+                                        })
+                                        .setNegativeButton("取消", v2 -> {
+                                        }).show();
+
+                                //删除接口
+
+
+                            });
+
+                        } else {
+                            helper.setVisible(R.id.tv_delete_item, false);
+                        }
+                    }
+                }).closeDefaultEmptyView();//关闭默认的空 view 避免重复加载  。奔溃
+        head = getLayoutInflater().inflate(R.layout.include_top_pur_detail, null);
+        recyclerView.addHeaderView(head);
+        //recycle 的buttom view
+        bottomBiew = getLayoutInflater().inflate(R.layout.include_bottom_pur_detail, null);
+        recyclerView.addFooterView(bottomBiew);
+
+
+    }
+
+    @Override
     public void getDatas() {
+        if (recyclerView != null) {
+            recyclerView.getAdapter().reFreshDatas(new ArrayList());
+        }
         showLoading();
         new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
             @Override
@@ -104,13 +214,19 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     }
 
 
-    SellerQuoteJsonBean sellerQuoteJsonBean;// 如果已经报价  返回的报价数据
+    protected SellerQuoteJsonBean sellerQuoteJsonBean;// 如果已经报价  返回的报价数据
+    List<SellerQuoteJsonBean> sellerQuoteListJson;
 
+    //            sellerQuoteListJson
     @Override
     public void initItem(ItemBean item) {
         super.initItem(item);//返回给父类实现
-        uploadBean.cityCode = MainActivity.cityCode;
+
+        if (!TextUtils.isEmpty(MainActivity.cityCode))
+            uploadBean.cityCode = MainActivity.cityCode;
+
         sellerQuoteJsonBean = item.sellerQuoteJson;
+        sellerQuoteListJson = item.sellerQuoteListJson;
 
 
         //剥离 有效字段
@@ -131,26 +247,27 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         {
             D.e("=====已经报价=====");
             initRceycle(false); // 报价成功会获取 sellerQuoteJson  来显示recycle 列表
-            findViewById(R.id.recycle_pur_one).setVisibility(View.VISIBLE);
-            findViewById(R.id.include_bottom_pur_detail).setVisibility(View.GONE);
-
+//            findViewById(R.id.recycle_pur_one).setVisibility(View.VISIBLE);
+//            findViewById(R.id.include_bottom_pur_detail).setVisibility(View.GONE);
+            initTypeListDirect(typeListBeen);
         } else//暂未报价
         {
             D.e("=====暂未报价=====");  //"isQuoted": false,
             initTypeListDirect(typeListBeen);
-            findViewById(R.id.recycle_pur_one).setVisibility(View.GONE);
-            findViewById(R.id.include_bottom_pur_detail).setVisibility(View.VISIBLE);
+//            findViewById(R.id.recycle_pur_one).setVisibility(View.GONE);
+//            findViewById(R.id.include_bottom_pur_detail).setVisibility(View.VISIBLE);
             //初始化后 设置点击事件
-            getViewHolder_pur().tv_purchase_commit.setOnClickListener(commitListener);
 
-            if (!MainActivity.province_loc.equals("")) {
-                getViewHolder_pur().tv_purchase_city_name.setText(MainActivity.province_loc + " " + MainActivity.city_loc);
-                uploadBean.cityCode = MainActivity.cityCode;
-            } else {
-                getViewHolder_pur().tv_purchase_city_name.setText("未选择");
-            }
-            getViewHolder_pur().tv_purchase_city_name.setOnClickListener(showCity);
         }
+
+        if (!MainActivity.province_loc.equals("")) {
+            getViewHolder_pur().tv_purchase_city_name.setText(MainActivity.province_loc + " " + MainActivity.city_loc);
+            uploadBean.cityCode = MainActivity.cityCode;
+        } else {
+            getViewHolder_pur().tv_purchase_city_name.setText("未选择");
+        }
+        getViewHolder_pur().tv_purchase_commit.setOnClickListener(commitListener);
+        getViewHolder_pur().tv_purchase_city_name.setOnClickListener(showCity);
         getViewHolder_pur().tv_purchase_add_pic.setOnClickListener(choosePic);
 
 
@@ -192,15 +309,15 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
             D.e("=====已经报价=====");
             initRceycle(true); // 报价成功会获取 sellerQuoteJson  来显示recycle 列表
-            findViewById(R.id.recycle_pur_one).setVisibility(View.VISIBLE);
-            findViewById(R.id.include_bottom_pur_detail).setVisibility(View.GONE);
-
+//            findViewById(R.id.recycle_pur_one).setVisibility(View.VISIBLE);
+//            findViewById(R.id.include_bottom_pur_detail).setVisibility(View.GONE);
+            initTypeListProtocol(typeListBeen);
         } else//暂未报价
         {
             D.e("=====暂未报价=====");  //"isQuoted": false,
             initTypeListProtocol(typeListBeen);
-            findViewById(R.id.recycle_pur_one).setVisibility(View.GONE);
-            findViewById(R.id.include_bottom_pur_detail).setVisibility(View.VISIBLE);
+//            findViewById(R.id.recycle_pur_one).setVisibility(View.GONE);
+//            findViewById(R.id.include_bottom_pur_detail).setVisibility(View.VISIBLE);
 
             if (!MainActivity.province_loc.equals("")) {
                 getViewHolder_pur().tv_purchase_city_name.setText(MainActivity.province_loc + " " + MainActivity.city_loc);
@@ -209,10 +326,9 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                 getViewHolder_pur().tv_purchase_city_name.setText("未选择");
             }
             //初始化后 设置点击事件
-            getViewHolder_pur().tv_purchase_commit.setOnClickListener(commitListener);
-            getViewHolder_pur().tv_purchase_city_name.setOnClickListener(showCity);
-
         }
+        getViewHolder_pur().tv_purchase_commit.setOnClickListener(commitListener);
+        getViewHolder_pur().tv_purchase_city_name.setOnClickListener(showCity);
 //        getViewHolder_pur().tv_purchase_add_pic.setOnClickListener(showCity);
         getViewHolder_pur().tv_purchase_add_pic.setOnClickListener(choosePic);
 
@@ -225,6 +341,16 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 //        measureGridView.getAdapter().addItems(resultPathList);
 //        viewHolder.publish_flower_info_gv.getAdapter().getDataList();
         D.e("=========addPicUrls=========");
+    }
+
+    @Override
+    public View getBootomBiew() {
+        return bottomBiew;
+    }
+
+    @Override
+    public View getHeadView() {
+        return head;
     }
 
 
@@ -282,92 +408,13 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 //            recyclerView.getAdapter().notifyItemChanged(0, sellerQuoteJsonBean);
 //            return;
 //        }
-        recyclerView = (CoreRecyclerView) findViewById(R.id.recycle_pur_one);
-        recyclerView.initView(this)
-                .init(new BaseQuickAdapter<SellerQuoteJsonBean, BaseViewHolder>(R.layout.item_quote_dir_po) {
-                    @Override
-                    protected void convert(BaseViewHolder helper, SellerQuoteJsonBean item) {
-//                        helper.setText(R.id.tv_quote_item_sellerName, strFilter(item.sellerName).equals("") ? strFilter(item.sellerPhone) : strFilter(item.sellerName));//报价人
-
-                        helper.setText(R.id.tv_quote_item_price, strFilter(item.price + ""));//价格
-                        helper.setText(R.id.tv_quote_item_plantTypeName, strFilter(item.plantTypeName));//种植类型
-                        helper.setText(R.id.tv_quote_item_declare, strFilter(item.remarks));//种植类型
-
-//                        helper.setText(R.id.tv_show_is_quote, strFilter("已报价"));//种植类型
-//                        helper.setText(R.id.tv_show_is_quote, strFilter("已报价"));//种植类型
-
-                        ManagerQuoteListItemDetail.setStatus(helper.getView(R.id.tv_show_is_quote), getStatus());
-
-                        helper.setText(R.id.tv_quote_item_cityName, strFilter(item.cityName));//苗源地址
-                        if (direce) {//代购
-                            helper.setText(R.id.tv_quote_item_specText, strFilter(item.specText));//要求规格
-
-                        } else {//直购  参数比较少，需要隐藏部分
-                            helper.setText(R.id.tv_quote_item_left, "数        量:");
-                            helper.setText(R.id.tv_quote_item_specText, item.count + "");
-//                          helper.setParentVisible(R.id.tv_quote_item_specText, false); // 规格 -》 数量
-//                            helper.setParentVisible(R.id.tv_quote_item_cityName, false); // 地址继续显示
-                        }
-                        SuperTextView textView = helper.getView(R.id.tv_quote_item_photo_num);
+        this.direce = direce;
 
 
-                        setImgCounts(mActivity, textView, item.imagesJson);
+        recyclerView.getAdapter().addData(sellerQuoteListJson);
 
-                        if (getStatus().equals("")) {//""表示  已经报价  但是结果还没出来   允许删除
-                            helper.setVisible(R.id.tv_delete_item, true);
-
-                            helper.addOnClickListener(R.id.tv_delete_item, v -> {
-
-                                new AlertDialog(PurchaseDetailActivity.this)
-                                        .builder()
-                                        .setTitle("提示")
-                                        .setPositiveButton("确定", v1 -> {
-                                            showLoading();
-                                            new PurchaseDeatilP(new ResultCallBack<PurchaseItemBean_new>() {
-                                                @Override
-                                                public void onSuccess(PurchaseItemBean_new itemBean_new) {
-
-                                                    ToastUtil.showShortToast("删除成功");
-                                                    //删除该项目 并且刷新界面
-                                                    recyclerView.getRecyclerView().getRecycledViewPool().clear();
-//                                                    recyclerView.getRecyclerView().notifyDataSetChanged();
-                                                    recyclerView.getAdapter().remove(0);
-//                                                    recyclerView.getAdapter().notifyItemRemoved(0);
-                                                    if (itemBean_new != null) {
-                                                        Intent intent = new Intent();
-                                                        intent.putExtra("bean", itemBean_new);
-                                                        setResult(ConstantState.DELETE_SUCCEED, intent);//删除成功
-                                                    }
-
-                                                    getDatas();
-                                                    hindLoading();
-                                                    onDeleteFinish(true);
-                                                }
-
-                                                @Override
-                                                public void onFailure(Throwable t, int errorNo, String strMsg) {
-                                                    onDeleteFinish(false);
-                                                    hindLoading();
-                                                }
-                                            })
-                                                    .quoteDdel(item.id);
-
-
-                                        })
-                                        .setNegativeButton("取消", v2 -> {
-                                        }).show();
-
-                                //删除接口
-
-
-                            });
-
-                        } else {
-                            helper.setVisible(R.id.tv_delete_item, false);
-                        }
-                    }
-                }).closeDefaultEmptyView();//关闭默认的空 view 避免重复加载  。奔溃
-        recyclerView.getAdapter().addData(sellerQuoteJsonBean);
+        //add bottom         include_bottom_pur_detail
+//        recyclerView.getAdapter().addData(sellerQuoteJsonBean);
 
 
     }

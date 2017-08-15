@@ -322,7 +322,7 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity"
-
+            android:windowSoftInputMode="stateHidden|stateUnchanged"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.FeedBackActivity"
@@ -342,7 +342,6 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.SetPasswardByGetCodeActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity

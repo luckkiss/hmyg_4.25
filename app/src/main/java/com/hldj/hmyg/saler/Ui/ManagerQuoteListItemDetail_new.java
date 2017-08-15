@@ -41,6 +41,7 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
     @Override
     public void getDatas() {
         showLoading();
+        recyclerView.removeFooterView(bottomBiew);
         new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
             @Override
             public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
@@ -53,6 +54,7 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
                     return;
                 }
                 usedQuoteList = saveSeedingGsonBean.getData().usedQuoteList;
+
 
                 initDatas(saveSeedingGsonBean);
 
@@ -71,7 +73,11 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
     @Override
     public void initRceycle(boolean direce) {
 //        overClick();
-        super.initRceycle(direce);
+        this.direce = direce;
+
+
+        recyclerView.getAdapter().addData(sellerQuoteJsonBean);
+
         if (usedQuoteList != null) {
             for (int i = 0; i < usedQuoteList.size(); i++) {
                 CardView cardView = new CardView(this);
