@@ -171,8 +171,7 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
      * @param bean
      */
 
-    void setName(TextView textView, SaveSeedingGsonBean.DataBean.SeedlingBean bean) {
-
+   public static void setName(TextView textView, SaveSeedingGsonBean.DataBean.SeedlingBean bean) {
         if (bean.getOwnerJson() == null) {
             textView.setText("发布人:-");
             return;
@@ -183,6 +182,8 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
             textView.setText("发布人:" + bean.getOwnerJson().getPublicName());
         } else if (!TextUtils.isEmpty(bean.getOwnerJson().getRealName())) {
             textView.setText("发布人:" + bean.getOwnerJson().getRealName());
+        } else {//用户名
+            textView.setText("发布人:" + bean.getOwnerJson().getUserName());
         }
     }
 

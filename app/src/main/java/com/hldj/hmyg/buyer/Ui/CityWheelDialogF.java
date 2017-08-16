@@ -132,6 +132,7 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
             this.dismiss();
         });
 
+
     }
 
     private WheelView mViewCity;
@@ -191,6 +192,16 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
             disBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent).childs.get(dCurrent);
         }
 
+
+        privBeans = gsonBean.data.bannerList.get(pCurrent);
+
+        if (isShowCity) {
+            gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent);
+        }
+
+        if (isShowDistrict) {
+            disBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent).childs.get(0);
+        }
 
     }
 

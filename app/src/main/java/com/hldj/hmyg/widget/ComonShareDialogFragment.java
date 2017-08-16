@@ -22,6 +22,7 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.PlatformForShare;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,6 +69,10 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
         showDialog(dia_choose_share);
 
         this.setCancelable(true);
+
+        if (!shareBean.imgUrl.startsWith("http")) {
+            shareBean.imgUrl = GetServerUrl.ICON_PAHT;
+        }
 
         return dia_choose_share;
     }
@@ -137,17 +142,18 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
 
     @Override
     public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+        ToastUtil.showShortToast("分享成功");
 
     }
 
     @Override
     public void onError(Platform platform, int i, Throwable throwable) {
-
+        ToastUtil.showShortToast("分享失败：" + throwable.getMessage());
     }
 
     @Override
     public void onCancel(Platform platform, int i) {
-
+        ToastUtil.showShortToast("分享取消");
     }
 
 

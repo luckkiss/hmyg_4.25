@@ -107,8 +107,9 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
         et_search = (EditText) findViewById(R.id.et_search);
         et_search.setHint("品种名称/别名/品种编号");
         xListView = (XListView) findViewById(R.id.xlistView);
-        if (from.equals("StorePurchaseListActivity")) {
+        if (from.equals("SellectActivity2")) {
             ll_sp.setVisibility(View.GONE);
+            et_search.setHint("请输入品种名称的关键字");
         } else {
             ll_sp.setVisibility(View.VISIBLE);
         }
@@ -149,6 +150,7 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
             public boolean onEditorAction(TextView v, int actionId,
                                           KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    // 键盘  action 点击
                     searchIt2();
                 }
                 return false;
@@ -249,20 +251,27 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
     }
 
 
+    // 监听 搜索按钮 点击
+    //监听 action 键盘按钮
     private void searchIt2() {
         // TODO Auto-generated method stub
         if (choose == 0) {
             et_search.setHint("品种名称/别名/品种编号");
+            if (from.equals("SellectActivity2")) {
+                //从搜索界面过来
+                et_search.setHint("请输入关键字");
+            }
+
         } else if (choose == 1) {
             et_search.setHint("品种名称/别名");
         } else if (choose == 2) {
             et_search.setHint("店铺名称");
         }
         if (choose != 2) {
-            if (from.equals("StorePurchaseListActivity")) {
+            if (from.equals("SellectActivity2")) {
                 Intent intent = new Intent();
                 intent.putExtra("searchKey", et_search.getText().toString());
-                setResult(8, intent);
+                setResult(ConstantState.SEARCH_OK, intent);
                 finish();
             } else if (from.equals("BActivity") && choose == 0) {
                 // 商城搜索
@@ -302,7 +311,11 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
     private void searchIt() {
         // TODO Auto-generated method stub
         if (choose == 0) {
-            et_search.setHint("品种名称/别名/品种编号");
+            if (from.equals("SellectActivity2")) {
+                et_search.setHint("请输入关键字");
+            } else {
+                et_search.setHint("品种名称/别名/品种编号");
+            }
             url = "seedling/search";
         } else if (choose == 1) {
             et_search.setHint("品种名称/别名");
@@ -331,6 +344,7 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
         GetServerUrl.addHeaders(finalHttp, true);
         AjaxParams params = new AjaxParams();
         params.put("searchKey", name);
+        params.put("pageSize", 999+"");
         finalHttp.post(GetServerUrl.getUrl() + url, params,
                 new AjaxCallBack<Object>() {
 
@@ -466,6 +480,7 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
                         onBackPressed();
                         break;
                     case R.id.edit_btn:
+
                         searchIt2();
                         break;
                     case R.id.tv_choose:
@@ -629,10 +644,10 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
 //                    searchIt2();
 
                     if (choose != 2) {
-                        if (from.equals("StorePurchaseListActivity")) {
+                       if (from.equals("SellectActivity2")) {
                             Intent intent = new Intent();
                             intent.putExtra("searchKey", arrayList.get(position).getName());
-                            setResult(8, intent);
+                            setResult(ConstantState.SEARCH_OK, intent);
                             finish();
                         } else if (from.equals("BActivity") && choose == 0) {
 

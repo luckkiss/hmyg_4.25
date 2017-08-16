@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.QueryBean;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
 import com.hldj.hmyg.buyer.Ui.CityWheelDialogF;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.util.ConstantState;
@@ -34,18 +35,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.drakeet.materialdialog.MaterialDialog;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 import static com.hldj.hmyg.util.ConstantState.FILTER_OK;
 
 public class SellectActivity2 extends NeedSwipeBackActivity {
-    MaterialDialog mMaterialDialog;
+    //    MaterialDialog mMaterialDialog;
     private static String type01 = ""; // planted,
 
 
     private LinearLayout ll_area;
-    private LinearLayout ll_price;
+//    private LinearLayout ll_price;
 
     private TextView tv_area;
 
@@ -63,7 +63,7 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
     private EditText et_min_guige;//最大规格
     private EditText et_max_guige;//最小规格
 
-    private EditText et_pinming;
+    //    private EditText et_pinming;
     private String searchSpec = "";
     private String plantTypes = "";
     private ArrayList<String> planttype_has_ids = new ArrayList<String>();
@@ -81,14 +81,14 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
 
         getIntentExtral();
         mCache = ACache.get(this);
-        mMaterialDialog = new MaterialDialog(this);
+//        mMaterialDialog = new MaterialDialog(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         MultipleClickProcess multipleClickProcess = new MultipleClickProcess();
         ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
         TextView iv_reset = (TextView) findViewById(R.id.iv_reset);
         ll_area = (LinearLayout) findViewById(R.id.ll_area);
-        ll_price = (LinearLayout) findViewById(R.id.ll_price);
-        et_pinming = (EditText) findViewById(R.id.et_pinming);
+//        ll_price = (LinearLayout) findViewById(R.id.ll_price);
+//        et_pinming = (EditText) findViewById(et_pinming);
 
         et_min_guige = (EditText) findViewById(R.id.et_min_guige);
         et_max_guige = (EditText) findViewById(R.id.et_max_guige);
@@ -106,6 +106,7 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
         mFlowLayout3 = (TagFlowLayout) findViewById(R.id.id_flowlayout3);
         TextView sure = (TextView) findViewById(R.id.sure);
         initData();
+        initImportWorlds();
 
 //        if (mCache.getAsString("initSearch") != null && !"".equals(mCache.getAsString("initSearch"))) {
 //            LoadCache(mCache.getAsString("initSearch"));
@@ -126,7 +127,7 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, true);
         AjaxParams params = new AjaxParams();
-        params.put("searchKey", searchKey);
+        params.put("searchKey", queryBean.searchKey);
         finalHttp.post(GetServerUrl.getUrl() + "seedling/initSearch", params, new AjaxCallBack<Object>() {
 
             @Override
@@ -366,10 +367,16 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
                     case R.id.iv_reset:
                         searchSpec = "";
 //                        guige_has_click_names.clear();
-                        et_pinming.setText("");
+//                        et_pinming.setText("");
                         et_min_guige.setText("");
                         et_max_guige.setText("");
 
+                        setText(getView(R.id.et_sa_type), "");
+                        setText(getView(R.id.tv_import_word), "关键字:");
+                        queryBean.searchKey = "";
+
+                        buffer = new StringBuffer();
+                        initSearch();
 //                        et_minHeight.setText("");//最小高度
 //                        et_maxHeight.setText("");//最大高度
 
@@ -533,6 +540,42 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
         }
 
 
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ConstantState.SEARCH_OK && requestCode == 1) {
+            queryBean.searchKey = data.getStringExtra("searchKey");
+            setText(getView(R.id.tv_import_word), "关键字:" + queryBean.searchKey);
+            initSearch();
+//            ToastUtil.showShortToast("搜索 关键字 -- -- 刷新- -- " + data.getStringExtra("searchKey"));
+        }
+    }
+
+
+    //初始化关键字
+    public void initImportWorlds() {
+        setText(getView(R.id.tv_import_word), TextUtils.isEmpty(queryBean.searchKey) ? "关键字:" : "关键字:" + queryBean.searchKey);
+        setText(getView(R.id.et_sa_type), TextUtils.isEmpty(queryBean.specMinValue) ? "" : queryBean.specMinValue);
+    }
+
+    // 关键字
+    public void importWords(View view) {
+//        ToastUtil.showShortToast("关键字");
+        Intent intent = new Intent(mActivity, PurchaseSearchListActivity.class);
+        intent.putExtra("from", "SellectActivity2");
+        startActivityForResult(intent, 1);
+    }
+
+    //复原  城市名字
+    public void resetCity(View view) {
+//        ToastUtil.showShortToast("delete");
+        tv_area.setText("全国");
+        queryBean.cityCode = "";
+        childBeans.cityCode = "";
+        childBeans.name = "";
     }
 
 

@@ -51,7 +51,7 @@ public class AutoAddRelative extends RelativeLayout {
 
         //如果必填  显示*
 
-            isShowLeft(requiredis,viewHolder_add.tv_auto_add_left1,R.drawable.seller_redstar);
+        isShowLeft(requiredis, viewHolder_add.tv_auto_add_left1, R.drawable.seller_redstar);
 
 
     }
@@ -79,7 +79,7 @@ public class AutoAddRelative extends RelativeLayout {
         if (!requiredis)
             viewHolder_rd.tv_auto_add_left2.setText("");//不是必须的话 写选填
 
-        isShowLeft(requiredis,viewHolder_rd.tv_auto_add_left1,R.drawable.seller_redstar);
+        isShowLeft(requiredis, viewHolder_rd.tv_auto_add_left1, R.drawable.seller_redstar);
 
 
 //        if (!paramsListBean.isRequired())
@@ -315,12 +315,8 @@ public class AutoAddRelative extends RelativeLayout {
     }
 
 
-
-
-
-
-
     public static void isShowLeft(boolean flag, TextView textView, int drawableId) {
+        if (textView == null) return;
         if (flag) {
             Drawable drawable = MyApplication.getInstance().getResources().getDrawable(drawableId);
             /// 这一步必须要做,否则不会显示.
@@ -329,6 +325,25 @@ public class AutoAddRelative extends RelativeLayout {
         } else {
             //隐藏Drawables
             textView.setCompoundDrawables(null, null, null, null);
+        }
+    }
+
+
+    public static void isShowLeftAndRight(boolean flag, TextView textView, Integer... integers) {
+        if (textView == null) return;
+        if (flag) {
+            Drawable drawable = MyApplication.getInstance().getResources().getDrawable(integers[0]);
+            Drawable drawable1 = MyApplication.getInstance().getResources().getDrawable(integers[1]);
+            /// 这一步必须要做,否则不会显示.
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            drawable1.setBounds(0, 0, drawable1.getMinimumWidth(), drawable1.getMinimumHeight());
+            textView.setCompoundDrawables(drawable, null, drawable1, null);
+        } else {
+            Drawable drawable1 = MyApplication.getInstance().getResources().getDrawable(integers[1]);
+            /// 这一步必须要做,否则不会显示.
+            drawable1.setBounds(0, 0, drawable1.getMinimumWidth(), drawable1.getMinimumHeight());
+            //隐藏Drawables
+            textView.setCompoundDrawables(null, null, drawable1, null);
         }
     }
 }
