@@ -76,4 +76,14 @@ public class FUtil {
         return buffer.toString();
     }
 
+
+    public static String filterNullStr(String string) {
+        if (TextUtils.isEmpty(string)) {
+            return "";
+        } else {
+            return string;
+        }
+    }
+
+
 }

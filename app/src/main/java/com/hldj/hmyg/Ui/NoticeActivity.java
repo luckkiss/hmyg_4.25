@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.NotProguard;
 import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.lqr.optionitemview.OptionItemView;
 
@@ -29,6 +30,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
  *  成交公告   界面
  */
 
+@NotProguard
 public class NoticeActivity extends NeedSwipeBackActivity {
 
 

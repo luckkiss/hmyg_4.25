@@ -435,6 +435,8 @@ public class MessageListDetailActivity extends NeedSwipeBackActivity implements
                                     deleteSelectedData();
                                     changeState2Normal();
 
+                                    onRefresh();
+
                                 } else if ("6007".equals(code)) {
 
                                 }

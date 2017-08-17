@@ -4,16 +4,22 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.widget.ShareDialogFragment;
+import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.NotProguard;
+import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.lqr.optionitemview.OptionItemView;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
@@ -23,6 +29,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
  *
  */
 
+@NotProguard
 public class NoticeActivity_detail extends NeedSwipeBackActivity {
 
 
@@ -77,7 +84,10 @@ public class NoticeActivity_detail extends NeedSwipeBackActivity {
 
             @Override
             public void rightOnClick() {
-                ShareDialogFragment.newInstance().show(getSupportFragmentManager(), getClass().getName());
+//                ShareDialogFragment.newInstance().show(getSupportFragmentManager(), getClass().getName());
+                ComonShareDialogFragment.newInstance()
+                        .setShareBean(new ComonShareDialogFragment.ShareBean(title, desc, desc, cover, pageUrl))
+                        .show(getSupportFragmentManager(), getClass().getName());
             }
         });
 
@@ -92,6 +102,10 @@ public class NoticeActivity_detail extends NeedSwipeBackActivity {
         //启用支持Javascript
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
+
+        webView.addJavascriptInterface(new InJavaScriptLocalObj(), "java_obj");
+        webView.addJavascriptInterface(new InJavaScriptLocalObj(), "java_obj1");
+
         //WebView加载页面优先使用缓存加载
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         //页面加载
@@ -132,6 +146,57 @@ public class NoticeActivity_detail extends NeedSwipeBackActivity {
             return true;
         }
 
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            title = view.getTitle();
+            pageUrl = url;
+            D.e("==pageUrl==" + pageUrl);
+
+
+                D.e("=====yes=======");
+                OptionItemView optionItemView = (OptionItemView) findViewById(R.id.news_title_detail);
+                optionItemView.showRightImg(true);
+                //showRightImg
+
+            cover = "";
+            view.loadUrl("javascript:window.java_obj.getSource(" + "document.getElementById('article-cover').innerHTML);");
+//            view.loadUrl("javascript:window.java_obj.getSource(" + "document.getElementById('article-title').innerHTML);");
+
+            desc = "";
+            view.loadUrl("javascript:window.java_obj1.getSource1(" + "document.getElementById('article-desc').innerHTML);");
+//            view.loadUrl("javascript:window.java_obj1.getSource1(" + "document.getElementById('article-desc').innerHTML);");
+
+        }
+
+
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            D.e("========onReceivedError=========");
+            super.onReceivedError(view, request, error);
+        }
+    }
+
+
+    final class InJavaScriptLocalObj {
+        //cover
+        @JavascriptInterface
+        public void getSource(String html) {
+            D.e("html=" + html);
+            cover = html;
+        }
+
+        // desc
+        @JavascriptInterface
+        public void getSource1(String html) {
+            D.e("html=" + html);
+            desc = html;
+        }
     }
 
 

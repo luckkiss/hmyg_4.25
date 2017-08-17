@@ -85,8 +85,6 @@
             android:paddingRight="15dp"
             android:text="未上传图片"
             tools:text="上传了3张图片" />
-
-
     </RelativeLayout>
 
     <View style="@style/View_line_gray_1dp" />
@@ -99,7 +97,7 @@
         android:background="@color/white"
         android:listSelector="@color/transparent"
         android:numColumns="4"
-        android:scrollbars="none"></com.zzy.common.widget.MeasureGridView>
+        android:scrollbars="none"/>
 
 
     <LinearLayout

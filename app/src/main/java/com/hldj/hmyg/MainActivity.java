@@ -35,11 +35,14 @@ import com.flyco.animation.BaseAnimatorSet;
 import com.flyco.animation.BounceEnter.BounceTopEnter;
 import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
+import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.PermissionUtils;
+import com.hldj.hmyg.bean.UserInfoGsonBean;
 import com.hldj.hmyg.buy.bean.CollectCar;
+import com.hldj.hmyg.presenter.LoginPresenter;
 import com.hldj.hmyg.saler.StorageSaveActivity;
 import com.hldj.hmyg.update.UpdateDialog;
 import com.hldj.hmyg.util.ConstantState;
@@ -103,6 +106,8 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     public Editor e;
 
 
+    public static final String str = "14次修复混淆问题   热更新生效 \n   修改 成正式库。。。测试某些功能";
+
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +116,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 //        String str = null ;
 //        D.e("======="+ str.toString() );
         //补丁修改
-        ToastUtil.showShortToast("13次修复混淆问题   热更新生效 \n   修改搜索 筛选 的内容");
+        ToastUtil.showShortToast("str");
 
         /**
          * 控制状态栏为黑色  miui flyme
@@ -251,6 +256,9 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                 }
             }
         }
+
+
+        getInfo();
 
     }
 
@@ -754,6 +762,22 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     public static String district_loc = "";
     public static AMapLocation aMapLocation = null;
     public static String cityCode = "";
+
+
+    public void getInfo() {
+        //获取个人信息操作
+        LoginPresenter.getUserInfo(MyApplication.Userinfo.getString("id", ""), new ResultCallBack<UserInfoGsonBean>() {
+            @Override
+            public void onSuccess(UserInfoGsonBean userInfoGsonBean) {
+                D.e("个人信息获取成功" + userInfoGsonBean.toString());
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                D.e("个人信息获取失败" + strMsg);
+            }
+        });
+    }
 
     /**
      * ======amapLocation=========latitude=24.488207longitude=118.09651province=福建省#city=厦门市#district=思明区

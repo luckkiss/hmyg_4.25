@@ -919,7 +919,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     //初始化底部bottom
     void resetBottom() {
         getViewHolder_pur().et_purchase_remark.setText("");
-        getViewHolder_pur().tv_purchase_add_pic.setText("未上传图片");
+        getViewHolder_pur().tv_purchase_add_pic.setText("未上传");
         listPicsOnline.clear();
     }
 /**

@@ -73,6 +73,8 @@ public class SetPasswardByGetCodeActivity extends NeedSwipeBackActivity {
         et_phone.setText(MyApplication.Userinfo.getString("phone", ""));
         phString = MyApplication.Userinfo.getString("phone", "");
         et_phone.setFocusable(getExtral());
+
+
         et_passward = (EditText) findViewById(R.id.et_passward);
         et_passward_confi = (TextView) findViewById(R.id.et_passward_confi);
 
@@ -396,7 +398,9 @@ public class SetPasswardByGetCodeActivity extends NeedSwipeBackActivity {
 
 
     public boolean getExtral() {
-        return getIntent().getBooleanExtra(TAG, true);
+        boolean istrue = getIntent().getBooleanExtra(TAG, true);
+        if (istrue) setText(getView(R.id.tv_title_pwd), "忘记密码");
+        return istrue;
     }
 
     /**

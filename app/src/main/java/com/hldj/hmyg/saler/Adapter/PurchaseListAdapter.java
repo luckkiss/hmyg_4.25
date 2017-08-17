@@ -20,6 +20,8 @@ import com.hy.utils.TagAdapter;
 
 import java.util.List;
 
+import static com.hldj.hmyg.util.FUtil.filterNullStr;
+
 /**
  * Created by Administrator on 2017/5/12.
  */
@@ -53,7 +55,7 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
 
         mMobileTagAdapter.onlyAddAll(item.itemNameList);
 
-        mMobileFlowTagLayout.ClearClickAble(true, view1 -> jump((Activity) context,item));
+        mMobileFlowTagLayout.ClearClickAble(true, view1 -> jump((Activity) context, item));
 
 //            Html.fromHtml("北京市发布霾黄色预警，<font color='#ff0000'><big><big>外出携带好</big></big></font>口罩")
 
@@ -62,8 +64,8 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
 
         tv_01.setText(Html.fromHtml(html_source + "<font color='#FFA19494'><small>" + html_source1 + "</small></font>"));
 
-        tv_03.setText(item.cityName);
-        tv_04.setText("采购商家：" + item.buyer.companyName);
+        tv_03.setText(filterNullStr(item.cityName));
+        tv_04.setText("采购商家：" + filterNullStr(item.buyer.companyName));
 
         if (MyApplication.getUserBean().showQuoteCount) {
             if (item.quoteCountJson > 0) {
@@ -97,13 +99,13 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
 
 
         myViewHolder.getConvertView().setOnClickListener(v -> {
-            jump((Activity) context,item);
+            jump((Activity) context, item);
         });
 
 
     }
 
-    public static void jump(Activity context,PurchaseBean item) {
+    public static void jump(Activity context, PurchaseBean item) {
         // TODO Auto-generated method stub
         Intent intent = new Intent(context,
                 StorePurchaseListActivity.class);
@@ -111,11 +113,6 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
         intent.putExtra("title", item.num);
         context.startActivity(intent);
     }
-
-
-
-
-
 
 
 }

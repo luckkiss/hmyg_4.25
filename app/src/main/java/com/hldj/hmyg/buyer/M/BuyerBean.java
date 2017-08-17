@@ -29,7 +29,7 @@ public class BuyerBean implements Serializable {
     public String coCode;
     public String twCode;
     public String phone;
-    public String companyName;
+    public String companyName = "";
     public boolean isInvoices;
     public String agentTypeName;
     public boolean isDirectAgent;

@@ -559,11 +559,16 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
     public void initImportWorlds() {
         setText(getView(R.id.tv_import_word), TextUtils.isEmpty(queryBean.searchKey) ? "关键字:" : "关键字:" + queryBean.searchKey);
         setText(getView(R.id.et_sa_type), TextUtils.isEmpty(queryBean.specMinValue) ? "" : queryBean.specMinValue);
+
+
+//        getView(R.id.tv_import_word).setOnClickListener(this::importWords);
     }
 
     // 关键字
     public void importWords(View view) {
-//        ToastUtil.showShortToast("关键字");
+        if (GetServerUrl.isTest)
+            ToastUtil.showShortToast("关键字" + "测试时显示");
+
         Intent intent = new Intent(mActivity, PurchaseSearchListActivity.class);
         intent.putExtra("from", "SellectActivity2");
         startActivityForResult(intent, 1);

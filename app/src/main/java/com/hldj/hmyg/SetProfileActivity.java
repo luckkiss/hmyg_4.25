@@ -312,9 +312,9 @@ public class SetProfileActivity extends BaseActivity implements
         params.put("realName", et_real_name.getText().toString());
         params.put("userName", et_name.getText().toString());
         params.put("email", et_email.getText().toString());
-        if (!"".equals(twCitycityCode)) {
+        if (!"".equals(twCitycityCode)) {//街道 -- 的 城市代码
             params.put("cityCode", twCitycityCode);
-        } else if (!"".equals(coCitycityCode)) {
+        } else if (!"".equals(coCitycityCode)) { // 省市县 -- 的 代码
             params.put("cityCode", coCitycityCode);
         }
         params.put("sex", sex);
@@ -348,7 +348,6 @@ public class SetProfileActivity extends BaseActivity implements
                                         D.e("个人信息获取成功" + userInfoGsonBean.toString());
                                         setResult(ConstantState.CHANGE_DATES);//修该数据成功
                                         finish();
-
                                     }
 
                                     @Override
@@ -418,6 +417,8 @@ public class SetProfileActivity extends BaseActivity implements
             dialog.onWindowAttributesChanged(wl);
             // 设置点击外围解散
             dialog.setCanceledOnTouchOutside(true);
+
+
             tv_sure.setOnClickListener(new OnClickListener() {
 
                 @Override
@@ -428,6 +429,9 @@ public class SetProfileActivity extends BaseActivity implements
                             + mCurrentDistrictName + "\u0020";
                     coCitycityCode = mCurrentZipCode;
                     tv_cocity.setText(coCityfullName);
+
+                    resetCity();
+
                     if (!SetProfileActivity.this.isFinishing()
                             && dialog != null) {
                         if (dialog.isShowing()) {
@@ -448,6 +452,7 @@ public class SetProfileActivity extends BaseActivity implements
             dialog.show();
         }
     }
+
 
     private void initChildsData(String parentCode) {
         // TODO Auto-generated method stub
@@ -669,6 +674,12 @@ public class SetProfileActivity extends BaseActivity implements
                 "当前选中:" + mCurrentProviceName + "," + mCurrentCityName + ","
                         + mCurrentDistrictName + "," + mCurrentZipCode,
                 Toast.LENGTH_SHORT).show();
+    }
+
+    //
+    private void resetCity() {
+        tv_twcity.setText("");
+        twCitycityCode = "" ;
     }
 
     //获取个人信息

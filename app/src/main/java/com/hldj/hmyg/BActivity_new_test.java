@@ -424,7 +424,8 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
             BProduceAdapt.setPublishName(tv_06,
                     item.ownerJson.companyName,
                     item.ownerJson.publicName,
-                    item.ownerJson.realName);
+                    item.ownerJson.realName,
+                    item.ownerJson.userName);
         } else {
             if (item.closeDate.length() > 10) {
                 tv_06.setText("下架日期：" + item.closeDate.substring(0, 10));

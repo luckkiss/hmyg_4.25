@@ -41,10 +41,11 @@
                 <TextView
                     android:id="@+id/tv_choose"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
                     android:background="@android:color/transparent"
+                    android:gravity="center"
                     android:text="苗木资源"
                     android:textColor="@color/main_color" />
 
@@ -62,10 +63,9 @@
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/main_color"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                />
+                android:layout_marginTop="8dp"
+                android:background="@color/main_color" />
 
             <EditText
                 android:id="@+id/et_search"
@@ -81,7 +81,7 @@
                 android:paddingRight="2.5dip"
                 android:textColor="@color/gray"
                 android:textColorHint="@color/gray"
-                android:textSize="14.5sp"/>
+                android:textSize="14.5sp" />
         </LinearLayout>
 
         <ImageView

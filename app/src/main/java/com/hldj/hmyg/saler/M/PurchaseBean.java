@@ -104,7 +104,7 @@ public class PurchaseBean {
     public String dispatchName;
     public boolean isPrivate;
     public String authcPhone;
-    public BuyerBean buyer;
+    public BuyerBean buyer = new BuyerBean();
     public String statusName;
     public int quoteCountJson = 0;
     public String itemCountJson = "0";

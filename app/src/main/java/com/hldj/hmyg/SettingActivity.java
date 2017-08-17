@@ -49,6 +49,8 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.mhao.widget.SlipButton;
 import me.mhao.widget.SlipButton.OnChangedListener;
 
+import static com.hldj.hmyg.MainActivity.str;
+
 public class SettingActivity extends NeedSwipeBackActivity implements
         OnChangedListener {
     private Editor e;
@@ -75,7 +77,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         findViewById(R.id.test_show_pach).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showShortToast("12次修复混淆问题   热更新生效 \n    13次修复混淆问题   热更新生效 \n   修改搜索 筛选 的内容");
+                ToastUtil.showShortToast(str);
 
                 /**
                  * Beta.cleanTinkerPatch();

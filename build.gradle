@@ -55,13 +55,6 @@ allprojects {
 }
 
 
-task ('processWithJavassist') << {
-    String classPath = file('build/intermediates/classes/debug')//项目编译class所在目录
-    com.cuieney.groovy.PatchClass.process(classPath, project(':hookdex').buildDir
-            .absolutePath + '/intermediates/classes/debug')//第二个参数是hackdex的class所在目录
-
-}
-
 
 task clean(type: Delete) {
     delete rootProject.buildDir

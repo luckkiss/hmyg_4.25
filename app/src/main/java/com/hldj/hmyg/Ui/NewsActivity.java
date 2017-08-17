@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.NotProguard;
 import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.lqr.optionitemview.OptionItemView;
 
@@ -28,7 +29,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 /**
  * Created by Administrator on 2017/5/19.
  */
-
+@NotProguard
 public class NewsActivity extends NeedSwipeBackActivity {
 
 
