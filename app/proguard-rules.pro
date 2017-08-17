@@ -308,6 +308,12 @@ public static java.lang.String TABLENAME;
     public static final <fields>;
   }
 
+  # If you do not use SQLCipher:
+#  -dontwarn org.greenrobot.greendao.database.**
+  # If you do not use RxJava:
+#  -dontwarn rx.**
+
+
 
 
 #4、sharesdk混淆

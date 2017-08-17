@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Message;
-import com.hldj.hmyg.buyer.LoadCarListActivity2;
+import com.hldj.hmyg.buyer.LoadCarListActivity;
 import com.hldj.hmyg.buyer.ManagerPurchaseActivity;
 import com.hldj.hmyg.saler.OrderDetailActivity;
 import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
@@ -133,10 +133,8 @@ public class MessageListDetailAdapter extends BaseAdapter {
                                 R.anim.slide_in_left, R.anim.slide_out_right);
                     }
                     // 经纪发货通知，跳转到发车信息列表
-                    else if ("sendLoadCar".equals(data.get(position)
-                            .getContentType())) {
-                        Intent sendLoadCar = new Intent(context,
-                                LoadCarListActivity2.class);
+                    else if ("sendLoadCar".equals(data.get(position)   .getContentType())) {
+                        Intent sendLoadCar = new Intent(context,  LoadCarListActivity.class);
                         sendLoadCar.putExtra("status", "unreceipt");
                         sendLoadCar.putExtra("loadItems", true);
                         context.startActivity(sendLoadCar);
