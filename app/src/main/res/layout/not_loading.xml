@@ -5,11 +5,10 @@
     android:gravity="center"
     android:orientation="horizontal">
 
-
     <TextView
-        android:textColor="@android:color/darker_gray"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:text="-- end --"/>
+        android:gravity="center"
+        android:text="-- 我是有底线的 --"
+        android:textColor="@android:color/darker_gray" />
 </LinearLayout>

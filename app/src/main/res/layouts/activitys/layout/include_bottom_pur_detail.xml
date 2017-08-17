@@ -21,10 +21,8 @@
         android:id="@+id/ll_purc_auto_add"
         style="@style/ll_padleft_15"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-    </LinearLayout>
+        android:orientation="vertical"></LinearLayout>
     <!--<View style="@style/View_line_gray_1dp" />-->
-
 
 
     <RelativeLayout style="@style/ll_padleft_15">
@@ -60,6 +58,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
         app:max_select="0" />
+
     <View style="@style/View_line_gray_1dp" />
 
     <RelativeLayout
@@ -79,15 +78,17 @@
             android:id="@+id/tv_purchase_add_pic"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:drawablePadding="5dp"
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@drawable/seller_redstar"
             android:drawableRight="@drawable/ic_right_icon_new"
             android:gravity="center_vertical|end"
-            android:paddingLeft="15dp"
             android:paddingRight="15dp"
+            android:text="未上传图片"
             tools:text="上传了3张图片" />
 
 
     </RelativeLayout>
+
     <View style="@style/View_line_gray_1dp" />
 
     <com.zzy.common.widget.MeasureGridView
@@ -119,10 +120,10 @@
             android:id="@+id/et_purchase_remark"
             android:layout_width="match_parent"
             android:layout_height="29dp"
+            android:layout_marginRight="15dp"
             android:background="@drawable/conner_edit"
             android:gravity="center_vertical"
             android:hint="请填写备注信息"
-            android:layout_marginRight="15dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:textColor="@color/text_color"

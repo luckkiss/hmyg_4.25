@@ -138,7 +138,7 @@ public class SellectActivity2_bak extends BaseSecondActivity implements
         tv_type02 = (TextView) findViewById(R.id.tv_type02);
         tv_type03 = (TextView) findViewById(R.id.tv_type03);
         tv_type04 = (TextView) findViewById(R.id.tv_type04);
-        mFlowLayout1 = (TagFlowLayout) findViewById(R.id.id_flowlayout1);
+//        mFlowLayout1 = (TagFlowLayout) findViewById(R.id.id_flowlayout1);
         mFlowLayout1.setMaxSelectCount(1);
         mFlowLayout2 = (TagFlowLayout) findViewById(R.id.id_flowlayout2);
         mFlowLayout2.setMaxSelectCount(1);

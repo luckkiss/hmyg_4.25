@@ -40,6 +40,7 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.TakePhotoUtil;
+import com.hldj.hmyg.widget.AutoAddRelative;
 import com.hy.utils.ToastUtil;
 import com.zf.iosdialog.widget.AlertDialog;
 
@@ -240,6 +241,9 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
     @Override
     protected void initDirect(List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen) {
+        //直购 代购
+        isMustAddPic(true);
+
         /**
          * 我是直购
          */
@@ -280,6 +284,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
      * @param typeListBeen
      */
     private void initTypeListDirect(List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen) {
+        isMustAddPic(false);
         autoLayouts.clear();
         getViewHolder_pur().ll_purc_auto_add.removeAllViews();//动态添加前先删除所有
         layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("价格", "price", true));
@@ -436,6 +441,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
             textView.setOnClickListener(null);
         }
     }
+
 
     public void onDeleteFinish(boolean isSucceed) {
         D.e("==========删除成功失败===========" + isSucceed);
@@ -595,6 +601,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                     Intent intent = new Intent();
                     intent.putExtra("bean", itemBean_new);
                     setResult(ConstantState.PUBLIC_SUCCEED, intent);//发布成功
+                    onSaveFinish(true);
                 }
                 getDatas();
             }
@@ -898,4 +905,31 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     }
 
 
+    //保存成功回调
+    public void onSaveFinish(boolean isSucceed) {
+        if (isSucceed) resetBottom();
+    }
+
+
+    public void isMustAddPic(boolean isMust) {
+        AutoAddRelative.isShowLeftAndRight(isMust, getViewHolder_pur().tv_purchase_add_pic, R.drawable.seller_redstar, R.drawable.ic_right_icon_new);
+    }
+
+
+    //初始化底部bottom
+    void resetBottom() {
+        getViewHolder_pur().et_purchase_remark.setText("");
+        getViewHolder_pur().tv_purchase_add_pic.setText("未上传图片");
+        listPicsOnline.clear();
+    }
+/**
+ *    this.tv_purchase_city_name = getBootomBiew().findViewById(R.id.tv_purchase_city_name);
+ this.tfl_purchase_auto_add_plant = getBootomBiew().findViewById(R.id.tfl_purchase_auto_add_plant);
+ this.tv_purchase_add_pic = getBootomBiew().findViewById(R.id.tv_purchase_add_pic);
+ this.tv_purchase_remark = getBootomBiew().findViewById(R.id.tv_purchase_remark);
+ this.tv_purchase_commit = getBootomBiew().findViewById(R.id.tv_purchase_commit);
+ this.ll_purc_auto_add = getBootomBiew().findViewById(R.id.ll_purc_auto_add);//采购报价 动态加载
+ //            this.ll_mainView_bottom = (LinearLayout) rootView.findViewById(R.id.ll_mainView_bottom);//采购报价 动态加载
+ this.et_purchase_remark = getBootomBiew().findViewById(R.id.et_purchase_remark);//备注
+ */
 }

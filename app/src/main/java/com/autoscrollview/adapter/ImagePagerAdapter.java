@@ -25,6 +25,7 @@ import com.hldj.hmyg.WebActivity;
 import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hldj.hmyg.util.NotProguard;
 import com.white.utils.StringUtil;
 
 import net.tsz.afinal.FinalBitmap;
@@ -35,10 +36,13 @@ import java.util.List;
 /**
  * ImagePagerAdapter
  */
+@NotProguard
 public class ImagePagerAdapter extends RecyclingPagerAdapter {
 
     private static final String TAG = "ImagePagerAdapter";
     private Context context;
+
+    @NotProguard
     private List<HashMap<String, Object>> imageIdList;
 
     private int size;
@@ -148,11 +152,13 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
         return view;
     }
 
+    @NotProguard
     private static class TypeBean {
         public String type = "";
         public String sourceId = "";
     }
 
+    @NotProguard
     private static class ViewHolder {
 
         ImageView imageView;

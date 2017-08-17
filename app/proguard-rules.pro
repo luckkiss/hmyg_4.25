@@ -21,6 +21,9 @@
 -keep  class  android.support.**{*;}
 
 
+
+
+
 #############################################
 #
 # 对于一些基本指令的添加
@@ -183,6 +186,18 @@
 #-----------处理第三方依赖库---------
 
 
+#-----------通过注解同意过滤处理---------
+# keep annotated by NotProguard
+-keep @com.hldj.hmyg.util.NotProguard class * {*;}
+-keep class * {
+@com.hldj.hmyg.util.NotProguard <fields>;
+}
+-keepclassmembers class * {
+@com.hldj.hmyg.util.NotProguard <methods>;
+}
+#-----------通过注解同意过滤处理---------
+
+
 # Gson
 #-keepattributes Signature-keepattributes *Annotation*
 -keep class sun.misc.Unsafe { *;}
@@ -200,12 +215,18 @@
 -keep class com.hldj.hmyg.model.** { *;}
 -keep class com.hldj.hmyg.saler.bean.** { *;}
 -keep class com.hldj.hmyg.saler.M.** { *;}
+#-keep class com.autoscrollview.adapter.** { *;}
 
 
 -keepattributes Exceptions,InnerClasses,...
 -keep class com.hldj.hmyg.SellectActivity2$* { * ; }
 -keep class com.hldj.hmyg.saler.AdressManagerActivity$* { * ; }
+-keep class com.hldj.hmyg.widget.ComonShareDialogFragment* { * ; }
 
+
+#-keep class com.autoscrollview.adapter.ImagePagerAdapter { * ; }
+#-keep class com.hldj.hmyg.AActivity_3_0* { * ; }
+#$TypeBean
 
 #-keepattributes Exceptions,InnerClasses,...
 #-keep class com.hldj.hmyg.saler.AdressManagerActivity$AdressQueryBean { * ; }
