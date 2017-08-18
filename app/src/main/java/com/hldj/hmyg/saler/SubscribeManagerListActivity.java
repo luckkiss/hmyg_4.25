@@ -1,18 +1,5 @@
 package com.hldj.hmyg.saler;
 
-import java.util.ArrayList;
-
-import me.drakeet.materialdialog.MaterialDialog;
-import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
-import net.tsz.afinal.FinalBitmap;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -38,6 +25,20 @@ import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
 import com.hldj.hmyg.saler.bean.Subscribe;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+
+import net.tsz.afinal.FinalBitmap;
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import me.drakeet.materialdialog.MaterialDialog;
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 public class SubscribeManagerListActivity extends NeedSwipeBackActivity {
 	ArrayList<Subscribe> datas = new ArrayList<Subscribe>();
@@ -112,14 +113,7 @@ public class SubscribeManagerListActivity extends NeedSwipeBackActivity {
 				case R.id.btn_back:
 					onBackPressed();
 					break;
-				case R.id.iv_add_adress:
-					Intent toAddAdressActivity = new Intent(
-							SubscribeManagerListActivity.this,
-							AddAdressActivity.class);
-					startActivityForResult(toAddAdressActivity, 1);
-					overridePendingTransition(R.anim.slide_in_left,
-							R.anim.slide_out_right);
-					break;
+
 
 				case R.id.tv_manager:
 					tv_finish.setVisibility(View.VISIBLE);

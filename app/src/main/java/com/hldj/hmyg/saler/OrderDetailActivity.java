@@ -1,18 +1,7 @@
 package com.hldj.hmyg.saler;
 
-import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
-import net.tsz.afinal.FinalBitmap;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -23,15 +12,22 @@ import android.widget.Toast;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.Data;
-import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.buyer.BuyOrderBean;
 import com.hldj.hmyg.buyer.LoadCarListActivity;
-import com.hldj.hmyg.buyer.OrderReceiptListActivity;
-import com.hldj.hmyg.buyer.ReceiptListActivity;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ValueGetInfo;
 import com.zzy.flowers.widget.popwin.EditP2;
+
+import net.tsz.afinal.FinalBitmap;
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 public class OrderDetailActivity extends NeedSwipeBackActivity {
 
@@ -315,20 +311,20 @@ public class OrderDetailActivity extends NeedSwipeBackActivity {
 				case R.id.btn_back:
 					onBackPressed();
 					break;
-				case R.id.ll_01:
-					if (bean != null) {
-						Intent toReceiptListActivity = new Intent(
-								OrderDetailActivity.this,
-								OrderReceiptListActivity.class);
-						toReceiptListActivity.putExtra("from",
-								"OrderDetailActivity");
-						toReceiptListActivity.putExtra("id", id);
-						toReceiptListActivity.putExtra("status",
-								bean.getStatus());
-						startActivity(toReceiptListActivity);
-					}
+//				case R.id.ll_01:
+//					if (bean != null) {
+//						Intent toReceiptListActivity = new Intent(
+//								OrderDetailActivity.this,
+//								OrderReceiptListActivity.class);
+//						toReceiptListActivity.putExtra("from",
+//								"OrderDetailActivity");
+//						toReceiptListActivity.putExtra("id", id);
+//						toReceiptListActivity.putExtra("status",
+//								bean.getStatus());
+//						startActivity(toReceiptListActivity);
+//					}
 
-					break;
+//					break;
 				case R.id.ll_add_car_detail:
 					Intent toLoadCarListActivity = new Intent(
 							OrderDetailActivity.this, LoadCarListActivity.class);

@@ -192,6 +192,7 @@
 -keep class * {
 @com.hldj.hmyg.util.NotProguard <fields>;
 }
+#-keepclassmembers class * {
 -keepclassmembers class * {
 @com.hldj.hmyg.util.NotProguard <methods>;
 }
