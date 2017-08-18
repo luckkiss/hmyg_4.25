@@ -51,7 +51,6 @@ import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
-import com.hldj.hmyg.util.NotProguard;
 import com.hldj.hmyg.widget.MySwipeRefreshLayout;
 import com.hldj.hmyg.widget.UPMarqueeView;
 import com.hy.utils.GetServerUrl;
@@ -87,7 +86,7 @@ import me.hwang.library.widgit.SmartRefreshLayout;
 /**
  * change a list hellow world
  */
-@NotProguard
+//@NotProguard
 @SuppressLint("NewApi")
 public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 

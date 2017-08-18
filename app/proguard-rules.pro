@@ -1,3 +1,8 @@
+
+
+
+
+
 # Add project specific ProGuard rules here.
 # By default, the flags in this file are appended to flags specified
 # in /Users/zhangshaowen/Library/Android/sdk/tools/proguard/proguard-android.txt
@@ -184,18 +189,29 @@
 
 
 #-----------处理第三方依赖库---------
+#手动启用support keep注解
+#http://tools.android.com/tech-docs/support-annotations
+-dontskipnonpubliclibraryclassmembers
+-printconfiguration
+-keep,allowobfuscation @interface android.support.annotation.Keep
+
+-keep @android.support.annotation.Keep class *
+-keepclassmembers class * {
+    @android.support.annotation.Keep *;
+}
 
 
 #-----------通过注解同意过滤处理---------
 # keep annotated by NotProguard
--keep @com.hldj.hmyg.util.NotProguard class * {*;}
--keep class * {
-@com.hldj.hmyg.util.NotProguard <fields>;
-}
+#-keep @com.hldj.hmyg.util.NotProguard class * {*;}
+#-keep class * {
+#@com.hldj.hmyg.util.NotProguard <fields>;
+#}
+#-keep
+##-keepclassmembers class * {
 #-keepclassmembers class * {
--keepclassmembers class * {
-@com.hldj.hmyg.util.NotProguard <methods>;
-}
+#@com.hldj.hmyg.util.NotProguard <methods>;
+#}
 #-----------通过注解同意过滤处理---------
 
 
@@ -216,7 +232,7 @@
 -keep class com.hldj.hmyg.model.** { *;}
 -keep class com.hldj.hmyg.saler.bean.** { *;}
 -keep class com.hldj.hmyg.saler.M.** { *;}
-#-keep class com.autoscrollview.adapter.** { *;}
+-keep class com.autoscrollview.adapter.** { *;}
 
 
 -keepattributes Exceptions,InnerClasses,...

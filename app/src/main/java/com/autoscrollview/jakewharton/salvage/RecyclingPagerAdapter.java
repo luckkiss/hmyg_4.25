@@ -5,13 +5,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
-import com.hldj.hmyg.util.NotProguard;
-
 /**
  * A {@link PagerAdapter} which behaves like an {@link android.widget.Adapter} with view types and
  * view recycling.
  */
-@NotProguard
+//@NotProguard
 public abstract class RecyclingPagerAdapter extends PagerAdapter {
   static final int IGNORE_ITEM_VIEW_TYPE = AdapterView.ITEM_VIEW_TYPE_IGNORE;
 

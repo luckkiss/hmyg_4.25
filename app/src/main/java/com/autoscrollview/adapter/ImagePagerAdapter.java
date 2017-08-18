@@ -10,6 +10,7 @@ package com.autoscrollview.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Keep;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,13 +37,12 @@ import java.util.List;
 /**
  * ImagePagerAdapter
  */
-@NotProguard
+@Keep
 public class ImagePagerAdapter extends RecyclingPagerAdapter {
 
     private static final String TAG = "ImagePagerAdapter";
     private Context context;
 
-    @NotProguard
     private List<HashMap<String, Object>> imageIdList;
 
     private int size;
@@ -158,7 +158,6 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
         public String sourceId = "";
     }
 
-    @NotProguard
     private static class ViewHolder {
 
         ImageView imageView;
