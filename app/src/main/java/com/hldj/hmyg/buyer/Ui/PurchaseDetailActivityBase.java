@@ -108,6 +108,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
      */
     public void initDatas(SaveSeedingGsonBean saveSeedingGsonBean) {
         boolean canQuote = saveSeedingGsonBean.getData().canQuote;
+        boolean isOneQuote = saveSeedingGsonBean.getData().isOneQuote;
 
        /*没有权限*/
         if (!canQuote) {
@@ -153,10 +154,9 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
             initProtocol(typeListBeen);
 //          initAutoLayout(typeListBeen);
         }
-
-
         List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> plantTypeListBeen = saveSeedingGsonBean.getData().getPlantTypeList();
         initAutoLayout2(plantTypeListBeen);
+        onlyOneQuote(isOneQuote,mIsQuoted);
 
     }
 
@@ -179,6 +179,12 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
      * @param item
      */
 
+    /**
+     * 是否只能一次报价  --- 默认否，可多次报价
+     *
+     * @param isOneQuote
+     */
+    public abstract void onlyOneQuote(boolean isOneQuote,boolean isQuoted);
 
     //step 1
     public void initItem(ItemBean item) {
@@ -360,7 +366,6 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
     }
 
 
-
     private ViewHolder viewHolder_pur;
 
     public ViewHolder getViewHolder_pur() {
@@ -392,12 +397,13 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
     }
 
     public abstract View getBootomBiew();
+
     public abstract View getHeadView();
 
 
     protected class ViewHolder {
 
-//        public TextView tv_title;
+        //        public TextView tv_title;
         public ImageView btn_back;
         public SuperTextView tv_purchase_address;
         public SuperTextView tv_purchase_close_date;

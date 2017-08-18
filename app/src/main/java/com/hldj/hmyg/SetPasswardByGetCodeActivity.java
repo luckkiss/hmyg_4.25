@@ -396,7 +396,9 @@ public class SetPasswardByGetCodeActivity extends NeedSwipeBackActivity {
 
 
     public boolean getExtral() {
-        return getIntent().getBooleanExtra(TAG, true);
+        boolean isTrue = getIntent().getBooleanExtra(TAG, true);
+        if (isTrue) setText(getView(R.id.tv_title_pwd), "忘记密码");
+        return isTrue;
     }
 
     /**

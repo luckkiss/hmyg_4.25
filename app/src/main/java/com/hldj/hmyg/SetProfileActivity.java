@@ -428,14 +428,18 @@ public class SetProfileActivity extends BaseActivity implements
                             + mCurrentDistrictName + "\u0020";
                     coCitycityCode = mCurrentZipCode;
                     tv_cocity.setText(coCityfullName);
-                    if (!SetProfileActivity.this.isFinishing()
-                            && dialog != null) {
+
+                    if (!SetProfileActivity.this.isFinishing() && dialog != null) {
                         if (dialog.isShowing()) {
                             dialog.cancel();
                         } else {
                             dialog.show();
                         }
                     }
+
+                    //重置  街道信息  需要再次选择
+                    resetCountry();
+
 
                 }
             });
@@ -670,6 +674,15 @@ public class SetProfileActivity extends BaseActivity implements
                         + mCurrentDistrictName + "," + mCurrentZipCode,
                 Toast.LENGTH_SHORT).show();
     }
+
+    /**
+     * 初始化   街道内容
+     */
+    public void resetCountry() {
+        twCitycityCode = "";
+        tv_twcity.setText("未选择");
+    }
+
 
     //获取个人信息
     public void getUserInfo(LoginGsonBean loginGsonBean) {

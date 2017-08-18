@@ -35,11 +35,14 @@ import com.flyco.animation.BaseAnimatorSet;
 import com.flyco.animation.BounceEnter.BounceTopEnter;
 import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
+import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.PermissionUtils;
+import com.hldj.hmyg.bean.UserInfoGsonBean;
 import com.hldj.hmyg.buy.bean.CollectCar;
+import com.hldj.hmyg.presenter.LoginPresenter;
 import com.hldj.hmyg.saler.StorageSaveActivity;
 import com.hldj.hmyg.update.UpdateDialog;
 import com.hldj.hmyg.util.ConstantState;
@@ -251,6 +254,8 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                 }
             }
         }
+
+        requestUserInfo();
 
     }
 
@@ -745,6 +750,24 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         });
     }
 
+
+    private void requestUserInfo() {
+        if (GetServerUrl.isTest) {
+            ToastUtil.showShortToast("测试时显示\n请求 个人数据");
+        }
+        LoginPresenter.getUserInfo(MyApplication.Userinfo.getString("id", ""), new ResultCallBack<UserInfoGsonBean>() {
+            @Override
+            public void onSuccess(UserInfoGsonBean userInfoGsonBean) {
+                D.e("========获取个人数据=====userInfoGsonBean=====" + userInfoGsonBean.toString());
+                ToastUtil.showShortToast("测试时显示\n请求 个人数据"+userInfoGsonBean.toString());
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                D.e("=========strMsg=========" + strMsg);
+            }
+        });
+    }
 
     public static AMapLocation alocation;
     public static String latitude = "0.0";

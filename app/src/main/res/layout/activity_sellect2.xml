@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@color/gray_bg_ed"
+        android:background="@color/gray_bg"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -52,6 +52,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
+            android:clickable="true"
             android:drawableRight="@drawable/arrow_right"
             android:gravity="center_vertical"
             android:onClick="importWords"

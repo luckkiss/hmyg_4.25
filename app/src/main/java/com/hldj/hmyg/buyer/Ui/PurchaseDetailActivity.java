@@ -41,6 +41,7 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.TakePhotoUtil;
 import com.hldj.hmyg.widget.AutoAddRelative;
+import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 import com.zf.iosdialog.widget.AlertDialog;
 
@@ -822,6 +823,31 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 //        mActivity.startActivity(toMarketListActivity);
     }
 
+
+    /**
+     * 是否单次报价
+     *
+     * @param isOneQuote
+     */
+    @Override
+    public void onlyOneQuote(boolean isOneQuote, boolean isQuoted) {
+//        ToastUtil.showShortToast("是否只能一次报价" + isOneQuote + "\n" + "  是否报过价格 " + isQuoted);
+        if (GetServerUrl.isTest)
+            ToastUtil.showShortToast("测试时显示" + "\n" + "是否只能一次报价" + isOneQuote + "\n" + "  是否报过价格 " + isQuoted);
+
+        if (isOneQuote && isQuoted) {
+            //如果是单次报价。。。并且 。。。已经报价   则   隐藏bottom
+            bottomBiew.setVisibility(View.GONE);
+            D.e("=onlyOneQuote=隐藏bottom==");
+        } else {
+            D.e("==onlyOneQuote= 无操作=");
+            bottomBiew.setVisibility(View.VISIBLE);
+        }
+
+//        isOne  = !isOne;
+    }
+
+//    public static boolean isOne = false ;
 
     @Override
     public void desposeNoPermission() {
