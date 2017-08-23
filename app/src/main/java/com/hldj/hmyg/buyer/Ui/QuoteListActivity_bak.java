@@ -72,15 +72,19 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
                     protected void convert(BaseViewHolder helper, QuoteListBean item) {
                         D.e("==hellow world==");
                         initRecycleItem(helper, item);
+                        hindLoading();
                     }
                 })
+                .closeRefresh()
                 .openLoadMore(1000, page -> {
                     D.e("==hellow world==");
+                    showLoading();
                     getDatas();
                 })
                 .addRefreshListener(() -> {
                     D.e("==refresh==");
                 })
+                .closeDefaultEmptyView()
                 .openRefresh();
 
     }
@@ -187,10 +191,14 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
 //              quoteList  recycle_quit
                 recycle_quit.getAdapter().addData(saveSeedingGsonBean.data.quoteList);
 
+                hindLoading();
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
+                hindLoading();
+                ToastUtil.showShortToast("网络错误");
 
             }
         })

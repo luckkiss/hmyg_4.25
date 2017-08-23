@@ -2,9 +2,10 @@ package com.hldj.hmyg.buyer.weidet;
 
 import android.animation.Animator;
 import android.content.Context;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,19 +17,20 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.buyer.weidet.animation.BaseAnimation;
 import com.hldj.hmyg.buyer.weidet.listener.OnItemClickListener;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.widget.swipeview.MySwipeRefreshLayout;
 
 
 /**
  * Created by 罗擦擦 on 16/11/1.
  */
 
-public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.RequestLoadMoreListener, MySwipeRefreshLayout.SHSOnRefreshListener {
     private RecyclerView mRecyclerView;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private MySwipeRefreshLayout mSwipeRefreshLayout;
     BaseQuickAdapter mQuickAdapter;
     addDataListener addDataListener;
     RefreshListener refreshListener;
-
+    private SwipeViewHeader mViewHeader;
 
     public CoreRecyclerView addRefreshListener(RefreshListener refreshListener) {
         this.refreshListener = refreshListener;
@@ -64,10 +66,15 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         addView(view);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeLayout);
+        mSwipeRefreshLayout = (MySwipeRefreshLayout) findViewById(R.id.swipeLayout);
         mSwipeRefreshLayout.setEnabled(false);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
+        mSwipeRefreshLayout.setRefreshEnable(false);
+        mSwipeRefreshLayout. setLoadmoreEnable(false);
+        mViewHeader = new SwipeViewHeader(context);
+        mSwipeRefreshLayout.setHeaderView(mViewHeader);
+//        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_list);
+
         return this;
     }
 
@@ -127,7 +134,35 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
         }
         mQuickAdapter.openLoadMore(mQuickAdapter.getPageSize());
         mQuickAdapter.removeAllFooterView();
-        mSwipeRefreshLayout.setRefreshing(true);
+//        mSwipeRefreshLayout.setRefreshing(true);
+    }
+
+    @Override
+    public void onLoading() {
+
+    }
+
+    @Override
+    public void onRefreshPulStateChange(float parent, int state) {
+        switch (state) {
+            case MySwipeRefreshLayout.NOT_OVER_TRIGGER_POINT:
+//                mViewHeader.setLoaderViewText("下拉刷新");
+                mViewHeader.setState(0);
+                break;
+            case MySwipeRefreshLayout.OVER_TRIGGER_POINT:
+//                swipeRefreshLayout.setLoaderViewText("松开刷新");
+                mViewHeader.setState(1);
+                break;
+            case MySwipeRefreshLayout.START:
+//                swipeRefreshLayout.setLoaderViewText("正在刷新");
+                mViewHeader.setState(2);
+                break;
+        }
+    }
+
+    @Override
+    public void onLoadmorePullStateChange(float var1, int var2) {
+
     }
 
     @Override
@@ -313,7 +348,14 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
 
     public CoreRecyclerView openRefresh() {
         mSwipeRefreshLayout.setEnabled(true);
+        mSwipeRefreshLayout.setRefreshEnable(true);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        return this;
+    }
+
+    public CoreRecyclerView closeRefresh() {
+        mSwipeRefreshLayout.setRefreshEnable(false);
+        mSwipeRefreshLayout.setOnRefreshListener(null);
         return this;
     }
 
@@ -326,18 +368,37 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
     }
 
     public CoreRecyclerView selfRefresh(boolean b) {
-        mSwipeRefreshLayout.setRefreshing(b);
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            new Handler().postDelayed(() -> mSwipeRefreshLayout.finishRefresh(), 500);
+            mViewHeader.setState(3);
+        }
         return this;
     }
 
     public CoreRecyclerView selfRefresh(boolean b, String errMsg) {
-        mSwipeRefreshLayout.setRefreshing(b);
+        this.selfRefresh(b);
         TextView tv_empty_err = (TextView) mQuickAdapter.getEmptyView().findViewById(R.id.t_emptyTextView);
         if (tv_empty_err != null) {
-            tv_empty_err.setText(errMsg);
+            if (!TextUtils.isEmpty(errMsg))
+                tv_empty_err.setText(errMsg);
         }
         return this;
     }
+
+
+    public CoreRecyclerView setNoData(String erMst) {
+        this.setDefaultEmptyView();
+        this.selfRefresh(false, erMst);
+        this.getAdapter().notifyDataSetChanged();
+        return this;
+    }
+
+    public boolean isDataNull() {
+
+        return this.getAdapter().getData().size() == 0;
+
+    }
+
 
 }
 

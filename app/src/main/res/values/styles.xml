@@ -340,6 +340,7 @@
     </style>
 
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+        <item name="android:listDivider">@drawable/divider</item>
         <item name="android:windowIsTranslucent">true</item>
         <!-- 设置activity切换动画 -->
         <item name="android:windowAnimationStyle">@style/activityAnimation</item>

@@ -1,8 +1,9 @@
 package com.hldj.hmyg.Ui.myProgramChild.childensFragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 
@@ -28,6 +29,8 @@ import com.weavey.loading.lib.LoadingLayout;
 
 import net.tsz.afinal.http.AjaxCallBack;
 
+import static com.hldj.hmyg.R.id.tv_01;
+
 /**
  * 采购单
  */
@@ -48,10 +51,9 @@ public class ProgramFragment1 extends BaseFragment {
 
     @Override
     protected void initView(View rootView) {
+        showLoading();
         Log.e(TAG, "initView: ");
         coreRecyclerView = (CoreRecyclerView) rootView.findViewById(R.id.recycle_program1);
-
-        showLoading();
 
         myPresenter = new MyPresenter();
 
@@ -60,12 +62,18 @@ public class ProgramFragment1 extends BaseFragment {
             protected void convert(BaseViewHolder helper, PurchaseBean item) {
                 isFirst = false;
                 Log.e(TAG, "convert: " + item.toString());
-                helper.setText(R.id.tv_01, item.num);
+
+                helper.setVisible(R.id.view_top,false);
+
+                String html_source = item.blurProjectName + "采购单";
+                String html_source1 = "(" + item.num + ")";
+                helper.setText(tv_01, Html.fromHtml(html_source + "<font color='#FFA19494'><small>" + html_source1 + "</small></font>"));
+
 //                helper.setText(R.id.tv_01, Html.fromHtml(item.blurProjectName + "采购单" + "<font color='#FFA19494'><small>" + "(" + item.num + ")" + "</small></font>"));
-                helper.setText(R.id.tv_03, item.createDate);
-                helper.setTextColor(R.id.tv_03, ContextCompat.getColor(mActivity, R.color.text_color));
-                helper.setText(R.id.tv_04, item.cityName);//福建莆田
-                helper.setDrawableLeft(R.id.tv_04, R.mipmap.ic_location);
+                helper.setText(R.id.tv_03, item.cityName);
+
+                helper.setText(R.id.tv_04, "采购商家：" + item.buyer.companyName);//福建莆田
+//                helper.setDrawableLeft(R.id.tv_04, R.mipmap.ic_location);
 
                 helper.setVisible(R.id.tv_pos, true);
                 helper.setText(R.id.tv_pos, (helper.getAdapterPosition() + 1) + "");
@@ -101,7 +109,7 @@ public class ProgramFragment1 extends BaseFragment {
             }
         }, false)
                 .openLoadMore(10, page -> {
-
+                    showLoading();
                     myPresenter.getDatas();
 //                    myPresenter.getDatas(getProjectId(),page+"");
 
@@ -175,18 +183,27 @@ public class ProgramFragment1 extends BaseFragment {
                     PurchaseListGsonBean listGsonBean = GsonUtil.formateJson2Bean(json, PurchaseListGsonBean.class);
                     if (listGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
                         coreRecyclerView.getAdapter().addData(listGsonBean.data.purchaseList);
-                        hideLoading(coreRecyclerView);
-                    } else {
-                        hideLoading(LoadingLayout.Error, listGsonBean.msg);
-                    }
 
+                        new Handler().postDelayed(() -> {
+                            hideLoading(coreRecyclerView);
+                        }, 400);
+
+                    } else {
+                        new Handler().postDelayed(() -> {
+                            hideLoading(LoadingLayout.Error, listGsonBean.msg);
+                        }, 200);
+
+                    }
                     coreRecyclerView.selfRefresh(false);
                 }
 
                 @Override
                 public void onFailure(Throwable t, int errorNo, String strMsg) {
                     coreRecyclerView.selfRefresh(false);
-                    hideLoading(LoadingLayout.No_Network);
+
+                    new Handler().postDelayed(() -> {
+                        hideLoading(LoadingLayout.No_Network);
+                    }, 200);
                 }
             };
             doRequest("admin/project/purchaseList", true, ajaxCallBack);

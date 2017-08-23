@@ -67,11 +67,17 @@
     </LinearLayout>
 
 
-    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
-        android:id="@+id/store_recycle"
+    <com.weavey.loading.lib.LoadingLayout
+        android:id="@+id/store_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:isFirstVisible="true">
 
+        <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+            android:id="@+id/store_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+    </com.weavey.loading.lib.LoadingLayout>
 </LinearLayout>

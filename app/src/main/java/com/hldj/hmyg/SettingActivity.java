@@ -1,6 +1,7 @@
 package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
@@ -21,8 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flyco.animation.BaseAnimatorSet;
-import com.flyco.animation.BounceEnter.BounceTopEnter;
-import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
@@ -59,13 +58,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
     private BaseAnimatorSet mBasOut;
 
     // 更新版本要用到的一些信息
-    public void setBasIn(BaseAnimatorSet bas_in) {
-        this.mBasIn = bas_in;
-    }
 
-    public void setBasOut(BaseAnimatorSet bas_out) {
-        this.mBasOut = bas_out;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,8 +110,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
             }
         });
 
-        mBasIn = new BounceTopEnter();
-        mBasOut = new SlideBottomExit();
+
         e = MyApplication.Userinfo.edit();
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -512,27 +504,28 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                         getVersion();
                         break;
                     case R.id.tv_out:
-                        e.putBoolean("isLogin", false);
-                        e.putString("showUserName", "");
-                        e.clear(); // 清除所有登录数据
-                        e.commit();
-                        e.putBoolean("notification",
-                                newMsgAlertStatusOnOff.isIsOpen());
-                        e.commit();
-                        setResult(6);
-
-                        //把userbean 存入 application 中
-//					SPUtil.clear( SPUtils.UserBean,SettingActivity.this);
-                        SPUtil.remove(SettingActivity.this, SPUtils.UserBean);
-                        MyApplication.setUserBean(null);
-
-
-                        D.e("===" + SPUtil.get(SettingActivity.this, SPUtils.UserBean, "").toString());
-
-                        D.e("====" + MyApplication.getUserBean());
-
-                        finish();
-                        MainActivity.toA();
+                        exit2Home(mActivity, e, true);
+//                        e.putBoolean("isLogin", false);
+//                        e.putString("showUserName", "");
+//                        e.clear(); // 清除所有登录数据
+//                        e.commit();
+//                        e.putBoolean("notification",
+//                                newMsgAlertStatusOnOff.isIsOpen());
+//                        e.commit();
+//                        setResult(6);
+//
+//                        //把userbean 存入 application 中
+////					SPUtil.clear( SPUtils.UserBean,SettingActivity.this);
+//                        SPUtil.remove(SettingActivity.this, SPUtils.UserBean);
+//                        MyApplication.setUserBean(null);
+//
+//
+//                        D.e("===" + SPUtil.get(SettingActivity.this, SPUtils.UserBean, "").toString());
+//
+//                        D.e("====" + MyApplication.getUserBean());
+//
+//                        finish();
+//                        MainActivity.toA();
                         break;
 
                     default:
@@ -543,6 +536,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                 new TimeThread().start();
             }
         }
+
 
         /**
          * 计时线程（防止在一定时间段内重复点击按钮）
@@ -560,7 +554,38 @@ public class SettingActivity extends NeedSwipeBackActivity implements
     }
 
 
+    public static void exit2Home(Activity context, Editor editor, boolean shouldFinish) {
+        editor.putBoolean("isLogin", false);
+        editor.putString("showUserName", "");
+        editor.clear(); // 清除所有登录数据
+        editor.commit();
+        editor.putBoolean("notification", false);
+        editor.commit();
+        context.setResult(6);
+
+        //把userbean 存入 application 中
+//					SPUtil.clear( SPUtils.UserBean,SettingActivity.this);
+        SPUtil.remove(context, SPUtils.UserBean);
+        MyApplication.setUserBean(null);
+
+
+        D.e("===" + SPUtil.get(context, SPUtils.UserBean, "").toString());
+
+        D.e("====" + MyApplication.getUserBean());
+
+        if (shouldFinish) {
+            context.finish();
+            MainActivity.toA();
+        } else {
+//            LoginActivity.start2Activity(context);
+            MainActivity.toA();
+        }
+
+
+    }
+
     public static void start2Activity(Context mActivity) {
         mActivity.startActivity(new Intent(mActivity, SettingActivity.class));
     }
+
 }

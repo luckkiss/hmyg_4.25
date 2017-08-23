@@ -125,7 +125,7 @@
             android:visibility="gone" />
     </LinearLayout>
 
-    <com.neopixl.pixlui.components.textview.TextView
+    <TextView
         android:id="@+id/login_note"
         android:layout_width="fill_parent"
         android:layout_height="40dp"

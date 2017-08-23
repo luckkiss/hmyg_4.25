@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:foreground="?attr/selectableItemBackground"
     android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
     android:orientation="vertical">
 
 
@@ -82,12 +82,12 @@
         android:id="@+id/item_program_trans_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
         android:layout_marginTop="6dp"
         android:textColor="@color/price_orige"
         app:layout_constraintLeft_toRightOf="@+id/textView14"
         app:layout_constraintTop_toBottomOf="@+id/item_program_car_card"
-        tools:text="￥2500"
-        android:layout_marginLeft="0dp" />
+        tools:text="￥2500" />
 
     <TextView
         android:id="@+id/textView16"
@@ -166,12 +166,14 @@
         android:layout_marginRight="13dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/round_rectangle_bg"
-        android:padding="3dp"
         android:foreground="?attr/selectableItemBackground"
+        android:padding="3dp"
         android:text="确认收货"
         android:textColor="@color/main_color"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/item_program_detail"
         app:layout_constraintTop_toBottomOf="@+id/view"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:visibility="visible" />
 </android.support.constraint.ConstraintLayout>

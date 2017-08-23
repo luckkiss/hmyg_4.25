@@ -1,6 +1,6 @@
 //package com.hldj.hmyg.saler.purchaseconfirmlist;
 //
-//import info.hoang8f.android.segmented.SegmentedGroup;
+//import com.hldj.hmyg.widget.SegmentedGroup;
 //
 //import java.util.ArrayList;
 //import java.util.Date;

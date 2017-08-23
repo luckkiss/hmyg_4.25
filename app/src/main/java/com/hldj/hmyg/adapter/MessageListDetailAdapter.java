@@ -17,9 +17,7 @@ import android.widget.TextView;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Message;
-import com.hldj.hmyg.buyer.LoadCarListActivity2;
-import com.hldj.hmyg.buyer.ManagerPurchaseActivity;
-import com.hldj.hmyg.saler.OrderDetailActivity;
+
 import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
 
 import java.util.ArrayList;
@@ -133,25 +131,20 @@ public class MessageListDetailAdapter extends BaseAdapter {
                                 R.anim.slide_in_left, R.anim.slide_out_right);
                     }
                     // 经纪发货通知，跳转到发车信息列表
-                    else if ("sendLoadCar".equals(data.get(position)
-                            .getContentType())) {
-                        Intent sendLoadCar = new Intent(context,
-                                LoadCarListActivity2.class);
-                        sendLoadCar.putExtra("status", "unreceipt");
-                        sendLoadCar.putExtra("loadItems", true);
-                        context.startActivity(sendLoadCar);
-                    }
+//                    else if ("sendLoadCar".equals(data.get(position) .getContentType())) {
+//                        Intent sendLoadCar = new Intent(context,
+//                                LoadCarListActivity2.class);
+//                        sendLoadCar.putExtra("status", "unreceipt");
+//                        sendLoadCar.putExtra("loadItems", true);
+//                        context.startActivity(sendLoadCar);
+//                    }
 
                     // 审核采购单，跳转到采购详情
-                    else if ("auditPurchase".equals(data.get(position)
-                            .getContentType())) {
-                        Intent toManagerPurchaseActivity = new Intent(context,
-                                ManagerPurchaseActivity.class);
-                        context
-                                .startActivity(toManagerPurchaseActivity);
-                        ((Activity) context).overridePendingTransition(
-                                R.anim.slide_in_left, R.anim.slide_out_right);
-                    }
+//                    else if ("auditPurchase".equals(data.get(position) .getContentType())) {
+//                        Intent toManagerPurchaseActivity = new Intent(context,  ManagerPurchaseActivity.class);
+//                        context  .startActivity(toManagerPurchaseActivity);
+//                        ((Activity) context).overridePendingTransition(   R.anim.slide_in_left, R.anim.slide_out_right);
+//                    }
 
 
                 }
@@ -193,50 +186,50 @@ public class MessageListDetailAdapter extends BaseAdapter {
                         context.startActivity(useQuote);
                     }
                     // 订单创建，跳转销售订单的详情
-                    else if ("orderCreated".equals(data.get(position)
-                            .getContentType())) {
-                        Intent orderCreated = new Intent(context,
-                                OrderDetailActivity.class);
-                        orderCreated.putExtra("id", data.get(position)
-                                .getSourceId());
-                        context.startActivity(orderCreated);
-                    }
+//                    else if ("orderCreated".equals(data.get(position)
+//                            .getContentType())) {
+//                        Intent orderCreated = new Intent(context,
+//                                OrderDetailActivity.class);
+//                        orderCreated.putExtra("id", data.get(position)
+//                                .getSourceId());
+//                        context.startActivity(orderCreated);
+//                    }
                     // 订单付款，跳转销售订单的详情
-                    else if ("orderAssurePay".equals(data.get(position)
-                            .getContentType())) {
-                        Intent orderAssurePay = new Intent(context,
-                                OrderDetailActivity.class);
-                        orderAssurePay.putExtra("id", data.get(position)
-                                .getSourceId());
-                        context.startActivity(orderAssurePay);
-                    }
+//                    else if ("orderAssurePay".equals(data.get(position)
+//                            .getContentType())) {
+//                        Intent orderAssurePay = new Intent(context,
+//                                OrderDetailActivity.class);
+//                        orderAssurePay.putExtra("id", data.get(position)
+//                                .getSourceId());
+//                        context.startActivity(orderAssurePay);
+//                    }
                     // 订单创建，跳转到销售订单详情
-                    else if ("orderCreated".equals(data.get(position)
-                            .getContentType())) {
-                        Intent orderCreated = new Intent(context,
-                                OrderDetailActivity.class);
-                        orderCreated.putExtra("id", data.get(position)
-                                .getSourceId());
-                        context.startActivity(orderCreated);
-                    }
+//                    else if ("orderCreated".equals(data.get(position)
+//                            .getContentType())) {
+//                        Intent orderCreated = new Intent(context,
+//                                OrderDetailActivity.class);
+//                        orderCreated.putExtra("id", data.get(position)
+//                                .getSourceId());
+//                        context.startActivity(orderCreated);
+//                    }
                     // 买家付款，跳转到销售订单详情
-                    else if ("orderPayed".equals(data.get(position)
-                            .getContentType())) {
-                        Intent orderPayed = new Intent(context,
-                                OrderDetailActivity.class);
-                        orderPayed.putExtra("id", data.get(position)
-                                .getSourceId());
-                        context.startActivity(orderPayed);
-                    }
+//                    else if ("orderPayed".equals(data.get(position)
+//                            .getContentType())) {
+//                        Intent orderPayed = new Intent(context,
+//                                OrderDetailActivity.class);
+//                        orderPayed.putExtra("id", data.get(position)
+//                                .getSourceId());
+//                        context.startActivity(orderPayed);
+//                    }
                     // 买家确认收货（担保购，放心购的订单），跳转到销售订单详情
-                    else if ("orderTradeType".equals(data.get(position)
-                            .getContentType())) {
-                        Intent orderTradeType = new Intent(context,
-                                OrderDetailActivity.class);
-                        orderTradeType.putExtra("id", data.get(position)
-                                .getSourceId());
-                        context.startActivity(orderTradeType);
-                    }
+//                    else if ("orderTradeType".equals(data.get(position)
+//                            .getContentType())) {
+//                        Intent orderTradeType = new Intent(context,
+//                                OrderDetailActivity.class);
+//                        orderTradeType.putExtra("id", data.get(position)
+//                                .getSourceId());
+//                        context.startActivity(orderTradeType);
+//                    }
                 }
                 // 经纪
                 else if ("agent".equals(data.get(position).getTargetUserType())) {

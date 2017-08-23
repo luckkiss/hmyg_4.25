@@ -191,7 +191,7 @@
                 android:gravity="end|center"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:text="规格要求:"
+                android:text="报价规格:"
                 android:textSize="12sp" />
 
             <com.coorchice.library.SuperTextView
@@ -199,11 +199,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.8"
-
+                android:gravity="center_vertical"
                 android:minHeight="28dp"
                 android:paddingRight="5dp"
                 android:textSize="12sp"
-                tools:text="134654646134654646134654646134654646134134654646134654646134654646134654646134654646134654646134654646654646134654646134654646" />
+                tools:text="134654664646654646134654646134654646" />
 
 
         </LinearLayout>
@@ -219,7 +219,7 @@
                 android:gravity="end|center"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:text="报价要求:"
+                android:text="报价说明:"
                 android:textSize="12sp" />
 
             <com.coorchice.library.SuperTextView

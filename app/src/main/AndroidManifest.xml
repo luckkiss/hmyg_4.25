@@ -301,11 +301,6 @@
             android:name="com.hldj.hmyg.buyer.SaveReturnApplyActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="com.hldj.hmyg.buyer.SaveReceipptActivity"
-            android:screenOrientation="portrait"></activity>
-
-
-        <activity
             android:name="com.hldj.hmyg.saler.QuoteDetailActivity"
             android:screenOrientation="portrait"></activity>
         <activity

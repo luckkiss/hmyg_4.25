@@ -24,7 +24,7 @@
             android:layout_height="40.0dip"
             android:orientation="horizontal" >
 
-            <com.neopixl.pixlui.components.textview.TextView
+            <TextView
                 android:id="@+id/tv_01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                 android:textColor="@color/black"
                 android:textSize="15.0sp" />
 
-            <com.neopixl.pixlui.components.textview.TextView
+            <TextView
                 android:id="@+id/tv_ac"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

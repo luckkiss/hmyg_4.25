@@ -1,6 +1,6 @@
 package com.hldj.hmyg.buyer;
 
-import info.hoang8f.android.segmented.SegmentedGroup;
+import com.hldj.hmyg.widget.SegmentedGroup;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;

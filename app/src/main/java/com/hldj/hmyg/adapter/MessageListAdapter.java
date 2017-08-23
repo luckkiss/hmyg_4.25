@@ -1,9 +1,5 @@
 package com.hldj.hmyg.adapter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import net.tsz.afinal.FinalBitmap;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -14,13 +10,17 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
-import cn.bingoogolapple.badgeview.BGABadgeViewHelper.BadgeGravity;
 
 import com.hldj.hmyg.MessageListDetailActivity;
 import com.hldj.hmyg.R;
+
+import net.tsz.afinal.FinalBitmap;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 
 @SuppressLint("ResourceAsColor")
 public class MessageListAdapter extends BaseAdapter {
@@ -31,7 +31,7 @@ public class MessageListAdapter extends BaseAdapter {
 	private Context context = null;
 	private FinalBitmap fb;
 
-	private BGABadgeLinearLayout ll_yanmiao_nei_01;
+
 
 	public MessageListAdapter(Context context,
 			ArrayList<HashMap<String, Object>> data) {
@@ -56,11 +56,12 @@ public class MessageListAdapter extends BaseAdapter {
 		return position;
 	}
 
+    LinearLayout ll_yanmiao_nei_01 ;
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View inflate = LayoutInflater.from(context).inflate(
 				R.layout.list_item_message, null);
-		ll_yanmiao_nei_01 = (BGABadgeLinearLayout) inflate
+		ll_yanmiao_nei_01 = (LinearLayout) inflate
 				.findViewById(R.id.ll_yanmiao_nei_01);
 		TextView tv_name = (TextView) inflate.findViewById(R.id.tv_name);
 		TextView tv_message = (TextView) inflate.findViewById(R.id.tv_message);
@@ -81,10 +82,10 @@ public class MessageListAdapter extends BaseAdapter {
 				.toString());
 
 		if (Integer.parseInt(data.get(position).get("count").toString()) > 0) {
-			ll_yanmiao_nei_01.showTextBadge(data.get(position).get("count")
-					.toString());
-			ll_yanmiao_nei_01.getBadgeViewHelper().setBadgeGravity(
-					BadgeGravity.RightTop);
+//			ll_yanmiao_nei_01.showTextBadge(data.get(position).get("count")
+//					.toString());
+//			ll_yanmiao_nei_01.getBadgeViewHelper().setBadgeGravity(
+//					BadgeGravity.RightTop);
 			tv_num.setText(data.get(position).get("count").toString());
 		}
 		inflate.setOnClickListener(new OnClickListener() {

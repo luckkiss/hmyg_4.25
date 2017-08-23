@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
@@ -71,8 +72,11 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_b_to_toolbar_test);
         bitmap = FinalBitmap.create(this);
+
+
         initViewClick();
         recyclerView1 = (CoreHeadRecyclerView) findViewById(R.id.core_rv_b);
+
         recyclerView1.getRecyclerView().setHasFixedSize(true);
         recyclerView1.getRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
@@ -96,8 +100,8 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
                     FlowerDetailActivity.start2Activity(BActivity_new_test.this, "seedling_list", item.id);
                 });
             }
-        }).setDefaultEmptyView()
-
+        })
+//                .setDefaultEmptyView()
                 .openLoadMore(getQueryBean().pageSize, page -> {
                     showLoading();
                     queryBean.pageIndex = page;
@@ -107,6 +111,12 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
                 .selfRefresh(true);
         getExtras();//在初始化数据之前
 
+
+        LinearLayout view = new LinearLayout(mActivity);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, 100);
+        view.setLayoutParams(params);
+
+        recyclerView1.addFooterView(view);
         recyclerView1.onRefresh();
 
     }
@@ -469,13 +479,17 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
                         recyclerView1.selfRefresh(false);
                         D.e("==============");
                         recyclerView1.getAdapter().addData(pageBean);
+
+                        if (recyclerView1.isDataNull()) {
+                            recyclerView1.setNoData("");
+                        }
                         hindLoading();
                     }
 
                     @Override
                     public void onFailure(Throwable t, int errorNo, String strMsg) {
                         D.e("==============");
-                        recyclerView1.selfRefresh(false);
+                        recyclerView1.setNoData("网络异常...");
                         hindLoading();
                     }
                 });
@@ -573,4 +587,6 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 //        recyclerView1.selfRefresh(true);
 //        new Handler().postDelayed(() -> initData(), 600);
     }
+
+
 }

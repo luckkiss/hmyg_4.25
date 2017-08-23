@@ -35,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,7 +64,6 @@ import com.hy.utils.ToastUtil;
 import com.hy.utils.ValueGetInfo;
 import com.javis.ab.view.AbOnItemClickListener;
 import com.javis.ab.view.AbSlidingPlayView;
-import com.neopixl.pixlui.components.relativelayout.RelativeLayout;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -227,6 +227,9 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isFirst = true;
+        /**
+         * 设置状态栏 黑色 并且图片置顶
+         */
         setar();
         showLoading();
 

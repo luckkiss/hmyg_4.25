@@ -426,6 +426,9 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
                             queryBean.searchSpec = mainSpecBean.value;
                             queryBean.specMinValue = getText(getView(R.id.et_sa_type));
 //                                ToastUtil.showShortToast(mainSpecBean.name + " 必须填写");
+                        } else {
+                            queryBean.searchSpec = "";
+                            queryBean.specMinValue = "";
                         }
 //                        }
 //                        queryBean.searchSpec = getText(getView(R.id.et_sa_type));

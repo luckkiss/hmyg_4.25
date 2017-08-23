@@ -19,8 +19,6 @@ import android.widget.Gallery;
 import android.widget.TextView;
 
 import com.flyco.animation.BaseAnimatorSet;
-import com.flyco.animation.BounceEnter.BounceTopEnter;
-import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.hldj.hmyg.application.PermissionUtils;
 import com.hldj.hmyg.bean.Pic;
@@ -107,8 +105,8 @@ public class GalleryImageActivity extends CoreActivity implements
 	@Override
 	protected void doOnCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.gallery_image_layout);
-		mBasIn = new BounceTopEnter();
-		mBasOut = new SlideBottomExit();
+
+
 		currentPage = getIntent().getIntExtra(INTENT_CURRENT_PAGE, 0);
 		Bundle bundle = getIntent().getExtras();
 		urlPaths =( (PicSerializableMaplist) bundle

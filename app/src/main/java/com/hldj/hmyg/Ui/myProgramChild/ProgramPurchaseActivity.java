@@ -81,6 +81,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
     @Override
     public void initView() {
 
+        showLoading();
 
         getView(R.id.sptv_program_do_search).setOnClickListener(view -> {
             searchKey = getSerachText();
@@ -95,8 +96,8 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
             }
         });
         loadingLayout = getView(R.id.loading_layout_program_purchase);
-        showLoading();
-        loadingLayout.setStatus(LoadingLayout.Loading);
+//        showLoading();
+//      loadingLayout.setStatus(LoadingLayout.Loading);
         getView(R.id.tv_activity_purchase_back).setOnClickListener(view -> finish());
         ll_head = getView(R.id.ll_activity_purchase_head);
 
@@ -309,6 +310,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                     helper.setText(R.id.tv_program_purch_price_num, formatUtil.getResult());
 
                     helper.setText(R.id.tv_program_purch_alreay_order, "已采用" + item.quoteUsedCountJson + "条");
+                    helper.setVisible(R.id.iv_program_purch_right_top, item.quoteUsedCountJson != 0);
 
 //                    GetServerUrl.isTest ||
                     helper.setVisible(R.id.tv_program_purch_see_detail, showQuote);//测试时必然显示
@@ -347,11 +349,13 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //R.layout.item_program_purch
         coreRecyclerView.init(itemAdapter)
                 .openLoadMore(10, page -> {
+                    showLoading();
                     if (page == 0) {
                         count = 1;
                     }
                     mPresenter.getData(page + "", getExtral(), searchKey);
                 })
+                .closeDefaultEmptyView()
                 .openRefresh();
 
 
@@ -381,12 +385,6 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
         return true;
     }
 
-
-    @Override
-    public void showLoading() {
-
-        loadingLayout.setStatus(LoadingLayout.Loading);
-    }
 
     //接受传值  传过来  项目 id
     public String getExtral() {

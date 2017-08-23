@@ -31,9 +31,6 @@ import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
-import com.flyco.animation.BaseAnimatorSet;
-import com.flyco.animation.BounceEnter.BounceTopEnter;
-import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.Ui.Eactivity3_0;
@@ -78,8 +75,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     private static TabHost tabHost;
     private static RadioGroup radioderGroup;
     MaterialDialog mMaterialDialog;
-    private BaseAnimatorSet mBasIn;
-    private BaseAnimatorSet mBasOut;
+
     // 更新版本要用到的一些信息
     private ProgressDialog progressDialog;
     private UpdateInfo updateInfo;
@@ -91,13 +87,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
     private String check = "1";
 
-    public void setBasIn(BaseAnimatorSet bas_in) {
-        this.mBasIn = bas_in;
-    }
-
-    public void setBasOut(BaseAnimatorSet bas_out) {
-        this.mBasOut = bas_out;
-    }
 
 
     private ProgressDialog progDialog;
@@ -135,8 +124,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 //         StatusBarCompat.compat(this);// 状态栏
 //         StateBarUtil.setStatusBarIconDark(this,true);
         mMaterialDialog = new MaterialDialog(this);
-        mBasIn = new BounceTopEnter();//进出场动画
-        mBasOut = new SlideBottomExit();//进出场动画
+
         DBOpenHelper dbOpenHelper = new DBOpenHelper(MainActivity.this,//创建数据库
                 DB_NAME, null, DB_VERSION);
         try {
@@ -609,8 +597,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                 //
                 .btnText(getResources().getString(R.string.cancle),
                         getResources().getString(R.string.ok))//
-                .showAnim(mBasIn)//
-                .dismissAnim(mBasOut)//
                 .show();
 
         dialog.setOnBtnClickL(new OnBtnClickL() {// left btn click listener
@@ -786,4 +772,13 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
      */
 
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

@@ -221,7 +221,7 @@
     <!-- PixlUI -->
     <attr name="typeface" format="string" />
 
-    <declare-styleable name="com.neopixl.pixlui.components.textview.TextView">
+    <declare-styleable name="Textview.TextView">
         <attr name="typeface" />
     </declare-styleable>
     <declare-styleable name="com.neopixl.pixlui.components.button.Button">
@@ -348,6 +348,21 @@
 
     <attr format="boolean" name="rvp_singlePageFling"/>
 
+    </declare-styleable>
+
+
+
+
+
+    <declare-styleable name="SHSwipeRefreshLayout">
+        <attr name="guidance_view_bg_color" format="color|reference" />
+        <attr name="guidance_text_color" format="color|reference" />
+        <attr name="progress_bar_color" format="color|reference" />
+        <attr name="progress_bg_color" format="color|reference" />
+        <attr name="refresh_text" format="string|reference" />
+        <attr name="load_text" format="string|reference" />
+        <attr name="pull_refresh_enable" format="boolean" />
+        <attr name="loadmore_enable" format="boolean" />
     </declare-styleable>
 
 

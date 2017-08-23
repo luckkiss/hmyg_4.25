@@ -56,7 +56,11 @@ public class AdressActivity extends BaseMVPActivity<AdressListPresenter, AdressL
             //修改成功
             coreRecyclerView.onRefresh();
             ToastUtil.showShortToast("修改成功");
+        } else if (resultCode == ConstantState.ADD_SUCCEED) {
+            coreRecyclerView.onRefresh();
+            ToastUtil.showShortToast("新增地址成功");
         }
+
 
     }
 

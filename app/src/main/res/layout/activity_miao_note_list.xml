@@ -27,7 +27,7 @@
                 android:textColor="@color/main_color"
                 android:textSize="@dimen/x18" />
 
-            <info.hoang8f.android.segmented.SegmentedGroup
+            <com.hldj.hmyg.widget.SegmentedGroup
                 android:id="@+id/segmented3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="共享资源" />
-            </info.hoang8f.android.segmented.SegmentedGroup>
+            </com.hldj.hmyg.widget.SegmentedGroup>
 
             <ImageView
                 android:id="@+id/btn_back"

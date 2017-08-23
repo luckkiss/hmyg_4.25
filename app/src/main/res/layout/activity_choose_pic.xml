@@ -62,7 +62,7 @@
         android:text="长按移动可排序，点击可删除，第一张为封面"
         android:textColor="@color/gray" />
 
-    <com.neopixl.pixlui.components.textview.TextView
+    <TextView
         android:id="@+id/sure"
         style="@style/NoActionBarTheme.TextHuaWenXiHei"
         android:layout_width="fill_parent"

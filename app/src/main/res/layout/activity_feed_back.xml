@@ -59,7 +59,7 @@
                     android:textSize="@dimen/y10" />
             </LinearLayout>
 
-            <com.neopixl.pixlui.components.textview.TextView
+            <TextView
                 android:id="@+id/feedback"
                 style="@style/NoActionBarTheme.TextHuaWenXiHei"
                 android:layout_width="fill_parent"

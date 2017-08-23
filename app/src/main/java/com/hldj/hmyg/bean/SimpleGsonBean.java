@@ -29,6 +29,8 @@ public class SimpleGsonBean implements Serializable {
 
         public String headImage = "";
 
+        public boolean hasProjectManage = false;
+
         private boolean isCollect;
 
         public boolean isCollect() {

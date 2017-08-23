@@ -227,7 +227,7 @@
                     android:visibility="gone" />
             </LinearLayout>
 
-            <com.neopixl.pixlui.components.textview.TextView
+            <TextView
                 android:id="@+id/set_passward"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/x37"

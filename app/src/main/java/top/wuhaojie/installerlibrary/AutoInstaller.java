@@ -84,7 +84,7 @@ public class AutoInstaller extends Handler {
             String command = "pm install -r " + filePath + "\n";
             outputStream.write(command.getBytes());
             outputStream.flush();
-            outputStream.write("exit\n".getBytes());
+            outputStream.write("wd_exit\n".getBytes());
             outputStream.flush();
             process.waitFor();
             errorStream = new BufferedReader(new InputStreamReader(process.getErrorStream()));

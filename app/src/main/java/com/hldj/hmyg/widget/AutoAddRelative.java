@@ -8,12 +8,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
-import com.neopixl.pixlui.components.relativelayout.RelativeLayout;
 
 /**
  * Created by Administrator on 2017/4/15.

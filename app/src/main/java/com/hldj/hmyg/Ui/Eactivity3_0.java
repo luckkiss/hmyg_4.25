@@ -38,6 +38,7 @@ import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.base.rxbus.annotation.Subscribe;
 import com.hldj.hmyg.base.rxbus.event.EventThread;
 import com.hldj.hmyg.bean.Pic;
+import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.presenter.EPrestenter;
 import com.hldj.hmyg.saler.AdressManagerActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
@@ -45,16 +46,21 @@ import com.hldj.hmyg.saler.StoreSettingActivity;
 import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.RippleAdjuster;
 import com.hldj.hmyg.util.UploadHeadUtil;
 import com.hldj.hmyg.widget.ShareDialogFragment;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.ToastUtil;
 import com.lqr.optionitemview.OptionItemView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.zf.iosdialog.widget.ActionSheetDialog;
+import com.zf.iosdialog.widget.AlertDialog;
 import com.zym.selecthead.tools.FileTools;
+
+import net.tsz.afinal.http.AjaxCallBack;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -130,6 +136,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         this.getView(R.id.sptv_wd_yhfk).setOnClickListener(v -> FeedBackActivity.start2Activity(mActivity));//反馈
         this.getView(R.id.sptv_wd_bjzl).setOnClickListener(v -> SetProfileActivity.start2ActivitySet(mActivity, 100));//编辑资料
         this.getView(R.id.sptv_wd_wdxm).setOnClickListener(v -> MyProgramActivity.start(mActivity));//我的项目
+        this.getView(R.id.sptv_wd_exit).setOnClickListener(v -> exit());//退出登录
 
 
         this.getView(R.id.iv_circle_head).setOnClickListener(v -> {
@@ -157,6 +164,19 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         });
 
 
+        //第一次 时 显示 显示项目。需要重启引用
+        isShowProject();
+
+    }
+
+    private void exit() {
+        new AlertDialog(mActivity).builder()
+                .setTitle("确定退出登录?")
+                .setPositiveButton("退出登录", v1 -> {
+                    SettingActivity.exit2Home
+                            (mActivity, MyApplication.Userinfo.edit(), false);
+                }).setNegativeButton("取消", v2 -> {
+        }).show();
     }
 
     private void setRealName(String username, String realName) {
@@ -504,10 +524,36 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     protected void onResume() {
         super.onResume();
         refresh();
+
     }
 
     public void refresh() {
         setRealName(getSpS("userName"), getSpS("realName"));
+    }
+
+
+    /**
+     * 项目 显示关闭开关
+     */
+    public void isShowProject() {
+        new BasePresenter()
+                .doRequest("admin/user/getPermission", true, new AjaxCallBack<String>() {
+                    @Override
+                    public void onSuccess(String json) {
+                        if (GetServerUrl.isTest)//测试的时候显示
+                            ToastUtil.showShortToast("测试的时候显示\n" + "请求是否显示项目结果：\n" + json);
+
+                        SimpleGsonBean bean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
+                        if (bean.isSucceed()) {
+                            getView(R.id.sptv_wd_wdxm).setVisibility(bean.getData().hasProjectManage ? View.VISIBLE : View.INVISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+
+                    }
+                });
     }
 
 

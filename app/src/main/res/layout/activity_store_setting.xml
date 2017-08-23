@@ -15,12 +15,12 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/white">
+        android:background="@color/white" >
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical" >
             <!--店铺域名-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                 android:background="@color/store_bg_coloc"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp">
+                android:paddingRight="10dp" android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp">
+                android:paddingRight="10dp" android:visibility="gone">
 
                 <EditText
                     android:id="@+id/et_domain"
@@ -76,7 +76,7 @@
             </LinearLayout>
 
 
-            <View style="@style/View_line_gray_1dp" />
+            <View style="@style/View_line_gray_1dp" android:visibility="gone"/>
 
 
             <!--店铺名称-->
@@ -330,7 +330,7 @@
             </LinearLayout>
 
 
-            <com.neopixl.pixlui.components.textview.TextView
+            <TextView
                 android:id="@+id/sure"
                 style="@style/NoActionBarTheme.TextHuaWenXiHei"
                 android:layout_width="fill_parent"

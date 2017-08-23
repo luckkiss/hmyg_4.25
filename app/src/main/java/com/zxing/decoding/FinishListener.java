@@ -20,7 +20,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 
 /**
- * Simple listener used to exit the app in a few cases.
+ * Simple listener used to wd_exit the app in a few cases.
  *
  */
 public final class FinishListener

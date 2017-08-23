@@ -128,7 +128,7 @@
         android:background="@color/white"
         android:visibility="gone" >
 
-        <info.hoang8f.android.segmented.SegmentedGroup
+        <com.hldj.hmyg.widget.SegmentedGroup
             android:id="@+id/segmented3"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -169,7 +169,7 @@
                 android:layout_weight="1"
                 android:text="未确定"
                 android:textSize="12sp" />
-        </info.hoang8f.android.segmented.SegmentedGroup>
+        </com.hldj.hmyg.widget.SegmentedGroup>
     </RelativeLayout>
 
     <ExpandableListView

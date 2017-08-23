@@ -13,7 +13,7 @@
         android:orientation="horizontal"
         android:paddingRight="@dimen/x7" >
 
-        <cn.bingoogolapple.badgeview.BGABadgeLinearLayout
+        <LinearLayout
             android:id="@+id/ll_yanmiao_nei_01"
             android:layout_width="wrap_content"
             android:padding="@dimen/x3"
@@ -28,7 +28,7 @@
                        android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
                 android:src="@drawable/logo" />
-        </cn.bingoogolapple.badgeview.BGABadgeLinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/x15" />
 
-                <com.neopixl.pixlui.components.textview.TextView
+                <TextView
                     android:id="@+id/tv_createDateStr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                     android:textSize="@dimen/x12" />
             </RelativeLayout>
 
-            <com.neopixl.pixlui.components.textview.TextView
+            <TextView
                 android:id="@+id/tv_message"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

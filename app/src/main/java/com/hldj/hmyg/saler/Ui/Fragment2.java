@@ -24,7 +24,6 @@ import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
-import static com.hldj.hmyg.buyer.weidet.BaseQuickAdapter.SCALEIN;
 import static com.hldj.hmyg.saler.Ui.Fragment1.setStatus;
 
 /**
@@ -92,7 +91,7 @@ public class Fragment2 extends Fragment {
         }).openLoadMore(6, page -> {
             initData(page);
         }).openRefresh();
-        recyclerView.openLoadAnimation(SCALEIN);
+        recyclerView.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         return recyclerView;
     }
 

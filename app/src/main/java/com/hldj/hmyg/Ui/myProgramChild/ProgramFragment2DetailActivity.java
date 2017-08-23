@@ -65,7 +65,7 @@ public class ProgramFragment2DetailActivity extends BaseMVPActivity {
 //                helper.setVisible(R.id.tv_item_detail_project_name, nowPos == 1);
                 helper.setVisible(R.id.textView7, index == 1);
 //                helper.setVisible(R.id.textView7, nowPos == 1);
-                helper.setText(R.id.tv_item_detail_project_name,item.projectName);
+                helper.setText(R.id.tv_item_detail_project_name, item.projectName);
 //                helper.setText(R.id.tv_item_detail_project_name, listProjects.get(count).projectName);
                 helper.setText(R.id.tv_item_detail_name, index + "." + item.name);
 
@@ -83,7 +83,8 @@ public class ProgramFragment2DetailActivity extends BaseMVPActivity {
     @Override
     public void initData() {
         //初始化数据与刷新数据分开
-        loadingLayout.setStatus(LoadingLayout.Loading);
+//        loadingLayout.setStatus(LoadingLayout.Loading);
+        showLoading();
         //初始化使用 loading layout   刷新 不出现 loadinglayout
         myPresenter = new MyPresenter();
         myPresenter.getDatas();
@@ -105,8 +106,11 @@ public class ProgramFragment2DetailActivity extends BaseMVPActivity {
     }
 
 
+    @Override
     public void initListener() {
-        loadingLayout.setOnReloadListener(v -> coreRecyclerView.onRefresh());//刷新
+        loadingLayout.setOnReloadListener(v -> {
+            myPresenter.getDatas();
+        });//刷新
     }
 
     public String getProjectId() {
@@ -141,7 +145,7 @@ public class ProgramFragment2DetailActivity extends BaseMVPActivity {
                             Log.e(TAG, "convert: i=" + i + " count=" + count);
                             listProjects.add(gsonBean.data.data.projectList.get(i));
 
-                            int childSize = gsonBean.data.data.projectList.get(i).itemList.size() ;
+                            int childSize = gsonBean.data.data.projectList.get(i).itemList.size();
                             listSizes.add(childSize);
 
                             //结果添加过滤条件
@@ -156,12 +160,14 @@ public class ProgramFragment2DetailActivity extends BaseMVPActivity {
                         loadingLayout.setErrorText(gsonBean.msg);
                         loadingLayout.setStatus(LoadingLayout.Error);
                     }
+                    hindLoading();
                 }
 
                 @Override
                 public void onFailure(Throwable t, int errorNo, String strMsg) {
                     loadingLayout.setErrorText("网络请求失败，请检查网络连接！");
                     loadingLayout.setStatus(LoadingLayout.No_Network);
+                    hindLoading();
                 }
             };
             doRequest("admin/project/invoiceCarDetail", true, ajaxCallBack);

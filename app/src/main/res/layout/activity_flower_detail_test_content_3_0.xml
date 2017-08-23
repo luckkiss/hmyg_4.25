@@ -56,7 +56,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <com.neopixl.pixlui.components.textview.TextView
+                <TextView
                     android:id="@+id/tv_plant"
                     android:layout_width="@dimen/y10"
                     android:layout_height="@dimen/y10"
@@ -65,7 +65,7 @@
                     android:textSize="@dimen/y11"
                     android:visibility="gone" />
 
-                <com.neopixl.pixlui.components.textview.TextView
+                <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
                     tools:text="香樟" />
             </LinearLayout>
 
-            <com.neopixl.pixlui.components.textview.TextView
+            <TextView
                 android:id="@+id/tv_statusName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <com.neopixl.pixlui.components.textview.TextView
+                    <TextView
                         android:id="@+id/tv_seedlingNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <com.neopixl.pixlui.components.textview.TextView
+                    <TextView
                         android:id="@+id/tv_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
-                        <com.neopixl.pixlui.components.textview.TextView
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
@@ -154,7 +154,7 @@
                             android:textColor="#666666"
                             android:textSize="@dimen/y8" />
 
-                        <com.neopixl.pixlui.components.textview.TextView
+                        <TextView
                             android:id="@+id/tv_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -164,7 +164,7 @@
                             android:textSize="@dimen/y10"
                             tools:text="Y3000-4000" />
 
-                        <com.neopixl.pixlui.components.textview.TextView
+                        <TextView
                             android:id="@+id/tv_unitTypeName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -173,7 +173,7 @@
                             android:textColor="#FA0000"
                             android:textSize="@dimen/y10" />
 
-                        <com.neopixl.pixlui.components.textview.TextView
+                        <TextView
                             android:id="@+id/tv_dijia"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

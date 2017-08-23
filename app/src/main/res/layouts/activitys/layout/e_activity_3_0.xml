@@ -202,6 +202,36 @@
                 app:state_drawable="@mipmap/wd_yhfk" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/sptv_wd_exit"
+                style="@style/home_types"
+                android:text="退出登录"
+                app:state_drawable="@mipmap/wd_exit" />
+
+            <com.coorchice.library.SuperTextView
+                style="@style/home_types"
+                android:text="分享APP"
+                android:visibility="invisible"
+                app:state_drawable="@mipmap/wd_fxapp" />
+
+            <com.coorchice.library.SuperTextView
+                style="@style/home_types"
+                android:text="@string/beautiful_girl"
+                android:visibility="invisible"
+                app:state_drawable="@mipmap/wd_kf" />
+
+            <com.coorchice.library.SuperTextView
+                style="@style/home_types"
+                android:text="@string/eactivity_user_feedback"
+                android:visibility="invisible"
+                app:state_drawable="@mipmap/wd_yhfk" />
+        </LinearLayout>
+
 
     </LinearLayout>
 

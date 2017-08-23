@@ -56,7 +56,7 @@
                     android:layout_height="40.0dip"
                     android:orientation="horizontal" >
 
-                    <com.neopixl.pixlui.components.textview.TextView
+                    <TextView
                         android:id="@+id/remmber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                         android:textColor="#5A5A5A"
                         android:textSize="15.0sp" />
 
-                    <com.neopixl.pixlui.components.textview.TextView
+                    <TextView
                         android:id="@+id/tv_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -255,7 +255,7 @@
                     android:orientation="horizontal"
                     android:visibility="gone" >
 
-                    <com.neopixl.pixlui.components.textview.TextView
+                    <TextView
                         android:id="@+id/tv_detail_data"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -268,7 +268,7 @@
                         android:textColor="#5A5A5A"
                         android:textSize="15.0sp" />
 
-                    <com.neopixl.pixlui.components.textview.TextView
+                    <TextView
                         android:id="@+id/tv_detail_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -335,7 +335,7 @@
                                 android:layout_height="0dip"
                                 android:layout_weight="1" >
 
-                                <com.neopixl.pixlui.components.textview.TextView
+                                <TextView
                                     android:id="@+id/tv_detail_01"
                                     android:layout_width="@dimen/y10"
                                     android:layout_height="@dimen/y10"
@@ -344,7 +344,7 @@
                                     android:singleLine="true"
                                     android:textSize="@dimen/y11" />
 
-                                <com.neopixl.pixlui.components.textview.TextView
+                                <TextView
                                     android:id="@+id/tv_detail_03"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -355,7 +355,7 @@
                                     android:textColor="@color/red"
                                     android:textSize="@dimen/y9" />
 
-                                <com.neopixl.pixlui.components.textview.TextView
+                                <TextView
                                     android:id="@+id/tv_detail_02"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -372,7 +372,7 @@
                                 android:layout_height="0dip"
                                 android:layout_weight="1" >
 
-                                <com.neopixl.pixlui.components.textview.TextView
+                                <TextView
                                     android:id="@+id/tv_detail_04"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -387,7 +387,7 @@
                                 android:layout_height="0dip"
                                 android:layout_weight="1" >
 
-                                <com.neopixl.pixlui.components.textview.TextView
+                                <TextView
                                     android:id="@+id/tv_detail_05"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -402,7 +402,7 @@
                                 android:layout_height="0dip"
                                 android:layout_weight="1" >
 
-                                <com.neopixl.pixlui.components.textview.TextView
+                                <TextView
                                     android:id="@+id/tv_detail_07"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -412,7 +412,7 @@
                                     android:text="20.00"
                                     android:textColor="#FA0000" />
 
-                                <com.neopixl.pixlui.components.textview.TextView
+                                <TextView
                                     android:id="@+id/tv_detail_09"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -424,7 +424,7 @@
                                     android:textColor="@color/gray"
                                     android:textSize="@dimen/y7" />
 
-                                <com.neopixl.pixlui.components.textview.TextView
+                                <TextView
                                     android:id="@+id/tv_detail_08"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -443,7 +443,7 @@
                                 android:layout_height="0dip"
                                 android:layout_weight="1" >
 
-                                <com.neopixl.pixlui.components.textview.TextView
+                                <TextView
                                     android:id="@+id/tv_detail_06"
                                     android:layout_width="@dimen/y10"
                                     android:layout_height="@dimen/y10"
@@ -453,7 +453,7 @@
                                     android:textColor="@color/white"
                                     android:textSize="@dimen/y7" />
 
-                                <com.neopixl.pixlui.components.textview.TextView
+                                <TextView
                                     android:id="@+id/tv_detail_10"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"

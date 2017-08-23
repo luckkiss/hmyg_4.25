@@ -42,6 +42,7 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
     public void initView() {
 
         recyclerView = new CoreRecyclerView(mActivity);
+
         //初始化recycleview
         recyclerView.init(new BaseQuickAdapter<MyProgramGsonBean.DataBeanX.PageBean.DataBean, BaseViewHolder>(R.layout.item_program_list) {
             @Override
@@ -70,18 +71,34 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
             }
         }, false)
                 .openLoadMore(10, page -> {
-//                    mPresenter.getData(page + "", search_key, "params2");
-//                    showLoading();
+//                  mPresenter.getData(page + "", search_key, "params2");
+                    showLoading();
                     mPresenter.getData(page + "", search_key);
                 })
+
+                .closeDefaultEmptyView()
+
                 .openRefresh();
+//        这句就是添加我们自定义的分隔线
+//        recyclerView.getRecyclerView().addItemDecoration(new MyDecoration(this, MyDecoration.VERTICAL_LIST));
+
+//        recyclerView.getRecyclerView().addItemDecoration(new RecycleViewDivider(
+//                mActivity, LinearLayoutManager.VERTICAL, 50, getResources().getColor(R.color.green)));
+//        recyclerView.getRecyclerView().addItemDecoration();
+
+
+
+//        recyclerView.getAdapter().setd
+//        recyclerView.setDividerDrawable(new ColorDrawable(ContextCompat.getColor(mActivity,R.color.gray_bg_ed)));
+//        recyclerView.setDividerPadding(20);
+//        recyclerView.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gray_bg_ed));
         getContentView().addView(recyclerView);
         recyclerView.onRefresh();
     }
 
     @Override
     public void showErrir(String erMst) {
-        recyclerView.selfRefresh(false, erMst);
+        recyclerView.setNoData(erMst);
         hindLoading();
     }
 
@@ -98,6 +115,9 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
     public void initXRecycle(List<MyProgramGsonBean.DataBeanX.PageBean.DataBean> gsonBean) {
         recyclerView.getAdapter().addData(gsonBean);
         recyclerView.selfRefresh(false);
+        if (recyclerView.getAdapter().getData().size() == 0) {
+            recyclerView.setDefaultEmptyView();
+        }
         hindLoading();
     }
 

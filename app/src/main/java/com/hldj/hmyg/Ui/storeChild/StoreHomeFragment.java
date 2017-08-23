@@ -88,10 +88,10 @@ public class StoreHomeFragment extends BaseFragment implements StoreContract.Vie
         }
     }
 
-//    @Override
-//    public int bindLoadingLayout() {
-//        return R.id.store_home_loading;
-//    }
+    @Override
+    public int bindLoadingLayout() {
+        return R.id.store_loading;
+    }
 
     @Override
     protected void initView(View rootView) {
@@ -114,12 +114,16 @@ public class StoreHomeFragment extends BaseFragment implements StoreContract.Vie
                     FlowerDetailActivity.start2Activity(mActivity, "seedling_list", item.id);
                 });
             }
-        }, true).openLoadMore(getQueryBean().pageSize, page -> {
-            getQueryBean().pageIndex = page + "";
-            getQueryBean().ownerId = getStoreID();
-            myPresenter.getData();
+        }, true)
+                .closeDefaultEmptyView()
+                .closeRefresh()
+                .openLoadMore(getQueryBean().pageSize, page -> {
+                    showLoading();
+                    getQueryBean().pageIndex = page + "";
+                    getQueryBean().ownerId = getStoreID();
+                    myPresenter.getData();
 //            mPresenter.getData();
-        });
+                });
 
         store_recycle.onRefresh();
 
@@ -153,13 +157,14 @@ public class StoreHomeFragment extends BaseFragment implements StoreContract.Vie
 
     @Override
     public void showErrir(String erMst) {
-
+             hideLoading(LoadingLayout.Error,erMst);
     }
 
     @Override
     public void hindLoading() {
 
     }
+
 
     @Override
     public void initStoreData(List<BPageGsonBean.DatabeanX.Pagebean.Databean> bPageGsonBean) {

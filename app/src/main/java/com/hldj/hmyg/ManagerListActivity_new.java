@@ -126,6 +126,7 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
             }
         }).openLoadMore(10, page -> {
 //            xRecyclerView.selfRefresh(true);
+            showLoading();
             mPresenter.getData(page + "", status, searchKey);
             mPresenter.getCounts();
         }).openLoadAnimation(BaseQuickAdapter.ALPHAIN)
@@ -345,7 +346,11 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
 //        xRecyclerView.getAdapter().notifyDataSetChanged();
 
         xRecyclerView.selfRefresh(false);
+        hindLoading();
 
+        if (xRecyclerView.isDataNull()){
+            xRecyclerView.setNoData("");
+        }
     }
 
 
@@ -426,8 +431,8 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
         //此处处理错误 样式
         if (xRecyclerView != null) {
             xRecyclerView.selfRefresh(false);
-
         }
+        hindLoading();
     }
 
 

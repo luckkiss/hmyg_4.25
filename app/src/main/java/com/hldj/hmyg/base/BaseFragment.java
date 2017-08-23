@@ -35,7 +35,7 @@ public abstract class BaseFragment extends Fragment {
 
     public View rootView;
 
-    LoadingLayout loadingLayout;
+   protected   LoadingLayout loadingLayout;
     private View loadPage;
 
 
@@ -44,8 +44,8 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mRootView = inflater.inflate(bindLayoutID(), null);
         this.rootView = mRootView;
-        initView(mRootView);
         initLoadingView(rootView);
+        initView(mRootView);
         initListener();
         D.e("======当前Fragment===位置=====" + this.getClass().getName());
         return rootView;
@@ -57,10 +57,13 @@ public abstract class BaseFragment extends Fragment {
 
     // 获取loading view
     protected final void initLoadingView(View rootView) {
-        loadingLayout = (LoadingLayout) rootView.findViewById(bindLoadingLayout());
+        if (loadingLayout== null)
+        {
+            loadingLayout = (LoadingLayout) rootView.findViewById(bindLoadingLayout());
+        }
+
         //自定义刷新界面
         loadPage = LayoutInflater.from(mActivity).inflate(R.layout.load_dialog, null);
-
 
         final FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         final ViewGroup.LayoutParams lp = loadPage.getLayoutParams();
@@ -74,20 +77,29 @@ public abstract class BaseFragment extends Fragment {
             loadingLayout.setLoadingPage(loadPage);
             loadingLayout.setOnReloadListener(v -> loadData());
 
-//            默认进入页面就开启动画
-//            if (!mAnimationDrawable.isRunning()) {
-//                mAnimationDrawable.start();
-//            }
-            /**
-             *   ImageView img = (ImageView) this.findViewById(R.id.iv_amin_flowar);
+        }
 
-             // 加载动画
-             mAnimationDrawable = (AnimationDrawable) img.getDrawable();
-             默认进入页面就开启动画
-             if (!mAnimationDrawable.isRunning()) {
-             mAnimationDrawable.start();
-             }
-             */
+    }
+
+
+    // 获取loading view
+    protected final void initLoadingView(LoadingLayout loadingLayout) {
+
+        //自定义刷新界面
+        loadPage = LayoutInflater.from(mActivity).inflate(R.layout.load_dialog, null);
+
+        final FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        final ViewGroup.LayoutParams lp = loadPage.getLayoutParams();
+        if (lp != null) {
+            layoutParams.width = lp.width;
+            layoutParams.height = lp.height;
+        }
+        loadPage.setLayoutParams(layoutParams);
+
+        if (loadingLayout != null) {
+            loadingLayout.setLoadingPage(loadPage);
+            loadingLayout.setOnReloadListener(v -> loadData());
+
         }
 
     }

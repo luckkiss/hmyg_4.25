@@ -11,7 +11,7 @@
         android:background="@color/white">
 
 
-        <info.hoang8f.android.segmented.SegmentedGroup
+        <com.hldj.hmyg.widget.SegmentedGroup
             android:id="@+id/segmented3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="历史采购" />
-        </info.hoang8f.android.segmented.SegmentedGroup>
+        </com.hldj.hmyg.widget.SegmentedGroup>
 
 
         <ImageView

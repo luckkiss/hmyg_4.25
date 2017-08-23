@@ -57,7 +57,8 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <me.maxwin.view.XListView
             android:id="@+id/xlistView_d_new"
@@ -65,8 +66,7 @@
             android:layout_height="fill_parent"
             android:background="#fff0f0f0"
             android:divider="@null"
-            tools:listitem="@layout/list_view_seedling_new_shoucan"
-            />
+            tools:listitem="@layout/list_view_seedling_new_shoucan" />
 
         <RelativeLayout
             android:id="@+id/rl_refresh"
@@ -75,10 +75,20 @@
             android:visibility="gone">
 
             <ImageView
+                android:id="@+id/iv_e"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:src="@drawable/wushuju" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_e"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="暂无数据..." />
+
         </RelativeLayout>
 
     </LinearLayout>

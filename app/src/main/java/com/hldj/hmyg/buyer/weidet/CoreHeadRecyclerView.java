@@ -5,24 +5,25 @@ import android.content.Context;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.buyer.weidet.animation.BaseAnimation;
 import com.hldj.hmyg.buyer.weidet.listener.OnItemClickListener;
-import com.hldj.hmyg.widget.MySwipeRefreshLayout;
-import com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout;
+import com.hldj.hmyg.widget.swipeview.MySwipeRefreshLayout;
 
 
 /**
  * Created by hpw on 16/11/1.
  */
 
-public class CoreHeadRecyclerView extends LinearLayout implements BaseQuickAdapter.RequestLoadMoreListener, MySwipeRefreshLayout.SHSOnRefreshListener{
+public class CoreHeadRecyclerView extends LinearLayout implements BaseQuickAdapter.RequestLoadMoreListener, MySwipeRefreshLayout.SHSOnRefreshListener {
     private RecyclerView mRecyclerView;
     private MySwipeRefreshLayout mSwipeRefreshLayout;
     BaseQuickAdapter mQuickAdapter;
@@ -140,15 +141,15 @@ public class CoreHeadRecyclerView extends LinearLayout implements BaseQuickAdapt
     @Override
     public void onRefreshPulStateChange(float parent, int state) {
         switch (state) {
-            case SHSwipeRefreshLayout.NOT_OVER_TRIGGER_POINT:
+            case MySwipeRefreshLayout.NOT_OVER_TRIGGER_POINT:
 //                mViewHeader.setLoaderViewText("下拉刷新");
                 mViewHeader.setState(0);
                 break;
-            case SHSwipeRefreshLayout.OVER_TRIGGER_POINT:
+            case MySwipeRefreshLayout.OVER_TRIGGER_POINT:
 //                swipeRefreshLayout.setLoaderViewText("松开刷新");
                 mViewHeader.setState(1);
                 break;
-            case SHSwipeRefreshLayout.START:
+            case MySwipeRefreshLayout.START:
 //                swipeRefreshLayout.setLoaderViewText("正在刷新");
                 mViewHeader.setState(2);
                 break;
@@ -335,7 +336,6 @@ public class CoreHeadRecyclerView extends LinearLayout implements BaseQuickAdapt
     }
 
 
-
     public CoreHeadRecyclerView setDefaultEmptyView() {
         View empty = LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null);
 //        View empty  = getContext(). inflate(R.layout.empty_view, null);
@@ -343,7 +343,7 @@ public class CoreHeadRecyclerView extends LinearLayout implements BaseQuickAdapt
         final RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT);
         final ViewGroup.LayoutParams lp = empty.getLayoutParams();
         if (lp != null) {
-            layoutParams.width = lp.width ;
+            layoutParams.width = lp.width;
             layoutParams.height = lp.height;
 //            layoutParams.width = lp.width;
 //            layoutParams.height = lp.height;
@@ -351,6 +351,29 @@ public class CoreHeadRecyclerView extends LinearLayout implements BaseQuickAdapt
         empty.setLayoutParams(layoutParams);
         mQuickAdapter.setEmptyView(empty);
         return this;
+    }
+
+    public CoreHeadRecyclerView setNoData(String erMst) {
+        this.setDefaultEmptyView();
+        selfRefresh(false, erMst);
+        this.getAdapter().notifyDataSetChanged();
+        return this;
+    }
+
+    public CoreHeadRecyclerView selfRefresh(boolean b, String errMsg) {
+        this.selfRefresh(b);
+        TextView tv_empty_err = (TextView) mQuickAdapter.getEmptyView().findViewById(R.id.t_emptyTextView);
+        if (tv_empty_err != null) {
+            if (!TextUtils.isEmpty(errMsg))
+                tv_empty_err.setText(errMsg);
+        }
+        return this;
+    }
+
+    public boolean isDataNull() {
+
+        return this.getAdapter().getData().size() == 0;
+
     }
 
 }

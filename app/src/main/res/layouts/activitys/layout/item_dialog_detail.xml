@@ -19,8 +19,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:text="莆田市区项目莆田市莆田市区项目"
-        android:textColor="@color/text_color333"
-        android:textSize="@dimen/textSizeXX"
+        android:textColor="@color/main_color"
+        android:textSize="@dimen/textSizeXXX"
         android:visibility="gone"
         app:layout_constraintLeft_toRightOf="@+id/textView7"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,8 +31,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:text="1. 红豆杉  "
+        android:textColor="@color/text_color666"
+        android:textSize="@dimen/textSizeXX"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_item_detail_project_name" />
 
@@ -41,9 +43,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:text="10株"
         android:textColor="@color/main_color"
+        android:textSize="@dimen/textSizeXX"
         app:layout_constraintLeft_toRightOf="@+id/tv_item_detail_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_item_detail_project_name" />
 
@@ -54,6 +57,9 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="7dp"
         android:text="采购单价:"
+        android:textColor="@color/text_color666"
+
+        android:textSize="@dimen/textSizeXX"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_item_detail_name" />
 
@@ -69,8 +75,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="7dp"
         android:text="小计："
+        android:textColor="@color/text_color666"
+
+        android:textSize="@dimen/textSizeXX"
         app:layout_constraintLeft_toLeftOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/tv_item_detail_load_count" />
 
@@ -79,9 +88,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="7dp"
         android:text="￥495"
         android:textColor="@color/price_orige"
+
+        android:textSize="@dimen/textSizeXX"
         app:layout_constraintLeft_toRightOf="@+id/textView18"
         app:layout_constraintTop_toBottomOf="@+id/tv_item_detail_load_count" />
 
@@ -108,6 +119,8 @@
         android:layout_marginTop="6dp"
         android:text="111"
         android:textColor="@color/price_orige"
+
+        android:textSize="@dimen/textSizeXX"
         app:layout_constraintLeft_toRightOf="@+id/textView15"
         app:layout_constraintTop_toBottomOf="@+id/tv_item_detail_load_count" />
 
@@ -117,16 +130,18 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="7dp"
+        android:textColor="@color/text_color666"
+        android:textSize="@dimen/textSizeXX"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15"
         tools:text="高度 90" />
 
     <TextView
         android:id="@+id/textView7"
-        android:layout_width="3dp"
+        android:layout_width="5dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="18dp"
         android:background="@color/main_color"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -165,14 +165,18 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
                 helper.addOnClickListener(R.id.tv_recy_item_right, view -> {
 //                    ToastUtil.showShortToast("删除");
                     D.e("删除");
+                    showLoading();
                     mPresenter.deleteAddr(item.id);
                 });
             }
 
 
         }).openLoadMore(100, page -> {
+            showLoading();
             mPresenter.getData(getQueryBean());
-        }).openRefresh().openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        }).openRefresh()
+                .openLoadAnimation(BaseQuickAdapter.ALPHAIN)
+        .closeDefaultEmptyView();
         //initRecycle 下一步执行
         mPresenter.getData(getQueryBean());//初始化  地址数据列表
     }
@@ -195,13 +199,20 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
     public void initRecycle(List<AddressBean> beens) {
         coreRecyclerView.getAdapter().addData(beens);
         coreRecyclerView.selfRefresh(false);
+        if (coreRecyclerView.isDataNull()){
+            coreRecyclerView.setNoData("");
+        }
+        hindLoading();
 
     }
+
+
 
     @Override
     public void OnDeleteAddr(boolean bo) {
         if (bo) coreRecyclerView.onRefresh();//删除成功。刷新界面
         ToastUtil.showShortToast("地址删除成功");
+        hindLoading();
 
     }
 
@@ -211,6 +222,7 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
             coreRecyclerView.onRefresh();//修改地址。刷新界面
             ToastUtil.showShortToast("地址修改成功");
         }
+        hindLoading();
     }
 
 

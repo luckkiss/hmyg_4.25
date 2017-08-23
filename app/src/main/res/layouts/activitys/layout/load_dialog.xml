@@ -25,7 +25,7 @@
         android:alpha="0.6"
         android:background="@drawable/round_rectangle_loading_bg"
         android:orientation="vertical"
-        android:padding="11dp">
+        android:padding="7dp">
 
         <!--<com.weidget.GifView-->
         <!--android:id="@+id/gif1"-->
@@ -36,8 +36,8 @@
 
         <ImageView
             android:id="@+id/iv_amin_flowar"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/floawer_anim" />
 
@@ -50,6 +50,8 @@
             android:gravity="center"
             android:padding="3dp"
             android:text="加载中..."
+            android:textSize="12sp"
+            android:layout_marginTop="3dp"
             android:textColor="@android:color/white" />
     </LinearLayout>
 

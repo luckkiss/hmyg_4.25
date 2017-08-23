@@ -1,9 +1,5 @@
 package com.hldj.hmyg.saler;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import net.tsz.afinal.FinalBitmap;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -19,8 +15,13 @@ import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
-import com.hldj.hmyg.buyer.QuoteListActivity;
+import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
 import com.hy.utils.ValueGetInfo;
+
+import net.tsz.afinal.FinalBitmap;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 @SuppressLint("ResourceAsColor")
 public class ManagerQuoteListAdapter extends BaseAdapter {
@@ -126,7 +127,7 @@ public class ManagerQuoteListAdapter extends BaseAdapter {
 				// TODO Auto-generated method stub
 				// 跳转查看报价
 				Intent toQuoteListActivity = new Intent(context,
-						QuoteListActivity.class);
+						ManagerQuoteListActivity_new.class);
 				toQuoteListActivity.putExtra("purchaseItemId",
 						data.get(position).get("id").toString());
 				toQuoteListActivity.putExtra("purchaseId", data.get(position)

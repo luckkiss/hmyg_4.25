@@ -16,7 +16,7 @@ import java.lang.reflect.Field;
  * Created by Administrator on 2017/5/12.
  */
 
-public abstract class BasePresenter {
+public  class BasePresenter {
 
 
     protected ResultCallBack resultCallBack;
@@ -44,7 +44,7 @@ public abstract class BasePresenter {
     }
 
 
-    protected BasePresenter doRequest(String path, boolean isAddHeaders, AjaxCallBack callBack) {
+    public BasePresenter doRequest(String path, boolean isAddHeaders, AjaxCallBack callBack) {
         {
             FinalHttp finalHttp = new FinalHttp();
             GetServerUrl.addHeaders(finalHttp, isAddHeaders);

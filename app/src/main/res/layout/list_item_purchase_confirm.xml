@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
-                <com.neopixl.pixlui.components.textview.TextView
+                <TextView
                     android:id="@+id/tv_03"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
-                    <com.neopixl.pixlui.components.textview.TextView
+                    <TextView
                         android:id="@+id/tv_01"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                         android:textColor="@color/gray"
                         android:textSize="@dimen/y9" />
 
-                    <com.neopixl.pixlui.components.textview.TextView
+                    <TextView
                         android:id="@+id/tv_02"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
-                    <com.neopixl.pixlui.components.textview.TextView
+                    <TextView
                         android:id="@+id/tv_04"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
                         android:textColor="@color/gray"
                         android:textSize="@dimen/y9" />
 
-                    <com.neopixl.pixlui.components.textview.TextView
+                    <TextView
                         android:id="@+id/tv_05"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
-                    <com.neopixl.pixlui.components.textview.TextView
+                    <TextView
                         android:id="@+id/tv_06"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
                         android:singleLine="true"
                         android:textSize="@dimen/y9" />
 
-                    <com.neopixl.pixlui.components.textview.TextView
+                    <TextView
                         android:id="@+id/tv_07"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
-                <com.neopixl.pixlui.components.textview.TextView
+                <TextView
                     android:id="@+id/tv_08"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
                     android:textColor="@color/gray"
                     android:textSize="@dimen/y9" />
 
-                <com.neopixl.pixlui.components.textview.TextView
+                <TextView
                     android:id="@+id/tv_09"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

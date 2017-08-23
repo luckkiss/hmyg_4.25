@@ -1,8 +1,9 @@
 package com.hldj.hmyg.saler.Ui;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -29,7 +30,7 @@ import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
-import static com.hldj.hmyg.buyer.weidet.BaseQuickAdapter.SCALEIN;
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 
 /**
@@ -40,8 +41,29 @@ public class Fragment1 extends Fragment {
 
     private static final String TAG = "Fragment1";
 
+    private Activity mActivity;
+
     private CoreRecyclerView recyclerView;
     View view;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mActivity = (Activity) context;
+    }
+
+    public void showLoading(Activity mActivity) {
+        if (mActivity != null && mActivity instanceof NeedSwipeBackActivity) {
+            ((NeedSwipeBackActivity) mActivity).showLoading();
+        }
+    }
+
+    public void hideLoading(Activity mActivity) {
+
+        if (mActivity != null && mActivity instanceof NeedSwipeBackActivity) {
+            ((NeedSwipeBackActivity) mActivity).hindLoading();
+        }
+    }
 
     @Nullable
     @Override
@@ -58,17 +80,14 @@ public class Fragment1 extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        new Handler().postDelayed(() -> {
-            initData(0);
-
-        }, 800);
+        initData(0);
 
     }
 
     public View getContentView() {
 
         recyclerView = new CoreRecyclerView(getActivity());
-        recyclerView.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.gray_bg_ed));
+        recyclerView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.gray_bg_ed));
         recyclerView.initView(getActivity()).init(new BaseQuickAdapter<SaveSeedingGsonBean.DataBean.SeedlingBean, BaseViewHolder>(R.layout.item_fragment1) {
             @Override
             protected void convert(BaseViewHolder helper, SaveSeedingGsonBean.DataBean.SeedlingBean item) {
@@ -77,9 +96,9 @@ public class Fragment1 extends Fragment {
                 helper.setText(R.id.tv_fr_item_plant_name, item.purchaseJson.name);
                 helper.setText(R.id.tv_fr_item_company_name, item.purchaseJson.buyer.displayName);
                 helper.setText(R.id.tv_fr_item_company_addr_name, item.purchaseJson.cityName);
-                helper.setText(R.id.tv_fr_item_price, "￥"+item.price);
+                helper.setText(R.id.tv_fr_item_price, "￥" + item.price);
                 helper.setText(R.id.tv_fr_item_specText, item.getSpecText());
-                helper.setText(R.id.stv_fragment_time,"日期：" + item.attrData.createDate);
+                helper.setText(R.id.stv_fragment_time, "日期：" + item.attrData.createDate);
 
                 setStatus(helper, item.getStatus());//通过状态设置背景颜色
                 helper.addOnClickListener(R.id.cv_root, v -> {
@@ -92,8 +111,10 @@ public class Fragment1 extends Fragment {
         }, true).openLoadMore(6, page -> {
             initData(page);
         }).openRefresh()
-                .selfRefresh(true);
-        recyclerView.openLoadAnimation(SCALEIN);
+                .selfRefresh(true)
+                .closeDefaultEmptyView();
+
+        recyclerView.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         return recyclerView;
     }
 
@@ -125,6 +146,10 @@ public class Fragment1 extends Fragment {
 
 
     private void initData(int pageIndex) {
+
+        showLoading(mActivity);
+
+        showLoading((NeedSwipeBackActivity) mActivity);
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, true);
         AjaxParams params = new AjaxParams();
@@ -139,14 +164,21 @@ public class Fragment1 extends Fragment {
                 CollectGsonBean pageBean = GsonUtil.formateJson2Bean(json, CollectGsonBean.class);
                 if (pageBean.code.equals(ConstantState.SUCCEED_CODE)) {
                     recyclerView.getAdapter().addData(pageBean.data.page.data);
+
+                    if (recyclerView.isDataNull()) {
+                        recyclerView.setNoData("");
+                    }
                 }
                 recyclerView.selfRefresh(false);
+                hideLoading(mActivity);
                 super.onSuccess(json);
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 recyclerView.selfRefresh(false);
+                recyclerView.setNoData("网络错误,请稍后重试！");
+                hideLoading(mActivity);
                 super.onFailure(t, errorNo, strMsg);
             }
         });

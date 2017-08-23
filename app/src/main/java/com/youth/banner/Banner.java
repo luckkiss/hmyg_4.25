@@ -1,8 +1,5 @@
 package com.youth.banner;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Handler;
@@ -26,8 +23,10 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.ABanner;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.youth.banner.transformer.DepthPageTransformer;
-import com.youth.banner.transformer.RotateDownPageTransformer;
 import com.youth.banner.transformer.ZoomOutPageTransformer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Banner extends FrameLayout implements
 		ViewPager.OnPageChangeListener {
@@ -189,9 +188,9 @@ public class Banner extends FrameLayout implements
 		case BannerConfig.DEPTH:
 			setPageTransformer(true, new DepthPageTransformer());
 			break;
-		case BannerConfig.ROTATEDOWN:
-			setPageTransformer(true, new RotateDownPageTransformer());
-			break;
+//		case BannerConfig.ROTATEDOWN:
+//			setPageTransformer(true, new RotateDownPageTransformer());
+//			break;
 		}
 	}
 

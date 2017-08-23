@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +21,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -51,13 +51,11 @@ import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
-import com.hldj.hmyg.widget.MySwipeRefreshLayout;
 import com.hldj.hmyg.widget.UPMarqueeView;
+import com.hldj.hmyg.widget.swipeview.MySwipeRefreshLayout;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
-import com.javis.ab.view.AbSlidingPlayView;
-import com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout;
 import com.white.utils.ScreenUtil;
 import com.white.utils.StringUtil;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
@@ -76,11 +74,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import aom.xingguo.huang.banner.MyFragment;
-import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import me.hwang.library.widgit.SmartRefreshLayout;
 
 
 /**
@@ -106,11 +102,8 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private ListView lv_00;
     //	private ImageView iv_Capture;//扫描二维码
     private ImageView iv_msg;
-    private DrawerLayout dl_content;
     //    private ImageView iv_home_merchants;//热门商家
 //    private ImageView iv_home_preferential;
-    private RelativeLayout relativeLayout2;//
-    private PtrClassicFrameLayout mPtrFrame;
     private NestedScrollView scrollView;
     private Button toTopBtn;// 返回顶部的按钮
     private int scrollY = 0;// 标记上次滑动位置
@@ -121,9 +114,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private LinearLayout ll_fenlei;
     private ACache mCache;
     private TypeAdapter myadapter;
-    private AbSlidingPlayView absviewPager; // 底部viewpager 轮播控件。。。封装好。
-    private ArrayList allListView;
-    private SmartRefreshLayout mLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,6 +170,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         findViewById(R.id.tv_a_search).setOnClickListener(this);
 
         initSwipe();
+        setListAtMost();
 
     }
 
@@ -230,15 +222,15 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             @Override
             public void onRefreshPulStateChange(float parent, int state) {
                 switch (state) {
-                    case SHSwipeRefreshLayout.NOT_OVER_TRIGGER_POINT:
+                    case MySwipeRefreshLayout.NOT_OVER_TRIGGER_POINT:
 //                mViewHeader.setLoaderViewText("下拉刷新");
                         swipeViewHeader.setState(0);
                         break;
-                    case SHSwipeRefreshLayout.OVER_TRIGGER_POINT:
+                    case MySwipeRefreshLayout.OVER_TRIGGER_POINT:
 //                swipeRefreshLayout.setLoaderViewText("松开刷新");
                         swipeViewHeader.setState(1);
                         break;
-                    case SHSwipeRefreshLayout.START:
+                    case MySwipeRefreshLayout.START:
 //                swipeRefreshLayout.setLoaderViewText("正在刷新");
                         swipeViewHeader.setState(2);
                         break;
@@ -378,6 +370,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 }
             };
 
+            @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     handler.sendMessageDelayed(
@@ -391,6 +384,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
              *
              * @param view
              */
+
             private void handleStop(Object view) {
 
                 Log.i(TAG, "handleStop");
@@ -920,6 +914,51 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        setListAtMost();
+        scrollView.postDelayed(() -> {
+            scrollView.scrollTo(0,scrollY);
+//            scrollView.smoothScrollBy(0, scrollY);
+//            ToastUtil.showShortToast("smoothY=" + currenY);
+        },10);
+    }
+
+//    int currenY = 0;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+//        ToastUtil.showShortToast("currentY=" + currenY);
+//        currenY = scrollView.getScrollY();
+    }
+
+    public void setListAtMost() {
+        setListViewHeightBasedOnChildren((ListView) findViewById(R.id.lv_00_store));
+        setListViewHeightBasedOnChildren((ListView) findViewById(R.id.lv_00));
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 
 

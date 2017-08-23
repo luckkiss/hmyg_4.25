@@ -1,4 +1,4 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,11 +6,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:orientation="vertical">
+
 
         <include layout="@layout/activity_a_top_toolbar" />
 
@@ -36,7 +32,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/white">
 
-            <com.hldj.hmyg.widget.MySwipeRefreshLayout
+            <com.hldj.hmyg.widget.swipeview.MySwipeRefreshLayout
                 android:id="@+id/swipe_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -208,30 +204,6 @@
                                 android:layout_toRightOf="@+id/iv_home_left" />
 
 
-                            <!--<LinearLayout-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:background="@color/white"-->
-                            <!--android:orientation="vertical">-->
-                            <!--&lt;!&ndash;成交公告&ndash;&gt;-->
-                            <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="30dp"-->
-                            <!--android:layout_gravity="center"-->
-                            <!--android:gravity="center"-->
-                            <!--android:text="最新：2017/4/18 关于'采购单（P0051）'的成交公告 "-->
-                            <!--android:textColor="@color/black_de"-->
-                            <!--android:textSize="13sp" />-->
-
-                            <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="30dp"-->
-                            <!--android:layout_gravity="center"-->
-                            <!--android:gravity="center"-->
-                            <!--android:text="最新：2017/4/18 关于'采购单（P0051）'的成交公告 "-->
-                            <!--android:textColor="@color/black_de"-->
-                            <!--android:textSize="13sp" />-->
-                            <!--</LinearLayout>-->
 
                         </RelativeLayout>
 
@@ -267,34 +239,11 @@
                                 tools:text="最新采购" />
 
 
-                            <!--成交公告-->
-                            <!--<TextView-->
-                            <!--android:id="@+id/home_title_first"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="30dp"-->
-                            <!--android:layout_alignParentLeft="true"-->
-                            <!--android:layout_alignParentStart="true"-->
-                            <!--android:layout_alignParentTop="true"-->
-                            <!--android:layout_gravity="center_vertical"-->
-                            <!--android:gravity="center"-->
-                            <!--android:textColor="@color/text_color333"-->
-                            <!--android:textSize="16sp"-->
-                            <!--tools:text="采购" />-->
-
-
-                            <!--<ImageView-->
-                            <!--android:id="@+id/iv_home_more_cg"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="30dp"-->
-                            <!--android:layout_alignParentRight="true"-->
-                            <!--android:padding="9dp"-->
-                            <!--android:scaleType="fitCenter"-->
-                            <!--android:src="@drawable/home_more" />-->
-
                             <com.jarvis.MyView.MyListView
                                 android:id="@+id/lv_00"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:descendantFocusability="blocksDescendants"
                                 android:background="@color/white" />
                         </LinearLayout>
 
@@ -363,40 +312,14 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@color/white"
+                                android:descendantFocusability="blocksDescendants"
                                 android:divider="@null" />
                         </LinearLayout>
 
 
                         <View style="@style/View_line_gray" />
 
-                        <!--<RelativeLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:background="@color/white"-->
-                        <!--android:orientation="vertical"-->
-                        <!--android:paddingLeft="10dp">-->
-                        <!--&lt;!&ndash;此处为热门商家  @drawable/home_merchants  &ndash;&gt;-->
-                        <!--&lt;!&ndash;成交公告&ndash;&gt;-->
-                        <!--<TextView-->
-                        <!--android:id="@+id/home_title_third"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="30dp"-->
-                        <!--android:layout_gravity="center"-->
-                        <!--android:gravity="center"-->
-                        <!--android:textColor="@color/text_color333"-->
-                        <!--android:textSize="16sp"-->
-                        <!--tools:text="热门商家" />-->
 
-                        <!--<ImageView-->
-                        <!--android:id="@+id/iv_home_more_rm"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="30dp"-->
-                        <!--android:layout_alignParentRight="true"-->
-                        <!--android:padding="9dp"-->
-                        <!--android:scaleType="fitCenter"-->
-                        <!--android:src="@drawable/home_more"-->
-                        <!--android:visibility="visible" />-->
-                        <!--</RelativeLayout>-->
                         <com.coorchice.library.SuperTextView
                             android:id="@+id/home_title_third"
                             android:layout_width="match_parent"
@@ -431,7 +354,7 @@
                     </LinearLayout>
                 </android.support.v4.widget.NestedScrollView>
 
-            </com.hldj.hmyg.widget.MySwipeRefreshLayout>
+            </com.hldj.hmyg.widget.swipeview.MySwipeRefreshLayout>
             <!--<android.support.design.widget.FloatingActionButton-->
             <!--android:id="@+id/top_btn"-->
             <!--android:layout_width="wrap_content"-->
@@ -458,8 +381,11 @@
                 android:background="@drawable/top_btn_bg"
                 android:gravity="center"
                 android:visibility="gone" />
+
+
+
         </RelativeLayout>
         <!--</me.hwang.library.widgit.SmartRefreshLayout>-->
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
