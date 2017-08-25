@@ -1,6 +1,7 @@
 package com.hldj.hmyg.saler.M;
 
 import com.hldj.hmyg.buyer.M.BuyerBean;
+import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
 
 import java.util.List;
 
@@ -115,6 +116,7 @@ public class PurchaseBean {
     public String blurName;
     public List<String> itemNameList;
     public AttrDataBean attrData = new AttrDataBean();
+    public PurchaseJsonBean.CiCityBean ciCity ;
 
 
 //    "attrData": {"closeDateStr": "2017年06月09日 14点10分"},

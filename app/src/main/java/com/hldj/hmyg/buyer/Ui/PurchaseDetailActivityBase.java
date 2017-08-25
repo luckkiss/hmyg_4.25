@@ -156,7 +156,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         }
         List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> plantTypeListBeen = saveSeedingGsonBean.getData().getPlantTypeList();
         initAutoLayout2(plantTypeListBeen);
-        onlyOneQuote(isOneQuote,mIsQuoted);
+        onlyOneQuote(isOneQuote, mIsQuoted);
 
     }
 
@@ -184,7 +184,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
      *
      * @param isOneQuote
      */
-    public abstract void onlyOneQuote(boolean isOneQuote,boolean isQuoted);
+    public abstract void onlyOneQuote(boolean isOneQuote, boolean isQuoted);
 
     //step 1
     public void initItem(ItemBean item) {
@@ -266,7 +266,11 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         ArrayList<String> buyerDatas = new ArrayList<String>();
         buyerDatas.clear();
         buyerDatas.add("采购商家：" + item.buyer.displayName);
-        buyerDatas.add("所在地区：" + item.buyer.ciCode);
+        try {
+            buyerDatas.add("所在地区：" + item.purchaseJson.ciCity.fullName);
+        } catch (Exception e) {
+            buyerDatas.add("所在地区：" + "-");
+        }
         buyerDatas.add("采购数量：" + item.count);
         buyerDatas.add("已有报价：" + item.quoteCountJson + "条");
 

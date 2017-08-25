@@ -49,16 +49,18 @@ public class TagFactory {
 
         if (!TextUtils.isEmpty(item) && !TextUtils.isEmpty(item2)) {
             if (!isNull)
-                return getTagViewByName(getTypeName(searchSpec,true) + item + "-" + item2 + " cm");
+                return getTagViewByName(getTypeName(searchSpec, true) + item + "-" + item2 + " cm");
             return getTagViewByName(item + "-" + item2 + " cm");
         } else if (!TextUtils.isEmpty(item)) {
-            if (!isNull) return getTagViewByName(getTypeName(searchSpec,true) + item + " cm");
+            if (!isNull) return getTagViewByName(getTypeName(searchSpec, true) + item + " cm");
             return getTagViewByName(item + " cm");
         } else if (!TextUtils.isEmpty(item2)) {
-            if (!isNull) return getTagViewByName(getTypeName(searchSpec,true) + item2 + " cm");
+            if (!isNull) return getTagViewByName(getTypeName(searchSpec, true) + item2 + " cm");
             return getTagViewByName(item2 + " cm");
+        } else if (TextUtils.isEmpty(item) && TextUtils.isEmpty(item2)) {
+            return null;
         } else {
-            if (!isNull) return getTagViewByName(getTypeName(searchSpec,true) + item);
+            if (!isNull) return getTagViewByName(getTypeName(searchSpec, true) + item);
             return getTagViewByName(searchSpec + item);
         }
 

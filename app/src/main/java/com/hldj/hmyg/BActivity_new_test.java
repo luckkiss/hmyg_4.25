@@ -241,13 +241,16 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 
 
         //最小 最大 hight
-//        tagView.addTag(TagFactory.createDelTag(queryBean.minHeight, queryBean.maxHeight, "高度"), 95);
+        tagView.addTag(TagFactory.createDelTag(queryBean.minHeight, queryBean.maxHeight, "高度"), 95);
 
         //最小 最大  crow
-//        tagView.addTag(TagFactory.createDelTag(queryBean.minCrown, queryBean.maxCrown, "冠幅"), 96);
+        tagView.addTag(TagFactory.createDelTag(queryBean.minCrown, queryBean.maxCrown, "冠幅"), 96);
+
+        //最小
+        tagView.addTag(TagFactory.createDelTag(queryBean.minRod, queryBean.maxRod, "杆径"), 97);
 
         //最小 最大厘米
-        tagView.addTag(TagFactory.createDelTag(queryBean.specMinValue, queryBean.specMaxValue, queryBean.searchSpec), 97);
+//        tagView.addTag(TagFactory.createDelTag(queryBean.specMinValue, queryBean.specMaxValue, queryBean.searchSpec), 97);
 
         if (!TextUtils.isEmpty(queryBean.plantTypes)) {
             String[] strs = queryBean.plantTypes.split(",");
@@ -278,9 +281,9 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
                 getQueryBean().minCrown = "";
                 getQueryBean().maxCrown = "";
             } else if (tag.id == 97) {
-                getQueryBean().specMinValue = "";
-                getQueryBean().specMaxValue = "";
-                getQueryBean().searchSpec = "";
+                getQueryBean().minRod = "";
+                getQueryBean().maxRod = "";
+//                getQueryBean().searchSpec = "";
             } else if (tag.id == 98) {
                 getQueryBean().searchKey = "";
             } else if (tag.id == 99) {

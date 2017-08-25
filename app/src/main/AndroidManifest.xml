@@ -288,33 +288,22 @@
         <activity
             android:name=".MessageListDetailActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="com.hldj.hmyg.buyer.QuoteListActivity"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.QuoteListActivity_bak"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hldj.hmyg.buyer.AddPurchaseActivity"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.SaveReturnApplyActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.saler.QuoteDetailActivity"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.saler.SearchActivity"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.ManagerPurchaseListDetailActivity"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.ManagerPurchaseActivity"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged"
@@ -343,10 +332,7 @@
             android:name="com.hldj.hmyg.SetPhoneByGetCodeActivity"
             android:screenOrientation="portrait"></activity>
 
-        <activity
-            android:name="com.hldj.hmyg.ThematicActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+
         <!-- 相片界面 -->
         <activity
             android:name="com.zzy.flowers.activity.photoalbum.PhotoActivity"
@@ -405,12 +391,13 @@
         <activity
             android:name="com.hldj.hmyg.saler.UpdataImageActivity_bak"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="com.hldj.hmyg.SellectActivity"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.SellectActivity2"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            />
+        <!--stateunspeciedadjustPan-->
         <activity
             android:name="com.hldj.hmyg.saler.ChooseFirstTypeActivity"
             android:screenOrientation="portrait"></activity>
@@ -431,10 +418,7 @@
             android:name="com.hldj.hmyg.saler.AdressActivity"
             android:screenOrientation="portrait" />
 
-        <activity
-            android:name="com.hldj.hmyg.saler.OrderDetailActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new"
             android:launchMode="singleTask"
@@ -455,10 +439,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
 
-        <activity
-            android:name="com.hldj.hmyg.buyer.SettingBuyConfigActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name="com.hldj.hmyg.BuyerListDetailActivity"
             android:launchMode="singleTask"
@@ -469,27 +450,6 @@
             android:screenOrientation="portrait"></activity>
 
 
-        <activity
-            android:name="com.hldj.hmyg.buyer.LoadCarListActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.LoadCarListActivity2"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.ReceiptListActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.OrderReceiptListActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.ReceiptAdressListActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.buyer.AddReceiptAdressActivity"
-            android:screenOrientation="portrait"></activity>
 
         <activity
             android:name="com.hldj.hmyg.ManagerListActivity_new"

@@ -85,7 +85,7 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
                     D.e("==refresh==");
                 })
                 .closeDefaultEmptyView()
-                .openRefresh();
+                .closeRefresh();
 
     }
 
@@ -100,7 +100,7 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
         int viewid = R.layout.item_quote;
         helper.setText(R.id.tv_quote_item_sellerName, strFilter(item.sellerName).equals("") ? strFilter(item.sellerPhone) : strFilter(item.sellerName));//报价人
         helper.setText(R.id.tv_quote_item_cityName, strFilter(item.cityName));//苗源地址
-        helper.setText(R.id.tv_quote_item_price, strFilter(item.price + ""));//价格
+        helper.setText(R.id.tv_quote_item_price, strFilter("￥" + item.price + ""));//价格
         helper.setText(R.id.tv_quote_item_plantTypeName, strFilter(item.plantTypeName));//种植类型
         helper.setText(R.id.tv_quote_item_specText, strFilter(item.specText));//要求规格
         helper.setText(R.id.tv_quote_item_count, strFilter(item.count + ""));// 可供数量

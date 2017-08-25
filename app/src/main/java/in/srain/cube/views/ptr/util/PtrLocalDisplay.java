@@ -32,6 +32,7 @@ public class PtrLocalDisplay {
         return (int) (dp * scale + 0.5f);
     }
 
+
     public static int designedDP2px(float designedDp) {
         if (SCREEN_WIDTH_DP != 320) {
             designedDp = designedDp * SCREEN_WIDTH_DP / 320f;

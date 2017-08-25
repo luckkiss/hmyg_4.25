@@ -503,7 +503,7 @@ public class SetProfileActivity extends BaseActivity implements
                                     }
                                 }
 
-                                if (mStreetIdDatas.length > 0) {
+                                if (mStreetIdDatas != null && mStreetIdDatas.length > 0) {
                                     showAreas();
                                 }
                             } else {

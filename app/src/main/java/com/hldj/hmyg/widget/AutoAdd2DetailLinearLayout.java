@@ -59,9 +59,8 @@ public class AutoAdd2DetailLinearLayout extends BaseLinearLayout {
     }
 
     @Override
-    public <T> BaseLinearLayout setDatas(T t) {
-
-        return this;
+    public BaseLinearLayout setDatas(Object o) {
+        return null;
     }
 
 

@@ -28,6 +28,7 @@ public class EPrestenter extends BasePresenter {
 //        Bitmap bitmap = PictureManageUtil.getCompressBm(imgUrl) ;
 //        Bitmap bitmap1 = PictureManageUtil.rotateBitmap(bitmap, rotate);
 
+
         getAjaxParams().put("headImage", new ByteArrayInputStream(Bitmap2Bytes(bmp)), System.currentTimeMillis() + ".png");
 
         AjaxCallBack callBack = new AjaxCallBack<String>() {

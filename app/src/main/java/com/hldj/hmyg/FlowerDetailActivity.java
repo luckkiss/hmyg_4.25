@@ -604,6 +604,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                         jsonObject2, "unitType");
                                 firstTypeName = JsonGetInfo.getJsonString(
                                         jsonObject2, "firstTypeName");
+                                uploadDatas.firstTypeName = firstTypeName ;
                                 secondTypeName = JsonGetInfo.getJsonString(
                                         jsonObject2, "secondTypeName");
                                 nurseryId = JsonGetInfo.getJsonString(
@@ -813,6 +814,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                 // msSeedlingParms.add(new SeedlingParm(
                                 // "种植类型：", plantTypeName));
                                 // }
+
                                 String fullName = JsonGetInfo.getJsonString(
                                         JsonGetInfo.getJSONObject(jsonObject2,
                                                 "ciCity"), "fullName");
@@ -937,7 +939,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                         ownerJson, "publicName");
 
 
-                                {//商家信息
+                                {//商家信息 --详情
 
 
                                     JSONObject nurseryJson = JsonGetInfo.getJSONObject(jsonObject2, "nurseryJson");

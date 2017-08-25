@@ -67,6 +67,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
@@ -197,28 +198,33 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
     private void loadHeadImage(boolean isLogin) {
         if (isLogin)
-            ImageLoader.getInstance().displayImage(getSpS("headImage"), (ImageView) getView(R.id.iv_circle_head), new ImageLoadingListener() {
-                @Override
-                public void onLoadingStarted(String s, View view) {
+            if (TextUtils.isEmpty(getSpS("headImage"))) {
+                D.e("====空头像，不加载===");
+                ((CircleImageView) getView(R.id.iv_circle_head)).setImageResource(R.drawable.icon_persion_pic);
+                return;
+            }
+        ImageLoader.getInstance().displayImage(getSpS("headImage"), (ImageView) getView(R.id.iv_circle_head), new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String s, View view) {
+                D.e("");
+            }
 
-                }
+            @Override
+            public void onLoadingFailed(String s, View view, FailReason failReason) {
+                D.e("");
+                ((ImageView) getView(R.id.iv_circle_head)).setImageResource(R.drawable.icon_persion_pic);
+            }
 
-                @Override
-                public void onLoadingFailed(String s, View view, FailReason failReason) {
+            @Override
+            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                D.e("");
+            }
 
-                    ((ImageView) getView(R.id.iv_circle_head)).setImageResource(R.drawable.icon_persion_pic);
-                }
-
-                @Override
-                public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-
-                }
-
-                @Override
-                public void onLoadingCancelled(String s, View view) {
-
-                }
-            });
+            @Override
+            public void onLoadingCancelled(String s, View view) {
+                D.e("");
+            }
+        });
 //            ImageLoader.getInstance().displayImage(str, (ImageView) getView(R.id.iv_circle_head));
     }
 
@@ -529,6 +535,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
     public void refresh() {
         setRealName(getSpS("userName"), getSpS("realName"));
+        loadHeadImage(getSpB("isLogin"));
     }
 
 
@@ -545,7 +552,14 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
                         SimpleGsonBean bean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
                         if (bean.isSucceed()) {
-                            getView(R.id.sptv_wd_wdxm).setVisibility(bean.getData().hasProjectManage ? View.VISIBLE : View.INVISIBLE);
+                            if (GetServerUrl.isTest) {
+                                getView(R.id.sptv_wd_wdxm).setVisibility(View.VISIBLE);
+                            } else {
+                                getView(R.id.sptv_wd_wdxm).setVisibility(bean.getData().hasProjectManage ? View.VISIBLE : View.INVISIBLE);
+
+                            }
+
+
                         }
                     }
 

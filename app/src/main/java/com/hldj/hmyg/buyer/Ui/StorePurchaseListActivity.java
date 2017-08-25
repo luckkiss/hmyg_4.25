@@ -407,13 +407,16 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         xListView.setPullLoadEnable(false);
         pageIndex = 0;
 //        datas.clear();
+
         if (listAdapter != null) {
             listAdapter.refreshState();
         }
         if (getdata == true) {
             initData();
         }
-        onLoad();
+
+        if (listAdapter != null)
+            onLoad();
     }
 
     @Override

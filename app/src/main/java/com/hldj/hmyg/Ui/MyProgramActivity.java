@@ -40,6 +40,8 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
 
     @Override
     public void initView() {
+//        EditText editText = getView(R.id.et_program_serach_text);
+//        editText.setHint("请输入采购单名称");
 
         recyclerView = new CoreRecyclerView(mActivity);
 
@@ -85,7 +87,6 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
 //        recyclerView.getRecyclerView().addItemDecoration(new RecycleViewDivider(
 //                mActivity, LinearLayoutManager.VERTICAL, 50, getResources().getColor(R.color.green)));
 //        recyclerView.getRecyclerView().addItemDecoration();
-
 
 
 //        recyclerView.getAdapter().setd

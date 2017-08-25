@@ -1,19 +1,23 @@
 package com.hldj.hmyg.presenter;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.UpImageBackGsonBean;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hldj.hmyg.util.PicCopressUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.TagAdapter;
+import com.hy.utils.ToastUtil;
 import com.white.utils.StringUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -23,9 +27,13 @@ import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.luban.Luban;
+import cn.luban.OnCompressListener;
 
 /**
  * Created by Administrator on 2017/4/14.
@@ -208,6 +216,7 @@ public class SaveSeedlingPresenter {
             }
         };
 
+
         mFlowLayout.setAdapter(tagAdapter);
 
         mFlowLayout.setMaxSelectCount(1);
@@ -235,42 +244,62 @@ public class SaveSeedlingPresenter {
                 finalHttp.addHeader("Content-Type", "application/octet-stream");
                 AjaxParams params1 = new AjaxParams();
                 params1.put("sourceId", "");
+
+                PicCopressUtil copressUtil = new PicCopressUtil();
+
+
                 File file1 = new File(dataList.get(i).getUrl());
 
+                D.e("===========开始上传图片=========\n" + i + "   图片大小：" + file1.length() / 1024 + " k ");
+//                try {
+//                    D.e("===========开始上传图片=========\n" + "图片大小：" + getFileSize(file1) + " k ");
+//                } catch (Exception e) {
+//                    D.e("===========没找到文件=========\n");
+//                    e.printStackTrace();
+//                }
+
+                if (file1.length() / 1024 > 300) {
+
+//                      params1.put("file", file1);
+//                        params1.put("file", new ByteArrayInputStream(copressUtil.compress(dataList.get(i).getUrl())), System.currentTimeMillis() + ".png");
+                    Luban luban = Luban.get(MyApplication.getInstance());
+                    luban.load(file1)
+                            .putGear(Luban.THIRD_GEAR)
+                            .setFilename(System.currentTimeMillis() + "")
+                            .setCompressListener(new OnCompressListener() {
+                                @Override
+                                public void onStart() {
+                                    D.e("=======onStart=======");
+                                }
+
+                                @Override
+                                public void onSuccess(File file) {
+                                    D.e("=======onSuccess=======" + file.length() / 1024);
+                                    try {
+                                        params1.put("file", file);
+                                        doUpLoad(file, params1, finalHttp, resultCallBack);
+                                    } catch (FileNotFoundException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    ToastUtil.showShortToast("图片上传失败");
+                                }
+                            }).launch();
 
 
-
-                try {
-                    params1.put("file", file1);
-                } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
+                } else {
+                    try {
+                        params1.put("file", file1);
+                        doUpLoad(file1, params1, finalHttp, resultCallBack);
+                    } catch (FileNotFoundException e1) {
+                        D.e("===上传失败==");
+                        ToastUtil.showShortToast("图片上传失败");
+                        e1.printStackTrace();
+                    }
                 }
-                params1.put("imagType", "seedling");
-                finalHttp.post(GetServerUrl.getUrl() + "admin/file/image", params1, new AjaxCallBack<String>() {
-                    @Override
-                    public void onSuccess(String json) {
-                        D.e("===========json=====上传图片成功==========" + json);
-                        UpImageBackGsonBean imageBackGsonBean = GsonUtil.formateJson2Bean(json, UpImageBackGsonBean.class);
-
-                        if (imageBackGsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
-                            D.e("===上传成功==");
-                            resultCallBack.onSuccess(new Pic(imageBackGsonBean.getData().getImage().getId(), false, imageBackGsonBean.getData().getImage().getOssMediumImagePath(), a));
-                        } else {
-                            D.e("===上传失败==");
-                        }
-
-//                        urlPaths.add(a, new Pic(imageBackGsonBean.getData().getImage().getId(), false, imageBackGsonBean.getData().getImage().getOssMediumImagePath(), a));
-                        D.e("==========暂时使用中等大小图片==============");
-                        a++;
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t, int errorNo, String strMsg) {
-                        D.e("===========json=====失败==========" + errorNo + "  " + strMsg + " " + t.getMessage());
-                        resultCallBack.onFailure(t, errorNo, strMsg);
-                    }
-                });
-
 
             } else {
 //                UpImageBackGsonBean imageBackGsonBean = new UpImageBackGsonBean();
@@ -284,6 +313,56 @@ public class SaveSeedlingPresenter {
         }
 
 
+    }
+
+
+    public void doUpLoad(File file, AjaxParams params1, FinalHttp finalHttp, ResultCallBack resultCallBack) {
+
+        params1.put("imagType", "seedling");
+        finalHttp.post(GetServerUrl.getUrl() + "admin/file/image", params1, new AjaxCallBack<String>() {
+            @Override
+            public void onSuccess(String json) {
+                D.e("===========json=====上传图片成功==========\n" + json);
+                UpImageBackGsonBean imageBackGsonBean = GsonUtil.formateJson2Bean(json, UpImageBackGsonBean.class);
+
+                if (imageBackGsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
+                    D.e("===上传成功==");
+                    resultCallBack.onSuccess(new Pic(imageBackGsonBean.getData().getImage().getId(), false, imageBackGsonBean.getData().getImage().getOssMediumImagePath(), a));
+                } else {
+                    D.e("===上传失败==");
+                }
+
+//                        urlPaths.add(a, new Pic(imageBackGsonBean.getData().getImage().getId(), false, imageBackGsonBean.getData().getImage().getOssMediumImagePath(), a));
+                D.e("==========暂时使用中等大小图片==============");
+                a++;
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                D.e("===========json=====失败==========" + errorNo + "  " + strMsg + " " + t.getMessage());
+                resultCallBack.onFailure(t, errorNo, strMsg);
+            }
+        });
+    }
+
+    /**
+     * 获取指定文件大小
+     *
+     * @param
+     * @return
+     * @throws Exception
+     */
+    public static long getFileSize(File file) throws Exception {
+        long size = 0;
+        if (file.exists()) {
+            FileInputStream fis = null;
+            fis = new FileInputStream(file);
+            size = fis.available();
+        } else {
+            file.createNewFile();
+            Log.e("获取文件大小", "文件不存在!");
+        }
+        return size;
     }
 
 

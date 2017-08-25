@@ -207,6 +207,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                 index = i;
             }
         }
+
+        viewHolder.id_flowlayout.setCanCancle(false);
         //设置默认
         //动态添加标签
         SaveSeedlingPresenter.initAutoLayout(viewHolder.id_flowlayout, typeListBeen, index, SaveSeedlingActivityBase.this, (view, position, parent) -> {
@@ -249,6 +251,9 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                 index = i;
             }
         }
+
+        viewHolder.id_flowlayout_2.setCanCancle(false);
+
         //动态添加标签
         SaveSeedlingPresenter.initAutoLayout2(viewHolder.id_flowlayout_2, plantTypeList, index, SaveSeedlingActivityBase.this, (view, position, parent) -> {
             tag_ID1 = plantTypeList.get(position).getValue();//上传值
@@ -728,6 +733,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
     }
 
 
+    //暂存草稿箱
     View.OnClickListener onClickListener = v -> {
         SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean1 = GsonUtil.formateJson2Bean("", SaveSeedingGsonBean.DataBean.SeedlingBean.class);
 
@@ -840,10 +846,19 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         AdressActivity.Address address = upLoadDatas.address;
         seedlingBean.setNurseryId(address.addressId);
         nurseryJsonBean.setPhone(address.contactPhone);
+        nurseryJsonBean.contactPhone=(address.contactPhone);
+        nurseryJsonBean.contactName = (address.contactName);
         nurseryJsonBean.setRealName(address.contactName);
         nurseryJsonBean.setCityName(address.cityName);
+
+        nurseryJsonBean.isDefault = address.isDefault ;
+
+        nurseryJsonBean.setName(address.name);
+        nurseryJsonBean.setFullAddress(address.fullAddress);
+
         seedlingBean.setCityName(address.cityName);
         seedlingBean.setDefault(address.isDefault);
+
         seedlingBean.setNurseryJson(nurseryJsonBean);
 
         SaveSeedlingActivityBase.this.saveSeedingGsonBean.getData().setSeedling(seedlingBean);

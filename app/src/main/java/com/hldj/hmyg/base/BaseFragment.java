@@ -21,6 +21,8 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.weavey.loading.lib.LoadingLayout;
 
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+
 /**
  * Created by Administrator on 2017/5/22.
  */
@@ -259,5 +261,17 @@ public abstract class BaseFragment extends Fragment {
         return (T) view;
     }
 
+
+    public void showActivityLoading(){
+        if(mActivity != null && mActivity instanceof NeedSwipeBackActivity){
+            ((NeedSwipeBackActivity) mActivity).showLoading();
+        }
+    }
+
+    public void hideActivityLoading(){
+        if(mActivity != null && mActivity instanceof NeedSwipeBackActivity){
+            ((NeedSwipeBackActivity) mActivity).hindLoading();
+        }
+    }
 
 }

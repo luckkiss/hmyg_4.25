@@ -1,5 +1,6 @@
 package com.hldj.hmyg.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.UnitTypeBean;
 import com.hldj.hmyg.buy.bean.StorageSave;
 import com.hldj.hmyg.saler.AdressActivity;
+import com.hldj.hmyg.saler.AdressManagerActivity;
 import com.hldj.hmyg.util.D;
 import com.zf.iosdialog.widget.ActionSheetDialog_new;
 import com.zzy.common.widget.wheelview.popwin.CustomDaysPickPopwin;
@@ -253,17 +255,21 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
      * @param address  地址对象
      */
     private void initAddressView(View rootView, AdressActivity.Address address) {
-        ((TextView) rootView.findViewById(R.id.tv_name)).setText(address.contactName);// 名字
+
         upLoadDatas.address =address ;
         if (address.isDefault)
         {
             rootView.findViewById(R.id.tv_is_defoloat).setVisibility(View.VISIBLE);//默认就显示默认地址
-            ((TextView) rootView.findViewById(R.id.tv_address_name)).setText(address.cityName); //地址名称
+            ((TextView) rootView.findViewById(R.id.tv_address_name)).setText(address.fullAddress); //地址名称
         }else
         {
             rootView.findViewById(R.id.tv_is_defoloat).setVisibility(View.GONE);//默认就显示默认地址
-            ((TextView) rootView.findViewById(R.id.tv_address_name)).setText(address.cityName); //地址名称
+            ((TextView) rootView.findViewById(R.id.tv_address_name)).setText(address.fullAddress); //地址名称
         }
+
+        ((TextView) rootView.findViewById(R.id.tv_name)).setText( "苗圃名称：" + AdressManagerActivity.striFil((Activity) getContext(), address.name, ""));// 苗圃名称
+        ((TextView) rootView.findViewById(R.id.tv_con_name_phone)).setText( "联  系  人：" + AdressManagerActivity.striFil((Activity) getContext(), address.contactName, address.contactPhone));// 名字
+        ((TextView) rootView.findViewById(R.id.tv_con_name_phone)).setText( "联  系  人：" + AdressManagerActivity.striFil((Activity) getContext(), address.contactName, address.contactPhone));// 名字
 
     }
 

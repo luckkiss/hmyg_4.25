@@ -80,6 +80,7 @@
                     android:gravity="center_vertical|start"
                     android:paddingLeft="10dp"
                     android:paddingRight="5dp"
+                    android:textColor="@color/price_orige"
                     android:textSize="12sp"
                     tools:text="160" />
 

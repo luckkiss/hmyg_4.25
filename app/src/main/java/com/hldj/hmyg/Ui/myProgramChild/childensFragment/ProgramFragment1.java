@@ -3,6 +3,7 @@ package com.hldj.hmyg.Ui.myProgramChild.childensFragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -28,8 +29,6 @@ import com.hy.utils.ToastUtil;
 import com.weavey.loading.lib.LoadingLayout;
 
 import net.tsz.afinal.http.AjaxCallBack;
-
-import static com.hldj.hmyg.R.id.tv_01;
 
 /**
  * 采购单
@@ -63,17 +62,16 @@ public class ProgramFragment1 extends BaseFragment {
                 isFirst = false;
                 Log.e(TAG, "convert: " + item.toString());
 
-                helper.setVisible(R.id.view_top,false);
 
+//                helper.setText(R.id.tv_01, item.num);
                 String html_source = item.blurProjectName + "采购单";
                 String html_source1 = "(" + item.num + ")";
-                helper.setText(tv_01, Html.fromHtml(html_source + "<font color='#FFA19494'><small>" + html_source1 + "</small></font>"));
-
+                helper.setText(R.id.tv_01, Html.fromHtml(html_source + "<font color='#FFA19494'><small>" + html_source1 + "</small></font>"));
 //                helper.setText(R.id.tv_01, Html.fromHtml(item.blurProjectName + "采购单" + "<font color='#FFA19494'><small>" + "(" + item.num + ")" + "</small></font>"));
-                helper.setText(R.id.tv_03, item.cityName);
-
-                helper.setText(R.id.tv_04, "采购商家：" + item.buyer.companyName);//福建莆田
-//                helper.setDrawableLeft(R.id.tv_04, R.mipmap.ic_location);
+                helper.setText(R.id.tv_03, item.createDate.split(" ")[0]);
+                helper.setTextColor(R.id.tv_03, ContextCompat.getColor(mActivity, R.color.text_color));
+                helper.setText(R.id.tv_04, item.ciCity == null ? item.cityName : item.ciCity.fullName);//福建莆田
+                helper.setDrawableLeft(R.id.tv_04, R.mipmap.ic_location);
 
                 helper.setVisible(R.id.tv_pos, true);
                 helper.setText(R.id.tv_pos, (helper.getAdapterPosition() + 1) + "");

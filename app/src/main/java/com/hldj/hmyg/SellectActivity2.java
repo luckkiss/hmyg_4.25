@@ -22,6 +22,7 @@ import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hldj.hmyg.widget.SearchScropView;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
@@ -37,6 +38,7 @@ import java.util.List;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
+import static com.hldj.hmyg.R.id.search_view2;
 import static com.hldj.hmyg.util.ConstantState.FILTER_OK;
 
 public class SellectActivity2 extends NeedSwipeBackActivity {
@@ -69,7 +71,10 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
     private ArrayList<String> planttype_has_ids = new ArrayList<String>();
     private String searchKey = "";
     private QueryBean queryBean;
-//    private EditText et_minHeight;
+    private SearchScropView scropView_rod;
+    private SearchScropView scropView_height;
+    private SearchScropView scropView_crown;
+    //    private EditText et_minHeight;
 //    private EditText et_maxHeight;
 //    private EditText et_minCrown;
 //    private EditText et_maxCrown;
@@ -78,6 +83,10 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sellect2);
+
+        scropView_rod = getView(R.id.search_view1);
+        scropView_height = getView(search_view2);
+        scropView_crown = getView(R.id.search_view3);
 
         getIntentExtral();
         mCache = ACache.get(this);
@@ -151,7 +160,7 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
         });
     }
 
-    TypesBean.DataBean.MainSpecBean mainSpecBean;
+    List<TypesBean.DataBean.MainSpecBean> mainSpecBean;
 
     private void LoadCache(String t) {
         TypesBean typesBean = GsonUtil.formateJson2Bean(t, TypesBean.class);
@@ -167,9 +176,15 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
             initSpecList(typesBean.data.specList);
         }
         mainSpecBean = typesBean.data.mainSpec;
+
         if (GetServerUrl.isTest)
-            ToastUtil.showShortToast("text: \n" + mainSpecBean.toString());
-        this.setText(getView(R.id.tv_sa_type), typesBean.data.mainSpec.name);//地径
+//            ToastUtil.showShortToast("text: \n" + mainSpecBean.toString());
+//        this.setText(getView(R.id.tv_sa_type), typesBean.data.mainSpec.get(0).toString());//地径
+
+        initSearchView(scropView_rod, mainSpecBean.get(0), "10", "20");
+        initSearchView(scropView_height, mainSpecBean.get(1), "30", "450");
+        initSearchView(scropView_crown, mainSpecBean.get(2), "50", "666");
+
 
         //必填 写 *  号
 //        AutoAddRelative.isShowLeft(mainSpecBean.required, getView(R.id.tv_sa_type), R.drawable.seller_redstar);//是否必填
@@ -185,6 +200,20 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
 
     }
 
+
+    public void initSearchView(SearchScropView view, TypesBean.DataBean.MainSpecBean model, String min, String max) {
+        view.setDatas(model);
+        if (view.type.equals("rod")) {
+            view.setMin(queryBean.minRod);
+            view.setMax(queryBean.maxRod);
+        } else if (view.type.equals("height")) {
+            view.setMin(queryBean.minHeight);
+            view.setMax(queryBean.maxHeight);
+        } else if (view.type.equals("crown")) {
+            view.setMin(queryBean.minCrown);
+            view.setMax(queryBean.maxCrown);
+        }
+    }
 
     private void initSpecList(List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> specList) {
         {
@@ -239,7 +268,7 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
 
             if (planttype_names.size() > 0) {
                 SaveSeedlingPresenter.initAutoLayout2(mFlowLayout3, plantTypeList, -1, SellectActivity2.this, (view, position, parent) -> false);
-                mFlowLayout3.setMaxSelectCount(planttype_ids.size());
+                mFlowLayout3.setMaxSelectCount(1);
 
                 int[] pos = new int[planttype_ids.size()];
                 for (int i = 0; i < planttype_ids.size(); i++) {
@@ -258,7 +287,9 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
                     for (Integer setItem : selectPosSet) {
                         D.e("===================" + setItem);
 
-                        buffer = buffer.append(planttype_ids.get(setItem) + ",");
+//                        buffer = buffer.append(planttype_ids.get(setItem) + ",");
+                        buffer = new StringBuffer(planttype_ids.get(setItem) + ",");
+                        planttype_has_ids.clear();
                         planttype_has_ids.add(planttype_ids.get(setItem));
 
                     }
@@ -371,9 +402,12 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
                         et_min_guige.setText("");
                         et_max_guige.setText("");
 
-                        setText(getView(R.id.et_sa_type), "");
+//                        setText(getView(R.id.et_sa_type), "");
                         setText(getView(R.id.tv_import_word), "关键字:");
                         queryBean.searchKey = "";
+                        scropView_rod.resetValue();
+                        scropView_height.resetValue();
+                        scropView_crown.resetValue();
 
                         buffer = new StringBuffer();
                         initSearch();
@@ -407,6 +441,8 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
 //
 
                         queryBean.cityCode = childBeans.cityCode;
+
+
                         String stra = "";
                         if (buffer.length() != 0) {
                             if (buffer.toString().endsWith(",")) {
@@ -420,26 +456,30 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
 
 //                        searchSpec :"diameter"     specMinValue  : 10
 
+//                        queryBean.specMaxValue
+
 
 //                        if (mainSpecBean.required) {
-                        if (!TextUtils.isEmpty(getText(getView(R.id.et_sa_type)))) {
-                            queryBean.searchSpec = mainSpecBean.value;
-                            queryBean.specMinValue = getText(getView(R.id.et_sa_type));
-//                                ToastUtil.showShortToast(mainSpecBean.name + " 必须填写");
-                        } else {
-                            queryBean.searchSpec = "";
-                            queryBean.specMinValue = "";
-                        }
+//                        if (!TextUtils.isEmpty(getText(getView(R.id.et_sa_type)))) {
+//                            queryBean.searchSpec = mainSpecBean.get(0).value;
+//                            queryBean.specMinValue = getText(getView(R.id.et_sa_type));
+////                                ToastUtil.showShortToast(mainSpecBean.name + " 必须填写");
+//                        } else {
+//                            queryBean.searchSpec = "";
+//                            queryBean.specMinValue = "";
+//                        }
 //                        }
 //                        queryBean.searchSpec = getText(getView(R.id.et_sa_type));
 //                        queryBean.specMinValue = et_min_guige.getText().toString();
 //                        queryBean.specMaxValue = et_max_guige.getText().toString();
 
 
-//                        queryBean.minHeight = et_minHeight.getText().toString();
-//                        queryBean.maxHeight = et_maxHeight.getText().toString();
-//                        queryBean.minCrown = et_minCrown.getText().toString();
-//                        queryBean.maxCrown = et_maxCrown.getText().toString();
+                        queryBean.minHeight = scropView_height.getMin();
+                        queryBean.maxHeight = scropView_height.getMax();
+                        queryBean.minCrown = scropView_crown.getMin();
+                        queryBean.maxCrown = scropView_crown.getMax();
+                        queryBean.minRod = scropView_rod.getMin();
+                        queryBean.maxRod = scropView_rod.getMax();
 
 
 //                        if (!TextUtils.isEmpty(queryBean.specMinValue) || !TextUtils.isEmpty(queryBean.specMaxValue)) {
@@ -509,7 +549,7 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
     }
 
 
-    private static class TypesBean {
+    public static class TypesBean {
 
         public String code = "";
         public String msg = "";//测试gson 为空时 会不会报错
@@ -517,25 +557,49 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
 
         public DataBean data;
 
-        static class DataBean {
+        public static class DataBean {
 
             public List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> plantTypeList;
 
             public List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> specList;
 
-            MainSpecBean mainSpec = new MainSpecBean();
+            List<MainSpecBean> mainSpec;
+//            MainSpecBean mainSpec = new MainSpecBean();
 
 
-            class MainSpecBean implements Serializable {
-                String name = "";
-
-                public String value = "";
+            public class MainSpecBean implements Serializable {
+                public String title;
+                public String value;
+                /**
+                 * "title": "杆径",
+                 * "value": "rod",
+                 */
+                public List<ListBean> list;
 
                 public boolean required = false;
 
                 @Override
                 public String toString() {
-                    return "MainSpecBean{" + "name='" + name + '\'' + ", value='" + value + '\'' + ", required=" + required +
+                    return "MainSpecBean{" +
+                            "title='" + title + '\'' +
+                            ", value='" + value + '\'' +
+                            ", list=" + list +
+                            ", required=" + required +
+                            '}';
+                }
+            }
+
+            public class ListBean implements Serializable {
+                public String text = "";
+                public String min = "";
+                public String max = "";
+
+                @Override
+                public String toString() {
+                    return "ListBean{" +
+                            "text='" + text + '\'' +
+                            ", min='" + min + '\'' +
+                            ", max='" + max + '\'' +
                             '}';
                 }
             }
@@ -561,7 +625,7 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
     //初始化关键字
     public void initImportWorlds() {
         setText(getView(R.id.tv_import_word), TextUtils.isEmpty(queryBean.searchKey) ? "关键字:" : "关键字:" + queryBean.searchKey);
-        setText(getView(R.id.et_sa_type), TextUtils.isEmpty(queryBean.specMinValue) ? "" : queryBean.specMinValue);
+//        setText(getView(R.id.et_sa_type), TextUtils.isEmpty(queryBean.specMinValue) ? "" : queryBean.specMinValue);
     }
 
     // 关键字

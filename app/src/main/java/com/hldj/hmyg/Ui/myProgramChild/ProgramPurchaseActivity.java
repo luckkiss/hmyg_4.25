@@ -81,6 +81,9 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
     @Override
     public void initView() {
 
+        EditText editText = getView(R.id.et_program_serach_text);
+        editText.setHint("请输入采购单名称");
+
         showLoading();
 
         getView(R.id.sptv_program_do_search).setOnClickListener(view -> {
@@ -145,6 +148,8 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
                         //成功后刷新
 //                                    coreRecyclerView.onRefresh();
+
+
                     }
 
                     @Override
@@ -425,6 +430,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
         }
         coreRecyclerView.getAdapter().addData(gsonBean);
         loadingLayout.setStatus(LoadingLayout.Success);
+        if (coreRecyclerView.isDataNull()) coreRecyclerView.setNoData("");
         hindLoading();
         coreRecyclerView.selfRefresh(false);
     }
@@ -473,7 +479,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
         TextView tv_program_pur_phoner = getView(R.id.tv_program_pur_phoner);
         TextView tv_program_pur_phone_num = getView(R.id.tv_program_pur_phone_num);
         tv_program_pur_projectName_num.setText(purchaseBean.projectName + "(" + purchaseBean.num + ")");
-        tv_program_pur_city.setText("用苗地块：" + purchaseBean.cityName);
+        tv_program_pur_city.setText("用苗地：" + purchaseBean.cityName);
         tv_program_pur_phoner.setText("联系客服：" + purchaseBean.dispatchName);
 
         tv_program_pur_phone_num.setText(purchaseBean.dispatchPhone);

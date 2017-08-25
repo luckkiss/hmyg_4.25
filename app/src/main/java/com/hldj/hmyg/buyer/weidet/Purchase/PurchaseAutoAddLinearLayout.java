@@ -55,7 +55,7 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
     }
 
     @Override
-    public <T> BaseLinearLayout setDatas(T t) {
+    public BaseLinearLayout setDatas(Object o) {
         return null;
     }
 

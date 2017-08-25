@@ -71,10 +71,13 @@ public class SaveSeedlingActivity extends SaveSeedlingActivityBase {
         //地址对象
         AdressActivity.Address address = new AdressActivity.Address();
         address.addressId = this.saveSeedingGsonBean.getData().nursery.getId();
-        address.contactPhone = this.saveSeedingGsonBean.getData().nursery.getPhone();
-        address.contactName = this.saveSeedingGsonBean.getData().nursery.getRealName();
+        address.contactPhone = this.saveSeedingGsonBean.getData().nursery.contactPhone;
+        address.contactName = this.saveSeedingGsonBean.getData().nursery.contactName;
         address.cityName = this.saveSeedingGsonBean.getData().nursery.getCityName();
+        address.name = this.saveSeedingGsonBean.getData().nursery.getName();//苗圃名称
+        address.fullAddress = this.saveSeedingGsonBean.getData().nursery.getFullAddress();//详细地址
         address.isDefault = this.saveSeedingGsonBean.getData().nursery.isDefault;
+
         viewHolder.bottom_ll.setDefaultAddr(address);
     }
 

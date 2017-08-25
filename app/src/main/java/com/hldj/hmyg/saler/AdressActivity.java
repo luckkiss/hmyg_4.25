@@ -162,6 +162,8 @@ public class AdressActivity extends BaseMVPActivity<AdressListPresenter, AdressL
                     address.cityName = item.cityName;
                     address.contactName = item.contactName;
                     address.contactPhone = item.contactPhone;
+                    address.fullAddress = item.fullAddress;
+                    address.name = item.name ;
                     address.isDefault = item.isDefault;
                     D.e("====" + item.isDefault);
 //                    if (TextUtils.isEmpty(item.twCode)) {
@@ -220,6 +222,8 @@ public class AdressActivity extends BaseMVPActivity<AdressListPresenter, AdressL
         public String contactPhone = "";
         public String contactName = "";
         public String cityName = "";
+        public String name = "";//苗圃名称
+        public String fullAddress = "";// 拼接好的 详细地址地址
         public boolean isDefault = false;
     }
 

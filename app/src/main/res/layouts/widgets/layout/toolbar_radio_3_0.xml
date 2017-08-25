@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="-1px"
                 android:background="@drawable/rb_center_selecteor"
-                android:text="装车列表"
+                android:text="发货信息"
                 android:textColor="@color/rb_left_selecteor" />
 
             <RadioButton

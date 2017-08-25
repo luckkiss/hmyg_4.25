@@ -1272,7 +1272,6 @@ public class SaveSeedingGsonBean implements Serializable {
                 private CiCityBeanX ciCity;
                 private CoCityBeanX coCity;
                 private TwCityBeanX twCity;
-                private String name;
                 private String detailAddress;
                 private int nurseryArea;
                 private String type;
@@ -1283,8 +1282,12 @@ public class SaveSeedingGsonBean implements Serializable {
                 private String publicName = "";
                 private String realName = "";
                 private String phone = "";
-                private String fullAddress;
-                public Boolean isDefault = false;
+
+                public String name; // 苗圃名称
+                public String fullAddress;//详细地址
+                public String contactPhone;//联系电话
+                public String contactName;//联系人姓名
+                public Boolean isDefault = false;//是否默认地址
 
 
                 @Override

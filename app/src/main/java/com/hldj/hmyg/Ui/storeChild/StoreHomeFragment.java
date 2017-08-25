@@ -1,6 +1,7 @@
 package com.hldj.hmyg.Ui.storeChild;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -88,10 +89,10 @@ public class StoreHomeFragment extends BaseFragment implements StoreContract.Vie
         }
     }
 
-    @Override
-    public int bindLoadingLayout() {
-        return R.id.store_loading;
-    }
+//    @Override
+//    public int bindLoadingLayout() {
+//        return R.id.store_loading;
+//    }
 
     @Override
     protected void initView(View rootView) {
@@ -119,12 +120,12 @@ public class StoreHomeFragment extends BaseFragment implements StoreContract.Vie
                 .closeRefresh()
                 .openLoadMore(getQueryBean().pageSize, page -> {
                     showLoading();
+                    showActivityLoading();
                     getQueryBean().pageIndex = page + "";
                     getQueryBean().ownerId = getStoreID();
                     myPresenter.getData();
 //            mPresenter.getData();
                 });
-
         store_recycle.onRefresh();
 
 
@@ -157,7 +158,7 @@ public class StoreHomeFragment extends BaseFragment implements StoreContract.Vie
 
     @Override
     public void showErrir(String erMst) {
-             hideLoading(LoadingLayout.Error,erMst);
+        hideLoading(LoadingLayout.Error, erMst);
     }
 
     @Override
@@ -214,7 +215,18 @@ public class StoreHomeFragment extends BaseFragment implements StoreContract.Vie
             ((BaseMultAdapter) store_recycle.getAdapter()).setDefaultType(GRID_VIEW);
 
             type = GRID_VIEW;
+            store_recycle.getRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
+                @Override
+                public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                    super.getItemOffsets(outRect, view, parent, state);
+                    outRect.left = 0;
+                    outRect.right = 0;
+                    outRect.top = 0;
+                    outRect.bottom = 0;
+                }
+            });
             store_recycle.getRecyclerView().setLayoutManager(new GridLayoutManager(mActivity, 2));
+
             store_recycle.getAdapter().notifyDataSetChanged();
             startAnimation(store_recycle.getRecyclerView(), R.anim.zoom_in);
             store_recycle.getRecyclerView().scrollToPosition(now_position);
@@ -353,7 +365,7 @@ public class StoreHomeFragment extends BaseFragment implements StoreContract.Vie
 //                    drawableCenterText.setCompoundDrawablesWithIntrinsicBounds(null, null,drawable ,null);
                 }
                 Drawable drawable = getResources().getDrawable(drawableId);
-                drawable.setBounds(0, 0, 25, 25);
+                drawable.setBounds(0, 0, drawable.getMinimumWidth() / 2 - 3, drawable.getMinimumHeight() / 2 - 3);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     drawableCenterText.setCompoundDrawables(null, null, drawable, null);
                 }
@@ -385,10 +397,14 @@ public class StoreHomeFragment extends BaseFragment implements StoreContract.Vie
                     BPageGsonBean bPageGsonBean = GsonUtil.formateJson2Bean(json, BPageGsonBean.class);
                     if (bPageGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
                         store_recycle.getAdapter().addData(bPageGsonBean.data.page.data);
+
+                        if (store_recycle.isDataNull()) store_recycle.setNoData("");
                         hideLoading(store_recycle);
+                        hideActivityLoading();
                     } else {
 
                         hideLoading(LoadingLayout.Error, bPageGsonBean.msg);
+                        hideActivityLoading();
                     }
                     store_recycle.selfRefresh(false);
                 }
@@ -396,15 +412,15 @@ public class StoreHomeFragment extends BaseFragment implements StoreContract.Vie
                 @Override
                 public void onFailure(Throwable t, int errorNo, String strMsg) {
                     store_recycle.selfRefresh(false);
+                    store_recycle.setNoData("网络错误");
+                    hideActivityLoading();
                     hideLoading(LoadingLayout.No_Network);
                 }
             };
             doRequest("seedling/list", false, ajaxCallBack);
-
         }
 
     }
 
-//    StoreHomeFragment
 
 }

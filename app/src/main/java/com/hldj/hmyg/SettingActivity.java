@@ -34,6 +34,7 @@ import com.hy.utils.ToastUtil;
 import com.tencent.bugly.beta.Beta;
 import com.white.update.UpdateInfo;
 import com.white.utils.SettingUtils;
+import com.zf.iosdialog.widget.AlertDialog;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -504,7 +505,14 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                         getVersion();
                         break;
                     case R.id.tv_out:
-                        exit2Home(mActivity, e, true);
+
+                        new AlertDialog(mActivity).builder()
+                                .setTitle("确定退出登录?")
+                                .setPositiveButton("退出登录", v1 -> {
+                                    exit2Home(mActivity, e, true);
+                                }).setNegativeButton("取消", v2 -> {
+                        }).show();
+
 //                        e.putBoolean("isLogin", false);
 //                        e.putString("showUserName", "");
 //                        e.clear(); // 清除所有登录数据

@@ -107,7 +107,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                     protected void convert(BaseViewHolder helper, SellerQuoteJsonBean item) {
 //                        helper.setText(R.id.tv_quote_item_sellerName, strFilter(item.sellerName).equals("") ? strFilter(item.sellerPhone) : strFilter(item.sellerName));//报价人
 
-                        helper.setText(R.id.tv_quote_item_price, strFilter(item.price + ""));//价格
+                        helper.setText(R.id.tv_quote_item_price, strFilter("￥"+item.price + ""));//价格
                         helper.setText(R.id.tv_quote_item_plantTypeName, strFilter(item.plantTypeName));//种植类型
                         helper.setText(R.id.tv_quote_item_declare, strFilter(item.remarks));//种植类型
 

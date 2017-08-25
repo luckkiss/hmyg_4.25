@@ -31,7 +31,7 @@ public class ProgramProtocolActivity extends ProgramDirctActivity implements Vie
 
     private ArrayList<String> list_title = new ArrayList<String>() {{
 //        add("报价单");
-        add("装车列表");
+        add("发货信息");
         add("项目信息");
     }};
 
