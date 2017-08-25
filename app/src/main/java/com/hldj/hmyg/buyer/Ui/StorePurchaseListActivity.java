@@ -303,6 +303,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                         /*报价说明*/
                 ((TextView) getView(tv_03)).setText("报价说明");
                 getView(tv_03).setOnClickListener(StorePurchaseListActivity.this);
+                getView(R.id.tv_ymdw).setOnClickListener(StorePurchaseListActivity.this);
 
                         /* 用  苗  地*/
                 ((TextView) getView(R.id.tv_04)).setText("用  苗  地：" + headPurchase.cityName);
@@ -456,6 +457,8 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
             case R.id.tv_03:
                 showWebViewDialog(getQuoteDesc());
                 break;
+            case R.id.tv_ymdw:
+                showWebViewDialog("用苗单位的单位信息");
             default:
                 break;
         }

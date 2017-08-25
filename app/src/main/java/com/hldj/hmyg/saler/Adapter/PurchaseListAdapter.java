@@ -17,6 +17,7 @@ import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
 import com.hldj.hmyg.saler.M.PurchaseBean;
 import com.hy.utils.StringFormatUtil;
 import com.hy.utils.TagAdapter;
+import com.hy.utils.ToastUtil;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
         TextView tv_01 = myViewHolder.getView(R.id.tv_01);
         TextView tv_03 = myViewHolder.getView(R.id.tv_03);
         TextView tv_04 = myViewHolder.getView(R.id.tv_04);
+        TextView tv_05 = myViewHolder.getView(R.id.tv_05);
 //            TextView tv_08 =   myViewHolder.getView(R.id.tv_08);
         TextView tv_10 = myViewHolder.getView(R.id.tv_10);
         TextView tv_11 = myViewHolder.getView(R.id.tv_11);
@@ -53,7 +55,7 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
 
         mMobileTagAdapter.onlyAddAll(item.itemNameList);
 
-        mMobileFlowTagLayout.ClearClickAble(true, view1 -> jump((Activity) context,item));
+        mMobileFlowTagLayout.ClearClickAble(true, view1 -> jump((Activity) context, item));
 
 //            Html.fromHtml("北京市发布霾黄色预警，<font color='#ff0000'><big><big>外出携带好</big></big></font>口罩")
 
@@ -64,6 +66,17 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
 
         tv_03.setText(item.cityName);
         tv_04.setText("采购商家：" + item.buyer.companyName);
+
+
+        ToastUtil.showShortToast("item.showConsumerName" + item.showConsumerName);
+        if (item.showConsumerName) {
+            tv_05.setText("用苗单位：" + item.consumerFullName);
+            tv_05.setVisibility(View.VISIBLE);
+        }else
+        {
+            tv_05.setVisibility(View.GONE);
+        }
+
 
         if (MyApplication.getUserBean().showQuoteCount) {
             if (item.quoteCountJson > 0) {
@@ -97,13 +110,13 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
 
 
         myViewHolder.getConvertView().setOnClickListener(v -> {
-            jump((Activity) context,item);
+            jump((Activity) context, item);
         });
 
 
     }
 
-    public static void jump(Activity context,PurchaseBean item) {
+    public static void jump(Activity context, PurchaseBean item) {
         // TODO Auto-generated method stub
         Intent intent = new Intent(context,
                 StorePurchaseListActivity.class);
@@ -111,11 +124,6 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
         intent.putExtra("title", item.num);
         context.startActivity(intent);
     }
-
-
-
-
-
 
 
 }

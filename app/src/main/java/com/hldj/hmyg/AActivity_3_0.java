@@ -78,6 +78,8 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.hldj.hmyg.R.id.home_title_first;
+
 
 /**
  * change a list hellow world
@@ -341,11 +343,11 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         //新闻资讯
         findViewById(R.id.stv_home_4).setOnClickListener(v -> NewsActivity.start2Activity(AActivity_3_0.this));
         //采购
-        findViewById(R.id.home_title_first).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this));
+        findViewById(home_title_first).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this));
         //苗木商城 更多
         findViewById(R.id.home_title_second).setOnClickListener(v -> MainActivity.toB());
         //热门商家
-        findViewById(R.id.home_title_third).setOnClickListener(v -> ToastUtil.showShortToast("更多热门商家正在开发中..."));
+//        findViewById(R.id.home_title_third).setOnClickListener(v -> ToastUtil.showShortToast("更多热门商家正在开发中..."));
 
 
         // http://blog.csdn.net/jiangwei0910410003/article/details/17024287
@@ -466,7 +468,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                         D.e("json= \n" + t);
                         mCache.remove("index");
                         mCache.put("index", t.toString());
-                        LoadCache(t.toString());
+//                        LoadCache(t.toString());
                         LoadCache(mCache.getAsString("index"));
                         super.onSuccess(t);
                     }
@@ -752,11 +754,20 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
 
         try {//采购项目
-            if (indexGsonBean.data.purchaseList.size() != 0) {
-                findViewById(R.id.ll_caigou_parent).setVisibility(View.VISIBLE);
+
+            View view = findViewById(R.id.ll_caigou_parent) ;
+//
+            if ( indexGsonBean.data.purchaseList.size() != 0) {
+                view.setVisibility(View.VISIBLE);
+                PurchaseListAdapter adapter = new PurchaseListAdapter(AActivity_3_0.this, indexGsonBean.data.purchaseList, R.layout.list_item_purchase_list_new);
+                lv_00.setAdapter(adapter);
+                D.e("VISIBLE");
+            }else {
+                view.setVisibility(View.GONE);
+                ((ViewGroup) findViewById(R.id.home_title_first).getParent()).setVisibility(View.GONE);
+                D.e("GONE");
             }
-            PurchaseListAdapter adapter = new PurchaseListAdapter(AActivity_3_0.this, indexGsonBean.data.purchaseList, R.layout.list_item_purchase_list_new);
-            lv_00.setAdapter(adapter);
+
         } catch (Exception e) {
             findViewById(R.id.ll_caigou_parent).setVisibility(View.GONE);
             D.e("=============没有采购列表，或者采购数据异常===============");
@@ -765,9 +776,12 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         try {
             if (indexGsonBean.data.seedlingList.size() != 0) {
                 findViewById(R.id.ll_tuijian_parent).setVisibility(View.VISIBLE);
+                BProduceAdapt bProduceAdapt = new BProduceAdapt(AActivity_3_0.this, indexGsonBean.data.seedlingList, R.layout.list_view_seedling_new);
+                ((ListView) findViewById(R.id.lv_00_store)).setAdapter(bProduceAdapt);
+            }else{
+                findViewById(R.id.ll_tuijian_parent).setVisibility(View.GONE);
             }
-            BProduceAdapt bProduceAdapt = new BProduceAdapt(AActivity_3_0.this, indexGsonBean.data.seedlingList, R.layout.list_view_seedling_new);
-            ((ListView) findViewById(R.id.lv_00_store)).setAdapter(bProduceAdapt);
+
         } catch (Exception e) {
             findViewById(R.id.ll_tuijian_parent).setVisibility(View.GONE);
             D.e("=============没有推荐列表，或者数据异常===============");
@@ -972,7 +986,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         } else {
             for (int i = 0; i < tvs.length; i++) {
                 tvs[i].setText(list.get(i).title);
-                ((ViewGroup) tvs[i].getParent()).setVisibility(View.VISIBLE);
+//              ((ViewGroup) tvs[i].getParent()).setVisibility(View.VISIBLE);
 
                 if (list.get(i).isClick) {
                     ((SuperTextView) views[i]).setShowState(true);

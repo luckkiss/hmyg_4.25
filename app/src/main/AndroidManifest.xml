@@ -227,10 +227,13 @@
             android:screenOrientation="portrait" />
 
 
-
         <activity
             android:name=".Ui.Eactivity3_0"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".Ui.DispatcherActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".Ui.NewsActivity"
             android:screenOrientation="portrait" />
@@ -306,8 +309,8 @@
 
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity"
-            android:windowSoftInputMode="stateHidden|stateUnchanged"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity
             android:name="com.hldj.hmyg.FeedBackActivity"
             android:launchMode="singleTask"
@@ -395,8 +398,7 @@
         <activity
             android:name="com.hldj.hmyg.SellectActivity2"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"
-            />
+            android:windowSoftInputMode="adjustPan" />
         <!--stateunspeciedadjustPan-->
         <activity
             android:name="com.hldj.hmyg.saler.ChooseFirstTypeActivity"
@@ -432,8 +434,6 @@
             android:screenOrientation="portrait"></activity>
 
 
-
-
         <activity
             android:name="com.hldj.hmyg.BuyerValidateApplyListActivity"
             android:launchMode="singleTask"
@@ -448,7 +448,6 @@
             android:name="com.hldj.hmyg.BuyOrderActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
-
 
 
         <activity

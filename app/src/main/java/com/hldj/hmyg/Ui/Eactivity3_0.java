@@ -138,6 +138,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         this.getView(R.id.sptv_wd_bjzl).setOnClickListener(v -> SetProfileActivity.start2ActivitySet(mActivity, 100));//编辑资料
         this.getView(R.id.sptv_wd_wdxm).setOnClickListener(v -> MyProgramActivity.start(mActivity));//我的项目
         this.getView(R.id.sptv_wd_exit).setOnClickListener(v -> exit());//退出登录
+        this.getView(R.id.sptv_wd_ddzy).setOnClickListener(v -> DispatcherActivity.start(mActivity));// 调度专员
 
 
         this.getView(R.id.iv_circle_head).setOnClickListener(v -> {

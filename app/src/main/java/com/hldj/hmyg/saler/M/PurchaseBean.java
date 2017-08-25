@@ -114,9 +114,13 @@ public class PurchaseBean {
     public String typeName;
     public String blurProjectName;
     public String blurName;
+
+    public String consumerFullName = "-";//用苗单位
+    public boolean showConsumerName = false;// 是否显示用苗单位
+
     public List<String> itemNameList;
     public AttrDataBean attrData = new AttrDataBean();
-    public PurchaseJsonBean.CiCityBean ciCity ;
+    public PurchaseJsonBean.CiCityBean ciCity;
 
 
 //    "attrData": {"closeDateStr": "2017年06月09日 14点10分"},

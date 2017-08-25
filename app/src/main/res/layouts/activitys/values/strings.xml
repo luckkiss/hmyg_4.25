@@ -8,4 +8,5 @@
     <string name="listview_header_last_time">上次更新时间：</string>
     <string name="import_word">请输入品种名称的关键字</string>
     <string name="reset">重置</string>
+    <string name="company_info"><u>单位信息</u></string>
 </resources>

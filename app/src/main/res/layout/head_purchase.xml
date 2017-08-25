@@ -81,6 +81,48 @@
                 tools:text="厦门花木易购有心公司" />
         </LinearLayout>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="3dip"
+            android:orientation="horizontal"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="用苗单位："
+                android:textColor="@color/white" />
+
+
+            <TextView
+                android:id="@+id/tv_021"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:maxWidth="190dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSize"
+                tools:text="用苗门某某某用苗门某某某击弹窗用苗门某某某击弹窗击弹窗）" />
+
+
+            <TextView
+                android:id="@+id/tv_ymdw"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="@string/company_info"
+                android:textColor="@color/fabu_yellow"
+
+                />
+
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,20 +143,20 @@
         </LinearLayout>
 
         <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1px"-->
-            <!--android:background="#fff0f0f0" />-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px"-->
+        <!--android:background="#fff0f0f0" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="2.5dp"
-            android:paddingTop="2.05dp"
             android:layout_marginTop="2.5dip"
-            android:orientation="vertical"
             android:background="@color/white_60"
+            android:orientation="vertical"
+            android:paddingBottom="2.5dp"
             android:paddingLeft="10.0dip"
-            android:paddingRight="10.0dip">
+            android:paddingRight="10.0dip"
+            android:paddingTop="2.05dp">
 
             <TextView
                 android:id="@+id/tv_05"
@@ -134,10 +176,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:background="@color/trans"
                 android:paddingBottom="3dp"
                 android:paddingTop="3dp"
                 android:textColor="@color/white"
-                android:background="@color/trans"
                 android:textSize="@dimen/textSizeS"
                 tools:text="截止时间" />
         </LinearLayout>

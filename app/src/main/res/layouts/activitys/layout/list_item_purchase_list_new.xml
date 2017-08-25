@@ -29,8 +29,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -104,6 +103,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingLeft="10.0dip"
             android:paddingRight="10.0dip">
 
@@ -118,6 +118,20 @@
                 android:textColor="@color/text_color666"
                 android:textSize="13sp"
                 tools:text="tv_04" />
+
+            <TextView
+                android:id="@+id/tv_05"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/text_color666"
+                android:textSize="13sp"
+                android:visibility="gone"
+                tools:text="tv_04_采购界面显示"
+                tools:visibility="visible" />
         </LinearLayout>
 
 
