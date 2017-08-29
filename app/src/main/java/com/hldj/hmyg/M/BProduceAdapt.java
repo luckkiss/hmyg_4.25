@@ -12,6 +12,7 @@ import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.base.MySwipeAdapter;
 import com.hldj.hmyg.base.ViewHolders;
+import com.hldj.hmyg.util.D;
 
 import java.util.List;
 
@@ -27,6 +28,10 @@ public class BProduceAdapt extends GlobBaseAdapter<BPageGsonBean.DatabeanX.Pageb
 
     @Override
     public void setConverView(ViewHolders myViewHolder, BPageGsonBean.DatabeanX.Pagebean.Databean item, int position) {
+
+
+        if (position==1)
+            D.e("=======PurchaseListAdapter====="+item.toString());
         int layout_id = R.layout.list_view_seedling_new;
 
         ImageView iv_img = myViewHolder.getView(R.id.iv_img);

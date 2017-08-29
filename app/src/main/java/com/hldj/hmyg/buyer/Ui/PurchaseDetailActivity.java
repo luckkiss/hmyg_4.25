@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.coorchice.library.SuperTextView;
@@ -107,9 +108,10 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                     protected void convert(BaseViewHolder helper, SellerQuoteJsonBean item) {
 //                        helper.setText(R.id.tv_quote_item_sellerName, strFilter(item.sellerName).equals("") ? strFilter(item.sellerPhone) : strFilter(item.sellerName));//报价人
 
-                        helper.setText(R.id.tv_quote_item_price, strFilter("￥"+item.price + ""));//价格
+                        helper.setText(R.id.tv_quote_item_price, strFilter("￥" + item.price + ""));//价格
                         helper.setText(R.id.tv_quote_item_plantTypeName, strFilter(item.plantTypeName));//种植类型
                         helper.setText(R.id.tv_quote_item_declare, strFilter(item.remarks));//种植类型
+                        helper.setText(R.id.tv_quote_item_count, strFilter(item.count + ""));// 可供数量
 
 //                        helper.setText(R.id.tv_show_is_quote, strFilter("已报价"));//种植类型
 //                        helper.setText(R.id.tv_show_is_quote, strFilter("已报价"));//种植类型
@@ -123,6 +125,10 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                         } else {//直购  参数比较少，需要隐藏部分
                             helper.setText(R.id.tv_quote_item_left, "数        量:");
                             helper.setText(R.id.tv_quote_item_specText, item.count + "");
+
+                            ViewGroup viewGroup = (ViewGroup) (helper.getView(R.id.tv_quote_item_left)).getParent();
+                            viewGroup.setVisibility(View.GONE);
+
 //                          helper.setParentVisible(R.id.tv_quote_item_specText, false); // 规格 -》 数量
 //                            helper.setParentVisible(R.id.tv_quote_item_cityName, false); // 地址继续显示
                         }
@@ -291,7 +297,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("价格", "price", true));
         autoLayouts.add(layout);
         getViewHolder_pur().ll_purc_auto_add.addView(layout);
-        layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("数量", "count", true));
+        layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("数量", "count", false));
         autoLayouts.add(layout);
         View line = new View(mActivity);
         getViewHolder_pur().ll_purc_auto_add.addView(layout);
@@ -376,6 +382,11 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("价格", "price", true));
         autoLayouts.add(layout);
         getViewHolder_pur().ll_purc_auto_add.addView(layout);
+
+        layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("数量", "count", false));
+        autoLayouts.add(layout);
+        getViewHolder_pur().ll_purc_auto_add.addView(layout);
+
 
         for (int i = 0; i < typeListBeen.size(); i++) {
 
@@ -526,7 +537,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                     content = uploadBean.length = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
                     isOk = submit(plantBean.name, uploadBean.length, plantBean.required);
                     break;
-                case "count"://长度
+                case "count":// 数量
                     content = uploadBean.count = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
                     isOk = submit(plantBean.name, uploadBean.count, plantBean.required);
                     break;

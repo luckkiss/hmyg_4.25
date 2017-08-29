@@ -55,6 +55,7 @@ public class PurchaseItemBean_new implements Serializable {
      * offbarHeight : 200
      */
     public String id;/**/
+    public String plantTypeArrayNames = "-";/**/
     public String remarks;/**/
     public String unitTypeName;/**/
     public String specText;/**/

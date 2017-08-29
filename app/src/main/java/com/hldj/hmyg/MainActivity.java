@@ -103,7 +103,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 //        String str = null ;
 //        D.e("======="+ str.toString() );
         //补丁修改
-        ToastUtil.showShortToast("13次修复混淆问题   热更新生效 \n   修改搜索 筛选 的内容");
+//        ToastUtil.showShortToast("13次修复混淆问题   热更新生效 \n   修改搜索 筛选 的内容");
 
         /**
          * 控制状态栏为黑色  miui flyme
@@ -249,6 +249,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
 
     public static void toA() {
+
         radioderGroup.check(R.id.tab_a);
     }
 

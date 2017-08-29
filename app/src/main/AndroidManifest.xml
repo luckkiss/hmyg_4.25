@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hldj.hmyg"
     android:versionCode="75"
-    android:versionName="3.0.3">
+    android:versionName="v3.0.4">
 
     <!--android:versionCode="74"-->
     <!--android:versionName="3.0.2" -->

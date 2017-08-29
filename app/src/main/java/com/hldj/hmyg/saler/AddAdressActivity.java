@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hldj.hmyg.M.AddressBean;
 import com.hldj.hmyg.MainActivity;
@@ -24,10 +25,18 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hy.utils.GetServerUrl;
+import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
 import com.mrwujay.cascade.activity.GetCitiyNameByCode;
+import com.zf.iosdialog.widget.AlertDialog;
 
+import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 
@@ -55,7 +64,16 @@ public class AddAdressActivity extends BaseMVPActivity {
             setTitle("编辑苗源地址");
             this.setBackgroAndTextAndVis(getView(R.id.toolbar_right_text), "删除", R.drawable.red_btn_selector);
             getView(R.id.toolbar_right_text).setOnClickListener(v -> {
-//                AddAdressActivity_bak.DelAdress(mActivity, getExtral().id);
+
+
+                new AlertDialog(this).builder()
+                        .setTitle("确定删除本条地址?")
+                        .setPositiveButton("确定删除", v1 -> {
+                            DelAdress(getExtral().id);
+                        }).setNegativeButton("取消", v2 -> {
+                }).show();
+
+
             });
 
         } else {
@@ -360,5 +378,51 @@ public class AddAdressActivity extends BaseMVPActivity {
             putParams("parentCode", cityCode);
             doRequest("city/getChilds", false, callBack);
         }
+    }
+
+
+    private void DelAdress(String id) {
+        // TODO Auto-generated method stub
+        FinalHttp finalHttp = new FinalHttp();
+        GetServerUrl.addHeaders(finalHttp, true);
+        AjaxParams params = new AjaxParams();
+        params.put("id", id);
+        finalHttp.post(GetServerUrl.getUrl() + "admin/nursery/delete", params,
+                new AjaxCallBack<Object>() {
+
+                    @Override
+                    public void onSuccess(Object t) {
+                        // TODO Auto-generated method stub
+                        try {
+                            JSONObject jsonObject = new JSONObject(t.toString());
+                            String code = JsonGetInfo.getJsonString(jsonObject, "code");
+                            String msg = JsonGetInfo.getJsonString(jsonObject,
+                                    "msg");
+
+                            if ("1".equals(code)) {
+                                setResult(ConstantState.CHANGE_DATES);
+                                finish();
+                            } else {
+                                ToastUtil.showShortToast(msg);
+                            }
+
+                        } catch (JSONException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        super.onSuccess(t);
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo,
+                                          String strMsg) {
+                        // TODO Auto-generated method stub
+                        Toast.makeText(AddAdressActivity.this,
+                                R.string.error_net, Toast.LENGTH_SHORT).show();
+                        super.onFailure(t, errorNo, strMsg);
+                    }
+
+                });
+
     }
 }

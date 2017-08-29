@@ -45,7 +45,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
     //direct直购
     //protocol代购
 
-    public ItemBean item;
+    public ItemBean item ;
 
 
     public static PurchaseDetailActivityBase instance;
@@ -137,6 +137,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
 
 
         ItemBean item = saveSeedingGsonBean.getData().getItem();
+        this.item = saveSeedingGsonBean.getData().getItem() ;
 
 
         this.setStatus(item.sellerQuoteJson == null ? "" : strFilter(item.sellerQuoteJson.status));
@@ -194,8 +195,9 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
 
 //        firstTypeName = "乔木"
 //        name = "香樟"
-        this.item = item;
+//        this.item = item;
 
+//        D.e("==count====="+item.sellerQuoteJson.count);
 
         //头部与底部是一样的    这里初始化头部
         StringFormatUtil fillColor = new StringFormatUtil(context, item.name + "  " + item.count + item.unitTypeName, item.count + item.unitTypeName, R.color.red).fillColor();
@@ -203,9 +205,10 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
 
 //        头部与底部是一样的    这里初始化头部
 //        getViewHolder_pur().tv_purchase_name.setText(strFilter( item.name));
-        StorePurchaseListAdapter.setSpaceAndRemark(getViewHolder_pur().tv_purchase_size, item.specText, item.remarks);
+        StorePurchaseListAdapter.setSpaceAndRemark(getViewHolder_pur().tv_purchase_size, item.specText, item.remarks);//苗木规格
+        //种植类型
+        getViewHolder_pur().tv_purchase_type.setText(strFilter(item.plantTypeArrayNames));
 
-        getViewHolder_pur().tv_purchase_type.setText(strFilter(item.plantTypeName));
         getViewHolder_pur().tv_quote_num.setText(strFilter(item.count + item.unitTypeName));
 
 
@@ -422,6 +425,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         public LinearLayout ll_purc_auto_add;
         public LinearLayout ll_mainView_bottom;//底部容器 根;
         public TextView tv_purchase_size;
+        public TextView tv_quote_type;
         public TextView tv_purchase_type;
         public TextView tv_quote_num;
         public EditText et_purchase_remark;

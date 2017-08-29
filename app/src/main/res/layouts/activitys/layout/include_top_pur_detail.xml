@@ -11,29 +11,29 @@
     <!--<include layout="@layout/toolbar_3_0"/>-->
 
     <!--<RelativeLayout-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="@dimen/title_top_default"-->
-        <!--android:background="@color/white">-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="@dimen/title_top_default"-->
+    <!--android:background="@color/white">-->
 
-        <!--<TextView-->
-            <!--android:id="@+id/tv_title"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:text="采购详情"-->
-            <!--android:textColor="@color/main_color"-->
-            <!--android:textSize="@dimen/title_size" />-->
+    <!--<TextView-->
+    <!--android:id="@+id/tv_title"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:text="采购详情"-->
+    <!--android:textColor="@color/main_color"-->
+    <!--android:textSize="@dimen/title_size" />-->
 
 
-        <!--<ImageView-->
-            <!--android:id="@+id/btn_back"-->
-            <!--android:layout_width="@dimen/backWH"-->
-            <!--android:layout_height="@dimen/backWH"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginLeft="@dimen/x10"-->
-            <!--android:padding="5dp"-->
-            <!--android:src="@drawable/btn_back" />-->
+    <!--<ImageView-->
+    <!--android:id="@+id/btn_back"-->
+    <!--android:layout_width="@dimen/backWH"-->
+    <!--android:layout_height="@dimen/backWH"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginLeft="@dimen/x10"-->
+    <!--android:padding="5dp"-->
+    <!--android:src="@drawable/btn_back" />-->
     <!--</RelativeLayout>-->
 
     <View style="@style/View_line_gray" />
@@ -107,11 +107,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:minHeight="32dp">
 
         <com.coorchice.library.SuperTextView
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+
             android:gravity="center"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
@@ -121,13 +124,14 @@
         <com.coorchice.library.SuperTextView
             android:id="@+id/tv_quote_type"
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.8"
             android:gravity="center_vertical|start"
+            android:minHeight="32dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:textSize="13sp"
-            tools:text="假植苗" />
+            tools:text="假植苗假植苗假植苗假植苗假植苗假苗假植苗假植苗假植苗假苗假植苗假植苗假植苗假植苗假植苗" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -137,9 +141,11 @@
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_left"
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="0.8"
                 android:gravity="center_vertical|start"
+                android:minHeight="32dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:text="采购数量:"
@@ -148,7 +154,8 @@
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_quote_num"
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="0.8"
                 android:gravity="center_vertical|start"
                 android:paddingRight="5dp"

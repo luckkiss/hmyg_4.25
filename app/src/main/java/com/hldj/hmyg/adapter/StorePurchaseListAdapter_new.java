@@ -44,7 +44,7 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
     public static boolean isShow = true;
 
     @Override
-    public void setConverView(ViewHolders myViewHolder,PurchaseItemBean_new purchaseItemBeanNew, int position) {
+    public void setConverView(ViewHolders myViewHolder, PurchaseItemBean_new purchaseItemBeanNew, int position) {
         int viewRootId = R.layout.list_item_store_purchase;
 
         Log.e(TAG, "setConverView: " + position);
@@ -52,6 +52,9 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 
 
         ((TextView) myViewHolder.getView(R.id.tv_01)).setText((position + 1) + "、" + purchaseItemBeanNew.name);
+
+        /*种植类型*/
+        ((TextView) myViewHolder.getView(R.id.tv_021)).setText(purchaseItemBeanNew.plantTypeArrayNames);
 
         ((TextView) myViewHolder.getView(R.id.tv_ac)).setText(purchaseItemBeanNew.count + purchaseItemBeanNew.unitTypeName);
 
@@ -122,11 +125,11 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
     public static void setSpaceAndRemark(TextView tv_05, String specText, String remarks) {
 
         if (!TextUtils.isEmpty(specText) && !TextUtils.isEmpty(specText)) {
-            tv_05.setText(specText + ":" + remarks);
+            tv_05.setText("规格:" + specText + "   " + remarks);
         } else if (!TextUtils.isEmpty(specText) && TextUtils.isEmpty(specText)) {
-            tv_05.setText(specText);
+            tv_05.setText("规格:" + specText);
         } else if (TextUtils.isEmpty(specText) && !TextUtils.isEmpty(specText)) {
-            tv_05.setText(remarks);
+            tv_05.setText("规格:" + remarks);
         }
     }
 

@@ -46,19 +46,7 @@
             </LinearLayout>
 
 
-            <com.coorchice.library.SuperTextView
-                android:id="@+id/stv_1"
-                android:layout_width="70dp"
-                android:layout_height="20dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:text="报价说明"
-                android:textColor="@color/white"
-                android:textSize="11sp"
-                app:solid="@color/main_color"
-                app:stroke_color="@color/white"
-                app:stroke_width="1dp" />
+
 
         </RelativeLayout>
 
@@ -132,6 +120,29 @@
             android:textColor="@color/white"
             android:textSize="@dimen/textSizeS"
             tools:text="截止时间" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_1"
+            android:layout_width="70dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="报价说明"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:solid="@color/main_color"
+            app:stroke_color="@color/white"
+            app:stroke_width="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+
+
+
+
 
         <TextView
             android:id="@+id/tv_head_ser_po"

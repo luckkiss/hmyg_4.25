@@ -2,6 +2,7 @@ package com.hldj.hmyg.buyer.Ui;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
@@ -14,6 +15,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.adapter.StorePurchaseListAdapter_new;
 import com.hldj.hmyg.application.MyApplication;
@@ -101,6 +103,11 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 //    private TextView tv_05;
 //    private TextView tv_06;
     private String quoteDesc = "";
+    private String companyInfo = "";
+
+    public String getCompanyInfo() {
+        return companyInfo;
+    }
 
     public String getQuoteDesc() {
         return quoteDesc;
@@ -288,7 +295,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                 quoteDesc = headPurchase.quoteDesc;
                 /*第一次显示*/
                 if (isFirstLoading) {
-                    showWebViewDialog(getQuoteDesc());
+                    showWebViewDialog(getQuoteDesc(), "报价说明");
                     isFirstLoading = false;
                 }
 
@@ -301,6 +308,15 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                         /*显示名称*/
                 ((TextView) getView(R.id.tv_02)).setText(headPurchase.buyer.displayName);
                         /*报价说明*/
+                ((TextView) getView(R.id.tv_021)).setText(headPurchase.consumerFullName);
+                        /*用苗单位*/
+
+                getView(R.id.ll_content_company_info).setVisibility(headPurchase.showConsumerName ? View.VISIBLE : View.GONE);
+
+                companyInfo = headPurchase.attrData.consumerRemarks;
+                        /* 单位信息*/
+
+
                 ((TextView) getView(tv_03)).setText("报价说明");
                 getView(tv_03).setOnClickListener(StorePurchaseListActivity.this);
                 getView(R.id.tv_ymdw).setOnClickListener(StorePurchaseListActivity.this);
@@ -308,8 +324,22 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                         /* 用  苗  地*/
                 ((TextView) getView(R.id.tv_04)).setText("用  苗  地：" + headPurchase.cityName);
 
-                        /*联系电话，用于显示*/
-                choseOne2Show(getView(R.id.tv_05), headPurchase.dispatchPhone, headPurchase.dispatchName, headPurchase.displayPhone);
+                        /*联系人*/
+
+//                choseOne2Show(getView(R.id.tv_05), headPurchase.dispatchPhone, headPurchase.dispatchName, headPurchase.displayPhone);
+                ((TextView) getView(R.id.tv_050)).setText("联系人:  " + headPurchase.dispatchName);
+
+                  /*联系电话*/
+                TextView tv_05 = getView(R.id.tv_05);
+                String phoneNum = !TextUtils.isEmpty(headPurchase.dispatchPhone) ? headPurchase.dispatchPhone : headPurchase.dispatchPhone;
+
+                tv_05.setText(phoneNum);
+                tv_05.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
+                tv_05.getPaint().setAntiAlias(true);//抗锯齿
+                tv_05.setOnClickListener(v -> FlowerDetailActivity.CallPhone(phoneNum, mActivity));
+
+//                choseOne2Show(getView(R.id.tv_05), headPurchase.dispatchPhone, headPurchase.dispatchName, headPurchase.displayPhone);
+
 
                         /*   tv_06.setText("截止时间：" + closeDate);*/
 //                ((TextView) getView(R.id.tv_06)).setText("用  苗  地：" + headPurchase.closeDate);
@@ -321,13 +351,17 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
             private void choseOne2Show(TextView tv_05, String dispatchPhone, String dispatchName, String displayPhone) {
                 if (!"".equals(dispatchPhone) && "".equals(dispatchName)) {
-                    tv_05.setText("联系电话：" + dispatchPhone);
+                    tv_05.setText(dispatchPhone);
+                    setText(getView(R.id.tv_050), "联系电话：");
                 } else if ("".equals(dispatchPhone) && !"".equals(dispatchName)) {
-                    tv_05.setText("联系人：" + dispatchName);
+                    tv_05.setText(dispatchName);
+                    setText(getView(R.id.tv_050), "联系人：");
                 } else if (!"".equals(dispatchPhone) && !"".equals(dispatchName)) {
-                    tv_05.setText("联系电话：" + dispatchName + "/" + dispatchPhone);
+                    tv_05.setText(dispatchName + "/" + dispatchPhone);
+                    setText(getView(R.id.tv_050), "联系电话：");
                 } else {
-                    tv_05.setText("联系电话：" + displayPhone);
+                    tv_05.setText(displayPhone);
+                    setText(getView(R.id.tv_050), "联系电话：");
                 }
             }
 
@@ -455,10 +489,10 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.tv_03:
-                showWebViewDialog(getQuoteDesc());
+                showWebViewDialog(getQuoteDesc(), "报价说明");
                 break;
             case R.id.tv_ymdw:
-                showWebViewDialog("用苗单位的单位信息");
+                showWebViewDialog(getCompanyInfo(), "单位信息");
             default:
                 break;
         }
@@ -466,7 +500,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
     WebViewDialogFragment webViewDialogFragment;
 
-    private void showWebViewDialog(String quoteDesc) {
+    private void showWebViewDialog(String quoteDesc, String title) {
         if (TextUtils.isEmpty(quoteDesc)) {
             return;
         }
@@ -474,12 +508,13 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
             if (StorePurchaseListActivity.this.isFinishing()) {
                 return;
             }
-            if (webViewDialogFragment == null) {
-                webViewDialogFragment = WebViewDialogFragment.newInstance(quoteDesc);
-                webViewDialogFragment.show(getSupportFragmentManager(), this.getClass().getName());
-            } else {
-                webViewDialogFragment.show(getSupportFragmentManager(), this.getClass().getName());
-            }
+//            if (webViewDialogFragment == null) {
+            webViewDialogFragment = WebViewDialogFragment.newInstance(quoteDesc).setTitle(title);
+            webViewDialogFragment.show(getSupportFragmentManager(), this.getClass().getName());
+//            } else {
+//                webViewDialogFragment.setContent(quoteDesc);
+//                webViewDialogFragment.show(getSupportFragmentManager(), this.getClass().getName());
+//            }
         } catch (Exception e) {
             e.printStackTrace();
             D.e("======e==========" + e.getMessage());
@@ -531,5 +566,18 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         return shareBean;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
+
+        try {
+            if (webViewDialogFragment != null) {
+                webViewDialogFragment.dismiss();
+                webViewDialogFragment = null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

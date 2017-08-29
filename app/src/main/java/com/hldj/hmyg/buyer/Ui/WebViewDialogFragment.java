@@ -27,6 +27,11 @@ public class WebViewDialogFragment extends DialogFragment {
     private TextView tv_ok_to_close;
     String url = "http://blog.csdn.net/lmj623565791/article/details/37815413/";
     String html = "http://blog.csdn.net/lmj623565791/article/details/37815413/";
+    private TextView tv_show_html;
+
+
+    public String mTitle = "报价说明";
+    private TextView tv_show_title;
 
     public static WebViewDialogFragment newInstance(String strs) {
         WebViewDialogFragment f = new WebViewDialogFragment();
@@ -35,6 +40,12 @@ public class WebViewDialogFragment extends DialogFragment {
         args.putString("strs", strs);
         f.setArguments(args);
         return f;
+    }
+
+    public WebViewDialogFragment setTitle(String title )
+    {
+        mTitle = title ;
+        return this;
     }
 
 
@@ -57,10 +68,18 @@ public class WebViewDialogFragment extends DialogFragment {
         return view;
     }
 
+    public void setContent(String h) {
+//        if (tv_show_html != null)
+        html = h;
+//            tv_show_html.setText(Html.fromHtml(h, null, null));
+    }
+
     private void initView(View view) {
-        TextView tv_show_html = (TextView) view.findViewById(R.id.tv_show_html);
+        tv_show_html = (TextView) view.findViewById(R.id.tv_show_html);
+        tv_show_title = (TextView) view.findViewById(R.id.tv_show_title);
 
         tv_show_html.setText(Html.fromHtml(html, null, null));
+        tv_show_title.setText(mTitle);
 
 
 //        tv_show_html.setText(html);

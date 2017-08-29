@@ -223,7 +223,7 @@ public class MySwipeRefreshLayout extends FrameLayout implements NestedScrolling
     // 分发   如果  不调用  startNestedScroll  无法通知 parent  联合滑动
     public void onNestedScrollAccepted(View child, View target, int axes) {
         this.mNestedScrollingParentHelper.onNestedScrollAccepted(child, target, axes);
-        Log.i(TAG, "onNestedScrollAccepted: axes=" + axes);//2 表示垂直
+//        Log.i(TAG, "onNestedScrollAccepted: axes=" + axes);//2 表示垂直
         // 开始分发  嵌套滑动
         startNestedScroll(axes & ViewCompat.SCROLL_AXIS_VERTICAL);
         mTotalUnconsumed = 0;
@@ -234,7 +234,7 @@ public class MySwipeRefreshLayout extends FrameLayout implements NestedScrolling
     //停止滑动
     @Override
     public void onStopNestedScroll(View child) {
-        Log.i(TAG, "onStopNestedScroll: 停止滑动");
+//        Log.i(TAG, "onStopNestedScroll: 停止滑动");
         mNestedScrollInProgress = false;
 //        this.mNestedScrollingParentHelper.onStopNestedScroll(child);
         if (mTotalUnconsumed > 0) {
@@ -261,7 +261,7 @@ public class MySwipeRefreshLayout extends FrameLayout implements NestedScrolling
                 mParentOffsetInWindow);
 
         final int dy = dyUnconsumed + mParentOffsetInWindow[1];
-        Log.i(TAG, "onNestedScroll: dy=" + dy);
+//        Log.i(TAG, "onNestedScroll: dy=" + dy);
 
         if (dy < 0 && !canChildScrollUp()) {
             mTotalUnconsumed += Math.abs(dy);

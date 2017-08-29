@@ -2,25 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/trans"
+    android:background="@drawable/round_rectangle_white_bg"
     android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="300dp"
-        android:layout_height="350dp"
+        android:layout_height="300dp"
         android:layout_centerInParent="true"
-        android:background="@color/white"
+        android:background="@drawable/round_rectangle_white_bg"
+        android:minHeight="100dp"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_show_title"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_margin="3dp"
-            android:gravity="start|center_vertical"
+            android:background="@color/main_color"
+            android:gravity="center"
             android:paddingLeft="5dp"
             android:text="报价说明"
-            android:textColor="@color/main_color" />
+            android:textColor="@color/white" />
 
         <View
             style="@style/View_line_gray_1dp"
@@ -53,10 +55,9 @@
 
         <TextView
             android:id="@+id/tv_ok_to_close"
-            android:layout_width="80dp"
-            android:layout_height="26dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="8dp"
             android:background="@color/main_color"
             android:gravity="center"
             android:text="我知道了"

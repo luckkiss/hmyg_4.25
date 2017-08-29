@@ -118,6 +118,8 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private TypeAdapter myadapter;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -934,12 +936,13 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
+        D.e("====onResume====");
 //        setListAtMost();
         scrollView.postDelayed(() -> {
             scrollView.scrollTo(0,scrollY);
 //            scrollView.smoothScrollBy(0, scrollY);
 //            ToastUtil.showShortToast("smoothY=" + currenY);
-        },10);
+        },30);
     }
 
 //    int currenY = 0;
@@ -947,8 +950,24 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     @Override
     protected void onPause() {
         super.onPause();
+        D.e("====onPause====");
 //        ToastUtil.showShortToast("currentY=" + currenY);
 //        currenY = scrollView.getScrollY();
+    }
+
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        D.e("====onDestroy====");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        D.e("====onRestart====");
     }
 
     public void setListAtMost() {

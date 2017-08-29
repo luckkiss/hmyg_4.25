@@ -47,7 +47,7 @@ public class SharePopupWindow extends PopupWindow implements PlatformActionListe
         this.shareBean = shareBean;
 
         setContentView(view);
-        setWidth(AndroidUtil.dip2px(context, 140));
+        setWidth(AndroidUtil.dip2px(context, 155));
         setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         initView(view);
     }

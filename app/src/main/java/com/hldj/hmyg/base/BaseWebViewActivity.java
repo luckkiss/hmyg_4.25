@@ -1,5 +1,6 @@
 package com.hldj.hmyg.base;
 
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -13,32 +14,35 @@ import com.hldj.hmyg.R;
  * 基础webview activity  ，集成本界面   来控制所有的 h5 界面
  */
 //showConsumerName
-public class BaseWebViewActivity extends BaseMVPActivity {
+public abstract class BaseWebViewActivity extends BaseMVPActivity {
 
-    WebView webView;
+    private static final String TAG = "BaseWebViewActivity";
+    WebView mWebView;
     ProgressBar progressBar;
 
 
     @Override
     public void initView() {
         //初始化控件
-        webView = getView(R.id.base_web_view);
+        mWebView = getView(R.id.base_web_view);
         progressBar = getView(R.id.base_web_progressBar);
 
         //启用支持Javascript
-        WebSettings settings = webView.getSettings();
+        WebSettings settings = mWebView.getSettings();
         settings.setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient() {
+        mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
+                Log.i(TAG, "loadingUrl =   \n" + url);
+                    onLoadUrl(mWebView, url);
+//                view.loadUrl(url);
                 return true;
             }
         });
         //WebView加载页面优先使用缓存加载
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         //页面加载
-        webView.setWebChromeClient(new WebChromeClient() {
+        mWebView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 //newProgress   1-100之间的整数
@@ -54,7 +58,8 @@ public class BaseWebViewActivity extends BaseMVPActivity {
             }
         });
 
-        webView.loadUrl("http://www.cnblogs.com/popfisher/p/5191242.html");
+        mWebView.loadUrl(BaseUrl());
+//        mWebView.loadUrl("http://www.cnblogs.com/popfisher/p/5191242.html");
     }
 
 
@@ -69,5 +74,11 @@ public class BaseWebViewActivity extends BaseMVPActivity {
         return R.layout.activity_webview_base;
     }
 
+
+    public abstract String BaseUrl();
+
+    public void onLoadUrl(WebView webView, String url) {
+        webView.loadUrl(url);
+    }
 
 }

@@ -300,9 +300,12 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
         @Override
 
         public void onReceive(Context context, Intent intent) {
-            seedlingBeen.clear();
-            pageIndex = 0;
-            initData();
+
+
+              onRefresh();
+//            seedlingBeen.clear();
+//            pageIndex = 0;
+//            initData();
             D.e("==refresh===");
 
         }

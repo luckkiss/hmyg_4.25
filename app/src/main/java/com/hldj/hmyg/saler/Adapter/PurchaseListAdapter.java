@@ -15,9 +15,9 @@ import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.base.ViewHolders;
 import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
 import com.hldj.hmyg.saler.M.PurchaseBean;
+import com.hldj.hmyg.util.D;
 import com.hy.utils.StringFormatUtil;
 import com.hy.utils.TagAdapter;
-import com.hy.utils.ToastUtil;
 
 import java.util.List;
 
@@ -33,6 +33,11 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
 
     @Override
     public void setConverView(ViewHolders myViewHolder, PurchaseBean item, int position) {
+
+        if (position==1)
+       D.e("=======PurchaseListAdapter====="+item.toString());
+
+
 
         int id = R.layout.list_item_purchase_list_new;
 
@@ -68,7 +73,7 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
         tv_04.setText("采购商家：" + item.buyer.companyName);
 
 
-        ToastUtil.showShortToast("item.showConsumerName" + item.showConsumerName);
+//        ToastUtil.showShortToast("item.showConsumerName" + item.showConsumerName);
         if (item.showConsumerName) {
             tv_05.setText("用苗单位：" + item.consumerFullName);
             tv_05.setVisibility(View.VISIBLE);

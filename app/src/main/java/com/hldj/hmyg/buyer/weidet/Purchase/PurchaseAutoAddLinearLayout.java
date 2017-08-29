@@ -14,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.BaseLinearLayout;
 
 /**
@@ -103,7 +104,10 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
 
         } else if (plantBean.value.equals("diameter")) {
             select_size = "size0";
+            type = "diameter";
             getViewHolder().vb_radions.setVisibility(VISIBLE);
+            initStubView(getViewHolder().vb_radions);
+            //0  0.3
         }
 //|| plantBean.value.equals("diameter")
 
@@ -113,10 +117,22 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
     //初始化viewstub
     private void initStubView(ViewStub vb_radions) {
 
+        RadioButton left = (RadioButton) this.findViewById(R.id.rb_auto_add_left);
+        RadioButton center = (RadioButton) this.findViewById(R.id.rb_auto_add_center);
+        RadioButton right = (RadioButton) this.findViewById(R.id.rb_auto_add_right);
 
-        this.findViewById(R.id.rb_auto_add_left).setOnClickListener(clickListener);
-        this.findViewById(R.id.rb_auto_add_center).setOnClickListener(clickListener);
-        this.findViewById(R.id.rb_auto_add_right).setOnClickListener(clickListener);
+        if (type.equals("dbh")) {
+
+        } else if (type.equals("diameter")) {
+            left.setText("出土量");
+            center.setText("0.1M量");
+            right.setText("0.3M量");
+        }
+
+        left.setOnClickListener(clickListener);
+        center.setOnClickListener(clickListener);
+        right.setOnClickListener(clickListener);
+
 
         //需要初始化  select_size
 
@@ -124,13 +140,17 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
     }
 
     private OnClickListener clickListener = v -> {
+
+
         switch (v.getId()) {
+
             case R.id.rb_auto_add_left:
                 if (type.equals("dbh")) {
                     select_size = "size30";
                 } else {
                     select_size = "size0";
                 }
+
                 break;
             case R.id.rb_auto_add_center:
                 if (type.equals("dbh")) {
@@ -145,9 +165,12 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
                 } else {
                     select_size = "size30";
                 }
-                break;
 
+                break;
         }
+
+        D.e("size = " + getSelect_size());
+
     };
 
 

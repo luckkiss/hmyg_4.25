@@ -13,6 +13,7 @@ import android.support.multidex.MultiDex;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hldj.hmyg.BuildConfig;
 import com.hldj.hmyg.DaoBean.SaveJson.DaoMaster;
 import com.hldj.hmyg.DaoBean.SaveJson.DaoSession;
 import com.hldj.hmyg.R;
@@ -81,48 +82,50 @@ public class MyApplication extends Application {
         // you must install multiDex whatever tinker is installed!
         MultiDex.install(base);
         // 安装tinker
+        if (BuildConfig.DEBUG) {
+            Beta.betaPatchListener = new BetaPatchListener() {
+                @Override
+                public void onPatchReceived(String patchFile) {
+//                Toast.makeText(base, "补丁下载地址" + patchFile, Toast.LENGTH_SHORT).show();
+                }
 
-        Beta.betaPatchListener = new BetaPatchListener() {
-            @Override
-            public void onPatchReceived(String patchFile) {
-                Toast.makeText(base, "补丁下载地址" + patchFile, Toast.LENGTH_SHORT).show();
-            }
+                @Override
+                public void onDownloadReceived(long savedLength, long totalLength) {
+                    Toast.makeText(base,
+                            String.format(Locale.getDefault(), "%s %d%%",
+                                    Beta.strNotificationDownloading,
+                                    (int) (totalLength == 0 ? 0 : savedLength * 100 / totalLength)),
+                            Toast.LENGTH_SHORT).show();
+                }
 
-            @Override
-            public void onDownloadReceived(long savedLength, long totalLength) {
-                Toast.makeText(base,
-                        String.format(Locale.getDefault(), "%s %d%%",
-                                Beta.strNotificationDownloading,
-                                (int) (totalLength == 0 ? 0 : savedLength * 100 / totalLength)),
-                        Toast.LENGTH_SHORT).show();
-            }
+                @Override
+                public void onDownloadSuccess(String msg) {
+                    Toast.makeText(base, "补丁下载成功", Toast.LENGTH_SHORT).show();
+                }
 
-            @Override
-            public void onDownloadSuccess(String msg) {
-                Toast.makeText(base, "补丁下载成功", Toast.LENGTH_SHORT).show();
-            }
+                @Override
+                public void onDownloadFailure(String msg) {
+                    Toast.makeText(base, "补丁下载失败", Toast.LENGTH_SHORT).show();
 
-            @Override
-            public void onDownloadFailure(String msg) {
-                Toast.makeText(base, "补丁下载失败", Toast.LENGTH_SHORT).show();
+                }
 
-            }
+                @Override
+                public void onApplySuccess(String msg) {
+                    Toast.makeText(base, "补丁应用成功", Toast.LENGTH_SHORT).show();
+                }
 
-            @Override
-            public void onApplySuccess(String msg) {
-                Toast.makeText(base, "补丁应用成功", Toast.LENGTH_SHORT).show();
-            }
+                @Override
+                public void onApplyFailure(String msg) {
+                    Toast.makeText(base, "补丁应用失败", Toast.LENGTH_SHORT).show();
+                }
 
-            @Override
-            public void onApplyFailure(String msg) {
-                Toast.makeText(base, "补丁应用失败", Toast.LENGTH_SHORT).show();
-            }
+                @Override
+                public void onPatchRollback() {
+                    Toast.makeText(base, "补丁回滚", Toast.LENGTH_SHORT).show();
+                }
+            };
+        }
 
-            @Override
-            public void onPatchRollback() {
-                Toast.makeText(base, "补丁回滚", Toast.LENGTH_SHORT).show();
-            }
-        };
         Beta.installTinker();
 
     }

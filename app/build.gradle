@@ -6,7 +6,7 @@ apply plugin: 'org.greenrobot.greendao'
 //
 
 def isDebug = true
-//apply from: 'tinker-support.gradle'
+apply from: 'tinker-support.gradle'
 
 //if (!isDebug) {
 
@@ -63,7 +63,7 @@ android {
 //            abiFilters "armeabi","x86"
 //        }
         applicationId "com.hldj.hmyg"
-        minSdkVersion 17
+        minSdkVersion 16
         targetSdkVersion 25
         aaptOptions.cruncherEnabled = false
         aaptOptions.useNewCruncher = false
@@ -91,6 +91,7 @@ android {
 //    aaptOptions.cruncherEnabled = false
 //    aaptOptions.useNewCruncher = false
     defaultConfig {
+        resConfigs "en", "hi"
         multiDexEnabled true
     }
     compileOptions {
@@ -107,20 +108,20 @@ android {
     }
 
     buildTypes {
-//        release {
-//            minifyEnabled true
-//            shrinkResources true//去掉无用资源
-////            proguardFiles 'proguard-rules.pro'
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-////            proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
-//            signingConfig signingConfigs.release
-//        }
-        debug {
-            minifyEnabled false
+        release {
+            minifyEnabled true
+            shrinkResources true//去掉无用资源
+//            proguardFiles 'proguard-rules.pro'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
             signingConfig signingConfigs.release
-            debuggable true
         }
+//        debug {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+//            debuggable true
+//        }
     }
 //    buildTypes {
 //        release {
