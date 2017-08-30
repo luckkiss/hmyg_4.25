@@ -30,6 +30,7 @@ import com.hldj.hmyg.util.SPUtil;
 import com.hldj.hmyg.util.SPUtils;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 import com.white.update.UpdateInfo;
 import com.white.utils.SettingUtils;
 import com.zf.iosdialog.widget.AlertDialog;
@@ -64,21 +65,21 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         //补丁修改
-//        findViewById(R.id.test_show_pach).setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ToastUtil.showShortToast("12次修复混淆问题   热更新生效 \n    13次修复混淆问题   热更新生效 \n   修改搜索 筛选 的内容");
-//
-//                /**
-//                 * Beta.cleanTinkerPatch();
-//                 注：清除补丁之后，就会回退基线版本状态。
-//
-//                 主动检查更新
-//
-//                 Beta.checkUpgrade();
-//                 */
-//            }
-//        });
+        findViewById(R.id.test_show_pach).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.showShortToast("-");
+
+                /**
+                 * Beta.cleanTinkerPatch();
+                 注：清除补丁之后，就会回退基线版本状态。
+
+                 主动检查更新
+
+                 Beta.checkUpgrade();
+                 */
+            }
+        });
 //        findViewById(R.id.test_show_pach1).setOnClickListener(new OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
