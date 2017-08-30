@@ -11,7 +11,7 @@ import net.tsz.afinal.FinalHttp;
  */
 
 public class GetServerUrl{
-    public static boolean isTest = true;//测试时使用true 表示正在测试
+    public static boolean isTest = false;//测试时使用true 表示正在测试
     /*发布时主要版本号   后面需要加 / */
     public static String apiVersion = "3.0.4/";//发布的时候修改 api 版本号
 
@@ -21,6 +21,9 @@ public class GetServerUrl{
 //    static String API_01 = "http://hmeg.cn:93/";
     // 正式 可用 3.0
     static String API_01 = "http://api.hmeg.cn/" + apiVersion;
+    static String API_03 = "http://test.api.hmeg.cn/" + apiVersion;//3.0测式库
+    //    static String API_03 = "http://192.168.0.147:8091/api/"+ apiVersion;//罗伟电脑 服务器地址
+
 
     static String FIR_01 = "http://api.fir.im/apps/latest/57882cfc748aac17af00001e?api_token=7b3d87a7cb04b3a1624abb900c045c22&type=android&bundle_id=com.hldj.hmyg";
     static String PGYER_UPLOAD_01 = "https://www.pgyer.com/hmeg3";
@@ -43,10 +46,8 @@ public class GetServerUrl{
     // 测试,xingguo.huang@qq.com
 //   static String API_03 = "http://test.hmeg.cn:93/";
 
-    static String API_03 = "http://test.api.hmeg.cn/" + apiVersion;//3.0测式库
 
     //http://test.api.hmeg.cn
-//    static String API_03 = "http://192.168.0.147:8091/api/"+ apiVersion;//罗伟电脑 服务器地址
 
     //    static String API_03 = "http://192.168.1.20:83/api/";
     static String FIR_03 = "http://api.fir.im/apps/latest/574270cc00fc744aef000000?api_token=d5ec18bebb4cd5acd798ffeeccbed6f4&type=android&bundle_id=com.hldj.hmyg";

@@ -17,8 +17,6 @@ import java.lang.reflect.Field;
  */
 
 public  class BasePresenter {
-
-
     protected ResultCallBack resultCallBack;
     protected AjaxParams ajaxParams;
 

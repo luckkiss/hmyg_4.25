@@ -70,6 +70,11 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
             coreRecyclerView.onRefresh();
             ToastUtil.showShortToast("添加成功 ^_^ ");
         }
+        if (resultCode == ConstantState.DELETE_SUCCEED) {
+            //删除成功
+            coreRecyclerView.onRefresh();
+            ToastUtil.showShortToast("删除成功 ^_^ ");
+        }
 
     }
 
@@ -176,7 +181,7 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
             mPresenter.getData(getQueryBean());
         }).openRefresh()
                 .openLoadAnimation(BaseQuickAdapter.ALPHAIN)
-        .closeDefaultEmptyView();
+                .closeDefaultEmptyView();
         //initRecycle 下一步执行
         mPresenter.getData(getQueryBean());//初始化  地址数据列表
     }
@@ -199,13 +204,12 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
     public void initRecycle(List<AddressBean> beens) {
         coreRecyclerView.getAdapter().addData(beens);
         coreRecyclerView.selfRefresh(false);
-        if (coreRecyclerView.isDataNull()){
+        if (coreRecyclerView.isDataNull()) {
             coreRecyclerView.setNoData("");
         }
         hindLoading();
 
     }
-
 
 
     @Override

@@ -400,7 +400,7 @@ public class AddAdressActivity extends BaseMVPActivity {
                                     "msg");
 
                             if ("1".equals(code)) {
-                                setResult(ConstantState.CHANGE_DATES);
+                                setResult(ConstantState.DELETE_SUCCEED);
                                 finish();
                             } else {
                                 ToastUtil.showShortToast(msg);

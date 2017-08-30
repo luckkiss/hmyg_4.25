@@ -13,7 +13,7 @@
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:text="脱杆高" />
+        android:text="脱杆高" android:layout_marginLeft="15dp"/>
 
     <TextView
         android:id="@+id/tv_params_02"

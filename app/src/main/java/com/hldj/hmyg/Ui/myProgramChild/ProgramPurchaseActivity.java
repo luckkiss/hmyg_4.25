@@ -238,17 +238,20 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                     }
 
                      /*是花木易购  */
-//                    if (!item.attrData.isSupplier) {
-//                        helper
-//                                .setText(R.id.tv_program_purch_sub_suplier, "花木易购供应商")
-//                                .setTextColorRes(R.id.tv_program_purch_sub_suplier, R.color.main_color);
-//
-//                    } else {
-//                        /*是供应商 字段*/
-//                        helper
-//                                .setText(R.id.tv_program_purch_sub_suplier, "自有供应商" + item.sellerName)//供应商
-//                                .setTextColorRes(R.id.tv_program_purch_sub_suplier, R.color.price_orige);
-//                    }
+                    if (!item.attrData.isSupplier) {
+                        helper
+                                .setText(R.id.tv_program_purch_sub_suplier, "花木易购供应商")
+                                .setTextColorRes(R.id.tv_program_purch_sub_suplier, R.color.main_color);
+
+                    } else {
+                        /*是供应商 字段*/
+                        helper
+                                .setText(R.id.tv_program_purch_sub_suplier, "自有供应商" + item.sellerName)//供应商
+                                .setTextColorRes(R.id.tv_program_purch_sub_suplier, R.color.price_orige)
+                                .addOnClickListener(R.id.tv_program_purch_sub_suplier, v -> {
+                                    FlowerDetailActivity.CallPhone(item.sellerPhone, mActivity);
+                                });
+                    }
 
                     /*由花木易购 显示文字  tv_program_purch_sub_who_send  通过 sendType  进行修改*/
 //                    if (item.sendType.equals("hmeg")) {

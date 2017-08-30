@@ -746,7 +746,9 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
             @Override
             public void onSuccess(UserInfoGsonBean userInfoGsonBean) {
                 D.e("========获取个人数据=====userInfoGsonBean=====" + userInfoGsonBean.toString());
-                ToastUtil.showShortToast("测试时显示\n请求 个人数据"+userInfoGsonBean.toString());
+                if (GetServerUrl.isTest){
+                    ToastUtil.showShortToast("测试时显示\n请求 个人数据"+userInfoGsonBean.toString());
+                }
             }
 
             @Override

@@ -167,7 +167,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
 
         //第一次 时 显示 显示项目。需要重启引用
-        isShowProject();
+//        isShowProject();
 
     }
 
@@ -537,6 +537,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     public void refresh() {
         setRealName(getSpS("userName"), getSpS("realName"));
         loadHeadImage(getSpB("isLogin"));
+        isShowProject();
     }
 
 

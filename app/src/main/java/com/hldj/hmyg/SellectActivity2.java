@@ -177,11 +177,9 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
         }
         mainSpecBean = typesBean.data.mainSpec;
 
-        if (GetServerUrl.isTest)
-//            ToastUtil.showShortToast("text: \n" + mainSpecBean.toString());
-//        this.setText(getView(R.id.tv_sa_type), typesBean.data.mainSpec.get(0).toString());//地径
+//        if (GetServerUrl.isTest)
+            initSearchView(scropView_rod, mainSpecBean.get(0), "10", "20");
 
-        initSearchView(scropView_rod, mainSpecBean.get(0), "10", "20");
         initSearchView(scropView_height, mainSpecBean.get(1), "30", "450");
         initSearchView(scropView_crown, mainSpecBean.get(2), "50", "666");
 
@@ -565,7 +563,6 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
 
             List<MainSpecBean> mainSpec;
 //            MainSpecBean mainSpec = new MainSpecBean();
-
 
             public class MainSpecBean implements Serializable {
                 public String title;
