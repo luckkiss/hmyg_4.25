@@ -194,6 +194,8 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
         lvPopupList = (ListView) layout.findViewById(R.id.lv_popup_list);
         pwMyPopWindow = new PopupWindow(layout, LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT);
+        lvPopupList.setPadding(0,0,0,0);
+
         pwMyPopWindow.setFocusable(true);// 加上这个popupwindow中的ListView才可以接收点击事件
 
         lvPopupList.setAdapter(new SimpleAdapter(
@@ -240,7 +242,7 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
                 * NUM_OF_VISIBLE_LIST_ROWS);
         // 控制popupwindow点击屏幕其他地方消失
         pwMyPopWindow.setBackgroundDrawable(this.getResources().getDrawable(
-                R.drawable.bg_popupwindow));// 设置背景图片，不能在布局中设置，要通过代码来设置
+                R.drawable.bg_left_popupwindow));// 设置背景图片，不能在布局中设置，要通过代码来设置
         pwMyPopWindow.setOutsideTouchable(true);// 触摸popupwindow外部，popupwindow消失。这个要求你的popupwindow要有背景图片才可以成功，如上
     }
 
