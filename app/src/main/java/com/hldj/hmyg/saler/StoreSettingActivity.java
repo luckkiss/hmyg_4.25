@@ -428,11 +428,11 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                         break;
                     case R.id.sure:
                         showLoading();
-                        if ("".equals(et_domian.getText().toString()) || "".equals(et_store_name.getText().toString())) {
-                            Toast.makeText(StoreSettingActivity.this, "请将店铺域名和店铺名称填写完整", Toast.LENGTH_SHORT).show();
-                            hindLoading();
-                            return;
-                        }
+//                        if ("".equals(et_domian.getText().toString()) || "".equals(et_store_name.getText().toString())) {
+//                            Toast.makeText(StoreSettingActivity.this, "请将店铺域名和店铺名称填写完整", Toast.LENGTH_SHORT).show();
+//                            hindLoading();
+//                            return;
+//                        }
                         // validate();
                         save();
 
