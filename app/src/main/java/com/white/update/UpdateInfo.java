@@ -1,6 +1,8 @@
 package com.white.update;
 
-public class UpdateInfo
+import java.io.Serializable;
+
+public class UpdateInfo implements Serializable
 {
         private String version;
         private String description;

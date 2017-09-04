@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -57,7 +58,6 @@ import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -88,7 +88,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     private String check = "1";
 
 
-
     private ProgressDialog progDialog;
 
 
@@ -99,6 +98,15 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        try {
+            if (savedInstanceState != null) {
+                updateInfo = (UpdateInfo) savedInstanceState.getSerializable("updateInfo");
+            }
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+
 
 //        String str = null ;
 //        D.e("======="+ str.toString() );
@@ -215,6 +223,8 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         // getUpDateInfo();
         // getUpDateInfo4Pgyer();
         getVersion();
+
+
         if (getIntent().getScheme() != null
                 && getIntent().getDataString() != null) {
             String scheme = this.getIntent().getScheme();// 获得Scheme名称
@@ -349,59 +359,58 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         }
     }
 
-    public UpdateInfo getUpDateInfo() {
-
-        updateInfo = new UpdateInfo();
-        FinalHttp fh = new FinalHttp();
-        fh.get(GetServerUrl.getFIR(), new AjaxCallBack<Object>() {
-
-            @Override
-            public void onSuccess(Object t) {
-                // TODO Auto-generated method stub
-                JSONObject jsonObject;
-                try {
-                    jsonObject = new JSONObject(t.toString());
-                    String changelog = JsonGetInfo.getJsonString(jsonObject,
-                            "changelog");
-                    String versionShort = JsonGetInfo.getJsonString(jsonObject,
-                            "versionShort");
-                    String install_url = JsonGetInfo.getJsonString(jsonObject,
-                            "install_url");
-                    String new_version = JsonGetInfo.getJsonString(jsonObject,
-                            "version");
-                    updateInfo.setVersion(versionShort);
-                    updateInfo.setDescription(changelog);
-                    updateInfo.setUrl(install_url);
-                    // 获取当前版本号
-                    String now_version = "";
-                    try {
-                        PackageManager packageManager = getPackageManager();
-                        PackageInfo packageInfo = packageManager
-                                .getPackageInfo(getPackageName(), 0);
-                        now_version = packageInfo.versionName;
-                    } catch (NameNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    if (!versionShort.equals(now_version)) {
-                        handler1.sendEmptyMessage(0);
-                    } else {
-                        handler1.sendEmptyMessage(1);
-                    }
-
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-                super.onSuccess(t);
-            }
-
-        });
-        return updateInfo;
-    }
+//    public UpdateInfo getUpDateInfo() {
+//
+//        updateInfo = new UpdateInfo();
+//        FinalHttp fh = new FinalHttp();
+//        fh.get(GetServerUrl.getFIR(), new AjaxCallBack<Object>() {
+//
+//            @Override
+//            public void onSuccess(Object t) {
+//                // TODO Auto-generated method stub
+//                JSONObject jsonObject;
+//                try {
+//                    jsonObject = new JSONObject(t.toString());
+//                    String changelog = JsonGetInfo.getJsonString(jsonObject,
+//                            "changelog");
+//                    String versionShort = JsonGetInfo.getJsonString(jsonObject,
+//                            "versionShort");
+//                    String install_url = JsonGetInfo.getJsonString(jsonObject,
+//                            "install_url");
+//                    String new_version = JsonGetInfo.getJsonString(jsonObject,
+//                            "version");
+//                    updateInfo.setVersion(versionShort);
+//                    updateInfo.setDescription(changelog);
+//                    updateInfo.setUrl(install_url);
+//                    // 获取当前版本号
+//                    String now_version = "";
+//                    try {
+//                        PackageManager packageManager = getPackageManager();
+//                        PackageInfo packageInfo = packageManager
+//                                .getPackageInfo(getPackageName(), 0);
+//                        now_version = packageInfo.versionName;
+//                    } catch (NameNotFoundException e) {
+//                        e.printStackTrace();
+//                    }
+//                    if (!versionShort.equals(now_version)) {
+//                        handler1.sendEmptyMessage(0);
+//                    } else {
+//                        handler1.sendEmptyMessage(1);
+//                    }
+//
+//                } catch (JSONException e) {
+//                    // TODO Auto-generated catch block
+//                    e.printStackTrace();
+//                }
+//
+//                super.onSuccess(t);
+//            }
+//
+//        });
+//        return updateInfo;
+//    }
 
     public UpdateInfo getVersion() {
-
         updateInfo = new UpdateInfo();
         FinalHttp fh = new FinalHttp();
         GetServerUrl.addHeaders(fh, true);
@@ -463,64 +472,64 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         return updateInfo;
     }
 
-    public UpdateInfo getUpDateInfo4Pgyer() {
-
-        updateInfo = new UpdateInfo();
-        FinalHttp fh = new FinalHttp();
-        AjaxParams params = new AjaxParams();
-        params.put("aId", GetServerUrl.getaId());
-        params.put("_api_key", GetServerUrl.get_api_key());
-        params.put("uKey", GetServerUrl.getuKey());
-        fh.post(GetServerUrl.getPGYER(), params, new AjaxCallBack<Object>() {
-
-            @Override
-            public void onSuccess(Object t) {
-                // TODO Auto-generated method stub
-                JSONObject Jo;
-                try {
-                    Jo = new JSONObject(t.toString());
-                    JSONArray data = JsonGetInfo.getJsonArray(Jo, "data");
-                    if (data.length() > 0) {
-                        JSONObject jsonObject = data.getJSONObject(data
-                                .length() - 1);
-                        String changelog = JsonGetInfo.getJsonString(
-                                jsonObject, "appUpdateDescription");
-                        String versionShort = JsonGetInfo.getJsonString(
-                                jsonObject, "appVersion");
-                        String install_url = GetServerUrl.getPGYER_UPLOAD();
-                        String new_version = JsonGetInfo.getJsonString(
-                                jsonObject, "appVersionNo");
-                        updateInfo.setVersion(versionShort);
-                        updateInfo.setDescription(changelog);
-                        updateInfo.setUrl(install_url);
-                        // 获取当前版本号
-                        String now_version = "";
-                        try {
-                            PackageManager packageManager = getPackageManager();
-                            PackageInfo packageInfo = packageManager
-                                    .getPackageInfo(getPackageName(), 0);
-                            now_version = packageInfo.versionName;
-                        } catch (NameNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                        if (!versionShort.equals(now_version)) {
-                            handler1.sendEmptyMessage(0);
-                        } else {
-                            handler1.sendEmptyMessage(1);
-                        }
-                    }
-
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-                super.onSuccess(t);
-            }
-
-        });
-        return updateInfo;
-    }
+//    public UpdateInfo getUpDateInfo4Pgyer() {
+//
+//        updateInfo = new UpdateInfo();
+//        FinalHttp fh = new FinalHttp();
+//        AjaxParams params = new AjaxParams();
+//        params.put("aId", GetServerUrl.getaId());
+//        params.put("_api_key", GetServerUrl.get_api_key());
+//        params.put("uKey", GetServerUrl.getuKey());
+//        fh.post(GetServerUrl.getPGYER(), params, new AjaxCallBack<Object>() {
+//
+//            @Override
+//            public void onSuccess(Object t) {
+//                // TODO Auto-generated method stub
+//                JSONObject Jo;
+//                try {
+//                    Jo = new JSONObject(t.toString());
+//                    JSONArray data = JsonGetInfo.getJsonArray(Jo, "data");
+//                    if (data.length() > 0) {
+//                        JSONObject jsonObject = data.getJSONObject(data
+//                                .length() - 1);
+//                        String changelog = JsonGetInfo.getJsonString(
+//                                jsonObject, "appUpdateDescription");
+//                        String versionShort = JsonGetInfo.getJsonString(
+//                                jsonObject, "appVersion");
+//                        String install_url = GetServerUrl.getPGYER_UPLOAD();
+//                        String new_version = JsonGetInfo.getJsonString(
+//                                jsonObject, "appVersionNo");
+//                        updateInfo.setVersion(versionShort);
+//                        updateInfo.setDescription(changelog);
+//                        updateInfo.setUrl(install_url);
+//                        // 获取当前版本号
+//                        String now_version = "";
+//                        try {
+//                            PackageManager packageManager = getPackageManager();
+//                            PackageInfo packageInfo = packageManager
+//                                    .getPackageInfo(getPackageName(), 0);
+//                            now_version = packageInfo.versionName;
+//                        } catch (NameNotFoundException e) {
+//                            e.printStackTrace();
+//                        }
+//                        if (!versionShort.equals(now_version)) {
+//                            handler1.sendEmptyMessage(0);
+//                        } else {
+//                            handler1.sendEmptyMessage(1);
+//                        }
+//                    }
+//
+//                } catch (JSONException e) {
+//                    // TODO Auto-generated catch block
+//                    e.printStackTrace();
+//                }
+//
+//                super.onSuccess(t);
+//            }
+//
+//        });
+//        return updateInfo;
+//    }
 
     @SuppressLint("HandlerLeak")
     private Handler handler1 = new Handler() {
@@ -542,7 +551,13 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     private Dialog dialog;
 //    private ChooseManagerAdapter myadapter;
 
+    private static final String TAG = "MainActivity";
+
     private void showUpdateDialog2() {
+        if (updateInfo == null || TextUtils.isEmpty(updateInfo.getUrl())) {
+            Log.i(TAG, "showUpdateDialog2: updateInfo == null");
+            return;
+        }
 
         UpdateDialog.Builder builder = new UpdateDialog.Builder(this);
         builder.setTitle(getResources().getString(
@@ -557,11 +572,15 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
         builder.setPositiveButton("确定", (dialog12, which) -> {
             dialog12.dismiss();
-            if (Environment.getExternalStorageState().equals(
-                    Environment.MEDIA_MOUNTED)) {
+            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                 // downFile(updateInfo.getUrl());
-                SettingUtils.launchBrowser(MainActivity.this,
-                        updateInfo.getUrl());
+                try {
+                    SettingUtils.launchBrowser(MainActivity.this, updateInfo.getUrl());
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+
+
             } else {
                 Toast.makeText(MainActivity.this,
                         R.string.sd_card_is_disable, Toast.LENGTH_SHORT)
@@ -583,6 +602,14 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
             UpdateDialog dialog = builder.create();
             dialog.show();
         }
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save the user's current game state：保存其他数据
+        savedInstanceState.putSerializable("updateInfo", updateInfo);
 
     }
 
@@ -746,8 +773,8 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
             @Override
             public void onSuccess(UserInfoGsonBean userInfoGsonBean) {
                 D.e("========获取个人数据=====userInfoGsonBean=====" + userInfoGsonBean.toString());
-                if (GetServerUrl.isTest){
-                    ToastUtil.showShortToast("测试时显示\n请求 个人数据"+userInfoGsonBean.toString());
+                if (GetServerUrl.isTest) {
+                    ToastUtil.showShortToast("测试时显示\n请求 个人数据" + userInfoGsonBean.toString());
                 }
             }
 

@@ -23,7 +23,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static cn.luban.Preconditions.checkNotNull;
 
-
+//http://blog.csdn.net/yang_niuxxx/article/details/53096769 鲁班压缩封装
 public class Luban {
 
     private static final int FIRST_GEAR = 1;
@@ -101,7 +101,7 @@ public class Luban {
                 .map(new Function<File, File>() {
                     @Override
                     public File apply(@io.reactivex.annotations.NonNull File file) throws Exception {
-                        return thirdCompress(file);
+                        return customCompress(file);
                     }
                 })
                 .subscribeOn(Schedulers.io())
@@ -221,6 +221,44 @@ public class Luban {
         }
 
         return compress(filePath, thumb, thumbW, thumbH, angle, (long) size);
+    }
+
+    private int mMaxSize = 1024;
+    private int mMaxHeight = 1920;
+    private int mMaxWidth = 1080;
+
+    private File customCompress(@NonNull File file) {
+        String thumbFilePath = mCacheDir.getAbsolutePath() + File.separator +
+                (TextUtils.isEmpty(filename) ? System.currentTimeMillis() : filename) + ".jpg";
+
+        String filePath = file.getAbsolutePath();
+
+        int angle = getImageSpinAngle(filePath);
+        long fileSize = mMaxSize > 0 && mMaxSize < file.length() / 1024 ? mMaxSize : file.length() / 1024;
+
+        int[] size = getImageSize(filePath);
+        int width = size[0];
+        int height = size[1];
+
+        if (mMaxSize > 0 && mMaxSize < file.length() / 1024f) {
+            // find a suitable size
+            float scale = (float) Math.sqrt(file.length() / 1024f / mMaxSize);
+            width = (int) (width / scale);
+            height = (int) (height / scale);
+        }
+
+        // check the width&height
+        if (mMaxWidth > 0) {
+            width = Math.min(width, mMaxWidth);
+        }
+        if (mMaxHeight > 0) {
+            height = Math.min(height, mMaxHeight);
+        }
+        float scale = Math.min((float) width / size[0], (float) height / size[1]);
+        width = (int) (size[0] * scale);
+        height = (int) (size[1] * scale);
+
+        return compress(filePath, thumbFilePath, width, height, angle, fileSize);
     }
 
     private File firstCompress(@NonNull File file) {

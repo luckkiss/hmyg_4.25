@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -21,7 +22,7 @@
             style="@style/table_row_right"
             android:layout_weight="6"
 
-            android:text="104465464"
+            tools:text="104465464"
 
             />
     </TableRow>
@@ -40,7 +41,7 @@
             android:id="@+id/firstTypeName"
             style="@style/table_row_right"
             android:layout_weight="6"
-            android:text="乔木" />
+            tools:text="乔木" />
     </TableRow>
 
     <TableRow
@@ -100,7 +101,7 @@
             android:id="@+id/remarks"
             style="@style/table_row_right"
             android:layout_weight="6"
-            android:text="我是备注" />
+            tools:text="我是备注" />
     </TableRow>
 
 </LinearLayout>
