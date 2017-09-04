@@ -68,7 +68,12 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         findViewById(R.id.test_show_pach).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showShortToast("-");
+                ToastUtil.showShortToast("优化日志  \n +    " +
+                        "优化1    内存重启后，跳转失败  \n" +
+                        "优化2    鲁班算法压缩太厉害 \n" +
+                        "优化3    我的项目会显示隐藏，位置偏移\n" +
+                        "优化4    个人资料  保存用户名 不提示\n" +
+                        "优化5    详细信息，数据写死部分去除");
 
                 /**
                  * Beta.cleanTinkerPatch();

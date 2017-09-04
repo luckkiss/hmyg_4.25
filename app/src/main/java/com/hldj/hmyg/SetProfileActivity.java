@@ -280,6 +280,8 @@ public class SetProfileActivity extends BaseActivity implements
                             if ("1".equals(code)) {
                                 userSave();
                             } else {
+                                Toast.makeText(SetProfileActivity.this, msg,
+                                        Toast.LENGTH_LONG).show();
                             }
 
                         } catch (JSONException e) {
@@ -359,6 +361,8 @@ public class SetProfileActivity extends BaseActivity implements
 
 
                             } else {
+                                Toast.makeText(SetProfileActivity.this, msg,
+                                        Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (JSONException e) {

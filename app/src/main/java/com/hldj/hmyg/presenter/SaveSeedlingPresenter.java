@@ -258,7 +258,7 @@ public class SaveSeedlingPresenter {
 //                    e.printStackTrace();
 //                }
 
-                if (file1.length() / 1024 > 300) {
+                if (file1.length() / 1024 > 1) {
 
 //                      params1.put("file", file1);
 //                        params1.put("file", new ByteArrayInputStream(copressUtil.compress(dataList.get(i).getUrl())), System.currentTimeMillis() + ".png");
