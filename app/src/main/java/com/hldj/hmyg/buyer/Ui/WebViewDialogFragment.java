@@ -42,9 +42,8 @@ public class WebViewDialogFragment extends DialogFragment {
         return f;
     }
 
-    public WebViewDialogFragment setTitle(String title )
-    {
-        mTitle = title ;
+    public WebViewDialogFragment setTitle(String title) {
+        mTitle = title;
         return this;
     }
 
@@ -121,6 +120,10 @@ public class WebViewDialogFragment extends DialogFragment {
 
         });
         tv_ok_to_close = (TextView) view.findViewById(R.id.tv_ok_to_close);
+        view.findViewById(R.id.tv_show_title).setOnClickListener(v -> {
+            dismiss();
+        });
+
         tv_ok_to_close.setOnClickListener(v -> {
             dismiss();
         });

@@ -5,7 +5,7 @@
     android:id="@+id/ll_mainView_bottom"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical" android:background="@color/white">
 
 
     <!--<include layout="@layout/toolbar_3_0"/>-->
@@ -66,7 +66,7 @@
 
     </LinearLayout>
 
-    <View style="@style/View_line_gray_1dp" />
+    <View style="@style/View_line_divider_1px" />
 
 
     <RelativeLayout
@@ -103,7 +103,7 @@
 
     </RelativeLayout>
 
-    <View style="@style/View_line_gray_1dp" />
+    <View style="@style/View_line_divider_1px" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -166,7 +166,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <View style="@style/View_line_gray_1dp" />
+    <View style="@style/View_line_divider_1px" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -195,7 +195,7 @@
 
     </LinearLayout>
 
-    <View style="@style/View_line_gray_1dp" />
+    <View style="@style/View_line_divider_1px" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -214,7 +214,7 @@
             android:id="@+id/tv_quote_close_date"
             android:layout_width="0dp"
             android:layout_height="32dp"
-            android:layout_weight="0.8"
+            android:layout_weight="0.7"
             android:gravity="center_vertical|start"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
@@ -224,7 +224,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center_vertical" android:background="@color/white">
 
             <!--<CheckBox-->
             <!--android:id="@+id/tv_quote_store_detail"-->
@@ -239,32 +240,40 @@
             <!--android:layout_margin="5dp"-->
             <!--android:text="采购商家信息"-->
             <!--android:textColor="@color/rb_left_selecteor" /> -->
-            <Button
+            <TextView
                 android:id="@+id/tv_quote_store_detail"
                 style="@style/radio_seedling_common"
-                android:layout_margin="5dp"
+                android:layout_margin="4dp"
                 android:background="@drawable/rb_center_selecteor"
-
-                android:padding="2dp"
-                android:text="采购商家信息"
+                android:text="商家信息"
                 android:textColor="@color/rb_left_selecteor"
-                android:textSize="11sp" />
+                android:textSize="13sp" />
 
-            <Button
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1px"
+                android:layout_weight="0.06" />
+
+            <TextView
                 android:id="@+id/tv_quote_price_sug"
                 style="@style/radio_seedling_common"
-                android:layout_margin="5dp"
+                android:layout_margin="4dp"
+                android:layout_marginRight="6dp"
                 android:background="@drawable/rb_center_select"
                 android:checked="true"
                 android:text="报价要求"
                 android:textColor="@color/white"
-                android:textSize="11sp" />
+                android:textSize="13sp" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1px"
+                android:layout_weight="0.08" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp" />
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="5dp" />-->
 
 </LinearLayout>

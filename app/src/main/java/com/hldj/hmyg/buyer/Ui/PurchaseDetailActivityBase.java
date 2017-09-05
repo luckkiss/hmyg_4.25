@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -414,8 +413,8 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         public ImageView btn_back;
         public SuperTextView tv_purchase_address;
         public SuperTextView tv_purchase_close_date;
-        public Button tv_purchase_store_detail;
-        public Button tv_purchase_price_sug;
+        public TextView tv_purchase_store_detail;
+        public TextView tv_purchase_price_sug;
         public TextView tv_purchase_city_name;
         public TagFlowLayout tfl_purchase_auto_add_plant;
         public TextView tv_purchase_add_pic;
@@ -442,8 +441,8 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
             this.tv_quote_num = (TextView) getHeadView().findViewById(R.id.tv_quote_num);
             this.tv_purchase_address = (SuperTextView) getHeadView().findViewById(R.id.tv_quote_address);
             this.tv_purchase_close_date = (SuperTextView) getHeadView().findViewById(R.id.tv_quote_close_date);
-            this.tv_purchase_store_detail = (Button) getHeadView().findViewById(R.id.tv_quote_store_detail);//采购商家信息
-            this.tv_purchase_price_sug = (Button) getHeadView().findViewById(R.id.tv_quote_price_sug);//报价要求
+            this.tv_purchase_store_detail = (TextView) getHeadView().findViewById(R.id.tv_quote_store_detail);//采购商家信息
+            this.tv_purchase_price_sug = (TextView) getHeadView().findViewById(R.id.tv_quote_price_sug);//报价要求
             this.tv_purchase_city_name = (TextView) getBootomBiew().findViewById(R.id.tv_purchase_city_name);
             this.tfl_purchase_auto_add_plant = (TagFlowLayout) getBootomBiew().findViewById(R.id.tfl_purchase_auto_add_plant);
             this.tv_purchase_add_pic = (TextView) getBootomBiew().findViewById(R.id.tv_purchase_add_pic);

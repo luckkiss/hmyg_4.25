@@ -12,4 +12,6 @@
     <dimen name="textSizeXXX">16dp</dimen>
     <dimen name="textSizeXXXX">18dp</dimen>
     <dimen name="home_search_padding">-65dp</dimen>
+    <dimen name="empty_width">150dp</dimen>
+    <dimen name="empty_height">150dp</dimen>
 </resources>

@@ -221,6 +221,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     private boolean isNego;
     private boolean isFirst; //第一次加载
     private SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean;
+    private AlphaTitleScrollView scroll;
 
 
     @Override
@@ -354,8 +355,8 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     @Override
     protected void onDestroy() {
         Log.e("onDestroy", "onDestroy: ");
-        findViewById(R.id.ll_detail_toolbar).setAlpha(0);
-
+//      findViewById(R.id.ll_detail_toolbar).setAlpha(1);
+        scroll.resetHeadAlpha();
         super.onDestroy();
     }
 
@@ -430,7 +431,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     }
 
     public void setToolBarAlfaScr() {
-        final AlphaTitleScrollView scroll = (AlphaTitleScrollView) findViewById(R.id.alfa_scroll);
+        scroll = (AlphaTitleScrollView) findViewById(R.id.alfa_scroll);
         LinearLayout title = (LinearLayout) findViewById(R.id.ll_detail_toolbar);
         TextView tv_title = getView(R.id.tv_title);
         View head = findViewById(R.id.view_detail_top);
@@ -449,12 +450,12 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                 btn_back.setSelected(true);
             }
         });
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                scroll.smoothScrollTo(0, 10);
-            }
-        }, 100);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                scroll.smoothScrollTo(0, 10);
+//            }
+//        }, 100);
 
     }
 

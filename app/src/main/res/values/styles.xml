@@ -511,6 +511,13 @@
         <item name="android:layout_height">1px</item>
         <item name="android:background">@color/gray_bg</item>
     </style>
+    <style name="View_line_divider_1px">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/divider_color_bg</item>
+    </style>
+
+
     <style name="View_line_gray_1px">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>

@@ -2,6 +2,7 @@ package com.hldj.hmyg.base;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -125,9 +126,15 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
                 public void onSuccess(SimpleGsonBean simpleGsonBean) {
                     ToastUtil.showShortToast("删除成功");
                     //成功删除某个item
-                    items.remove(i);
-                    notifyDataSetChanged();
-                    closeItem(i);
+                    try {
+                        items.remove(i);
+                        notifyDataSetChanged();
+                        closeItem(i);
+                    } catch (Exception e) {
+                        notifyDataSetChanged();
+                        Log.i("======删除报错===刷新列表===", "Exception: " + e.getMessage());
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override
@@ -171,7 +178,7 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
      * @param bean
      */
 
-   public static void setName(TextView textView, SaveSeedingGsonBean.DataBean.SeedlingBean bean) {
+    public static void setName(TextView textView, SaveSeedingGsonBean.DataBean.SeedlingBean bean) {
         if (bean.getOwnerJson() == null) {
             textView.setText("发布人:-");
             return;

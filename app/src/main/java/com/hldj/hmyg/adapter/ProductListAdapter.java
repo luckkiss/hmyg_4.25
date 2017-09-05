@@ -292,6 +292,9 @@ public class ProductListAdapter extends BaseAdapter {
 
             if (tv_unit != null && price.equals("面议")) {
                 tv_unit.setVisibility(View.GONE);
+            }else
+            {
+                tv_unit.setVisibility(View.VISIBLE);
             }
 
             tv_07.setText(price);

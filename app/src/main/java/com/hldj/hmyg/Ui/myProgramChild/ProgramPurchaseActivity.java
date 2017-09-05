@@ -323,6 +323,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //                    GetServerUrl.isTest ||
                     helper.setVisible(R.id.tv_program_purch_see_detail, showQuote);//测试时必然显示
                     helper.setSelected(R.id.tv_program_purch_see_detail, item.isExpanded());//测试时必然显示
+                    helper.setText(R.id.tv_program_purch_see_detail, !item.isExpanded() ? "查看报价" : "收起报价");
 
                     if (item.quoteListJson.size() != 0) {
                         item.setSubItems(item.quoteListJson);
@@ -337,6 +338,8 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                         } else {
                             expand(helper.getAdapterPosition(), true, true);
                             Log.d(TAG, "pos: " + helper.getAdapterPosition());
+
+
                         }
                     });
 

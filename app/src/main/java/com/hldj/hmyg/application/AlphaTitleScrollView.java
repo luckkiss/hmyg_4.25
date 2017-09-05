@@ -50,6 +50,7 @@ public class AlphaTitleScrollView extends ScrollView {
     public void setTitleAndHead(LinearLayout toolbar, View headView, OnStateChange stateChange) {
         this.toolbar = toolbar;
         this.stateChange = stateChange;
+        toolbar.getBackground().mutate().setAlpha(0);
 //        toolbar.setAlpha(0);
 //        ViewGroup.LayoutParams params =headView.getLayoutParams();
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -93,10 +94,16 @@ public class AlphaTitleScrollView extends ScrollView {
         if (alpha < 150) {// 隐藏
             stateChange.onHiden();
         }
-        toolbar.getBackground().setAlpha(alpha);
+        toolbar.getBackground().mutate().setAlpha(alpha);
 //        headView.getBackground().setAlpha(alpha);
 //        toolbar.setBackgroundColor(android.R.color.black);
 
         super.onScrollChanged(l, t, oldl, oldt);
+    }
+
+
+    public void resetHeadAlpha() {
+        toolbar.getBackground().mutate().setAlpha(1);
+        toolbar = null;
     }
 }

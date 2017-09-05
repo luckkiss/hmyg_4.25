@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/t_emptyImageIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/empty_width"
+        android:layout_height="@dimen/empty_height"
         android:src="@drawable/wushuju" />
 
     <TextView
