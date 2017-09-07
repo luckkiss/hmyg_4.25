@@ -335,6 +335,8 @@ public static java.lang.String TABLENAME;
 -keep class com.sina.**{*;}
 -keep class **.R$* {*;}
 -keep class **.R{*;}
+-keep class com.mob.**{*;}
+-dontwarn com.mob.**
 -dontwarn cn.sharesdk.**
 -dontwarn **.R$*
 

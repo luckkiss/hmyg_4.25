@@ -62,13 +62,13 @@ public class UserBean {
     public String coCode;
     public String twCode;
     public CoCityBean coCity;
-    public String userName;
-    public String realName;
+    public String userName = "";
+    public String realName = "";
     public String publicName;
     public String publicPhone;
     public String plainPassword;
     public String sex;
-    public String phone;
+    public String phone = "";
     public String email;
     public String address;
     public String variety;
@@ -92,7 +92,7 @@ public class UserBean {
     public String recUserId;
     public String agentTypeName;
     public boolean isDirectAgent;
-    public String displayName;
+    public String displayName = "";
     public String adminDisplayName;
     public String displayPhone;
     public String permissionsName;

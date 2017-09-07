@@ -10,6 +10,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
 import android.support.multidex.MultiDex;
+import android.text.TextUtils;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.base.Rx.JumpUtil;
 import com.hldj.hmyg.bean.UserBean;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.SPUtil;
 import com.hldj.hmyg.util.SPUtils;
@@ -64,13 +67,13 @@ public class MyApplication extends Application {
 
     public static UserBean getUserBean() {
         if (userBean == null) {
-            String json = SPUtil.get(getInstance(), SPUtils.UserBean, "").toString();
-            if (json.equals("")) {
+            String json = (String) SPUtil.get(getInstance(), SPUtils.UserBean, "");
+            if (TextUtils.isEmpty(json)) {
+                return new UserBean();
 //                ToastUtil.showShortToast("未登录");
             } else {
-                userBean = GsonUtil.formateJson2Bean(json, UserBean.class);
+                return userBean = GsonUtil.formateJson2Bean(json, UserBean.class);
             }
-            return new UserBean();
         }
         return userBean;
 
@@ -150,7 +153,26 @@ public class MyApplication extends Application {
         //设置为开发设备
         CrashReport.setIsDevelopmentDevice(this, GetServerUrl.isTest);
         Bugly.init(this, "be88780120", true);
-        CrashReport.setUserId(this, "17074990702");
+
+
+        Userinfo = getSharedPreferences("Userinfo", Context.MODE_PRIVATE);
+        Deviceinfo = getSharedPreferences("Deviceinfo", Context.MODE_PRIVATE);
+
+
+        String tag = GetServerUrl.isTest ? "  ----->  (测试)" : "  ----->  (正式)";
+        Log.i("==crash_user_id==", "onCreate: " + Userinfo.getBoolean("isLogin", false));
+        if (!Userinfo.getBoolean("isLogin", false)) {
+            CrashReport.setUserId(this, "访客" + tag);
+            Log.i("==crash_user_id==", "访客 ");
+        } else {
+            String phone = MyApplication.Userinfo.getString("phone", "");
+            String userName = MyApplication.Userinfo.getString("userName", "");
+            String realName = MyApplication.Userinfo.getString("realName", "");
+            CrashReport.setUserId(this, FUtil.choseOne(realName, userName) + "   " + phone + tag);
+            Log.i("==crash_user_id==", FUtil.choseOne(realName, userName) + "   " + phone);
+
+        }
+//        CrashReport.setUserId(this, MyApplication.getUserBean().userName +  "17074990702");
 
         GetServerUrl.sdk_version = Build.VERSION.SDK_INT + "";
 
@@ -170,8 +192,7 @@ public class MyApplication extends Application {
 //        CrashHandler1 crashHandler = CrashHandler1.getInstance();
 //        crashHandler.init(this);
         // 本地奔溃保存
-        Userinfo = getSharedPreferences("Userinfo", Context.MODE_PRIVATE);
-        Deviceinfo = getSharedPreferences("Deviceinfo", Context.MODE_PRIVATE);
+
 
         JPushInterface.setDebugMode(GetServerUrl.isTest);
         JPushInterface.init(this);

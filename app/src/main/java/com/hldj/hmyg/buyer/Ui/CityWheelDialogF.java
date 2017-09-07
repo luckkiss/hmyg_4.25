@@ -22,6 +22,7 @@ import com.hldj.hmyg.util.GsonUtil;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.WheelView;
@@ -235,7 +236,15 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
                 childBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent);
 
                 arrayWheelAdapterNew_dir.notifyAllDatas1(childBeans.childs);
-                disBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent).childs.get(0);
+
+
+                try {
+                    disBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent).childs.get(0);
+                } catch (Exception e) {
+                    disBeans = childBeans;
+                    arrayWheelAdapterNew_dir.notifyAllDatas1(new ArrayList<>());
+                    e.printStackTrace();
+                }
             }
 
             /**

@@ -118,8 +118,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private TypeAdapter myadapter;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -461,8 +459,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         GetServerUrl.addHeaders(finalHttp, false);
         AjaxParams params = new AjaxParams();
         params.put("latitude", MyApplication.Userinfo.getString("latitude", ""));
-        params.put("longitude",
-                MyApplication.Userinfo.getString("longitude", ""));
+        params.put("longitude", MyApplication.Userinfo.getString("longitude", ""));
         finalHttp.post(GetServerUrl.getUrl() + "index", params,
                 new AjaxCallBack<Object>() {
                     @Override
@@ -757,14 +754,14 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         try {//采购项目
 
-            View view = findViewById(R.id.ll_caigou_parent) ;
+            View view = findViewById(R.id.ll_caigou_parent);
 //
-            if ( indexGsonBean.data.purchaseList.size() != 0) {
+            if (indexGsonBean.data.purchaseList.size() != 0) {
                 view.setVisibility(View.VISIBLE);
                 PurchaseListAdapter adapter = new PurchaseListAdapter(AActivity_3_0.this, indexGsonBean.data.purchaseList, R.layout.list_item_purchase_list_new);
                 lv_00.setAdapter(adapter);
                 D.e("VISIBLE");
-            }else {
+            } else {
                 view.setVisibility(View.GONE);
                 ((ViewGroup) findViewById(R.id.home_title_first).getParent()).setVisibility(View.GONE);
                 D.e("GONE");
@@ -780,7 +777,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 findViewById(R.id.ll_tuijian_parent).setVisibility(View.VISIBLE);
                 BProduceAdapt bProduceAdapt = new BProduceAdapt(AActivity_3_0.this, indexGsonBean.data.seedlingList, R.layout.list_view_seedling_new);
                 ((ListView) findViewById(R.id.lv_00_store)).setAdapter(bProduceAdapt);
-            }else{
+            } else {
                 findViewById(R.id.ll_tuijian_parent).setVisibility(View.GONE);
             }
 
@@ -939,10 +936,10 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         D.e("====onResume====");
 //        setListAtMost();
         scrollView.postDelayed(() -> {
-            scrollView.scrollTo(0,scrollY);
+            scrollView.scrollTo(0, scrollY);
 //            scrollView.smoothScrollBy(0, scrollY);
 //            ToastUtil.showShortToast("smoothY=" + currenY);
-        },30);
+        }, 30);
     }
 
 //    int currenY = 0;
@@ -954,8 +951,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //        ToastUtil.showShortToast("currentY=" + currenY);
 //        currenY = scrollView.getScrollY();
     }
-
-
 
 
     @Override
