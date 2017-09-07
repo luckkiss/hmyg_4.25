@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hldj.hmyg"
-    android:versionCode="76"
-    android:versionName="3.0.4">
+    android:versionCode="77"
+    android:versionName="3.0.4.fix1">
 
     <!--android:versionCode="74"-->
     <!--android:versionName="3.0.2" -->
