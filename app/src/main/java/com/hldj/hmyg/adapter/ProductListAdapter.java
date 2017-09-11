@@ -294,6 +294,7 @@ public class ProductListAdapter extends BaseAdapter {
                 tv_unit.setVisibility(View.GONE);
             }else
             {
+                if (tv_unit != null)
                 tv_unit.setVisibility(View.VISIBLE);
             }
 

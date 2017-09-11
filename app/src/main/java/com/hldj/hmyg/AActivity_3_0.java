@@ -1,6 +1,7 @@
 package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,6 +39,7 @@ import com.hldj.hmyg.Ui.NewsActivity;
 import com.hldj.hmyg.Ui.NoticeActivity;
 import com.hldj.hmyg.Ui.NoticeActivity_detail;
 import com.hldj.hmyg.adapter.TypeAdapter;
+import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.ABanner;
 import com.hldj.hmyg.bean.ArticleBean;
@@ -319,7 +321,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //        data.addAll(articleList);
 //        setView();//设置数据
         UPMarqueeView upview1 = (UPMarqueeView) findViewById(R.id.upview1);
-        upview1.setViews(AActivity_3_0_alibaba.getViewsByDatas(AActivity_3_0.this, articleList));
+        upview1.setViews(getViewsByDatas(AActivity_3_0.this, articleList));
         /**
          * 设置item_view的监听
          */
@@ -1015,4 +1017,62 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         }
     }
 
+
+    public static List<View> getViewsByDatas(Activity aActivity, List<ArticleBean> data) {
+        List<View> views = new ArrayList<>();
+        for (int i = 0; i < data.size(); i = i + 2) {
+            final int position = i;
+            //设置滚动的单个布局
+            LinearLayout moreView = (LinearLayout) LayoutInflater.from(aActivity).inflate(R.layout.item_home_cjgg, null);
+            //初始化布局的控件
+            SuperTextView tv1 = (SuperTextView) moreView.findViewById(R.id.tv_taggle1);
+            SuperTextView tv2 = (SuperTextView) moreView.findViewById(R.id.tv_taggle2);
+            /**
+             * 设置监听
+             */
+            moreView.findViewById(R.id.tv_taggle1).setOnClickListener(view -> {
+                String url = Data.getNotices_and_news_url_only_by_id(data.get(position).id);
+                D.e("url=" + url);
+                NoticeActivity_detail.start2Activity(aActivity, url);
+            });
+            /**
+             * 设置监听
+             */
+            moreView.findViewById(R.id.tv_taggle2).setOnClickListener(view -> {
+                String url = Data.getNotices_and_news_url_only_by_id(data.get(position + 1).id);
+                D.e("url=" + url);
+                NoticeActivity_detail.start2Activity(aActivity, url);
+            });
+            //进行对控件赋值
+            tv1.setText(data.get(i).title);
+
+            if (data.get(i).isNew) {
+                tv1.setShowState(data.get(i).isNew);
+                tv1.setPadding(MyApplication.dp2px(aActivity, 40), 0, 0, 0);
+            } else {
+                tv1.setPadding(10, 0, 0, 0);
+                tv1.setShowState(data.get(i).isNew);
+            }
+
+            if (data.size() > i + 1) {
+                //因为淘宝那儿是两条数据，但是当数据是奇数时就不需要赋值第二个，所以加了一个判断，还应该把第二个布局给隐藏掉
+                tv2.setText(data.get(i + 1).title);
+
+                if (data.get(i + 1).isNew) {
+                    tv2.setShowState(true);
+                    tv2.setPadding(MyApplication.dp2px(aActivity, 40), 0, 0, 0);
+                } else {
+                    tv2.setPadding(10, 0, 0, 0);
+                    tv2.setShowState(false);
+                }
+            } else {
+                moreView.findViewById(R.id.tv_taggle2).setVisibility(View.GONE);
+            }
+
+            //添加到循环滚动数组里面去
+            views.add(moreView);
+        }
+
+        return views;
+    }
 }

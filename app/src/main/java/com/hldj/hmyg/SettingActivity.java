@@ -68,7 +68,11 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         findViewById(R.id.test_show_pach).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showShortToast("优化日志 优化 图片上传模糊问题");
+                ToastUtil.showShortToast("优化日志 优化 图片上传模糊问题  \n" +
+                        " 修复bug 1   店铺界面  在 360 奇酷手机  线程调度改为主线程 \n" +
+                        " 修复bug 2   alibaba activity  强转错误，  ---  去除界面代码。把 方法提取 到 aactivity 中\n" +
+                        " 修复bug 3   我的项目 id 为空的时候。奔溃  \n" +
+                        " 修复bug 4   单位 显示 有些时候 为空。奔溃");
 
                 /**
                  * Beta.cleanTinkerPatch();
