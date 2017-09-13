@@ -1,8 +1,5 @@
 package com.zzy.flowers.activity.photoalbum;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -14,6 +11,9 @@ import com.hldj.hmyg.R;
 import com.util.androidgiflib.GifImageView;
 import com.zzy.common.widget.gestureimageview.GestureImageView;
 import com.zzy.common.widget.gestureimageview.RomateOverCallback;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChoosePhotoGalleryAdapter extends BaseAdapter {
 
@@ -65,7 +65,7 @@ public class ChoosePhotoGalleryAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		if (!item.isGifPic()) {
+		if (true) {
 			holder.gifImageView.setVisibility(View.GONE);
 			holder.mGestureView.setVisibility(View.VISIBLE);
 			Bitmap bm = item.getSourceBitmap(context);

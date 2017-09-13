@@ -133,7 +133,7 @@ public class EditImageGalleryPageAdapter extends BaseAdapter {
                         }
                     });
         } else {
-            if (!isGifPic(picPath)) {
+            if (true) {
                 holder.gifImageView.setVisibility(View.GONE);
                 holder.mGestureView.setVisibility(View.VISIBLE);
                 Bitmap bm = getSourceBitmap(picPath);
