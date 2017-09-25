@@ -14,6 +14,7 @@ import android.view.WindowManager;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.CityGsonBean;
+import com.hy.utils.ToastUtil;
 
 import java.util.List;
 
@@ -81,7 +82,11 @@ public class OnlyDirstreetWheelDialogF extends DialogFragment implements OnWheel
 
         dia_choose_share.setOnClickListener(v -> {
             if (selectListener != null) {
-                selectListener.onDirSelect(childBeans.get(wheelView.getCurrentItem()));
+                if (childBeans.size() == 0) {
+                    ToastUtil.showShortToast("未查询到街道信息！");
+                } else {
+                    selectListener.onDirSelect(childBeans.get(wheelView.getCurrentItem()));
+                }
             }
             dismiss();
         });

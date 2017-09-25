@@ -363,7 +363,6 @@ public class BActivity_new extends NeedSwipeBackActivity {
         } else {
             iv_right_top.setVisibility(View.GONE);
             tv_04.setText("苗源地: " + item.nurseryJson.getCityName());
-
         }
 
 

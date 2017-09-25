@@ -10,6 +10,7 @@ package com.autoscrollview.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Keep;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -134,6 +135,7 @@ public class ImagePagerAdapter_ali extends RecyclingPagerAdapter {
     }
 
 
+    @Keep
     public static class BannarBean {
         public String name = "";//标题
         public String url = "";//头像地址

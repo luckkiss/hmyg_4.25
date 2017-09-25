@@ -470,7 +470,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                         mCache.remove("index");
                         mCache.put("index", t.toString());
 //                        LoadCache(t.toString());
-                        LoadCache(mCache.getAsString("index"));
+                        LoadCache(t.toString());
                         super.onSuccess(t);
                     }
 

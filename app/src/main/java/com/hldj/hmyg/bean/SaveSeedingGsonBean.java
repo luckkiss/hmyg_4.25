@@ -1263,7 +1263,7 @@ public class SaveSeedingGsonBean implements Serializable {
                 private String createBy;
                 private String createDate;
                 private String cityCode;
-                private String cityName = "";
+                private String cityName = "-";
                 private String prCode;
                 private String ciCode;
                 private String coCode;
