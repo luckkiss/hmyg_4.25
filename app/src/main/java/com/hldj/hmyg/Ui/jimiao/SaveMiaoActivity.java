@@ -3,12 +3,7 @@ package com.hldj.hmyg.Ui.jimiao;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.provider.MediaStore;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -20,9 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.listedittext.paramsData;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.Data;
@@ -37,7 +30,6 @@ import com.hldj.hmyg.util.TakePhotoUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
-import com.kaopiz.kprogresshud.KProgressHUD;
 import com.white.utils.SystemSetting;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
 import com.yunpay.app.KeyBordStateListener;
@@ -60,18 +52,16 @@ import me.next.tagview.TagCloudView.OnTagClickListener;
 
 public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClickListener, KeyBordStateListener {
 
-    private View mainView;
-    private TextView tv_pic;
-    private TextView tv_address;
+
     private String firstSeedlingTypeId = "";
     private String addressId = "";
     private String fullAddress = "";
-    private String detailAddress = "";
+
     private String contactName = "";
     private String contactPhone = "";
-    private String companyName = "";
+
     private boolean isDefault;
-    private String firstSeedlingTypeName = "";
+
     private String seedlingParams = "";
 
     private EditText et_name;
@@ -114,11 +104,8 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
     //    private KProgressHUD hud;
     private String id = "";
     private ArrayList<Pic> urlPaths = new ArrayList<Pic>();
+    private ArrayList<Pic> urlPathsOnline = new ArrayList<Pic>();
 
-    /**
-     * 图片太大
-     */
-    public static final int PIC_IS_TOO_BIG = 3;
     /**
      * 加载图片失败
      */
@@ -131,15 +118,9 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
      * 照片列表
      */
     private MeasureGridView photoGv;
-//    /**
-//     * 照片适配器
-//     */
-//    private PublishFlowerInfoPhotoAdapter adapter;
 
-
-    private RefreshHandler handler;
     public static SaveMiaoActivity instance;
-    private KProgressHUD hud_numHud;
+
     FinalHttp finalHttp = new FinalHttp();
     public int a = 0;
     private int BACK_TYPE = 0;
@@ -184,10 +165,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_miao);
         mCache = ACache.get(this);
-        hud_numHud = KProgressHUD.create(SaveMiaoActivity.this)
-                .setStyle(KProgressHUD.Style.ANNULAR_DETERMINATE)
-                .setLabel("上传中，请等待...").setMaxProgress(100)
-                .setCancellable(true);
+
         instance = this;
         SystemSetting.getInstance(SaveMiaoActivity.this).choosePhotoDirId = "";
 
@@ -210,8 +188,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 //                urlPaths);
 //        photoGv.setAdapter(adapter);
 //        photoGv.setOnItemClickListener(itemClickListener);
-        handler = new RefreshHandler(this.getMainLooper());
-        mainView = (View) findViewById(R.id.ll_mainView);
+
         KeyboardLayout3 resizeLayout = (KeyboardLayout3) findViewById(R.id.ll_mainView);
         // 获得要控制隐藏和显示的区域
         resizeLayout.setKeyBordStateListener(this);// 设置回调方法
@@ -228,7 +205,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
         iv_ready_save = (TextView) findViewById(R.id.iv_ready_save);
         save = (Button) findViewById(R.id.save);
         ll_save = (LinearLayout) findViewById(R.id.ll_save);
-        tv_address = (TextView) findViewById(R.id.tv_address);
+
         et_name = (EditText) findViewById(R.id.et_name);
         et_price = (EditText) findViewById(R.id.et_price);
         et_FloorPrice = (EditText) findViewById(R.id.et_FloorPrice);
@@ -259,8 +236,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                         @Override
                         public void onSuccess(Object t) {
                             try {
-                                JSONObject jsonObject = new JSONObject(t
-                                        .toString());
+                                JSONObject jsonObject = new JSONObject(t  .toString());
                                 int code = jsonObject.getInt("code");
                                 if (code == 1) {
                                     JSONObject seedling = JsonGetInfo.getJSONObject(
@@ -278,10 +254,9 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                                                 false, JsonGetInfo
                                                 .getJsonString(image,
                                                         "url"), i));
-
                                     }
 
-                                    photoGv.getAdapter().notify(urlPaths);
+                                    photoGv.getAdapter().addItems(urlPaths);
 
 
                                 }
@@ -355,69 +330,6 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                 }
             }
 
-        } else {
-            // 从缓存中取
-            if (mCache.getAsString("savemiao") != null
-                    && !"".equals(mCache.getAsString("savemiao"))) {
-                StorageSave fromJson = gson.fromJson(
-                        mCache.getAsString("savemiao"),
-                        StorageSave.class);
-
-                id = fromJson.getId();
-                urlPaths = fromJson.getUrlPaths();
-                photoGv.getAdapter().notify(urlPaths);
-                firstSeedlingTypeId = fromJson.getFirstSeedlingTypeId();
-                addressId = fromJson.getNurseryId();
-                contactName = fromJson.getContactName();
-                contactPhone = fromJson.getContactPhone();
-                fullAddress = fromJson.getAddress();
-                isDefault = fromJson.isDefault();
-                seedlingParams = fromJson.getSeedlingParams();
-                count = fromJson.getCount();
-                diameter = fromJson.getDiameter();
-                diameterType = fromJson.getDiameterType();
-                dbh = fromJson.getDbh();
-                dbhType = fromJson.getDbhType();
-                height = fromJson.getHeight();
-                crown = fromJson.getCrown();
-                maxHeight = fromJson.getMaxHeight();
-                maxCrown = fromJson.getMaxCrown();
-                offbarHeight = fromJson.getOffbarHeight();
-                length = fromJson.getLength();
-                minSpec = fromJson.getMinSpec();
-                maxSpec = fromJson.getMaxSpec();
-                plantType = fromJson.getPlantType();
-                paramsData = fromJson.getParamsData();
-                ArrayList<paramsData> ps = gson.fromJson(paramsData,
-                        new TypeToken<ArrayList<paramsData>>() {
-                        }.getType());
-
-                et_name.setText(fromJson.getName());
-                et_price.setText(fromJson.getPrice());
-                et_FloorPrice.setText(fromJson.getFloorPrice());
-                et_count.setText(count);
-                et_crown.setText(crown);
-                et_height.setText(height);
-                et_maxHeight.setText(maxHeight);
-                et_maxCrown.setText(maxCrown);
-                et_minSpec.setText(minSpec);
-                et_maxSpec.setText(maxSpec);
-                if (!"".equals(addressId)) {
-                    list_item_adress.setVisibility(View.VISIBLE);
-                    ll_05.setVisibility(View.GONE);
-                    tv_contanct_name.setText(contactName + "\u0020"
-                            + contactPhone);
-                    tv_address_name.setText(fullAddress);
-                    if (isDefault) {
-                        tv_is_defoloat.setVisibility(View.VISIBLE);
-                    } else {
-                        tv_is_defoloat.setVisibility(View.GONE);
-                    }
-
-                }
-
-            }
-
         }
 
         btn_back.setOnClickListener(multipleClickProcess);
@@ -444,44 +356,6 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        // TODO Auto-generated method stub
-        mCache.remove("savemiao");
-        StorageSave mStorageSave = new StorageSave();
-        mStorageSave.setId(id);
-        mStorageSave.setFirstSeedlingTypeId(firstSeedlingTypeId);
-        mStorageSave.setSeedlingParams(seedlingParams);
-        mStorageSave.setName(et_name.getText().toString());
-        mStorageSave.setPrice(et_price.getText().toString());
-        mStorageSave.setFloorPrice(et_FloorPrice.getText().toString());
-        mStorageSave.setNurseryId(addressId);
-        mStorageSave.setContactName(contactName);
-        mStorageSave.setContactPhone(contactPhone);
-        mStorageSave.setDefault(isDefault);
-        mStorageSave.setCount(et_count.getText().toString());
-        mStorageSave.setMinSpec(et_minSpec.getText().toString());
-        mStorageSave.setMaxSpec(et_maxSpec.getText().toString());
-        mStorageSave.setDiameterType(diameterType);
-        mStorageSave.setDbhType(dbhType);
-        mStorageSave.setDbh(dbh);
-        mStorageSave.setHeight(et_height.getText().toString());
-        mStorageSave.setCrown(et_crown.getText().toString());
-        mStorageSave.setMaxHeight(et_maxHeight.getText().toString());
-        mStorageSave.setMaxCrown(et_maxCrown.getText().toString());
-        mStorageSave.setDiameter(diameter);
-        mStorageSave.setOffbarHeight(offbarHeight);
-        mStorageSave.setLength(length);
-        mStorageSave.setPlantType(plantType);
-        mStorageSave.setUrlPaths(urlPaths);
-        mStorageSave.setParamsData(paramsData);
-        // 额外数据
-        mStorageSave.setAddress(fullAddress);
-        // 保存缓存
-        mCache.put("savemiao", gson.toJson(mStorageSave));
-        finish();
-        super.onBackPressed();
-    }
 
     @Override
     public void finish() {
@@ -494,35 +368,6 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
         super.onDestroy();
         instance = null;
     }
-
-    // 在一开始声明TextWatcher，在afterTextChange内操作
-    private TextWatcher mTextWatcher = new TextWatcher() {
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before,
-                                  int count) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count,
-                                      int after) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            // TODO Auto-generated method stub
-            String text = s.toString();
-            int len = s.toString().length();
-            if (len == 1 && text.equals("0")) {
-                s.clear();
-            }
-        }
-
-    };
 
     private LinearLayout list_item_adress;
 
@@ -561,25 +406,12 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                 if (view.getId() == R.id.btn_back) {
                     onBackPressed();
                 } else if (view.getId() == R.id.list_item_adress || view.getId() == R.id.ll_05) {
-//                    Intent toAdressListActivity1 = new Intent(
-//                            SaveMiaoActivity.this, AdressActivity.class);
-//                    toAdressListActivity1.putExtra("addressId", addressId);
-//                    toAdressListActivity1.putExtra("from",
-//                            "SaveSeedlingActivity");
-//                    startActivityForResult(toAdressListActivity1, 1);
-//                    overridePendingTransition(R.anim.slide_in_left,
-//                            R.anim.slide_out_right);
+
                     D.e("=========苗原地点击===========");
                     AdressActivity.start2AdressListActivity(mActivity, "", "", address -> {
                         D.e("===========返回的地址==========" + address.toString());
                         list_item_adress.setVisibility(View.VISIBLE);
                         addressId = address.addressId;
-
-// Address{addressId='b97497d0fce74ea2a8c7f698ef66ceea',
-// contactPhone='16648454',
-// contactName='1548484',
-// cityName='北京市海淀区',
-// name='哦尼', fullAddress='北京市海淀区16464959', isDefault=false}
 
                         tv_contanct_name.setText(address.contactName + "\u0020" + address.contactPhone);
                         tv_address_name.setText(address.fullAddress);
@@ -589,25 +421,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                             tv_is_defoloat.setVisibility(View.GONE);
                         }
                     });
-                }
-//                else if (view.getId() == R.id.ll_05) {
-//
-//                    D.e("=========苗原地点击===========");
-//                    AdressActivity.start2AdressListActivity(mActivity, "", "", address -> {
-//                        D.e("===========返回的地址==========" + address);
-//                        addressId = address.addressId;
-//
-//                        tv_contanct_name.setText(address.contactName + "\u0020" + address.contactPhone);
-//                        tv_address_name.setText(fullAddress);
-//                        if (address.isDefault) {
-//                            tv_is_defoloat.setVisibility(View.VISIBLE);
-//                        } else {
-//                            tv_is_defoloat.setVisibility(View.GONE);
-//                        }
-//                    });
-//
-//                }
-                else if (view.getId() == R.id.save || view.getId() == R.id.iv_ready_save) {
+                } else if (view.getId() == R.id.save || view.getId() == R.id.iv_ready_save) {
                     if (view.getId() == R.id.save) {
                         BACK_TYPE = 0;
                     } else if (view.getId() == R.id.iv_ready_save) {
@@ -687,7 +501,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 
     public void hudProgress() {
 
-        if (hud_numHud != null && !mActivity.isFinishing()) {
+        if (!mActivity.isFinishing()) {
             int size = photoGv.getAdapter().getDataList().size();
 //            hud_numHud.setProgress(a * 100 / urlPaths.size());
 //            hud_numHud.setLabel("上传(" + a + "/" + urlPaths.size() + "张)");
@@ -699,11 +513,11 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
         }
 
         if (a == photoGv.getAdapter().getDataList().size()) {
-            if (urlPaths.size() > 0) {
-                if (urlPaths.size() > 0) {
+            if (urlPathsOnline.size() > 0) {
+                if (urlPathsOnline.size() > 0) {
                     Data.pics1.clear();
-                    for (int i = 0; i < urlPaths.size(); i++) {
-                        Data.pics1.add(urlPaths.get(i));
+                    for (int i = 0; i < urlPathsOnline.size(); i++) {
+                        Data.pics1.add(urlPathsOnline.get(i));
                     }
                     D.e("============上传保存结果==============");
 
@@ -854,25 +668,8 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
             // 最后通知图库更新
             // sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
             // Uri.parse("file://" + flowerInfoPhotoPath)));
-        } else if (resultCode == 2) {
-//            addressId = data.getStringExtra("addressId");
-//            contactPhone = data.getStringExtra("contactPhone");
-//            contactName = data.getStringExtra("contactName");
-//            fullAddress = data.getStringExtra("cityName");
-//            boolean isDefault = data.getBooleanExtra("isDefault", false);
-//            tv_contanct_name.setText(contactName + "\u0020" + contactPhone);
-//            tv_address_name.setText(fullAddress);
-//            if (isDefault) {
-//                tv_is_defoloat.setVisibility(View.VISIBLE);
-//            } else {
-//                tv_is_defoloat.setVisibility(View.GONE);
-//            }
-//            ll_05.setVisibility(View.GONE);
-//            list_item_adress.setVisibility(View.VISIBLE);
-//            if (!"".equals(addressId)) {
-//                tv_address.setText("已选择");
-//            }
-        } else if (resultCode == 3) {
+        }
+        else if (resultCode == 3) {
             count = data.getStringExtra("count");
             diameter = data.getStringExtra("diameter");
             diameterType = data.getStringExtra("diameterType");
@@ -903,35 +700,13 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
     }
 
 
-    private class RefreshHandler extends Handler {
 
-        public RefreshHandler(Looper looper) {
-            super(looper);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case LOAD_PIC_FAILURE:
-                    Toast.makeText(SaveMiaoActivity.this,
-                            R.string.image_load_failed, Toast.LENGTH_SHORT).show();
-                    break;
-                case ADD_NEW_PIC:
-                    // adapter.notifyDataSetChanged();
-                    photoGv.getAdapter().notify(urlPaths);
-
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
 
     public void upLoadImgs() {
         showLoading();
         a = 0;
-        urlPaths.clear();
+//        urlPaths.clear();
+        urlPathsOnline.clear();
 
         SaveSeedlingPresenter saveSeedlingPresenter = new SaveSeedlingPresenter();
         //   上传图片  可能多图片
@@ -940,7 +715,8 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 //                        public void onSuccess(UpImageBackGsonBean imageBackGsonBean) {//
             public void onSuccess(Pic pic) {//
 
-                urlPaths.add(pic);
+//                urlPaths.add(pic);
+                urlPathsOnline.add(pic);
 //                          urlPaths.replaceAll(,pic);
                 a = pic.getSort();
                 a++;
@@ -978,5 +754,41 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
         activity.startActivityForResult(intent, 110);
     }
 
+
+    public void save2Cache() {
+        // TODO Auto-generated method stub
+        mCache.remove("savemiao");
+        StorageSave mStorageSave = new StorageSave();
+        mStorageSave.setId(id);
+        mStorageSave.setFirstSeedlingTypeId(firstSeedlingTypeId);
+        mStorageSave.setSeedlingParams(seedlingParams);
+        mStorageSave.setName(et_name.getText().toString());
+        mStorageSave.setPrice(et_price.getText().toString());
+        mStorageSave.setFloorPrice(et_FloorPrice.getText().toString());
+        mStorageSave.setNurseryId(addressId);
+        mStorageSave.setContactName(contactName);
+        mStorageSave.setContactPhone(contactPhone);
+        mStorageSave.setDefault(isDefault);
+        mStorageSave.setCount(et_count.getText().toString());
+        mStorageSave.setMinSpec(et_minSpec.getText().toString());
+        mStorageSave.setMaxSpec(et_maxSpec.getText().toString());
+        mStorageSave.setDiameterType(diameterType);
+        mStorageSave.setDbhType(dbhType);
+        mStorageSave.setDbh(dbh);
+        mStorageSave.setHeight(et_height.getText().toString());
+        mStorageSave.setCrown(et_crown.getText().toString());
+        mStorageSave.setMaxHeight(et_maxHeight.getText().toString());
+        mStorageSave.setMaxCrown(et_maxCrown.getText().toString());
+        mStorageSave.setDiameter(diameter);
+        mStorageSave.setOffbarHeight(offbarHeight);
+        mStorageSave.setLength(length);
+        mStorageSave.setPlantType(plantType);
+        mStorageSave.setUrlPaths(urlPaths);
+        mStorageSave.setParamsData(paramsData);
+        // 额外数据
+        mStorageSave.setAddress(fullAddress);
+        // 保存缓存
+        mCache.put("savemiao", gson.toJson(mStorageSave));
+    }
 
 }

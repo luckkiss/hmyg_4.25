@@ -439,8 +439,9 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     public static void setImgCounts(Activity activity, SuperTextView textView, List<ImagesJsonBean> imagesJson) {
         if (imagesJson.size() != 0) {
             textView.setText(strFilter("有" + imagesJson.size() + "张图片"));//有多少张图片
+            textView.setShowState(true);
         } else {
-            textView.setShowState(false);
+            textView.setShowState(true);
             textView.setText(strFilter("未上传图片"));//有多少张图片
         }
         if (imagesJson.size() != 0) {
