@@ -222,8 +222,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         check = "1";
         // getUpDateInfo();
         // getUpDateInfo4Pgyer();
-        getVersion();
-
+//      getVersion();
 
         if (getIntent().getScheme() != null
                 && getIntent().getDataString() != null) {

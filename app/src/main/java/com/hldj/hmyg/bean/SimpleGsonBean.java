@@ -29,7 +29,7 @@ public class SimpleGsonBean implements Serializable {
 
         public String headImage = "";
 
-        public boolean hasProjectManage = false;
+
 
         private boolean isCollect;
 
@@ -42,6 +42,10 @@ public class SimpleGsonBean implements Serializable {
         }
 
         public int quoteUsedCount;
+
+        public boolean   showSeedlingNote = false ;
+        public boolean   hasProjectManage = false ;
+
 
     }
 

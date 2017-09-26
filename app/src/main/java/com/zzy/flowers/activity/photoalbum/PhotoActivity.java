@@ -18,6 +18,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.jimiao.SaveMiaoActivity;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.saler.ChoosePhotoGalleryActivity;
 import com.hldj.hmyg.saler.CoreActivity;
@@ -348,6 +349,9 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
         }
         if (SaveSeedlingActivity.instance != null) {
             SaveSeedlingActivity.instance.addPicUrls(resultPathList);
+        }
+        if (SaveMiaoActivity.instance != null) {
+            SaveMiaoActivity.instance.addPicUrls(resultPathList);
         }
 //        if (SaveMiaoActivity.instance != null) {
 //            SaveMiaoActivity.instance.addPicUrls(resultPathList);

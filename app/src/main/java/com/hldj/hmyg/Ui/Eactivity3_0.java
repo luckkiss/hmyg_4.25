@@ -16,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -33,6 +34,7 @@ import com.hldj.hmyg.SafeAcountActivity;
 import com.hldj.hmyg.SetProfileActivity;
 import com.hldj.hmyg.SettingActivity;
 import com.hldj.hmyg.StoreActivity;
+import com.hldj.hmyg.Ui.jimiao.MiaoNoteListActivity;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.base.rxbus.annotation.Subscribe;
@@ -139,6 +141,9 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         this.getView(R.id.sptv_wd_wdxm).setOnClickListener(v -> MyProgramActivity.start(mActivity));//我的项目
         this.getView(R.id.sptv_wd_exit).setOnClickListener(v -> exit());//退出登录
         this.getView(R.id.sptv_wd_ddzy).setOnClickListener(v -> DispatcherActivity.start(mActivity));// 调度专员
+
+
+        this.getView(R.id.sptv_wd_jmb).setOnClickListener(v -> MiaoNoteListActivity.start(mActivity));// 记苗本
 
 
         this.getView(R.id.iv_circle_head).setOnClickListener(v -> {
@@ -549,16 +554,25 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                 .doRequest("admin/user/getPermission", true, new AjaxCallBack<String>() {
                     @Override
                     public void onSuccess(String json) {
+
+                        Log.i("=======", "onSuccess: " + json);
+
                         if (GetServerUrl.isTest)//测试的时候显示
                             ToastUtil.showShortToast("测试的时候显示\n" + "请求是否显示项目结果：\n" + json);
 
                         SimpleGsonBean bean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
                         if (bean.isSucceed()) {
+//                            GetServerUrl.isTest
                             if (GetServerUrl.isTest) {
                                 getView(R.id.sptv_wd_wdxm).setVisibility(View.VISIBLE);
                             } else {
-                                getView(R.id.sptv_wd_wdxm).setVisibility(bean.getData().hasProjectManage ? View.VISIBLE : View.INVISIBLE);
+                                getView(R.id.sptv_wd_wdxm).setVisibility(bean.getData().hasProjectManage ? View.VISIBLE : View.GONE);
+                            }
 
+                            if (GetServerUrl.isTest) {
+                                getView(R.id.sptv_wd_jmb).setVisibility(View.VISIBLE);
+                            } else {
+                                getView(R.id.sptv_wd_jmb).setVisibility(bean.getData().showSeedlingNote ? View.VISIBLE : View.GONE);
                             }
 
 

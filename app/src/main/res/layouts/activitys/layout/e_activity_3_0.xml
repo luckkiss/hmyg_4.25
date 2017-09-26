@@ -122,7 +122,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:background="@color/white" android:weightSum="4">
 
 
             <com.coorchice.library.SuperTextView
@@ -142,17 +142,18 @@
             <com.coorchice.library.SuperTextView
                 style="@style/home_types"
                 android:text="发货任务"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:state_drawable="@mipmap/wd_fhrw"
                 tools:visibility="visible" />
 
 
             <com.coorchice.library.SuperTextView
+                android:id="@+id/sptv_wd_jmb"
                 style="@style/home_types"
-                android:text="合伙人"
-                android:visibility="invisible"
-                app:state_drawable="@mipmap/wd_hhr"
-                tools:visibility="invisible" />
+                android:text="记苗本"
+                android:visibility="gone"
+                app:state_drawable="@mipmap/wd_jmb"
+                tools:visibility="visible" />
 
         </LinearLayout>
 

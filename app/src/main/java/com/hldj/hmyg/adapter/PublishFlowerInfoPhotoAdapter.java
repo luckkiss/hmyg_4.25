@@ -87,12 +87,12 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
 
     public void addItems(ArrayList<Pic> items) {
         urlPaths.addAll(items);
-        notify(urlPaths);
+        notifyDataSetChanged();
     }
 
     public void removeItem(int pos) {
         urlPaths.remove(pos);
-        notify(urlPaths);
+        notifyDataSetChanged();
 
     }
 
@@ -101,12 +101,16 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
     }
 
     public void notify(ArrayList<Pic> data) {
-        this.urlPaths = data;
+//        this.urlPaths = data;
+        urlPaths.clear();
+        urlPaths.addAll(data);
         notifyDataSetChanged();
     }
 
     public void notify(ArrayList<Pic> data, boolean isShowSucceesOrOrrer) {
-        this.urlPaths = data;
+//        this.urlPaths = data;
+        urlPaths.clear();
+        urlPaths.addAll(data);
         this.isShowSucceesOrOrrer = isShowSucceesOrOrrer;
         notifyDataSetChanged();
     }

@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context="com.hldj.hmyg.saler.SaveSeedlingActivity" >
+    tools:context="com.hldj.hmyg.saler.SaveSeedlingActivity">
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/y34"
-        android:background="@color/white" >
+        android:background="@color/white">
 
         <TextView
             android:layout_width="wrap_content"
@@ -54,19 +54,19 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/gray_bg" >
+        android:background="@color/gray_bg">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/y8"
                 android:background="@color/white"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <com.zzy.common.widget.MeasureGridView
                     android:id="@+id/publish_flower_info_gv"
@@ -87,7 +87,7 @@
                 android:layout_marginTop="@dimen/y8"
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
-                android:padding="1px" >
+                android:padding="1px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -96,7 +96,7 @@
                     android:background="@drawable/more_item_selector"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -129,7 +129,7 @@
                 android:layout_height="@dimen/y34"
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
-                android:padding="1px" >
+                android:padding="1px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -138,7 +138,7 @@
                     android:background="@drawable/more_item_selector"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -172,7 +172,7 @@
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
                 android:padding="1px"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -181,7 +181,7 @@
                     android:background="@drawable/more_item_selector"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -214,7 +214,7 @@
                 android:layout_height="@dimen/y34"
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
-                android:padding="1px" >
+                android:padding="1px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -223,7 +223,7 @@
                     android:background="@drawable/more_item_selector"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -255,7 +255,7 @@
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/x10"
-                android:paddingRight="@dimen/x10" >
+                android:paddingRight="@dimen/x10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -314,7 +314,7 @@
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
                 android:padding="1px"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -323,7 +323,7 @@
                     android:background="@drawable/more_item_selector"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -354,7 +354,7 @@
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
                 android:padding="1px"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -363,7 +363,7 @@
                     android:background="@drawable/more_item_selector"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -387,21 +387,21 @@
                         android:textSize="@dimen/x15" />
                 </LinearLayout>
             </LinearLayout>
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y28"
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/x10"
-                android:paddingRight="@dimen/x10" >
+                android:paddingRight="@dimen/x10">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:text="高   度 ："
+                    android:text="高   度："
                     android:textSize="@dimen/x15" />
 
                 <EditText
@@ -446,92 +446,89 @@
                     android:textColorHint="@color/gray"
                     android:textSize="@dimen/x15" />
             </LinearLayout>
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y34"
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
-                android:padding="1px" >
-                
-                  <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y28"
-                android:background="@color/white"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/x10"
-                android:paddingRight="@dimen/x10" >
+                android:padding="1px">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical"
-                    android:text="冠   幅："
-                    android:textSize="@dimen/x15" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y28"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/x10"
+                    android:paddingRight="@dimen/x10">
 
-                <EditText
-                    android:id="@+id/et_crown"
-                    android:layout_width="0.0dip"
-                    android:layout_height="@dimen/x33"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:background="@drawable/green_btn_selector"
-                    android:gravity="center"
-                    android:hint="厘米"
-                    android:inputType="number"
-                    android:maxLength="7"
-                    android:padding="@dimen/x2"
-                    android:textColor="@color/gray"
-                    android:textColorHint="@color/gray"
-                    android:textSize="@dimen/x15" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:text="冠   幅："
+                        android:textSize="@dimen/x15" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/x2"
-                    android:text="---"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/x15" />
+                    <EditText
+                        android:id="@+id/et_crown"
+                        android:layout_width="0.0dip"
+                        android:layout_height="@dimen/x33"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@drawable/green_btn_selector"
+                        android:gravity="center"
+                        android:hint="厘米"
+                        android:inputType="number"
+                        android:maxLength="7"
+                        android:padding="@dimen/x2"
+                        android:textColor="@color/gray"
+                        android:textColorHint="@color/gray"
+                        android:textSize="@dimen/x15" />
 
-                <EditText
-                    android:id="@+id/et_maxCrown"
-                    android:layout_width="0.0dip"
-                    android:layout_height="@dimen/x33"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:background="@drawable/green_btn_selector"
-                    android:gravity="center"
-                    android:hint="厘米"
-                    android:inputType="number"
-                    android:maxLength="7"
-                    android:padding="@dimen/x2"
-                    android:textColor="@color/gray"
-                    android:textColorHint="@color/gray"
-                    android:textSize="@dimen/x15" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/x2"
+                        android:text="---"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/x15" />
+
+                    <EditText
+                        android:id="@+id/et_maxCrown"
+                        android:layout_width="0.0dip"
+                        android:layout_height="@dimen/x33"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@drawable/green_btn_selector"
+                        android:gravity="center"
+                        android:hint="厘米"
+                        android:inputType="number"
+                        android:maxLength="7"
+                        android:padding="@dimen/x2"
+                        android:textColor="@color/gray"
+                        android:textColorHint="@color/gray"
+                        android:textSize="@dimen/x15" />
+                </LinearLayout>
             </LinearLayout>
-            </LinearLayout>
-            
-            
-          
+
 
             <LinearLayout
                 android:id="@+id/ll_05"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y34"
-                android:layout_marginBottom="@dimen/x10"
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
-                android:padding="1px" >
+                android:padding="1px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/btn_my_list"
                     android:orientation="horizontal"
-                    android:paddingRight="@dimen/x7" >
+                    android:paddingRight="@dimen/x7">
 
                     <TextView
                         android:layout_width="0dp"
@@ -561,42 +558,46 @@
 
             <include
                 android:id="@+id/list_item_adress"
+                layout="@layout/list_item_adress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/x10"
-                android:layout_marginTop="@dimen/y8"
-                layout="@layout/list_item_adress"
                 android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/ll_save"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y34"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/iv_ready_save"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="保存并退出"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/main_color" />
+
+                <Button
+                    android:id="@+id/save"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/main_color"
+                    android:gravity="center"
+                    android:text="保存并继续"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+
         </LinearLayout>
+
+
     </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/ll_save"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y34"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/iv_ready_save"
-            android:layout_width="0.0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:text="保存并退出"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/main_color" />
-
-        <Button
-            android:id="@+id/save"
-            android:layout_width="0.0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/main_color"
-            android:gravity="center"
-            android:text="保存并继续"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/white" />
-    </LinearLayout>
 
 </com.yunpay.app.KeyboardLayout3>

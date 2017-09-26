@@ -68,10 +68,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         findViewById(R.id.test_show_pach).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showShortToast("   修复bug 5   ------ gif图片奔溃问题。。 去除gif 图片支持。只显示第一帧。当做普通图片用\n" +
-                        "   修复bug 6   ------ 地址 选择 街道时。如果街道数据为空的时候。会奔溃\n" +
-                        "   修复bug 7   -----  管理界面 。。。苗木的  cityname 字段可能会奔溃。");
-
+                ToastUtil.showShortToast("增加 记苗本");
                 /**
                  * Beta.cleanTinkerPatch();
                  注：清除补丁之后，就会回退基线版本状态。

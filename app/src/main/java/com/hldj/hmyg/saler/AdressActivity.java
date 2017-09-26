@@ -225,6 +225,19 @@ public class AdressActivity extends BaseMVPActivity<AdressListPresenter, AdressL
         public String name = "";//苗圃名称
         public String fullAddress = "";// 拼接好的 详细地址地址
         public boolean isDefault = false;
+
+        @Override
+        public String toString() {
+            return "Address{" +
+                    "addressId='" + addressId + '\'' +
+                    ", contactPhone='" + contactPhone + '\'' +
+                    ", contactName='" + contactName + '\'' +
+                    ", cityName='" + cityName + '\'' +
+                    ", name='" + name + '\'' +
+                    ", fullAddress='" + fullAddress + '\'' +
+                    ", isDefault=" + isDefault +
+                    '}';
+        }
     }
 
 

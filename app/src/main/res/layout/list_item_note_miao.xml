@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutRoot"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/btn_my_list"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,28 +15,27 @@
         android:paddingBottom="@dimen/y2"
         android:paddingLeft="@dimen/y4"
         android:paddingRight="@dimen/y4"
-        android:paddingTop="@dimen/y2" >
+        android:paddingTop="@dimen/y2">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/x5"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tv_03"
+                    android:id="@+id/tv_right_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
                     android:singleLine="true"
-                    android:textColor="@color/red"
-                    android:textSize="@dimen/y9" />
+                    tools:text="省份 地区" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -42,15 +43,18 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_01"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
+                        android:padding="5dp"
                         android:singleLine="true"
-                        android:textSize="@dimen/y11" />
+                        android:textColor="@color/text_color333"
+                        android:textSize="16sp"
+                        tools:text="品种名称" />
 
                     <TextView
                         android:id="@+id/tv_02"
@@ -66,13 +70,14 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="0dip"
-                android:layout_weight="1" >
+                android:layout_marginLeft="6dp"
+                android:layout_weight="1">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_04"
@@ -80,8 +85,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:singleLine="true"
-                        android:text="价格："
-                        android:textSize="@dimen/y9" />
+                        android:text="价格：" />
 
                     <TextView
                         android:id="@+id/tv_05"
@@ -89,8 +93,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:singleLine="true"
-                        android:textColor="@color/main_color"
-                        android:textSize="@dimen/y9" />
+                        android:textColor="@color/price_orige"
+                        tools:text="600" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -98,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20.0dip"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_06"
@@ -106,8 +110,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:singleLine="true"
-                        android:text="数量："
-                        android:textSize="@dimen/y9" />
+                        android:text="数量：" />
 
                     <TextView
                         android:id="@+id/tv_07"
@@ -115,16 +118,19 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:singleLine="true"
-                        android:textColor="@color/main_color"
-                        android:textSize="@dimen/y9" />
+                        android:textColor="@color/price_orige"
+
+                        tools:text="200" />
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="6dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_08"
@@ -132,7 +138,66 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:singleLine="true"
-                    android:textSize="@dimen/y9" />
+                    android:textSize="@dimen/y9"
+                    tools:text="规格 15 -17冠幅 15高度220" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/tv_mpmc_lxr_dh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/y9"
+                    tools:text="苗圃名称苗圃名称苗圃名称苗圃名称苗圃名称苗圃名称苗圃名称苗圃名称" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textSize="@dimen/y9"
+                    tools:text="2011-02-32" />
+
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/tv_quote_item_photo_num"
+                    android:layout_width="0dp"
+                    android:layout_height="27dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="0.8"
+                    android:gravity="end|center_vertical"
+                    android:paddingRight="25dp"
+                    android:textSize="12sp"
+                    app:isShowState="true"
+                    app:state_drawable="@drawable/baojia_chakantupian"
+                    app:state_drawable_height="20dp"
+                    app:state_drawable_mode="right"
+                    app:state_drawable_width="20dp"
+                    tools:text="有1张图片"
+                    app:solid="@color/trans"
+                    />
+
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
