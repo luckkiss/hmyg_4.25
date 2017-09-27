@@ -21,7 +21,6 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PicSerializableMaplist;
-import com.hldj.hmyg.buy.bean.StorageSave;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.saler.AdressActivity;
 import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin2;
@@ -236,7 +235,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                         @Override
                         public void onSuccess(Object t) {
                             try {
-                                JSONObject jsonObject = new JSONObject(t  .toString());
+                                JSONObject jsonObject = new JSONObject(t.toString());
                                 int code = jsonObject.getInt("code");
                                 if (code == 1) {
                                     JSONObject seedling = JsonGetInfo.getJSONObject(
@@ -425,34 +424,20 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                     if (view.getId() == R.id.save) {
                         BACK_TYPE = 0;
                     } else if (view.getId() == R.id.iv_ready_save) {
-                        BACK_TYPE = 1;
+                        BACK_TYPE = 1;//保存并退出
                     }
                     if ("".equals(et_name.getText().toString())) {
-                        Toast.makeText(SaveMiaoActivity.this, "请先输入苗木名称",
+                        Toast.makeText(SaveMiaoActivity.this, "请先输入品名",
                                 Toast.LENGTH_SHORT).show();
                         return;
                     }
-//					if ("".equals(et_price.getText().toString())) {
-//						Toast.makeText(SaveMiaoActivity.this, "请先输入苗木价格",
-//								Toast.LENGTH_SHORT).show();
-//						return;
-//					}
 
-//					if (Double.parseDouble(et_price.getText().toString()) <= 0) {
-//						Toast.makeText(SaveMiaoActivity.this, "请输入超过0的价格",
-//								Toast.LENGTH_SHORT).show();
-//						return;
-//					}
                     if ("".equals(addressId)) {
                         Toast.makeText(SaveMiaoActivity.this, "请先选择苗源地址",
                                 Toast.LENGTH_SHORT).show();
                         return;
                     }
-//					if ("".equals(et_count.getText().toString())) {
-//						Toast.makeText(SaveMiaoActivity.this, "请先输入数量",
-//								Toast.LENGTH_SHORT).show();
-//						return;
-//					}
+
                     if (!"".equals(et_minSpec.getText().toString())
                             && !"".equals(et_maxSpec.getText().toString())
                             && Double.parseDouble(et_minSpec.getText()
@@ -465,16 +450,18 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                     }
 
                     if (photoGv.getAdapter().getDataList().size() == 0) {
-                        seedlingSave();
+//                        seedlingSave();
+                        ToastUtil.showShortToast("图片必须上传");
                     } else {
                         upLoadImgs();
                     }
 
                 } else if (view.getId() == R.id.id_tv_edit_all) {
                     mCache.remove("savemiao");
-                    finish();
-                    startActivity(new Intent(SaveMiaoActivity.this,
-                            SaveMiaoActivity.class));
+                    resetView();
+//                    finish();
+//                    startActivity(new Intent(SaveMiaoActivity.this,
+//                            SaveMiaoActivity.class));
                     //
                     // 清空
                 }
@@ -544,14 +531,18 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
         params.put("price", et_price.getText().toString());
         params.put("nurseryId", addressId);
         params.put("count", et_count.getText().toString());
-        params.put("height", et_height.getText().toString());
-        params.put("crown", et_crown.getText().toString());
+        params.put("minHeight", et_height.getText().toString());
+        params.put("minCrown", et_crown.getText().toString());
         params.put("maxHeight", et_maxHeight.getText().toString());
         params.put("maxCrown", et_maxCrown.getText().toString());
         params.put("minSpec", et_minSpec.getText().toString());
         params.put("maxSpec", et_maxSpec.getText().toString());
 //        params.put("imagesData", gson.toJson(urlPaths));
+        D.e("=====photoGv========" + photoGv.getAdapter().getDataList().toString());
+        D.e("=====photurlPathsOnline========" + urlPathsOnline.toString());
+
         params.put("imagesData", gson.toJson(photoGv.getAdapter().getDataList()));
+//        params.put("imagesData", gson.toJson(urlPathsOnline));
         finalHttp.post(GetServerUrl.getUrl() + "admin/seedlingNote/save",
                 params, new AjaxCallBack<Object>() {
 
@@ -573,49 +564,63 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 
                                 if (BACK_TYPE == 0) {
                                     if (!"".equals(id)) {
-                                        mCache.remove("savemiao");
-                                        StorageSave mStorageSave = new StorageSave();
-                                        mStorageSave.setNurseryId(addressId);
-                                        mStorageSave
-                                                .setContactName(contactName);
-                                        mStorageSave
-                                                .setContactPhone(contactPhone);
-                                        mStorageSave.setDefault(isDefault);
-                                        // 额外数据
-                                        mStorageSave.setAddress(fullAddress);
-                                        // 保存缓存
-                                        mCache.put("savemiao",
-                                                gson.toJson(mStorageSave));
+//                                        mCache.remove("savemiao");
+//                                        StorageSave mStorageSave = new StorageSave();
+//                                        mStorageSave.setNurseryId(addressId);
+//                                        mStorageSave
+//                                                .setContactName(contactName);
+//                                        mStorageSave
+//                                                .setContactPhone(contactPhone);
+//                                        mStorageSave.setDefault(isDefault);
+//                                        // 额外数据
+//                                        mStorageSave.setAddress(fullAddress);
+//                                        // 保存缓存
+//                                        mCache.put("savemiao",
+//                                                gson.toJson(mStorageSave));
                                         setResult(8);
-                                        finish();
-                                        Intent toSaveMiaoActivity = new Intent(
-                                                SaveMiaoActivity.this,
-                                                SaveMiaoActivity.class);
-                                        startActivity(toSaveMiaoActivity);
-                                        overridePendingTransition(
-                                                R.anim.slide_in_left,
-                                                R.anim.slide_out_right);
+//                                        finish();
+                                         resetView();
+                                        id = "";
+//                                        startActivity(new Intent(SaveMiaoActivity.this, SaveMiaoActivity.class));
+//                                        finish();
+//                                        Intent toSaveMiaoActivity = new Intent(
+//                                                SaveMiaoActivity.this,
+//                                                SaveMiaoActivity.class);
+//                                        startActivity(toSaveMiaoActivity);
+//                                        overridePendingTransition(
+//                                                R.anim.slide_in_left,
+//                                                R.anim.slide_out_right);
                                     } else {
+                                        //新增   保存并继续
                                         Data.pics1.clear();
                                         Data.photoList.clear();
                                         Data.microBmList.clear();
 
-                                        mCache.remove("savemiao");
-                                        setResult(1);
-                                        finish();
-                                        Intent toManagerListActivity = new Intent(
-                                                SaveMiaoActivity.this,
-                                                MiaoNoteListActivity.class);
-                                        startActivity(toManagerListActivity);
-                                        overridePendingTransition(
-                                                R.anim.slide_in_left,
-                                                R.anim.slide_out_right);
+//                                        mCache.remove("savemiao");
+                                        setResult(8);
+                                        resetView();
+                                        id = "";
+//                                        finish();
+//                                        instance = SaveMiaoActivity.this;
+
+
+//                                        Intent toManagerListActivity = new Intent(
+//                                                SaveMiaoActivity.this,
+//                                                MiaoNoteListActivity.class);
+//                                        startActivity(toManagerListActivity);
+//                                        overridePendingTransition(
+//                                                R.anim.slide_in_left,
+//                                                R.anim.slide_out_right);
                                     }
                                 } else if (BACK_TYPE == 1) {
+
+                                    // BACK_TYPE = 1;//保存并退出
 //                                  mCache.remove("savemiao");
-                                    Intent toMiaoNoteListActivity = new Intent(SaveMiaoActivity.this, MiaoNoteListActivity.class);
-                                    startActivity(toMiaoNoteListActivity);
+//                                    Intent toMiaoNoteListActivity = new Intent(SaveMiaoActivity.this, MiaoNoteListActivity.class);
+//                                    startActivity(toMiaoNoteListActivity);
+                                    setResult(8);
                                     finish();
+                                    instance = SaveMiaoActivity.this;
 
                                 }
 
@@ -668,8 +673,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
             // 最后通知图库更新
             // sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
             // Uri.parse("file://" + flowerInfoPhotoPath)));
-        }
-        else if (resultCode == 3) {
+        } else if (resultCode == 3) {
             count = data.getStringExtra("count");
             diameter = data.getStringExtra("diameter");
             diameterType = data.getStringExtra("diameterType");
@@ -700,10 +704,9 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
     }
 
 
-
-
     public void upLoadImgs() {
         showLoading();
+        setLoadCancle(false);
         a = 0;
 //        urlPaths.clear();
         urlPathsOnline.clear();
@@ -754,41 +757,31 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
         activity.startActivityForResult(intent, 110);
     }
 
+ public void resetView()
+ {
+     photoGv.getAdapter().notify(new ArrayList<>());
+     resetEdit(et_name);
+     resetEdit(et_price);
+     resetEdit(et_count);
 
-    public void save2Cache() {
-        // TODO Auto-generated method stub
-        mCache.remove("savemiao");
-        StorageSave mStorageSave = new StorageSave();
-        mStorageSave.setId(id);
-        mStorageSave.setFirstSeedlingTypeId(firstSeedlingTypeId);
-        mStorageSave.setSeedlingParams(seedlingParams);
-        mStorageSave.setName(et_name.getText().toString());
-        mStorageSave.setPrice(et_price.getText().toString());
-        mStorageSave.setFloorPrice(et_FloorPrice.getText().toString());
-        mStorageSave.setNurseryId(addressId);
-        mStorageSave.setContactName(contactName);
-        mStorageSave.setContactPhone(contactPhone);
-        mStorageSave.setDefault(isDefault);
-        mStorageSave.setCount(et_count.getText().toString());
-        mStorageSave.setMinSpec(et_minSpec.getText().toString());
-        mStorageSave.setMaxSpec(et_maxSpec.getText().toString());
-        mStorageSave.setDiameterType(diameterType);
-        mStorageSave.setDbhType(dbhType);
-        mStorageSave.setDbh(dbh);
-        mStorageSave.setHeight(et_height.getText().toString());
-        mStorageSave.setCrown(et_crown.getText().toString());
-        mStorageSave.setMaxHeight(et_maxHeight.getText().toString());
-        mStorageSave.setMaxCrown(et_maxCrown.getText().toString());
-        mStorageSave.setDiameter(diameter);
-        mStorageSave.setOffbarHeight(offbarHeight);
-        mStorageSave.setLength(length);
-        mStorageSave.setPlantType(plantType);
-        mStorageSave.setUrlPaths(urlPaths);
-        mStorageSave.setParamsData(paramsData);
-        // 额外数据
-        mStorageSave.setAddress(fullAddress);
-        // 保存缓存
-        mCache.put("savemiao", gson.toJson(mStorageSave));
-    }
+     resetEdit(et_crown);
+     resetEdit(et_maxCrown);
+
+
+     resetEdit(et_height);
+     resetEdit(et_maxHeight);
+
+     resetEdit(et_maxSpec);
+     resetEdit(et_minSpec);
+
+
+
+ }
+
+ public void resetEdit(EditText editText)
+ {
+     editText.setText("");
+ }
+
 
 }

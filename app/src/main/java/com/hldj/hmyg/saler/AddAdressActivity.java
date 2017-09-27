@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -112,6 +113,11 @@ public class AddAdressActivity extends BaseMVPActivity {
         //提交按钮点击事件是公用的
         getView(R.id.tv_aaa_save).setOnClickListener(v -> {
 
+            if (!submit(getView(R.id.et_aaa_contactPhone), "联系电话") || !submit(getView(R.id.et_aaa_detailAddress), "联系地址")) {
+                return;
+            }
+
+
             MyPresenter myPresenter = new MyPresenter();
 
 //            if (true) {
@@ -176,6 +182,14 @@ public class AddAdressActivity extends BaseMVPActivity {
             Intent intent = new Intent(mActivity, EventsActivity.class);
             startActivityForResult(intent, 1);
         });
+    }
+
+    private boolean submit(EditText editText, String errorMsgHead) {
+        if (TextUtils.isEmpty(editText.getText().toString().trim())) {
+            ToastUtil.showShortToast(errorMsgHead + " 必须填写");
+            return false;
+        }
+        return true;
     }
 
     /**

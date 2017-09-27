@@ -365,9 +365,17 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
                 tag.id = 5; // 1 城市 2.品名 3.规格 4.高度 5.冠幅
                 tagView.addTag(tag);
             }
+
             onRefresh();
         } else if (resultCode == 8) {
             onRefresh();
+        } else if (resultCode == 10) {
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    startActivity(new Intent(mActivity, SaveMiaoActivity.class));
+//                }
+//            }, 300);
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -479,13 +487,13 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
                                                         "maxSpec"));
                                         hMap.put("crown", JsonGetInfo
                                                 .getJsonInt(jsonObject3,
-                                                        "crown"));
+                                                        "minCrown"));
                                         hMap.put("maxCrown", JsonGetInfo
                                                 .getJsonInt(jsonObject3,
                                                         "maxCrown"));
                                         hMap.put("height", JsonGetInfo
                                                 .getJsonInt(jsonObject3,
-                                                        "height"));
+                                                        "minHeight"));
                                         hMap.put("maxHeight", JsonGetInfo
                                                 .getJsonInt(jsonObject3,
                                                         "maxHeight"));
