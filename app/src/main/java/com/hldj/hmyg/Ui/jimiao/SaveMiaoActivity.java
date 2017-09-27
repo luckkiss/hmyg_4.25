@@ -49,6 +49,9 @@ import java.util.ArrayList;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.next.tagview.TagCloudView.OnTagClickListener;
 
+/**
+ * 家里修改。做个记号
+ */
 public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClickListener, KeyBordStateListener {
 
 
