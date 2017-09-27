@@ -429,6 +429,12 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                     } else if (view.getId() == R.id.iv_ready_save) {
                         BACK_TYPE = 1;//保存并退出
                     }
+
+                    if (photoGv.getAdapter().getDataList().size() == 0) {
+                        ToastUtil.showShortToast("图片必须上传");
+                        return;
+                    }
+
                     if ("".equals(et_name.getText().toString())) {
                         Toast.makeText(SaveMiaoActivity.this, "请先输入品名",
                                 Toast.LENGTH_SHORT).show();
@@ -452,12 +458,12 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                         return;
                     }
 
-                    if (photoGv.getAdapter().getDataList().size() == 0) {
+//                    if (photoGv.getAdapter().getDataList().size() == 0) {
 //                        seedlingSave();
-                        ToastUtil.showShortToast("图片必须上传");
-                    } else {
-                        upLoadImgs();
-                    }
+//                        ToastUtil.showShortToast("图片必须上传");
+//                    } else {
+                        upLoadImgs();//上传图片
+//                    }
 
                 } else if (view.getId() == R.id.id_tv_edit_all) {
                     mCache.remove("savemiao");

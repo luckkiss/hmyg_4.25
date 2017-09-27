@@ -55,10 +55,13 @@ public class AdressActivity extends BaseMVPActivity<AdressListPresenter, AdressL
         if (resultCode == ConstantState.CHANGE_DATES) {
             //修改成功
             coreRecyclerView.onRefresh();
-            ToastUtil.showShortToast("修改成功");
+            ToastUtil.showShortToast("修改成功^_^");
         } else if (resultCode == ConstantState.ADD_SUCCEED) {
             coreRecyclerView.onRefresh();
-            ToastUtil.showShortToast("新增地址成功");
+            ToastUtil.showShortToast("新增地址成功^_^");
+        } else if (resultCode == ConstantState.DELETE_SUCCEED){
+            coreRecyclerView.onRefresh();
+            ToastUtil.showShortToast("删除成功^_^");
         }
 
 

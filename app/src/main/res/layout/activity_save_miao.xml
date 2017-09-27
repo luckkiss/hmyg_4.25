@@ -118,6 +118,7 @@
                         android:gravity="center_vertical"
                         android:hint="请输入品名"
                         android:imeOptions="actionNext"
+                        android:textColorHint="@color/hint_text_color"
                         android:paddingLeft="@dimen/x12"
                         android:textSize="@dimen/x15" />
                 </LinearLayout>
@@ -159,6 +160,8 @@
                         android:gravity="center_vertical"
                         android:hint="（单位：元）"
                         android:imeOptions="actionNext"
+                        android:textColorHint="@color/hint_text_color"
+
                         android:inputType="numberDecimal"
                         android:paddingLeft="@dimen/x12"
                         android:textSize="@dimen/x15" />
@@ -244,6 +247,8 @@
                         android:gravity="center_vertical"
                         android:imeOptions="actionNext"
                         android:inputType="number"
+                        android:textColorHint="@color/hint_text_color"
+
                         android:hint="请输入数量"
                         android:paddingLeft="@dimen/x12"
                         android:textSize="@dimen/x15" />
@@ -275,6 +280,7 @@
                     android:background="@drawable/green_btn_selector"
                     android:gravity="center"
                     android:hint="厘米"
+
                     android:inputType="number"
                     android:maxLength="7"
                     android:padding="@dimen/x2"
@@ -539,7 +545,7 @@
                         android:drawableLeft="@drawable/seller_redstar"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/x12"
-                        android:text="苗木地址"
+                        android:text="苗源地址"
                         android:textSize="@dimen/x15" />
 
                     <TextView

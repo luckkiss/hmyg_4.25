@@ -13,9 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hldj.hmyg.M.AddressBean;
-import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
@@ -24,7 +22,6 @@ import com.hldj.hmyg.buyer.Ui.OnlyDirstreetWheelDialogF;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
-import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
@@ -94,14 +91,14 @@ public class AddAdressActivity extends BaseMVPActivity {
      */
     private void autoSetLoc() {
 
-        if (MainActivity.aMapLocation != null) {
-            addressBean.cityCode = MainActivity.aMapLocation.getAdCode();
-            addressBean.longitude = Double.parseDouble(MainActivity.longitude);
-            addressBean.latitude = Double.parseDouble(MainActivity.latitude);
-            addressBean.detailAddress = FUtil.$(" ", MainActivity.aMapLocation.getStreet(), MainActivity.aMapLocation.getStreetNum(), MainActivity.aMapLocation.getAoiName());
-        }
-        addressBean.contactPhone = MyApplication.getUserBean().phone;
-        addressBean.contactName = MyApplication.getUserBean().realName;
+//        if (MainActivity.aMapLocation != null) {
+//            addressBean.cityCode = MainActivity.aMapLocation.getAdCode();
+//            addressBean.longitude = Double.parseDouble(MainActivity.longitude);
+//            addressBean.latitude = Double.parseDouble(MainActivity.latitude);
+//            addressBean.detailAddress = FUtil.$(" ", MainActivity.aMapLocation.getStreet(), MainActivity.aMapLocation.getStreetNum(), MainActivity.aMapLocation.getAoiName());
+//        }
+//        addressBean.contactPhone = MyApplication.getUserBean().phone;
+//        addressBean.contactName = MyApplication.getUserBean().realName;
         initExtral(addressBean);
         /**
          * street=七星西路#streetNum=31号#aoiName=七星大厦(七星西路)
@@ -198,6 +195,10 @@ public class AddAdressActivity extends BaseMVPActivity {
      * @param extral 地址对象
      */
     private void initExtral(AddressBean extral) {
+        if (extral==null)
+        {
+            extral= new AddressBean();
+        }
 
         this.setText(getView(R.id.et_aaa_name), extral.name);//苗圃名称
         this.setText(getView(R.id.et_aaa_contactName), extral.contactName);//联系人

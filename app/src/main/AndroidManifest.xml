@@ -710,6 +710,7 @@
         <activity android:name=".Ui.jimiao.MiaoNoteListActivity" />
         <activity android:name=".Ui.jimiao.SaveMiaoActivity" />
         <activity android:name=".Ui.jimiao.SellectMiaoActivity" />
+        <activity android:name=".Ui.jimiao.MiaoDetailActivity" />
 
 
         <activity

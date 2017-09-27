@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.fanrunqi.swipelayoutlibrary.SwipeLayout;
+
 import static com.hldj.hmyg.R.id.tv_03;
 import static com.hldj.hmyg.R.id.tv_05;
 import static com.hldj.hmyg.R.id.tv_07;
@@ -76,7 +78,10 @@ public class MiaoNoteListAdapter extends BaseAdapter {
         if (convertView== null)
         {
             holder =  new ViewHolder();
-            convertView =  LayoutInflater.from(context).inflate(  R.layout.list_item_note_miao, null) ;
+            convertView =  LayoutInflater.from(context).inflate(  R.layout.list_item_note_miao_del, null) ;
+            holder.swipeLayout= (SwipeLayout) convertView.findViewById(R.id.swipe_manager);
+            holder.tv_delete_manager= (TextView) convertView.findViewById(R.id.btn_delete_manager);
+            holder.swipe_manager1= convertView.findViewById(R.id.swipe_manager1);
             holder.tv_01= (TextView) convertView.findViewById(R.id.tv_01);
             holder.tv_03 = (TextView) convertView.findViewById(tv_03);
             holder.tv_05 = (TextView) convertView.findViewById(tv_05);
@@ -154,6 +159,28 @@ public class MiaoNoteListAdapter extends BaseAdapter {
 
         holder.tv_08.setText("规格：" + s1 + "\u0020\u0020" + "高度：" + s2 + "\u0020\u0020" + "冠幅：" + s3);
 
+
+        holder.tv_delete_manager.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.swipeLayout.SimulateScroll(SwipeLayout.SHRINK);
+                if (myItemClickLister!=null){
+                    myItemClickLister.OnItemDel(position, data.get(position).get("id").toString());
+                }
+            }
+        });
+
+        holder.swipe_manager1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (myItemClickLister_content!=null)
+                {
+                    myItemClickLister_content.OnItemDel(position, data.get(position).get("id").toString());
+                }
+            }
+        });
+
+
         return convertView;
     }
 
@@ -181,9 +208,30 @@ public class MiaoNoteListAdapter extends BaseAdapter {
         TextView tv_05 ;
         TextView tv_07 ;
         TextView tv_08 ;
+        View swipe_manager1 ;
         TextView tv_right_top ;//  省份地区
         TextView tv_mpmc_lxr_dh ;//苗圃名称
+        SwipeLayout swipeLayout ;
+        TextView tv_delete_manager  ;
     }
 
+    public interface MyItemClickLister
+    {
+        void OnItemDel (int pos  ,String id );
+    }
+
+    public MyItemClickLister myItemClickLister ;
+    public MyItemClickLister myItemClickLister_content ;
+
+    public void setMyItemLis(MyItemClickLister itemLis)
+    {
+        myItemClickLister = itemLis ;
+
+
+
+    } public void setMyItemLisContent(MyItemClickLister itemLis)
+    {
+        myItemClickLister_content = itemLis ;
+    }
 
 }

@@ -12,9 +12,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -132,63 +129,14 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
         xListView.setPullLoadEnable(true);
         xListView.setPullRefreshEnable(true);
         xListView.setXListViewListener(this);
-        xListView.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1,
-                                    int position, long arg3) {
-                // method stub
-                Intent toMiaoNoteListActivity = new Intent(
-                        MiaoNoteListActivity.this, SaveMiaoActivity.class);
-                if ("1".equals(noteType)) {
-                    toMiaoNoteListActivity = new Intent(
-                            MiaoNoteListActivity.this, SaveMiaoActivity.class);
-                } else if ("2".equals(noteType)) {
-                    toMiaoNoteListActivity = new Intent(
-                            MiaoNoteListActivity.this, SaveMiaoActivity.class);
-                }
-                Bundle bundleObject = new Bundle();
-                final PicSerializableMaplist myMap = new PicSerializableMaplist();
-                ArrayList<Pic> ossImagePaths = new ArrayList<Pic>();
-                myMap.setMaplist(ossImagePaths);
-                bundleObject.putSerializable("urlPaths", myMap);
-                toMiaoNoteListActivity.putExtras(bundleObject);
-                toMiaoNoteListActivity.putExtra("id", datas.get(position - 1)
-                        .get("id").toString());
-                toMiaoNoteListActivity.putExtra("addressId",
-                        datas.get(position - 1).get("addressId").toString());
-                toMiaoNoteListActivity.putExtra("count", datas
-                        .get(position - 1).get("count").toString());
-                toMiaoNoteListActivity.putExtra("height",
-                        datas.get(position - 1).get("height").toString());
-                toMiaoNoteListActivity.putExtra("maxHeight",
-                        datas.get(position - 1).get("maxHeight").toString());
-                toMiaoNoteListActivity.putExtra("crown",
-                        datas.get(position - 1).get("crown").toString());
-                toMiaoNoteListActivity.putExtra("maxCrown",
-                        datas.get(position - 1).get("maxCrown").toString());
-                toMiaoNoteListActivity.putExtra("contactName",
-                        datas.get(position - 1).get("contactName").toString());
-                toMiaoNoteListActivity.putExtra("contactPhone",
-                        datas.get(position - 1).get("contactPhone").toString());
-                toMiaoNoteListActivity.putExtra("address",
-                        datas.get(position - 1).get("address").toString());
-                toMiaoNoteListActivity.putExtra("name", datas.get(position - 1)
-                        .get("name").toString());
-                toMiaoNoteListActivity.putExtra("price", datas
-                        .get(position - 1).get("price").toString());
-                toMiaoNoteListActivity.putExtra("minSpec",
-                        datas.get(position - 1).get("minSpec").toString());
-                toMiaoNoteListActivity.putExtra("maxSpec",
-                        datas.get(position - 1).get("maxSpec").toString());
-                toMiaoNoteListActivity.putExtra("isDefault", (Boolean) datas
-                        .get(position - 1).get("isDefault"));
-                startActivityForResult(toMiaoNoteListActivity, 1);
-                overridePendingTransition(R.anim.slide_in_left,
-                        R.anim.slide_out_right);
-
-            }
-        });
+//        xListView.setOnItemClickListener(new OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> arg0, View arg1,   int position, long arg3) {
+//               intent2SaveMiao();
+//
+//            }
+//        });
         tagView = (TagView) this.findViewById(R.id.tagview);
         tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
 
@@ -226,6 +174,76 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
         rl_choose_screen.setOnClickListener(multipleClickProcess);
         btn_back.setOnClickListener(multipleClickProcess);
 
+    }
+
+    private void intent2SaveMiao(int position) {
+        // method stub
+        position = position +1 ;
+        Intent toMiaoNoteListActivity = new Intent(
+                MiaoNoteListActivity.this, SaveMiaoActivity.class);
+        if ("1".equals(noteType)) {
+            toMiaoNoteListActivity = new Intent(
+                    MiaoNoteListActivity.this, SaveMiaoActivity.class);
+        } else if ("2".equals(noteType)) {
+            toMiaoNoteListActivity = new Intent(
+                    MiaoNoteListActivity.this, MiaoDetailActivity.class);
+        }
+        Bundle bundleObject = new Bundle();
+        final PicSerializableMaplist myMap = new PicSerializableMaplist();
+        ArrayList<Pic> ossImagePaths = new ArrayList<Pic>();
+
+//        String  imagesJson =  datas.get(position - 1) .get("imagesJson")+"";
+
+//        D.e("=======imgJson===========" + imagesJson);
+//        List<ImagesJsonBean> jsonBeen = new ArrayList<>();
+//        if (!TextUtils.isEmpty(imagesJson)) {
+//            jsonBeen = GsonUtil.formateJson2Bean(imagesJson, new TypeToken<List<ImagesJsonBean>>() {
+//            }.getType());
+//        }
+//        ossImagePaths.clear();
+//        for (int i1 = 0; i1 < jsonBeen.size(); i1++) {
+//            ossImagePaths.add(new Pic(jsonBeen.get(i).id,true,
+//                    jsonBeen.get(i).ossMediumImagePath,i
+//                    ));
+//        }
+
+        myMap.setMaplist(ossImagePaths);
+//        myMap.setMaplist(ossImagePaths);
+        bundleObject.putSerializable("urlPaths", myMap);
+        toMiaoNoteListActivity.putExtras(bundleObject);
+        toMiaoNoteListActivity.putExtra("id", datas.get(position - 1)
+                .get("id").toString());
+        toMiaoNoteListActivity.putExtra("addressId",
+                datas.get(position - 1).get("addressId").toString());
+        toMiaoNoteListActivity.putExtra("count", datas
+                .get(position - 1).get("count").toString());
+        toMiaoNoteListActivity.putExtra("height",
+                datas.get(position - 1).get("height").toString());
+        toMiaoNoteListActivity.putExtra("maxHeight",
+                datas.get(position - 1).get("maxHeight").toString());
+        toMiaoNoteListActivity.putExtra("crown",
+                datas.get(position - 1).get("crown").toString());
+        toMiaoNoteListActivity.putExtra("maxCrown",
+                datas.get(position - 1).get("maxCrown").toString());
+        toMiaoNoteListActivity.putExtra("contactName",
+                datas.get(position - 1).get("contactName").toString());
+        toMiaoNoteListActivity.putExtra("contactPhone",
+                datas.get(position - 1).get("contactPhone").toString());
+        toMiaoNoteListActivity.putExtra("address",
+                datas.get(position - 1).get("address").toString());
+        toMiaoNoteListActivity.putExtra("name", datas.get(position - 1)
+                .get("name").toString());
+        toMiaoNoteListActivity.putExtra("price", datas
+                .get(position - 1).get("price").toString());
+        toMiaoNoteListActivity.putExtra("minSpec",
+                datas.get(position - 1).get("minSpec").toString());
+        toMiaoNoteListActivity.putExtra("maxSpec",
+                datas.get(position - 1).get("maxSpec").toString());
+        toMiaoNoteListActivity.putExtra("isDefault", (Boolean) datas
+                .get(position - 1).get("isDefault"));
+        startActivityForResult(toMiaoNoteListActivity, 1);
+        overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
     }
 
     public class MultipleClickProcess implements OnClickListener {
@@ -559,11 +577,17 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
                                     if (listAdapter == null) {
                                         listAdapter = new MiaoNoteListAdapter(MiaoNoteListActivity.this, datas);
                                         xListView.setAdapter(listAdapter);
-                                        xListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+                                        listAdapter.setMyItemLisContent(new MiaoNoteListAdapter.MyItemClickLister() {
                                             @Override
-                                            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                                                // TODO Auto-generated
-                                                // method stub
+                                            public void OnItemDel(int pos, String id) {
+                                                intent2SaveMiao(pos);
+                                            }
+                                        });
+
+                                        listAdapter.setMyItemLis(new MiaoNoteListAdapter.MyItemClickLister() {
+                                            @Override
+                                            public void OnItemDel(int position, String id) {
                                                 if ("1".equals(noteType)) {
                                                     i = position;
                                                     if (mMaterialDialog != null) {
@@ -572,7 +596,7 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
                                                                 .setPositiveButton(getString(R.string.ok), new OnClickListener() {
                                                                     @Override
                                                                     public void onClick(View v) {
-                                                                        doDel(datas.get(i - 1).get("id").toString(), i - 1);
+                                                                        doDel(id,position);
                                                                         mMaterialDialog.dismiss();
                                                                     }
                                                                 })
@@ -598,10 +622,19 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
                                                             Toast.LENGTH_SHORT)
                                                             .show();
                                                 }
-
-                                                return true;
                                             }
                                         });
+
+//                                        xListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+//                                            @Override
+//                                            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                                                // TODO Auto-generated
+//                                                // method stub
+//
+//
+//                                                return true;
+//                                            }
+//                                        });
                                     }
 
                                     pageIndex++;
