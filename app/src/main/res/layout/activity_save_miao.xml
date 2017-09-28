@@ -114,7 +114,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:background="@null"
+                        android:background="@drawable/conner_edit"
+                        android:padding="5dp"
+                        android:layout_marginLeft="6dp"
                         android:gravity="center_vertical"
                         android:hint="请输入品名"
                         android:imeOptions="actionNext"
@@ -156,13 +158,15 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:background="@null"
                         android:gravity="center_vertical"
-                        android:hint="（单位：元）"
+                        android:hint="单位：元"
                         android:imeOptions="actionNext"
                         android:textColorHint="@color/hint_text_color"
-
+                        android:background="@drawable/conner_edit"
+                        android:padding="5dp"
+                        android:layout_marginLeft="9dp"
                         android:inputType="numberDecimal"
+                        android:maxLength="6"
                         android:paddingLeft="@dimen/x12"
                         android:textSize="@dimen/x15" />
                 </LinearLayout>
@@ -243,12 +247,15 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:background="@null"
+
                         android:gravity="center_vertical"
                         android:imeOptions="actionNext"
                         android:inputType="number"
                         android:textColorHint="@color/hint_text_color"
-
+                        android:background="@drawable/conner_edit"
+                        android:padding="5dp"
+                        android:maxLength="8"
+                        android:layout_marginLeft="9dp"
                         android:hint="请输入数量"
                         android:paddingLeft="@dimen/x12"
                         android:textSize="@dimen/x15" />
@@ -277,15 +284,16 @@
                     android:layout_height="@dimen/x33"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:background="@drawable/green_btn_selector"
+
                     android:gravity="center"
                     android:hint="厘米"
-
+                    android:background="@drawable/conner_edit"
                     android:inputType="number"
                     android:maxLength="7"
                     android:padding="@dimen/x2"
                     android:textColor="@color/gray"
-                    android:textColorHint="@color/gray"
+                    android:textColorHint="@color/hint_text_color"
+
                     android:textSize="@dimen/x15" />
 
                 <TextView
@@ -304,14 +312,14 @@
                     android:layout_height="@dimen/x33"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:background="@drawable/green_btn_selector"
+                    android:background="@drawable/conner_edit"
                     android:gravity="center"
                     android:hint="厘米"
                     android:inputType="number"
                     android:maxLength="7"
                     android:padding="@dimen/x2"
                     android:textColor="@color/gray"
-                    android:textColorHint="@color/gray"
+                    android:textColorHint="@color/hint_text_color"
                     android:textSize="@dimen/x15" />
             </LinearLayout>
 
@@ -417,14 +425,14 @@
                     android:layout_height="@dimen/x33"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:background="@drawable/green_btn_selector"
+                    android:background="@drawable/conner_edit"
                     android:gravity="center"
                     android:hint="厘米"
                     android:inputType="number"
                     android:maxLength="7"
                     android:padding="@dimen/x2"
                     android:textColor="@color/gray"
-                    android:textColorHint="@color/gray"
+                    android:textColorHint="@color/hint_text_color"
                     android:textSize="@dimen/x15" />
 
                 <TextView
@@ -443,14 +451,14 @@
                     android:layout_height="@dimen/x33"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:background="@drawable/green_btn_selector"
+                    android:background="@drawable/conner_edit"
                     android:gravity="center"
                     android:hint="厘米"
                     android:inputType="number"
                     android:maxLength="7"
                     android:padding="@dimen/x2"
                     android:textColor="@color/gray"
-                    android:textColorHint="@color/gray"
+                    android:textColorHint="@color/hint_text_color"
                     android:textSize="@dimen/x15" />
             </LinearLayout>
 
@@ -483,14 +491,14 @@
                         android:layout_height="@dimen/x33"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:background="@drawable/green_btn_selector"
+                        android:background="@drawable/conner_edit"
                         android:gravity="center"
                         android:hint="厘米"
                         android:inputType="number"
                         android:maxLength="7"
                         android:padding="@dimen/x2"
                         android:textColor="@color/gray"
-                        android:textColorHint="@color/gray"
+                        android:textColorHint="@color/hint_text_color"
                         android:textSize="@dimen/x15" />
 
                     <TextView
@@ -509,14 +517,14 @@
                         android:layout_height="@dimen/x33"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:background="@drawable/green_btn_selector"
+                        android:background="@drawable/conner_edit"
                         android:gravity="center"
                         android:hint="厘米"
                         android:inputType="number"
                         android:maxLength="7"
                         android:padding="@dimen/x2"
                         android:textColor="@color/gray"
-                        android:textColorHint="@color/gray"
+                        android:textColorHint="@color/hint_text_color"
                         android:textSize="@dimen/x15" />
                 </LinearLayout>
             </LinearLayout>

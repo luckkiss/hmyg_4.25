@@ -91,6 +91,8 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
     UploadHeadUtil uploadHeadUtil;
 
+    public static boolean showSeedlingNoteShare = false;//是否显示 共享资源
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -563,18 +565,22 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                         SimpleGsonBean bean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
                         if (bean.isSucceed()) {
 //                            GetServerUrl.isTest
-                            if (GetServerUrl.isTest) {
+                            if (false) {
                                 getView(R.id.sptv_wd_wdxm).setVisibility(View.VISIBLE);
                             } else {
                                 getView(R.id.sptv_wd_wdxm).setVisibility(bean.getData().hasProjectManage ? View.VISIBLE : View.GONE);
                             }
 
-                            if (GetServerUrl.isTest) {
+                            if (false) {
                                 getView(R.id.sptv_wd_jmb).setVisibility(View.VISIBLE);
                             } else {
                                 getView(R.id.sptv_wd_jmb).setVisibility(bean.getData().showSeedlingNote ? View.VISIBLE : View.GONE);
                             }
 
+
+                            showSeedlingNoteShare = bean.getData().showSeedlingNoteShare;
+//                            showSeedlingNoteShare = false;
+                            D.e("===========showSeedlingNoteShare===========" + showSeedlingNoteShare);
 
                         }
                     }

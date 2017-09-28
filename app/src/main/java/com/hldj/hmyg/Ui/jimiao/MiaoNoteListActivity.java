@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -21,8 +22,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PicSerializableMaplist;
+import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.SegmentedGroup;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
@@ -55,6 +58,8 @@ import me.maxwin.view.XListView.IXListViewListener;
 @SuppressLint("NewApi")
 public class MiaoNoteListActivity extends BaseSecondActivity implements IXListViewListener,
         OnCheckedChangeListener, OnWheelChangedListener {
+
+//    public boolean mIsSelf = false;
 
     private RelativeLayout rl_choose_type;
     private ImageView iv_seller_arrow2;
@@ -112,13 +117,13 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
         segmented3.setOnCheckedChangeListener(this);
 
 
-//        if (MyApplication.Userinfo.getBoolean("isDirectAgent", false)) {
-        segmented3.setVisibility(View.VISIBLE);
-        tv_title.setVisibility(View.GONE);
-//        } else {
-//            segmented3.setVisibility(View.GONE);
-//            tv_title.setVisibility(View.VISIBLE);
-//        }
+        if (Eactivity3_0.showSeedlingNoteShare) {
+            segmented3.setVisibility(View.VISIBLE);
+            tv_title.setVisibility(View.GONE);
+        } else {
+            segmented3.setVisibility(View.GONE);
+            tv_title.setVisibility(View.VISIBLE);
+        }
         rl_choose_type = (RelativeLayout) findViewById(R.id.rl_choose_type);
         RelativeLayout rl_choose_price = (RelativeLayout) findViewById(R.id.rl_choose_price);
         RelativeLayout rl_choose_time = (RelativeLayout) findViewById(R.id.rl_choose_time);
@@ -176,17 +181,25 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
 
     }
 
-    private void intent2SaveMiao(int position) {
+    private void intent2SaveMiao(int position, boolean is) {
         // method stub
-        position = position +1 ;
+        position = position + 1;
         Intent toMiaoNoteListActivity = new Intent(
                 MiaoNoteListActivity.this, SaveMiaoActivity.class);
         if ("1".equals(noteType)) {
             toMiaoNoteListActivity = new Intent(
                     MiaoNoteListActivity.this, SaveMiaoActivity.class);
         } else if ("2".equals(noteType)) {
-            toMiaoNoteListActivity = new Intent(
-                    MiaoNoteListActivity.this, MiaoDetailActivity.class);
+
+            if (is) {//假如是自己的资源
+                toMiaoNoteListActivity = new Intent(
+                        MiaoNoteListActivity.this, SaveMiaoActivity.class);
+            } else {
+                toMiaoNoteListActivity = new Intent(
+                        MiaoNoteListActivity.this, MiaoDetailActivity.class);
+            }
+
+
         }
         Bundle bundleObject = new Bundle();
         final PicSerializableMaplist myMap = new PicSerializableMaplist();
@@ -245,6 +258,11 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
         overridePendingTransition(R.anim.slide_in_left,
                 R.anim.slide_out_right);
     }
+
+//    private boolean isSelfRes() {
+//        ToastUtil.showShortToast(" mIsSelf= " + mIsSelf);
+//        return mIsSelf;
+//    }
 
     public class MultipleClickProcess implements OnClickListener {
         private boolean flag = true;
@@ -408,6 +426,15 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
         if (listAdapter == null) {
             listAdapter = new MiaoNoteListAdapter(MiaoNoteListActivity.this, datas);
             xListView.setAdapter(listAdapter);
+            listAdapter.setMyItemLisContent(new MiaoNoteListAdapter.MyItemClickLister() {
+                @Override
+                public void OnItemDel(int pos, String id, boolean isSelf) {
+                    intent2SaveMiao(pos, isSelf);
+                }
+            });
+
+            initAptLis(listAdapter);
+
         } else {
             listAdapter.notifyDataSetChanged();
         }
@@ -415,6 +442,63 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
             initData();
         }
         onLoad();
+    }
+
+    private void initAptLis(MiaoNoteListAdapter mlistAdapter) {
+
+        if (mlistAdapter != null && mlistAdapter.myItemClickLister == null) {
+
+
+            mlistAdapter.setMyItemLis(new MiaoNoteListAdapter.MyItemClickLister() {
+                @Override
+                public void OnItemDel(int position, String mIid, boolean isSelf) {
+
+                    if ("1".equals(noteType) || isSelf) {
+                        i = position;
+                        Log.i("setMyItemLis", "OnItemDel: " + mIid);
+                        myid = mIid;
+                        Log.i("setMyItemLis", "OnItemDel: " + myid);
+                        if (mMaterialDialog != null) {
+                            mMaterialDialog.setMessage("确定删除这条资源？")
+                                    // mMaterialDialog.setBackgroundResource(R.drawable.background);
+                                    .setPositiveButton(getString(R.string.ok), new OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            doDel(myid);
+                                            Log.i("doDel", "OnItemDel: " + mIid);
+                                            mMaterialDialog.dismiss();
+                                        }
+                                    })
+                                    .setNegativeButton(getString(R.string.cancle), new OnClickListener() {
+                                        public void onClick(View v) {
+                                            mMaterialDialog.dismiss();
+                                        }
+                                    })
+                                    .setCanceledOnTouchOutside(
+                                            true)
+                                    .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                        @Override
+                                        public void onDismiss(
+                                                DialogInterface dialog) {
+                                        }
+                                    })
+                                    .show();
+                        } else {
+                        }
+                    } else {
+                        Toast.makeText(MiaoNoteListActivity.this,
+                                "共享资源您没有权限删除哦",
+                                Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                }
+
+//                                            @Override
+//                                            public void OnSelf(boolean isSelf) {
+//
+//                                            }
+            });
+        }
     }
 
     private void initData() {
@@ -485,6 +569,11 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
                                                         "id"));
 
 
+                                        hMap.put("ownerId", JsonGetInfo
+                                                .getJsonString(jsonObject3,
+                                                        "ownerId"));
+
+
                                         hMap.put("cityCode", JsonGetInfo
                                                 .getJsonString(jsonObject3,
                                                         "cityCode"));
@@ -492,7 +581,7 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
                                                 .getJsonString(jsonObject3,
                                                         "cityName"));
                                         hMap.put("price", JsonGetInfo
-                                                .getJsonInt(jsonObject3,
+                                                .getJsonString(jsonObject3,
                                                         "price"));
                                         hMap.put("count", JsonGetInfo
                                                 .getJsonInt(jsonObject3,
@@ -580,61 +669,13 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
 
                                         listAdapter.setMyItemLisContent(new MiaoNoteListAdapter.MyItemClickLister() {
                                             @Override
-                                            public void OnItemDel(int pos, String id) {
-                                                intent2SaveMiao(pos);
+                                            public void OnItemDel(int pos, String id, boolean isSelf) {
+                                                intent2SaveMiao(pos, isSelf);
                                             }
                                         });
 
-                                        listAdapter.setMyItemLis(new MiaoNoteListAdapter.MyItemClickLister() {
-                                            @Override
-                                            public void OnItemDel(int position, String id) {
-                                                if ("1".equals(noteType)) {
-                                                    i = position;
-                                                    if (mMaterialDialog != null) {
-                                                        mMaterialDialog.setMessage("确定删除这条资源？")
-                                                                // mMaterialDialog.setBackgroundResource(R.drawable.background);
-                                                                .setPositiveButton(getString(R.string.ok), new OnClickListener() {
-                                                                    @Override
-                                                                    public void onClick(View v) {
-                                                                        doDel(id,position);
-                                                                        mMaterialDialog.dismiss();
-                                                                    }
-                                                                })
-                                                                .setNegativeButton(getString(R.string.cancle), new OnClickListener() {
-                                                                    public void onClick(View v) {
-                                                                        mMaterialDialog.dismiss();
-                                                                    }
-                                                                })
-                                                                .setCanceledOnTouchOutside(
-                                                                        true)
-                                                                .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                                                    @Override
-                                                                    public void onDismiss(
-                                                                            DialogInterface dialog) {
-                                                                    }
-                                                                })
-                                                                .show();
-                                                    } else {
-                                                    }
-                                                } else {
-                                                    Toast.makeText(MiaoNoteListActivity.this,
-                                                            "共享资源您没有权限删除哦",
-                                                            Toast.LENGTH_SHORT)
-                                                            .show();
-                                                }
-                                            }
-                                        });
 
-//                                        xListView.setOnItemLongClickListener(new OnItemLongClickListener() {
-//                                            @Override
-//                                            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                                                // TODO Auto-generated
-//                                                // method stub
-//
-//
-//                                                return true;
-//                                            }
-//                                        });
+                                        initAptLis(listAdapter);
                                     }
 
                                     pageIndex++;
@@ -663,8 +704,14 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
         getdata = true;
     }
 
-    private void doDel(String id, final int pos) {
+    String myid = "";
 
+
+    public int newPos;
+
+    //    private void doDel(String id, int pos) {
+    private void doDel(String id) {
+        D.e("=======doDel======" + " id = " + id + "\n " + "pos---i=" + i);
         // TODO Auto-generated method stub
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, true);
@@ -685,8 +732,9 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
                             if (!"".equals(msg)) {
                             }
                             if ("1".equals(code)) {
-                                datas.remove(pos);
-                                listAdapter.notify(datas);
+                                datas.remove(i);
+                                listAdapter.notifyDataSetChanged();
+//                                listAdapter.notifyDel(pos);
                             } else {
                                 Toast.makeText(MiaoNoteListActivity.this,
                                         "删除失败", Toast.LENGTH_SHORT).show();

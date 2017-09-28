@@ -39,6 +39,7 @@ import com.hldj.hmyg.buy.bean.StorageSave;
 import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin2;
 import com.hldj.hmyg.saler.UpdataImageActivity;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.TakePhotoUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
@@ -137,34 +138,50 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity implements
     public static final String INTENT_PHOTO_TYPE_KEY = "intent_photo_type";
     public static final String INTENT_HAD_CHOOSE_PHOTO_KEY = "intent_had_choose_photo";
     public static final int INTENT_NOT_NEED_FOR_RESULT = -1;
-    /** 图片压缩至960像素以内 */
+    /**
+     * 图片压缩至960像素以内
+     */
     public static final int COMPRESS_IMAGE_HEIGHT_PX = 960;
     public static final int COMPRESS_IMAGE_WIDTH_PX = 960;
-    /** 显示图片压缩至160像素以内 */
+    /**
+     * 显示图片压缩至160像素以内
+     */
     public static final int GRID_COMPRESS_IMAGE_HEIGHT_PX = 160;
     public static final int GRID_COMPRESS_IMAGE_WIDTH_PX = 160;
 
     public static final int TO_TAKE_PIC = 1;
     public static final int TO_CHOOSE_PIC = 2;
-    /** 图片太大 */
+    /**
+     * 图片太大
+     */
     public static final int PIC_IS_TOO_BIG = 3;
-    /** 加载图片失败 */
+    /**
+     * 加载图片失败
+     */
     public static final int LOAD_PIC_FAILURE = 4;
-    /** 添加图片 */
+    /**
+     * 添加图片
+     */
     public static final int ADD_NEW_PIC = 5;
-    /** 照片列表 */
+    /**
+     * 照片列表
+     */
     private MeasureGridView photoGv;
     /** 照片适配器 */
 //    private PublishFlowerInfoPhotoAdapter3 adapter;
-    /** 新增图片的宽 */
+    /**
+     * 新增图片的宽
+     */
     public int newWidth;
-    /** 新增图片的高 */
+    /**
+     * 新增图片的高
+     */
     public int newHeight;
 
     private String flowerInfoPhotoPath = "";
 
     private RefreshHandler handler;
-//    private FlowerInfoPhotoChoosePopwin3 popwin;
+    //    private FlowerInfoPhotoChoosePopwin3 popwin;
     public static MiaoDetailActivity instance;
     private KProgressHUD hud_numHud;
     FinalHttp finalHttp = new FinalHttp();
@@ -230,7 +247,7 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity implements
         if (getIntent().getStringExtra("id") != null) {
             id = getIntent().getStringExtra("id");
             Bundle bundle = getIntent().getExtras();
-            urlPaths = ((PicSerializableMaplist) bundle.get("urlPaths")) .getMaplist();
+            urlPaths = ((PicSerializableMaplist) bundle.get("urlPaths")).getMaplist();
 //            adapter.notify(urlPaths);
 //            initGvTop(photoGv,urlPaths);
 
@@ -270,7 +287,7 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity implements
                                     }
 //                                  adapter.notify(urlPaths);
 
-                                    initGvTop(photoGv,urlPaths);
+                                    initGvTop(photoGv, urlPaths);
 
 
                                 }
@@ -320,8 +337,10 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity implements
             if ("0".equals(maxCrown)) {
                 maxCrown = "";
             }
-            et_height.setText(height + "-" + maxHeight);
-            et_crown.setText(crown + "-" + maxCrown);
+//            et_height.setText(height + "-" + maxHeight);
+            et_height.setText(FUtil.$("-", height, maxHeight));
+//            et_crown.setText(crown + "-" + maxCrown);
+            et_crown.setText(FUtil.$("-", crown, maxCrown));
             et_maxSpec.setText(minSpec);
             et_maxSpec.setText(maxSpec);
             tv_title.setText(getIntent().getStringExtra("name"));
@@ -1086,10 +1105,8 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity implements
     }
 
 
-
-
     //传入初始化 的图片资源  初始化顶部  图片列表控件
-    private void initGvTop(MeasureGridView photoGv , ArrayList<Pic> arrayList2Adapter) {
+    private void initGvTop(MeasureGridView photoGv, ArrayList<Pic> arrayList2Adapter) {
 //        arrayList2Adapter.clear();
 //            arrayList.add(new Pic("hellow", true, MeasureGridView.usrl, 1));
 //            arrayList.add(new Pic("hellows", true, MeasureGridView.usrl1, 12));

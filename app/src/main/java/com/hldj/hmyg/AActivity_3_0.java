@@ -126,7 +126,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         setContentView(R.layout.activity_a_3_0);
         mCache = ACache.get(this);
 
-
 //      ToastUtil.showShortToast("bugly 热更新生效");
         viewPager = (AutoScrollViewPager) findViewById(R.id.view_pager);
         indicator = (CirclePageIndicator) findViewById(R.id.indicator);

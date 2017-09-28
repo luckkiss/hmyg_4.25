@@ -45,6 +45,7 @@ public class SimpleGsonBean implements Serializable {
 
         public boolean   showSeedlingNote = false ;
         public boolean   hasProjectManage = false ;
+        public boolean   showSeedlingNoteShare = false ;
 
 
     }

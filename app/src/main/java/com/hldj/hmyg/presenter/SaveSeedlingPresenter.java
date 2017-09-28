@@ -251,6 +251,7 @@ public class SaveSeedlingPresenter {
                 File file1 = new File(dataList.get(i).getUrl());
 
                 D.e("===========开始上传图片=========\n" + i + "   图片大小：" + file1.length() / 1024 + " k ");
+                D.e("===========图片地址=========\n" +  dataList.get(i).getUrl() ) ;
 //                try {
 //                    D.e("===========开始上传图片=========\n" + "图片大小：" + getFileSize(file1) + " k ");
 //                } catch (Exception e) {

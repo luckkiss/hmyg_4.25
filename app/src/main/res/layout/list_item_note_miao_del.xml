@@ -8,9 +8,11 @@
     android:foreground="?attr/selectableItemBackground"
     app:drag_edge="right">
 
+
+
     <include
         android:id="@+id/swipe_manager1"
-        layout="@layout/list_item_note_miao" />
+        layout="@layout/list_item_note_miao_new" />
 
     <TextView
         android:id="@+id/btn_delete_manager"

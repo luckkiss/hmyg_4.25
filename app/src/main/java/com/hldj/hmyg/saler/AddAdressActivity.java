@@ -110,7 +110,7 @@ public class AddAdressActivity extends BaseMVPActivity {
         //提交按钮点击事件是公用的
         getView(R.id.tv_aaa_save).setOnClickListener(v -> {
 
-            if (!submit(getView(R.id.et_aaa_contactPhone), "联系电话") || !submit(getView(R.id.et_aaa_detailAddress), "联系地址")) {
+            if (!submit(getView(R.id.et_aaa_contactPhone), "联系电话") || !submit(getView(R.id.et_aaa_detailAddress), "详细地址")) {
                 return;
             }
 
