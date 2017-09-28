@@ -1,6 +1,7 @@
 package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -122,7 +123,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
     }
 
 
-    public void setColor(TextView tvLeft, TextView tvRight, String tag) {
+    public static void setColor(TextView tvLeft, TextView tvRight, String tag , Activity mActivity) {
         if (tag.equals("0")) {
             tvLeft.setTextColor(ContextCompat.getColor(mActivity, R.color.main_color));
             tvRight.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color));
@@ -140,11 +141,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
             intent.putExtra("from", "BActivity");
             startActivityForResult(intent, 1);
         });
-        //筛选
-        getView(R.id.tv_b_filter).setOnClickListener(v -> {
-            SellectActivity2.start2Activity(this, queryBean);
-            setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "0");
-        });
+
 
         getView(R.id.iv_view_type).setOnClickListener(v -> {
             if (v.isSelected())//选中.点击了grid 变换成grid
@@ -160,10 +157,16 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
             }
         });
 
+        //筛选
+        getView(R.id.tv_b_filter).setOnClickListener(v -> {
+            SellectActivity2.start2Activity(this, queryBean);
+            setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "0",mActivity);
+        });
+
         //排序
         getView(R.id.tv_b_sort).setOnClickListener(v -> {
             ChoiceSortList();
-            setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "1");
+            setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "1",mActivity);
         });
 
 

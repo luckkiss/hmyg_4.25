@@ -2,7 +2,6 @@ package com.hldj.hmyg.Ui.jimiao;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,27 +9,25 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.coorchice.library.SuperTextView;
+import com.hldj.hmyg.BActivity_new_test;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PicSerializableMaplist;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.widget.SegmentedGroup;
+import com.hldj.hmyg.widget.SortSpinner;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
-import com.mrwujay.cascade.activity.BaseSecondActivity;
-import com.mrwujay.cascade.activity.GetCodeByName;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -43,27 +40,25 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
-import kankan.wheel.widget.OnWheelChangedListener;
-import kankan.wheel.widget.WheelView;
-import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 import me.drakeet.materialdialog.MaterialDialog;
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.kaede.tagview.OnTagDeleteListener;
 import me.kaede.tagview.Tag;
 import me.kaede.tagview.TagView;
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
 
+import static com.hldj.hmyg.R.id.rl_choose_type;
+
 @SuppressLint("NewApi")
-public class MiaoNoteListActivity extends BaseSecondActivity implements IXListViewListener,
-        OnCheckedChangeListener, OnWheelChangedListener {
+public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXListViewListener, OnCheckedChangeListener {
 
 //    public boolean mIsSelf = false;
 
-    private RelativeLayout rl_choose_type;
-    private ImageView iv_seller_arrow2;
-    private ImageView iv_seller_arrow3;
+    //    private RelativeLayout rl_choose_type;//选择地区。改为 在筛选中   一起选择
+//    private ImageView iv_seller_arrow2;
+//    private ImageView iv_seller_arrow3;
     private XListView xListView;
     private String orderBy = "";
     private String priceSort = "";
@@ -82,15 +77,16 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
     private String minCrown = "";
     private String maxCrown = "";
     private String name = "";
+
+
     private String cityCode = "";
-    private String cityName = "";
-    private Dialog dialog;
-    private WheelView mViewProvince;
-    private WheelView mViewCity;
-    private WheelView mViewDistrict;
+    private String cityName = "全国";
+
+
     private TagView tagView;
     public int i = 0;
     MaterialDialog mMaterialDialog;
+    private SuperTextView rl_choose_screen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +104,7 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
 
         mMaterialDialog = new MaterialDialog(this);
         ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
+        View tv_b_sort =  findViewById(R.id.tv_b_sort);
 
         TextView tv_title = (TextView) findViewById(R.id.tv_title);
         SegmentedGroup segmented3 = (SegmentedGroup) findViewById(R.id.segmented3);
@@ -124,12 +121,12 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
             segmented3.setVisibility(View.GONE);
             tv_title.setVisibility(View.VISIBLE);
         }
-        rl_choose_type = (RelativeLayout) findViewById(R.id.rl_choose_type);
-        RelativeLayout rl_choose_price = (RelativeLayout) findViewById(R.id.rl_choose_price);
-        RelativeLayout rl_choose_time = (RelativeLayout) findViewById(R.id.rl_choose_time);
-        RelativeLayout rl_choose_screen = (RelativeLayout) findViewById(R.id.rl_choose_screen);
-        iv_seller_arrow2 = (ImageView) findViewById(R.id.iv_seller_arrow2);
-        iv_seller_arrow3 = (ImageView) findViewById(R.id.iv_seller_arrow3);
+//        rl_choose_type = (RelativeLayout) findViewById(R.id.rl_choose_type);
+//        RelativeLayout rl_choose_price = (RelativeLayout) findViewById(R.id.rl_choose_price);
+//        RelativeLayout rl_choose_time = (RelativeLayout) findViewById(R.id.rl_choose_time);
+        rl_choose_screen = (SuperTextView) findViewById(R.id.rl_choose_screen);
+//        iv_seller_arrow2 = (ImageView) findViewById(R.id.iv_seller_arrow2);
+//        iv_seller_arrow3 = (ImageView) findViewById(R.id.iv_seller_arrow3);
         xListView = (XListView) findViewById(R.id.xlistView);
         xListView.setPullLoadEnable(true);
         xListView.setPullRefreshEnable(true);
@@ -150,6 +147,7 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
                 // TODO Auto-generated method stub
                 if (tag.id == 1) {
                     cityCode = "";
+                    cityName = "";
                     onRefresh();
                 } else if (tag.id == 2) {
                     name = "";
@@ -173,11 +171,12 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
         initData();
 
         MultipleClickProcess multipleClickProcess = new MultipleClickProcess();
-        rl_choose_type.setOnClickListener(multipleClickProcess);
-        rl_choose_price.setOnClickListener(multipleClickProcess);
-        rl_choose_time.setOnClickListener(multipleClickProcess);
+//        rl_choose_type.setOnClickListener(multipleClickProcess);
+//        rl_choose_price.setOnClickListener(multipleClickProcess);
+//        rl_choose_time.setOnClickListener(multipleClickProcess);
         rl_choose_screen.setOnClickListener(multipleClickProcess);
         btn_back.setOnClickListener(multipleClickProcess);
+        tv_b_sort.setOnClickListener(multipleClickProcess);
 
     }
 
@@ -277,42 +276,66 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
                     case R.id.btn_back:
                         onBackPressed();
                         break;
-                    case R.id.rl_choose_type:
-                        showCitys();
+                    case rl_choose_type:
+//                        showCitys();
                         break;
-                    case R.id.rl_choose_price:
-                        if ("".equals(priceSort)) {
-                            priceSort = "price_asc";
-                            iv_seller_arrow2
-                                    .setImageResource(R.drawable.icon_seller_arrow2);
-                        } else if ("price_asc".equals(priceSort)) {
-                            priceSort = "price_desc";
-                            iv_seller_arrow2
-                                    .setImageResource(R.drawable.icon_seller_arrow3);
-                        } else if ("price_desc".equals(priceSort)) {
-                            priceSort = "";
-                            iv_seller_arrow2
-                                    .setImageResource(R.drawable.icon_seller_arrow1);
-                        }
-                        onRefresh();
+
+                    case R.id.tv_b_sort:
+
+                        ChoiceSortList();
+                        BActivity_new_test.setColor(getView(R.id.rl_choose_screen), getView(R.id.tv_b_sort), "1", mActivity);
+                        //排序
+                        /*    //筛选
+        getView(R.id.tv_b_filter).setOnClickListener(v -> {
+            SellectActivity2.start2Activity(this, queryBean);
+            setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "0",mActivity);
+        });
+
+        //排序
+        getView(R.id.tv_b_sort).setOnClickListener(v -> {
+            ChoiceSortList();
+            setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "1",mActivity);
+        });*/
+
+                        //ll_fil_content
+
+
                         break;
-                    case R.id.rl_choose_time:
-                        if ("".equals(publishDateSort)) {
-                            publishDateSort = "createDate_asc";
-                            iv_seller_arrow3
-                                    .setImageResource(R.drawable.icon_seller_arrow2);
-                        } else if ("createDate_asc".equals(publishDateSort)) {
-                            publishDateSort = "createDate_desc";
-                            iv_seller_arrow3
-                                    .setImageResource(R.drawable.icon_seller_arrow3);
-                        } else if ("createDate_desc".equals(publishDateSort)) {
-                            publishDateSort = "";
-                            iv_seller_arrow3
-                                    .setImageResource(R.drawable.icon_seller_arrow1);
-                        }
-                        onRefresh();
-                        break;
+
+//                    case R.id.rl_choose_price:
+//                        if ("".equals(priceSort)) {
+//                            priceSort = "price_asc";
+//                            iv_seller_arrow2
+//                                    .setImageResource(R.drawable.icon_seller_arrow2);
+//                        } else if ("price_asc".equals(priceSort)) {
+//                            priceSort = "price_desc";
+//                            iv_seller_arrow2
+//                                    .setImageResource(R.drawable.icon_seller_arrow3);
+//                        } else if ("price_desc".equals(priceSort)) {
+//                            priceSort = "";
+//                            iv_seller_arrow2
+//                                    .setImageResource(R.drawable.icon_seller_arrow1);
+//                        }
+//                        onRefresh();
+//                        break;
+//                    case R.id.rl_choose_time:
+//                        if ("".equals(publishDateSort)) {
+//                            publishDateSort = "createDate_asc";
+//                            iv_seller_arrow3
+//                                    .setImageResource(R.drawable.icon_seller_arrow2);
+//                        } else if ("createDate_asc".equals(publishDateSort)) {
+//                            publishDateSort = "createDate_desc";
+//                            iv_seller_arrow3
+//                                    .setImageResource(R.drawable.icon_seller_arrow3);
+//                        } else if ("createDate_desc".equals(publishDateSort)) {
+//                            publishDateSort = "";
+//                            iv_seller_arrow3
+//                                    .setImageResource(R.drawable.icon_seller_arrow1);
+//                        }
+//                        onRefresh();
+//                        break;
                     case R.id.rl_choose_screen:
+                        //筛选
                         Intent toSellectActivity = new Intent(
                                 MiaoNoteListActivity.this,
                                 SellectMiaoActivity.class);
@@ -323,9 +346,17 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
                         toSellectActivity.putExtra("minSpec", minSpec);
                         toSellectActivity.putExtra("maxSpec", maxSpec);
                         toSellectActivity.putExtra("name", name);
+
+
+                        toSellectActivity.putExtra("cityCode", cityCode);
+                        toSellectActivity.putExtra("cityName", cityName);
+
+                        BActivity_new_test.setColor(rl_choose_screen, getView(R.id.tv_b_sort), "0", mActivity);
+
                         startActivityForResult(toSellectActivity, 1);
                         overridePendingTransition(R.anim.slide_in_left,
                                 R.anim.slide_out_right);
+
                         break;
 
                     default:
@@ -352,9 +383,52 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
         }
     }
 
+
+    SortSpinner sortSpinner;
+    int pos = 0;
+
+    private void ChoiceSortList() {
+
+        if (sortSpinner == null) {
+            sortSpinner = SortSpinner.getInstance(mActivity, getView(R.id.ll_fil_content))
+                    .addOnItemClickListener((parent, view1, position, id) -> {
+                        D.e("addOnItemClickListener" + position);
+                        switch (position) {
+                            case 0:
+                                orderBy = "default_asc";//综合排序
+                                break;
+                            case 1:
+                                orderBy = "publishDate_desc";//最新发布
+                                break;
+                            case 2:
+                                orderBy = "distance_asc";//最近距离
+                                break;
+                            case 3:
+                                orderBy = "price_asc";//价格从低到高
+                                break;
+                            case 4:
+                                orderBy = "price_desc";//综合排序
+                                break;
+                        }
+                        pos = position;
+                        sortSpinner.dismiss();
+                        onRefresh();
+                    });
+
+            sortSpinner.ShowWithPos(pos);
+        } else {
+            try {
+                sortSpinner.ShowWithPos(pos);
+            } catch (Exception e) {
+                D.e("==baocuo==" + e.getMessage());
+            }
+        }
+
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
         if (resultCode == 9) {
             minHeight = data.getStringExtra("minHeight");
             maxHeight = data.getStringExtra("maxHeight");
@@ -363,13 +437,31 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
             minSpec = data.getStringExtra("minSpec");
             maxSpec = data.getStringExtra("maxSpec");
             name = data.getStringExtra("name");
-            List<Tag> tags = tagView.getTags();
-            for (int i = 0; i < tags.size(); i++) {
-                if (tags.get(i).id == 2 || tags.get(i).id == 3
-                        || tags.get(i).id == 4 || tags.get(i).id == 5) {
-                    tagView.remove(i);
-                }
+
+            cityCode = data.getStringExtra("cityCode");
+            cityName = data.getStringExtra("cityName");
+
+            // TODO:   需要多2个 city code  city name
+
+//            List<Tag> tags = tagView.getTags();
+
+            tagView.removeAllTags();
+//            for (int i = 0; i < tags.size(); i++) {
+//                if (tags.get(i).id == 1 ||
+//                        tags.get(i).id == 2 || tags.get(i).id == 3
+//                        || tags.get(i).id == 4 || tags.get(i).id == 5) {
+//                    tagView.remove(i);
+//                }
+//            }
+
+            if (!"".equals(cityCode)) {
+                Tag tag = new Tag(cityName);
+                tag.layoutColor = getResources().getColor(R.color.main_color);
+                tag.isDeletable = true;
+                tag.id = 1; // 1 城市 2.品名 3.规格 4.高度 5.冠幅
+                tagView.addTag(tag);
             }
+
             if (!"".equals(name)) {
                 Tag tag = new Tag(name);
                 tag.layoutColor = getResources().getColor(R.color.main_color);
@@ -378,24 +470,28 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
                 tagView.addTag(tag);
             }
             if (!"".equals(minSpec) || !"".equals(maxSpec)) {
-                Tag tag = new Tag("规格："
-                        + minSpec + "-" + maxSpec);
+                Tag tag = new Tag("规格：" + FUtil.$("-", minSpec, maxSpec));
+//                        + minSpec + "-" + maxSpec);
                 tag.layoutColor = getResources().getColor(R.color.main_color);
                 tag.isDeletable = true;
                 tag.id = 3; // 1 城市 2.品名 3.规格 4.高度 5.冠幅
                 tagView.addTag(tag);
             }
             if (!"".equals(minHeight) || !"".equals(maxHeight)) {
-                Tag tag = new Tag("高度："
-                        + minHeight + "-" + maxHeight);
+                Tag tag = new Tag("高度：" + FUtil.$("-", minHeight, maxHeight));
+//                        + minHeight + "-" + maxHeight);
                 tag.layoutColor = getResources().getColor(R.color.main_color);
                 tag.isDeletable = true;
                 tag.id = 4; // 1 城市 2.品名 3.规格 4.高度 5.冠幅
                 tagView.addTag(tag);
             }
             if (!"".equals(minCrown) || !"".equals(maxCrown)) {
-                Tag tag = new Tag("冠幅："
-                        + minCrown + "-" + maxCrown);
+
+
+                Tag tag = new Tag("冠幅：" + FUtil.$("-", minCrown, maxCrown));
+//                        + minCrown + "-" + maxCrown);
+
+
                 tag.layoutColor = getResources().getColor(R.color.main_color);
                 tag.isDeletable = true;
                 tag.id = 5; // 1 城市 2.品名 3.规格 4.高度 5.冠幅
@@ -636,6 +732,22 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
                                         hMap.put("contactPhone", JsonGetInfo
                                                 .getJsonString(nurseryJson,
                                                         "contactPhone"));
+
+                                        /*发布人*/
+                                        hMap.put("ownerName", JsonGetInfo
+                                                .getJsonString(nurseryJson,
+                                                        "ownerName"));
+
+
+                                        /*发布电话*/
+                                        hMap.put("ownerPhone", JsonGetInfo
+                                                .getJsonString(nurseryJson,
+                                                        "ownerPhone"));
+
+
+
+
+
                                         hMap.put("isDefault", JsonGetInfo
                                                 .getJsonBoolean(nurseryJson,
                                                         "isDefault"));
@@ -798,158 +910,6 @@ public class MiaoNoteListActivity extends BaseSecondActivity implements IXListVi
             default:
                 // Nothing to do
         }
-    }
-
-    private void showCitys() {
-        View dia_choose_share = getLayoutInflater().inflate(
-                R.layout.dia_choose_city, null);
-        TextView tv_sure = (TextView) dia_choose_share
-                .findViewById(R.id.tv_sure);
-        mViewProvince = (WheelView) dia_choose_share
-                .findViewById(R.id.id_province);
-        mViewCity = (WheelView) dia_choose_share.findViewById(R.id.id_city);
-        mViewDistrict = (WheelView) dia_choose_share
-                .findViewById(R.id.id_district);
-        mViewCity.setVisibility(View.GONE);
-        mViewDistrict.setVisibility(View.GONE);
-        // 添加change事件
-        mViewProvince.addChangingListener(this);
-        // 添加change事件
-        mViewCity.addChangingListener(this);
-        // 添加change事件
-        mViewDistrict.addChangingListener(this);
-        setUpData();
-
-        dialog = new Dialog(this, R.style.transparentFrameWindowStyle);
-        dialog.setContentView(dia_choose_share, new LayoutParams(
-                LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-        Window window = dialog.getWindow();
-        // 设置显示动画
-        window.setWindowAnimations(R.style.main_menu_animstyle);
-        WindowManager.LayoutParams wl = window.getAttributes();
-        wl.x = 0;
-        wl.y = getWindowManager().getDefaultDisplay().getHeight();
-        // 以下这两句是为了保证按钮可以水平满屏
-        wl.width = LayoutParams.MATCH_PARENT;
-        wl.height = LayoutParams.WRAP_CONTENT;
-
-        // 设置显示位置
-        dialog.onWindowAttributesChanged(wl);
-        // 设置点击外围解散
-        dialog.setCanceledOnTouchOutside(true);
-        tv_sure.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                cityName = mCurrentProviceName + "\u0020" + mCurrentCityName
-                        + "\u0020" + mCurrentDistrictName + "\u0020";
-                cityCode = GetCodeByName.initProvinceDatas(
-                        MiaoNoteListActivity.this, mCurrentProviceName,
-                        mCurrentCityName);
-                List<Tag> tags = tagView.getTags();
-                for (int i = 0; i < tags.size(); i++) {
-                    if (tags.get(i).id == 1) {
-                        tagView.remove(i);
-                    }
-                }
-                Tag tag = new Tag(
-                        mCurrentProviceName);
-                tag.layoutColor = getResources().getColor(R.color.main_color);
-                tag.isDeletable = true;
-                tag.id = 1; // 1 城市 2.品名 3.规格 4.高度 5.冠幅
-                tagView.addTag(tag);
-                onRefresh();
-                if (!MiaoNoteListActivity.this.isFinishing() && dialog != null) {
-                    if (dialog.isShowing()) {
-                        dialog.cancel();
-                    } else {
-                        dialog.show();
-                    }
-                }
-
-            }
-        });
-
-        if (!MiaoNoteListActivity.this.isFinishing() && dialog.isShowing()) {
-            dialog.cancel();
-        } else if (!MiaoNoteListActivity.this.isFinishing() && dialog != null
-                && !dialog.isShowing()) {
-            dialog.show();
-        }
-
-    }
-
-    private void setUpData() {
-        initProvinceDatas();
-        mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(
-                MiaoNoteListActivity.this, mProvinceDatas));
-        // 设置可见条目数量
-        mViewProvince.setVisibleItems(7);
-        mViewCity.setVisibleItems(7);
-        mViewDistrict.setVisibleItems(7);
-        updateCities();
-        updateAreas();
-    }
-
-    @Override
-    public void onChanged(WheelView wheel, int oldValue, int newValue) {
-        // TODO Auto-generated method stub
-        if (wheel == mViewProvince) {
-            updateCities();
-            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[0];
-            // mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
-            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
-                    + mCurrentDistrictName);
-        } else if (wheel == mViewCity) {
-            updateAreas();
-            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[0];
-            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
-                    + mCurrentDistrictName);
-        } else if (wheel == mViewDistrict) {
-            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[newValue];
-            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
-                    + mCurrentDistrictName);
-        }
-    }
-
-    /**
-     * 根据当前的市，更新区WheelView的信息
-     */
-    private void updateAreas() {
-        int pCurrent = mViewCity.getCurrentItem();
-        mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
-        String[] areas = mDistrictDatasMap.get(mCurrentCityName);
-
-        if (areas == null) {
-            areas = new String[]{""};
-        }
-        mViewDistrict
-                .setViewAdapter(new ArrayWheelAdapter<String>(this, areas));
-        mViewDistrict.setCurrentItem(0);
-    }
-
-    /**
-     * 根据当前的省，更新市WheelView的信息
-     */
-    private void updateCities() {
-        int pCurrent = mViewProvince.getCurrentItem();
-        mCurrentProviceName = mProvinceDatas[pCurrent];
-        String[] cities = mCitisDatasMap.get(mCurrentProviceName);
-        if (cities == null) {
-            cities = new String[]{""};
-        }
-        mViewCity.setViewAdapter(new ArrayWheelAdapter<String>(this, cities));
-        mViewCity.setCurrentItem(0);
-        updateAreas();
-    }
-
-    private void showSelectedResult() {
-        Toast.makeText(
-                MiaoNoteListActivity.this,
-                "当前选中:" + mCurrentProviceName + "," + mCurrentCityName + ","
-                        + mCurrentDistrictName + "," + mCurrentZipCode,
-                Toast.LENGTH_SHORT).show();
     }
 
 

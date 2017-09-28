@@ -118,15 +118,19 @@ public class MiaoNoteListAdapter extends BaseAdapter {
 
         boolean is = isSelf(position, data.get(position).get("ownerId").toString());
 
+        String ownerName = data.get(position).get("ownerName").toString();
+        String ownerPhone = data.get(position).get("ownerPhone").toString();
+
+
         holder.textView27.setVisibility(is ? View.GONE : View.VISIBLE);
-        holder.textView27.setText("发布人：写死-----");
+        holder.textView27.setText("发布人:"+ownerName +" "+ownerPhone);
 
 
 //        tv_right_top.setText(data.get(position).get("nurseryJson_createDate") + "");
 
         holder.tv_01.setText(data.get(position).get("name").toString());
         String date = data.get(position).get("nurseryJson_createDate") + "";
-        holder.tv_03.setText("上传日期：" + date.split(" ")[0]);
+        holder.tv_03.setText("日期：" + date.split(" ")[0]);
 
         String imgJson = data.get(position).get("imagesJson") + "";
         D.e("=======imgJson===========" + imgJson);
