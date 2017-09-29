@@ -31,6 +31,7 @@ import com.hldj.hmyg.util.SPUtils;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
+import com.tencent.bugly.beta.Beta;
 import com.white.update.UpdateInfo;
 import com.white.utils.SettingUtils;
 import com.zf.iosdialog.widget.AlertDialog;
@@ -47,6 +48,7 @@ import cn.jpush.android.api.JPushInterface;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.mhao.widget.SlipButton;
 import me.mhao.widget.SlipButton.OnChangedListener;
+
 
 public class SettingActivity extends NeedSwipeBackActivity implements
         OnChangedListener {
@@ -68,7 +70,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         findViewById(R.id.test_show_pach).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showShortToast("增加 记苗本");
+                ToastUtil.showShortToast("优化记苗本");
                 /**
                  * Beta.cleanTinkerPatch();
                  注：清除补丁之后，就会回退基线版本状态。
@@ -506,7 +508,11 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                     case R.id.ll_05:
                         // getUpDateInfo();
                         // getUpDateInfo4Pgyer();
-                        getVersion();
+
+                        /***** 检查更新 *****/
+                        Beta.checkUpgrade();
+
+//                      getVersion();
                         break;
                     case R.id.tv_out:
 

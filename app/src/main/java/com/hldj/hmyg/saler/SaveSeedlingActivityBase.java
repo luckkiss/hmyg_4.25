@@ -548,7 +548,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
     private boolean checkParames(AutoAddRelative autoAddRelative, String tag) {
 
         if (autoAddRelative == null) {
-            ToastUtil.showShortToast("请先选择种类");
+            ToastUtil.showShortToast("请选择种类");
             return false;
         }
 
@@ -669,15 +669,15 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             return false;
         }
         if (tag_ID.equals("")) {
-            ToastUtil.showShortToast("请先选择苗木分类");
+            ToastUtil.showShortToast("请选择苗木分类");
             return false;
         }
         if (TextUtils.isEmpty(viewHolder_top.tv_auto_add_name.getText())) {
-            ToastUtil.showShortToast("请先输入品名");
+            ToastUtil.showShortToast("请输入品名");
             return false;
         }
         if (tag_ID1.equals("")) {
-            ToastUtil.showShortToast("请先选择种植类型");
+            ToastUtil.showShortToast("请选择种植类型");
             return false;
         }
         return true;

@@ -59,6 +59,10 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         if (urlPaths.size() < MAX_IMAGE_COUNT) {
+            if (ismIsCloseAll())
+            {
+                return urlPaths.size();
+            }
             return urlPaths.size() + 1;
         }
         return MAX_IMAGE_COUNT;
@@ -158,6 +162,7 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
                     isGone = false;
                 }
 
+
                 // holder.iv_img1.setVisibility(View.INVISIBLE);
                 File file = new File(urlPaths.get(position).getUrl());
                 if (file.exists()) {
@@ -187,11 +192,17 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
                     removeItem(position);
-
                 }
             });
-
         }
+
+
+        if (ismIsCloseAll()) {
+            closeDelIco(holder.iv_img2 );
+            closeAddIco(holder.iv_img1);
+//            closeSuccIco(holder.photoIv);
+        }
+
         return convertView;
     }
 
@@ -206,6 +217,37 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
         private ImageView photoIv;
         private ImageView iv_img2;
         private ImageView iv_img1;
+    }
+
+
+    /*关闭删除按钮*/
+    public void closeDelIco(ImageView ic_del) {
+
+        ic_del.setVisibility(View.GONE);
+    }
+
+    /*关闭添加图标*/
+    public void closeAddIco(ImageView ic_add) {
+
+        ic_add.setVisibility(View.GONE);
+    }
+
+    /*关闭成功图标*/
+    public void closeSuccIco(ImageView ic_succ) {
+
+        ic_succ.setVisibility(View.GONE);
+    }
+
+    private boolean mIsCloseAll = false;
+
+    public void closeAll(boolean isCloseAll) {
+
+        this.mIsCloseAll = isCloseAll;
+
+    }
+
+    private boolean ismIsCloseAll() {
+        return mIsCloseAll;
     }
 
 }

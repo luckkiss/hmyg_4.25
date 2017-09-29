@@ -206,7 +206,7 @@ public class SavePriceAndCountAndOutlineActivity extends NeedSwipeBackActivity {
     private void submit() {
         String et_count_str = et_count.getText().toString().trim();
         if (TextUtils.isEmpty(et_count_str)) {
-            ToastUtil.showShortToast("请先输入库存数量");
+            ToastUtil.showShortToast("请输入库存数量");
             return;
         }
 
@@ -221,7 +221,7 @@ public class SavePriceAndCountAndOutlineActivity extends NeedSwipeBackActivity {
             String et_price_str = et_price.getText().toString().trim();
             String et_price_max_str = et_price_max.getText().toString().trim();
             if (TextUtils.isEmpty(et_price_str) && TextUtils.isEmpty(et_price_max_str)) {
-                ToastUtil.showShortToast("请先输入价格");
+                ToastUtil.showShortToast("请输入价格");
                 return;
             }
             //不能小于0  价格
@@ -234,7 +234,7 @@ public class SavePriceAndCountAndOutlineActivity extends NeedSwipeBackActivity {
         //检查有效期
         String tv_day_str = tv_day.getText().toString().trim();
         if (TextUtils.isEmpty(tv_day_str)) {
-            ToastUtil.showShortToast("请先选择有效期");
+            ToastUtil.showShortToast("请选择有效期");
             return;
         }
         //提交接口请求   修改参数

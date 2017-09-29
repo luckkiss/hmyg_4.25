@@ -348,7 +348,7 @@ public class AddAdressActivity extends BaseMVPActivity {
         public void getStreets(String cityCode) {
 //            141121
             if (TextUtils.isEmpty(cityCode)) {
-                ToastUtil.showShortToast("请先选择地区");
+                ToastUtil.showShortToast("请选择地区");
                 return;
             }
             if (cityCode.length() > 6) {

@@ -48,7 +48,7 @@ public class SellectMiaoActivity extends NeedSwipeBackActivity {
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         MultipleClickProcess multipleClickProcess = new MultipleClickProcess();
         ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
-        TextView iv_reset = (TextView) findViewById(R.id.iv_reset);
+         View iv_reset =   findViewById(R.id.iv_reset);
         et_pinming = (EditText) findViewById(R.id.et_pinming);
         et_min_guige = (EditText) findViewById(R.id.et_min_guige);
         et_max_guige = (EditText) findViewById(R.id.et_max_guige);
@@ -61,7 +61,7 @@ public class SellectMiaoActivity extends NeedSwipeBackActivity {
 
 
         initData();
-        TextView sure = (TextView) findViewById(R.id.sure);
+        View sure =   findViewById(R.id.sure);
 
         tv_area.setOnClickListener(multipleClickProcess);
 

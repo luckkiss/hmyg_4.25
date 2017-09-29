@@ -107,8 +107,8 @@ public class MiaoNoteListAdapter extends BaseAdapter {
 
         holder.tv_mpmc_lxr_dh.setText("苗圃名称：" + data.get(position).get("nurseryJson_name").toString());
 
-        holder.lxr.setText("联系人：" + data.get(position).get("contactName")
-                + "  " + data.get(position).get("contactPhone"));
+        holder.lxr.setText("联系人：" + data.get(position).get("contactName"));
+//                + "  " + data.get(position).get("contactPhone"));
         //        TextView tv_lxdh = (TextView) inflate.findViewById(R.id.tv_lxdh);//联系人 + 电话
 //        tv_lxdh.setText("联系人：" + data.get(position).get("contactName")
 //                + "联系电话：" + data.get(position).get("contactPhone")
@@ -123,7 +123,7 @@ public class MiaoNoteListAdapter extends BaseAdapter {
 
 
         holder.textView27.setVisibility(is ? View.GONE : View.VISIBLE);
-        holder.textView27.setText("发布人:"+ownerName +" "+ownerPhone);
+        holder.textView27.setText("发布人:"+ownerName);
 
 
 //        tv_right_top.setText(data.get(position).get("nurseryJson_createDate") + "");

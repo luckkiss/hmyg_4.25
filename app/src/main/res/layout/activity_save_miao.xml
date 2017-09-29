@@ -116,6 +116,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/conner_edit"
                         android:padding="5dp"
+                        android:singleLine="true"
                         android:layout_marginLeft="6dp"
                         android:gravity="center_vertical"
                         android:hint="请输入品名"
@@ -284,7 +285,6 @@
                     android:layout_height="@dimen/x33"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-
                     android:gravity="center"
                     android:hint="厘米"
                     android:background="@drawable/conner_edit"

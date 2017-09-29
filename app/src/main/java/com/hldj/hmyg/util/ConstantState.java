@@ -35,5 +35,9 @@ public interface ConstantState {
 
     boolean ON_OFF = true;//打开强制更新
 
+    //被呼叫号码类型：
+    String TYPE_OWNER = "owner";//owner(发布人)、
+    String TYPE_NURSERY = "nursery";//nursery(苗圃)
+
 
 }

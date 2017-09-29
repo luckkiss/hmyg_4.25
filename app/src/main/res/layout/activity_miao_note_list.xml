@@ -121,26 +121,33 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <me.kaede.tagview.TagView
                 android:id="@+id/tagview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:lineMargin="2dp"
+                app:lineMargin="3dp"
                 app:tagMargin="3dp"
                 app:textPaddingLeft="10dp"
                 app:textPaddingRight="10dp"
-                app:textPaddingTop="3dp" />
+                app:textPaddingTop="3dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                app:textPaddingBottom="3dp"
+                android:paddingTop="5dp"
+                />
             <!--android:layout_margin="2.5dp"-->
 
-            <me.maxwin.view.XListView
-                android:id="@+id/xlistView"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="#fff0f0f0" />
         </LinearLayout>
+
+        <me.maxwin.view.XListView
+            android:id="@+id/xlistView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#fff0f0f0" />
+
     </LinearLayout>
 
     <LinearLayout

@@ -65,6 +65,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
     private boolean isDefault;
 
     private String seedlingParams = "";
+    private String nurseryJson_name = "";//苗圃名称
 
     private EditText et_name;
 
@@ -202,6 +203,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
         iv_edit = (ImageView) findViewById(R.id.iv_edit);
         tv_contanct_name = (TextView) findViewById(R.id.tv_name);
         tv_address_name = (TextView) findViewById(R.id.tv_address_name);
+        tv_con_name_phone = (TextView) findViewById(R.id.tv_con_name_phone);
         tv_is_defoloat = (TextView) findViewById(R.id.tv_is_defoloat);
         id_tv_edit_all = (TextView) findViewById(R.id.id_tv_edit_all);
         iv_ready_save = (TextView) findViewById(R.id.iv_ready_save);
@@ -294,6 +296,8 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
             minSpec = getIntent().getStringExtra("minSpec");
             maxSpec = getIntent().getStringExtra("maxSpec");
             et_name.setText(getIntent().getStringExtra("name"));
+
+
             if (!"0".equals(getIntent().getStringExtra("price"))
                     && !"0.0".equals(getIntent().getStringExtra("price"))) {
                 et_price.setText(getIntent().getStringExtra("price"));
@@ -323,8 +327,17 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
             if (!"".equals(addressId)) {
                 list_item_adress.setVisibility(View.VISIBLE);
                 ll_05.setVisibility(View.VISIBLE);
-                tv_contanct_name.setText(contactName + "\u0020" + contactPhone);
+
+                //地址
                 tv_address_name.setText(fullAddress);
+
+                /*联系人*/
+                tv_con_name_phone.setText("联系人:" + contactName + "\u0020" + contactPhone);
+
+                //苗圃名称
+                tv_contanct_name.setText("苗圃名称:" + getIntent().getStringExtra("nurseryJson_name"));
+
+
                 if (isDefault) {
                     tv_is_defoloat.setVisibility(View.VISIBLE);
                 } else {
@@ -378,6 +391,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
     private TextView tv_contanct_name;
 
     private TextView tv_address_name;
+    private TextView tv_con_name_phone;
 
     private TextView tv_is_defoloat;
 
@@ -415,8 +429,14 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                         list_item_adress.setVisibility(View.VISIBLE);
                         addressId = address.addressId;
 
-                        tv_contanct_name.setText(address.contactName + "\u0020" + address.contactPhone);
+
+                        //苗圃名称
+                        tv_contanct_name.setText("苗圃名称:" + address.name);
                         tv_address_name.setText(address.fullAddress);
+
+                        tv_con_name_phone.setText("联系人:" + address.contactName + "\u0020" + address.contactPhone);
+
+
                         if (address.isDefault) {
                             tv_is_defoloat.setVisibility(View.VISIBLE);
                         } else {
@@ -436,7 +456,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                     }
 
                     if ("".equals(et_name.getText().toString())) {
-                        Toast.makeText(SaveMiaoActivity.this, "请先输入品名",
+                        Toast.makeText(SaveMiaoActivity.this, "请输入品名",
                                 Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -462,7 +482,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 //                        seedlingSave();
 //                        ToastUtil.showShortToast("图片必须上传");
 //                    } else {
-                        upLoadImgs();//上传图片
+                    upLoadImgs();//上传图片
 //                    }
 
                 } else if (view.getId() == R.id.id_tv_edit_all) {
@@ -588,7 +608,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 //                                                gson.toJson(mStorageSave));
                                         setResult(8);
 //                                        finish();
-                                         resetView();
+                                        resetView();
                                         id = "";
 //                                        startActivity(new Intent(SaveMiaoActivity.this, SaveMiaoActivity.class));
 //                                        finish();
@@ -766,31 +786,28 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
         activity.startActivityForResult(intent, 110);
     }
 
- public void resetView()
- {
-     photoGv.getAdapter().notify(new ArrayList<>());
-     resetEdit(et_name);
-     resetEdit(et_price);
-     resetEdit(et_count);
+    public void resetView() {
+        photoGv.getAdapter().notify(new ArrayList<>());
+        resetEdit(et_name);
+        resetEdit(et_price);
+        resetEdit(et_count);
 
-     resetEdit(et_crown);
-     resetEdit(et_maxCrown);
-
-
-     resetEdit(et_height);
-     resetEdit(et_maxHeight);
-
-     resetEdit(et_maxSpec);
-     resetEdit(et_minSpec);
+        resetEdit(et_crown);
+        resetEdit(et_maxCrown);
 
 
+        resetEdit(et_height);
+        resetEdit(et_maxHeight);
 
- }
+        resetEdit(et_maxSpec);
+        resetEdit(et_minSpec);
 
- public void resetEdit(EditText editText)
- {
-     editText.setText("");
- }
+
+    }
+
+    public void resetEdit(EditText editText) {
+        editText.setText("");
+    }
 
 
 }

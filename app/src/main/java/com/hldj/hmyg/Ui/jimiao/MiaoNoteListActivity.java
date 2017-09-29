@@ -25,7 +25,7 @@ import com.hldj.hmyg.bean.PicSerializableMaplist;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.widget.SegmentedGroup;
-import com.hldj.hmyg.widget.SortSpinner;
+import com.hldj.hmyg.widget.SortSpinner1;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 
@@ -104,7 +104,7 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
 
         mMaterialDialog = new MaterialDialog(this);
         ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
-        View tv_b_sort =  findViewById(R.id.tv_b_sort);
+        View tv_b_sort = findViewById(R.id.tv_b_sort);
 
         TextView tv_title = (TextView) findViewById(R.id.tv_title);
         SegmentedGroup segmented3 = (SegmentedGroup) findViewById(R.id.segmented3);
@@ -239,8 +239,16 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                 datas.get(position - 1).get("maxCrown").toString());
         toMiaoNoteListActivity.putExtra("contactName",
                 datas.get(position - 1).get("contactName").toString());
+        /*苗圃电话  */
         toMiaoNoteListActivity.putExtra("contactPhone",
                 datas.get(position - 1).get("contactPhone").toString());
+
+            /*发布电话*/
+        toMiaoNoteListActivity.putExtra("ownerPhone",
+                datas.get(position - 1).get("ownerPhone").toString());
+
+
+
         toMiaoNoteListActivity.putExtra("address",
                 datas.get(position - 1).get("address").toString());
         toMiaoNoteListActivity.putExtra("name", datas.get(position - 1)
@@ -251,6 +259,14 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                 datas.get(position - 1).get("minSpec").toString());
         toMiaoNoteListActivity.putExtra("maxSpec",
                 datas.get(position - 1).get("maxSpec").toString());
+
+
+
+        toMiaoNoteListActivity.putExtra("nurseryJson_name",
+                datas.get(position - 1).get("nurseryJson_name").toString());
+
+
+
         toMiaoNoteListActivity.putExtra("isDefault", (Boolean) datas
                 .get(position - 1).get("isDefault"));
         startActivityForResult(toMiaoNoteListActivity, 1);
@@ -384,32 +400,34 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
     }
 
 
-    SortSpinner sortSpinner;
-    int pos = 0;
+    SortSpinner1 sortSpinner;
+    int pos = -1;
 
     private void ChoiceSortList() {
 
         if (sortSpinner == null) {
-            sortSpinner = SortSpinner.getInstance(mActivity, getView(R.id.ll_fil_content))
+            sortSpinner = SortSpinner1.getInstance(mActivity, getView(R.id.ll_fil_content))
                     .addOnItemClickListener((parent, view1, position, id) -> {
                         D.e("addOnItemClickListener" + position);
                         switch (position) {
                             case 0:
-                                orderBy = "default_asc";//综合排序
+                                orderBy = "createDate_desc";//综合排序
                                 break;
                             case 1:
-                                orderBy = "publishDate_desc";//最新发布
+                                orderBy = "createDate_asc";//最新发布
                                 break;
                             case 2:
-                                orderBy = "distance_asc";//最近距离
+                                orderBy = "price_asc";//最近距离
                                 break;
                             case 3:
-                                orderBy = "price_asc";//价格从低到高
+                                orderBy = "price_desc";//价格从低到高
                                 break;
-                            case 4:
-                                orderBy = "price_desc";//综合排序
+                            default:
+                                orderBy = "";
                                 break;
+
                         }
+                        D.e("=======orderBy======="+orderBy);
                         pos = position;
                         sortSpinner.dismiss();
                         onRefresh();
@@ -598,25 +616,27 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
     }
 
     private void initData() {
+
+        showLoading();
         // TODO Auto-generated method stub
         getdata = false;
         GetServerUrl.addHeaders(finalHttp, true);
         AjaxParams params = new AjaxParams();
         params.put("pageSize", pageSize + "");
         params.put("pageIndex", pageIndex + "");
-        if ("".equals(priceSort) && !"".equals(publishDateSort)) {
-            orderBy = publishDateSort;
-        } else if (!"".equals(priceSort) && "".equals(publishDateSort)) {
-            orderBy = priceSort;
-        } else if ("".equals(priceSort) && "".equals(publishDateSort)) {
-            orderBy = "";
-        } else {
-            orderBy = priceSort + "," + publishDateSort;
-        }
-
-        if (orderBy.endsWith(",")) {
-            orderBy = orderBy.substring(0, orderBy.length() - 1);
-        }
+//        if ("".equals(priceSort) && !"".equals(publishDateSort)) {
+//            orderBy = publishDateSort;
+//        } else if (!"".equals(priceSort) && "".equals(publishDateSort)) {
+//            orderBy = priceSort;
+//        } else if ("".equals(priceSort) && "".equals(publishDateSort)) {
+//            orderBy = "";
+//        } else {
+//            orderBy = priceSort + "," + publishDateSort;
+//        }
+//
+//        if (orderBy.endsWith(",")) {
+//            orderBy = orderBy.substring(0, orderBy.length() - 1);
+//        }
         params.put("orderBy", orderBy);
         params.put("noteType", noteType);
         params.put("minSpec", minSpec);
@@ -700,6 +720,18 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                                         hMap.put("maxHeight", JsonGetInfo
                                                 .getJsonInt(jsonObject3,
                                                         "maxHeight"));
+
+                                            /*发布人*/
+                                        hMap.put("ownerName", JsonGetInfo
+                                                .getJsonString(jsonObject3,
+                                                        "ownerName"));
+
+
+                                        /*发布电话*/
+                                        hMap.put("ownerPhone", JsonGetInfo
+                                                .getJsonString(jsonObject3,
+                                                        "ownerPhone"));
+
                                         /*图片*/
                                         hMap.put("imagesJson", JsonGetInfo
                                                 .getJsonString(jsonObject3,
@@ -732,18 +764,6 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                                         hMap.put("contactPhone", JsonGetInfo
                                                 .getJsonString(nurseryJson,
                                                         "contactPhone"));
-
-                                        /*发布人*/
-                                        hMap.put("ownerName", JsonGetInfo
-                                                .getJsonString(nurseryJson,
-                                                        "ownerName"));
-
-
-                                        /*发布电话*/
-                                        hMap.put("ownerPhone", JsonGetInfo
-                                                .getJsonString(nurseryJson,
-                                                        "ownerPhone"));
-
 
 
 
@@ -802,6 +822,8 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                             // TODO Auto-generated catch block
                             e.printStackTrace();
                         }
+
+                        hindLoading();
                         super.onSuccess(t);
                     }
 
@@ -809,6 +831,7 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                     public void onFailure(Throwable t, int errorNo,
                                           String strMsg) {
                         // TODO Auto-generated method stub
+                        hindLoading();
                         super.onFailure(t, errorNo, strMsg);
                     }
 
