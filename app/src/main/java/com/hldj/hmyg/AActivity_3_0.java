@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -38,12 +37,10 @@ import com.hldj.hmyg.M.IndexGsonBean;
 import com.hldj.hmyg.Ui.NewsActivity;
 import com.hldj.hmyg.Ui.NoticeActivity;
 import com.hldj.hmyg.Ui.NoticeActivity_detail;
-import com.hldj.hmyg.adapter.TypeAdapter;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.ABanner;
 import com.hldj.hmyg.bean.ArticleBean;
-import com.hldj.hmyg.bean.HomeFunction;
 import com.hldj.hmyg.bean.HomeStore;
 import com.hldj.hmyg.bean.Type;
 import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
@@ -58,6 +55,7 @@ import com.hldj.hmyg.widget.swipeview.MySwipeRefreshLayout;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.white.utils.ScreenUtil;
 import com.white.utils.StringUtil;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
@@ -92,32 +90,18 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
     private ArrayList<HashMap<String, Object>> datas = new ArrayList<HashMap<String, Object>>();
     private ArrayList<ABanner> aBanners = new ArrayList<ABanner>();// 底部图片轮播 集合
-    private ArrayList<Type> gd_datas = new ArrayList<Type>();
-    private ArrayList<Type> gd_home_pay_datas = new ArrayList<Type>();
-    private ArrayList<HomeFunction> home_functions = new ArrayList<HomeFunction>();
     ArrayList<HomeStore> url0s = new ArrayList<HomeStore>();
-    private ArrayList<HashMap<String, Object>> lv_datas = new ArrayList<HashMap<String, Object>>();
     private ImagePagerAdapter imagePagerAdapter;
     private CirclePageIndicator indicator;
     private AutoScrollViewPager viewPager;
-    private GridView gd_00;
-    private GridView gd_01;
-    private GridView gd;
     private ListView lv_00;
-    //	private ImageView iv_Capture;//扫描二维码
     private ImageView iv_msg;
-    //    private ImageView iv_home_merchants;//热门商家
-//    private ImageView iv_home_preferential;
     private NestedScrollView scrollView;
     private Button toTopBtn;// 返回顶部的按钮
     private int scrollY = 0;// 标记上次滑动位置
     private View contentView;
     private final String TAG = "test";
-    private ImageView iv_fuwu;
-    //    private ImageView iv_fenlei;
-    private LinearLayout ll_fenlei;
     private ACache mCache;
-    private TypeAdapter myadapter;
 
 
     @Override
@@ -140,13 +124,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //		iv_Capture = (ImageView) findViewById(iv_Capture);
 //        iv_home_merchants = (ImageView) findViewById(R.id.iv_home_merchants);
 //        iv_home_preferential = (ImageView) findViewById(R.id.iv_home_preferential);
-        iv_fuwu = (ImageView) findViewById(R.id.iv_fuwu);
 //        iv_fenlei = (ImageView) findViewById(R.id.iv_fenlei);
-        gd = (GridView) findViewById(R.id.gd);
-        gd_01 = (GridView) findViewById(R.id.gd_01);
-        gd_00 = (GridView) findViewById(R.id.gd_00);
+
         lv_00 = (ListView) findViewById(R.id.lv_00);
-        ll_fenlei = (LinearLayout) findViewById(R.id.ll_fenlei);
         lv_00.setDivider(null);
         scrollView = (NestedScrollView) findViewById(R.id.rotate_header_scroll_view);
         if (contentView == null) {
@@ -255,50 +235,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     }
 
 
-    /**
-     * 初始化需要循环的View
-     * 为了灵活的使用滚动的View，所以把滚动的内容让用户自定义
-     * 假如滚动的是三条或者一条，或者是其他，只需要把对应的布局，和这个方法稍微改改就可以了，
-     */
-    private void setView() {
-        for (int i = 0; i < data.size(); i = i + 2) {
-            final int position = i;
-            //设置滚动的单个布局
-            LinearLayout moreView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_home_cjgg, null);
-            //初始化布局的控件
-            TextView tv1 = (TextView) moreView.findViewById(R.id.tv_taggle1);
-            TextView tv2 = (TextView) moreView.findViewById(R.id.tv_taggle2);
 
-            /**
-             * 设置监听
-             */
-            moreView.findViewById(R.id.tv_taggle1).setOnClickListener(view -> {
-                String url = GetServerUrl.getHtmlUrl() + "article/detail/" + data.get(position).id + ".html?isHeader=true";
-                D.e("url=" + url);
-                // static String API_01 = "http://api.hmeg.cn/";
-                NoticeActivity_detail.start2Activity(AActivity_3_0.this, url);
-            });
-            /**
-             * 设置监听
-             */
-            moreView.findViewById(R.id.tv_taggle2).setOnClickListener(view -> {
-                String url = GetServerUrl.getHtmlUrl() + "article/detail/" + data.get(position + 1).id + ".html?isHeader=true";
-                D.e("url=" + url);
-                NoticeActivity_detail.start2Activity(AActivity_3_0.this, url);
-            });
-            //进行对控件赋值
-            tv1.setText(data.get(i).title);
-            if (data.size() > i + 1) {
-                //因为淘宝那儿是两条数据，但是当数据是奇数时就不需要赋值第二个，所以加了一个判断，还应该把第二个布局给隐藏掉
-                tv2.setText(data.get(i + 1).title);
-            } else {
-                moreView.findViewById(R.id.tv_taggle2).setVisibility(View.GONE);
-            }
-
-            //添加到循环滚动数组里面去
-            views.add(moreView);
-        }
-    }
 
     List<ArticleBean> data = new ArrayList<>();
     List<View> views = new ArrayList<>();
@@ -497,10 +434,14 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         }
 
         // TODO Auto-generated method stub
-        IndexGsonBean indexGsonBean = GsonUtil.formateJson2Bean(t, IndexGsonBean.class);
-
-
-        if (indexGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
+        IndexGsonBean indexGsonBean = null;
+        try {
+            indexGsonBean = GsonUtil.formateJson2Bean(t, IndexGsonBean.class);
+        } catch (Exception e) {
+            CrashReport.postCatchedException(e);  // bugly会将这个throwable上报
+            e.printStackTrace();
+        }
+        if (indexGsonBean!=null && indexGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
             initNewList(indexGsonBean);//初始化 采购列表
             initArticles(indexGsonBean.data.articleList);//初始化  头条新闻
         }
@@ -589,77 +530,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                     initViewPager();
                     // initAbsViewPager();
                 }
-                if (aBanners.size() > 0) {
-                }
 
-                // 分类
-                // JSONArray seedlingTypeList = jsonObject
-                // .getJSONObject("data").getJSONArray(
-                // "seedlingTypeList");
-                JSONArray seedlingTypeList = JsonGetInfo
-                        .getJsonArray(JsonGetInfo
-                                        .getJSONObject(jsonObject,
-                                                "data"),
-                                "seedlingTypeList");
-                if (seedlingTypeList.length() > 0) {
-                    gd_datas.clear();
-                    if (myadapter != null) {
-                        myadapter.notifyDataSetChanged();
-                    } else {
-                        myadapter = new TypeAdapter(
-                                AActivity_3_0.this, gd_datas);
-                        gd_00.setAdapter(myadapter);
-                    }
-                }
-                gd_datas.clear();
-                for (int i = 0; i < seedlingTypeList.length(); i++) {
-                    JSONObject jsonObject2 = seedlingTypeList
-                            .getJSONObject(i);
-                    HashMap<String, Object> hMap = new HashMap<String, Object>();
-                    String id = JsonGetInfo.getJsonString(
-                            jsonObject2, "id");
-                    String icon = JsonGetInfo.getJsonString(
-                            jsonObject2, "icon");
-                    String name = JsonGetInfo.getJsonString(
-                            jsonObject2, "name");
-                    if ("乔木".equals(name)) {
-                        type = new Type(id, name, icon,
-                                R.drawable.home_icon_type01);
-                    } else if ("灌木".equals(name)) {
-                        type = new Type(id, name, icon,
-                                R.drawable.home_icon_type02);
-                    } else if ("桩景".equals(name)) {
-                        type = new Type(id, name, icon,
-                                R.drawable.home_icon_type03);
-                    } else if ("地被".equals(name)) {
-                        type = new Type(id, name, icon,
-                                R.drawable.home_icon_type04);
-                    } else if ("草皮".equals(name)) {
-                        type = new Type(id, name, icon,
-                                R.drawable.home_icon_type05);
-                    } else if ("棕榈".equals(name)) {
-                        type = new Type(id, name, icon,
-                                R.drawable.home_icon_type06);
-                    } else if ("苏铁".equals(name)) {
-                        type = new Type(id, name, icon,
-                                R.drawable.home_icon_type07);
-                    } else if ("更多".equals(name)) {
-                        type = new Type(id, name, icon,
-                                R.drawable.home_icon_type08);
-                    }
-                    gd_datas.add(type);
-                }
-
-                if (gd_datas.size() > 0) {
-                    if (myadapter != null) {
-                        myadapter.notifyDataSetChanged();
-                    } else {
-                        myadapter = new TypeAdapter(
-                                AActivity_3_0.this, gd_datas);
-                        gd_00.setAdapter(myadapter);
-                    }
-                }
-                lv_datas.clear();
 
 
                 // 商铺
@@ -705,41 +576,12 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 }
                 ft.commitAllowingStateLoss();
 
-//                                Rect bounds = new Rect();
-//                                findViewById(R.id.con0).getDrawingRect(bounds);
 
-//                                Rect scrollBounds = new Rect(
-//                                        scrollView.getScrollX(),
-//                                        scrollView.getScrollY(),
-//                                        scrollView.getScrollX() + scrollView.getWidth(),
-//                                        scrollView.getScrollY() + scrollView.getWidth());
-
-
-//                                if (myFragment0.getviewpager() != null) {
-//                                    myFragment0.setAutoChange(false);
-
-
-//                                    scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-//                                        @Override
-//                                        public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                                            if (Rect.intersects(scrollBounds, bounds)) {
-//                                                D.e("======is===visible====");
-//                                                myFragment0.setAutoChange(true);
-//                                            } else {
-//                                                D.e("======no===visible====");
-//                                                myFragment0.setAutoChange(false);
-//                                            }
-//                                        }
-//                                    });
             }
-
-//
-//                            } else {
-
-//                            }
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block
+            CrashReport.postCatchedException(e);  // bugly会将这个throwable上报
             e.printStackTrace();
         }
     }
@@ -751,8 +593,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
      * @param indexGsonBean
      */
     private void initNewList(IndexGsonBean indexGsonBean) {
-
-
         try {//采购项目
 
             View view = findViewById(R.id.ll_caigou_parent);
@@ -785,6 +625,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         } catch (Exception e) {
             findViewById(R.id.ll_tuijian_parent).setVisibility(View.GONE);
             D.e("=============没有推荐列表，或者数据异常===============");
+
             e.printStackTrace();
         }
 
@@ -810,34 +651,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
     }
 
-//    private void initAbsViewPager() {
-//
-//        if (allListView != null) {
-//            allListView.clear();
-//            allListView = null;
-//        }
-//        allListView = new ArrayList<View>();
-//
-//        for (int i = 0; i < datas.size(); i++) {
-//            // 导入ViewPager的布局
-//            View view = LayoutInflater.from(this).inflate(R.layout.pic_item,
-//                    null);
-//            ImageView imageView = (ImageView) view.findViewById(R.id.pic_item);
-//            if (datas.get(i).get("url").toString().startsWith("http")) {
-//                ImageLoader.getInstance().displayImage(
-//                        datas.get(i).get("url").toString(), imageView);
-//                // holder.imageView.setImageResource(imageIdList.get(getPosition(position)));
-//            } else {
-//                imageView.setImageResource(R.drawable.ic_launcher);
-//            }
-//            allListView.add(view);
-//        }
-//
-//        absviewPager.addViews(allListView);
-//        // 开始轮播
-//        absviewPager.startPlay();
-//
-//    }
 
     /**
      * 初始化 顶部
@@ -891,12 +704,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 getParent().overridePendingTransition(R.anim.slide_in_left,
                         R.anim.slide_out_right);
                 break;
-//            case R.id.RelativeLayout2://搜索按钮
-//			Intent intent = new Intent(AActivity.this,
-//					PurchaseSearchListActivity.class);
-//			intent.putExtra("from", "AActivity");
-//			startActivityForResult(intent, 1);
-//                break;
 
             case R.id.tv_a_search://搜索按钮 --- new
                 //// TODO: 2017/4/10  需要添加 共享动画
@@ -1074,4 +881,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         return views;
     }
+
+
 }
