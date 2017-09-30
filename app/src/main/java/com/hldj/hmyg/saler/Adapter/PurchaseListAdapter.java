@@ -34,9 +34,9 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
     @Override
     public void setConverView(ViewHolders myViewHolder, PurchaseBean item, int position) {
 
-        if (position==1)
-       D.e("=======PurchaseListAdapter====="+item.toString());
 
+        if (position == 1)
+            D.e("=======PurchaseListAdapter=====" + item.toString());
 
 
         int id = R.layout.list_item_purchase_list_new;
@@ -77,8 +77,7 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
         if (item.showConsumerName) {
             tv_05.setText("用苗单位：" + item.consumerFullName);
             tv_05.setVisibility(View.VISIBLE);
-        }else
-        {
+        } else {
             tv_05.setVisibility(View.GONE);
         }
 
