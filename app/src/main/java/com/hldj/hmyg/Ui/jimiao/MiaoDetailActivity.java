@@ -422,6 +422,7 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
 
     public static void postWhoPhone(String callSourceId, String callPhone, String callTargetType) {
         new BasePresenter()
+                .putParams("callSourceType", "seedlingNote")
                 .putParams("callSourceId", callSourceId)
                 .putParams("userId", MyApplication.Userinfo.getString("id", ""))
                 .putParams("callPhone", callPhone)
