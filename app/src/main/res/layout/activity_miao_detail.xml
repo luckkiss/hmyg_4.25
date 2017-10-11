@@ -338,8 +338,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="7dp"
                         android:layout_weight="1"
-                        android:enabled="false"
                         android:background="@drawable/conner_edit"
+                        android:enabled="false"
                         android:gravity="center"
                         android:hint="厘米"
                         android:inputType="number"
@@ -366,9 +366,9 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:background="@drawable/conner_edit"
+                        android:enabled="false"
                         android:gravity="center"
                         android:hint="厘米"
-                        android:enabled="false"
                         android:inputType="number"
                         android:maxLength="7"
                         android:padding="@dimen/x2"
@@ -432,8 +432,8 @@
                         android:layout_marginLeft="7dp"
                         android:layout_weight="1"
                         android:background="@drawable/conner_edit"
-                        android:gravity="center"
                         android:enabled="false"
+                        android:gravity="center"
                         android:hint="厘米"
                         android:inputType="number"
                         android:maxLength="7"
@@ -525,9 +525,9 @@
                         android:layout_marginLeft="7dp"
                         android:layout_weight="1"
                         android:background="@drawable/conner_edit"
+                        android:enabled="false"
                         android:gravity="center"
                         android:hint="厘米"
-                        android:enabled="false"
                         android:inputType="number"
                         android:maxLength="7"
                         android:padding="@dimen/x2"
@@ -552,10 +552,10 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:background="@drawable/conner_edit"
+                        android:enabled="false"
                         android:gravity="center"
                         android:hint="厘米"
                         android:inputType="number"
-                        android:enabled="false"
                         android:maxLength="7"
                         android:padding="@dimen/x2"
                         android:textColor="@color/gray"
@@ -640,7 +640,8 @@
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingBottom="5dp"
-                android:paddingLeft="13dp" android:visibility="gone">
+                android:paddingLeft="13dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -657,10 +658,9 @@
             </LinearLayout>
 
 
-
             <View
                 android:layout_width="match_parent"
-                android:layout_height="20dp"/>
+                android:layout_height="20dp" />
 
         </LinearLayout>
 
@@ -668,29 +668,30 @@
     </ScrollView>
 
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line"
+
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="@color/white"
+
+        <TextView
+            style="@style/bottom_button_white"
             android:onClick="CallPhone"
-            android:text="拨打苗圃电话"
-            android:textColor="@color/main_color" />
+            android:text="拨打苗圃电话" />
 
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="@color/main_color"
+        <TextView
+            style="@style/bottom_button_green"
             android:onClick="CallPhone1"
             android:text="拨打发布人电话"
-            android:textColor="@color/white" />
+       />
 
 
     </LinearLayout>

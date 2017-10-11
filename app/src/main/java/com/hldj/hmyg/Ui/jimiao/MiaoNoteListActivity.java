@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Keep;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +21,10 @@ import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.BActivity_new_test;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.Eactivity3_0;
+import com.hldj.hmyg.base.rxbus.RxBus;
+import com.hldj.hmyg.base.rxbus.annotation.Subscribe;
+import com.hldj.hmyg.base.rxbus.event.EventThread;
+import com.hldj.hmyg.base.rxbus.event.PostObj;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PicSerializableMaplist;
 import com.hldj.hmyg.util.D;
@@ -50,6 +55,7 @@ import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
 
 import static com.hldj.hmyg.R.id.rl_choose_type;
+import static com.hldj.hmyg.saler.SaveSeedlingActivity_pubsh_quick.SEEDING_REFRESH;
 
 @SuppressLint("NewApi")
 public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXListViewListener, OnCheckedChangeListener {
@@ -93,7 +99,7 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_miao_note_list);
 
-
+        registerRxBus();
         findViewById(R.id.publish).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -248,7 +254,6 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                 datas.get(position - 1).get("ownerPhone").toString());
 
 
-
         toMiaoNoteListActivity.putExtra("address",
                 datas.get(position - 1).get("address").toString());
         toMiaoNoteListActivity.putExtra("name", datas.get(position - 1)
@@ -261,10 +266,8 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                 datas.get(position - 1).get("maxSpec").toString());
 
 
-
         toMiaoNoteListActivity.putExtra("nurseryJson_name",
                 datas.get(position - 1).get("nurseryJson_name").toString());
-
 
 
         toMiaoNoteListActivity.putExtra("isDefault", (Boolean) datas
@@ -427,7 +430,7 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                                 break;
 
                         }
-                        D.e("=======orderBy======="+orderBy);
+                        D.e("=======orderBy=======" + orderBy);
                         pos = position;
                         sortSpinner.dismiss();
                         onRefresh();
@@ -545,6 +548,15 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                 public void OnItemDel(int pos, String id, boolean isSelf) {
                     intent2SaveMiao(pos, isSelf);
                 }
+
+                @Override
+                public void OnTvVisibleChange(boolean isSelf, TextView... tvs) {
+                    /* 返回 所有textview  需要 隐藏或者显示判断  是否显示隐藏 */
+
+                    onTvChange(isSelf, tvs);
+
+
+                }
             });
 
             initAptLis(listAdapter);
@@ -607,6 +619,10 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                     }
                 }
 
+                @Override
+                public void OnTvVisibleChange(boolean isSelf, TextView... tvs) {
+                    onTvChange(isSelf, tvs);
+                }
 //                                            @Override
 //                                            public void OnSelf(boolean isSelf) {
 //
@@ -684,6 +700,10 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                                                 .getJsonString(jsonObject3,
                                                         "id"));
 
+                                        hMap.put("seedlingId", JsonGetInfo
+                                                .getJsonString(jsonObject3,
+                                                        "seedlingId"));
+
 
                                         hMap.put("ownerId", JsonGetInfo
                                                 .getJsonString(jsonObject3,
@@ -737,6 +757,11 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                                                 .getJsonString(jsonObject3,
                                                         "imagesJson"));
 
+                                        /*显示的图片*/
+                                        hMap.put("imageUrl", JsonGetInfo
+                                                .getJsonString(jsonObject3,
+                                                        "imageUrl"));
+
 
                                         JSONObject nurseryJson = JsonGetInfo
                                                 .getJSONObject(jsonObject3,
@@ -764,8 +789,6 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                                         hMap.put("contactPhone", JsonGetInfo
                                                 .getJsonString(nurseryJson,
                                                         "contactPhone"));
-
-
 
 
                                         hMap.put("isDefault", JsonGetInfo
@@ -803,6 +826,11 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                                             @Override
                                             public void OnItemDel(int pos, String id, boolean isSelf) {
                                                 intent2SaveMiao(pos, isSelf);
+                                            }
+
+                                            @Override
+                                            public void OnTvVisibleChange(boolean isSelf, TextView... tvs) {
+                                                onTvChange(isSelf, tvs);
                                             }
                                         });
 
@@ -939,6 +967,77 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, MiaoNoteListActivity.class);
         activity.startActivityForResult(intent, 110);
+    }
+
+
+    /**
+     * @param isSelf
+     * @param tvs
+     */
+    public void onTvChange(@Deprecated boolean isSelf, TextView... tvs) {
+        boolean isShow = (noteType.equals("1"));
+
+//        D.e("=======onTvChange=========" + isSelf + tvs.length);
+        if (tvs.length > 0) {
+            for (TextView tv : tvs) {
+                if (tv == null) {
+                    return;
+                }
+                if (tv.getId() == R.id.textView27) {
+                    /*当 是联系人 tv时*/
+                    tv.setVisibility(isShow ? View.GONE : View.VISIBLE);
+                } else {
+                    tv.setVisibility(isShow ? View.VISIBLE : View.GONE);
+                }
+
+
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unRegisterRxBus();
+    }
+
+
+    //订阅
+    @Keep
+    @Subscribe(tag = SEEDING_REFRESH, thread = EventThread.MAIN_THREAD)
+    private void dataBinding11(PostObj<String> postObj) {
+        D.e("======Rx=======" + postObj.toString());
+        D.e("======Rx==data=====" + postObj.getData());
+
+
+        if (listAdapter != null  ) {
+            listAdapter.notifyOne(postObj.getData());
+        }
+//        listAdapter.notifyDel(postObj.getData());
+
+
+//        Observable.just(event)
+//                .filter(event1 -> event.isOnline)
+//                .map((Function<OnlineEvent, Object>) event12 -> event12.isOnline)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .timeout(500, TimeUnit.MILLISECONDS)
+//                .subscribe((b) -> {
+//                    loadHeadImage(getSpB("isLogin"));//加载头像
+//                    setRealName(getSpS("userName"), getSpS("realName"));
+//                });
+
+
+    }
+
+
+    public void registerRxBus() {
+        RxBus.getInstance().register(this);
+    }
+
+
+    public void unRegisterRxBus() {
+        RxBus.getInstance().unRegister(this);
     }
 
 }

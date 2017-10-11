@@ -53,6 +53,41 @@ public class SaveSeedlingPresenter {
         initDataGetFirstType(resultCallBack);
     }
 
+    public static void getAllDatas_toSeed(ResultCallBack<SaveSeedingGsonBean> resultCallBack, String id) {
+        D.e("initAutoLayout");
+        initDataGetFirstType_toSeed(resultCallBack, id);
+    }
+
+
+    private static void initDataGetFirstType_toSeed(final ResultCallBack<SaveSeedingGsonBean> resultCallBack, String id) {
+        // 获取json 数据
+        FinalHttp finalHttp = new FinalHttp();
+        GetServerUrl.addHeaders(finalHttp, true);
+        AjaxParams params = new AjaxParams();
+        params.put("id", id);
+        finalHttp.post(GetServerUrl.getUrl() + "admin/seedlingNote/toSeedling",
+                params, new AjaxCallBack<String>() {
+                    @Override
+                    public void onSuccess(String json) {
+                        SaveSeedingGsonBean gsonBean = GsonUtil.formateJson2Bean(json, SaveSeedingGsonBean.class);
+                        D.e("==========" + gsonBean.toString());
+                        gsonBean.getData().getTypeList();//有5个  乔木 灌木  观景  棕榈/苏铁  地被
+                        if (gsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
+                            //成功
+                            D.e("===成功===");
+                            resultCallBack.onSuccess(gsonBean);
+                        } else {
+                            D.e("===失败===" + gsonBean.getMsg());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+                        super.onFailure(t, errorNo, strMsg);
+                    }
+                });
+    }
+
 
     private static void initDataGetFirstType(final ResultCallBack<SaveSeedingGsonBean> resultCallBack) {
         // 获取json 数据
@@ -251,7 +286,7 @@ public class SaveSeedlingPresenter {
                 File file1 = new File(dataList.get(i).getUrl());
 
                 D.e("===========开始上传图片=========\n" + i + "   图片大小：" + file1.length() / 1024 + " k ");
-                D.e("===========图片地址=========\n" +  dataList.get(i).getUrl() ) ;
+                D.e("===========图片地址=========\n" + dataList.get(i).getUrl());
 //                try {
 //                    D.e("===========开始上传图片=========\n" + "图片大小：" + getFileSize(file1) + " k ");
 //                } catch (Exception e) {

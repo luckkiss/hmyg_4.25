@@ -21,12 +21,13 @@
         android:id="@+id/ll_purc_auto_add"
         style="@style/ll_padleft_15"
         android:layout_height="wrap_content"
-        android:orientation="vertical"/>
+        android:orientation="vertical" />
 
     <!--<View style="@style/View_line_gray_1dp" />-->
 
 
-    <RelativeLayout style="@style/ll_padleft_15"
+    <RelativeLayout
+        style="@style/ll_padleft_15"
         android:paddingLeft="15dp">
 
         <TextView
@@ -138,14 +139,7 @@
 
     <TextView
         android:id="@+id/tv_purchase_commit"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/rb_left_select"
-        android:gravity="center"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="提交报价"
-        android:textColor="@color/white" />
+        style="@style/save_bottom"
+        android:text="提交报价" />
 
 </LinearLayout>

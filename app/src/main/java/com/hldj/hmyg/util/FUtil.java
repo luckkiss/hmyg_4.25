@@ -30,6 +30,28 @@ public class FUtil {
 
 
     /**
+     * 为  str 添加一个头
+     *
+     * @param head
+     * @param str
+     * @return
+     */
+    public static String $_head(String head, String str) {
+        if (TextUtils.isEmpty(str)) {
+            return "-";
+        }
+        return head + str;
+    }
+
+
+    public static String $_zero(String str) {
+        if ("0".equals(str)) {
+            return "-";
+        }
+        return str;
+    }
+
+    /**
      * 过滤 一个数组
      *
      * @param

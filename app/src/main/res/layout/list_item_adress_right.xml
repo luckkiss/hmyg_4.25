@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_adress_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/x8"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x4"
+                android:orientation="horizontal"
+                android:paddingBottom="6dp">
+
+                <TextView
+                    android:id="@+id/tv_is_defoloat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text="[默认]"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/textSizeXXX"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tv_address_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/addr_default_selector"
+                    android:textSize="@dimen/textSizeXXX"
+                    tools:text="fullname" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x4"
+                android:gravity="center_vertical"
+                android:paddingBottom="6dp"
+                android:singleLine="true"
+                tools:text="苗圃名称 " />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x4"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/tv_con_name_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    tools:text="联系人" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_edit"
+            android:layout_width="40.0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:padding="10.0dip"
+            android:src="@drawable/ic_right_icon_new" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_bg" />
+
+</LinearLayout>

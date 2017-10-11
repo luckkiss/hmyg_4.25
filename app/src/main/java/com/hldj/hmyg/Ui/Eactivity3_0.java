@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.annotation.Keep;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -484,6 +485,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     }
 
     //订阅
+    @Keep
     @Subscribe(tag = 5, thread = EventThread.MAIN_THREAD)
     private void dataBinding11(OnlineEvent event) {
         D.e("======Rx=======" + event.toString());

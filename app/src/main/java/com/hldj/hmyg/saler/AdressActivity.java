@@ -21,6 +21,7 @@ import com.hldj.hmyg.widget.SaveSeedingBottomLinearLayout;
 import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -220,7 +221,7 @@ public class AdressActivity extends BaseMVPActivity<AdressListPresenter, AdressL
     }
 
 
-    public static class Address {
+    public static class Address implements Serializable {
         public String addressId = "";
         public String contactPhone = "";
         public String contactName = "";

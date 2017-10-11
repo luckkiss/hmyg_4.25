@@ -158,7 +158,7 @@
     <!--        android:layout_marginTop="@dimen/y8"  -->
     <include
         android:id="@+id/list_item_adress"
-        layout="@layout/list_item_adress"
+        layout="@layout/list_item_adress_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible" />

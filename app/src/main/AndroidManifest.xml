@@ -372,6 +372,8 @@
 
         <activity
             android:name="com.hldj.hmyg.saler.SaveSeedlingActivity_change_data"
+            android:screenOrientation="portrait" />  <activity
+            android:name="com.hldj.hmyg.saler.SaveSeedlingActivity_pubsh_quick"
             android:screenOrientation="portrait" />
 
 

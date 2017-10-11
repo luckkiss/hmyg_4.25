@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.hldj.hmyg.Ui.jimiao.SellectMiaoActivity" >
+    tools:context="com.hldj.hmyg.Ui.jimiao.SellectMiaoActivity">
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/y28"
-        android:background="@color/white" >
+        android:background="@color/white">
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,12 +37,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/x10"
-                android:paddingRight="@dimen/x10" >
+                android:paddingRight="@dimen/x10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/x10"
-                android:paddingRight="@dimen/x10" >
+                android:paddingRight="@dimen/x10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -133,14 +133,14 @@
                     android:textColorHint="@color/gray"
                     android:textSize="@dimen/x15" />
             </LinearLayout>
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y28"
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/x10"
-                android:paddingRight="@dimen/x10" >
+                android:paddingRight="@dimen/x10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -192,14 +192,14 @@
                     android:textColorHint="@color/gray"
                     android:textSize="@dimen/x15" />
             </LinearLayout>
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y28"
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/x10"
-                android:paddingRight="@dimen/x10" >
+                android:paddingRight="@dimen/x10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -295,11 +295,11 @@
             </LinearLayout>
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"  android:layout_marginTop="40dp" >
+                android:layout_marginTop="40dp"
+                android:orientation="vertical">
 
                 <View
                     android:layout_width="match_parent"
@@ -308,37 +308,24 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y24"
-                    android:orientation="horizontal" >
-
-
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/iv_reset"
-                        android:layout_width="0.0dip"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@color/white"
-                        android:gravity="center"
-                        android:text="重置"
-                        android:textColor="@color/main_color"  />
+                        style="@style/bottom_button_white"
+                        android:text="重置" />
 
                     <Button
                         android:id="@+id/sure"
-                        android:layout_width="0.0dip"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@color/main_color"
-                        android:gravity="center"
-                        android:text="确认"
-                        android:textColor="@color/white" />
+                        style="@style/bottom_button_green"
+                        android:text="确认" />
                 </LinearLayout>
             </LinearLayout>
 
 
         </LinearLayout>
     </ScrollView>
-
 
 
 </LinearLayout>

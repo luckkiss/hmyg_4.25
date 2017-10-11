@@ -21,6 +21,8 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.V.SaveSeedlingV;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.base.rxbus.RxBus;
+import com.hldj.hmyg.base.rxbus.event.PostObj;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
@@ -49,6 +51,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+
+import static com.hldj.hmyg.saler.SaveSeedlingActivity_pubsh_quick.SEEDING_REFRESH;
 
 
 /**
@@ -315,6 +319,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             // TODO: 2017/4/15    添加 布局  删除布局 动画
         }
 
+        onAutoChanged();
+
     }
 
     private List<SaveSeedingGsonBean.DataBean.TypeListBean.ParamsListBean> paramsListBean;
@@ -525,8 +531,15 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                     //成功
                     ToastUtil.showShortToast("提交完毕");
                     setResult(ConstantState.PUBLIC_SUCCEED);
-                    finish();
 
+
+                    /**
+                     *   通过rx java 通知  记苗本 更新列表
+                     *  {@link com.hldj.hmyg.Ui.jimiao.MiaoNoteListActivity#dataBinding11}
+                     *  来发送  刷新通知  发送一个   id  ，列表通过便利id  来确定哪个 item 需要进行刷新
+                     */
+                    RxBus.getInstance().post(SEEDING_REFRESH, new PostObj<>(getSeedlingNoteId()));
+                    finish();
 
 //                    ManagerListActivity_new.start2Activity(instance);
                 } else {
@@ -599,6 +612,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         params.put("validity", upLoadDatas.getValidity());//发布有效期
         params.put("nurseryId", upLoadDatas.address.addressId);
         params.put("count", upLoadDatas.getRepertory_num());
+
+        params.put("seedlingNoteId", getSeedlingNoteId());
         D.e("=========checkParames1=========");
 
         if (autoAddRelative_rd != null) {
@@ -846,12 +861,12 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         AdressActivity.Address address = upLoadDatas.address;
         seedlingBean.setNurseryId(address.addressId);
         nurseryJsonBean.setPhone(address.contactPhone);
-        nurseryJsonBean.contactPhone=(address.contactPhone);
+        nurseryJsonBean.contactPhone = (address.contactPhone);
         nurseryJsonBean.contactName = (address.contactName);
         nurseryJsonBean.setRealName(address.contactName);
         nurseryJsonBean.setCityName(address.cityName);
 
-        nurseryJsonBean.isDefault = address.isDefault ;
+        nurseryJsonBean.isDefault = address.isDefault;
 
         nurseryJsonBean.setName(address.name);
         nurseryJsonBean.setFullAddress(address.fullAddress);
@@ -905,5 +920,18 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
     public void setProId(String proId) {
         this.proId = proId;
     }
+
+
+    /**
+     * 布局改变结束  时 调用
+     */
+    public void onAutoChanged() {
+        D.e("---onAutoChanged----------");
+    }
+
+    public String getSeedlingNoteId() {
+        return "";
+    }
+
 
 }

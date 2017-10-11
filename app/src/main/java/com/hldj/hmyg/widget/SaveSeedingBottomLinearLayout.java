@@ -86,15 +86,14 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
     }
 
 
-     static ViewHolder holder;
+    static ViewHolder holder;
 
     private SaveSeedingBottomLinearLayout.upLoadDatas upLoadDatas = new SaveSeedingBottomLinearLayout.upLoadDatas();
 
     //获取上传的数据
     public SaveSeedingBottomLinearLayout.upLoadDatas getUpLoadDatas() {
 
-        if (upLoadDatas == null)
-        {
+        if (upLoadDatas == null) {
             upLoadDatas = new SaveSeedingBottomLinearLayout.upLoadDatas();
         }
         return upLoadDatas;
@@ -256,20 +255,30 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
      */
     private void initAddressView(View rootView, AdressActivity.Address address) {
 
-        upLoadDatas.address =address ;
-        if (address.isDefault)
-        {
+        upLoadDatas.address = address;
+        if (address.isDefault) {
             rootView.findViewById(R.id.tv_is_defoloat).setVisibility(View.VISIBLE);//默认就显示默认地址
             ((TextView) rootView.findViewById(R.id.tv_address_name)).setText(address.fullAddress); //地址名称
-        }else
-        {
+        } else {
             rootView.findViewById(R.id.tv_is_defoloat).setVisibility(View.GONE);//默认就显示默认地址
             ((TextView) rootView.findViewById(R.id.tv_address_name)).setText(address.fullAddress); //地址名称
         }
 
-        ((TextView) rootView.findViewById(R.id.tv_name)).setText( "苗圃名称：" + AdressManagerActivity.striFil((Activity) getContext(), address.name, ""));// 苗圃名称
-        ((TextView) rootView.findViewById(R.id.tv_con_name_phone)).setText( "联  系  人：" + AdressManagerActivity.striFil((Activity) getContext(), address.contactName, address.contactPhone));// 名字
-        ((TextView) rootView.findViewById(R.id.tv_con_name_phone)).setText( "联  系  人：" + AdressManagerActivity.striFil((Activity) getContext(), address.contactName, address.contactPhone));// 名字
+        ((TextView) rootView.findViewById(R.id.tv_name)).setText("苗圃名称：" + AdressManagerActivity.striFil((Activity) getContext(), address.name, ""));// 苗圃名称
+        ((TextView) rootView.findViewById(R.id.tv_con_name_phone)).setText("联  系  人：" + AdressManagerActivity.striFil((Activity) getContext(), address.contactName, address.contactPhone));// 名字
+        ((TextView) rootView.findViewById(R.id.tv_con_name_phone)).setText("联  系  人：" + AdressManagerActivity.striFil((Activity) getContext(), address.contactName, address.contactPhone));// 名字
+
+
+        if (!TextUtils.isEmpty(address.addressId)) {
+            // 隐藏   苗源地址按钮
+            holder.rl_save_seeding_home.setVisibility(GONE);
+            holder.list_item_adress.setVisibility(VISIBLE);
+        } else {
+            // 隐藏
+            holder.rl_save_seeding_home.setVisibility(VISIBLE);
+            holder.list_item_adress.setVisibility(GONE);
+        }
+
 
     }
 
@@ -281,7 +290,7 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
     }
 
     //用于上传的数据
-    public  class upLoadDatas {
+    public class upLoadDatas {
         private UnitTypeBean unit = new UnitTypeBean("株", "plant");//单位
         public String validity = "";//有效期
         public String price_min = "";//最小价格
@@ -390,7 +399,7 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
     }
 
     public void setDefaultAddr(AdressActivity.Address address) {
-        initAddressView(holder.rootView,address);
+        initAddressView(holder.rootView, address);
     }
 
 

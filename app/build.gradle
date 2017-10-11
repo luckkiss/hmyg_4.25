@@ -6,7 +6,7 @@ apply plugin: 'org.greenrobot.greendao'
 //
 
 def isDebug = true
-apply from: 'tinker-support.gradle'
+//apply from: 'tinker-support.gradle'
 
 //if (!isDebug) {
 
@@ -119,7 +119,7 @@ android {
         }
 
 //        debug {
-//            minifyEnabled false
+//            minifyEnabled true
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 //            signingConfig signingConfigs.release
 //            debuggable true

@@ -45,14 +45,16 @@
                     android:id="@+id/button31"
                     style="@style/RadioButton3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
+                    android:minWidth="75dp"
                     android:text="我的资源" />
 
                 <RadioButton
                     android:id="@+id/button32"
                     style="@style/RadioButton3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
+                    android:minWidth="75dp"
                     android:text="共享资源" />
             </com.hldj.hmyg.widget.SegmentedGroup>
 
@@ -92,9 +94,9 @@
 
             <ImageView
                 android:layout_width="2px"
-                android:layout_height="15.0dip"
+                android:layout_height="18.0dip"
                 android:layout_gravity="center_vertical"
-                android:background="@color/gray" />
+                android:background="@color/hint_text_color" />
 
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_b_sort"
@@ -128,16 +130,15 @@
                 android:id="@+id/tagview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:lineMargin="3dp"
-                app:tagMargin="3dp"
-                app:textPaddingLeft="10dp"
-                app:textPaddingRight="10dp"
-                app:textPaddingTop="3dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                app:textPaddingBottom="3dp"
                 android:paddingTop="5dp"
-                />
+                app:lineMargin="3dp"
+                app:tagMargin="3dp"
+                app:textPaddingBottom="3dp"
+                app:textPaddingLeft="10dp"
+                app:textPaddingRight="10dp"
+                app:textPaddingTop="3dp" />
             <!--android:layout_margin="2.5dp"-->
 
         </LinearLayout>
@@ -146,27 +147,25 @@
             android:id="@+id/xlistView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="#fff0f0f0" />
+            android:background="#fff0f0f0"
+            android:divider="@null"
+            android:dividerHeight="0px"
+
+            />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_save"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y28"
+        android:layout_height="@dimen/y31"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/publish"
-            android:layout_width="0.0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/main_color"
-            android:gravity="center"
-            android:text="快速记苗"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/white" />
+            style="@style/bottom_button_green"
+            android:text="快速记苗" />
 
     </LinearLayout>
 

@@ -24,6 +24,8 @@ import com.hldj.hmyg.bean.PicSerializableMaplist;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.saler.AdressActivity;
 import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin2;
+import com.hldj.hmyg.saler.P.BaseRxPresenter;
+import com.hldj.hmyg.saler.SaveSeedlingActivity_pubsh_quick;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.TakePhotoUtil;
 import com.hy.utils.GetServerUrl;
@@ -46,6 +48,13 @@ import org.json.JSONObject;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.next.tagview.TagCloudView.OnTagClickListener;
 
@@ -132,6 +141,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 
 
     ArrayList<Pic> arrayList2Adapter = new ArrayList(); // 传入 适配器的图片列表
+    private AdressActivity.Address selectAddress;
 
     //传入初始化 的图片资源  初始化顶部  图片列表控件
     private void initGvTop(MeasureGridView photoGv) {
@@ -201,7 +211,9 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
         ll_05 = (LinearLayout) findViewById(R.id.ll_05);
         list_item_adress = (LinearLayout) findViewById(R.id.list_item_adress);
         iv_edit = (ImageView) findViewById(R.id.iv_edit);
+        tv_id_num = (TextView) findViewById(R.id.tv_id_num);//苗木资源编号
         tv_contanct_name = (TextView) findViewById(R.id.tv_name);
+        iv_publish_quick = (TextView) findViewById(R.id.iv_publish_quick);
         tv_address_name = (TextView) findViewById(R.id.tv_address_name);
         tv_con_name_phone = (TextView) findViewById(R.id.tv_con_name_phone);
         tv_is_defoloat = (TextView) findViewById(R.id.tv_is_defoloat);
@@ -220,68 +232,83 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
         et_maxCrown = (EditText) findViewById(R.id.et_maxCrown);
         et_minSpec = (EditText) findViewById(R.id.et_minSpec);
         et_maxSpec = (EditText) findViewById(R.id.et_maxSpec);
+
+
         if (getIntent().getStringExtra("id") != null) {
+            tv_id_num.setVisibility(View.VISIBLE);
+        } else {
+            tv_id_num.setVisibility(View.GONE);
+        }
+
+        if (getIntent().getStringExtra("id") != null) {
+
             id = getIntent().getStringExtra("id");
+
+            tv_id_num.setText("编号：" + id);
+//            getDetail(id);
+
+//            Observable.just(id)
+//            Observable.create(new ObservableOnSubscribe<String>() {
+//                @Override
+//                public void subscribe(ObservableEmitter<String> Emitter) throws Exception {
+//
+//                }
+//            })
+
+
+            getDetail(id)
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<String>() {
+                        @Override
+                        public void accept(@NonNull String json) throws Exception {
+                            D.e("=====accept==接收请求到的json =========" + json);
+                            initJson(json);
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(@NonNull Throwable throwable) throws Exception {
+                            D.e("accept---Throwable");
+                        }
+                    }, new Action() {
+                        @Override
+                        public void run() throws Exception {
+                            D.e("complete---Action");
+                        }
+                    });
+
+
             Bundle bundle = getIntent().getExtras();
             urlPaths = ((PicSerializableMaplist) bundle.get("urlPaths")).getMaplist();
 //            adapter.notify(urlPaths);
 
-            GetServerUrl.addHeaders(finalHttp, true);
-            AjaxParams params1 = new AjaxParams();
-            params1.put("id", id);
-            finalHttp.post(GetServerUrl.getUrl() + "admin/seedlingNote/detail",
-                    params1, new AjaxCallBack<Object>() {
-
-                        @Override
-                        public void onStart() {
-                            super.onStart();
-                        }
-
-                        @Override
-                        public void onSuccess(Object t) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(t.toString());
-                                int code = jsonObject.getInt("code");
-                                if (code == 1) {
-                                    JSONObject seedling = JsonGetInfo.getJSONObject(
-                                            JsonGetInfo.getJSONObject(
-                                                    jsonObject, "data"),
-                                            "seedling");
-                                    JSONArray imagesJson = JsonGetInfo
-                                            .getJsonArray(seedling,
-                                                    "imagesJson");
-                                    for (int i = 0; i < imagesJson.length(); i++) {
-                                        JSONObject image = imagesJson
-                                                .getJSONObject(i);
-                                        urlPaths.add(new Pic(JsonGetInfo
-                                                .getJsonString(image, "id"),
-                                                false, JsonGetInfo
-                                                .getJsonString(image,
-                                                        "url"), i));
-                                    }
-
-                                    photoGv.getAdapter().addItems(urlPaths);
-
-
-                                }
-                            } catch (JSONException e) {
-                                // TODO Auto-generated catch
-                                // block
-                                e.printStackTrace();
-                            }
-
-                            super.onSuccess(t);
-                        }
-
-                        @Override
-                        public void onFailure(Throwable t, int errorNo,
-                                              String strMsg) {
-                            // TODO Auto-generated method
-                            // stub
-                            super.onFailure(t, errorNo, strMsg);
-
-                        }
-                    });
+//            GetServerUrl.addHeaders(finalHttp, true);
+//            AjaxParams params1 = new AjaxParams();
+//            params1.put("id", id);
+//            finalHttp.post(GetServerUrl.getUrl() + "admin/seedlingNote/detail",
+//                    params1, new AjaxCallBack<Object>() {
+//
+//                        @Override
+//                        public void onStart() {
+//                            super.onStart();
+//                        }
+//
+//                        @Override
+//                        public void onSuccess(Object t) {
+//
+//                            initJson(t);
+//
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Throwable t, int errorNo,
+//                                              String strMsg) {
+//                            // TODO Auto-generated method
+//                            // stub
+//                            super.onFailure(t, errorNo, strMsg);
+//
+//                        }
+//                    });
 
             addressId = getIntent().getStringExtra("addressId");
             count = getIntent().getStringExtra("count");
@@ -326,7 +353,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 
             if (!"".equals(addressId)) {
                 list_item_adress.setVisibility(View.VISIBLE);
-                ll_05.setVisibility(View.VISIBLE);
+                ll_05.setVisibility(View.GONE);
 
                 //地址
                 tv_address_name.setText(fullAddress);
@@ -351,12 +378,103 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
         ll_02.setOnClickListener(multipleClickProcess);
         ll_03.setOnClickListener(multipleClickProcess);
         ll_05.setOnClickListener(multipleClickProcess);
+        //发布到商城
+//        iv_publish_quick.setOnClickListener(multipleClickProcess);
         ll_save.setOnClickListener(multipleClickProcess);
         list_item_adress.setOnClickListener(multipleClickProcess);
         id_tv_edit_all.setOnClickListener(multipleClickProcess);
         iv_ready_save.setOnClickListener(multipleClickProcess);
         save.setOnClickListener(multipleClickProcess);
+
+
+        iv_publish_quick.setVisibility(isIdNull() ? View.GONE : View.VISIBLE);
+        D.e("==是否显示发布到商城===" + isIdNull());
+
     }
+
+    private void initJson(@android.support.annotation.NonNull String json) {
+        D.e("=========初始化 头像=============" + json + "");
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            int code = jsonObject.getInt("code");
+            if (code == 1) {
+                JSONObject seedling = JsonGetInfo.getJSONObject(
+                        JsonGetInfo.getJSONObject(
+                                jsonObject, "data"),
+                        "seedling");
+                JSONArray imagesJson = JsonGetInfo
+                        .getJsonArray(seedling,
+                                "imagesJson");
+
+                String num = JsonGetInfo.getJsonString(seedling, "num");
+                tv_id_num.setText("编号：" + num);
+
+
+                for (int i = 0; i < imagesJson.length(); i++) {
+                    JSONObject image = imagesJson
+                            .getJSONObject(i);
+                    urlPaths.add(new Pic(JsonGetInfo
+                            .getJsonString(image, "id"),
+                            false, JsonGetInfo
+                            .getJsonString(image,
+                                    "url"), i));
+                }
+
+                photoGv.getAdapter().addItems(urlPaths);
+
+
+            }
+        } catch (JSONException e) {
+            // TODO Auto-generated catch
+            // block
+            e.printStackTrace();
+        }
+
+    }
+
+
+    /*获取 网络数据*/
+    private Observable<String> getDetail(String id) {
+        D.e("id");
+        D.e("" + id);
+        return Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                new BaseRxPresenter()
+                        .putParams("id", id)
+                        .doRequest("admin/seedlingNote/detail", true, new AjaxCallBack<String>() {
+                            @Override
+                            public void onSuccess(String json) {
+                                D.e("==========json=获取成功=================");
+                                D.e(json);
+                                D.e("==发射器===将json 传递给rx 观察者========\n" + json);
+                                emitter.onNext(json);//
+                                D.e("==发射器  onComplete ");
+                                emitter.onComplete();
+//                                Observable.create(new ObservableOnSubscribe<String>() {
+//                                    @Override
+//                                    public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+//
+//                                        D.e("==发射器===将json 传递给rx 观察者========\n" + json);
+//                                        emitter.onNext(json);//
+//                                        D.e("==发射器  onComplete ");
+//                                        emitter.onComplete();
+//                                    }
+//                                });
+                            }
+
+                            @Override
+                            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                                ToastUtil.showShortToast("获取资源信息错误");
+                                D.e("onFailure");
+                                emitter.onError(t);
+                            }
+                        });
+
+            }
+        });
+    }
+
 
     @Override
     public void stateChange(int state) {
@@ -387,8 +505,10 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
     private LinearLayout list_item_adress;
 
     private ImageView iv_edit;
+    private TextView tv_id_num;
 
     private TextView tv_contanct_name;
+    private TextView iv_publish_quick;//发布到商城
 
     private TextView tv_address_name;
     private TextView tv_con_name_phone;
@@ -421,14 +541,21 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
             if (flag) {
                 if (view.getId() == R.id.btn_back) {
                     onBackPressed();
-                } else if (view.getId() == R.id.list_item_adress || view.getId() == R.id.ll_05) {
+                } else if (view.getId() == R.id.iv_publish_quick) {
 
+                    D.e("=========快速发布到商城===========");
+                    pulishQuick();
+
+
+                } else if (view.getId() == R.id.list_item_adress || view.getId() == R.id.ll_05) {
                     D.e("=========苗原地点击===========");
-                    AdressActivity.start2AdressListActivity(mActivity, "", "", address -> {
+                    AdressActivity.start2AdressListActivity(mActivity, addressId, "", address -> {
                         D.e("===========返回的地址==========" + address.toString());
                         list_item_adress.setVisibility(View.VISIBLE);
+                        ll_05.setVisibility(View.GONE);
                         addressId = address.addressId;
 
+                        selectAddress = address;
 
                         //苗圃名称
                         tv_contanct_name.setText("苗圃名称:" + address.name);
@@ -514,6 +641,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
             }
         }
     }
+
 
     public void hudProgress() {
 
@@ -808,6 +936,99 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
     public void resetEdit(EditText editText) {
         editText.setText("");
     }
+
+
+    public boolean isIdNull() {
+//        return TextUtils.isEmpty(getIntent().getStringExtra("id"));
+        return true;
+    }
+
+
+    /*快速发布到商城*/
+    private void pulishQuick() {
+        //1  传递  图片
+        Intent intent = new Intent(mActivity, SaveSeedlingActivity_pubsh_quick.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(IMAGES, photoGv.getAdapter().getDataList());
+        bundle.putSerializable(ADDRESS, gegAddress());
+        bundle.putString(PRICE, et_price.getText().toString());
+        bundle.putString(COUNT, et_count.getText().toString());
+        bundle.putString(PLANT_NAME, et_name.getText().toString());//品名
+
+        bundle.putString(SPACE_MIN, et_minSpec.getText().toString());//规格
+        bundle.putString(SPACE_MAX, et_maxSpec.getText().toString());//规格
+
+        bundle.putString(MIN_HEIGHT, et_height.getText().toString());//高度
+        bundle.putString(MAX_HEIGHT, et_maxHeight.getText().toString());//高度
+
+        bundle.putString(MIN_CROWN, et_crown.getText().toString());// 冠幅
+        bundle.putString(MAX_CROWN, et_maxCrown.getText().toString());// 冠幅
+
+
+        intent.putExtras(bundle);
+        mActivity.startActivityForResult(intent, 110);
+/**
+ *   params.put("firstSeedlingTypeId", firstSeedlingTypeId);
+ params.put("name", et_name.getText().toString());
+ params.put("price", et_price.getText().toString());
+ params.put("nurseryId", addressId);
+ params.put("count", et_count.getText().toString());
+ params.put("minHeight", et_height.getText().toString());
+ params.put("minCrown", et_crown.getText().toString());
+ params.put("maxHeight", et_maxHeight.getText().toString());
+ params.put("maxCrown", et_maxCrown.getText().toString());
+ params.put("minSpec", et_minSpec.getText().toString());
+ params.put("maxSpec", et_maxSpec.getText().toString());
+ */
+
+    }
+
+    private AdressActivity.Address gegAddress() {
+
+        if (selectAddress != null) {
+            return selectAddress;
+        } else {
+            AdressActivity.Address address = new AdressActivity.Address();
+            address.addressId = addressId;//地址id
+            address.contactPhone = contactPhone;//联系电话
+            address.contactName = contactName;//联系人
+            address.name = getIntent().getStringExtra("nurseryJson_name");//苗圃名称:
+            address.fullAddress = fullAddress;
+            address.isDefault = isDefault;//是否默认
+            D.e("===========获取的地址==========" + address.toString());
+
+            return address;
+        }
+
+    }
+
+
+    public static final String IMAGES = "images";//图片
+    public static final String ADDRESS = "address";// 地址
+    public static final String PRICE = "price";// 价格
+    public static final String COUNT = "count";// 价格
+    public static final String PLANT_NAME = "plantName";// 品名
+    public static final String SPACE_MIN = "space_min";// 规格
+    public static final String SPACE_MAX = "space_max";// 规格
+
+    public static final String MIN_HEIGHT = "minHeight";//  最小高度
+    public static final String MAX_HEIGHT = "maxHeight";// 最大高度
+
+    public static final String MIN_CROWN = "min_crown";//  最小冠幅
+    public static final String MAX_CROWN = "max_crown";// 最大冠幅
+
+
+/**
+ *   //地址对象
+ AdressActivity.Address address = new AdressActivity.Address();
+ address.addressId = this.saveSeedingGsonBean.getData().nursery.getId();
+ address.contactPhone = this.saveSeedingGsonBean.getData().nursery.contactPhone;
+ address.contactName = this.saveSeedingGsonBean.getData().nursery.contactName;
+ address.cityName = this.saveSeedingGsonBean.getData().nursery.getCityName();
+ address.name = this.saveSeedingGsonBean.getData().nursery.getName();//苗圃名称
+ address.fullAddress = this.saveSeedingGsonBean.getData().nursery.getFullAddress();//详细地址
+ address.isDefault = this.saveSeedingGsonBean.getData().nursery.isDefault;
+ */
 
 
 }

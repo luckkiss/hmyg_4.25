@@ -51,9 +51,12 @@ public class SaveSeedingGsonBean implements Serializable {
     }
 
     public static class DataBean implements Serializable {
+
+        public ArrayList<SeedlingBean.ImagesJsonBean> seedlingImage = new ArrayList<>();
         public boolean canQuote = false;
         public boolean isOneQuote = false;
         private SeedlingBean seedling = new SeedlingBean();
+//      private SeedlingBean seedlingNote = new SeedlingBean();
         private ItemBean item;
         public List<UsedQuoteListBean> usedQuoteList = new ArrayList<>();
         private List<TypeListBean> typeList;
@@ -125,6 +128,12 @@ public class SaveSeedingGsonBean implements Serializable {
             private int maxDbh;
             private int minOffbarHeight;
             private int maxOffbarHeight;
+
+            public String minSpec = "";
+            public String maxSpec ="";
+
+
+
             private int minLength;
             private int maxLength;
             private int minHeight;
@@ -1259,7 +1268,7 @@ public class SaveSeedingGsonBean implements Serializable {
                  * fullAddress : 福建省厦门市思明区梧村街道无
                  */
 
-                private String id = "";
+                public String id = "";
                 private String createBy;
                 private String createDate;
                 private String cityCode;
@@ -1283,10 +1292,10 @@ public class SaveSeedingGsonBean implements Serializable {
                 private String realName = "";
                 private String phone = "";
 
-                public String name; // 苗圃名称
-                public String fullAddress;//详细地址
-                public String contactPhone;//联系电话
-                public String contactName;//联系人姓名
+                public String name = ""; // 苗圃名称
+                public String fullAddress = "";//详细地址
+                public String contactPhone = "";//联系电话
+                public String contactName = "";//联系人姓名
                 public Boolean isDefault = false;//是否默认地址
 
 

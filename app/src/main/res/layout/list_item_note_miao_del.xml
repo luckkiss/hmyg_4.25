@@ -14,6 +14,8 @@
         android:id="@+id/swipe_manager1"
         layout="@layout/list_item_note_miao_new" />
 
+
+
     <TextView
         android:id="@+id/btn_delete_manager"
         android:layout_width="80dp"
