@@ -391,7 +391,7 @@ public class BActivity_new extends NeedSwipeBackActivity {
 
         TextView tv_07 = helper.getView(R.id.tv_07);
         TextView tv_08 = helper.getView(R.id.tv_08);
-        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego, tv_08);
+        ProductListAdapter.setPrice(tv_07, item.priceStr, item.minPrice, item.isNego, tv_08);
 
         tv_08.setText("元/" + item.unitTypeName);
         TextView tv_09 = helper.getView(R.id.tv_09);

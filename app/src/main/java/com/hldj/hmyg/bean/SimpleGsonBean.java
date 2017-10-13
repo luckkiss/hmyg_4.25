@@ -48,6 +48,23 @@ public class SimpleGsonBean implements Serializable {
         public boolean   showSeedlingNoteShare = false ;
 
 
+
+
+        public SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean nursery ;
+
+
+//        public String name ="-";
+//        public String detailAddress ="-";
+//        public String contactName ="-";
+//        public String contactPhone ="-";
+//        public boolean isDefault ;
+//        public String id ="";
+
+
+
+
+
+
     }
 
 

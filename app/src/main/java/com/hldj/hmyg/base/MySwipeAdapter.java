@@ -109,11 +109,12 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
 
         boolean isNeGo = seedlingBean.isNego();
         String maxPrice = seedlingBean.getMinPrice() + "";
+        String priceStr = seedlingBean.getPriceStr() + "";
         String minPrice = seedlingBean.getMaxPrice() + "";
 
         TextView tv_08 = (TextView) view.findViewById(R.id.tv_08);
         tv_08.setText("/" + seedlingBean.getUnitTypeName());
-        ProductListAdapter.setPrice(tv_07, maxPrice, minPrice, isNeGo, tv_08);
+        ProductListAdapter.setPrice(tv_07, priceStr, minPrice, isNeGo, tv_08);
 
 //           库存
         TextView tv_09 = (TextView) view.findViewById(R.id.tv_09);

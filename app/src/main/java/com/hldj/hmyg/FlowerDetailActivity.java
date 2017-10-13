@@ -222,6 +222,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     private boolean isFirst; //第一次加载
     private SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean;
     private AlphaTitleScrollView scroll;
+    private String priceStr;
 
 
     @Override
@@ -677,9 +678,10 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
                                     min_price = JsonGetInfo.getJsonString(jsonObject2, "minPrice");
                                     max_price = JsonGetInfo.getJsonString(jsonObject2, "maxPrice");
+                                    priceStr = JsonGetInfo.getJsonString(jsonObject2, "priceStr");
                                     isNego = JsonGetInfo.getJsonBoolean(jsonObject2, "isNego");
 
-                                    ProductListAdapter.setPrice(tv_price, max_price, min_price, isNego, tv_unitTypeName);
+                                    ProductListAdapter.setPrice(tv_price, priceStr, min_price, isNego, tv_unitTypeName);
 
                                     //库存数量
                                     stock = JsonGetInfo.getJsonInt(jsonObject2, "stock");

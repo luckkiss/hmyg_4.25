@@ -79,6 +79,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
     private EditText et_name;
 
     private EditText et_price;
+    private EditText et_remarks; //备注
     private EditText et_FloorPrice;
 
     private String count = "";
@@ -224,6 +225,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 
         et_name = (EditText) findViewById(R.id.et_name);
         et_price = (EditText) findViewById(R.id.et_price);
+        et_remarks = (EditText) findViewById(R.id.et_remark);
         et_FloorPrice = (EditText) findViewById(R.id.et_FloorPrice);
         et_count = (EditText) findViewById(R.id.et_count);
         et_height = (EditText) findViewById(R.id.et_height);
@@ -325,6 +327,8 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
             et_name.setText(getIntent().getStringExtra("name"));
 
 
+            //备注
+            et_remarks.setText(getIntent().getStringExtra("remarks"));
             if (!"0".equals(getIntent().getStringExtra("price"))
                     && !"0.0".equals(getIntent().getStringExtra("price"))) {
                 et_price.setText(getIntent().getStringExtra("price"));
@@ -686,6 +690,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
         params.put("firstSeedlingTypeId", firstSeedlingTypeId);
         params.put("name", et_name.getText().toString());
         params.put("price", et_price.getText().toString());
+        params.put("remarks", et_remarks.getText().toString());
         params.put("nurseryId", addressId);
         params.put("count", et_count.getText().toString());
         params.put("minHeight", et_height.getText().toString());
@@ -919,6 +924,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
         resetEdit(et_name);
         resetEdit(et_price);
         resetEdit(et_count);
+        resetEdit(et_remarks);
 
         resetEdit(et_crown);
         resetEdit(et_maxCrown);

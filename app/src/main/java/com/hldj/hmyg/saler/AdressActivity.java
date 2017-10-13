@@ -59,8 +59,19 @@ public class AdressActivity extends BaseMVPActivity<AdressListPresenter, AdressL
             ToastUtil.showShortToast("修改成功^_^");
         } else if (resultCode == ConstantState.ADD_SUCCEED) {
             coreRecyclerView.onRefresh();
+
+            //添加成功不需要刷新，直接把新增 address  对象 返回到上一页
+
+            if (data != null) {
+                if (data.getSerializableExtra("address") instanceof AdressActivity.Address) {
+                    AdressActivity.Address address = (AdressActivity.Address) data.getSerializableExtra("address");
+                    onAddressSelectListener.onAddressSelect(address);
+                }
+            }
             ToastUtil.showShortToast("新增地址成功^_^");
-        } else if (resultCode == ConstantState.DELETE_SUCCEED){
+            finish();
+
+        } else if (resultCode == ConstantState.DELETE_SUCCEED) {
             coreRecyclerView.onRefresh();
             ToastUtil.showShortToast("删除成功^_^");
         }
@@ -167,7 +178,7 @@ public class AdressActivity extends BaseMVPActivity<AdressListPresenter, AdressL
                     address.contactName = item.contactName;
                     address.contactPhone = item.contactPhone;
                     address.fullAddress = item.fullAddress;
-                    address.name = item.name ;
+                    address.name = item.name;
                     address.isDefault = item.isDefault;
                     D.e("====" + item.isDefault);
 //                    if (TextUtils.isEmpty(item.twCode)) {

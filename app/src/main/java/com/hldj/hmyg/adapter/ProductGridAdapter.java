@@ -132,8 +132,9 @@ public class ProductGridAdapter extends BaseAdapter {
         boolean isNego = (boolean) data.get(position).get("isNego");
         String minPrice = data.get(position).get("minPrice") + "";
         String maxPrice = data.get(position).get("maxPrice") + "";
+        String priceStr = data.get(position).get("priceStr") + "";
         holder.tv_08.setText("元/" + data.get(position).get("unitTypeName"));
-        ProductListAdapter.setPrice(holder.tv_07, maxPrice, minPrice, isNego,holder.tv_08);
+        ProductListAdapter.setPrice(holder.tv_07, priceStr, minPrice, isNego,holder.tv_08);
 
 //        holder.tv_07.setText(ValueGetInfo.doubleTrans1(Double.parseDouble(data.get(position).get("price").toString())));
 

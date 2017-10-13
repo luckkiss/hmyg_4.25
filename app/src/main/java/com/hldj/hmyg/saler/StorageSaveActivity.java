@@ -728,7 +728,7 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
             TextView tv_07 = myViewHolder.getView(R.id.tv_07);//价格
 
 
-            ProductListAdapter.setPrice(tv_07, seedlingBean.getMaxPrice(), seedlingBean.getMinPrice(), seedlingBean.isNego(), null);
+            ProductListAdapter.setPrice(tv_07, seedlingBean.getPriceStr(), seedlingBean.getMinPrice(), seedlingBean.isNego(), null);
 
 
             TextView tv_num_res = myViewHolder.getView(R.id.tv_num_res);//库存

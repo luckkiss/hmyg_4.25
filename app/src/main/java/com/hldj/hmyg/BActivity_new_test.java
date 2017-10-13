@@ -123,7 +123,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
     }
 
 
-    public static void setColor(TextView tvLeft, TextView tvRight, String tag , Activity mActivity) {
+    public static void setColor(TextView tvLeft, TextView tvRight, String tag, Activity mActivity) {
         if (tag.equals("0")) {
             tvLeft.setTextColor(ContextCompat.getColor(mActivity, R.color.main_color));
             tvRight.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color));
@@ -160,13 +160,13 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
         //筛选
         getView(R.id.tv_b_filter).setOnClickListener(v -> {
             SellectActivity2.start2Activity(this, queryBean);
-            setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "0",mActivity);
+            setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "0", mActivity);
         });
 
         //排序
         getView(R.id.tv_b_sort).setOnClickListener(v -> {
             ChoiceSortList();
-            setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "1",mActivity);
+            setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "1", mActivity);
         });
 
 
@@ -452,9 +452,12 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 
         TextView tv_07 = helper.getView(R.id.tv_07);
         TextView tv_08 = helper.getView(R.id.tv_08);
-        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego, tv_08);
+        tv_08.setVisibility(View.GONE);
+//        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego, tv_08);
+//        tv_07.setText("priceStr --- >" + item.priceStr);
+        ProductListAdapter.setPrice(tv_07, item.priceStr, item.minPrice, item.isNego, tv_08);
 
-        tv_08.setText("元/" + item.unitTypeName);
+//        tv_08.setText("元/" + item.unitTypeName);
         TextView tv_09 = helper.getView(R.id.tv_09);
         tv_09.setText("库存：" + item.count);
 
@@ -470,7 +473,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
         tv_03.setText(item.ciCity.fullName);
         TextView tv_07 = helper.getView(R.id.tv_07);
         TextView tv_08 = helper.getView(R.id.tv_08);
-        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego, tv_08);
+        ProductListAdapter.setPrice(tv_07, item.priceStr, item.minPrice, item.isNego, tv_08);
 
         tv_08.setText("元/" + item.unitTypeName);
         bitmap.display(iv_img, item.smallImageUrl);

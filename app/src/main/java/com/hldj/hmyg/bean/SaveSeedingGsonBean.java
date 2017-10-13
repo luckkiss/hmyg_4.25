@@ -1281,7 +1281,7 @@ public class SaveSeedingGsonBean implements Serializable {
                 private CiCityBeanX ciCity;
                 private CoCityBeanX coCity;
                 private TwCityBeanX twCity;
-                private String detailAddress;
+                private String detailAddress = "-";
                 private int nurseryArea;
                 private String type;
                 private String typeName;

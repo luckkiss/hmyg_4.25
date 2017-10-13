@@ -890,6 +890,9 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                                         hMap.put("maxPrice", JsonGetInfo
                                                 .getJsonString(jsonObject3,
                                                         "maxPrice"));
+                                        hMap.put("priceStr", JsonGetInfo
+                                                .getJsonString(jsonObject3,
+                                                        "priceStr"));
 
 
                                         hMap.put("count", JsonGetInfo

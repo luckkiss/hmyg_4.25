@@ -27,6 +27,7 @@ import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
 import com.mrwujay.cascade.activity.GetCitiyNameByCode;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.zf.iosdialog.widget.AlertDialog;
 
 import net.tsz.afinal.FinalHttp;
@@ -51,6 +52,7 @@ public class AddAdressActivity extends BaseMVPActivity {
 
     @Override
     public void initView() {
+        ToastUtil.showShortToast("添加地址界面");
         addressBean = new AddressBean();
 
         if (getExtral() != null) {
@@ -127,18 +129,36 @@ public class AddAdressActivity extends BaseMVPActivity {
             myPresenter.doSave(constructionBean(), new AjaxCallBack<String>() {
                 @Override
                 public void onSuccess(String json) {
-                    SimpleGsonBean bean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
-                    hindLoading();
-                    if (bean.isSucceed()) {
-                        if (isAddAddr()) {
-                            setResult(ConstantState.ADD_SUCCEED);
-                        } else {
-                            setResult(ConstantState.CHANGE_DATES);
-                        }
 
+                    try {
+                        SimpleGsonBean bean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
+                        hindLoading();
+                        if (bean.isSucceed()) {
+                            if (isAddAddr()) {
+                                AdressActivity.Address address = new AdressActivity.Address();
+                                address.isDefault = bean.getData().nursery.isDefault;
+                                address.addressId = bean.getData().nursery.id;
+                                address.fullAddress = bean.getData().nursery.fullAddress;
+                                address.contactName = bean.getData().nursery.contactName;
+                                address.contactPhone = bean.getData().nursery.contactPhone;
+                                address.name = bean.getData().nursery.name;
+                                Intent intent = new Intent();
+                                intent.putExtra("address", address);
+                                setResult(ConstantState.ADD_SUCCEED, intent);
+                            } else {
+                                setResult(ConstantState.CHANGE_DATES);
+                            }
+
+                            finish();
+                        } else {
+                            ToastUtil.showShortToast(bean.msg);
+                        }
+                    } catch (Exception e) {
+                        setResult(ConstantState.ADD_SUCCEED);
                         finish();
-                    } else {
-                        ToastUtil.showShortToast(bean.msg);
+                        D.e("=============自动显示失败========");
+                        CrashReport.postCatchedException(e);
+                        e.printStackTrace();
                     }
                 }
 
@@ -195,9 +215,8 @@ public class AddAdressActivity extends BaseMVPActivity {
      * @param extral 地址对象
      */
     private void initExtral(AddressBean extral) {
-        if (extral==null)
-        {
-            extral= new AddressBean();
+        if (extral == null) {
+            extral = new AddressBean();
         }
 
         this.setText(getView(R.id.et_aaa_name), extral.name);//苗圃名称

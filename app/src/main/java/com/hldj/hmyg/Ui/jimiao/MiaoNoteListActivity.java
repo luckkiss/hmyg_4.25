@@ -260,6 +260,10 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                 .get("name").toString());
         toMiaoNoteListActivity.putExtra("price", datas
                 .get(position - 1).get("price").toString());
+
+        toMiaoNoteListActivity.putExtra("remarks", datas
+                .get(position - 1).get("remarks").toString());
+
         toMiaoNoteListActivity.putExtra("minSpec",
                 datas.get(position - 1).get("minSpec").toString());
         toMiaoNoteListActivity.putExtra("maxSpec",
@@ -719,6 +723,13 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                                         hMap.put("price", JsonGetInfo
                                                 .getJsonString(jsonObject3,
                                                         "price"));
+
+                                        hMap.put("remarks", JsonGetInfo
+                                                .getJsonString(jsonObject3,
+                                                        "remarks"));
+
+
+
                                         hMap.put("count", JsonGetInfo
                                                 .getJsonInt(jsonObject3,
                                                         "count"));
@@ -772,7 +783,7 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
 
                                         /*日期  */
                                         hMap.put("nurseryJson_createDate", JsonGetInfo
-                                                .getJsonString(nurseryJson,
+                                                .getJsonString(jsonObject3,
                                                         "createDate"));
 
                                         /*苗圃名称*/

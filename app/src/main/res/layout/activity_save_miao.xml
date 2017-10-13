@@ -597,6 +597,52 @@
 
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/y34"
+                android:background="@drawable/feedback_content_edittext_shape"
+                android:orientation="horizontal"
+                android:padding="1px">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/more_item_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/x12"
+                        android:text="备注"
+                        android:textSize="@dimen/x15" />
+
+                    <EditText
+                        android:id="@+id/et_remark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="9dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/conner_edit"
+                        android:gravity="center_vertical"
+                        android:hint="请输入备注"
+                        android:imeOptions="actionNext"
+                        android:padding="5dp"
+                        android:maxLines="3"
+                        android:paddingLeft="@dimen/x12"
+                        android:textColorHint="@color/hint_text_color"
+                        android:textSize="@dimen/x15" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:id="@+id/ll_save"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y34"
@@ -626,8 +672,7 @@
                 <Button
                     android:id="@+id/save"
                     style="@style/bottom_button_green"
-                    android:text="保存并继续"
-                    />
+                    android:text="保存并继续" />
             </LinearLayout>
 
 

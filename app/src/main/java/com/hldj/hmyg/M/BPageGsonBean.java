@@ -47,16 +47,16 @@ public class BPageGsonBean {
                 public String firstSeedlingTypeId;
                 public String secondSeedlingTypeId;
                 public String dbhType;
-                public String plantType ="";
+                public String plantType = "";
                 public String unitType;
                 public String imageUrl;
-                public String minDbh;
+
                 public String minHeight;
                 public String minCrown;
-                public String extParamsJson;
+
                 public String ossUrl;
                 public String firstTypeName;
-                public String secondTypeName;
+
                 public String unitTypeName;
                 public String plantTypeName;
                 public String diameterTypeName;
@@ -68,51 +68,38 @@ public class BPageGsonBean {
                 public String seedlingParams;
                 public String specText;
                 public String name = "";
-                public String seedlingNum;
+
                 public boolean isNego;
-                public String minPrice;
-                public String maxPrice;
+
                 public int validity;
                 public String nurseryId;
                 public String count;
-                public int saleCount;
+
                 public String status;
-                public boolean isAudit;
+
                 public String publishDate;
                 public String closeDate;
-                public String ownerId;
-                public String createUserType;
-                public String updateUserType;
-                public String auditLogId;
-                public String sourceType;
-                public int visitsCount;
+
                 public String customerId;
-                public boolean isSelfSupport;
+
                 public OwnerJsonbean ownerJson;
                 public long lastTime;
-                public int lastDay;
-                public int stock;
+
                 public String orderBy;
                 public String statusName;
-                public String standardName;
-                public String distanceStr;
-                public String seedlingLabel;
+
                 public boolean cashOnDelivery;
-                public boolean isServiceCovered;
-                public String priceStr;
-                public String diameterStr;
-                public String dbhStr;
-                public String heightStr;
-                public String crownStr;
-                public String offbarHeightStr;
-                public String lengthStr;
-                public boolean isRecommend;
-                public boolean isPartners;
+
                 public String diameterType;
-                public String minDiameter;
+
                 public List<String> paramsList;
                 public List<SpecListbean> specList;
                 public List<TagListbean> tagList;
+
+
+                public String minPrice = "";
+                public String maxPrice = "";
+                public String priceStr = "-";
 
                 public SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean nurseryJson = new SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean();
 
