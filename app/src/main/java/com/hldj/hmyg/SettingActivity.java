@@ -70,7 +70,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         findViewById(R.id.test_show_pach).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showShortToast("优化记苗本");
+                ToastUtil.showShortToast("暂无优化记录");
                 /**
                  * Beta.cleanTinkerPatch();
                  注：清除补丁之后，就会回退基线版本状态。

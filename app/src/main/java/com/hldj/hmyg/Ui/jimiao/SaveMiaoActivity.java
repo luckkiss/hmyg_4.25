@@ -246,7 +246,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 
             id = getIntent().getStringExtra("id");
 
-            tv_id_num.setText("编号：" + id);
+//            tv_id_num.setText("编号：" + id);
 //            getDetail(id);
 
 //            Observable.just(id)

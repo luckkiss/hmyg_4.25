@@ -90,7 +90,7 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/x12"
-                android:text="编号：M325048"
+                tools:text="编号：M325048"
                 android:textSize="@dimen/x15"
                 android:visibility="gone"
                 tools:visibility="visible" />

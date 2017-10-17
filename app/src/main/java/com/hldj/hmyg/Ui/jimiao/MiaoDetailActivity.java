@@ -58,6 +58,7 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
     private EditText et_name;
 
     private EditText et_price;
+    private TextView tv_remarks;
 
     private String count = "";
 
@@ -135,6 +136,7 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
         tv_address = (TextView) findViewById(R.id.tv_address);
         et_name = (EditText) findViewById(R.id.et_name);
         et_price = (EditText) findViewById(R.id.et_price);
+        tv_remarks = (TextView) findViewById(R.id.tv_remarks);
 
         et_count = (EditText) findViewById(R.id.et_count);
         et_height = (EditText) findViewById(R.id.et_height);
@@ -226,6 +228,8 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
             nurseryJson_name = getIntent().getStringExtra("nurseryJson_name");
             et_name.setText(getIntent().getStringExtra("name"));
             et_price.setText(getIntent().getStringExtra("price"));
+            tv_remarks.setText(getIntent().getStringExtra("remarks"));
+            tv_remarks.setText("备注：" + getIntent().getStringExtra("remarks"));
             et_count.setText(count);
             if ("0".equals(height)) {
                 height = "";
@@ -397,12 +401,12 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
 
 
     public void CallPhone(View view) {
-        postWhoPhone(id,contactPhone , ConstantState.TYPE_NURSERY);
+        postWhoPhone(id, contactPhone, ConstantState.TYPE_NURSERY);
         FlowerDetailActivity.CallPhone(contactPhone, mActivity);
     }
 
     public void CallPhone1(View view) {
-        postWhoPhone(id,ownerPhone , ConstantState.TYPE_OWNER);
+        postWhoPhone(id, ownerPhone, ConstantState.TYPE_OWNER);
         FlowerDetailActivity.CallPhone(ownerPhone, mActivity);
     }
 
@@ -440,7 +444,7 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
 
                     @Override
                     public void onFailure(Throwable t, int errorNo, String strMsg) {
-                        Log.e("接口failure",strMsg);
+                        Log.e("接口failure", strMsg);
                     }
                 });
     }

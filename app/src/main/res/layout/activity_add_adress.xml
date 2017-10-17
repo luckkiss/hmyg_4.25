@@ -14,8 +14,6 @@
         android:id="@+id/view5"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
         android:layout_marginTop="14dp"
         android:background="@color/gray_bg_ed"
         android:text="TextView"
@@ -27,10 +25,7 @@
     <View
         android:id="@+id/view6"
         android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="14dp"
+        android:layout_height="0dp"
         android:background="@color/gray_bg_ed"
         android:text="TextView"
         android:visibility="gone"
@@ -43,8 +38,6 @@
         android:id="@+id/view8"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
         android:layout_marginTop="14dp"
         android:background="@color/gray_bg_ed"
         android:text="TextView"
@@ -57,8 +50,6 @@
         android:id="@+id/view11"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
         android:layout_marginTop="14dp"
         android:background="@color/gray_bg_ed"
         android:text="TextView"
@@ -71,8 +62,6 @@
         android:id="@+id/view7"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
         android:layout_marginTop="14dp"
         android:background="@color/gray_bg_ed"
         android:text="TextView"
@@ -96,7 +85,6 @@
         android:id="@+id/textView19"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginLeft="0dp"
         android:layout_marginTop="14dp"
         android:background="@color/gray_bg_ed"
         android:text="TextView"
@@ -108,9 +96,6 @@
         android:id="@+id/textView36"
         android:layout_width="0dp"
         android:layout_height="12dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
         android:background="@color/gray_bg_ed"
         android:text="TextView"
         app:layout_constraintHorizontal_bias="0.0"
@@ -122,8 +107,6 @@
         android:id="@+id/view3"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
         android:layout_marginTop="14dp"
         android:background="@color/gray_bg_ed"
         android:text="TextView"
@@ -136,8 +119,6 @@
         android:id="@+id/view4"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
         android:layout_marginTop="14dp"
         android:background="@color/gray_bg_ed"
         android:text="TextView"
@@ -154,7 +135,8 @@
         android:layout_marginTop="14dp"
         android:text="联  系  人："
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        app:layout_constraintTop_toBottomOf="@+id/textView19"
+        android:layout_marginStart="14dp" />
 
     <TextView
         android:id="@+id/textView21"
@@ -166,7 +148,8 @@
 
         android:text="联系电话："
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3" />
+        app:layout_constraintTop_toBottomOf="@+id/view3"
+        android:layout_marginStart="14dp" />
 
     <TextView
         android:id="@+id/textView22"
@@ -177,19 +160,17 @@
         android:drawableLeft="@drawable/seller_redstar"
         android:text="所在区域"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view5" />
+        app:layout_constraintTop_toBottomOf="@+id/view5"
+        android:layout_marginStart="14dp" />
 
     <TextView
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="14dp"
         android:text="所在街道"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view7"
-        tools:layout_editor_absoluteY="252dp" />
+        app:layout_constraintTop_toBottomOf="@+id/view7" />
 
     <TextView
         android:id="@+id/textView24"
@@ -199,7 +180,8 @@
         android:layout_marginTop="14dp"
         android:text="地图标注"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view8" />
+        app:layout_constraintTop_toBottomOf="@+id/view8"
+        android:layout_marginStart="14dp" />
 
     <TextView
         android:id="@+id/textView25"
@@ -211,7 +193,8 @@
         android:text="详细地址："
 
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view6" />
+        app:layout_constraintTop_toBottomOf="@+id/view6"
+        android:layout_marginStart="14dp" />
 
     <CheckBox
         android:id="@+id/checkBox3"
@@ -224,14 +207,17 @@
         android:text="设为默认地址"
         android:textColor="@color/text_color666"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view11" />
+        app:layout_constraintTop_toBottomOf="@+id/view11"
+        android:layout_marginStart="14dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="100dp" />
+        app:layout_constraintGuide_begin="100dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="100dp" />
 
 
     <EditText
@@ -250,7 +236,9 @@
         app:layout_constraintLeft_toLeftOf="@+id/guideline6"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view4"
-        tools:text="1345464646" />
+        tools:text="1345464646"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <EditText
         android:id="@+id/et_aaa_contactName"
@@ -266,7 +254,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/guideline6"
         app:layout_constraintRight_toRightOf="parent"
-        tools:text="1345464646" />
+        tools:text="1345464646"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <EditText
         android:id="@+id/et_aaa_detailAddress"
@@ -274,7 +264,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="0dp"
         android:background="@color/trans"
         android:maxLines="2"
         android:singleLine="true"
@@ -284,7 +273,9 @@
         app:layout_constraintLeft_toLeftOf="@+id/guideline6"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView25"
-        tools:text="鼓浪屿" />
+        tools:text="鼓浪屿"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <EditText
         android:id="@+id/et_aaa_name"
@@ -304,29 +295,31 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView36"
         app:layout_constraintVertical_bias="0.437"
-        tools:text="苗圃名称" />
+        tools:text="苗圃名称"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/tv_aaa_loac"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="15dp"
         android:drawablePadding="5dp"
         android:drawableRight="@drawable/ic_arrow_right"
-        android:gravity="end"
+        android:gravity="end|center_vertical"
         android:text="点击智能定位"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view8" />
+        app:layout_constraintTop_toTopOf="@+id/view8"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/view11"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline6" />
 
     <TextView
         android:id="@+id/tv_aaa_street"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="0dp"
         android:drawablePadding="5dp"
         android:drawableRight="@drawable/ic_arrow_right"
         android:gravity="end"
@@ -342,21 +335,22 @@
     <TextView
         android:id="@+id/tv_aaa_area"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_height="0dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="0dp"
         android:drawablePadding="5dp"
         android:drawableRight="@drawable/ic_arrow_right"
-        android:gravity="end"
+        android:gravity="end|center_vertical"
+
         app:layout_constraintBottom_toTopOf="@+id/view7"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/guideline6"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view5"
         app:layout_constraintVertical_bias="0.695"
-        tools:text="福建省厦门市思明区tools" />
+        tools:text="福建省厦门市思明区tools"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/tv_aaa_save"

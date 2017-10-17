@@ -10,6 +10,7 @@ import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.widget.AutoAddRelative;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
 
 import java.util.ArrayList;
@@ -131,7 +132,9 @@ public class SaveSeedlingActivity_pubsh_quick extends SaveSeedlingActivityBase {
 
 
         if (null != arrayList_holders && arrayList_holders.size() != 0) {
-            arrayList_holders.forEach(autoAddRelative -> {
+
+            for (int i = 0; i < arrayList_holders.size(); i++) {
+                AutoAddRelative autoAddRelative = arrayList_holders.get(i);
                 D.e("==========tag==========" + autoAddRelative.getTag());
                 if (autoAddRelative.getTag().equals("高度")) {
                     autoAddRelative.getViewHolder().et_auto_add_min.setText(min_height);
@@ -144,7 +147,11 @@ public class SaveSeedlingActivity_pubsh_quick extends SaveSeedlingActivityBase {
                     autoAddRelative.getViewHolder().et_auto_add_max.setText("");
                 }
 
-            });
+            }
+
+//            arrayList_holders.forEach(autoAddRelative -> {
+//
+//            });
         }
 
 
@@ -154,8 +161,10 @@ public class SaveSeedlingActivity_pubsh_quick extends SaveSeedlingActivityBase {
 
         String price = bean.price;
         String count = bean.getCount() + "";
+        String remarks = bean.getRemarks() + "";
         viewHolder.bottom_ll.getHolder().tv_save_seeding_price_min.setText(price);
         viewHolder.bottom_ll.getHolder().et_repertory_num.setText(count);
+        viewHolder.bottom_ll.getHolder().et_remark.setText(remarks);
     }
 
     int index = 0;

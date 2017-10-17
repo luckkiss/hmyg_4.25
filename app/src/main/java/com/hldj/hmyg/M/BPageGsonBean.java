@@ -57,7 +57,7 @@ public class BPageGsonBean {
                 public String ossUrl;
                 public String firstTypeName;
 
-                public String unitTypeName;
+                public String unitTypeName ="";
                 public String plantTypeName;
                 public String diameterTypeName;
                 public String dbhTypeName;
@@ -73,16 +73,16 @@ public class BPageGsonBean {
 
                 public int validity;
                 public String nurseryId;
-                public String count;
+                public String count = "";
 
                 public String status;
 
                 public String publishDate;
-                public String closeDate;
+                public String closeDate = "";
 
                 public String customerId;
 
-                public OwnerJsonbean ownerJson;
+                public OwnerJsonbean ownerJson ;
                 public long lastTime;
 
                 public String orderBy;
@@ -135,15 +135,15 @@ public class BPageGsonBean {
                     public String coCode;
                     public String twCode;
                     public String userName;
-                    public String realName;
-                    public String publicName;
+                    public String realName ="";
+                    public String publicName ="";
                     public String publicPhone;
                     public String plainPassword;
                     public String sex;
                     public String phone;
                     public String email;
                     public String address;
-                    public String companyName;
+                    public String companyName ="";
                     public String status;
                     public boolean isInvoices;
                     public String permissions;

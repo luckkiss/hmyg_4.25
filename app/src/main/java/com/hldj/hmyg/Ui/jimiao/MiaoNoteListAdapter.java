@@ -27,6 +27,7 @@ import net.tsz.afinal.FinalBitmap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.fanrunqi.swipelayoutlibrary.SwipeLayout;
 
@@ -163,7 +164,7 @@ public class MiaoNoteListAdapter extends BaseAdapter {
 
 //        holder.tv_05.setText(ValueGetInfo.doubleTrans1(Double.parseDouble(data.get(position).get("price").toString())));
         holder.tv_05.setText(FUtil.$_head("￥", data.get(position).get("price").toString()));
-        holder.tv_07.setText(FUtil.$_zero( data.get(position).get("count").toString()));//数量
+        holder.tv_07.setText(FUtil.$_zero(data.get(position).get("count").toString()));//数量
         String minSpec = data.get(position).get("minSpec").toString();
         String maxSpec = data.get(position).get("maxSpec").toString();
         if ("0".equals(minSpec)) {
@@ -238,7 +239,7 @@ public class MiaoNoteListAdapter extends BaseAdapter {
 
         if (null != myItemClickLister_content) {
 //            String ownerId = data.get(position).get("ownerId").toString();
-            myItemClickLister_content.OnTvVisibleChange(is, holder.tv_mpmc_lxr_dh, holder.lxr, holder.textView27, holder.textView,holder.view_line);
+            myItemClickLister_content.OnTvVisibleChange(is, holder.tv_mpmc_lxr_dh, holder.lxr, holder.textView27, holder.textView, holder.view_line);
         }
 
         //true  绿色     显示   发布到商城
@@ -312,11 +313,22 @@ public class MiaoNoteListAdapter extends BaseAdapter {
 
 
         HashMap<String, Object> hashMap = this.data.get(pos);
-        hashMap.forEach((s, o) -> {
-            if (s.equals("seedlingId")) {
-                hashMap.put(s, noteId);
+
+        //http://www.trinea.cn/android/hashmap-loop-performance/   map 4种便利方式
+
+
+        for (Map.Entry<String, Object> entry : hashMap.entrySet()) {
+            String key = entry.getKey();
+//            Object value = entry.getValue();
+            if ("seedlingId".equals(key)) {
+                hashMap.put(key, noteId);
             }
-        });
+        }
+//        hashMap.forEach((s, o) -> {
+//            if ("seedlingId".equals(s)) {
+//                hashMap.put(s, noteId);
+//            }
+//        });
         this.data.set(pos, hashMap);
         this.notifyDataSetChanged();
 

@@ -52,7 +52,7 @@ public class AddAdressActivity extends BaseMVPActivity {
 
     @Override
     public void initView() {
-        ToastUtil.showShortToast("添加地址界面");
+//        ToastUtil.showShortToast("添加地址界面");
         addressBean = new AddressBean();
 
         if (getExtral() != null) {
