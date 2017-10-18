@@ -439,6 +439,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             indexGsonBean = GsonUtil.formateJson2Bean(t, IndexGsonBean.class);
         } catch (Exception e) {
             CrashReport.postCatchedException(e);  // bugly会将这个throwable上报
+            ToastUtil.showShortToast("数据解析失败");
             e.printStackTrace();
         }
         if (indexGsonBean!=null && indexGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {

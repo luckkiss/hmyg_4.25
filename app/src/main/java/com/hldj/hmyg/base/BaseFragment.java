@@ -37,7 +37,7 @@ public abstract class BaseFragment extends Fragment {
 
     public View rootView;
 
-   protected   LoadingLayout loadingLayout;
+    protected LoadingLayout loadingLayout;
     private View loadPage;
 
 
@@ -59,8 +59,7 @@ public abstract class BaseFragment extends Fragment {
 
     // 获取loading view
     protected final void initLoadingView(View rootView) {
-        if (loadingLayout== null)
-        {
+        if (loadingLayout == null) {
             loadingLayout = (LoadingLayout) rootView.findViewById(bindLoadingLayout());
         }
 
@@ -156,6 +155,9 @@ public abstract class BaseFragment extends Fragment {
 
     public void hideLoading(int loadState) {
         if (loadingLayout == null) {
+            return;
+        }
+        if (getActivity() == null) {
             return;
         }
         ImageView img = (ImageView) loadPage.findViewById(R.id.iv_amin_flowar);
@@ -262,14 +264,15 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
-    public void showActivityLoading(){
-        if(mActivity != null && mActivity instanceof NeedSwipeBackActivity){
+    public void showActivityLoading() {
+        if (mActivity != null && mActivity instanceof NeedSwipeBackActivity) {
             ((NeedSwipeBackActivity) mActivity).showLoading();
         }
     }
 
-    public void hideActivityLoading(){
-        if(mActivity != null && mActivity instanceof NeedSwipeBackActivity){
+    public void hideActivityLoading() {
+        // && !mActivity.isFinishing()
+        if (mActivity != null && mActivity instanceof NeedSwipeBackActivity) {
             ((NeedSwipeBackActivity) mActivity).hindLoading();
         }
     }
