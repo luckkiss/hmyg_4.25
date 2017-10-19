@@ -70,7 +70,8 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         findViewById(R.id.test_show_pach).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showShortToast("暂无优化记录");
+                ToastUtil.showShortToast("1.增加记苗本快速保存图片功能"+
+                        "2.记苗本增加 ** M量 规格选项");
                 /**
                  * Beta.cleanTinkerPatch();
                  注：清除补丁之后，就会回退基线版本状态。

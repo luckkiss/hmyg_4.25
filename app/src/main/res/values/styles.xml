@@ -511,6 +511,7 @@
         <item name="android:layout_height">1px</item>
         <item name="android:background">@color/gray_bg</item>
     </style>
+
     <style name="View_line_divider_1px">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
@@ -749,8 +750,6 @@
     </style>
 
 
-
-
     <style name="bottom_button_green">
         <item name="android:layout_width">0.0dip</item>
         <item name="android:layout_height">@dimen/y31</item>
@@ -787,7 +786,18 @@
     </style>
 
 
-
+    <style name="simple_radio_bg">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/tag_bg2</item>
+        <item name="android:button">@null</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingLeft">9dp</item>
+        <item name="android:paddingRight">9dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:textColor">@color/rb_left_selecteor</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 
 
 </resources>

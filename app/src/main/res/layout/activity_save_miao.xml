@@ -90,9 +90,9 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/x12"
-                tools:text="编号：M325048"
                 android:textSize="@dimen/x15"
                 android:visibility="gone"
+                tools:text="编号：M325048"
                 tools:visibility="visible" />
 
 
@@ -338,6 +338,69 @@
                     android:textColorHint="@color/hint_text_color"
                     android:textSize="@dimen/x15" />
             </LinearLayout>
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:scrollbars="none">
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:padding="6dp"
+                    android:visibility="visible">
+
+
+                    <RadioButton
+                        android:id="@+id/rb_auto_add_left_ctl"
+                        style="@style/simple_radio_bg"
+                        android:layout_marginRight="-1dp"
+                        android:text="出土量" />
+
+
+                    <RadioButton
+                        android:id="@+id/rb_auto_add_center0_1"
+                        style="@style/simple_radio_bg"
+                        android:layout_marginLeft="-2dp"
+                        android:text="0.1M量" />
+
+
+                    <RadioButton
+                        android:id="@+id/rb_auto_add_center0_3"
+                        style="@style/simple_radio_bg"
+                        android:layout_marginLeft="-2dp"
+                        android:text="0.3M量" />
+
+                    <RadioButton
+                        android:id="@+id/rb_auto_add_center1_0"
+                        style="@style/simple_radio_bg"
+                        android:layout_marginLeft="-2dp"
+                        android:text="1.0M量" />
+
+                    <RadioButton
+                        android:id="@+id/rb_auto_add_center1_2"
+                        style="@style/simple_radio_bg"
+                        android:layout_marginLeft="-2dp"
+                        android:text="1.2M量" />
+
+                    <RadioButton
+                        android:id="@+id/rb_auto_add_right"
+                        style="@style/simple_radio_bg"
+                        android:layout_marginLeft="-2dp"
+                        android:text="1.3M量" />
+                </RadioGroup>
+
+
+            </HorizontalScrollView>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -599,8 +662,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/y34"
                 android:background="@drawable/feedback_content_edittext_shape"
+                android:minHeight="@dimen/y34"
                 android:orientation="horizontal"
                 android:padding="1px">
 
@@ -633,8 +696,8 @@
                         android:gravity="center_vertical"
                         android:hint="请输入备注"
                         android:imeOptions="actionNext"
-                        android:padding="5dp"
                         android:maxLines="3"
+                        android:padding="5dp"
                         android:paddingLeft="@dimen/x12"
                         android:textColorHint="@color/hint_text_color"
                         android:textSize="@dimen/x15" />

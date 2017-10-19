@@ -1,6 +1,7 @@
 package com.hldj.hmyg.Ui.jimiao;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,6 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.hldj.hmyg.FlowerDetailActivity;
@@ -26,6 +28,7 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 import com.white.utils.SystemSetting;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
 import com.zzy.common.widget.MeasureGridView;
@@ -230,6 +233,19 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
             et_price.setText(getIntent().getStringExtra("price"));
             tv_remarks.setText(getIntent().getStringExtra("remarks"));
             tv_remarks.setText("备注：" + getIntent().getStringExtra("remarks"));
+
+            String staceType = getIntent().getStringExtra("specType");
+
+            RadioButton button = (RadioButton) findViewById(R.id.space_type);
+
+            if (TextUtils.isEmpty(getTextByKey(staceType))) {
+                ((ViewGroup) button.getParent()).setVisibility(View.GONE);
+            } else {
+                ((ViewGroup) button.getParent()).setVisibility(View.VISIBLE);
+                button.setText(getTextByKey(staceType));
+            }
+
+
             et_count.setText(count);
             if ("0".equals(height)) {
                 height = "";
@@ -287,6 +303,31 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
 
         list_item_adress.setOnClickListener(multipleClickProcess);
         id_tv_edit_all.setOnClickListener(multipleClickProcess);
+
+    }
+
+    private String getTextByKey(String staceType) {
+
+        if (SpecType.size0.getEnumValue().equals(staceType)) {
+            return SpecType.size0.getEnumText();
+        }
+        if (SpecType.size10.getEnumValue().equals(staceType)) {
+            return SpecType.size10.getEnumText();
+        }
+        if (SpecType.size30.getEnumValue().equals(staceType)) {
+            return SpecType.size30.getEnumText();
+        }
+        if (SpecType.size100.getEnumValue().equals(staceType)) {
+            return SpecType.size100.getEnumText();
+        }
+        if (SpecType.size120.getEnumValue().equals(staceType)) {
+            return SpecType.size120.getEnumText();
+        }
+        if (SpecType.size130.getEnumValue().equals(staceType)) {
+            return SpecType.size130.getEnumText();
+        } else {
+            return "";
+        }
 
     }
 
@@ -403,11 +444,17 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
     public void CallPhone(View view) {
         postWhoPhone(id, contactPhone, ConstantState.TYPE_NURSERY);
         FlowerDetailActivity.CallPhone(contactPhone, mActivity);
+        if (TextUtils.isEmpty(contactPhone)) {
+            ToastUtil.showShortToast("电话号码未填写");
+        }
     }
 
     public void CallPhone1(View view) {
         postWhoPhone(id, ownerPhone, ConstantState.TYPE_OWNER);
         FlowerDetailActivity.CallPhone(ownerPhone, mActivity);
+        if (TextUtils.isEmpty(ownerPhone)) {
+            ToastUtil.showShortToast("电话号码未填写");
+        }
     }
 
 

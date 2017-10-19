@@ -2,9 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hldj.hmyg"
-    android:versionCode="81"
-    android:versionName="3.0.5bete2">
+    android:versionCode="82"
+    android:versionName="3.0.5bete3">
 
+
+
+    <!--  android:versionCode="81"
+    android:versionName="3.0.5bete2">-->
 
     <!--android:versionCode="80"-->
     <!--android:versionName="3.0.5bete1">-->

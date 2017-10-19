@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.adapter.PublishFlowerInfoPhotoAdapter;
 import com.hldj.hmyg.application.PermissionUtils;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin2;
 import com.hldj.hmyg.util.TakePhotoUtil;
 import com.hy.utils.ToastUtil;
-import com.zzy.flowers.activity.photoalbum.EditGalleryImageActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -107,10 +107,14 @@ public class MeasureGridView extends GridView {
                 popwin.showAtLocation(mainView, Gravity.BOTTOM
                         | Gravity.CENTER_HORIZONTAL, 0, 0);
             } else {
-                EditGalleryImageActivity.startEditGalleryImageActivity(
-                        context,
-                        EditGalleryImageActivity.TO_EDIT_PUBLISH_IMAGE,
-                        position, adapter.getDataList());
+//                EditGalleryImageActivity.startEditGalleryImageActivity(
+//                        context,
+//                        EditGalleryImageActivity.TO_EDIT_PUBLISH_IMAGE,
+//                        position, adapter.getDataList());
+                GalleryImageActivity.startGalleryImageActivity(
+                        context, position, adapter.getDataList());
+
+
             }
 
         }

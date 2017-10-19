@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,11 +59,20 @@ import io.reactivex.functions.Consumer;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.next.tagview.TagCloudView.OnTagClickListener;
 
+import static com.hldj.hmyg.R.id.rb_auto_add_center0_1;
+import static com.hldj.hmyg.R.id.rb_auto_add_center0_3;
+import static com.hldj.hmyg.R.id.rb_auto_add_center1_0;
+import static com.hldj.hmyg.R.id.rb_auto_add_center1_2;
+import static com.hldj.hmyg.R.id.rb_auto_add_left_ctl;
+import static com.hldj.hmyg.R.id.rb_auto_add_right;
+
 /**
  * 家里修改。做个记号
  */
 public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClickListener, KeyBordStateListener {
 
+
+    private SpecType specType = SpecType.empty;
 
     private String firstSeedlingTypeId = "";
     private String addressId = "";
@@ -85,6 +95,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
     private String count = "";
 
     private String diameter = "";
+    private String specType_text = "";
 
     private String diameterType = "";
 
@@ -326,6 +337,8 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
             maxSpec = getIntent().getStringExtra("maxSpec");
             et_name.setText(getIntent().getStringExtra("name"));
 
+            specType_text = (getIntent().getStringExtra("specType"));
+
 
             //备注
             et_remarks.setText(getIntent().getStringExtra("remarks"));
@@ -377,6 +390,38 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
             }
 
         }
+
+        if (specType_text.equals("size0")) {
+            ((RadioButton) findViewById(rb_auto_add_left_ctl)).setChecked(true);
+            specType = SpecType.size0;
+        } else if (specType_text.equals("size10")) {
+            ((RadioButton) findViewById(rb_auto_add_center0_1)).setChecked(true);
+            specType = SpecType.size10;
+        } else if (specType_text.equals("size30")) {
+            ((RadioButton) findViewById(rb_auto_add_center0_3)).setChecked(true);
+            specType = SpecType.size30;
+        } else if (specType_text.equals("size100")) {
+            ((RadioButton) findViewById(rb_auto_add_center1_0)).setChecked(true);
+            specType = SpecType.size100;
+        } else if (specType_text.equals("size120")) {
+            ((RadioButton) findViewById(rb_auto_add_center1_2)).setChecked(true);
+            specType = SpecType.size120;
+        } else if (specType_text.equals("size130")) {
+            ((RadioButton) findViewById(rb_auto_add_right)).setChecked(true);
+            specType = SpecType.size130;
+        } else {
+//            ((RadioButton) findViewById(rb_auto_add_left_ctl)).setChecked(true);
+//            specType = SpecType.size0;
+        }
+
+
+        findViewById(rb_auto_add_left_ctl).setOnClickListener(multipleClickProcess);//出土量
+        findViewById(rb_auto_add_center0_1).setOnClickListener(multipleClickProcess);//0.1M量
+        findViewById(R.id.rb_auto_add_center0_3).setOnClickListener(multipleClickProcess);//0.3
+        findViewById(R.id.rb_auto_add_center1_0).setOnClickListener(multipleClickProcess);//1.0
+        findViewById(rb_auto_add_center1_2).setOnClickListener(multipleClickProcess);//1.2
+        findViewById(rb_auto_add_right).setOnClickListener(multipleClickProcess);//1.3
+
 
         btn_back.setOnClickListener(multipleClickProcess);
         ll_02.setOnClickListener(multipleClickProcess);
@@ -545,6 +590,18 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
             if (flag) {
                 if (view.getId() == R.id.btn_back) {
                     onBackPressed();
+                } else if (view.getId() == R.id.rb_auto_add_left_ctl) {//出土量
+                    specType = SpecType.size0;
+                } else if (view.getId() == rb_auto_add_center0_1) {//
+                    specType = SpecType.size10;
+                } else if (view.getId() == R.id.rb_auto_add_center0_3) {//0.1
+                    specType = SpecType.size30;
+                } else if (view.getId() == R.id.rb_auto_add_center1_0) {//0.3
+                    specType = SpecType.size100;
+                } else if (view.getId() == rb_auto_add_center1_2) {//1.0
+                    specType = SpecType.size120;
+                } else if (view.getId() == rb_auto_add_right) {//1.3
+                    specType = SpecType.size130;
                 } else if (view.getId() == R.id.iv_publish_quick) {
 
                     D.e("=========快速发布到商城===========");
@@ -699,6 +756,14 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
         params.put("maxCrown", et_maxCrown.getText().toString());
         params.put("minSpec", et_minSpec.getText().toString());
         params.put("maxSpec", et_maxSpec.getText().toString());
+
+
+        // size00("size00", "贴地量 "),//贴地量
+        params.put("specType", specType.getEnumValue());
+
+        D.e("==========specType============" + specType.toString());
+//        specType
+
 //        params.put("imagesData", gson.toJson(urlPaths));
         D.e("=====photoGv========" + photoGv.getAdapter().getDataList().toString());
         D.e("=====photurlPathsOnline========" + urlPathsOnline.toString());
@@ -796,7 +861,11 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                         }
                         super.onSuccess(t);
 
-                        hindLoading();
+                        try {
+                            hindLoading();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
 
                     }

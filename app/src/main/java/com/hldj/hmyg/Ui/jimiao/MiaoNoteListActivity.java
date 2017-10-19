@@ -245,6 +245,8 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                 datas.get(position - 1).get("maxCrown").toString());
         toMiaoNoteListActivity.putExtra("contactName",
                 datas.get(position - 1).get("contactName").toString());
+        toMiaoNoteListActivity.putExtra("specType",
+                datas.get(position - 1).get("specType").toString());
         /*苗圃电话  */
         toMiaoNoteListActivity.putExtra("contactPhone",
                 datas.get(position - 1).get("contactPhone").toString());
@@ -739,6 +741,12 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                                         hMap.put("maxSpec", JsonGetInfo
                                                 .getJsonInt(jsonObject3,
                                                         "maxSpec"));
+                                        hMap.put("specType", JsonGetInfo
+                                                .getJsonString(jsonObject3,
+                                                        "specType"));
+
+
+
                                         hMap.put("crown", JsonGetInfo
                                                 .getJsonInt(jsonObject3,
                                                         "minCrown"));
