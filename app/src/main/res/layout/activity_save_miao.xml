@@ -59,6 +59,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <LinearLayout
@@ -346,7 +347,8 @@
                 android:background="@color/white"
                 android:paddingLeft="6dp"
                 android:paddingRight="6dp"
-                android:scrollbars="none">
+                android:scrollbars="none"
+                android:visibility="gone">
 
                 <RadioGroup
                     android:layout_width="wrap_content"
@@ -358,6 +360,11 @@
                     android:orientation="horizontal"
                     android:padding="6dp"
                     android:visibility="visible">
+
+
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content" />
 
 
                     <RadioButton
@@ -397,6 +404,38 @@
                         style="@style/simple_radio_bg"
                         android:layout_marginLeft="-2dp"
                         android:text="1.3M量" />
+
+                    <include layout="@layout/radio" />
+
+
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content" />
+                </RadioGroup>
+
+
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:fillViewport="true"
+                android:padding="6dp"
+                android:scrollbars="none">
+
+                <RadioGroup
+                    android:id="@+id/radio_group_auto_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <!--<include layout="@layout/radio" />-->
+
+                    <!--<include layout="@layout/radio" />-->
+
                 </RadioGroup>
 
 

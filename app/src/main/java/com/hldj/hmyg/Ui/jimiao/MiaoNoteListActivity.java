@@ -196,13 +196,13 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                     MiaoNoteListActivity.this, SaveMiaoActivity.class);
         } else if ("2".equals(noteType)) {
 
-            if (is) {//假如是自己的资源
-                toMiaoNoteListActivity = new Intent(
-                        MiaoNoteListActivity.this, SaveMiaoActivity.class);
-            } else {
-                toMiaoNoteListActivity = new Intent(
-                        MiaoNoteListActivity.this, MiaoDetailActivity.class);
-            }
+//            if (is) {//假如是自己的资源
+//                toMiaoNoteListActivity = new Intent(
+//                        MiaoNoteListActivity.this, SaveMiaoActivity.class);
+//            } else {
+            toMiaoNoteListActivity = new Intent(
+                    MiaoNoteListActivity.this, MiaoDetailActivity.class);
+//            }
 
 
         }
@@ -731,7 +731,6 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                                                         "remarks"));
 
 
-
                                         hMap.put("count", JsonGetInfo
                                                 .getJsonInt(jsonObject3,
                                                         "count"));
@@ -744,7 +743,6 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                                         hMap.put("specType", JsonGetInfo
                                                 .getJsonString(jsonObject3,
                                                         "specType"));
-
 
 
                                         hMap.put("crown", JsonGetInfo
@@ -1029,7 +1027,7 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
         D.e("======Rx==data=====" + postObj.getData());
 
 
-        if (listAdapter != null  ) {
+        if (listAdapter != null) {
             listAdapter.notifyOne(postObj.getData());
         }
 //        listAdapter.notifyDel(postObj.getData());

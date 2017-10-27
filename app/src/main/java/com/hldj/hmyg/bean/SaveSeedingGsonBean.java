@@ -56,13 +56,17 @@ public class SaveSeedingGsonBean implements Serializable {
         public boolean canQuote = false;
         public boolean isOneQuote = false;
         private SeedlingBean seedling = new SeedlingBean();
-//      private SeedlingBean seedlingNote = new SeedlingBean();
+        //      private SeedlingBean seedlingNote = new SeedlingBean();
         private ItemBean item;
         public List<UsedQuoteListBean> usedQuoteList = new ArrayList<>();
         private List<TypeListBean> typeList;
         private List<TypeListBean.PlantTypeListBean> plantTypeList;
 
         public List<UnitTypeBean> unitTypeList = new ArrayList<>();
+
+        public List<SpecTypeBean> dbhTypeList = new ArrayList<>();
+        public List<SpecTypeBean> diameterTypeList = new ArrayList<>();
+
 
         public SeedlingBean.NurseryJsonBean nursery = new SeedlingBean.NurseryJsonBean();
 
@@ -130,8 +134,7 @@ public class SaveSeedingGsonBean implements Serializable {
             private int maxOffbarHeight;
 
             public String minSpec = "";
-            public String maxSpec ="";
-
+            public String maxSpec = "";
 
 
             private int minLength;
@@ -215,7 +218,7 @@ public class SaveSeedingGsonBean implements Serializable {
             private boolean isServiceCovered;
 
             private boolean isDefault;
-            private String priceStr;
+            private String priceStr = "";
 
             private String diameterStr;
             private String dbhStr;

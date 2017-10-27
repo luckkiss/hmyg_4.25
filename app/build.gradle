@@ -6,7 +6,7 @@ apply plugin: 'org.greenrobot.greendao'
 //
 
 def isDebug = true
-//apply from: 'tinker-support.gradle'
+apply from: 'tinker-support.gradle'
 
 //if (!isDebug) {
 
@@ -180,5 +180,11 @@ dependencies {
     //    compile 'top.zibin:Luban:1.0.9'
     //    compile 'com.miomin:shswiperefreshlayout:1.3.0'
     //    compile files('libs/library-nineoldandroids-2.4.0.jar')
+
+
+
+    compile 'me.shaohui.advancedluban:library:1.3.5'
+
+
 
 }

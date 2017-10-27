@@ -11,9 +11,9 @@ import net.tsz.afinal.FinalHttp;
  */
 
 public class GetServerUrl{
-    public static boolean isTest = false;//测试时使用true 表示正在测试
+    public static boolean isTest = true;//测试时使用true 表示正在测试
     /*发布时主要版本号   后面需要加 / */
-    public static String apiVersion = "3.0.5/";//发布的时候修改 api 版本号
+    public static String apiVersion = "3.0.4/";//发布的时候修改 api 版本号
 
 
     static String PGYER = "http://www.pgyer.com/apiv1/app/viewGroup";
@@ -22,7 +22,7 @@ public class GetServerUrl{
     // 正式 可用 3.0
     static String API_01 = "http://api.hmeg.cn/" + apiVersion;
     static String API_03 = "http://test.api.hmeg.cn/" + apiVersion;//3.0测式库
-//    static String API_03 = "http://192.168.1.82:80/api/";//罗大傻的  电脑 服务器地址/
+//    static String API_03 = "http://192.168.1.80:80/api/";//罗大傻的  电脑 服务器地址/
 //    static String API_03 = "http://192.168.0.147:8091/api/";//罗伟电脑 服务器地址/
 
 

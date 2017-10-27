@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/simple_radio_bg"
+    android:text="1.3M量" />
+<!--  android:layout_marginLeft="-2dp"-->

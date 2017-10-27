@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -13,18 +14,23 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PicSerializableMaplist;
+import com.hldj.hmyg.bean.SimpleGsonBean;
+import com.hldj.hmyg.bean.SpecTypeBean;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.saler.AdressActivity;
 import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin2;
+import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.P.BaseRxPresenter;
 import com.hldj.hmyg.saler.SaveSeedlingActivity_pubsh_quick;
 import com.hldj.hmyg.util.D;
@@ -48,6 +54,7 @@ import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -56,6 +63,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.next.tagview.TagCloudView.OnTagClickListener;
 
@@ -130,6 +138,9 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
     private ArrayList<Pic> urlPaths = new ArrayList<Pic>();
     private ArrayList<Pic> urlPathsOnline = new ArrayList<Pic>();
 
+
+    private RadioGroup radio_group_auto_add;
+
     /**
      * 加载图片失败
      */
@@ -193,6 +204,11 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 
         instance = this;
         SystemSetting.getInstance(SaveMiaoActivity.this).choosePhotoDirId = "";
+
+
+        radio_group_auto_add = (RadioGroup) findViewById(R.id.radio_group_auto_add);
+
+
 
 
         Data.pics1.clear();
@@ -270,7 +286,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 
 
             getDetail(id)
-                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<String>() {
                         @Override
@@ -339,6 +355,8 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 
             specType_text = (getIntent().getStringExtra("specType"));
 
+
+            requestTagsData(radio_group_auto_add);
 
             //备注
             et_remarks.setText(getIntent().getStringExtra("remarks"));
@@ -438,6 +456,48 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 
         iv_publish_quick.setVisibility(isIdNull() ? View.GONE : View.VISIBLE);
         D.e("==是否显示发布到商城===" + isIdNull());
+
+    }
+
+    private void requestTagsData(RadioGroup radio) {
+
+        new BasePresenter()
+                .doRequest("admin/seedlingNote/initPublish", true, new HandlerAjaxCallBack() {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+                        List<SpecTypeBean> specTypeList = gsonBean.getData().specTypeList;
+                        D.e("" + specTypeList);
+
+
+                        for (int i = 0; i < specTypeList.size(); i++) {
+                            RadioButton button = (RadioButton) LayoutInflater.from(mActivity).inflate(R.layout.radio, null);
+                            button.setId(1000 + i);
+                            button.setText(specTypeList.get(i).text);
+                            button.setTag(specTypeList.get(i).value);
+
+                            D.e("specType_text=" + specType_text);
+                            D.e("====动态添加radiobutton ===并且添加内容  " + specTypeList.get(i).value);
+                            if (specType_text.equals(specTypeList.get(i).value)) {
+                                button.setChecked(true);
+                                D.e("setChecked=");
+                            }
+
+
+                            button.setOnClickListener(new OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    String value = (String) v.getTag();
+                                    RadioButton button1 = ((RadioButton) v);
+                                    specType.setEnumValue(value);
+                                    specType.setEnumText(button1.getText().toString());
+                                    D.e("==点击内容==" + specType.toString());
+                                }
+                            });
+                            radio.addView(button);
+                        }
+                    }
+                });
+
 
     }
 

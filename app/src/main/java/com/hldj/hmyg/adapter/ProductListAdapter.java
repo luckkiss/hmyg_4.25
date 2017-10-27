@@ -276,6 +276,7 @@ public class ProductListAdapter extends BaseAdapter {
 
 
         tv_07.setText("" + maxPrice);
+        if (tv_unit!=null)
         tv_unit.setVisibility(View.GONE);
 //        String price = "";
 //        if (isNego) {

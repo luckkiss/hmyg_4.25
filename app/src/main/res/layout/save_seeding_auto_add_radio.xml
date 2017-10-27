@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/rl_seeding_commom"
     android:layout_height="@dimen/y61">
 
@@ -53,6 +54,7 @@
 
 
     <RadioGroup
+        android:id="@+id/radio_group_auto_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -75,41 +77,46 @@
             android:paddingTop="6dp"
             android:text="0.3m量"
             android:textColor="@color/rb_left_selecteor"
-            android:textSize="12sp">
-        </RadioButton>
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
 
         <RadioButton
             android:id="@+id/rb_auto_add_center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="-2dp"
             android:background="@drawable/tag_bg2"
             android:button="@null"
             android:paddingBottom="6dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:paddingTop="6dp"
-            android:layout_marginLeft="-2dp"
             android:text="1.0m量"
             android:textColor="@color/rb_left_selecteor"
-            android:textSize="12sp">
-        </RadioButton>
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
 
         <RadioButton
             android:id="@+id/rb_auto_add_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="-2dp"
             android:background="@drawable/tag_bg2"
             android:button="@null"
             android:paddingBottom="6dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:layout_marginLeft="-2dp"
             android:paddingTop="6dp"
             android:text="1.3M量"
             android:textColor="@color/rb_left_selecteor"
-            android:textSize="12sp">
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
         </RadioButton>
 
 

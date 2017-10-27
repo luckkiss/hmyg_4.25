@@ -3,6 +3,7 @@ package com.hldj.hmyg.bean;
 import com.hldj.hmyg.util.ConstantState;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 用于接收  普通的 成功失败返回  的gson 笨啊、===
@@ -30,7 +31,6 @@ public class SimpleGsonBean implements Serializable {
         public String headImage = "";
 
 
-
         private boolean isCollect;
 
         public boolean isCollect() {
@@ -43,14 +43,15 @@ public class SimpleGsonBean implements Serializable {
 
         public int quoteUsedCount;
 
-        public boolean   showSeedlingNote = false ;
-        public boolean   hasProjectManage = false ;
-        public boolean   showSeedlingNoteShare = false ;
+        public boolean showSeedlingNote = false;
+        public boolean hasProjectManage = false;
+        public boolean showSeedlingNoteShare = false;
 
 
+        public List<SpecTypeBean> specTypeList;
 
 
-        public SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean nursery ;
+        public SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean nursery;
 
 
 //        public String name ="-";
@@ -61,15 +62,10 @@ public class SimpleGsonBean implements Serializable {
 //        public String id ="";
 
 
-
-
-
-
     }
 
 
-    public boolean isSucceed()
-    {
+    public boolean isSucceed() {
         return code.equals(ConstantState.SUCCEED_CODE);
     }
 

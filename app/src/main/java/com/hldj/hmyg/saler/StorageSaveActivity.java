@@ -24,7 +24,6 @@ import com.hldj.hmyg.DaoBean.SaveJson.DaoSession;
 import com.hldj.hmyg.DaoBean.SaveJson.SavaBean;
 import com.hldj.hmyg.DaoBean.SaveJson.SavaBeanDao;
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.base.ViewHolders;
@@ -36,6 +35,7 @@ import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
@@ -727,8 +727,8 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
 
             TextView tv_07 = myViewHolder.getView(R.id.tv_07);//价格
 
-
-            ProductListAdapter.setPrice(tv_07, seedlingBean.getPriceStr(), seedlingBean.getMinPrice(), seedlingBean.isNego(), null);
+            tv_07.setText(FUtil.$("-", seedlingBean.getMinPrice(), seedlingBean.getMaxPrice()));
+//            ProductListAdapter.setPrice(tv_07, seedlingBean.getPriceStr(), seedlingBean.getMinPrice(), seedlingBean.isNego(), null);
 
 
             TextView tv_num_res = myViewHolder.getView(R.id.tv_num_res);//库存

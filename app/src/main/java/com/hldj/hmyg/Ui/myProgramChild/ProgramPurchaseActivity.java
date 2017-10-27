@@ -165,7 +165,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                 if (mItem.getItemType() == TYPE_LEVEL_1)//子布局
                 {
 
-                    D.e("======TYPE_LEVEL_1========");
+//                    D.e("======TYPE_LEVEL_1========");
                     QuoteListJsonBean item = ((QuoteListJsonBean) mItem);
                     int layoid = R.layout.item_program_purch_sub;
 
@@ -333,10 +333,11 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //                        ToastUtil.showShortToast("打开已采用" + item.quoteListJson.toString());
                         helper.setSelected(R.id.tv_program_purch_see_detail, !item.isExpanded());//测试时必然显示
                         if (item.isExpanded()) {
-                            collapse(helper.getAdapterPosition(), true, true);
-                            Log.d(TAG, "pos: " + helper.getAdapterPosition());
+                                collapse(helper.getAdapterPosition(), false, true);
+                                Log.d(TAG, "pos: " + helper.getAdapterPosition());
+
                         } else {
-                            expand(helper.getAdapterPosition(), true, true);
+                            expand(helper.getAdapterPosition(), false, true);
                             Log.d(TAG, "pos: " + helper.getAdapterPosition());
 
 
@@ -355,6 +356,8 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
             }
         };
 
+
+
 //        itemAdapter.setDefaultViewTypeLayout(R.layout.item_program_purch); //default
 
 //R.layout.item_program_purch
@@ -368,6 +371,10 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                 })
                 .closeDefaultEmptyView()
                 .openRefresh();
+
+//        coreRecyclerView.removeAllFooterView();
+//        coreRecyclerView.removeAllHeaderView();
+
 
 
         //加载 index 信息 head

@@ -7,17 +7,14 @@ import android.widget.TextView;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.UpImageBackGsonBean;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
-import com.hldj.hmyg.util.PicCopressUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.TagAdapter;
-import com.hy.utils.ToastUtil;
 import com.white.utils.StringUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -32,8 +29,15 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.luban.Luban;
-import cn.luban.OnCompressListener;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import me.shaohui.advancedluban.Luban;
+
+import static com.zzy.common.widget.MeasureGridView.context;
 
 /**
  * Created by Administrator on 2017/4/14.
@@ -272,88 +276,165 @@ public class SaveSeedlingPresenter {
         int list_size = dataList.size();
 
         FinalHttp finalHttp = new FinalHttp();
+//        Luban
+//        Luban.compress(context, file)
+//                .setMaxSize(500)                // limit the final image size（unit：Kb）
+//                .setMaxHeight(1920)             // limit image height
+//                .setMaxWidth(1080)              // limit image width
+//                .putGear(Luban.CUSTOM_GEAR)     // use CUSTOM GEAR compression mode
+//                .asObservable();
 
+
+//        Luban.compress(context, fileList)           // 加载多张图片
+//                .putGear(Luban.CUSTOM_GEAR)
+//                .launch(new OnCompressListener() {
+//                    @Override
+//                    public void onStart() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(File file) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//                }); // 生成Observable<List> 返回压缩成功的所有图片结果
+
+
+//        Luban.get(this)
+//                .putGear(Luban.CUSTOM_GEAR)
+//                .load(fileList)                     // load all images
+//                .asListObservable()                 // Generates Observable <List<File>. Returns the result of all the images compressed successfully
+
+
+        if (getFileList(dataList).size() > 0) {
+
+
+            //上传多张本地图片
+            Luban.compress(context, getFileList(dataList))
+                    .setMaxSize(1024)
+                    .setMaxHeight((int) (2560))
+                    .setMaxWidth((int) (1440))
+                    .putGear(Luban.CUSTOM_GEAR)
+                    .asListObservable() // 压缩代码，返回  List<File>
+                    .flatMap(new Function<List<File>, ObservableSource<File>>() {
+                        @Override
+                        public ObservableSource<File> apply(@NonNull List<File> files) throws Exception {
+                            return Observable.fromIterable(files);
+                        }
+                    })
+//                .flatMap(new Function<List<File>, ObservableSource<File>>() {
+//                    @Override
+//                    public ObservableSource<File> apply(@NonNull List<File> files) throws Exception {
+//                        return Observable.fromIterator(list); // ------如何一个一个的发送 List 里面的  数据  ，并且每次延迟一秒
+////                        return    Observable.just(files);
+//                    }
+//                })
+//                .delay(1000, TimeUnit.MILLISECONDS)//延迟1秒，进行下一次上传
+//                .delaySubscription(1000,TimeUnit.MILLISECONDS)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<File>() {
+                        @Override
+                        public void accept(@NonNull File file) throws Exception {
+                            D.e("========accept========path=" + file.getAbsolutePath() + "   size =" + file.length() / 1024);
+                            Thread.sleep(150);
+                            GetServerUrl.addHeaders(finalHttp, true);
+                            finalHttp.addHeader("Content-Type", "application/octet-stream");
+                            AjaxParams params1 = new AjaxParams();
+                            params1.put("sourceId", "");
+                            doUpLoad(file, params1, finalHttp, resultCallBack);
+                        }
+                    })
+//                .subscribe(new Consumer<File>() {
+//                    @Override
+//                    public void accept(@NonNull File file) throws Exception {
+//                        //执行上传代码
+//                    }
+//                })
+//                .subscribe(new Consumer<List<File>>() {
+//                    @Override
+//                    public void accept(@NonNull List<File> files) throws Exception {
+//
+//                    }
+//                })
+            ;
+//                .subscribe(new Consumer<List<File>>() {
+//                    @Override
+//                    public void accept(@NonNull List<File> files) throws Exception {
+//
+//                    }
+//                });
+
+
+//        Observable.interval(1000, TimeUnit.MILLISECONDS).
+
+
+//                .delay(1000,TimeUnit.MILLISECONDS)
+//                .timeInterval();
+//                .flatMap(new Function<List<File>, ObservableSource<File>>() {
+//                    @Override
+//                    public ObservableSource<File> apply(@NonNull List<File> files) throws Exception {
+//
+//                        return Observable.fromArray(files);
+//
+////                        return Observable.create(new ObservableOnSubscribe<File>() {
+////                            @Override
+////                            public void subscribe(ObservableEmitter<File> e) throws Exception {
+////                                Thread.sleep(1000);
+////                                e.onNext();
+////                            }
+////                        });
+//                    }
+//                })
+//                .delay(100, TimeUnit.MILLISECONDS)
+
+
+//        GetServerUrl.addHeaders(finalHttp, true);
+//        finalHttp.addHeader("Content-Type", "application/octet-stream");
+//        AjaxParams params1 = new AjaxParams();
+//        params1.put("sourceId", "");
+//                PicCopressUtil copressUtil = new PicCopressUtil();
+//                File file1 = new File(dataList.get(i).getUrl());
+
+
+//                        D.e("===========开始上传图片=========\n" + i + "   图片大小：" + file1.length() / 1024 + " k ");
+//                        D.e("===========图片地址=========\n" + dataList.get(i).getUrl());
+
+        }
         for (int i = 0; i < list_size; i++) {
             if (!StringUtil.isHttpUrlPicPath(dataList.get(i).getUrl())) {//不是已经上传的图片
-                GetServerUrl.addHeaders(finalHttp, true);
-                finalHttp.addHeader("Content-Type", "application/octet-stream");
-                AjaxParams params1 = new AjaxParams();
-                params1.put("sourceId", "");
-
-                PicCopressUtil copressUtil = new PicCopressUtil();
-
-
-                File file1 = new File(dataList.get(i).getUrl());
-
-                D.e("===========开始上传图片=========\n" + i + "   图片大小：" + file1.length() / 1024 + " k ");
-                D.e("===========图片地址=========\n" + dataList.get(i).getUrl());
-//                try {
-//                    D.e("===========开始上传图片=========\n" + "图片大小：" + getFileSize(file1) + " k ");
-//                } catch (Exception e) {
-//                    D.e("===========没找到文件=========\n");
-//                    e.printStackTrace();
-//                }
-
-                if (file1.length() / 1024 > 1) {
-
-//                      params1.put("file", file1);
-//                        params1.put("file", new ByteArrayInputStream(copressUtil.compress(dataList.get(i).getUrl())), System.currentTimeMillis() + ".png");
-                    Luban luban = Luban.get(MyApplication.getInstance());
-                    luban.load(file1)
-                            .putGear(Luban.THIRD_GEAR)
-                            .setFilename(System.currentTimeMillis() + "")
-                            .setCompressListener(new OnCompressListener() {
-                                @Override
-                                public void onStart() {
-                                    D.e("=======onStart=======");
-                                }
-
-                                @Override
-                                public void onSuccess(File file) {
-                                    D.e("=======onSuccess=======" + file.length() / 1024);
-                                    try {
-                                        params1.put("file", file);
-                                        doUpLoad(file, params1, finalHttp, resultCallBack);
-                                    } catch (FileNotFoundException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-
-                                @Override
-                                public void onError(Throwable e) {
-                                    ToastUtil.showShortToast("图片上传失败");
-                                }
-                            }).launch();
-
-
-                } else {
-                    try {
-                        params1.put("file", file1);
-                        doUpLoad(file1, params1, finalHttp, resultCallBack);
-                    } catch (FileNotFoundException e1) {
-                        D.e("===上传失败==");
-                        ToastUtil.showShortToast("图片上传失败");
-                        e1.printStackTrace();
-                    }
-                }
-
             } else {
-//                UpImageBackGsonBean imageBackGsonBean = new UpImageBackGsonBean();
-//                imageBackGsonBean.getData().setImage();
-
                 dataList.get(i).setSort(a);
                 a++;
                 resultCallBack.onSuccess(dataList.get(i));//如果已经上传 就直接 传回出去
             }
+        }
+    }
+
+
+    private List<File> getFileList(List<Pic> pics) {
+        List<File> files = new ArrayList<>();
+        for (int i = 0; i < pics.size(); i++) {
+            if (!StringUtil.isHttpUrlPicPath(pics.get(i).getUrl())) {
+                files.add(new File(pics.get(i).getUrl()));
+            }
 
         }
-
+        return files;
 
     }
 
 
     public void doUpLoad(File file, AjaxParams params1, FinalHttp finalHttp, ResultCallBack resultCallBack) {
-
+        try {
+            params1.put("file", file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         params1.put("imagType", "seedling");
         finalHttp.post(GetServerUrl.getUrl() + "admin/file/image", params1, new AjaxCallBack<String>() {
             @Override

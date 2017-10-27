@@ -1,6 +1,8 @@
 package com.hldj.hmyg.Ui.jimiao;
 
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * 规格类型
  *
@@ -42,7 +44,10 @@ public enum SpecType {
 
 
 
-    private String enumValue, enumText;
+    @SerializedName("value")
+    private String enumValue ;
+    @SerializedName("text")
+    private String enumText ;
 
     private SpecType(String enumValue, String enumText) {
         this.enumValue = enumValue;

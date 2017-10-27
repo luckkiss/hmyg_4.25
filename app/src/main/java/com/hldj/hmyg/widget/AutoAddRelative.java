@@ -8,15 +8,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.bean.SpecTypeBean;
+import com.hldj.hmyg.util.D;
+
+import java.util.List;
 
 /**
- * Created by Administrator on 2017/4/15.
+ * 这个界面 我写的坑。很难改。以后要是接盘的小哥看到。别 喷。。。。。。。
  */
 
 public class AutoAddRelative extends RelativeLayout {
@@ -26,6 +31,9 @@ public class AutoAddRelative extends RelativeLayout {
     private ViewHolder_top viewHolder_top;
     Context context;
     boolean isChangeName = true; //是否改变 左边的名字
+
+
+    public SpecTypeBean currentSpaceType = new SpecTypeBean();
 
     public AutoAddRelative(Context context) {
         super(context);
@@ -63,17 +71,67 @@ public class AutoAddRelative extends RelativeLayout {
         return requiredis;
     }
 
-    public AutoAddRelative setDatas_rd(SaveSeedingGsonBean.DataBean.TypeListBean.ParamsListBean paramsListBean) {
+    public AutoAddRelative setDatas_rd(SaveSeedingGsonBean.DataBean.TypeListBean.ParamsListBean paramsListBean, List<SpecTypeBean> dbh, List<SpecTypeBean> dim) {
         viewHolder_rd.tv_auto_add_left1.setText(paramsListBean.getName());
         if (paramsListBean.getValue().equals("dbh")) {
             if (isChangeName)
                 viewHolder_rd.initListener();
+
+
+            for (int i = 0; i < dbh.size(); i++) {
+                RadioButton button = (RadioButton) LayoutInflater.from(context).inflate(R.layout.radio, null);
+                button.setId(1100 + i);
+                button.setText(dbh.get(i).text);
+                button.setTag(dbh.get(i).value);
+                button.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        RadioButton button1 = ((RadioButton) v);
+                        currentSpaceType.text = button1.getText().toString();
+                        currentSpaceType.value = button1.getTag().toString();
+//                        ToastUtil.showLongToast(currentSpaceType.toString());
+
+                    }
+                });
+                viewHolder_rd.radio_group_auto_add.addView(button);
+            }
+
+
             viewHolder_rd.rb_auto_add_center.setChecked(true);
             viewHolder_rd.tv_auto_add_left1.setText("米径");
-
+            D.e("dbh=" + dbh.toString());
+//            ToastUtil.showLongToast(dbh.toString());
             isChangeName = false;
         }//如果是胸径 就不会自动改变左边的字
+        else {
+            D.e("dim=" + dim.toString());
+//            ToastUtil.showLongToast(dim.toString());
 
+
+            for (int i = 0; i < dim.size(); i++) {
+                RadioButton button = (RadioButton) LayoutInflater.from(context).inflate(R.layout.radio, null);
+                button.setId(1100 + i);
+                button.setText(dim.get(i).text);
+                button.setTag(dim.get(i).value);
+                button.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        RadioButton button1 = ((RadioButton) v);
+                        currentSpaceType.text = button1.getText().toString();
+                        currentSpaceType.value = button1.getTag().toString();
+
+//                        ToastUtil.showLongToast(currentSpaceType.toString());
+
+                    }
+                });
+
+                viewHolder_rd.radio_group_auto_add.addView(button);
+
+
+            }
+        }
 
         requiredis = paramsListBean.isRequired();
         if (!requiredis)
@@ -87,6 +145,7 @@ public class AutoAddRelative extends RelativeLayout {
 
         return this;
     }
+
 
     public AutoAddRelative setDefaultSelect(String value) {
 
@@ -151,6 +210,13 @@ public class AutoAddRelative extends RelativeLayout {
      * @return
      */
     public String getDiameterType() {
+//        ToastUtil.showLongToast("获取上传的size" + currentSpaceType.text);
+
+        if (currentSpaceType != null) {
+            return currentSpaceType.value;
+        }
+
+
         if (getMTag().equals("dbh")) {
             if (viewHolder_rd.rb_auto_add_left.isChecked()) {
                 return "size30";
@@ -182,6 +248,23 @@ public class AutoAddRelative extends RelativeLayout {
      * @param size
      */
     public void setDiameterTypeWithSize(String size) {
+
+        RadioGroup radioGroup = viewHolder_rd.radio_group_auto_add;
+        int count = radioGroup.getChildCount();
+
+        if (count > 3) {
+            for (int i = 3; i < count; i++) {
+                RadioButton button = (RadioButton) radioGroup.getChildAt(i);
+                if (size.equals(button.getTag())) {
+                    currentSpaceType.text = button.getText().toString();
+                    currentSpaceType.value = button.getTag().toString();
+                    button.setChecked(true);
+                }
+            }
+            return;
+        }
+
+
         if (getMTag().equals("dbh")) {
 
             switch (size) {
@@ -260,6 +343,7 @@ public class AutoAddRelative extends RelativeLayout {
         public RadioButton rb_auto_add_left;
         public RadioButton rb_auto_add_center;
         public RadioButton rb_auto_add_right;
+        public RadioGroup radio_group_auto_add;
 
         public ViewHolder_rd(View rootView) {
             this.rootView = rootView;
@@ -272,6 +356,8 @@ public class AutoAddRelative extends RelativeLayout {
             this.rb_auto_add_left = (RadioButton) rootView.findViewById(R.id.rb_auto_add_left);
             this.rb_auto_add_center = (RadioButton) rootView.findViewById(R.id.rb_auto_add_center);
             this.rb_auto_add_right = (RadioButton) rootView.findViewById(R.id.rb_auto_add_right);
+            // 自动添加的  RadioGroup
+            this.radio_group_auto_add = (RadioGroup) rootView.findViewById(R.id.radio_group_auto_add);
 
 
         }
