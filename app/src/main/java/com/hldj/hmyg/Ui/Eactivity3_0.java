@@ -63,6 +63,7 @@ import com.zf.iosdialog.widget.ActionSheetDialog;
 import com.zf.iosdialog.widget.AlertDialog;
 import com.zym.selecthead.tools.FileTools;
 
+import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.http.AjaxCallBack;
 
 import java.io.File;
@@ -94,6 +95,9 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
     public static boolean showSeedlingNoteShare = false;//是否显示 共享资源
 
+
+    FinalBitmap finalBitmap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +107,10 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
         cachPath = UploadHeadUtil.getDiskCacheDir(this) + "/handimg.jpg";//图片路径
         cacheFile = uploadHeadUtil.getCacheFile(new File(getDiskCacheDir(this)), "handimg.jpg");
+
+        finalBitmap = FinalBitmap.create(mActivity);
+        finalBitmap.configLoadfailImage(R.drawable.icon_persion_pic);
+//        finalBitmap.configLoadingImage(R.drawable.icon_persion_pic);
 
         setSwipeBackEnable(false);
         RxRegi();
@@ -212,6 +220,8 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                 ((CircleImageView) getView(R.id.iv_circle_head)).setImageResource(R.drawable.icon_persion_pic);
                 return;
             }
+
+
         ImageLoader.getInstance().displayImage(getSpS("headImage"), (ImageView) getView(R.id.iv_circle_head), new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {

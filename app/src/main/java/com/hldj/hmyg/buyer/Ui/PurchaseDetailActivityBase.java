@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.coorchice.library.SuperTextView;
@@ -15,6 +16,7 @@ import com.hldj.hmyg.adapter.StorePurchaseListAdapter;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.bean.SpecTypeBean;
 import com.hldj.hmyg.buyer.M.ItemBean;
 import com.hldj.hmyg.buyer.V.PurchaseDeatilV;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
@@ -41,10 +43,14 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
     public boolean mIsQuoted;//是否报过价
     public String mProjectType = "";//直购 代沟
     public String firstSeedlingTypeId = "";
+
+
+    public List<SpecTypeBean> dbhTypeList = new ArrayList<>();
+    public List<SpecTypeBean> diameterTypeList = new ArrayList<>();
     //direct直购
     //protocol代购
 
-    public ItemBean item ;
+    public ItemBean item;
 
 
     public static PurchaseDetailActivityBase instance;
@@ -136,7 +142,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
 
 
         ItemBean item = saveSeedingGsonBean.getData().getItem();
-        this.item = saveSeedingGsonBean.getData().getItem() ;
+        this.item = saveSeedingGsonBean.getData().getItem();
 
 
         this.setStatus(item.sellerQuoteJson == null ? "" : strFilter(item.sellerQuoteJson.status));
@@ -151,7 +157,10 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
 
         } else { //代购
             List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen = saveSeedingGsonBean.getData().getTypeList();
+            dbhTypeList = saveSeedingGsonBean.getData().dbhTypeList;
+            diameterTypeList = saveSeedingGsonBean.getData().diameterTypeList;
             initProtocol(typeListBeen);
+//            autoAddRadio(getViewHolder_pur().radio_group_auto_add, saveSeedingGsonBean.getData().dbhTypeList, saveSeedingGsonBean.getData().diameterTypeList);
 //          initAutoLayout(typeListBeen);
         }
         List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> plantTypeListBeen = saveSeedingGsonBean.getData().getPlantTypeList();
@@ -159,6 +168,9 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         onlyOneQuote(isOneQuote, mIsQuoted);
 
     }
+
+//    protected abstract void autoAddRadio(RadioGroup radio_group_auto_add, List<SpecTypeBean> dbhTypeList, List<SpecTypeBean> diameterTypeList);
+
 
     /**
      * public String cityCode = "4505";
@@ -357,6 +369,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
     //step 1  这一步是一样的
     private void initAutoLayout2(List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> bean) {
 
+        getViewHolder_pur().tfl_purchase_auto_add_plant.setCanCancle(false);
         SaveSeedlingPresenter.initAutoLayout2(getViewHolder_pur().tfl_purchase_auto_add_plant, bean, -1, instance, (view, position, parent) -> {
             plantType = bean.get(position).getValue();//上传值
             return true;
@@ -429,6 +442,8 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
         public TextView tv_quote_num;
         public EditText et_purchase_remark;
         public TextView toolbar_title;
+        public RadioGroup radio_group_auto_add;
+
 
         public ViewHolder(Activity rootView) {
 //            this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
@@ -444,11 +459,14 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
             this.tv_purchase_store_detail = (TextView) getHeadView().findViewById(R.id.tv_quote_store_detail);//采购商家信息
             this.tv_purchase_price_sug = (TextView) getHeadView().findViewById(R.id.tv_quote_price_sug);//报价要求
             this.tv_purchase_city_name = (TextView) getBootomBiew().findViewById(R.id.tv_purchase_city_name);
+            this.radio_group_auto_add = (RadioGroup) getBootomBiew().findViewById(R.id.radio_group_auto_add);//底部动态添加控件
             this.tfl_purchase_auto_add_plant = (TagFlowLayout) getBootomBiew().findViewById(R.id.tfl_purchase_auto_add_plant);
             this.tv_purchase_add_pic = (TextView) getBootomBiew().findViewById(R.id.tv_purchase_add_pic);
             this.tv_purchase_remark = (TextView) getBootomBiew().findViewById(R.id.tv_purchase_remark);
             this.tv_purchase_commit = (TextView) getBootomBiew().findViewById(R.id.tv_purchase_commit);
             this.ll_purc_auto_add = (LinearLayout) getBootomBiew().findViewById(R.id.ll_purc_auto_add);//采购报价 动态加载
+
+
 //            this.ll_mainView_bottom = (LinearLayout) rootView.findViewById(R.id.ll_mainView_bottom);//采购报价 动态加载
             this.et_purchase_remark = (EditText) getBootomBiew().findViewById(R.id.et_purchase_remark);//备注
 

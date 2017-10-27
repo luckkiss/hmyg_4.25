@@ -311,11 +311,12 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     }
 
 
+    /**
+     * 我是代购
+     */
     @Override
     protected void initProtocol(List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen) {
-        /**
-         * 我是代购
-         */
+
         if (mIsQuoted)//已经报价
         {
 
@@ -387,17 +388,15 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         autoLayouts.add(layout);
         getViewHolder_pur().ll_purc_auto_add.addView(layout);
 
-
         for (int i = 0; i < typeListBeen.size(); i++) {
-
-
             if (firstSeedlingTypeId.equals(typeListBeen.get(i).getId())) {
+                //胸径   高度  冠幅  通过代码来增加
                 for (int j = 0; j < typeListBeen.get(i).getParamsList().size(); j++) {
                     //创建 一个plantBean
                     PurchaseAutoAddLinearLayout.PlantBean plantBean = new PurchaseAutoAddLinearLayout.PlantBean(typeListBeen.get(i).getParamsList().get(j).getName(),
                             typeListBeen.get(i).getParamsList().get(j).getValue(),
                             typeListBeen.get(i).getParamsList().get(j).isRequired()
-                    );
+                    ).setSizeList(dbhTypeList, diameterTypeList);
                     //给plant 赋值
                     layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(plantBean);
                     //保存当前的 viw 到list 列表  上传数据时需要获取其中的 内容
@@ -488,6 +487,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
             //胸径就打印出选项  选了哪个
             plantBean = (PurchaseAutoAddLinearLayout.PlantBean) autoLayouts.get(i).getTag();
             if (plantBean.value.equals("dbh")) {
+
                 String size = autoLayouts.get(i).getSelect_size();
                 D.e("===size==" + size);
                 uploadBean.dbhType = size;//胸径类型
@@ -521,6 +521,9 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                 case ConstantParams.dbh://胸径
                     content = uploadBean.dbh = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
                     isOk = submit(plantBean.name, uploadBean.dbh, plantBean.required);
+                    if (isOk) {
+                        isOk = submit("请选择" + plantBean.name + "类型", autoLayouts.get(i).getSelect_size(), plantBean.required);
+                    }
                     break;
                 case ConstantParams.height://高度
                     content = uploadBean.height = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
@@ -542,10 +545,16 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                     content = uploadBean.count = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
                     isOk = submit(plantBean.name, uploadBean.count, plantBean.required);
                     break;
+                default:
+
+
+                    break;
+
             }
             if (!isOk) {
                 return;
             }
+
 
 //            Map map = new HashMap();
 //            map.put(plantBean.value, autoLayouts.get(i).getViewHolder().et_params_03.getText());

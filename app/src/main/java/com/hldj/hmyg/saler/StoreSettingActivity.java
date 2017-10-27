@@ -78,6 +78,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
     private static Eactivity3_0.PermissionListener mListener;
     private EditText et_domian;
     private EditText et_store_name;
+    private TextView tv_open_close;
     private ImageView iv_logo;
     private ImageView iv_banner;
     private static final int REQUEST_CODE_ALBUM = 6;
@@ -139,6 +140,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
         title.setText("店铺设置");
 
         iv_logo = (ImageView) findViewById(R.id.iv_logo);
+        tv_open_close = (TextView) findViewById(R.id.tv_open_close);
         iv_banner = (ImageView) findViewById(R.id.iv_banner);
         ll_ed = (LinearLayout) findViewById(R.id.ll_ed);
         et_domian = (EditText) findViewById(R.id.et_domain);
@@ -154,6 +156,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
         iv_banner.setOnClickListener(multipleClickProcess);
         et_domian.setOnClickListener(multipleClickProcess);
         sure.setOnClickListener(multipleClickProcess);
+        tv_open_close.setOnClickListener(multipleClickProcess);
 
         // et_domian.setOnEditorActionListener(new OnEditorActionListener() {
         //
@@ -335,6 +338,18 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
     }
 
     private void save() {
+
+
+        if (TextUtils.isEmpty(et_store_name.getText())) {
+            ToastUtil.showLongToast("请填写店铺名称");
+            return;
+        }
+        if (TextUtils.isEmpty(et_type.getText())) {
+            ToastUtil.showLongToast("请填写品种名称");
+            return;
+        }
+
+
         // TODO Auto-generated method stub
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, true);
@@ -369,7 +384,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                             }
                             if ("1".equals(code)) {
                                 Toast.makeText(StoreSettingActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
-                                RxBus.getInstance().post(5,new Eactivity3_0.OnlineEvent(true));
+                                RxBus.getInstance().post(5, new Eactivity3_0.OnlineEvent(true));
                                 finish();
                             }
 
@@ -410,6 +425,18 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                     case R.id.toolbar_left_icon:
                         onBackPressed();
                         break;
+                    case R.id.tv_open_close:
+                        //显示。。隐藏
+                        View view1 = getView(R.id.ll_other);
+
+                        if (view1.getVisibility() == View.VISIBLE) {
+                            view1.setVisibility(View.GONE);
+                        } else {
+                            view1.setVisibility(View.VISIBLE);
+                        }
+                        view.setSelected(!view.isSelected());
+
+                        break;
                     case R.id.et_domain:
                         if (!"".equals(code)) {
                             Intent toStoreActivity = new Intent(
@@ -433,7 +460,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
 //                            hindLoading();
 //                            return;
 //                        }
-                        // validate();
+//                         validate();
                         save();
 
                         break;
@@ -628,11 +655,11 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                     if (Build.VERSION.SDK_INT >= 19) {
                         if (imagType_tag.equals("storeLogo")) {
                             // 4.4及以上系统使用这个方法处理图片
-                            uploadHeadUtil.handleImageOnKitKat(data,1, cacheFile);
+                            uploadHeadUtil.handleImageOnKitKat(data, 1, cacheFile);
                         } else {
 
                             // 4.4及以上系统使用这个方法处理图片
-                            uploadHeadUtil.handleImageOnKitKat(data,2, cacheFile);
+                            uploadHeadUtil.handleImageOnKitKat(data, 2, cacheFile);
                         }
 
 
@@ -640,12 +667,12 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
 
                         if (imagType_tag.equals("storeLogo")) {
                             // 4.4以下系统使用这个方法处理图片
-                            uploadHeadUtil.handleImageBeforeKitKat(data,1, cacheFile);
+                            uploadHeadUtil.handleImageBeforeKitKat(data, 1, cacheFile);
                         } else {
 
 
                             // 4.4以下系统使用这个方法处理图片
-                            uploadHeadUtil.handleImageBeforeKitKat(data,2, cacheFile);
+                            uploadHeadUtil.handleImageBeforeKitKat(data, 2, cacheFile);
                         }
 
 

@@ -356,7 +356,6 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
             specType_text = (getIntent().getStringExtra("specType"));
 
 
-            requestTagsData(radio_group_auto_add);
 
             //备注
             et_remarks.setText(getIntent().getStringExtra("remarks"));
@@ -408,6 +407,9 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
             }
 
         }
+
+        requestTagsData(radio_group_auto_add);
+
 
         if (specType_text.equals("size0")) {
             ((RadioButton) findViewById(rb_auto_add_left_ctl)).setChecked(true);

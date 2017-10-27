@@ -6,16 +6,22 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.bean.SpecTypeBean;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.BaseLinearLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/4/26.
@@ -95,18 +101,18 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
 
         if (plantBean.value.equals("dbh"))//为胸径时显示 radiobutton
         {
-            select_size = "size30";
+            select_size = "";
             getViewHolder().vb_radions.setVisibility(VISIBLE);
             type = "dbh";
             //显示完以后为radio button 添加获取值
-            initStubView(getViewHolder().vb_radions);
+            initStubView(getViewHolder().vb_radions, plantBean);
 
 
         } else if (plantBean.value.equals("diameter")) {
-            select_size = "size0";
+            select_size = "";
             type = "diameter";
             getViewHolder().vb_radions.setVisibility(VISIBLE);
-            initStubView(getViewHolder().vb_radions);
+            initStubView(getViewHolder().vb_radions, plantBean);
             //0  0.3
         }
 //|| plantBean.value.equals("diameter")
@@ -115,19 +121,45 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
     }
 
     //初始化viewstub
-    private void initStubView(ViewStub vb_radions) {
+    private void initStubView(ViewStub vb_radions, PlantBean plantBean) {
 
+        RadioGroup radio_group_auto_add = (RadioGroup) this.findViewById(R.id.radio_group_auto_add);
         RadioButton left = (RadioButton) this.findViewById(R.id.rb_auto_add_left);
         RadioButton center = (RadioButton) this.findViewById(R.id.rb_auto_add_center);
         RadioButton right = (RadioButton) this.findViewById(R.id.rb_auto_add_right);
+        left.setVisibility(GONE);
+        center.setVisibility(GONE);
+        right.setVisibility(GONE);
+        List<SpecTypeBean> typeBeen = new ArrayList<>();
 
         if (type.equals("dbh")) {
 
+            typeBeen.addAll(plantBean.dbh);
+
         } else if (type.equals("diameter")) {
+            typeBeen.addAll(plantBean.dim);
             left.setText("出土量");
             center.setText("0.1M量");
             right.setText("0.3M量");
         }
+
+        for (int i = 0; i < typeBeen.size(); i++) {
+            RadioButton button = (RadioButton) LayoutInflater.from(context).inflate(R.layout.radio, null);
+
+            button.setId(1000 + i);
+            button.setText(typeBeen.get(i).text);
+            button.setTag(typeBeen.get(i).value);
+            button.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    select_size = v.getTag().toString();
+//                    ToastUtil.showLongToast(select_size);
+                }
+            });
+
+            radio_group_auto_add.addView(button);
+        }
+
 
         left.setOnClickListener(clickListener);
         center.setOnClickListener(clickListener);
@@ -196,6 +228,10 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
         public String value = "";
         public boolean required;
 
+        List<SpecTypeBean> dbh;
+        List<SpecTypeBean> dim;
+
+
         @Override
         public String toString() {
             return "PlantBean{" +
@@ -210,6 +246,13 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
             this.value = value;
             this.required = required;
         }
+
+        public PlantBean setSizeList(List<SpecTypeBean> dbh, List<SpecTypeBean> dim) {
+            this.dbh = dbh;
+            this.dim = dim;
+            return this;
+        }
+
     }
 
     private ViewHolder viewHolder;

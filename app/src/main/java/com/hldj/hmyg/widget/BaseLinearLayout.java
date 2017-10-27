@@ -16,7 +16,7 @@ import android.widget.TextView;
 public abstract class BaseLinearLayout<T> extends LinearLayout {
 
 
-    Context context;
+    protected Context context;
     private View viewRoot;
 
     public BaseLinearLayout(Context context) {
