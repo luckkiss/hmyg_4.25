@@ -923,11 +923,6 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                         }
                         super.onSuccess(t);
 
-                        try {
-                            hindLoading();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
 
 
                     }

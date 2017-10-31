@@ -2,10 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hldj.hmyg"
-    android:versionCode="82"
-    android:versionName="3.0.5bete3">
+    android:versionCode="83"
+    android:versionName="3.0.5release">
 
 
+    <!--    android:versionCode="82"
+    android:versionName="3.0.5bete3">-->
 
     <!--  android:versionCode="81"
     android:versionName="3.0.5bete2">-->
@@ -139,7 +141,7 @@
     <application
         android:name="com.hldj.hmyg.application.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/logo_test"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/AppBaseTheme">
@@ -376,7 +378,8 @@
 
         <activity
             android:name="com.hldj.hmyg.saler.SaveSeedlingActivity_change_data"
-            android:screenOrientation="portrait" />  <activity
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.hldj.hmyg.saler.SaveSeedlingActivity_pubsh_quick"
             android:screenOrientation="portrait" />
 

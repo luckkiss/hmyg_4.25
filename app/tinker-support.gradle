@@ -35,9 +35,11 @@ tinkerSupport {
 
     // 构建基准包和补丁包都要指定不同的tinkerId，并且必须保证唯一性
 
+//    tinkerId = "base-3.0.5release"
+      tinkerId = "patch-3.0.5release"
 
 //    tinkerId = "base-3.0.5bete3"
-      tinkerId = "patch-3.0.5bete3"
+//      tinkerId = "patch-3.0.5bete3"
 
 //    tinkerId = "base-3.0.5bete2"
 //      tinkerId = "patch-3.0.5bete2"

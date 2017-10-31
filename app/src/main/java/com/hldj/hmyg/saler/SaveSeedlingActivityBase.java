@@ -542,14 +542,14 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                      *  来发送  刷新通知  发送一个   id  ，列表通过便利id  来确定哪个 item 需要进行刷新
                      */
                     RxBus.getInstance().post(SEEDING_REFRESH, new PostObj<>(getSeedlingNoteId()));
+                    hindLoading();
                     finish();
 
 //                    ManagerListActivity_new.start2Activity(instance);
                 } else {
+                    hindLoading();
                     ToastUtil.showShortToast(simpleGsonBean.msg);
-
                 }
-                hindLoading();
 
                 if (hud_numHud != null) {
                     hud_numHud.dismiss();

@@ -356,7 +356,10 @@ public class LoginPresenter {
         finalHttp.post(GetServerUrl.getUrl() + "admin/user/getInfo", params, new AjaxCallBack<String>() {
             @Override
             public void onSuccess(String json) {
-                UserInfoGsonBean userInfoGsonBean = new GsonUtil().formateJson2Bean(json, UserInfoGsonBean.class);
+
+
+                UserInfoGsonBean userInfoGsonBean = null;
+                userInfoGsonBean = new GsonUtil().formateJson2Bean(json, UserInfoGsonBean.class);
 
 //                        MyApplication.spUtils.putString(UserBean, json);//把json 存储在sp中，需要的话直接通过gson 转换
                 //成功
@@ -365,15 +368,13 @@ public class LoginPresenter {
                     JpushUtil.setAlias(id);
                     Save2Sp(MyApplication.Userinfo.edit(), json);
 
-
                     //设置 极光推送
                     resultCallBack.onSuccess(userInfoGsonBean);
-
 
                 }
 
                 if (userInfoGsonBean.getCode().equals(ConstantState.ERROR_CODE)) {
-
+                    ToastUtil.showLongToast(userInfoGsonBean.getMsg());
                     D.e("================获取个人信息失败=====================================");
                 }
             }

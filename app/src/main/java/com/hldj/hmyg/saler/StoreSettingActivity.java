@@ -338,8 +338,6 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
     }
 
     private void save() {
-
-
         if (TextUtils.isEmpty(et_store_name.getText())) {
             ToastUtil.showLongToast("请填写店铺名称");
             return;
@@ -348,6 +346,8 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
             ToastUtil.showLongToast("请填写品种名称");
             return;
         }
+
+        showLoading();
 
 
         // TODO Auto-generated method stub
@@ -454,7 +454,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                         choosePics();
                         break;
                     case R.id.sure:
-                        showLoading();
+
 //                        if ("".equals(et_domian.getText().toString()) || "".equals(et_store_name.getText().toString())) {
 //                            Toast.makeText(StoreSettingActivity.this, "请将店铺域名和店铺名称填写完整", Toast.LENGTH_SHORT).show();
 //                            hindLoading();

@@ -401,11 +401,13 @@ public class LoginActivity extends BaseActivity {
                     SPUtil.put(LoginActivity.this, SPUtil.USER_ID, loginGsonBean.getData().getUserId());
                     //succeed
                     showToast(getString(R.string.login_succeed));
+//                    hindLoading();
                     getUserInfo(loginGsonBean.getData().getUserId(), "LoginActivity");
                 } else {
+                    hindLoading();
                     showToast(loginGsonBean.getMsg());
                 }
-                hindLoading();
+
             }
 
             @Override
@@ -446,6 +448,7 @@ public class LoginActivity extends BaseActivity {
         finalHttp.post(GetServerUrl.getUrl() + "admin/user/getInfo", params, new AjaxCallBack<String>() {
             @Override
             public void onSuccess(String json) {
+                hindLoading();
                 UserInfoGsonBean userInfoGsonBean = new GsonUtil().formateJson2Bean(json, UserInfoGsonBean.class);
                 save2SP(json);
 //                        MyApplication.spUtils.putString(UserBean, json);//把json 存储在sp中，需要的话直接通过gson 转换
@@ -455,9 +458,9 @@ public class LoginActivity extends BaseActivity {
                     JpushUtil.setAlias(id);
                     //设置 极光推送
                     if ("LoginActivity".equals(activity)) {
+
                         setResult(ConstantState.LOGIN_SUCCEED);
                         finish();
-
                         RxBus.getInstance().post(5, new Eactivity3_0.OnlineEvent(true));
 
                     } else if ("SetProfileActivity".equals(activity.getClass().getName())) {
