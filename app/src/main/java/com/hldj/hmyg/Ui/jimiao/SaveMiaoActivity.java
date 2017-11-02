@@ -999,7 +999,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 //        urlPaths.clear();
         urlPathsOnline.clear();
 
-        SaveSeedlingPresenter saveSeedlingPresenter = new SaveSeedlingPresenter();
+        SaveSeedlingPresenter saveSeedlingPresenter = new SaveSeedlingPresenter(mActivity);
         //   上传图片  可能多图片
         saveSeedlingPresenter.upLoad(photoGv.getAdapter().getDataList(), new ResultCallBack<Pic>() {
             @Override

@@ -270,6 +270,8 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                 datas.get(position - 1).get("minSpec").toString());
         toMiaoNoteListActivity.putExtra("maxSpec",
                 datas.get(position - 1).get("maxSpec").toString());
+        toMiaoNoteListActivity.putExtra("fullName",
+                datas.get(position - 1).get("fullName").toString());
 
 
         toMiaoNoteListActivity.putExtra("nurseryJson_name",
@@ -410,7 +412,7 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
 
 
     SortSpinner1 sortSpinner;
-    int pos = -1;
+    int pos = 0;
 
     private void ChoiceSortList() {
 

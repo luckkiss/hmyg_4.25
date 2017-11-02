@@ -45,7 +45,7 @@ public class FUtil {
 
 
     public static String $_zero(String str) {
-        if ("0".equals(str)) {
+        if ("0".equals(str) || TextUtils.isEmpty(str)) {
             return "-";
         }
         return str;
@@ -67,7 +67,7 @@ public class FUtil {
 
         //先过滤掉 strs 数组中 为空的 字段
         for (int i = 0; i < strs.length; i++) {
-            if (!TextUtils.isEmpty(strs[i])) {
+            if (!TextUtils.isEmpty(strs[i]) && !"0".equals(strs[i])) {
                 newSize++;//便利 查找非空长度
             }
         }
@@ -75,7 +75,7 @@ public class FUtil {
         newSize = 0;
 
         for (int i = 0; i < strs.length; i++) {
-            if (!TextUtils.isEmpty(strs[i])) {
+            if (!TextUtils.isEmpty(strs[i]) && !"0".equals(strs[i])) {
                 newStrs[newSize] = strs[i];
                 newSize++;//便利 查找非空长度
             }
@@ -97,5 +97,6 @@ public class FUtil {
 
         return buffer.toString();
     }
+
 
 }

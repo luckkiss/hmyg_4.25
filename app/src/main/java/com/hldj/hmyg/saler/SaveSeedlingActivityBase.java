@@ -62,7 +62,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
     private ACache mCache;
     public static SaveSeedlingActivityBase instance;
 
-    SaveSeedlingPresenter saveSeedlingPresenter = new SaveSeedlingPresenter();
+    SaveSeedlingPresenter saveSeedlingPresenter;
     KProgressHUD hud_numHud; // 上传时显示的等待框
 
     ViewHolder viewHolder;//控件管理类
@@ -74,14 +74,12 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
     public AutoAddRelative autoAddRelative_top;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_seedling);
 
-
+        saveSeedlingPresenter = new SaveSeedlingPresenter(this);
         autoAddRelative_top = new AutoAddRelative(this)
                 .initView(R.layout.save_seeding_auto_add_top);
         viewHolder_top = autoAddRelative_top.getViewHolder_top();
@@ -302,7 +300,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             if (name.equals("地径") || name.equals("米径") || name.equals("胸径")) {//第一个添加带有radio button 选项的   地被不添加
                 autoAddRelative_rd = new AutoAddRelative(this)
                         .initView(R.layout.save_seeding_auto_add_radio)
-                        .setDatas_rd(paramsListBean.get(i),saveSeedingGsonBean.getData().dbhTypeList,saveSeedingGsonBean.getData().diameterTypeList);
+                        .setDatas_rd(paramsListBean.get(i), saveSeedingGsonBean.getData().dbhTypeList, saveSeedingGsonBean.getData().diameterTypeList);
                 autoAddRelative_rd.setSizeWithTag(paramsListBean.get(i).getValue());
                 viewHolder.ll_auto_add_layout.addView(autoAddRelative_rd);
                 viewHolder_rd = autoAddRelative_rd.getViewHolder_rd();

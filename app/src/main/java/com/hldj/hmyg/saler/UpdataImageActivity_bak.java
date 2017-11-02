@@ -147,7 +147,7 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
 
         if (piclistLocal.size() != 0) {//有图片，则先上传图片
             //接口上传图片
-            new SaveSeedlingPresenter().upLoad(this.measureGridView.getAdapter().getDataList(), new ResultCallBack<Pic>() {
+            new SaveSeedlingPresenter(mActivity).upLoad(this.measureGridView.getAdapter().getDataList(), new ResultCallBack<Pic>() {
                 @Override
                 public void onSuccess(Pic pic) {
 

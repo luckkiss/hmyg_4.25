@@ -3,6 +3,7 @@ package com.hldj.hmyg.Ui.jimiao;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -26,9 +27,14 @@ import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin2;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
+import com.hldj.hmyg.widget.AutoAdd2DetailLinearLayout;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
+import com.javis.ab.view.AbOnItemClickListener;
+import com.javis.ab.view.AbSlidingPlayView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.white.utils.SystemSetting;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
 import com.zzy.common.widget.MeasureGridView;
@@ -58,10 +64,11 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
 
     protected String nurseryJson_name;
 
-    private EditText et_name;
+    private TextView tv_name;
 
-    private EditText et_price;
+    private TextView tv_price;
     private TextView tv_remarks;
+    private TextView tv_city;
 
     private String count = "";
 
@@ -91,6 +98,8 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
 
     FinalHttp finalHttp = new FinalHttp();
     public int a = 0;
+    private AutoAdd2DetailLinearLayout.UploadDatas uploadDatas;
+    private AutoAdd2DetailLinearLayout autoAdd2DetailLinearLayout;
 
 
     @Override
@@ -117,31 +126,32 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
 //                urlPaths);
 //        photoGv.setAdapter(adapter);
         PhotoGvOnItemClickListener itemClickListener = new PhotoGvOnItemClickListener();
-        photoGv.setOnItemClickListener(itemClickListener);
+        if (photoGv != null)
+            photoGv.setOnItemClickListener(itemClickListener);
 
 
-        LinearLayout ll_02 = (LinearLayout) findViewById(R.id.ll_02);
-        LinearLayout ll_03 = (LinearLayout) findViewById(R.id.ll_03);
+//        LinearLayout ll_02 = (LinearLayout) findViewById(R.id.ll_02);
         ll_05 = (LinearLayout) findViewById(R.id.ll_05);
-        list_item_adress = (LinearLayout) findViewById(R.id.list_item_adress);
-        iv_edit = (ImageView) findViewById(R.id.iv_edit);
-        iv_edit.setVisibility(View.INVISIBLE);
+//        list_item_adress = (LinearLayout) findViewById(R.id.list_item_adress);
+//        iv_edit = (ImageView) findViewById(R.id.iv_edit);
+//        iv_edit.setVisibility(View.INVISIBLE);
         tv_title = (TextView) findViewById(R.id.tv_title);
         //苗圃名称
         tv_contanct_name = (TextView) findViewById(R.id.tv_name);
         /*联系人电话  名称*/
         tv_con_name_phone = (TextView) findViewById(R.id.tv_con_name_phone);
         tv_address_name = (TextView) findViewById(R.id.tv_address_name);
-        tv_is_defoloat = (TextView) findViewById(R.id.tv_is_defoloat);
+//        tv_is_defoloat = (TextView) findViewById(R.id.tv_is_defoloat);
         id_tv_edit_all = (TextView) findViewById(R.id.id_tv_edit_all);
 
 
         tv_address = (TextView) findViewById(R.id.tv_address);
-        et_name = (EditText) findViewById(R.id.et_name);
-        et_price = (EditText) findViewById(R.id.et_price);
+        tv_name = (TextView) findViewById(R.id.tv_name_top);
+        tv_price = (TextView) findViewById(R.id.tv_price);
         tv_remarks = (TextView) findViewById(R.id.tv_remarks);
+        tv_city = (TextView) findViewById(R.id.tv_city);
 
-        et_count = (EditText) findViewById(R.id.et_count);
+        tv_count = (TextView) findViewById(R.id.tv_count);
         et_height = (EditText) findViewById(R.id.et_height);
         et_maxHeight = (EditText) findViewById(R.id.et_maxHeight);
         et_crown = (EditText) findViewById(R.id.et_crown);
@@ -149,6 +159,11 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
 //        et_minSpec = (EditText) findViewById(R.id.et_minSpec);
         et_max_Spec = (EditText) findViewById(R.id.et_max_Spec);
         et_min_Spec = (EditText) findViewById(R.id.et_min_Spec);
+
+//         <com.hldj.hmyg.widget.AutoAdd2DetailLinearLayout
+//        android:id="@+id/auto_add"
+
+
         if (getIntent().getStringExtra("id") != null) {
             id = getIntent().getStringExtra("id");
             Bundle bundle = getIntent().getExtras();
@@ -181,6 +196,12 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
                                     JSONArray imagesJson = JsonGetInfo
                                             .getJsonArray(seedling,
                                                     "imagesJson");
+
+                                    String num = JsonGetInfo.getJsonString(seedling, "num");
+//                                    tv_id_num.setText("编号：" + num);
+//                                    uploadDatas.seedlingNum = "资源编号：" + num;
+                                    autoAdd2DetailLinearLayout.changeText(num);
+
                                     for (int i = 0; i < imagesJson.length(); i++) {
                                         JSONObject image = imagesJson
                                                 .getJSONObject(i);
@@ -229,10 +250,91 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
             minSpec = getIntent().getStringExtra("minSpec");
             maxSpec = getIntent().getStringExtra("maxSpec");
             nurseryJson_name = getIntent().getStringExtra("nurseryJson_name");
-            et_name.setText(getIntent().getStringExtra("name"));
-            et_price.setText(getIntent().getStringExtra("price"));
+            tv_name.setText(getIntent().getStringExtra("name"));
+            tv_city.setText(FUtil.$_zero(getIntent().getStringExtra("fullName")));
+            tv_price.setText("￥ " + FUtil.$_zero(getIntent().getStringExtra("price")));
             tv_remarks.setText(getIntent().getStringExtra("remarks"));
             tv_remarks.setText("备注：" + getIntent().getStringExtra("remarks"));
+
+
+            uploadDatas = new AutoAdd2DetailLinearLayout.UploadDatas();
+            uploadDatas.remarks = FUtil.$_zero(getIntent().getStringExtra("remarks"));
+
+            JSONArray jsonArray = new JSONArray();
+
+//            JSONObject object = new JSONObject();
+//            JSONObject object1 = new JSONObject();
+//            JSONObject object2 = new JSONObject();
+//            JSONObject object3 = new JSONObject();
+
+            /**
+             *  jsonArray = {JSONArray@9219} "
+             [{"name":"高度","value":"20-25CM"},
+             {"name":"冠幅","value":"20-25CM"}]"
+
+             values = {ArrayList@9222}
+             size = 2
+             0 = {JSONObject@9225}
+             "{"name":"高度","value":"20-25CM"}"
+
+             1 =
+             {JSONObject@9226}
+             "{"name":"冠幅","value":"20-25CM"}"
+             */
+
+
+            try {
+//
+                String staceType = getIntent().getStringExtra("specType");
+//
+//                RadioButton button = (RadioButton) findViewById(R.id.space_type);
+//
+//                if (TextUtils.isEmpty(getTextByKey(staceType))) {
+//                    ((ViewGroup) button.getParent()).setVisibility(View.GONE);
+
+                JSONObject innerjObject = new JSONObject();
+                if (!TextUtils.isEmpty(FUtil.$("-", minSpec, maxSpec))) {
+                    innerjObject = new JSONObject();
+                    innerjObject.put("name", "规格");
+                    innerjObject.put("value", FUtil.$(" - ", minSpec, maxSpec) + "CM   " + getTextByKey(staceType));
+                    jsonArray.put(innerjObject);
+                }
+
+                if (!TextUtils.isEmpty(FUtil.$("-", height, maxHeight))) {
+                    innerjObject = new JSONObject();
+                    innerjObject.put("name", "高度");
+                    innerjObject.put("value", FUtil.$("-", height, maxHeight) + "CM");
+                    jsonArray.put(innerjObject);
+                }
+                if (!TextUtils.isEmpty(FUtil.$("-", crown, maxCrown))) {
+                    innerjObject = new JSONObject();
+                    innerjObject.put("name", "冠幅");
+                    innerjObject.put("value", FUtil.$("-", crown, maxCrown) + "CM");
+                    jsonArray.put(innerjObject);
+                }
+//
+//                innerjObject = new JSONObject();
+//                innerjObject.put("name", "备注name");
+//                innerjObject.put("value", "备注value");
+//                jsonArray.put(innerjObject);
+
+//                object.put("规格", map);
+//                object1.put("高度", FUtil.$(" - ", height, maxHeight));
+//                object1.put("高度", map);
+//                object2.put("冠幅", map);
+//                object3.put("备注", map);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+//            jsonArray.put(object);
+//            jsonArray.put(object1);
+//            jsonArray.put(object2);
+//            jsonArray.put(object3);
+            uploadDatas.seedlingNum = "获取中....";
+            uploadDatas.jsonArray = jsonArray;
+//            object.put("name","abc");
+
 
             String staceType = getIntent().getStringExtra("specType");
 
@@ -241,12 +343,17 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
             if (TextUtils.isEmpty(getTextByKey(staceType))) {
                 ((ViewGroup) button.getParent()).setVisibility(View.GONE);
             } else {
-                ((ViewGroup) button.getParent()).setVisibility(View.VISIBLE);
+                ((ViewGroup) button.getParent()).setVisibility(View.GONE);
                 button.setText(getTextByKey(staceType));
             }
 
+            autoAdd2DetailLinearLayout = (AutoAdd2DetailLinearLayout) ((AutoAdd2DetailLinearLayout) findViewById(R.id.auto_add)).setDatas(uploadDatas);
 
-            et_count.setText(count);
+
+//            if ("0".equals(count)) {
+//                count = "-";
+//            }
+            tv_count.setText("数量：" + FUtil.$_zero(count));
             if ("0".equals(height)) {
                 height = "";
             }
@@ -273,23 +380,23 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
 
             tv_title.setText(getIntent().getStringExtra("name"));
             if (!"".equals(addressId)) {
-                list_item_adress.setVisibility(View.VISIBLE);
+//                list_item_adress.setVisibility(View.VISIBLE);
                 ll_05.setVisibility(View.GONE);
 
 
                 /*苗圃名称*/
-                tv_contanct_name.setText("苗圃名称:" + nurseryJson_name);
+                tv_contanct_name.setText(FUtil.$_zero(nurseryJson_name));
 
-                tv_con_name_phone.setText("联系人: " + contactName);
+                tv_con_name_phone.setText(FUtil.$_zero(contactName));
 //                tv_con_name_phone.setText("联系人: " + contactName + "\u0020" + contactPhone);
 
 
                 tv_address_name.setText(fullAddress);
-                if (isDefault) {
-                    tv_is_defoloat.setVisibility(View.GONE);
-                } else {
-                    tv_is_defoloat.setVisibility(View.GONE);
-                }
+//                if (isDefault) {
+//                    tv_is_defoloat.setVisibility(View.GONE);
+//                } else {
+//                    tv_is_defoloat.setVisibility(View.GONE);
+//                }
             }
 
         } else {
@@ -297,11 +404,10 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
         }
 
         btn_back.setOnClickListener(multipleClickProcess);
-        ll_02.setOnClickListener(multipleClickProcess);
-        ll_03.setOnClickListener(multipleClickProcess);
+//        ll_02.setOnClickListener(multipleClickProcess);
         ll_05.setOnClickListener(multipleClickProcess);
 
-        list_item_adress.setOnClickListener(multipleClickProcess);
+//        list_item_adress.setOnClickListener(multipleClickProcess);
         id_tv_edit_all.setOnClickListener(multipleClickProcess);
 
     }
@@ -332,20 +438,20 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
     }
 
 
-    private LinearLayout list_item_adress;
+//    private LinearLayout list_item_adress;
 
-    private ImageView iv_edit;
+//    private ImageView iv_edit;
 
     private TextView tv_contanct_name;//苗圃名称
     private TextView tv_con_name_phone;//苗圃名称
 
     private TextView tv_address_name;
 
-    private TextView tv_is_defoloat;
+//    private TextView tv_is_defoloat;
 
     private LinearLayout ll_05;
 
-    private EditText et_count;
+    private TextView tv_count;
     private EditText et_maxCrown;
 
     private ACache mCache;
@@ -416,28 +522,75 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
 //        arrayList2Adapter.clear();
 //            arrayList.add(new Pic("hellow", true, MeasureGridView.usrl, 1));
 //            arrayList.add(new Pic("hellows", true, MeasureGridView.usrl1, 12));
+        if (photoGv != null) {
+            photoGv.init(this, urlPaths, (ViewGroup) findViewById(R.id.ll_mainView), new FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener() {
+                @Override
+                public void onTakePic() {
 
-        photoGv.init(this, urlPaths, (ViewGroup) findViewById(R.id.ll_mainView), new FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener() {
+                }
+
+                @Override
+                public void onChoosePic() {
+
+                }
+
+                @Override
+                public void onCancle() {
+                    D.e("===========onCancle=============");
+                }
+            });
+
+            photoGv.getAdapter().closeAll(true);
+            photoGv.getAdapter().notifyDataSetChanged();
+
+        }
+
+
+        AbSlidingPlayView viewPager = (AbSlidingPlayView) findViewById(R.id.viewPager_menu);
+        if (viewPager != null) {
+            // 设置播放方式为顺序播放
+            viewPager.setPlayType(1);
+            // 设置播放间隔时间
+            viewPager.setSleepTime(3000);
+//            LinearLayout.LayoutParams l_params = new LinearLayout.LayoutParams(
+//                    RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//            WindowManager wm = this.getWindowManager();
+//            l_params.height = wm.getDefaultDisplay().getWidth();
+//            viewPager.setLayoutParams(l_params);
+            initViewPager(viewPager, urlPaths);
+        }
+
+
+    }
+
+
+    private void initViewPager(AbSlidingPlayView viewPager, ArrayList<Pic> urlPaths) {
+
+
+        for (int i = 0; i < urlPaths.size(); i++) {
+            // 导入ViewPager的布局
+            View view = LayoutInflater.from(this).inflate(R.layout.pic_item,
+                    null);
+            ImageView imageView = (ImageView) view.findViewById(R.id.pic_item);
+            // fb.display(imageView, banners.get(i));
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            ImageLoader.getInstance().displayImage(urlPaths.get(i).getUrl(), imageView);
+            viewPager.addView(view);
+        }
+        // 开始轮播
+        if (!viewPager.isPlaying()) {
+            viewPager.startPlay();
+        }
+
+
+        viewPager.setOnItemClickListener(new AbOnItemClickListener() {
             @Override
-            public void onTakePic() {
+            public void onClick(int position) {
 
-            }
-
-            @Override
-            public void onChoosePic() {
-
-            }
-
-            @Override
-            public void onCancle() {
-                D.e("===========onCancle=============");
+                GalleryImageActivity.startGalleryImageActivity(
+                        mActivity, position, urlPaths);
             }
         });
-
-        photoGv.getAdapter().closeAll(true);
-        photoGv.getAdapter().notifyDataSetChanged();
-
-
     }
 
 
@@ -496,5 +649,23 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
                 });
     }
 
+
+    public static class MyObj {
+        public String name = "";
+        public String value = "";
+
+        public MyObj(String n, String v) {
+            this.name = n;
+            this.value = v;
+        }
+
+        @Override
+        public String toString() {
+            return "MyObj{" +
+                    "name='" + name + '\'' +
+                    ", value='" + value + '\'' +
+                    '}';
+        }
+    }
 
 }

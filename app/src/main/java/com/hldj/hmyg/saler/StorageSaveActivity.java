@@ -303,7 +303,7 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
             hud_numHud.show();
             hud_numHud.updateLable("正在上传第" + (1) + "/" + arrayList.size() + "张图片");
             //   上传图片  可能多图片
-            new SaveSeedlingPresenter().upLoad(arrayList, new ResultCallBack<Pic>() {
+            new SaveSeedlingPresenter(mActivity).upLoad(arrayList, new ResultCallBack<Pic>() {
                 @Override
 //                        public void onSuccess(UpImageBackGsonBean imageBackGsonBean) {//
                 public void onSuccess(Pic pic) {//

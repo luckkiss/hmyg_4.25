@@ -1,6 +1,7 @@
 package com.hldj.hmyg.presenter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -37,7 +38,6 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import me.shaohui.advancedluban.Luban;
 
-import static com.zzy.common.widget.MeasureGridView.context;
 
 /**
  * Created by Administrator on 2017/4/14.
@@ -45,9 +45,9 @@ import static com.zzy.common.widget.MeasureGridView.context;
 
 public class SaveSeedlingPresenter {
 
-
-    public SaveSeedlingPresenter() {
-
+    private Context mContext ;
+    public SaveSeedlingPresenter(Context context) {
+        this.mContext = context ;
     }
 
 
@@ -315,7 +315,7 @@ public class SaveSeedlingPresenter {
 
 
             //上传多张本地图片
-            Luban.compress(context, getFileList(dataList))
+            Luban.compress(mContext, getFileList(dataList))
                     .setMaxSize(1024)
                     .setMaxHeight((int) (2560))
                     .setMaxWidth((int) (1440))
@@ -341,7 +341,7 @@ public class SaveSeedlingPresenter {
                         @Override
                         public void accept(@NonNull File file) throws Exception {
                             D.e("========accept========path=" + file.getAbsolutePath() + "   size =" + file.length() / 1024);
-                            Thread.sleep(150);
+                            Thread.sleep(250);
                             GetServerUrl.addHeaders(finalHttp, true);
                             finalHttp.addHeader("Content-Type", "application/octet-stream");
                             AjaxParams params1 = new AjaxParams();
