@@ -163,7 +163,7 @@ public class MiaoNoteListAdapter extends BaseAdapter {
 //        PurchaseDetailActivity.setImgCounts(((Activity) context), ((SuperTextView) convertView.findViewById(R.id.tv_quote_item_photo_num)), jsonBeen);
 
 //        holder.tv_05.setText(ValueGetInfo.doubleTrans1(Double.parseDouble(data.get(position).get("price").toString())));
-        holder.tv_05.setText(FUtil.$_head("￥", data.get(position).get("price").toString()));
+        holder.tv_05.setText(FUtil.$_head("¥", data.get(position).get("price").toString()));
         holder.tv_07.setText(FUtil.$_zero(data.get(position).get("count").toString()));//数量
         String minSpec = data.get(position).get("minSpec").toString();
         String maxSpec = data.get(position).get("maxSpec").toString();

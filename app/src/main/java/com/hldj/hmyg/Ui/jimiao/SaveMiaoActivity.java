@@ -3,7 +3,8 @@ package com.hldj.hmyg.Ui.jimiao;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -52,7 +53,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -178,6 +179,8 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                 D.e("===========onTakePic=============");
                 if (TakePhotoUtil.toTakePic(mActivity))//检查 存储空间
                     flowerInfoPhotoPath = TakePhotoUtil.doTakePhoto(mActivity, TakePhotoUtil.TO_TAKE_PIC);//照相
+
+
             }
 
             @Override
@@ -197,6 +200,27 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString("photoPath", flowerInfoPhotoPath);
+        Log.d(TAG, "onSaveInstanceState" + flowerInfoPhotoPath);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (TextUtils.isEmpty(flowerInfoPhotoPath)) {
+            flowerInfoPhotoPath = savedInstanceState.getString("photoPath");
+        }
+        Log.d(TAG, "onRestoreInstanceState" + flowerInfoPhotoPath);
+    }
+
+
+
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_miao);
@@ -207,8 +231,6 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 
 
         radio_group_auto_add = (RadioGroup) findViewById(R.id.radio_group_auto_add);
-
-
 
 
         Data.pics1.clear();
@@ -354,7 +376,6 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
             et_name.setText(getIntent().getStringExtra("name"));
 
             specType_text = (getIntent().getStringExtra("specType"));
-
 
 
             //备注
@@ -583,7 +604,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                         });
 
             }
-        });
+        }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(AndroidSchedulers.mainThread());
     }
 
 
@@ -710,6 +731,11 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                                 Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    if ("".equals(et_price.getText().toString())) {
+                        Toast.makeText(SaveMiaoActivity.this, "请输入价格",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
                     if ("".equals(addressId)) {
                         Toast.makeText(SaveMiaoActivity.this, "请先选择苗源地址",
@@ -778,21 +804,21 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 //            hud_numHud.updateLable("正在上传第 (" + a + "/" + size + "张) 图片");
 //            hud_numHud.show();
         }
-
         if (a == photoGv.getAdapter().getDataList().size()) {
             if (urlPathsOnline.size() > 0) {
-                if (urlPathsOnline.size() > 0) {
-                    Data.pics1.clear();
-                    for (int i = 0; i < urlPathsOnline.size(); i++) {
-                        Data.pics1.add(urlPathsOnline.get(i));
-                    }
-                    D.e("============上传保存结果==============");
+//                    Data.pics1.clear();
+//                    for (int i = 0; i < urlPathsOnline.size(); i++) {
+//                        Data.pics1.add(urlPathsOnline.get(i));
+//                    }
+                D.e("============上传保存结果==============");
+//                    photoGv.getAdapter().notify(Data.pics1);
+                photoGv.getAdapter().notify(urlPathsOnline);
 
-                    photoGv.getAdapter().notify(Data.pics1);
-                    seedlingSave();
-                } else {
-                }
+                seedlingSave();
+            } else {
+                hindLoading();
             }
+
         }
     }
 
@@ -870,6 +896,7 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 //                                        finish();
                                         resetView();
                                         id = "";
+                                        hindLoading();
 //                                        startActivity(new Intent(SaveMiaoActivity.this, SaveMiaoActivity.class));
 //                                        finish();
 //                                        Intent toSaveMiaoActivity = new Intent(
@@ -889,6 +916,8 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                                         setResult(8);
                                         resetView();
                                         id = "";
+                                        hindLoading();
+
 //                                        finish();
 //                                        instance = SaveMiaoActivity.this;
 
@@ -915,14 +944,16 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 
                             } else {
 
+                                hindLoading();
+
                             }
 
                         } catch (JSONException e) {
+                            hindLoading();
                             // TODO Auto-generated catch block
                             e.printStackTrace();
                         }
                         super.onSuccess(t);
-
 
 
                     }
@@ -949,15 +980,31 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
                 photoGv.addImageItem(flowerInfoPhotoPath);
                 photoGv.getAdapter().Faild2Gone(true);
             } catch (Exception e) {
+                ToastUtil.showLongToast("图片加载失败");
                 e.printStackTrace();
             }
+
+            // 第二步：其次把文件插入到系统图库
+
+            if (!new File(flowerInfoPhotoPath).exists()) {
+                ToastUtil.showLongToast("图片保存失败");
+                return;
+            }
+//            try {
+//                MediaStore.Images.Media.insertImage(getContentResolver(), flowerInfoPhotoPath, new File(flowerInfoPhotoPath).getName(), null);
+////   /storage/emulated/0/Boohee/1493711988333.jpg
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+
             // 其次把文件插入到系统图库
-            try {
-                MediaStore.Images.Media.insertImage(getContentResolver(),
-                        flowerInfoPhotoPath, flowerInfoPhotoPath, null);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                MediaStore.Images.Media.insertImage(getContentResolver(),
+//                        flowerInfoPhotoPath, System.currentTimeMillis() + "photo", null);
+////                        flowerInfoPhotoPath, flowerInfoPhotoPath, null);
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
             // 最后通知图库更新
             // sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
             // Uri.parse("file://" + flowerInfoPhotoPath)));
@@ -993,7 +1040,15 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
 
 
     public void upLoadImgs() {
-        showLoading();
+
+        try {
+            showLoading();
+        } catch (Exception e) {
+            D.e("===" + e.getMessage());
+            e.printStackTrace();
+        }
+
+
         setLoadCancle(false);
         a = 0;
 //        urlPaths.clear();
@@ -1007,7 +1062,14 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
             public void onSuccess(Pic pic) {//
 
 //                urlPaths.add(pic);
-                urlPathsOnline.add(pic);
+//                urlPathsOnline.add(pic);
+
+                if (!TextUtils.isEmpty(pic.getUrl())) {
+                    urlPathsOnline.add(pic);
+                } else {
+                    ToastUtil.showLongToast("有图片损坏，您可以修改后重新上传！");
+                }
+
 //                          urlPaths.replaceAll(,pic);
                 a = pic.getSort();
                 a++;
@@ -1020,7 +1082,14 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
             public void onFailure(Throwable t, int errorNo, String strMsg) {
 //                            hud_numHud.dismiss();
                 hindLoading();
-                ToastUtil.showShortToast("上传图片失败,请稍后尝试！");
+
+                if (errorNo == -1) {
+                    ToastUtil.showShortToast(strMsg);
+                } else {
+                    ToastUtil.showShortToast("上传图片失败,请稍后尝试！");
+                }
+
+
             }
         });
 

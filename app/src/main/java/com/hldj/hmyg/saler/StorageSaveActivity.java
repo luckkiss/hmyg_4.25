@@ -287,6 +287,7 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
     List<Pic> onlinePics = new ArrayList<>();
 
     private void fabu(AjaxParams params) {
+        errorNum = 0;
         onlinePics.clear();
 
         //执行上传图片接口
@@ -308,8 +309,21 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
 //                        public void onSuccess(UpImageBackGsonBean imageBackGsonBean) {//
                 public void onSuccess(Pic pic) {//
                     hud_numHud.updateLable("已上传第" + (pic.getSort() + 1) + "/" + arrayList.size() + "张图片");
-                    onlinePics.add(pic);
-                    if (onlinePics.size() == arrayList.size()) {
+                    if (!TextUtils.isEmpty(pic.getUrl())) {
+                        onlinePics.add(pic);
+//                        listPicsOnline.add(pic);
+                    } else {
+                        errorNum++;
+                        ToastUtil.showLongToast("有图片损坏，您可以修改后重新上传！");
+                    }
+
+
+                    if ((onlinePics.size() + errorNum) == arrayList.size()) {
+                        if (onlinePics.size() == 0) {
+                            ToastUtil.showLongToast("请上传图片");
+                            hindLoading();
+                            return;
+                        }
                         hud_numHud.updateLable("图片上传成功");
 
                         putParams(params, "imagesData", GsonUtil.Bean2Json(onlinePics));
@@ -339,6 +353,8 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
 
         D.e("===没有问题可以发布==");
     }
+
+    public int errorNum = 0;
 
 
     private void seedlingSave(AjaxParams ajaxParams) {

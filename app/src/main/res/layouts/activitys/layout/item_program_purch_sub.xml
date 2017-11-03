@@ -18,7 +18,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="￥3200/株"
+        android:text="¥3200/株"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,7 +29,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="￥3520(含服务费)"
+        android:text="¥3520(含服务费)"
         android:textColor="@color/text_color999"
         app:layout_constraintLeft_toRightOf="@+id/tv_program_purch_sub_price_type"
         app:layout_constraintTop_toTopOf="parent" />

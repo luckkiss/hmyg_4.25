@@ -87,7 +87,7 @@
         android:textColor="@color/price_orige"
         app:layout_constraintLeft_toRightOf="@+id/textView14"
         app:layout_constraintTop_toBottomOf="@+id/item_program_car_card"
-        tools:text="￥2500" />
+        tools:text="¥2500" />
 
     <TextView
         android:id="@+id/textView16"

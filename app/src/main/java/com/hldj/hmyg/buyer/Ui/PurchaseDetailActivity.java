@@ -108,7 +108,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                     protected void convert(BaseViewHolder helper, SellerQuoteJsonBean item) {
 //                        helper.setText(R.id.tv_quote_item_sellerName, strFilter(item.sellerName).equals("") ? strFilter(item.sellerPhone) : strFilter(item.sellerName));//报价人
 
-                        helper.setText(R.id.tv_quote_item_price, strFilter("￥" + item.price + ""));//价格
+                        helper.setText(R.id.tv_quote_item_price, strFilter("¥" + item.price + ""));//价格
                         helper.setText(R.id.tv_quote_item_plantTypeName, strFilter(item.plantTypeName));//种植类型
                         helper.setText(R.id.tv_quote_item_declare, strFilter(item.remarks));//种植类型
                         helper.setText(R.id.tv_quote_item_count, strFilter(item.count + ""));// 可供数量
@@ -968,6 +968,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         getViewHolder_pur().et_purchase_remark.setText("");
         getViewHolder_pur().tv_purchase_add_pic.setText("未上传图片");
         listPicsOnline.clear();
+        uploadBean.imagesData = "";
     }
 /**
  *    this.tv_purchase_city_name = getBootomBiew().findViewById(R.id.tv_purchase_city_name);

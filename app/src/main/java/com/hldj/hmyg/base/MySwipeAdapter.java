@@ -190,8 +190,10 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
             textView.setText("发布人:" + bean.getOwnerJson().getPublicName());
         } else if (!TextUtils.isEmpty(bean.getOwnerJson().getRealName())) {
             textView.setText("发布人:" + bean.getOwnerJson().getRealName());
-        } else {//用户名
+        } else if (!TextUtils.isEmpty(bean.getOwnerJson().getUserName())) {//用户名
             textView.setText("发布人:" + bean.getOwnerJson().getUserName());
+        } else {
+            textView.setText("发布人:-");
         }
     }
 

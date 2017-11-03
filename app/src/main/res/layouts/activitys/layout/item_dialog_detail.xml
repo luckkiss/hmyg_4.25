@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="7dp"
-        android:text="￥495"
+        android:text="¥495"
         android:textColor="@color/price_orige"
 
         android:textSize="@dimen/textSizeXX"

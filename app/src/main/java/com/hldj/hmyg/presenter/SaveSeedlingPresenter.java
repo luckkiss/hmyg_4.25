@@ -2,6 +2,7 @@ package com.hldj.hmyg.presenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.TagAdapter;
+import com.hy.utils.ToastUtil;
 import com.white.utils.StringUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -45,9 +47,10 @@ import me.shaohui.advancedluban.Luban;
 
 public class SaveSeedlingPresenter {
 
-    private Context mContext ;
+    private Context mContext;
+
     public SaveSeedlingPresenter(Context context) {
-        this.mContext = context ;
+        this.mContext = context;
     }
 
 
@@ -309,11 +312,7 @@ public class SaveSeedlingPresenter {
 //                .putGear(Luban.CUSTOM_GEAR)
 //                .load(fileList)                     // load all images
 //                .asListObservable()                 // Generates Observable <List<File>. Returns the result of all the images compressed successfully
-
-
         if (getFileList(dataList).size() > 0) {
-
-
             //上传多张本地图片
             Luban.compress(mContext, getFileList(dataList))
                     .setMaxSize(1024)
@@ -327,6 +326,7 @@ public class SaveSeedlingPresenter {
                             return Observable.fromIterable(files);
                         }
                     })
+
 //                .flatMap(new Function<List<File>, ObservableSource<File>>() {
 //                    @Override
 //                    public ObservableSource<File> apply(@NonNull List<File> files) throws Exception {
@@ -347,6 +347,15 @@ public class SaveSeedlingPresenter {
                             AjaxParams params1 = new AjaxParams();
                             params1.put("sourceId", "");
                             doUpLoad(file, params1, finalHttp, resultCallBack);
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(@NonNull Throwable throwable) throws Exception {
+//                            ToastUtil.showLongToast("损坏一张图片");
+                            D.e("======损坏一张图片======");
+                            resultCallBack.onFailure(throwable, -1, "图片损坏，无法上传，请先删除无效图片");
+//                            a++;
+//                            ToastUtil.showLongToast("上传失败，请重新上传" + throwable.getMessage());
                         }
                     })
 //                .subscribe(new Consumer<File>() {
@@ -405,6 +414,19 @@ public class SaveSeedlingPresenter {
 //                        D.e("===========图片地址=========\n" + dataList.get(i).getUrl());
 
         }
+
+        /**
+         *  .onErrorResumeNext(Observable.<File>empty())
+         .doOnError(new Consumer<Throwable>() {
+        @Override public void accept(@NonNull Throwable throwable) throws Exception {
+        D.e("====doOnError====" + throwable.getMessage());
+        ToastUtil.showLongToast("损坏一张图片");
+        D.e("======损坏一张图片======");
+        resultCallBack.onSuccess(new Pic("", false, "", a));
+        a++;
+        }
+        })
+         */
         for (int i = 0; i < list_size; i++) {
             if (!StringUtil.isHttpUrlPicPath(dataList.get(i).getUrl())) {//不是已经上传的图片
             } else {
@@ -430,11 +452,26 @@ public class SaveSeedlingPresenter {
 
 
     public void doUpLoad(File file, AjaxParams params1, FinalHttp finalHttp, ResultCallBack resultCallBack) {
+        //过滤掉  空的文件
+
+        D.e("查看是否文件图片" + checkImgNull(file));
+
+        if (checkImgNull(file) || file.length() < 2) {
+            D.e("===上传失败，过滤掉一张空的图片==");
+            ToastUtil.showLongToast("损坏一张图片");
+            resultCallBack.onSuccess(new Pic("", false, "", a));
+            a++;
+            return;
+        }
+
         try {
             params1.put("file", file);
+
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         params1.put("imagType", "seedling");
         finalHttp.post(GetServerUrl.getUrl() + "admin/file/image", params1, new AjaxCallBack<String>() {
             @Override
@@ -483,6 +520,25 @@ public class SaveSeedlingPresenter {
         return size;
     }
 
+
+    /**
+     * true 表示空
+     *
+     * @param file
+     * @return
+     */
+    public boolean checkImgNull(File file) {
+        BitmapFactory.Options options = null;
+        if (options == null) options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+
+        BitmapFactory.decodeFile(file.getAbsolutePath(), options); //filePath代表图片路径
+        if (options.mCancel || options.outWidth == -1 || options.outHeight == -1) {
+            //表示图片已损毁
+            return true;
+        }
+        return false;
+    }
 
 }
 

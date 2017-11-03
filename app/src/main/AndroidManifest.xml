@@ -724,9 +724,13 @@
             android:screenOrientation="portrait" />
 
         <activity android:name=".Ui.jimiao.MiaoNoteListActivity" />
-        <activity android:name=".Ui.jimiao.SaveMiaoActivity" />
+        <activity
+            android:name=".Ui.jimiao.SaveMiaoActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".Ui.jimiao.SellectMiaoActivity" />
-        <activity android:name=".Ui.jimiao.MiaoDetailActivity" />
+        <activity
+            android:name=".Ui.jimiao.MiaoDetailActivity"
+            android:theme="@style/e_activity_theme" />
 
 
         <activity

@@ -38,9 +38,9 @@
     <string name="cancel_button">取消</string>
     <string name="contact_message">我司在该地区暂时没有驻点经纪为您提供验苗服务，您可联系客服咨询跨区域验苗事宜。</string>
     <string name="good_count">x %d</string>
-    <string name="price">￥%s</string>
-    <string name="total_0">合计：￥0.00</string>
-    <string name="total">合计：￥%s</string>
+    <string name="price">¥%s</string>
+    <string name="total_0">合计：¥0.00</string>
+    <string name="total">合计：¥%s</string>
     <string name="jiesuan_0">付款（0）</string>
     <string name="jiesuan">付款（%s）</string>
     <string name="yanmiao">验苗（%s）</string>

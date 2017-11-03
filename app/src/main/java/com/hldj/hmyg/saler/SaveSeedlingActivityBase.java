@@ -446,8 +446,11 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                         @Override
 //                        public void onSuccess(UpImageBackGsonBean imageBackGsonBean) {//
                         public void onSuccess(Pic pic) {//
-
-                            urlPaths.add(pic);
+                            if (!TextUtils.isEmpty(pic.getUrl())) {
+                                urlPaths.add(pic);
+                            } else {
+                                ToastUtil.showLongToast("有图片损坏，您可以修改后重新上传！");
+                            }
 //                          urlPaths.replaceAll(,pic);
                             a = pic.getSort();
                             a++;
@@ -575,12 +578,20 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                         D.e("=============checkParames===================" + viewHolder_rd.tv_auto_add_left1.getText() + " 最大值或最小值必须填写!");
                         return false;
                     }
+
+                    if (TextUtils.isEmpty(autoAddRelative.getDiameterType())) {
+                        ToastUtil.showLongToast("请选择 *M量 选项");
+                        return false;
+                    }
+
                 }
+
+
                 break;
             case "2":
                 //若是必填
                 if (autoAddRelative.isRequiredis()) {
-                    if (TextUtils.isEmpty(autoAddRelative.getViewHolder().et_auto_add_min.getText().toString()) && TextUtils.isEmpty(autoAddRelative.getViewHolder().et_auto_add_min.getText().toString())) {
+                    if (TextUtils.isEmpty(autoAddRelative.getViewHolder().et_auto_add_min.getText().toString()) && TextUtils.isEmpty(autoAddRelative.getViewHolder().et_auto_add_max.getText().toString())) {
                         ToastUtil.showShortToast("请填写 " + autoAddRelative.getViewHolder().tv_auto_add_left1.getText() + " 的最大值或最小值!");
                         D.e("=============checkParames===================" + viewHolder_rd.tv_auto_add_left1.getText() + " 的最大值或最小值!");
                         return false;
@@ -618,10 +629,11 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         D.e("=========checkParames1=========");
 
         if (autoAddRelative_rd != null) {
-//            if (!checkParames(autoAddRelative_rd, "1")) {
-//                D.e("=========null======1===");
-//                return null;
-//            }
+            if (!checkParames(autoAddRelative_rd, "1")) {
+                D.e("=========null======1===");
+                return null;
+            }
+
 
             if (autoAddRelative_rd.getMTag().equals("dbh")) {
                 params.put("dbhType", autoAddRelative_rd.getDiameterType());
@@ -638,10 +650,10 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
         for (int i = 0; i < arrayList_holders.size(); i++) {
             D.e("=========checkParames2=========");
-//            if (!checkParames(arrayList_holders.get(i), "2")) {
-//                D.e("=========null=====2===");
-//                return null;
-//            }
+            if (!checkParames(arrayList_holders.get(i), "2")) {
+                D.e("=========null=====2===");
+                return null;
+            }
 
             if (arrayList_holders.get(i).getTag().equals("高度")) {
                 //有高度 参数

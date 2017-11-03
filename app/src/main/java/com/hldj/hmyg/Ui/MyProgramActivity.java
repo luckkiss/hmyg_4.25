@@ -3,6 +3,7 @@ package com.hldj.hmyg.Ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
@@ -19,6 +20,7 @@ import com.hldj.hmyg.model.MyProgramGsonBean;
 import com.hldj.hmyg.model.MyProgramModel;
 import com.hldj.hmyg.presenter.MyProgramPresenter;
 import com.hldj.hmyg.util.D;
+import com.hy.utils.ToastUtil;
 
 import java.util.List;
 
@@ -50,8 +52,12 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
             @Override
             protected void convert(BaseViewHolder helper, MyProgramGsonBean.DataBeanX.PageBean.DataBean item) {
                 helper.convertView.setOnClickListener(view -> {
-
+                    if (TextUtils.isEmpty(item.id)) {
+                        ToastUtil.showLongToast("项目信息获取失败");
+                        return;
+                    }
                     if (!item.typeName.equals("直购")) {
+
                         ProgramDirctActivity.start(mActivity, item.id);
                     } else {
                         ProgramProtocolActivity.start(mActivity, item.id);
@@ -65,7 +71,7 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
                 ;//
 
                 helper.setText(R.id.tv_program_load_car_count, filterColor(item.loadCarCount + "车", item.loadCarCount + "", R.color.main_color));//
-                helper.setText(R.id.tv_program_alreay_order, "￥" + item.totalAmount);//
+                helper.setText(R.id.tv_program_alreay_order, "¥" + item.totalAmount);//
                 helper.setText(R.id.tv_program_state, strFilter(item.typeName));//
 //                helper.setText(R.id.tv_program_state, item.typeName);//
                 int colorId = item.typeName.equals("直购") ? ContextCompat.getColor(mActivity, R.color.price_orige) : ContextCompat.getColor(mActivity, R.color.main_color);

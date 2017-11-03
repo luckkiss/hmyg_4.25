@@ -10,6 +10,7 @@ import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.widget.AutoAddRelative;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
 
@@ -160,8 +161,8 @@ public class SaveSeedlingActivity_pubsh_quick extends SaveSeedlingActivityBase {
     private void initBottom(SaveSeedingGsonBean.DataBean.SeedlingBean bean) {
 
         String price = bean.price;
-        String count = bean.getCount() + "";
-        String remarks = bean.getRemarks() + "";
+        String count = FUtil.$_zero(bean.getCount() + "");
+        String remarks = FUtil.$(bean.getRemarks());
         viewHolder.bottom_ll.getHolder().tv_save_seeding_price_min.setText(price);
         viewHolder.bottom_ll.getHolder().et_repertory_num.setText(count);
         viewHolder.bottom_ll.getHolder().et_remark.setText(remarks);

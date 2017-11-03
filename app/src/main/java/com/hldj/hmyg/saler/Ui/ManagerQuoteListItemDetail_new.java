@@ -86,9 +86,9 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
                     view.findViewById(R.id.tv_recycle_detail_bottom_title).setVisibility(View.GONE);
 
                 if (TextUtils.isEmpty(usedQuoteList.get(i).specText)) {
-                    ((TextView) view.findViewById(R.id.tv_recycle_detail_bottom)).setText(strFilter("价格：￥" + usedQuoteList.get(i).price));
+                    ((TextView) view.findViewById(R.id.tv_recycle_detail_bottom)).setText(strFilter("价格：¥" + usedQuoteList.get(i).price));
                 } else {
-                    ((TextView) view.findViewById(R.id.tv_recycle_detail_bottom)).setText(strFilter("价格：￥" + usedQuoteList.get(i).price + "  " + "[" + usedQuoteList.get(i).specText + "]"));
+                    ((TextView) view.findViewById(R.id.tv_recycle_detail_bottom)).setText(strFilter("价格：¥" + usedQuoteList.get(i).price + "  " + "[" + usedQuoteList.get(i).specText + "]"));
 
                 }
 

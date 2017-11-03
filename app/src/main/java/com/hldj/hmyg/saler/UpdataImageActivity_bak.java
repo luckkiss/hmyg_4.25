@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.hldj.hmyg.bean.PicSerializableMaplist;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.TakePhotoUtil;
+import com.hy.utils.ToastUtil;
 import com.white.utils.SystemSetting;
 import com.zzy.common.widget.MeasureGridView;
 
@@ -120,6 +122,7 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
 //            return;
 //        }
         a = 1;
+        errorNum = 0;
         if (measureGridView != null && size != 0) {
 
             D.e("======图片的地址数量====" + size);
@@ -150,11 +153,17 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
             new SaveSeedlingPresenter(mActivity).upLoad(this.measureGridView.getAdapter().getDataList(), new ResultCallBack<Pic>() {
                 @Override
                 public void onSuccess(Pic pic) {
-
                     ++a;
-                    listPicsOnline.add(pic);
+                    if (!TextUtils.isEmpty(pic.getUrl())) {
+                        listPicsOnline.add(pic);
+                    } else {
+                        errorNum++;
+                        ToastUtil.showLongToast("有图片损坏，您可以修改后重新上传！");
+                    }
                     UpdateLoading("正在上传第 (" + a + "/" + size + "张) 图片");
-                    if (listPicsOnline.size() == piclistLocal.size()) {
+
+
+                    if (listPicsOnline.size() +errorNum == piclistLocal.size()) {
 //                        uploadBean.imagesData = GsonUtil.Bean2Json(listPicsOnline);
 //                        save();//如果没有图片，直接上传数据
                         UpdateLoading("上传成功");
@@ -189,6 +198,8 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
             save();//如果没有图片，直接上传数据
         }
     }
+
+    int errorNum = 0;
 
 
     @Override

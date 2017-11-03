@@ -167,6 +167,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/x12"
+                        android:drawableLeft="@drawable/seller_redstar"
                         android:text="单价"
                         android:textSize="@dimen/x15" />
 

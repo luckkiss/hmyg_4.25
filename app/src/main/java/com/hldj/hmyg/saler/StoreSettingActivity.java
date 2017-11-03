@@ -574,7 +574,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
     }
 
     private void openCamera() {
-        cameraFile = uploadHeadUtil.getCacheFile(new File(getDiskCacheDir(this)), "output_image.jpg");
+        cameraFile = uploadHeadUtil.getCacheFile(new File(getDiskCacheDir(this)), "output_image1.jpg");
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             imageUri = Uri.fromFile(cameraFile);

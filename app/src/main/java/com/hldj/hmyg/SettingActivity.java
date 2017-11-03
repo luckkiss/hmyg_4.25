@@ -70,7 +70,8 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         findViewById(R.id.test_show_pach).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showShortToast("暂无补丁日志^_^");
+                ToastUtil.showShortToast("1.修改记苗本详情样式" +
+                        "2.拍照异常图片过滤");
                 /**
                  * Beta.cleanTinkerPatch();
                  注：清除补丁之后，就会回退基线版本状态。

@@ -63,7 +63,6 @@ import com.zf.iosdialog.widget.ActionSheetDialog;
 import com.zf.iosdialog.widget.AlertDialog;
 import com.zym.selecthead.tools.FileTools;
 
-import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.http.AjaxCallBack;
 
 import java.io.File;
@@ -96,7 +95,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     public static boolean showSeedlingNoteShare = false;//是否显示 共享资源
 
 
-    FinalBitmap finalBitmap;
+//    FinalBitmap finalBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,8 +107,8 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         cachPath = UploadHeadUtil.getDiskCacheDir(this) + "/handimg.jpg";//图片路径
         cacheFile = uploadHeadUtil.getCacheFile(new File(getDiskCacheDir(this)), "handimg.jpg");
 
-        finalBitmap = FinalBitmap.create(mActivity);
-        finalBitmap.configLoadfailImage(R.drawable.icon_persion_pic);
+//        finalBitmap = FinalBitmap.create(mActivity);
+//        finalBitmap.configLoadfailImage(R.drawable.icon_persion_pic);
 //        finalBitmap.configLoadingImage(R.drawable.icon_persion_pic);
 
         setSwipeBackEnable(false);
@@ -389,7 +388,14 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     private Uri imageUri;
 
     private void openCamera() {
-        cameraFile = uploadHeadUtil.getCacheFile(new File(getDiskCacheDir(this)), "output_image.jpg");
+        cameraFile = uploadHeadUtil.getCacheFile(new File(getDiskCacheDir(this)), "output_image1.jpg");
+//        if (cameraFile.exists()) {
+//            cameraFile.delete();
+//            cameraFile.mkdir();
+//        }
+
+        D.e("cameraFile size" + cameraFile.length());
+//        cacheFile = uploadHeadUtil.getCacheFile(new File(getDiskCacheDir(this)), "handimg.jpg");
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             imageUri = Uri.fromFile(cameraFile);
@@ -406,7 +412,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        D.e("size " + requestCode + " resultCode " + resultCode + " data=" + data);
         if (resultCode == Activity.RESULT_CANCELED) {
             return;
         }
@@ -417,12 +423,19 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                 break;
             case TAKE_PHOTO:
                 if (resultCode == RESULT_OK) {
+
+                    D.e("cameraFile size" + cameraFile.length());
+
+
+                    D.e("cameraFile size" + cameraFile.length());
                     try {
                         // 将拍摄的照片显示出来
                         uploadHeadUtil.startPhotoZoom(cameraFile, 1, cacheFile);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
+
                 }
                 break;
 
@@ -568,12 +581,9 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                 .doRequest("admin/user/getPermission", true, new AjaxCallBack<String>() {
                     @Override
                     public void onSuccess(String json) {
-
                         Log.i("=======", "onSuccess: " + json);
-
                         if (GetServerUrl.isTest)//测试的时候显示
                             ToastUtil.showShortToast("测试的时候显示\n" + "请求是否显示项目结果：\n" + json);
-
                         SimpleGsonBean bean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
                         if (bean.isSucceed()) {
 //                            GetServerUrl.isTest
@@ -588,18 +598,18 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                             } else {
                                 getView(R.id.sptv_wd_jmb).setVisibility(bean.getData().showSeedlingNote ? View.VISIBLE : View.GONE);
                             }
-
-
                             showSeedlingNoteShare = bean.getData().showSeedlingNoteShare;
 //                            showSeedlingNoteShare = false;
                             D.e("===========showSeedlingNoteShare===========" + showSeedlingNoteShare);
 
+                        } else {
+                            ToastUtil.showLongToast(bean.msg);
                         }
                     }
 
                     @Override
                     public void onFailure(Throwable t, int errorNo, String strMsg) {
-
+                        ToastUtil.showLongToast("权限请求接口请求失败：" + strMsg);
                     }
                 });
     }

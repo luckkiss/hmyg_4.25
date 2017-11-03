@@ -7,8 +7,8 @@ def bakPath = file("${buildDir}/bakApk/")
  */
 //def baseApkDir = "app-0907-18-09-41"  3.0.4fix1 使用
 //def baseApkDir = "app-0926-12-54-35"   3.0.5. 1
-def baseApkDir = "app-1018-16-02-05"
-
+def baseApkDir = "app-1030-15-54-46"
+//
 /**
  * 对于插件各参数的详细解析请参考
  */

@@ -151,7 +151,7 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
             @Override
             protected void convert(BaseViewHolder helper, UsedQuoteListBean item) {
                 D.e("==========item=============" + item.toString());
-                helper.setText(R.id.tv_recycle_detail_bottom, strFilter("价格：￥" + item.price + ""));
+                helper.setText(R.id.tv_recycle_detail_bottom, strFilter("价格：¥" + item.price + ""));
 
                 if (helper.getAdapterPosition() != 0) {
                     helper.setVisible(R.id.tv_recycle_detail_bottom_title, false);

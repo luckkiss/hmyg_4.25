@@ -77,7 +77,18 @@ public class TakePhotoUtil {
 
         long str = System.currentTimeMillis();
         String filename = "flower_info_" + str + ".png";
-        File photoFile = new File(FileUtil.getFlowerPicPath(""), filename);
+
+//        UploadHeadUtil uploadHeadUtil = new UploadHeadUtil(context);
+
+//        filename = "output_image.jpg";
+//        File photoFile = uploadHeadUtil.getCacheFile(new File(UploadHeadUtil.getDiskCacheDir(context)), filename);
+
+        File dir = new File( FileUtil.getFlowerPicPath(""));
+
+//        File photoFile = cameraFile;
+        File photoFile = new File(dir.getPath(), filename);
+
+//        flowerInfoPhotoPath = photoFile.getAbsolutePath();
         flowerInfoPhotoPath = FileUtil.getFlowerPicPath(filename);
         Intent intent = null;
         try {

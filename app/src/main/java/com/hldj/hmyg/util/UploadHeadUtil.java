@@ -97,9 +97,8 @@ public class UploadHeadUtil {
      * 剪裁图片
      */
     public void startPhotoZoom(File file, int size, File cacheFile) {
+//        Log.i("TAG", UploadHeadUtil.getImageContentUri(mContext, file) + "裁剪照片的真实地址");
 
-
-        Log.i("TAG", UploadHeadUtil.getImageContentUri(mContext, file) + "裁剪照片的真实地址");
         try {
             Intent intent = new Intent("com.android.camera.action.CROP");
             intent.setDataAndType(UploadHeadUtil.getImageContentUri(mContext, file), "image/*");//自己使用Content Uri替换File Uri

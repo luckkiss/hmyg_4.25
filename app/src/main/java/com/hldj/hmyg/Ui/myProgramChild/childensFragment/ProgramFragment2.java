@@ -81,7 +81,7 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
                 helper.setText(R.id.item_program_car_card, item.carNum);//车牌号码
                 helper.setText(R.id.item_program_time, item.receiptDate);//创建时间
                 helper.setText(R.id.item_program_car_type, item.carTypeName);// 车型
-                helper.setText(R.id.item_program_trans_price, "￥" + item.carPrice);//  运费
+                helper.setText(R.id.item_program_trans_price, "¥" + item.carPrice);//  运费
                 helper.setText(R.id.item_program_project_name, item.projectNames);//  项目名称
 
                 helper.addOnClickListener(R.id.item_program_confirmation, view1 ->

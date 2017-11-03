@@ -1,5 +1,7 @@
 package com.hldj.hmyg.Ui.jimiao;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -7,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -19,6 +22,7 @@ import android.widget.TextView;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.AlphaTitleScrollView;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.Pic;
@@ -35,6 +39,7 @@ import com.hy.utils.ToastUtil;
 import com.javis.ab.view.AbOnItemClickListener;
 import com.javis.ab.view.AbSlidingPlayView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.white.utils.SystemSetting;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
 import com.zzy.common.widget.MeasureGridView;
@@ -107,7 +112,8 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_miao_detail);
         mCache = ACache.get(this);
-
+        setar();
+        setToolBarAlfaScr();
 
         SystemSetting.getInstance(MiaoDetailActivity.this).choosePhotoDirId = "";
 
@@ -142,7 +148,7 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
         tv_con_name_phone = (TextView) findViewById(R.id.tv_con_name_phone);
         tv_address_name = (TextView) findViewById(R.id.tv_address_name);
 //        tv_is_defoloat = (TextView) findViewById(R.id.tv_is_defoloat);
-        id_tv_edit_all = (TextView) findViewById(R.id.id_tv_edit_all);
+//        id_tv_edit_all = (TextView) findViewById(R.id.id_tv_edit_all);
 
 
         tv_address = (TextView) findViewById(R.id.tv_address);
@@ -252,7 +258,7 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
             nurseryJson_name = getIntent().getStringExtra("nurseryJson_name");
             tv_name.setText(getIntent().getStringExtra("name"));
             tv_city.setText(FUtil.$_zero(getIntent().getStringExtra("fullName")));
-            tv_price.setText("￥ " + FUtil.$_zero(getIntent().getStringExtra("price")));
+            tv_price.setText("¥ " + FUtil.$_zero(getIntent().getStringExtra("price")));
             tv_remarks.setText(getIntent().getStringExtra("remarks"));
             tv_remarks.setText("备注：" + getIntent().getStringExtra("remarks"));
 
@@ -408,9 +414,92 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
         ll_05.setOnClickListener(multipleClickProcess);
 
 //        list_item_adress.setOnClickListener(multipleClickProcess);
-        id_tv_edit_all.setOnClickListener(multipleClickProcess);
+//        id_tv_edit_all.setOnClickListener(multipleClickProcess);
 
     }
+
+
+    /**
+     * 设置状态栏 黑色 并且图片置顶
+     */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void setar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarAlpha(0.0f);
+            tintManager.setStatusBarTintResource(R.color.transparent);//通知栏所需颜色
+        }
+
+
+
+
+//		getWindow().getDecorView().setSystemUiVisibility( View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+//		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN| View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR );
+//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+//		{
+//			// 透明状态栏
+//			getWindow().addFlags( WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//
+//		}
+    }
+
+    @TargetApi(19)
+    private void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
+    }
+
+
+
+
+    public void setToolBarAlfaScr() {
+        AlphaTitleScrollView   scroll = (AlphaTitleScrollView) findViewById(R.id.alfa_scroll);
+        LinearLayout title = (LinearLayout) findViewById(R.id.ll_detail_toolbar);
+        TextView tv_title = getView(R.id.tv_title);
+        View head = findViewById(R.id.view_detail_top);
+        ImageView btn_back = getView(R.id.btn_back);
+        btn_back.setSelected(false);
+        scroll.setTitleAndHead(title, head, new AlphaTitleScrollView.OnStateChange() {
+            @Override
+            public void onShow() {
+                tv_title.setVisibility(View.VISIBLE);
+                btn_back.setSelected(false);
+            }
+
+            @Override
+            public void onHiden() {
+                tv_title.setVisibility(View.GONE);
+                btn_back.setSelected(true);
+            }
+        });
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                scroll.smoothScrollTo(0, 10);
+//            }
+//        }, 100);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     private String getTextByKey(String staceType) {
 
@@ -456,7 +545,7 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
 
     private ACache mCache;
 
-    private TextView id_tv_edit_all;
+//    private TextView id_tv_edit_all;
     private EditText et_crown;
     private EditText et_height;
     private EditText et_maxHeight;
@@ -564,6 +653,18 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     private void initViewPager(AbSlidingPlayView viewPager, ArrayList<Pic> urlPaths) {
 
 
@@ -650,22 +751,6 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
     }
 
 
-    public static class MyObj {
-        public String name = "";
-        public String value = "";
 
-        public MyObj(String n, String v) {
-            this.name = n;
-            this.value = v;
-        }
-
-        @Override
-        public String toString() {
-            return "MyObj{" +
-                    "name='" + name + '\'' +
-                    ", value='" + value + '\'' +
-                    '}';
-        }
-    }
 
 }
