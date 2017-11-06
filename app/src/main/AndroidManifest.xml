@@ -5,6 +5,9 @@
     android:versionCode="83"
     android:versionName="3.0.5release">
 
+<!--2.1.1.73-->
+    <!--    android:versionCode="83"
+    android:versionName="3.0.5release">-->
 
     <!--    android:versionCode="82"
     android:versionName="3.0.5bete3">-->
@@ -723,13 +726,18 @@
             android:name="com.hy.utils.FlowTagActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".Ui.jimiao.MiaoNoteListActivity" />
+        <activity
+            android:name=".Ui.jimiao.MiaoNoteListActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Ui.jimiao.SaveMiaoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Ui.jimiao.SellectMiaoActivity" />
+        <activity
+            android:name=".Ui.jimiao.SellectMiaoActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Ui.jimiao.MiaoDetailActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/e_activity_theme" />
 
 
@@ -738,7 +746,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
 
         <!--<provider-->

@@ -412,6 +412,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 //                        D.e("=====图片还没上传，，先上传图片========");
 //                    }
                     showLoading();
+                    setLoadCancle(false);
                     UpdateLoading("加载中...");
 //                    hud_numHud.show();
 //                    if (!hud_numHud.isShowing() || hud_numHud == null) {

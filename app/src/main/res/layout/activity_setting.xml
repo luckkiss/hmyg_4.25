@@ -314,7 +314,8 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_marginTop="150dp"
-                    android:background="@color/trans" />
+                    android:background="@color/trans"
+                    tools:background="@color/red" />
 
                 <ImageView
                     android:id="@+id/test_show_pach1"

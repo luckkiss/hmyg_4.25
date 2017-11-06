@@ -32,6 +32,8 @@ import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
 import com.tencent.bugly.beta.Beta;
+import com.tencent.bugly.beta.UpgradeInfo;
+import com.tencent.bugly.beta.interfaces.BetaPatchListener;
 import com.white.update.UpdateInfo;
 import com.white.utils.SettingUtils;
 import com.zf.iosdialog.widget.AlertDialog;
@@ -43,6 +45,8 @@ import net.tsz.afinal.http.AjaxParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Locale;
 
 import cn.jpush.android.api.JPushInterface;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
@@ -71,7 +75,8 @@ public class SettingActivity extends NeedSwipeBackActivity implements
             @Override
             public void onClick(View view) {
                 ToastUtil.showShortToast("1.修改记苗本详情样式" +
-                        "2.拍照异常图片过滤");
+                        "2.拍照异常图片过滤" +
+                        "3.损坏图片尝试处理");
                 /**
                  * Beta.cleanTinkerPatch();
                  注：清除补丁之后，就会回退基线版本状态。
@@ -82,6 +87,14 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                  */
             }
         });
+
+
+//        UpgradeInfo updateInfo = Beta.getUpgradeInfo();
+//        String update = (null == updateInfo) ? "没有信息" : updateInfo + "";
+//        D.e("==========updateInfo=======" + update);
+//        ToastUtil.showLongToast("updateInfo:" + update);
+
+
 //        findViewById(R.id.test_show_pach1).setOnClickListener(new OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -510,8 +523,67 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                         // getUpDateInfo();
                         // getUpDateInfo4Pgyer();
 
-                        /***** 检查更新 *****/
-                        Beta.checkUpgrade();
+
+                        UpgradeInfo updateInfo = Beta.getUpgradeInfo();
+                        String update = (null == updateInfo) ? "没有信息" : updateInfo + "";
+                        D.e("==========updateInfo=======" + update);
+//                        ToastUtil.showLongToast("updateInfo:" + update);
+
+                        if (updateInfo == null) {
+                            ToastUtil.showLongToast("已经是最新版本，为您检测补丁信息");
+                            D.e("===没有升级信息==检测补丁");
+//                            Beta.checkUpgrade();
+                            Beta.betaPatchListener = new BetaPatchListener() {
+                                @Override
+                                public void onPatchReceived(String patchFile) {
+                                    Toast.makeText(getApplication(), "补丁下载地址" + patchFile, Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onDownloadReceived(long savedLength, long totalLength) {
+                                    Toast.makeText(getApplication(),
+                                            String.format(Locale.getDefault(), "%s %d%%",
+                                                    Beta.strNotificationDownloading,
+                                                    (int) (totalLength == 0 ? 0 : savedLength * 100 / totalLength)),
+                                            Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onDownloadSuccess(String msg) {
+                                    Toast.makeText(getApplication(), "补丁下载成功", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onDownloadFailure(String msg) {
+                                    Toast.makeText(getApplication(), "补丁下载失败", Toast.LENGTH_SHORT).show();
+
+                                }
+
+                                @Override
+                                public void onApplySuccess(String msg) {
+                                    Toast.makeText(getApplication(), "补丁应用成功", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onApplyFailure(String msg) {
+                                    Toast.makeText(getApplication(), "补丁应用失败", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onPatchRollback() {
+                                    Toast.makeText(getApplication(), "补丁回滚", Toast.LENGTH_SHORT).show();
+                                }
+                            };
+
+                            Beta.installTinker();
+
+
+                        } else {
+                            /***** 检查更新 *****/
+                            D.e("===有升级信息，检查更新==");
+                            Beta.checkUpgrade();
+                        }
+
 
 //                      getVersion();
                         break;
