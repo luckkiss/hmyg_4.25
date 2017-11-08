@@ -5,7 +5,10 @@
     android:versionCode="83"
     android:versionName="3.0.5release">
 
-<!--2.1.1.73-->
+    <!--android:versionCode="72"    测试补丁版本-->
+    <!--android:versionName="2.1.0_test">-->
+
+    <!--2.1.1.73-->
     <!--    android:versionCode="83"
     android:versionName="3.0.5release">-->
 
@@ -746,7 +749,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
 
         <!--<provider-->

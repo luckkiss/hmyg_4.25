@@ -10,6 +10,7 @@ import android.support.annotation.Keep;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -33,6 +34,7 @@ import com.hldj.hmyg.widget.SegmentedGroup;
 import com.hldj.hmyg.widget.SortSpinner1;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -116,17 +118,21 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
         SegmentedGroup segmented3 = (SegmentedGroup) findViewById(R.id.segmented3);
         RadioButton button31 = (RadioButton) findViewById(R.id.button31);
         RadioButton button32 = (RadioButton) findViewById(R.id.button32);
+        RadioButton button_center = (RadioButton) findViewById(R.id.button_center);
+        switchShowByPermission(button31, button_center, button32);
+
+
         button31.setChecked(true);
         segmented3.setOnCheckedChangeListener(this);
 
 
-        if (Eactivity3_0.showSeedlingNoteShare) {
-            segmented3.setVisibility(View.VISIBLE);
-            tv_title.setVisibility(View.GONE);
-        } else {
-            segmented3.setVisibility(View.GONE);
-            tv_title.setVisibility(View.VISIBLE);
-        }
+//        if (Eactivity3_0.showSeedlingNoteShare) {
+//            segmented3.setVisibility(View.VISIBLE);
+//            tv_title.setVisibility(View.GONE);
+//        } else {
+//            segmented3.setVisibility(View.GONE);
+//            tv_title.setVisibility(View.VISIBLE);
+//        }
 //        rl_choose_type = (RelativeLayout) findViewById(R.id.rl_choose_type);
 //        RelativeLayout rl_choose_price = (RelativeLayout) findViewById(R.id.rl_choose_price);
 //        RelativeLayout rl_choose_time = (RelativeLayout) findViewById(R.id.rl_choose_time);
@@ -183,6 +189,49 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
         rl_choose_screen.setOnClickListener(multipleClickProcess);
         btn_back.setOnClickListener(multipleClickProcess);
         tv_b_sort.setOnClickListener(multipleClickProcess);
+
+    }
+
+
+    /**
+     * 切换头部  的控件显示状态
+     *
+     * @param button31      左边
+     * @param button_center 右边
+     * @param button32      中间
+     */
+    private void switchShowByPermission(RadioButton button31, RadioButton button_center, RadioButton button32) {
+
+//        Eactivity3_0.showSeedlingNoteShare;
+//        Eactivity3_0.showSeedlingNoteTeam;
+        if (!Eactivity3_0.showSeedlingNoteShare && !Eactivity3_0.showSeedlingNoteTeam) {//2个都没有权限
+            //共享 false
+            //团队 false
+            ((ViewGroup) button31.getParent()).setVisibility(View.GONE);
+        } else if (Eactivity3_0.showSeedlingNoteShare && !Eactivity3_0.showSeedlingNoteTeam) {
+            //共享 true
+            //团队 false
+            ((ViewGroup) button31.getParent()).removeView(button_center);
+
+
+        } else if (!Eactivity3_0.showSeedlingNoteShare && Eactivity3_0.showSeedlingNoteTeam) {
+            //共享 false
+            //团队 true
+            SegmentedGroup parent = ((SegmentedGroup) button31.getParent());
+            parent.removeView(button32);
+            parent.updateBackground();
+//            parent.invalidate();
+        } else {//
+            //共享 true
+            //团队 true
+            button_center.setVisibility(View.VISIBLE);
+
+        }
+
+        D.e("share:" + Eactivity3_0.showSeedlingNoteShare + "\n"
+                + "team:" + Eactivity3_0.showSeedlingNoteTeam
+        );
+
 
     }
 
@@ -976,6 +1025,10 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                 noteType = "2";
                 // 共享资源
                 onRefresh();
+                break;
+
+            case R.id.button_center:
+                ToastUtil.showLongToast("请求团队记苗本");
                 break;
             default:
                 // Nothing to do

@@ -13,9 +13,8 @@ import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.hldj.hmyg.BuildConfig;
+import com.hldj.hmyg.CallBack.MyBetaPatchListener;
 import com.hldj.hmyg.DaoBean.SaveJson.DaoMaster;
 import com.hldj.hmyg.DaoBean.SaveJson.DaoSession;
 import com.hldj.hmyg.R;
@@ -35,13 +34,11 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
-import com.tencent.bugly.beta.interfaces.BetaPatchListener;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.weavey.loading.lib.LoadingLayout;
 import com.white.utils.ScreenUtil;
 
 import java.io.File;
-import java.util.Locale;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
@@ -49,6 +46,7 @@ import cn.sharesdk.framework.ShareSDK;
 
 public class MyApplication extends Application {
 
+    private static final String TAG = "MyApplication";
     public static SharedPreferences Userinfo;
     public static SharedPreferences Deviceinfo;
     private static MyApplication myApplication = null;
@@ -79,57 +77,21 @@ public class MyApplication extends Application {
 
     }
 
+    public static boolean Flag = true;
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         // you must install multiDex whatever tinker is installed!
         MultiDex.install(base);
         // 安装tinker
-        if (BuildConfig.DEBUG) {
-            Beta.betaPatchListener = new BetaPatchListener() {
-                @Override
-                public void onPatchReceived(String patchFile) {
-//                Toast.makeText(base, "补丁下载地址" + patchFile, Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onDownloadReceived(long savedLength, long totalLength) {
-                    Toast.makeText(base,
-                            String.format(Locale.getDefault(), "%s %d%%",
-                                    Beta.strNotificationDownloading,
-                                    (int) (totalLength == 0 ? 0 : savedLength * 100 / totalLength)),
-                            Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onDownloadSuccess(String msg) {
-                    Toast.makeText(base, "补丁下载成功", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onDownloadFailure(String msg) {
-                    Toast.makeText(base, "补丁下载失败", Toast.LENGTH_SHORT).show();
-
-                }
-
-                @Override
-                public void onApplySuccess(String msg) {
-                    Toast.makeText(base, "补丁应用成功", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onApplyFailure(String msg) {
-                    Toast.makeText(base, "补丁应用失败", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onPatchRollback() {
-                    Toast.makeText(base, "补丁回滚", Toast.LENGTH_SHORT).show();
-                }
-            };
-        }
-
+//        if (BuildConfig.DEBUG) {
+        Beta.canNotifyUserRestart = true;
+        Beta.betaPatchListener = MyBetaPatchListener.MY_BETA_PATCH_LISTENER;
         Beta.installTinker();
+
+//        Log.i(TAG, "hello world");
+//        Toast.makeText(base, "hello world", Toast.LENGTH_SHORT).show();
 
     }
 
