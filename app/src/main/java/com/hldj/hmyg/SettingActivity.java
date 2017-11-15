@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +33,7 @@ import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
 import com.tencent.bugly.beta.Beta;
+import com.tencent.bugly.beta.UpgradeInfo;
 import com.white.update.UpdateInfo;
 import com.white.utils.SettingUtils;
 import com.zf.iosdialog.widget.AlertDialog;
@@ -61,17 +63,53 @@ public class SettingActivity extends NeedSwipeBackActivity implements
 
     // 更新版本要用到的一些信息
 
+    private static final String TAG = "SettingActivity";
+
+    private void restartApplication(Context context) {
+        final Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+//        ToastUtil.showLongToast("3s后自动重启.....");
+//        Flowable.timer(3000, TimeUnit.MILLISECONDS)
+//                .subscribe(new Consumer<Long>() {
+//                    @Override
+//                    public void accept(@NonNull Long aLong) throws Exception {
+//                        Beta.canNotifyUserRestart = true;
+////                      restartApplication(MyApplication.getInstance());
+//                        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+//                        manager.restartPackage("com.hldj.hmyg");
+//
+//
+//                    }
+//                });
+
         //补丁修改
         findViewById(R.id.test_show_pach).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showShortToast("1.修改记苗本详情样式" +
-                        "2.拍照异常图片过滤");
+
+                UpgradeInfo updateInfo = Beta.getUpgradeInfo();
+                String str = "";
+                if (updateInfo != null) {
+                    ToastUtil.showShortToast(updateInfo.newFeature);
+                } else {
+                    ToastUtil.showShortToast("1.修改记苗本详情样式" +
+                            "2.拍照异常图片过滤" +
+                            "3.损坏图片尝试处理");
+                }
+
+//                Log.i(TAG, "hello world");
+//                Toast.makeText(SettingActivity.this, "hello world", Toast.LENGTH_SHORT).show();
+
+
+//                ToastUtil.showShortToast("测试补丁信息是否及时获取");
                 /**
                  * Beta.cleanTinkerPatch();
                  注：清除补丁之后，就会回退基线版本状态。
@@ -82,6 +120,14 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                  */
             }
         });
+
+
+//        UpgradeInfo updateInfo = Beta.getUpgradeInfo();
+//        String update = (null == updateInfo) ? "没有信息" : updateInfo + "";
+//        D.e("==========updateInfo=======" + update);
+//        ToastUtil.showLongToast("updateInfo:" + update);
+
+
 //        findViewById(R.id.test_show_pach1).setOnClickListener(new OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -510,8 +556,31 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                         // getUpDateInfo();
                         // getUpDateInfo4Pgyer();
 
+
+                        UpgradeInfo updateInfo = Beta.getUpgradeInfo();
+                        String update = (null == updateInfo) ? "没有信息" : updateInfo + "";
+                        D.e("==========updateInfo=======" + update);
+//                        ToastUtil.showLongToast("updateInfo:" + update);
+
+//                        if (updateInfo == null) {
+
+                        if (updateInfo != null) {
+                            ToastUtil.showLongToast(updateInfo.newFeature);
+                            Log.i(TAG, "onClick: " + updateInfo.newFeature);
+                        }
+//                        Log.i(TAG, "===没有升级信息==检测补丁");
+//                            Beta.checkUpgrade();
+//                        Log.i(TAG, "onClick: 设置监听start");
+                        MyApplication.Flag = true;
+//                        Beta.betaPatchListener = MyBetaPatchListener.MY_BETA_PATCH_LISTENER;
+//                        Log.i(TAG, "onClick: 设置监听end");
+//                            Beta.installTinker();
+
+//                        } else {
                         /***** 检查更新 *****/
+                        D.e("===有升级信息，检查更新==");
                         Beta.checkUpgrade();
+//                        }
 
 //                      getVersion();
                         break;

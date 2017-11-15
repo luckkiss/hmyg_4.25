@@ -11,10 +11,10 @@ import net.tsz.afinal.FinalHttp;
  */
 
 public class GetServerUrl{
-    public static boolean isTest = false;//测试时使用true 表示正在测试
+    public static boolean isTest = true;//测试时使用true 表示正在测试
     /*发布时主要版本号   后面需要加 / */
 //    public static String apiVersion = "3.0.5/";//发布的时候修改 api 版本号
-    public static String apiVersion = "3.0.5/";//测试的时候修改 api 版本号
+    public static String apiVersion = "3.0.4/";//测试的时候修改 api 版本号
 
 
     static String PGYER = "http://www.pgyer.com/apiv1/app/viewGroup";

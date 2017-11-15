@@ -93,6 +93,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     UploadHeadUtil uploadHeadUtil;
 
     public static boolean showSeedlingNoteShare = false;//是否显示 共享资源
+    public static boolean showSeedlingNoteTeam = false;//是否显示 团队共享
 
 
 //    FinalBitmap finalBitmap;
@@ -599,6 +600,8 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                                 getView(R.id.sptv_wd_jmb).setVisibility(bean.getData().showSeedlingNote ? View.VISIBLE : View.GONE);
                             }
                             showSeedlingNoteShare = bean.getData().showSeedlingNoteShare;
+
+                            showSeedlingNoteTeam = !showSeedlingNoteTeam;
 //                            showSeedlingNoteShare = false;
                             D.e("===========showSeedlingNoteShare===========" + showSeedlingNoteShare);
 

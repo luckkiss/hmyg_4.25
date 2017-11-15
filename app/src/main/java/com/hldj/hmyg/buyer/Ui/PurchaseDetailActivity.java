@@ -207,6 +207,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
             recyclerView.getAdapter().reFreshDatas(new ArrayList());
         }
         showLoading();
+        setLoadCancle(false);
         new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
             @Override
             public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
@@ -616,6 +617,8 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
 
     public void save() {
+        showLoading();
+        setLoadCancle(false);
         new PurchaseDeatilP(new ResultCallBack<PurchaseItemBean_new>() {
             @Override
             public void onSuccess(PurchaseItemBean_new itemBean_new) {
@@ -624,13 +627,16 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                     intent.putExtra("bean", itemBean_new);
                     setResult(ConstantState.PUBLIC_SUCCEED, intent);//发布成功
                     onSaveFinish(true);
+                }else{
+                    hindLoading();
                 }
+
                 getDatas();
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
-
+                hindLoading();
             }
         })
                 .quoteCommit(PurchaseDetailActivity.this, uploadBean)
