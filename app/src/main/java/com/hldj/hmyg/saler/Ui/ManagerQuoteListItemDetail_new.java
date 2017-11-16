@@ -21,6 +21,8 @@ import com.hy.utils.ToastUtil;
 
 import java.util.List;
 
+import static com.hldj.hmyg.util.ConstantState.PUBLIC_SUCCEED;
+
 
 /**
  * 修改成 快速报价里面的详情界面一样，增加报价结束功能
@@ -76,7 +78,15 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
         this.direce = direce;
 
 
-        recyclerView.getAdapter().addData(sellerQuoteJsonBean);
+        if (recyclerView.getAdapter().getData().size()>0)
+        {
+//            recyclerView.getAdapter().setNewData(null);
+//            recyclerView.getAdapter().addData(sellerQuoteJsonBean);
+        }else{
+            recyclerView.getAdapter().addData(sellerQuoteJsonBean);
+        }
+
+
 
         if (usedQuoteList != null) {
             for (int i = 0; i < usedQuoteList.size(); i++) {
@@ -107,6 +117,25 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
         } else {
             D.e("===删除失败===");
         }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == PUBLIC_SUCCEED) {
+
+            recyclerView.getAdapter().setNewData(null);
+            getDatas();
+//            if (data.getSerializableExtra("bean") != null && data.getSerializableExtra("bean") instanceof PurchaseItemBean_new) {
+////                recyclerView.getAdapter().remove(0);
+////                recyclerView.getAdapter().addData(1,(PurchaseItemBean_new) data.getSerializableExtra("bean"));
+//                recyclerView.getAdapter().getData().set(0,data.getSerializableExtra("bean"));
+//                recyclerView.getAdapter().notifyDataSetChanged();
+//            }
+        }
+
+
     }
 
     /**

@@ -55,6 +55,8 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
 
     public static PurchaseDetailActivityBase instance;
     private String status = "";//状态 用于标记 已报价，已结束 未报价 等等状态
+    protected SaveSeedingGsonBean mSaveSeedingGsonBean;
+
 
     public String getStatus() {
         return status;
@@ -112,6 +114,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
      * @param saveSeedingGsonBean
      */
     public void initDatas(SaveSeedingGsonBean saveSeedingGsonBean) {
+        this.mSaveSeedingGsonBean = saveSeedingGsonBean ;
         boolean canQuote = saveSeedingGsonBean.getData().canQuote;
         boolean isOneQuote = saveSeedingGsonBean.getData().isOneQuote;
 

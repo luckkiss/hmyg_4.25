@@ -150,11 +150,11 @@
 
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"></LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"></LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -302,6 +302,21 @@
                 android:textColor="@color/green"
                 android:textSize="12sp"
                 tools:text="已报价" />
+
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_change_item"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:gravity="center"
+                android:textColor="@color/main_color"
+                android:textSize="12sp"
+                app:stroke_color="@color/main_color"
+                app:stroke_width="1dp"
+                android:text="修改报价"
+                />
+
 
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_delete_item"
