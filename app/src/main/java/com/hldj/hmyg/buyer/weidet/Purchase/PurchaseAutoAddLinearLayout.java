@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.SpecTypeBean;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.widget.BaseLinearLayout;
 
 import java.util.ArrayList;
@@ -74,6 +75,28 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
         return required;
     }
 
+    public BaseLinearLayout setDefaultData(String msg) {
+
+        getViewHolder().et_params_03.setText(FUtil.$_zero_2_null(msg));
+        return this;
+    }
+
+    public BaseLinearLayout setDefaultSize(String size) {
+
+        RadioGroup radio_group_auto_add = (RadioGroup) findViewById(R.id.radio_group_auto_add);
+
+        for (int i = 0; i < radio_group_auto_add.getChildCount(); i++) {
+            RadioButton button = ((RadioButton) radio_group_auto_add.getChildAt(i));
+            D.e("==tag="+button.getTag());
+            D.e("==tag="+button.getTag());
+            if (button.getTag().equals(size)) {
+                button.setChecked(true);
+            }
+        }
+        setSelect_size(size);
+        return this;
+    }
+
     public BaseLinearLayout setData(PlantBean plantBean) {
 
         if (plantBean.name.equals("价格")) {
@@ -128,6 +151,9 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
         RadioButton center = (RadioButton) this.findViewById(R.id.rb_auto_add_center);
         RadioButton right = (RadioButton) this.findViewById(R.id.rb_auto_add_right);
         left.setVisibility(GONE);
+        left.setTag("");
+        center.setTag("");
+        right.setTag("");
         center.setVisibility(GONE);
         right.setVisibility(GONE);
         List<SpecTypeBean> typeBeen = new ArrayList<>();
@@ -215,6 +241,10 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
      */
     public String getSelect_size() {
         return select_size;
+    }
+
+    public void setSelect_size(String size) {
+        select_size = size;
     }
 
     public static class PlantBean {

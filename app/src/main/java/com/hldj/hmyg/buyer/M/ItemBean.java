@@ -1,12 +1,13 @@
 package com.hldj.hmyg.buyer.M;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/4/27.
  */
 
-public class ItemBean {
+public class ItemBean implements Serializable{
 
     /**
      * id : 54101356f7114c8286cac1e69b58a138
@@ -98,7 +99,7 @@ public class ItemBean {
     public boolean isQuoted;
 
 
-    public static class SpecListBean {
+    public static class SpecListBean implements Serializable{
         /**
          * name : 地径
          * value : 40CM(0.1M量)

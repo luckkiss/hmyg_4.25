@@ -122,7 +122,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/x9"
             android:drawablePadding="4dp"
-            android:drawableRight="@drawable/ic_arrow_down_black"
+            android:drawableRight="@drawable/arrow_down"
             android:text="株"
             android:textSize="@dimen/x14" />
 
@@ -151,7 +151,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/x9"
-            android:drawableRight="@drawable/ic_right_icon"
+            android:drawableRight="@drawable/arrow_right"
             android:textSize="@dimen/x14" />
     </RelativeLayout>
 
@@ -193,7 +193,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/x9"
             android:drawablePadding="4dp"
-            android:drawableRight="@drawable/ic_arrow_down_black"
+            android:drawableRight="@drawable/arrow_down"
             android:text="天"
             android:textSize="@dimen/x14" />
     </RelativeLayout>

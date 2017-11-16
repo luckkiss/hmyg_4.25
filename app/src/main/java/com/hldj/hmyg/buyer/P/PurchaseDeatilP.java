@@ -128,6 +128,7 @@ public class PurchaseDeatilP {
         paramsPut(params, ConstantParams.price, bean.price);
         paramsPut(params, ConstantParams.diameter, bean.diameter);
         paramsPut(params, ConstantParams.dbh, bean.dbh);
+        paramsPut(params, ConstantParams.dbhType, bean.dbhType);
         paramsPut(params, ConstantParams.height, bean.height);
         paramsPut(params, ConstantParams.crown, bean.crown);
         paramsPut(params, ConstantParams.offbarHeight, bean.offbarHeight);
@@ -166,6 +167,7 @@ public class PurchaseDeatilP {
 
                             } else {
                                 ToastUtil.showShortToast(gsonBean_new.msg);
+                                resultCallBack.onFailure(new Throwable(gsonBean_new.msg), Integer.parseInt(gsonBean_new.code), gsonBean_new.msg);
 //                                Toast.makeText(MyApplication.getInstance(), saveSeedingGsonBean.getMsg(), Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
@@ -228,12 +230,11 @@ public class PurchaseDeatilP {
 //                            SaveSeedingGsonBean saveSeedingGsonBean = GsonUtil.formateJson2Bean(json, SaveSeedingGsonBean.class);
                             if (gsonBean_new.isSucceed()) {
 
-                                if (gsonBean_new.data!=null && gsonBean_new.data.purchaseItem != null) {
+                                if (gsonBean_new.data != null && gsonBean_new.data.purchaseItem != null) {
                                     PurchaseItemBean_new itemBean_new = (PurchaseItemBean_new) gsonBean_new.data.purchaseItem;
                                     Log.e("onSuccess", "onSuccess: " + gsonBean_new.data.purchaseItem + " itemBean_new= " + itemBean_new.toString());
                                     resultCallBack.onSuccess(gsonBean_new.data.purchaseItem);
-                                }else
-                                {
+                                } else {
                                     resultCallBack.onSuccess(null);
                                 }
 

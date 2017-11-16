@@ -139,6 +139,14 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
                         if (getStatus().equals("")) {//""表示  已经报价  但是结果还没出来   允许删除
                             helper.setVisible(R.id.tv_delete_item, true);
+                            helper.setVisible(R.id.tv_change_item, true);
+
+
+                            /*修改报价*/
+                            helper.addOnClickListener(R.id.tv_change_item, v -> {
+//                                ToastUtil.showLongToast("改变");
+                                PurchaseDetailActivityChange.start2Activity(mActivity, mProjectType, item, mSaveSeedingGsonBean);
+                            });
 
                             helper.addOnClickListener(R.id.tv_delete_item, v -> {
 
@@ -176,12 +184,9 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                                                 }
                                             })
                                                     .quoteDdel(item.id);
-
-
                                         })
                                         .setNegativeButton("取消", v2 -> {
                                         }).show();
-
                                 //删除接口
 
 
@@ -189,6 +194,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
                         } else {
                             helper.setVisible(R.id.tv_delete_item, false);
+                            helper.setVisible(R.id.tv_change_item, false);
                         }
                     }
                 }).closeDefaultEmptyView();//关闭默认的空 view 避免重复加载  。奔溃
@@ -627,7 +633,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                     intent.putExtra("bean", itemBean_new);
                     setResult(ConstantState.PUBLIC_SUCCEED, intent);//发布成功
                     onSaveFinish(true);
-                }else{
+                } else {
                     hindLoading();
                 }
 
@@ -667,6 +673,29 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
         public String id = "";
         public String plantType = "";
+
+        @Override
+        public String toString() {
+            return "uploadBean{" +
+                    "cityCode='" + cityCode + '\'' +
+                    ", price='" + price + '\'' +
+                    ", diameter='" + diameter + '\'' +
+                    ", dbh='" + dbh + '\'' +
+                    ", height='" + height + '\'' +
+                    ", crown='" + crown + '\'' +
+                    ", offbarHeight='" + offbarHeight + '\'' +
+                    ", length='" + length + '\'' +
+                    ", diameterType='" + diameterType + '\'' +
+                    ", dbhType='" + dbhType + '\'' +
+                    ", remarks='" + remarks + '\'' +
+                    ", imagesData='" + imagesData + '\'' +
+                    ", count='" + count + '\'' +
+                    ", purchaseId='" + purchaseId + '\'' +
+                    ", purchaseItemId='" + purchaseItemId + '\'' +
+                    ", id='" + id + '\'' +
+                    ", plantType='" + plantType + '\'' +
+                    '}';
+        }
     }
 
     /**
@@ -782,8 +811,8 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
         } else if (resultCode == 3) {
 
-        } else if (resultCode == 4) {
-
+        } else if (resultCode == ConstantState.PUBLIC_SUCCEED) {
+            getDatas();
         } else if (resultCode == 5) {
             listPicsOnline.clear();
 
