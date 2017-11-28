@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@color/white">
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <ImageButton
+            android:id="@+id/toolbar_left_icon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:foreground="?attr/selectableItemBackground"
+            android:src="@drawable/ic_arrow_left_green"
+            android:textSize="20sp" />
+
+
+        <EditText
+            android:id="@+id/search_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_top_default"
+            android:layout_margin="5dp"
+            android:layout_toLeftOf="@+id/iv_view_type"
+            android:layout_toRightOf="@+id/toolbar_left_icon"
+            android:background="@drawable/conner_edit"
+            android:drawablePadding="5dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:paddingLeft="8dp"
+            android:textSize="15sp"
+            android:hint="品种名称/用户名称"
+            android:textColorHint="@color/hint_text_color"
+            android:textColor="@color/text_color999" />
+
+
+        <!--<RelativeLayout-->
+        <!--android:id="@+id/rl_b_search"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_margin="@dimen/y5"-->
+        <!--android:layout_toLeftOf="@+id/iv_view_type"-->
+        <!--android:layout_toRightOf="@+id/ib_b_back"-->
+        <!--android:background="@drawable/search_edit_selector"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<ImageView-->
+        <!--android:layout_width="@dimen/x17"-->
+        <!--android:layout_height="@dimen/x17"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:src="@drawable/seller_search" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/tv_search"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:gravity="center"-->
+        <!--android:text="找苗/报价/店铺"-->
+        <!--android:textColor="@color/gray"-->
+        <!--android:textSize="@dimen/x14" />-->
+        <!--</LinearLayout>-->
+        <!--</RelativeLayout>-->
+
+        <TextView
+            android:id="@+id/iv_view_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x6"
+            android:layout_marginRight="@dimen/x10"
+            android:foreground="?attr/selectableItemBackground"
+            android:paddingBottom="4dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingTop="4dp"
+            android:text="搜索"
+
+            />
+    </RelativeLayout>
+
+
+    <View style="@style/View_line_gray" />
+
+    <TextView
+        android:id="@+id/delete_all"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="历史记录" />
+
+    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+        android:id="@+id/recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+    </com.hldj.hmyg.buyer.weidet.CoreRecyclerView>
+
+
+</LinearLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/conner_edit"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_3_0" />
+
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/trans"
+        android:gravity="left"
+        android:hint="@string/publish_content"
+        android:maxHeight="250dp"
+        android:minHeight="150dp"
+        android:padding="6dp"
+        android:textColorHint="@color/hint_text_color"
+        android:textSize="16sp" />
+
+
+    <com.zzy.common.widget.MeasureGridView
+        android:id="@+id/grid"
+        android:numColumns="4"
+        android:listSelector="@color/transparent"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="5dip"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="6dp" />
+
+
+    <com.lqr.optionitemview.OptionItemView
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:left_src="@mipmap/loaction"
+        app:left_text_color="@color/text_color111"
+        app:left_text="苗源地"
+        app:right_text_color="@color/text_color111"
+        app:right_src="@drawable/arrow_right_eq"
+        app:right_text="未选择" />
+
+
+</LinearLayout>

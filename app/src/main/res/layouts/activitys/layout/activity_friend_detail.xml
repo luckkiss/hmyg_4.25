@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="@color/white"
+
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <!--app:expandedTitleMarginBottom="100dp"-->
+            <LinearLayout
+                android:id="@+id/ll_activity_purchase_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/title_top_default"
+                android:visibility="visible"
+                app:layout_collapseMode="none"
+                tools:visibility="visible">
+
+                <include layout="@layout/item_friend_cicle" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/title_top_default"
+                android:background="@color/white"
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_activity_purchase_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/title_top_default"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="8dp"
+                        android:drawableLeft="@drawable/ic_arrow_left_green"
+                        android:gravity="center"
+                        android:text="供应详情"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/textSizeXXXX" />
+
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.Toolbar>
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabIndicatorColor="@color/main_color"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/main_color"
+            app:tabTextColor="@color/text_color333">
+
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点赞（18）"
+
+                />
+
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="评论" />
+
+
+        </android.support.design.widget.TabLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+        android:id="@+id/recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+</android.support.design.widget.CoordinatorLayout>

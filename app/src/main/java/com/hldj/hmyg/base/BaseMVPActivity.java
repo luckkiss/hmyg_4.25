@@ -75,6 +75,7 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(bindLayoutID());
 
+
         title = (TextView) findViewById(R.id.toolbar_title);
 
         if (title != null) {
@@ -172,7 +173,7 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
 
 
     public int getColorByRes(int resColorId) {
-     return    ContextCompat.getColor(mActivity, resColorId);
+        return ContextCompat.getColor(mActivity, resColorId);
     }
 
 }

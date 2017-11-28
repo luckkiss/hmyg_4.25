@@ -1,6 +1,7 @@
 package com.hldj.hmyg.base;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +27,25 @@ import com.hldj.hmyg.R;
 
 public class CommonPopupWindow extends PopupWindow {
 
-
+    Builder mBuilder ;
     protected CommonPopupWindow(Builder builder) {
         initWithBuilder(builder);
     }
 
-    private void initWithBuilder(Builder builder) {
+    /**
+     * 设置显示在v上方（以v的中心位置为开始位置）
+     * @param v
+     */
+    public void showUp2(View v ) {
+        //获取需要在其上方显示的控件的位置信息
+        int[] location = new int[2];
+        v.getLocationOnScreen(location);
+        //在控件上方显示
+        showAtLocation(v, Gravity.NO_GRAVITY, (location[0] + v.getWidth() / 2) - mBuilder.width / 2, location[1] - mBuilder.height);
+    }
 
+    private void initWithBuilder(Builder builder) {
+        mBuilder = builder ;
         View rootView = LayoutInflater.from(builder.mContext).inflate(builder.layoutId, null);
         this.setContentView(rootView);
         this.setWidth(builder.width);
@@ -73,7 +86,7 @@ public class CommonPopupWindow extends PopupWindow {
         private boolean isOutsideTouchable = true;
 
 
-        private Builder(Context context) {
+        public Builder(Context context) {
             this.mContext = context;
         }
 

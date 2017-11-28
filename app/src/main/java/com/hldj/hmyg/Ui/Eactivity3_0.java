@@ -35,6 +35,7 @@ import com.hldj.hmyg.SafeAcountActivity;
 import com.hldj.hmyg.SetProfileActivity;
 import com.hldj.hmyg.SettingActivity;
 import com.hldj.hmyg.StoreActivity;
+import com.hldj.hmyg.Ui.friend.child.CenterActivity;
 import com.hldj.hmyg.Ui.jimiao.MiaoNoteListActivity;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.rxbus.RxBus;
@@ -152,6 +153,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         this.getView(R.id.sptv_wd_wdxm).setOnClickListener(v -> MyProgramActivity.start(mActivity));//我的项目
         this.getView(R.id.sptv_wd_exit).setOnClickListener(v -> exit());//退出登录
         this.getView(R.id.sptv_wd_ddzy).setOnClickListener(v -> DispatcherActivity.start(mActivity));// 调度专员
+        this.getView(R.id.sptv_wd_mmq).setOnClickListener(v -> CenterActivity.start(mActivity, "me"));//  我的苗木圈
 
 
         this.getView(R.id.sptv_wd_jmb).setOnClickListener(v -> MiaoNoteListActivity.start(mActivity));// 记苗本
