@@ -69,7 +69,7 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
         mSwipeRefreshLayout = (MySwipeRefreshLayout) findViewById(R.id.swipeLayout);
         mSwipeRefreshLayout.setEnabled(false);
         mSwipeRefreshLayout.setRefreshEnable(false);
-        mSwipeRefreshLayout. setLoadmoreEnable(false);
+        mSwipeRefreshLayout.setLoadmoreEnable(false);
         mViewHeader = new SwipeViewHeader(context);
         mSwipeRefreshLayout.setHeaderView(mViewHeader);
 //        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
@@ -128,7 +128,11 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
 //      mQuickAdapter.notifyDataSetChanged();//如果直接刷新会闪一下
 //        datasState = REFRESH;//刷新时
         mQuickAdapter.setDatasState(REFRESH);
-        addDataListener.addData(0);
+
+        if (addDataListener != null) {
+            addDataListener.addData(0);
+        }
+
         if (refreshListener != null) {
             refreshListener.refresh();
         }

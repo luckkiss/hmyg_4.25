@@ -66,7 +66,7 @@
     <!-- 相册 -->
     <string name="photo_album_title">相册</string>
     <string name="get_photo_album_failure">获取相册信息失败</string>
-    <string name="choose_pic_is_full">最多选择10张图片</string>
+    <string name="choose_pic_is_full">最多选择9张图片</string>
     <string name="cannot_select_pic">无可用的应用！</string>
     <string name="photo_take_pic">拍照</string>
     <string name="delete">删除</string>
@@ -84,6 +84,7 @@
     <string name="app_name_test">花木易购(内测)</string>
     <string name="tab_a_text">首页</string>
     <string name="tab_b_text">商城</string>
+    <string name="tab_c_text">苗木圈</string>
     <string name="tab_d_text">收藏夹</string>
     <string name="tab_e_text">我的</string>
     <string name="store_introduction">店铺介绍</string>

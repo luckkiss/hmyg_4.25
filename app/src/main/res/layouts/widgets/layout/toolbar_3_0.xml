@@ -60,6 +60,7 @@
             android:padding="3dp"
             android:textSize="@dimen/titleRightTex"
             android:visibility="gone"
+            android:textColor="@color/text_color111"
             tools:text="titile"
             tools:visibility="visible" />
 

@@ -18,6 +18,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.friend.child.PublishActivity;
 import com.hldj.hmyg.Ui.jimiao.SaveMiaoActivity;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivityChange;
@@ -70,7 +71,7 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
 
     public static final int TO_CHOOSE_NEW_PIC = 20;
 
-    public static final int MAX_IMAGE_COUNT = 10;
+    public static final int MAX_IMAGE_COUNT = 9;
 
     public static PhotoActivity instance = null;
 
@@ -365,6 +366,11 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
         if (UpdataImageActivity_bak.instance != null)
         {
             UpdataImageActivity_bak.instance.addPicUrls(resultPathList);
+        }
+
+        if (PublishActivity.instance != null)
+        {
+            PublishActivity.instance.addPicUrls(resultPathList);
         }
 //        else if (PurchaseDetailActivityBase.instance != null) {
 //            PurchaseDetailActivityBase.instance.addPicUrls(resultPathList);

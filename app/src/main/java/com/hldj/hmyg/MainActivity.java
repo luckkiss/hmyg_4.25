@@ -35,6 +35,7 @@ import com.amap.api.location.AMapLocation;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.Ui.Eactivity3_0;
+import com.hldj.hmyg.Ui.friend.FriendCycleActivity;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.PermissionUtils;
@@ -207,8 +208,8 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                 .setContent(new Intent(this, AActivity_3_0.class)));
         tabHost.addTab(tabHost.newTabSpec("2").setIndicator("2")
                 .setContent(new Intent(this, BActivity_new_test.class)));
-//        tabHost.addTab(tabHost.newTabSpec("3").setIndicator("3")
-//                .setContent(new Intent(this, CActivity2.class)));
+        tabHost.addTab(tabHost.newTabSpec("3").setIndicator("3")
+                .setContent(new Intent(this, FriendCycleActivity.class)));
         tabHost.addTab(tabHost.newTabSpec("4").setIndicator("4")
                 .setContent(new Intent(this, DActivity_new.class)));//跳转到收藏夹  界面
         tabHost.addTab(tabHost.newTabSpec("5").setIndicator("5")
@@ -294,8 +295,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                 tabHost.setCurrentTabByTag("3");
                 check = "3";
                 break;
-
-
             case R.id.tab_d:
                 if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {
                     start2ActivityWithResult(LoginActivity.class, 4);
