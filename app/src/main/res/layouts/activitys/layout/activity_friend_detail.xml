@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
 
     <android.support.design.widget.AppBarLayout
@@ -30,7 +29,8 @@
                 app:layout_collapseMode="none"
                 tools:visibility="visible">
 
-                <include layout="@layout/item_friend_cicle" />
+                <!--<include layout="@layout/item_friend_cicle" />-->
+                <include layout="@layout/item_friend_cicle_simple" />
 
             </LinearLayout>
 
@@ -72,20 +72,20 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tablayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             app:tabIndicatorColor="@color/main_color"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/main_color"
             app:tabTextColor="@color/text_color333">
 
             <android.support.design.widget.TabItem
+                android:id="@+id/tab1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="点赞（18）"
-
-                />
+                android:text="点赞（18）" />
 
             <android.support.design.widget.TabItem
+                android:id="@+id/tab2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="评论" />
@@ -102,7 +102,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginBottom="40dp"
+        />
+
+
+    <com.hldj.hmyg.Ui.friend.widget.FriendBottomView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" />
 
 
 </android.support.design.widget.CoordinatorLayout>

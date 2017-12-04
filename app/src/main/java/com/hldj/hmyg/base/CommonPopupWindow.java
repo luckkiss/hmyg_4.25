@@ -1,6 +1,8 @@
 package com.hldj.hmyg.base;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,41 +13,60 @@ import com.hldj.hmyg.R;
 
 
 /**
- *
  * 版权：公司 版权所有
- *
+ * <p>
  * 作者：罗擦擦
- *
+ * <p>
  * 版本：
- *
+ * <p>
  * 创建日期：2017/8/9 0009
- *
+ * <p>
  * 描述：大傻出品避暑精品
  * 建造者模式初体验 ，参考dagger2 commponent 的自动生成代码
- *
  */
 
 public class CommonPopupWindow extends PopupWindow {
 
-    Builder mBuilder ;
+    public static int TYPE_WHITE_UP = R.drawable.up;
+    public static int TYPE_WHITE_DOWN = R.drawable.down;
+    public static int TYPE_BLACK_UP = R.drawable.bg_popupwindow;
+
+
+    Builder mBuilder;
+
     protected CommonPopupWindow(Builder builder) {
         initWithBuilder(builder);
     }
 
     /**
      * 设置显示在v上方（以v的中心位置为开始位置）
+     *
      * @param v
      */
-    public void showUp2(View v ) {
+    public void showUp2(View v) {
         //获取需要在其上方显示的控件的位置信息
         int[] location = new int[2];
         v.getLocationOnScreen(location);
+        Log.i("showUp2", "showUp2: " + location[0]);
+        Log.i("showUp2", "showUp2: " + location[1]);
         //在控件上方显示
-        showAtLocation(v, Gravity.NO_GRAVITY, (location[0] + v.getWidth() / 2) - mBuilder.width / 2, location[1] - mBuilder.height);
+
+        if (location[1] > 500) {
+            //↑
+            setBackgroundDrawable(mBuilder.mContext.getResources().getDrawable(TYPE_WHITE_DOWN));// 设置背景图片，不能在布局中设置，要通过代码来设置
+            showAtLocation(v, Gravity.NO_GRAVITY, (location[0] + v.getWidth() / 2) - mBuilder.width / 2, location[1] - mBuilder.height + 10);
+        } else {
+            //↓
+            setBackgroundDrawable(mBuilder.mContext.getResources().getDrawable(TYPE_WHITE_UP));// 设置背景图片，不能在布局中设置，要通过代码来设置
+
+            showAsDropDown(v);
+        }
+
+
     }
 
     private void initWithBuilder(Builder builder) {
-        mBuilder = builder ;
+        mBuilder = builder;
         View rootView = LayoutInflater.from(builder.mContext).inflate(builder.layoutId, null);
         this.setContentView(rootView);
         this.setWidth(builder.width);
@@ -61,7 +82,7 @@ public class CommonPopupWindow extends PopupWindow {
         if (builder.listener != null) {
             builder.listener.covertView(rootView);
         }
-        setBackgroundDrawable(builder.mContext.getResources().getDrawable(R.drawable.bg_popupwindow));// 设置背景图片，不能在布局中设置，要通过代码来设置
+        setBackgroundDrawable(builder.mContext.getResources().getDrawable(builder.bgType));// 设置背景图片，不能在布局中设置，要通过代码来设置
     }
 
     public static Builder builder(Context mContext) {
@@ -74,6 +95,7 @@ public class CommonPopupWindow extends PopupWindow {
         private int width = ViewGroup.LayoutParams.WRAP_CONTENT;
         private int height = ViewGroup.LayoutParams.WRAP_CONTENT;
         private int layoutId = 0;
+        private int bgType = TYPE_BLACK_UP;
         private Context mContext;
         private OnCovertViewListener listener;
 
@@ -92,7 +114,7 @@ public class CommonPopupWindow extends PopupWindow {
 
         public CommonPopupWindow build() {
 
-            if ( layoutId == 0) {
+            if (layoutId == 0) {
                 throw new NullPointerException("布局id 必须设置,不然没有界面显示");
             }
 
@@ -111,6 +133,11 @@ public class CommonPopupWindow extends PopupWindow {
             return this;
         }
 
+        public Builder setBgType(@IdRes int bgType) {
+            this.bgType = bgType;
+            return this;
+        }
+
         public Builder setWidthDp(int w) {
             this.width = dp2px(mContext, w);
             return this;
@@ -125,7 +152,6 @@ public class CommonPopupWindow extends PopupWindow {
             this.width = w;
             return this;
         }
-
 
 
         public Builder setHeightPx(int h) {

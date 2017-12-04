@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -13,24 +12,51 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
+import com.hldj.hmyg.CallBack.ResultCallBack;
+import com.hldj.hmyg.MyLuban.MyLuban;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.SellectActivity2;
+import com.hldj.hmyg.Ui.friend.bean.Moments;
+import com.hldj.hmyg.Ui.friend.bean.enums.MomentsType;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.Pic;
+import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.buyer.Ui.CityWheelDialogF;
+import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin2;
+import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.TakePhotoUtil;
+import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 import com.lqr.optionitemview.OptionItemView;
 import com.zzy.common.widget.MeasureGridView;
 
 import net.tsz.afinal.FinalActivity;
+import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.annotation.view.ViewInject;
+import net.tsz.afinal.http.AjaxParams;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+
+import static com.hldj.hmyg.presenter.SaveSeedlingPresenter.getFileList;
 
 /**
  * Created by luocaca on 2017/11/27 0027.
@@ -62,6 +88,8 @@ public class PublishActivity extends BaseMVPActivity {
     MeasureGridView grid;
 
 
+    private String cityCode = "";
+
     /*采购*/
     public static String PURCHASE = "purchase";
     /*发布*/
@@ -91,7 +119,7 @@ public class PublishActivity extends BaseMVPActivity {
         switchTypeText();
 
         location.setOnClickListener(v -> {
-            ToastUtil.showLongToast("选择地址");
+//            ToastUtil.showLongToast("选择地址");
             CityWheelDialogF.instance()
                     .isShowCity(true)
                     .addSelectListener(new CityWheelDialogF.OnCitySelectListener() {
@@ -99,7 +127,8 @@ public class PublishActivity extends BaseMVPActivity {
                         public void onCitySelect(CityGsonBean.ChildBeans childBeans) {
                             SellectActivity2.childBeans = childBeans;
                             D.e("=选择  地区==" + childBeans.toString());
-                            location.setRightText(SellectActivity2.childBeans.name);
+                            cityCode = childBeans.cityCode;
+                            location.setRightText(SellectActivity2.childBeans.fullName);
                         }
 
                         @Override
@@ -156,7 +185,10 @@ public class PublishActivity extends BaseMVPActivity {
             et_content.setHint(R.string.purchase_content);
             setTitle("发布求购");
             clickListener = v -> {
-                ToastUtil.showLongToast("发布求购");
+//                ToastUtil.showLongToast("发布求购");
+                requestUpload(MomentsType.purchase.getEnumValue());
+
+
             };
             toolbar_right_text.setOnClickListener(clickListener);
         } else if (getTag().equals(PUBLISH)) {
@@ -164,13 +196,100 @@ public class PublishActivity extends BaseMVPActivity {
             setTitle("发布供应");
             et_content.setHint(R.string.publish_content);
             clickListener = v -> {
-                ToastUtil.showLongToast("发布供应");
-
+//                ToastUtil.showLongToast("发布供应");
+                requestUpload(MomentsType.supply.getEnumValue());
             };
             toolbar_right_text.setOnClickListener(clickListener);
         }
 
         /*初始化地址*/
+
+
+    }
+
+
+    private void requestUpload(String tag) {
+
+        List<Pic> pics = new ArrayList<>();
+
+
+        this.upLoadImage(grid.getAdapter().getDataList())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(pic -> !TextUtils.isEmpty(pic.getUrl()))
+                .doFinally(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        Log.i(TAG, "doFinally: 上传所有数据");
+                        //图片上传结束
+                        Moments moments = new Moments();
+                        moments.content = et_content.getText().toString();
+                        moments.cityCode = cityCode;
+                        moments.momentsType = tag;
+                        moments.images = GsonUtil.Bean2Json(pics);
+                        moments.imagesData = GsonUtil.Bean2Json(pics);
+                        new BasePresenter().putParams(moments).doRequest("admin/moments/save", true, new HandlerAjaxCallBack() {
+                            @Override
+                            public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                ToastUtil.showLongToast(gsonBean.msg);
+                                Log.i(TAG, "run: 上传结束" + gsonBean.msg);
+                            }
+                        });
+                    }
+                })
+
+                .doOnComplete(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        Log.i(TAG, "run: doOnComplete");
+
+                    }
+                })
+
+                .doOnNext(new Consumer<Pic>() {
+                    @Override
+                    public void accept(@NonNull Pic pic) throws Exception {
+                        Log.i(TAG, "图片上传成功accept:  doOnNext " + pic.toString());
+                        pics.add(pic);
+                        Log.i(TAG, "pics size = : " + pics.size());
+                        Log.i(TAG, "getAdapter size = : " + grid.getAdapter().getDataList().size());
+                    }
+                })
+                .doOnError(new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        Log.i(TAG, "doOnError: ");
+                    }
+                })
+
+                .subscribe(new Consumer<Pic>() {
+                    @Override
+                    public void accept(@NonNull Pic simpleGsonBean) throws Exception {
+                        ToastUtil.showLongToast("成功" + simpleGsonBean.toString());
+                        Log.i(TAG, "next: 上传结束，继续上传");
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        ToastUtil.showLongToast("失败");
+                        Log.i(TAG, "error: 上传失败");
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        Log.i(TAG, "run: complete");
+                    }
+                });
+//                .map(new Function<ArrayList<Pic>, ArrayList<ImagesJsonBean>>() {
+//
+//                    @Override
+//                    public ArrayList<ImagesJsonBean> apply(@NonNull ArrayList<Pic> pics) throws Exception {
+//
+//
+//
+//                        return null;
+//                    }
+//                });
 
 
     }
@@ -248,4 +367,67 @@ public class PublishActivity extends BaseMVPActivity {
     public String setTitle() {
         return "我的苗友圈";
     }
+
+
+    public Observable<Pic> upLoadImage(List<Pic> pics) {
+        Log.i("===1", "subscribe: " + Thread.currentThread().getName());
+
+        if (getFileList(pics).size() == 0) {
+            return Observable.empty();
+        }
+
+        //此处进行上传操作
+        return MyLuban.compress(mActivity, getFileList(pics))
+                .setMaxSize(256)
+                .setMaxHeight((int) (1920))
+                .setMaxWidth((int) (1280))
+                .putGear(MyLuban.CUSTOM_GEAR)
+                .asListObservable()
+                .flatMap(new Function<List<File>, ObservableSource<File>>() {
+                    @Override
+                    public ObservableSource<File> apply(@NonNull List<File> files) throws Exception {
+                        Log.i(TAG, "apply: " + files.size());
+                        return Observable.fromIterable(files);//将图片分批下发
+                    }
+                })
+                .filter(file -> file != null && file.length() > 0)
+                .flatMap(new Function<File, ObservableSource<Pic>>() {
+                    @Override
+                    public ObservableSource<Pic> apply(@NonNull File file) throws Exception {
+                        return doUp(file);
+                    }
+                });
+    }
+
+
+    int count = 0;
+
+    private Observable<Pic> doUp(File file) {
+        return Observable.create(new ObservableOnSubscribe<Pic>() {
+            @Override
+            public void subscribe(ObservableEmitter<Pic> e) throws Exception {
+                FinalHttp finalHttp = new FinalHttp();
+                GetServerUrl.addHeaders(finalHttp, true);
+                finalHttp.addHeader("Content-Type", "image/jpeg");
+                AjaxParams ajaxParams = new AjaxParams();
+                new SaveSeedlingPresenter(mActivity).doUpLoad(file, ajaxParams, finalHttp, new ResultCallBack<Pic>() {
+                    @Override
+                    public void onSuccess(Pic image) {
+                        image.setSort(count++);
+                        e.onNext(image);
+                        e.onComplete();
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+                        e.onError(t);
+                    }
+                });
+            }
+        }).subscribeOn(AndroidSchedulers.mainThread()).observeOn(AndroidSchedulers.mainThread());
+
+
+    }
+
+
 }

@@ -32,4 +32,21 @@ public class ImagesJsonBean implements Serializable{
     public String ossMediumImagePath;
     public String ossLargeImagePath;
     public String ossAppLargeImagePath;
+
+    @Override
+    public String toString() {
+        return "ImagesJsonBean{" +
+                "id='" + id + '\'' +
+                ", imageType='" + imageType + '\'' +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", sourceId='" + sourceId + '\'' +
+                ", ossUrl='" + ossUrl + '\'' +
+                ", ossThumbnailImagePath='" + ossThumbnailImagePath + '\'' +
+                ", ossSmallImagePath='" + ossSmallImagePath + '\'' +
+                ", ossMediumImagePath='" + ossMediumImagePath + '\'' +
+                ", ossLargeImagePath='" + ossLargeImagePath + '\'' +
+                ", ossAppLargeImagePath='" + ossAppLargeImagePath + '\'' +
+                '}';
+    }
 }

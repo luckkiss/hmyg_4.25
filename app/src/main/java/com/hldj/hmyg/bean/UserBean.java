@@ -64,7 +64,7 @@ public class UserBean {
     public CoCityBean coCity;
     public String userName = "";
     public String realName = "";
-    public String publicName;
+    public String publicName = "";
     public String publicPhone;
     public String plainPassword;
     public String sex;

@@ -470,6 +470,10 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     public static ArrayList<Pic> getPicList(List<ImagesJsonBean> imagesJson) {
 
         ArrayList pics = new ArrayList<Pic>();
+
+        if (imagesJson == null || imagesJson.size() == 0) {
+            return pics;
+        }
         for (int i = 0; i < imagesJson.size(); i++) {
             pics.add(new Pic(imagesJson.get(i).id, false, imagesJson.get(i).ossAppLargeImagePath, i));
         }

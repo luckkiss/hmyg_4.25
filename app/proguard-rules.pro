@@ -233,6 +233,7 @@
 -keep class com.hldj.hmyg.saler.bean.** { *;}
 -keep class com.hldj.hmyg.saler.M.** { *;}
 -keep class com.autoscrollview.adapter.** { *;}
+-keep class com.hldj.hmyg.Ui.friend.bean.** {*;}
 
 
 -keepattributes Exceptions,InnerClasses,...

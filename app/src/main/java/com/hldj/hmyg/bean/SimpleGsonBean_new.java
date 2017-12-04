@@ -23,6 +23,7 @@ public class SimpleGsonBean_new<T> {
 
     public class Data<T> {
         public T purchaseItem  ;
+        public T page ;
     }
 
 
