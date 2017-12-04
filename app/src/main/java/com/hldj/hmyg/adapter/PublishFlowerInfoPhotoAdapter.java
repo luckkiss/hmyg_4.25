@@ -39,6 +39,16 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
 
     public static final int MAX_IMAGE_COUNT = 10;
 
+    private int columeNum = 4 ;
+
+    public int getColumeNum() {
+        return columeNum;
+    }
+
+    public void setColumeNum(int columeNum) {
+        this.columeNum = columeNum;
+    }
+
     private int width;
     private boolean isUpdataNoti;
 
@@ -130,15 +140,23 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
             holder.iv_img2 = (ImageView) convertView.findViewById(R.id.iv_img2);
             holder.iv_img1 = (ImageView) convertView.findViewById(R.id.iv_img1);
             LayoutParams para = holder.photoIv.getLayoutParams();
-            para.width = (width - dip30px) / 4;
-            para.height = para.width * 4 / 3;
+
+            if (getColumeNum() == 4)
+            {
+                para.width = (width - dip30px) / 4 ;
+                para.height = para.width * 4 / 3;
+            } else {
+                para.width = (width ) / 3;
+                para.height = (width ) / 3;
+            }
+
             holder.photoIv.setLayoutParams(para);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         if (position == urlPaths.size()) {
-            holder.photoIv.setImageResource(R.drawable.add_image_icon_big);
+            holder.photoIv.setImageResource(R.drawable.add_image_icon_big_new);
             holder.iv_img2.setVisibility(View.INVISIBLE);
             holder.iv_img1.setVisibility(View.INVISIBLE);
         } else {

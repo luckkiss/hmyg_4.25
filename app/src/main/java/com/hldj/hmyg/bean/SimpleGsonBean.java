@@ -1,5 +1,6 @@
 package com.hldj.hmyg.bean;
 
+import com.hldj.hmyg.Ui.friend.bean.MomentsReply;
 import com.hldj.hmyg.util.ConstantState;
 
 import java.io.Serializable;
@@ -28,8 +29,12 @@ public class SimpleGsonBean implements Serializable {
 
     public static class DataBean implements Serializable {
 
+        //        "thumbUpCount":2,"isThumUp":true
+        public int thumbUpCount;
+        public boolean isThumUp;
         public String headImage = "";
 
+        public MomentsReply momentsReply;
 
         private boolean isCollect;
 

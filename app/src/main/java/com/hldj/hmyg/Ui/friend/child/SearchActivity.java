@@ -16,6 +16,7 @@ import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
+import com.hldj.hmyg.util.ConstantState;
 import com.hy.utils.ToastUtil;
 import com.zf.iosdialog.widget.AlertDialog;
 
@@ -33,6 +34,11 @@ import static com.hldj.hmyg.buyer.weidet.CoreRecyclerView.REFRESH;
  */
 
 public class SearchActivity extends BaseMVPActivity {
+
+    /**
+     * 搜索内容 标签
+     */
+    public static final String SEARCH_CONTENT = "search_content";
 
     @ViewInject(id = R.id.recycle)
     CoreRecyclerView mCoreRecyclerView;
@@ -54,7 +60,9 @@ public class SearchActivity extends BaseMVPActivity {
     }
 
 
-    /*获取输入框文本内容*/
+    /**
+     * 获取输入框文本内容
+     */
     private String getContent() {
         return search_content.getText().toString();
     }
@@ -73,16 +81,25 @@ public class SearchActivity extends BaseMVPActivity {
         /*创建数据库*/
         db = FinalDb.create(this);
 
+        setContent(getKeyWord());
+
         toolbar_left_icon.setOnClickListener(v -> finish());
 
         iv_view_type.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(getContent())) {
-                    ToastUtil.showLongToast("请输入需要查找的内容");
+                if (TextUtils.isEmpty(getContent().trim())) {
+//                    ToastUtil.showLongToast("请输入需要查找的内容");
                     hideSoftWare();
+                    setResult(ConstantState.SEARCH_OK, new Intent());
+                    finish();
                     return;
                 }
+
+
+                Intent intent = new Intent();
+                intent.putExtra(SEARCH_CONTENT, getContent());
+
                 History history = new History();
                 history.setContent(getContent());
                 history.setTime(System.currentTimeMillis());
@@ -99,6 +116,10 @@ public class SearchActivity extends BaseMVPActivity {
                         history1.setTime(history.getTime());
                         db.update(history1);
                         ToastUtil.showLongToast("数据库有次数据，更新");
+
+                        setResult(ConstantState.SEARCH_OK, intent);
+                        finish();
+
                         return;
                     }
                 }
@@ -107,6 +128,8 @@ public class SearchActivity extends BaseMVPActivity {
                 ToastUtil.showLongToast(userList.size() + "一共这么多条数据");
                 refresh();
                 hideSoftWare();
+                setResult(ConstantState.SEARCH_OK, intent);
+                finish();
             }
         });
 
@@ -203,9 +226,16 @@ public class SearchActivity extends BaseMVPActivity {
     }
 
 
-    public static void start(Activity activity) {
-        activity.startActivityForResult(new Intent(activity, SearchActivity.class), 110);
+    public String getKeyWord() {
+        return getIntent().getStringExtra(TAG);
     }
 
+    public static void start(Activity activity, String keyWord) {
+        Intent intent = new Intent(activity, SearchActivity.class);
+        intent.putExtra(TAG, keyWord);
+        activity.startActivityForResult(intent, 110);
+    }
+
+    private static final String TAG = "SearchActivity";
 
 }

@@ -3,12 +3,15 @@ package com.hldj.hmyg.base;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,8 +54,6 @@ public abstract class BaseDialogFragment extends DialogFragment implements IBase
     }
 
 
-
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         Log.i(TAG, "onViewCreated: ");
@@ -70,13 +71,21 @@ public abstract class BaseDialogFragment extends DialogFragment implements IBase
     public void onStart() {
         super.onStart();
         Window window = getDialog().getWindow();
-        WindowManager m =getActivity(). getWindowManager();
+        WindowManager m = getActivity().getWindowManager();
         WindowManager.LayoutParams windowParams = window.getAttributes();
-        windowParams.dimAmount = 0.5f;
+        windowParams.dimAmount = 0.0f;
+/**
+ * <style name="dialog" parent="@android:style/Theme.Dialog">
+ <item name="android:backgroundDimEnabled">false</item><!--activity不变暗-->
+ </style>
+ */
+        windowParams.gravity = Gravity.BOTTOM;
 
         Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
-        windowParams.width = (int) (d.getWidth() * 0.9); // 宽度设置为屏幕的0.65
-        windowParams.height =(int) (d.getHeight() * 0.8);
+//        windowParams.width = (int) (d.getWidth()); // 宽度设置为屏幕的0.65
+        windowParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        windowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         window.setAttributes(windowParams);
     }
 
@@ -104,8 +113,6 @@ public abstract class BaseDialogFragment extends DialogFragment implements IBase
         }
         return (T) view;
     }
-
-
 
 
 }

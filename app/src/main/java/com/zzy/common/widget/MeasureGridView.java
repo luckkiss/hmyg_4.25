@@ -59,7 +59,7 @@ public class MeasureGridView extends GridView {
 
         adapter = new PublishFlowerInfoPhotoAdapter(context, urlPaths);
         this.setAdapter(adapter);
-
+        adapter.setColumeNum(this.getNumColumns());
 
         this.setOnItemClickListener(new PhotoGvOnItemClickListener(ainView, listener));
 

@@ -2,25 +2,48 @@ package com.hldj.hmyg.Ui.friend.child;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
+import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.gson.reflect.TypeToken;
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
+import com.hldj.hmyg.M.BProduceAdapt;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.friend.bean.Moments;
+import com.hldj.hmyg.Ui.friend.bean.enums.MomentsType;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.bean.SimpleGsonBean;
+import com.hldj.hmyg.bean.SimpleGsonBean_new;
+import com.hldj.hmyg.bean.SimplePageBean;
+import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
+import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.ToastUtil;
 import com.lqr.optionitemview.OptionItemView;
+import com.zzy.common.widget.MeasureGridView;
 
 import net.tsz.afinal.FinalActivity;
+import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.annotation.view.ViewInject;
+import net.tsz.afinal.http.AjaxCallBack;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
+import static com.hldj.hmyg.R.id.recycle;
 
 /**
  * Created by luocaca on 2017/11/27 0027.
  * <p>
  * <p>
- * 我的苗友圈
+ * 我的苗友圈  我的苗木圈
  */
 
 public class CenterActivity extends BaseMVPActivity {
@@ -33,13 +56,19 @@ public class CenterActivity extends BaseMVPActivity {
     OptionItemView location;
 
 
-    @ViewInject(id = R.id.recycle)
-    CoreRecyclerView recycle;
+    @ViewInject(id = recycle)
+    CoreRecyclerView mRecyclerView;
+
+    @ViewInject(id = R.id.tablayout)
+    TabLayout tablayout;//可切换的选项卡
 
 
     public int bindLayoutID() {
         return R.layout.activity_friend_center;
     }
+
+    public String currentType = MomentsType.supply.getEnumValue();//供应   -   求购   -- 收藏
+    FinalBitmap finalBitmap;
 
 
     @Override
@@ -47,29 +76,98 @@ public class CenterActivity extends BaseMVPActivity {
         if (bindLayoutID() > 0) {
             FinalActivity.initInjectedView(this);
         }
+        finalBitmap = FinalBitmap.create(mActivity);
 
-        recycle.init(new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_friend_cicle) {
-
+        tablayout.addOnTabSelectedListener(new MyOnTabSelectedListener() {
             @Override
-            protected void convert(BaseViewHolder helper, String item) {
-                helper.setVisible(R.id.imageView7, false)
-                        .setVisible(R.id.tv_right_top, true)
-                        .addOnClickListener(R.id.tv_right_top, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                ToastUtil.showLongToast("删除");
-                            }
-                        });
-
+            public void onTabSelected(TabLayout.Tab tab) {
+                Toast.makeText(mActivity, "选项卡：" + tab.getPosition(), Toast.LENGTH_SHORT).show();
+                if (tab.getPosition() == 0) {
+                    currentType = MomentsType.supply.getEnumValue();//供应
+                } else if (tab.getPosition() == 1) {
+                    currentType = MomentsType.purchase.getEnumValue();// 求购
+                } else if (tab.getPosition() == 2) {
+                    currentType = MomentsType.collect.getEnumValue();//  -- 收藏
+                } else {
+                    ToastUtil.showLongToast("别闹");
+                }
+                mRecyclerView.onRefresh();
+                ToastUtil.showLongToast(currentType);
             }
         });
+        tablayout.getTabAt(0).setText("供应(18)");
+        tablayout.getTabAt(1).setText("求购(320)");
+        tablayout.getTabAt(2).setText("收藏(20)");
 
-        recycle.getAdapter().addData("123");
-        recycle.getAdapter().addData("123");
-        recycle.getAdapter().addData("123");
-        recycle.getAdapter().addData("123");
-        recycle.getAdapter().addData("123");
-        recycle.getAdapter().addData("123");
+        check();
+
+
+        mRecyclerView.init(new BaseQuickAdapter<Moments, BaseViewHolder>(R.layout.item_friend_cicle_simple_center) {
+            @Override
+            protected void convert(BaseViewHolder helper, Moments item) {
+                helper.setVisible(R.id.imageView7, false)
+                        .setVisible(R.id.tv_right_top, true)
+                        .addOnClickListener(R.id.tv_right_top, v ->
+                                {
+                                    ToastUtil.showLongToast("删除");
+                                    doDelete(item.id);
+                                }
+                        );
+
+                helper.setText(R.id.descript, item.content);//描述
+
+                Log.i(TAG, "convert: " + item);
+
+
+                if (item.ownerUserJson != null && !TextUtils.isEmpty(item.ownerUserJson.headImage)) {
+                    //显示图片
+                    finalBitmap.display(helper.getView(R.id.head), item.ownerUserJson.headImage);
+                }
+
+                helper.setVisible(R.id.imageView7, false);
+
+                BProduceAdapt.setPublishNameNoStart(helper.getView(R.id.title),
+                        item.ownerUserJson.companyName,
+                        item.ownerUserJson.publicName,
+                        item.ownerUserJson.realName,
+                        item.ownerUserJson.userName);
+                MeasureGridView gridView = helper.getView(R.id.imageView8);
+                gridView.setImageNumColumns(3);
+                gridView.setHorizontalSpacing(3);
+                gridView.setVerticalSpacing(0);
+                gridView.init(mActivity, PurchaseDetailActivity.getPicList(item.imagesJson), (ViewGroup) gridView.getParent(), null);
+                gridView.getAdapter().closeAll(true);
+                gridView.getAdapter().notifyDataSetChanged();
+
+                helper.addOnClickListener(R.id.first, v -> {
+                    ToastUtil.showLongToast("点击第一个");
+                }).setText(R.id.first, " " + item.thumbUpCount);//按钮一 点赞
+                helper.addOnClickListener(R.id.second, v -> {
+                    ToastUtil.showLongToast("回复");
+//                    EditDialog.replyListener = reply -> ToastUtil.showLongToast("发表评论：\n" + reply);
+//                    EditDialog.instance("回复二傻：").show(mActivity.getSupportFragmentManager(), TAG);
+                }).setText(R.id.second, " " + item.thumbUpListJson.size());//按钮2 评论
+            }
+        }).openRefresh()
+                .openLoadMore(10, page -> {
+                    requestDatas(page + "", currentType);
+                });
+        mRecyclerView.onRefresh();
+    }
+
+    private void doDelete(String id) {
+
+        new BasePresenter()
+                .putParams("ids", id)
+                .doRequest("admin/moments/doDel", true, new HandlerAjaxCallBack() {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+                        ToastUtil.showLongToast(gsonBean.msg);
+                        if (gsonBean.isSucceed()) {
+                            mRecyclerView.onRefresh();
+                        }
+                    }
+                });
 
 
     }
@@ -87,18 +185,95 @@ public class CenterActivity extends BaseMVPActivity {
 //    }
 
 
-    public static void start(Activity activity, String tag) {
+    public void requestDatas(String page, String type) {
 
+        showLoading();
+        new BasePresenter()
+                .putParams("pageSize", "10")
+                .putParams("pageIndex", page)
+                .putParams("momentsType", type)
+                .putParams("userId", getUserId())
+                .doRequest("moments/list", true, new AjaxCallBack<String>() {
+                    @Override
+                    public void onSuccess(String json) {
+                        hindLoading();
+                        Log.i(TAG, "onSuccess: " + json);
+                        Type beanType = new TypeToken<SimpleGsonBean_new<SimplePageBean<List<Moments>>>>() {
+                        }.getType();
+                        SimpleGsonBean_new<SimplePageBean<List<Moments>>> bean_new = GsonUtil.formateJson2Bean(json, beanType);
+
+                        if (bean_new.data == null || bean_new.data.page == null) {
+                            ToastUtil.showLongToast("没有收到刷新数据~_~");
+                            return;
+                        }
+
+                        mRecyclerView.getAdapter().addData(bean_new.data.page.data);
+
+                        ToastUtil.showLongToast(bean_new.data.page.total + "条数据");
+                        mRecyclerView.selfRefresh(false);
+                        hindLoading();
+
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+                        super.onFailure(t, errorNo, strMsg);
+                        mRecyclerView.selfRefresh(false);
+                        hindLoading();
+                    }
+                });
+    }
+
+
+    // 确认是谁的， 如果是别人的。就把收藏隐藏起来
+    private void check() {
+        if (!isSelf()) {
+//            ((ViewGroup) tablayout.getTabAt(2).getCustomView().getParent()).removeView(tablayout.getTabAt(2).getCustomView());
+            tablayout.removeTabAt(2);
+        }
+
+    }
+
+    public boolean isSelf() {
+        return getUserId().equals(MyApplication.getUserBean().id);
+
+    }
+
+    public String getUserId() {
+        return getIntent().getStringExtra(TAG);
+    }
+
+    public static void start(Activity activity, String userId) {
         Intent intent = new Intent(activity, CenterActivity.class);
-        intent.putExtra(TAG, tag);
-        Log.i(TAG, "start: " + tag);
+        intent.putExtra(TAG, userId);
+        Log.i(TAG, "start: " + userId);
         activity.startActivityForResult(intent, 110);
     }
+
 
     @Override
     public String setTitle() {
         return "我的苗木圈";
     }
 
+
+    public class MyOnTabSelectedListener implements TabLayout.OnTabSelectedListener {
+
+
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
+        }
+    }
 
 }

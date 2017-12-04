@@ -594,7 +594,166 @@ public class SaveSeedlingPresenter {
 //    }
 
 
-    private List<File> getFileList(List<Pic> pics) {
+
+
+
+    public void upLoadRx(ArrayList<Pic> dataList, ResultCallBack<Pic> resultCallBack) {
+        a = 0;
+        int list_size = dataList.size();
+
+        FinalHttp finalHttp = new FinalHttp();
+//        Luban
+//        Luban.compress(context, file)
+//                .setMaxSize(500)                // limit the final image size（unit：Kb）
+//                .setMaxHeight(1920)             // limit image height
+//                .setMaxWidth(1080)              // limit image width
+//                .putGear(Luban.CUSTOM_GEAR)     // use CUSTOM GEAR compression mode
+//                .asObservable();
+
+
+//        Luban.compress(context, fileList)           // 加载多张图片
+//                .putGear(Luban.CUSTOM_GEAR)
+//                .launch(new OnCompressListener() {
+//                    @Override
+//                    public void onStart() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(File file) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//                }); // 生成Observable<List> 返回压缩成功的所有图片结果
+
+
+//        Luban.get(this)
+//                .putGear(Luban.CUSTOM_GEAR)
+//                .load(fileList)                     // load all images
+//                .asListObservable()                 // Generates Observable <List<File>. Returns the result of all the images compressed successfully
+        if (getFileList(dataList).size() > 0) {
+            //上传多张本地图片
+            MyLuban.compress(mContext, getFileList(dataList))
+                    .setMaxSize(1024)
+                    .setMaxHeight((int) (2560))
+                    .setMaxWidth((int) (1440))
+                    .putGear(MyLuban.CUSTOM_GEAR)
+                    .asListObservable() // 压缩代码，返回  List<File>
+                    .flatMap(new Function<List<File>, ObservableSource<File>>() {
+                        @Override
+                        public ObservableSource<File> apply(@NonNull List<File> files) throws Exception {
+                            return Observable.fromIterable(files);
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<File>() {
+                        @Override
+                        public void accept(@NonNull File file) throws Exception {
+                            D.e("========accept========path=" + file.getAbsolutePath() + "   size =" + file.length() / 1024);
+                            Thread.sleep(250);
+                            GetServerUrl.addHeaders(finalHttp, true);
+//                            finalHttp.addHeader("Content-Type", "application/octet-stream");
+                            finalHttp.addHeader("Content-Type", "image/jpeg");
+                            AjaxParams params1 = new AjaxParams();
+                            params1.put("sourceId", "");
+                            doUpLoad(file, params1, finalHttp, resultCallBack);
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(@NonNull Throwable throwable) throws Exception {
+//                            ToastUtil.showLongToast("损坏一张图片");
+                            D.e("======损坏一张图片======");
+                            resultCallBack.onFailure(throwable, -1, "图片损坏，无法上传，请先删除无效图片");
+//                            a++;
+//                            ToastUtil.showLongToast("上传失败，请重新上传" + throwable.getMessage());
+                        }
+                    })
+//                .subscribe(new Consumer<File>() {
+//                    @Override
+//                    public void accept(@NonNull File file) throws Exception {
+//                        //执行上传代码
+//                    }
+//                })
+//                .subscribe(new Consumer<List<File>>() {
+//                    @Override
+//                    public void accept(@NonNull List<File> files) throws Exception {
+//
+//                    }
+//                })
+            ;
+//                .subscribe(new Consumer<List<File>>() {
+//                    @Override
+//                    public void accept(@NonNull List<File> files) throws Exception {
+//
+//                    }
+//                });
+
+
+//        Observable.interval(1000, TimeUnit.MILLISECONDS).
+
+
+//                .delay(1000,TimeUnit.MILLISECONDS)
+//                .timeInterval();
+//                .flatMap(new Function<List<File>, ObservableSource<File>>() {
+//                    @Override
+//                    public ObservableSource<File> apply(@NonNull List<File> files) throws Exception {
+//
+//                        return Observable.fromArray(files);
+//
+////                        return Observable.create(new ObservableOnSubscribe<File>() {
+////                            @Override
+////                            public void subscribe(ObservableEmitter<File> e) throws Exception {
+////                                Thread.sleep(1000);
+////                                e.onNext();
+////                            }
+////                        });
+//                    }
+//                })
+//                .delay(100, TimeUnit.MILLISECONDS)
+
+
+//        GetServerUrl.addHeaders(finalHttp, true);
+//        finalHttp.addHeader("Content-Type", "application/octet-stream");
+//        AjaxParams params1 = new AjaxParams();
+//        params1.put("sourceId", "");
+//                PicCopressUtil copressUtil = new PicCopressUtil();
+//                File file1 = new File(dataList.get(i).getUrl());
+
+
+//                        D.e("===========开始上传图片=========\n" + i + "   图片大小：" + file1.length() / 1024 + " k ");
+//                        D.e("===========图片地址=========\n" + dataList.get(i).getUrl());
+
+        }
+
+        /**
+         *  .onErrorResumeNext(Observable.<File>empty())
+         .doOnError(new Consumer<Throwable>() {
+        @Override public void accept(@NonNull Throwable throwable) throws Exception {
+        D.e("====doOnError====" + throwable.getMessage());
+        ToastUtil.showLongToast("损坏一张图片");
+        D.e("======损坏一张图片======");
+        resultCallBack.onSuccess(new Pic("", false, "", a));
+        a++;
+        }
+        })
+         */
+        for (int i = 0; i < list_size; i++) {
+            if (!StringUtil.isHttpUrlPicPath(dataList.get(i).getUrl())) {//不是已经上传的图片
+            } else {
+                dataList.get(i).setSort(a);
+                a++;
+                resultCallBack.onSuccess(dataList.get(i));//如果已经上传 就直接 传回出去
+            }
+        }
+    }
+
+
+
+    public static List<File> getFileList(List<Pic> pics) {
         List<File> files = new ArrayList<>();
         for (int i = 0; i < pics.size(); i++) {
             if (!StringUtil.isHttpUrlPicPath(pics.get(i).getUrl())) {
