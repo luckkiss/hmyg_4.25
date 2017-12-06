@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
 
     <android.support.design.widget.AppBarLayout
@@ -51,14 +51,14 @@
                         android:id="@+id/tv_activity_purchase_back"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/title_top_default"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="8dp"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
                         android:drawableLeft="@drawable/ic_arrow_left_green"
                         android:gravity="center"
                         android:text="供应详情"
                         android:textColor="@color/main_color"
+                        android:background="@drawable/bg_bottom_line"
                         android:textSize="@dimen/textSizeXXXX" />
-
 
                 </LinearLayout>
 
@@ -82,7 +82,7 @@
                 android:id="@+id/tab1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="点赞（18）" />
+                android:text="点赞" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tab2"
@@ -101,10 +101,9 @@
         android:id="@+id/recycle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_marginBottom="40dp"
-        />
+        android:background="@color/white"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
     <com.hldj.hmyg.Ui.friend.widget.FriendBottomView

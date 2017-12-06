@@ -57,6 +57,8 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.hldj.hmyg.presenter.SaveSeedlingPresenter.getFileList;
+import static com.hldj.hmyg.util.ConstantState.PUBLISH_SUCCEED;
+import static com.hldj.hmyg.util.ConstantState.PURCHASE_SUCCEED;
 
 /**
  * Created by luocaca on 2017/11/27 0027.
@@ -90,9 +92,13 @@ public class PublishActivity extends BaseMVPActivity {
 
     private String cityCode = "";
 
-    /*采购*/
+    /**
+     * 采购
+     */
     public static String PURCHASE = "purchase";
-    /*发布*/
+    /**
+     * 发布
+     */
     public static String PUBLISH = "publish";
 
 
@@ -143,17 +149,19 @@ public class PublishActivity extends BaseMVPActivity {
     private void initGvBottom() {
 
         ArrayList<Pic> arrayList = new ArrayList<Pic>();
-        arrayList.add(new Pic("q", true, "http://img95.699pic.com/photo/40007/4901.jpg_wh300.jpg", 0));
-        arrayList.add(new Pic("q", true, "http://img95.699pic.com/photo/50045/5922.jpg_wh300.jpg", 1));
-        arrayList.add(new Pic("q", true, "http://img95.699pic.com/photo/00009/3523.jpg_wh300.jpg!/format/webp", 2));
-        arrayList.add(new Pic("q", false, "http://img95.699pic.com/photo/00040/4625.jpg_wh300.jpg!/format/webp", 3));
-        arrayList.add(new Pic("q", false, "http://img95.699pic.com/photo/00040/2066.jpg_wh300.jpg", 4));
+//        arrayList.add(new Pic("q", true, "http://img95.699pic.com/photo/40007/4901.jpg_wh300.jpg", 0));
+//        arrayList.add(new Pic("q", true, "http://img95.699pic.com/photo/50045/5922.jpg_wh300.jpg", 1));
+//        arrayList.add(new Pic("q", true, "http://img95.699pic.com/photo/00009/3523.jpg_wh300.jpg!/format/webp", 2));
+//        arrayList.add(new Pic("q", false, "http://img95.699pic.com/photo/00040/4625.jpg_wh300.jpg!/format/webp", 3));
+//        arrayList.add(new Pic("q", false, "http://img95.699pic.com/photo/00040/2066.jpg_wh300.jpg", 4));
 //      arrayList.add(new Pic("hellows", true, MeasureGridView.usrl1, 12));
 
         grid.init(this, arrayList, (ViewGroup) grid.getParent(), new FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener() {
             @Override
             public void onTakePic() {
-
+                D.e("===========onTakePic=============");
+                if (TakePhotoUtil.toTakePic(mActivity))//检查 存储空间
+                    flowerInfoPhotoPath = TakePhotoUtil.doTakePhoto(mActivity, TakePhotoUtil.TO_TAKE_PIC);//照相
             }
 
             @Override
@@ -186,9 +194,15 @@ public class PublishActivity extends BaseMVPActivity {
             setTitle("发布求购");
             clickListener = v -> {
 //                ToastUtil.showLongToast("发布求购");
+                if (TextUtils.isEmpty(et_content.getText())) {
+                    ToastUtil.showLongToast("先写点什么嘛^_^");
+                    return;
+                }
+                if (TextUtils.isEmpty(cityCode)) {
+                    ToastUtil.showLongToast("请先选择地址^_^");
+                    return;
+                }
                 requestUpload(MomentsType.purchase.getEnumValue());
-
-
             };
             toolbar_right_text.setOnClickListener(clickListener);
         } else if (getTag().equals(PUBLISH)) {
@@ -196,6 +210,14 @@ public class PublishActivity extends BaseMVPActivity {
             setTitle("发布供应");
             et_content.setHint(R.string.publish_content);
             clickListener = v -> {
+                if (TextUtils.isEmpty(et_content.getText())) {
+                    ToastUtil.showLongToast("先写点什么嘛^_^");
+                    return;
+                }
+                if (TextUtils.isEmpty(cityCode)) {
+                    ToastUtil.showLongToast("请先选择地址^_^");
+                    return;
+                }
 //                ToastUtil.showLongToast("发布供应");
                 requestUpload(MomentsType.supply.getEnumValue());
             };
@@ -207,12 +229,10 @@ public class PublishActivity extends BaseMVPActivity {
 
     }
 
+    List<Pic> pics = new ArrayList<>();
 
     private void requestUpload(String tag) {
-
-        List<Pic> pics = new ArrayList<>();
-
-
+//        List<Pic> pics = new ArrayList<>();
         this.upLoadImage(grid.getAdapter().getDataList())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -220,6 +240,14 @@ public class PublishActivity extends BaseMVPActivity {
                 .doFinally(new Action() {
                     @Override
                     public void run() throws Exception {
+                        if (pics != null && pics.size() > 0 && (pics.size() == grid.getAdapter().getDataList().size())) {
+                            grid.getAdapter().notify((ArrayList<Pic>) pics);
+                        } else {
+                            List<Pic> l = addNoUpLoadImg(grid.getAdapter().getDataList());//把未上传的图片。添加到尾部。
+                            grid.getAdapter().notify((ArrayList<Pic>) pics);
+                            grid.getAdapter().addItems((ArrayList<Pic>) l);
+                        }
+                        hindLoading();
                         Log.i(TAG, "doFinally: 上传所有数据");
                         //图片上传结束
                         Moments moments = new Moments();
@@ -235,7 +263,19 @@ public class PublishActivity extends BaseMVPActivity {
                                 Log.i(TAG, "run: 上传结束" + gsonBean.msg);
                             }
                         });
+
+                        if (getTag().equals(PURCHASE)) {
+                            //求购成功
+                            setResult(PURCHASE_SUCCEED);
+                        } else if (getTag().equals(PUBLISH)) {
+                            //发布成功
+                            setResult(PUBLISH_SUCCEED);
+                        }
+
+
                     }
+
+
                 })
 
                 .doOnComplete(new Action() {
@@ -245,7 +285,10 @@ public class PublishActivity extends BaseMVPActivity {
 
                     }
                 })
-
+                .doOnSubscribe(disposable -> {
+                    //开启订阅 用于显示 loading
+                    showLoadingCus("数据处理中...");
+                })
                 .doOnNext(new Consumer<Pic>() {
                     @Override
                     public void accept(@NonNull Pic pic) throws Exception {
@@ -253,12 +296,14 @@ public class PublishActivity extends BaseMVPActivity {
                         pics.add(pic);
                         Log.i(TAG, "pics size = : " + pics.size());
                         Log.i(TAG, "getAdapter size = : " + grid.getAdapter().getDataList().size());
+                        UpdateLoading("正在上传第 " + pics.size() + "/" + grid.getAdapter().getDataList().size() + "张图片");
                     }
                 })
                 .doOnError(new Consumer<Throwable>() {
                     @Override
                     public void accept(@NonNull Throwable throwable) throws Exception {
                         Log.i(TAG, "doOnError: ");
+                        UpdateLoading("图片上传失败");
                     }
                 })
 
@@ -420,7 +465,10 @@ public class PublishActivity extends BaseMVPActivity {
 
                     @Override
                     public void onFailure(Throwable t, int errorNo, String strMsg) {
-                        e.onError(t);
+//                      e.onError(t);
+//                      e.onNext(new Pic("-1", false, "", -1));
+                        e.onComplete();
+                        ToastUtil.showLongToast("图片上传失败" + strMsg);
                     }
                 });
             }
@@ -430,4 +478,13 @@ public class PublishActivity extends BaseMVPActivity {
     }
 
 
+    private List<Pic> addNoUpLoadImg(ArrayList<Pic> dataList) {
+        List<Pic> pic = new ArrayList<>();
+        for (Pic localPic : dataList) {
+            if (!localPic.getUrl().startsWith("http")) {
+                pic.add(localPic);
+            }
+        }
+        return pic;
+    }
 }

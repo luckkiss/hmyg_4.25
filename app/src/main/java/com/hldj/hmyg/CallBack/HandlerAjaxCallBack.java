@@ -23,7 +23,7 @@ public abstract class HandlerAjaxCallBack extends AjaxCallBack<String> {
 
     }
 
-    public HandlerAjaxCallBack(NeedSwipeBackActivity activity) {
+    public HandlerAjaxCallBack(final NeedSwipeBackActivity activity) {
         this.needSwipeBackActivity = activity;
     }
 
@@ -45,6 +45,7 @@ public abstract class HandlerAjaxCallBack extends AjaxCallBack<String> {
             if (gsonBean.isSucceed()) {
                 //执行成功操作
                 onRealSuccess(gsonBean);
+
             } else {
                 //执行失败操作
                 ToastUtil.showShortToast(gsonBean.msg);

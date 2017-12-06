@@ -23,8 +23,14 @@ public interface ConstantState {
     int FILTER_OK = 207;//筛选完成
     int ADD_SUCCEED = 207;//添加地址成功
 
+
     int FLOW_BACK = 208;// 详情界面返回 result 代码
     int STORE_OPEN_FAILD = 209;//  商店打开失败
+
+    int REFRESH = 210; //刷新代号
+
+    int PUBLISH_SUCCEED = 211;//发布成功
+    int PURCHASE_SUCCEED = 212;//求购成功
 
 
     String ERROR_CODE = "1003";

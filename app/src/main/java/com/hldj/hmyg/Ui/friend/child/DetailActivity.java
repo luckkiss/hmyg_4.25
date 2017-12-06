@@ -4,16 +4,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
+import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack_test;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.bean.MomentsReply;
 import com.hldj.hmyg.Ui.friend.bean.MomentsThumbUp;
@@ -28,12 +32,18 @@ import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.util.ConstantState;
 import com.hy.utils.ToastUtil;
 import com.zzy.common.widget.MeasureGridView;
 
 import net.tsz.afinal.FinalActivity;
 import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.annotation.view.ViewInject;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+
+import static com.example.weixin_friendcircle.Util.dip2px;
 
 /**
  * Created by luocaca on 2017/11/27 0027.
@@ -86,45 +96,91 @@ public class DetailActivity extends BaseMVPActivity {
     MeasureGridView gridView;
 
     FinalBitmap finalBitmap;
+    CommonPopupWindow popupWindow1;
+    private Moments moments;
 
     private void initTop(Moments moments) {
-        finalBitmap = FinalBitmap.create(mActivity);
+        if (moments.thumbUpListJson == null) {
+            moments.thumbUpListJson = new ArrayList<>();
+        }
+
         tablayout.getTabAt(0).setText("点赞 (" + moments.thumbUpCount + ")");
         first.setText("点赞 " + moments.thumbUpCount);
+        first.setSelected(moments.isFavour);
         first.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showLongToast("点击第一个");
+//                ToastUtil.showLongToast("点击第一个");
+                // {"code":"1","msg":"操作成功","data":{"thumbUpCount":1,"isThumUp":false},"version":"tomcat7.0.53"}
                 new BasePresenter()
                         .putParams("momentsId", moments.id)
-                        .doRequest("admin/momentsThumbUp/thumbUpDown", true, new HandlerAjaxCallBack() {
+                        .doRequest("admin/momentsThumbUp/thumbUpDown", true, new HandlerAjaxCallBack(mActivity) {
                             @Override
                             public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                setResult(ConstantState.REFRESH);
+                                moments.thumbUpCount = gsonBean.getData().thumbUpCount;
+                                moments.isFavour = gsonBean.getData().isThumUp;
                                 ToastUtil.showLongToast(gsonBean.msg);
-                                int current = !first.isSelected() ? (moments.thumbUpCount + 1) : (moments.thumbUpCount);
-                                first.setText("点赞 " + current + "");
-                                first.setSelected(first.isSelected());
+
+                                first.setText("点赞 " + moments.thumbUpCount + "");
+                                first.setSelected(moments.isFavour);
+                                tablayout.getTabAt(0).setText("点赞 (" + moments.thumbUpCount + ")");
+                                if (moments.isFavour) {
+                                    //add
+                                    MomentsThumbUp up = new MomentsThumbUp();
+                                    up.attrData.displayName = gsonBean.getData().displayName;
+                                    // helper.setText(android.R.id.text1, ((MomentsThumbUp) item).attrData.displayName);
+                                    moments.thumbUpListJson.add(up);
+                                    mCoreRecyclerView.getAdapter().setDatasState(100);
+                                    mCoreRecyclerView.getAdapter().addData(moments.thumbUpListJson);
+                                    tablayout.getTabAt(0).select();
+
+//                                    mCoreRecyclerView.onRefresh();
+
+                                } else {
+                                    //remove
+                                    for (int i = 0; i < moments.thumbUpListJson.size(); i++) {
+                                        if (moments.thumbUpListJson.get(i).attrData.displayName.equals(gsonBean.getData().displayName)) {
+                                            moments.thumbUpListJson.remove(i);
+                                        }
+                                    }
+                                    tablayout.getTabAt(0).select();
+                                    mCoreRecyclerView.getAdapter().setDatasState(100);
+                                    mCoreRecyclerView.getAdapter().addData(moments.thumbUpListJson);
+//                                    mCoreRecyclerView.onRefresh();
+                                }
+
+
                             }
                         });
             }
         });
 
+        tablayout.getTabAt(1).setText("评论 (" + moments.replyCount + ")");
+        reflex(tablayout);
         second.setOnClickListener(v -> {
             EditDialog.replyListener = new EditDialog.OnReplyListener() {
                 @Override
                 public void OnReply(String reply) {
 
-                    ToastUtil.showLongToast("发表评论：\n" + reply);
+//                    ToastUtil.showLongToast("发表评论：\n" + reply);
                     new BasePresenter()
                             .putParams("momentsId", moments.id)
                             .putParams("reply", reply)
-                            .doRequest("admin/momentsReply/save", true, new HandlerAjaxCallBack() {
+                            .doRequest("admin/momentsReply/save", true, new HandlerAjaxCallBack(mActivity) {
                                 @Override
                                 public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                    setResult(ConstantState.REFRESH);
+                                    ToastUtil.showLongToast(gsonBean.msg);
                                     MomentsReply momentsReply = new MomentsReply();
-                                    momentsReply.reply = reply;
-                                    moments.itemListJson.add(0, momentsReply);
-                                    mCoreRecyclerView.onRefresh();
+                                    momentsReply = gsonBean.getData().momentsReply;
+                                    if (moments.itemListJson != null)
+                                        moments.itemListJson.add(momentsReply);
+                                    tablayout.getTabAt(1).select();
+                                    mCoreRecyclerView.getAdapter().setDatasState(100);
+                                    mCoreRecyclerView.getAdapter().addData(moments.itemListJson);
+                                    tablayout.getTabAt(1).setText("评论 (" + moments.itemListJson.size() + ")");
+//                                    mCoreRecyclerView.getRecyclerView().scrollToPosition(mCoreRecyclerView.getAdapter().getItemCount()-1);
 //                                    GlobBaseAdapter globBaseAdapter = (GlobBaseAdapter) measureListView.getAdapter();
 //                                    globBaseAdapter.notifyDataSetChanged();
                                 }
@@ -135,40 +191,77 @@ public class DetailActivity extends BaseMVPActivity {
 
                 }
             };
-            EditDialog.instance("回复二傻：").show(mActivity.getSupportFragmentManager(), TAG);
+            EditDialog.instance("评论: " + moments.attrData.displayName).show(mActivity.getSupportFragmentManager(), TAG);
 
 
         });
 
 
-        title.setText(moments.ownerUserJson.displayName);
 //        descript.setMaxLines(Integer.MAX_VALUE);
-        descript.setText(moments.content + "香樟价格实惠质量香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，又好，可供应5000株香樟价格实惠质量又好，可供应5000株香樟价又好，可供应5000株香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，可供应5000株可供应5000株.");
-        time_city.setText(moments.createDate + "  " + moments.ciCity.fullName);
-        finalBitmap.display(head, moments.ownerUserJson.headImage);
+        descript.setText(moments.content);
+        time_city.setText(moments.timeStampStr + "  " + moments.ciCity.fullName);
+        if (moments.attrData != null) {
+            title.setText(moments.attrData.displayName);
+            finalBitmap.display(head, moments.attrData.headImage);
+            third.setOnClickListener(v -> {
+                if (TextUtils.isEmpty(moments.attrData.displayPhone)) {
+                    ToastUtil.showLongToast("未留电话号码~_~");
+                } else {
+                    FlowerDetailActivity.CallPhone(moments.attrData.displayPhone, mActivity);
+                }
+            });
+        }
         imageView7.setImageResource(moments.momentsType.equals(MomentsType.purchase.getEnumValue()) ? R.mipmap.purchase : R.mipmap.publish);
-        third.setOnClickListener(v -> FlowerDetailActivity.CallPhone(moments.ownerUserJson.publicPhone, mActivity));
         fourth.setOnClickListener(v ->
                 {
-                    ToastUtil.showLongToast("点击第4个");
-                    new CommonPopupWindow.Builder(mActivity)
-                            .setWidthDp(100)
-                            .setHeightDp(100)
-                            .setOutsideTouchable(true)
-                            .bindLayoutId(R.layout.friend_more)
-                            .setCovertViewListener(new CommonPopupWindow.OnCovertViewListener() {
-                                @Override
-                                public void covertView(View viewRoot) {
-
-                                }
-                            })
-                            .build()
+//                    ToastUtil.showLongToast("点击第4个");
+                    if (popupWindow1 == null)
+                        popupWindow1 = new CommonPopupWindow.Builder(mActivity)
+                                .setWidthDp(115)
+                                .setHeightDp(108)
+                                .setOutsideTouchable(true)
+                                .bindLayoutId(R.layout.friend_more)
+                                .setCovertViewListener(new CommonPopupWindow.OnCovertViewListener() {
+                                    @Override
+                                    public void covertView(View viewRoot) {
+                                        TextView tv1 = (TextView) viewRoot.findViewById(R.id.pup_subscriber);
+                                        tv1.setText("加入收藏");
+                                        tv1.setOnClickListener(v -> {
+                                            popupWindow1.dismiss();
+                                            ToastUtil.showLongToast("加入收藏" + moments.id);
+                                        });
+                                        tv1.setTextColor(getColorByRes(R.color.text_color111));
+                                        TextView tv2 = (TextView) viewRoot.findViewById(R.id.pup_show_share);
+                                        tv2.setTextColor(getColorByRes(R.color.text_color111));
+                                        tv2.setText("进入店铺");
+                                        tv2.setOnClickListener(v -> {
+//                                            ToastUtil.showLongToast("进入店铺" + moments.attrData.storeId);
+                                            StoreActivity_new.start2Activity(mActivity, moments.attrData.storeId);
+                                            popupWindow1.dismiss();
+                                        });
+                                    }
+                                })
+                                .build();
 //                            .showAsDropDown(helper.getView(R.id.fourth));
-                            .showUp2(fourth);
-                    ToastUtil.showLongToast("更多");
+                    popupWindow1.showUp2(fourth);
+
+//                    ToastUtil.showLongToast("点击第4个");
+//                    new CommonPopupWindow.Builder(mActivity)
+//                            .setWidthDp(100)
+//                            .setHeightDp(100)
+//                            .setOutsideTouchable(true)
+//                            .bindLayoutId(R.layout.friend_more)
+//                            .setCovertViewListener(new CommonPopupWindow.OnCovertViewListener() {
+//                                @Override
+//                                public void covertView(View viewRoot) {
+//
+//                                }
+//                            })
+//                            .build()
+////                          .showAsDropDown(helper.getView(R.id.fourth));
+//                            .showUp2(fourth);
+//                    ToastUtil.showLongToast("更多");
                 }
-
-
         );
 
         gridView.setImageNumColumns(3);
@@ -194,6 +287,10 @@ public class DetailActivity extends BaseMVPActivity {
             FinalActivity.initInjectedView(this);
         }
 
+
+        finalBitmap = FinalBitmap.create(mActivity);
+        finalBitmap.configLoadfailImage(R.drawable.no_image_show);
+        finalBitmap.configLoadingImage(R.drawable.no_image_show);
         tv_activity_purchase_back.setOnClickListener(v -> finish());
 
         mCoreRecyclerView.init(new BaseQuickAdapter<Object, BaseViewHolder>(android.R.layout.simple_list_item_1) {
@@ -201,9 +298,62 @@ public class DetailActivity extends BaseMVPActivity {
             @Override
             protected void convert(BaseViewHolder helper, Object item) {
                 if (item instanceof MomentsReply) {
-                    helper.setText(android.R.id.text1, ((MomentsReply) item).reply);
+                    MomentsReply s = ((MomentsReply) item);
+//                    helper.setText(android.R.id.text1, ((MomentsReply) item).reply);
+                    if (s.attrData == null || s.attrData.fromDisplayName == null) {
+                        return;
+                    }
+//                        textView.setText(s.reply);
+                    SpannableStringBuilder result;
+                    String from = "";
+                    from = s.attrData.fromDisplayName;
+                    if (s.attrData.toDisplayName == null) {
+                        //评论
+                        result = filterColor(from + ": " + s.reply, from, R.color.main_color);
+                    } else {
+                        String to = s.attrData.toDisplayName;
+                        SpannableStringBuilder str = filterColor(from, from, R.color.main_color);
+                        //回复
+                        result = str.append(filterColor("回复" + to + ": " + s.reply, to, R.color.main_color));
+                    }
+                    helper.setText(android.R.id.text1, result);
+                    helper.addOnClickListener(android.R.id.text1, v -> {
+                        EditDialog.replyListener = reply -> {
+//                            ToastUtil.showLongToast("发表评论：\n" + reply);
+                            new BasePresenter()
+                                    .putParams("momentsId", moments.id)
+                                    .putParams("reply", reply)
+                                    .putParams("toId", s.fromId)
+                                    .doRequest("admin/momentsReply/save", true, new HandlerAjaxCallBack(mActivity) {
+                                        @Override
+                                        public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                            setResult(ConstantState.REFRESH);
+                                            MomentsReply momentsReply = new MomentsReply();
+                                            momentsReply = gsonBean.getData().momentsReply;
+                                            if (moments.itemListJson != null)
+                                                moments.itemListJson.add(momentsReply);
+                                            tablayout.getTabAt(1).select();
+                                            mCoreRecyclerView.getAdapter().setDatasState(100);
+                                            mCoreRecyclerView.getAdapter().addData(moments.itemListJson);
+                                            tablayout.getTabAt(1).setText("评论 (" + moments.itemListJson.size() + ")");
+                                            ToastUtil.showLongToast(gsonBean.msg);
+
+//                                    mCoreRecyclerView.getRecyclerView().scrollToPosition(mCoreRecyclerView.getAdapter().getItemCount()-1);
+//                                    GlobBaseAdapter globBaseAdapter = (GlobBaseAdapter) measureListView.getAdapter();
+//                                    globBaseAdapter.notifyDataSetChanged();
+                                        }
+                                    });
+//                                                list.add(s);
+//                                                GlobBaseAdapter globBaseAdapter = (GlobBaseAdapter) measureListView.getAdapter();
+//                                                globBaseAdapter.notifyDataSetChanged();
+
+                        };
+                        EditDialog.instance("回复: " + s.attrData.fromDisplayName).show(mActivity.getSupportFragmentManager(), TAG);
+                    });
+
                 } else if (item instanceof MomentsThumbUp) {
-                    helper.setText(android.R.id.text1, ((MomentsThumbUp) item).ownerUserJson.publicName);
+                    helper.setText(android.R.id.text1, ((MomentsThumbUp) item).attrData.displayName);
+                    helper.addOnClickListener(android.R.id.text1, null);
                 }
 
 
@@ -211,80 +361,45 @@ public class DetailActivity extends BaseMVPActivity {
         });
 
 
+        requestData();
+
+
+    }
+
+    /**
+     * 网络请求，本界面数据
+     */
+    private void requestData() {
         Log.i(TAG, "开始请求");
         new BasePresenter()
                 .putParams("id", getMomentId())
-                .doRequest("admin/moments/detail", true, new HandlerAjaxCallBack_test<SimpleGsonBean_test<Moments>>() {
+                .doRequest("admin/moments/detail", true, new HandlerAjaxCallBack_test<SimpleGsonBean_test<Moments>>(mActivity) {
                     @Override
                     public void onRealSuccess(SimpleGsonBean_test<Moments> result) {
+                        setResult(ConstantState.REFRESH);
                         Log.i(TAG, "onRealSuccess: " + result);
+                        moments = result.data.moments;
                         //此处处理数据列表
-
-
                         initTop(result.data.moments);
-
-
-//                        List<String> stringList = new ArrayList<>();
-//                        for (int i = 0; i < 10; i++) {
-//                            stringList.add("数据" + i);
-//                        }
                         mCoreRecyclerView.getAdapter().addData(result.data.moments.thumbUpListJson);
-
-
-                        tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                        tablayout.addOnTabSelectedListener(new CenterActivity.MyOnTabSelectedListener() {
                             @Override
                             public void onTabSelected(TabLayout.Tab tab) {
-                                ToastUtil.showLongToast(tab.getText().toString());
+                                super.onTabSelected(tab);
+//                                ToastUtil.showLongToast(tab.getText().toString());
                                 mCoreRecyclerView.getAdapter().setDatasState(100);
                                 if (tab.getPosition() == 0) {
                                     mCoreRecyclerView.getAdapter().addData(result.data.moments.thumbUpListJson);
                                 } else {
                                     mCoreRecyclerView.getAdapter().addData(result.data.moments.itemListJson);
                                 }
-
-
-                            }
-
-                            @Override
-                            public void onTabUnselected(TabLayout.Tab tab) {
-                                ToastUtil.showLongToast("onTabUnselected");
-                            }
-
-                            @Override
-                            public void onTabReselected(TabLayout.Tab tab) {
-                                ToastUtil.showLongToast("onTabReselected");
                             }
                         });
 
-//                        tab1.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                ToastUtil.showLongToast("1");
-//                            }
-//                        });
-//
-//                        tab2.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                ToastUtil.showLongToast("2");
-//                            }
-//                        });
-
                     }
-
-
-//                    @Override
-//                    public void onRealSuccess(Moments result) {
-//                        ToastUtil.showLongToast(result.toString());
-//                        Log.i(TAG, "onRealSuccess: "+result.id);
-//                    }
 
                 });
         Log.i(TAG, "结束请求");
-
-
-//          ToastUtil.showLongToast(result.msg);
-//        Log.i(TAG, "onRealSuccess: 请求成功" + result.msg);
     }
 
 
@@ -314,5 +429,56 @@ public class DetailActivity extends BaseMVPActivity {
     @Override
     public String setTitle() {
         return "供应详情";
+    }
+
+
+    public void reflex(final TabLayout tabLayout) {
+        //了解源码得知 线的宽度是根据 tabView的宽度来设置的
+        tabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //拿到tabLayout的mTabStrip属性
+                    LinearLayout mTabStrip = (LinearLayout) tabLayout.getChildAt(0);
+
+                    int dp10 = dip2px(tabLayout.getContext(), 10);
+
+                    for (int i = 0; i < mTabStrip.getChildCount(); i++) {
+                        View tabView = mTabStrip.getChildAt(i);
+
+                        //拿到tabView的mTextView属性  tab的字数不固定一定用反射取mTextView
+                        Field mTextViewField = tabView.getClass().getDeclaredField("mTextView");
+                        mTextViewField.setAccessible(true);
+
+                        TextView mTextView = (TextView) mTextViewField.get(tabView);
+
+                        tabView.setPadding(0, 0, 0, 0);
+
+                        //因为我想要的效果是   字多宽线就多宽，所以测量mTextView的宽度
+                        int width = 0;
+                        width = mTextView.getWidth();
+                        if (width == 0) {
+                            mTextView.measure(0, 0);
+                            width = mTextView.getMeasuredWidth();
+                        }
+
+                        //设置tab左右间距为10dp  注意这里不能使用Padding 因为源码中线的宽度是根据 tabView的宽度来设置的
+                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
+                        params.width = width + dp10;
+                        params.leftMargin = dp10;
+                        params.rightMargin = dp10;
+                        tabView.setLayoutParams(params);
+
+                        tabView.invalidate();
+                    }
+
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 }

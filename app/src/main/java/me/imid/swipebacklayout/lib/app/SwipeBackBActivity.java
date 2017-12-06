@@ -36,11 +36,18 @@ public class SwipeBackBActivity extends FragmentActivity implements
 
     }
 
-    public void setLoadCancle(boolean cancle)
-    {
+    public void setLoadCancle(boolean cancle) {
         dialog.setCanceledOutside(cancle);
     }
 
+    public void showLoadingCus(String str) {
+        if (!dialog.isShowing()) {
+            dialog.show();
+            if (dialog.tv_loading_text != null) {
+                dialog.tv_loading_text.setText(str);
+            }
+        }
+    }
 
     public void showLoading(String str) {
         getLoad().setText(str).showToastAlong();
@@ -55,7 +62,6 @@ public class SwipeBackBActivity extends FragmentActivity implements
             dialog.dismiss();
         }
     }
-
 
 
     public void UpdateLoading(String loadingMsg) {

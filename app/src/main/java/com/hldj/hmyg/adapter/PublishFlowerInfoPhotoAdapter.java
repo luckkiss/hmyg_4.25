@@ -39,7 +39,7 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
 
     public static final int MAX_IMAGE_COUNT = 10;
 
-    private int columeNum = 4 ;
+    private int columeNum = 4;
 
     public int getColumeNum() {
         return columeNum;
@@ -69,8 +69,7 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         if (urlPaths.size() < MAX_IMAGE_COUNT) {
-            if (ismIsCloseAll())
-            {
+            if (ismIsCloseAll()) {
                 return urlPaths.size();
             }
             return urlPaths.size() + 1;
@@ -141,22 +140,25 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
             holder.iv_img1 = (ImageView) convertView.findViewById(R.id.iv_img1);
             LayoutParams para = holder.photoIv.getLayoutParams();
 
-            if (getColumeNum() == 4)
-            {
-                para.width = (width - dip30px) / 4 ;
+            if (getColumeNum() == 4) {
+                para.width = (width - dip30px) / 4;
                 para.height = para.width * 4 / 3;
             } else {
-                para.width = (width ) / 3;
-                para.height = (width ) / 3;
+                para.width = (width) / 3;
+                para.height = (width) / 3;
             }
 
             holder.photoIv.setLayoutParams(para);
+
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         if (position == urlPaths.size()) {
-            holder.photoIv.setImageResource(R.drawable.add_image_icon_big_new);
+            holder.photoIv.setScaleType(ImageView.ScaleType.FIT_XY);
+            holder.photoIv.setImageResource(R.drawable.add_image_icon_big);
+//            holder.photoIv.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.add_image_icon_big));
+            holder.photoIv.requestLayout();
             holder.iv_img2.setVisibility(View.INVISIBLE);
             holder.iv_img1.setVisibility(View.INVISIBLE);
         } else {
@@ -216,7 +218,7 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
 
 
         if (ismIsCloseAll()) {
-            closeDelIco(holder.iv_img2 );
+            closeDelIco(holder.iv_img2);
             closeAddIco(holder.iv_img1);
 //            closeSuccIco(holder.photoIv);
         }

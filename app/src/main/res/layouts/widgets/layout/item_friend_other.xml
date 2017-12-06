@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="40dp"
-    android:background="@color/white"
+    android:background="@drawable/bg_top_line"
     android:orientation="horizontal">
 
 
@@ -13,13 +13,13 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_weight="1"
-        android:drawableLeft="@mipmap/like"
+        android:drawableLeft="@drawable/like_selector"
         android:drawablePadding="4dp"
         android:gravity="center"
-        android:text="点赞 4 " />
+        android:text="点赞" />
 
     <View
-        android:layout_width="1px"
+        android:layout_width="1dp"
         android:layout_height="18dp"
         android:layout_gravity="center"
         android:background="@color/gray_bg" />
@@ -29,13 +29,13 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_weight="1"
-        android:drawableLeft="@mipmap/msg"
+        android:drawableLeft="@mipmap/msg_big"
         android:drawablePadding="4dp"
         android:gravity="center"
         android:text="评论" />
 
     <View
-        android:layout_width="1px"
+        android:layout_width="1dp"
         android:layout_height="18dp"
         android:layout_gravity="center"
         android:background="@color/gray_bg" />
@@ -51,7 +51,7 @@
         android:text="电话" />
 
     <View
-        android:layout_width="1px"
+        android:layout_width="1dp"
         android:layout_height="18dp"
         android:layout_gravity="center"
         android:background="@color/gray_bg" />
