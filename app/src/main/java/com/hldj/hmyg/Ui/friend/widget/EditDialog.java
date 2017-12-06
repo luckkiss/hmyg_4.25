@@ -34,7 +34,6 @@ public class EditDialog extends BaseDialogFragment {
         return detailDialogFragment;
     }
 
-
     @Override
     public int bindLayoutID() {
         return R.layout.edit;
@@ -49,6 +48,9 @@ public class EditDialog extends BaseDialogFragment {
     public void findView(View inflateView, Bundle savedInstanceState) {
         editText = (EditText) inflateView.findViewById(R.id.et_recive);
         reply = (SuperTextView) inflateView.findViewById(R.id.superTextView);
+        Bundle bundle = getArguments();
+        String str = bundle.getString("str");
+        editText.setHint(str);
         reply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

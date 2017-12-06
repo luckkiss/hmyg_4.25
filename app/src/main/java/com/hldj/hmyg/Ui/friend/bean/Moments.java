@@ -5,7 +5,6 @@ import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,7 +38,7 @@ public class Moments implements Serializable {
     /**
      * 发布类型
      */
-    public String momentsType;
+    public String momentsType = "";
 
     /**
      * 时间戳
@@ -63,7 +62,7 @@ public class Moments implements Serializable {
      */
     public int thumbUpCount;
 
-    public List<MomentsThumbUp> thumbUpListJson = new ArrayList<>();
+    public List<MomentsThumbUp> thumbUpListJson ;
 
 
     public PurchaseJsonBean.CiCityBean ciCity;
@@ -84,7 +83,7 @@ public class Moments implements Serializable {
      * 评论集合
      */
     public List<MomentsReply> itemList;
-    public List<MomentsReply> itemListJson = new ArrayList<>();
+    public List<MomentsReply> itemListJson ;
 
     /**
      * 图片集合
@@ -104,7 +103,17 @@ public class Moments implements Serializable {
 
 
     public AttrDataBean attrData;
+    public String timeStampStr;
+    public boolean isOwner;
+    public int replyCount;
     public boolean isFavour;
+
+//     "isFavour": true,
+//             "timeStampStr": "1小时前",
+//             "isOwner": false,
+//             "replyCount": 0
+
+
 
 
     public static class AttrDataBean implements Serializable {

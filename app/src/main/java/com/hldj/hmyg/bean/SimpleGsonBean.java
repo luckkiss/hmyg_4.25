@@ -33,6 +33,20 @@ public class SimpleGsonBean implements Serializable {
         public int thumbUpCount;
         public boolean isThumUp;
         public String headImage = "";
+        public String displayName = "";
+        public String reply = "";
+        public MomentsReply.AttrDataBean attrData;
+
+
+        //        CenterActivity
+        /*供应数量*/
+        public int supplyCount = 0;
+        /*采购数量*/
+        public int purchaseCount = 0;
+        /*收藏数量*/
+        public int collectCount = 0;
+//        CenterActivity
+
 
         public MomentsReply momentsReply;
 

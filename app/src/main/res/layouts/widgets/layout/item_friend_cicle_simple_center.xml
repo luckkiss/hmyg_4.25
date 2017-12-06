@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
 
 
@@ -71,19 +72,25 @@
 
         <com.coorchice.library.SuperTextView
             android:id="@+id/tv_right_top"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="32dp"
+            android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
-            android:background="@color/error_stroke_color"
-            android:backgroundTint="@color/red"
+            android:gravity="center"
             android:padding="5dp"
             android:text="删除"
             android:textColor="@color/main_color"
             android:visibility="gone"
+            app:corner="4dp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:left_bottom_corner="true"
+            app:left_top_corner="true"
+            app:right_bottom_corner="true"
+            app:right_top_corner="true"
+            app:stroke_color="@color/main_color"
+            app:stroke_width="1px"
             tools:visibility="visible" />
 
 
@@ -132,28 +139,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:paddingLeft="15dp">
+        android:paddingLeft="8dp"
+        android:weightSum="1" android:layout_marginTop="4dp">
 
-        <TextView
+        <com.hldj.hmyg.widget.DrawableCenterText
             android:id="@+id/first"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
+            android:layout_weight="0.10"
             android:drawableLeft="@mipmap/like"
-            android:drawablePadding="4dp"
+            android:drawablePadding="6dp"
             android:gravity="center"
             android:text="1234" />
 
-        <TextView
+        <com.hldj.hmyg.widget.DrawableCenterText
             android:id="@+id/second"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginLeft="16dp"
+            android:layout_weight="0.10"
             android:drawableLeft="@mipmap/msg"
-            android:drawablePadding="4dp"
+            android:drawablePadding="6dp"
             android:gravity="center"
             android:text="3264" />
 
     </LinearLayout>
+
+    <View style="@style/View_line_gray" />
 
 
 </LinearLayout>

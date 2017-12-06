@@ -29,7 +29,7 @@
             <!--<include layout="@layout/toolbar_3_0" />-->
 
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <com.hldj.hmyg.widget.MyCircleImageView
                 android:id="@+id/iv_circle_head"
                 android:layout_width="72dp"
                 android:layout_height="72dp"

@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.hldj.hmyg.widget.MyCircleImageView
         android:id="@+id/head"
         android:layout_width="45dp"
         android:layout_height="45dp"
@@ -125,25 +126,25 @@
         android:id="@+id/receive"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:background="@color/white"
-        android:text="leei:这棵树不错"
         android:divider="@null"
         android:dividerHeight="0px"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="leei:这棵树不错"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/first" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <com.hldj.hmyg.widget.DrawableCenterText
         android:id="@+id/first"
         android:layout_width="71dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp"
         android:drawableLeft="@drawable/like_selector"
         android:drawablePadding="5dp"
         android:text="点赞 4 "
+        app:layout_constraintBottom_toTopOf="@+id/receive"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/second"
         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
@@ -152,36 +153,58 @@
     <com.hldj.hmyg.widget.DrawableCenterText
         android:id="@+id/fourth"
         android:layout_width="71dp"
-        android:layout_height="38dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp"
         android:drawableLeft="@mipmap/more"
         android:drawablePadding="5dp"
         android:gravity="left|center"
         android:text="更多"
+        app:layout_constraintBottom_toTopOf="@+id/receive"
         app:layout_constraintLeft_toRightOf="@+id/third"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/first" />
+        app:layout_constraintTop_toTopOf="@+id/first"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.hldj.hmyg.widget.DrawableCenterText
         android:id="@+id/third"
         android:layout_width="71dp"
-        android:layout_height="38dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp"
         android:drawableLeft="@mipmap/phone"
         android:drawablePadding="5dp"
         android:text="电话"
+        app:layout_constraintBottom_toTopOf="@+id/receive"
         app:layout_constraintLeft_toRightOf="@+id/second"
         app:layout_constraintRight_toLeftOf="@+id/fourth"
-        app:layout_constraintTop_toTopOf="@+id/first" />
+        app:layout_constraintTop_toTopOf="@+id/first"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.hldj.hmyg.widget.DrawableCenterText
         android:id="@+id/second"
         layout="@layout/item_friend_other"
         android:layout_width="71dp"
-        android:layout_height="38dp"
-        android:drawableLeft="@mipmap/msg"
+        android:layout_height="32dp"
+        android:drawableLeft="@mipmap/msg_big"
         android:drawablePadding="5dp"
         android:text="评论"
         app:layout_constraintLeft_toRightOf="@+id/first"
         app:layout_constraintRight_toLeftOf="@+id/third"
         app:layout_constraintTop_toTopOf="@+id/first" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:alpha="0.5"
+        android:background="@color/divider_color_bg"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

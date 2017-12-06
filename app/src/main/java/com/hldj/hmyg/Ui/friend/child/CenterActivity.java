@@ -3,16 +3,14 @@ package com.hldj.hmyg.Ui.friend.child;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
-import com.hldj.hmyg.M.BProduceAdapt;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
+import com.hldj.hmyg.Ui.friend.bean.MomentsThumbUp;
 import com.hldj.hmyg.Ui.friend.bean.enums.MomentsType;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
@@ -24,6 +22,7 @@ import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.ToastUtil;
 import com.lqr.optionitemview.OptionItemView;
@@ -35,6 +34,7 @@ import net.tsz.afinal.annotation.view.ViewInject;
 import net.tsz.afinal.http.AjaxCallBack;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.hldj.hmyg.R.id.recycle;
@@ -77,11 +77,14 @@ public class CenterActivity extends BaseMVPActivity {
             FinalActivity.initInjectedView(this);
         }
         finalBitmap = FinalBitmap.create(mActivity);
+        finalBitmap.configLoadfailImage(R.drawable.no_image_show);
+        finalBitmap.configLoadfailImage(R.drawable.no_image_show);
+
 
         tablayout.addOnTabSelectedListener(new MyOnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Toast.makeText(mActivity, "选项卡：" + tab.getPosition(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mActivity, "选项卡：" + tab.getPosition(), Toast.LENGTH_SHORT).show();
                 if (tab.getPosition() == 0) {
                     currentType = MomentsType.supply.getEnumValue();//供应
                 } else if (tab.getPosition() == 1) {
@@ -92,12 +95,14 @@ public class CenterActivity extends BaseMVPActivity {
                     ToastUtil.showLongToast("别闹");
                 }
                 mRecyclerView.onRefresh();
-                ToastUtil.showLongToast(currentType);
+//                ToastUtil.showLongToast(currentType);
             }
         });
-        tablayout.getTabAt(0).setText("供应(18)");
-        tablayout.getTabAt(1).setText("求购(320)");
-        tablayout.getTabAt(2).setText("收藏(20)");
+        tablayout.getTabAt(0).setText("供应");
+        tablayout.getTabAt(1).setText("求购");
+        tablayout.getTabAt(2).setText("收藏");
+        requestCount(tablayout.getTabAt(0), tablayout.getTabAt(1), tablayout.getTabAt(2));
+
 
         check();
 
@@ -109,28 +114,36 @@ public class CenterActivity extends BaseMVPActivity {
                         .setVisible(R.id.tv_right_top, true)
                         .addOnClickListener(R.id.tv_right_top, v ->
                                 {
-                                    ToastUtil.showLongToast("删除");
+//                                    ToastUtil.showLongToast("删除");
                                     doDelete(item.id);
                                 }
                         );
 
                 helper.setText(R.id.descript, item.content);//描述
+                String time_city = FUtil.$_zero(item.timeStampStr);
+                if (item.ciCity != null && item.ciCity.fullName != null) {
+                    time_city += "   " + item.ciCity.fullName;
+                }
+                helper.setText(R.id.time_city, time_city);//时间戳_发布点
 
                 Log.i(TAG, "convert: " + item);
 
 
-                if (item.ownerUserJson != null && !TextUtils.isEmpty(item.ownerUserJson.headImage)) {
-                    //显示图片
-                    finalBitmap.display(helper.getView(R.id.head), item.ownerUserJson.headImage);
-                }
+//                if (item.attrData != null && !TextUtils.isEmpty(item.ownerUserJson.headImage)) {
+//                    //显示图片
+//                    finalBitmap.display(helper.getView(R.id.head), item.ownerUserJson.headImage);
+//                }
 
                 helper.setVisible(R.id.imageView7, false);
 
-                BProduceAdapt.setPublishNameNoStart(helper.getView(R.id.title),
-                        item.ownerUserJson.companyName,
-                        item.ownerUserJson.publicName,
-                        item.ownerUserJson.realName,
-                        item.ownerUserJson.userName);
+
+                if (item.attrData != null) {
+                    helper.setText(R.id.title, item.attrData.displayName);
+                    //显示图片
+                    finalBitmap.display(helper.getView(R.id.head), item.attrData.headImage);
+                }
+
+
                 MeasureGridView gridView = helper.getView(R.id.imageView8);
                 gridView.setImageNumColumns(3);
                 gridView.setHorizontalSpacing(3);
@@ -142,6 +155,9 @@ public class CenterActivity extends BaseMVPActivity {
                 helper.addOnClickListener(R.id.first, v -> {
                     ToastUtil.showLongToast("点击第一个");
                 }).setText(R.id.first, " " + item.thumbUpCount);//按钮一 点赞
+
+                if (item.thumbUpListJson == null)
+                    item.thumbUpListJson = new ArrayList<MomentsThumbUp>();
                 helper.addOnClickListener(R.id.second, v -> {
                     ToastUtil.showLongToast("回复");
 //                    EditDialog.replyListener = reply -> ToastUtil.showLongToast("发表评论：\n" + reply);
@@ -155,15 +171,28 @@ public class CenterActivity extends BaseMVPActivity {
         mRecyclerView.onRefresh();
     }
 
-    private void doDelete(String id) {
+    private void requestCount(TabLayout.Tab tabAt, TabLayout.Tab tabAt1, TabLayout.Tab tabAt2) {
+        new BasePresenter()
+                .putParams("userId", getUserId())
+                .doRequest("admin/moments/momentsCount", true, new HandlerAjaxCallBack() {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+                        tabAt.setText("供应 ( " + gsonBean.getData().supplyCount + " )");
+                        tabAt1.setText("求购 ( " + gsonBean.getData().purchaseCount + " )");
+                        tabAt2.setText("收藏 ( " + gsonBean.getData().collectCount + " )");
+                    }
+                });
+    }
 
+    private void doDelete(String id) {
         new BasePresenter()
                 .putParams("ids", id)
-                .doRequest("admin/moments/doDel", true, new HandlerAjaxCallBack() {
+                .doRequest("admin/moments/doDel", true, new HandlerAjaxCallBack(mActivity) {
                     @Override
                     public void onRealSuccess(SimpleGsonBean gsonBean) {
                         ToastUtil.showLongToast(gsonBean.msg);
                         if (gsonBean.isSucceed()) {
+                            requestCount(tablayout.getTabAt(0), tablayout.getTabAt(1), tablayout.getTabAt(2));
                             mRecyclerView.onRefresh();
                         }
                     }
@@ -186,14 +215,14 @@ public class CenterActivity extends BaseMVPActivity {
 
 
     public void requestDatas(String page, String type) {
-
         showLoading();
         new BasePresenter()
                 .putParams("pageSize", "10")
                 .putParams("pageIndex", page)
                 .putParams("momentsType", type)
-                .putParams("userId", getUserId())
-                .doRequest("moments/list", true, new AjaxCallBack<String>() {
+//                .putParams("userId", getUserId())
+                .putParams("ownerId", getUserId())
+                .doRequest("admin/moments/list", true, new AjaxCallBack<String>() {
                     @Override
                     public void onSuccess(String json) {
                         hindLoading();
@@ -203,13 +232,14 @@ public class CenterActivity extends BaseMVPActivity {
                         SimpleGsonBean_new<SimplePageBean<List<Moments>>> bean_new = GsonUtil.formateJson2Bean(json, beanType);
 
                         if (bean_new.data == null || bean_new.data.page == null) {
-                            ToastUtil.showLongToast("没有收到刷新数据~_~");
+                            ToastUtil.showLongToast("暂无数据~_~");
+                            mRecyclerView.getAdapter().addData(null);
                             return;
                         }
 
                         mRecyclerView.getAdapter().addData(bean_new.data.page.data);
 
-                        ToastUtil.showLongToast(bean_new.data.page.total + "条数据");
+//                        ToastUtil.showLongToast(bean_new.data.page.total + "条数据");
                         mRecyclerView.selfRefresh(false);
                         hindLoading();
 
@@ -257,7 +287,7 @@ public class CenterActivity extends BaseMVPActivity {
     }
 
 
-    public class MyOnTabSelectedListener implements TabLayout.OnTabSelectedListener {
+    public static class MyOnTabSelectedListener implements TabLayout.OnTabSelectedListener {
 
 
         @Override

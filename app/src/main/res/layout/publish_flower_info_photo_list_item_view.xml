@@ -2,16 +2,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:layout_centerInParent="true" android:layout_margin="2.5dp">
+        android:layout_height="120dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="2.5dp">
 
         <ImageView
             android:id="@+id/publish_flower_info_photo_item_iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:src="@color/accent_color"
+            />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:paddingRight="1.5dp" />
+                android:paddingRight="2.5dp" />
 
             <ImageView
                 android:id="@+id/iv_img1"
@@ -33,6 +37,6 @@
                 android:layout_alignParentRight="true"
                 android:padding="1dp" />
         </RelativeLayout>
-    </FrameLayout>
+    </RelativeLayout>
 
 </LinearLayout>
