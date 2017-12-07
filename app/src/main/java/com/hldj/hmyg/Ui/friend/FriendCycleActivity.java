@@ -3,6 +3,7 @@ package com.hldj.hmyg.Ui.friend;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Keep;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
@@ -31,6 +31,7 @@ import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.base.CommonPopupWindow;
 import com.hldj.hmyg.base.GlobBaseAdapter;
+import com.hldj.hmyg.base.MyFinalActivity;
 import com.hldj.hmyg.base.ViewHolders;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
@@ -47,7 +48,6 @@ import com.hy.utils.ToastUtil;
 import com.zzy.common.widget.MeasureGridView;
 import com.zzy.common.widget.MeasureListView;
 
-import net.tsz.afinal.FinalActivity;
 import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.annotation.view.ViewInject;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -65,44 +65,46 @@ import static com.hldj.hmyg.util.ConstantState.SEARCH_OK;
 /**
  * FinalActivity 来进行    数据绑定
  */
-
+ @Keep
 public class FriendCycleActivity extends BaseMVPActivity implements View.OnClickListener {
 
     private static final String TAG = "FriendCycleActivity";
 
     public static Boolean notifier = Boolean.valueOf(false);
 
+    public String parentFiled = "parent";
+
     @ViewInject(id = R.id.tagview)
-    TagView tagView;
+    public TagView tagView;
 
     /*列表 recycle*/
     @ViewInject(id = R.id.core_rv_c)
-    CoreRecyclerView mRecyclerView;
+    public CoreRecyclerView mRecyclerView;
 
     /*右上角  点击按钮。发布采购 发布供应*/
     @ViewInject(id = R.id.toolbar_right_icon, click = "onClick")
-    ImageView toolbar_right_icon;
+    public ImageView toolbar_right_icon;
 
     /*左边返回键*/
     @ViewInject(id = R.id.toolbar_left_icon, click = "onClick")
-    ImageView toolbar_left_icon;
+    public ImageView toolbar_left_icon;
 
     /*中间2个按钮*/
     @ViewInject(id = R.id.rb_title_left, click = "onClick")
-    RadioButton rb_title_left;
+    public RadioButton rb_title_left;
     @ViewInject(id = R.id.rb_title_center)
-    RadioButton rb_title_center;
+    public RadioButton rb_title_center;
     @ViewInject(id = R.id.rb_title_right, click = "onClick")
-    RadioButton rb_title_right;
+    public RadioButton rb_title_right;
 
 
     FinalBitmap finalBitmap;
 
     @ViewInject(id = R.id.call_back)
-    EditText editText;
+    public EditText editText;
     private CommonPopupWindow popupWindow1;
 
-
+    @Keep
     @Override
     public void onClick(View v) {
 
@@ -160,13 +162,32 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
         return R.layout.activity_friend_cycle;
     }
 
+
+    public void setView() {
+        if (bindLayoutID() > 0) {
+            inject();
+        }
+    }
+
+    public void inject() {
+//        FinalActivity.initInjectedView(this);
+        MyFinalActivity.initInjectedView(this);
+    }
+
+    public void initChild() {
+
+    }
+
+    ;
+
     @Override
     public void initView() {
-        if (bindLayoutID() > 0) {
-            FinalActivity.initInjectedView(this);
-        }
+//        if (bindLayoutID() > 0) {
+//            FinalActivity.initInjectedView(this);
+//        }
+        setView();
         finalBitmap = FinalBitmap.create(mActivity);
-        finalBitmap.configLoadfailImage(R.drawable.no_image_show);
+        finalBitmap.configLoadingImage(R.drawable.no_image_show);
         finalBitmap.configLoadfailImage(R.drawable.no_image_show);
 
         rb_title_left.setText("供应");
@@ -179,8 +200,8 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 //        toolbar_right_text.setText("哈哈");
 //        toolbar_right_text.setVisibility(View.GONE);
 
-        Toast.makeText(mActivity, "" + mRecyclerView, Toast.LENGTH_SHORT).show();
-
+//        Toast.makeText(mActivity, "" + mRecyclerView, Toast.LENGTH_SHORT).show();
+        initChild();
 
         mRecyclerView.init(new BaseQuickAdapter<Moments, BaseViewHolder>(R.layout.item_friend_cicle) {
             @Override
@@ -198,13 +219,17 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
                 }
 
 
-                if (currentType.equals(MomentsType.supply.getEnumValue())) {
+//                if (currentType.equals(MomentsType.supply.getEnumValue())) {
+//                    helper.setImageResource(R.id.imageView7, R.mipmap.publish);
+//                } else if (currentType.equals(MomentsType.purchase.getEnumValue())) {
+//                    helper.setImageResource(R.id.imageView7, R.mipmap.purchase);
+//                } else if (currentType.equals(MomentsType.all.getEnumValue())) {
+                if (MomentsType.supply.getEnumValue().equals(item.momentsType)) {
                     helper.setImageResource(R.id.imageView7, R.mipmap.publish);
-                } else if (currentType.equals(MomentsType.purchase.getEnumValue())) {
-                    helper.setImageResource(R.id.imageView7, R.mipmap.purchase);
                 } else {
-                    helper.setVisible(R.id.imageView7, false);
+                    helper.setImageResource(R.id.imageView7, R.mipmap.purchase);
                 }
+//                }
 
                 View.OnClickListener clickListener = v ->
                 {
@@ -222,8 +247,11 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 //                            item.ownerUserJson.publicName,
 //                            item.ownerUserJson.realName,
 //                            item.ownerUserJson.userName);
-
-                helper.addOnClickListener(R.id.time_city, clickListener).setText(R.id.time_city, item.timeStampStr + "  " + item.ciCity.fullName);//时间和  发布地址
+                String city = "-";
+                if (item.ciCity != null) {
+                    city = item.ciCity.fullName;
+                }
+                helper.addOnClickListener(R.id.time_city, clickListener).setText(R.id.time_city, item.timeStampStr + "  " + city);//时间和  发布地址
                 helper.addOnClickListener(R.id.descript, clickListener).setText(R.id.descript, item.content);//描述
 //                helper.addOnClickListener(R.id.imageView8, v -> ToastUtil.showLongToast("点击图片--->跳转图片浏览器"));//描述
 //                helper.addOnClickListener(R.id.receive, v -> ToastUtil.showLongToast("点击评论--->显示回复窗口"));//描述
@@ -243,7 +271,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
                     item.itemListJson = new ArrayList<MomentsReply>();
                 }
 
-                measureListView.setAdapter(new GlobBaseAdapter<MomentsReply>(mActivity, item.itemListJson, android.R.layout.simple_list_item_1) {
+                measureListView.setAdapter(new GlobBaseAdapter<MomentsReply>(mActivity, item.itemListJson, R.layout.item_list_simple) {
                     @Override
                     public void setConverView(ViewHolders myViewHolder, MomentsReply s, int position) {
 
@@ -315,7 +343,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 //                    ToastUtil.showLongToast("点击第一个");
                     new BasePresenter()
                             .putParams("momentsId", item.id)
-                            .doRequest("admin/momentsThumbUp/thumbUpDown", true, new HandlerAjaxCallBack() {
+                            .doRequest("admin/momentsThumbUp/thumbUpDown", true, new HandlerAjaxCallBack(mActivity) {
                                 @Override
                                 public void onRealSuccess(SimpleGsonBean gsonBean) {
                                     item.isFavour = gsonBean.getData().isThumUp;
@@ -336,7 +364,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
                             new BasePresenter()
                                     .putParams("momentsId", item.id)
                                     .putParams("reply", reply)
-                                    .doRequest("admin/momentsReply/save", true, new HandlerAjaxCallBack() {
+                                    .doRequest("admin/momentsReply/save", true, new HandlerAjaxCallBack(mActivity) {
                                         @Override
                                         public void onRealSuccess(SimpleGsonBean gsonBean) {
                                             ToastUtil.showLongToast(gsonBean.msg);
@@ -445,7 +473,11 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 
         if (requestCode == 110 && resultCode == SEARCH_OK) {
             searchContent = data.getStringExtra(SearchActivity.SEARCH_CONTENT);
-
+            if (TextUtils.isEmpty(searchContent.trim())) {
+                tagView.removeAllTags();
+                mRecyclerView.onRefresh();
+                return;
+            }
             tagView.removeAllTags();
             tagView.addTag(TagFactory.createDelTag(searchContent), 98);
             tagView.setOnTagDeleteListener((position, tag) -> {
@@ -453,7 +485,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
                 mRecyclerView.onRefresh();
             });
 
-            ToastUtil.showLongToast("搜索内容：\n" + searchContent);
+//            ToastUtil.showLongToast("搜索内容：\n" + searchContent);
             mRecyclerView.onRefresh();
         } else if (resultCode == REFRESH) {
             mRecyclerView.onRefresh();
@@ -492,7 +524,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 
                         mRecyclerView.getAdapter().addData(bean_new.data.page.data);
 
-                        ToastUtil.showLongToast(bean_new.data.page.total + "条数据");
+//                        ToastUtil.showLongToast(bean_new.data.page.total + "条数据");
                         mRecyclerView.selfRefresh(false);
                         hindLoading();
 

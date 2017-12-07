@@ -54,7 +54,6 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
             e.printStackTrace();
         }
 
-
         initView();
         initVH();
         initData();
@@ -175,5 +174,17 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
     public int getColorByRes(int resColorId) {
         return ContextCompat.getColor(mActivity, resColorId);
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

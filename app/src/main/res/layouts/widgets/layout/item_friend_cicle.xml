@@ -22,7 +22,7 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="2dp"
@@ -50,7 +50,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginTop="8dp"
-        android:src="@mipmap/publish"
+        android:src="@mipmap/purchase"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -92,11 +92,13 @@
         android:layout_marginEnd="12dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
+        app:layout_goneMarginTop="4dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="10dp"
         android:adjustViewBounds="true"
         android:horizontalSpacing="0dp"
         android:listSelector="@color/transparent"
+
         android:numColumns="3"
         android:verticalSpacing="0dp"
         app:layout_constraintHorizontal_bias="0.0"
@@ -129,6 +131,7 @@
         android:background="@color/white"
         android:divider="@null"
         android:dividerHeight="0px"
+        android:paddingTop="4dp"
         android:text="leei:这棵树不错"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintHorizontal_bias="0.0"
@@ -140,14 +143,12 @@
         android:layout_width="71dp"
         android:layout_height="32dp"
         android:layout_marginBottom="0dp"
-        android:layout_marginTop="0dp"
         android:drawableLeft="@drawable/like_selector"
         android:drawablePadding="5dp"
         android:text="点赞 4 "
         app:layout_constraintBottom_toTopOf="@+id/receive"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/second"
-        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+        app:layout_constraintRight_toLeftOf="@+id/second" />
 
 
     <com.hldj.hmyg.widget.DrawableCenterText
@@ -193,18 +194,97 @@
         app:layout_constraintRight_toLeftOf="@+id/third"
         app:layout_constraintTop_toTopOf="@+id/first" />
 
+    <!--底部 黑色块线-->
     <TextView
         android:id="@+id/textView5"
         android:layout_width="0dp"
         android:layout_height="8dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
-        android:alpha="0.5"
         android:background="@color/divider_color_bg"
         android:text=""
+        android:alpha="0.5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
+
+    <!--复制出来的线-->
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1px"
+        android:layout_marginBottom="8dp"
+        android:background="@color/divider_color"
+        app:layout_constraintTop_toTopOf="@+id/receive"
+        android:padding="100dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/textView5"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/textView5"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="1px"
+        android:layout_height="25dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/divider_color"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/third"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toRightOf="@+id/third"
+        app:layout_constraintRight_toLeftOf="@+id/fourth"
+        app:layout_constraintTop_toTopOf="@+id/third"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="1px"
+        android:layout_height="25dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/divider_color"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/second"
+        app:layout_constraintLeft_toRightOf="@+id/second"
+        app:layout_constraintRight_toLeftOf="@+id/third"
+        app:layout_constraintTop_toTopOf="@+id/first"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="1px"
+        android:layout_height="25dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/divider_color"
+        app:layout_constraintBottom_toBottomOf="@+id/first"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toRightOf="@+id/first"
+        app:layout_constraintRight_toLeftOf="@+id/second"
+        app:layout_constraintTop_toTopOf="@+id/first"
+        app:layout_constraintVertical_bias="0.51" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/divider_color"
+        app:layout_constraintBottom_toTopOf="@+id/textView28"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8"
+        app:layout_constraintVertical_bias="0.5" />
 
 </android.support.constraint.ConstraintLayout>

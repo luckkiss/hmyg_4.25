@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include
+        android:id="@+id/search_bar"
+        layout="@layout/search_top_toolbar" />
+
+    <RadioGroup
+        android:id="@+id/radios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <RadioButton
+            android:id="@+id/rb_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/check_bg_friend_selector"
+            android:checked="true"
+            android:paddingLeft="5dp"
+            android:text="全部" />
+
+        <RadioButton
+            android:id="@+id/rb_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:button="@drawable/check_bg_friend_selector"
+            android:paddingLeft="5dp"
+            android:text="只看供应" />
+
+        <RadioButton
+            android:id="@+id/rb_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:button="@drawable/check_bg_friend_selector"
+            android:paddingLeft="5dp"
+            android:text="只看求购" />
+
+
+    </RadioGroup>
+
+    <!--<View style="@style/View_line_gray" />-->
+
+    <include
+        layout="@layout/toolbar_radio_3_0"
+        android:visibility="gone" />
+
+
+    <me.kaede.tagview.TagView
+        android:id="@+id/tagview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:visibility="gone"
+        app:lineMargin="5dp"
+        app:tagMargin="3dp"
+        app:textPaddingBottom="3dp"
+        app:textPaddingLeft="10dp"
+        app:textPaddingRight="10dp"
+        app:textPaddingTop="3dp" />
+
+
+    <!--<View-->
+    <!--android:id="@+id/id_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1px"-->
+    <!--android:background="@color/main_color" />-->
+
+
+    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+        android:id="@+id/core_rv_c"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <EditText
+        android:id="@+id/call_back"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="回复：seri"
+        android:visibility="gone" />
+
+
+</LinearLayout>

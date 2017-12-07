@@ -110,8 +110,9 @@ public class CenterActivity extends BaseMVPActivity {
         mRecyclerView.init(new BaseQuickAdapter<Moments, BaseViewHolder>(R.layout.item_friend_cicle_simple_center) {
             @Override
             protected void convert(BaseViewHolder helper, Moments item) {
+
                 helper.setVisible(R.id.imageView7, false)
-                        .setVisible(R.id.tv_right_top, true)
+                        .setVisible(R.id.tv_right_top, isSelf())
                         .addOnClickListener(R.id.tv_right_top, v ->
                                 {
 //                                    ToastUtil.showLongToast("删除");
@@ -162,7 +163,7 @@ public class CenterActivity extends BaseMVPActivity {
                     ToastUtil.showLongToast("回复");
 //                    EditDialog.replyListener = reply -> ToastUtil.showLongToast("发表评论：\n" + reply);
 //                    EditDialog.instance("回复二傻：").show(mActivity.getSupportFragmentManager(), TAG);
-                }).setText(R.id.second, " " + item.thumbUpListJson.size());//按钮2 评论
+                }).setText(R.id.second, " " + item.replyCount);//按钮2 评论
             }
         }).openRefresh()
                 .openLoadMore(10, page -> {

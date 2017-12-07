@@ -14,7 +14,9 @@ public enum MomentsType {
     purchase("purchase", "求购"),
 
 
-    collect("collect", "收藏");
+    collect("collect", "收藏"),
+
+    all("", "");
 
     private String enumValue, enumText;
 
