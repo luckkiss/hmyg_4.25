@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.friend.FriendCycleSearchActivity;
 import com.hldj.hmyg.Ui.friend.bean.History;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
@@ -72,6 +73,20 @@ public class SearchActivity extends BaseMVPActivity {
         search_content.setText(msg);
     }
 
+    public void jump(int tag, Intent intent) {
+        if (tag == 1) {
+            //后退到上个界面。以删除按钮样式显示
+            hideSoftWare();
+            setResult(ConstantState.SEARCH_OK, intent);
+            finish();
+        } else {
+            //调到新界面。，筛选显示
+            hideSoftWare();
+            FriendCycleSearchActivity.start(mActivity, getContent());
+            finish();
+        }
+    }
+
     @Override
     public void initView() {
         if (bindLayoutID() > 0) {
@@ -90,9 +105,7 @@ public class SearchActivity extends BaseMVPActivity {
             public void onClick(View v) {
                 if (TextUtils.isEmpty(getContent().trim())) {
 //                    ToastUtil.showLongToast("请输入需要查找的内容");
-                    hideSoftWare();
-                    setResult(ConstantState.SEARCH_OK, new Intent());
-                    finish();
+                    jump(0, new Intent());
                     return;
                 }
 
@@ -116,10 +129,7 @@ public class SearchActivity extends BaseMVPActivity {
                         history1.setTime(history.getTime());
                         db.update(history1);
                         ToastUtil.showLongToast("数据库有次数据，更新");
-
-                        setResult(ConstantState.SEARCH_OK, intent);
-                        finish();
-
+                        jump(0, intent);
                         return;
                     }
                 }
@@ -127,9 +137,10 @@ public class SearchActivity extends BaseMVPActivity {
                 db.save(history);
                 ToastUtil.showLongToast(userList.size() + "一共这么多条数据");
                 refresh();
-                hideSoftWare();
-                setResult(ConstantState.SEARCH_OK, intent);
-                finish();
+                jump(0, intent);
+//                hideSoftWare();
+//                setResult(ConstantState.SEARCH_OK, intent);
+//                finish();
             }
         });
 
@@ -147,6 +158,7 @@ public class SearchActivity extends BaseMVPActivity {
                             @Override
                             public void onClick(View v) {
                                 setContent(item.getContent());
+                                jump(0, new Intent());
                             }
                         })
                         .addOnClickListener(R.id.is_check, new View.OnClickListener() {

@@ -157,6 +157,7 @@ public class DetailActivity extends BaseMVPActivity {
         });
 
         tablayout.getTabAt(1).setText("评论 (" + moments.replyCount + ")");
+
         reflex(tablayout);
         second.setOnClickListener(v -> {
             EditDialog.replyListener = new EditDialog.OnReplyListener() {
@@ -211,7 +212,7 @@ public class DetailActivity extends BaseMVPActivity {
                 }
             });
         }
-        imageView7.setImageResource(moments.momentsType.equals(MomentsType.purchase.getEnumValue()) ? R.mipmap.purchase : R.mipmap.publish);
+        imageView7.setImageResource(moments.momentsType.equals(MomentsType.purchase.getEnumValue()) ? R.mipmap.publish : R.mipmap.purchase);
         fourth.setOnClickListener(v ->
                 {
 //                    ToastUtil.showLongToast("点击第4个");

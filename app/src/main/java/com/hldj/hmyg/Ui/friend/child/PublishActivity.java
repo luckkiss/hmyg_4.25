@@ -246,6 +246,7 @@ public class PublishActivity extends BaseMVPActivity {
                             List<Pic> l = addNoUpLoadImg(grid.getAdapter().getDataList());//把未上传的图片。添加到尾部。
                             grid.getAdapter().notify((ArrayList<Pic>) pics);
                             grid.getAdapter().addItems((ArrayList<Pic>) l);
+                            pics.clear();
                         }
                         hindLoading();
                         Log.i(TAG, "doFinally: 上传所有数据");
@@ -271,8 +272,7 @@ public class PublishActivity extends BaseMVPActivity {
                             //发布成功
                             setResult(PUBLISH_SUCCEED);
                         }
-
-
+                        finish();
                     }
 
 
