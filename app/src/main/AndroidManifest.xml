@@ -223,7 +223,8 @@
         <activity
             android:name=".Ui.friend.FriendCycleActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            />
         <activity
             android:name=".Ui.friend.FriendCycleSearchActivity"
             android:screenOrientation="portrait"
