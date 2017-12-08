@@ -38,7 +38,7 @@ public abstract class HandlerAjaxCallBack extends AjaxCallBack<String> {
     }
 
     public final void onSuccess(String json) {
-        Log.i("HandlerAjaxCallBack", "onSuccess: \n" + json);
+        Log.i("HandlerAjaxCallBack", "onSuccess: \n" + GsonUtil.formatJson2String(json));
         try {
             SimpleGsonBean gsonBean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
 
@@ -51,12 +51,13 @@ public abstract class HandlerAjaxCallBack extends AjaxCallBack<String> {
                 ToastUtil.showShortToast(gsonBean.msg);
                 onFailure(new Throwable(gsonBean.msg), -1, gsonBean.msg);
             }
-            onFinish();
+
         } catch (Exception e) {
 
             onFailure(e, -1, e.getMessage());
             e.printStackTrace();
         }
+        onFinish();
     }
 
     public abstract void onRealSuccess(SimpleGsonBean gsonBean);

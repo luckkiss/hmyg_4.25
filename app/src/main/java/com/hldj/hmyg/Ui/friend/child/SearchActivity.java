@@ -128,14 +128,14 @@ public class SearchActivity extends BaseMVPActivity {
                         history1.setContent(history.getContent());
                         history1.setTime(history.getTime());
                         db.update(history1);
-                        ToastUtil.showLongToast("数据库有次数据，更新");
+//                        ToastUtil.showLongToast("数据库有次数据，更新");
                         jump(0, intent);
                         return;
                     }
                 }
-                ToastUtil.showLongToast("数据库没有相同数据，插入新数据");
+//                ToastUtil.showLongToast("数据库没有相同数据，插入新数据");
                 db.save(history);
-                ToastUtil.showLongToast(userList.size() + "一共这么多条数据");
+//                ToastUtil.showLongToast(userList.size() + "一共这么多条数据");
                 refresh();
                 jump(0, intent);
 //                hideSoftWare();
@@ -170,7 +170,7 @@ public class SearchActivity extends BaseMVPActivity {
                                     ToastUtil.showLongToast("删光了");
                                 }
                                 db.delete(item);
-                                ToastUtil.showLongToast(userList.size() + "一共这么多条数据");
+//                                ToastUtil.showLongToast(userList.size() + "一共这么多条数据");
 //                                userList.remove(helper.getAdapterPosition());
 //                                mCoreRecyclerView.getAdapter().notifyItemRemoved(helper.getAdapterPosition());
                                 refresh();
@@ -191,7 +191,7 @@ public class SearchActivity extends BaseMVPActivity {
                 new AlertDialog(mActivity).builder()
                         .setTitle("确定清空历史记录?")
                         .setPositiveButton("确定删除", v1 -> {
-                            ToastUtil.showLongToast("删除所有1");
+//                            ToastUtil.showLongToast("删除所有1");
                             db.deleteAll(History.class);
                             refresh();
                         }).setNegativeButton("取消", v2 -> {

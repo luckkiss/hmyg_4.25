@@ -26,6 +26,7 @@ import com.hldj.hmyg.Ui.friend.child.CenterActivity;
 import com.hldj.hmyg.Ui.friend.child.DetailActivity;
 import com.hldj.hmyg.Ui.friend.child.PublishActivity;
 import com.hldj.hmyg.Ui.friend.child.SearchActivity;
+import com.hldj.hmyg.Ui.friend.presenter.FriendPresenter;
 import com.hldj.hmyg.Ui.friend.widget.EditDialog;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
@@ -44,6 +45,7 @@ import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment1;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hldj.hmyg.widget.MyCircleImageView;
 import com.hy.utils.ToastUtil;
 import com.zzy.common.widget.MeasureGridView;
 import com.zzy.common.widget.MeasureListView;
@@ -65,7 +67,7 @@ import static com.hldj.hmyg.util.ConstantState.SEARCH_OK;
 /**
  * FinalActivity 来进行    数据绑定
  */
- @Keep
+@Keep
 public class FriendCycleActivity extends BaseMVPActivity implements View.OnClickListener {
 
     private static final String TAG = "FriendCycleActivity";
@@ -206,7 +208,8 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
         mRecyclerView.init(new BaseQuickAdapter<Moments, BaseViewHolder>(R.layout.item_friend_cicle) {
             @Override
             protected void convert(BaseViewHolder helper, Moments item) {
-                Log.i(TAG, "convert: " + item);
+                Log.i(TAG, "convert: " + item + "   id=" + item.id);
+
                 //头像点击
                 helper.addOnClickListener(R.id.head, v -> {
 //                    ToastUtil.showLongToast("点击头像--->跳转个人商店");
@@ -215,7 +218,9 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 
                 if (item.attrData != null && !TextUtils.isEmpty(item.attrData.headImage)) {
                     //显示图片
-                    finalBitmap.display(helper.getView(R.id.head), item.attrData.headImage);
+//                  finalBitmap.display(helper.getView(R.id.head), item.attrData.headImage);
+                    MyCircleImageView circleImageView = helper.getView(R.id.head) ;
+                    circleImageView.setImageURL(item.attrData.headImage);
                 }
 
 
@@ -409,32 +414,39 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
                 helper.addOnClickListener(R.id.fourth, v -> {
 
 //                    ToastUtil.showLongToast("点击第4个");
-                    if (popupWindow1 == null)
-                        popupWindow1 = new CommonPopupWindow.Builder(mActivity)
-                                .setWidthDp(115)
-                                .setHeightDp(108)
-                                .setOutsideTouchable(true)
-                                .bindLayoutId(R.layout.friend_more)
-                                .setCovertViewListener(new CommonPopupWindow.OnCovertViewListener() {
-                                    @Override
-                                    public void covertView(View viewRoot) {
-                                        TextView tv1 = (TextView) viewRoot.findViewById(R.id.pup_subscriber);
-                                        tv1.setText("加入收藏");
-                                        tv1.setTextColor(getColorByRes(R.color.text_color111));
-                                        tv1.setOnClickListener(v -> {
-                                            ToastUtil.showLongToast("加入收藏" + item.id);
-                                            popupWindow1.dismiss();
+//                    if (popupWindow1 == null)
+                    popupWindow1 = new CommonPopupWindow.Builder(mActivity)
+                            .setWidthDp(115)
+                            .setHeightDp(108)
+                            .setOutsideTouchable(true)
+                            .bindLayoutId(R.layout.friend_more)
+                            .setCovertViewListener(new CommonPopupWindow.OnCovertViewListener() {
+                                @Override
+                                public void covertView(View viewRoot) {
+                                    TextView tv1 = (TextView) viewRoot.findViewById(R.id.pup_subscriber);
+                                    tv1.setText("加入收藏");
+                                    tv1.setTextColor(getColorByRes(R.color.text_color111));
+                                    tv1.setOnClickListener(v -> {
+                                        ToastUtil.showLongToast("加入收藏" + item.id);
+                                        Log.i(TAG, "covertView: " + item.id);
+                                        FriendPresenter.doCollect(item.id, new HandlerAjaxCallBack() {
+                                            @Override
+                                            public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                                ToastUtil.showLongToast(gsonBean.msg);
+                                            }
                                         });
-                                        TextView tv2 = (TextView) viewRoot.findViewById(R.id.pup_show_share);
-                                        tv2.setTextColor(getColorByRes(R.color.text_color111));
-                                        tv2.setText("进入店铺");
-                                        tv2.setOnClickListener(v -> {
-                                            StoreActivity_new.start2Activity(mActivity, item.attrData.storeId);
-                                            popupWindow1.dismiss();
-                                        });
-                                    }
-                                })
-                                .build();
+                                        popupWindow1.dismiss();
+                                    });
+                                    TextView tv2 = (TextView) viewRoot.findViewById(R.id.pup_show_share);
+                                    tv2.setTextColor(getColorByRes(R.color.text_color111));
+                                    tv2.setText("进入店铺");
+                                    tv2.setOnClickListener(v -> {
+                                        StoreActivity_new.start2Activity(mActivity, item.attrData.storeId);
+                                        popupWindow1.dismiss();
+                                    });
+                                }
+                            })
+                            .build();
 //                            .showAsDropDown(helper.getView(R.id.fourth));
                     popupWindow1.showUp2(helper.getView(R.id.fourth));
 
@@ -515,19 +527,14 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
                 .doRequest("moments/list", true, new AjaxCallBack<String>() {
                     @Override
                     public void onSuccess(String json) {
-
                         Log.i(TAG, "onSuccess: " + json);
                         Type beanType = new TypeToken<SimpleGsonBean_new<SimplePageBean<List<Moments>>>>() {
                         }.getType();
                         SimpleGsonBean_new<SimplePageBean<List<Moments>>> bean_new = GsonUtil.formateJson2Bean(json, beanType);
-
-
                         mRecyclerView.getAdapter().addData(bean_new.data.page.data);
-
 //                        ToastUtil.showLongToast(bean_new.data.page.total + "条数据");
                         mRecyclerView.selfRefresh(false);
                         hindLoading();
-
                     }
 
                     @Override
@@ -545,5 +552,33 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
         return false;
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        FriendPresenter.momentsCollect("2876f7e0f51c4153aadc603b661fedfa", new AjaxCallBack<String>() {
+//            @Override
+//            public void onSuccess(String json) {
+////              hindLoading();
+//                Log.i(TAG, "onSuccess: " + json);
+//                Type beanType = new TypeToken<SimpleGsonBean_new<SimplePageBean<List<Moments>>>>() {
+//                }.getType();
+//                SimpleGsonBean_new<SimplePageBean<List<Moments>>> bean_new = GsonUtil.formateJson2Bean(json, beanType);
+//                if (bean_new.data == null || bean_new.data.page == null) {
+//                    ToastUtil.showLongToast("暂无数据~_~");
+////                    mRecyclerView.getAdapter().addData(null);
+//                    return;
+//                }
+////                mRecyclerView.getAdapter().addData(bean_new.data.page.data);
+//
+////              ToastUtil.showLongToast(bean_new.data.page.total + "条数据");
+////                mRecyclerView.selfRefresh(false);
+//                hindLoading();
+//            }
+//            @Override
+//            public void onFailure(Throwable t, int errorNo, String strMsg) {
+//                ToastUtil.showLongToast(strMsg);
+//                hindLoading();
+//            }
+//        });
+    }
 }

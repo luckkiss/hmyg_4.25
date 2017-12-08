@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.gson.reflect.TypeToken;
@@ -22,8 +23,10 @@ import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hldj.hmyg.widget.MyCircleImageView;
 import com.hy.utils.ToastUtil;
 import com.lqr.optionitemview.OptionItemView;
 import com.zzy.common.widget.MeasureGridView;
@@ -111,6 +114,16 @@ public class CenterActivity extends BaseMVPActivity {
             @Override
             protected void convert(BaseViewHolder helper, Moments item) {
 
+
+                View.OnClickListener clickListener = v ->
+                {
+//                    ToastUtil.showLongToast("点击文字--->跳转采购单详情界面");
+                    DetailActivity.start(mActivity, item.id);
+                };
+                helper.addOnClickListener(R.id.title, clickListener);// 发布名称或者标题
+                helper.addOnClickListener(R.id.time_city, clickListener);//时间和  发布地址
+                helper.addOnClickListener(R.id.descript, clickListener);//描述
+
                 helper.setVisible(R.id.imageView7, false)
                         .setVisible(R.id.tv_right_top, isSelf())
                         .addOnClickListener(R.id.tv_right_top, v ->
@@ -119,7 +132,6 @@ public class CenterActivity extends BaseMVPActivity {
                                     doDelete(item.id);
                                 }
                         );
-
                 helper.setText(R.id.descript, item.content);//描述
                 String time_city = FUtil.$_zero(item.timeStampStr);
                 if (item.ciCity != null && item.ciCity.fullName != null) {
@@ -141,7 +153,9 @@ public class CenterActivity extends BaseMVPActivity {
                 if (item.attrData != null) {
                     helper.setText(R.id.title, item.attrData.displayName);
                     //显示图片
-                    finalBitmap.display(helper.getView(R.id.head), item.attrData.headImage);
+//                    finalBitmap.display(helper.getView(R.id.head), item.attrData.headImage);
+                    MyCircleImageView circleImageView = helper.getView(R.id.head) ;
+                    circleImageView.setImageURL(item.attrData.headImage);
                 }
 
 
@@ -154,19 +168,20 @@ public class CenterActivity extends BaseMVPActivity {
                 gridView.getAdapter().notifyDataSetChanged();
 
                 helper.addOnClickListener(R.id.first, v -> {
-                    ToastUtil.showLongToast("点击第一个");
+//                    ToastUtil.showLongToast("点击第一个");
                 }).setText(R.id.first, " " + item.thumbUpCount);//按钮一 点赞
 
                 if (item.thumbUpListJson == null)
                     item.thumbUpListJson = new ArrayList<MomentsThumbUp>();
                 helper.addOnClickListener(R.id.second, v -> {
-                    ToastUtil.showLongToast("回复");
+//                    ToastUtil.showLongToast("回复");
 //                    EditDialog.replyListener = reply -> ToastUtil.showLongToast("发表评论：\n" + reply);
 //                    EditDialog.instance("回复二傻：").show(mActivity.getSupportFragmentManager(), TAG);
                 }).setText(R.id.second, " " + item.replyCount);//按钮2 评论
             }
         }).openRefresh()
                 .openLoadMore(10, page -> {
+                    showLoadingCus("刷新数据");
                     requestDatas(page + "", currentType);
                 });
         mRecyclerView.onRefresh();
@@ -215,15 +230,34 @@ public class CenterActivity extends BaseMVPActivity {
 //    }
 
 
+//      .putParams("sourceId", id)
+//                .putParams("type", "moment")
+                /*
+                 .putParams("sourceId", id)
+                .putParams("type", "moment")
+                .doRequest("admin/collect/listMoment", true, ajaxCallBack);
+                 */
+
     public void requestDatas(String page, String type) {
         showLoading();
+        String host = "admin/moments/list";
+        if (type.equals(MomentsType.collect.getEnumValue())) {
+            host = "admin/collect/listMoment";
+        } else {
+            host = "admin/moments/list";
+        }
+        Log.i(TAG, "host url: \n" + host);
+//        ToastUtil.showLongToast(host);
+//      String host_collect = "admin/collect/listMoment";
         new BasePresenter()
+//                .putParams("sourceId", "2876f7e0f51c4153aadc603b661fedfa")
                 .putParams("pageSize", "10")
                 .putParams("pageIndex", page)
                 .putParams("momentsType", type)
-//                .putParams("userId", getUserId())
+                .putParams("type", "moment")
+//              .putParams("userId", getUserId())
                 .putParams("ownerId", getUserId())
-                .doRequest("admin/moments/list", true, new AjaxCallBack<String>() {
+                .doRequest(host, true, new AjaxCallBack<String>() {
                     @Override
                     public void onSuccess(String json) {
                         hindLoading();
@@ -281,6 +315,11 @@ public class CenterActivity extends BaseMVPActivity {
         activity.startActivityForResult(intent, 110);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ConstantState.REFRESH) mRecyclerView.onRefresh();
+    }
 
     @Override
     public String setTitle() {
