@@ -15,16 +15,18 @@
     <TextView
         android:id="@+id/delete_all"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="35dp"
+        android:background="@drawable/bg_bottom_line"
         android:gravity="center_vertical"
-        android:paddingLeft="8dp"
+        android:paddingLeft="12dp"
+        android:textSize="16sp"
         android:text="历史记录" />
 
     <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
         android:id="@+id/recycle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        >
 
     </com.hldj.hmyg.buyer.weidet.CoreRecyclerView>
 

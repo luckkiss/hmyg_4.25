@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.ResultCallBack;
+import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.MyLuban.MyLuban;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.SellectActivity2;
@@ -124,6 +125,8 @@ public class PublishActivity extends BaseMVPActivity {
 
         switchTypeText();
 
+        initLocation();
+
         location.setOnClickListener(v -> {
 //            ToastUtil.showLongToast("选择地址");
             CityWheelDialogF.instance()
@@ -143,6 +146,19 @@ public class PublishActivity extends BaseMVPActivity {
                         }
                     }).show(getSupportFragmentManager(), TAG);
         });
+
+    }
+
+    /**
+     * 初始化 地理位置
+     */
+    private void initLocation() {
+
+        if (MainActivity.aMapLocation != null) {
+            if (!TextUtils.isEmpty(MainActivity.cityCode))
+                cityCode = MainActivity.cityCode;
+            location.setRightText(MainActivity.province_loc + " " + MainActivity.city_loc);
+        }
 
     }
 
@@ -248,7 +264,7 @@ public class PublishActivity extends BaseMVPActivity {
                             grid.getAdapter().addItems((ArrayList<Pic>) l);
                             pics.clear();
                         }
-                        hindLoading();
+                        UpdateLoading("图片上传成功，正在上传数据...");
                         Log.i(TAG, "doFinally: 上传所有数据");
                         //图片上传结束
                         Moments moments = new Moments();
@@ -262,17 +278,20 @@ public class PublishActivity extends BaseMVPActivity {
                             public void onRealSuccess(SimpleGsonBean gsonBean) {
                                 ToastUtil.showLongToast(gsonBean.msg);
                                 Log.i(TAG, "run: 上传结束" + gsonBean.msg);
+                                hindLoading();
+                                if (getTag().equals(PURCHASE)) {
+                                    //求购成功
+                                    setResult(PURCHASE_SUCCEED);
+                                } else if (getTag().equals(PUBLISH)) {
+                                    //发布成功
+                                    setResult(PUBLISH_SUCCEED);
+                                }
+                                finish();
+
                             }
                         });
 
-                        if (getTag().equals(PURCHASE)) {
-                            //求购成功
-                            setResult(PURCHASE_SUCCEED);
-                        } else if (getTag().equals(PUBLISH)) {
-                            //发布成功
-                            setResult(PUBLISH_SUCCEED);
-                        }
-                        finish();
+
                     }
 
 
@@ -310,7 +329,7 @@ public class PublishActivity extends BaseMVPActivity {
                 .subscribe(new Consumer<Pic>() {
                     @Override
                     public void accept(@NonNull Pic simpleGsonBean) throws Exception {
-                        ToastUtil.showLongToast("成功" + simpleGsonBean.toString());
+//                        ToastUtil.showLongToast("成功" + simpleGsonBean.toString());
                         Log.i(TAG, "next: 上传结束，继续上传");
                     }
                 }, new Consumer<Throwable>() {
