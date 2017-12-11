@@ -3,9 +3,12 @@ package com.hldj.hmyg.Ui.friend.child;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -100,50 +103,26 @@ public class SearchActivity extends BaseMVPActivity {
 
         toolbar_left_icon.setOnClickListener(v -> finish());
 
-        iv_view_type.setOnClickListener(new View.OnClickListener() {
+
+         /*跳转搜索界面*/
+        search_content.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                toSearch();
+            }
+            return false;
+        });
+        iv_view_type.setOnClickListener(v -> toSearch());
+        /*跳转搜索界面*/
+
+
+        mCoreRecyclerView.getRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(getContent().trim())) {
-//                    ToastUtil.showLongToast("请输入需要查找的内容");
-                    jump(0, new Intent());
-                    return;
-                }
-
-
-                Intent intent = new Intent();
-                intent.putExtra(SEARCH_CONTENT, getContent());
-
-                History history = new History();
-                history.setContent(getContent());
-                history.setTime(System.currentTimeMillis());
-
-
-                //保存前先判断 是覆盖还是刷新
-                List<History> userList = db.findAll(History.class);//查询所有的用户
-
-                for (int i = 0; i < userList.size(); i++) {
-                    if (userList.get(i).getContent().equals(history.getContent())) {
-                        /*历史记录内容相等，更新数据*/
-                        History history1 = userList.get(i);
-                        history1.setContent(history.getContent());
-                        history1.setTime(history.getTime());
-                        db.update(history1);
-//                        ToastUtil.showLongToast("数据库有次数据，更新");
-                        jump(0, intent);
-                        return;
-                    }
-                }
-//                ToastUtil.showLongToast("数据库没有相同数据，插入新数据");
-                db.save(history);
-//                ToastUtil.showLongToast(userList.size() + "一共这么多条数据");
-                refresh();
-                jump(0, intent);
-//                hideSoftWare();
-//                setResult(ConstantState.SEARCH_OK, intent);
-//                finish();
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+//                super.getItemOffsets(outRect, view, parent, state);
+                //设定底部边距为1px
+                outRect.set(0, 0, 0, 1);
             }
         });
-
 
         mCoreRecyclerView.init(new BaseQuickAdapter<History, BaseViewHolder>(R.layout.list_item_sort) {
 
@@ -151,6 +130,7 @@ public class SearchActivity extends BaseMVPActivity {
             protected void convert(BaseViewHolder helper, History item) {
                 helper
                         .setImageResource(R.id.is_check, R.mipmap.search_delete)
+                        .setBackgroundRes(R.id.tv_item, R.drawable.bg_bottom_line)
                         .setVisible(R.id.is_check, true)
                         .setText(R.id.tv_item, item.getContent())
                         .addOnClickListener(R.id.tv_item, new View.OnClickListener() {
@@ -204,6 +184,45 @@ public class SearchActivity extends BaseMVPActivity {
 
     }
 
+    private void toSearch() {
+        if (TextUtils.isEmpty(getContent().trim())) {
+//                    ToastUtil.showLongToast("请输入需要查找的内容");
+            jump(0, new Intent());
+            return;
+        }
+        Intent intent = new Intent();
+        intent.putExtra(SEARCH_CONTENT, getContent());
+
+        History history = new History();
+        history.setContent(getContent());
+        history.setTime(System.currentTimeMillis());
+
+
+        //保存前先判断 是覆盖还是刷新
+        List<History> userList = db.findAll(History.class);//查询所有的用户
+
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getContent().equals(history.getContent())) {
+                        /*历史记录内容相等，更新数据*/
+                History history1 = userList.get(i);
+                history1.setContent(history.getContent());
+                history1.setTime(history.getTime());
+                db.update(history1);
+//                        ToastUtil.showLongToast("数据库有次数据，更新");
+                jump(0, intent);
+                return;
+            }
+        }
+//                ToastUtil.showLongToast("数据库没有相同数据，插入新数据");
+        db.save(history);
+//                ToastUtil.showLongToast(userList.size() + "一共这么多条数据");
+        refresh();
+        jump(0, intent);
+//                hideSoftWare();
+//                setResult(ConstantState.SEARCH_OK, intent);
+//                finish();
+    }
+
     @Override
     public boolean setSwipeBackEnable() {
         return true;
@@ -218,7 +237,7 @@ public class SearchActivity extends BaseMVPActivity {
 
     @Override
     public String setTitle() {
-        return "供应详情";
+        return "搜索";
     }
 
 

@@ -18,9 +18,8 @@
         app:right_bottom_corner="true"
         app:right_top_corner="true"
         app:solid="@color/trans"
-        app:stroke_color="@color/divider_color_bg"
+        app:stroke_color="@color/gray"
         app:stroke_width="1px"
-
         />
 
 

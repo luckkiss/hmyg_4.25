@@ -9,14 +9,17 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.flyco.dialog.widget.MaterialDialog;
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.FlowerDetailActivity;
+import com.hldj.hmyg.LoginActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
@@ -44,9 +47,11 @@ import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment1;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
+import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.MyCircleImageView;
 import com.hy.utils.ToastUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zzy.common.widget.MeasureGridView;
 import com.zzy.common.widget.MeasureListView;
 
@@ -133,11 +138,12 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 
             /*选择发布类型*/
             case R.id.toolbar_right_icon:
-
+                if (!commitLogin()) return;
                 CommonDialogFragment1.newInstance(new CommonDialogFragment1.OnCallDialog() {
                     @Override
                     public Dialog getDialog(Context context) {
                         Dialog dialog = new Dialog(context);
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         dialog.setContentView(R.layout.item_friend_type);
                         dialog.findViewById(R.id.iv_left).setOnClickListener(v -> {
 //                            ToastUtil.showLongToast("left");
@@ -213,14 +219,19 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
                 //头像点击
                 helper.addOnClickListener(R.id.head, v -> {
 //                    ToastUtil.showLongToast("点击头像--->跳转个人商店");
+                    if (!commitLogin()) return;
                     CenterActivity.start(mActivity, item.ownerId);
+
+
                 });
 
                 if (item.attrData != null && !TextUtils.isEmpty(item.attrData.headImage)) {
                     //显示图片
 //                  finalBitmap.display(helper.getView(R.id.head), item.attrData.headImage);
-                    MyCircleImageView circleImageView = helper.getView(R.id.head) ;
-                    circleImageView.setImageURL(item.attrData.headImage);
+                    MyCircleImageView circleImageView = helper.getView(R.id.head);
+//                    circleImageView.setImageURL(item.attrData.headImage);
+                    ImageLoader.getInstance().displayImage(item.attrData.headImage, circleImageView);
+
                 }
 
 
@@ -304,8 +315,14 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
                         textView.setText(result);
 
                         textView.setOnClickListener(v -> {
+                            if (!commitLogin()) return;
+                            if (isSelf(measureListView, s, position)) return;
                             EditDialog.replyListener = reply -> {
-//                                ToastUtil.showLongToast("发表评论：\n" + reply);
+//                              ToastUtil.showLongToast("发表评论：\n" + reply);
+//                                if (!isLogin()) {
+//                                    ToastUtil.showLongToast("请先登录^_^");
+//                                    return;
+//                                }
                                 new BasePresenter()
                                         .putParams("momentsId", item.id)
                                         .putParams("reply", reply)
@@ -346,6 +363,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
                 helper.setSelected(R.id.first, item.isFavour);
                 helper.addOnClickListener(R.id.first, v -> {
 //                    ToastUtil.showLongToast("点击第一个");
+                    if (!commitLogin()) return;
                     new BasePresenter()
                             .putParams("momentsId", item.id)
                             .doRequest("admin/momentsThumbUp/thumbUpDown", true, new HandlerAjaxCallBack(mActivity) {
@@ -361,11 +379,14 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
                             });
                 }).setText(R.id.first, "点赞 " + item.thumbUpCount);//按钮一 点赞
                 helper.addOnClickListener(R.id.second, v -> {
+                    if (!commitLogin()) return;
+
                     EditDialog.replyListener = new EditDialog.OnReplyListener() {
                         @Override
                         public void OnReply(String reply) {
-
 //                            ToastUtil.showLongToast("发表评论：\n" + reply);
+
+
                             new BasePresenter()
                                     .putParams("momentsId", item.id)
                                     .putParams("reply", reply)
@@ -402,7 +423,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 //                    InputMethodManager inputManager =
 //                            (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 //                    inputManager.showSoftInput(editText, 0);
-
+                    if (!commitLogin()) return;
                     if (TextUtils.isEmpty(item.attrData.displayPhone)) {
                         ToastUtil.showLongToast("未留电话号码~_~");
                     } else {
@@ -412,12 +433,12 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 //                    FlowerDetailActivity.CallPhone(item.attrData.displayPhone, mActivity);
                 }); //按钮3 收藏
                 helper.addOnClickListener(R.id.fourth, v -> {
-
+                    if (!commitLogin()) return;
 //                    ToastUtil.showLongToast("点击第4个");
 //                    if (popupWindow1 == null)
                     popupWindow1 = new CommonPopupWindow.Builder(mActivity)
                             .setWidthDp(115)
-                            .setHeightDp(108)
+                            .setHeightDp(110)
                             .setOutsideTouchable(true)
                             .bindLayoutId(R.layout.friend_more)
                             .setCovertViewListener(new CommonPopupWindow.OnCovertViewListener() {
@@ -427,9 +448,10 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
                                     tv1.setText("加入收藏");
                                     tv1.setTextColor(getColorByRes(R.color.text_color111));
                                     tv1.setOnClickListener(v -> {
-                                        ToastUtil.showLongToast("加入收藏" + item.id);
+
+//                                        ToastUtil.showLongToast("加入收藏" + item.id);
                                         Log.i(TAG, "covertView: " + item.id);
-                                        FriendPresenter.doCollect(item.id, new HandlerAjaxCallBack() {
+                                        FriendPresenter.doCollect(item.id, new HandlerAjaxCallBack(mActivity) {
                                             @Override
                                             public void onRealSuccess(SimpleGsonBean gsonBean) {
                                                 ToastUtil.showLongToast(gsonBean.msg);
@@ -501,14 +523,32 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
             mRecyclerView.onRefresh();
         } else if (resultCode == REFRESH) {
             mRecyclerView.onRefresh();
-        } else if (resultCode == ConstantState.PUBLIC_SUCCEED) {
+        } else if (resultCode == ConstantState.PUBLISH_SUCCEED) {
+//        } else if (resultCode == ConstantState.PUBLIC_SUCCEED) {
             //发布成功，当发布的时候刷新
             if (currentType.equals(MomentsType.supply.getEnumValue()))
                 mRecyclerView.onRefresh();
+            else //切换到个别列表
+            {
+                rb_title_left.setChecked(true);
+                currentType = MomentsType.supply.getEnumValue();
+                mRecyclerView.onRefresh();
+            }
+
+            D.e("currentType" + currentType);
+
         } else if (resultCode == ConstantState.PURCHASE_SUCCEED) {
             //求购成功，当求购的时候刷新
             if (currentType.equals(MomentsType.purchase.getEnumValue()))
                 mRecyclerView.onRefresh();
+            else {
+                {
+                    rb_title_right.setChecked(true);
+                    currentType = MomentsType.purchase.getEnumValue();
+                    mRecyclerView.onRefresh();
+                }
+            }
+            D.e("currentType" + currentType);
         }
 
 
@@ -580,5 +620,76 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 //                hindLoading();
 //            }
 //        });
+    }
+
+
+    /**
+     * 判断是否自己 的评论
+     *
+     * @param myViewHolder
+     * @param item
+     * @param position
+     * @param text
+     * @return
+     */
+    public boolean isSelf(MeasureListView myViewHolder, MomentsReply item, int position) {
+
+        boolean isSelf = item.isOwner;
+        if (isSelf) {
+            final MaterialDialog dialog = new MaterialDialog(
+                    mActivity);
+            dialog.title("提示").content("确认删除评论?")//
+                    .btnText("取消", "确认")//
+                    .show();
+            dialog.setOnBtnClickL(() -> {
+                dialog.dismiss();
+//               ToastUtil.showLongToast("确认删除");
+            }, () -> {
+                dialog.dismiss();
+                //                ToastUtil.showLongToast("模拟删除成功");
+//                MeasureListView listView = myViewHolder.getView(R.id.receive);
+                new BasePresenter()
+                        .putParams("ids", item.id)
+                        .putParams("id", item.id)
+                        .putParams("fromId", item.fromId)
+                        .doRequest("admin/momentsReply/doDel", true, new HandlerAjaxCallBack(mActivity) {
+                            @Override
+                            public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                ToastUtil.showLongToast(gsonBean.msg);
+                                GlobBaseAdapter globBaseAdapter = (GlobBaseAdapter) myViewHolder.getAdapter();
+                                globBaseAdapter.getDatas().remove(position);
+                                globBaseAdapter.notifyDataSetChanged();
+                            }
+                        });
+            });
+
+            Log.i(TAG, "isSelf: \n" + "是自己");
+            return true;
+        } else {
+            Log.i(TAG, "isSelf: \n" + "不是自己");
+
+
+            return false;
+
+        }
+
+//        myItemClickLister_content.OnItemDel(position, data.get(position).get("id").toString(),);
+    }
+
+    /**
+     * 判断是否需要登录
+     *
+     * @return
+     */
+    public boolean commitLogin() {
+
+
+        if (isLogin()) {
+            return true;
+        } else {
+            LoginActivity.start2Activity(mActivity);
+            ToastUtil.showLongToast("请先登录 ^_^ ");
+            return false;
+        }
     }
 }

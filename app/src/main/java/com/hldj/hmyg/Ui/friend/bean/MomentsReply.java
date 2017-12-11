@@ -75,6 +75,8 @@ public class MomentsReply implements Serializable {
     public String createBy;
     public String createDate;
 
+    public boolean isOwner;
+
     public AttrDataBean attrData;
 
     public static class AttrDataBean implements Serializable {

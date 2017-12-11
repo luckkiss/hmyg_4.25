@@ -13,7 +13,7 @@
         android:layout_centerVertical="true"
         android:background="@null"
         android:foreground="?attr/selectableItemBackground"
-        android:src="@drawable/ic_arrow_left_green"
+        android:src="@drawable/arrow_left_back"
         android:textSize="20sp" />
     <!--ic_arrow_left_green-->
 
@@ -26,7 +26,8 @@
         android:layout_toLeftOf="@+id/iv_view_type"
         android:layout_toRightOf="@+id/toolbar_left_icon"
         android:background="@drawable/conner_edit"
-        android:drawablePadding="5dp"
+        android:drawableLeft="@drawable/sousuo2"
+        android:drawablePadding="6dp"
         android:foreground="?attr/selectableItemBackground"
         android:hint="品种名称/用户名称"
         android:imeOptions="actionSearch"

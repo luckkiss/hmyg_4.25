@@ -4,10 +4,12 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableStringBuilder;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.Rx.BaseModel;
 import com.hldj.hmyg.base.Rx.BasePresenter;
 import com.hldj.hmyg.base.Rx.BaseView;
@@ -176,15 +178,9 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
+    public boolean isLogin() {
+        boolean isLogin = MyApplication.Userinfo.getBoolean("isLogin", false);
+        Log.i("LOGIN", "判断是否登录: \n" + isLogin);
+        return isLogin;
+    }
 }

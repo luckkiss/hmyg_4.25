@@ -15,8 +15,6 @@ import android.widget.EditText;
 
 import com.hldj.hmyg.R;
 
-import static com.hldj.hmyg.util.CommonUtils.getDrawable;
-
 public class ClearEditText extends EditText implements  
         OnFocusChangeListener, TextWatcher { 
 	/**
@@ -47,7 +45,10 @@ public class ClearEditText extends EditText implements
                     .getDrawable(R.mipmap.search_delete);
 //                    .getDrawable(R.drawable.clear_icon);
         }
-        mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(), mClearDrawable.getIntrinsicHeight()); 
+        mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth()*2/3 , mClearDrawable.getIntrinsicHeight()*2/3);
+//        mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(), mClearDrawable.getIntrinsicHeight());
+
+
         setClearIconVisible(false); 
         setOnFocusChangeListener(this); 
         addTextChangedListener(this); 

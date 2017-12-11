@@ -29,6 +29,7 @@ import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.MyCircleImageView;
 import com.hy.utils.ToastUtil;
 import com.lqr.optionitemview.OptionItemView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zzy.common.widget.MeasureGridView;
 
 import net.tsz.afinal.FinalActivity;
@@ -129,7 +130,7 @@ public class CenterActivity extends BaseMVPActivity {
                         .addOnClickListener(R.id.tv_right_top, v ->
                                 {
 //                                    ToastUtil.showLongToast("删除");
-                                    doDelete(item.id);
+                                    doDelete(item, helper.getAdapterPosition());
                                 }
                         );
                 helper.setText(R.id.descript, item.content);//描述
@@ -154,8 +155,9 @@ public class CenterActivity extends BaseMVPActivity {
                     helper.setText(R.id.title, item.attrData.displayName);
                     //显示图片
 //                    finalBitmap.display(helper.getView(R.id.head), item.attrData.headImage);
-                    MyCircleImageView circleImageView = helper.getView(R.id.head) ;
-                    circleImageView.setImageURL(item.attrData.headImage);
+                    MyCircleImageView circleImageView = helper.getView(R.id.head);
+                    ImageLoader.getInstance().displayImage(item.attrData.headImage, circleImageView);
+//                    circleImageView.setImageURL(item.attrData.headImage);
                 }
 
 
@@ -200,16 +202,29 @@ public class CenterActivity extends BaseMVPActivity {
                 });
     }
 
-    private void doDelete(String id) {
+    private void doDelete(Moments moments, int pos) {
+        String host;
+        if (currentType.equals(MomentsType.collect.getEnumValue()))//enumValue  collect
+        {
+            host = "admin/collect/save";
+        } else {
+            host = "admin/moments/doDel";
+        }
+        Log.i(TAG, "doDelete: host\n" + host);
         new BasePresenter()
-                .putParams("ids", id)
-                .doRequest("admin/moments/doDel", true, new HandlerAjaxCallBack(mActivity) {
+                .putParams("ids", moments.id)
+                .putParams("id", moments.id)
+                .putParams("sourceId", moments.id)
+                .putParams("type", "moment")
+                .doRequest(host, true, new HandlerAjaxCallBack(mActivity) {
                     @Override
                     public void onRealSuccess(SimpleGsonBean gsonBean) {
                         ToastUtil.showLongToast(gsonBean.msg);
                         if (gsonBean.isSucceed()) {
                             requestCount(tablayout.getTabAt(0), tablayout.getTabAt(1), tablayout.getTabAt(2));
-                            mRecyclerView.onRefresh();
+//                            mRecyclerView.onRefresh();
+//                          mRecyclerView.getAdapter().getData().remove(moments);
+                            mRecyclerView.remove(pos);
                         }
                     }
                 });

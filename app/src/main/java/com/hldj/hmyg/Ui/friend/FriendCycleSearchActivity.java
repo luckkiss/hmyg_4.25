@@ -136,7 +136,7 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
 
 
     public String getSearchContent() {
-        ToastUtil.showLongToast(getIntent().getStringExtra(TAG));
+//        ToastUtil.showLongToast(getIntent().getStringExtra(TAG));
         return getIntent().getStringExtra(TAG);
     }
 
