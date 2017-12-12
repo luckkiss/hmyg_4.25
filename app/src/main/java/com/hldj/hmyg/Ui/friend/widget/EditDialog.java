@@ -41,7 +41,7 @@ public class EditDialog extends BaseDialogFragment {
 
     @Override
     public void initData() {
-
+        this.setCancelable(true);
     }
 
     @Override

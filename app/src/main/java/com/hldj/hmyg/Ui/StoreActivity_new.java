@@ -50,6 +50,7 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
@@ -58,6 +59,8 @@ import io.reactivex.schedulers.Schedulers;
 import static com.hldj.hmyg.StoreActivity.getRoundCornerImage;
 
 public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreModel> implements StoreContract.View {
+
+    private Disposable disposable;
 
     @Override
     public int bindLayoutID() {
@@ -182,7 +185,8 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
          */
         // 先获取 index  数据   在通过index  中的数据  获取    列表信息
         //step 2.1    网络请求
-        mPresenter.getIndexData()/*请求头部数据*/
+     /*请求头部数据*///传入左边  对象   转换  右边对象
+        disposable = mPresenter.getIndexData()/*请求头部数据*/
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Function<String, String>() {//传入左边  对象   转换  右边对象
                     @Override
@@ -239,7 +243,11 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
 
     @Override
     public void showErrir(String erMst) {
+        if (erMst.equals("参数错误")) {
+            erMst = "参数错误，可能店铺没有开通~_~ ";
+        }
         super.showErrir(erMst);
+
         new Handler().postDelayed(() -> {
             setResult(ConstantState.STORE_OPEN_FAILD);//商店打开失败
             finish();
@@ -370,6 +378,14 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
 
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
+    }
 
     public void setShareUrl(String shareUrl) {
 

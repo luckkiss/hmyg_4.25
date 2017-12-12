@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -52,6 +51,7 @@ import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.MyCircleImageView;
 import com.hy.utils.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zf.iosdialog.widget.AlertDialog;
 import com.zzy.common.widget.MeasureGridView;
 import com.zzy.common.widget.MeasureListView;
 
@@ -62,9 +62,6 @@ import net.tsz.afinal.http.AjaxCallBack;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import me.kaede.tagview.TagFactory;
-import me.kaede.tagview.TagView;
 
 import static com.hldj.hmyg.util.ConstantState.REFRESH;
 import static com.hldj.hmyg.util.ConstantState.SEARCH_OK;
@@ -81,8 +78,8 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 
     public String parentFiled = "parent";
 
-    @ViewInject(id = R.id.tagview)
-    public TagView tagView;
+//    @ViewInject(id = R.id.tagview)
+//    public TagView tagView;
 
     /*列表 recycle*/
     @ViewInject(id = R.id.core_rv_c)
@@ -107,8 +104,8 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 
     FinalBitmap finalBitmap;
 
-    @ViewInject(id = R.id.call_back)
-    public EditText editText;
+//    @ViewInject(id = R.id.call_back)
+//    public EditText editText;
     private CommonPopupWindow popupWindow1;
 
     @Keep
@@ -249,6 +246,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 
                 View.OnClickListener clickListener = v ->
                 {
+                    if (!commitLogin()) return;
 //                    ToastUtil.showLongToast("点击文字--->跳转采购单详情界面");
                     DetailActivity.start(mActivity, item.id);
                 };
@@ -385,8 +383,6 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
                         @Override
                         public void OnReply(String reply) {
 //                            ToastUtil.showLongToast("发表评论：\n" + reply);
-
-
                             new BasePresenter()
                                     .putParams("momentsId", item.id)
                                     .putParams("reply", reply)
@@ -438,35 +434,49 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 //                    if (popupWindow1 == null)
                     popupWindow1 = new CommonPopupWindow.Builder(mActivity)
                             .setWidthDp(115)
-                            .setHeightDp(110)
+                            .setHeightDp(135)
                             .setOutsideTouchable(true)
                             .bindLayoutId(R.layout.friend_more)
-                            .setCovertViewListener(new CommonPopupWindow.OnCovertViewListener() {
-                                @Override
-                                public void covertView(View viewRoot) {
-                                    TextView tv1 = (TextView) viewRoot.findViewById(R.id.pup_subscriber);
-                                    tv1.setText("加入收藏");
-                                    tv1.setTextColor(getColorByRes(R.color.text_color111));
-                                    tv1.setOnClickListener(v -> {
+                            .setCovertViewListener(viewRoot -> {
+                                TextView tv1 = (TextView) viewRoot.findViewById(R.id.pup_subscriber);
+                                TextView pup_del = (TextView) viewRoot.findViewById(R.id.pup_del);
+                                pup_del.setTextColor(getColorByRes(R.color.price_orige));
+                                pup_del.setOnClickListener(vd -> {
 
+
+                                    new AlertDialog(mActivity).builder()
+                                            .setTitle("确定删除本项?")
+                                            .setPositiveButton("确定删除", v1 -> {
+                                                doDelete(item, helper.getAdapterPosition());
+                                            }).setNegativeButton("取消", v2 -> {
+                                    }).show();
+//                                  ToastUtil.showLongToast("删除\n" + item.id);
+                                    popupWindow1.dismiss();
+                                });
+                                tv1.setText("加入收藏");
+                                tv1.setTextColor(getColorByRes(R.color.text_color111));
+                                tv1.setOnClickListener(v1 -> {
 //                                        ToastUtil.showLongToast("加入收藏" + item.id);
-                                        Log.i(TAG, "covertView: " + item.id);
-                                        FriendPresenter.doCollect(item.id, new HandlerAjaxCallBack(mActivity) {
-                                            @Override
-                                            public void onRealSuccess(SimpleGsonBean gsonBean) {
-                                                ToastUtil.showLongToast(gsonBean.msg);
-                                            }
-                                        });
-                                        popupWindow1.dismiss();
+                                    Log.i(TAG, "covertView: " + item.id);
+                                    FriendPresenter.doCollect(item.id, new HandlerAjaxCallBack(mActivity) {
+                                        @Override
+                                        public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                            ToastUtil.showLongToast(gsonBean.msg);
+                                        }
                                     });
-                                    TextView tv2 = (TextView) viewRoot.findViewById(R.id.pup_show_share);
-                                    tv2.setTextColor(getColorByRes(R.color.text_color111));
-                                    tv2.setText("进入店铺");
-                                    tv2.setOnClickListener(v -> {
-                                        StoreActivity_new.start2Activity(mActivity, item.attrData.storeId);
-                                        popupWindow1.dismiss();
-                                    });
-                                }
+                                    popupWindow1.dismiss();
+                                });
+                                TextView tv2 = (TextView) viewRoot.findViewById(R.id.pup_show_share);
+                                tv2.setTextColor(getColorByRes(R.color.text_color111));
+                                tv2.setText("进入店铺");
+                                tv2.setOnClickListener(v1 -> {
+                                    if (TextUtils.isEmpty(item.attrData.storeId)) {
+                                        ToastUtil.showLongToast("sorry , 此人可能没有开通店铺~_~");
+                                        return;
+                                    }
+                                    StoreActivity_new.start2Activity(mActivity, item.attrData.storeId);
+                                    popupWindow1.dismiss();
+                                });
                             })
                             .build();
 //                            .showAsDropDown(helper.getView(R.id.fourth));
@@ -506,18 +516,18 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 110 && resultCode == SEARCH_OK) {
-            searchContent = data.getStringExtra(SearchActivity.SEARCH_CONTENT);
-            if (TextUtils.isEmpty(searchContent.trim())) {
-                tagView.removeAllTags();
-                mRecyclerView.onRefresh();
-                return;
-            }
-            tagView.removeAllTags();
-            tagView.addTag(TagFactory.createDelTag(searchContent), 98);
-            tagView.setOnTagDeleteListener((position, tag) -> {
-                searchContent = "";
-                mRecyclerView.onRefresh();
-            });
+//            searchContent = data.getStringExtra(SearchActivity.SEARCH_CONTENT);
+//            if (TextUtils.isEmpty(searchContent.trim())) {
+//                tagView.removeAllTags();
+//                mRecyclerView.onRefresh();
+//                return;
+//            }
+//            tagView.removeAllTags();
+//            tagView.addTag(TagFactory.createDelTag(searchContent), 98);
+//            tagView.setOnTagDeleteListener((position, tag) -> {
+//                searchContent = "";
+//                mRecyclerView.onRefresh();
+//            });
 
 //            ToastUtil.showLongToast("搜索内容：\n" + searchContent);
             mRecyclerView.onRefresh();
@@ -629,7 +639,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
      * @param myViewHolder
      * @param item
      * @param position
-     * @param text
+     * @param
      * @return
      */
     public boolean isSelf(MeasureListView myViewHolder, MomentsReply item, int position) {
@@ -691,5 +701,26 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
             ToastUtil.showLongToast("请先登录 ^_^ ");
             return false;
         }
+    }
+
+
+    private void doDelete(Moments moments, int pos) {
+        Log.i(TAG, "doDelete: host\n" + "admin/moments/doDel");
+        new BasePresenter()
+                .putParams("ids", moments.id)
+                .putParams("id", moments.id)
+                .doRequest("admin/moments/doDel", true, new HandlerAjaxCallBack(mActivity) {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+                        ToastUtil.showLongToast(gsonBean.msg);
+                        if (gsonBean.isSucceed()) {
+//                            mRecyclerView.onRefresh();
+//                          mRecyclerView.getAdapter().getData().remove(moments);
+                            mRecyclerView.remove(pos);
+                        }
+                    }
+                });
+
+
     }
 }

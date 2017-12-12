@@ -14,7 +14,7 @@
         android:layout_height="45dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:src="@drawable/home_icon_type02"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +27,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="1dp"
         android:text="Cherry"
-        android:textColor="@color/text_color111"
+        android:textColor="@color/text_color333"
         android:textSize="15sp"
         app:layout_constraintLeft_toRightOf="@+id/head"
         app:layout_constraintTop_toTopOf="@+id/head" />
@@ -39,17 +39,18 @@
         android:layout_marginBottom="1dp"
         android:text="11小时前  福建  厦门"
         android:textColor="@color/text_color999"
-        android:textSize="14sp"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/head"
         app:layout_constraintLeft_toLeftOf="@+id/title" />
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="28dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginTop="0dp"
+        android:adjustViewBounds="true"
         android:src="@mipmap/purchase"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -74,7 +75,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:lineSpacingMultiplier="1.3"
         android:maxLines="5"
@@ -83,7 +84,8 @@
         android:textSize="15sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/head" />
+        app:layout_constraintTop_toBottomOf="@+id/head"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <com.zzy.common.widget.MeasureGridView
         android:id="@+id/imageView8"
@@ -93,7 +95,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
         android:horizontalSpacing="0dp"
         android:listSelector="@color/transparent"
@@ -128,11 +130,13 @@
     <com.hldj.hmyg.widget.DrawableCenterText
         android:id="@+id/first"
         android:layout_width="71dp"
-        android:layout_height="32dp"
+        android:layout_height="30dp"
         android:layout_marginTop="6dp"
         android:drawableLeft="@drawable/like_selector"
         android:drawablePadding="5dp"
         android:text="点赞 4 "
+        android:textColor="@color/text_color666"
+        android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/second"
         app:layout_constraintTop_toBottomOf="@+id/textView29" />
@@ -141,13 +145,15 @@
     <com.hldj.hmyg.widget.DrawableCenterText
         android:id="@+id/fourth"
         android:layout_width="71dp"
-        android:layout_height="32dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="0dp"
         android:layout_marginTop="0dp"
         android:drawableLeft="@mipmap/more"
         android:drawablePadding="5dp"
         android:gravity="left|center"
         android:text="更多"
+        android:textColor="@color/text_color666"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/first"
         app:layout_constraintLeft_toRightOf="@+id/third"
         app:layout_constraintRight_toRightOf="parent"
@@ -156,12 +162,14 @@
     <com.hldj.hmyg.widget.DrawableCenterText
         android:id="@+id/third"
         android:layout_width="71dp"
-        android:layout_height="32dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="0dp"
         android:layout_marginTop="0dp"
         android:drawableLeft="@mipmap/phone"
         android:drawablePadding="5dp"
         android:text="电话"
+        android:textColor="@color/text_color666"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/first"
         app:layout_constraintLeft_toRightOf="@+id/second"
         app:layout_constraintRight_toLeftOf="@+id/fourth"
@@ -171,10 +179,12 @@
         android:id="@+id/second"
         layout="@layout/item_friend_other"
         android:layout_width="71dp"
-        android:layout_height="32dp"
+        android:layout_height="30dp"
         android:drawableLeft="@mipmap/msg_big"
         android:drawablePadding="5dp"
         android:text="评论"
+        android:textColor="@color/text_color666"
+        android:textSize="14sp"
         app:layout_constraintLeft_toRightOf="@+id/first"
         app:layout_constraintRight_toLeftOf="@+id/third"
         app:layout_constraintTop_toTopOf="@+id/first" />
@@ -187,7 +197,7 @@
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="0dp"
         android:alpha="0.5"
         android:background="@color/divider_color_bg"
         android:text=""
@@ -196,23 +206,24 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/receive"
+        app:layout_constraintVertical_bias="0.0"
         tools:background="@color/gray_bg_ed" />
 
 
     <!--复制出来的线-->
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1px"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="4dp"
-        android:background="@color/trans"
-        android:padding="100dp"
-        app:layout_constraintLeft_toLeftOf="@+id/textView5"
-        app:layout_constraintRight_toRightOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="@+id/receive"
-        tools:background="@color/main_color" />
+    <!--<View-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="1px"-->
+    <!--android:layout_marginBottom="8dp"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:layout_marginRight="8dp"-->
+    <!--android:layout_marginTop="4dp"-->
+    <!--android:background="@color/trans"-->
+    <!--android:padding="100dp"-->
+    <!--app:layout_constraintLeft_toLeftOf="@+id/textView5"-->
+    <!--app:layout_constraintRight_toRightOf="@+id/textView5"-->
+    <!--app:layout_constraintTop_toTopOf="@+id/receive"-->
+    <!--tools:background="@color/main_color" />-->
 
     <TextView
         android:id="@+id/textView10"
@@ -267,7 +278,7 @@
         android:id="@+id/textView29"
         android:layout_width="0dp"
         android:layout_height="1px"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:background="@color/divider_color"
         android:padding="10dp"
         app:layout_constraintHorizontal_bias="0.0"
@@ -277,18 +288,18 @@
         tools:background="@color/main_color"
         tools:layout_height="40dp"
         tools:padding="10dp"
-        tools:text="1346546"
+        tools:text="1346546  textView29"
         tools:width="100dp" />
 
     <com.zzy.common.widget.MeasureListView
         android:id="@+id/receive"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="0dp"
         android:background="@color/white"
         android:divider="@null"
         android:dividerHeight="0px"
-        android:paddingTop="4dp"
+        android:paddingTop="0dp"
         android:text="leei:这棵树不错"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -309,6 +320,6 @@
         app:layout_constraintTop_toBottomOf="@+id/first"
         tools:background="@color/blue"
         tools:layout_height="41px"
-        tools:text="点赞下边一条线a" />
+        tools:text="点赞下边一条线a textView30" />
 
 </android.support.constraint.ConstraintLayout>
