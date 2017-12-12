@@ -53,15 +53,18 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.RippleAdjuster;
 import com.hldj.hmyg.util.UploadHeadUtil;
+import com.hldj.hmyg.widget.MyCircleImageView;
 import com.hldj.hmyg.widget.ShareDialogFragment;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 import com.lqr.optionitemview.OptionItemView;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.zf.iosdialog.widget.ActionSheetDialog;
 import com.zf.iosdialog.widget.AlertDialog;
 import com.zym.selecthead.tools.FileTools;
 
-import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.http.AjaxCallBack;
 
 import java.io.File;
@@ -69,7 +72,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
@@ -95,7 +97,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     public static boolean showSeedlingNoteTeam = false;//是否显示 团队共享
 
 
-    FinalBitmap finalBitmap;
+//    FinalBitmap finalBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +109,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         cachPath = UploadHeadUtil.getDiskCacheDir(this) + "/handimg.jpg";//图片路径
         cacheFile = uploadHeadUtil.getCacheFile(new File(getDiskCacheDir(this)), "handimg.jpg");
 
-        finalBitmap = FinalBitmap.create(mActivity);
+//        finalBitmap = FinalBitmap.create(mActivity);
 //        finalBitmap.configLoadfailImage(R.drawable.icon_persion_pic);
 //        finalBitmap.configLoadingImage(R.drawable.icon_persion_pic);
 
@@ -151,7 +153,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         this.getView(R.id.sptv_wd_wdxm).setOnClickListener(v -> MyProgramActivity.start(mActivity));//我的项目
         this.getView(R.id.sptv_wd_exit).setOnClickListener(v -> exit());//退出登录
         this.getView(R.id.sptv_wd_ddzy).setOnClickListener(v -> DispatcherActivity.start(mActivity));// 调度专员
-        this.getView(R.id.sptv_wd_mmq).setOnClickListener(v -> CenterActivity.start(mActivity,  MyApplication.getUserBean().id));//  我的苗木圈
+        this.getView(R.id.sptv_wd_mmq).setOnClickListener(v -> CenterActivity.start(mActivity, MyApplication.getUserBean().id));//  我的苗木圈
 
 
         this.getView(R.id.sptv_wd_jmb).setOnClickListener(v -> MiaoNoteListActivity.start(mActivity));// 记苗本
@@ -217,34 +219,34 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         if (isLogin)
             if (TextUtils.isEmpty(getSpS("headImage"))) {
                 D.e("====空头像，不加载===");
-                ((CircleImageView) getView(R.id.iv_circle_head)).setImageResource(R.drawable.icon_persion_pic);
+                ((ImageView) getView(R.id.iv_circle_head)).setImageResource(R.drawable.icon_persion_pic);
                 return;
             }
-        finalBitmap.display((ImageView) getView(R.id.iv_circle_head),getSpS("headImage"));
+//        finalBitmap.display((ImageView) getView(R.id.iv_circle_head),getSpS("headImage"));
 
 
-//        ImageLoader.getInstance().displayImage(getSpS("headImage"), (ImageView) getView(R.id.iv_circle_head), new ImageLoadingListener() {
-//            @Override
-//            public void onLoadingStarted(String s, View view) {
-//                D.e("");
-//            }
-//
-//            @Override
-//            public void onLoadingFailed(String s, View view, FailReason failReason) {
-//                D.e("");
-//                ((ImageView) getView(R.id.iv_circle_head)).setImageResource(R.drawable.icon_persion_pic);
-//            }
-//
-//            @Override
-//            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-//                D.e("");
-//            }
-//
-//            @Override
-//            public void onLoadingCancelled(String s, View view) {
-//                D.e("");
-//            }
-//        });
+        ImageLoader.getInstance().displayImage(getSpS("headImage"), (ImageView) getView(R.id.iv_circle_head), new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String s, View view) {
+                D.e("");
+            }
+
+            @Override
+            public void onLoadingFailed(String s, View view, FailReason failReason) {
+                D.e("");
+                ((ImageView) getView(R.id.iv_circle_head)).setImageResource(R.drawable.icon_persion_pic);
+            }
+
+            @Override
+            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                D.e("");
+            }
+
+            @Override
+            public void onLoadingCancelled(String s, View view) {
+                D.e("");
+            }
+        });
 //            ImageLoader.getInstance().displayImage(str, (ImageView) getView(R.id.iv_circle_head));
     }
 

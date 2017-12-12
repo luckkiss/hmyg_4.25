@@ -205,6 +205,8 @@ public class PublishActivity extends BaseMVPActivity {
         View.OnClickListener clickListener = null;
 
         if (getTag().equals(PURCHASE)) {
+
+            location.setLeftText("用苗地");
             /*采购*/
             et_content.setHint(R.string.purchase_content);
             setTitle("发布求购");
@@ -222,6 +224,7 @@ public class PublishActivity extends BaseMVPActivity {
             };
             toolbar_right_text.setOnClickListener(clickListener);
         } else if (getTag().equals(PUBLISH)) {
+            location.setLeftText("苗源地");
             /*发布*/
             setTitle("发布供应");
             et_content.setHint(R.string.publish_content);
@@ -273,7 +276,7 @@ public class PublishActivity extends BaseMVPActivity {
                         moments.momentsType = tag;
                         moments.images = GsonUtil.Bean2Json(pics);
                         moments.imagesData = GsonUtil.Bean2Json(pics);
-                        new BasePresenter().putParams(moments).doRequest("admin/moments/save", true, new HandlerAjaxCallBack() {
+                        new BasePresenter().putParams(moments).doRequest("admin/moments/save", true, new HandlerAjaxCallBack(mActivity) {
                             @Override
                             public void onRealSuccess(SimpleGsonBean gsonBean) {
                                 ToastUtil.showLongToast(gsonBean.msg);
@@ -287,7 +290,6 @@ public class PublishActivity extends BaseMVPActivity {
                                     setResult(PUBLISH_SUCCEED);
                                 }
                                 finish();
-
                             }
                         });
 
@@ -442,7 +444,7 @@ public class PublishActivity extends BaseMVPActivity {
 
         //此处进行上传操作
         return MyLuban.compress(mActivity, getFileList(pics))
-                .setMaxSize(256)
+                .setMaxSize(512)
                 .setMaxHeight((int) (1920))
                 .setMaxWidth((int) (1280))
                 .putGear(MyLuban.CUSTOM_GEAR)

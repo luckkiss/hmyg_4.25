@@ -1,11 +1,15 @@
 package com.hldj.hmyg.Ui.friend.child;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ImageView;
 
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
@@ -22,8 +26,10 @@ import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
+import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment1;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
+import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.MyCircleImageView;
@@ -66,6 +72,8 @@ public class CenterActivity extends BaseMVPActivity {
     @ViewInject(id = R.id.tablayout)
     TabLayout tablayout;//可切换的选项卡
 
+    @ViewInject(id = R.id.toolbar_right_icon, click = "onClick")
+    public ImageView toolbar_right_icon;//发布按钮
 
     public int bindLayoutID() {
         return R.layout.activity_friend_center;
@@ -80,6 +88,34 @@ public class CenterActivity extends BaseMVPActivity {
         if (bindLayoutID() > 0) {
             FinalActivity.initInjectedView(this);
         }
+
+        if (isSelf()) {
+            toolbar_right_icon.setVisibility(View.VISIBLE);
+            toolbar_right_icon.setImageResource(R.mipmap.friend_publish_edit);
+            toolbar_right_icon.setOnClickListener(v -> {
+                CommonDialogFragment1.newInstance(context -> {
+                    Dialog dialog1 = new Dialog(context);
+                    dialog1.setCanceledOnTouchOutside(true);
+                    dialog1.setCancelable(true);
+                    dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog1.setContentView(R.layout.item_friend_type);
+                    dialog1.findViewById(R.id.iv_left).setOnClickListener(v1 -> {
+//                            ToastUtil.showLongToast("left");
+                        dialog1.dismiss();
+                        PublishActivity.start(mActivity, PublishActivity.PUBLISH);
+                    });
+                    dialog1.findViewById(R.id.iv_right).setOnClickListener(v1 -> {
+//                            ToastUtil.showLongToast("right");
+                        dialog1.dismiss();
+                        PublishActivity.start(mActivity, PublishActivity.PURCHASE);
+                    });
+
+                    return dialog1;
+                }, true).show(getSupportFragmentManager(), TAG);
+            });
+        }
+
+
         finalBitmap = FinalBitmap.create(mActivity);
         finalBitmap.configLoadfailImage(R.drawable.no_image_show);
         finalBitmap.configLoadfailImage(R.drawable.no_image_show);
@@ -156,7 +192,8 @@ public class CenterActivity extends BaseMVPActivity {
                     //显示图片
 //                    finalBitmap.display(helper.getView(R.id.head), item.attrData.headImage);
                     MyCircleImageView circleImageView = helper.getView(R.id.head);
-                    ImageLoader.getInstance().displayImage(item.attrData.headImage, circleImageView);
+                    if (!TextUtils.isEmpty(item.attrData.headImage))
+                        ImageLoader.getInstance().displayImage(item.attrData.headImage, circleImageView);
 //                    circleImageView.setImageURL(item.attrData.headImage);
                 }
 
@@ -169,17 +206,11 @@ public class CenterActivity extends BaseMVPActivity {
                 gridView.getAdapter().closeAll(true);
                 gridView.getAdapter().notifyDataSetChanged();
 
-                helper.addOnClickListener(R.id.first, v -> {
-//                    ToastUtil.showLongToast("点击第一个");
-                }).setText(R.id.first, " " + item.thumbUpCount);//按钮一 点赞
+                helper.addOnClickListener(R.id.first, clickListener).setText(R.id.first, " " + item.thumbUpCount);//按钮一 点赞
 
                 if (item.thumbUpListJson == null)
                     item.thumbUpListJson = new ArrayList<MomentsThumbUp>();
-                helper.addOnClickListener(R.id.second, v -> {
-//                    ToastUtil.showLongToast("回复");
-//                    EditDialog.replyListener = reply -> ToastUtil.showLongToast("发表评论：\n" + reply);
-//                    EditDialog.instance("回复二傻：").show(mActivity.getSupportFragmentManager(), TAG);
-                }).setText(R.id.second, " " + item.replyCount);//按钮2 评论
+                helper.addOnClickListener(R.id.second, clickListener).setText(R.id.second, " " + item.replyCount);//按钮2 评论
             }
         }).openRefresh()
                 .openLoadMore(10, page -> {
@@ -315,7 +346,7 @@ public class CenterActivity extends BaseMVPActivity {
     }
 
     public boolean isSelf() {
-        return getUserId().equals(MyApplication.getUserBean().id);
+        return getUserId().equals(MyApplication.Userinfo.getString("id", ""));
 
     }
 
@@ -326,7 +357,7 @@ public class CenterActivity extends BaseMVPActivity {
     public static void start(Activity activity, String userId) {
         Intent intent = new Intent(activity, CenterActivity.class);
         intent.putExtra(TAG, userId);
-        Log.i(TAG, "start: " + userId);
+        Log.i(TAG, "start1: " + userId);
         activity.startActivityForResult(intent, 110);
     }
 
@@ -334,6 +365,36 @@ public class CenterActivity extends BaseMVPActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == ConstantState.REFRESH) mRecyclerView.onRefresh();
+
+        else if (resultCode == ConstantState.PUBLISH_SUCCEED) {
+
+//        } else if (resultCode == ConstantState.PUBLIC_SUCCEED) {
+            //发布成功，当发布的时候刷新
+            if (currentType.equals(MomentsType.supply.getEnumValue()))
+                mRecyclerView.onRefresh();
+            else //切换到个别列表
+            {
+                tablayout.getTabAt(0).select();
+                currentType = MomentsType.supply.getEnumValue();
+//                mRecyclerView.onRefresh();
+            }
+
+            D.e("currentType" + currentType);
+
+        } else if (resultCode == ConstantState.PURCHASE_SUCCEED) {
+            //求购成功，当求购的时候刷新
+            if (currentType.equals(MomentsType.purchase.getEnumValue()))
+                mRecyclerView.onRefresh();
+            else {
+                {
+                    tablayout.getTabAt(1).select();
+                    currentType = MomentsType.purchase.getEnumValue();
+//                    mRecyclerView.onRefresh();
+                }
+            }
+            D.e("currentType" + currentType);
+        }
+
     }
 
     @Override

@@ -19,6 +19,7 @@
         android:layout_margin="6dp"
         android:layout_weight="1"
         android:background="@drawable/conner_edit"
+        android:foreground="?attr/selectableItemBackground"
         android:hint="回复：大傻"
         android:maxHeight="100dp"
         android:maxLines="3"

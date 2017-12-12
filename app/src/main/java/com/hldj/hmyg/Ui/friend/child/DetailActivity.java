@@ -131,6 +131,7 @@ public class DetailActivity extends BaseMVPActivity {
                                     //add
                                     MomentsThumbUp up = new MomentsThumbUp();
                                     up.attrData.displayName = gsonBean.getData().displayName;
+                                    up.attrData.headImage = gsonBean.getData().headImage;
                                     // helper.setText(android.R.id.text1, ((MomentsThumbUp) item).attrData.displayName);
                                     moments.thumbUpListJson.add(up);
                                     mCoreRecyclerView.getAdapter().setDatasState(100);
@@ -179,8 +180,7 @@ public class DetailActivity extends BaseMVPActivity {
                                     momentsReply = gsonBean.getData().momentsReply;
                                     if (moments.itemListJson != null)
                                         moments.itemListJson.add(momentsReply);
-                                    else
-                                    {
+                                    else {
                                         moments.itemListJson = new ArrayList<MomentsReply>();
                                         moments.itemListJson.add(momentsReply);
                                     }
@@ -212,7 +212,9 @@ public class DetailActivity extends BaseMVPActivity {
         if (moments.attrData != null) {
             title.setText(moments.attrData.displayName);
 //          finalBitmap.display(head, moments.attrData.headImage);
-            ImageLoader.getInstance().displayImage(moments.attrData.headImage, head);
+            if (!TextUtils.isEmpty(moments.attrData.headImage)) {
+                ImageLoader.getInstance().displayImage(moments.attrData.headImage, head);
+            }
             third.setOnClickListener(v -> {
                 if (TextUtils.isEmpty(moments.attrData.displayPhone)) {
                     ToastUtil.showLongToast("未留电话号码~_~");
@@ -311,11 +313,13 @@ public class DetailActivity extends BaseMVPActivity {
         finalBitmap.configLoadingImage(R.drawable.no_image_show);
         tv_activity_purchase_back.setOnClickListener(v -> finish());
 
-        mCoreRecyclerView.init(new BaseQuickAdapter<Object, BaseViewHolder>(android.R.layout.simple_list_item_1) {
+        mCoreRecyclerView.init(new BaseQuickAdapter<Object, BaseViewHolder>(R.layout.item_list_simple_with_head) {
 
             @Override
             protected void convert(BaseViewHolder helper, Object item) {
                 if (item instanceof MomentsReply) {
+                    ImageView head = helper.getView(R.id.head);
+                    head.setVisibility(View.GONE);
                     MomentsReply s = ((MomentsReply) item);
 //                    helper.setText(android.R.id.text1, ((MomentsReply) item).reply);
                     if (s.attrData == null || s.attrData.fromDisplayName == null) {
@@ -334,8 +338,8 @@ public class DetailActivity extends BaseMVPActivity {
                         //回复
                         result = str.append(filterColor("回复" + to + ": " + s.reply, to, R.color.main_color));
                     }
-                    helper.setText(android.R.id.text1, result);
-                    helper.addOnClickListener(android.R.id.text1, v -> {
+                    helper.setText(R.id.content, result);
+                    helper.addOnClickListener(R.id.content, v -> {
                         EditDialog.replyListener = reply -> {
 //                            ToastUtil.showLongToast("发表评论：\n" + reply);
                             new BasePresenter()
@@ -370,8 +374,19 @@ public class DetailActivity extends BaseMVPActivity {
                     });
 
                 } else if (item instanceof MomentsThumbUp) {
-                    helper.setText(android.R.id.text1, ((MomentsThumbUp) item).attrData.displayName);
-                    helper.addOnClickListener(android.R.id.text1, null);
+                    helper.setText(R.id.content, ((MomentsThumbUp) item).attrData.displayName);
+
+                    ImageView head = helper.getView(R.id.head);
+                    head.setVisibility(View.VISIBLE);
+                    ImageLoader.getInstance().displayImage(((MomentsThumbUp) item).attrData.headImage, head);
+                    View.OnClickListener onClickListener = new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            CenterActivity.start(mActivity, ((MomentsThumbUp) item).ownerId);
+                        }
+                    };
+                    helper.addOnClickListener(R.id.content, onClickListener);
+                    head.setOnClickListener(onClickListener);
                 }
 
 

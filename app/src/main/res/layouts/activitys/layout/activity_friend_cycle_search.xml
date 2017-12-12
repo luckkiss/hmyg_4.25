@@ -16,7 +16,10 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:paddingBottom="6dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="6dp">
 
         <RadioButton
             android:id="@+id/rb_left"
@@ -24,6 +27,7 @@
             android:layout_height="wrap_content"
             android:button="@drawable/check_bg_friend_selector"
             android:checked="true"
+            android:textSize="14sp"
             android:paddingLeft="5dp"
             android:text="全部" />
 
@@ -31,7 +35,7 @@
             android:id="@+id/rb_center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="8dp"
             android:button="@drawable/check_bg_friend_selector"
             android:paddingLeft="5dp"
             android:text="只看供应" />
@@ -40,7 +44,7 @@
             android:id="@+id/rb_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="8dp"
             android:button="@drawable/check_bg_friend_selector"
             android:paddingLeft="5dp"
             android:text="只看求购" />
