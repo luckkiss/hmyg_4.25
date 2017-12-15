@@ -10,7 +10,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="61dp"
         android:background="@color/white">
 
         <com.hldj.hmyg.widget.MyCircleImageView
@@ -20,8 +20,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/home_icon_type02"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/icon_persion_pic"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,13 +34,13 @@
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="1dp"
+            android:textColor="@color/text_color333"
+            android:textSize="15sp"
             android:layout_toLeftOf="@+id/tv_right_top"
             android:layout_toRightOf="@+id/head"
             android:ellipsize="end"
             android:maxLines="1"
             tools:text="CherrCherryCherryCherryCherryCherryy"
-            android:textColor="@color/text_color111"
-            android:textSize="15sp"
             app:layout_constraintLeft_toRightOf="@+id/head"
             app:layout_constraintTop_toTopOf="@+id/head" />
 
@@ -56,7 +56,7 @@
             android:layout_toRightOf="@+id/head"
             android:text="11小时前  福建  厦门"
             android:textColor="@color/text_color999"
-            android:textSize="14sp"
+            android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@+id/head"
             app:layout_constraintLeft_toLeftOf="@+id/title" />
 
@@ -76,7 +76,7 @@
 
         <com.coorchice.library.SuperTextView
             android:id="@+id/tv_right_top"
-            android:layout_width="60dp"
+            android:layout_width="64dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
@@ -94,7 +94,7 @@
             app:right_bottom_corner="true"
             app:right_top_corner="true"
             app:stroke_color="@color/main_color"
-            app:stroke_width="1px"
+            app:stroke_width="2px"
             tools:visibility="visible" />
 
 
@@ -109,7 +109,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:lineSpacingMultiplier="1.3"
         android:text="香樟价格实惠质量香樟价格实惠质量又好     价格实惠质量又好，可供应5000株香樟价又好，可供应5000株香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，可供应5000株可供应5000株."
@@ -128,7 +127,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
         android:horizontalSpacing="0dp"
         android:listSelector="@color/transparent"
@@ -143,8 +142,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_marginTop="4dp"
-        android:paddingLeft="8dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="2dp"
         android:weightSum="1">
 
         <com.hldj.hmyg.widget.DrawableCenterText

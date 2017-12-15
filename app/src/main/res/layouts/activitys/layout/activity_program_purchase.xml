@@ -46,26 +46,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:orientation="vertical"
-                            >
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_activity_purchase_back"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/title_top_default"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="38dp"
                         android:drawableLeft="@drawable/ic_arrow_left_green"
                         android:gravity="center"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="8dp"
-                        android:text="P05346"
+                        android:text="查看报价"
                         android:textColor="@color/main_color"
                         android:textSize="@dimen/textSizeXXXX" />
 
                     <include layout="@layout/include_search_layout" />
 
 
-                </LinearLayout >
-
+                </LinearLayout>
 
 
             </android.support.v7.widget.Toolbar>
@@ -89,8 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </com.weavey.loading.lib.LoadingLayout>
 
 

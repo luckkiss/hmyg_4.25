@@ -56,12 +56,25 @@ class MyLubanCompresser {
             observables.add(Observable.fromCallable(new Callable<File>() {
                 @Override
                 public File call() throws Exception {
+                    Log.i(TAG, "call: " + file.getName());
                     return compressImage(mLuban.gear, file);
                 }
-            }));
+            })
+                    .onExceptionResumeNext(next -> {
+                        // 这个被 执行了
+                        Log.w(TAG, "multiAction:  fromCallable onErrorResumeNext");
+                        Observable.<File>empty();
+                    })
+                    .onErrorResumeNext(next -> {
+                        Log.w(TAG, "multiAction:  fromCallable onErrorResumeNext");
+                        Observable.<File>empty();
+                    }));
+
+
         }
 
-        return Observable.zip(observables, new Function<Object[], List<File>>() {
+
+        Observable<List<File>> observableZips = Observable.zip(observables, new Function<Object[], List<File>>() {
             @Override
             public List<File> apply(Object[] args) throws Exception {
                 List<File> files = new ArrayList<>(args.length);
@@ -71,6 +84,20 @@ class MyLubanCompresser {
                 return files;
             }
         }).subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread());
+
+        observableZips
+                .doOnError(err -> {
+                    Log.w(TAG, "zip: doOnError" + err.getMessage());
+                })
+                .onErrorResumeNext(emptyFile -> {
+                    Log.w(TAG, "zip: onErrorResumeNext");
+                    Observable.<File>empty();
+                }).onErrorResumeNext(emptyFile -> {
+            Log.w(TAG, "zip: onErrorResumeNext");
+            Observable.<File>empty();
+        });
+
+        return observableZips;
     }
 
     private File compressImage(int gear, File file) throws IOException {

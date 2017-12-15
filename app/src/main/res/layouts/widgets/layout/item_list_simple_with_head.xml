@@ -6,15 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="12dp"
-    android:paddingRight="12dp"
-    android:paddingTop="4dp"
-    >
+    android:paddingRight="12dp">
 
     <com.hldj.hmyg.widget.MyCircleImageView
         android:id="@+id/head"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:src="@drawable/no_image_big_show" android:padding="3dp"  android:visibility="visible"/>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/no_image_big_show"
+        android:layout_marginRight="4dp"
+        android:visibility="visible" />
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/content"
@@ -24,10 +28,8 @@
         android:layout_toRightOf="@+id/head"
         android:gravity="center_vertical"
         android:lineSpacingMultiplier="1.2"
-        android:minHeight="35dp"
-        android:paddingBottom="3dp"
-        android:padding="3dp"
-        android:paddingTop="3dp"
+        android:minHeight="28dp"
+        android:paddingTop="7dp"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textSize="15sp"
         tools:text="testandroidandroidandrtestandroidandroidandroidandroidandroidandroidandroidandroidandroidandroidtestandroidandroidandroidandroidandroidandroidandroidandroidandroidandroidtestandroidandroidandroidandroidandroidandroidandroidandroidandroidandroidoidandroidandroidandroidandroidandroidandroidandroid" />

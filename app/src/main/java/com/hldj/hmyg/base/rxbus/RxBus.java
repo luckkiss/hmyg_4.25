@@ -64,6 +64,7 @@ public class RxBus {
     public static final int TAG_CHANGE = -1020;
     public static final int TAG_OTHER = -1030;
     public static final int TAG_ERROR = -1090;
+    public static final int TAG_DELETE = -1100;
     //TAG-class
     protected static Map<Class,Integer> tag4Class;
     //发布者

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.hldj.hmyg.LoginActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.Rx.BaseModel;
@@ -182,5 +183,20 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
         boolean isLogin = MyApplication.Userinfo.getBoolean("isLogin", false);
         Log.i("LOGIN", "判断是否登录: \n" + isLogin);
         return isLogin;
+    }
+
+    /**
+     * 判断是否需要登录
+     *
+     * @return
+     */
+    public boolean commitLogin() {
+        if (isLogin()) {
+            return true;
+        } else {
+            LoginActivity.start2Activity(mActivity);
+            ToastUtil.showLongToast("请先登录 ^_^ ");
+            return false;
+        }
     }
 }

@@ -29,6 +29,7 @@ import com.hy.utils.GetServerUrl;
 import com.hy.utils.SdkChangeByTagUtil;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -158,7 +159,7 @@ public class MyApplication extends Application {
 
         JPushInterface.setDebugMode(GetServerUrl.isTest);
         JPushInterface.init(this);
-        initImageLoader(getApplicationContext());
+        initImageLoader();
         createSDCardDir(getApplicationContext());
         // 由于Application类本身已经单例，所以直接按以下处理即可。
         myApplication = this;
@@ -266,27 +267,34 @@ public class MyApplication extends Application {
         return (int) (px / scale + 0.5f);
     }
 
-    public static void initImageLoader(Context context) {
+    public  void initImageLoader() {
         // This configuration tuning is custom. You can tune every option, you
         // may tune some of them,
         // or you can create default configuration by
         // ImageLoaderConfiguration.createDefault(this);
         // method.
+
+        //设置默认的配置，设置缓存，这里不设置可以到别的地方设置
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .showImageForEmptyUri(R.drawable.icon_persion_pic)
+                .build();
+
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-                context).threadPriority(Thread.NORM_PRIORITY - 2)
+                this).threadPriority(Thread.NORM_PRIORITY - 2)
                 .denyCacheImageMultipleSizesInMemory()
+                .defaultDisplayImageOptions(defaultOptions)
                 .diskCacheSize(60 * 1024 * 1024) // 50 Mb
-                .memoryCache(new LruMemoryCache(10 * 1024 * 1024)).tasksProcessingOrder(QueueProcessingType.LIFO)//
+                .memoryCache(new LruMemoryCache(10 * 1024 * 1024))
+                .tasksProcessingOrder(QueueProcessingType.LIFO)//
                 .discCacheFileNameGenerator(new Md5FileNameGenerator())
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
                 .writeDebugLogs() // Remove for release app
                 .build();
         // Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config);
-
-
 // Initialize ImageLoader with configuration.
-        ImageLoader.getInstance().init(config);
     }
 
 

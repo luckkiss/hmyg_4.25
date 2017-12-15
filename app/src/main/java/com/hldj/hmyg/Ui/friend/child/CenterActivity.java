@@ -3,6 +3,7 @@ package com.hldj.hmyg.Ui.friend.child;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.support.annotation.Keep;
 import android.support.design.widget.TabLayout;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,6 +20,8 @@ import com.hldj.hmyg.Ui.friend.bean.MomentsThumbUp;
 import com.hldj.hmyg.Ui.friend.bean.enums.MomentsType;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.base.rxbus.RxBus;
+import com.hldj.hmyg.base.rxbus.annotation.Subscribe;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
 import com.hldj.hmyg.bean.SimplePageBean;
@@ -47,7 +50,13 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+
 import static com.hldj.hmyg.R.id.recycle;
+import static com.hldj.hmyg.base.rxbus.RxBus.TAG_UPDATE;
 
 /**
  * Created by luocaca on 2017/11/27 0027.
@@ -135,6 +144,8 @@ public class CenterActivity extends BaseMVPActivity {
                     ToastUtil.showLongToast("别闹");
                 }
                 mRecyclerView.onRefresh();
+                mRecyclerView.getRecyclerView().scrollToPosition(0);
+
 //                ToastUtil.showLongToast(currentType);
             }
         });
@@ -154,7 +165,7 @@ public class CenterActivity extends BaseMVPActivity {
 
                 View.OnClickListener clickListener = v ->
                 {
-//                    ToastUtil.showLongToast("点击文字--->跳转采购单详情界面");
+//                  ToastUtil.showLongToast("点击文字--->跳转采购单详情界面");
                     DetailActivity.start(mActivity, item.id);
                 };
                 helper.addOnClickListener(R.id.title, clickListener);// 发布名称或者标题
@@ -216,14 +227,21 @@ public class CenterActivity extends BaseMVPActivity {
                 .openLoadMore(10, page -> {
                     showLoadingCus("刷新数据");
                     requestDatas(page + "", currentType);
-                });
+                })
+                .setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+                    @Override
+                    public void onLoadMoreRequested() {
+                        mRecyclerView.onLoadMoreRequested();
+                    }
+                })
+        ;
         mRecyclerView.onRefresh();
     }
 
     private void requestCount(TabLayout.Tab tabAt, TabLayout.Tab tabAt1, TabLayout.Tab tabAt2) {
         new BasePresenter()
                 .putParams("userId", getUserId())
-                .doRequest("admin/moments/momentsCount", true, new HandlerAjaxCallBack() {
+                .doRequest("moments/momentsCount", true, new HandlerAjaxCallBack() {
                     @Override
                     public void onRealSuccess(SimpleGsonBean gsonBean) {
                         tabAt.setText("供应 ( " + gsonBean.getData().supplyCount + " )");
@@ -256,6 +274,7 @@ public class CenterActivity extends BaseMVPActivity {
 //                            mRecyclerView.onRefresh();
 //                          mRecyclerView.getAdapter().getData().remove(moments);
                             mRecyclerView.remove(pos);
+                            RxBus.getInstance().post(RxBus.TAG_DELETE, moments);
                         }
                     }
                 });
@@ -290,7 +309,8 @@ public class CenterActivity extends BaseMVPActivity {
         if (type.equals(MomentsType.collect.getEnumValue())) {
             host = "admin/collect/listMoment";
         } else {
-            host = "admin/moments/list";
+            host = "moments/list";
+//            host = "admin/moments/list";
         }
         Log.i(TAG, "host url: \n" + host);
 //        ToastUtil.showLongToast(host);
@@ -301,12 +321,13 @@ public class CenterActivity extends BaseMVPActivity {
                 .putParams("pageIndex", page)
                 .putParams("momentsType", type)
                 .putParams("type", "moment")
-//              .putParams("userId", getUserId())
+                .putParams("userId", getUserId())
                 .putParams("ownerId", getUserId())
                 .doRequest(host, true, new AjaxCallBack<String>() {
                     @Override
                     public void onSuccess(String json) {
                         hindLoading();
+
                         Log.i(TAG, "onSuccess: " + json);
                         Type beanType = new TypeToken<SimpleGsonBean_new<SimplePageBean<List<Moments>>>>() {
                         }.getType();
@@ -320,7 +341,7 @@ public class CenterActivity extends BaseMVPActivity {
 
                         mRecyclerView.getAdapter().addData(bean_new.data.page.data);
 
-//                        ToastUtil.showLongToast(bean_new.data.page.total + "条数据");
+//                      ToastUtil.showLongToast(bean_new.data.page.total + "条数据");
                         mRecyclerView.selfRefresh(false);
                         hindLoading();
 
@@ -330,6 +351,7 @@ public class CenterActivity extends BaseMVPActivity {
                     public void onFailure(Throwable t, int errorNo, String strMsg) {
                         super.onFailure(t, errorNo, strMsg);
                         mRecyclerView.selfRefresh(false);
+                        mRecyclerView.showLoadMoreFailedView();
                         hindLoading();
                     }
                 });
@@ -364,8 +386,8 @@ public class CenterActivity extends BaseMVPActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == ConstantState.REFRESH) mRecyclerView.onRefresh();
-
+        if (resultCode == ConstantState.REFRESH) ;
+//        mRecyclerView.onRefresh()
         else if (resultCode == ConstantState.PUBLISH_SUCCEED) {
 
 //        } else if (resultCode == ConstantState.PUBLIC_SUCCEED) {
@@ -399,7 +421,7 @@ public class CenterActivity extends BaseMVPActivity {
 
     @Override
     public String setTitle() {
-        return "我的苗木圈";
+        return "苗木圈";
     }
 
 
@@ -420,6 +442,91 @@ public class CenterActivity extends BaseMVPActivity {
         public void onTabReselected(TabLayout.Tab tab) {
 
         }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        D.w("CenterActivity  取消注册 RxBus");
+        RxBus.getInstance().unRegister(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        D.w("CenterActivity  订阅 RxBus");
+        RxBus.getInstance().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        D.w("CenterActivity  取消注册 RxBus");
+        RxBus.getInstance().unRegister(this);
+    }
+
+
+    //订阅  更新
+    @Keep
+    @Subscribe(tag = TAG_UPDATE)
+    public void postUpdata(Moments momentsNew) {
+        if (momentsNew == null) {
+            Log.i(TAG, "postUpdata: momentsNews is null");
+            return;
+        }
+
+        D.e("thumbUpCount" + momentsNew.thumbUpCount);
+        D.e("replyCount" + momentsNew.replyCount);
+
+        Log.i(TAG, "postUpdata: momentsNews is no null \n 立刻刷新当前 start");
+        Moments moments = null;
+        for (int i = 0; i < mRecyclerView.getAdapter().getData().size(); i++) {
+            moments = (Moments) mRecyclerView.getAdapter().getData().get(i);
+            if (momentsNew.id.equals(moments.id)) {
+                Observable.just(i)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<Integer>() {
+                            @Override
+                            public void accept(@NonNull Integer pos) throws Exception {
+                                Log.i(TAG, "accept: 刷新位置 = " + pos);
+                                mRecyclerView.getAdapter().getData().set(pos, momentsNew);
+                                mRecyclerView.getAdapter().notifyItemChanged(pos, momentsNew);
+//                                mRecyclerView.getAdapter().notifyItemChanged(pos);
+                            }
+                        });
+                Log.i(TAG, "刷新成功");
+                return;
+            }
+        }
+        Log.i(TAG, "postUpdata: momentsNews is no null \n 立刻刷新当前 end");
+    }
+
+    //订阅  删除
+    @Keep
+    @Subscribe(tag = RxBus.TAG_DELETE)
+    public void postDelete(Moments momentsNew) {
+        if (momentsNew == null) {
+            Log.i(TAG, "postUpdata: momentsNews is null");
+            return;
+        }
+        Log.i(TAG, "postDelete: momentsNews is no null \n 立刻删除当前 start");
+        Moments moments = null;
+        for (int i = 0; i < mRecyclerView.getAdapter().getData().size(); i++) {
+            moments = (Moments) mRecyclerView.getAdapter().getData().get(i);
+            if (momentsNew.id.equals(moments.id)) {
+                Observable.just(i)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(pos -> {
+                            Log.i(TAG, "accept: 刷新位置 = " + pos);
+                            mRecyclerView.remove(pos);
+//                                mRecyclerView.getAdapter().notifyItemChanged(pos);
+                        });
+                Log.i(TAG, "刷新成功");
+                return;
+            }
+        }
+        Log.i(TAG, "postDelete: momentsNews is no null \n 立刻删除当前 end");
     }
 
 }

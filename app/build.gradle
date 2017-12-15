@@ -118,12 +118,12 @@ android {
             signingConfig signingConfigs.release
         }
 
-//        debug {
-//            minifyEnabled true
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.release
-//            debuggable true
-//        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            debuggable true
+        }
     }
 //    buildTypes {
 //        release {

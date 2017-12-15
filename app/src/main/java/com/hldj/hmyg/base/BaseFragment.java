@@ -32,7 +32,7 @@ public abstract class BaseFragment extends Fragment {
     protected Activity mActivity;
 
     // fragment是否显示了
-    protected boolean mIsVisible = false;
+    public boolean mIsVisible = false;
 
 
     public View rootView;
@@ -40,6 +40,9 @@ public abstract class BaseFragment extends Fragment {
     protected LoadingLayout loadingLayout;
     private View loadPage;
 
+//    public boolean ismIsVisible() {
+//        return mIsVisible;
+//    }
 
     @Nullable
     @Override
@@ -110,7 +113,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void showLoading() {
-
         if (loadingLayout == null) {
             return;
         }

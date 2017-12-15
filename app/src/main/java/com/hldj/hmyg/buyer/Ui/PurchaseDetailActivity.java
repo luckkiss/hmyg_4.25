@@ -453,7 +453,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         if (imagesJson.size() != 0) {
             textView.setOnClickListener(view -> {
                 //穿list pic 集合到新的activity 显示 所有的图片
-                GalleryImageActivity.startGalleryImageActivity(activity, 0, getPicList(imagesJson));
+                GalleryImageActivity.startGalleryImageActivity(activity, 0, getPicListOriginal(imagesJson));
             });
 
         } else {
@@ -468,6 +468,18 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
     //解析 数组数据
     public static ArrayList<Pic> getPicList(List<ImagesJsonBean> imagesJson) {
+        ArrayList pics = new ArrayList<Pic>();
+        if (imagesJson == null || imagesJson.size() == 0) {
+            return pics;
+        }
+        for (int i = 0; i < imagesJson.size(); i++) {
+            pics.add(new Pic(imagesJson.get(i).id, false, imagesJson.get(i).ossMediumImagePath, i));
+        }
+        return pics;
+    }
+
+    //解析  原始 图片
+    public static ArrayList<Pic> getPicListOriginal(List<ImagesJsonBean> imagesJson) {
 
         ArrayList pics = new ArrayList<Pic>();
 
@@ -475,7 +487,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
             return pics;
         }
         for (int i = 0; i < imagesJson.size(); i++) {
-            pics.add(new Pic(imagesJson.get(i).id, false, imagesJson.get(i).ossAppLargeImagePath, i));
+            pics.add(new Pic(imagesJson.get(i).id, false, imagesJson.get(i).url, i));
         }
         return pics;
     }

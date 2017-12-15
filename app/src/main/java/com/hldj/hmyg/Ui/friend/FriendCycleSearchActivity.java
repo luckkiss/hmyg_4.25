@@ -3,16 +3,22 @@ package com.hldj.hmyg.Ui.friend;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.Keep;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.friend.bean.enums.MomentsType;
-import com.hy.utils.ToastUtil;
+import com.hldj.hmyg.Ui.friend.child.FriendBaseFragment;
 
 import net.tsz.afinal.annotation.view.ViewInject;
+
+import java.util.ArrayList;
 
 /**
  * FinalActivity 来进行    数据绑定
@@ -23,6 +29,17 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
     private static final String TAG = "FriendCycleSearch";
 
     public String name = "haha";
+
+//     ArrayList<String> list_title = new ArrayList<String>() {{
+//        add("所有");
+//        add("供应");
+//        add("采购");
+//    }};
+//    private ArrayList<Fragment> list_fragment = new ArrayList<Fragment>() {{
+//        add(FriendBaseFragment.newInstance(MomentsType.all.getEnumValue()));
+//        add(FriendBaseFragment.newInstance(MomentsType.supply.getEnumValue()));
+//        add(FriendBaseFragment.newInstance(MomentsType.purchase.getEnumValue()));
+//    }};
 
 
     //    /*中间2个按钮*/
@@ -40,10 +57,66 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
     public RadioButton rb_center;
     @ViewInject(id = R.id.rb_right, click = "onClick")
     public RadioButton rb_right;
+
+    @ViewInject(id = R.id.radios)
+    public RadioGroup radios;
     /*搜索框*/
     @ViewInject(id = R.id.search_content)
     public EditText search_content;
 
+
+    @Override
+    public void initFiled(ArrayList<String> list_title, ArrayList<Fragment> list_fragment) {
+        super.initFiled(list_title, list_fragment);
+        try {
+            list_fragment.add(0, FriendBaseFragment.newInstance(MomentsType.all.getEnumValue()));
+            list_title.add(0, "所有");
+        } catch (Exception e) {
+            Log.i(TAG, "initFiled: ");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void initViewPager(ViewPager viewpager, RadioGroup view) {
+        //不用此处传来的view  直接使用   radios
+        viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    rb_left.setChecked(true);
+                } else if (position == 1) {
+                    rb_center.setChecked(true);
+                } else {
+                    rb_right.setChecked(true);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        viewpager.setOffscreenPageLimit(3);
+        radios.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.rb_left) {
+                viewpager.setCurrentItem(0);
+            } else if (checkedId == R.id.rb_center) {
+                viewpager.setCurrentItem(1);
+            } else if (checkedId == R.id.rb_right) {
+                viewpager.setCurrentItem(2);
+            }
+        });
+    }
+
+    @Override
+    public void initView() {
+        super.initView();
+    }
 
     @Override
     public int bindLayoutID() {
@@ -57,82 +130,38 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
 
         switch (v.getId()) {
             case R.id.search_bar:
-                ToastUtil.showLongToast("top");
+//                ToastUtil.showLongToast("top");
                 break;
             case R.id.rb_left:
 //                ToastUtil.showLongToast("rb_left");
                 currentType = MomentsType.all.getEnumValue();
-                mRecyclerView.onRefresh();
                 break;
             case R.id.rb_center:
 //                ToastUtil.showLongToast("rb_center");
                 currentType = MomentsType.supply.getEnumValue();
-                mRecyclerView.onRefresh();
                 break;
             case R.id.rb_right:
 //                ToastUtil.showLongToast("rb_right");
                 currentType = MomentsType.purchase.getEnumValue();
-                mRecyclerView.onRefresh();
                 break;
             case R.id.iv_view_type:
                 searchContent = search_content.getText().toString().trim();
-                mRecyclerView.onRefresh();
-//                ToastUtil.showLongToast("iv_view_type");
+                FriendBaseFragment fragment = (FriendBaseFragment) list_fragment.get(viewpager.getCurrentItem());
+                fragment.onRefresh("1");
                 break;
         }
 
     }
 
-
-    //    @Override
-//    public void setView() {
-//        if (bindLayoutID() > 0) {
-//            FinalActivity.initInjectedView(this);
-//        }
-//    }
-
-
     @Override
     public void initChild() {
         toolbar_left_icon.setImageResource(R.drawable.arrow_left_back);
         toolbar_left_icon.setOnClickListener(v -> finish());
-
         searchContent = getSearchContent();
         search_content.setText(searchContent);
         search_content.setSelection(searchContent.length());//将光标移至文字末尾
         currentType = MomentsType.all.getEnumValue();
-//        search_content.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                try {
-//                    Thread.sleep(100);
-//                    Log.i("onTouch", "x" + event.getX() + "   RawX" + event.getRawX());
-//                    Log.i("onTouch", "y" + event.getY() + "   RawY" + event.getRawY());
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                return true;
-//            }
-//        });
-
     }
-
-//    @Override
-//    public void inject() {
-//        FinalActivity.initInjectedView(this);
-//    }
-
-//    @Override
-//    public void initView() {
-//        super.initView();
-//        String keyWorld = getSearchContent();
-//        D.e(keyWorld);
-//    }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//    }
 
 
     public String getSearchContent() {
