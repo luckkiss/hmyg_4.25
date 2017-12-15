@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +35,7 @@ import com.hldj.hmyg.util.TakePhotoUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 import com.lqr.optionitemview.OptionItemView;
+import com.zf.iosdialog.widget.AlertDialog;
 import com.zzy.common.widget.MeasureGridView;
 
 import net.tsz.afinal.FinalActivity;
@@ -172,6 +174,10 @@ public class PublishActivity extends BaseMVPActivity {
 //        arrayList.add(new Pic("q", false, "http://img95.699pic.com/photo/00040/2066.jpg_wh300.jpg", 4));
 //      arrayList.add(new Pic("hellows", true, MeasureGridView.usrl1, 12));
 
+//      grid.setImageNumColumns(3);
+//      grid.setNumColumns(3);
+//      grid.setHorizontalSpacing(3);
+//      grid.setVerticalSpacing(0);
         grid.init(this, arrayList, (ViewGroup) grid.getParent(), new FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener() {
             @Override
             public void onTakePic() {
@@ -256,42 +262,92 @@ public class PublishActivity extends BaseMVPActivity {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter(pic -> !TextUtils.isEmpty(pic.getUrl()))
+
                 .doFinally(new Action() {
                     @Override
                     public void run() throws Exception {
+                        String type = "";
                         if (pics != null && pics.size() > 0 && (pics.size() == grid.getAdapter().getDataList().size())) {
                             grid.getAdapter().notify((ArrayList<Pic>) pics);
+                            UpdateLoading("图片上传成功，正在上传数据...");
+                            type = "succeed";
                         } else {
                             List<Pic> l = addNoUpLoadImg(grid.getAdapter().getDataList());//把未上传的图片。添加到尾部。
                             grid.getAdapter().notify((ArrayList<Pic>) pics);
                             grid.getAdapter().addItems((ArrayList<Pic>) l);
                             pics.clear();
-                        }
-                        UpdateLoading("图片上传成功，正在上传数据...");
-                        Log.i(TAG, "doFinally: 上传所有数据");
-                        //图片上传结束
-                        Moments moments = new Moments();
-                        moments.content = et_content.getText().toString();
-                        moments.cityCode = cityCode;
-                        moments.momentsType = tag;
-                        moments.images = GsonUtil.Bean2Json(pics);
-                        moments.imagesData = GsonUtil.Bean2Json(pics);
-                        new BasePresenter().putParams(moments).doRequest("admin/moments/save", true, new HandlerAjaxCallBack(mActivity) {
-                            @Override
-                            public void onRealSuccess(SimpleGsonBean gsonBean) {
-                                ToastUtil.showLongToast(gsonBean.msg);
-                                Log.i(TAG, "run: 上传结束" + gsonBean.msg);
-                                hindLoading();
-                                if (getTag().equals(PURCHASE)) {
-                                    //求购成功
-                                    setResult(PURCHASE_SUCCEED);
-                                } else if (getTag().equals(PUBLISH)) {
-                                    //发布成功
-                                    setResult(PUBLISH_SUCCEED);
-                                }
-                                finish();
+                            UpdateLoading("正在上传数据...");
+                            if (grid.getAdapter().getDataList().size() == 0) {
+                                type = "succeed";
+                            } else {
+                                type = "faild";
                             }
-                        });
+                        }
+                        if (type.equals("succeed")) {
+                            Log.i(TAG, "doFinally: 上传所有数据");
+                            //图片上传结束
+                            Moments moments = new Moments();
+                            moments.content = et_content.getText().toString();
+                            moments.cityCode = cityCode;
+                            moments.momentsType = tag;
+                            moments.images = GsonUtil.Bean2Json(pics);
+                            moments.imagesData = GsonUtil.Bean2Json(pics);
+                            new BasePresenter().putParams(moments).doRequest("admin/moments/save", true, new HandlerAjaxCallBack(mActivity) {
+                                @Override
+                                public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                    ToastUtil.showLongToast(gsonBean.msg);
+                                    Log.i(TAG, "run: 上传结束" + gsonBean.msg);
+                                    hindLoading();
+                                    if (getTag().equals(PURCHASE)) {
+                                        //求购成功
+                                        setResult(PURCHASE_SUCCEED);
+                                    } else if (getTag().equals(PUBLISH)) {
+                                        //发布成功
+                                        setResult(PUBLISH_SUCCEED);
+                                    }
+                                    finish();
+                                }
+                            });
+                        } else {
+                            new AlertDialog(mActivity).builder()
+                                    .setTitle("有些图片上传失败了?")
+                                    .setPositiveButton("继续提交", v1 -> {
+                                        Log.i(TAG, "doFinally: 上传所有数据");
+                                        //图片上传结束
+                                        Moments moments = new Moments();
+                                        moments.content = et_content.getText().toString();
+                                        moments.cityCode = cityCode;
+                                        moments.momentsType = tag;
+                                        moments.images = GsonUtil.Bean2Json(pics);
+                                        moments.imagesData = GsonUtil.Bean2Json(pics);
+                                        new BasePresenter().putParams(moments).doRequest("admin/moments/save", true, new HandlerAjaxCallBack(mActivity) {
+                                            @Override
+                                            public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                                ToastUtil.showLongToast(gsonBean.msg);
+                                                Log.i(TAG, "run: 上传结束" + gsonBean.msg);
+                                                hindLoading();
+                                                if (getTag().equals(PURCHASE)) {
+                                                    //求购成功
+                                                    setResult(PURCHASE_SUCCEED);
+                                                } else if (getTag().equals(PUBLISH)) {
+                                                    //发布成功
+                                                    setResult(PUBLISH_SUCCEED);
+                                                }
+                                                finish();
+                                            }
+                                        });
+
+                                    }).setNegativeButton("重新上传", v2 -> {
+                                requestUpload(MomentsType.purchase.getEnumValue());
+                            }).show();
+//                            new AlertDialog(mActivity).builder()
+//                                    .setTitle("确定退出登录?")
+//                                    .setPositiveButton("退出登录", v1 -> {
+//
+//                                    }).setNegativeButton("取消", v2 -> {
+//                            }).show();
+
+                        }
 
 
                     }
@@ -416,11 +472,17 @@ public class PublishActivity extends BaseMVPActivity {
     }
 
     public static void start(Activity activity, String tag) {
-
         Intent intent = new Intent(activity, PublishActivity.class);
         intent.putExtra(TAG, tag);
         Log.i(TAG, "start: " + tag);
         activity.startActivityForResult(intent, 110);
+    }
+
+    public static void start(Fragment fragment, String tag) {
+        Intent intent = new Intent(fragment.getActivity(), PublishActivity.class);
+        intent.putExtra(TAG, tag);
+        Log.i(TAG, "start: " + tag);
+        fragment.startActivityForResult(intent, 110);
     }
 
     @Override
@@ -444,10 +506,11 @@ public class PublishActivity extends BaseMVPActivity {
 
         //此处进行上传操作
         return MyLuban.compress(mActivity, getFileList(pics))
-                .setMaxSize(512)
+                .setMaxSize(256)
                 .setMaxHeight((int) (1920))
                 .setMaxWidth((int) (1280))
                 .putGear(MyLuban.CUSTOM_GEAR)
+//              .putGear(MyLuban.THIRD_GEAR)
                 .asListObservable()
                 .flatMap(new Function<List<File>, ObservableSource<File>>() {
                     @Override

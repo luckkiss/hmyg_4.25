@@ -2,7 +2,7 @@
 <resources>
     <dimen name="titleSize">18sp</dimen>
     <dimen name="titleRightTex">16sp</dimen>
-    <dimen name="backWH">30dp</dimen>
+    <dimen name="backWH">28dp</dimen>
 
 
     <dimen name="textSizeS">12dp</dimen>

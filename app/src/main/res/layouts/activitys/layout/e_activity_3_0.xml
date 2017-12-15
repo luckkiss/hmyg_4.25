@@ -137,10 +137,7 @@
                 style="@style/home_types"
                 android:text="我的苗木圈"
                 android:visibility="visible"
-                app:state_drawable="@drawable/tab_c_sel"
-                app:state_drawable_height="30dp"
-                app:state_drawable_padding_top="15dp"
-                app:state_drawable_width="30dp"
+                app:state_drawable="@mipmap/wd_wdmmq"
                 tools:visibility="visible" />
 
             <com.coorchice.library.SuperTextView

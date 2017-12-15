@@ -53,7 +53,6 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.RippleAdjuster;
 import com.hldj.hmyg.util.UploadHeadUtil;
-import com.hldj.hmyg.widget.MyCircleImageView;
 import com.hldj.hmyg.widget.ShareDialogFragment;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
@@ -551,7 +550,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     }
 
     public static class OnlineEvent {
-        boolean isOnline = false;
+        public boolean isOnline = false;
 
         public OnlineEvent(boolean isOnline) {
             this.isOnline = isOnline;
@@ -588,8 +587,8 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                     @Override
                     public void onSuccess(String json) {
                         Log.i("=======", "onSuccess: " + json);
-                        if (GetServerUrl.isTest)//测试的时候显示
-                            ToastUtil.showShortToast("测试的时候显示\n" + "请求是否显示项目结果：\n" + json);
+//                        if (GetServerUrl.isTest)//测试的时候显示
+//                            ToastUtil.showShortToast("测试的时候显示\n" + "请求是否显示项目结果：\n" + json);
                         SimpleGsonBean bean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
                         if (bean.isSucceed()) {
 //                            GetServerUrl.isTest

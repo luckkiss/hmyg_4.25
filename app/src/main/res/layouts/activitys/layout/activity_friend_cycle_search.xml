@@ -10,16 +10,21 @@
         android:id="@+id/search_bar"
         layout="@layout/search_top_toolbar" />
 
+    <View
+        style="@style/View_line_gray"
+        android:layout_height="1px"
+        android:background="@color/divider_color_bg" />
+
     <RadioGroup
         android:id="@+id/radios"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:paddingBottom="6dp"
+        android:paddingBottom="10dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:paddingTop="6dp">
+        android:paddingTop="10dp">
 
         <RadioButton
             android:id="@+id/rb_left"
@@ -27,9 +32,9 @@
             android:layout_height="wrap_content"
             android:button="@drawable/check_bg_friend_selector"
             android:checked="true"
-            android:textSize="14sp"
             android:paddingLeft="5dp"
-            android:text="全部" />
+            android:text="全部"
+            android:textSize="14sp" />
 
         <RadioButton
             android:id="@+id/rb_center"
@@ -52,46 +57,26 @@
 
     </RadioGroup>
 
-    <!--<View style="@style/View_line_gray" />-->
+    <View
+        style="@style/View_line_gray"
+        android:layout_height="1px"
+        android:background="@color/divider_color_bg" />
 
     <include
         layout="@layout/toolbar_radio_3_0"
         android:visibility="gone" />
 
 
-    <me.kaede.tagview.TagView
-        android:id="@+id/tagview"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
-        android:visibility="gone"
-        app:lineMargin="5dp"
-        app:tagMargin="3dp"
-        app:textPaddingBottom="3dp"
-        app:textPaddingLeft="10dp"
-        app:textPaddingRight="10dp"
-        app:textPaddingTop="3dp" />
+        android:layout_height="match_parent" />
 
-
-    <!--<View-->
-    <!--android:id="@+id/id_view"-->
+    <!--<com.hldj.hmyg.buyer.weidet.CoreRecyclerView-->
+    <!--android:id="@+id/core_rv_c"-->
     <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="1px"-->
-    <!--android:background="@color/main_color" />-->
-
-
-    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
-        android:id="@+id/core_rv_c"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <EditText
-        android:id="@+id/call_back"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:hint="回复：seri"
-        android:visibility="gone" />
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1" />-->
 
 
 </LinearLayout>

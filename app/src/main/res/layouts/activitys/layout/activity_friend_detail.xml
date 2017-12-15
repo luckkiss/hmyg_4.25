@@ -33,6 +33,11 @@
                 <!--<include layout="@layout/item_friend_cicle" />-->
                 <include layout="@layout/item_friend_cicle_simple" />
 
+                <View
+                    style="@style/View_line_gray"
+                    android:background="@color/divider_color_bg"
+                    android:alpha="0.5" />
+
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar
@@ -76,7 +81,7 @@
             app:tabIndicatorColor="@color/main_color"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/main_color"
-            app:tabTextColor="@color/text_color333">
+            app:tabTextColor="@color/text_color333" android:background="@drawable/bg_bottom_line">
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tab1"
@@ -95,6 +100,7 @@
 
 
     </android.support.design.widget.AppBarLayout>
+
 
 
     <com.hldj.hmyg.buyer.weidet.CoreRecyclerView

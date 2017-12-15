@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -182,6 +183,7 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
                 mQuickAdapter.addFooterView(notLoadingView);
             } else {
                 addDataListener.addData(page);
+
             }
         });
         page += 1;
@@ -341,7 +343,16 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
     }
 
     public CoreRecyclerView showLoadMoreFailedView() {
-        mQuickAdapter.showLoadMoreFailedView();
+
+        if (page == 0) {
+            Log.w("CoreRecyclerView", "showLoadMoreFailedView: page == 0   dont refresh");
+            return this;
+        } else {
+            Log.w("CoreRecyclerView", "showLoadMoreFailedView: page == +" + page + "   refresh  page -- ");
+            page -= 1;
+            mQuickAdapter.showLoadMoreFailedView();
+        }
+
         return this;
     }
 

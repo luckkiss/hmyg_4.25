@@ -111,10 +111,12 @@ public class MeasureGridView extends GridView {
 //                        context,
 //                        EditGalleryImageActivity.TO_EDIT_PUBLISH_IMAGE,
 //                        position, adapter.getDataList());
-                GalleryImageActivity.startGalleryImageActivity(
-                        context, position, adapter.getDataList());
-
-
+                if (onViewImagesListener != null) {
+                    onViewImagesListener.onViewImages(context, position, adapter.getDataList());
+                } else {
+                    GalleryImageActivity.startGalleryImageActivity(
+                            context, position, adapter.getDataList());
+                }
             }
 
         }
@@ -147,5 +149,16 @@ public class MeasureGridView extends GridView {
 
     }
 
+    public OnViewImagesListener onViewImagesListener;
+
+    public void setOnViewImagesListener(OnViewImagesListener listener) {
+        onViewImagesListener = listener ;
+    }
+
+    public static interface OnViewImagesListener {
+        void onViewImages(Context mContext, int pos, ArrayList<Pic> pics);
+    }
 
 }
+
+

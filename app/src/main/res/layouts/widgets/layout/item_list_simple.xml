@@ -14,15 +14,17 @@
 -->
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:lineSpacingMultiplier="1.2"
-    android:minHeight="28dp"
-    android:paddingBottom="3dp"
+    android:minHeight="30dp"
+    android:paddingBottom="4dp"
     android:paddingEnd="16dp"
     android:paddingStart="16dp"
-    android:paddingTop="3dp"
+    android:paddingTop="4dp"
+    tools:text="134564646"
     android:textAppearance="?android:attr/textAppearanceListItemSmall"
     android:textSize="15sp" />

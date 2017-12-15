@@ -36,6 +36,7 @@ import com.hldj.hmyg.saler.M.PurchaseBean;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.DownTime;
 import com.hy.utils.StringFormatUtil;
@@ -102,6 +103,8 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //        showLoading();
 //      loadingLayout.setStatus(LoadingLayout.Loading);
         getView(R.id.tv_activity_purchase_back).setOnClickListener(view -> finish());
+
+
         ll_head = getView(R.id.ll_activity_purchase_head);
 
         ExpandableItemAdapter itemAdapter = new ExpandableItemAdapter(R.layout.item_program_purch, R.layout.item_program_purch_sub) {
@@ -265,7 +268,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //                    }
 
                     helper.setText(R.id.tv_program_purch_sub_plant_addt, "苗源地：" + item.cityName);//福建漳州
-                    helper.setText(R.id.tv_program_purch_sub_space_text, "规格：" + item.specText + "; " + item.remarks);//
+                    helper.setText(R.id.tv_program_purch_sub_space_text, "规格：" + item.specText + "; " + FUtil.$_zero_2_null(item.remarks));//
                     helper.setText(R.id.tv_program_purch_sub_remark, item.implementRemarks);//备注
 
 //                    helper.setSelected(R.id.tv_program_purch_sub_is_true, item.quoteImplementStatus.equals("qualified"));
@@ -333,8 +336,8 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //                        ToastUtil.showShortToast("打开已采用" + item.quoteListJson.toString());
                         helper.setSelected(R.id.tv_program_purch_see_detail, !item.isExpanded());//测试时必然显示
                         if (item.isExpanded()) {
-                                collapse(helper.getAdapterPosition(), false, true);
-                                Log.d(TAG, "pos: " + helper.getAdapterPosition());
+                            collapse(helper.getAdapterPosition(), false, true);
+                            Log.d(TAG, "pos: " + helper.getAdapterPosition());
 
                         } else {
                             expand(helper.getAdapterPosition(), false, true);
@@ -357,7 +360,6 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
         };
 
 
-
 //        itemAdapter.setDefaultViewTypeLayout(R.layout.item_program_purch); //default
 
 //R.layout.item_program_purch
@@ -374,7 +376,6 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
 //        coreRecyclerView.removeAllFooterView();
 //        coreRecyclerView.removeAllHeaderView();
-
 
 
         //加载 index 信息 head
@@ -494,7 +495,8 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
         tv_program_pur_projectName_num.setText(purchaseBean.projectName + "(" + purchaseBean.num + ")");
         tv_program_pur_city.setText("用苗地：" + purchaseBean.cityName);
         tv_program_pur_phoner.setText("联系客服：" + purchaseBean.dispatchName);
-
+        if (purchaseBean.num != null)
+            ((TextView) getView(R.id.tv_activity_purchase_back)).setText(purchaseBean.num);
         tv_program_pur_phone_num.setText(purchaseBean.dispatchPhone);
         tv_program_pur_phone_num.setOnClickListener(view -> FlowerDetailActivity.CallPhone(purchaseBean.dispatchPhone, mActivity));
 

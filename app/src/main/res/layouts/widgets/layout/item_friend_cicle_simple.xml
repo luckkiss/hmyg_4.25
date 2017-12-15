@@ -19,7 +19,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/home_icon_type02"
+            android:src="@drawable/icon_persion_pic"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,7 +60,7 @@
             android:layout_width="28dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="27dp"
             android:layout_marginRight="32dp"
             android:layout_marginTop="1px"
             android:adjustViewBounds="true"

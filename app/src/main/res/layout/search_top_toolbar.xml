@@ -34,7 +34,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:singleLine="true"
-        android:textColor="@color/text_color999"
+        android:textColor="@color/text_color111"
         android:textColorHint="@color/hint_text_color"
         android:textSize="15sp" />
 

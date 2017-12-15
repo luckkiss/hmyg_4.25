@@ -15,7 +15,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/home_icon_type02"
+        android:src="@drawable/icon_persion_pic"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,7 +47,7 @@
         android:id="@+id/imageView7"
         android:layout_width="28dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="27dp"
         android:layout_marginRight="32dp"
         android:layout_marginTop="0dp"
         android:adjustViewBounds="true"
@@ -95,7 +95,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:adjustViewBounds="true"
         android:horizontalSpacing="0dp"
         android:listSelector="@color/transparent"

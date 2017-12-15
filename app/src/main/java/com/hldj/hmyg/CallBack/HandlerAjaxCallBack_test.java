@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
-import com.hldj.hmyg.base.Rx.TUtil;
 import com.hldj.hmyg.bean.SimpleGsonBean_test;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.ToastUtil;
@@ -42,7 +41,7 @@ public abstract class HandlerAjaxCallBack_test<E extends SimpleGsonBean_test> ex
 
     private E e ;
     public final void onSuccess(String json) {
-        e = TUtil.getT(this, 0);
+//        e = TUtil.getT(this, 0);
         Log.i("HandlerAjaxCallBack", "onSuccess: \n" + json);
         try {
             Type type = new TypeToken<SimpleGsonBean_test<Moments>>() {

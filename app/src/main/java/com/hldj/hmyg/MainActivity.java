@@ -51,7 +51,6 @@ import com.hldj.hmyg.util.MyUtil;
 import com.hldj.hmyg.util.StartBarUtils;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
-import com.hy.utils.ToastUtil;
 import com.white.update.UpdateInfo;
 import com.white.utils.SettingUtils;
 
@@ -764,16 +763,16 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
 
     private void requestUserInfo() {
-        if (GetServerUrl.isTest) {
-            ToastUtil.showShortToast("测试时显示\n请求 个人数据");
-        }
+//        if (GetServerUrl.isTest) {
+//            ToastUtil.showShortToast("测试时显示\n请求 个人数据");
+//        }
         LoginPresenter.getUserInfo(MyApplication.Userinfo.getString("id", ""), new ResultCallBack<UserInfoGsonBean>() {
             @Override
             public void onSuccess(UserInfoGsonBean userInfoGsonBean) {
                 D.e("========获取个人数据=====userInfoGsonBean=====" + userInfoGsonBean.toString());
-                if (GetServerUrl.isTest) {
-                    ToastUtil.showShortToast("测试时显示\n请求 个人数据" + userInfoGsonBean.toString());
-                }
+//                if (GetServerUrl.isTest) {
+//                    ToastUtil.showShortToast("测试时显示\n请求 个人数据" + userInfoGsonBean.toString());
+//                }
             }
 
             @Override

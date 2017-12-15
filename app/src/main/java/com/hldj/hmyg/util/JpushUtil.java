@@ -25,8 +25,6 @@ public class JpushUtil {
             public void gotResult(int code, String arg1, Set<String> arg2) {
 
                 D.e("极光推送返回结果 code=" + code + " arg1" + arg1 + " arg2" + arg2);
-
-
             }
         });
     }
