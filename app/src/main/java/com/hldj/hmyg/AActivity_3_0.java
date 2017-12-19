@@ -235,8 +235,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     }
 
 
-
-
     List<ArticleBean> data = new ArrayList<>();
     List<View> views = new ArrayList<>();
 
@@ -442,7 +440,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             ToastUtil.showShortToast("数据解析失败");
             e.printStackTrace();
         }
-        if (indexGsonBean!=null && indexGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
+        if (indexGsonBean != null && indexGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
             initNewList(indexGsonBean);//初始化 采购列表
             initArticles(indexGsonBean.data.articleList);//初始化  头条新闻
         }
@@ -531,7 +529,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                     initViewPager();
                     // initAbsViewPager();
                 }
-
 
 
                 // 商铺
@@ -704,6 +701,16 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 startActivity(toMessageListActivity);
                 getParent().overridePendingTransition(R.anim.slide_in_left,
                         R.anim.slide_out_right);
+
+
+                D.w("=================发送自定义推送消息 start===================");
+
+
+//                JpushUtil.sendCustommPush();
+
+
+                D.w("=================发送自定义推送消息 end===================");
+
                 break;
 
             case R.id.tv_a_search://搜索按钮 --- new

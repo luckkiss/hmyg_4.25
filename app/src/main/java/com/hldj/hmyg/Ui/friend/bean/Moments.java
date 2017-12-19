@@ -65,7 +65,7 @@ public class Moments implements Serializable {
     public List<MomentsThumbUp> thumbUpListJson ;
 
 
-    public PurchaseJsonBean.CiCityBean ciCity;
+    public PurchaseJsonBean.CiCityBean ciCity = new PurchaseJsonBean.CiCityBean();
 
 
     /**

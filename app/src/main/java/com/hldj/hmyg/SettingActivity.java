@@ -100,9 +100,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                 if (updateInfo != null) {
                     ToastUtil.showShortToast(updateInfo.newFeature);
                 } else {
-                    ToastUtil.showShortToast("1.修改记苗本详情样式" +
-                            "2.拍照异常图片过滤" +
-                            "3.损坏图片尝试处理");
+                    ToastUtil.showShortToast("暂无优化日志");
                 }
 
 //                Log.i(TAG, "hello world");

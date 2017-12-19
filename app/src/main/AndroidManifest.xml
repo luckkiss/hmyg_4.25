@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hldj.hmyg"
     android:versionCode="84"
-    android:versionName="3.0.6_test">
+    android:versionName="3.0.6release">
 
     <!--  android:versionCode="83"
     android:versionName="3.0.5beta1">
@@ -677,6 +677,10 @@
         <meta-data
             android:name="JPUSH_APPKEY"
             android:value="5ea65acf72f09d1fa4664a00" />
+        <!--原版  key-->
+
+        <!--android:value="27b97eb500b6ac59f8de2a97" />   luocaca key-->
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="21e7d83fc58234f31b5162a8bd78f745" />

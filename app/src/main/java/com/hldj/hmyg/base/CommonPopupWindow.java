@@ -53,8 +53,29 @@ public class CommonPopupWindow extends PopupWindow {
 
         if (location[1] > 500) {
             //↑
+//            TYPE_WHITE_DOWN
             setBackgroundDrawable(mBuilder.mContext.getResources().getDrawable(TYPE_WHITE_DOWN));// 设置背景图片，不能在布局中设置，要通过代码来设置
-            showAtLocation(v, Gravity.NO_GRAVITY, (location[0] + v.getWidth() / 2) - mBuilder.width / 2, location[1] - mBuilder.height + 10);
+//            showAtLocation(v, Gravity.NO_GRAVITY, (location[0] + v.getWidth() / 2) - mBuilder.width / 2, location[1] - mBuilder.height + 10);
+//            showAtLocation(v, Gravity.NO_GRAVITY, (location[0] + this.getWidth() / 2) - mBuilder.width / 2, location[1] - mBuilder.height + 10);
+//            showAtLocation(v, Gravity.NO_GRAVITY, location[0], location[1] + this.getHeight());
+
+//          //加载PopupWindow的布局
+//          View view = View.inflate(this, R.layout.popwindow, null);
+////测量布局的大小
+            this.getContentView().measure(0, 0);
+////将布局大小设置为PopupWindow的宽高
+            PopupWindow popWindow = new PopupWindow(this.getContentView(), this.getContentView().getMeasuredWidth(), this.getContentView().getMeasuredHeight(), true);
+            popWindow.getHeight();
+            popWindow.getWidth();
+
+            Log.i("h", " popWindow.getH: " + popWindow.getHeight() + "   this.getContentView()" + this.getContentView().getWidth());
+            Log.i("w", " popWindow.getWidth(): " + popWindow.getWidth() + "   this.getContentView()" + this.getContentView().getHeight());
+
+            Log.i("w", "showUp2: " + this.getWidth());
+            Log.i("h", "showUp2: " + this.getHeight());
+            showAtLocation(v, Gravity.NO_GRAVITY, (location[0] + v.getWidth() / 2) - popWindow.getWidth() / 2, (int) (location[1] - (popWindow.getHeight() * 1.2) + 10));
+
+
         } else {
             //↓
             setBackgroundDrawable(mBuilder.mContext.getResources().getDrawable(TYPE_WHITE_UP));// 设置背景图片，不能在布局中设置，要通过代码来设置

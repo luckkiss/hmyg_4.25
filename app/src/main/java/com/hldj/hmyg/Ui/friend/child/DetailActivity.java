@@ -1,6 +1,7 @@
 package com.hldj.hmyg.Ui.friend.child;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Keep;
 import android.support.design.widget.TabItem;
@@ -21,7 +22,6 @@ import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.Eactivity3_0;
-import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.bean.MomentsReply;
 import com.hldj.hmyg.Ui.friend.bean.MomentsThumbUp;
@@ -45,7 +45,6 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zf.iosdialog.widget.AlertDialog;
 import com.zzy.common.widget.MeasureGridView;
 
 import net.tsz.afinal.FinalActivity;
@@ -60,9 +59,9 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 import static com.example.weixin_friendcircle.Util.dip2px;
+import static com.hldj.hmyg.Ui.friend.child.FriendBaseFragment.sendPush;
 import static com.hldj.hmyg.base.rxbus.RxBus.TAG_UPDATE;
 
 /**
@@ -176,7 +175,7 @@ public class DetailActivity extends BaseMVPActivity {
                                 }
 
                                 RxBus.getInstance().post(TAG_UPDATE, moments);
-
+                                sendPush(moments);
 
                             }
                         });
@@ -217,6 +216,7 @@ public class DetailActivity extends BaseMVPActivity {
                                     tablayout.getTabAt(0).setText("评论 (" + moments.itemListJson.size() + ")");
                                     moments.replyCount = moments.itemListJson.size();
                                     RxBus.getInstance().post(RxBus.TAG_UPDATE, moments);
+                                    sendPush(moments);
 //                                    mCoreRecyclerView.getRecyclerView().scrollToPosition(mCoreRecyclerView.getAdapter().getItemCount()-1);
 //                                    GlobBaseAdapter globBaseAdapter = (GlobBaseAdapter) measureListView.getAdapter();
 //                                    globBaseAdapter.notifyDataSetChanged();
@@ -264,73 +264,12 @@ public class DetailActivity extends BaseMVPActivity {
                     //未登录。跳转登录界面
                     if (!commitLogin()) return;
 //                    ToastUtil.showLongToast("点击第4个");
-                    if (popupWindow1 == null)
-                        popupWindow1 = new CommonPopupWindow.Builder(mActivity)
-                                .setWidthDp(115)
-                                .setHeightDp(165)
-                                .setOutsideTouchable(true)
-                                .bindLayoutId(R.layout.friend_more)
-                                .setCovertViewListener(new CommonPopupWindow.OnCovertViewListener() {
-                                    @Override
-                                    public void covertView(View viewRoot) {
-
-                                           /*分享按钮*/
-                                        TextView pup_share = (TextView) viewRoot.findViewById(R.id.pup_share);
-                                        pup_share.setTextColor(getColorByRes(R.color.text_color111));
-                                        pup_share.setOnClickListener(v_share -> {
-//                                            ToastUtil.showLongToast("分享");
-                                            FriendPresenter.share(mActivity, moments);
-                                            popupWindow1.dismiss();
-                                        });
-
-                                        TextView pup_del = (TextView) viewRoot.findViewById(R.id.pup_del);
-                                        pup_del.setTextColor(getColorByRes(R.color.text_color111));
-                                        pup_del.setOnClickListener(vd -> {
-                                            new AlertDialog(mActivity).builder()
-                                                    .setTitle("确定删除本项?")
-                                                    .setPositiveButton("确定删除", v1 -> {
-                                                        FriendPresenter.doDelete(moments.id, new HandlerAjaxCallBack((NeedSwipeBackActivity) mActivity) {
-                                                            @Override
-                                                            public void onRealSuccess(SimpleGsonBean gsonBean) {
-                                                                ToastUtil.showLongToast(gsonBean.msg);
-                                                                hindLoading();
-                                                                finish();
-                                                                RxBus.getInstance().post(RxBus.TAG_DELETE, moments);
-                                                            }
-                                                        });
-
-                                                    }).setNegativeButton("取消", v2 -> {
-                                            }).show();
-//                                  ToastUtil.showLongToast("删除\n" + item.id);
-                                            popupWindow1.dismiss();
-                                        });
-
-                                        TextView tv1 = (TextView) viewRoot.findViewById(R.id.pup_subscriber);
-                                        tv1.setText("加入收藏");
-                                        tv1.setOnClickListener(v -> {
-                                            popupWindow1.dismiss();
-//                                         ToastUtil.showLongToast("加入收藏" + moments.id);
-                                            Log.i(TAG, "covertView: " + moments.id);
-                                            FriendPresenter.doCollect(moments.id, new HandlerAjaxCallBack() {
-                                                @Override
-                                                public void onRealSuccess(SimpleGsonBean gsonBean) {
-                                                    ToastUtil.showLongToast(gsonBean.msg);
-                                                }
-                                            });
-                                            popupWindow1.dismiss();
-                                        });
-                                        tv1.setTextColor(getColorByRes(R.color.text_color111));
-                                        TextView tv2 = (TextView) viewRoot.findViewById(R.id.pup_show_share);
-                                        tv2.setTextColor(getColorByRes(R.color.text_color111));
-                                        tv2.setText("进入店铺");
-                                        tv2.setOnClickListener(v -> {
-//                                            ToastUtil.showLongToast("进入店铺" + moments.attrData.storeId);
-                                            StoreActivity_new.start2Activity(mActivity, moments.attrData.storeId);
-                                            popupWindow1.dismiss();
-                                        });
-                                    }
-                                })
-                                .build();
+                    popupWindow1 = FriendPresenter.createMorePop(moments, (BaseMVPActivity) mActivity, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            finish();
+                        }
+                    });
 //                            .showAsDropDown(helper.getView(R.id.fourth));
                     popupWindow1.showUp2(fourth);
 
@@ -438,6 +377,7 @@ public class DetailActivity extends BaseMVPActivity {
                                             ToastUtil.showLongToast(gsonBean.msg);
 
                                             RxBus.getInstance().post(RxBus.TAG_UPDATE, mMoments);
+                                            sendPush(mMoments);
 //                                    mCoreRecyclerView.getRecyclerView().scrollToPosition(mCoreRecyclerView.getAdapter().getItemCount()-1);
 //                                    GlobBaseAdapter globBaseAdapter = (GlobBaseAdapter) measureListView.getAdapter();
 //                                    globBaseAdapter.notifyDataSetChanged();
@@ -541,6 +481,12 @@ public class DetailActivity extends BaseMVPActivity {
         Intent intent = new Intent(activity, DetailActivity.class);
         intent.putExtra(TAG, id);
         activity.startActivityForResult(intent, 110);
+    }
+
+    public static void start(Context context, String id) {
+        Intent intent = new Intent(context, DetailActivity.class);
+        intent.putExtra(TAG, id);
+        context.startActivity(intent);
     }
 
     public static void start(Fragment fragment, String id) {
