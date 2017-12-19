@@ -126,7 +126,9 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
 
     @Override
     public void hindLoading() {
+
         super.hindLoading();
+
     }
 
     @Override

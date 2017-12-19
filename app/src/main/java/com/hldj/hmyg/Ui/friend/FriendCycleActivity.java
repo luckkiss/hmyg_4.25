@@ -73,7 +73,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 
     public ArrayList<String> list_title = new ArrayList<String>() {{
         add("供应");
-        add("采购");
+        add("求购");
     }};
 
     public ArrayList<Fragment> list_fragment = new ArrayList<Fragment>() {{

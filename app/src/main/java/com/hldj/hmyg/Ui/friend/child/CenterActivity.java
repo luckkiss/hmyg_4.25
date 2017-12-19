@@ -274,7 +274,12 @@ public class CenterActivity extends BaseMVPActivity {
 //                            mRecyclerView.onRefresh();
 //                          mRecyclerView.getAdapter().getData().remove(moments);
                             mRecyclerView.remove(pos);
-                            RxBus.getInstance().post(RxBus.TAG_DELETE, moments);
+
+                            /*非 搜藏的情况。发送 删除关播  不需要删除列表的 */
+                            if (!currentType.equals(MomentsType.collect.getEnumValue()))//enumValue  collect
+                                RxBus.getInstance().post(RxBus.TAG_DELETE, moments);
+
+
                         }
                     }
                 });
@@ -368,8 +373,7 @@ public class CenterActivity extends BaseMVPActivity {
     }
 
     public boolean isSelf() {
-        return getUserId().equals(MyApplication.Userinfo.getString("id", ""));
-
+        return MyApplication.Userinfo.getString("id", "").equals(getUserId());
     }
 
     public String getUserId() {

@@ -17,7 +17,6 @@ import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.LoginActivity;
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.Ui.friend.FriendCycleSearchActivity;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.bean.MomentsReply;
@@ -46,7 +45,6 @@ import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.MyCircleImageView;
 import com.hy.utils.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zf.iosdialog.widget.AlertDialog;
 import com.zzy.common.widget.MeasureGridView;
 import com.zzy.common.widget.MeasureListView;
 
@@ -119,6 +117,10 @@ public class FriendBaseFragment extends BaseFragment {
             protected void convert(BaseViewHolder helper, Moments item) {
                 isFirst = false;
                 Log.i(TAG, "convert: " + item + "   id=" + item.id);
+                D.i("-----------------");
+                String json = GsonUtil.Bean2Json(item);
+                D.i("Moments json \n" + json);
+                D.i("-----------------");
                 //头像点击
                 helper.addOnClickListener(R.id.head, v -> {
 //                    ToastUtil.showLongToast("点击头像--->跳转个人商店");
@@ -261,7 +263,7 @@ public class FriendBaseFragment extends BaseFragment {
                                     helper.setText(R.id.first, "点赞 " + gsonBean.getData().thumbUpCount + "");
                                     helper.setSelected(R.id.first, gsonBean.getData().isThumUp);
                                     RxBus.getInstance().post(RxBus.TAG_UPDATE, item);
-
+                                    sendPush(item);
                                 }
                             });
                 }).setText(R.id.first, "点赞 " + item.thumbUpCount);//按钮一 点赞
@@ -284,6 +286,7 @@ public class FriendBaseFragment extends BaseFragment {
                                                 GlobBaseAdapter globBaseAdapter = (GlobBaseAdapter) measureListView.getAdapter();
                                                 globBaseAdapter.notifyDataSetChanged();
                                                 RxBus.getInstance().post(RxBus.TAG_UPDATE, item);
+                                                sendPush(item);
                                             }
 
                                         }
@@ -305,65 +308,16 @@ public class FriendBaseFragment extends BaseFragment {
 //                    FlowerDetailActivity.CallPhone(item.attrData.displayPhone, mActivity);
                 }); //按钮3 收藏
                 helper.addOnClickListener(R.id.fourth, v -> {
-                    if (!commitLogin()) return;
 //                    ToastUtil.showLongToast("点击第4个");
 //                    if (popupWindow1 == null)
-                    popupWindow1 = new CommonPopupWindow.Builder(mActivity)
-                            .setWidthDp(115)
-                            .setHeightDp(165)
-                            .setOutsideTouchable(true)
-                            .bindLayoutId(R.layout.friend_more)
-                            .setCovertViewListener(viewRoot -> {
-
-                                /*分享按钮*/
-                                TextView pup_share = (TextView) viewRoot.findViewById(R.id.pup_share);
-                                pup_share.setTextColor(baseMVPActivity.getColorByRes(R.color.text_color111));
-                                pup_share.setOnClickListener(v_share -> {
-//                                    ToastUtil.showLongToast("分享");
-                                    FriendPresenter.share(baseMVPActivity, item);
-                                    popupWindow1.dismiss();
-                                });
-
-                                TextView pup_del = (TextView) viewRoot.findViewById(R.id.pup_del);
-                                pup_del.setTextColor(baseMVPActivity.getColorByRes(R.color.text_color111));
-                                pup_del.setOnClickListener(vd -> {
-                                    new AlertDialog(mActivity).builder()
-                                            .setTitle("确定删除本项?")
-                                            .setPositiveButton("确定删除", v1 -> {
-                                                doDelete(item, helper.getAdapterPosition());
-                                            }).setNegativeButton("取消", v2 -> {
-                                    }).show();
-//                                  ToastUtil.showLongToast("删除\n" + item.id);
-                                    popupWindow1.dismiss();
-                                });
-
-                                TextView tv1 = (TextView) viewRoot.findViewById(R.id.pup_subscriber);
-                                tv1.setText("加入收藏");
-                                tv1.setTextColor(baseMVPActivity.getColorByRes(R.color.text_color111));
-                                tv1.setOnClickListener(v1 -> {
-//                                        ToastUtil.showLongToast("加入收藏" + item.id);
-                                    Log.i(TAG, "covertView: " + item.id);
-                                    FriendPresenter.doCollect(item.id, new HandlerAjaxCallBack(baseMVPActivity) {
-                                        @Override
-                                        public void onRealSuccess(SimpleGsonBean gsonBean) {
-                                            ToastUtil.showLongToast(gsonBean.msg);
-                                        }
-                                    });
-                                    popupWindow1.dismiss();
-                                });
-                                TextView tv2 = (TextView) viewRoot.findViewById(R.id.pup_show_share);
-                                tv2.setTextColor(baseMVPActivity.getColorByRes(R.color.text_color111));
-                                tv2.setText("进入店铺");
-                                tv2.setOnClickListener(v1 -> {
-                                    if (TextUtils.isEmpty(item.attrData.storeId)) {
-                                        ToastUtil.showLongToast("sorry , 此人可能没有开通店铺~_~");
-                                        return;
-                                    }
-                                    StoreActivity_new.start2Activity(mActivity, item.attrData.storeId);
-                                    popupWindow1.dismiss();
-                                });
-                            })
-                            .build();
+                    //未登录。跳转登录界面
+                    if (!commitLogin()) return;
+//                    ToastUtil.showLongToast("点击第4个");
+                    popupWindow1 = FriendPresenter.createMorePop(
+                            item,
+                            (BaseMVPActivity) mActivity,
+                            v1 -> {
+                            });
 //                            .showAsDropDown(helper.getView(R.id.fourth));
                     popupWindow1.showUp2(helper.getView(R.id.fourth));
                 });//按钮4 电话
@@ -378,6 +332,17 @@ public class FriendBaseFragment extends BaseFragment {
 
     }
 
+    public static void sendPush(Moments item) {
+        if (!item.isOwner) {
+            D.w("=================发送自定义推送消息 start===================");
+//            JpushUtil.sendCustommPush(item.id, item.ownerId);
+            D.w("=================发送自定义推送消息 end===================");
+        } else {
+//                                      JpushUtil.sendCustommPush(item.id, item.ownerId);
+            D.w("=================是自己，，不发送更新推送 ===================");
+        }
+    }
+
 
     public void requestDatas(String page) {
         new BasePresenter()
@@ -389,6 +354,7 @@ public class FriendBaseFragment extends BaseFragment {
                 .doRequest("moments/list", true, new AjaxCallBack<String>() {
                     @Override
                     public void onSuccess(String json) {
+                        isFirst = false;
                         Log.i(TAG, "onSuccess: " + json);
                         Type beanType = new TypeToken<SimpleGsonBean_new<SimplePageBean<List<Moments>>>>() {
                         }.getType();
@@ -450,6 +416,7 @@ public class FriendBaseFragment extends BaseFragment {
         Log.i("LOGIN", "判断是否登录: \n" + isLogin);
         return isLogin;
     }
+
 
     /**
      * 删除单条帖子
@@ -637,14 +604,20 @@ public class FriendBaseFragment extends BaseFragment {
     protected void onVisible() {
         super.onVisible();
         D.w("onVisible 显示  解除订阅" + this);
-        RxUnRegi();
+
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        RxRegi();
+
         D.w("onPause 界面暂停。。加入Rxbus " + this);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        RxRegi();
     }
 
     @Override
@@ -653,18 +626,19 @@ public class FriendBaseFragment extends BaseFragment {
         Log.i(TAG, "mIsVisible: " + mIsVisible);
         Log.i(TAG, "isVisible(): " + isVisible());
         if (mIsVisible) {
-            RxUnRegi();
+//          RxUnRegi();
             D.w("onResume FriendBaseFragment  当前界面。解除订阅  rxbus" + this);
         }
         loadData();
     }
 
 
-
     //   http://test.m.hmeg.cn/moments/detail/56dab9d64fd2424aa1450b9c4cb9192b.html
 
     //56dab9d64fd2424aa1450b9c4cb9192b
 //    http://192.168.1.20:83/api/
-
+    public boolean mIsSelf(String onwerId) {
+        return onwerId.equals(MyApplication.Userinfo.getString("id", ""));
+    }
 
 }
