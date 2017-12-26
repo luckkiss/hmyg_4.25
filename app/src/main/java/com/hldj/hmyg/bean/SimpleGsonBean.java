@@ -1,6 +1,7 @@
 package com.hldj.hmyg.bean;
 
 import com.hldj.hmyg.Ui.friend.bean.MomentsReply;
+import com.hldj.hmyg.Ui.friend.bean.UnRead;
 import com.hldj.hmyg.util.ConstantState;
 
 import java.io.Serializable;
@@ -28,6 +29,10 @@ public class SimpleGsonBean implements Serializable {
     }
 
     public static class DataBean implements Serializable {
+
+        /*未读消息列表   */
+        public List<UnRead> optionList;
+
 
         //        "thumbUpCount":2,"isThumUp":true
         public int thumbUpCount;

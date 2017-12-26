@@ -506,9 +506,9 @@ public class PublishActivity extends BaseMVPActivity {
 
         //此处进行上传操作
         return MyLuban.compress(mActivity, getFileList(pics))
-                .setMaxSize(256)
-                .setMaxHeight((int) (1920))
-                .setMaxWidth((int) (1280))
+                .setMaxSize(512)
+                .setMaxHeight((int) (1920))//2560
+                .setMaxWidth((int) (1080))//2560
                 .putGear(MyLuban.CUSTOM_GEAR)
 //              .putGear(MyLuban.THIRD_GEAR)
                 .asListObservable()

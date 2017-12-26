@@ -61,6 +61,7 @@ import io.reactivex.functions.Consumer;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 import static com.hldj.hmyg.Ui.friend.FriendCycleActivity.isSelf;
+import static com.hldj.hmyg.application.MyApplication.dp2px;
 import static com.hldj.hmyg.base.rxbus.RxBus.TAG_UPDATE;
 
 /**
@@ -115,6 +116,8 @@ public class FriendBaseFragment extends BaseFragment {
         mRecyclerView.init(new BaseQuickAdapter<Moments, BaseViewHolder>(R.layout.item_friend_cicle) {
             @Override
             protected void convert(BaseViewHolder helper, Moments item) {
+
+
                 isFirst = false;
                 Log.i(TAG, "convert: " + item + "   id=" + item.id);
                 D.i("-----------------");
@@ -171,6 +174,24 @@ public class FriendBaseFragment extends BaseFragment {
                 if (item.itemListJson == null) {
                     item.itemListJson = new ArrayList<MomentsReply>();
                 }
+
+                TextView tv_bottom_line = helper.getView(R.id.textView30);
+//                ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_CONSTRAINT,1);
+                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) tv_bottom_line.getLayoutParams();
+                if (item.itemListJson != null && !item.itemListJson.isEmpty()) {
+                    //有评论    -----^-------
+                    tv_bottom_line.setBackgroundResource(R.mipmap.bottom_triangle);
+                    params.height = dp2px(mActivity,9);
+                    params.setMargins(0, 0, 0,0);//4个参数按顺序分别是左上右下
+                } else {
+                    //没有评论    ------------
+                    params.height = 1;
+//                    params.setMargins(0,  dp2px(14), 0, 0);//4个参数按顺序分别是左上右下
+                    params.setMargins(dp2px(mActivity,0), dp2px(mActivity,4), dp2px(mActivity,0), dp2px(mActivity,4));//4个参数按顺序分别是左上右下
+                    tv_bottom_line.setBackgroundColor(baseMVPActivity.getColorByRes(R.color.divider_color));
+                }
+                tv_bottom_line.setText("");
+                tv_bottom_line.setLayoutParams(params);
 
                 measureListView.setAdapter(new GlobBaseAdapter<MomentsReply>(mActivity, item.itemListJson, R.layout.item_list_simple) {
                     @Override
@@ -302,6 +323,7 @@ public class FriendBaseFragment extends BaseFragment {
                     if (TextUtils.isEmpty(item.attrData.displayPhone)) {
                         ToastUtil.showLongToast("未留电话号码~_~");
                     } else {
+                        FriendPresenter.postWhoPhone(item.id, item.attrData.displayPhone, ConstantState.TYPE_OWNER);
                         FlowerDetailActivity.CallPhone(item.attrData.displayPhone, mActivity);
                     }
 //                    ToastUtil.showLongToast("点击第2个");

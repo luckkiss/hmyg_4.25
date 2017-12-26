@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack_test;
+import com.hldj.hmyg.Ui.friend.bean.Message;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.child.DetailActivity;
 import com.hldj.hmyg.application.MyApplication;
@@ -15,6 +16,9 @@ import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.bean.SimpleGsonBean_test;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
+import com.hy.utils.ToastUtil;
+
+import net.tsz.afinal.FinalDb;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,20 +47,117 @@ public class MyReceiver extends BroadcastReceiver {
             D.d("[MyReceiver] 接收Registration Id : " + regId);
             // send the Registration Id to your server...
 
+            /*接收到推送下来的自定义消息*/
         } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
             D.w("[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
             processCustomMessage(context, bundle);
 
-            String momentId = bundle.getString("cn.jpush.android.MESSAGE");
+            String contetn = bundle.getString("cn.jpush.android.MESSAGE");
+            Log.i(TAG, "onReceive: contetn \n" + contetn);
+            String extras = bundle.getString("cn.jpush.android.EXTRA");
+            String momentId = "";
+            try {
+                JSONObject jsonObject = new JSONObject(extras);
+                momentId = jsonObject.getString("momentsId");
+            } catch (JSONException e) {
+                momentId = "";
+                e.printStackTrace();
+            }
+
+            //  key:cn.jpush.android.EXTRA,
+            //{"sourceId":"4966be553cf84d92856254b08a3adb34","momentsId":"f0e83bf9c5564eeeaa3510e8ad810051","type":"thumbUp","option":"add","messageType":"moments"}
+
 //            ToastUtil.showLongToast("momentid=\n" + momentId);
             refreshMomentItem(momentId);
 
+
+
+
+        /*接收到推送下来的通知*/
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
             D.w("[MyReceiver] 接收到推送下来的通知");
             int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
 
-//            ToastUtil.showLongToast("通知=\n" + bundle.getString("cn.jpush.android.EXTRA"));
+//          ToastUtil.showLongToast("通知=\n" + bundle.getString("cn.jpush.android.EXTRA"));
+            String extra = bundle.getString("cn.jpush.android.EXTRA");
+            String momentId = bundle.getString("cn.jpush.android.MESSAGE");
 
+            try {
+                JSONObject jsonObject = new JSONObject(extra);
+
+
+                /**
+                 * // db.delete(user); //根据对象主键进行删除
+                 // db.deleteById(user, 1); //根据主键删除数据
+                 // db.deleteByWhere(User.class, "name=AoTuMan"); //自定义where条件删除
+                 db.deleteAll(User.class); //删除Bean对应的数据表中的所有数据
+                 */
+
+
+                /**
+                 * Bundle[{cn.jpush.android.ALERT=您有新的评论,
+                 * cn.jpush.android.EXTRA=
+                 * {"sourceId":"0e6678eb19a542b997c9f911278d5c8e",
+                 * "momentsId":"955a53481d514a3eb424c7e74463f03a","type":"reply","option":"add","messageType":"moments"},
+                 * cn.jpush.android.NOTIFICATION_ID=521470835, cn.jpush.android.ALERT_TYPE=-1, cn.jpush.android.NOTIFICATION_CONTENT_TITLE=花木易购, cn.jpush.android.MSG_ID=65302197350662344}]
+                 */
+
+                /**
+                 * jsonObject = {JSONObject@6716} "{"sourceId":"459c3b5a1c4b4ebfba88fe9272c73243","notyfyType":"collect","momentId":"83e5cb7bdda14d49b5ca16b1197c8134","type":"reply","option":"add"}"
+                 nameValuePairs = {LinkedHashMap@6722}  size = 5
+
+                 "sourceId" -> "459c3b5a1c4b4ebfba88fe9272c73243"
+                 messageType = moments;
+                 "momentId" -> "83e5cb7bdda14d49b5ca16b1197c8134"
+                 "type" -> "reply"
+                 "option" -> "add"
+                 */
+                momentId = jsonObject.getString("momentsId");
+                String messageType = jsonObject.getString("messageType");
+                String sourceId = jsonObject.getString("sourceId");
+                String type = jsonObject.getString("type");
+                String option = jsonObject.getString("option");
+
+                Message message = new Message();
+                message.setMessageType(messageType);
+                message.setType(type);
+                message.setSourceId(sourceId);
+                message.setOption(option);
+                message.setMomentsId(momentId);
+                FinalDb db = FinalDb.create(context);
+//                db.deleteByWhere(Message.class, "id=1");
+                // DELETE FROM com_hldj_hmyg_Ui_friend_bean_Message WHERE id=1
+
+                try {
+                    /*此条删除语句可用*/
+//                    db.deleteByWhere(Message.class, "momentsId=\"" + momentId + "\"");
+//                  db.deleteByWhere(Message.class, "momentsId=\"" + momentId + "\"");
+//                  db.deleteByWhere(Message.class, "momentsId=" + momentId);
+                } catch (Exception e) {
+                    Log.i(TAG, "onReceive: 失败5");
+                    e.printStackTrace();
+                }
+
+//                try {
+//                    db.deleteByWhere(Message.class, "momentsId=" + momentId);
+//                } catch (Exception e) {
+//                    Log.i(TAG, "onReceive: 失败一");
+//                    e.printStackTrace();
+//                }
+
+
+                //DELETE FROM com_hldj_hmyg_Ui_friend_bean_Message WHERE momentsId=955a53481d514a3eb424c7e74463f03a
+                db.save(message);
+                // INSERT INTO com_hldj_hmyg_Ui_friend_bean_Message (time,other,option,momentsId) VALUES ( ?,?,?,?)
+                Log.w(TAG, " 保存消息 Message: " + message.toString());
+
+//                ToastUtil.showLongToast("option\n" + message.toString());
+
+            } catch (JSONException e) {
+                momentId = "";
+                e.printStackTrace();
+            }
+            refreshMomentItem(momentId);
             D.d("[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
 
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
@@ -71,6 +172,10 @@ public class MyReceiver extends BroadcastReceiver {
             try {
                 JSONObject jsonObject = new JSONObject(extra);
                 momentId = jsonObject.getString("momentId");
+
+                String option = jsonObject.getString("option");
+                ToastUtil.showLongToast("option\n" + option);
+
             } catch (JSONException e) {
                 momentId = "";
                 e.printStackTrace();
@@ -82,6 +187,15 @@ public class MyReceiver extends BroadcastReceiver {
                 ii.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(ii);
             } else if (!TextUtils.isEmpty(momentId)) {
+                try {
+                    FinalDb db = FinalDb.create(context);
+                    /*此条删除语句可用*/
+                    db.deleteByWhere(Message.class, "momentsId=\"" + momentId + "\"");
+                    Log.i(TAG, "删除单条 message: 成功");
+                } catch (Exception e) {
+                    Log.i(TAG, "删除单条 message: 失败5");
+                    e.printStackTrace();
+                }
                 DetailActivity.start(context, momentId);
             } else {
                 Intent ii = new Intent();

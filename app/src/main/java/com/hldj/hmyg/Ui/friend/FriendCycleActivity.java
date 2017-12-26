@@ -3,12 +3,14 @@ package com.hldj.hmyg.Ui.friend;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.Keep;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -17,15 +19,20 @@ import com.flyco.dialog.widget.MaterialDialog;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.LoginActivity;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.friend.bean.Message;
+import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.bean.MomentsReply;
 import com.hldj.hmyg.Ui.friend.bean.enums.MomentsType;
 import com.hldj.hmyg.Ui.friend.child.FriendBaseFragment;
 import com.hldj.hmyg.Ui.friend.child.PublishActivity;
+import com.hldj.hmyg.Ui.friend.child.PushListActivity;
 import com.hldj.hmyg.Ui.friend.child.SearchActivity;
 import com.hldj.hmyg.Ui.friend.presenter.FriendPresenter;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.base.MyFinalActivity;
+import com.hldj.hmyg.base.rxbus.RxBus;
+import com.hldj.hmyg.base.rxbus.annotation.Subscribe;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment1;
 import com.hldj.hmyg.saler.Adapter.FragmentPagerAdapter_TabLayout;
@@ -34,12 +41,16 @@ import com.hldj.hmyg.util.D;
 import com.hy.utils.ToastUtil;
 import com.zzy.common.widget.MeasureListView;
 
+import net.tsz.afinal.FinalDb;
 import net.tsz.afinal.annotation.view.ViewInject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
+import static cn.jpush.android.api.JPushInterface.clearAllNotifications;
+import static com.hldj.hmyg.base.rxbus.RxBus.TAG_UPDATE;
 import static com.hldj.hmyg.util.ConstantState.REFRESH;
 
 /**
@@ -71,6 +82,9 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
     public RadioButton rb_title_right;
 
 
+    @ViewInject(id = R.id.message, click = "onClick")
+    public Button message;
+
     public ArrayList<String> list_title = new ArrayList<String>() {{
         add("供应");
         add("求购");
@@ -82,9 +96,22 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
     }};
 
     public void initChild() {
-
+        RxBus.getInstance().register(this);
     }
 
+
+    //订阅  更新
+    @Keep
+    @Subscribe(tag = TAG_UPDATE)
+    public void postUpdata(Moments momentsNew) {
+        onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.getInstance().unRegister(this);
+    }
 
     public void initFiled(ArrayList<String> list_title, ArrayList<Fragment> list_fragment) {
     }
@@ -152,10 +179,23 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
             /*搜索*/
             case R.id.toolbar_left_icon:
                 SearchActivity.start(mActivity, searchContent);
+                break;  /*搜索*/
+            case R.id.message:
+                if (message != null) {
+//                  message.setVisibility(View.GONE);
+//                  message.setText("没有新消息");
+//                  FinalDb.create(mActivity).deleteAll(Message.class);
+                    PushListActivity.start(mActivity);
+                    /*跳转到 push 推送列表界面*/
+                    clearAllNotifications(mActivity);
+
+
+                }
+                ToastUtil.showLongToast(message.getText() + "");
                 break;
 
             case R.id.rb_title_left:
-//                ToastUtil.showLongToast("刷新供应");
+//              ToastUtil.showLongToast("刷新供应");
                 /*当前的展示类型*/
                 currentType = MomentsType.supply.getEnumValue();
                 FriendBaseFragment fragment = (FriendBaseFragment) list_fragment.get(0);
@@ -265,9 +305,26 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
     @Override
     protected void onResume() {
         super.onResume();
-
+        Log.i(TAG, "onResume: 开始");
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.i(TAG, "执行: 删除代码");
+                if (message != null) {
+                    FinalDb db = FinalDb.create(mActivity);
+                    List<Message> list = db.findAll(Message.class);
+                    if (list.size() == 0) {
+                        message.setText("没有新消息");
+                        message.setVisibility(View.GONE);
+                    } else {
+                        message.setText(list.size() + "条新消息");
+                        message.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        }, 450);
+        Log.i(TAG, "onResume: 结束");
     }
-
 
     /**
      * 判断是否自己 的评论

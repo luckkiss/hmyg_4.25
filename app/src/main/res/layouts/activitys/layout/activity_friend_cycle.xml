@@ -25,14 +25,27 @@
     <!--android:layout_height="1px"-->
     <!--android:background="@color/main_color" />-->
 
+    <Button
+        android:id="@+id/message"
+        android:layout_width="140dp"
+        android:layout_height="34dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:alpha="0.8"
+        android:background="@drawable/message_conner"
+        android:text="2条新消息"
+        android:textColor="@color/white"
+        android:visibility="gone" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <!--<com.hldj.hmyg.buyer.weidet.CoreRecyclerView-->
-        <!--android:id="@+id/core_rv_c"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1" />-->
+    <!--android:id="@+id/core_rv_c"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1" />-->
 </LinearLayout>

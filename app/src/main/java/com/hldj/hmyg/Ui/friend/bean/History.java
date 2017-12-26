@@ -1,7 +1,7 @@
 package com.hldj.hmyg.Ui.friend.bean;
 
 /**
- * Created by Administrator on 2017/11/27 0027.
+ * 历史记录
  */
 
 public class History {

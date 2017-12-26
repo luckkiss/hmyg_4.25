@@ -38,7 +38,6 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 
 import java.util.HashSet;
@@ -107,7 +106,8 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
      */
     public BaseViewHolder setDrawableLeft(int viewId, int resId) {
         TextView view = getView(viewId);
-        Drawable drawable = ContextCompat.getDrawable(MyApplication.getInstance(), R.mipmap.ic_location);
+        Drawable drawable = ContextCompat.getDrawable(MyApplication.getInstance(), resId);
+//        Drawable drawable = ContextCompat.getDrawable(MyApplication.getInstance(), R.mipmap.ic_location);
         drawable.setBounds(5, 0 , drawable.getMinimumWidth()+5, drawable.getMinimumHeight());
         view.setCompoundDrawablePadding(25);
         view.setCompoundDrawables(drawable, null, null, null);

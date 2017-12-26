@@ -22,6 +22,7 @@
     android:lineSpacingMultiplier="1.2"
     android:minHeight="30dp"
     android:paddingBottom="4dp"
+    android:background="@color/color_bg_f5"
     android:paddingEnd="16dp"
     android:paddingStart="16dp"
     android:paddingTop="4dp"

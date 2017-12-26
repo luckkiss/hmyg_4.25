@@ -27,6 +27,7 @@ import com.flyco.dialog.listener.OnBtnClickL;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.JpushUtil;
 import com.hldj.hmyg.util.SPUtil;
 import com.hldj.hmyg.util.SPUtils;
 import com.hy.utils.GetServerUrl;
@@ -100,7 +101,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                 if (updateInfo != null) {
                     ToastUtil.showShortToast(updateInfo.newFeature);
                 } else {
-                    ToastUtil.showShortToast("暂无优化日志");
+                    ToastUtil.showShortToast("oppo手机拍照会出现马赛克问题");
                 }
 
 //                Log.i(TAG, "hello world");
@@ -653,6 +654,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
 //					SPUtil.clear( SPUtils.UserBean,SettingActivity.this);
         SPUtil.remove(context, SPUtils.UserBean);
         MyApplication.setUserBean(null);
+        JpushUtil.setAlias("游客");
 
 
         D.e("===" + SPUtil.get(context, SPUtils.UserBean, "").toString());

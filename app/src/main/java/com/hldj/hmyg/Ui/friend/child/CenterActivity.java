@@ -14,6 +14,7 @@ import android.widget.ImageView;
 
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
+import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.bean.MomentsThumbUp;
@@ -214,6 +215,10 @@ public class CenterActivity extends BaseMVPActivity {
                 gridView.setHorizontalSpacing(3);
                 gridView.setVerticalSpacing(0);
                 gridView.init(mActivity, PurchaseDetailActivity.getPicList(item.imagesJson), (ViewGroup) gridView.getParent(), null);
+                gridView.setOnViewImagesListener( (mContext, pos, pics) ->{
+                    GalleryImageActivity.startGalleryImageActivity(
+                            mContext, pos, PurchaseDetailActivity.getPicListOriginal(item.imagesJson));
+                });
                 gridView.getAdapter().closeAll(true);
                 gridView.getAdapter().notifyDataSetChanged();
 

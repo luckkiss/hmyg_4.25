@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.Keep;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 @Keep
 public class FriendCycleSearchActivity extends FriendCycleActivity {
 
+    @Keep
     private static final String TAG = "FriendCycleSearch";
 
     public String name = "haha";
@@ -159,13 +161,17 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
         toolbar_left_icon.setOnClickListener(v -> finish());
         searchContent = getSearchContent();
         search_content.setText(searchContent);
-        search_content.setSelection(searchContent.length());//将光标移至文字末尾
+        if (!TextUtils.isEmpty(searchContent)) // 避免空指针
+            search_content.setSelection(searchContent.length());//将光标移至文字末尾
         currentType = MomentsType.all.getEnumValue();
     }
 
 
     public String getSearchContent() {
 //        ToastUtil.showLongToast(getIntent().getStringExtra(TAG));
+        if (TextUtils.isEmpty(getIntent().getStringExtra(TAG))) {
+            return "";
+        }
         return getIntent().getStringExtra(TAG);
     }
 

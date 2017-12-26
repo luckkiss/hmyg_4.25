@@ -11,6 +11,7 @@ import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.base.CommonPopupWindow;
 import com.hldj.hmyg.base.rxbus.RxBus;
@@ -89,6 +90,50 @@ public class FriendPresenter {
                         (item.imagesJson != null && item.imagesJson.size() > 0) ? item.imagesJson.get(0).ossMediumImagePath : GetServerUrl.ICON_PAHT,
                         GetServerUrl.getHtmlUrl() + "moments/detail/" + item.id + ".html"))
                 .show(activity.getSupportFragmentManager(), activity.getClass().getName());
+    }
+
+
+
+    /*
+     电话记录
+     */
+
+    /**
+     * private String callSourceType;//seedling、seedlingNote , moments
+     * <p>
+     * private String callSourceId;//资源ID
+     * <p>
+     * private String userId;//当前用户ID
+     * <p>
+     * private String callPhone;//被呼叫号码
+     * <p>
+     * private String callTargetType;//被呼叫号码类型：owner(发布人)、nursery(苗圃)
+     * /callLog/save
+     */
+
+    public static void postWhoPhone(String callSourceId, String callPhone, String callTargetType) {
+        new BasePresenter()
+                .putParams("callSourceType", "moments")
+                .putParams("callSourceId", callSourceId)
+                .putParams("userId", MyApplication.Userinfo.getString("id", ""))
+                .putParams("callPhone", callPhone)
+                .putParams("callTargetType", callTargetType)
+                .doRequest("callLog/save", true, new AjaxCallBack() {
+                    @Override
+                    public void onStart() {
+                        Log.e("postWhoPhone", "onStart: -------------拨打电话记录日志");
+                    }
+
+                    @Override
+                    public void onSuccess(Object o) {
+                        Log.e("接口", "json" + o.toString());
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+                        Log.e("接口failure", strMsg);
+                    }
+                });
     }
 
 

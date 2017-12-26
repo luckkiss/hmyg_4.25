@@ -3,8 +3,10 @@ package com.hldj.hmyg.Ui.myProgramChild;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.IdRes;
+import android.support.annotation.Keep;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -87,11 +89,15 @@ public class ProgramProtocolActivity extends ProgramDirctActivity implements Vie
     }
 
 
+    @Keep
     private static final String PRO_ID = "project_id";
 
     public String getExtralID() {
         String pro_id = getIntent().getExtras().getString(PRO_ID);
         D.e("=======PRO_ID===========" + pro_id);
+        if (TextUtils.isEmpty(pro_id)) {
+            return "";
+        }
         return pro_id;
     }
 

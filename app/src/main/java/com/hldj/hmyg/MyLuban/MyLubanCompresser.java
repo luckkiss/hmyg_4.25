@@ -298,20 +298,30 @@ class MyLubanCompresser {
      */
     private Bitmap compress(String imagePath, int width, int height) {
 
+        //压缩宽 高
         D.e("compress  --- start1");
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(imagePath, options);
 
+//        options.outHeight = height ;
+//        options.outWidth = width ;
+
         int outH = options.outHeight;
         int outW = options.outWidth;
         int inSampleSize = 1;
-
+        // 1     3968
+        // 2     1984
         while (outH / inSampleSize > height || outW / inSampleSize > width) {
             inSampleSize *= 2;
         }
 
+
+//        if (inSampleSize >= 2) {
         options.inSampleSize = inSampleSize;
+//        }
+
+//        options.inSampleSize = 1;
         options.inJustDecodeBounds = false;
 
 
@@ -361,7 +371,7 @@ class MyLubanCompresser {
             }
         }
         D.e("compress  --- end1");
-        return BitmapFactory.decodeByteArray(targetData, 0, targetData == null ? 0 : targetData.length);
+        return BitmapFactory.decodeByteArray(targetData, 0, targetData == null ? 0 : targetData.length, options);
 //        return BitmapFactory.decodeFile(imagePath, options);
     }
 
@@ -409,7 +419,7 @@ class MyLubanCompresser {
     private File compress(String largeImagePath, String thumbFilePath, int width, int height,
                           int angle, long size) throws IOException {
 
-        D.e("compress  --- start");
+        D.e("compress  --- start");//压缩宽 高
         Bitmap thbBitmap = compress(largeImagePath, width, height);
 
         thbBitmap = rotatingImage(angle, thbBitmap);

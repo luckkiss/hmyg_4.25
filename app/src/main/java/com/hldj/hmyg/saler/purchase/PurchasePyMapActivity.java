@@ -42,6 +42,7 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.CommonPopupWindow;
 import com.hldj.hmyg.base.GlobBaseAdapter;
+import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
 import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment1;
 import com.hldj.hmyg.saler.Adapter.MapSearchAdapter;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
@@ -758,6 +759,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
         switch (checkedId) {
             case R.id.button31:
                 showLoading();
+                StorePurchaseListActivity.shouldShow = true;
                 type = "quoting";
                 onRefresh();
                 new Handler().postDelayed(() -> {
@@ -770,6 +772,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
                 break;
             case R.id.button32:
                 showLoading();
+                StorePurchaseListActivity.shouldShow = true;
                 type = "unquote";
                 onRefresh();
                 new Handler().postDelayed(() -> {
@@ -783,6 +786,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
             case R.id.button33:
 
                 showLoading();
+                StorePurchaseListActivity.shouldShow = false;
                 getView(R.id.ll_show_3).setVisibility(View.VISIBLE);
                 getView(R.id.ll_show_12).setVisibility(View.GONE);
 

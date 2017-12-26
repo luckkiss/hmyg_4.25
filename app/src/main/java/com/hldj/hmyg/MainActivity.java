@@ -193,13 +193,18 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
             @Override
             public void gotResult(int arg0, String arg1, Set<String> arg2) {
                 // TODO Auto-generated method stub
-
+                Log.w(TAG, "gotResult: " + arg0);
+                Log.w(TAG, "gotResult: " + arg1);
+                Log.w(TAG, "gotResult: " + arg2);
             }
         });
         if (MyApplication.Userinfo.getBoolean("notification", true)) {
             JPushInterface.resumePush(getApplicationContext());
+            Log.i(TAG, "onCreate: 开启  极光通知");
         } else {
             JPushInterface.stopPush(getApplicationContext());
+            Log.i(TAG, "onCreate: 关闭  极光通知");
+
         }
 
         tabHost.addTab(tabHost.newTabSpec("1").setIndicator("1")

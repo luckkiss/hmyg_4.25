@@ -3,8 +3,10 @@ package com.hldj.hmyg.Ui.myProgramChild;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.IdRes;
+import android.support.annotation.Keep;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -42,9 +44,6 @@ public class ProgramDirctActivity extends BaseMVPActivity implements View.OnClic
         add(new ProgramFragment2());
         add(new ProgramFragment3());
     }};
-
-
-
 
 
     @Override
@@ -85,10 +84,14 @@ public class ProgramDirctActivity extends BaseMVPActivity implements View.OnClic
     }
 
 
+    @Keep
     private static final String PRO_ID = "project_id";
 
     public String getExtralID() {
         String pro_id = getIntent().getExtras().getString(PRO_ID);
+        if (TextUtils.isEmpty(pro_id)) {
+            return "";
+        }
         D.e("=======PRO_ID===========" + pro_id);
         return pro_id;
     }

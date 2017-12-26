@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="25dp">
+
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_width="69dp"
+        android:layout_height="69dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="0dp"
+        android:src="@drawable/logo_test"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title"
+        tools:layout_editor_absoluteX="277dp" />
+
+
+    <TextView
+        android:id="@+id/tv_right"
+        android:layout_width="69dp"
+        android:layout_height="69dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="0dp"
+        android:src="@drawable/logo_test"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title"
+        tools:text="14416464646465464654sdf65a4df564a6fd46af46a54fa654f6" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_left"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/icon_persion_pic"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="0dp"
+        android:text="老伙子"
+        android:textColor="@color/main_color"
+        app:layout_constraintLeft_toRightOf="@+id/iv_left"
+        app:layout_constraintTop_toTopOf="@+id/iv_left" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        android:text="11小时前"
+        android:textColor="@color/text_color999"
+        app:layout_constraintLeft_toLeftOf="@+id/content"
+        app:layout_constraintTop_toBottomOf="@+id/content" />
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="8dp"
+        android:text="香樟价格实惠，质 好， 猪...."
+        android:textColor="@color/text_color333"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/title"
+        app:layout_constraintRight_toLeftOf="@+id/iv_right"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/textView34"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/divider_color"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time"
+        tools:background="@color/red"
+        tools:height="30dp"
+        tools:padding="30dp" />
+</android.support.constraint.ConstraintLayout>

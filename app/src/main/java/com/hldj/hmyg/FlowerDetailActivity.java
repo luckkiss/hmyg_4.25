@@ -52,6 +52,7 @@ import com.hldj.hmyg.bean.PlatformForShare;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.presenter.CollectPresenter;
+import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.SavePriceAndCountAndOutlineActivity;
 import com.hldj.hmyg.saler.SaveSeedlingActivity_change_data;
 import com.hldj.hmyg.util.ConstantState;
@@ -152,7 +153,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     private TextView tv_01;
     //    private TextView tv_02;
     private ListView lv_00;
-//    ArrayList<SeedlingParm> msSeedlingParms = new ArrayList<SeedlingParm>();
+    //    ArrayList<SeedlingParm> msSeedlingParms = new ArrayList<SeedlingParm>();
 //    public ArrayList<paramsData> paramsDatas = new ArrayList<paramsData>();
     private TextView tv_status_01;
     private TextView tv_status_02;
@@ -606,7 +607,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                         jsonObject2, "unitType");
                                 firstTypeName = JsonGetInfo.getJsonString(
                                         jsonObject2, "firstTypeName");
-                                uploadDatas.firstTypeName = firstTypeName ;
+                                uploadDatas.firstTypeName = firstTypeName;
                                 secondTypeName = JsonGetInfo.getJsonString(
                                         jsonObject2, "secondTypeName");
                                 nurseryId = JsonGetInfo.getJsonString(
@@ -810,7 +811,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 //                                            firstTypeName));
 //                                    uploadDatas.firstTypeName = firstTypeName;
 //                                }
-                                String plantTypeName = JsonGetInfo  .getJsonString(jsonObject2,  "plantTypeName");
+                                String plantTypeName = JsonGetInfo.getJsonString(jsonObject2, "plantTypeName");
                                 // tv_remarks.setText("备注：" + remarks);
 //                                tv_remarks.setText("种植类型：" + plantTypeName);
                                 // if (!"".equals(firstTypeName)) {
@@ -899,7 +900,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                 if (extParamsList.length() > 0) {
 //                                    paramsDatas.clear();
                                     for (int i = 0; i < extParamsList.length(); i++) {
-                                        if (!"".equals(JsonGetInfo  .getJsonString(extParamsList   .getJSONObject(i),    "value"))) {
+                                        if (!"".equals(JsonGetInfo.getJsonString(extParamsList.getJSONObject(i), "value"))) {
 //                                            msSeedlingParms.add(new SeedlingParm(    JsonGetInfo.getJsonString(     extParamsList     .getJSONObject(i), "name") + " :",
 //                                                    JsonGetInfo.getJsonString(  extParamsList  .getJSONObject(i),   "value")));
                                         }
@@ -1787,6 +1788,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     public static void CallPhone(final String displayPhone, Activity mAct) {
         // TODO Auto-generated method stub
         if (!"".equals(displayPhone)) {
+
             new AlertDialog(mAct).builder()
                     .setTitle(displayPhone)
                     .setPositiveButton("呼叫", new OnClickListener() {
@@ -1937,6 +1939,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         if (isLogin()) {
             boolean requesCallPhonePermissions = new PermissionUtils(FlowerDetailActivity.this).requesCallPhonePermissions(200);
             if (requesCallPhonePermissions) {
+                postWhoPhone(id, displayPhone, ConstantState.TYPE_OWNER);
                 CallPhone(displayPhone, mActivity);
             }
         } else {
@@ -2315,6 +2318,45 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 //        intent.putExtra("id", id);
 //        context.startActivityForResult(intent, 456);
 //    }
+
+
+    /**
+     * private String callSourceType;//seedling、seedlingNote , moments
+     * <p>
+     * private String callSourceId;//资源ID
+     * <p>
+     * private String userId;//当前用户ID
+     * <p>
+     * private String callPhone;//被呼叫号码
+     * <p>
+     * private String callTargetType;//被呼叫号码类型：owner(发布人)、nursery(苗圃)
+     * /callLog/save
+     */
+
+    public static void postWhoPhone(String callSourceId, String callPhone, String callTargetType) {
+        new BasePresenter()
+                .putParams("callSourceType", "seedling")
+                .putParams("callSourceId", callSourceId)
+                .putParams("userId", MyApplication.Userinfo.getString("id", ""))
+                .putParams("callPhone", callPhone)
+                .putParams("callTargetType", callTargetType)
+                .doRequest("callLog/save", true, new AjaxCallBack() {
+                    @Override
+                    public void onStart() {
+                        Log.e("postWhoPhone", "onStart: -------------拨打电话记录日志");
+                    }
+
+                    @Override
+                    public void onSuccess(Object o) {
+                        Log.e("接口", "json" + o.toString());
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+                        Log.e("接口failure", strMsg);
+                    }
+                });
+    }
 
 
 }

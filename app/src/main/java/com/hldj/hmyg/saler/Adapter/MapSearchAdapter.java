@@ -80,7 +80,7 @@ public class MapSearchAdapter extends BaseAdapter implements SectionIndexer {
                 intent.putExtra("secondSeedlingTypeId", data.get(position)
                         .getId());
                 intent.putExtra("title", "[" + data.get(position).getParentName() + "]" + data.get(position).getName());
-                context.startActivity(intent);
+
                 // subscribeSave(data.get(position).getId(), position);
             }
 

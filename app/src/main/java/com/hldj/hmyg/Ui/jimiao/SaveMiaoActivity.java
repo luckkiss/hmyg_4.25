@@ -217,9 +217,6 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
     }
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -574,6 +571,9 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
                 new BaseRxPresenter()
                         .putParams("id", id)
+                        //   Message{id=3, momentsId='83e5cb7bdda14d49b5ca16b1197c8134', option='add', type='reply',
+                        // sourceId='459c3b5a1c4b4ebfba88fe9272c73243',
+                        // messageType='moments', other='', time=1513844346812}
                         .doRequest("admin/seedlingNote/detail", true, new AjaxCallBack<String>() {
                             @Override
                             public void onSuccess(String json) {

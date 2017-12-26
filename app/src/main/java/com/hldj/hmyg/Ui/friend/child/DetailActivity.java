@@ -254,6 +254,7 @@ public class DetailActivity extends BaseMVPActivity {
                 if (TextUtils.isEmpty(moments.attrData.displayPhone)) {
                     ToastUtil.showLongToast("未留电话号码~_~");
                 } else {
+                    FriendPresenter.postWhoPhone(moments.id, moments.attrData.displayPhone, ConstantState.TYPE_OWNER);
                     FlowerDetailActivity.CallPhone(moments.attrData.displayPhone, mActivity);
                 }
             });
@@ -485,6 +486,7 @@ public class DetailActivity extends BaseMVPActivity {
 
     public static void start(Context context, String id) {
         Intent intent = new Intent(context, DetailActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(TAG, id);
         context.startActivity(intent);
     }

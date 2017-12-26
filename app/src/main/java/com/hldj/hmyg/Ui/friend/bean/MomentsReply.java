@@ -30,6 +30,7 @@ public class MomentsReply implements Serializable {
      * 时间戳
      */
     public long timeStamp;
+    public String timeStampStr;
 
     /**
      * 回复人ID

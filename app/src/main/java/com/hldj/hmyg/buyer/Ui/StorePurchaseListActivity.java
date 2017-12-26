@@ -62,6 +62,8 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
     boolean getdata; // 避免刷新多出数据
     private StorePurchaseListAdapter_new listAdapter;
 
+    public static boolean shouldShow = true;
+
     private int pageSize = 20;
     private int pageIndex = 0;
     private View mainView;
@@ -294,7 +296,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
                 quoteDesc = headPurchase.quoteDesc;
                 /*第一次显示*/
-                if (isFirstLoading) {
+                if (isFirstLoading && shouldShow) {
                     showWebViewDialog(getQuoteDesc(), "报价说明");
                     isFirstLoading = false;
                 }

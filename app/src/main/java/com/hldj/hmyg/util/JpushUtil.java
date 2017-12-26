@@ -1,7 +1,13 @@
 package com.hldj.hmyg.util;
 
+import android.content.Context;
+
 import com.hldj.hmyg.application.MyApplication;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import cn.jiguang.commom.ClientConfig;
@@ -9,6 +15,7 @@ import cn.jiguang.common.resp.APIConnectionException;
 import cn.jiguang.common.resp.APIRequestException;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
+import cn.jpush.android.data.JPushLocalNotification;
 import cn.jpush.api.JPushClient;
 import cn.jpush.api.push.PushResult;
 import cn.jpush.api.push.model.Message;
@@ -119,6 +126,28 @@ public class JpushUtil {
                 D.e("极光推送返回结果 code=" + code + " arg1" + arg1 + " arg2" + arg2);
             }
         });
+    }
+
+
+    /**
+     * 本地广播  通知
+     *
+     * @param context
+     */
+    public static void sendLocalNotices(Context context) {
+        JPushLocalNotification ln = new JPushLocalNotification();
+        ln.setBuilderId(0);
+        ln.setContent("hhh");
+        ln.setTitle("ln");
+        ln.setNotificationId(111111125);
+        ln.setBroadcastTime(System.currentTimeMillis() + 1000);
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("name", "jpush");
+        map.put("test", "111");
+        JSONObject json = new JSONObject(map);
+        ln.setExtras(json.toString());
+        JPushInterface.addLocalNotification(context, ln);
     }
 
 
