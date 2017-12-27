@@ -78,6 +78,7 @@ public class QuoteListBean {
     public String purchaseItemId;
     public String sellerId;
     public String price;
+    public String prePrice;
     public String sellerName;
     public String sellerPhone;
     public String purchaseItemStatus;

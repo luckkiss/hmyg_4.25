@@ -87,8 +87,8 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
 
         for (int i = 0; i < radio_group_auto_add.getChildCount(); i++) {
             RadioButton button = ((RadioButton) radio_group_auto_add.getChildAt(i));
-            D.e("==tag="+button.getTag());
-            D.e("==tag="+button.getTag());
+            D.e("==tag=" + button.getTag());
+            D.e("==tag=" + button.getTag());
             if (button.getTag().equals(size)) {
                 button.setChecked(true);
             }
@@ -99,11 +99,10 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
 
     public BaseLinearLayout setData(PlantBean plantBean) {
 
-        if (plantBean.name.equals("价格")) {
+        if (plantBean.name.equals("价格") || plantBean.name.contains("到货价")) {
             getViewHolder().et_params_03.setHint("元");
             getViewHolder().et_params_03.setInputType(EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.TYPE_NUMBER_FLAG_DECIMAL);
 //            getViewHolder().et_params_03.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
-
         }
         if (plantBean.name.equals("数量")) {
             getViewHolder().et_params_03.setHint("可供数量");

@@ -51,6 +51,8 @@ public class FUtil {
         return str;
     }
 
+
+
     public static String $_zero_2_null(String str) {
         if ("0".equals(str) || TextUtils.isEmpty(str)) {
             return "";

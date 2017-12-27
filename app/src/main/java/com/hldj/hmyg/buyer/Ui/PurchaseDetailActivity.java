@@ -39,6 +39,7 @@ import com.hldj.hmyg.saler.UpdataImageActivity_bak;
 import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.TakePhotoUtil;
 import com.hldj.hmyg.widget.AutoAddRelative;
@@ -109,6 +110,8 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 //                        helper.setText(R.id.tv_quote_item_sellerName, strFilter(item.sellerName).equals("") ? strFilter(item.sellerPhone) : strFilter(item.sellerName));//报价人
 
                         helper.setText(R.id.tv_quote_item_price, strFilter("¥" + item.price + ""));//价格
+
+
                         helper.setText(R.id.tv_quote_item_plantTypeName, strFilter(item.plantTypeName));//种植类型
                         helper.setText(R.id.tv_quote_item_declare, strFilter(item.remarks));//种植类型
                         helper.setText(R.id.tv_quote_item_count, strFilter(item.count + ""));// 可供数量
@@ -121,14 +124,19 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                         helper.setText(R.id.tv_quote_item_cityName, strFilter(item.cityName));//苗源地址
                         if (direce) {//代购
                             helper.setText(R.id.tv_quote_item_specText, strFilter(item.specText));//要求规格
-
+                            if (TextUtils.isEmpty(item.prePrice)) {
+                                helper.setText(R.id.tv_quote_item_pre_price, "-");// 预估到岸价
+                            } else {
+                                helper.setText(R.id.tv_quote_item_pre_price, "¥" + FUtil.$_zero(item.prePrice));// 预估到岸价
+                            }
                         } else {//直购  参数比较少，需要隐藏部分
                             helper.setText(R.id.tv_quote_item_left, "数        量:");
                             helper.setText(R.id.tv_quote_item_specText, item.count + "");
 
                             ViewGroup viewGroup = (ViewGroup) (helper.getView(R.id.tv_quote_item_left)).getParent();
+                            ViewGroup viewGroup1 = (ViewGroup) (helper.getView(R.id.tv_quote_item_pre_price)).getParent();
                             viewGroup.setVisibility(View.GONE);
-
+                            viewGroup1.setVisibility(View.GONE);
 //                          helper.setParentVisible(R.id.tv_quote_item_specText, false); // 规格 -》 数量
 //                            helper.setParentVisible(R.id.tv_quote_item_cityName, false); // 地址继续显示
                         }
@@ -391,6 +399,10 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         autoLayouts.add(layout);
         getViewHolder_pur().ll_purc_auto_add.addView(layout);
 
+        layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("到货价\n(预估)", "prePrice", false));
+        autoLayouts.add(layout);
+        getViewHolder_pur().ll_purc_auto_add.addView(layout);
+
         layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("数量", "count", false));
         autoLayouts.add(layout);
         getViewHolder_pur().ll_purc_auto_add.addView(layout);
@@ -533,6 +545,10 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
             String content = "";
             boolean isOk = true;
             switch (plantBean.value) {
+                case ConstantParams.prePrice:// 到岸价
+                    content = uploadBean.prePrice = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
+                    isOk = submit(plantBean.name, uploadBean.prePrice, plantBean.required);
+                    break;
                 case ConstantParams.price://价格
                     content = uploadBean.price = autoLayouts.get(i).getViewHolder().et_params_03.getText().toString();//第三个参数
                     isOk = submit(plantBean.name, uploadBean.price, plantBean.required);
@@ -673,6 +689,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         //        String sellerQuoteJson_id = "";//空 提交   非空 取消某人的 发布消息
         public String cityCode = "";
         public String price = "";
+        public String prePrice = "";
         public String diameter = "";
         public String dbh = "";
         public String height = "";

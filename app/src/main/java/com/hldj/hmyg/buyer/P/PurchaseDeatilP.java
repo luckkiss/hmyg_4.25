@@ -140,6 +140,7 @@ public class PurchaseDeatilP {
         paramsPut(params, ConstantParams.purchaseId, bean.purchaseId);
         paramsPut(params, ConstantParams.purchaseItemId, bean.purchaseItemId);
         paramsPut(params, ConstantParams.plantType, bean.plantType);
+        paramsPut(params, ConstantParams.prePrice, bean.prePrice);
 
 
         finalHttp.post(GetServerUrl.getUrl() + "admin/quote/save", params,

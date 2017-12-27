@@ -7,6 +7,11 @@ package com.hldj.hmyg.util;
 
 public interface ConstantParams {
 
+
+    /**
+     * 到岸价
+     */
+    String prePrice = "prePrice";
     /**
      * 苗木单价
      */

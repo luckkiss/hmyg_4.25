@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hy.utils.ToastUtil;
 import com.zf.iosdialog.widget.AlertDialog;
 
@@ -101,6 +103,10 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
         helper.setText(R.id.tv_quote_item_sellerName, strFilter(item.sellerName).equals("") ? strFilter(item.sellerPhone) : strFilter(item.sellerName));//报价人
         helper.setText(R.id.tv_quote_item_cityName, strFilter(item.cityName));//苗源地址
         helper.setText(R.id.tv_quote_item_price, strFilter("¥" + item.price + ""));//价格
+
+        if (!TextUtils.isEmpty(item.prePrice)) {
+            helper.setText(R.id.tv_quote_item_pre_price, strFilter("¥" + FUtil.$_zero(item.prePrice) + ""));// 预估到岸价
+        }
         helper.setText(R.id.tv_quote_item_plantTypeName, strFilter(item.plantTypeName));//种植类型
         helper.setText(R.id.tv_quote_item_specText, strFilter(item.specText));//要求规格
         helper.setText(R.id.tv_quote_item_count, strFilter(item.count + ""));// 可供数量

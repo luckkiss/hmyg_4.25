@@ -282,8 +282,13 @@ public class PurchaseDetailActivityChange extends BaseMVPActivity implements Cha
         PurchaseAutoAddLinearLayout layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("价格", "price", true));
         layout.setDefaultData(getItem().price);// 价格
         autoLayouts.add(layout);
-
         ll_purc_auto_add.addView(layout);
+
+
+        layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("到货价\n(预估)", "prePrice", false));
+        autoLayouts.add(layout);
+        ll_purc_auto_add.addView(layout);
+        layout.setDefaultData(getItem().prePrice);// 默认到岸价
 
         layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("数量", "count", false));
         layout.setDefaultData(getItem().count + "");// 数量
@@ -462,6 +467,8 @@ public class PurchaseDetailActivityChange extends BaseMVPActivity implements Cha
                 uploadBean.crown = str;
             } else if (plantBean.value.equals(ConstantParams.offbarHeight)) {
                 uploadBean.offbarHeight = str;
+            } else if (plantBean.value.equals(ConstantParams.prePrice)) {
+                uploadBean.prePrice = str;
             } else {
 
             }

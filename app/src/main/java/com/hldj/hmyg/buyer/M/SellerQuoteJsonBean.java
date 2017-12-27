@@ -78,13 +78,14 @@ public class SellerQuoteJsonBean implements Serializable {
     public String purchaseItemId;
     public String sellerId;
     public String price;
-    public String status ;
+    public String prePrice;
+    public String status;
     public String sellerName;
     public String sellerPhone;
     public String purchaseItemStatus;
     public List<String> paramsList;
     public List<SpecListBean> specList;
-    public int  count;
+    public int count;
 
 
     public List<ImagesJsonBean> imagesJson = new ArrayList<>();

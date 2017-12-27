@@ -97,26 +97,57 @@
                     android:gravity="center"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="可供数量:"
+                    android:text="预估到货价:"
                     android:textSize="12sp" />
 
 
                 <TextView
-                    android:id="@+id/tv_quote_item_count"
+                    android:id="@+id/tv_quote_item_pre_price"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
+                    android:textColor="@color/price_orige"
                     android:gravity="center_vertical|start"
                     android:paddingLeft="5dp"
                     android:textSize="12sp"
-                    tools:text="666" />
+                    tools:text="-" />
 
             </LinearLayout>
 
 
         </LinearLayout>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <com.coorchice.library.SuperTextView
+                android:layout_width="wrap_content"
+                android:layout_height="27dp"
+                android:gravity="center|end"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="可供数量:"
+                android:textSize="12sp" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_quote_item_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:gravity="center_vertical|start"
+                android:minHeight="27dp"
+                android:paddingRight="5dp"
+                android:textSize="12sp"
+                tools:text="666"
+
+                />
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -310,12 +341,11 @@
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:gravity="center"
+                android:text="修改报价"
                 android:textColor="@color/main_color"
                 android:textSize="12sp"
                 app:stroke_color="@color/main_color"
-                app:stroke_width="1dp"
-                android:text="修改报价"
-                />
+                app:stroke_width="1dp" />
 
 
             <com.coorchice.library.SuperTextView
