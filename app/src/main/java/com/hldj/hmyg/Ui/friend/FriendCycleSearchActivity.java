@@ -69,7 +69,7 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
 
     @Override
     public void initFiled(ArrayList<String> list_title, ArrayList<Fragment> list_fragment) {
-        super.initFiled(list_title, list_fragment);
+//        super.initFiled(list_title, list_fragment);
         try {
             list_fragment.add(0, FriendBaseFragment.newInstance(MomentsType.all.getEnumValue()));
             list_title.add(0, "所有");

@@ -76,8 +76,10 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
     /*中间2个按钮*/
     @ViewInject(id = R.id.rb_title_left, click = "onClick")
     public RadioButton rb_title_left;
-    @ViewInject(id = R.id.rb_title_center)
+
+    @ViewInject(id = R.id.rb_title_center, click = "onClick")
     public RadioButton rb_title_center;
+
     @ViewInject(id = R.id.rb_title_right, click = "onClick")
     public RadioButton rb_title_right;
 
@@ -114,6 +116,14 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
     }
 
     public void initFiled(ArrayList<String> list_title, ArrayList<Fragment> list_fragment) {
+        try {
+            list_fragment.add(0, FriendBaseFragment.newInstance(MomentsType.all.getEnumValue()));
+            list_title.add(0, "全部");
+        } catch (Exception e) {
+            Log.i(TAG, "initFiled: ");
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -121,8 +131,9 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
         MyFinalActivity.initInjectedView(this);
         initFiled(list_title, list_fragment);//子类继承，用于修改数据
         rb_title_left.setText(list_title.get(0));
-        rb_title_right.setText(list_title.get(1));
-        rb_title_center.setVisibility(View.GONE);
+        rb_title_center.setText(list_title.get(1));
+        rb_title_right.setText(list_title.get(2));
+        rb_title_center.setVisibility(View.VISIBLE);
         toolbar_right_icon.setVisibility(View.VISIBLE);
         toolbar_right_icon.setImageResource(R.mipmap.friend_publish_edit);
         toolbar_left_icon.setImageResource(R.mipmap.friend_search);
@@ -150,6 +161,8 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
             public void onPageSelected(int position) {
                 if (position == 0) {
                     rb_title_left.setChecked(true);
+                } else if (position == 1) {
+                    rb_title_center.setChecked(true);
                 } else {
                     rb_title_right.setChecked(true);
                 }
@@ -160,12 +173,14 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 
             }
         });
-        viewpager.setOffscreenPageLimit(2);
+        viewpager.setOffscreenPageLimit(3);
         view.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.rb_title_left) {
                 viewpager.setCurrentItem(0);
-            } else {
+            } else if (checkedId == R.id.rb_title_center) {
                 viewpager.setCurrentItem(1);
+            } else {
+                viewpager.setCurrentItem(2);
             }
         });
     }
@@ -180,6 +195,17 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
             case R.id.toolbar_left_icon:
                 SearchActivity.start(mActivity, searchContent);
                 break;  /*搜索*/
+
+            case R.id.rb_center:
+//                ToastUtil.showLongToast("rb_center");
+                currentType = MomentsType.supply.getEnumValue();
+                FriendBaseFragment fragment2 = (FriendBaseFragment) list_fragment.get(1);
+                Log.i(TAG, "onClick: rb_center" + rb_title_right.isChecked());
+                Log.i(TAG, "onClick: rb_center" + viewpager.getCurrentItem());
+                Log.i(TAG, "onClick: fragment is visiable" + fragment2.mIsVisible);
+                viewpager.setCurrentItem(1);
+                break;
+
             case R.id.message:
                 if (message != null) {
 //                  message.setVisibility(View.GONE);
@@ -197,7 +223,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
             case R.id.rb_title_left:
 //              ToastUtil.showLongToast("刷新供应");
                 /*当前的展示类型*/
-                currentType = MomentsType.supply.getEnumValue();
+                currentType = MomentsType.all.getEnumValue();
                 FriendBaseFragment fragment = (FriendBaseFragment) list_fragment.get(0);
                 Log.i(TAG, "onClick: rb_title_right" + rb_title_right.isChecked());
                 Log.i(TAG, "onClick: rb_title_left" + viewpager.getCurrentItem());
@@ -213,9 +239,9 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
                 currentType = MomentsType.purchase.getEnumValue();
                 Log.i(TAG, "onClick: rb_title_left" + viewpager.getCurrentItem());
 
-                FriendBaseFragment fragment1 = (FriendBaseFragment) list_fragment.get(1);
+                FriendBaseFragment fragment1 = (FriendBaseFragment) list_fragment.get(2);
                 Log.i(TAG, "onClick: fragment is visiable" + fragment1.mIsVisible);
-                viewpager.setCurrentItem(1);
+                viewpager.setCurrentItem(2);
                 Log.w(TAG, "---------------------------------");
                 break;
 
