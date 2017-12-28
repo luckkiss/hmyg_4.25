@@ -309,37 +309,40 @@ public class PublishActivity extends BaseMVPActivity {
                                 }
                             });
                         } else {
-                            new AlertDialog(mActivity).builder()
-                                    .setTitle("有些图片上传失败了?")
-                                    .setPositiveButton("继续提交", v1 -> {
-                                        Log.i(TAG, "doFinally: 上传所有数据");
-                                        //图片上传结束
-                                        Moments moments = new Moments();
-                                        moments.content = et_content.getText().toString();
-                                        moments.cityCode = cityCode;
-                                        moments.momentsType = tag;
-                                        moments.images = GsonUtil.Bean2Json(pics);
-                                        moments.imagesData = GsonUtil.Bean2Json(pics);
-                                        new BasePresenter().putParams(moments).doRequest("admin/moments/save", true, new HandlerAjaxCallBack(mActivity) {
-                                            @Override
-                                            public void onRealSuccess(SimpleGsonBean gsonBean) {
-                                                ToastUtil.showLongToast(gsonBean.msg);
-                                                Log.i(TAG, "run: 上传结束" + gsonBean.msg);
-                                                hindLoading();
-                                                if (getTag().equals(PURCHASE)) {
-                                                    //求购成功
-                                                    setResult(PURCHASE_SUCCEED);
-                                                } else if (getTag().equals(PUBLISH)) {
-                                                    //发布成功
-                                                    setResult(PUBLISH_SUCCEED);
-                                                }
-                                                finish();
-                                            }
-                                        });
 
-                                    }).setNegativeButton("重新上传", v2 -> {
-                                requestUpload(MomentsType.purchase.getEnumValue());
-                            }).show();
+                            ToastUtil.showLongToast("上传失败，请重新上传~_~");
+                            if (!isFinishing())
+                                new AlertDialog(mActivity).builder()
+                                        .setTitle("有些图片上传失败了?")
+                                        .setPositiveButton("继续提交", v1 -> {
+                                            Log.i(TAG, "doFinally: 上传所有数据");
+                                            //图片上传结束
+                                            Moments moments = new Moments();
+                                            moments.content = et_content.getText().toString();
+                                            moments.cityCode = cityCode;
+                                            moments.momentsType = tag;
+                                            moments.images = GsonUtil.Bean2Json(pics);
+                                            moments.imagesData = GsonUtil.Bean2Json(pics);
+                                            new BasePresenter().putParams(moments).doRequest("admin/moments/save", true, new HandlerAjaxCallBack(mActivity) {
+                                                @Override
+                                                public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                                    ToastUtil.showLongToast(gsonBean.msg);
+                                                    Log.i(TAG, "run: 上传结束" + gsonBean.msg);
+                                                    hindLoading();
+                                                    if (getTag().equals(PURCHASE)) {
+                                                        //求购成功
+                                                        setResult(PURCHASE_SUCCEED);
+                                                    } else if (getTag().equals(PUBLISH)) {
+                                                        //发布成功
+                                                        setResult(PUBLISH_SUCCEED);
+                                                    }
+                                                    finish();
+                                                }
+                                            });
+
+                                        }).setNegativeButton("重新上传", v2 -> {
+                                    requestUpload(MomentsType.purchase.getEnumValue());
+                                }).show();
 //                            new AlertDialog(mActivity).builder()
 //                                    .setTitle("确定退出登录?")
 //                                    .setPositiveButton("退出登录", v1 -> {

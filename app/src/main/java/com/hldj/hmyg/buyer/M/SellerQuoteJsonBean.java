@@ -50,6 +50,7 @@ public class SellerQuoteJsonBean implements Serializable {
     public String remarks;
     public String createBy;
     public String createDate;
+    public String quoteDateStr;
     public String cityCode;
     public String cityName;
     public String prCode;

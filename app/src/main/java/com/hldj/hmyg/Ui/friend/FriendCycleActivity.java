@@ -96,8 +96,8 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
         add(FriendBaseFragment.newInstance(MomentsType.supply.getEnumValue()));
         add(FriendBaseFragment.newInstance(MomentsType.purchase.getEnumValue()));
     }};
+ public void initChild() {
 
-    public void initChild() {
         RxBus.getInstance().register(this);
     }
 

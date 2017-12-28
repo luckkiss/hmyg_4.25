@@ -94,10 +94,40 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     public Editor e;
 
 
+    private View friend_view;
+    public static View.OnClickListener clicks;
+
+
+    long mLastTime;
+    long mCurTime;
+
+
+    public void aaa() {
+        friend_view = findViewById(R.id.iv_publish);
+        friend_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLastTime = mCurTime;
+                mCurTime = System.currentTimeMillis();
+                if (mCurTime - mLastTime < 500) {
+//                    Toast.makeText(MainActivity.this, "这就是传说中的双击事件", Toast.LENGTH_LONG).show();
+                    if (clicks != null) {
+                        Log.i(TAG, "onClick: 触发回调");
+                        clicks.onClick(v);
+                    }
+                }
+                Log.i(TAG, "onClick: 点击了苗木圈");
+            }
+        });
+    }
+
+    ;
+
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         try {
             if (savedInstanceState != null) {
@@ -119,6 +149,10 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         StartBarUtils.FlymeSetStatusBarLightMode(getWindow(), true);
         StartBarUtils.MIUISetStatusBarLightMode(getWindow(), true);
         setContentView(R.layout.activity_main);
+
+        aaa();
+
+
         getAddr();
 
         e = MyApplication.Userinfo.edit();//初始化 sp
@@ -282,6 +316,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
             }
         }
     }
+
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {

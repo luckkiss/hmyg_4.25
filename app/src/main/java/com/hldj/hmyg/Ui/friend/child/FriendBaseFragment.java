@@ -16,6 +16,7 @@ import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.LoginActivity;
+import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.friend.FriendCycleSearchActivity;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
@@ -181,13 +182,13 @@ public class FriendBaseFragment extends BaseFragment {
                 if (item.itemListJson != null && !item.itemListJson.isEmpty()) {
                     //有评论    -----^-------
                     tv_bottom_line.setBackgroundResource(R.mipmap.bottom_triangle);
-                    params.height = dp2px(mActivity,9);
-                    params.setMargins(0, 0, 0,0);//4个参数按顺序分别是左上右下
+                    params.height = dp2px(mActivity, 9);
+                    params.setMargins(0, 0, 0, 0);//4个参数按顺序分别是左上右下
                 } else {
                     //没有评论    ------------
                     params.height = 1;
 //                    params.setMargins(0,  dp2px(14), 0, 0);//4个参数按顺序分别是左上右下
-                    params.setMargins(dp2px(mActivity,0), dp2px(mActivity,4), dp2px(mActivity,0), dp2px(mActivity,4));//4个参数按顺序分别是左上右下
+                    params.setMargins(dp2px(mActivity, 0), dp2px(mActivity, 4), dp2px(mActivity, 0), dp2px(mActivity, 4));//4个参数按顺序分别是左上右下
                     tv_bottom_line.setBackgroundColor(baseMVPActivity.getColorByRes(R.color.divider_color));
                 }
                 tv_bottom_line.setText("");
@@ -625,6 +626,16 @@ public class FriendBaseFragment extends BaseFragment {
     @Override
     protected void onVisible() {
         super.onVisible();
+        MainActivity.clicks = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("tag", FriendBaseFragment.this + "");
+                if (mRecyclerView != null) {
+                    mRecyclerView.getRecyclerView().smoothScrollBy(0, 0);
+                    mRecyclerView.getRecyclerView().smoothScrollToPosition(0);
+                }
+            }
+        };
         D.w("onVisible 显示  解除订阅" + this);
 
     }

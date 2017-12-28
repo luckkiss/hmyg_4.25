@@ -307,6 +307,9 @@
             android:name="com.hldj.hmyg.SettingActivity"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name="com.hldj.hmyg.TestPatchActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.hldj.hmyg.SafeAcountActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>

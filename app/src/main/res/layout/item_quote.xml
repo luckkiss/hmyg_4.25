@@ -130,7 +130,7 @@
                     android:gravity="center"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="预估到岸价:"
+                    android:text="预估到货价:"
                     android:textSize="12sp" />
 
 

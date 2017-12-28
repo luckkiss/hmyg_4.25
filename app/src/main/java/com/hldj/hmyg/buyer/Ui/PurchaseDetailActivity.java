@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -108,6 +109,14 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                     @Override
                     protected void convert(BaseViewHolder helper, SellerQuoteJsonBean item) {
 //                        helper.setText(R.id.tv_quote_item_sellerName, strFilter(item.sellerName).equals("") ? strFilter(item.sellerPhone) : strFilter(item.sellerName));//报价人
+
+                        helper.setParentVisible(R.id.tv_quote_item_sellerName, helper.getAdapterPosition() == 1);
+                        helper.setVisible(R.id.line, helper.getAdapterPosition() == 1);
+                        Log.i(TAG, "convert: 采购详情" + helper.getAdapterPosition());
+
+
+                        helper.setText(R.id.tv_quote_item_time, item.quoteDateStr);// 创建时间
+
 
                         helper.setText(R.id.tv_quote_item_price, strFilter("¥" + item.price + ""));//价格
 

@@ -143,19 +143,9 @@ public class SettingActivity extends NeedSwipeBackActivity implements
 //                 */
 //            }
 //        });
-//        findViewById(R.id.test_show_pach2).setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ToastUtil.showShortToast("重新下载补丁");
-//                Beta.checkUpgrade();
-//                /**
-//                 * Beta.cleanTinkerPatch();
-//                 注：清除补丁之后，就会回退基线版本状态。
-//                 主动检查更新
-//                 Beta.checkUpgrade();
-//                 */
-//            }
-//        });
+
+
+        initaaa();
 
 
         e = MyApplication.Userinfo.edit();
@@ -199,6 +189,8 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         newMsgAlertStatusOnOff.setOnChangedListener(this);
         receiptMsg.setOnChangedListener(this);
     }
+
+
 
     @Override
     public void onChanged(boolean checkState, View v) {
@@ -676,4 +668,22 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         mActivity.startActivity(new Intent(mActivity, SettingActivity.class));
     }
 
+
+    private void initaaa() {
+        findViewById(R.id.test_show_pach2).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.showLongToast("new activity");
+//                ToastUtil.showShortToast("重新下载补丁");
+//                Beta.checkUpgrade();
+                /**
+                 * Beta.cleanTinkerPatch();
+                 注：清除补丁之后，就会回退基线版本状态。
+                 主动检查更新
+                 Beta.checkUpgrade();
+                 */
+                TestPatchActivity.start2Activity(mActivity);
+            }
+        });
+    }
 }
