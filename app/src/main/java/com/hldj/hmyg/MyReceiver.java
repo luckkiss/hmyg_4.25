@@ -1,5 +1,6 @@
 package com.hldj.hmyg;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +35,57 @@ public class MyReceiver extends BroadcastReceiver {
     private static final String TAG = "JPush";
     private String url = "";
     private String title = "详情";
+    public static com.flyco.dialog.widget.MaterialDialog dialog;
+
+    public static void Call_Phone(Activity ac) {
+
+//        if (dialog!=null)
+//        {
+//            dialog.show();
+//        }
+//        ToastUtil.showLongToast("hello world");
+//        Log.w(TAG, "Call_Phone: " + "hello world" + context);
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.Theme_AppCompat);
+//        builder.setMessage("Are you sure you want to exit?")
+//                .setCancelable(false)
+//                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//
+//                    }
+//                })
+//                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        dialog.cancel();
+//                    }
+//                });
+//
+//        AlertDialog alert = builder.create();
+//        alert.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+//        alert.show();
+
+
+//        new AlertDialog(context).builder()
+//                .setTitle("确定退出登录?")
+//                .setPositiveButton("退出登录", v1 -> {
+//                    SettingActivity.exit2Home
+//                            ((Activity) context, MyApplication.Userinfo.edit(), false);
+//                }).setNegativeButton("取消", v2 -> {
+//        }).show();
+
+//
+//            dialog = new com.flyco.dialog.widget.MaterialDialog(ac);
+//            dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+//            dialog.title("客服热线4006-579-888").content("客服热线 周一至周日9:00-18:00")//
+//                    .btnText("确认拨号", "取消")//
+//                    .show();
+//            dialog.setOnBtnClickL(() -> {
+//                dialog.dismiss();
+//            }, () -> dialog.dismiss());
+//
+
+
+    }
 
     @SuppressWarnings("unused")
     @Override
@@ -63,6 +115,22 @@ public class MyReceiver extends BroadcastReceiver {
                 momentId = "";
                 e.printStackTrace();
             }
+
+            String loginOut = "";
+            try {
+                JSONObject jsonObject = new JSONObject(extras);
+                loginOut = jsonObject.getString("loginOut");
+            } catch (JSONException e) {
+                loginOut = "";
+                e.printStackTrace();
+            }
+
+//            if (TextUtils.isEmpty(loginOut)) {
+//                ToastUtil.showLongToast("不需要退出登录");
+//            } else {
+//                ToastUtil.showLongToast("执行退出登录" + loginOut);
+////              Call_Phone(context);
+//            }
 
             //  key:cn.jpush.android.EXTRA,
             //{"sourceId":"4966be553cf84d92856254b08a3adb34","momentsId":"f0e83bf9c5564eeeaa3510e8ad810051","type":"thumbUp","option":"add","messageType":"moments"}

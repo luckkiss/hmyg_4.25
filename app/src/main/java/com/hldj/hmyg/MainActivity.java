@@ -129,6 +129,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         super.onCreate(savedInstanceState);
 
 
+
         try {
             if (savedInstanceState != null) {
                 updateInfo = (UpdateInfo) savedInstanceState.getSerializable("updateInfo");
@@ -847,5 +848,8 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     @Override
     protected void onResume() {
         super.onResume();
+
+
+
     }
 }

@@ -318,7 +318,7 @@ public class LoginPresenter {
             editor.putBoolean("isLogin", true);
             editor.putBoolean("notification",
                     MyApplication.Userinfo.getBoolean(
-                            "notification", false));
+                            "notification", true));
             editor.commit();
         } catch (JSONException e) {
             e.printStackTrace();

@@ -8,7 +8,10 @@ def bakPath = file("${buildDir}/bakApk/")
 //def baseApkDir = "app-0907-18-09-41"  3.0.4fix1 使用
 //def baseApkDir = "app-0926-12-54-35"   3.0.5. 1
 //def baseApkDir = "app-1030-15-54-46"    // 3.0.5release
-def baseApkDir = "app-1222-17-30-16"    // 3.0.5fix1
+
+def baseApkDir = "app-1229-10-02-35"    // 3.0.5fix2
+
+//def baseApkDir = ""    // 3.0.5fix1
 //def baseApkDir = "app-1107-15-32-11"   // 内测版本2.1.1 72
 //
 /**
@@ -42,8 +45,14 @@ tinkerSupport {
 //      tinkerId = "patch-3.0.5release"
 //    tinkerId = "base-3.0.5release"
 //      tinkerId = "patch-3.0.5release"
+
 //        tinkerId = "base-3.0.6release_fix1"
-        tinkerId = "patch-3.0.6release_fix1"
+//        tinkerId = "patch-3.0.6release_fix1"
+
+
+//    tinkerId = "base-3.0.6release_fix2"
+      tinkerId = "patch-3.0.6release_fix2"
+
 //      tinkerId = "patch-3.0.5release"
 
 //    tinkerId = "base-3.0.5bete3"

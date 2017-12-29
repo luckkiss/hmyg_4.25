@@ -9,6 +9,6 @@
     <string name="import_word">请输入品种名称的关键字</string>
     <string name="reset">重置</string>
     <string name="company_info"><u>单位信息</u></string>
-    <string name="publish_content">写点什么... \n例如：供应商红花 高2米 冠幅0.9米以上...</string>
-    <string name="purchase_content">写点什么... \n例如：求购红花 高2米 冠幅0.9米以上... </string>
+    <string name="publish_content">写点什么... \n例如：供应 红花 高2米 冠幅0.9米以上...</string>
+    <string name="purchase_content">写点什么... \n例如：求购 红花 高2米 冠幅0.9米以上... </string>
 </resources>

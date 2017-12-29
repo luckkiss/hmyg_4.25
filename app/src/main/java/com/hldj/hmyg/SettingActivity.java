@@ -101,7 +101,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                 if (updateInfo != null) {
                     ToastUtil.showShortToast(updateInfo.newFeature);
                 } else {
-                    ToastUtil.showShortToast("oppo手机拍照会出现马赛克问题");
+                    ToastUtil.showShortToast("日志优化：更新tinker为最新版");
                 }
 
 //                Log.i(TAG, "hello world");
@@ -164,6 +164,16 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         }
         TextView tv_out = (TextView) findViewById(R.id.tv_out);
         LinearLayout ll_01 = (LinearLayout) findViewById(R.id.ll_01);
+        LinearLayout ll_login_out = (LinearLayout) findViewById(R.id.ll_login_out);
+
+        ll_login_out.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //清除异地登录
+                ToastUtil.showLongToast("清除异地登录");
+            }
+        });
+
         LinearLayout ll_02 = (LinearLayout) findViewById(R.id.ll_02);
         LinearLayout ll_03 = (LinearLayout) findViewById(R.id.ll_03);
         LinearLayout ll_04 = (LinearLayout) findViewById(R.id.ll_04);
@@ -189,7 +199,6 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         newMsgAlertStatusOnOff.setOnChangedListener(this);
         receiptMsg.setOnChangedListener(this);
     }
-
 
 
     @Override
@@ -673,7 +682,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         findViewById(R.id.test_show_pach2).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showLongToast("new activity");
+                ToastUtil.showLongToast("TestPatchActivity activity");
 //                ToastUtil.showShortToast("重新下载补丁");
 //                Beta.checkUpgrade();
                 /**
