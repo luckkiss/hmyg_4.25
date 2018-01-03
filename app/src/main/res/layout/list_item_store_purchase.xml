@@ -80,9 +80,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2.0dip"
+            android:orientation="horizontal"
             android:paddingLeft="10.0dip"
-            android:paddingRight="10.0dip"
-            android:orientation="horizontal">
+            android:paddingRight="10.0dip">
 
             <TextView
                 android:id="@+id/tv_02"
@@ -92,6 +92,7 @@
                 android:textSize="12.0sp"
                 android:visibility="visible"
                 tools:text="种植类型：" />
+
             <TextView
                 android:id="@+id/tv_021"
                 android:layout_width="match_parent"
@@ -177,8 +178,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="2.0dip"
                 android:layout_gravity="center_vertical"
+                android:layout_marginBottom="2.0dip"
                 android:paddingLeft="10.0dip"
                 android:paddingRight="10.0dip">
 
@@ -222,10 +223,10 @@
                 android:paddingLeft="5.0dip"
                 android:paddingRight="5.0dip"
                 android:paddingTop="2.5dip"
-                android:textSize="14sp"
                 android:singleLine="true"
                 android:text="马上报价"
-                android:textColor="@color/main_color" />
+                android:textColor="@color/main_color"
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="1px"
@@ -307,20 +308,29 @@
                 android:textColor="@color/main_color"
                 android:textSize="11.0sp" />
         </LinearLayout>
+
+
+        <!--<ListView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100dp" android:background="@color/red"/>-->
+
+        <include layout="@layout/item_purchase_first_cons" />
+
+
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <ImageView
             android:id="@+id/iv_img2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
             android:src="@drawable/yibaojia2x" />
     </RelativeLayout>
 

@@ -177,6 +177,8 @@ public class FriendBaseFragment extends BaseFragment {
                 }
 
                 TextView tv_bottom_line = helper.getView(R.id.textView30);
+
+
 //                ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_CONSTRAINT,1);
                 ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) tv_bottom_line.getLayoutParams();
                 if (item.itemListJson != null && !item.itemListJson.isEmpty()) {
@@ -194,6 +196,17 @@ public class FriendBaseFragment extends BaseFragment {
                 tv_bottom_line.setText("");
                 tv_bottom_line.setLayoutParams(params);
 
+
+//                ConstraintSet mConstraintSet1 = new ConstraintSet(); // create a Constraint Set
+//                ConstraintLayout c = (ConstraintLayout) rootView.findViewById(R.id.constraint);
+//                mConstraintSet1.clone(c);
+//                mConstraintSet1.
+//                TransitionManager.beginDelayedTransition(c);
+//                mConstraintSet1.applyTo(c); // set new constraints
+
+//                ConstraintLayout.LayoutParams params1 = (ConstraintLayout.LayoutParams) measureListView.getLayoutParams();
+//                params1.topToBottom = 1;
+//                measureListView.setLayoutParams(params1);
                 measureListView.setAdapter(new GlobBaseAdapter<MomentsReply>(mActivity, item.itemListJson, R.layout.item_list_simple) {
                     @Override
                     public void setConverView(ViewHolders myViewHolder, MomentsReply s, int position) {

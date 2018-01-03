@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?><!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="fill_parent"--><!--android:layout_height="fill_parent">-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:background="@drawable/conner_white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/close_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color"
+        android:drawableRight="@drawable/close"
+        android:gravity="center"
+        android:padding="4dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="填写报价"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="红车  7000株"
+        android:textColor="@color/red"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="种植类型： 地栽苗，容器苗"
+        android:textColor="@color/text_color333"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="规格：高度：30 冠幅：50"
+        android:textColor="@color/text_color333"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="价格：      (元)"
+        android:textColor="@color/text_color333"
+        android:textSize="16sp" />
+
+
+    <TextView
+        android:id="@+id/city"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:drawableRight="@drawable/ic_right_icon_new"
+        android:padding="8dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="苗源地"
+        android:textColor="@color/text_color333"
+        android:textSize="16sp" />
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="报价说明"
+        android:textColor="@color/text_color333"
+        android:textSize="16sp" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/gray_bg_ed"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text=""
+        android:textColor="@color/text_color333"
+        android:textSize="16sp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="@color/main_color"
+        android:text="提交报价"
+        android:textColor="@color/white" />
+
+
+</LinearLayout><!--</FrameLayout>-->

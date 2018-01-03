@@ -605,7 +605,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                             }
                             showSeedlingNoteShare = bean.getData().showSeedlingNoteShare;
 
-                            showSeedlingNoteTeam = !showSeedlingNoteTeam;
+//                            showSeedlingNoteTeam = !showSeedlingNoteTeam;
 //                            showSeedlingNoteShare = false;
                             D.e("===========showSeedlingNoteShare===========" + showSeedlingNoteShare);
 

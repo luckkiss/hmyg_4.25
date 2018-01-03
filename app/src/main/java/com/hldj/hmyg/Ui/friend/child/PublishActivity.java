@@ -287,7 +287,7 @@ public class PublishActivity extends BaseMVPActivity {
                             Log.i(TAG, "doFinally: 上传所有数据");
                             //图片上传结束
                             Moments moments = new Moments();
-                            moments.content = et_content.getText().toString();
+                            moments.content = et_content.getText().toString().trim();
                             moments.cityCode = cityCode;
                             moments.momentsType = tag;
                             moments.images = GsonUtil.Bean2Json(pics);

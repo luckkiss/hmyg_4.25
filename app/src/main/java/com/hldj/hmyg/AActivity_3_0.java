@@ -44,6 +44,7 @@ import com.hldj.hmyg.bean.ArticleBean;
 import com.hldj.hmyg.bean.HomeStore;
 import com.hldj.hmyg.bean.Type;
 import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
+import com.hldj.hmyg.buyer.Ui.DialogActivity;
 import com.hldj.hmyg.buyer.weidet.SwipeViewHeader;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
 import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
@@ -692,24 +693,25 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 break;
 
             case R.id.iv_a_msg:
-                if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {//没有登录跳转到登录界面
-                    LoginActivity.start2Activity(this);
-                    return;
-                }
-                Intent toMessageListActivity = new Intent(AActivity_3_0.this,
-                        MessageListActivity.class);
-                startActivity(toMessageListActivity);
-                getParent().overridePendingTransition(R.anim.slide_in_left,
-                        R.anim.slide_out_right);
-
-
-                D.w("=================发送自定义推送消息 start===================");
-
-
-//                JpushUtil.sendCustommPush();
-
-
-                D.w("=================发送自定义推送消息 end===================");
+                DialogActivity.start(this);
+//                if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {//没有登录跳转到登录界面
+//                    LoginActivity.start2Activity(this);
+//                    return;
+//                }
+//                Intent toMessageListActivity = new Intent(AActivity_3_0.this,
+//                        MessageListActivity.class);
+//                startActivity(toMessageListActivity);
+//                getParent().overridePendingTransition(R.anim.slide_in_left,
+//                        R.anim.slide_out_right);
+//
+//
+//                D.w("=================发送自定义推送消息 start===================");
+//
+//
+////                JpushUtil.sendCustommPush();
+//
+//
+//                D.w("=================发送自定义推送消息 end===================");
 
                 break;
 

@@ -11,6 +11,7 @@ import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
+import com.hldj.hmyg.Ui.friend.bean.enums.MomentsType;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.base.CommonPopupWindow;
@@ -81,13 +82,41 @@ public class FriendPresenter {
      * 执行分享方法
      */
     public static void share(FragmentActivity activity, Moments item) {
+        if (item.attrData == null) {
+            item.attrData = new Moments.AttrDataBean();
+        }
+
         D.e("分享");
+        String title = item.attrData.displayName + "发布了";
+
+//      "花木易购苗木圈",getSpS("headImage")
+        String headUrl = "";
+        if (!TextUtils.isEmpty(item.attrData.headImage)) {
+            headUrl = item.attrData.headImage;
+        } else if (item.imagesJson != null && item.imagesJson.size() > 0) {
+            headUrl = item.imagesJson.get(0).ossMediumImagePath;
+        } else {
+            headUrl = GetServerUrl.ICON_PAHT;
+        }
+
+        String type = "";
+        if (MomentsType.supply.getEnumValue().equals(item.momentsType)) {
+            //供应
+            type = "【供应】";
+        } else if (MomentsType.purchase.getEnumValue().equals(item.momentsType)) {
+            type = "【求购】";
+        } else {
+            type = "";
+        }
+
+
         ComonShareDialogFragment.newInstance()
                 .setShareBean(new ComonShareDialogFragment.ShareBean(
-                        "花木易购苗木圈",
+                        title + type,
                         item.content,
-                        "desc",
-                        (item.imagesJson != null && item.imagesJson.size() > 0) ? item.imagesJson.get(0).ossMediumImagePath : GetServerUrl.ICON_PAHT,
+                        "",
+//                        (item.imagesJson != null && item.imagesJson.size() > 0) ? item.imagesJson.get(0).ossMediumImagePath : GetServerUrl.ICON_PAHT,
+                        headUrl,
                         GetServerUrl.getHtmlUrl() + "moments/detail/" + item.id + ".html"))
                 .show(activity.getSupportFragmentManager(), activity.getClass().getName());
     }
