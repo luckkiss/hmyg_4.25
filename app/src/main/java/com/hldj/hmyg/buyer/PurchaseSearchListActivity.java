@@ -700,4 +700,9 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
 
     }
 
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

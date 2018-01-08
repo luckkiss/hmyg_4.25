@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.LoginActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
@@ -19,23 +20,25 @@ import com.hldj.hmyg.base.ViewHolders;
 import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
 import com.hldj.hmyg.buyer.M.QuoteStatus;
 import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
+import com.hldj.hmyg.buyer.P.PurchaseDeatilP;
 import com.hldj.hmyg.buyer.Ui.DialogActivity;
 import com.hldj.hmyg.buyer.Ui.QuoteListActivity_bak;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
+import com.zf.iosdialog.widget.AlertDialog;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+
+import static com.hldj.hmyg.R.id.textView41;
 
 
 @SuppressLint("ResourceAsColor")
 public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<PurchaseItemBean_new> {
     private static final String TAG = "StorePurchaseL";
 
-    private ArrayList<HashMap<String, Object>> data = null;
+//    private ArrayList<HashMap<String, Object>> data = null;
 
     public abstract String setCityName();
 
@@ -101,8 +104,10 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
                 TextView textView37 = myViewHolder.getView(R.id.textView37);
                 textView37.setText("报价说明：" + FUtil.$_zero(jsonBean.remarks));
 
-                TextView state = myViewHolder.getView(R.id.textView39);
-                state.setText("当前报价状态：" + getStateName(jsonBean.status));
+                TextView state = myViewHolder.getView(R.id.state);
+
+//                StringFormatUtil formatUtil = new StringFormatUtil(context, "当前报价状态：" + getStateName(jsonBean.status), getStateName(jsonBean.status), ContextCompat.getColor(context, R.color.orange)).fillColor();
+                state.setText( getStateName(jsonBean.status));
 
 
 
@@ -110,19 +115,25 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
                 myViewHolder.getView(R.id.textView40).setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ToastUtil.showLongToast("delete");
-                        purchaseItemBeanNew.sellerQuoteListJson.remove(position);
-                        notifyDataSetChanged();
+
+                        doDelete(v, purchaseItemBeanNew, position, jsonBean);
+
+
+//                        ToastUtil.showLongToast("delete");
+//                        purchaseItemBeanNew.sellerQuoteListJson.remove(position);
+//                        notifyDataSetChanged();
                     }
                 });
 
-                /*马上报价*/
-                myViewHolder.getView(R.id.textView41).setOnClickListener(new OnClickListener() {
+                /*编辑*/
+                myViewHolder.getView(textView41).setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         ToastUtil.showLongToast("马上报价");
-                        purchaseItemBeanNew.sellerQuoteListJson.set(position, null);
-                        notifyDataSetChanged();
+//                      purchaseItemBeanNew.sellerQuoteListJson.set(position, null);
+//                      notifyDataSetChanged();
+                        DialogActivity.start((Activity) context, purchaseItemBeanNew, jsonBean);
+
                     }
                 });
 
@@ -147,11 +158,47 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
                     DialogActivity.start((Activity) context, purchaseItemBeanNew);
 //                    DialogActivitySecond.start2Activity((Activity) context, purchaseItemBeanNew.id ,purchaseItemBeanNew);
 
+
                 } else {
                     LoginActivity.start2Activity((Activity) context);
                 }
             }
         });
+
+
+    }
+
+    private void doDelete(View v, PurchaseItemBean_new purchaseItemBeanNew, int position, SellerQuoteJsonBean jsonBean) {
+
+        new AlertDialog(context)
+                .builder()
+                .setTitle("确定删除")
+                .setPositiveButton("确定", v1 -> {
+                    new PurchaseDeatilP(new ResultCallBack<PurchaseItemBean_new>() {
+                        @Override
+                        public void onSuccess(PurchaseItemBean_new itemBean_new) {
+                            ToastUtil.showShortToast("删除成功");
+//                            ToastUtil.showLongToast("delete");
+//                            data.set(position, itemBean_new);
+                            for (int i = 0; i < data.size(); i++) {
+                                if (data.get(i).id.equals(itemBean_new.id)) {
+                                    data.set(i, itemBean_new);
+                                }
+                            }
+//                          purchaseItemBeanNew = itemBean_new ;
+                            notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onFailure(Throwable t, int errorNo, String strMsg) {
+                            ToastUtil.showShortToast("删除失败" + strMsg);
+                        }
+                    })
+                            .quoteDdel(jsonBean.id);
+                })
+                .setNegativeButton("取消", v2 -> {
+                }).show();
+        //删除接口
 
 
     }

@@ -677,7 +677,6 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
                 } else {
                     hindLoading();
                 }
-
                 getDatas();
             }
 

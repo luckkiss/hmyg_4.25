@@ -17,8 +17,10 @@ import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
+import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantParams;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hy.utils.ToastUtil;
@@ -78,6 +80,10 @@ public class DialogActivity extends BaseMVPActivity {
     }
 
     private CityGsonBean.ChildBeans 获取地址对象() {
+        if (cityBeans == null) {
+            ToastUtil.showLongToast("请选择地址");
+            return new CityGsonBean.ChildBeans();
+        }
         return cityBeans;
     }
 
@@ -92,23 +98,62 @@ public class DialogActivity extends BaseMVPActivity {
             return "";
     }
 
+    private String 获取修改ID() {
+        if (getBean() != null)
+            return getBean().id;
+        else
+            return "";
+    }
+
     /**
      * paramsPut(params, ConstantParams.purchaseId, bean.purchaseId);
      * paramsPut(params, ConstantParams.purchaseItemId, bean.purchaseItemId);
      */
 
+
+    /**
+     * new PurchaseDeatilP(new ResultCallBack<PurchaseItemBean_new>() {
+     *
+     * @Override public void onSuccess(PurchaseItemBean_new itemBean_new) {
+     * if (itemBean_new != null) {
+     * Intent intent = new Intent();
+     * intent.putExtra("bean", itemBean_new);
+     * setResult(ConstantState.PUBLIC_SUCCEED, intent);//发布成功
+     * onSaveFinish(true);
+     * } else {
+     * hindLoading();
+     * }
+     * <p>
+     * getDatas();
+     * }
+     * @Override public void onFailure(Throwable t, int errorNo, String strMsg) {
+     * hindLoading();
+     * }
+     * })
+     * .quoteCommit(PurchaseDetailActivity.this, uploadBean)
+     * ;
+     */
+
     private void 提交报价() {
+
+
         new BasePresenter()
                 .putParams(ConstantParams.price, 获取价格())
                 .putParams(ConstantParams.cityCode, 获取地址对象().cityCode)
                 .putParams(ConstantParams.remarks, 获取报价说明())
-//              .putParams(ConstantParams.id, 获取ID())
+                .putParams(ConstantParams.id, 获取修改ID())
                 .putParams(ConstantParams.purchaseId, getData().pid1)
-                .putParams(ConstantParams.purchaseItemId,获取ID())
-                .doRequest("admin/quote/saveSimple", true, new HandlerAjaxCallBack() {
+                .putParams(ConstantParams.purchaseItemId, 获取ID())
+                .doRequest("admin/quote/saveSimple", true, new HandlerAjaxCallBack(mActivity) {
                     @Override
                     public void onRealSuccess(SimpleGsonBean gsonBean) {
-                        ToastUtil.showLongToast(gsonBean.msg);
+                        if (gsonBean.getData().purchaseItem != null) {
+                            Intent intent = new Intent();
+                            intent.putExtra("bean", gsonBean.getData().purchaseItem);
+                            setResult(ConstantState.PUBLIC_SUCCEED, intent);//发布成功
+                            hindLoading();
+                            finish();
+                        }
                     }
                 });
     }
@@ -140,6 +185,30 @@ public class DialogActivity extends BaseMVPActivity {
 
         fillData(getData());
 
+        fillHistory(getBean());
+
+
+    }
+
+
+    @ViewInject(id = R.id.price)
+    TextView price;
+    @ViewInject(id = R.id.descript)
+    EditText descript;
+
+    private void fillHistory(SellerQuoteJsonBean bean) {
+
+        if (getBean() != null) {
+            //填充 数据
+            // 已填写的价格
+            price.setText(bean.price);
+            descript.setText(bean.remarks);
+            city.setRightText(bean.cityName);
+            cityBeans = new CityGsonBean.ChildBeans();
+            cityBeans.cityCode = bean.cityCode;
+            cityBeans.fullName = bean.cityName;
+        }
+
     }
 
 
@@ -160,7 +229,7 @@ public class DialogActivity extends BaseMVPActivity {
                 .addSelectListener(new CityWheelDialogF.OnCitySelectListener() {
                     @Override
                     public void onCitySelect(CityGsonBean.ChildBeans childBeans) {
-                        ToastUtil.showLongToast(childBeans.fullName);
+//                        ToastUtil.showLongToast(childBeans.fullName);
                         cityBeans = childBeans;
                         city.setRightText(childBeans.fullName);
                     }
@@ -185,13 +254,35 @@ public class DialogActivity extends BaseMVPActivity {
         }
     }
 
-    public static void start(Activity activity, PurchaseItemBean_new purchaseItemBeanNew)
-
-    {
+    public static void start(Activity activity, PurchaseItemBean_new purchaseItemBeanNew) {
         Intent i = new Intent(activity, DialogActivity.class);
         i.putExtra(TAG, purchaseItemBeanNew);
-        activity.startActivity(i);
-        ToastUtil.showLongToast(purchaseItemBeanNew.toString());
+        activity.startActivityForResult(i, 100);
+//        ToastUtil.showLongToast(purchaseItemBeanNew.toString());
+    }
+
+
+    /**
+     * 获取要修改的对象
+     * 为空则为 发布新项目
+     *
+     * @return
+     */
+    public SellerQuoteJsonBean getBean() {
+        Bundle b = getIntent().getExtras();
+        if (b != null && b.get("jsonBean") instanceof SellerQuoteJsonBean) {
+            return (SellerQuoteJsonBean) b.get("jsonBean");
+        } else {
+            return null;
+        }
+    }
+
+    public static void start(Activity activity, PurchaseItemBean_new purchaseItemBeanNew, SellerQuoteJsonBean jsonBean) {
+        Intent i = new Intent(activity, DialogActivity.class);
+        i.putExtra(TAG, purchaseItemBeanNew);
+        i.putExtra("jsonBean", jsonBean);
+        activity.startActivityForResult(i, 100);
+//        ToastUtil.showLongToast(purchaseItemBeanNew.toString());
     }
 
     public static void start(Activity activity)

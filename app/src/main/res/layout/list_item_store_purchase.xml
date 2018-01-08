@@ -10,18 +10,15 @@
         android:id="@+id/ll_item_broker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="9dip"
-        android:layout_marginRight="9dip"
-        android:layout_marginTop="9dip"
         android:background="@drawable/r_o_white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="4dp">
 
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2.5dip"
-            android:layout_marginTop="2.5dip"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -163,12 +160,12 @@
                 android:textSize="12.0sp" />
         </LinearLayout>
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y11"
-            android:background="#fff0f0f0"
-            android:scaleType="fitXY"
-            android:src="@drawable/baojia_hengxian" />
+            android:layout_height="1px"
+            android:layout_margin="8dp"
+            android:background="@color/gray_bg_ed"
+            android:scaleType="fitXY" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -334,15 +331,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <ImageView
             android:id="@+id/iv_img2"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/yibaojia2x" />
+            android:src="@drawable/yibaojia_red"
+            android:layout_marginRight="70dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="70dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
 </FrameLayout>

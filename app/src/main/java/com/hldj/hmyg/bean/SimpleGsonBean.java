@@ -2,6 +2,7 @@ package com.hldj.hmyg.bean;
 
 import com.hldj.hmyg.Ui.friend.bean.MomentsReply;
 import com.hldj.hmyg.Ui.friend.bean.UnRead;
+import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
 import com.hldj.hmyg.buyer.M.PurchaseListPageGsonBean;
 import com.hldj.hmyg.util.ConstantState;
 
@@ -32,6 +33,8 @@ public class SimpleGsonBean implements Serializable {
     public static class DataBean implements Serializable {
 
         public PurchaseListPageGsonBean.DataBeanX.HeadPurchaseBean headPurchase ;
+
+        public PurchaseItemBean_new purchaseItem ;
 
 
         /*未读消息列表   */
