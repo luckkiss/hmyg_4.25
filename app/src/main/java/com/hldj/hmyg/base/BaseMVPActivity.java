@@ -113,6 +113,7 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
      *
      * @return
      */
+    @Override
     public abstract boolean setSwipeBackEnable();
 
 

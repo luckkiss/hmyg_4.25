@@ -282,4 +282,8 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
     }
 
 
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

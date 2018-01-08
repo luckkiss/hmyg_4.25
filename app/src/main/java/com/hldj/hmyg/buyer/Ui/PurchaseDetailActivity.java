@@ -242,7 +242,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 hindLoading();
             }
-        }).getDatas(getIntent().getExtras().get(GOOD_ID).toString());//请求数据  进行排版
+        }).getDatas(getIntent().getExtras().get(GOOD_ID) + "");//请求数据  进行排版
     }
 
 

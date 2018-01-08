@@ -100,8 +100,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
                 android:text="用苗单位："
-                android:textSize="13sp"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="13sp" />
 
 
             <TextView
@@ -122,8 +122,8 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 android:text="@string/company_info"
-                android:textSize="13sp"
-                android:textColor="@color/fabu_yellow" />
+                android:textColor="@color/fabu_yellow"
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -241,6 +241,84 @@
                 android:textSize="13sp"
                 tools:text="截止时间" />
         </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/white"
+            android:orientation="horizontal" android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.coorchice.library.SuperTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:minWidth="70dp"
+                    android:text="一轮报价"
+                    android:textColor="@color/main_color"
+                    app:isShowState="true"
+                    app:state_drawable="@drawable/cycle"
+                    app:state_drawable_height="9px"
+                    app:state_drawable_mode="rightTop"
+                    app:state_drawable_width="9px" />
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="3px"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/main_color" />
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="2px"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_bg_ed" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.coorchice.library.SuperTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:minWidth="70dp"
+                    android:text="预中标"
+                    android:textColor="@color/main_color"
+                    app:isShowState="true"
+                    app:state_drawable="@drawable/cycle"
+                    app:state_drawable_height="9px"
+                    app:state_drawable_mode="rightTop"
+                    app:state_drawable_width="9px" />
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="3px"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/main_color" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

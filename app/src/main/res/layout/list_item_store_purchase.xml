@@ -233,6 +233,12 @@
                 android:layout_height="33dp" />
         </RelativeLayout>
 
+        <com.zzy.common.widget.MeasureListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -310,20 +316,25 @@
         </LinearLayout>
 
 
-        <!--<ListView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="100dp" android:background="@color/red"/>-->
+        <!--<include layout="@layout/item_purchase_first_cons" />-->
 
-        <include layout="@layout/item_purchase_first_cons" />
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px" />-->
+
+        <!--<include layout="@layout/item_purchase_first_cons" />-->
+
+        <!--<include layout="@layout/item_quote_dir_po" />-->
 
 
     </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_img2"

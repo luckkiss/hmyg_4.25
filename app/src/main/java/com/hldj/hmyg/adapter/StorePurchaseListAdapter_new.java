@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hldj.hmyg.LoginActivity;
@@ -16,8 +17,12 @@ import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.base.ViewHolders;
 import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
-import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
+import com.hldj.hmyg.buyer.M.QuoteStatus;
+import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
+import com.hldj.hmyg.buyer.Ui.DialogActivity;
 import com.hldj.hmyg.buyer.Ui.QuoteListActivity_bak;
+import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
 
@@ -35,6 +40,8 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
     public abstract String setCityName();
 
     public abstract Boolean isExpired();
+
+    public abstract String getItemId();
 
 
     public StorePurchaseListAdapter_new(Context context, List<PurchaseItemBean_new> data, int layoutId) {
@@ -69,6 +76,60 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 
         setTv_isloagin(myViewHolder.getView(R.id.tv_caozuo01), purchaseItemBeanNew);
 
+        ListView listView = myViewHolder.getView(R.id.list);
+
+//        List list = new ArrayList();
+//        list.add("1");
+//        list.add("1");
+//        list.add("1");
+
+        listView.setAdapter(new GlobBaseAdapter<SellerQuoteJsonBean>(context, purchaseItemBeanNew.sellerQuoteListJson, R.layout.item_purchase_first_cons) {
+            @Override
+            public void setConverView(ViewHolders myViewHolder, SellerQuoteJsonBean jsonBean, int position) {
+                D.e("=====setConverView======str=============" + jsonBean.toString());
+
+                TextView tv = myViewHolder.getView(R.id.textView32);
+                tv.setText("¥" + jsonBean.price);
+
+//                textView35  苗源地
+
+
+                TextView city = myViewHolder.getView(R.id.textView35);
+                city.setText(FUtil.$_zero(jsonBean.cityName));
+
+
+                TextView textView37 = myViewHolder.getView(R.id.textView37);
+                textView37.setText("报价说明：" + FUtil.$_zero(jsonBean.remarks));
+
+                TextView state = myViewHolder.getView(R.id.textView39);
+                state.setText("当前报价状态：" + getStateName(jsonBean.status));
+
+
+
+                /*删除*/
+                myViewHolder.getView(R.id.textView40).setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ToastUtil.showLongToast("delete");
+                        purchaseItemBeanNew.sellerQuoteListJson.remove(position);
+                        notifyDataSetChanged();
+                    }
+                });
+
+                /*马上报价*/
+                myViewHolder.getView(R.id.textView41).setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ToastUtil.showLongToast("马上报价");
+                        purchaseItemBeanNew.sellerQuoteListJson.set(position, null);
+                        notifyDataSetChanged();
+                    }
+                });
+
+
+            }
+        });
+
 
         myViewHolder.getConvertView().setOnClickListener(new OnClickListener() {
             @Override
@@ -78,7 +139,13 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
                         ToastUtil.showShortToast("采购已关闭");
                         return;
                     }
-                    PurchaseDetailActivity.start2Activity((Activity) context, purchaseItemBeanNew.id);//采购详情 界面
+//                    PurchaseDetailActivity.start2Activity((Activity) context, purchaseItemBeanNew.id);//采购详情 界面
+
+                    //一次报价
+                    purchaseItemBeanNew.pid1 = getItemId();
+                    purchaseItemBeanNew.pid2 = getItemId();
+                    DialogActivity.start((Activity) context, purchaseItemBeanNew);
+//                    DialogActivitySecond.start2Activity((Activity) context, purchaseItemBeanNew.id ,purchaseItemBeanNew);
 
                 } else {
                     LoginActivity.start2Activity((Activity) context);
@@ -140,6 +207,32 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
     /*赋值，是否判断是否过期*/
 //    private boolean expired = false;
 
+
+    public static String getStateName(String status) {
+        if (status == null) {
+            return "-";
+        }
+        if (status.equals(QuoteStatus.preQuote.getEnumValue())) {
+            /* 预报价*/
+            return QuoteStatus.preQuote.getEnumText();
+        } else if (status.equals(QuoteStatus.preBid.getEnumValue())) {
+              /* 预中标*/
+            return QuoteStatus.preBid.getEnumText();
+        } else if (status.equals(QuoteStatus.choosing.getEnumValue())) {
+              /* 选标中*/
+            return QuoteStatus.choosing.getEnumText();
+        } else if (status.equals(QuoteStatus.used.getEnumValue())) {
+              /* 已中标*/
+            return QuoteStatus.used.getEnumText();
+        } else if (status.equals(QuoteStatus.unused.getEnumValue())) {
+              /* 未中标*/
+            return QuoteStatus.unused.getEnumText();
+        } else {
+            return "-";
+        }
+
+
+    }
 
 }
 

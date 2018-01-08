@@ -1,6 +1,7 @@
 package com.hldj.hmyg.buyer.M;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -65,7 +66,14 @@ public class PurchaseItemBean_new implements Serializable {
     public int quoteCountJson;/**/
     public boolean isQuoted;/**/
 
-    public static class PurchaseJsonBeanX implements Serializable{
+
+    public String pid1 = "";
+    public String pid2 = "";
+
+    public List<SellerQuoteJsonBean> sellerQuoteListJson;
+
+
+    public static class PurchaseJsonBeanX implements Serializable {
         public String cityName = "";/**/
     }
 

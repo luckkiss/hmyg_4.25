@@ -223,14 +223,14 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
         if (0 == position) {
             if (MyApplication.Userinfo.getBoolean("NeedShowquoting", true)) {
                 tv_xiaoxitishi.setText("采购中：已经确认采购且即将调苗的采购项目。");
-                ll_01.setVisibility(View.VISIBLE);
+                ll_01.setVisibility(View.GONE);
             } else {
                 ll_01.setVisibility(View.GONE);
             }
         } else if (1 == position) {
             if (MyApplication.Userinfo.getBoolean("NeedShowunquote", true)) {
                 tv_xiaoxitishi.setText("待采购：已经确认采购但还未确定调苗时间的采购项目。");
-                ll_01.setVisibility(View.VISIBLE);
+                ll_01.setVisibility(View.GONE);
             } else {
                 ll_01.setVisibility(View.GONE);
             }
@@ -547,7 +547,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
         getdata = false;
         GetServerUrl.addHeaders(finalHttp, true);
         AjaxParams params = new AjaxParams();
-        params.put("type", type);
+//        params.put("type", type);
         finalHttp.post(GetServerUrl.getUrl() + "purchase/pyMap", params,
                 new AjaxCallBack<Object>() {
 

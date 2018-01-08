@@ -129,4 +129,6 @@ return (T) view;
         return TextUtils.isEmpty(tv.getText()) ? "" : tv.getText().toString();
     }
 
+
+
 }

@@ -102,8 +102,12 @@ public class PurchaseDeatilP {
 
                 SaveSeedingGsonBean saveSeedingGsonBean = GsonUtil.formateJson2Bean(json, SaveSeedingGsonBean.class);
 
+                if (saveSeedingGsonBean.getCode().equals(ConstantState.SUCCEED_CODE))
+                    resultCallBack.onSuccess(saveSeedingGsonBean);
+                else {
+                    super.onFailure(null, -1, saveSeedingGsonBean.getMsg());
+                }
 
-                resultCallBack.onSuccess(saveSeedingGsonBean);
 
             }
 

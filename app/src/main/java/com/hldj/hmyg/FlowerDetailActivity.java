@@ -2359,4 +2359,5 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     }
 
 
+
 }

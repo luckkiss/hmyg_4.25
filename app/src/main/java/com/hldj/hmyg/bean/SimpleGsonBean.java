@@ -2,6 +2,7 @@ package com.hldj.hmyg.bean;
 
 import com.hldj.hmyg.Ui.friend.bean.MomentsReply;
 import com.hldj.hmyg.Ui.friend.bean.UnRead;
+import com.hldj.hmyg.buyer.M.PurchaseListPageGsonBean;
 import com.hldj.hmyg.util.ConstantState;
 
 import java.io.Serializable;
@@ -29,6 +30,9 @@ public class SimpleGsonBean implements Serializable {
     }
 
     public static class DataBean implements Serializable {
+
+        public PurchaseListPageGsonBean.DataBeanX.HeadPurchaseBean headPurchase ;
+
 
         /*未读消息列表   */
         public List<UnRead> optionList;

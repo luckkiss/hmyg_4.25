@@ -128,7 +128,7 @@ public class PurchaseDetailActivityChange extends BaseMVPActivity implements Cha
     int index = -1;
 
     //step 1  这一步是一样的
-    private void initAutoLayout2(TagFlowLayout tagFlowLayout, List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> bean) {
+    public void initAutoLayout2(TagFlowLayout tagFlowLayout, List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> bean) {
 
         tagFlowLayout.setCanCancle(false);
 
@@ -152,10 +152,15 @@ public class PurchaseDetailActivityChange extends BaseMVPActivity implements Cha
 
     @Override
     public void initView() {
+
+
         MeasureGridView gridView = getView(R.id.grid_img1);
         ViewGroup parent = (ViewGroup) getView(R.id.tv_purchase_add_pic).getParent();
         parent.setVisibility(View.GONE);
-        initGvTop(gridView, getItem().imagesJson);
+
+
+
+            initGvTop(gridView, getItem().imagesJson);
 
         TextView tv_title = getView(R.id.tv_change_title);
         tv_title.setText("修改报价信息");
@@ -208,7 +213,7 @@ public class PurchaseDetailActivityChange extends BaseMVPActivity implements Cha
     }
 
     //传入初始化 的图片资源  初始化顶部  图片列表控件
-    private void initGvTop(MeasureGridView gridView, List<ImagesJsonBean> imagesJson) {
+    public void initGvTop(MeasureGridView gridView, List<ImagesJsonBean> imagesJson) {
         measureGridView = gridView;
 //            arrayList.add(new Pic("hellow", true, MeasureGridView.usrl, 1));
 //            arrayList.add(new Pic("hellows", true, MeasureGridView.usrl1, 12));

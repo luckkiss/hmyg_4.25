@@ -15,19 +15,24 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.adapter.StorePurchaseListAdapter_new;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
+import com.hldj.hmyg.buyer.M.PurchaseListGsonBean;
 import com.hldj.hmyg.buyer.M.PurchaseListPageGsonBean;
 import com.hldj.hmyg.buyer.SortList;
+import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.hldj.hmyg.widget.SharePopupWindow;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.ToastUtil;
 import com.weavey.loading.lib.LoadingLayout;
 
 import net.tsz.afinal.FinalHttp;
@@ -194,10 +199,19 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         }
     }
 
+    private String cityName = "";
+    private boolean is;
 
     /*三*/
     private void initData() {
         showLoading();
+
+
+        //initHeadBean(gsonBean.data.headPurchase);
+
+        // 初始化头部
+
+
         // TODO Auto-generated method stub
         getdata = false;
         FinalHttp finalHttp = new FinalHttp();
@@ -213,11 +227,13 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         params.put("secondSeedlingTypeId", secondSeedlingTypeId);
         params.put("pageSize", pageSize + "");
         params.put("pageIndex", pageIndex + "");
-        Log.e("purchase/list", params.toString());
-        finalHttp.post(GetServerUrl.getUrl() + "purchase/list", params, new AjaxCallBack<String>() {
+//        Log.e("purchase/list", params.toString());
+        Log.e("purchase/firstQuoteList", params.toString());
+//        finalHttp.post(GetServerUrl.getUrl() + "purchase/list", params, new AjaxCallBack<String>() {
+        finalHttp.post(GetServerUrl.getUrl() + "admin/purchase/firstQuoteList", params, new AjaxCallBack<String>() {
 
-            private String cityName = "";
-            private boolean is;
+//            private String cityName = "";
+//            private boolean is;
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
@@ -233,22 +249,18 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                 // TODO Auto-generated method stub
                 Log.e("purchase/list", t.toString());
 
-                PurchaseListPageGsonBean gsonBean = GsonUtil.formateJson2Bean(t, PurchaseListPageGsonBean.class);
+                PurchaseListGsonBean gsonBean = GsonUtil.formateJson2Bean(t, PurchaseListGsonBean.class);
 
+                ToastUtil.showLongToast(gsonBean.msg);
                 if (gsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
-                    if (gsonBean.data.page.pageNo == 0) {
-                        initHeadBean(gsonBean.data.headPurchase);
-                        is = gsonBean.data.expired;
-                    }
-                    initPageBeans(gsonBean.data.page.data);
+                    initPageBeans(gsonBean.data.list);
                     loadingLayout.setStatus(LoadingLayout.Success);
-
                 } else {
                     loadingLayout.setErrorText(gsonBean.msg);
                     loadingLayout.setStatus(LoadingLayout.Error);
                 }
 
-
+                requestHeadData();
                 hindLoading();
                 onLoad();
                 getdata = true;
@@ -272,6 +284,13 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                         public Boolean isExpired() {
                             return is;
                         }
+
+                        @Override
+                        public String getItemId() {
+                            return purchaseFormId;
+                        }
+
+
                     };
                     xListView.setAdapter(listAdapter);
                 } else {
@@ -288,68 +307,6 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
             }
 
-            private void initHeadBean(PurchaseListPageGsonBean.DataBeanX.HeadPurchaseBean headPurchase) {
-                if (headPurchase == null) {
-                    return;
-                }
-                cityName = headPurchase.cityName;
-
-                quoteDesc = headPurchase.quoteDesc;
-                /*第一次显示*/
-                if (isFirstLoading && shouldShow) {
-                    showWebViewDialog(getQuoteDesc(), "报价说明");
-                    isFirstLoading = false;
-                }
-
-                int headViewId = R.layout.head_purchase;
-                        /*项目名*/
-                String res = headPurchase.blurProjectName + "采购单" + "<font color='#FFA19494'><small>" + "(" + headPurchase.num + ")" + "</small></font>";
-                shareBean.title = headPurchase.blurProjectName + "【" + headPurchase.num + "】";
-
-                ((TextView) getView(R.id.tv_01)).setText(Html.fromHtml(res));
-                        /*显示名称*/
-                ((TextView) getView(R.id.tv_02)).setText(headPurchase.buyer.displayName);
-                        /*报价说明*/
-                ((TextView) getView(R.id.tv_021)).setText(headPurchase.consumerFullName);
-                        /*用苗单位*/
-
-                getView(R.id.ll_content_company_info).setVisibility(headPurchase.showConsumerName ? View.VISIBLE : View.GONE);
-
-                companyInfo = headPurchase.attrData.consumerRemarks;
-                        /* 单位信息*/
-
-
-                ((TextView) getView(tv_03)).setText("报价说明");
-                getView(tv_03).setOnClickListener(StorePurchaseListActivity.this);
-                getView(R.id.tv_ymdw).setOnClickListener(StorePurchaseListActivity.this);
-
-                        /* 用  苗  地*/
-                ((TextView) getView(R.id.tv_04)).setText("用  苗  地：" + headPurchase.cityName);
-
-                        /*联系人*/
-
-//                choseOne2Show(getView(R.id.tv_05), headPurchase.dispatchPhone, headPurchase.dispatchName, headPurchase.displayPhone);
-                ((TextView) getView(R.id.tv_050)).setText("联系人:  " + headPurchase.dispatchName);
-
-                  /*联系电话*/
-                TextView tv_05 = getView(R.id.tv_05);
-                String phoneNum = !TextUtils.isEmpty(headPurchase.dispatchPhone) ? headPurchase.dispatchPhone : headPurchase.dispatchPhone;
-
-                tv_05.setText(phoneNum);
-                tv_05.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
-                tv_05.getPaint().setAntiAlias(true);//抗锯齿
-                tv_05.setOnClickListener(v -> FlowerDetailActivity.CallPhone(phoneNum, mActivity));
-
-//                choseOne2Show(getView(R.id.tv_05), headPurchase.dispatchPhone, headPurchase.dispatchName, headPurchase.displayPhone);
-
-
-                        /*   tv_06.setText("截止时间：" + closeDate);*/
-//                ((TextView) getView(R.id.tv_06)).setText("用  苗  地：" + headPurchase.closeDate);
-                ((TextView) getView(R.id.tv_06)).setText("截止时间：" + headPurchase.closeDate);
-
-                shareBean.text = "用  苗  地：" + headPurchase.cityName + "\n" + "截止时间：" + headPurchase.closeDate + "\n";
-
-            }
 
             private void choseOne2Show(TextView tv_05, String dispatchPhone, String dispatchName, String displayPhone) {
                 if (!"".equals(dispatchPhone) && "".equals(dispatchName)) {
@@ -370,6 +327,83 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
         });
         getdata = true;
+    }
+
+    private void requestHeadData() {
+
+        new BasePresenter()
+                .putParams("purchaseId", purchaseFormId)
+                .doRequest("admin/purchase/initDetail", true, new HandlerAjaxCallBack() {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+                        initHeadBean(gsonBean.getData().headPurchase);
+                    }
+                });
+
+
+    }
+
+    private void initHeadBean(PurchaseListPageGsonBean.DataBeanX.HeadPurchaseBean headPurchase) {
+        if (headPurchase == null) {
+            return;
+        }
+        cityName = headPurchase.cityName;
+
+        quoteDesc = headPurchase.quoteDesc;
+                /*第一次显示*/
+        if (isFirstLoading && shouldShow) {
+            showWebViewDialog(getQuoteDesc(), "报价说明");
+            isFirstLoading = false;
+        }
+
+        int headViewId = R.layout.head_purchase;
+                        /*项目名*/
+        String res = headPurchase.blurProjectName + "采购单" + "<font color='#FFA19494'><small>" + "(" + headPurchase.num + ")" + "</small></font>";
+        shareBean.title = headPurchase.blurProjectName + "【" + headPurchase.num + "】";
+
+        ((TextView) getView(R.id.tv_01)).setText(Html.fromHtml(res));
+                        /*显示名称*/
+        ((TextView) getView(R.id.tv_02)).setText(headPurchase.buyer.displayName);
+                        /*报价说明*/
+        ((TextView) getView(R.id.tv_021)).setText(headPurchase.consumerFullName);
+                        /*用苗单位*/
+
+        getView(R.id.ll_content_company_info).setVisibility(headPurchase.showConsumerName ? View.VISIBLE : View.GONE);
+
+        companyInfo = headPurchase.attrData.consumerRemarks;
+                        /* 单位信息*/
+
+
+        ((TextView) getView(tv_03)).setText("报价说明");
+        getView(tv_03).setOnClickListener(StorePurchaseListActivity.this);
+        getView(R.id.tv_ymdw).setOnClickListener(StorePurchaseListActivity.this);
+
+                        /* 用  苗  地*/
+        ((TextView) getView(R.id.tv_04)).setText("用  苗  地：" + headPurchase.cityName);
+
+                        /*联系人*/
+
+//                choseOne2Show(getView(R.id.tv_05), headPurchase.dispatchPhone, headPurchase.dispatchName, headPurchase.displayPhone);
+        ((TextView) getView(R.id.tv_050)).setText("联系人:  " + headPurchase.dispatchName);
+
+                  /*联系电话*/
+        TextView tv_05 = getView(R.id.tv_05);
+        String phoneNum = !TextUtils.isEmpty(headPurchase.dispatchPhone) ? headPurchase.dispatchPhone : headPurchase.dispatchPhone;
+
+        tv_05.setText(phoneNum);
+        tv_05.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
+        tv_05.getPaint().setAntiAlias(true);//抗锯齿
+        tv_05.setOnClickListener(v -> FlowerDetailActivity.CallPhone(phoneNum, mActivity));
+
+//                choseOne2Show(getView(R.id.tv_05), headPurchase.dispatchPhone, headPurchase.dispatchName, headPurchase.displayPhone);
+
+
+                        /*   tv_06.setText("截止时间：" + closeDate);*/
+//                ((TextView) getView(R.id.tv_06)).setText("用  苗  地：" + headPurchase.closeDate);
+        ((TextView) getView(R.id.tv_06)).setText("截止时间：" + headPurchase.closeDate);
+
+        shareBean.text = "用  苗  地：" + headPurchase.cityName + "\n" + "截止时间：" + headPurchase.closeDate + "\n";
+
     }
 
 
@@ -472,6 +506,10 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                 // TODO Auto-generated method stub
                 xListView.stopRefresh();
                 xListView.stopLoadMore();
+
+                if (listAdapter == null) {
+                    return;
+                }
 
                 if (listAdapter.getDatas().size() % pageSize == 0) {
                     xListView.setPullLoadEnable(true);
@@ -581,5 +619,10 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
     }
 }

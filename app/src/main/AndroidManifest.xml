@@ -384,6 +384,9 @@
         <activity
             android:name=".buyer.Ui.DialogActivity"
             android:theme="@style/dialog_activity" />
+        <activity
+            android:name=".buyer.Ui.DialogActivitySecond"
+            android:theme="@style/dialog_activity" />
 
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity"

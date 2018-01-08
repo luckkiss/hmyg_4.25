@@ -779,7 +779,7 @@
         <item name="android:background">@drawable/rb_left_select</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingLeft">15dp</item>
-        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <!--<item name="android:foreground">?attr/selectableItemBackground</item>-->
         <item name="android:paddingRight">15dp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/textSizeXXX</item>
@@ -830,6 +830,9 @@
         <item name="android:windowIsFloating">true</item>
         <!--是否半透明-->
         <item name="android:windowIsTranslucent">true</item>
+
+        <item name="android:windowCloseOnTouchOutside">true</item>
+
         <!--设置窗口内容不覆盖-->
         <item name="android:windowContentOverlay">@null</item>
         <!--设置动画，在这里使用让它继承系统的Animation.Dialog-->
