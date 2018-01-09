@@ -4,14 +4,17 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.app.Service;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
 import android.support.multidex.MultiDex;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.hldj.hmyg.CallBack.MyBetaPatchListener;
@@ -27,6 +30,7 @@ import com.hldj.hmyg.util.SPUtil;
 import com.hldj.hmyg.util.SPUtils;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.SdkChangeByTagUtil;
+import com.hy.utils.ToastUtil;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -57,8 +61,11 @@ public class MyApplication extends Application {
     public Vibrator mVibrator;
 
 
+
     //存储userbean
     private static UserBean userBean;
+
+
 
     public static void setUserBean(UserBean userBean) {
         MyApplication.userBean = userBean;
@@ -267,7 +274,7 @@ public class MyApplication extends Application {
         return (int) (px / scale + 0.5f);
     }
 
-    public  void initImageLoader() {
+    public void initImageLoader() {
         // This configuration tuning is custom. You can tune every option, you
         // may tune some of them,
         // or you can create default configuration by

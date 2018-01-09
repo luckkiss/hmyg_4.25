@@ -58,16 +58,13 @@ public class QuoteListP {
                 QuoteGsonBean saveSeedingGsonBean = GsonUtil.formateJson2Bean(json, QuoteGsonBean.class);
 
 
-                if(saveSeedingGsonBean.code.equals("1"))
-                {
+                if (saveSeedingGsonBean.code.equals("1")) {
                     resultCallBack.onSuccess(saveSeedingGsonBean);
-                }
-                else
-                {
-                    D.e("==失败===");
-                }
+                } else {
 
-
+//                    ToastUtil.showLongToast(saveSeedingGsonBean.msg);
+                    resultCallBack.onFailure(new Throwable(saveSeedingGsonBean.msg), Integer.parseInt(saveSeedingGsonBean.code), saveSeedingGsonBean.msg);
+                }
 
 
             }
@@ -75,7 +72,7 @@ public class QuoteListP {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 D.e("==失败==");
-                super.onFailure(t, errorNo, strMsg);
+                resultCallBack.onFailure(t, errorNo, strMsg);
             }
         };
 

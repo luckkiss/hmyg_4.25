@@ -32,7 +32,6 @@ import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.hldj.hmyg.widget.SharePopupWindow;
 import com.hy.utils.GetServerUrl;
-import com.hy.utils.ToastUtil;
 import com.weavey.loading.lib.LoadingLayout;
 
 import net.tsz.afinal.FinalHttp;
@@ -178,6 +177,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
 
         initXlistView(headView);
+        requestHeadData();
 
         initData();
 
@@ -201,6 +201,9 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
     private String cityName = "";
     private boolean is;
+
+
+
 
     /*三*/
     private void initData() {
@@ -251,16 +254,18 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
                 PurchaseListGsonBean gsonBean = GsonUtil.formateJson2Bean(t, PurchaseListGsonBean.class);
 
-                ToastUtil.showLongToast(gsonBean.msg);
+//                ToastUtil.showLongToast(gsonBean.msg);
                 if (gsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
                     initPageBeans(gsonBean.data.list);
+
+//                    is = gsonBean.data.expired;
                     loadingLayout.setStatus(LoadingLayout.Success);
                 } else {
                     loadingLayout.setErrorText(gsonBean.msg);
                     loadingLayout.setStatus(LoadingLayout.Error);
                 }
 
-                requestHeadData();
+
                 hindLoading();
                 onLoad();
                 getdata = true;
@@ -282,7 +287,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
                         @Override
                         public Boolean isExpired() {
-                            return is;
+                            return !shouldShow;
                         }
 
                         @Override
@@ -355,6 +360,8 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
             showWebViewDialog(getQuoteDesc(), "报价说明");
             isFirstLoading = false;
         }
+
+        is = headPurchase.status.equals("expired");
 
         int headViewId = R.layout.head_purchase;
                         /*项目名*/

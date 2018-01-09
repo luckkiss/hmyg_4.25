@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="145dp"
+    android:layout_marginBottom="20dp"
+    android:layout_marginLeft="70dp"
+    android:layout_marginRight="70dp"
+    android:layout_marginTop="20dp"
+    android:background="@drawable/conner_white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="22dp"
+        android:paddingRight="22dp"
+        android:paddingTop="22dp"
+        android:paddingBottom="10dp"
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="@color/text_color333"
+        android:text="您的账号正在异地登录，如果非你本人操作，请尽快修改登录密码 !"
+        android:textSize="16sp" />
+
+
+    <TextView
+        android:id="@+id/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:padding="8dp"
+
+        android:text="确定"
+        android:textColor="@color/main_color"
+        android:textSize="16sp"
+        android:layout_below="@+id/content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+</RelativeLayout>
+

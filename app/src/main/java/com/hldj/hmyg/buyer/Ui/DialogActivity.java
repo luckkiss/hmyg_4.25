@@ -3,6 +3,8 @@ package com.hldj.hmyg.buyer.Ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -12,7 +14,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
+import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
@@ -73,6 +77,17 @@ public class DialogActivity extends BaseMVPActivity {
         tv_title.setText(filterColor(data.name + "  " + data.count + data.unitTypeName, data.count + data.unitTypeName));
         space_text.setText("种植类型: " + data.plantTypeArrayNames);
         规格.setText("规格: " + FUtil.$_zero(data.specText));
+
+        /**
+         * 初始化 地理位置
+         */
+        if (MainActivity.aMapLocation != null) {
+            if (!TextUtils.isEmpty(MainActivity.cityCode)) {
+                cityBeans = new CityGsonBean.ChildBeans();
+                cityBeans.cityCode = MainActivity.cityCode;
+                city.setRightText(MainActivity.province_loc + " " + MainActivity.city_loc);
+            }
+        }
     }
 
     private String 获取价格() {
@@ -165,12 +180,18 @@ public class DialogActivity extends BaseMVPActivity {
         close_title.setOnClickListener(v -> finish());
         提交.setOnClickListener(v -> {
             D.i("---------提交报价-------");
+            if (TextUtils.isEmpty(获取价格())) {
+                ToastUtil.showLongToast("请填写价格");
+                return;
+            }
             提交报价();
         });
     }
 
     @Override
     public void initView() {
+
+
         FinalActivity.initInjectedView(this);
 
         //窗口对齐屏幕宽度
@@ -255,10 +276,40 @@ public class DialogActivity extends BaseMVPActivity {
     }
 
     public static void start(Activity activity, PurchaseItemBean_new purchaseItemBeanNew) {
+
+
+
+       /*没有同意协议，跳转协议界面 h5*/
+        if (!MyApplication.getUserBean().supplierIsAgree) {
+            supplierProtocol((FragmentActivity) activity, purchaseItemBeanNew);
+            return;
+        }
+
         Intent i = new Intent(activity, DialogActivity.class);
         i.putExtra(TAG, purchaseItemBeanNew);
         activity.startActivityForResult(i, 100);
 //        ToastUtil.showLongToast(purchaseItemBeanNew.toString());
+    }
+
+    /*当  没有同意 供应商协议时 执行*/
+    public static void supplierProtocol(FragmentActivity activity, PurchaseItemBean_new purchaseItemBeanNew) {
+        WebViewDialogFragment3.newInstance(new WebViewDialogFragment3.OnAgreeListener() {
+            @Override
+            public void OnAgree(boolean b) {
+                if (b) {
+                    //true 同意协议
+                    Intent i = new Intent(activity, DialogActivity.class);
+                    i.putExtra(TAG, purchaseItemBeanNew);
+                    activity.startActivityForResult(i, 100);
+                    //false 不同意协议
+
+                } else {
+
+                }
+            }
+        }).show(activity.getSupportFragmentManager(), TAG);
+//        Intent toMarketListActivity = new Intent(mActivity, SeedlingMarketPyMapActivity.class);
+//        mActivity.startActivity(toMarketListActivity);
     }
 
 
@@ -278,6 +329,13 @@ public class DialogActivity extends BaseMVPActivity {
     }
 
     public static void start(Activity activity, PurchaseItemBean_new purchaseItemBeanNew, SellerQuoteJsonBean jsonBean) {
+
+//        /*没有同意协议，跳转协议界面 h5*/
+//        if (!MyApplication.getUserBean().supplierIsAgree) {
+//            supplierProtocol((FragmentActivity) activity,purchaseItemBeanNew);
+//            return;
+//        }
+
         Intent i = new Intent(activity, DialogActivity.class);
         i.putExtra(TAG, purchaseItemBeanNew);
         i.putExtra("jsonBean", jsonBean);

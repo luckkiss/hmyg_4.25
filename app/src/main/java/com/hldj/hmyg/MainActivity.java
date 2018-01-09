@@ -239,7 +239,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         } else {
             JPushInterface.stopPush(getApplicationContext());
             Log.i(TAG, "onCreate: 关闭  极光通知");
-
         }
 
         tabHost.addTab(tabHost.newTabSpec("1").setIndicator("1")

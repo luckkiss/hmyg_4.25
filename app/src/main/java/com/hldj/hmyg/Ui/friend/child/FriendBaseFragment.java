@@ -263,6 +263,12 @@ public class FriendBaseFragment extends BaseFragment {
                 gridView.setImageNumColumns(3);
                 gridView.setHorizontalSpacing(3);
                 gridView.setVerticalSpacing(0);
+
+                /**
+                 *    gridView.setHorizontalSpacing(6);
+                 gridView.setVerticalSpacing(6);
+                 */
+
                 //中图
                 gridView.init(mActivity, PurchaseDetailActivity.getPicList(item.imagesJson), (ViewGroup) gridView.getParent(), null);
                 gridView.getAdapter().closeAll(true);

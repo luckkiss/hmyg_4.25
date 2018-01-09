@@ -413,4 +413,9 @@ public class SetPasswardByGetCodeActivity extends NeedSwipeBackActivity {
         context.startActivity(intent);
     }
 
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

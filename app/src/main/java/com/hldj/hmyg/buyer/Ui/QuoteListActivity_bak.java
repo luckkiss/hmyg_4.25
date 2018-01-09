@@ -199,13 +199,14 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
 
                 hindLoading();
 
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 hindLoading();
-                ToastUtil.showShortToast("网络错误");
-
+                finish();
+                ToastUtil.showLongToast(strMsg);
             }
         })
                 .getDatas(getIntent().getExtras().get(GOOD_ID).toString())

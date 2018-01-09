@@ -1,6 +1,5 @@
 package com.hldj.hmyg;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +14,7 @@ import com.hldj.hmyg.Ui.friend.child.DetailActivity;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.bean.SimpleGsonBean_test;
+import com.hldj.hmyg.buyer.Ui.LoginOutDialogActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.ToastUtil;
@@ -35,9 +35,13 @@ public class MyReceiver extends BroadcastReceiver {
     private static final String TAG = "JPush";
     private String url = "";
     private String title = "详情";
-    public static com.flyco.dialog.widget.MaterialDialog dialog;
 
-    public static void Call_Phone(Activity ac) {
+
+    public static void Call_Phone() {
+
+
+//        MyApplication.showDialog();
+
 
 //        if (dialog!=null)
 //        {
@@ -125,12 +129,16 @@ public class MyReceiver extends BroadcastReceiver {
                 e.printStackTrace();
             }
 
-//            if (TextUtils.isEmpty(loginOut)) {
-//                ToastUtil.showLongToast("不需要退出登录");
-//            } else {
-//                ToastUtil.showLongToast("执行退出登录" + loginOut);
-////              Call_Phone(context);
-//            }
+            if (TextUtils.isEmpty(loginOut)) {
+                ToastUtil.showLongToast("不需要退出登录");
+            } else {
+                ToastUtil.showLongToast("执行退出登录" + loginOut);
+//              Call_Phone(context);
+                Call_Phone();
+                SettingActivity.clearCache(MyApplication.Userinfo.edit());
+                Intent intent1 = new Intent(context, LoginOutDialogActivity.class);
+                context.startActivity(intent1);
+            }
 
             //  key:cn.jpush.android.EXTRA,
             //{"sourceId":"4966be553cf84d92856254b08a3adb34","momentsId":"f0e83bf9c5564eeeaa3510e8ad810051","type":"thumbUp","option":"add","messageType":"moments"}

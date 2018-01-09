@@ -17,6 +17,7 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.base.ViewHolders;
+import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
 import com.hldj.hmyg.buyer.M.QuoteStatus;
 import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
@@ -31,7 +32,10 @@ import com.zf.iosdialog.widget.AlertDialog;
 
 import java.util.List;
 
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+
 import static com.hldj.hmyg.R.id.textView41;
+import static com.hldj.hmyg.R.id.tv_caozuo01;
 
 
 @SuppressLint("ResourceAsColor")
@@ -60,6 +64,10 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
         Log.e(TAG, "setConverView: " + position);
         myViewHolder.getView(R.id.iv_img2).setVisibility(purchaseItemBeanNew.isQuoted ? View.VISIBLE : View.GONE);
 
+        if (isExpired()) {
+            myViewHolder.getView(R.id.iv_img2).setVisibility(View.GONE);
+        }
+
 
         ((TextView) myViewHolder.getView(R.id.tv_01)).setText((position + 1) + "、" + purchaseItemBeanNew.name);
 
@@ -77,7 +85,11 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
         TextView tv_10 = myViewHolder.getView(R.id.tv_10);
         setTv10(tv_10, purchaseItemBeanNew);
 
-        setTv_isloagin(myViewHolder.getView(R.id.tv_caozuo01), purchaseItemBeanNew);
+        if (isExpired()) {
+            tv_10.setVisibility(View.GONE);
+        }
+
+        setTv_isloagin(myViewHolder.getView(tv_caozuo01), purchaseItemBeanNew);
 
         ListView listView = myViewHolder.getView(R.id.list);
 
@@ -85,7 +97,9 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 //        list.add("1");
 //        list.add("1");
 //        list.add("1");
-
+        if (isExpired()) {
+            purchaseItemBeanNew.sellerQuoteListJson = null;
+        }
         listView.setAdapter(new GlobBaseAdapter<SellerQuoteJsonBean>(context, purchaseItemBeanNew.sellerQuoteListJson, R.layout.item_purchase_first_cons) {
             @Override
             public void setConverView(ViewHolders myViewHolder, SellerQuoteJsonBean jsonBean, int position) {
@@ -101,13 +115,13 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
                 city.setText(FUtil.$_zero(jsonBean.cityName));
 
 
-                TextView textView37 = myViewHolder.getView(R.id.textView37);
-                textView37.setText("报价说明：" + FUtil.$_zero(jsonBean.remarks));
+                TextView textView42 = myViewHolder.getView(R.id.textView42);
+                textView42.setText(FUtil.$_zero(jsonBean.remarks));
 
                 TextView state = myViewHolder.getView(R.id.state);
 
 //                StringFormatUtil formatUtil = new StringFormatUtil(context, "当前报价状态：" + getStateName(jsonBean.status), getStateName(jsonBean.status), ContextCompat.getColor(context, R.color.orange)).fillColor();
-                state.setText( getStateName(jsonBean.status));
+                state.setText(getStateName(jsonBean.status));
 
 
 
@@ -142,21 +156,48 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
         });
 
 
+        setTv_isloagin(myViewHolder.getView(tv_caozuo01), purchaseItemBeanNew);
+
         myViewHolder.getConvertView().setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (MyApplication.Userinfo.getBoolean("isLogin", false)) {
+//                    if (purchaseItemBeanNew.status .equals("expired")) {
                     if (isExpired()) {
                         ToastUtil.showShortToast("采购已关闭");
                         return;
                     }
 //                    PurchaseDetailActivity.start2Activity((Activity) context, purchaseItemBeanNew.id);//采购详情 界面
-
-                    //一次报价
-                    purchaseItemBeanNew.pid1 = getItemId();
-                    purchaseItemBeanNew.pid2 = getItemId();
-                    DialogActivity.start((Activity) context, purchaseItemBeanNew);
+                    ((NeedSwipeBackActivity) context).showLoading();
+                    new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
+                        @Override
+                        public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
+                            ((NeedSwipeBackActivity) context).hindLoading();
+                            boolean canQuote = saveSeedingGsonBean.getData().canQuote;
+                            if (!canQuote) {
+                                ToastUtil.showShortToast("您没有报价权限");
+                                PurchaseDeatilP.requestPer(((NeedSwipeBackActivity) context));
+                            } else {
+                                purchaseItemBeanNew.pid1 = getItemId();
+                                purchaseItemBeanNew.pid2 = getItemId();
+                                DialogActivity.start((Activity) context, purchaseItemBeanNew);
 //                    DialogActivitySecond.start2Activity((Activity) context, purchaseItemBeanNew.id ,purchaseItemBeanNew);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Throwable t, int errorNo, String strMsg) {
+                            ToastUtil.showShortToast("您没有报价权限" + strMsg);
+                            ((NeedSwipeBackActivity) context).hindLoading();
+                        }
+                    }).getDatas(purchaseItemBeanNew.id);//请求数据  进行排版
+
+
+//                    //一次报价
+//                    purchaseItemBeanNew.pid1 = getItemId();
+//                    purchaseItemBeanNew.pid2 = getItemId();
+//                    DialogActivity.start((Activity) context, purchaseItemBeanNew);
+////                    DialogActivitySecond.start2Activity((Activity) context, purchaseItemBeanNew.id ,purchaseItemBeanNew);
 
 
                 } else {
@@ -204,15 +245,20 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
     }
 
     private void setTv_isloagin(TextView tv_caozuo01, PurchaseItemBean_new purchaseItemBeanNew) {
+//        if (!purchaseItemBeanNew.status .equals("expired")) {
         if (!isExpired())//false 未过期
         {
+
             tv_caozuo01.setText("马上报价");
             tv_caozuo01.setBackground(ContextCompat.getDrawable(context, R.drawable.green_btn_selector));
-        } else {//已过期
+        } else
+
+        {//已过期
             tv_caozuo01.setText("采购已关闭");
             tv_caozuo01.setTextColor(ContextCompat.getColor(context, R.color.orange));
             tv_caozuo01.setBackground(ContextCompat.getDrawable(context, R.drawable.trans_bg));
         }
+
     }
 
     private void setTv10(TextView tv_10, PurchaseItemBean_new purchaseItemBeanNew) {

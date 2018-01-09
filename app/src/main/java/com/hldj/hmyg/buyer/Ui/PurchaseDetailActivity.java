@@ -1001,7 +1001,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     }
 
 
-    private class MyPresenter extends BasePresenter {
+    public static class MyPresenter extends BasePresenter {
 
         public void doRequestPermi() {
             AjaxCallBack ajaxCallBack = new AjaxCallBack<String>() {

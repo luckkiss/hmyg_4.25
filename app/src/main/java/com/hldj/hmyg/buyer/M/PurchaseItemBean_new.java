@@ -67,6 +67,12 @@ public class PurchaseItemBean_new implements Serializable {
     public boolean isQuoted;/**/
 
 
+    public String status = "";/**/
+
+
+
+
+
     public String pid1 = "";
     public String pid2 = "";
 

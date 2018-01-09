@@ -10,6 +10,7 @@
         android:id="@+id/ll_item_broker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2px"
         android:background="@drawable/r_o_white"
         android:orientation="vertical"
         android:paddingTop="4dp">
@@ -337,12 +338,12 @@
             android:id="@+id/iv_img2"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/yibaojia_red"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="70dp"
             android:layout_marginRight="70dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="70dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:src="@drawable/yibaojia_red" />
     </RelativeLayout>
 
 </FrameLayout>

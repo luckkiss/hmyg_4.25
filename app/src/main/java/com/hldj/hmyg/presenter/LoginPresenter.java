@@ -316,9 +316,7 @@ public class LoginPresenter {
             editor.putBoolean("isClerk", JsonGetInfo
                     .getJsonBoolean(user, "isClerk"));
             editor.putBoolean("isLogin", true);
-            editor.putBoolean("notification",
-                    MyApplication.Userinfo.getBoolean(
-                            "notification", true));
+            editor.putBoolean("notification", true);
             editor.commit();
         } catch (JSONException e) {
             e.printStackTrace();

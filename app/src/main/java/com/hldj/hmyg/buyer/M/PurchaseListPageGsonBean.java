@@ -31,6 +31,7 @@ public class PurchaseListPageGsonBean {
             public String displayName = "";/*ok*/
             public String blurProjectName = "";/*ok*/
             public String quoteDesc = "";/*ok*/
+            public String status = "";/*ok*/
             public String num = "";/*ok*/
             public AttrDataBean attrData = new AttrDataBean(); /*ok  单位详细信息*/
             public boolean showConsumerName = false; // 是否显示 单位信息

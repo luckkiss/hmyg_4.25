@@ -497,4 +497,8 @@ public class LoginActivity extends BaseActivity {
         activity.startActivityForResult(intent, 100);
     }
 
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

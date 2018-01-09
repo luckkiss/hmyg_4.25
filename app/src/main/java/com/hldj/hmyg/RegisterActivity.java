@@ -422,4 +422,8 @@ public class RegisterActivity extends NeedSwipeBackActivity {
     }
 
 
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

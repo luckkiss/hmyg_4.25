@@ -385,6 +385,10 @@
             android:name=".buyer.Ui.DialogActivity"
             android:theme="@style/dialog_activity" />
         <activity
+            android:name=".buyer.Ui.LoginOutDialogActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/dialog_activity" />
+        <activity
             android:name=".buyer.Ui.DialogActivitySecond"
             android:theme="@style/dialog_activity" />
 

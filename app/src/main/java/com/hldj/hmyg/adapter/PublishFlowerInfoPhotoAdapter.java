@@ -144,8 +144,15 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
                 para.width = (width - dip30px) / 4;
                 para.height = para.width * 4 / 3;
             } else {
+
                 para.width = (width) / 3;
                 para.height = (width) / 3;
+
+//                ViewGroup pr = (ViewGroup) holder.photoIv.getParent();
+//                pr.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+//
+//                para.width = MyApplication.dp2px(context, 100);
+//                para.height = MyApplication.dp2px(context, 100);
             }
 
             holder.photoIv.setLayoutParams(para);

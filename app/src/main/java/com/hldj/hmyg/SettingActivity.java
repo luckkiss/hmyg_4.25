@@ -642,15 +642,14 @@ public class SettingActivity extends NeedSwipeBackActivity implements
     }
 
 
-    public static void exit2Home(Activity context, Editor editor, boolean shouldFinish) {
-        editor.putBoolean("isLogin", false);
+    public static void clearCache(Activity context, Editor editor)
+    { editor.putBoolean("isLogin", false);
         editor.putString("showUserName", "");
         editor.clear(); // 清除所有登录数据
         editor.commit();
         editor.putBoolean("notification", false);
         editor.commit();
         context.setResult(6);
-
         //把userbean 存入 application 中
 //					SPUtil.clear( SPUtils.UserBean,SettingActivity.this);
         SPUtil.remove(context, SPUtils.UserBean);
@@ -662,8 +661,34 @@ public class SettingActivity extends NeedSwipeBackActivity implements
 
         D.e("====" + MyApplication.getUserBean());
 
+    }
+
+    public static void clearCache( Editor editor)
+    { editor.putBoolean("isLogin", false);
+        editor.putString("showUserName", "");
+        editor.clear(); // 清除所有登录数据
+        editor.commit();
+        editor.putBoolean("notification", false);
+        editor.commit();
+        //把userbean 存入 application 中
+//					SPUtil.clear( SPUtils.UserBean,SettingActivity.this);
+        SPUtil.remove(MyApplication.getInstance(), SPUtils.UserBean);
+        MyApplication.setUserBean(null);
+        JpushUtil.setAlias("游客");
+        D.e("===" + SPUtil.get(MyApplication.getInstance(), SPUtils.UserBean, "").toString());
+        D.e("====" + MyApplication.getUserBean());
+    }
+
+    public static void exit2Home(Activity context, Editor editor, boolean shouldFinish) {
+
+        clearCache(context,editor);
+
+
         if (shouldFinish) {
+//            if (context instanceof SwipeBackBActivity)
+//            {
             context.finish();
+//            }
             MainActivity.toA();
         } else {
 //            LoginActivity.start2Activity(context);
@@ -694,5 +719,10 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                 TestPatchActivity.start2Activity(mActivity);
             }
         });
+    }
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
     }
 }
