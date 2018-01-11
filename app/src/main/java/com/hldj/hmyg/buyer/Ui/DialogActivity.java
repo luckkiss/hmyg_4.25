@@ -275,21 +275,6 @@ public class DialogActivity extends BaseMVPActivity {
         }
     }
 
-    public static void start(Activity activity, PurchaseItemBean_new purchaseItemBeanNew) {
-
-
-
-       /*没有同意协议，跳转协议界面 h5*/
-        if (!MyApplication.getUserBean().supplierIsAgree) {
-            supplierProtocol((FragmentActivity) activity, purchaseItemBeanNew);
-            return;
-        }
-
-        Intent i = new Intent(activity, DialogActivity.class);
-        i.putExtra(TAG, purchaseItemBeanNew);
-        activity.startActivityForResult(i, 100);
-//        ToastUtil.showLongToast(purchaseItemBeanNew.toString());
-    }
 
     /*当  没有同意 供应商协议时 执行*/
     public static void supplierProtocol(FragmentActivity activity, PurchaseItemBean_new purchaseItemBeanNew) {
@@ -328,6 +313,14 @@ public class DialogActivity extends BaseMVPActivity {
         }
     }
 
+
+    /**
+     * 修改。待  历史信息过来
+     *
+     * @param activity
+     * @param purchaseItemBeanNew
+     * @param jsonBean
+     */
     public static void start(Activity activity, PurchaseItemBean_new purchaseItemBeanNew, SellerQuoteJsonBean jsonBean) {
 
 //        /*没有同意协议，跳转协议界面 h5*/
@@ -339,6 +332,22 @@ public class DialogActivity extends BaseMVPActivity {
         Intent i = new Intent(activity, DialogActivity.class);
         i.putExtra(TAG, purchaseItemBeanNew);
         i.putExtra("jsonBean", jsonBean);
+        activity.startActivityForResult(i, 100);
+//        ToastUtil.showLongToast(purchaseItemBeanNew.toString());
+    }
+
+    public static void start(Activity activity, PurchaseItemBean_new purchaseItemBeanNew) {
+
+
+
+       /*没有同意协议，跳转协议界面 h5*/
+        if (!MyApplication.getUserBean().supplierIsAgree) {
+            supplierProtocol((FragmentActivity) activity, purchaseItemBeanNew);
+            return;
+        }
+
+        Intent i = new Intent(activity, DialogActivity.class);
+        i.putExtra(TAG, purchaseItemBeanNew);
         activity.startActivityForResult(i, 100);
 //        ToastUtil.showLongToast(purchaseItemBeanNew.toString());
     }

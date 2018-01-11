@@ -137,9 +137,10 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
         //搜索
 
         getView(R.id.sptv_b_search).setOnClickListener(v -> {
-            Intent intent = new Intent(BActivity_new_test.this, PurchaseSearchListActivity.class);
-            intent.putExtra("from", "BActivity");
-            startActivityForResult(intent, 1);
+//            Intent intent = new Intent(BActivity_new_test.this, PurchaseSearchListActivity.class);
+//            intent.putExtra("from", "BActivity");
+//            startActivityForResult(intent, 1);
+            PurchaseSearchListActivity.start(mActivity, PurchaseSearchListActivity.FROM_STORE);
         });
 
 

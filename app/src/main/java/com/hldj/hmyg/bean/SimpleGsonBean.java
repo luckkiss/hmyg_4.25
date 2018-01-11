@@ -32,6 +32,7 @@ public class SimpleGsonBean implements Serializable {
 
     public static class DataBean implements Serializable {
 
+
         public PurchaseListPageGsonBean.DataBeanX.HeadPurchaseBean headPurchase ;
 
         public PurchaseItemBean_new purchaseItem ;

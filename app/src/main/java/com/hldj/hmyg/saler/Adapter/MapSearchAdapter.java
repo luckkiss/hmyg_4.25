@@ -77,8 +77,7 @@ public class MapSearchAdapter extends BaseAdapter implements SectionIndexer {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, StorePurchaseListActivity.class);
-                intent.putExtra("secondSeedlingTypeId", data.get(position)
-                        .getId());
+                intent.putExtra("secondSeedlingTypeId", data.get(position).getId());
                 intent.putExtra("title", "[" + data.get(position).getParentName() + "]" + data.get(position).getName());
 
                 // subscribeSave(data.get(position).getId(), position);

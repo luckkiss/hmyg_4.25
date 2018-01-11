@@ -17,10 +17,11 @@ import android.widget.TextView;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Message;
-
+import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivitySecond;
 import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
 
 import java.util.ArrayList;
+
 
 @SuppressLint("ResourceAsColor")
 public class MessageListDetailAdapter extends BaseAdapter {
@@ -149,8 +150,7 @@ public class MessageListDetailAdapter extends BaseAdapter {
 
                 }
                 // 卖家
-                else if ("seller"
-                        .equals(data.get(position).getTargetUserType())) {
+                else if ("seller".equals(data.get(position).getTargetUserType())) {
                     // 买家申请验苗，不跳转（卖家没有相关验苗的订单）
                     if ("validateSeedling".equals(data.get(position)
                             .getContentType())) {
@@ -184,7 +184,29 @@ public class MessageListDetailAdapter extends BaseAdapter {
                         useQuote.putExtra("name", "已报价");
                         useQuote.putExtra("status", "quoted");
                         context.startActivity(useQuote);
+                    } else if ("secondQuote".equals(data.get(position).getContentType())) {
+
+
+                        Intent intent1 = new Intent(context, StorePurchaseListActivitySecond.class);
+//                        intent1.putExtra("purchaseFormId", "2bb0859e7d094314a1a162a82a4fa408");
+                        intent1.putExtra("purchaseFormId", data.get(position).getSourceId());
+//                intent1.putExtra("purchaseFormId", "8e5aa65a2c374de99662dcf6e7e399a9");
+//                intent.putExtra("title", item.num);
+                        context.startActivity(intent1);
+//                        useQuote.putExtra("name", "二次报价");
+//                        useQuote.putExtra("status", "quoted");
+
                     }
+
+//                    else if ([messageModel.contentType isEqualToString:@"secondQuote"]){
+//                        //二次报价
+//                        PurchaseMallSecondVC *purchaseMallVC=[PurchaseMallSecondVC new];
+//                        purchaseMallVC.mallModel.purchaseId=messageModel.sourceId;
+//                        purchaseMallVC.titleName=messageModel.conditionParam;
+//            [self.navigationController pushViewController:purchaseMallVC animated:NO];
+//                    }
+
+
                     // 订单创建，跳转销售订单的详情
 //                    else if ("orderCreated".equals(data.get(position)
 //                            .getContentType())) {
@@ -250,6 +272,7 @@ public class MessageListDetailAdapter extends BaseAdapter {
                         validateResultAudit.putExtra("tag", "broker");
                         context.startActivity(validateResultAudit);
                     }
+
 
                 }
 

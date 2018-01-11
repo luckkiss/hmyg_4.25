@@ -95,6 +95,7 @@ public class PurchaseBean {
     public String publishDate;
     public String closeDate;
     public boolean needInvoice;
+    public boolean needPreQuote;
     public String customerId;
     public String status;
     public String source;

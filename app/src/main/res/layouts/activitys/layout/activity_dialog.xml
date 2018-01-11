@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?><!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="fill_parent"--><!--android:layout_height="fill_parent">-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
     android:background="@drawable/conner_white"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
-
+    <!--   edit text  初始化时不弹键盘  也不获取焦点 -->
+    <!--http://blog.csdn.net/xiawj8957/article/details/45130175-->
     <TextView
         android:id="@+id/close_title"
         android:layout_width="match_parent"
@@ -27,8 +31,8 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="红车  7000株"
-        android:textColor="@color/text_color666"
-        android:textSize="16sp" />
+        android:textColor="@color/text_color333"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/space_text"
@@ -38,7 +42,7 @@
         android:paddingRight="10dp"
         android:text="种植类型： 地栽苗，容器苗"
         android:textColor="@color/text_color666"
-        android:textSize="16sp" />
+        android:textSize="13sp" />
 
     <TextView
         android:id="@+id/guige"
@@ -49,7 +53,9 @@
         android:paddingRight="10dp"
         android:text="规格：高度：30 冠幅：50"
         android:textColor="@color/text_color666"
-        android:textSize="16sp" />
+        android:textSize="13sp"
+        android:layout_marginBottom="10dp"
+        />
 
     <View style="@style/View_line_gray_1px" />
 
@@ -63,10 +69,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/seller_redstar"
             android:padding="8dp"
             android:text="价格："
             android:textColor="@color/text_color333"
-            android:drawableLeft="@drawable/seller_redstar"
             android:textSize="16sp" />
 
         <EditText
@@ -77,8 +83,10 @@
             android:hint="(元)"
             android:inputType="numberDecimal"
             android:padding="8dp"
+            android:textColor="@color/text_color333"
             android:textColorHint="@color/hint_text_color"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:text="1346" />
 
 
     </LinearLayout>
@@ -86,17 +94,39 @@
     <View style="@style/View_line_gray_1px" />
 
 
-    <com.lqr.optionitemview.OptionItemView
-        android:id="@+id/city"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="38dp"
-        app:left_text="苗源地："
-        app:left_text_color="@color/text_color333"
-        app:left_text_size="15sp"
-        app:right_src="@drawable/ic_right_icon_new"
-        app:right_text="未选择"
-        app:right_text_color="@color/text_color333"
-        app:right_text_size="15sp" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+
+        <com.lqr.optionitemview.OptionItemView
+            android:id="@+id/city"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="45dp"
+            app:left_text=" 苗源地："
+            app:left_text_color="@color/text_color333"
+            app:left_text_size="15sp"
+            app:right_src="@drawable/ic_right_icon_new"
+            app:right_text="未选择"
+            app:right_text_color="@color/text_color333"
+            app:right_text_size="15sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/city"
+            android:drawableRight="@drawable/seller_redstar"
+            android:layout_marginLeft="8dp"
+            />
+
+
+
+
+    </FrameLayout>
 
     <!--<TextView-->
     <!--android:layout_width="fill_parent"-->
@@ -112,12 +142,16 @@
 
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
+        android:gravity="center_vertical"
         android:padding="8dp"
-        android:text="报价说明"
+        android:text="备注"
         android:textColor="@color/text_color333"
         android:textSize="16sp" />
 
+    <View
+        style="@style/View_line_gray_1px"
+        android:layout_marginBottom="3dp" />
 
     <EditText
         android:id="@+id/descript"
@@ -137,8 +171,7 @@
         style="@style/View_line_gray_1px"
         android:layout_height="1dp" />
 
-    <EditText
-
+    <View
         android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:background="@color/gray_bg_ed"

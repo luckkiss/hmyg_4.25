@@ -377,20 +377,33 @@
             android:name="com.hldj.hmyg.saler.SearchActivity"
             android:screenOrientation="portrait"></activity>
 
+
+        <!--一轮报价-->
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+
+        <!--二轮报价-->
+        <activity
+            android:name="com.hldj.hmyg.buyer.Ui.StorePurchaseListActivitySecond"
+            android:screenOrientation="portrait" />
+        <!--直接进行二轮报价  通过  needPreQuote  判断-->
+        <activity
+            android:name="com.hldj.hmyg.buyer.Ui.StorePurchaseListActivityAlongSecond"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".buyer.Ui.DialogActivity"
-            android:theme="@style/dialog_activity" />
+            android:theme="@style/dialog_activity" android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".buyer.Ui.LoginOutDialogActivity"
             android:launchMode="singleInstance"
             android:theme="@style/dialog_activity" />
         <activity
             android:name=".buyer.Ui.DialogActivitySecond"
-            android:theme="@style/dialog_activity" />
+            android:theme="@style/dialog_activity"
+            android:windowSoftInputMode="stateHidden"
+            />
 
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity"

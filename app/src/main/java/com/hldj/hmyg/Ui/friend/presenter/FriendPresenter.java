@@ -87,7 +87,7 @@ public class FriendPresenter {
         }
 
         D.e("分享");
-        String title = item.attrData.displayName + "发布了";
+        String title = item.attrData.displayName + "的苗木圈";
 
 //      "花木易购苗木圈",getSpS("headImage")
         String headUrl = "";
@@ -112,9 +112,9 @@ public class FriendPresenter {
 
         ComonShareDialogFragment.newInstance()
                 .setShareBean(new ComonShareDialogFragment.ShareBean(
-                        title + type,
-                        item.content,
-                        "",
+                        title,
+                        type + item.content
+                        , "_" + item.content,
 //                        (item.imagesJson != null && item.imagesJson.size() > 0) ? item.imagesJson.get(0).ossMediumImagePath : GetServerUrl.ICON_PAHT,
                         headUrl,
                         GetServerUrl.getHtmlUrl() + "moments/detail/" + item.id + ".html"))

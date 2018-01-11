@@ -250,7 +250,7 @@ public class DetailActivity extends BaseMVPActivity {
 //            }
             third.setOnClickListener(v -> {
                 //未登录。跳转登录界面
-                if (!commitLogin()) return;
+//                if (!commitLogin()) return;
                 if (TextUtils.isEmpty(moments.attrData.displayPhone)) {
                     ToastUtil.showLongToast("未留电话号码~_~");
                 } else {

@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -268,7 +269,14 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
     private void ShareToWechatMoments() {
         Platform.ShareParams sp2 = new Platform.ShareParams();
         sp2.setShareType(Platform.SHARE_WEBPAGE);
-        sp2.setTitle(shareBean.title);
+
+
+        if (!TextUtils.isEmpty(shareBean.desc) && shareBean.desc.startsWith("_")) {
+            sp2.setTitle(shareBean.title + shareBean.desc);
+        } else {
+            sp2.setTitle(shareBean.title);
+        }
+
         sp2.setText(shareBean.text);
         sp2.setImageUrl(shareBean.imgUrl);
         sp2.setUrl(shareBean.pageUrl);

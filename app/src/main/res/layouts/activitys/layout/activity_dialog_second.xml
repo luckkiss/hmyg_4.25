@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
     android:layout_marginLeft="25dp"
     android:layout_marginRight="25dp"
-    android:layout_marginBottom="20dp"
     android:layout_marginTop="20dp"
-    android:orientation="vertical">
+    android:orientation="vertical" android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <TextView
         android:id="@+id/close_title"
@@ -26,9 +25,11 @@
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
         android:background="@color/white"
-        android:maxHeight="400dp">
+        android:maxHeight="520dp">
 
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -47,8 +48,8 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="红车  7000株"
-                android:textColor="@color/text_color666"
-                android:textSize="16sp" />
+                android:textColor="@color/text_color333"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/space_text"
@@ -58,7 +59,7 @@
                 android:paddingRight="10dp"
                 android:text="种植类型： 地栽苗，容器苗"
                 android:textColor="@color/text_color666"
-                android:textSize="16sp" />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/guige"
@@ -69,7 +70,8 @@
                 android:paddingRight="10dp"
                 android:text="规格：高度：30 冠幅：50"
                 android:textColor="@color/text_color666"
-                android:textSize="16sp" />
+                android:layout_marginBottom="10dp"
+                android:textSize="13sp" />
 
             <View style="@style/View_line_gray_1px" />
 
@@ -83,15 +85,22 @@
             <!--<View style="@style/View_line_gray_1dp" />-->
 
 
+
+
+
             <RelativeLayout
                 style="@style/ll_padleft_15"
-                android:paddingLeft="15dp">
+                android:layout_height="45dp"
+                android:paddingLeft="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
                     android:gravity="center"
+                    android:drawablePadding="3dp"
+                    android:textColor="@color/text_color333"
+                    android:drawableLeft="@drawable/seller_redstar"
                     android:text="苗源地" />
 
                 <TextView
@@ -99,6 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
+                    android:textColor="@color/text_color333"
                     android:drawablePadding="5dp"
                     android:drawableRight="@drawable/ic_right_icon_new"
                     android:gravity="center"
@@ -129,19 +139,22 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:text="图片"
-                    android:textColor="@color/text_color" />
+                    android:textColor="@color/text_color"
+                    android:layout_centerVertical="true"
+                    />
 
                 <TextView
                     android:id="@+id/tv_purchase_add_pic"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="45dp"
                     android:layout_marginLeft="10dp"
                     android:drawableLeft="@drawable/seller_redstar"
                     android:drawableRight="@drawable/ic_right_icon_new"
+                    android:textColor="@color/text_color333"
                     android:gravity="center_vertical|end"
                     android:paddingRight="15dp"
                     android:text="未上传图片"
@@ -164,52 +177,51 @@
                 android:scrollbars="none" />
 
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp">
 
                 <TextView
                     android:id="@+id/tv_purchase_remark"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:text="备注" />
+                    android:text="备注"
+                    android:textColor="@color/text_color333" />
 
                 <EditText
                     android:id="@+id/et_purchase_remark"
                     android:layout_width="match_parent"
-                    android:layout_height="29dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
+                    android:layout_toRightOf="@+id/tv_purchase_remark"
                     android:background="@drawable/conner_edit"
-                    android:gravity="center_vertical"
+                    android:gravity="start"
                     android:hint="请填写备注信息"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
+                    android:minHeight="70dp"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:textColor="@color/text_color"
                     android:textColorHint="@color/hint_text_color"
                     android:textSize="14sp" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <View style="@style/View_line_gray_1dp" />
-            <TextView
-                android:id="@+id/commit"
-                android:layout_width="match_parent"
-                android:layout_height="38dp"
-                android:layout_marginTop="30dp"
-                android:background="@color/main_color"
-                android:gravity="center"
-                android:text="提交报价"
-                android:textColor="@color/white" />
+            <!--<View style="@style/View_line_gray_1dp"-->
+            <!--android:layout_height="35dp"-->
+            <!--/>-->
+
 
             <!--<TextView-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="70dp"-->
             <!--android:background="@color/gray_bg_ed" />-->
-
 
 
         </LinearLayout>
@@ -218,7 +230,15 @@
     </ScrollView>
 
 
+    <TextView
+        android:id="@+id/commit"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="@color/main_color"
+        android:gravity="center"
+        android:text="提交报价"
+        android:textColor="@color/white" />
 
 
-</LinearLayout >
+</LinearLayout>
 

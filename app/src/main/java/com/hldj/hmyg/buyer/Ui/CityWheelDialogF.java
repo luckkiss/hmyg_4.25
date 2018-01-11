@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
@@ -143,9 +145,16 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
 
     protected void initProvinceDatas() {
         arrayWheelAdapterNew = new ArrayWheelAdapter_new(getActivity(), null);
+//        arrayWheelAdapterNew.setTextColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.black_de));
+//        mViewCity.setWheelForeground(R.drawable.white_radius);
+//        mViewCity.setWheelBackground(R.drawable.bg_white);
+//        mViewCity.setBackgroundColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.white));
         mViewCity.setViewAdapter(arrayWheelAdapterNew);
+
         arrayWheelAdapterNew_dir = new ArrayWheelAdapter_new(getActivity(), null);
+
         mViewDistrict.setViewAdapter(arrayWheelAdapterNew_dir);
+        arrayWheelAdapterNew_dir.setTextColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.black_de));
 
         /**
          *  // InputStream input = asset.open("city_json2.rtf");

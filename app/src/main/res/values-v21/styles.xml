@@ -78,6 +78,7 @@
         <!-- 设置activity切换动画 -->
         <item name="android:windowAnimationStyle">@style/activityAnimation</item>
         <item name="android:windowContentTransitions">true</item>
+        <item name="android:navigationBarColor">@color/white</item>
     </style>
 
 

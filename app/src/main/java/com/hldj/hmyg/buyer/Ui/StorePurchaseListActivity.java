@@ -56,20 +56,23 @@ import static com.hldj.hmyg.R.id.tv_03;
 
 
 /**
- * 报价列表
+ * 报价列表   一轮报价
  */
 public class StorePurchaseListActivity extends NeedSwipeBackActivity implements IXListViewListener, OnClickListener {
     private static final String TAG = "StorePurchaseListActivi";
-    private XListView xListView;
+
+    protected String host = "admin/purchase/firstQuoteList";
+
+    protected XListView xListView;
     private ArrayList<HashMap<String, Object>> datas = new ArrayList<HashMap<String, Object>>();
 
     boolean getdata; // 避免刷新多出数据
-    private StorePurchaseListAdapter_new listAdapter;
+    protected StorePurchaseListAdapter_new listAdapter;
 
     public static boolean shouldShow = true;
 
-    private int pageSize = 20;
-    private int pageIndex = 0;
+    protected int pageSize = 20;
+    protected int pageIndex = 0;
     private View mainView;
 //    private DaquyuAdapter daquyuAdapter;
 //    private XiaoquyuAdapter xiaoquyuAdapter;
@@ -100,7 +103,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
     private int subscribeUserCount = 0;
 
-    private String purchaseFormId = "";
+    protected String purchaseFormId = "";
     private String title = "";
     //    private TextView tv_01;
 //    private TextView tv_02;
@@ -199,16 +202,14 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         }
     }
 
-    private String cityName = "";
+    protected String cityName = "";
     private boolean is;
-
-
+    protected boolean needPreQuote; //是否预报价  就是  --- 简易报价
 
 
     /*三*/
     private void initData() {
         showLoading();
-
 
         //initHeadBean(gsonBean.data.headPurchase);
 
@@ -231,9 +232,10 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         params.put("pageSize", pageSize + "");
         params.put("pageIndex", pageIndex + "");
 //        Log.e("purchase/list", params.toString());
-        Log.e("purchase/firstQuoteList", params.toString());
+        Log.e("/first or second ", params.toString());
+
 //        finalHttp.post(GetServerUrl.getUrl() + "purchase/list", params, new AjaxCallBack<String>() {
-        finalHttp.post(GetServerUrl.getUrl() + "admin/purchase/firstQuoteList", params, new AjaxCallBack<String>() {
+        finalHttp.post(GetServerUrl.getUrl() + host, params, new AjaxCallBack<String>() {
 
 //            private String cityName = "";
 //            private boolean is;
@@ -256,7 +258,13 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
 //                ToastUtil.showLongToast(gsonBean.msg);
                 if (gsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
-                    initPageBeans(gsonBean.data.list);
+                    if (gsonBean.data.list != null) {
+                        initPageBeans(gsonBean.data.list);
+                    }
+                    if (gsonBean.data.preBidList != null || gsonBean.data.unEditList != null) {
+                        initSecondList(gsonBean.data.preBidList, gsonBean.data.unEditList);
+                    }
+
 
 //                    is = gsonBean.data.expired;
                     loadingLayout.setStatus(LoadingLayout.Success);
@@ -269,47 +277,6 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                 hindLoading();
                 onLoad();
                 getdata = true;
-            }
-
-
-            private void initPageBeans(List<PurchaseItemBean_new> data) {
-
-                for (int i = 0; i < data.size(); i++) {
-                    shareBean.text += data.get(i).name + ",";
-                }
-
-                if (listAdapter == null) {
-                    listAdapter = new StorePurchaseListAdapter_new(StorePurchaseListActivity.this, data, R.layout.list_item_store_purchase) {
-                        @Override
-                        public String setCityName() {
-                            return cityName;
-                        }
-
-                        @Override
-                        public Boolean isExpired() {
-                            return !shouldShow;
-                        }
-
-                        @Override
-                        public String getItemId() {
-                            return purchaseFormId;
-                        }
-
-
-                    };
-                    xListView.setAdapter(listAdapter);
-                } else {
-                    listAdapter.addData(data);
-                }
-
-                if (listAdapter.getDatas().size() % pageSize == 0) {
-                    pageIndex++;
-                } else {
-
-                }
-
-                onLoad();
-
             }
 
 
@@ -334,6 +301,63 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         getdata = true;
     }
 
+    /**
+     * 定义给子类重写
+     *
+     * @param preBidList
+     * @param unEditList
+     */
+    protected void initSecondList(List<PurchaseItemBean_new> preBidList, List<PurchaseItemBean_new> unEditList) {
+
+
+    }
+
+    public void initPageBeans(List<PurchaseItemBean_new> data) {
+
+        for (int i = 0; i < data.size(); i++) {
+            shareBean.text += data.get(i).name + ",";
+        }
+
+        if (listAdapter == null) {
+            listAdapter = new StorePurchaseListAdapter_new(StorePurchaseListActivity.this, data, R.layout.list_item_store_purchase) {
+                @Override
+                public String setCityName() {
+                    return cityName;
+                }
+
+                @Override
+                public Boolean isExpired() {
+                    return !shouldShow;
+                }
+
+                @Override
+                public String getItemId() {
+                    return purchaseFormId;
+                }
+
+                @Override
+                public boolean isNeedPreQuote() {
+                    return needPreQuote;
+                }
+
+
+            };
+            xListView.setAdapter(listAdapter);
+        } else {
+            listAdapter.addData(data);
+        }
+
+        if (listAdapter.getDatas().size() % pageSize == 0) {
+            pageIndex++;
+        } else {
+
+        }
+
+        onLoad();
+
+    }
+
+
     private void requestHeadData() {
 
         new BasePresenter()
@@ -348,7 +372,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
     }
 
-    private void initHeadBean(PurchaseListPageGsonBean.DataBeanX.HeadPurchaseBean headPurchase) {
+    protected void initHeadBean(PurchaseListPageGsonBean.DataBeanX.HeadPurchaseBean headPurchase) {
         if (headPurchase == null) {
             return;
         }
@@ -362,6 +386,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         }
 
         is = headPurchase.status.equals("expired");
+        needPreQuote = headPurchase.needPreQuote;
 
         int headViewId = R.layout.head_purchase;
                         /*项目名*/
@@ -370,7 +395,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
         ((TextView) getView(R.id.tv_01)).setText(Html.fromHtml(res));
                         /*显示名称*/
-        ((TextView) getView(R.id.tv_02)).setText(headPurchase.buyer.displayName);
+        ((TextView) getView(R.id.tv_02)).setText("采购单位：" + headPurchase.buyer.displayName);
                         /*报价说明*/
         ((TextView) getView(R.id.tv_021)).setText(headPurchase.consumerFullName);
                         /*用苗单位*/
@@ -407,9 +432,12 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
                         /*   tv_06.setText("截止时间：" + closeDate);*/
 //                ((TextView) getView(R.id.tv_06)).setText("用  苗  地：" + headPurchase.closeDate);
+
         ((TextView) getView(R.id.tv_06)).setText("截止时间：" + headPurchase.closeDate);
 
-        shareBean.text = "用  苗  地：" + headPurchase.cityName + "\n" + "截止时间：" + headPurchase.closeDate + "\n";
+//        shareBean.text = "用  苗  地：" + headPurchase.cityName + "\n" + "截止时间：" + headPurchase.closeDate + "\n";
+
+        ((TextView) getView(R.id.tv_06)).setText("截止时间：" + headPurchase.preCloseDate);
 
     }
 
@@ -506,7 +534,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         onLoad();
     }
 
-    private void onLoad() {
+    protected void onLoad() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

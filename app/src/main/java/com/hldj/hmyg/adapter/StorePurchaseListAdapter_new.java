@@ -37,7 +37,9 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import static com.hldj.hmyg.R.id.textView41;
 import static com.hldj.hmyg.R.id.tv_caozuo01;
 
-
+/**
+ * 一轮报价  适配器
+ */
 @SuppressLint("ResourceAsColor")
 public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<PurchaseItemBean_new> {
     private static final String TAG = "StorePurchaseL";
@@ -49,6 +51,8 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
     public abstract Boolean isExpired();
 
     public abstract String getItemId();
+
+    public abstract boolean isNeedPreQuote();
 
 
     public StorePurchaseListAdapter_new(Context context, List<PurchaseItemBean_new> data, int layoutId) {
@@ -91,6 +95,9 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 
         setTv_isloagin(myViewHolder.getView(tv_caozuo01), purchaseItemBeanNew);
 
+
+
+
         ListView listView = myViewHolder.getView(R.id.list);
 
 //        List list = new ArrayList();
@@ -100,7 +107,109 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
         if (isExpired()) {
             purchaseItemBeanNew.sellerQuoteListJson = null;
         }
+
+        initListView(listView, context, purchaseItemBeanNew);
+
+
+        setTv_isloagin(myViewHolder.getView(tv_caozuo01), purchaseItemBeanNew);
+
+        if (!purchaseItemBeanNew.editAble) {
+            TextView tv_caozuo01 = myViewHolder.getView(R.id.tv_caozuo01);
+            tv_caozuo01.setText("采购已关闭");
+            tv_caozuo01.setTextColor(ContextCompat.getColor(context, R.color.orange));
+            tv_caozuo01.setBackground(ContextCompat.getDrawable(context, R.drawable.trans_bg));
+            return;
+        }
+
+
+        myViewHolder.getConvertView().setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MyApplication.Userinfo.getBoolean("isLogin", false)) {
+//                    if (purchaseItemBeanNew.status .equals("expired")) {
+                    if (isExpired()) {
+                        ToastUtil.showShortToast("采购已关闭");
+                        return;
+                    }
+//                    PurchaseDetailActivity.start2Activity((Activity) context, purchaseItemBeanNew.id);//采购详情 界面
+                    ((NeedSwipeBackActivity) context).showLoading();
+                    new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
+                        @Override
+                        public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
+                            ((NeedSwipeBackActivity) context).hindLoading();
+                            boolean canQuote = saveSeedingGsonBean.getData().canQuote;
+                            if (!canQuote) {
+                                ToastUtil.showShortToast("您没有报价权限");
+                                PurchaseDeatilP.requestPer(((NeedSwipeBackActivity) context));
+                            } else {
+//                                purchaseItemBeanNew.pid1 = getItemId();
+//                                purchaseItemBeanNew.pid2 = getItemId();
+//                                DialogActivity.start((Activity) context, purchaseItemBeanNew);
+
+                                jump2Quote((Activity) context, purchaseItemBeanNew);
+
+//                    DialogActivitySecond.start2Activity((Activity) context, purchaseItemBeanNew.id ,purchaseItemBeanNew);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Throwable t, int errorNo, String strMsg) {
+                            ToastUtil.showShortToast("您没有报价权限" + strMsg);
+                            ((NeedSwipeBackActivity) context).hindLoading();
+                        }
+                    }).getDatas(purchaseItemBeanNew.id);//请求数据  进行排版
+
+
+//                    //一次报价
+//                    purchaseItemBeanNew.pid1 = getItemId();
+//                    purchaseItemBeanNew.pid2 = getItemId();
+//                    DialogActivity.start((Activity) context, purchaseItemBeanNew);
+////                    DialogActivitySecond.start2Activity((Activity) context, purchaseItemBeanNew.id ,purchaseItemBeanNew);
+
+
+                } else {
+                    LoginActivity.start2Activity((Activity) context);
+                }
+            }
+        });
+
+
+    }
+
+    protected void jump2Quote(Activity context, PurchaseItemBean_new purchaseItemBeanNew) {
+
+        purchaseItemBeanNew.pid1 = getItemId();
+        purchaseItemBeanNew.pid2 = getItemId();
+        DialogActivity.start((Activity) context, purchaseItemBeanNew);
+
+    }
+
+    protected void initListView(ListView listView, Context context, PurchaseItemBean_new purchaseItemBeanNew) {
+
         listView.setAdapter(new GlobBaseAdapter<SellerQuoteJsonBean>(context, purchaseItemBeanNew.sellerQuoteListJson, R.layout.item_purchase_first_cons) {
+
+//            @Override
+//            public int getItemViewType(int position) {
+//
+//                return super.getItemViewType(position);
+//            }
+
+
+            //     ViewHolders myViewHolder = new ViewHolders(context, convertView, layoutId, parent, position);
+//            setConverView(myViewHolder, data.get(position), position);
+//        return myViewHolder.getConvertView();
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//                if (data.get(position).status.equals("选标中"))
+//                    return super.getView(position, convertView, parent);
+//                else {
+//                    ViewHolders myViewHolder = new ViewHolders(context, convertView, R.layout.item_purchase_first_cons, parent, position);
+//                    setConverView(myViewHolder, data.get(position), position);
+//                    return myViewHolder.getConvertView();
+//                }
+//
+//            }
+
             @Override
             public void setConverView(ViewHolders myViewHolder, SellerQuoteJsonBean jsonBean, int position) {
                 D.e("=====setConverView======str=============" + jsonBean.toString());
@@ -122,6 +231,8 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 
 //                StringFormatUtil formatUtil = new StringFormatUtil(context, "当前报价状态：" + getStateName(jsonBean.status), getStateName(jsonBean.status), ContextCompat.getColor(context, R.color.orange)).fillColor();
                 state.setText(getStateName(jsonBean.status));
+                //选标中 ---- 正常显示二次报价
+
 
 
 
@@ -155,61 +266,9 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
             }
         });
 
-
-        setTv_isloagin(myViewHolder.getView(tv_caozuo01), purchaseItemBeanNew);
-
-        myViewHolder.getConvertView().setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (MyApplication.Userinfo.getBoolean("isLogin", false)) {
-//                    if (purchaseItemBeanNew.status .equals("expired")) {
-                    if (isExpired()) {
-                        ToastUtil.showShortToast("采购已关闭");
-                        return;
-                    }
-//                    PurchaseDetailActivity.start2Activity((Activity) context, purchaseItemBeanNew.id);//采购详情 界面
-                    ((NeedSwipeBackActivity) context).showLoading();
-                    new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
-                        @Override
-                        public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
-                            ((NeedSwipeBackActivity) context).hindLoading();
-                            boolean canQuote = saveSeedingGsonBean.getData().canQuote;
-                            if (!canQuote) {
-                                ToastUtil.showShortToast("您没有报价权限");
-                                PurchaseDeatilP.requestPer(((NeedSwipeBackActivity) context));
-                            } else {
-                                purchaseItemBeanNew.pid1 = getItemId();
-                                purchaseItemBeanNew.pid2 = getItemId();
-                                DialogActivity.start((Activity) context, purchaseItemBeanNew);
-//                    DialogActivitySecond.start2Activity((Activity) context, purchaseItemBeanNew.id ,purchaseItemBeanNew);
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Throwable t, int errorNo, String strMsg) {
-                            ToastUtil.showShortToast("您没有报价权限" + strMsg);
-                            ((NeedSwipeBackActivity) context).hindLoading();
-                        }
-                    }).getDatas(purchaseItemBeanNew.id);//请求数据  进行排版
-
-
-//                    //一次报价
-//                    purchaseItemBeanNew.pid1 = getItemId();
-//                    purchaseItemBeanNew.pid2 = getItemId();
-//                    DialogActivity.start((Activity) context, purchaseItemBeanNew);
-////                    DialogActivitySecond.start2Activity((Activity) context, purchaseItemBeanNew.id ,purchaseItemBeanNew);
-
-
-                } else {
-                    LoginActivity.start2Activity((Activity) context);
-                }
-            }
-        });
-
-
     }
 
-    private void doDelete(View v, PurchaseItemBean_new purchaseItemBeanNew, int position, SellerQuoteJsonBean jsonBean) {
+    protected void doDelete(View v, PurchaseItemBean_new purchaseItemBeanNew, int position, SellerQuoteJsonBean jsonBean) {
 
         new AlertDialog(context)
                 .builder()
@@ -290,6 +349,8 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
             tv_05.setText("规格: " + specText);
         } else if (TextUtils.isEmpty(specText) && !TextUtils.isEmpty(specText)) {
             tv_05.setText("规格: " + remarks);
+        } else {
+            tv_05.setText("规格: - ");
         }
     }
 

@@ -178,7 +178,7 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
         mainSpecBean = typesBean.data.mainSpec;
 
 //        if (GetServerUrl.isTest)
-            initSearchView(scropView_rod, mainSpecBean.get(0), "10", "20");
+        initSearchView(scropView_rod, mainSpecBean.get(0), "10", "20");
 
         initSearchView(scropView_height, mainSpecBean.get(1), "30", "450");
         initSearchView(scropView_crown, mainSpecBean.get(2), "50", "666");
@@ -628,9 +628,11 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
     // 关键字
     public void importWords(View view) {
 //        ToastUtil.showShortToast("关键字");
-        Intent intent = new Intent(mActivity, PurchaseSearchListActivity.class);
-        intent.putExtra("from", "SellectActivity2");
-        startActivityForResult(intent, 1);
+//        Intent intent = new Intent(mActivity, PurchaseSearchListActivity.class);
+//        intent.putExtra("from", "SellectActivity2");
+//        startActivityForResult(intent, 1);
+        PurchaseSearchListActivity.start(mActivity, PurchaseSearchListActivity.FROM_SEARCH);
+
     }
 
     //复原  城市名字

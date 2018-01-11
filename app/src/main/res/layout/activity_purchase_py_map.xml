@@ -36,7 +36,8 @@
                 style="@style/RadioButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="待采购" android:visibility="gone"/>
+                android:text="待采购"
+                android:visibility="gone" />
 
             <RadioButton
                 android:id="@+id/button33"
@@ -55,17 +56,21 @@
             android:layout_marginLeft="@dimen/x10"
             android:background="@drawable/btn_back" />
 
-        <TextView
+        <ImageView
             android:id="@+id/id_tv_edit_all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
             android:gravity="center"
-            android:padding="18dp"
-            android:text="●●●"
+            android:padding="10dp"
+            android:src="@drawable/fenxiang"
             android:textColor="@color/main_color"
             android:textSize="7dp" />
+
+        <!-- android:text="●●●"-->
     </RelativeLayout>
 
 
@@ -110,69 +115,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/line_bak" />
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/pager"
-                android:layout_width="match_parent"
-                android:layout_height="1px" />
-
-            <LinearLayout
-                android:id="@+id/ll_01"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y28"
-                android:background="@color/main_color"
-                android:orientation="horizontal"
-                android:padding="1px"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:paddingRight="@dimen/x7">
-
-                    <ImageView
-                        style="@style/more_triangle"
-                        android:layout_marginLeft="10.0dip"
-                        android:src="@drawable/xiaoxiti" />
-
-                    <TextView
-                        android:id="@+id/tv_xiaoxitishi"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/white"
-                        android:textSize="11sp" />
-
-                    <ImageView
-                        android:id="@+id/iv_close"
-                        style="@style/more_triangle"
-                        android:background="@drawable/xiaoxitishi_x2" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40.0dp"
-                    android:layout_weight="1.0">
-
-                    <com.astuetz.PagerSlidingTabStrip
-                        android:id="@+id/tabs"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#FFFFFF"
-
-                        />
-                </RelativeLayout>
-            </LinearLayout>
 
 
             <FrameLayout

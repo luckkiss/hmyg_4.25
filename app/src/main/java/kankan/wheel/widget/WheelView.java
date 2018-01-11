@@ -85,7 +85,7 @@ public class WheelView extends View {
 	private GradientDrawable bottomShadow;
 
 	// Draw Shadows
-	private boolean drawShadows = true;
+	private boolean drawShadows = false;
 
 	// Scrolling
 	private WheelScroller scroller;

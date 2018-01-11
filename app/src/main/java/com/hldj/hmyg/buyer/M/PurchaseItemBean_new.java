@@ -55,6 +55,13 @@ public class PurchaseItemBean_new implements Serializable {
      * diameterType : size10
      * offbarHeight : 200
      */
+
+    /**
+     * 编辑类型----是否可以编辑  0  可以  1  不可用
+     */
+    public boolean editAble = true;
+
+
     public String id;/**/
     public String plantTypeArrayNames = "-";/**/
     public String remarks;/**/
@@ -68,9 +75,6 @@ public class PurchaseItemBean_new implements Serializable {
 
 
     public String status = "";/**/
-
-
-
 
 
     public String pid1 = "";

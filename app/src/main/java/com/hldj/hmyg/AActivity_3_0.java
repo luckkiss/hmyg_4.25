@@ -43,9 +43,7 @@ import com.hldj.hmyg.bean.ABanner;
 import com.hldj.hmyg.bean.ArticleBean;
 import com.hldj.hmyg.bean.HomeStore;
 import com.hldj.hmyg.bean.Type;
-import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
 import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
-import com.hldj.hmyg.buyer.Ui.DialogActivitySecond;
 import com.hldj.hmyg.buyer.weidet.SwipeViewHeader;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
 import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
@@ -694,20 +692,32 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 break;
 
             case R.id.iv_a_msg:
-                DialogActivitySecond.start2Activity(this,"",new PurchaseItemBean_new());
+
+
+//                DialogActivitySecond.start2Activity(this,"8e5aa65a2c374de99662dcf6e7e399a9",new PurchaseItemBean_new());
+
+
+                // TODO Auto-generated method stub
+//                Intent intent1 = new Intent(AActivity_3_0.this,
+//                        StorePurchaseListActivitySecond.class);
+//                intent1.putExtra("purchaseFormId", "2bb0859e7d094314a1a162a82a4fa408");
+////                intent1.putExtra("purchaseFormId", "8e5aa65a2c374de99662dcf6e7e399a9");
+////                intent.putExtra("title", item.num);
+//                startActivity(intent1);
+
+
 //                DialogActivity.start(this);
 
 
-
-//                if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {//没有登录跳转到登录界面
-//                    LoginActivity.start2Activity(this);
-//                    return;
-//                }
-//                Intent toMessageListActivity = new Intent(AActivity_3_0.this,
-//                        MessageListActivity.class);
-//                startActivity(toMessageListActivity);
-//                getParent().overridePendingTransition(R.anim.slide_in_left,
-//                        R.anim.slide_out_right);
+                if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {//没有登录跳转到登录界面
+                    LoginActivity.start2Activity(this);
+                    return;
+                }
+                Intent toMessageListActivity = new Intent(AActivity_3_0.this,
+                        MessageListActivity.class);
+                startActivity(toMessageListActivity);
+                getParent().overridePendingTransition(R.anim.slide_in_left,
+                        R.anim.slide_out_right);
 //
 //
 //                D.w("=================发送自定义推送消息 start===================");
@@ -722,10 +732,11 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
             case R.id.tv_a_search://搜索按钮 --- new
                 //// TODO: 2017/4/10  需要添加 共享动画
-                Intent intent = new Intent(AActivity_3_0.this,
-                        PurchaseSearchListActivity.class);
-                intent.putExtra("from", "AActivity");
-                startActivityForResult(intent, 1);
+//                Intent intent = new Intent(AActivity_3_0.this, PurchaseSearchListActivity.class);
+//                intent.putExtra("from", "AActivity");
+//                startActivityForResult(intent, 1);
+                PurchaseSearchListActivity.start(AActivity_3_0.this,PurchaseSearchListActivity.FROM_HOME);
+
                 break;
             default:
                 break;

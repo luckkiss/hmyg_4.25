@@ -339,7 +339,7 @@ public class FriendBaseFragment extends BaseFragment {
 
                 });//按钮2 评论
                 helper.addOnClickListener(R.id.third, v -> {
-                    if (!commitLogin()) return;
+//                  if (!commitLogin()) return;
                     if (TextUtils.isEmpty(item.attrData.displayPhone)) {
                         ToastUtil.showLongToast("未留电话号码~_~");
                     } else {
@@ -353,7 +353,7 @@ public class FriendBaseFragment extends BaseFragment {
 //                    ToastUtil.showLongToast("点击第4个");
 //                    if (popupWindow1 == null)
                     //未登录。跳转登录界面
-                    if (!commitLogin()) return;
+//                    if (!commitLogin()) return;
 //                    ToastUtil.showLongToast("点击第4个");
                     popupWindow1 = FriendPresenter.createMorePop(
                             item,

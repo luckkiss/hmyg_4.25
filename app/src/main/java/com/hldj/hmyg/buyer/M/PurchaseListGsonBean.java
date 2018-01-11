@@ -23,5 +23,7 @@ public class PurchaseListGsonBean {
 
     public static class DataBean {
         public List<PurchaseItemBean_new> list;
+        public List<PurchaseItemBean_new> preBidList;
+        public List<PurchaseItemBean_new> unEditList;
     }
 }

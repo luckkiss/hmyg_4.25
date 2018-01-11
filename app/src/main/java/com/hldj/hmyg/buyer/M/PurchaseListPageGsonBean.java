@@ -25,6 +25,7 @@ public class PurchaseListPageGsonBean {
         public static class HeadPurchaseBean {
             public String cityName = "";/*ok*/
             public String closeDate = "";/*ok*/
+            public String preCloseDate = "";/*ok*/
             public String displayPhone = "";/*ok*/
             public String dispatchPhone = "";/*ok*/
             public String dispatchName = "";/*ok*/
@@ -35,6 +36,8 @@ public class PurchaseListPageGsonBean {
             public String num = "";/*ok*/
             public AttrDataBean attrData = new AttrDataBean(); /*ok  单位详细信息*/
             public boolean showConsumerName = false; // 是否显示 单位信息
+
+            public boolean needPreQuote = false; // 是否需要首轮报价
 
             public String consumerFullName = "";/*ok 用苗单位*/
             public BuyerBean buyer = new BuyerBean();

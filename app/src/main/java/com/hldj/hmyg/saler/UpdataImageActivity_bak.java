@@ -269,5 +269,10 @@ public class UpdataImageActivity_bak extends NeedSwipeBackActivity {
         }
 
     }
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }
 

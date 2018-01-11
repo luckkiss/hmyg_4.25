@@ -1,175 +1,191 @@
 package com.hldj.hmyg.buyer;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.graphics.Rect;
+import android.os.Handler;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.SimpleAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 
-import com.amap.api.car.example.MapNurseryList;
-import com.hldj.hmyg.BActivity_new;
+import com.hldj.hmyg.BActivity_new_test;
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.StoreActivity;
-import com.hldj.hmyg.application.Data;
-import com.hldj.hmyg.bean.HomeStore;
-import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
+import com.hldj.hmyg.Ui.StoreActivity_new;
+import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.buyer.M.SearchBean;
+import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
+import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
+import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
+import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
-import com.hy.utils.GetServerUrl;
-import com.hy.utils.JsonGetInfo;
+import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.ToastUtil;
-import com.white.utils.AndroidUtil;
-import com.zzy.flowers.widget.popwin.EditP2;
 
-import net.tsz.afinal.FinalBitmap;
-import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.FinalActivity;
+import net.tsz.afinal.annotation.view.ViewInject;
 import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
-import me.maxwin.view.XListView;
+import static com.hldj.hmyg.R.color.main_color;
+import static com.hldj.hmyg.buyer.weidet.CoreRecyclerView.REFRESH;
 
-import static com.hldj.hmyg.util.ConstantState.SEARCH_OK;
+/**
+ * 首页 商城  关键字搜索
+ */
+public class PurchaseSearchListActivity extends BaseMVPActivity {
 
-public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
-    private XListView xListView;
-    private ArrayList<MapNurseryList> datas = new ArrayList<MapNurseryList>();
-    ArrayList<HomeStore> url0s = new ArrayList<HomeStore>();
-    boolean getdata; // 避免刷新多出数据
-    private SearchAdapter listAdapter;
-    private GridViewAdapter gridViewAdapter;
+    @ViewInject(id = R.id.recycle)
+    CoreRecyclerView mCoreRecyclerView;
 
-    private MultipleClickProcess multipleClickProcess;
-    private String id = "";
-    private EditText et_search;
-    private Button edit_btn;
-    private ArrayAdapter<String> mSPAdapter;
-    private LinearLayout ll_sp;
-    private String from = "";
+    @ViewInject(id = R.id.search_content)
+    EditText search_content;
 
-    List<Map<String, String>> moreList;
-    private PopupWindow pwMyPopWindow;// popupwindow
-    private ListView lvPopupList;// popupwindow中的ListView
-    private int NUM_OF_VISIBLE_LIST_ROWS = 4;// 指定popupwindow中Item的数量
-    private TextView tv_choose;
-    private int choose = 0;
-    private Spinner mSpinner;
-
-    String url = "seedling/search";
+    @ViewInject(id = R.id.toolbar_left_icon)
+    ImageView toolbar_left_icon;
+    @ViewInject(id = R.id.iv_view_type)
+    TextView iv_view_type;
 
 
-    // /store/search 店铺 搜索
-    // /purchase/search 采购报价
-    // /seedling/search 苗木资源
+    @ViewInject(id = R.id.left)
+    TextView left;
+
+
+    @ViewInject(id = R.id.top)
+    ViewGroup top;
+
+    @ViewInject(id = R.id.right)
+    TextView right;
+
+
+    public String currentType = LEFT;
+    public static final String LEFT = "left";
+    public static final String RIGHT = "right";
+
+
+    private List<SearchBean.DataBean.StoreListBean> storeListBeen = new ArrayList<>();
+    private List<SearchBean.DataBean.SeedlingListBean> seedlingListBeen = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_purchase_search_list);
-        if (getIntent().getStringExtra("from") != null) {
-            from = getIntent().getStringExtra("from");
-        }
-        ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
-        edit_btn = (Button) findViewById(R.id.edit_btn);
-        ll_sp = (LinearLayout) findViewById(R.id.ll_sp);
-        et_search = (EditText) findViewById(R.id.et_search);
-        et_search.setHint("品种名称/别名/品种编号");
-        xListView = (XListView) findViewById(R.id.xlistView);
-        if (from.equals("SellectActivity2")) {
-            ll_sp.setVisibility(View.GONE);
-            et_search.setHint("请输入品种名称的关键字");
-        } else {
-            ll_sp.setVisibility(View.VISIBLE);
-        }
-        mSpinner = (Spinner) findViewById(R.id.spinner1);
-        // 建立Adapter并且绑定数据源
-        List<String> ls = new ArrayList<String>();
-        ls.add("苗木资源");
-        ls.add("快速报价");
-        ls.add("店铺搜索");
-        mSPAdapter = new ArrayAdapter<String>(this, R.layout.myspinner,
-                ls.toArray(new String[ls.size()]));
-        // 绑定 Adapter到控件
-        mSpinner.setAdapter(mSPAdapter);
+    public void initView() {
+        FinalActivity.initInjectedView(this);
+        toolbar_left_icon.setOnClickListener(v -> finish());
+        search_content.addTextChangedListener(watcher);
+        iv_view_type.setOnClickListener(v -> processByFrom(search_content.getText().toString(), ""));
+//        iv_view_type.setOnClickListener(v -> request(str));
 
-        tv_choose = (TextView) findViewById(R.id.tv_choose);
-        moreList = new ArrayList<Map<String, String>>();
-        Map<String, String> map;
-        map = new HashMap<String, String>();
-        map.put("share_key", "苗木资源");
-        moreList.add(map);
-        map = new HashMap<String, String>();
-        map.put("share_key", "快速报价");
-        moreList.add(map);
-        map = new HashMap<String, String>();
-        map.put("share_key", "店铺搜索");
-        moreList.add(map);
-        iniPopupWindow();
-        xListView.setPullLoadEnable(false);
-        xListView.setPullRefreshEnable(false);
-        multipleClickProcess = new MultipleClickProcess();
-        btn_back.setOnClickListener(multipleClickProcess);
-        edit_btn.setOnClickListener(multipleClickProcess);
-        tv_choose.setOnClickListener(multipleClickProcess);
-        et_search.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-        et_search.addTextChangedListener(watcher);
-        et_search.setOnEditorActionListener(new OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId,
-                                          KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    // 键盘  action 点击
-                    searchIt2();
-                }
-                return false;
-            }
 
+        initByFrom(search_content, top);
+
+
+        left.setOnClickListener(v -> {
+            currentType = LEFT;
+            left.setTextColor(getColorByRes(main_color));
+            right.setTextColor(getColorByRes(R.color.text_color333));
+//            request(search_content.getText());
+            refresh();
         });
 
+        right.setOnClickListener(v -> {
+            currentType = RIGHT;
+            left.setTextColor(getColorByRes(R.color.text_color333));
+            right.setTextColor(getColorByRes(R.color.main_color));
+//            request(search_content.getText());
+            refresh();
+        });
+
+
+        mCoreRecyclerView.getRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+//                super.getItemOffsets(outRect, view, parent, state);
+                //设定底部边距为1px
+                outRect.set(0, 0, 0, 1);
+            }
+        });
+
+        mCoreRecyclerView.init(new BaseQuickAdapter<Object, BaseViewHolder>(R.layout.list_item_sort) {
+
+            @Override
+            protected void convert(BaseViewHolder helper, Object item) {
+
+                String sourceId = "";
+                if (item instanceof SearchBean.DataBean.StoreListBean) {
+                    SearchBean.DataBean.StoreListBean storeBean = ((SearchBean.DataBean.StoreListBean) item);
+                    helper.setText(R.id.tv_item, storeBean.name);
+                    sourceId = storeBean.id;
+                } else if (item instanceof SearchBean.DataBean.SeedlingListBean) {
+                    SearchBean.DataBean.SeedlingListBean seedlingBean = ((SearchBean.DataBean.SeedlingListBean) item);
+                    helper.setText(R.id.tv_item, seedlingBean.name);
+                }
+                helper.setBackgroundRes(R.id.tv_item, R.drawable.bg_bottom_line);
+                String finalSourceId = sourceId;
+                helper.setVisible(R.id.is_check, false)
+                        .addOnClickListener(R.id.tv_item, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ToastUtil.showLongToast(((TextView) v).getText().toString());
+                                processByFrom(((TextView) v).getText().toString(), finalSourceId);
+
+                            }
+                        })
+
+                ;
+
+            }
+        });
+
+
     }
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
+
+    @Override
+    public int bindLayoutID() {
+        return R.layout.activity_purchase_search_list;
+    }
+
+
+    public long lastTime = 0;
+
+    Handler handler = new Handler() {
+
+    };
+    Runnable removeCallbacks = new Runnable() {
+        @Override
+        public void run() {
+            request(str);
+        }
+    };
+
+    String str = "";
 
     private TextWatcher watcher = new TextWatcher() {
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before,
-                                  int count) {
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
             // TODO Auto-generated method stub
-            if (s.length() > 0) {
-                searchIt();
+            if (System.currentTimeMillis() - lastTime > 1000) {
+//                D.i("-------间隔500mm-------搜索ing----");
+//                lastTime = System.currentTimeMillis();
+
             } else {
+//                D.i("-------间隔小于 500mm----不搜索-------");
             }
+            str = s.toString();
+            handler.removeCallbacks(removeCallbacks);
+            handler.postDelayed(removeCallbacks, 400);
 
         }
 
@@ -186,523 +202,134 @@ public class PurchaseSearchListActivity extends NeedSwipeBackActivity {
         }
     };
 
-    private void iniPopupWindow() {
+    private void request(CharSequence s) {
 
-        LayoutInflater inflater = (LayoutInflater) this
-                .getSystemService(LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.task_detail_popupwindow, null);
-        lvPopupList = (ListView) layout.findViewById(R.id.lv_popup_list);
-        pwMyPopWindow = new PopupWindow(layout, LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        lvPopupList.setPadding(0,0,0,0);
-
-        pwMyPopWindow.setFocusable(true);// 加上这个popupwindow中的ListView才可以接收点击事件
-
-        lvPopupList.setAdapter(new SimpleAdapter(
-                PurchaseSearchListActivity.this, moreList,
-                R.layout.list_item_popupwindow, new String[]{"share_key"},
-                new int[]{R.id.tv_list_item}));
-        lvPopupList.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                choose = position;
-                tv_choose.setText(moreList.get(position).get("share_key"));
-                et_search.setText("");
-                datas.clear();
-                if (listAdapter != null) {
-                    listAdapter.notifyDataSetChanged();
-                }
-                url0s.clear();
-                if (gridViewAdapter != null) {
-                    gridViewAdapter.notifyDataSetChanged();
-                }
-                //清除数据
-                if (choose == 0) {
-                    et_search.setHint("品种名称/别名/品种编号");
-                } else if (choose == 1) {
-                    et_search.setHint("品种名称/别名");
-                } else if (choose == 2) {
-                    et_search.setHint("店铺名称");
-                }
-
-                if (pwMyPopWindow.isShowing()) {
-                    pwMyPopWindow.dismiss();// 关闭
-                }
-
-            }
-        });
-
-        // 控制popupwindow的宽度和高度自适应
-        lvPopupList.measure(View.MeasureSpec.UNSPECIFIED,
-                View.MeasureSpec.UNSPECIFIED);
-        pwMyPopWindow.setWidth(lvPopupList.getMeasuredWidth());
-        pwMyPopWindow.setHeight((lvPopupList.getMeasuredHeight() + 20)
-                * NUM_OF_VISIBLE_LIST_ROWS);
-        // 控制popupwindow点击屏幕其他地方消失
-        pwMyPopWindow.setBackgroundDrawable(this.getResources().getDrawable(
-                R.drawable.bg_left_popupwindow));// 设置背景图片，不能在布局中设置，要通过代码来设置
-        pwMyPopWindow.setOutsideTouchable(true);// 触摸popupwindow外部，popupwindow消失。这个要求你的popupwindow要有背景图片才可以成功，如上
-    }
-
-    @Override
-    protected void onResume() {
-        // TODO Auto-generated method stub
-        super.onResume();
-    }
-
-
-    // 监听 搜索按钮 点击
-    //监听 action 键盘按钮
-    private void searchIt2() {
-        // TODO Auto-generated method stub
-        if (choose == 0) {
-            et_search.setHint("品种名称/别名/品种编号");
-            if (from.equals("SellectActivity2")) {
-                //从搜索界面过来
-                et_search.setHint("请输入关键字");
-            }
-
-        } else if (choose == 1) {
-            et_search.setHint("品种名称/别名");
-        } else if (choose == 2) {
-            et_search.setHint("店铺名称");
-        }
-        if (choose != 2) {
-            if (from.equals("SellectActivity2")) {
-                Intent intent = new Intent();
-                intent.putExtra("searchKey", et_search.getText().toString());
-                setResult(ConstantState.SEARCH_OK, intent);
-                finish();
-            } else if (from.equals("BActivity") && choose == 0) {
-                // 商城搜索
-                Intent intent = new Intent();
-                intent.putExtra("searchKey", et_search.getText().toString());
-                setResult(SEARCH_OK, intent);
-                finish();
-            } else if ((from.equals("AActivity") && choose == 1)
-                    || (from.equals("BActivity") && choose == 1)) {
-                // 采购搜索 首页，商城
-//				Intent intent = new Intent(PurchaseSearchListActivity.this,
-//						StorePurchaseListActivity.class);
-//				intent.putExtra("searchKey", et_search.getText().toString());
-//				startActivity(intent);
-//				finish();
-
-            } else if (from.equals("AActivity") && choose == 0) {
-                // 首页到商城
-//                Intent toBActivity = new Intent(PurchaseSearchListActivity.this, BActivity_new.class);
-//                toBActivity.putExtra("from", "context");
-//                toBActivity.putExtra("searchKey", et_search.getText().toString());
-//                startActivity(toBActivity);
-                if (TextUtils.isEmpty(et_search.getText())) {
-                    ToastUtil.showShortToast("请输入关键字");
-                    return;
-                }
-                BActivity_new.start2Activity(PurchaseSearchListActivity.this, et_search.getText().toString());
-
-                finish();
-            }
-        } else if (choose == 2) {
-            initData(et_search.getText().toString());
+        if (TextUtils.isEmpty(s)) {
+            D.i("======关键字为空，不请求======");
+            return;
         }
 
-    }
 
-    private void searchIt() {
-        // TODO Auto-generated method stub
-        if (choose == 0) {
-            if (from.equals("SellectActivity2")) {
-                et_search.setHint("请输入关键字");
-            } else {
-                et_search.setHint("品种名称/别名/品种编号");
-            }
-            url = "seedling/search";
-        } else if (choose == 1) {
-            et_search.setHint("品种名称/别名");
-            url = "purchase/search";
-        } else if (choose == 2) {
-            et_search.setHint("店铺名称");
-            url = "store/search";
-        }
-        initData(et_search.getText().toString());
-
-
-    }
-
-    private void initData(String name) {
-        // TODO Auto-generated method stub
-        datas.clear();
-        if (listAdapter != null) {
-            listAdapter.notifyDataSetChanged();
-        }
-        url0s.clear();
-        if (gridViewAdapter != null) {
-            gridViewAdapter.notifyDataSetChanged();
-        }
-        getdata = false;
-        FinalHttp finalHttp = new FinalHttp();
-        GetServerUrl.addHeaders(finalHttp, true);
-        AjaxParams params = new AjaxParams();
-        params.put("searchKey", name);
-        params.put("pageSize", 999+"");
-        finalHttp.post(GetServerUrl.getUrl() + url, params,
-                new AjaxCallBack<Object>() {
-
+        new BasePresenter()
+                .putParams("searchKey", s.toString())
+                .doRequest("seedling/search", true, new AjaxCallBack<String>() {
                     @Override
-                    public void onSuccess(Object t) {
-                        // TODO Auto-generated method stub
+                    public void onSuccess(String json) {
+
+                        SearchBean searchBean = null;
                         try {
-                            JSONObject jsonObject = new JSONObject(t.toString());
-                            String code = JsonGetInfo.getJsonString(jsonObject,
-                                    "code");
-                            String msg = JsonGetInfo.getJsonString(jsonObject,
-                                    "msg");
-                            if (!"".equals(msg)) {
-
-                            }
-                            if ("1".equals(code)) {
-                                JSONObject data = JsonGetInfo.getJSONObject(
-                                        jsonObject, "data");
-
-                                if (url.contains("store")) {
-                                    JSONArray storeList = JsonGetInfo.getJsonArray(
-                                            data, "storeList");
-                                    // 商铺
-                                    for (int i = 0; i < storeList.length(); i++) {
-                                        JSONObject jsonObject2 = storeList
-                                                .getJSONObject(i);
-                                        HomeStore a_first_product = new HomeStore(
-                                                JsonGetInfo.getJsonString(
-                                                        jsonObject2, "id"),
-                                                JsonGetInfo.getJsonString(
-                                                        jsonObject2, "code"),
-                                                JsonGetInfo.getJsonString(
-                                                        jsonObject2,
-                                                        "maintType"),
-                                                JsonGetInfo.getJsonString(
-                                                        jsonObject2, "id"),
-                                                JsonGetInfo.getJsonString(
-                                                        jsonObject2, "name"));
-                                        url0s.add(a_first_product);
-                                    }
-                                } else if (url.contains("purchase")) {
-                                    // 采购报价
-                                    JSONArray purchaseItemList = JsonGetInfo.getJsonArray(
-                                            data, "purchaseItemList");
-                                    for (int i = 0; i < purchaseItemList.length(); i++) {
-                                        JSONObject jsonObject2 = purchaseItemList
-                                                .getJSONObject(i);
-                                        HomeStore a_first_product = new HomeStore(
-                                                JsonGetInfo.getJsonString(
-                                                        jsonObject2, "secondSeedlingTypeId"),
-                                                JsonGetInfo.getJsonString(
-                                                        jsonObject2, "code"),
-                                                JsonGetInfo.getJsonString(
-                                                        jsonObject2,
-                                                        "maintType"),
-                                                JsonGetInfo.getJsonString(
-                                                        jsonObject2, "secondSeedlingTypeId"),
-                                                JsonGetInfo.getJsonString(
-                                                        jsonObject2, "name"));
-                                        url0s.add(a_first_product);
-                                    }
-                                } else if (url.contains("seedling")) {
-
-                                    // 苗木
-                                    JSONArray seedlingList = JsonGetInfo.getJsonArray(
-                                            data, "seedlingList");
-                                    for (int i = 0; i < seedlingList.length(); i++) {
-                                        JSONObject jsonObject2 = seedlingList
-                                                .getJSONObject(i);
-                                        HomeStore a_first_product = new HomeStore(
-                                                JsonGetInfo.getJsonString(
-                                                        jsonObject2, "id"),
-                                                JsonGetInfo.getJsonString(
-                                                        jsonObject2, "code"),
-                                                JsonGetInfo.getJsonString(
-                                                        jsonObject2,
-                                                        "maintType"),
-                                                JsonGetInfo.getJsonString(
-                                                        jsonObject2, "id"),
-                                                JsonGetInfo.getJsonString(
-                                                        jsonObject2, "name"));
-                                        url0s.add(a_first_product);
-                                    }
-
-
-                                }
-
-                                if (url0s.size() > 0) {
-                                    if (gridViewAdapter == null) {
-                                        gridViewAdapter = new GridViewAdapter(
-                                                PurchaseSearchListActivity.this,
-                                                url0s);
-                                        xListView.setAdapter(gridViewAdapter);
-                                    } else {
-                                        gridViewAdapter.notify(url0s);
-                                    }
-                                }
+                            searchBean = GsonUtil.formateJson2Bean(json, SearchBean.class);
+                            storeListBeen.clear();
+                            storeListBeen.addAll(searchBean.data.storeList);
+                            seedlingListBeen.clear();
+                            seedlingListBeen.addAll(searchBean.data.seedlingList);
+                            if (searchBean.code == "1") {
+                                ToastUtil.showLongToast(searchBean.msg);
                             } else {
-
+                                ToastUtil.showLongToast(searchBean.msg);
                             }
+//                            mCoreRecyclerView.onRefresh();
 
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
+
+                            refresh();
+
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        super.onSuccess(t);
-                    }
 
-                    @Override
-                    public void onFailure(Throwable t, int errorNo,
-                                          String strMsg) {
-                        // TODO Auto-generated method stub
-                        super.onFailure(t, errorNo, strMsg);
-                    }
 
+                    }
                 });
-        getdata = true;
+        D.i("==========请求数据====keyword0====" + s);
+    }
+
+
+    private void refresh() {
+        if (mCoreRecyclerView == null) {
+            return;
+        }
+        mCoreRecyclerView.getAdapter().setDatasState(REFRESH);
+
+        if (currentType.equals(LEFT)) {
+            mCoreRecyclerView.getAdapter().addData(seedlingListBeen);
+        } else {
+            mCoreRecyclerView.getAdapter().addData(storeListBeen);
+        }
+        left.setText("苗木资源 （" + seedlingListBeen.size() + "）");
+        right.setText("店铺 （" + storeListBeen.size() + "）");
 
     }
 
-    public class MultipleClickProcess implements OnClickListener {
-        private boolean flag = true;
-        private EditP2 popwin;
 
-        private synchronized void setFlag() {
-            flag = false;
-        }
+    public static final String FROM_HOME = "home";/*从首页过来*/
+    public static final String FROM_STORE = "store";/*从商店过来*/
+    public static final String FROM_SEARCH = "search";/*从搜索界面过来*/
+    public static final String FROM = "from";
 
-        public void onClick(View view) {
-            if (flag) {
-                switch (view.getId()) {
-                    case R.id.btn_back:
-                        onBackPressed();
-                        break;
-                    case R.id.edit_btn:
 
-                        searchIt2();
-                        break;
-                    case R.id.tv_choose:
-                        if (pwMyPopWindow.isShowing()) {
+    public String getFrom() {
 
-                            pwMyPopWindow.dismiss();// 关闭
-                        } else {
+        return getIntent().getStringExtra(FROM);
+    }
 
-                            pwMyPopWindow.showAsDropDown(tv_choose);// 显示
-                        }
-                        break;
 
-                    default:
-                        break;
-                }
-                setFlag();
-                // do some things
-                new TimeThread().start();
-            }
-        }
-
-        /**
-         * 计时线程（防止在一定时间段内重复点击按钮）
-         */
-        private class TimeThread extends Thread {
-            public void run() {
-                try {
-                    Thread.sleep(Data.loading_time);
-                    flag = true;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+    public void initByFrom(EditText hint, ViewGroup parent) {
+        switch (getFrom()) {
+            case FROM_HOME:
+                hint.setHint("品名/别名/店铺");
+                break;
+            case FROM_STORE:
+                hint.setHint("请输入关键字");
+                parent.setVisibility(View.GONE);
+                break;
+            case FROM_SEARCH:
+                hint.setHint("请输入关键字");
+                parent.setVisibility(View.GONE);
+                break;
         }
     }
 
-    public class SearchAdapter extends BaseAdapter {
-        private static final String TAG = "MapSearchAdapter";
 
-        private ArrayList<MapNurseryList> data = null;
+    public void processByFrom(String search_key, String source) {
+        Intent intent = new Intent();
+        switch (getFrom()) {
+            case FROM_HOME:
+                //首页来的 -- -- -- --  直接跳到各大 位置
 
-        private Context context = null;
-        private FinalBitmap fb;
-
-        public SearchAdapter(Context context, ArrayList<MapNurseryList> data) {
-            this.data = data;
-            this.context = context;
-            fb = FinalBitmap.create(context);
-            fb.configLoadingImage(R.drawable.no_image_show);
-        }
-
-        @Override
-        public int getCount() {
-            return this.data.size();
-        }
-
-        @Override
-        public Object getItem(int arg0) {
-            return this.data.get(arg0);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(final int position, View convertView,
-                            ViewGroup parent) {
-            View inflate = LayoutInflater.from(context).inflate(
-                    R.layout.list_item_map_search, null);
-            TextView tv_01 = (TextView) inflate.findViewById(R.id.tv_01);
-            TextView tv_02 = (TextView) inflate.findViewById(R.id.tv_02);
-            TextView tv_03 = (TextView) inflate.findViewById(R.id.tv_03);
-            tv_01.setText("苗圃名称：" + data.get(position).getName());
-            tv_02.setText("公司名称：" + data.get(position).getCompanyName());
-            tv_03.setText("主营品种：" + data.get(position).getMainType());
-            inflate.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    MapNurseryList mapNurseryList = data.get(position);
-                    Intent intent = new Intent();
-                    intent.putExtra("mapNurseryList", mapNurseryList);
-                    setResult(1, intent);
-                    finish();
-
+                if (!TextUtils.isEmpty(source)) {
+                    StoreActivity_new.start2Activity(mActivity, source);
+                } else {
+                    BActivity_new_test.start2Activity(mActivity, search_key);
                 }
 
-            });
 
-            return inflate;
+                break;
+            case FROM_STORE:
+                //首页来的 -- -- -- --  直接跳到各大 位置
+
+                intent.putExtra("searchKey", search_key);
+                setResult(ConstantState.SEARCH_OK, intent);
+                finish();
+                //商店来的 来的 -- -- -- --   setrestult
+                break;
+            case FROM_SEARCH:
+                //首页来的 -- -- -- --  直接跳到各大 位置
+                intent.putExtra("searchKey", search_key);
+                setResult(ConstantState.SEARCH_OK, intent);
+                finish();
+                // 从搜索界面过来 ------   setrestult
+                break;
         }
 
-        public void notify(ArrayList<MapNurseryList> data) {
-            this.data = data;
-            notifyDataSetChanged();
-        }
-
-    }
-
-    class GridViewAdapter extends BaseAdapter {
-        private Context context;
-        private ArrayList<HomeStore> arrayList;
-        private int dip20px;
-        private int width;
-
-        public GridViewAdapter(Context context, ArrayList<HomeStore> arrayList) {
-            this.context = context;
-            this.arrayList = arrayList;
-            dip20px = AndroidUtil.dip2px(context, 2);
-            WindowManager wm = ((Activity) context).getWindowManager();
-            width = wm.getDefaultDisplay().getWidth();
-        }
-
-        public void notify(ArrayList<HomeStore> datas) {
-            // TODO Auto-generated method stub
-            this.arrayList = datas;
-            notifyDataSetChanged();
-        }
-
-        @Override
-        public int getCount() {
-            return arrayList.size();
-        }
-
-        @Override
-        public boolean areAllItemsEnabled() {
-            // TODO Auto-generated method stub
-            return false;
-        }
-
-        @Override
-        public boolean isEnabled(int position) {
-            // TODO Auto-generated method stub
-            return false;
-        }
-
-        @Override
-        public Object getItem(int arg0) {
-            return arg0;
-        }
-
-        @Override
-        public long getItemId(int arg0) {
-            return arg0;
-        }
-
-        @Override
-        public View getView(final int position, View currentView, ViewGroup arg2) {
-            View inflate = LayoutInflater.from(context).inflate(
-                    R.layout.list_item_store, null);
-            TextView iv = (TextView) inflate.findViewById(R.id.iv);
-            iv.setText(arrayList.get(position).getName());
-            inflate.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-
-//                    et_search.setText(arrayList.get(position).getName());
-
-//                    searchIt2();
-
-                    if (choose != 2) {
-                       if (from.equals("SellectActivity2")) {
-                            Intent intent = new Intent();
-                            intent.putExtra("searchKey", arrayList.get(position).getName());
-                            setResult(ConstantState.SEARCH_OK, intent);
-                            finish();
-                        } else if (from.equals("BActivity") && choose == 0) {
-
-                            // 商城搜索
-                            Intent intent = new Intent();
-                            intent.putExtra("searchKey", arrayList.get(position).getName());
-                            setResult(ConstantState.SEARCH_OK, intent);
-                            finish();
-
-
-                        } else if ((from.equals("AActivity") && choose == 1)
-                                || (from.equals("BActivity") && choose == 1)) {
-                            // 采购搜索 首页，商城
-                            Intent intent = new Intent(PurchaseSearchListActivity.this,
-                                    StorePurchaseListActivity.class);
-                            intent.putExtra("secondSeedlingTypeId", arrayList.get(position)
-                                    .getId());
-                            intent.putExtra("title", arrayList.get(position).getName());
-                            startActivity(intent);
-                            finish();
-                        } else if (from.equals("AActivity") && choose == 0) {
-                            // 首页到商城
-//							Intent toBActivity = new Intent(
-//									PurchaseSearchListActivity.this, BActivity.class);
-//							toBActivity.putExtra("from", "context");
-//							toBActivity.putExtra("searchKey", arrayList.get(position).getName());
-//							startActivity(toBActivity);
-                            BActivity_new.start2Activity(PurchaseSearchListActivity.this, arrayList.get(position).getName());
-                            finish();
-
-                        }
-                    } else if (choose == 2) {
-                        if (!"".equals(arrayList.get(position).getId())) {
-//                            Intent toStoreActivity = new Intent(context,  StoreActivity.class);
-//                            toStoreActivity.putExtra("code", arrayList .get(position).getId());
-//                            context.startActivity(toStoreActivity);
-                            StoreActivity.start2Activity(mActivity, arrayList.get(position).getId());
-                            finish();
-                        }
-
-                    }
-
-
-                }
-            });
-            return inflate;
-        }
 
     }
 
 
-    @Override
-    public boolean setSwipeBackEnable() {
-        return true;
+    public static void start(Activity activity, String from) {
+        Intent intent = new Intent(activity, PurchaseSearchListActivity.class);
+        intent.putExtra(FROM, from);
+        activity.startActivityForResult(intent, 1);
     }
+
+
 }

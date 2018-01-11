@@ -265,11 +265,14 @@ public class PurchaseDetailActivityChange extends BaseMVPActivity implements Cha
         ll_purc_auto_add.removeAllViews();//动态添加前先删除所有
         PurchaseAutoAddLinearLayout layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).
                 setData(new PurchaseAutoAddLinearLayout.PlantBean("价格", "price", true));
-        layout.setDefaultData(getItem().price);
+
+        if (getItem()!=null)
+            layout.setDefaultData(getItem().price);
         autoLayouts.add(layout);
         ll_purc_auto_add.addView(layout);
         layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("数量", "count", false));
-        layout.setDefaultData(getItem().count + "");
+        if (getItem()!=null)
+            layout.setDefaultData(getItem().count + "");
         autoLayouts.add(layout);
         View line = new View(mActivity);
         ll_purc_auto_add.addView(layout);
@@ -326,7 +329,7 @@ public class PurchaseDetailActivityChange extends BaseMVPActivity implements Cha
 
     }
 
-    private void setDefayltMsg(PurchaseAutoAddLinearLayout layout, PurchaseAutoAddLinearLayout.PlantBean plantBean) {
+    protected void setDefayltMsg(PurchaseAutoAddLinearLayout layout, PurchaseAutoAddLinearLayout.PlantBean plantBean) {
         D.e("===dbytype==" + getItem().dbhType);
         if (plantBean.value.equals(ConstantParams.dbh)) {
             layout.setDefaultData(FUtil.$_zero_2_null(getItem().dbh + ""));

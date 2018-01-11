@@ -22,12 +22,14 @@ import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
+import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
 import com.hldj.hmyg.buyer.P.PurchaseDeatilP;
 import com.hldj.hmyg.buyer.weidet.Purchase.PurchaseAutoAddLinearLayout;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.UpdataImageActivity_bak;
 import com.hldj.hmyg.util.ConstantParams;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.ToastUtil;
@@ -102,14 +104,41 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
     private CityGsonBean.ChildBeans cityBeans;
 
 
+    /**
+     * 获取要修改的对象
+     * 为空则为 发布新项目
+     *
+     * @return
+     */
+    public SellerQuoteJsonBean getBeanHistory() {
+        Bundle b = getIntent().getExtras();
+        if (b != null && b.get("jsonBean") instanceof SellerQuoteJsonBean) {
+            return (SellerQuoteJsonBean) b.get("jsonBean");
+        } else {
+            return null;
+        }
+    }
+
+
+    public static void start2Activity(Activity activity, String tag, PurchaseItemBean_new purchaseItemBeanNew, SellerQuoteJsonBean jsonBean) {
+        Intent intent = new Intent(activity, DialogActivitySecond.class);
+        intent.putExtra("tag", tag);
+        intent.putExtra(TAG, purchaseItemBeanNew);
+        intent.putExtra("jsonBean", jsonBean);
+//        ToastUtil.showLongToast(purchaseItemBeanNew.toString());
+
+        activity.startActivityForResult(intent, 100);
+    }
+
     public static void start2Activity(Activity activity, String tag, PurchaseItemBean_new purchaseItemBeanNew) {
         Intent intent = new Intent(activity, DialogActivitySecond.class);
         intent.putExtra("tag", tag);
         intent.putExtra(TAG, purchaseItemBeanNew);
-        ToastUtil.showLongToast(purchaseItemBeanNew.toString());
+//        ToastUtil.showLongToast(purchaseItemBeanNew.toString());
 
         activity.startActivityForResult(intent, 100);
     }
+
 
     /**
      * PurchaseAutoAddLinearLayout.PlantBean plantBean = (PurchaseAutoAddLinearLayout.PlantBean) autoLayouts.get(i).getTag();
@@ -129,6 +158,13 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
         for (PurchaseAutoAddLinearLayout autoLayout : autoLayouts) {
             PurchaseAutoAddLinearLayout.PlantBean plantBean = (PurchaseAutoAddLinearLayout.PlantBean) autoLayout.getTag();
             if (plantBean.value.equals(key)) {
+
+                if (plantBean.value.equals(ConstantParams.dbh)) {
+                    dbhType = autoLayout.getSelect_size();
+                } if (plantBean.value.equals(ConstantParams.diameter)) {
+                    diameterType = autoLayout.getSelect_size();
+                }
+
                 return autoLayout.getViewHolder().et_params_03.getText().toString();
             }
         }
@@ -193,25 +229,58 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
 
     }
 
+    String dbhType = "";
+    String diameterType = "";
+
     private void 报价吧() {
+        String i = "";
+        if (getBeanHistory() != null) {
+            i = getBeanHistory().id;
+        }
+
+
+        /**
+         *        paramsPut(params, ConstantParams.diameter, bean.diameter);
+         paramsPut(params, ConstantParams.offbarHeight, bean.offbarHeight);
+         paramsPut(params, ConstantParams.length, bean.length);
+         paramsPut(params, ConstantParams.diameterType, bean.diameterType);
+         paramsPut(params, ConstantParams.plantType, bean.plantType);
+         */
+
         new BasePresenter()
-                .putParams(ConstantParams.id, getPurchaseType())
+                .putParams(ConstantParams.id, i)
+                .putParams(ConstantParams.diameter, 获取参数(ConstantParams.diameter))
+                .putParams(ConstantParams.diameterType,diameterType )
+                .putParams(ConstantParams.plantType, plantType)
+                .putParams(ConstantParams.length, 获取参数(ConstantParams.length))
+                .putParams(ConstantParams.offbarHeight, 获取参数(ConstantParams.offbarHeight))
                 .putParams(ConstantParams.price, 获取参数(ConstantParams.price))
                 .putParams(ConstantParams.prePrice, 获取参数(ConstantParams.prePrice))
                 .putParams(ConstantParams.count, 获取参数(ConstantParams.count))
                 .putParams(ConstantParams.height, 获取参数(ConstantParams.height))
                 .putParams(ConstantParams.crown, 获取参数(ConstantParams.crown))
+                .putParams(ConstantParams.dbh, 获取参数(ConstantParams.dbh))
+                .putParams(ConstantParams.dbhType, dbhType)
                 .putParams(ConstantParams.remarks, 备注.getText().toString())
                 .putParams(ConstantParams.cityCode, 获取地址code())
                 .putParams(ConstantParams.imagesData, GsonUtil.Bean2Json(listPicsOnline))
                 .putParams(ConstantParams.purchaseItemId, getPurchaseType())
                 .putParams(ConstantParams.purchaseId, getData().pid2)
                 .doRequest("admin/quote/save", true, new HandlerAjaxCallBack(mActivity) {
-            @Override
-            public void onRealSuccess(SimpleGsonBean gsonBean) {
-                ToastUtil.showLongToast(gsonBean.msg);
-            }
-        });
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+                        ToastUtil.showLongToast(gsonBean.msg);
+                        if (gsonBean.getData().purchaseItem != null) {
+                            Intent intent = new Intent();
+                            intent.putExtra("bean", gsonBean.getData().purchaseItem);
+                            setResult(ConstantState.PUBLIC_SUCCEED, intent);//发布成功
+                            hindLoading();
+                            finish();
+                        }
+
+
+                    }
+                });
     }
 
     @Override
@@ -245,6 +314,37 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
 
         fillData(getData());
 
+        fillHistory(getBeanHistory());
+
+
+    }
+
+    private void fillHistory(SellerQuoteJsonBean beanHistory) {
+        if (null == beanHistory) return;
+        cityBeans = new CityGsonBean.ChildBeans();
+        cityBeans.fullName = beanHistory.cityName;
+        cityBeans.cityCode = beanHistory.cityCode;
+        city.setText(beanHistory.cityName);
+        cityCode = beanHistory.cityCode;
+        备注.setText(beanHistory.remarks);
+
+//        getViewHolder_pur().tv_purchase_add_pic.setText("已经选择了" + size + "张图片");
+        if (beanHistory.imagesJson == null || beanHistory.imagesJson.size() == 0) {
+            选择图片.setText("未上传图片");
+        } else {
+            选择图片.setText("已经选择了" + beanHistory.imagesJson.size() + "张图片");
+            listPicsOnline.addAll(convert2Pic(beanHistory.imagesJson));
+        }
+    }
+
+    private ArrayList<Pic> convert2Pic(List<ImagesJsonBean> imagesJson) {
+        ArrayList<Pic> pics = new ArrayList<>();
+        if (imagesJson != null && imagesJson.size() > 0) {
+            for (int i = 0; i < imagesJson.size(); i++) {
+                pics.add(new Pic(imagesJson.get(i).id, false, imagesJson.get(i).ossMediumImagePath, i));
+            }
+        }
+        return pics;
     }
 
     SaveSeedingGsonBean mSaveSeedingGsonBean;
@@ -263,7 +363,8 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
                 if (ConstantParams.direct.equals(saveSeedingGsonBean.getData().getItem().purchaseJson.projectType)) {
                     mSaveSeedingGsonBean = saveSeedingGsonBean;
                     Log.i(TAG, "initData: 初始化直购");
-                    initDirect(saveSeedingGsonBean.getData().getTypeList());
+                    initProtocol(saveSeedingGsonBean.getData().getTypeList());
+//                  initDirect(saveSeedingGsonBean.getData().getTypeList());
                     initAutoLayout2(getView(R.id.tfl_purchase_auto_add_plant), saveSeedingGsonBean.getData().getPlantTypeList());
 
                 } else {
@@ -286,12 +387,18 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
 
     //step 1  这一步是一样的
     public void initAutoLayout2(TagFlowLayout tagFlowLayout, List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> bean) {
-        tagFlowLayout.setCanCancle(false);
-        SaveSeedlingPresenter.initAutoLayout2(tagFlowLayout, bean, index, mActivity, (view, position, parent) -> {
-            plantType = bean.get(position).getValue();//上传值
-            uploadBean.plantType = plantType;
-            return true;
-        });
+
+        if (getItem() != null) {
+            super.initAutoLayout2(tagFlowLayout, bean);
+        } else {
+            tagFlowLayout.setCanCancle(false);
+            SaveSeedlingPresenter.initAutoLayout2(tagFlowLayout, bean, index, mActivity, (view, position, parent) -> {
+                plantType = bean.get(position).getValue();//上传值
+                uploadBean.plantType = plantType;
+                return true;
+            });
+        }
+
     }
 
     @Override
@@ -313,15 +420,22 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
         ll_purc_auto_add.removeAllViews();//动态添加前先删除所有
         PurchaseAutoAddLinearLayout layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("价格", "price", true));
         autoLayouts.add(layout);
+        if (getBeanHistory() != null)
+            layout.setDefaultData(getBeanHistory().price);// 价格
         ll_purc_auto_add.addView(layout);
 
 
         layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("到货价\n(预估)", "prePrice", false));
         autoLayouts.add(layout);
+        if (getBeanHistory() != null)
+            layout.setDefaultData(getBeanHistory().prePrice);// 默认到岸价
         ll_purc_auto_add.addView(layout);
+
 
         layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("数量", "count", false));
         autoLayouts.add(layout);
+        if (getBeanHistory() != null)
+            layout.setDefaultData(getBeanHistory().count + "");// 数量
         ll_purc_auto_add.addView(layout);
 
         for (int i = 0; i < typeListBeen.size(); i++) {
@@ -335,6 +449,9 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
                     ).setSizeList(mSaveSeedingGsonBean.getData().dbhTypeList, mSaveSeedingGsonBean.getData().diameterTypeList);
                     //给plant 赋值
                     layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(plantBean);
+
+                    if (getItem() != null)
+                        setDefayltMsg(layout, plantBean);
                     //保存当前的 viw 到list 列表  上传数据时需要获取其中的 内容
                     autoLayouts.add(layout);
                     ll_purc_auto_add.addView(layout);
@@ -349,6 +466,11 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
 
     }
 
+
+    @Override
+    public SellerQuoteJsonBean getItem() {
+        return getBeanHistory();
+    }
 
     /**
      * 位界面头部添加几条数据
