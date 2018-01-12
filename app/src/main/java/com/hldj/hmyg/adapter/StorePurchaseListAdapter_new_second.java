@@ -3,7 +3,11 @@ package com.hldj.hmyg.adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -11,6 +15,7 @@ import android.widget.TextView;
 
 import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.base.ViewHolders;
 import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
@@ -43,6 +48,45 @@ public abstract class StorePurchaseListAdapter_new_second extends StorePurchaseL
 
 
     @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        if (getDatas().get(position).id.equals("-1")) {
+//            ToastUtil.showLongToast("第" + position + "个数据是分割线");
+
+            TextView textView = new TextView(context);
+            configureTextView(textView);
+            textView.setText("--------- 以下为一轮未中标或未报价 ---------");
+
+            ViewHolders myViewHolder = new ViewHolders(context, convertView, textView, parent, position);
+            setConverView(myViewHolder, data.get(position), position);
+            return myViewHolder.getConvertView();
+        } else {
+            return super.getView(position, convertView, parent);
+        }
+
+
+    }
+
+    /**
+     * Configures text view. Is called for the TEXT_VIEW_ITEM_RESOURCE views.
+     *
+     * @param view the text view to be configured
+     */
+    protected void configureTextView(TextView view) {
+//        view.setTextColor();
+        view.setGravity(Gravity.CENTER);
+        view.setTextSize(14);
+        view.setEllipsize(TextUtils.TruncateAt.END);
+        view.setLines(1);
+        view.setHeight(MyApplication.dp2px(context, 30));
+//        view.setBackgroundColor(ContextCompat.getColor(context, R.color.gray_bg_ed));
+        view.setBackgroundColor(Color.parseColor("#EFEFEF"));
+//        view.setCompoundDrawablePadding(20);
+        view.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
+    }
+
+
+    @Override
     protected void jump2Quote(Activity context, PurchaseItemBean_new purchaseItemBeanNew) {
 //      super.jump2Quote(context, purchaseItemBeanNew);
         purchaseItemBeanNew.pid1 = getItemId();
@@ -72,6 +116,10 @@ public abstract class StorePurchaseListAdapter_new_second extends StorePurchaseL
 
             @Override
             public void setConverView(ViewHolders myViewHolder, SellerQuoteJsonBean jsonBean, int position) {
+
+                if (jsonBean.id.equals("-1")) {
+                    return;
+                }
                 D.e("=====setConverView======str=============" + jsonBean.toString());
 
                 /*价格*/
@@ -127,6 +175,8 @@ public abstract class StorePurchaseListAdapter_new_second extends StorePurchaseL
 //                StringFormatUtil formatUtil = new StringFormatUtil(context, "当前报价状态：" + getStateName(jsonBean.status), getStateName(jsonBean.status), ContextCompat.getColor(context, R.color.orange)).fillColor();
                 state.setText(getStateName(jsonBean.status));
 
+
+
                 if (jsonBean.status.equals("choosing")) {
                     //选中标   ---   全部显示
 
@@ -168,7 +218,6 @@ public abstract class StorePurchaseListAdapter_new_second extends StorePurchaseL
                     TextView abc = myViewHolder.getView(R.id.abc);
                     abc.setText("第一轮报价预中标，点击编辑按钮，补充报价信息");
                     abc.setTextColor(ContextCompat.getColor(context, R.color.price_orige));
-
 
 
                 }

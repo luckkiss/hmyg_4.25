@@ -29,6 +29,8 @@
                 style="@style/RadioButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minHeight="32dp"
+                android:minWidth="78dp"
                 android:text="采购中" />
 
             <RadioButton
@@ -44,26 +46,28 @@
                 style="@style/RadioButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minHeight="32dp"
+                android:minWidth="78dp"
                 android:text="历史采购" />
         </com.hldj.hmyg.widget.SegmentedGroup>
 
 
         <ImageView
             android:id="@+id/btn_back"
-            android:layout_width="@dimen/x24"
-            android:layout_height="@dimen/x24"
+            android:layout_width="@dimen/x20"
+            android:layout_height="@dimen/x20"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginLeft="12dp"
             android:background="@drawable/btn_back" />
 
         <ImageView
             android:id="@+id/id_tv_edit_all"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="6dp"
-            android:layout_marginRight="6dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
             android:gravity="center"
             android:padding="10dp"
             android:src="@drawable/fenxiang"

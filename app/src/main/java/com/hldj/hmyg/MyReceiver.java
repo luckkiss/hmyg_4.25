@@ -17,6 +17,7 @@ import com.hldj.hmyg.bean.SimpleGsonBean_test;
 import com.hldj.hmyg.buyer.Ui.LoginOutDialogActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
+import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalDb;
@@ -114,31 +115,27 @@ public class MyReceiver extends BroadcastReceiver {
             String momentId = "";
             try {
                 JSONObject jsonObject = new JSONObject(extras);
+
+                String messageType = jsonObject.getString("messageType");
+
+                if (messageType.equals("notice")) {
+                    Log.w(TAG, "notice: ");
+                    ToastUtil.showLongToast(messageType);
+                    return;
+                }
+                if (messageType.equals("userGetOut")) {
+                    processLoginOut(extras,context);
+                    ToastUtil.showLongToast(messageType);
+                    return;
+                }
+
+
                 momentId = jsonObject.getString("momentsId");
             } catch (JSONException e) {
                 momentId = "";
                 e.printStackTrace();
             }
 
-            String loginOut = "";
-            try {
-                JSONObject jsonObject = new JSONObject(extras);
-                loginOut = jsonObject.getString("loginOut");
-            } catch (JSONException e) {
-                loginOut = "";
-                e.printStackTrace();
-            }
-
-            if (TextUtils.isEmpty(loginOut)) {
-                ToastUtil.showLongToast("不需要退出登录");
-            } else {
-                ToastUtil.showLongToast("执行退出登录" + loginOut);
-//              Call_Phone(context);
-                Call_Phone();
-                SettingActivity.clearCache(MyApplication.Userinfo.edit());
-                Intent intent1 = new Intent(context, LoginOutDialogActivity.class);
-                context.startActivity(intent1);
-            }
 
             //  key:cn.jpush.android.EXTRA,
             //{"sourceId":"4966be553cf84d92856254b08a3adb34","momentsId":"f0e83bf9c5564eeeaa3510e8ad810051","type":"thumbUp","option":"add","messageType":"moments"}
@@ -160,7 +157,25 @@ public class MyReceiver extends BroadcastReceiver {
 
             try {
                 JSONObject jsonObject = new JSONObject(extra);
+                String messageType = jsonObject.getString("messageType");
 
+                if (messageType.equals("notice")) {
+                    Log.w(TAG, "notice: ");
+                    return;
+                }
+                if (messageType.equals("userGetOut")) {
+                    Log.w(TAG, "userGetOut: ");
+                    return;
+                }
+
+
+//                if (messageType.equals("notice")) {
+//                    processToMessagerActivity(context);
+//                    return;
+//                }
+
+
+                ToastUtil.showLongToast(messageType);
 
                 /**
                  * // db.delete(user); //根据对象主键进行删除
@@ -188,11 +203,12 @@ public class MyReceiver extends BroadcastReceiver {
                  "type" -> "reply"
                  "option" -> "add"
                  */
-                momentId = jsonObject.getString("momentsId");
-                String messageType = jsonObject.getString("messageType");
+//                String messageType = jsonObject.getString("messageType");
                 String sourceId = jsonObject.getString("sourceId");
                 String type = jsonObject.getString("type");
                 String option = jsonObject.getString("option");
+                momentId = jsonObject.getString("momentsId");
+
 
                 Message message = new Message();
                 message.setMessageType(messageType);
@@ -237,6 +253,8 @@ public class MyReceiver extends BroadcastReceiver {
             D.d("[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
 
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
+
+
             D.w("[MyReceiver] 用户点击打开了通知");
             JPushInterface.reportNotificationOpened(context, bundle.getString(JPushInterface.EXTRA_MSG_ID));
             // 打开自定义的Activity
@@ -247,6 +265,22 @@ public class MyReceiver extends BroadcastReceiver {
             String extra = bundle.getString("cn.jpush.android.EXTRA");
             try {
                 JSONObject jsonObject = new JSONObject(extra);
+
+                if (jsonObject.getString("messageType").equals("notice")) {
+                    ToastUtil.showLongToast(jsonObject.getString("messageType"));
+                    Intent toMessageListActivity = new Intent(context, MessageListActivity.class);
+                    context.startActivity(toMessageListActivity);
+                    return;
+                }
+
+                if (jsonObject.getString("messageType").equals("userGetOut")) {
+                    ToastUtil.showLongToast(jsonObject.getString("messageType"));
+//                    Intent toMessageListActivity = new Intent(context, MessageListActivity.class);
+//                    context.startActivity(toMessageListActivity);
+                    return;
+                }
+
+
                 momentId = jsonObject.getString("momentId");
 
                 String option = jsonObject.getString("option");
@@ -310,6 +344,46 @@ public class MyReceiver extends BroadcastReceiver {
             D.w("[MyReceiver] Unhandled intent - " + intent.getAction());
         }
     }
+
+    /**
+     * 执行退出登录操作
+     */
+    private void processLoginOut(String extras,Context mContent) {
+        String loginOut = "";
+        try {
+            JSONObject jsonObject = new JSONObject(extras);
+//          loginOut = jsonObject.getString("loginOut");
+
+
+            loginOut = jsonObject.getString("deviceId");
+
+
+        } catch (JSONException e) {
+            loginOut = "";
+            e.printStackTrace();
+        }
+
+        if (loginOut.equals(GetServerUrl.deviceId)) {
+            ToastUtil.showLongToast("是自己,不需要退出登录");
+        } else {
+            ToastUtil.showLongToast("执行退出登录" + loginOut);
+//              Call_Phone(context);
+            Call_Phone();
+            SettingActivity.clearCache(MyApplication.Userinfo.edit());
+            Intent intent1 = new Intent(mContent, LoginOutDialogActivity.class);
+            mContent.startActivity(intent1);
+        }
+
+
+    }
+
+//    private void processToMessagerActivity(Context mcontext) {
+//
+//        Intent toMessageListActivity = new Intent(mcontext.this, MessageListActivity.class);
+//        mcontext.startActivity(toMessageListActivity);
+//
+//
+//    }
 
     private void refreshMomentItem(String momentId) {
         Log.i(TAG, "开始请求");

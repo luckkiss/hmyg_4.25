@@ -63,6 +63,7 @@ public class PurchaseItemBean_new implements Serializable {
 
 
     public String id;/**/
+    public String purchaseId;/*采购单id*/
     public String plantTypeArrayNames = "-";/**/
     public String remarks;/**/
     public String unitTypeName;/**/

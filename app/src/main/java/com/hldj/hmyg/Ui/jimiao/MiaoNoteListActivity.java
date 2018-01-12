@@ -1112,4 +1112,9 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
         RxBus.getInstance().unRegister(this);
     }
 
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

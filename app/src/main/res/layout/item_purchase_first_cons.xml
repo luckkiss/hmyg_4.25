@@ -122,8 +122,8 @@
         android:id="@+id/textView40"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
         android:background="@drawable/red_btn_selector"
         android:paddingBottom="5dp"
         android:paddingLeft="10dp"
@@ -133,7 +133,8 @@
         android:textColor="@color/price_orige"
         app:layout_constraintBottom_toBottomOf="@+id/textView41"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView41" />
+        app:layout_constraintTop_toTopOf="@+id/textView41"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView41"

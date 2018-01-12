@@ -3,7 +3,9 @@ package com.hldj.hmyg.adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -64,11 +66,11 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
 
                /*预估到货价*/
                 TextView pre_price = myViewHolder.getView(R.id.tv_quote_item_pre_price);
-                pre_price.setText(jsonBean.prePrice);
+                pre_price.setText(FUtil.$_zero(jsonBean.prePrice));
 
                  /*可供数量*/
                 TextView count = myViewHolder.getView(R.id.tv_quote_item_count);
-                count.setText(jsonBean.count + "");
+                count.setText(FUtil.$_zero(jsonBean.count+""));
 
                      /*品种规格*/
                 TextView specText = myViewHolder.getView(R.id.tv_quote_item_specText);
@@ -84,7 +86,7 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
 
                     /*报价说明*/
                 TextView remark = myViewHolder.getView(R.id.tv_quote_item_declare);
-                remark.setText(jsonBean.remarks);
+                remark.setText(FUtil.$_zero(jsonBean.remarks));
 
 
                       /*苗木图片*/
@@ -106,6 +108,54 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
 
 //                StringFormatUtil formatUtil = new StringFormatUtil(context, "当前报价状态：" + getStateName(jsonBean.status), getStateName(jsonBean.status), ContextCompat.getColor(context, R.color.orange)).fillColor();
                 state.setText(getStateName(jsonBean.status));
+
+
+                if (jsonBean.status.equals("choosing")) {
+                    //选中标   ---   全部显示
+
+                } else if (jsonBean.status.equals("preQuote")) {
+                    // 隐藏不需要的东西
+                    ((ViewGroup) time.getParent()).setVisibility(View.GONE);
+                    ((ViewGroup) pre_price.getParent()).setVisibility(View.GONE);
+                    ((ViewGroup) count.getParent()).setVisibility(View.GONE);
+                    ((ViewGroup) count.getParent()).setVisibility(View.GONE);
+                    ((ViewGroup) specText.getParent()).setVisibility(View.GONE);
+                    ((ViewGroup) plantTypeName.getParent()).setVisibility(View.GONE);
+                    photo_num.setVisibility(View.GONE);
+                    TextView abc = myViewHolder.getView(R.id.abc);
+                    abc.setVisibility(View.GONE);
+                    abc.setText("第一轮报价预中标，点击编辑按钮，补充报价信息");
+                    abc.setTextColor(ContextCompat.getColor(context, R.color.price_orige));
+                    myViewHolder.getView(R.id.tv_delete_item).setVisibility(View.GONE);
+                    myViewHolder.getView(R.id.tv_change_item).setVisibility(View.GONE);
+                }  /**
+                 * 已中标，条件：合格并且已被采用
+                 */
+
+                else if (jsonBean.status.equals("used")) {
+                    //已中标
+
+                    state.setTextColor(ContextCompat.getColor(context, R.color.main_color));
+
+                    myViewHolder.getView(R.id.tv_delete_item).setVisibility(View.GONE);
+                    myViewHolder.getView(R.id.tv_change_item).setVisibility(View.GONE);
+                } else {
+                    // 隐藏不需要的东西
+                    ((ViewGroup) time.getParent()).setVisibility(View.GONE);
+                    ((ViewGroup) pre_price.getParent()).setVisibility(View.GONE);
+                    ((ViewGroup) count.getParent()).setVisibility(View.GONE);
+                    ((ViewGroup) count.getParent()).setVisibility(View.GONE);
+                    ((ViewGroup) specText.getParent()).setVisibility(View.GONE);
+                    ((ViewGroup) plantTypeName.getParent()).setVisibility(View.GONE);
+                    photo_num.setVisibility(View.GONE);
+                    TextView abc = myViewHolder.getView(R.id.abc);
+                    abc.setText("第一轮报价预中标，点击编辑按钮，补充报价信息");
+                    abc.setTextColor(ContextCompat.getColor(context, R.color.price_orige));
+
+
+                }
+
+
 
 
 

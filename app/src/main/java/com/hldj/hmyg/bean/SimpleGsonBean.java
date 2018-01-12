@@ -32,10 +32,11 @@ public class SimpleGsonBean implements Serializable {
 
     public static class DataBean implements Serializable {
 
+        public int unReadCount;
 
-        public PurchaseListPageGsonBean.DataBeanX.HeadPurchaseBean headPurchase ;
+        public PurchaseListPageGsonBean.DataBeanX.HeadPurchaseBean headPurchase;
 
-        public PurchaseItemBean_new purchaseItem ;
+        public PurchaseItemBean_new purchaseItem;
 
 
         /*未读消息列表   */

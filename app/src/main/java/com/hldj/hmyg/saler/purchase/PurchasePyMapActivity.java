@@ -248,11 +248,11 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
         listview.setPullRefreshEnable(false);
         initData();
         onLoad();
-        ToastUtil.showLongToast("onLoadMore");
+//        ToastUtil.showLongToast("onLoadMore");
     }
 
     private void onLoad() {
-        ToastUtil.showLongToast("onLoad");
+//        ToastUtil.showLongToast("onLoad");
         new Handler().postDelayed(new Runnable() {
 
             @Override

@@ -52,8 +52,8 @@ public class WheelView extends View {
 	private int[] SHADOWS_COLORS = new int[] { 0xFF111111,
 			0x00AAAAAA, 0x00AAAAAA };
 	//*/
-	private int[] SHADOWS_COLORS = new int[] { 0xefE9E9E9,
-			0xcfE9E9E9, 0x3fE9E9E9 };
+	private int[] SHADOWS_COLORS = new int[] { 0x33E9E9E9,
+			0x66E9E9E9, 0x33E9E9E9 };
 
 	/** Top and bottom items offset (to hide that) */
 	private static final int ITEM_OFFSET_PERCENT = 0;
@@ -85,7 +85,7 @@ public class WheelView extends View {
 	private GradientDrawable bottomShadow;
 
 	// Draw Shadows
-	private boolean drawShadows = false;
+	private boolean drawShadows = true;
 
 	// Scrolling
 	private WheelScroller scroller;

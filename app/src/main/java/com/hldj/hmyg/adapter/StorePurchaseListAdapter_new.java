@@ -63,6 +63,8 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 
     @Override
     public void setConverView(ViewHolders myViewHolder, PurchaseItemBean_new purchaseItemBeanNew, int position) {
+
+        if (purchaseItemBeanNew.id.equals("-1")) return;
         int viewRootId = R.layout.list_item_store_purchase;
 
         Log.e(TAG, "setConverView: " + position);
@@ -94,8 +96,6 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
         }
 
         setTv_isloagin(myViewHolder.getView(tv_caozuo01), purchaseItemBeanNew);
-
-
 
 
         ListView listView = myViewHolder.getView(R.id.list);
@@ -254,7 +254,7 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
                 myViewHolder.getView(textView41).setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ToastUtil.showLongToast("马上报价");
+//                        ToastUtil.showLongToast("马上报价");
 //                      purchaseItemBeanNew.sellerQuoteListJson.set(position, null);
 //                      notifyDataSetChanged();
                         DialogActivity.start((Activity) context, purchaseItemBeanNew, jsonBean);

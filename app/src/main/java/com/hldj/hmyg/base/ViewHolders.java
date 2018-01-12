@@ -25,6 +25,15 @@ public class ViewHolders {
 
     }
 
+    public ViewHolders(Context context, View convertView, View selfView,
+                       ViewGroup parent, int position) {
+        this.position = position;
+        this.sparseArray = new SparseArray<View>();
+        this.convertView = selfView;
+        this.convertView.setTag(this);
+    }
+
+
     public static ViewHolders getCommonViewHolder(Context context,
                                                   View convertView, int layoutId, ViewGroup parent, int position) {
         if (convertView == null) {

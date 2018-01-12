@@ -19,7 +19,7 @@
         android:background="@color/main_color"
         android:drawableRight="@drawable/close"
         android:gravity="center"
-        android:paddingLeft="10dp"
+        android:paddingLeft="26dp"
         android:paddingRight="10dp"
         android:text="填写报价"
         android:textColor="@color/white"
@@ -29,7 +29,7 @@
         android:id="@+id/tv_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="8dp"
         android:text="红车  7000株"
         android:textColor="@color/text_color333"
         android:textSize="15sp" />
@@ -48,14 +48,13 @@
         android:id="@+id/guige"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="规格：高度：30 冠幅：50"
         android:textColor="@color/text_color666"
-        android:textSize="13sp"
-        android:layout_marginBottom="10dp"
-        />
+        android:textSize="13sp" />
 
     <View style="@style/View_line_gray_1px" />
 
@@ -64,6 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
@@ -101,12 +101,11 @@
         android:orientation="horizontal">
 
 
-
         <com.lqr.optionitemview.OptionItemView
             android:id="@+id/city"
             android:layout_width="match_parent"
-            android:layout_weight="1"
             android:layout_height="45dp"
+            android:layout_weight="1"
             app:left_text=" 苗源地："
             app:left_text_color="@color/text_color333"
             app:left_text_size="15sp"
@@ -114,16 +113,14 @@
             app:right_text="未选择"
             app:right_text_color="@color/text_color333"
             app:right_text_size="15sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/city"
-            android:drawableRight="@drawable/seller_redstar"
             android:layout_marginLeft="8dp"
-            />
-
-
+            android:layout_toLeftOf="@+id/city"
+            android:drawableRight="@drawable/seller_redstar" />
 
 
     </FrameLayout>
@@ -140,32 +137,46 @@
     <View style="@style/View_line_gray_1px" />
 
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="45dp"
-        android:gravity="center_vertical"
-        android:padding="8dp"
-        android:text="备注"
-        android:textColor="@color/text_color333"
-        android:textSize="16sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/left"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:text="备注"
+            android:textColor="@color/text_color333"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/descript"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="3dp"
+            android:layout_toRightOf="@+id/left"
+            android:background="@drawable/conner_edit"
+            android:gravity="start"
+            android:hint="在此输入备注...."
+            android:padding="12dp"
+            android:layout_marginRight="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text=""
+            android:textColor="@color/text_color333"
+            android:textColorHint="@color/hint_text_color"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
 
     <View
         style="@style/View_line_gray_1px"
         android:layout_marginBottom="3dp" />
 
-    <EditText
-        android:id="@+id/descript"
-        android:layout_width="fill_parent"
-        android:layout_height="80dp"
-        android:background="@color/white"
-        android:gravity="start"
-        android:hint="在此输入报价说明...."
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text=""
-        android:textColor="@color/text_color333"
-        android:textColorHint="@color/hint_text_color"
-        android:textSize="16sp" />
 
     <View
         style="@style/View_line_gray_1px"

@@ -26,7 +26,6 @@ import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
-import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalActivity;
 import net.tsz.afinal.annotation.view.ViewInject;
@@ -51,6 +50,7 @@ public class PurchaseSearchListActivity extends BaseMVPActivity {
 
     @ViewInject(id = R.id.toolbar_left_icon)
     ImageView toolbar_left_icon;
+
     @ViewInject(id = R.id.iv_view_type)
     TextView iv_view_type;
 
@@ -132,7 +132,7 @@ public class PurchaseSearchListActivity extends BaseMVPActivity {
                         .addOnClickListener(R.id.tv_item, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ToastUtil.showLongToast(((TextView) v).getText().toString());
+//                                ToastUtil.showLongToast(((TextView) v).getText().toString());
                                 processByFrom(((TextView) v).getText().toString(), finalSourceId);
 
                             }
@@ -224,9 +224,9 @@ public class PurchaseSearchListActivity extends BaseMVPActivity {
                             seedlingListBeen.clear();
                             seedlingListBeen.addAll(searchBean.data.seedlingList);
                             if (searchBean.code == "1") {
-                                ToastUtil.showLongToast(searchBean.msg);
+//                                ToastUtil.showLongToast(searchBean.msg);
                             } else {
-                                ToastUtil.showLongToast(searchBean.msg);
+//                                ToastUtil.showLongToast(searchBean.msg);
                             }
 //                            mCoreRecyclerView.onRefresh();
 

@@ -157,7 +157,7 @@ public class DialogActivity extends BaseMVPActivity {
                 .putParams(ConstantParams.cityCode, 获取地址对象().cityCode)
                 .putParams(ConstantParams.remarks, 获取报价说明())
                 .putParams(ConstantParams.id, 获取修改ID())
-                .putParams(ConstantParams.purchaseId, getData().pid1)
+                .putParams(ConstantParams.purchaseId, getData().purchaseId)
                 .putParams(ConstantParams.purchaseItemId, 获取ID())
                 .doRequest("admin/quote/saveSimple", true, new HandlerAjaxCallBack(mActivity) {
                     @Override

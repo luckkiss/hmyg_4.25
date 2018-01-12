@@ -508,7 +508,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
             return pics;
         }
         for (int i = 0; i < imagesJson.size(); i++) {
-            pics.add(new Pic(imagesJson.get(i).id, false, imagesJson.get(i).url, i));
+            pics.add(new Pic(imagesJson.get(i).id, false, imagesJson.get(i).ossUrl, i));
         }
         return pics;
     }

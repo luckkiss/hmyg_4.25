@@ -20,7 +20,6 @@ import com.hldj.hmyg.saler.M.PurchaseBean;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.StringFormatUtil;
 import com.hy.utils.TagAdapter;
-import com.hy.utils.ToastUtil;
 
 import java.util.List;
 
@@ -136,7 +135,7 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
 
 
         if (item.needPreQuote) {
-            ToastUtil.showLongToast("跳转简易报价------");
+//            ToastUtil.showLongToast("跳转简易报价------");
             // TODO Auto-generated method stub
             Intent intent = new Intent(context,
                     StorePurchaseListActivity.class);
@@ -144,7 +143,7 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
             intent.putExtra("title", item.num);
             context.startActivity(intent);
         } else {
-            ToastUtil.showLongToast("直接到二次报价");
+//            ToastUtil.showLongToast("直接到二次报价");
             // TODO Auto-generated method stub
             Intent intent = new Intent(context,
                     StorePurchaseListActivityAlongSecond.class);

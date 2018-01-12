@@ -67,7 +67,7 @@
 
     <style name="RadioButton3">
         <item name="android:textColor">@drawable/button_text_color</item>
-        <item name="android:minHeight">26dp</item>
+        <item name="android:minHeight">28dp</item>
         <item name="android:minWidth">65dp</item>
         <item name="android:gravity">center</item>
         <item name="android:button">@null</item>

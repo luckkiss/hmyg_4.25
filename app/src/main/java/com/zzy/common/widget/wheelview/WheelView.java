@@ -19,9 +19,6 @@
 
 package com.zzy.common.widget.wheelview;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -35,7 +32,6 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.util.FloatMath;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
@@ -45,6 +41,9 @@ import android.widget.Scroller;
 
 import com.hldj.hmyg.R;
 import com.white.utils.AndroidUtil;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Numeric wheel view.
@@ -740,7 +739,7 @@ public class WheelView extends View {
 		}
 
 		drawCenterRect(canvas);
-		// drawShadows(canvas);
+		drawShadows(canvas);
 	}
 
 	/**
@@ -749,14 +748,14 @@ public class WheelView extends View {
 	 * @param canvas
 	 *            the canvas for drawing
 	 */
-	// private void drawShadows(Canvas canvas) {
-	// topShadow.setBounds(0, 0, getWidth(), getHeight() / visibleItems);
-	// topShadow.draw(canvas);
-	//
-	// bottomShadow.setBounds(0, getHeight() - getHeight() / visibleItems,
-	// getWidth(), getHeight());
-	// bottomShadow.draw(canvas);
-	// }
+	 private void drawShadows(Canvas canvas) {
+	 topShadow.setBounds(0, 0, getWidth(), getHeight() / visibleItems);
+	 topShadow.draw(canvas);
+
+	 bottomShadow.setBounds(0, getHeight() - getHeight() / visibleItems,
+	 getWidth(), getHeight());
+	 bottomShadow.draw(canvas);
+	 }
 
 	/**
 	 * Draws value and label layout
@@ -1034,8 +1033,8 @@ public class WheelView extends View {
 	/**
 	 * Scroll the wheel
 	 * 
-	 * @param itemsToSkip
-	 *            items to scroll
+	 * @param
+	 *
 	 * @param time
 	 *            scrolling duration
 	 */

@@ -153,6 +153,7 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
 
         arrayWheelAdapterNew_dir = new ArrayWheelAdapter_new(getActivity(), null);
 
+
         mViewDistrict.setViewAdapter(arrayWheelAdapterNew_dir);
         arrayWheelAdapterNew_dir.setTextColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.black_de));
 

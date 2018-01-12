@@ -32,10 +32,6 @@ public class StorePurchaseListActivitySecond extends StorePurchaseListActivity {
         ((TextView) getView(R.id.tv_06)).setText("截止时间：" + headPurchase.closeDate);
 
 
-
-
-
-
     }
 
     public void setEditAble(List<PurchaseItemBean_new> editAble, boolean flag) {
@@ -53,7 +49,13 @@ public class StorePurchaseListActivitySecond extends StorePurchaseListActivity {
 
         List<PurchaseItemBean_new> data = new ArrayList<>();
         data.addAll(preBidList);
-        data.addAll(unEditList);
+        if (unEditList != null && unEditList.size() != 0) {
+            PurchaseItemBean_new itemBean_new = new PurchaseItemBean_new();
+            itemBean_new.id = "-1";
+            data.add(itemBean_new);
+            data.addAll(unEditList);
+        }
+
 
         for (int i = 0; i < data.size(); i++) {
             shareBean.text += data.get(i).name + ",";

@@ -24,8 +24,11 @@ import android.widget.Toast;
 
 import com.flyco.animation.BaseAnimatorSet;
 import com.flyco.dialog.listener.OnBtnClickL;
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.bean.SimpleGsonBean;
+import com.hldj.hmyg.presenter.AActivityPresenter;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.JpushUtil;
 import com.hldj.hmyg.util.SPUtil;
@@ -171,6 +174,15 @@ public class SettingActivity extends NeedSwipeBackActivity implements
             public void onClick(View v) {
                 //清除异地登录
                 ToastUtil.showLongToast("清除异地登录");
+
+                AActivityPresenter.otherUserGetOut(new HandlerAjaxCallBack() {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+//                        ToastUtil.showLongToast(gsonBean.msg);
+                    }
+                });
+
+
             }
         });
 
@@ -642,8 +654,8 @@ public class SettingActivity extends NeedSwipeBackActivity implements
     }
 
 
-    public static void clearCache(Activity context, Editor editor)
-    { editor.putBoolean("isLogin", false);
+    public static void clearCache(Activity context, Editor editor) {
+        editor.putBoolean("isLogin", false);
         editor.putString("showUserName", "");
         editor.clear(); // 清除所有登录数据
         editor.commit();
@@ -663,8 +675,8 @@ public class SettingActivity extends NeedSwipeBackActivity implements
 
     }
 
-    public static void clearCache( Editor editor)
-    { editor.putBoolean("isLogin", false);
+    public static void clearCache(Editor editor) {
+        editor.putBoolean("isLogin", false);
         editor.putString("showUserName", "");
         editor.clear(); // 清除所有登录数据
         editor.commit();
@@ -681,7 +693,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
 
     public static void exit2Home(Activity context, Editor editor, boolean shouldFinish) {
 
-        clearCache(context,editor);
+        clearCache(context, editor);
 
 
         if (shouldFinish) {

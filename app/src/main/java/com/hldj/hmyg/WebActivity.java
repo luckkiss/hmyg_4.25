@@ -192,4 +192,8 @@ public class WebActivity extends NeedSwipeBackActivity {
         }
     }
 
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

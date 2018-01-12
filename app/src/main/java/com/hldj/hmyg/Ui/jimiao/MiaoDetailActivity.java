@@ -750,7 +750,8 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
                 });
     }
 
-
-
-
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

@@ -1231,5 +1231,8 @@ public class SaveMiaoActivity extends NeedSwipeBackActivity implements OnTagClic
  address.isDefault = this.saveSeedingGsonBean.getData().nursery.isDefault;
  */
 
-
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

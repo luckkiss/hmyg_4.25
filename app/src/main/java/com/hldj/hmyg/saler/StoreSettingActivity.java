@@ -1069,4 +1069,10 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
         return !file.exists() && file.mkdirs();
     }
 
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
+
+
 }

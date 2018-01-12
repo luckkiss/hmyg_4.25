@@ -3,6 +3,7 @@ package com.hldj.hmyg.buyer.Ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -88,7 +89,7 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
                 .addSelectListener(new CityWheelDialogF.OnCitySelectListener() {
                     @Override
                     public void onCitySelect(CityGsonBean.ChildBeans childBeans) {
-                        ToastUtil.showLongToast(childBeans.fullName);
+//                        ToastUtil.showLongToast(childBeans.fullName);
                         cityBeans = childBeans;
                         city.setText(childBeans.fullName);
                     }
@@ -161,7 +162,8 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
 
                 if (plantBean.value.equals(ConstantParams.dbh)) {
                     dbhType = autoLayout.getSelect_size();
-                } if (plantBean.value.equals(ConstantParams.diameter)) {
+                }
+                if (plantBean.value.equals(ConstantParams.diameter)) {
                     diameterType = autoLayout.getSelect_size();
                 }
 
@@ -239,6 +241,11 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
         }
 
 
+        if (TextUtils.isEmpty(plantType)) {
+            ToastUtil.showLongToast("请先选择种植类型");
+            return;
+        }
+
         /**
          *        paramsPut(params, ConstantParams.diameter, bean.diameter);
          paramsPut(params, ConstantParams.offbarHeight, bean.offbarHeight);
@@ -248,9 +255,9 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
          */
 
         new BasePresenter()
-                .putParams(ConstantParams.id, i)
+                .putParams(ConstantParams.id, i)//修改的id
                 .putParams(ConstantParams.diameter, 获取参数(ConstantParams.diameter))
-                .putParams(ConstantParams.diameterType,diameterType )
+                .putParams(ConstantParams.diameterType, diameterType)
                 .putParams(ConstantParams.plantType, plantType)
                 .putParams(ConstantParams.length, 获取参数(ConstantParams.length))
                 .putParams(ConstantParams.offbarHeight, 获取参数(ConstantParams.offbarHeight))
@@ -264,8 +271,8 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
                 .putParams(ConstantParams.remarks, 备注.getText().toString())
                 .putParams(ConstantParams.cityCode, 获取地址code())
                 .putParams(ConstantParams.imagesData, GsonUtil.Bean2Json(listPicsOnline))
-                .putParams(ConstantParams.purchaseItemId, getPurchaseType())
-                .putParams(ConstantParams.purchaseId, getData().pid2)
+                .putParams(ConstantParams.purchaseItemId, getPurchaseType()) // 传过来的  顶部 数据的  item id
+                .putParams(ConstantParams.purchaseId, getData().purchaseId)
                 .doRequest("admin/quote/save", true, new HandlerAjaxCallBack(mActivity) {
                     @Override
                     public void onRealSuccess(SimpleGsonBean gsonBean) {

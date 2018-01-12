@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -210,5 +209,10 @@ public class FeedBackActivity extends NeedSwipeBackActivity {
 
     public static void start2Activity(Context mActivity) {
         mActivity.startActivity(new Intent(mActivity, FeedBackActivity.class));
+    }
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
     }
 }

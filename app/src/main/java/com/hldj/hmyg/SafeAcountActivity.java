@@ -22,7 +22,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 public class SafeAcountActivity extends NeedSwipeBackActivity {
     private Editor e;
     private TextView tv_phone;
-    private String publicPhone = MyApplication.Userinfo.getString( "phone", "");
+    private String publicPhone = MyApplication.Userinfo.getString("phone", "");
     private TextView tv_has_bind;
 
     @Override
@@ -87,7 +87,7 @@ public class SafeAcountActivity extends NeedSwipeBackActivity {
 //                        Intent toSetPasswardByGetCodeActivity
 //                                = new Intent(SafeAcountActivity.this, SetPasswardByGetCodeActivity.class);
 //                        startActivity(toSetPasswardByGetCodeActivity);
-                        SetPasswardByGetCodeActivity.start(mActivity,false);
+                        SetPasswardByGetCodeActivity.start(mActivity, false);
 
                         break;
                     case R.id.ll_03:
@@ -132,4 +132,8 @@ public class SafeAcountActivity extends NeedSwipeBackActivity {
     }
 
 
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

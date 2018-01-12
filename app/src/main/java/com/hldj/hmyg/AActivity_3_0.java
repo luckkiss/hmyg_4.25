@@ -32,6 +32,7 @@ import com.autoscrollview.adapter.ImagePagerAdapter;
 import com.autoscrollview.widget.AutoScrollViewPager;
 import com.autoscrollview.widget.indicator.CirclePageIndicator;
 import com.coorchice.library.SuperTextView;
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.M.BProduceAdapt;
 import com.hldj.hmyg.M.IndexGsonBean;
 import com.hldj.hmyg.Ui.NewsActivity;
@@ -42,9 +43,12 @@ import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.ABanner;
 import com.hldj.hmyg.bean.ArticleBean;
 import com.hldj.hmyg.bean.HomeStore;
+import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.Type;
 import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
+import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
 import com.hldj.hmyg.buyer.weidet.SwipeViewHeader;
+import com.hldj.hmyg.presenter.AActivityPresenter;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
 import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
 import com.hldj.hmyg.util.ConstantState;
@@ -694,7 +698,8 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             case R.id.iv_a_msg:
 
 
-//                DialogActivitySecond.start2Activity(this,"8e5aa65a2c374de99662dcf6e7e399a9",new PurchaseItemBean_new());
+                AActivityPresenter.isShowRead = false;
+//              DialogActivitySecond.start2Activity(this,"8e5aa65a2c374de99662dcf6e7e399a9",new PurchaseItemBean_new());
 
 
                 // TODO Auto-generated method stub
@@ -735,7 +740,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //                Intent intent = new Intent(AActivity_3_0.this, PurchaseSearchListActivity.class);
 //                intent.putExtra("from", "AActivity");
 //                startActivityForResult(intent, 1);
-                PurchaseSearchListActivity.start(AActivity_3_0.this,PurchaseSearchListActivity.FROM_HOME);
+                PurchaseSearchListActivity.start(AActivity_3_0.this, PurchaseSearchListActivity.FROM_HOME);
 
                 break;
             default:
@@ -774,6 +779,22 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //            scrollView.smoothScrollBy(0, scrollY);
 //            ToastUtil.showShortToast("smoothY=" + currenY);
         }, 30);
+
+
+        StorePurchaseListActivity.shouldShow = true;
+
+        Log.i(TAG, "AActivityPresenter.isShowRead: " + AActivityPresenter.isShowRead);
+        if (!AActivityPresenter.isShowRead) {
+            AActivityPresenter.requestUnReadCount(new HandlerAjaxCallBack() {
+                @Override
+                public void onRealSuccess(SimpleGsonBean gsonBean) {
+//                    ToastUtil.showLongToast(gsonBean.msg + "   unReadCount=" + gsonBean.getData().unReadCount);
+                    AActivityPresenter.isShowRead = (gsonBean.getData().unReadCount != 0);
+                    iv_msg.setSelected(AActivityPresenter.isShowRead);
+                    Log.i(TAG, "AActivityPresenter.isShowRead : " + AActivityPresenter.isShowRead);
+                }
+            });
+        }
     }
 
 //    int currenY = 0;

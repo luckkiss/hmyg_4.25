@@ -177,7 +177,7 @@
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
                 android:padding="1px"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"

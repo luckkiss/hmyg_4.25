@@ -70,7 +70,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="6dp"
             android:foreground="?attr/selectableItemBackground"
-            android:src="@drawable/home_message" />
+            android:scaleType="fitXY"
+            android:src="@drawable/message_selector" />
 
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

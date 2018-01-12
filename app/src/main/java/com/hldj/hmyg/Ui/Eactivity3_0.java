@@ -43,6 +43,7 @@ import com.hldj.hmyg.base.rxbus.annotation.Subscribe;
 import com.hldj.hmyg.base.rxbus.event.EventThread;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SimpleGsonBean;
+import com.hldj.hmyg.presenter.AActivityPresenter;
 import com.hldj.hmyg.presenter.EPrestenter;
 import com.hldj.hmyg.saler.AdressManagerActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
@@ -164,6 +165,14 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
 
         OptionItemView optionItemView = this.getView(R.id.top_bar_option); // 这是title 左右边的点击事件
+
+        if (optionItemView.isSelected()) {
+            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx_red));
+            optionItemView.setSelected(!optionItemView.isSelected());
+        } else {
+            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx));
+            optionItemView.setSelected(!optionItemView.isSelected());
+        }
 
         optionItemView.setOnOptionItemClickListener(new OptionItemView.OnOptionItemClickListener() {
             @Override
@@ -569,6 +578,13 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         super.onResume();
         refresh();
 
+
+        OptionItemView optionItemView = this.getView(R.id.top_bar_option); // 这是title 左右边的点击事件
+        if (AActivityPresenter.isShowRead) {
+            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx_red));
+        } else {
+            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx));
+        }
     }
 
     public void refresh() {

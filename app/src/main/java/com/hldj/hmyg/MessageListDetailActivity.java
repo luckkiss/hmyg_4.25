@@ -535,4 +535,9 @@ public class MessageListDetailActivity extends NeedSwipeBackActivity implements
 
     }
 
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

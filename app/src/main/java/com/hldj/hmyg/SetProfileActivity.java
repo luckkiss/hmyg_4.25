@@ -698,4 +698,9 @@ public class SetProfileActivity extends BaseActivity implements
         MyUtil.overridePendingTransition_open(mActivity);
     }
 
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }
