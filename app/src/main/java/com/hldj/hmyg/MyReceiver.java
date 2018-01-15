@@ -18,7 +18,6 @@ import com.hldj.hmyg.buyer.Ui.LoginOutDialogActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
-import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalDb;
 
@@ -36,61 +35,6 @@ public class MyReceiver extends BroadcastReceiver {
     private static final String TAG = "JPush";
     private String url = "";
     private String title = "详情";
-
-
-    public static void Call_Phone() {
-
-
-//        MyApplication.showDialog();
-
-
-//        if (dialog!=null)
-//        {
-//            dialog.show();
-//        }
-//        ToastUtil.showLongToast("hello world");
-//        Log.w(TAG, "Call_Phone: " + "hello world" + context);
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.Theme_AppCompat);
-//        builder.setMessage("Are you sure you want to exit?")
-//                .setCancelable(false)
-//                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//
-//                    }
-//                })
-//                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        dialog.cancel();
-//                    }
-//                });
-//
-//        AlertDialog alert = builder.create();
-//        alert.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-//        alert.show();
-
-
-//        new AlertDialog(context).builder()
-//                .setTitle("确定退出登录?")
-//                .setPositiveButton("退出登录", v1 -> {
-//                    SettingActivity.exit2Home
-//                            ((Activity) context, MyApplication.Userinfo.edit(), false);
-//                }).setNegativeButton("取消", v2 -> {
-//        }).show();
-
-//
-//            dialog = new com.flyco.dialog.widget.MaterialDialog(ac);
-//            dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-//            dialog.title("客服热线4006-579-888").content("客服热线 周一至周日9:00-18:00")//
-//                    .btnText("确认拨号", "取消")//
-//                    .show();
-//            dialog.setOnBtnClickL(() -> {
-//                dialog.dismiss();
-//            }, () -> dialog.dismiss());
-//
-
-
-    }
 
     @SuppressWarnings("unused")
     @Override
@@ -120,12 +64,12 @@ public class MyReceiver extends BroadcastReceiver {
 
                 if (messageType.equals("notice")) {
                     Log.w(TAG, "notice: ");
-                    ToastUtil.showLongToast(messageType);
+//                    ToastUtil.showLongToast(messageType);
                     return;
                 }
                 if (messageType.equals("userGetOut")) {
                     processLoginOut(extras,context);
-                    ToastUtil.showLongToast(messageType);
+//                    ToastUtil.showLongToast(messageType);
                     return;
                 }
 
@@ -175,7 +119,7 @@ public class MyReceiver extends BroadcastReceiver {
 //                }
 
 
-                ToastUtil.showLongToast(messageType);
+//                ToastUtil.showLongToast(messageType);
 
                 /**
                  * // db.delete(user); //根据对象主键进行删除
@@ -267,14 +211,14 @@ public class MyReceiver extends BroadcastReceiver {
                 JSONObject jsonObject = new JSONObject(extra);
 
                 if (jsonObject.getString("messageType").equals("notice")) {
-                    ToastUtil.showLongToast(jsonObject.getString("messageType"));
+//                    ToastUtil.showLongToast(jsonObject.getString("messageType"));
                     Intent toMessageListActivity = new Intent(context, MessageListActivity.class);
                     context.startActivity(toMessageListActivity);
                     return;
                 }
 
                 if (jsonObject.getString("messageType").equals("userGetOut")) {
-                    ToastUtil.showLongToast(jsonObject.getString("messageType"));
+//                    ToastUtil.showLongToast(jsonObject.getString("messageType"));
 //                    Intent toMessageListActivity = new Intent(context, MessageListActivity.class);
 //                    context.startActivity(toMessageListActivity);
                     return;
@@ -284,7 +228,7 @@ public class MyReceiver extends BroadcastReceiver {
                 momentId = jsonObject.getString("momentId");
 
                 String option = jsonObject.getString("option");
-                ToastUtil.showLongToast("option\n" + option);
+//                ToastUtil.showLongToast("option\n" + option);
 
             } catch (JSONException e) {
                 momentId = "";
@@ -364,11 +308,11 @@ public class MyReceiver extends BroadcastReceiver {
         }
 
         if (loginOut.equals(GetServerUrl.deviceId)) {
-            ToastUtil.showLongToast("是自己,不需要退出登录");
+//            ToastUtil.showLongToast("是自己,不需要退出登录");
         } else {
-            ToastUtil.showLongToast("执行退出登录" + loginOut);
+//            ToastUtil.showLongToast("执行退出登录" + loginOut);
 //              Call_Phone(context);
-            Call_Phone();
+
             SettingActivity.clearCache(MyApplication.Userinfo.edit());
             Intent intent1 = new Intent(mContent, LoginOutDialogActivity.class);
             mContent.startActivity(intent1);

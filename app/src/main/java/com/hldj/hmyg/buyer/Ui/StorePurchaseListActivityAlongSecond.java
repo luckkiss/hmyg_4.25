@@ -18,6 +18,9 @@ public class StorePurchaseListActivityAlongSecond extends StorePurchaseListActiv
     @Override
     public boolean setSwipeBackEnable() {
 //        host = "admin/purchase/secondQuoteList";
+//        host = "purchase/historyQuoteList";
+//        ToastUtil.showLongToast(host);
+//      host = "admin/purchase/secondQuoteList";
         return true;
     }
 

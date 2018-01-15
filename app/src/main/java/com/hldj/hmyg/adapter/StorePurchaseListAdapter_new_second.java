@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,11 +48,19 @@ public abstract class StorePurchaseListAdapter_new_second extends StorePurchaseL
 //    }
 
 
+//    @Override
+//    public int getItemViewType(int position) {
+//        return 2;
+//    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (getDatas().get(position).id.equals("-1")) {
 //            ToastUtil.showLongToast("第" + position + "个数据是分割线");
+
+//            ToastUtil.showLongToast("-1");
+            Log.i("getView", "以下为一轮未中标或未报价: ");
 
             TextView textView = new TextView(context);
             configureTextView(textView);
@@ -61,6 +70,7 @@ public abstract class StorePurchaseListAdapter_new_second extends StorePurchaseL
             setConverView(myViewHolder, data.get(position), position);
             return myViewHolder.getConvertView();
         } else {
+            Log.i("getView", "other: ");
             return super.getView(position, convertView, parent);
         }
 
@@ -174,7 +184,6 @@ public abstract class StorePurchaseListAdapter_new_second extends StorePurchaseL
 
 //                StringFormatUtil formatUtil = new StringFormatUtil(context, "当前报价状态：" + getStateName(jsonBean.status), getStateName(jsonBean.status), ContextCompat.getColor(context, R.color.orange)).fillColor();
                 state.setText(getStateName(jsonBean.status));
-
 
 
                 if (jsonBean.status.equals("choosing")) {

@@ -70,7 +70,7 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
 
                  /*可供数量*/
                 TextView count = myViewHolder.getView(R.id.tv_quote_item_count);
-                count.setText(FUtil.$_zero(jsonBean.count+""));
+                count.setText(FUtil.$_zero(jsonBean.count + ""));
 
                      /*品种规格*/
                 TextView specText = myViewHolder.getView(R.id.tv_quote_item_specText);
@@ -110,10 +110,10 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
                 state.setText(getStateName(jsonBean.status));
 
 
-                if (jsonBean.status.equals("choosing")) {
+                if ("choosing".equals(jsonBean.status)) {
                     //选中标   ---   全部显示
 
-                } else if (jsonBean.status.equals("preQuote")) {
+                } else if ("preQuote".equals(jsonBean.status)) {
                     // 隐藏不需要的东西
                     ((ViewGroup) time.getParent()).setVisibility(View.GONE);
                     ((ViewGroup) pre_price.getParent()).setVisibility(View.GONE);
@@ -132,7 +132,7 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
                  * 已中标，条件：合格并且已被采用
                  */
 
-                else if (jsonBean.status.equals("used")) {
+                else if ("used".equals(jsonBean.status)) {
                     //已中标
 
                     state.setTextColor(ContextCompat.getColor(context, R.color.main_color));
@@ -151,8 +151,6 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
                     TextView abc = myViewHolder.getView(R.id.abc);
                     abc.setText("第一轮报价预中标，点击编辑按钮，补充报价信息");
                     abc.setTextColor(ContextCompat.getColor(context, R.color.price_orige));
-
-
                 }
 
 

@@ -43,6 +43,8 @@ public class StorePurchaseListActivitySecond extends StorePurchaseListActivity {
     @Override
     protected void initSecondList(List<PurchaseItemBean_new> preBidList, List<PurchaseItemBean_new> unEditList) {
 
+        listAdapter = null;
+
         setEditAble(preBidList, true);
         setEditAble(unEditList, false);
 

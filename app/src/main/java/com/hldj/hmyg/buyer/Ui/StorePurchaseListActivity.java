@@ -124,7 +124,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
     boolean isFirstLoading = true;
 
-    private LoadingLayout loadingLayout;
+    protected LoadingLayout loadingLayout;
 
     /**
      * 快速报价
@@ -221,14 +221,14 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, true);
         AjaxParams params = new AjaxParams();
-        params.put("subscribeUserId", MyApplication.Userinfo.getString("id", ""));
+//      params.put("subscribeUserId", MyApplication.Userinfo.getString("id", ""));
 
         if (MyApplication.Userinfo.getBoolean("isLogin", false)) {
             params.put("userId", MyApplication.Userinfo.getString("id", ""));
         }
         params.put("purchaseId", purchaseFormId);
-        params.put("searchKey", searchKey);
-        params.put("secondSeedlingTypeId", secondSeedlingTypeId);
+//        params.put("searchKey", searchKey);
+//        params.put("secondSeedlingTypeId", secondSeedlingTypeId);
         params.put("pageSize", pageSize + "");
         params.put("pageIndex", pageIndex + "");
 //        Log.e("purchase/list", params.toString());
@@ -254,25 +254,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                 // TODO Auto-generated method stub
                 Log.e("purchase/list", t.toString());
 
-                PurchaseListGsonBean gsonBean = GsonUtil.formateJson2Bean(t, PurchaseListGsonBean.class);
-
-//                ToastUtil.showLongToast(gsonBean.msg);
-                if (gsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
-                    if (gsonBean.data.list != null) {
-                        initPageBeans(gsonBean.data.list);
-                    }
-                    if (gsonBean.data.preBidList != null || gsonBean.data.unEditList != null) {
-                        initSecondList(gsonBean.data.preBidList, gsonBean.data.unEditList);
-                    }
-
-
-//                    is = gsonBean.data.expired;
-                    loadingLayout.setStatus(LoadingLayout.Success);
-                } else {
-                    loadingLayout.setErrorText(gsonBean.msg);
-                    loadingLayout.setStatus(LoadingLayout.Error);
-                }
-
+                processJson(t);
 
                 hindLoading();
                 onLoad();
@@ -299,6 +281,39 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
         });
         getdata = true;
+    }
+
+    protected void processJson(String t) {
+        PurchaseListGsonBean gsonBean = GsonUtil.formateJson2Bean(t, PurchaseListGsonBean.class);
+//                ToastUtil.showLongToast(gsonBean.msg);
+        if (gsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
+            if (gsonBean.data.list != null) {
+                initPageBeans(gsonBean.data.list);
+            }else {
+                initPageBeans(new ArrayList<>());
+            }
+
+//
+//            if (gsonBean.data.headPurchase !=null )
+//            {
+////              initHistoryHead();
+//                initHeadBean(gsonBean.data.headPurchase);
+//            }
+//
+
+            if (gsonBean.data.preBidList != null || gsonBean.data.unEditList != null) {
+                initSecondList(gsonBean.data.preBidList, gsonBean.data.unEditList);
+            }
+
+
+//                    is = gsonBean.data.expired;
+            loadingLayout.setStatus(LoadingLayout.Success);
+        } else {
+            loadingLayout.setErrorText(gsonBean.msg);
+            loadingLayout.setStatus(LoadingLayout.Error);
+        }
+
+
     }
 
     /**
@@ -339,8 +354,6 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                 public boolean isNeedPreQuote() {
                     return needPreQuote;
                 }
-
-
             };
             xListView.setAdapter(listAdapter);
         } else {
@@ -358,7 +371,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
     }
 
 
-    private void requestHeadData() {
+    protected void requestHeadData() {
 
         new BasePresenter()
                 .putParams("purchaseId", purchaseFormId)

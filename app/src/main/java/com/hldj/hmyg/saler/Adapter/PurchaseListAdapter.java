@@ -10,16 +10,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hhl.library.FlowTagLayout;
+import com.hldj.hmyg.LoginActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.base.ViewHolders;
 import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
 import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivityAlongSecond;
+import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivityHistory;
 import com.hldj.hmyg.saler.M.PurchaseBean;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.StringFormatUtil;
 import com.hy.utils.TagAdapter;
+import com.hy.utils.ToastUtil;
 
 import java.util.List;
 
@@ -47,7 +50,6 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
         if (item.status.equals("expired")) {
             iv_jianyi.setVisibility(View.GONE);
         }
-
 
 
         int id = R.layout.list_item_purchase_list_new;
@@ -143,13 +145,33 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
             intent.putExtra("title", item.num);
             context.startActivity(intent);
         } else {
-//            ToastUtil.showLongToast("直接到二次报价");
-            // TODO Auto-generated method stub
-            Intent intent = new Intent(context,
-                    StorePurchaseListActivityAlongSecond.class);
-            intent.putExtra("purchaseFormId", item.purchaseFormId);
-            intent.putExtra("title", item.num);
-            context.startActivity(intent);
+
+
+            /*已过期 的跳到历史记录界面*/
+            if (item.status.equals("expired")) {
+//                ToastUtil.showLongToast("expired");
+                Intent intent = new Intent(context, StorePurchaseListActivityHistory.class);
+                intent.putExtra("purchaseFormId", item.purchaseFormId);
+                intent.putExtra("title", item.num);
+                context.startActivity(intent);
+            } else {
+                if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {
+                    Intent toLoginActivity = new Intent(context, LoginActivity.class);
+                    ToastUtil.showLongToast("请先登录哦^_^");
+                    context.startActivity(toLoginActivity);
+                    return;
+                }
+//                ToastUtil.showLongToast("statues = " + item.status);
+
+                //ToastUtil.showLongToast("直接到二次报价 ");
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(context, StorePurchaseListActivityAlongSecond.class);
+                intent.putExtra("purchaseFormId", item.purchaseFormId);
+                intent.putExtra("title", item.num);
+                context.startActivity(intent);
+            }
+
+
         }
 
 

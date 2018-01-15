@@ -2,9 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hldj.hmyg"
-    android:versionCode="86"
-    android:versionName="3.0.6release_fix2">
+    android:versionCode="87"
+    android:versionName="3.0.6release_fix3">
 
+
+    <!--    android:versionCode="86"
+    android:versionName="3.0.6release_fix2">-->
 
     <!--android:versionCode="85"-->
     <!--android:versionName="3.0.6release_fix1">-->
@@ -391,10 +394,14 @@
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.StorePurchaseListActivityAlongSecond"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.hldj.hmyg.buyer.Ui.StorePurchaseListActivityHistory"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".buyer.Ui.DialogActivity"
-            android:theme="@style/dialog_activity" android:windowSoftInputMode="stateHidden"/>
+            android:theme="@style/dialog_activity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".buyer.Ui.LoginOutDialogActivity"
             android:launchMode="singleInstance"
@@ -402,8 +409,7 @@
         <activity
             android:name=".buyer.Ui.DialogActivitySecond"
             android:theme="@style/dialog_activity"
-            android:windowSoftInputMode="stateHidden"
-            />
+            android:windowSoftInputMode="stateHidden" />
 
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity"

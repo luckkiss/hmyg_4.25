@@ -301,6 +301,8 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
                 break;
 
             case R.id.button33:
+
+                StorePurchaseListActivity.shouldShow = false;
                 if (purchaseBeenad != null) {
                     getView(R.id.ll_show_3).setVisibility(View.VISIBLE);
                     getView(R.id.ll_show_12).setVisibility(View.GONE);
@@ -308,7 +310,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
                 }
                 type = "";
                 showLoading();
-                StorePurchaseListActivity.shouldShow = false;
+
                 getView(R.id.ll_show_3).setVisibility(View.VISIBLE);
                 getView(R.id.ll_show_12).setVisibility(View.GONE);
 
@@ -386,15 +388,23 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
 
             @Override
             public void run() {
+
+                if (purchaseBeenad == null)
+                    return;
+
                 // TODO Auto-generated method stub
                 listView3.stopRefresh();
 
                 listView3.stopLoadMore();
-                if (listAdapter.getDatas().size() % pageSize == 0) {
+
+
+                if (purchaseBeenad.getDatas().size() % pageSize == 0) {
                     listView3.setPullLoadEnable(true);
                 } else {
                     listView3.setPullLoadEnable(false);
                 }
+
+
                 listView3.setRefreshTime(new Date().toLocaleString());
                 listView3.setPullRefreshEnable(true);
             }
@@ -405,6 +415,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
     public int pageIndex3 = 0;
 
     public void req3(ResultCallBack<List<PurchaseBean>> callBack, int index) {
+        showLoading();
         //根据参数请求数据
         new PurchasePyMapPresenter()
                 .putParams("pageSize", 10 + "")

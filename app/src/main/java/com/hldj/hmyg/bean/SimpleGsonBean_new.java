@@ -1,5 +1,6 @@
 package com.hldj.hmyg.bean;
 
+import com.hldj.hmyg.buyer.M.PurchaseListPageGsonBean;
 import com.hldj.hmyg.util.ConstantState;
 
 /**
@@ -22,9 +23,9 @@ public class SimpleGsonBean_new<T> {
     }
 
     public class Data<T> {
-        public T purchaseItem  ;
-        public T page ;
-
+        public PurchaseListPageGsonBean.DataBeanX.HeadPurchaseBean headPurchase;
+        public T purchaseItem;
+        public T page;
     }
 
 

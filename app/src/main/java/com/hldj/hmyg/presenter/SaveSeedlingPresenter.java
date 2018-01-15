@@ -638,9 +638,9 @@ public class SaveSeedlingPresenter {
         if (getFileList(dataList).size() > 0) {
             //上传多张本地图片
             MyLuban.compress(mContext, getFileList(dataList))
-                    .setMaxSize(1024)
-                    .setMaxHeight((int) (2560))
-                    .setMaxWidth((int) (1440))
+                    .setMaxSize(400)
+                    .setMaxHeight((int) (1920))
+                    .setMaxWidth((int) (1080))
                     .putGear(MyLuban.CUSTOM_GEAR)
                     .asListObservable() // 压缩代码，返回  List<File>
                     .flatMap(new Function<List<File>, ObservableSource<File>>() {
