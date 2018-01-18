@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.support.annotation.LayoutRes;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Gravity;
@@ -26,7 +27,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SortSpinner {
+/**
+ * 通用  spinner
+ */
+public class CommonListSpinner {
     // PopupWindow对象
     private PopupWindow selectPopupWindow = null;
     // 自定义Adapter
@@ -48,94 +52,71 @@ public class SortSpinner {
 
     TextView mTextView;
 
+    Object lock = new Object();
+
     public SortListAdapter getSortListAdapter() {
         return optionsAdapter;
     }
 
-    private static SortSpinner sortSpinner;
+    private static CommonListSpinner commonListSpinner;
 
-    private SortSpinner(Activity activity, View parent) {
+    private CommonListSpinner(Activity activity, View parent) {
         this.activity = activity;
         this.parent = parent;
-        initData();//初始化数据
+//      initData();//初始化数据
+    }
+
+
+    public CommonListSpinner initViews() {
         initWedget();//初始化控件
+        return commonListSpinner;
     }
 
-
-    public static SortSpinner getInstance(Activity activity, View line) {
-        sortSpinner = new SortSpinner(activity, line);
-        return sortSpinner;
+    public static CommonListSpinner getInstance(Activity activity, View line) {
+//        if (commonListSpinner == null) {
+        commonListSpinner = new CommonListSpinner(activity, line);
+//        }
+        return commonListSpinner;
     }
 
-    public static SortSpinner getInstance() {
+    public static CommonListSpinner getInstance() {
 
-        return sortSpinner;
+        return commonListSpinner;
     }
 
     //	AdapterView.OnItemClickListener onItemClickListener;
-    public SortSpinner addOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener) {
+    public CommonListSpinner addOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener) {
 //		this.onItemClickListener = onItemClickListener ;
         listView.setOnItemClickListener(onItemClickListener);
 
         return this;
     }
 
+    public List getListMaps() {
+        return list_map;
+    }
 
-    List<Map<String, String>> list_map = new ArrayList<>();
+    public CommonListSpinner setSortMaps(List<Map<String, String>> maps) {
+        list_map = maps;
+        return commonListSpinner;
+    }
 
 
     public String orderBy = "";
 
-    public SortSpinner addData(String str) {
+    public CommonListSpinner addData(String str) {
 
         this.orderBy = str;
 
         return this;
     }
 
-    public void initData() {
-        this.list_map = getSortMaps();
+//    public void initData() {
+//        this.list_maps = getSortMaps();
+//    }
 
-    }
+    List<Map<String, String>> list_map = new ArrayList<>();
 
-    List<Map<String, String>> list_maps = new ArrayList<>();
-
-    /**
-     * 获取排序列表
-     *
-     * @return
-     */
-    private List<Map<String, String>> getSortMaps() {
-        list_maps.add(createMap("default_asc", "综合排序"));
-        list_maps.add(createMap("publishDate_desc", "最新发布"));
-        list_maps.add(createMap("distance_asc", "最近距离"));
-        list_maps.add(createMap("price_asc", "价格从低到高"));
-        list_maps.add(createMap("price_desc", "价格从高到底"));
-        return list_maps;
-    }
-
-
-    public List getListMaps() {
-        return list_maps;
-    }
-
-    public SortSpinner setSortMaps(List<Map<String, String>> maps) {
-        list_maps = maps;
-        return sortSpinner;
-    }
-
-
-    /**
-     * NSDictionary *sortDic1=@{@"key":@"综合排序",@"value":@"default_asc"};
-     * NSDictionary *sortDic2=@{@"key":@"最新发布",@"value":@"publishDate_desc"};
-     * NSDictionary *sortDic3=@{@"key":@"最近距离",@"value":@"distance_asc"};
-     * NSDictionary *sortDic4=@{@"key":@"价格从低到高",@"value":@"price_asc"};
-     * NSDictionary *sortDic5=@{@"key":@"价格从高到低",@"value":@"price_desc"};
-     *
-     * @param key
-     * @param value
-     * @return
-     */
 
     public Map createMap(String key, String value) {
         Map map = new HashMap();
@@ -223,7 +204,7 @@ public class SortSpinner {
      *
      * @param
      */
-    public SortSpinner Show() {
+    public CommonListSpinner Show() {
         // 将selectPopupWindow作为parent的下拉框显示，并指定selectPopupWindow在Y方向上向上偏移3pix，
         // 这是为了防止下拉框与文本框之间产生缝隙，影响界面美化
         // （是否会产生缝隙，及产生缝隙的大小，可能会根据机型、Android系统版本不同而异吧，不太清楚）
@@ -247,23 +228,13 @@ public class SortSpinner {
         return this;
     }
 
-    /**
-     * 显示PopupWindow窗口
-     *
-     * @param
-     */
-    public SortSpinner ShowDefault() {
-        selectPopupWindow.showAsDropDown(parent, 0, -3);
-        optionsAdapter.notifyDataSetChanged();
-        return this;
-    }
 
     /**
      * 显示PopupWindow窗口
      *
      * @param
      */
-    public SortSpinner ShowWithPos(int pos) {
+    public CommonListSpinner ShowWithPos(int pos) {
         getSortListAdapter().setSeclection(pos);
         // 将selectPopupWindow作为parent的下拉框显示，并指定selectPopupWindow在Y方向上向上偏移3pix，
         // 这是为了防止下拉框与文本框之间产生缝隙，影响界面美化
@@ -375,5 +346,24 @@ public class SortSpinner {
         }
         return result;
     }
+
+
+    public static final class Builder {
+
+        private Map<String, String> maps;
+
+        private CallContentView contentView;
+
+
+    }
+
+
+    public static interface CallContentView {
+        View getView(int position, View convertView, ViewGroup parent);
+
+        @LayoutRes
+        int getLayoutId();
+    }
+
 
 }

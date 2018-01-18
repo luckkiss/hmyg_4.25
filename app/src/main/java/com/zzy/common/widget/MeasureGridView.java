@@ -11,6 +11,7 @@ import android.widget.GridView;
 
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.adapter.PublishFlowerInfoPhotoAdapter;
+import com.hldj.hmyg.adapter.PublishFlowerInfoPhotoAdapterFriend;
 import com.hldj.hmyg.application.PermissionUtils;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin2;
@@ -31,8 +32,6 @@ public class MeasureGridView extends GridView {
                            int defStyle) {
         super(context, attrs, defStyle);
         MeasureGridView.context = context;
-
-
     }
 
     public MeasureGridView(Context context, AttributeSet attrs) {
@@ -55,16 +54,20 @@ public class MeasureGridView extends GridView {
     static PhotoGvOnItemClickListener gvOnItemClickListener;
 
     public void init(Context context, ArrayList<Pic> urlPaths, ViewGroup ainView, FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener listener) {
-
-
         adapter = new PublishFlowerInfoPhotoAdapter(context, urlPaths);
         this.setAdapter(adapter);
         adapter.setColumeNum(this.getNumColumns());
 
         this.setOnItemClickListener(new PhotoGvOnItemClickListener(ainView, listener));
-
-
     }
+
+    public void initFriend(Context context, ArrayList<Pic> urlPaths, ViewGroup ainView, FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener listener) {
+        adapter = new PublishFlowerInfoPhotoAdapterFriend(context, urlPaths);
+        this.setAdapter(adapter);
+        adapter.setColumeNum(this.getNumColumns());
+        this.setOnItemClickListener(new PhotoGvOnItemClickListener(ainView, listener));
+    }
+
 
 
     public void setImageNumColumns(int num) {

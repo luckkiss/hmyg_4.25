@@ -96,7 +96,7 @@ public class FriendPresenter {
         } else if (item.imagesJson != null && item.imagesJson.size() > 0) {
             headUrl = item.imagesJson.get(0).ossMediumImagePath;
         } else {
-            headUrl = GetServerUrl.ICON_PAHT;
+            headUrl = GetServerUrl.HEAD_DEFAULT;
         }
 
         String type = "";

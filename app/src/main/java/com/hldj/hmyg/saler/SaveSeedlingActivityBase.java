@@ -947,5 +947,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         return "";
     }
 
-
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

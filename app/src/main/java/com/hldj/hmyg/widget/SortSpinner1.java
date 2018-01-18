@@ -81,6 +81,15 @@ public class SortSpinner1 {
         return this;
     }
 
+    public List getListMaps() {
+        return list_maps;
+    }
+
+    public SortSpinner1 setSortMaps(List<Map<String, String>> maps) {
+        list_maps = maps;
+        return sortSpinner;
+    }
+
 
     List<Map<String, String>> list_map = new ArrayList<>();
 

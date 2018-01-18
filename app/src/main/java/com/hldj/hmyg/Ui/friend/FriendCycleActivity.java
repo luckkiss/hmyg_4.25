@@ -26,7 +26,6 @@ import com.hldj.hmyg.Ui.friend.bean.enums.MomentsType;
 import com.hldj.hmyg.Ui.friend.child.FriendBaseFragment;
 import com.hldj.hmyg.Ui.friend.child.PublishActivity;
 import com.hldj.hmyg.Ui.friend.child.PushListActivity;
-import com.hldj.hmyg.Ui.friend.child.SearchActivity;
 import com.hldj.hmyg.Ui.friend.presenter.FriendPresenter;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.base.GlobBaseAdapter;
@@ -96,7 +95,8 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
         add(FriendBaseFragment.newInstance(MomentsType.supply.getEnumValue()));
         add(FriendBaseFragment.newInstance(MomentsType.purchase.getEnumValue()));
     }};
- public void initChild() {
+
+    public void initChild() {
 
         RxBus.getInstance().register(this);
     }
@@ -136,7 +136,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
         rb_title_center.setVisibility(View.VISIBLE);
         toolbar_right_icon.setVisibility(View.VISIBLE);
         toolbar_right_icon.setImageResource(R.mipmap.friend_publish_edit);
-        toolbar_left_icon.setImageResource(R.mipmap.friend_search);
+        toolbar_left_icon.setImageResource(R.mipmap.friend_filter);
 
         initChild();
 
@@ -193,7 +193,8 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
         switch (v.getId()) {
             /*搜索*/
             case R.id.toolbar_left_icon:
-                SearchActivity.start(mActivity, searchContent);
+//                SearchActivity.start(mActivity, searchContent);
+                FriendCycleSearchActivity.start(mActivity, "");
                 break;  /*搜索*/
 
             case R.id.rb_center:
@@ -321,7 +322,6 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 
     public String currentType = MomentsType.supply.getEnumValue();
     public String searchContent = "";
-
 
     @Override
     public boolean setSwipeBackEnable() {

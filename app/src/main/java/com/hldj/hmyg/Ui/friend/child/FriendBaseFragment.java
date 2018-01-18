@@ -80,8 +80,28 @@ public class FriendBaseFragment extends BaseFragment {
     CoreRecyclerView mRecyclerView;
     BaseMVPActivity baseMVPActivity;
     private CommonPopupWindow popupWindow1;
-    private String currentType = MomentsType.supply.getEnumValue();
+    private String currentType = MomentsType.all.getEnumValue();
     private String searchContent = "";
+    private String[] cityCodes;
+    private String cityCodesString = "";
+
+    public static String getApendStr(String[] citys) {
+
+
+        if (citys == null || citys.length == 0) {
+            return "";
+        } else {
+            StringBuffer buffer = new StringBuffer();
+            for (String city : citys) {
+                buffer.append(city + ",");
+            }
+            return buffer.toString();
+        }
+
+
+    }
+
+//    private String searchType = MomentsType.all.getEnumValue();
 
 
     public static FriendBaseFragment newInstance(String type) {
@@ -207,6 +227,13 @@ public class FriendBaseFragment extends BaseFragment {
 //                ConstraintLayout.LayoutParams params1 = (ConstraintLayout.LayoutParams) measureListView.getLayoutParams();
 //                params1.topToBottom = 1;
 //                measureListView.setLayoutParams(params1);
+
+                if (item.itemListJson.size() == 0) {
+                    measureListView.setVisibility(View.GONE);
+                } else {
+                    measureListView.setVisibility(View.VISIBLE);
+                }
+
                 measureListView.setAdapter(new GlobBaseAdapter<MomentsReply>(mActivity, item.itemListJson, R.layout.item_list_simple) {
                     @Override
                     public void setConverView(ViewHolders myViewHolder, MomentsReply s, int position) {
@@ -261,18 +288,21 @@ public class FriendBaseFragment extends BaseFragment {
                 });
 
                 gridView.setImageNumColumns(3);
-                gridView.setHorizontalSpacing(3);
-                gridView.setVerticalSpacing(0);
+//                gridView.setHorizontalSpacing(3);
+//                gridView.setVerticalSpacing(0);
+                gridView.setHorizontalSpacing(6);
+                gridView.setVerticalSpacing(6);
 
                 /**
+                 *
                  *    gridView.setHorizontalSpacing(6);
                  gridView.setVerticalSpacing(6);
                  */
 
                 //中图
-                gridView.init(mActivity, PurchaseDetailActivity.getPicList(item.imagesJson), (ViewGroup) gridView.getParent(), null);
-                gridView.getAdapter().closeAll(true);
-                gridView.getAdapter().notifyDataSetChanged();
+                gridView.initFriend(mActivity, PurchaseDetailActivity.getPicList(item.imagesJson), (ViewGroup) gridView.getParent(), null);
+//                gridView.getAdapter().closeAll(true);
+//                gridView.getAdapter().notifyDataSetChanged();
                 gridView.setOnViewImagesListener((mContext1, pos, pics) -> {
                     //获取原始图片
 //                    ToastUtil.showLongToast("点击了" + pos);
@@ -308,6 +338,7 @@ public class FriendBaseFragment extends BaseFragment {
                                 }
                             });
                 }).setText(R.id.first, "点赞 " + item.thumbUpCount);//按钮一 点赞
+
                 helper.addOnClickListener(R.id.second, v -> {
                     if (!commitLogin()) return;
 
@@ -392,6 +423,8 @@ public class FriendBaseFragment extends BaseFragment {
                 .putParams("pageIndex", page)
                 .putParams("momentsType", currentType)
                 .putParams("content", searchContent)
+                .putParams("cityCodeList", cityCodesString)// 填写地区    str 【】
+//                .putParams("cityCodeList", getApendStr(cityCodes))// 填写地区    str 【】
                 .putParams("userId", MyApplication.getUserBean().id)
                 .doRequest("moments/list", true, new AjaxCallBack<String>() {
                     @Override
@@ -421,7 +454,7 @@ public class FriendBaseFragment extends BaseFragment {
     @Override
     protected void loadData() {
         super.loadData();
-        onRefresh("");//根据搜索条件。判断是否需要刷新数据
+        onRefresh("", "","");//根据搜索条件。判断是否需要刷新数据
 //        if (!mIsVisible || !mIsPrepared || !isFirst) {
 //            Log.e(TAG, "不加载数据 mIsVisible=" + mIsVisible + "  mIsPrepared=" + mIsPrepared + " isFirst = " + isFirst);
 //            return;
@@ -598,32 +631,41 @@ public class FriendBaseFragment extends BaseFragment {
     }
 
 
-    public void onRefresh(String content) {
+    public void onRefresh(String content, String type, String cityCodes) {
+
+//        if (cityCodes != null) {
+//            ToastUtil.showLongToast("cityCodes=" + Arrays.toString(cityCodes) + " \n content =" + content);
+//
+//        } else {
+//            ToastUtil.showLongToast("cityCodes is null ");
+//        }
+
         D.i("" + mRecyclerView);
         if (baseMVPActivity instanceof FriendCycleSearchActivity) {
 
-            if (!mIsVisible || !mIsPrepared) {
-                Log.e(TAG, "不加刷新数据  onRefresh");
-                return;
-            }
-
+//            if (!mIsVisible || !mIsPrepared) {
+//                Log.e(TAG, "不加刷新数据  onRefresh");
+//                return;
+//            }
+            cityCodesString = cityCodes;
+            currentType = type;
             D.i("当前界面是    search activity");
             D.i("fragment -> searchContent \n" + searchContent);
             D.i("activity -> searchContent\n" + ((FriendCycleSearchActivity) mActivity).searchContent);
             D.i("activity -> getSearchContent\n" + ((FriendCycleSearchActivity) mActivity).getSearchContent());
 
-            if (searchContent.equals(((FriendCycleSearchActivity) mActivity).searchContent)) {
-                D.e("跟上次搜索条件一样。不需要刷新");
-                if (content.equals("1")) {
-                    ToastUtil.showLongToast("请输入不一样的内容^_^");
-                }
-                return;
-            } else {
-                searchContent = ((FriendCycleSearchActivity) mActivity).searchContent;
-                D.e("跟上次搜索条件搜索  不一样。要刷新");
-                if (mRecyclerView != null)
-                    mRecyclerView.onRefresh();
-            }
+//            if (searchContent.equals(((FriendCycleSearchActivity) mActivity).searchContent)) {
+//                D.e("跟上次搜索条件一样。不需要刷新");
+//                if (content.equals("1")) {
+//                    ToastUtil.showLongToast("请输入不一样的内容^_^");
+//                }
+//                return;
+//            } else {
+            searchContent = ((FriendCycleSearchActivity) mActivity).searchContent;
+            D.e("跟上次搜索条件搜索  不一样。要刷新");
+            if (mRecyclerView != null)
+                mRecyclerView.onRefresh();
+//            }
         } else {
             if (!mIsVisible || !mIsPrepared || !isFirst) {
                 Log.e(TAG, "不加刷新数据  onRefresh");

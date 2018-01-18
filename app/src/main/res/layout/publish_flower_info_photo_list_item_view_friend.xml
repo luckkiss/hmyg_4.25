@@ -1,0 +1,8 @@
+<com.hldj.hmyg.widget.MyImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/publish_flower_info_photo_item_iv"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minHeight="100dp"
+    android:minWidth="100dp"
+    android:scaleType="centerCrop"
+    android:src="@color/accent_color" />

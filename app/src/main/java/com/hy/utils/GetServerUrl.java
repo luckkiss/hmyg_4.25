@@ -11,10 +11,10 @@ import net.tsz.afinal.FinalHttp;
  */
 
 public class GetServerUrl {
-    public static boolean isTest = false;//测试时使用true 表示正在测试
+    public static boolean isTest = true;//测试时使用true 表示正在测试
     /*发布时主要版本号   后面需要加 / */
 //    public static String apiVersion = "3.0.5/";//发布的时候修改 api 版本号
-    public static String apiVersion = "3.0.5/";//测试的时候修改 api 版本号
+    public static String apiVersion = "3.0.4/";//测试的时候修改 api 版本号
 
 
     static String PGYER = "http://www.pgyer.com/apiv1/app/viewGroup";
@@ -145,6 +145,7 @@ public class GetServerUrl {
     public final static String WEB = "http://www.hmeg.cn";
     //    public final static String ICON_PAHT = "http://p3.so.qhimg.com/sdr/449_800_/t0147220f71d4562943.jpg";
     public final static String ICON_PAHT = "http://m.hmeg.cn/static/images/sharelogo.png";
+    public final static String HEAD_DEFAULT = "------";//默认头像的地址
     public final static String TEST_URL = "https://m.baidu.com";
     public final static String Customer_Care_Phone = "4006579888";
     public final static String Customer_Care_QQ = "873528519";

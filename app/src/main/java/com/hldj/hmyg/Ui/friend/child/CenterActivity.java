@@ -212,15 +212,15 @@ public class CenterActivity extends BaseMVPActivity {
 
                 MeasureGridView gridView = helper.getView(R.id.imageView8);
                 gridView.setImageNumColumns(3);
-                gridView.setHorizontalSpacing(3);
-                gridView.setVerticalSpacing(0);
-                gridView.init(mActivity, PurchaseDetailActivity.getPicList(item.imagesJson), (ViewGroup) gridView.getParent(), null);
+                gridView.setHorizontalSpacing(6);
+                gridView.setVerticalSpacing(6);
+                gridView.initFriend(mActivity, PurchaseDetailActivity.getPicList(item.imagesJson), (ViewGroup) gridView.getParent(), null);
                 gridView.setOnViewImagesListener( (mContext, pos, pics) ->{
                     GalleryImageActivity.startGalleryImageActivity(
                             mContext, pos, PurchaseDetailActivity.getPicListOriginal(item.imagesJson));
                 });
-                gridView.getAdapter().closeAll(true);
-                gridView.getAdapter().notifyDataSetChanged();
+//                gridView.getAdapter().closeAll(true);
+//                gridView.getAdapter().notifyDataSetChanged();
 
                 helper.addOnClickListener(R.id.first, clickListener).setText(R.id.first, " " + item.thumbUpCount);//按钮一 点赞
 

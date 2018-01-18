@@ -26,13 +26,13 @@ import java.util.ArrayList;
 
 public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
 
-    private ArrayList<Pic> urlPaths = new ArrayList<Pic>();
+    protected ArrayList<Pic> urlPaths = new ArrayList<Pic>();
 
-    private LayoutInflater inflater;
+    protected LayoutInflater inflater;
 
     private Context context;
 
-    private ViewHolder holder;
+    protected ViewHolder holder ;
 
     private int dip30px;
     public static final int TO_CHOOSE_NEW_PIC = 20;
@@ -147,12 +147,11 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
 
                 para.width = (width) / 3;
                 para.height = (width) / 3;
-
 //                ViewGroup pr = (ViewGroup) holder.photoIv.getParent();
-//                pr.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+//                pr.setLayoutParams(new LinearLayout.LayoutParams(MyApplication.dp2px(context, 100),MyApplication.dp2px(context, 100)));
 //
 //                para.width = MyApplication.dp2px(context, 100);
-//                para.height = MyApplication.dp2px(context, 100);
+//                para.height = MyApplication.dp2px(context, 100) ;
             }
 
             holder.photoIv.setLayoutParams(para);
@@ -164,7 +163,7 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
         if (position == urlPaths.size()) {
             if (position == MAX_IMAGE_COUNT) {
                 holder.photoIv.setVisibility(View.GONE);
-            }else{
+            } else {
                 holder.photoIv.setVisibility(View.VISIBLE);
             }
             holder.photoIv.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -247,7 +246,7 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        private ImageView photoIv;
+        public ImageView photoIv;
         private ImageView iv_img2;
         private ImageView iv_img1;
     }
