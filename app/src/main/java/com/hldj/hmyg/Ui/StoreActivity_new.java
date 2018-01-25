@@ -243,11 +243,10 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
 
     @Override
     public void showErrir(String erMst) {
-        if (erMst.equals("参数错误")) {
+        if ("参数错误".equals(erMst)) {
             erMst = "参数错误，可能店铺没有开通~_~ ";
         }
         super.showErrir(erMst);
-
         new Handler().postDelayed(() -> {
             setResult(ConstantState.STORE_OPEN_FAILD);//商店打开失败
             finish();

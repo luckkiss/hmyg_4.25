@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:background="@drawable/bg_bottom_line"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
+
+    <ImageView
+        android:id="@+id/left_icon"
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:padding="2dp"
+        android:src="@drawable/yibaojia2x" />
+
+    <TextView
+        android:id="@+id/tv_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/left_icon"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/left_icon"
+        android:layout_toRightOf="@+id/left_icon"
+        android:text="发布苗木圈"
+        android:textColor="@color/text_color666"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/tv_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/left_icon"
+        android:layout_alignLeft="@+id/tv_top"
+        android:layout_alignStart="@+id/tv_top"
+        android:layout_marginBottom="4dp"
+        android:text="每条获得5份，每天上限20分"
+
+        android:textColor="@color/text_color999"
+        android:textSize="13dp" />
+
+
+    <TextView
+        android:id="@+id/tv_right_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:checked="false"
+        android:drawableLeft="@mipmap/jf_jftb"
+        android:drawablePadding="6dp"
+        android:drawableRight="@drawable/arrow_right"
+        android:gravity="center"
+        android:minWidth="80dp"
+        android:padding="5dp"
+        android:text="去完成"
+        android:textColor="@color/text_color999" />
+
+
+</RelativeLayout>
+

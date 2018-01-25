@@ -303,6 +303,13 @@
         <activity
             android:name=".Ui.Eactivity3_0"
             android:screenOrientation="portrait" />
+
+        <!-- 积分界面 -->
+        <activity android:name=".Ui.IntegralActivity" android:theme="@style/e_activity_theme"/>
+
+
+
+
         <activity
             android:name=".Ui.DispatcherActivity"
             android:screenOrientation="portrait" />

@@ -123,13 +123,15 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
     ;
 
+
+    public static MainActivity instance;
+
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
+        instance = this;
         try {
             if (savedInstanceState != null) {
                 updateInfo = (UpdateInfo) savedInstanceState.getSerializable("updateInfo");
@@ -849,6 +851,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         super.onResume();
 
 
-
     }
+
+
 }

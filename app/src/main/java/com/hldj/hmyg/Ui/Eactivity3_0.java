@@ -113,6 +113,20 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 //        finalBitmap.configLoadfailImage(R.drawable.icon_persion_pic);
 //        finalBitmap.configLoadingImage(R.drawable.icon_persion_pic);
 
+//        StatusBarUtil.setColor(MainActivity.instance, Color.GREEN);
+
+//        StateBarUtil.setStatusBarIconDark(MainActivity.instance, true);
+//        StateBarUtil.setStatusTranslaterNoFullStatus(MainActivity.instance, false);
+
+//        if (isDark) {
+//                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+//
+//            } else {
+//                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+//
+//            }
+
+
         setSwipeBackEnable(false);
         RxRegi();
 
@@ -154,9 +168,9 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         this.getView(R.id.sptv_wd_exit).setOnClickListener(v -> exit());//退出登录
         this.getView(R.id.sptv_wd_ddzy).setOnClickListener(v -> DispatcherActivity.start(mActivity));// 调度专员
         this.getView(R.id.sptv_wd_mmq).setOnClickListener(v -> CenterActivity.start(mActivity, MyApplication.getUserBean().id));//  我的苗木圈
-
-
         this.getView(R.id.sptv_wd_jmb).setOnClickListener(v -> MiaoNoteListActivity.start(mActivity));// 记苗本
+
+        this.getView(R.id.sptv_wd_jf).setOnClickListener(v -> IntegralActivity.start(mActivity));//  积分
 
 
         this.getView(R.id.iv_circle_head).setOnClickListener(v -> {
@@ -217,6 +231,17 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         } else {
             ((TextView) this.getView(R.id.tv_usrname_relname)).setText("花木易购");
         }
+
+
+        // 地区   福建省 厦门市 思明区
+
+        String city = getSpS("coCityfullName");
+        if (TextUtils.isEmpty(city)) {
+            ((TextView) getView(R.id.wd_city)).setText("-");
+        } else {
+            ((TextView) getView(R.id.wd_city)).setText(getSpS("coCityfullName"));
+        }
+
 
     }
 
@@ -578,6 +603,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         super.onResume();
         refresh();
 
+        setStatues();
 
         OptionItemView optionItemView = this.getView(R.id.top_bar_option); // 这是title 左右边的点击事件
         if (AActivityPresenter.isShowRead) {
@@ -586,6 +612,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
             optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx));
         }
     }
+
 
     public void refresh() {
         setRealName(getSpS("userName"), getSpS("realName"));
@@ -635,6 +662,15 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                         ToastUtil.showLongToast("权限请求接口请求失败：" + strMsg);
                     }
                 });
+    }
+
+
+    private void setStatues() {
+//        StatusBarUtil.setColor(MainActivity.instance, Color.TRANSPARENT);
+//        mActivity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+//        View deco = mActivity.getWindow().getDecorView();
+//        deco.setPadding(0, 50, 0, 0);
+
     }
 
 

@@ -1,6 +1,7 @@
 package com.hldj.hmyg.application;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
@@ -35,10 +36,10 @@ public class StateBarUtil {
         this.properties = properties;
     }
 
-    private static final int SYSTEM_UI_FLAG_LIGHT_STATUS_BAR =  1<< 13;
+    private static final int SYSTEM_UI_FLAG_LIGHT_STATUS_BAR = 1 << 13;
 
 
-    public static void setColorPrimaryDark(int color ,Window window) {
+    public static void setColorPrimaryDark(int color, Window window) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
@@ -52,14 +53,12 @@ public class StateBarUtil {
     }
 
 
-
-
     /**
-     *
      * 增加 状态栏字体 样式为深色
-     * @param dark  use 2 theme font  color black
+     *
+     * @param dark use 2 theme font  color black
      */
-    public static void setStatusBarIconDark(Activity activity,boolean dark) {
+    public static void setStatusBarIconDark(Activity activity, boolean dark) {
         try {
             Object win = activity.getWindow();
             Class<?> cls = win.getClass();
@@ -70,21 +69,19 @@ public class StateBarUtil {
         }
 
         /*google method >6.0 官方提供代码*/
-        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             activity.getWindow().getDecorView().setSystemUiVisibility(SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 //            this. getWindow().getDecorView().setSystemUiVisibility(this.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 //            activity.getWindow().getDecorView().setSystemUiVisibility( View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             return;
         }
         //4.4以上 厂商内部代码
-        if (isFlyme())
-        {
-            setMeizuStatusBarDarkIcon(activity,true);
+        if (isFlyme()) {
+            setMeizuStatusBarDarkIcon(activity, true);
             return;
         }
-        if (isMIUI())
-        {
-            setMiuiStatusBarDarkMode(activity,true);
+        if (isMIUI()) {
+            setMiuiStatusBarDarkMode(activity, true);
             return;
         }
 
@@ -155,9 +152,71 @@ public class StateBarUtil {
     }
 
 
+    public static void setStatusTranslater(Activity mActivity, Boolean isDark) {
+        Window window = mActivity.getWindow();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { // 5.0 以上全透明状态栏
+            //取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏 加下面几句可以去除透明状态栏的灰色阴影,实现纯透明
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            //6.0 以上可以设置状态栏的字体为黑色.使用下面注释的这行打开亮色状态栏模式,实现黑色字体,白底的需求用这句setStatusBarColor(Color.WHITE);
+//            window.getDecorView().setSystemUiVisibility(
+//                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//4.4 全透明状态栏
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (isDark) {
+                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
+            } else {
+                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+            }
+
+        }
+        //  添加这一句。变成黑色
+    }
 
 
-      static class BuildProperties {
+    public static void setStatusTranslaterNoFullStatus(Activity mActivity, Boolean isDark) {
+        Window window = mActivity.getWindow();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { // 5.0 以上全透明状态栏
+            //取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏 加下面几句可以去除透明状态栏的灰色阴影,实现纯透明
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            window.getDecorView().setSystemUiVisibility(   View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            //6.0 以上可以设置状态栏的字体为黑色.使用下面注释的这行打开亮色状态栏模式,实现黑色字体,白底的需求用这句setStatusBarColor(Color.WHITE);
+//            window.getDecorView().setSystemUiVisibility(
+//                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//4.4 全透明状态栏
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+
+//        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            if (isDark) {
+//                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+//
+//            } else {
+//                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+//
+//            }
+
+        }
+        //  添加这一句。变成黑色
+    }
+
+    static class BuildProperties {
         private final Properties properties;
 
         private BuildProperties() throws IOException {
@@ -209,7 +268,6 @@ public class StateBarUtil {
             return new BuildProperties();
         }
     }
-
 
 
 }
