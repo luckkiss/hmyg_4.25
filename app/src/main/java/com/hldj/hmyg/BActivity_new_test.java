@@ -26,6 +26,7 @@ import com.hldj.hmyg.M.BProduceAdapt;
 import com.hldj.hmyg.P.BPresenter;
 import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.base.MySwipeAdapter;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.QueryBean;
@@ -599,4 +600,19 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setStatusBars();
+
+    }
+
+
+    private void setStatusBars() {
+        StateBarUtil.setStatusTranslater(MainActivity.instance, true);
+
+        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
+        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
+
+    }
 }

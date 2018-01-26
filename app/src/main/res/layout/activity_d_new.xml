@@ -7,11 +7,13 @@
     android:background="#ffffffff"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_padding_statu" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_top_default"
-        android:layout_margin="5dp"
         android:visibility="visible">
 
 
@@ -21,6 +23,7 @@
             android:layout_height="@dimen/backWH"
             android:layout_centerVertical="true"
             android:padding="3dp"
+            android:layout_marginLeft="5dp"
             android:src="@drawable/back_nol"
             android:visibility="gone"
             tools:visibility="visible" />

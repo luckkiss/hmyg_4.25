@@ -40,6 +40,7 @@ import com.hldj.hmyg.Ui.NoticeActivity;
 import com.hldj.hmyg.Ui.NoticeActivity_detail;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.bean.ABanner;
 import com.hldj.hmyg.bean.ArticleBean;
 import com.hldj.hmyg.bean.HomeStore;
@@ -781,6 +782,8 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         }, 30);
 
 
+        setStatusBars();
+
 
         StorePurchaseListActivity.shouldShow = true;
 
@@ -797,6 +800,8 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             });
         }
     }
+
+
 
 //    int currenY = 0;
 
@@ -930,7 +935,11 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         return views;
     }
 
-
+    private void setStatusBars() {
+        StateBarUtil.setStatusTranslater(MainActivity.instance, true);
+        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
+        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
+    }
 
 
 }

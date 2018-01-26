@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.FeedBackActivity;
 import com.hldj.hmyg.GalleryImageActivity;
+import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.ManagerListActivity_new;
 import com.hldj.hmyg.MessageListActivity;
 import com.hldj.hmyg.R;
@@ -38,6 +40,7 @@ import com.hldj.hmyg.StoreActivity;
 import com.hldj.hmyg.Ui.friend.child.CenterActivity;
 import com.hldj.hmyg.Ui.jimiao.MiaoNoteListActivity;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.base.rxbus.annotation.Subscribe;
 import com.hldj.hmyg.base.rxbus.event.EventThread;
@@ -182,12 +185,13 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         OptionItemView optionItemView = this.getView(R.id.top_bar_option); // 这是title 左右边的点击事件
 
         if (optionItemView.isSelected()) {
-            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx_red));
+            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx_small));
             optionItemView.setSelected(!optionItemView.isSelected());
         } else {
             optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx));
             optionItemView.setSelected(!optionItemView.isSelected());
         }
+
 
         optionItemView.setOnOptionItemClickListener(new OptionItemView.OnOptionItemClickListener() {
             @Override
@@ -608,7 +612,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
         OptionItemView optionItemView = this.getView(R.id.top_bar_option); // 这是title 左右边的点击事件
         if (AActivityPresenter.isShowRead) {
-            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx_red));
+            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx_small));
         } else {
             optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx));
         }
@@ -631,6 +635,13 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                     @Override
                     public void onSuccess(String json) {
                         Log.i("=======", "onSuccess: " + json);
+
+                        //{"agentGrade":"level1","userPoint":14,"agentGradeText":
+                        // "普通供应商","showSeedlingNoteShare":true,
+                        // "showSeedlingNote":true,"hasProjectManage":true},
+                        // "version":"tomcat7.0.53"}
+
+
 //                        if (GetServerUrl.isTest)//测试的时候显示
 //                            ToastUtil.showShortToast("测试的时候显示\n" + "请求是否显示项目结果：\n" + json);
                         SimpleGsonBean bean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
@@ -653,6 +664,9 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 //                            showSeedlingNoteShare = false;
                             D.e("===========showSeedlingNoteShare===========" + showSeedlingNoteShare);
 
+                            checkGys_Point(bean.getData().agentGrade, bean.getData().userPoint, bean.getData().agentGradeText);
+
+
                         } else {
                             ToastUtil.showLongToast(bean.msg);
                         }
@@ -666,6 +680,43 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     }
 
 
+    /**
+     * agentGrade":"level1","userPoint":14,"agentGradeText":"普通供应商
+     *
+     * @param agentGrade     供应商等级
+     * @param userPoint      积分
+     * @param agentGradeText 供应商名称
+     */
+    private void checkGys_Point(String agentGrade, String userPoint, String agentGradeText) {
+
+        TextView sptv_wd_jf = getView(R.id.sptv_wd_jf);
+        TextView sptv_wd_gys = getView(R.id.sptv_wd_gys);
+        sptv_wd_jf.setText("积分  " + userPoint);
+        sptv_wd_gys.setText(agentGradeText);
+
+        Drawable drawable = null;
+        /// 这一步必须要做,否则不会显示.
+
+        if ("level1".equals("agentGrade")) {
+            drawable = getResources().getDrawable(R.mipmap.wd_gys_lv1);
+        } else if ("level2".equals("agentGrade")) {
+            drawable = getResources().getDrawable(R.mipmap.wd_gys_lv2);
+        } else if ("level3".equals("agentGrade")) {
+            drawable = getResources().getDrawable(R.mipmap.wd_gys_lv3);
+        } else if ("level4".equals("agentGrade")) {
+            drawable = getResources().getDrawable(R.mipmap.wd_gys_lv4);
+        } else if ("level5".equals("agentGrade")) {
+            drawable = getResources().getDrawable(R.mipmap.wd_gys_lv5);
+        } else {
+            drawable = getResources().getDrawable(R.mipmap.wd_gys_no);
+        }
+
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        sptv_wd_gys.setCompoundDrawables(drawable, null, null, null);
+
+    }
+
+
     private void setStatues() {
 //        StatusBarUtil.setColor(MainActivity.instance, Color.TRANSPARENT);
 //        mActivity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
@@ -673,6 +724,17 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 //        deco.setPadding(0, 50, 0, 0);
 
         ToastUtil.showPointAdd("添加了5积分");
+
+//        StatusBarUtil.setColor(MainActivity.instance, Color.TRANSPARENT);
+//        StatusBarUtil.setTranslucent(MainActivity.instance, 0);
+//        StatusBarUtil.setColor(MainActivity.instance, ContextCompat.getColor(mActivity, R.color.main_color));
+        StateBarUtil.setStatusTranslater(MainActivity.instance, false);
+//        StateBarUtil.setStatusTranslater(MainActivity.instance, false);
+        StateBarUtil.setStatusTranslater(mActivity, false);
+
+        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, false);
+        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, false);
+
 
     }
 

@@ -34,7 +34,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="10dp"
-            android:drawableLeft="@mipmap/jf_jftb_middle"
+            android:drawableLeft="@mipmap/jf_jftb_simple"
             android:drawablePadding="5dp"
             android:gravity="center_horizontal"
             android:text="获得10积分"

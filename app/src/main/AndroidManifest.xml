@@ -186,11 +186,14 @@
         </activity>
         <!--  android:windowSoftInputMode="adjustPan|stateHidden"-->
         <!--  android:windowSoftInputMode="adjustPan"-->
+
+
+        <!--android:theme="@style/AppMainTheme"-->
         <activity
             android:name="com.hldj.hmyg.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppMainTheme"
+            android:theme="@style/e_activity_theme"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

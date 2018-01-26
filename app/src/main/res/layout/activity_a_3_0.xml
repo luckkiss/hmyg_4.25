@@ -5,7 +5,9 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_padding_statu" />
 
     <include layout="@layout/activity_a_top_toolbar" />
 

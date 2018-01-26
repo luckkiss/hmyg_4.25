@@ -80,6 +80,13 @@ public class SimpleGsonBean implements Serializable {
         public boolean hasProjectManage = false;
         public boolean showSeedlingNoteShare = false;
 
+        public String agentGrade = "level1";
+        public String userPoint = "0";
+        public String agentGradeText = "普通供应商";
+
+
+        //"agentGrade":"level1","userPoint":14,"agentGradeText":
+        // "普通供应商",
 
         public List<SpecTypeBean> specTypeList;
 

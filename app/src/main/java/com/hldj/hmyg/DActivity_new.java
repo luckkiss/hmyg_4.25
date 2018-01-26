@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
+import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.base.MySwipeAdapter;
 import com.hldj.hmyg.bean.CollectGsonBean;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
@@ -345,6 +346,16 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 //        View deco = mActivity.getWindow().getDecorView();
 //        deco.setBackgroundColor(Color.WHITE);
 //        deco.setPadding(0, 50, 0, 0);
+
+//      StatusBarUtil.setColor(MainActivity.instance, Color.WHITE);
+//      StatusBarUtil.setColor(MainActivity.instance, ContextCompat.getColor(mActivity, R.color.main_color));
+
+//        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
+//        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
+        StateBarUtil.setStatusTranslater(MainActivity.instance, true);
+//        StateBarUtil.setStatusTranslater(mActivity, true);
+
+
     }
 
 

@@ -18,6 +18,7 @@ import android.widget.RadioGroup;
 import com.flyco.dialog.widget.MaterialDialog;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.LoginActivity;
+import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.friend.bean.Message;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
@@ -27,6 +28,7 @@ import com.hldj.hmyg.Ui.friend.child.FriendBaseFragment;
 import com.hldj.hmyg.Ui.friend.child.PublishActivity;
 import com.hldj.hmyg.Ui.friend.child.PushListActivity;
 import com.hldj.hmyg.Ui.friend.presenter.FriendPresenter;
+import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.base.MyFinalActivity;
@@ -332,6 +334,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
     protected void onResume() {
         super.onResume();
         Log.i(TAG, "onResume: 开始");
+        setStatusBars();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -426,4 +429,15 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 //            }
 //        });
 //    }
+
+
+
+    private void setStatusBars() {
+        StateBarUtil.setStatusTranslater(MainActivity.instance, true);
+        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
+        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
+    }
+
+
+
 }
