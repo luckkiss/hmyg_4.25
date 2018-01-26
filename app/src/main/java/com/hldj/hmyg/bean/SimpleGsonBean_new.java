@@ -26,6 +26,20 @@ public class SimpleGsonBean_new<T> {
         public PurchaseListPageGsonBean.DataBeanX.HeadPurchaseBean headPurchase;
         public T purchaseItem;
         public T page;
+        public T userPointTypeList;
+        public int point;
+
+
+//        bean_new = {SimpleGsonBean_new@8730} "SimpleGsonBean_new{code='1', msg='操作成功', data=com.hldj.hmyg.bean.SimpleGsonBean_new$Data@3a14767, page=null}"
+//        code = "1"
+//        msg = "操作成功"
+//        data = {SimpleGsonBean_new$Data@8759}
+//        headPurchase = null
+//        purchaseItem = null
+//        page = null
+//        this$0 = null
+//        shadow$_klass_ = {Class@3349} "class com.hldj.hmyg.bean.SimpleGsonBean_new$Data"
+//        shadow$_monitor_ = -2086582425
     }
 
 

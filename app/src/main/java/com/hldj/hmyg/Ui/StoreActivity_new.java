@@ -24,6 +24,7 @@ import com.hldj.hmyg.M.QueryBean;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.storeChild.StoreDetailFragment;
 import com.hldj.hmyg.Ui.storeChild.StoreHomeFragment;
+import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.StoreGsonBean;
@@ -78,6 +79,11 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
     @Override
     public void initView() {
 
+
+//        StartBarUtils.FlymeSetStatusBarLightMode(getWindow(),false);
+//        StartBarUtils.MIUISetStatusBarLightMode(getWindow(),false);
+
+
         (((ViewGroup) getView(R.id.cons_store))).setBackgroundColor(getColorByRes(R.color.white));
 
         AppBarLayout layout = getView(R.id.app_bar);
@@ -88,11 +94,14 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
                 if (state == State.EXPANDED) {
                     //展开状态
                     getView(R.id.tv_store_name).setVisibility(View.GONE);
+                    StateBarUtil.setStatusTranslater(mActivity, false);//变白
                 } else if (state == State.COLLAPSED) {
                     //折叠状态
                     getView(R.id.tv_store_name).setVisibility(View.VISIBLE);
+                    StateBarUtil.setStatusTranslater(mActivity, true);//变黑
                 } else {
                     //中间状态
+                    StateBarUtil.setStatusTranslater(mActivity, true);//变黑
                 }
             }
         });

@@ -171,6 +171,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         this.getView(R.id.sptv_wd_jmb).setOnClickListener(v -> MiaoNoteListActivity.start(mActivity));// 记苗本
 
         this.getView(R.id.sptv_wd_jf).setOnClickListener(v -> IntegralActivity.start(mActivity));//  积分
+        this.getView(R.id.sptv_wd_gys).setOnClickListener(v -> ProviderActivity.start(mActivity));//  供应商
 
 
         this.getView(R.id.iv_circle_head).setOnClickListener(v -> {
@@ -670,6 +671,8 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 //        mActivity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
 //        View deco = mActivity.getWindow().getDecorView();
 //        deco.setPadding(0, 50, 0, 0);
+
+        ToastUtil.showPointAdd("添加了5积分");
 
     }
 

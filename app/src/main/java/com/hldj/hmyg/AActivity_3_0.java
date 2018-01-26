@@ -781,6 +781,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         }, 30);
 
 
+
         StorePurchaseListActivity.shouldShow = true;
 
         Log.i(TAG, "AActivityPresenter.isShowRead: " + AActivityPresenter.isShowRead);
@@ -928,6 +929,8 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         return views;
     }
+
+
 
 
 }

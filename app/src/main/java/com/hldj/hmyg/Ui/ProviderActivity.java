@@ -12,7 +12,7 @@ import com.hy.utils.GetServerUrl;
  * 积分详情界面
  */
 
-public class IntegralDetailsActivity extends BaseWebViewActivity {
+public class ProviderActivity extends BaseWebViewActivity {
 
 
     @Override
@@ -22,8 +22,11 @@ public class IntegralDetailsActivity extends BaseWebViewActivity {
         //http://192.168.1.252:8090
 //        林则金<linzj183@qq.com>  下午 4:31:05
 //                /app/userPoint/detail
+        /**
+         * http://192.168.1.252:8090/app/userPoint/seller?uId=2876f7e0f51c4153aadc603b661fedfa&token=cf37452d815debd48426c031ee3607b1a869451fe48ce86c
+         */
 
-        String url = head + "app/userPoint/detail?uid=" + MyApplication.Userinfo.getString("id", "") + "&token=" + GetServerUrl.getKeyStr(System.currentTimeMillis());
+        String url = head + "app/userPoint/seller?uid=" + MyApplication.Userinfo.getString("id", "") + "&token=" + GetServerUrl.getKeyStr(System.currentTimeMillis());
 
         D.e("=======BaseUrl===url===\n" + url);
 
@@ -33,12 +36,12 @@ public class IntegralDetailsActivity extends BaseWebViewActivity {
 
     @Override
     public String setTitle() {
-        return "积分明细";
+        return "供应商";
     }
 
 
     public static void start(Activity mActivity) {
-        mActivity.startActivity(new Intent(mActivity, IntegralDetailsActivity.class));
+        mActivity.startActivity(new Intent(mActivity, ProviderActivity.class));
     }
 
 

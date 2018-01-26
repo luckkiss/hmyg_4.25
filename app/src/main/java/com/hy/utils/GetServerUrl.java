@@ -101,9 +101,8 @@ public class GetServerUrl {
     }
 
     private static final String api_html = "http://m.hmeg.cn/";
-    private static final String api_html_test0 = "http://test.m.hmeg.cn/";
-    private static final String api_html_test1 = "http://192.168.1.252:8090/";
-
+//    private static final String api_html_test0 = "http://test.m.hmeg.cn/";
+    private static final String api_html_test0 = "http://192.168.1.252:8090/";
     public static String getHtmlUrl() {
         if (isTest) {
 //            return api_html_test1;

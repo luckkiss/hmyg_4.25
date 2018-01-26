@@ -1,7 +1,6 @@
 package com.hldj.hmyg.widget;
 
 import android.content.Context;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
@@ -11,6 +10,8 @@ import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
+
+import net.tsz.afinal.FinalBitmap;
 
 /**
  * Created by Administrator on 2018/1/24 0024.
@@ -41,8 +42,8 @@ public class IntegralItemRelative extends BaseRelativeLayout {
     }
 
 
-    public void setLeftIcon(@DrawableRes int res) {
-        getHolder().left_icon.setImageResource(res);
+    public void setLeftIcon(String url) {
+        FinalBitmap.create(getContext()).display(getHolder().left_icon, url);
     }
 
     public void setTopText(String str) {
@@ -53,8 +54,9 @@ public class IntegralItemRelative extends BaseRelativeLayout {
         getHolder().tv_bottom.setText(str);
     }
 
-    public void setRightTextStates(boolean flag, String status) {
+    public void setRightTextStates(boolean flag, String status, String tag) {
 //        getHolder().tv_right_text.setChecked(flag);
+        getHolder().rootView.setTag(tag);
         if (flag) {
             //true   --- >  表示选中，灰色  不可点击
             getHolder().tv_right_text.setText("已完成");
@@ -63,14 +65,14 @@ public class IntegralItemRelative extends BaseRelativeLayout {
             getHolder().tv_right_text.setCompoundDrawables(null, null, null, null);
 //            getHolder().tv_right_text.setChecked(true);
             if (rightClick != null) {
-                getHolder().tv_right_text.setOnClickListener(null);
+                getHolder().rootView.setOnClickListener(null);
             }
         } else {
             getHolder().tv_right_text.setText(status);
 //            getHolder().tv_right_text.setChecked(false);
             getHolder().tv_right_text.setTextColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.text_color999));
             if (rightClick != null) {
-                getHolder().tv_right_text.setOnClickListener(rightClick);
+                getHolder().rootView.setOnClickListener(rightClick);
             }
         }
     }
@@ -84,6 +86,10 @@ public class IntegralItemRelative extends BaseRelativeLayout {
             mHolder = new ViewHolder(viewRoot);
         }
         return mHolder;
+    }
+
+    public void setRightClick(OnClickListener rightClick) {
+        this.rightClick = rightClick;
     }
 
 

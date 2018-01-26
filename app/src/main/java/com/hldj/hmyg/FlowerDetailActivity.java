@@ -47,6 +47,7 @@ import com.hldj.hmyg.application.AlphaTitleScrollView;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.PermissionUtils;
+import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PlatformForShare;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
@@ -247,7 +248,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         setContentView(R.layout.activity_flower_detail_test_toobar_3_0);
 //		setToolBarAlfa();
         setToolBarAlfaScr();
-//
+        StateBarUtil.setStatusTranslater(mActivity, false);//变白
 //        setStatus();
 
         mMaterialDialog = new MaterialDialog(this);
@@ -446,12 +447,14 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
             public void onShow() {
                 tv_title.setVisibility(View.VISIBLE);
                 btn_back.setSelected(false);
+                StateBarUtil.setStatusTranslater(mActivity, true);//变黑
             }
 
             @Override
             public void onHiden() {
                 tv_title.setVisibility(View.GONE);
                 btn_back.setSelected(true);
+                StateBarUtil.setStatusTranslater(mActivity, false);//变白
             }
         });
 //        new Handler().postDelayed(new Runnable() {
@@ -2362,9 +2365,8 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
     @Override
     public boolean setSwipeBackEnable() {
-        return  true;
+        return true;
     }
-
 
 
 //    public void setStatus()

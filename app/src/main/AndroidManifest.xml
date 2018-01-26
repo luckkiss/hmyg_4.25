@@ -306,6 +306,8 @@
 
         <!-- 积分界面 -->
         <activity android:name=".Ui.IntegralActivity" android:theme="@style/e_activity_theme"/>
+        <activity android:name=".Ui.IntegralDetailsActivity" />
+        <activity android:name=".Ui.ProviderActivity" />
 
 
 
