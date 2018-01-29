@@ -22,7 +22,7 @@ public class GetServerUrl {
 //    static String API_01 = "http://hmeg.cn:93/";
     // 正式 可用 3.0
     static String API_01 = "http://api.hmeg.cn/" + apiVersion;
-//    static String API_03 = "http://test.api.hmeg.cn/" + apiVersion;//3.0测式库
+    //    static String API_03 = "http://test.api.hmeg.cn/" + apiVersion;//3.0测式库
     static String API_03 = "http://192.168.1.93:80/api/";//罗大傻的  电脑 服务器地址/
 //  static String API_03 = "http://192.168.0.147:8091/api/";//罗伟电脑 服务器地址/
 //    static String API_03 = "http://192.168.1.20:83/api/";// 则金 服务器地址/
@@ -101,8 +101,9 @@ public class GetServerUrl {
     }
 
     private static final String api_html = "http://m.hmeg.cn/";
-//    private static final String api_html_test0 = "http://test.m.hmeg.cn/";
+    //    private static final String api_html_test0 = "http://test.m.hmeg.cn/";
     private static final String api_html_test0 = "http://192.168.1.252:8090/";
+
     public static String getHtmlUrl() {
         if (isTest) {
 //            return api_html_test1;
@@ -174,7 +175,7 @@ public class GetServerUrl {
         // TODO Auto-generated method stub
         finalHttp.addHeader("token",
                 GetServerUrl.getKeyStr(System.currentTimeMillis()));
-        if (needId) {
+        if (true) {
             finalHttp.addHeader("authc",
                     MyApplication.Userinfo.getString("id", ""));
         }

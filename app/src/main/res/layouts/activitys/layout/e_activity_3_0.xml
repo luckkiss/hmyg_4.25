@@ -15,7 +15,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="170dp"
             android:background="@drawable/me_bg_no_alf"
             android:paddingTop="25dp">
 

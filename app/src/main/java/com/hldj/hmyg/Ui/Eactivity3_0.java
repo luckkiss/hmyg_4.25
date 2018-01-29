@@ -709,6 +709,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
             drawable = getResources().getDrawable(R.mipmap.wd_gys_lv5);
         } else {
             drawable = getResources().getDrawable(R.mipmap.wd_gys_no);
+            sptv_wd_gys.setText("申请成为供应商");
         }
 
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());

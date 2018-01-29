@@ -289,7 +289,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         if (gsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
             if (gsonBean.data.list != null) {
                 initPageBeans(gsonBean.data.list);
-            }else {
+            } else {
                 initPageBeans(new ArrayList<>());
             }
 
@@ -586,7 +586,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         }
     }
 
-    WebViewDialogFragment webViewDialogFragment;
+    WebViewDialogGysFragment webViewDialogFragment;
 
     private void showWebViewDialog(String quoteDesc, String title) {
         if (TextUtils.isEmpty(quoteDesc)) {
@@ -597,7 +597,9 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                 return;
             }
 //            if (webViewDialogFragment == null) {
-            webViewDialogFragment = WebViewDialogFragment.newInstance(quoteDesc).setTitle(title);
+            webViewDialogFragment = WebViewDialogGysFragment.newInstance(quoteDesc)
+                    .setTitle(title)
+                    .setIsHistory(!shouldShow);
             webViewDialogFragment.show(getSupportFragmentManager(), this.getClass().getName());
 //            } else {
 //                webViewDialogFragment.setContent(quoteDesc);

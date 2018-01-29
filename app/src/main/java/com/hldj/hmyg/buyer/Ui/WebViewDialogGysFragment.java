@@ -1,13 +1,18 @@
 package com.hldj.hmyg.buyer.Ui;
 
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.text.Html;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -20,7 +25,7 @@ import com.hldj.hmyg.R;
  * Created by Administrator on 2017/4/28.
  */
 
-public class WebViewDialogFragment extends DialogFragment {
+public class WebViewDialogGysFragment extends DialogFragment {
 
 
     private WebView webView;
@@ -31,11 +36,13 @@ public class WebViewDialogFragment extends DialogFragment {
 
 
     public String mTitle = "报价说明";
-    public String mCloseContent = "确定";
     private TextView tv_show_title;
+    private Window window;
 
-    public static WebViewDialogFragment newInstance(String strs) {
-        WebViewDialogFragment f = new WebViewDialogFragment();
+    private String mCloseContent = "";
+
+    public static WebViewDialogGysFragment newInstance(String strs) {
+        WebViewDialogGysFragment f = new WebViewDialogGysFragment();
         // Supply num input as an argument.
         Bundle args = new Bundle();
         args.putString("strs", strs);
@@ -43,35 +50,92 @@ public class WebViewDialogFragment extends DialogFragment {
         return f;
     }
 
-    public WebViewDialogFragment setTitle(String title) {
+    public WebViewDialogGysFragment setTitle(String title) {
         mTitle = title;
         return this;
     }
 
-    public WebViewDialogFragment setCloseContent(String closeContent) {
-        mCloseContent = closeContent;
+    public WebViewDialogGysFragment setIsHistory(boolean flag) {
+        if (flag) {
+            mCloseContent = "确定";
+//            getDialog().setCanceledOnTouchOutside(true);
+        } else {
+            mCloseContent = "已阅读并同意以上报价条款";
+        }
         return this;
     }
 
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        html = getArguments().getString("strs");
+    public void requestFullScreen() {
+
+        setStyle(STYLE_NORMAL, R.style.AppBaseTheme);
+
+
     }
 
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.fragment_webview_dialog, null);
+
+        final Dialog dialog = new Dialog(getActivity(), R.style.Dialog);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+
+        window = dialog.getWindow();
+        window.setGravity(Gravity.CENTER); //可设置dialog的位置
+        window.getDecorView().setPadding(76, 0, 76, 0); //消除边距
+        window.getDecorView().setBackgroundDrawable(new ColorDrawable(0));
+
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;   //设置宽度充满屏幕
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
+        initView(dialog);
+
+        return dialog;
+
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_webview_dialog, null);
-        initView(view);
-
-        //添加这一行
-        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        return view;
+//        window.setBackgroundDrawable(new ColorDrawable(0));
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        requestFullScreen();
+        html = getArguments().getString("strs");
+
+//        Window window =  getDialog().getWindow();
+//        window.setGravity(Gravity.CENTER); //可设置dialog的位置
+//        window.getDecorView().setPadding(0, 0, 0, 0); //消除边距
+//
+//        WindowManager.LayoutParams lp = window.getAttributes();
+//        lp.width = WindowManager.LayoutParams.MATCH_PARENT;   //设置宽度充满屏幕
+//        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+//        window.setAttributes(lp);
+
+    }
+
+//    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.fragment_webview_dialog, null);
+//        initView(view);
+//
+//        //添加这一行
+//        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+//
+//        return view;
+//    }
 
     public void setContent(String h) {
 //        if (tv_show_html != null)
@@ -79,7 +143,17 @@ public class WebViewDialogFragment extends DialogFragment {
 //            tv_show_html.setText(Html.fromHtml(h, null, null));
     }
 
-    private void initView(View view) {
+
+//    protected void onDraw(Canvas canvas) {
+//        Path clipPath = new Path();
+//        int radius = 10;
+//        clipPath.addRoundRect(new RectF(canvas.getClipBounds()), radius, radius, Path.Direction.CW);
+//        canvas.clipPath(clipPath);
+//        super.onDraw(canvas);
+//    }
+
+
+    private void initView(Dialog view) {
         tv_show_html = (TextView) view.findViewById(R.id.tv_show_html);
         tv_show_title = (TextView) view.findViewById(R.id.tv_show_title);
 
@@ -133,8 +207,8 @@ public class WebViewDialogFragment extends DialogFragment {
         tv_ok_to_close.setOnClickListener(v -> {
             dismiss();
         });
-        tv_ok_to_close.setText(mCloseContent);
 
+        tv_ok_to_close.setText(mCloseContent);
 
     }
 
