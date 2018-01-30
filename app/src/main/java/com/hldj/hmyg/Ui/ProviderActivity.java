@@ -2,6 +2,7 @@ package com.hldj.hmyg.Ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.webkit.WebView;
 
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseWebViewActivity;
@@ -26,9 +27,16 @@ public class ProviderActivity extends BaseWebViewActivity {
          * http://192.168.1.252:8090/app/userPoint/seller?uId=2876f7e0f51c4153aadc603b661fedfa&token=cf37452d815debd48426c031ee3607b1a869451fe48ce86c
          */
 
-        String url = head + "app/userPoint/seller?uid=" + MyApplication.Userinfo.getString("id", "") + "&token=" + GetServerUrl.getKeyStr(System.currentTimeMillis());
+        String url = "";
+        //http://192.168.1.252:8090/app/protocol/supplier
 
-        D.e("=======BaseUrl===url===\n" + url);
+        if (isQutot()) {
+            url = head + "app/userPoint/seller?uid=" + MyApplication.Userinfo.getString("id", "") + "&token=" + GetServerUrl.getKeyStr(System.currentTimeMillis());
+
+            D.e("=======BaseUrl===url===\n" + url);
+        } else {
+            url = head + "app/protocol/supplier?uid=" + MyApplication.Userinfo.getString("id", "") + "&token=" + GetServerUrl.getKeyStr(System.currentTimeMillis());
+        }
 
         return url;
     }
@@ -36,12 +44,33 @@ public class ProviderActivity extends BaseWebViewActivity {
 
     @Override
     public String setTitle() {
-        return "供应商";
+        if (isQutot()) {
+            return "供应商";
+        } else {
+            return "供应商协议";
+        }
     }
 
 
-    public static void start(Activity mActivity) {
-        mActivity.startActivity(new Intent(mActivity, ProviderActivity.class));
+    @Override
+    public void onLoadUrl(WebView webView, String url) {
+        super.onLoadUrl(webView, url);
+        if (url.contains("/personal/index")) {
+            finish();
+        } else {
+            webView.loadUrl(url);
+        }
+
+    }
+
+    public boolean isQutot() {
+        return getIntent().getBooleanExtra("isQuot", false);
+    }
+
+    public static void start(Activity mActivity, boolean isQuot) {
+        Intent intent = new Intent(mActivity, ProviderActivity.class);
+        intent.putExtra("isQuot", isQuot);
+        mActivity.startActivity(intent);
     }
 
 

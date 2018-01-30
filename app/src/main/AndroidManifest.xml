@@ -193,7 +193,7 @@
             android:name="com.hldj.hmyg.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/e_activity_theme"
+            android:theme="@style/AppMainTheme"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -308,11 +308,11 @@
             android:screenOrientation="portrait" />
 
         <!-- 积分界面 -->
-        <activity android:name=".Ui.IntegralActivity" android:theme="@style/e_activity_theme"/>
+        <activity
+            android:name=".Ui.IntegralActivity"
+            android:theme="@style/e_activity_theme" />
         <activity android:name=".Ui.IntegralDetailsActivity" />
         <activity android:name=".Ui.ProviderActivity" />
-
-
 
 
         <activity
@@ -748,12 +748,8 @@
             android:name="com.amap.api.v2.apikey"
             android:value="21e7d83fc58234f31b5162a8bd78f745" />
 
-        <activity
-            android:name="com.amap.api.car.example.FindFlowerActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.hldj.hmyg.MapSearchListActivity"
-            android:screenOrientation="portrait"></activity>
+
+
 
 
         <activity

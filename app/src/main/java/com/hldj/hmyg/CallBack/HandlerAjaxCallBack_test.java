@@ -71,7 +71,7 @@ public abstract class HandlerAjaxCallBack_test<E extends SimpleGsonBean_test> ex
     }
 
 
-    private void onFinish() {
+    public void onFinish() {
         if (needSwipeBackActivity != null && !needSwipeBackActivity.isFinishing()) {
             needSwipeBackActivity.hindLoading();
         }

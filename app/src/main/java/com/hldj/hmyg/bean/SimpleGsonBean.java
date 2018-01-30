@@ -1,5 +1,6 @@
 package com.hldj.hmyg.bean;
 
+import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.bean.MomentsReply;
 import com.hldj.hmyg.Ui.friend.bean.UnRead;
 import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
@@ -63,6 +64,8 @@ public class SimpleGsonBean implements Serializable {
 
 
         public MomentsReply momentsReply;
+        public Moments moments;
+
 
         private boolean isCollect;
 
@@ -79,6 +82,7 @@ public class SimpleGsonBean implements Serializable {
         public boolean showSeedlingNote = false;
         public boolean hasProjectManage = false;
         public boolean showSeedlingNoteShare = false;
+        public boolean isQuote = false;/*是否需要申请成为供应商*/
 
         public String agentGrade = " - ";
         public String userPoint = " - ";

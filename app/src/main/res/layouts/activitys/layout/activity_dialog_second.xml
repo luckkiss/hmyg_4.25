@@ -6,20 +6,18 @@
     android:layout_marginLeft="25dp"
     android:layout_marginRight="25dp"
     android:layout_marginTop="20dp"
-    android:orientation="vertical" android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
 
-    <TextView
+    <com.coorchice.library.SuperTextView
         android:id="@+id/close_title"
+        style="@style/super_main_conner_top"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:background="@color/main_color"
         android:drawableRight="@drawable/close"
-        android:gravity="center"
         android:paddingLeft="26dp"
         android:paddingRight="10dp"
         android:text="预中标填写"
-        android:textColor="@color/white"
         android:textSize="18sp" />
 
 
@@ -65,12 +63,12 @@
                 android:id="@+id/guige"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="规格：高度：30 冠幅：50"
                 android:textColor="@color/text_color666"
-                android:layout_marginBottom="10dp"
                 android:textSize="13sp" />
 
             <View style="@style/View_line_gray_1px" />
@@ -85,9 +83,6 @@
             <!--<View style="@style/View_line_gray_1dp" />-->
 
 
-
-
-
             <RelativeLayout
                 style="@style/ll_padleft_15"
                 android:layout_height="45dp"
@@ -97,23 +92,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
-                    android:gravity="center"
-                    android:drawablePadding="3dp"
-                    android:textColor="@color/text_color333"
                     android:drawableLeft="@drawable/seller_redstar"
-                    android:text="苗源地" />
+                    android:drawablePadding="3dp"
+                    android:gravity="center"
+                    android:text="苗源地"
+                    android:textColor="@color/text_color333" />
 
                 <TextView
                     android:id="@+id/city"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
-                    android:textColor="@color/text_color333"
                     android:drawableRight="@drawable/ic_right_icon_new"
                     android:gravity="center"
                     android:minWidth="100dp"
                     android:paddingRight="15dp"
-                    android:text="未选择" />
+                    android:text="未选择"
+                    android:textColor="@color/text_color333" />
 
 
             </RelativeLayout>
@@ -138,13 +133,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
+                    android:layout_centerVertical="true"
                     android:gravity="center"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:text="图片"
-                    android:textColor="@color/text_color333"
-                    android:layout_centerVertical="true"
-                    />
+                    android:textColor="@color/text_color333" />
 
                 <TextView
                     android:id="@+id/tv_purchase_add_pic"
@@ -153,10 +147,10 @@
                     android:layout_marginLeft="10dp"
                     android:drawableLeft="@drawable/seller_redstar"
                     android:drawableRight="@drawable/ic_right_icon_new"
-                    android:textColor="@color/text_color333"
                     android:gravity="center_vertical|end"
                     android:paddingRight="15dp"
                     android:text="未上传图片   "
+                    android:textColor="@color/text_color333"
                     tools:text="上传了3张图片" />
 
 
@@ -197,15 +191,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
+                    android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/tv_purchase_remark"
                     android:background="@drawable/conner_edit"
                     android:gravity="start"
                     android:hint="在此输入备注...."
                     android:minHeight="70dp"
-                    android:layout_marginTop="3dp"
-                    android:paddingTop="10dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
+                    android:paddingTop="10dp"
                     android:textColor="@color/text_color"
                     android:textColorHint="@color/hint_text_color"
                     android:textSize="14sp" />
@@ -233,7 +227,7 @@
         android:id="@+id/commit"
         android:layout_width="match_parent"
         android:layout_height="38dp"
-        android:background="@color/main_color"
+        android:background="@drawable/corner_main_bottom_bg"
         android:gravity="center"
         android:text="提交报价"
         android:textColor="@color/white" />

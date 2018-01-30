@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.UnitTypeBean;
-import com.hldj.hmyg.buy.bean.StorageSave;
+import com.hldj.hmyg.saler.M.StorageSave;
 import com.hldj.hmyg.saler.AdressActivity;
 import com.hldj.hmyg.saler.AdressManagerActivity;
 import com.hldj.hmyg.util.D;
@@ -76,8 +76,6 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
     public void setDatas(StorageSave fromJson) {
         D.e("hellow world");
         holder.et_remark.setText(fromJson.getRemarks());
-
-
     }
 
     public ViewHolder getHolder() {

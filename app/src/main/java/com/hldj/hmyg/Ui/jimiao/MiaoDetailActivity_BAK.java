@@ -36,7 +36,7 @@
 //import com.hldj.hmyg.bean.Pic;
 //import com.hldj.hmyg.bean.PicSerializableMaplist;
 //import com.hldj.hmyg.bean.PicValiteIsUtils;
-//import com.hldj.hmyg.buy.bean.StorageSave;
+//import com.hldj.hmyg.saler.M.StorageSave;
 //import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin3;
 //import com.hldj.hmyg.saler.UpdataImageActivity;
 //import com.hy.utils.GetServerUrl;

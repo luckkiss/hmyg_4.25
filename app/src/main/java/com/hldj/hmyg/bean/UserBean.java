@@ -1,5 +1,7 @@
 package com.hldj.hmyg.bean;
 
+import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
+
 /**
  * Created by Administrator on 2017/4/28.
  */
@@ -96,6 +98,8 @@ public class UserBean {
     public String adminDisplayName;
     public String displayPhone;
     public String permissionsName;
+
+    public PurchaseJsonBean.CiCityBean ciCity ;
 
     public static class CoCityBean {
         /**

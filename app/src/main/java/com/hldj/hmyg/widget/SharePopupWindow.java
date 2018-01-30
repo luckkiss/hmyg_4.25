@@ -82,6 +82,8 @@ public class SharePopupWindow extends PopupWindow implements PlatformActionListe
                     ShareToQzone();
                 }
 
+                ShareDialogFragment.doShare2GetPoint();
+
             }
         });
 

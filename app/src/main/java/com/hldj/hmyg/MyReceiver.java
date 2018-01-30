@@ -18,6 +18,7 @@ import com.hldj.hmyg.buyer.Ui.LoginOutDialogActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalDb;
 
@@ -68,12 +69,17 @@ public class MyReceiver extends BroadcastReceiver {
                     return;
                 }
                 if (messageType.equals("userGetOut")) {
-                    processLoginOut(extras,context);
+                    processLoginOut(extras, context);
 //                    ToastUtil.showLongToast(messageType);
+
+
                     return;
                 }
 
-
+                if (messageType.equals("userPoint")) {
+                    processUserPoint(extras);
+                    return;
+                }
                 momentId = jsonObject.getString("momentsId");
             } catch (JSONException e) {
                 momentId = "";
@@ -289,10 +295,34 @@ public class MyReceiver extends BroadcastReceiver {
         }
     }
 
+
+    /**
+     * 处理积分消息 通知
+     *
+     * @param extras
+     */
+    private void processUserPoint(String extras) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(extras);
+
+            String title = jsonObject.getString("title");
+            String message = jsonObject.getString("message");
+            ToastUtil.showPointAdd(title, message);
+
+
+        } catch (JSONException e) {
+            Log.w(TAG, "processUserPoint: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+
+    }
+
     /**
      * 执行退出登录操作
      */
-    private void processLoginOut(String extras,Context mContent) {
+    private void processLoginOut(String extras, Context mContent) {
         String loginOut = "";
         try {
             JSONObject jsonObject = new JSONObject(extras);
@@ -338,6 +368,12 @@ public class MyReceiver extends BroadcastReceiver {
                     public void onRealSuccess(SimpleGsonBean_test<Moments> result) {
                         Log.i(TAG, "onRealSuccess: " + result);
                         RxBus.getInstance().post(RxBus.TAG_UPDATE, result.data.moments);
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+                        onFinish();
+                        Log.w(TAG, "onFailure: 请求帖子失败---次请求无效---");
                     }
                 });
         Log.i(TAG, "结束请求");

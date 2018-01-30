@@ -12,17 +12,14 @@
     android:orientation="vertical">
     <!--   edit text  初始化时不弹键盘  也不获取焦点 -->
     <!--http://blog.csdn.net/xiawj8957/article/details/45130175-->
-    <TextView
+    <com.coorchice.library.SuperTextView
         android:id="@+id/close_title"
+        style="@style/super_main_conner_top"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/main_color"
         android:drawableRight="@drawable/close"
-        android:gravity="center"
         android:paddingLeft="26dp"
         android:paddingRight="10dp"
         android:text="填写报价"
-        android:textColor="@color/white"
         android:textSize="18sp" />
 
     <TextView
@@ -156,13 +153,13 @@
             android:id="@+id/descript"
             android:layout_width="fill_parent"
             android:layout_height="80dp"
+            android:layout_marginRight="15dp"
             android:layout_marginTop="3dp"
             android:layout_toRightOf="@+id/left"
             android:background="@drawable/conner_edit"
             android:gravity="start"
             android:hint="在此输入备注...."
             android:padding="12dp"
-            android:layout_marginRight="15dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text=""
@@ -196,9 +193,12 @@
         android:id="@+id/commit"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/main_color"
+        android:background="@drawable/corner_main_bottom_bg"
         android:text="提交报价"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+
+
+        />
 
 
 </LinearLayout><!--</FrameLayout>-->

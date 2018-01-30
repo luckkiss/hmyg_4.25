@@ -30,7 +30,6 @@ import com.hldj.hmyg.base.ViewHolders;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
-import com.hldj.hmyg.buy.bean.CollectCar;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.ConstantState;
@@ -64,7 +63,6 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
     private static final int DB_VERSION = 1;
     private SQLiteDatabase db;
     private boolean flag = true; // 全选或全取消
-    private ArrayList<CollectCar> userList = new ArrayList<CollectCar>();
     private FinalBitmap fb;
     private Gson gson;
     private ImageView btn_back;

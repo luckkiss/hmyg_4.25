@@ -219,7 +219,7 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
                 }
 
                 D.e("=======分享内容=======" + shareBean.toString());
-
+                ShareDialogFragment.doShare2GetPoint();
 
             });
             return inflate;

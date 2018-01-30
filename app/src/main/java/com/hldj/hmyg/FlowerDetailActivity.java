@@ -60,6 +60,7 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.AutoAdd2DetailLinearLayout;
+import com.hldj.hmyg.widget.ShareDialogFragment;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
@@ -2059,6 +2060,9 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                         }
                         ShareToQzone();
                     }
+
+
+                    ShareDialogFragment.doShare2GetPoint();
 
                 }
             });

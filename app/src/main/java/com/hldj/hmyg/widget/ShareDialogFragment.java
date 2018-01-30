@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,10 @@ import android.widget.TextView;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.bean.PlatformForShare;
+import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hy.utils.GetServerUrl;
+
+import net.tsz.afinal.http.AjaxCallBack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +38,7 @@ import cn.sharesdk.tencent.qq.QQ;
 
 
 /**
- * Created by Administrator on 2017/5/18.
+ * 分享
  */
 
 public class ShareDialogFragment extends DialogFragment implements PlatformActionListener {
@@ -67,7 +71,6 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
         showDialog(dia_choose_share);
 
         this.setCancelable(true);
-
         return dia_choose_share;
     }
 
@@ -212,6 +215,8 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
                     ShareToQzone();
                 }
 
+                doShare2GetPoint();
+
             });
             return inflate;
         }
@@ -274,6 +279,7 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
         Platform Wechat_men = ShareSDK.getPlatform("WechatMoments");
         Wechat_men.setPlatformActionListener(this);
         Wechat_men.share(sp2);
+
     }
 
 
@@ -283,5 +289,24 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
         instance = null;
     }
 
+    //  new BasePresenter()
+//                .doRequest("admin/userPoint/index", true, callBack);
+    public static void doShare2GetPoint() {
+
+        new BasePresenter().doRequest("share/share", true, new AjaxCallBack<String>() {
+            @Override
+            public void onSuccess(String json) {
+//                ToastUtil.showLongToast("分享结果\n" + json);
+                Log.i("doShare2GetPoint", "onSuccess: " + json);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+//                ToastUtil.showLongToast("分享失败:" + strMsg);
+                Log.i("doShare2GetPoint", "onFailure: " + strMsg);
+            }
+        });
+    }
 
 }

@@ -1,4 +1,4 @@
-package com.hldj.hmyg.buy.bean;
+package com.hldj.hmyg.saler.M;
 
 import com.hldj.hmyg.bean.Pic;
 
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class StorageSave implements Serializable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	String id="";
@@ -86,13 +86,13 @@ public class StorageSave implements Serializable {
 	String length="";
 	String plantType="";
 	String unitType="";
-	ArrayList<Pic> urlPaths=new ArrayList<Pic>(); 
+	ArrayList<Pic> urlPaths=new ArrayList<Pic>();
 	String paramsData="";
 	String remarks="";
 	String storage_save_id="";
 	String minSpec="";
 	String maxSpec="";
-	
+
 	public String getMinSpec() {
 		return minSpec;
 	}

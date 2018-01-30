@@ -20,7 +20,7 @@ public class IntegralDetailsActivity extends BaseWebViewActivity {
 //        String head = "http://192.168.1.252:8090/";
         String head = GetServerUrl.getHtmlUrl();
         //http://192.168.1.252:8090
-//        林则金<linzj183@qq.com>  下午 4:31:05
+//         <linzj183@qq.com>  下午 4:31:05
 //                /app/userPoint/detail
 
         String url = head + "app/userPoint/detail?uid=" + MyApplication.Userinfo.getString("id", "") + "&token=" + GetServerUrl.getKeyStr(System.currentTimeMillis());

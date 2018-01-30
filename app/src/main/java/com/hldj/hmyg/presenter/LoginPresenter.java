@@ -291,10 +291,18 @@ public class LoginPresenter {
                     .getJsonString(JsonGetInfo
                                     .getJSONObject(user, "coCity"),
                             "fullName"));
+
+
             editor.putString("coCitycityCode", JsonGetInfo
                     .getJsonString(JsonGetInfo
                                     .getJSONObject(user, "coCity"),
                             "cityCode"));
+
+            JSONObject object = JsonGetInfo.getJSONObject(user, "ciCity");
+            String ss = JsonGetInfo.getJsonString(object, "fullName");
+            editor.putString("ciCityFullName", ss);
+
+
             editor.putString("twCityfullName", JsonGetInfo
                     .getJsonString(JsonGetInfo
                                     .getJSONObject(user, "twCity"),
@@ -317,6 +325,8 @@ public class LoginPresenter {
                     .getJsonBoolean(user, "isClerk"));
             editor.putBoolean("isLogin", true);
             editor.putBoolean("notification", true);
+
+
             editor.commit();
         } catch (JSONException e) {
             e.printStackTrace();

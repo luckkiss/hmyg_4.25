@@ -81,6 +81,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
+import static com.hldj.hmyg.R.id.sptv_wd_gys;
 import static com.hldj.hmyg.util.UploadHeadUtil.CHOOSE_PHOTO;
 import static com.hldj.hmyg.util.UploadHeadUtil.CROP_PHOTO;
 import static com.hldj.hmyg.util.UploadHeadUtil.TAKE_PHOTO;
@@ -98,6 +99,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
     public static boolean showSeedlingNoteShare = false;//是否显示 共享资源
     public static boolean showSeedlingNoteTeam = false;//是否显示 团队共享
+    private boolean isQuote;/*是否报价权限  true  ----   不需要读取 网页 http://192.168.1.252:8090/app/protocol/supplier*/
 
 
 //    FinalBitmap finalBitmap;
@@ -174,7 +176,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         this.getView(R.id.sptv_wd_jmb).setOnClickListener(v -> MiaoNoteListActivity.start(mActivity));// 记苗本
 
         this.getView(R.id.sptv_wd_jf).setOnClickListener(v -> IntegralActivity.start(mActivity));//  积分
-        this.getView(R.id.sptv_wd_gys).setOnClickListener(v -> ProviderActivity.start(mActivity));//  供应商
+        this.getView(sptv_wd_gys).setOnClickListener(v -> ProviderActivity.start(mActivity, isQuote));//  供应商
 
 
         this.getView(R.id.iv_circle_head).setOnClickListener(v -> {
@@ -240,11 +242,13 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
         // 地区   福建省 厦门市 思明区
 
-        String city = getSpS("coCityfullName");
+        String city = getSpS("ciCityFullName");
+//        String city = getSpS("coCityfullName");
+
         if (TextUtils.isEmpty(city)) {
             ((TextView) getView(R.id.wd_city)).setText("-");
         } else {
-            ((TextView) getView(R.id.wd_city)).setText(getSpS("coCityfullName"));
+            ((TextView) getView(R.id.wd_city)).setText(getSpS("ciCityFullName"));
         }
 
 
@@ -632,11 +636,13 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     public void isShowProject() {
         new BasePresenter()
                 .doRequest("admin/user/getPermission", true, new AjaxCallBack<String>() {
+
+
                     @Override
                     public void onSuccess(String json) {
                         Log.i("=======", "onSuccess: " + json);
 
-                        //{"agentGrade":"level1","userPoint":14,"agentGradeText":
+                        //{agentGrade:"level1","userPoint":14,"agentGradeText":
                         // "普通供应商","showSeedlingNoteShare":true,
                         // "showSeedlingNote":true,"hasProjectManage":true},
                         // "version":"tomcat7.0.53"}
@@ -659,16 +665,18 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                                 getView(R.id.sptv_wd_jmb).setVisibility(bean.getData().showSeedlingNote ? View.VISIBLE : View.GONE);
                             }
                             showSeedlingNoteShare = bean.getData().showSeedlingNoteShare;
+                            isQuote = bean.getData().isQuote;
 
 //                            showSeedlingNoteTeam = !showSeedlingNoteTeam;
 //                            showSeedlingNoteShare = false;
                             D.e("===========showSeedlingNoteShare===========" + showSeedlingNoteShare);
 
-                            checkGys_Point(bean.getData().agentGrade, bean.getData().userPoint, bean.getData().agentGradeText);
+                            checkGys_Point(bean.getData().agentGrade, bean.getData().userPoint, bean.getData().agentGradeText, isQuote);
 
 
                         } else {
                             ToastUtil.showLongToast(bean.msg);
+
                         }
                     }
 
@@ -686,31 +694,43 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
      * @param agentGrade     供应商等级
      * @param userPoint      积分
      * @param agentGradeText 供应商名称
+     * @param quote
      */
-    private void checkGys_Point(String agentGrade, String userPoint, String agentGradeText) {
+    private void checkGys_Point(String agentGrade, String userPoint, String agentGradeText, boolean quote) {
 
         TextView sptv_wd_jf = getView(R.id.sptv_wd_jf);
         TextView sptv_wd_gys = getView(R.id.sptv_wd_gys);
         sptv_wd_jf.setText("积分  " + userPoint);
-        sptv_wd_gys.setText(agentGradeText);
 
+        if (quote)
+        {
+            sptv_wd_gys.setText(agentGradeText);
+        }
         Drawable drawable = null;
         /// 这一步必须要做,否则不会显示.
-
-        if ("level1".equals("agentGrade")) {
+        //:{agentGrade:"level1","isQuote":true,"userPoint":421,"agentGradeText":"普通供应商","showS
+        sptv_wd_gys.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color666));
+        if (!quote) {
+            drawable = getResources().getDrawable(R.mipmap.wd_gys_no);
+            sptv_wd_gys.setText("申请成为供应商");
+            sptv_wd_gys.setTextColor(ContextCompat.getColor(mActivity, R.color.main_color));
+        } else if ("level1".equals(agentGrade)) {
             drawable = getResources().getDrawable(R.mipmap.wd_gys_lv1);
-        } else if ("level2".equals("agentGrade")) {
+
+        } else if ("level2".equals(agentGrade)) {
             drawable = getResources().getDrawable(R.mipmap.wd_gys_lv2);
-        } else if ("level3".equals("agentGrade")) {
+        } else if ("level3".equals(agentGrade)) {
             drawable = getResources().getDrawable(R.mipmap.wd_gys_lv3);
-        } else if ("level4".equals("agentGrade")) {
+        } else if ("level4".equals(agentGrade)) {
             drawable = getResources().getDrawable(R.mipmap.wd_gys_lv4);
-        } else if ("level5".equals("agentGrade")) {
+        } else if ("level5".equals(agentGrade)) {
             drawable = getResources().getDrawable(R.mipmap.wd_gys_lv5);
         } else {
             drawable = getResources().getDrawable(R.mipmap.wd_gys_no);
             sptv_wd_gys.setText("申请成为供应商");
         }
+
+
 
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         sptv_wd_gys.setCompoundDrawables(drawable, null, null, null);
@@ -724,7 +744,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 //        View deco = mActivity.getWindow().getDecorView();
 //        deco.setPadding(0, 50, 0, 0);
 
-        ToastUtil.showPointAdd("添加了5积分");
+//        ToastUtil.showPointAdd("每日登陆", "获得10积分");
 
 //        StatusBarUtil.setColor(MainActivity.instance, Color.TRANSPARENT);
 //        StatusBarUtil.setTranslucent(MainActivity.instance, 0);

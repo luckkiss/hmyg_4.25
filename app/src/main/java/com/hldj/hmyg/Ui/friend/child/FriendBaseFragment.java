@@ -238,7 +238,7 @@ public class FriendBaseFragment extends BaseFragment {
                     @Override
                     public void setConverView(ViewHolders myViewHolder, MomentsReply s, int position) {
 
-                        if (s.attrData == null || s.attrData.fromDisplayName == null) {
+                        if ( s.attrData == null || s.attrData.fromDisplayName == null) {
                             return;
                         }
                         TextView textView = myViewHolder.getView(android.R.id.text1);
@@ -454,7 +454,7 @@ public class FriendBaseFragment extends BaseFragment {
     @Override
     protected void loadData() {
         super.loadData();
-        onRefresh("", "","");//根据搜索条件。判断是否需要刷新数据
+        onRefresh("", "", "");//根据搜索条件。判断是否需要刷新数据
 //        if (!mIsVisible || !mIsPrepared || !isFirst) {
 //            Log.e(TAG, "不加载数据 mIsVisible=" + mIsVisible + "  mIsPrepared=" + mIsPrepared + " isFirst = " + isFirst);
 //            return;

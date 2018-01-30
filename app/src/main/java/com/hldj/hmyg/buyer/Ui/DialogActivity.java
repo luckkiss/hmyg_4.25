@@ -39,7 +39,6 @@ import net.tsz.afinal.annotation.view.ViewInject;
 
 public class DialogActivity extends BaseMVPActivity {
     private static final String TAG = "DialogActivity";
-
     @ViewInject(id = R.id.city)
     OptionItemView city;
 

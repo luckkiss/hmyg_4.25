@@ -14,20 +14,20 @@
         <!--android:background="@drawable/toast_bg">-->
 
         <TextView
-            android:id="@+id/type"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:gravity="center_horizontal"
             android:minWidth="160dp"
             android:text="每日登陆"
             android:textColor="@color/white"
-            android:textSize="18sp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:textSize="18sp" />
 
         <com.hldj.hmyg.widget.DrawableCenterText
-            android:id="@+id/drawableCenterText"
+            android:id="@+id/msg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

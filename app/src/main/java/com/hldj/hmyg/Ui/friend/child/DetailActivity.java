@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.flyco.dialog.widget.MaterialDialog;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack_test;
 import com.hldj.hmyg.FlowerDetailActivity;
@@ -59,6 +60,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 import static com.example.weixin_friendcircle.Util.dip2px;
 import static com.hldj.hmyg.Ui.friend.child.FriendBaseFragment.sendPush;
@@ -188,6 +190,7 @@ public class DetailActivity extends BaseMVPActivity {
         second.setOnClickListener(v -> {
             //未登录。跳转登录界面
             if (!commitLogin()) return;
+
             EditDialog.replyListener = new EditDialog.OnReplyListener() {
                 @Override
                 public void OnReply(String reply) {
@@ -356,8 +359,10 @@ public class DetailActivity extends BaseMVPActivity {
                     helper.addOnClickListener(R.id.content, v -> {
                         //未登录。跳转登录界面
                         if (!commitLogin()) return;
+                        if (isSelf(mCoreRecyclerView, helper, mMoments, tablayout, s, mActivity))
+                            return;
                         EditDialog.replyListener = reply -> {
-//                            ToastUtil.showLongToast("发表评论：\n" + reply);
+//                      ToastUtil.showLongToast("发表评论：\n" + reply);
                             new BasePresenter()
                                     .putParams("momentsId", mMoments.id)
                                     .putParams("reply", reply)
@@ -419,6 +424,7 @@ public class DetailActivity extends BaseMVPActivity {
 
 
     }
+
 
     /**
      * 网络请求，本界面数据
@@ -534,20 +540,27 @@ public class DetailActivity extends BaseMVPActivity {
         }
         Log.i(TAG, "DetailActivity  postUpdata: momentsNews is no null \n 立刻刷新当前 start");
         try {
+
             if (momentsNew.thumbUpListJson != mMoments.thumbUpListJson) {
                 //notify thumbUpListJson
-                mMoments.thumbUpListJson = momentsNew.thumbUpListJson;
+                mMoments = momentsNew;
+//                mMoments.thumbUpListJson = momentsNew.thumbUpListJson;
                 mCoreRecyclerView.getAdapter().setDatasState(100);
                 mCoreRecyclerView.getAdapter().addData(mMoments.thumbUpListJson);
-                tablayout.getTabAt(1).select();
+                tablayout.getTabAt(0).select();
+                tablayout.getTabAt(0).setText("评论 (" + momentsNew.replyCount + ")");
+
                 D.i("========刷新了=======点赞列表===notify thumbUpListJson===");
             }
             if (momentsNew.itemListJson != mMoments.itemListJson) {
                 //notify itemListJson
+                mMoments = momentsNew;
                 mMoments.itemListJson = momentsNew.itemListJson;
                 mCoreRecyclerView.getAdapter().setDatasState(100);
                 mCoreRecyclerView.getAdapter().addData(mMoments.itemListJson);
-                tablayout.getTabAt(0).select();
+                tablayout.getTabAt(1).select();
+                first.setText("点赞 " + momentsNew.thumbUpCount + "");
+
                 D.i("========刷新了=======回复列表=====notify itemListJson=");
             }
         } catch (Exception e) {
@@ -654,4 +667,68 @@ public class DetailActivity extends BaseMVPActivity {
         });
 
     }
+
+
+    /**
+     * 判断是否自己 的评论
+     *
+     * @param
+     * @param item
+     * @param
+     * @param
+     * @return
+     */
+    public boolean isSelf(CoreRecyclerView mCoreRecyclerView, BaseViewHolder helper, final Moments moments, TabLayout tablayout, MomentsReply item, NeedSwipeBackActivity m) {
+        boolean isSelf = item.isOwner;
+        if (isSelf) {
+            final MaterialDialog dialog = new MaterialDialog(
+                    m);
+            dialog.title("提示").content("确认删除评论?")//
+                    .btnText("取消", "确认")//
+                    .show();
+            dialog.setOnBtnClickL(() -> {
+                dialog.dismiss();
+//               ToastUtil.showLongToast("确认删除");
+            }, () -> {
+                dialog.dismiss();
+//                GlobBaseAdapter globBaseAdapter = (GlobBaseAdapter) myViewHolder.getAdapter();
+                FriendPresenter.doDeleteReply(item.id, item.fromId, new HandlerAjaxCallBack((NeedSwipeBackActivity) m) {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+                        ToastUtil.showLongToast(gsonBean.msg);
+//                        MomentsReply momentsReply = new MomentsReply();
+//                        momentsReply = gsonBean.getData().momentsReply;
+//                        if (mMoments.itemListJson != null)
+//                            mMoments.itemListJson.add(momentsReply);
+
+                        mMoments.itemListJson.remove(helper.getAdapterPosition());
+                        mCoreRecyclerView.getAdapter().setDatasState(100);
+                        mCoreRecyclerView.getAdapter().addData(mMoments.itemListJson);
+//                        Moments moments = gsonBean.getData().moments;
+                        tablayout.getTabAt(0).select();
+//
+                        mMoments.replyCount = mMoments.itemListJson.size();
+//                        mCoreRecyclerView.getAdapter().addData(mMoments.itemListJson);
+                        tablayout.getTabAt(0).setText("评论 (" + mMoments.itemListJson.size() + ")");
+
+//                        ToastUtil.showLongToast(gsonBean.msg);
+                        RxBus.getInstance().post(RxBus.TAG_UPDATE, moments);
+                        sendPush(moments);
+//                        mCoreRecyclerView.getAdapter().remove(helper.getAdapterPosition());
+//                        globBaseAdapter.getDatas().remove(position);
+//                        globBaseAdapter.notifyDataSetChanged();
+                    }
+                });
+            });
+
+            Log.i(TAG, "isSelf: \n" + "是自己");
+            return true;
+        } else {
+            Log.i(TAG, "isSelf: \n" + "不是自己");
+            return false;
+        }
+
+//        myItemClickLister_content.OnItemDel(position, data.get(position).get("id").toString(),);
+    }
+
 }

@@ -24,6 +24,7 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.StartBarUtils;
 import com.hldj.hmyg.widget.IntegralItemRelative;
+import com.hy.utils.ToastUtil;
 import com.lqr.optionitemview.OptionItemView;
 
 import net.tsz.afinal.http.AjaxCallBack;
@@ -56,8 +57,8 @@ public class IntegralActivity extends BaseMVPActivity {
     @Override
     public void initView() {
         StateBarUtil.setStatusTranslater(this, false);
-        StartBarUtils.FlymeSetStatusBarLightMode(getWindow(),false);
-        StartBarUtils.MIUISetStatusBarLightMode(getWindow(),false);
+        StartBarUtils.FlymeSetStatusBarLightMode(getWindow(), false);
+        StartBarUtils.MIUISetStatusBarLightMode(getWindow(), false);
 
         recycle = getView(R.id.recycle);
         top = getView(R.id.top);
@@ -95,7 +96,7 @@ public class IntegralActivity extends BaseMVPActivity {
                         switch2Start(v);
                     }
                 });
-                relative.setRightTextStates(item.finish,item.point + " 积分", item.value);
+                relative.setRightTextStates(item.finish, item.point + " 积分", item.value);
                 //red_btn_bg_color
 
 
@@ -126,12 +127,18 @@ public class IntegralActivity extends BaseMVPActivity {
 //                if (bean_new.data != null && bean_new.data.page != null)
                 Log.i("", "onSuccess: " + json);
 
-                ((TextView) getView(score)).setText("234"+bean_new.data.point + "");
+                ((TextView) getView(score)).setText(bean_new.data.point + "");
 
                 recycle.getAdapter().setDatasState(100);
                 recycle.getAdapter().addData(bean_new.data.userPointTypeList);
 //                ToastUtil.showLongToast(json);
                 hindLoading();
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                ToastUtil.showLongToast("" + strMsg);
             }
         });
 
@@ -215,7 +222,7 @@ public class IntegralActivity extends BaseMVPActivity {
 //        new BasePresenter()
 //                .doRequest("userPoint/list", true, callBack);
         new BasePresenter()
-                .doRequest("userPoint", true, callBack);
+                .doRequest("admin/userPoint/index", true, callBack);
     }
 
 

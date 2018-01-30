@@ -609,10 +609,12 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 
 
     private void setStatusBars() {
-        StateBarUtil.setStatusTranslater(MainActivity.instance, true);
+        StateBarUtil.setStatusTranslaterWhite(MainActivity.instance, true);
 
         StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
         StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
+
+//        StateBarUtil.setColorPrimaryDark(Color.WHITE, getWindow());
 
     }
 }
