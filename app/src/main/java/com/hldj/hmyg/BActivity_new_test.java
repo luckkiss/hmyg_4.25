@@ -610,7 +610,12 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 
     private void setStatusBars() {
         StateBarUtil.setStatusTranslaterWhite(MainActivity.instance, true);
-
+//        getWindow().getDecorView().setSystemUiVisibility(
+//                View.SYSTEM_UI_FLAG_VISIBLE);
+//        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+//                View.SYSTEM_UI_FLAG_LOW_PROFILE);//有点虚无
+        //         SYSTEM_UI_FLAG_VISIBLE 普通状态栏
         StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
         StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
 

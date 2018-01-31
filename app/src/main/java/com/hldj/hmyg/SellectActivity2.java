@@ -660,4 +660,9 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
         intent.putExtras(bundle);
         context.startActivityForResult(intent, 110);
     }
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

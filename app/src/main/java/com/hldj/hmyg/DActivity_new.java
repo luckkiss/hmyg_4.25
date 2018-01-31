@@ -354,10 +354,10 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 //        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
         StateBarUtil.setStatusTranslater(MainActivity.instance, true);
 //        StateBarUtil.setStatusTranslater(mActivity, true);
-
+        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
+        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
 
     }
-
 
 
 }

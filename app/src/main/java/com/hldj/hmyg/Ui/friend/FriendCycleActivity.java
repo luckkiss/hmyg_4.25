@@ -351,7 +351,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
                     }
                 }
             }
-        }, 450);
+        }, 650);
         Log.i(TAG, "onResume: 结束");
     }
 
@@ -431,12 +431,12 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 //    }
 
 
-
     private void setStatusBars() {
         StateBarUtil.setStatusTranslater(MainActivity.instance, true);
         StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
         StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
     }
+
 
 
 

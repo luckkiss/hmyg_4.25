@@ -88,9 +88,8 @@ public class WebViewDialogGysFragment extends DialogFragment {
 
         window = dialog.getWindow();
         window.setGravity(Gravity.CENTER); //可设置dialog的位置
-        window.getDecorView().setPadding(76, 0, 76, 0); //消除边距
+        window.getDecorView().setPadding(50, 0, 50, 0); //消除边距
         window.getDecorView().setBackgroundDrawable(new ColorDrawable(0));
-
         WindowManager.LayoutParams lp = window.getAttributes();
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;   //设置宽度充满屏幕
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -158,6 +157,10 @@ public class WebViewDialogGysFragment extends DialogFragment {
         tv_show_title = (TextView) view.findViewById(R.id.tv_show_title);
 
         tv_show_html.setText(Html.fromHtml(html, null, null));
+        tv_show_html.setVisibility(View.GONE);
+        ((ViewGroup) tv_show_html.getParent()).setVisibility(View.GONE);
+        //fromHtml(String, int, ImageGetter, TagHandler)
+//        tv_show_html.setText(Html.fromHtml());
         tv_show_title.setText(mTitle);
 
 
@@ -180,6 +183,7 @@ public class WebViewDialogGysFragment extends DialogFragment {
         });
         //启用支持Javascript
         WebSettings settings = webView.getSettings();
+        settings.setDefaultTextEncodingName("UTF -8");//设置默认为utf-8
         settings.setJavaScriptEnabled(true);
         //WebView加载页面优先使用缓存加载
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
@@ -199,10 +203,13 @@ public class WebViewDialogGysFragment extends DialogFragment {
 
 
         });
+//        webView.loadData(html, "text/html", "UTF-8");
+        webView.loadData(html, "text/html; charset=UTF-8", null);//这种写法可以正确解码
+
         tv_ok_to_close = (TextView) view.findViewById(R.id.tv_ok_to_close);
-        view.findViewById(R.id.tv_show_title).setOnClickListener(v -> {
-            dismiss();
-        });
+//        view.findViewById(R.id.tv_show_title).setOnClickListener(v -> {
+//            dismiss();
+//        });
 
         tv_ok_to_close.setOnClickListener(v -> {
             dismiss();

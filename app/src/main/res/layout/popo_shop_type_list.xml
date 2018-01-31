@@ -35,6 +35,7 @@
                 android:layout_height="250dp"
                 android:background="@color/white"
                 android:horizontalSpacing="3dp"
+                android:listSelector="@color/trans"
                 android:numColumns="3"
                 android:verticalSpacing="3dp"
                 android:visibility="visible" />

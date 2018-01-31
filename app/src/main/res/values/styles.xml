@@ -472,7 +472,7 @@
 
     <style name="et_seeding_common">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">32dp</item>
         <item name="android:layout_marginLeft">@dimen/x10</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingLeft">10dp</item>
@@ -494,11 +494,10 @@
 
     <style name="rl_seeding_commom">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/y31</item>
+        <item name="android:layout_height">48dp</item>
         <item name="android:background">@drawable/feedback_content_edittext_shape</item>
         <item name="android:paddingLeft">@dimen/x9</item>
         <item name="android:paddingRight">@dimen/x9</item>
-        <item name="android:paddingTop">@dimen/y8</item>
     </style>
 
 

@@ -1,6 +1,8 @@
 package com.hldj.hmyg.base;
 
 import android.app.ProgressDialog;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableStringBuilder;
@@ -202,4 +204,9 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
             return false;
         }
     }
+
+
+
+
+
 }

@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -467,5 +469,14 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
     }
 
+
+    @Override
+    public Resources getResources() {
+        Resources res = super.getResources();
+        Configuration config = new Configuration();
+        config.setToDefaults();
+        res.updateConfiguration(config, res.getDisplayMetrics());
+        return res;
+    }
 
 }

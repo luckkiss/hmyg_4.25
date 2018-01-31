@@ -57,6 +57,7 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.RippleAdjuster;
 import com.hldj.hmyg.util.UploadHeadUtil;
+import com.hldj.hmyg.widget.BounceScrollView;
 import com.hldj.hmyg.widget.ShareDialogFragment;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
@@ -102,7 +103,12 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     private boolean isQuote;/*是否报价权限  true  ----   不需要读取 网页 http://192.168.1.252:8090/app/protocol/supplier*/
 
 
+    BounceScrollView alfa_scroll;
+
 //    FinalBitmap finalBitmap;
+
+
+    public float distance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +154,47 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
 
         LinearLayout ll_me_content = (LinearLayout) findViewById(R.id.ll_me_content);
+        BounceScrollView alfa_scroll = (BounceScrollView) findViewById(R.id.alfa_scroll);
+        TextView tip = (TextView) findViewById(R.id.tip);
+        alfa_scroll.onMoveListener = new BounceScrollView.OnMoveListener() {
+            @Override
+            public void onMove(float preY, float deltaY, float y) {
+
+
+                Log.i("onMove", "y abs  ----->" + (y - preY));
+
+
+                if (curStar == Math.abs(deltaY) < MyApplication.dp2px(mActivity, 65)) {
+                    return;
+                }
+
+                setStatues(Math.abs(deltaY) < MyApplication.dp2px(mActivity, 65));
+
+                distance += y - preY;
+
+
+                // I/onMove: y ----->736.61633
+                //  y ----->738.6153
+
+            }
+
+            @Override
+            public void onUp() {
+                Log.i("onUp", "getHeight y " + tip.getHeight());
+                Log.i("onUp", "getMeasuredHeight y " + tip.getMeasuredHeight());
+                Log.i("onUp", "distance y " + distance);
+                Log.i("onUp", " content padding top  " + ll_me_content.getPaddingTop());
+//                Log.i("onUp", " content margin top  " + (G)ll_me_content.getLayoutParams());
+                setStatues(false);
+            }
+        };
+        Log.i("onUp", "tip y " + tip.getHeight());
+
+        if (!GetServerUrl.isTest) {
+            alfa_scroll.setBackgroundColor(Color.WHITE);
+        }
+//        ViewGroup viewGroup = (ViewGroup) alfa_scroll.getChildAt(0);
+//        viewGroup.addView(new Button(mActivity),0);
 
         /**
          * 为所有suptertextivew 设置点击效果
@@ -246,7 +293,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 //        String city = getSpS("coCityfullName");
 
         if (TextUtils.isEmpty(city)) {
-            ((TextView) getView(R.id.wd_city)).setText("-");
+            ((TextView) getView(R.id.wd_city)).setText("未设置城市");
         } else {
             ((TextView) getView(R.id.wd_city)).setText(getSpS("ciCityFullName"));
         }
@@ -612,7 +659,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         super.onResume();
         refresh();
 
-        setStatues();
+        setStatues(false);
 
         OptionItemView optionItemView = this.getView(R.id.top_bar_option); // 这是title 左右边的点击事件
         if (AActivityPresenter.isShowRead) {
@@ -702,8 +749,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         TextView sptv_wd_gys = getView(R.id.sptv_wd_gys);
         sptv_wd_jf.setText("积分  " + userPoint);
 
-        if (quote)
-        {
+        if (quote) {
             sptv_wd_gys.setText(agentGradeText);
         }
         Drawable drawable = null;
@@ -731,14 +777,15 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         }
 
 
-
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         sptv_wd_gys.setCompoundDrawables(drawable, null, null, null);
 
     }
 
 
-    private void setStatues() {
+    public boolean curStar = true;
+
+    private void setStatues(boolean isDark) {
 //        StatusBarUtil.setColor(MainActivity.instance, Color.TRANSPARENT);
 //        mActivity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
 //        View deco = mActivity.getWindow().getDecorView();
@@ -749,14 +796,16 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 //        StatusBarUtil.setColor(MainActivity.instance, Color.TRANSPARENT);
 //        StatusBarUtil.setTranslucent(MainActivity.instance, 0);
 //        StatusBarUtil.setColor(MainActivity.instance, ContextCompat.getColor(mActivity, R.color.main_color));
-        StateBarUtil.setStatusTranslater(MainActivity.instance, false);
+
+//        if (curStar == isDark) {
+//            return;
+//        }
+        curStar = isDark;
+        StateBarUtil.setStatusTranslater(MainActivity.instance, isDark);
 //        StateBarUtil.setStatusTranslater(MainActivity.instance, false);
-        StateBarUtil.setStatusTranslater(mActivity, false);
-
-        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, false);
-        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, false);
-
-
+        StateBarUtil.setStatusTranslater(mActivity, isDark);
+        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, isDark);
+        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, isDark);
     }
 
 

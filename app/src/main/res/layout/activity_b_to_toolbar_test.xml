@@ -6,13 +6,12 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/top_padding_statu"
         android:background="@color/white"
+        android:paddingTop="@dimen/top_padding_statu"
         android:visibility="visible"
         app:elevation="0dp">
 

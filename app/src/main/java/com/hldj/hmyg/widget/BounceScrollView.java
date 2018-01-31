@@ -70,6 +70,10 @@ public class BounceScrollView extends ScrollView {
                 final float preY = y;// 按下时的y坐标
                 float nowY = ev.getY();// 时时y坐标
                 int deltaY = (int) (preY - nowY);// 滑动距离
+
+                if (onMoveListener != null) {
+                    onMoveListener.onMove(preY, deltaY, nowY);
+                }
 //                D.e("==move==");
                 y = nowY;
                 if (isNeedMove()) {
@@ -95,6 +99,10 @@ public class BounceScrollView extends ScrollView {
                 if (isNeedAnimation()) {
                     animation();
                     isCount = false;
+                }
+
+                if (onMoveListener != null) {
+                    onMoveListener.onUp();
                 }
 //                D.e("==up==");
                 break;
@@ -134,5 +142,14 @@ public class BounceScrollView extends ScrollView {
         return scrollY == 0 || scrollY == offset;
     }
 
+
+    public OnMoveListener onMoveListener;
+
+    public static interface OnMoveListener {
+        void onMove(float preY, float deltaY, float y);//y轴
+
+        void onUp();
+
+    }
 
 }

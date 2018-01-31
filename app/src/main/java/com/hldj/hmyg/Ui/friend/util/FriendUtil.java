@@ -173,6 +173,7 @@ public class FriendUtil {
 //                                textView.setChecked(!textView.isChecked());
                                 provinceModel.setChecked(textView.isChecked());
                                 historyString = "";
+//                                isFirst = false;
 //                                if (provinceModel.isChecked()) {
 //                                    textView.setTextColor(activity.getResources().getColor(R.color.main_color));
 //                                } else {

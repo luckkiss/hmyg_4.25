@@ -228,7 +228,7 @@ public class CommonListSpinner1<T> {
 //        selectPopupWindow.showAsDropDown(parent, 0, -3);
 
         if (Build.VERSION.SDK_INT < 24) {
-            selectPopupWindow.showAsDropDown(parent, 0, -3);
+            selectPopupWindow.showAsDropDown(mBuilder.mApplyParentView, 0, -3);
         } else {
             // 适配 android 7.0
             int[] location = new int[2];
@@ -239,10 +239,11 @@ public class CommonListSpinner1<T> {
 //            ToastUtil.showShortToast("y="+y);
             Log.e(getClass().getSimpleName(), "x : " + x + ", y : " + y);
             selectPopupWindow.showAtLocation(mBuilder.mApplyParentView, Gravity.NO_GRAVITY, 0, y + getStatusBarHeight());
+//        }
+            optionsAdapter.notifyDataSetChanged();
         }
-
-        optionsAdapter.notifyDataSetChanged();
         return this;
+
     }
 
     public CommonListSpinner1 ShowWithHistorys(String cityCodes) {
@@ -253,7 +254,7 @@ public class CommonListSpinner1<T> {
 //        selectPopupWindow.showAsDropDown(parent, 0, -3);
 
         if (Build.VERSION.SDK_INT < 24) {
-            selectPopupWindow.showAsDropDown(parent, 0, -3);
+            selectPopupWindow.showAsDropDown(mBuilder.mApplyParentView, 0, -3);
         } else {
             // 适配 android 7.0
             int[] location = new int[2];
@@ -287,7 +288,7 @@ public class CommonListSpinner1<T> {
         // （是否会产生缝隙，及产生缝隙的大小，可能会根据机型、Android系统版本不同而异吧，不太清楚）
 //        selectPopupWindow.showAsDropDown(parent, 0, -3);
         if (Build.VERSION.SDK_INT < 24) {
-            selectPopupWindow.showAsDropDown(parent, 0, -3);
+            selectPopupWindow.showAsDropDown(mBuilder.mApplyParentView, 0, -3);
         } else {
             // 适配 android 7.0
             int[] location = new int[2];
@@ -297,7 +298,7 @@ public class CommonListSpinner1<T> {
             int y = location[1];
 //            ToastUtil.showShortToast("y="+y);
             Log.e(getClass().getSimpleName(), "x : " + x + ", y : " + y);
-            selectPopupWindow.showAtLocation(parent, Gravity.NO_GRAVITY, 0, y - 1 + getStatusBarHeight());
+            selectPopupWindow.showAtLocation(mBuilder.mApplyParentView, Gravity.NO_GRAVITY, 0, y - 1 + getStatusBarHeight());
         }
 
         optionsAdapter.notifyDataSetChanged();
