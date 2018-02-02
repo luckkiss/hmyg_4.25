@@ -2,9 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hldj.hmyg"
-    android:versionCode="87"
-    android:versionName="3.0.6release_fix3">
+    android:versionCode="88"
+    android:versionName="3.0.6release_fix4">
 
+    <!--android:versionCode="87"
+    android:versionName="3.0.6release_fix3"-->
 
     <!--    android:versionCode="86"
     android:versionName="3.0.6release_fix2">-->
@@ -747,9 +749,6 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="21e7d83fc58234f31b5162a8bd78f745" />
-
-
-
 
 
         <activity

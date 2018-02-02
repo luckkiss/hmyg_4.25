@@ -199,16 +199,6 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
                 FriendCycleSearchActivity.start(mActivity, "");
                 break;  /*搜索*/
 
-            case R.id.rb_center:
-//                ToastUtil.showLongToast("rb_center");
-                currentType = MomentsType.supply.getEnumValue();
-                FriendBaseFragment fragment2 = (FriendBaseFragment) list_fragment.get(1);
-                Log.i(TAG, "onClick: rb_center" + rb_title_right.isChecked());
-                Log.i(TAG, "onClick: rb_center" + viewpager.getCurrentItem());
-                Log.i(TAG, "onClick: fragment is visiable" + fragment2.mIsVisible);
-                viewpager.setCurrentItem(1);
-                break;
-
             case R.id.message:
                 if (message != null) {
 //                  message.setVisibility(View.GONE);
@@ -217,8 +207,6 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
                     PushListActivity.start(mActivity);
                     /*跳转到 push 推送列表界面*/
                     clearAllNotifications(mActivity);
-
-
                 }
                 ToastUtil.showLongToast(message.getText() + "");
                 break;

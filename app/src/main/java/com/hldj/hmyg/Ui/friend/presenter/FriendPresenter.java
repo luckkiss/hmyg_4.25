@@ -254,6 +254,9 @@ public class FriendPresenter {
 
 
                     TextView tv2 = (TextView) viewRoot.findViewById(R.id.pup_show_share);
+                    if (TextUtils.isEmpty(item.attrData.storeId)) {
+                        tv2.setVisibility(View.GONE);
+                    }
                     tv2.setTextColor(baseMVPActivity.getColorByRes(R.color.text_color111));
 //                              tv2.setText("进入店铺");
                     tv2.setOnClickListener(v1 -> {

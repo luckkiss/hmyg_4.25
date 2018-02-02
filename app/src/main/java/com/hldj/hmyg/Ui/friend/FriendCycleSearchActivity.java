@@ -9,9 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -26,6 +24,7 @@ import com.hldj.hmyg.widget.CommonListSpinner1;
 import net.tsz.afinal.annotation.view.ViewInject;
 
 import java.util.ArrayList;
+
 
 /**
  * FinalActivity 来进行    数据绑定
@@ -75,23 +74,22 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
     @ViewInject(id = R.id.tv_sort, click = "onClick")
     public SuperTextView tv_sort;
 
-    @ViewInject(id = R.id.rb_left, click = "onClick")
-    public RadioButton rb_left;
-    @ViewInject(id = R.id.rb_center, click = "onClick")
-    public RadioButton rb_center;
-    @ViewInject(id = R.id.rb_right, click = "onClick")
-    public RadioButton rb_right;
+//    @ViewInject(id = R.id.rb_left, click = "onClick")
+//    public RadioButton rb_left;
+//    @ViewInject(id = R.id.rb_center, click = "onClick")
+//    public RadioButton rb_center;
+//    @ViewInject(id = R.id.rb_right, click = "onClick")
+//    public RadioButton rb_right;
 
-    @ViewInject(id = R.id.radios)
-    public RadioGroup radios;
+//    @ViewInject(id = R.id.radios)
+//    public RadioGroup radios;
     /*搜索框*/
     @ViewInject(id = R.id.search_content)
     public EditText search_content;
 
     @ViewInject(id = R.id.line)
     public View line;
-    @ViewInject(id = R.id.line_iv)
-    public ImageView line_iv;
+
     private CommonListSpinner1 commonListSpinner1;
 
 
@@ -119,13 +117,13 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 0) {
-                    rb_left.setChecked(true);
-                } else if (position == 1) {
-                    rb_center.setChecked(true);
-                } else {
-                    rb_right.setChecked(true);
-                }
+//                if (position == 0) {
+//                    rb_left.setChecked(true);
+//                } else if (position == 1) {
+//                    rb_center.setChecked(true);
+//                } else {
+//                    rb_right.setChecked(true);
+//                }
             }
 
             @Override
@@ -134,15 +132,15 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
             }
         });
         viewpager.setOffscreenPageLimit(1);
-        radios.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId == R.id.rb_left) {
-                viewpager.setCurrentItem(0);
-            } else if (checkedId == R.id.rb_center) {
-                viewpager.setCurrentItem(1);
-            } else if (checkedId == R.id.rb_right) {
-                viewpager.setCurrentItem(2);
-            }
-        });
+//        radios.setOnCheckedChangeListener((group, checkedId) -> {
+//            if (checkedId == rb_left) {
+//                viewpager.setCurrentItem(0);
+//            } else if (checkedId == rb_center) {
+//                viewpager.setCurrentItem(1);
+//            } else if (checkedId == rb_right) {
+//                viewpager.setCurrentItem(2);
+//            }
+//        });
     }
 
     @Override
@@ -164,18 +162,6 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
         switch (v.getId()) {
             case R.id.search_bar:
 //                ToastUtil.showLongToast("top");
-                break;
-            case R.id.rb_left:
-//              ToastUtil.showLongToast("rb_left");
-                currentType = MomentsType.all.getEnumValue();
-                break;
-            case R.id.rb_center:
-//                ToastUtil.showLongToast("rb_center");
-                currentType = MomentsType.supply.getEnumValue();
-                break;
-            case R.id.rb_right:
-//                ToastUtil.showLongToast("rb_right");
-                currentType = MomentsType.purchase.getEnumValue();
                 break;
             case R.id.iv_view_type:
                 searchContent = search_content.getText().toString().trim();

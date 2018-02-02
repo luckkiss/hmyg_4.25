@@ -29,6 +29,7 @@ public class StoreGsonBean implements Serializable {
 
         public StoreBean store;
         public OwnerBean owner;
+        public int momentsCount;
         public List<TypeListBean> typeList;
 
         public static class StoreBean implements Serializable {

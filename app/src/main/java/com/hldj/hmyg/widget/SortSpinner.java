@@ -373,7 +373,7 @@ public class SortSpinner {
         if (resourceId > 0) {
             result = activity.getResources().getDimensionPixelSize(resourceId);
         }
-        return result;
+        return 0;
     }
 
 }

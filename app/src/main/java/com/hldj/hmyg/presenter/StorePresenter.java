@@ -29,6 +29,9 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class StorePresenter extends StoreContract.Presenter {
+
+    public int count;
+
     @Override
     public void onStart() {
 
@@ -52,6 +55,8 @@ public class StorePresenter extends StoreContract.Presenter {
                             mView.initIndexBean(storeGsonBean.data);
 
                             e.onNext(storeGsonBean.data.owner.id);
+
+                            count = storeGsonBean.data.momentsCount;
 
                         } else {
                             mView.showErrir(storeGsonBean.msg);

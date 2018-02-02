@@ -51,8 +51,11 @@ tinkerSupport {
 //        tinkerId = "patch-3.0.6release_fix1"
 
 
+    tinkerId = "base-3.0.6release_fix4"
+//  tinkerId = "patch-3.0.6release_fix4"
+
 //        tinkerId = "base-3.0.6release_fix3"
-      tinkerId = "patch-3.0.6release_fix3"
+//      tinkerId = "patch-3.0.6release_fix3"
 
 //    tinkerId = "base-3.0.6release_fix2"
 //      tinkerId = "patch-3.0.6release_fix2"

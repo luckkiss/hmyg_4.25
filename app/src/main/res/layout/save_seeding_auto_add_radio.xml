@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:text="地径"
-        android:textSize="@dimen/x15" />
+        android:textSize="@dimen/x15" android:layout_marginTop="20dp" />
 
     <TextView
         android:id="@+id/tv_auto_add_left2"
@@ -29,9 +29,9 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="@dimen/x160"
-        android:layout_height="@dimen/y14"
+        android:layout_height="32dp"
         android:layout_centerHorizontal="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal" android:layout_marginTop="14dp" >
         <!--android:paddingLeft="@dimen/x14"-->
         <!--android:paddingRight="@dimen/x14"-->
 
@@ -50,7 +50,7 @@
 
     <TextView
         android:id="@+id/et_auto_add_unit"
-        style="@style/text_seeding_cm" />
+        style="@style/text_seeding_cm" android:layout_marginTop="14dp" />
 
 
     <RadioGroup
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="14dp"
         android:orientation="horizontal"
         android:visibility="visible">
 

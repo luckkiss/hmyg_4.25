@@ -16,7 +16,6 @@
         android:layout_height="1px"
         android:background="@color/divider_color_bg" />
 
-
     <LinearLayout
         android:id="@+id/out"
         android:layout_width="match_parent"
@@ -70,60 +69,6 @@
 
     <View
         android:id="@+id/line"
-        style="@style/View_line_gray"
-        android:layout_height="1px"
-        android:background="@color/divider_color_bg" />
-
-    <ImageView
-        android:id="@+id/line_iv"
-        android:layout_width="match_parent"
-        android:layout_height="1px" />
-
-
-    <RadioGroup
-        android:id="@+id/radios"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:paddingTop="10dp"
-        android:visibility="gone">
-
-        <RadioButton
-            android:id="@+id/rb_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@drawable/check_bg_friend_selector"
-            android:checked="true"
-            android:paddingLeft="5dp"
-            android:text="全部"
-            android:textSize="14sp" />
-
-        <RadioButton
-            android:id="@+id/rb_center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:button="@drawable/check_bg_friend_selector"
-            android:paddingLeft="5dp"
-            android:text="只看供应" />
-
-        <RadioButton
-            android:id="@+id/rb_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:button="@drawable/check_bg_friend_selector"
-            android:paddingLeft="5dp"
-            android:text="只看求购" />
-
-
-    </RadioGroup>
-
-    <View
         style="@style/View_line_gray"
         android:layout_height="1px"
         android:background="@color/divider_color_bg" />
