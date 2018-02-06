@@ -32,6 +32,7 @@ import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.hldj.hmyg.widget.SharePopupWindow;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.ToastUtil;
 import com.weavey.loading.lib.LoadingLayout;
 
 import net.tsz.afinal.FinalHttp;
@@ -590,6 +591,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
     private void showWebViewDialog(String quoteDesc, String title) {
         if (TextUtils.isEmpty(quoteDesc)) {
+            ToastUtil.showLongToast("单位信息未填写~_~");
             return;
         }
         try {

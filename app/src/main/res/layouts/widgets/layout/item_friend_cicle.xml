@@ -78,6 +78,7 @@
         android:text="香樟价格实惠质量又a好，可供应5000株可供应5000株."
         android:textColor="@color/text_color333"
         android:textSize="15sp"
+        android:autoLink="phone"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/head"
         app:layout_constraintLeft_toLeftOf="@+id/time_city"

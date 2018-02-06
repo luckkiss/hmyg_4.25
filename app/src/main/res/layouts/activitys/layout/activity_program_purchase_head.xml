@@ -156,6 +156,18 @@
             android:textColor="@color/white"
             android:textSize="@dimen/textSize" />
 
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_no_permision"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:background="@color/white"-->
+            <!--android:gravity="center"-->
+            <!--android:text="-&#45;&#45; 您没有选标权限 -&#45;&#45;"-->
+            <!--android:textColor="@color/price_orige"-->
+            <!--android:visibility="gone"-->
+            <!--tools:visibility="visible" />-->
+
     </LinearLayout>
 
 </FrameLayout>

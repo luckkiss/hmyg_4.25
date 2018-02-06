@@ -242,4 +242,9 @@ public class StoreTypeActivity extends NeedSwipeBackActivity {
 
         return super.onContextItemSelected(item);
     }
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

@@ -15,9 +15,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginRight="4dp"
         android:layout_marginTop="6dp"
         android:src="@drawable/no_image_big_show"
-        android:layout_marginRight="4dp"
         android:visibility="visible" />
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/head"
+        android:autoLink="phone"
         android:gravity="center_vertical"
         android:lineSpacingMultiplier="1.2"
         android:minHeight="28dp"

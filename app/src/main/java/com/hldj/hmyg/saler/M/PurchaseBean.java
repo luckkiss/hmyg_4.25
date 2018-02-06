@@ -14,6 +14,8 @@ public class PurchaseBean {
     public boolean showQuote;
     public String servicePoint = "0.0";
 
+    public boolean tureQuote;
+
     public long lastTime;
     /**
      * id : 21fdc65b66d7408ca0f546518efb9081

@@ -58,7 +58,8 @@
         android:layout_marginTop="16dp"
         android:src="@drawable/yicaiyong_selector"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="110dp" />
 
     <TextView
         android:id="@+id/tv_program_purch_sub_suplier"
@@ -74,32 +75,35 @@
 
     <TextView
         android:id="@+id/tv_program_purch_sub_plant_addt"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_suplier"
-        tools:text="苗源地：福建 漳州" />
+        tools:text="苗源地：福建 漳州"
+        app:layout_constraintRight_toLeftOf="@+id/guideline5"
+        android:layout_marginRight="8dp"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <TextView
         android:id="@+id/tv_program_purch_sub_space_text"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_plant_addt"
-        tools:text="规格：米径：20；。。。。。。" />
+        tools:text="规格：米径：20；。。。。。。"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
         android:text="由花木易购发货"
         android:textColor="@color/text_color999"
         android:visibility="gone"
@@ -158,7 +162,7 @@
 
     <View
         android:layout_width="0dp"
-        android:layout_height="2px"
+        android:layout_height="1dp"
         android:layout_marginBottom="3dp"
         android:layout_marginTop="8dp"
         android:background="@color/gray_btn_bg_pressed_color"
@@ -174,11 +178,21 @@
         android:id="@+id/tv_program_purch_sub_plant_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="90dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="4dp"
         android:text="种植类型："
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_suplier" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_suplier"
+
+        app:layout_constraintLeft_toLeftOf="@+id/guideline5"
+        />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline5"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="150dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="220dp" />
 
 
 </android.support.constraint.ConstraintLayout>

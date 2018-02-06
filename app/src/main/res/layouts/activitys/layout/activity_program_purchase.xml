@@ -32,6 +32,7 @@
 
                 <include layout="@layout/activity_program_purchase_head" />
 
+
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar
@@ -72,6 +73,16 @@
         </android.support.design.widget.CollapsingToolbarLayout>
 
 
+        <TextView
+            android:id="@+id/tv_no_permision"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/gray_bg_ed"
+            android:gravity="center"
+            android:text="--- 您没有选标权限 ---"
+            android:textColor="@color/price_orige"
+
+            />
     </android.support.design.widget.AppBarLayout>
 
 

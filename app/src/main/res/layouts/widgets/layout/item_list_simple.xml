@@ -23,6 +23,7 @@
     android:background="@color/color_bg_f5"
     android:paddingEnd="16dp"
     android:paddingStart="16dp"
+    android:autoLink="phone"
     android:paddingTop="5dp"
     tools:text="134564646"
     android:textAppearance="?android:attr/textAppearanceListItemSmall"
