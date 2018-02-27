@@ -23,6 +23,8 @@ import java.util.ArrayList;
 
 public class MeasureGridView extends GridView {
     public static Context context;
+
+    public boolean isOpenVideo = false;
     /**
      * 照片适配器
      */
@@ -61,6 +63,12 @@ public class MeasureGridView extends GridView {
         this.setOnItemClickListener(new PhotoGvOnItemClickListener(ainView, listener));
     }
 
+    public void init(Context context, ArrayList<Pic> urlPaths, ViewGroup ainView, boolean isOpen, FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener listener) {
+        isOpenVideo = isOpen;
+        init(context, urlPaths, ainView, listener);
+    }
+
+
     public void initFriend(Context context, ArrayList<Pic> urlPaths, ViewGroup ainView, FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener listener) {
         adapter = new PublishFlowerInfoPhotoAdapterFriend(context, urlPaths);
         this.setAdapter(adapter);
@@ -69,6 +77,9 @@ public class MeasureGridView extends GridView {
     }
 
 
+    public void openVideo() {
+        isOpenVideo = true;
+    }
 
     public void setImageNumColumns(int num) {
         setNumColumns(num);
@@ -106,7 +117,11 @@ public class MeasureGridView extends GridView {
                     ToastUtil.showShortToast("您未同意应用读取SD卡权限");
                     return;
                 }
-                popwin = new FlowerInfoPhotoChoosePopwin2(context, listener);
+                if (isOpenVideo) {
+                    popwin = new FlowerInfoPhotoChoosePopwin2(context, listener, isOpenVideo);
+                } else {
+                    popwin = new FlowerInfoPhotoChoosePopwin2(context, listener);
+                }
                 popwin.showAtLocation(mainView, Gravity.BOTTOM
                         | Gravity.CENTER_HORIZONTAL, 0, 0);
             } else {
@@ -155,7 +170,7 @@ public class MeasureGridView extends GridView {
     public OnViewImagesListener onViewImagesListener;
 
     public void setOnViewImagesListener(OnViewImagesListener listener) {
-        onViewImagesListener = listener ;
+        onViewImagesListener = listener;
     }
 
     public static interface OnViewImagesListener {

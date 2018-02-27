@@ -1,6 +1,7 @@
 package com.hldj.hmyg.Ui.friend.child;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Keep;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
@@ -43,8 +45,10 @@ import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hldj.hmyg.util.VideoHempler;
 import com.hldj.hmyg.widget.MyCircleImageView;
 import com.hy.utils.ToastUtil;
+import com.mabeijianxi.smallvideo2.VideoPlayerActivity2;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zzy.common.widget.MeasureGridView;
 import com.zzy.common.widget.MeasureListView;
@@ -59,6 +63,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 import static com.hldj.hmyg.Ui.friend.FriendCycleActivity.isSelf;
@@ -188,6 +193,48 @@ public class FriendBaseFragment extends BaseFragment {
 //                helper.addOnClickListener(R.id.imageView8, v -> ToastUtil.showLongToast("点击图片--->跳转图片浏览器"));//描述
 //                helper.addOnClickListener(R.id.receive, v -> ToastUtil.showLongToast("点击评论--->显示回复窗口"));//描述
 
+                /* 视频  预览图片   */
+                if (item.isVideo) {
+                    ImageView video = helper.getView(R.id.video);
+                    video.setVisibility(View.VISIBLE);
+//                  video.setImageBitmap(VideoHempler.createVideoThumbnail(item.videoUrl, MyApplication.dp2px(mContext, 80), MyApplication.dp2px(mContext, 80)));
+
+                    D.e("============加载地址===========" + item.attrData.videoImageUrl);
+                    if (item.attrData != null && !TextUtils.isEmpty(item.attrData.videoImageUrl))
+                        ImageLoader.getInstance().displayImage(item.attrData.videoImageUrl, video);
+                    else {
+                        Observable.just(item.videoUrl)
+                                .filter(test -> !TextUtils.isEmpty(item.videoUrl))
+                                .subscribeOn(Schedulers.io())
+                                .map(s -> VideoHempler.createVideoThumbnail(item.videoUrl, MyApplication.dp2px(mContext, 80), MyApplication.dp2px(mContext, 80)))
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Consumer<Bitmap>() {
+                                    @Override
+                                    public void accept(@NonNull Bitmap result) throws Exception {
+                                        video.setImageBitmap(result);
+                                    }
+                                });
+                    }
+
+
+//                ImageLoader.getInstance().displayImage(item.videoUrl, video);
+
+                    video.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(mActivity, VideoPlayerActivity2.class).putExtra(
+                                    "path", item.videoUrl));
+                        }
+                    });
+
+                } else {
+                    ImageView video = helper.getView(R.id.video);
+                    video.setVisibility(View.GONE);
+                }
+
+                /* 视频  预览图片   */
+
+
                 MeasureGridView gridView = helper.getView(R.id.imageView8);
 
                 MeasureListView measureListView = helper.getView(R.id.receive);
@@ -238,7 +285,7 @@ public class FriendBaseFragment extends BaseFragment {
                     @Override
                     public void setConverView(ViewHolders myViewHolder, MomentsReply s, int position) {
 
-                        if ( s.attrData == null || s.attrData.fromDisplayName == null) {
+                        if (s.attrData == null || s.attrData.fromDisplayName == null) {
                             return;
                         }
                         TextView textView = myViewHolder.getView(android.R.id.text1);
@@ -286,6 +333,7 @@ public class FriendBaseFragment extends BaseFragment {
                         });
                     }
                 });
+
 
                 gridView.setImageNumColumns(3);
 //                gridView.setHorizontalSpacing(3);

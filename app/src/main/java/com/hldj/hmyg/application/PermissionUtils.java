@@ -1,19 +1,13 @@
 package com.hldj.hmyg.application;
 
 import android.Manifest;
-import android.R.integer;
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by lzq on 2016/6/30.
@@ -61,6 +55,10 @@ public class PermissionUtils {
 		if (ContextCompat.checkSelfPermission(context,
 				Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {// 没有权限
 			allNeedPermissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+		}
+		if (ContextCompat.checkSelfPermission(context,
+				Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {// 没有权限
+			allNeedPermissions.add(Manifest.permission.RECORD_AUDIO);
 		}
 
 		if (allNeedPermissions.size() > 0) {

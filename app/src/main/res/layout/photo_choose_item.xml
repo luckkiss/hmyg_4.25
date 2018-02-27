@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@color/white"
-        android:padding="2dip" >
+        android:padding="2dip">
 
         <ImageView
             android:id="@+id/photo_choose_iv"
             android:layout_width="75dip"
             android:layout_height="75dip"
             android:layout_centerInParent="true"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            tools:src="@color/gray_bg_ed"
+
+            />
 
         <CheckBox
             android:id="@+id/photo_choose_check_iv"
@@ -25,7 +29,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginRight="4dip"
             android:layout_marginTop="4dip"
-            android:button="@drawable/dagou_seletor" />
+            android:button="@drawable/dagou_seletor"
+            tools:checked="true" />
     </RelativeLayout>
 
 </RelativeLayout>

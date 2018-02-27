@@ -81,6 +81,11 @@
         android:name="com.hldj.hmyg.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
 
+
+    <!--麦克风 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
     <!-- Required -->
     <uses-permission android:name="com.hldj.hmyg.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -850,6 +855,12 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
+
+        <!--视频录制页面的activity-->
+        <!--<activity android:name="mabeijianxi.camera.MediaRecorderActivity" />-->
+        <activity android:name="com.mabeijianxi.smallvideorecord2.MediaRecorderActivity" android:theme="@style/FullScreenTheme"/>
+        <activity android:name="com.mabeijianxi.smallvideo2.VideoPlayerActivity" android:theme="@style/FullScreenTheme"    android:screenOrientation="portrait"/>
+        <activity android:name="com.mabeijianxi.smallvideo2.VideoPlayerActivity2" android:theme="@style/FullScreenTheme"    android:screenOrientation="portrait"/>
 
         <!--<provider-->
         <!--android:name="android.support.v4.content.FileProvider"-->

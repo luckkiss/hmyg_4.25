@@ -10,15 +10,18 @@ import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Field;
 
 /**
  * Created by Administrator on 2017/5/12.
  */
 
-public  class BasePresenter {
+public class BasePresenter {
     protected ResultCallBack resultCallBack;
     protected AjaxParams ajaxParams;
+    FinalHttp finalHttp = new FinalHttp();
 
     public AjaxParams getAjaxParams() {
         if (null == ajaxParams) {
@@ -44,7 +47,7 @@ public  class BasePresenter {
 
     public BasePresenter doRequest(String path, boolean isAddHeaders, AjaxCallBack callBack) {
         {
-            FinalHttp finalHttp = new FinalHttp();
+//            FinalHttp finalHttp = new FinalHttp();
             GetServerUrl.addHeaders(finalHttp, isAddHeaders);
             finalHttp.post(GetServerUrl.getUrl() + path, getAjaxParams(), callBack);
             resetAjaxParams();
@@ -69,6 +72,44 @@ public  class BasePresenter {
             D.e(key + "为空");
         }
 
+        return this;
+    }
+
+
+    /**
+     * 先传参数
+     *
+     * @param key
+     * @param file
+     * @return
+     */
+    public BasePresenter putFile(String key, File file) {
+        if (file != null) {
+            try {
+                getAjaxParams().put(key, file);
+            } catch (FileNotFoundException e) {
+
+                e.printStackTrace();
+            }
+            D.e(key + " <=========>" + file.getPath());
+        } else {
+            D.e(key + "为空");
+        }
+        return this;
+    }
+
+
+    /**
+     * 请求类型
+     */
+    public BasePresenter addHead(String key, String value) {
+
+        if (!TextUtils.isEmpty(value)) {
+            finalHttp.addHeader(key, value);
+            D.e(key + " <=========>" + value);
+        } else {
+            D.e(key + "为空");
+        }
         return this;
     }
 

@@ -28,7 +28,7 @@ public class SimpleGsonBean_new<T> {
         public T page;
         public T userPointTypeList;
         public int point;
-
+        public VideoData video ;
 
 //        bean_new = {SimpleGsonBean_new@8730} "SimpleGsonBean_new{code='1', msg='操作成功', data=com.hldj.hmyg.bean.SimpleGsonBean_new$Data@3a14767, page=null}"
 //        code = "1"

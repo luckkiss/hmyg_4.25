@@ -98,11 +98,11 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:ellipsize="end"
         android:autoLink="phone"
-        android:textIsSelectable="true"
+        android:ellipsize="end"
         android:lineSpacingMultiplier="1.3"
         android:textColor="@color/text_color333"
+        android:textIsSelectable="true"
         android:textSize="15sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -128,6 +128,19 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descript" />
+
+
+    <com.hldj.hmyg.widget.MyImageViewShowVideo
+        android:id="@+id/video"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="12dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        tools:background="@color/main_color"
+        tools:visibility="visible"
+        android:layout_marginBottom="10dp"
+        />
 
 
 </LinearLayout>

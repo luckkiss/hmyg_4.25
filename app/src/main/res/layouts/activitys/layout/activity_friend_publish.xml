@@ -38,6 +38,67 @@
             android:padding="6dp" />
 
 
+        <RelativeLayout
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginBottom="5dip"
+            android:layout_marginLeft="5dip">
+
+            <VideoView
+                android:id="@+id/video"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true" />
+            <!--   ImageView  -->
+            <com.hldj.hmyg.widget.MyImageViewShowVideo
+                android:id="@+id/play"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:foreground="@drawable/ic_play_circle_outline_black_24dp"
+                android:foregroundGravity="center_vertical|center_horizontal"
+                android:scaleType="centerCrop" />
+
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_delete"
+                android:tint="@color/accent_color" />
+
+            <TextView
+                android:id="@+id/iv_failed"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/accent_color"
+                android:gravity="center"
+                android:src="@drawable/error_center_x"
+                android:text=" ！"
+                android:textColor="@color/white"
+                android:tint="@color/main_color" />
+
+
+        </RelativeLayout>
+
+
+        <Button
+            android:id="@+id/record"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/main_color"
+            android:gravity="center"
+            android:text="录屏"
+            android:textColor="@color/white" />
+
         <View style="@style/View_line_gray_1px" />
 
         <com.lqr.optionitemview.OptionItemView

@@ -376,3 +376,15 @@ public static java.lang.String TABLENAME;
  -keep interface com.novell.sasl.client.** {*; }
  -keep interface de.measite.smack.** {*; }
  -keep interface org.** {*; }
+
+
+
+
+
+ -keep class com.mabeijianxi.smallvideorecord2.jniinterface.** {*; }
+
+
+
+
+
+

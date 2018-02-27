@@ -62,7 +62,7 @@ public class Moments implements Serializable {
      */
     public int thumbUpCount;
 
-    public List<MomentsThumbUp> thumbUpListJson ;
+    public List<MomentsThumbUp> thumbUpListJson;
 
 
     public PurchaseJsonBean.CiCityBean ciCity = new PurchaseJsonBean.CiCityBean();
@@ -83,7 +83,7 @@ public class Moments implements Serializable {
      * 评论集合
      */
     public List<MomentsReply> itemList;
-    public List<MomentsReply> itemListJson ;
+    public List<MomentsReply> itemListJson;
 
     /**
      * 图片集合
@@ -94,6 +94,7 @@ public class Moments implements Serializable {
     public List<ImagesJsonBean> imagesJson;
 
     public String imagesData;
+    public String videoData;
 
     /**
      * 用户
@@ -108,12 +109,17 @@ public class Moments implements Serializable {
     public int replyCount;
     public boolean isFavour;
 
+
+    /*增加视频 与 是否视频 判断*/
+    public boolean isVideo = false;
+    public String videoUrl = "";
+    public String videoPic = "";
+     /*end*/
+
 //     "isFavour": true,
 //             "timeStampStr": "1小时前",
 //             "isOwner": false,
 //             "replyCount": 0
-
-
 
 
     public static class AttrDataBean implements Serializable {
@@ -130,6 +136,7 @@ public class Moments implements Serializable {
         public String displayName;
         public String storeId;
         public String displayPhone;
+        public String videoImageUrl = "";//视频 封面图
 
 
     }

@@ -183,4 +183,6 @@ public class PhotoItem implements Serializable, Comparable<PhotoItem> {
 				+ isHadThumbnailBm + ", isLoadingThumbnailBm="
 				+ isLoadingThumbnailBm + "]";
 	}
+
+
 }

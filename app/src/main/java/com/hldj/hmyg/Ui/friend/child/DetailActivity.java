@@ -45,6 +45,7 @@ import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.ToastUtil;
+import com.mabeijianxi.smallvideo2.VideoPlayerActivity2;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zzy.common.widget.MeasureGridView;
 
@@ -112,6 +113,9 @@ public class DetailActivity extends BaseMVPActivity {
     @ViewInject(id = R.id.imageView7)
     ImageView imageView7;
 
+    @ViewInject(id = R.id.video)
+    ImageView video;
+
 
     @ViewInject(id = R.id.imageView8)
     MeasureGridView gridView;
@@ -154,6 +158,9 @@ public class DetailActivity extends BaseMVPActivity {
                                     MomentsThumbUp up = new MomentsThumbUp();
                                     up.attrData.displayName = gsonBean.getData().displayName;
                                     up.attrData.headImage = gsonBean.getData().headImage;
+//                                    video.
+//                                     gsonBean.getData().headImage;
+
                                     up.ownerId = MyApplication.Userinfo.getString("id", "");
                                     // helper.setText(android.R.id.text1, ((MomentsThumbUp) item).attrData.displayName);
                                     moments.thumbUpListJson.add(up);
@@ -245,11 +252,24 @@ public class DetailActivity extends BaseMVPActivity {
 //          finalBitmap.display(head, moments.attrData.headImage);
 //            if (!TextUtils.isEmpty(moments.attrData.headImage)) {
             ImageLoader.getInstance().displayImage(moments.attrData.headImage, head);
+            video.setVisibility(View.VISIBLE);
+            video.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(mActivity, VideoPlayerActivity2.class).putExtra(
+                            "path", moments.videoUrl));
+                }
+            });
+            ImageLoader.getInstance().displayImage(moments.attrData.videoImageUrl, video);
             head.setOnClickListener(v -> {
                 //未登录。跳转登录界面
 //                if (!commitLogin()) return;
                 CenterActivity.start(mActivity, moments.ownerId);
             });
+
+
+
+
 //            }
             third.setOnClickListener(v -> {
                 //未登录。跳转登录界面

@@ -14,6 +14,12 @@ public class FlowerInfoPhotoChoosePopwin2 extends BottomPopwin {
         this.onPhotoState = onPhotoState;
     }
 
+    public FlowerInfoPhotoChoosePopwin2(Context context, onPhotoStateChangeListener onPhotoState, boolean isOpenVideo) {
+        super(new int[]{R.string.photo_take_pic, R.string.photo_album_title, R.string.small_video, R.string.cancel}, context);
+        this.onPhotoState = onPhotoState;
+    }
+
+
     @Override
     protected void handleClickListener(int pos) {
         switch (pos) {
@@ -22,6 +28,11 @@ public class FlowerInfoPhotoChoosePopwin2 extends BottomPopwin {
                 break;
             case 1:
                 onPhotoState.onChoosePic();
+                break;
+            case 2:
+                if (onPhotoState instanceof onVideoStateChangeListener) {
+                    ((onVideoStateChangeListener) onPhotoState).onVideoing();
+                }
                 break;
             default:
                 onPhotoState.onCancle();
@@ -35,6 +46,15 @@ public class FlowerInfoPhotoChoosePopwin2 extends BottomPopwin {
         void onChoosePic();
 
         void onCancle();
+
+
+    }
+
+
+    public abstract static class onVideoStateChangeListener implements onPhotoStateChangeListener {
+
+        public abstract void onVideoing();
+
 
     }
 

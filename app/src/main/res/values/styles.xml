@@ -96,10 +96,11 @@
     </style>
 
 
-    <style name="FullScreenTheme" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
+    <!--<style name="FullScreenTheme" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">-->
+    <style name="FullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/ic_splash_3_0</item>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="SplashTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen">

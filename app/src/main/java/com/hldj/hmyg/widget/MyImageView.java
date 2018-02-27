@@ -1,9 +1,19 @@
 package com.hldj.hmyg.widget;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
+
+import com.hldj.hmyg.R;
 
 /**
  * 正方形的  ImageView
@@ -11,13 +21,15 @@ import android.widget.ImageView;
 
 public class MyImageView extends ImageView {
 
-
     public MyImageView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+
     }
+
 
     public MyImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
     }
 
 
@@ -25,10 +37,7 @@ public class MyImageView extends ImageView {
 
 
     @Override
-
-
-    protected void
-    onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
 
 //        int childWidthSize = getMeasuredWidth();
@@ -36,11 +45,12 @@ public class MyImageView extends ImageView {
 
 //        int childHeightSize = getMeasuredHeight();
 
-        //高度和宽度一样
 
-        super.onMeasure(widthMeasureSpec,  widthMeasureSpec);
+        super.onMeasure(widthMeasureSpec, widthMeasureSpec);
 
     }
+
+
 
 
 }

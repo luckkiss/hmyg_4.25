@@ -2,16 +2,22 @@ package com.hldj.hmyg.Ui.friend.child;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.ResultCallBack;
@@ -25,6 +31,8 @@ import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SimpleGsonBean;
+import com.hldj.hmyg.bean.SimpleGsonBean_new;
+import com.hldj.hmyg.bean.VideoData;
 import com.hldj.hmyg.buyer.Ui.CityWheelDialogF;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin2;
@@ -32,15 +40,22 @@ import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.TakePhotoUtil;
+import com.hldj.hmyg.util.VideoHempler;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 import com.lqr.optionitemview.OptionItemView;
+import com.mabeijianxi.smallvideo2.VideoPlayerActivity2;
+import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.zf.iosdialog.widget.AlertDialog;
 import com.zzy.common.widget.MeasureGridView;
 
 import net.tsz.afinal.FinalActivity;
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.annotation.view.ViewInject;
+import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
 import java.io.File;
@@ -92,6 +107,23 @@ public class PublishActivity extends BaseMVPActivity {
     @ViewInject(id = R.id.grid)
     MeasureGridView grid;
 
+    @ViewInject(id = R.id.video)
+    VideoView video;
+
+    @ViewInject(id = R.id.record)
+    Button record;
+
+
+    /* 删除视频按钮 */
+    @ViewInject(id = R.id.iv_close)
+    ImageView iv_close;
+    /* 视频上传失败按钮 */
+    @ViewInject(id = R.id.iv_failed)
+    TextView iv_failed;
+    /* 视频播放按钮 */
+    @ViewInject(id = R.id.play)
+    ImageView play;
+
 
     private String cityCode = "";
 
@@ -122,6 +154,9 @@ public class PublishActivity extends BaseMVPActivity {
         }
         instance = this;
 
+        Bitmap bitmap = BitmapFactory.decodeFile("/storage/emulated/0/DCIM/mabeijianxi/1519717970869/1519717970869.jpg");
+        play.setImageBitmap(bitmap);
+        toggleVideo(true);
 
         initGvBottom();
 
@@ -148,6 +183,109 @@ public class PublishActivity extends BaseMVPActivity {
                         }
                     }).show(getSupportFragmentManager(), TAG);
         });
+
+
+//        video.setVisibility(View.GONE);
+//        video.setOnClickListener(v -> {
+//            VideoHempler.start(mActivity);
+//        });
+
+        video.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                if (TextUtils.isEmpty(currentVideoPath)) {
+                    D.i("=========视频地址已经被删除=========");
+                    return true;
+                } else return false;
+            }
+        });
+
+        /*关闭视频控件 */
+        toggleVideo(false);
+        /*关闭删除按钮*/
+        toggleDeleteIcon(false);
+        /*关闭失败按钮*/
+        toggleFailedIcon(false);
+
+
+        record.setVisibility(View.GONE);
+        record.setOnClickListener(v -> {
+//            ToastUtil.showLongToast("跳转录屏");
+            VideoHempler.start(mActivity);
+        });
+
+
+    }
+
+    private void checkIntent(Intent data) {
+
+        video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setVolume(0f, 0f);
+            }
+        });
+
+        String str = data.getStringExtra(MediaRecorderActivity.OUTPUT_DIRECTORY);
+        String url = data.getStringExtra(MediaRecorderActivity.VIDEO_URI);
+        String screen_shot = data.getStringExtra(MediaRecorderActivity.VIDEO_SCREENSHOT);
+
+        Log.i(TAG, "checkIntent: "+screen_shot);
+
+        if (TextUtils.isEmpty(str)) {
+            ToastUtil.showLongToast("小视频录制失败~_~");
+            D.w("===========录屏为空===========");
+        } else {
+            currentVideoPath = url;
+
+             /*关闭视频控件 */
+            toggleVideo(true);
+        /*关闭删除按钮*/
+            toggleDeleteIcon(true);
+        /*关闭失败按钮*/
+            toggleFailedIcon(false);
+            grid.setVisibility(View.GONE);
+            video.setVisibility(View.VISIBLE);
+//            video.setVideoPath(url);
+            video.start();
+//            video.seekTo(1);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    video.pause();
+                }
+            }, 500);
+
+            ImageLoader.getInstance().displayImage(screen_shot.trim(), play, new ImageLoadingListener() {
+                @Override
+                public void onLoadingStarted(String imageUri, View view) {
+                    Log.i(TAG, "onLoadingStarted: ");
+                }
+
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    Log.i(TAG, "onLoadingFailed: ");
+
+                }
+
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    Log.i(TAG, "onLoadingComplete: ");
+
+                }
+
+                @Override
+                public void onLoadingCancelled(String imageUri, View view) {
+                    Log.i(TAG, "onLoadingCancelled: ");
+
+                }
+            });
+
+            Bitmap bitmap = BitmapFactory.decodeFile(screen_shot.trim());
+            play.setImageBitmap(bitmap);
+
+        }
+
 
     }
 
@@ -178,7 +316,16 @@ public class PublishActivity extends BaseMVPActivity {
 //      grid.setNumColumns(3);
 //      grid.setHorizontalSpacing(3);
 //      grid.setVerticalSpacing(0);
-        grid.init(this, arrayList, (ViewGroup) grid.getParent(), new FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener() {
+
+        // true  表示开启小视频按钮
+//        grid.init(this, arrayList, (ViewGroup) grid.getParent(), true, new FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener() {
+        grid.init(this, arrayList, (ViewGroup) grid.getParent(), true, new FlowerInfoPhotoChoosePopwin2.onVideoStateChangeListener() {
+            @Override
+            public void onVideoing() {
+//                ToastUtil.showLongToast("跳转录屏");
+                VideoHempler.start(mActivity);
+            }
+
             @Override
             public void onTakePic() {
                 D.e("===========onTakePic=============");
@@ -226,7 +373,15 @@ public class PublishActivity extends BaseMVPActivity {
                     ToastUtil.showLongToast("请先选择地址^_^");
                     return;
                 }
-                requestUpload(MomentsType.purchase.getEnumValue());
+
+
+                if (!currentVideoPath.isEmpty()) {
+//                    ToastUtil.showLongToast("开始上传视频");
+                    doUpVideo(MomentsType.purchase.getEnumValue());
+                } else {
+                    requestUpload(MomentsType.purchase.getEnumValue());
+                }
+
             };
             toolbar_right_text.setOnClickListener(clickListener);
         } else if (getTag().equals(PUBLISH)) {
@@ -243,8 +398,14 @@ public class PublishActivity extends BaseMVPActivity {
                     ToastUtil.showLongToast("请先选择地址^_^");
                     return;
                 }
+
+                if (!currentVideoPath.isEmpty()) {
+//                    ToastUtil.showLongToast("开始上传视频");
+                    doUpVideo(MomentsType.supply.getEnumValue());
+                } else {
+                    requestUpload(MomentsType.supply.getEnumValue());
+                }
 //                ToastUtil.showLongToast("发布供应");
-                requestUpload(MomentsType.supply.getEnumValue());
             };
             toolbar_right_text.setOnClickListener(clickListener);
         }
@@ -295,7 +456,7 @@ public class PublishActivity extends BaseMVPActivity {
                             new BasePresenter().putParams(moments).doRequest("admin/moments/save", true, new HandlerAjaxCallBack(mActivity) {
                                 @Override
                                 public void onRealSuccess(SimpleGsonBean gsonBean) {
-                                    ToastUtil.showLongToast(gsonBean.msg);
+//                                    ToastUtil.showLongToast(gsonBean.msg);
                                     Log.i(TAG, "run: 上传结束" + gsonBean.msg);
                                     hindLoading();
                                     if (getTag().equals(PURCHASE)) {
@@ -420,11 +581,17 @@ public class PublishActivity extends BaseMVPActivity {
     }
 
 
+    String currentVideoPath = "";
+
     public void addPicUrls(ArrayList<Pic> resultPathList) {
         grid.getAdapter().addItems(resultPathList);
         grid.getAdapter().Faild2Gone(true);
-//        viewHolder.publish_flower_info_gv.getAdapter().getDataList();
-        D.e("=========addPicUrls=========");
+
+//        currentVideoPath = resultPathList.get(0).getUrl();
+//        video.setVideoPath(resultPathList.get(0).getUrl());
+//        video.start();
+////        viewHolder.publish_flower_info_gv.getAdapter().getDataList();
+//        D.e("=========addPicUrls=========" + resultPathList.get(0).toString());
     }
 
     @Override
@@ -448,7 +615,10 @@ public class PublishActivity extends BaseMVPActivity {
 //             最后通知图库更新
             sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
                     Uri.parse("file://" + flowerInfoPhotoPath)));
+        } else if (requestCode == 100 && resultCode == 100) {
+            checkIntent(data);
         }
+
     }
 
     @Override
@@ -565,6 +735,166 @@ public class PublishActivity extends BaseMVPActivity {
     }
 
 
+    private String doUpVideo(String type) {
+
+//        FinalHttp finalHttp = new FinalHttp();
+//        GetServerUrl.addHeaders(finalHttp, true);
+//        finalHttp.addHeader("Content-Type", "application/octet-stream");
+//        AjaxParams ajaxParams = new AjaxParams();
+
+        new BasePresenter()
+                .putParams("imagType", "video")
+                .putFile("file", new File(currentVideoPath))
+                .addHead("Content-Type", "application/octet-stream")
+                .doRequest("admin/file/video", true, new AjaxCallBack<String>() {
+
+                    @Override
+                    public void onStart() {
+                        showLoading();
+//                        getLoad().showToastAlong();
+                        super.onStart();
+                    }
+
+                    @Override
+                    public void onSuccess(String json) {
+                        ToastUtil.showLongToast(json);
+                        D.e("======onSuccess=======" + json);
+                        SimpleGsonBean_new<VideoData> gsonBean = GsonUtil.formateJson2Bean(json, SimpleGsonBean_new.class);
+                        if (gsonBean.isSucceed()) {
+                            Log.i(TAG, "doFinally: 上传所有数据");
+                            //图片上传结束
+                            Moments moments = new Moments();
+                            moments.content = et_content.getText().toString().trim();
+                            moments.cityCode = cityCode;
+                            moments.momentsType = type;
+                            moments.images = GsonUtil.Bean2Json(pics);
+                            moments.imagesData = GsonUtil.Bean2Json(pics);
+                            moments.videoData = GsonUtil.Bean2Json(gsonBean.data.video);
+                            new BasePresenter().putParams(moments).doRequest("admin/moments/save", true, new HandlerAjaxCallBack(mActivity) {
+                                @Override
+                                public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                    ToastUtil.showLongToast(gsonBean.msg);
+                                    Log.i(TAG, "run: 上传结束" + gsonBean.msg);
+                                    hindLoading();
+                                    if (getTag().equals(PURCHASE)) {
+                                        //求购成功
+                                        setResult(PURCHASE_SUCCEED);
+                                    } else if (getTag().equals(PUBLISH)) {
+                                        //发布成功
+                                        setResult(PUBLISH_SUCCEED);
+                                    }
+                                    finish();
+                                }
+                            });
+                        } else {
+                            UpdateLoading(gsonBean.msg);
+                            toggleFailedIcon(true);
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+                        super.onFailure(t, errorNo, strMsg);
+                        D.e("======onFailure=======");
+                        UpdateLoading("网络错误");
+                        toggleFailedIcon(true);
+                    }
+
+                });
+
+        return "ok";
+
+    }
+
+
+    public void toggleVideo(boolean flag) {
+        D.i("=========toggleVideo======" + flag);
+
+        grid.setVisibility(!flag ? View.VISIBLE : View.GONE);
+        ((ViewGroup) video.getParent()).setVisibility(flag ? View.VISIBLE : View.GONE);
+
+        if (flag && !TextUtils.isEmpty(currentVideoPath))
+
+        {
+            play.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(mActivity, VideoPlayerActivity2.class).putExtra(
+                            "path", currentVideoPath));
+                }
+            });
+        }
+
+        if (!flag) {//如果是关闭的话 。清空当前视频地址，。。。 需要删除视频
+
+            File file = new File(currentVideoPath);
+            if (!file.exists()) {
+                D.i("===文件不存在==" + currentVideoPath);
+                return;
+            }
+            D.i("==删除 文件夹 操作 start==");
+            deleteAllFile(file.getParentFile());
+            file.getParentFile().delete();
+//            if (file.exists()) {
+//                File parent = file.getParentFile();
+//                //direct 文件夹，删除操作
+//                File[] childs = parent.listFiles();
+//                for (File child : childs) {
+//                    D.i("===" + child.getName());
+//                    if (child.isFile()) {
+//                        child.delete();
+//                    }
+//                }
+//                parent.delete();
+//            }
+
+            D.i("==删除 文件夹 操作 end==");
+
+            currentVideoPath = "";
+        }
+
+    }
+
+    public void deleteAllFile(File file) {
+        if (file.isDirectory()) {
+            //是文件夹的话 便利删除子文件
+            File[] childs = file.listFiles();
+            for (File child : childs) {
+                D.i("===" + child.getName());
+                if (child.isFile()) {
+                    child.delete();
+                } else {
+                    //文件夹
+                    deleteAllFile(file);
+                }
+            }
+
+
+        } else {
+            file.delete();
+        }
+
+    }
+
+
+    public void toggleDeleteIcon(boolean flag) {
+
+
+        iv_close.setOnClickListener(v -> toggleVideo(false));
+
+        iv_close.setVisibility(flag ? View.VISIBLE : View.GONE);
+
+
+    }
+
+    public void toggleFailedIcon(boolean flag) {
+        iv_failed.setVisibility(flag ? View.VISIBLE : View.GONE);
+
+
+    }
+
+
     private List<Pic> addNoUpLoadImg(ArrayList<Pic> dataList) {
         List<Pic> pic = new ArrayList<>();
         for (Pic localPic : dataList) {
@@ -573,5 +903,34 @@ public class PublishActivity extends BaseMVPActivity {
             }
         }
         return pic;
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+//        if (video.isPlaying()) {
+//            video.pause();
+//        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        if (!TextUtils.isEmpty(currentVideoPath) && video.getVisibility() == View.VISIBLE) {
+//            video.start();
+//            D.e("======播放=======");
+////            ToastUtil.showLongToast("播放" + currentVideoPath);
+//        } else {
+//            D.e("======不播放了播放=======");
+////            ToastUtil.showLongToast("不播放了播放");
+//            video.stopPlayback();
+//            video.pause();
+//        }
     }
 }
