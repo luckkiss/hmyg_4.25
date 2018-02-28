@@ -861,6 +861,7 @@
         <activity android:name="com.mabeijianxi.smallvideorecord2.MediaRecorderActivity" android:theme="@style/FullScreenTheme"/>
         <activity android:name="com.mabeijianxi.smallvideo2.VideoPlayerActivity" android:theme="@style/FullScreenTheme"    android:screenOrientation="portrait"/>
         <activity android:name="com.mabeijianxi.smallvideo2.VideoPlayerActivity2" android:theme="@style/FullScreenTheme"    android:screenOrientation="portrait"/>
+        <activity android:name="com.mabeijianxi.smallvideo2.VideoActivity" android:theme="@style/FullScreenTheme"    android:screenOrientation="portrait"/>
 
         <!--<provider-->
         <!--android:name="android.support.v4.content.FileProvider"-->

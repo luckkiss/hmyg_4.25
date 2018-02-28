@@ -26,6 +26,8 @@ import com.zf.iosdialog.widget.AlertDialog;
 
 import net.tsz.afinal.http.AjaxCallBack;
 
+import cn.sharesdk.framework.Platform;
+
 import static com.hldj.hmyg.CallBack.MyBetaPatchListener.TAG;
 
 /**
@@ -112,12 +114,14 @@ public class FriendPresenter {
 
         ComonShareDialogFragment.newInstance()
                 .setShareBean(new ComonShareDialogFragment.ShareBean(
-                        title,
-                        type + item.content
-                        , "_" + item.content,
+                                title,
+                                type + item.content
+                                , "_" + item.content,
 //                        (item.imagesJson != null && item.imagesJson.size() > 0) ? item.imagesJson.get(0).ossMediumImagePath : GetServerUrl.ICON_PAHT,
-                        headUrl,
-                        GetServerUrl.getHtmlUrl() + "moments/detail/" + item.id + ".html"))
+                                headUrl,
+                                GetServerUrl.getHtmlUrl() + "moments/detail/" + item.id + ".html", Platform.SHARE_VIDEO)
+
+                )
                 .show(activity.getSupportFragmentManager(), activity.getClass().getName());
     }
 

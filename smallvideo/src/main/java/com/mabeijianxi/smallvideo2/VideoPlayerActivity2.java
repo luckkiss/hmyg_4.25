@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -55,6 +56,13 @@ public class VideoPlayerActivity2 extends FragmentActivity implements
      */
     private boolean mNeedResume;
 
+
+    //手指按下的点为(x1, y1)手指离开屏幕的点为(x2, y2)
+    float x1 = 0;
+    float x2 = 0;
+    float y1 = 0;
+    float y2 = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +90,7 @@ public class VideoPlayerActivity2 extends FragmentActivity implements
 //        mVideoView.getLayoutParams().width = screenWidth;
 //        mVideoView.requestLayout();
 //
-//        mPlayerStatus = findViewById(R.id.play_status);
+        mPlayerStatus = findViewById(R.id.play_status);
         mLoading = findViewById(R.id.loading);
 //
 //        mVideoView.setOnPreparedListener(this);
@@ -90,8 +98,43 @@ public class VideoPlayerActivity2 extends FragmentActivity implements
         mVideoView.setOnErrorListener(this);
         mVideoView.setOnClickListener(this);
         mVideoView.setOnTouchListener((v, event) -> {
+            float downX = event.getX();
+            float downY = event.getY();
+            Log.i("OnTouch", "downX=" + downX + " downY");
+
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//                onStateChanged(mVideoView.isPlaying());
+                //当手指按下的时候
+                x1 = event.getX();
+                y1 = event.getY();
+//                finish();
+            }
+
+
             if (event.getAction() == MotionEvent.ACTION_UP) {
-                finish();
+
+                //当手指离开的时候
+                x2 = event.getX();
+                y2 = event.getY();
+                if (y1 - y2 > 50) {
+//                    Toast.makeText(MainActivity.this, "向上滑", Toast.LENGTH_SHORT).show();
+                    onStateChanged(mVideoView.isPlaying());
+                } else if (y2 - y1 > 50) {
+//                    Toast.makeText(MainActivity.this, "向下滑", Toast.LENGTH_SHORT).show();
+
+                    finish();
+                } else if (x1 - x2 > 50) {
+                    onStateChanged(mVideoView.isPlaying());
+//                    Toast.makeText(MainActivity.this, "向左滑", Toast.LENGTH_SHORT).show();
+                } else if (x2 - x1 > 50) {
+//                    Toast.makeText(MainActivity.this, "向右滑", Toast.LENGTH_SHORT).show();
+                    finish();
+                }else {
+                    onStateChanged(mVideoView.isPlaying());
+                }
+
+
+//                finish();
             }
             return true;
         });
@@ -172,6 +215,7 @@ public class VideoPlayerActivity2 extends FragmentActivity implements
             case KeyEvent.KEYCODE_VOLUME_DOWN:
             case KeyEvent.KEYCODE_VOLUME_UP:
 //                mVideoView.dispatchKeyEvent(this, event);
+                onStateChanged(mVideoView.isPlaying());
                 break;
         }
         return super.dispatchKeyEvent(event);
@@ -179,7 +223,12 @@ public class VideoPlayerActivity2 extends FragmentActivity implements
 
     @Override
     public void onStateChanged(boolean isPlaying) {
-        mPlayerStatus.setVisibility(isPlaying ? View.GONE : View.VISIBLE);
+        mPlayerStatus.setVisibility(isPlaying ? View.VISIBLE : View.GONE);
+        if (isPlaying) {
+            mVideoView.pause();
+        } else {
+            mVideoView.start();
+        }
     }
 
     @Override
@@ -200,7 +249,7 @@ public class VideoPlayerActivity2 extends FragmentActivity implements
 //                finish();
 //                break;
 //        }
-        finish();
+//        finish();
 
 
     }

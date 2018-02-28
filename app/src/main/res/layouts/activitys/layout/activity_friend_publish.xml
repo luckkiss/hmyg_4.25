@@ -55,34 +55,42 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_centerInParent="true"
-                android:foreground="@drawable/ic_play_circle_outline_black_24dp"
+                android:foreground="@drawable/ic_play_circle_24dp"
                 android:foregroundGravity="center_vertical|center_horizontal"
                 android:scaleType="centerCrop" />
 
 
             <ImageView
                 android:id="@+id/iv_close"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="5dp"
+                android:src="@drawable/close_red"
+                android:text="x"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/ic_delete"
-                android:tint="@color/accent_color" />
+                android:layout_marginRight="5dp"
+                android:textColor="@color/white"
+                android:tint="@color/price_orige"
+                android:background="@color/white"
+                />
+
+
+
 
             <TextView
                 android:id="@+id/iv_failed"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="5dp"
                 android:layout_marginRight="5dp"
-                android:background="@color/accent_color"
+                android:background="@color/price_orige"
                 android:gravity="center"
                 android:src="@drawable/error_center_x"
-                android:text=" ！"
+                android:text=" ! "
+                android:textSize="16sp"
                 android:textColor="@color/white"
                 android:tint="@color/main_color" />
 

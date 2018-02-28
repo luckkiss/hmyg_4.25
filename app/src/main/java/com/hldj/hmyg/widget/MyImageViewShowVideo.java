@@ -33,7 +33,7 @@ public class MyImageViewShowVideo extends ImageView {
 
     private void initdr() {
 //        bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ic_play_circle_outline_black_24dp);
-        bitmap = getBitmap(getContext(), R.drawable.ic_play_circle_outline_black_24dp);
+        bitmap = getBitmap(getContext(), R.drawable.ic_play_circle_24dp);
 
         //高度和宽度一样
         drawBitmapPaint = new Paint();

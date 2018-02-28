@@ -116,7 +116,7 @@ public class PublishActivity extends BaseMVPActivity {
 
     /* 删除视频按钮 */
     @ViewInject(id = R.id.iv_close)
-    ImageView iv_close;
+    View iv_close;
     /* 视频上传失败按钮 */
     @ViewInject(id = R.id.iv_failed)
     TextView iv_failed;
@@ -226,13 +226,13 @@ public class PublishActivity extends BaseMVPActivity {
             }
         });
 
-        String str = data.getStringExtra(MediaRecorderActivity.OUTPUT_DIRECTORY);
+//        String str = data.getStringExtra(MediaRecorderActivity.OUTPUT_DIRECTORY);
         String url = data.getStringExtra(MediaRecorderActivity.VIDEO_URI);
         String screen_shot = data.getStringExtra(MediaRecorderActivity.VIDEO_SCREENSHOT);
 
-        Log.i(TAG, "checkIntent: "+screen_shot);
+        Log.i(TAG, "checkIntent: " + screen_shot);
 
-        if (TextUtils.isEmpty(str)) {
+        if (TextUtils.isEmpty(url)) {
             ToastUtil.showLongToast("小视频录制失败~_~");
             D.w("===========录屏为空===========");
         } else {
@@ -324,6 +324,8 @@ public class PublishActivity extends BaseMVPActivity {
             public void onVideoing() {
 //                ToastUtil.showLongToast("跳转录屏");
                 VideoHempler.start(mActivity);
+
+
             }
 
             @Override
@@ -617,6 +619,32 @@ public class PublishActivity extends BaseMVPActivity {
                     Uri.parse("file://" + flowerInfoPhotoPath)));
         } else if (requestCode == 100 && resultCode == 100) {
             checkIntent(data);
+        } else if (requestCode == 100 && resultCode == 101) {
+            String screen_shot = data.getStringExtra(MediaRecorderActivity.VIDEO_SCREENSHOT);
+//            ArrayList<Pic> pic = new ArrayList<>();
+//            pic.add(new Pic("1", true, screen_shot, 0));
+//            addPicUrls(pic);
+
+
+            //接受 上传图片界面传过来的list《pic》
+            try {
+                grid.addImageItem(screen_shot);
+                grid.getAdapter().Faild2Gone(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            // 其次把文件插入到系统图库
+            try {
+                MediaStore.Images.Media.insertImage(getContentResolver(),
+                        screen_shot, screen_shot, null);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+//             最后通知图库更新
+            sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+                    Uri.parse("file://" + screen_shot)));
+
+
         }
 
     }

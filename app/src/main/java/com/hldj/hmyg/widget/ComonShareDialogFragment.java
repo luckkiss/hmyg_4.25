@@ -230,6 +230,7 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
     private void ShareToQzone() {
         Platform.ShareParams sp5 = new Platform.ShareParams();
         sp5.setTitle(shareBean.title);
+        sp5.setShareType(shareBean.shareType);
         sp5.setTitleUrl(shareBean.pageUrl); // 标题的超链接
         sp5.setText(shareBean.text);
         sp5.setImageUrl(shareBean.imgUrl);
@@ -244,6 +245,7 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
     private void ShareToSinaWeibo() {
         Platform.ShareParams sp3 = new Platform.ShareParams();
         sp3.setText("苗木交易原来可以如此简单,配上花木易购APP,指尖轻点,交易无忧。");
+        sp3.setShareType(shareBean.shareType);
         // sp3.setImagePath("/mnt/sdcard/share/" + system_time + ".jpg");
         Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
         weibo.setPlatformActionListener(this); // 设置分享事件回调
@@ -253,7 +255,8 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
 
     private void ShareToWechat() {
         Platform.ShareParams sp1 = new Platform.ShareParams();
-        sp1.setShareType(Platform.SHARE_WEBPAGE);
+//        sp1.setShareType(Platform.SHARE_WEBPAGE);
+        sp1.setShareType(shareBean.shareType);
         sp1.setTitle(shareBean.title);
         sp1.setText(shareBean.text);
 //        sp1.setImageUrl(img);
@@ -268,7 +271,8 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
 
     private void ShareToWechatMoments() {
         Platform.ShareParams sp2 = new Platform.ShareParams();
-        sp2.setShareType(Platform.SHARE_WEBPAGE);
+        sp2.setShareType(shareBean.shareType);
+//        sp2.setShareType(Platform.SHARE_WEBPAGE);
 
 
         if (!TextUtils.isEmpty(shareBean.desc) && shareBean.desc.startsWith("_")) {
@@ -306,6 +310,7 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
         public String desc = "";//描述
         public String imgUrl = "";//图片链接地址
         public String pageUrl = "";// 
+        public int shareType = Platform.SHARE_WEBPAGE;// 默认网页分享
 
         public ShareBean(String title, String text, String desc, String imgUrl, String pageUrl) {
             this.title = title;
@@ -313,6 +318,15 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
             this.desc = desc;
             this.imgUrl = imgUrl;
             this.pageUrl = pageUrl;
+        }
+
+        public ShareBean(String title, String text, String desc, String imgUrl, String pageUrl, int shareType) {
+            this.title = title;
+            this.text = text;
+            this.desc = desc;
+            this.imgUrl = imgUrl;
+            this.pageUrl = pageUrl;
+            this.shareType = shareType;
         }
 
         public ShareBean() {

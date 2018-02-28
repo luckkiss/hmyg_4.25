@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -88,6 +89,13 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
     @ViewInject(id = R.id.message, click = "onClick")
     public Button message;
 
+    @ViewInject(id = R.id.fl_search, click = "onClick")
+    public View fl_search;
+
+    @ViewInject(id = R.id.et_program_serach_text)
+    public EditText et_search;
+
+
     public ArrayList<String> list_title = new ArrayList<String>() {{
         add("供应");
         add("求购");
@@ -139,6 +147,13 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
         toolbar_right_icon.setVisibility(View.VISIBLE);
         toolbar_right_icon.setImageResource(R.mipmap.friend_publish_edit);
         toolbar_left_icon.setImageResource(R.mipmap.friend_filter);
+        toolbar_left_icon.setVisibility(View.GONE);
+
+        if (et_search!=null)
+        {
+            et_search.setCursorVisible(false);
+            et_search.clearFocus();
+        }
 
         initChild();
 
@@ -194,7 +209,8 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 //        ToastUtil.showLongToast(v.getId() + "");
         switch (v.getId()) {
             /*搜索*/
-            case R.id.toolbar_left_icon:
+//            case R.id.toolbar_left_icon:
+            case R.id.fl_search:
 //                SearchActivity.start(mActivity, searchContent);
                 FriendCycleSearchActivity.start(mActivity, "");
                 break;  /*搜索*/
@@ -424,8 +440,6 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
         StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
         StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
     }
-
-
 
 
 }

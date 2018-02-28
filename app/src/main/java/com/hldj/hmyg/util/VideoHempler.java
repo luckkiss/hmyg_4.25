@@ -10,11 +10,9 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 
-import com.hldj.hmyg.Ui.friend.child.PublishActivity;
+import com.mabeijianxi.smallvideo2.VideoActivity;
 import com.mabeijianxi.smallvideorecord2.DeviceUtils;
 import com.mabeijianxi.smallvideorecord2.JianXiCamera;
-import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
-import com.mabeijianxi.smallvideorecord2.model.MediaRecorderConfig;
 
 import java.io.File;
 import java.util.HashMap;
@@ -27,6 +25,7 @@ public class VideoHempler {
 
 
     public static void initSmallVideo() {
+        if (true) return;
         // Set the cache path for video
         File dcim = Environment
                 .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
@@ -48,17 +47,20 @@ public class VideoHempler {
 
     public static void start(Context mContext) {
         // recording
-        MediaRecorderConfig config = new MediaRecorderConfig.Buidler()
-                .fullScreen(true)
-                .smallVideoWidth(480)
-                .smallVideoHeight(846)
-                .recordTimeMax(10000)
-                .recordTimeMin(1500)
-                .maxFrameRate(25)
-                .videoBitrate(750000)
-                .captureThumbnailsTime(1)
-                .build();
-        MediaRecorderActivity.goSmallVideoRecorder((Activity) mContext, PublishActivity.class.getName(), config);
+//        MediaRecorderConfig config = new MediaRecorderConfig.Buidler()
+//                .fullScreen(true)
+//                .smallVideoWidth(480)
+//                .smallVideoHeight(846)
+//                .recordTimeMax(10000)
+//                .recordTimeMin(1500)
+//                .maxFrameRate(25)
+//                .videoBitrate(750000)
+//                .captureThumbnailsTime(1)
+//                .build();
+//        MediaRecorderActivity.goSmallVideoRecorder((Activity) mContext, PublishActivity.class.getName(), config);
+
+        VideoActivity.start((Activity) mContext);
+
 //        MediaRecorderActivity.goSmallVideoRecorder((Activity) mContext, MediaRecorderActivity.class.getName(), config);
 //  Select local video compression
 //        LocalMediaConfig.Buidler buidler = new LocalMediaConfig.Buidler();
