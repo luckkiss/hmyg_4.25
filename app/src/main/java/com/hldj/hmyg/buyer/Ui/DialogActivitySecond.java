@@ -51,24 +51,24 @@ import static com.hldj.hmyg.R.id.tv_purchase_add_pic;
 
 public class DialogActivitySecond extends PurchaseDetailActivityChange {
 
-    private static final String TAG = "DialogActivitySecond";
+    protected static final String TAG = "DialogActivitySecond";
 
 
     @ViewInject(id = R.id.commit)
-    TextView commit;
+    public  TextView commit;
 
     @ViewInject(id = R.id.price)
-    EditText 价格;
+    public EditText 价格;
 
     @ViewInject(id = R.id.et_purchase_remark)
-    EditText 备注;
+    public EditText 备注;
 
     @ViewInject(id = R.id.city)
-    TextView city;
+    public TextView city;
 
 
     @ViewInject(id = tv_purchase_add_pic)
-    TextView 选择图片;
+    public TextView 选择图片;
 
     ArrayList<Pic> listPicsOnline = new ArrayList<>();//上传成功的结果保存在这里 网路路径集合
 
@@ -155,7 +155,7 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
      * @return
      */
 
-    private String 获取参数(String key) {
+    protected String 获取参数(String key) {
         for (PurchaseAutoAddLinearLayout autoLayout : autoLayouts) {
             PurchaseAutoAddLinearLayout.PlantBean plantBean = (PurchaseAutoAddLinearLayout.PlantBean) autoLayout.getTag();
             if (plantBean.value.equals(key)) {
@@ -183,7 +183,7 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
         return "";
     }
 
-    private String 获取地址code() {
+    protected String 获取地址code() {
         if (cityBeans == null) {
             return "";
         } else {
@@ -234,7 +234,7 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
     String dbhType = "";
     String diameterType = "";
 
-    private void 报价吧() {
+    protected void 报价吧() {
         String i = "";
         if (getBeanHistory() != null) {
             i = getBeanHistory().id;
@@ -493,7 +493,7 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
     }
 
 
-    private PurchaseItemBean_new getData() {
+    protected PurchaseItemBean_new getData() {
         Bundle b = getIntent().getExtras();
 //        PurchaseItemBean_new itemBean_new =
         if (b != null && b.get(TAG) instanceof PurchaseItemBean_new) {

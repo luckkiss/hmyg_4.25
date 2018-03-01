@@ -15,9 +15,9 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.base.ViewHolders;
-import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
 import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivityAlongSecond;
 import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivityHistory;
+import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivityPackage;
 import com.hldj.hmyg.saler.M.PurchaseBean;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.StringFormatUtil;
@@ -50,6 +50,7 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
         if (item.status.equals("expired")) {
             iv_jianyi.setVisibility(View.GONE);
         }
+        iv_jianyi.setVisibility(item.isPackage ? View.VISIBLE : View.GONE);
 
 
         int id = R.layout.list_item_purchase_list_new;
@@ -136,11 +137,13 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
     public static void jump(Activity context, PurchaseBean item) {
 
 
-        if (item.needPreQuote) {
+//        if (item.needPreQuote) {
+        // 修改 成 打包报价
+        if (item.isPackage) {
 //            ToastUtil.showLongToast("跳转简易报价------");
             // TODO Auto-generated method stub
             Intent intent = new Intent(context,
-                    StorePurchaseListActivity.class);
+                    StorePurchaseListActivityPackage.class);
             intent.putExtra("purchaseFormId", item.purchaseFormId);
             intent.putExtra("title", item.num);
             context.startActivity(intent);

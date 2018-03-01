@@ -206,6 +206,83 @@ public class PurchaseDeatilP {
         return this;
     }
 
+
+    /*打包 报价  临时保存   */
+    public PurchaseDeatilP quoteCommitTemp(final Context context, PurchaseDetailActivity.uploadBean bean) {
+        FinalHttp finalHttp = new FinalHttp();
+        GetServerUrl.addHeaders(finalHttp, true);
+        AjaxParams params = new AjaxParams();
+        paramsPut(params, ConstantParams.id, bean.id);
+        paramsPut(params, ConstantParams.cityCode, bean.cityCode);
+        paramsPut(params, ConstantParams.price, bean.price);
+        paramsPut(params, ConstantParams.diameter, bean.diameter);
+        paramsPut(params, ConstantParams.dbh, bean.dbh);
+        paramsPut(params, ConstantParams.dbhType, bean.dbhType);
+        paramsPut(params, ConstantParams.height, bean.height);
+        paramsPut(params, ConstantParams.crown, bean.crown);
+        paramsPut(params, ConstantParams.offbarHeight, bean.offbarHeight);
+        paramsPut(params, ConstantParams.length, bean.length);
+        paramsPut(params, ConstantParams.count, bean.count);
+        paramsPut(params, ConstantParams.diameterType, bean.diameterType);
+        paramsPut(params, ConstantParams.remarks, bean.remarks);
+        paramsPut(params, ConstantParams.imagesData, bean.imagesData);
+        paramsPut(params, ConstantParams.purchaseId, bean.purchaseId);
+        paramsPut(params, ConstantParams.purchaseItemId, bean.purchaseItemId);
+        paramsPut(params, ConstantParams.plantType, bean.plantType);
+        paramsPut(params, ConstantParams.prePrice, bean.prePrice);
+
+
+        finalHttp.post(GetServerUrl.getUrl() + "admin/quote/package/saveTemp", params,
+                new AjaxCallBack<String>() {
+
+                    @Override
+                    public void onSuccess(String t) {
+//                        try {
+                        D.e("=========json=======" + t);
+                        ToastUtil.showLongToast("" + t);
+////                            Type beanType = new TypeToken<SimpleGsonBean_new>() { }.getType();
+//                            Type beanType = new TypeToken<SimpleGsonBean_new<PurchaseItemBean_new>>() {
+//                            }.getType();
+//
+//                            SimpleGsonBean_new gsonBean_new = GsonUtil.formateJson2Bean(t, beanType);
+////                            ToastUtil.showShortToast(gsonBean_new.data.purchaseItem.toString());
+////                            SaveSeedingGsonBean saveSeedingGsonBean = GsonUtil.formateJson2Bean(t, SaveSeedingGsonBean.class);
+//                            if (gsonBean_new.isSucceed()) {
+//                                if (gsonBean_new.data != null && gsonBean_new.data.purchaseItem != null) {
+//                                    PurchaseItemBean_new itemBean_new = (PurchaseItemBean_new) gsonBean_new.data.purchaseItem;
+//                                    Log.e("onSuccess", "onSuccess: " + gsonBean_new.data.purchaseItem + " itemBean_new= " + itemBean_new.toString());
+//                                    resultCallBack.onSuccess(gsonBean_new.data.purchaseItem);
+//                                } else {
+//                                    resultCallBack.onSuccess(null);
+//                                }
+//
+//                            } else {
+//                                ToastUtil.showShortToast(gsonBean_new.msg);
+//                                resultCallBack.onFailure(new Throwable(gsonBean_new.msg), Integer.parseInt(gsonBean_new.code), gsonBean_new.msg);
+////                                Toast.makeText(MyApplication.getInstance(), saveSeedingGsonBean.getMsg(), Toast.LENGTH_SHORT).show();
+//                            }
+//                        } catch (Exception e) {
+//                            // TODO Auto-generated catch block
+//                            D.e("===网络失错误==" + e.getMessage());
+//                            ToastUtil.showShortToast("网络错误");
+//                            e.printStackTrace();
+//                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+
+                        super.onFailure(t, errorNo, strMsg);
+                    }
+
+                });
+
+
+        return this;
+    }
+
+
     private void paramsPut(AjaxParams params, String key, String values) {
         if (TextUtils.isEmpty(values)) {
             D.e("==参数==" + key + "  值为空");
@@ -279,9 +356,7 @@ public class PurchaseDeatilP {
     }
 
 
-
-    public static void requestPer(NeedSwipeBackActivity activity)
-    {
+    public static void requestPer(NeedSwipeBackActivity activity) {
         CommonDialogFragment1.newInstance(new CommonDialogFragment1.OnCallDialog() {
             @Override
             public Dialog getDialog(Context context) {

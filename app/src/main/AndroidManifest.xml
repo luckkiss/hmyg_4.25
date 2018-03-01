@@ -83,8 +83,8 @@
 
 
     <!--麦克风 -->
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <!-- Required -->
     <uses-permission android:name="com.hldj.hmyg.permission.JPUSH_MESSAGE" />
@@ -403,7 +403,12 @@
         <!--一轮报价-->
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity"
+            android:screenOrientation="portrait" />  <!--一轮报价-->
+        <!--打包报价-->
+        <activity
+            android:name="com.hldj.hmyg.buyer.Ui.StorePurchaseListActivityPackage"
             android:screenOrientation="portrait" />
+        <!--打包报价-->
 
         <!--二轮报价-->
         <activity
@@ -431,6 +436,12 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
+            android:name="com.hldj.hmyg.buyer.Ui.DialogActivityPackage"
+            android:screenOrientation="portrait"
+            android:theme="@style/dialog_activity"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
             android:name="com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
@@ -438,6 +449,7 @@
             android:name="com.hldj.hmyg.buyer.Ui.PurchaseDetailActivityChange"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
+
         <activity
             android:name="com.hldj.hmyg.FeedBackActivity"
             android:launchMode="singleTask"
@@ -858,10 +870,21 @@
 
         <!--视频录制页面的activity-->
         <!--<activity android:name="mabeijianxi.camera.MediaRecorderActivity" />-->
-        <activity android:name="com.mabeijianxi.smallvideorecord2.MediaRecorderActivity" android:theme="@style/FullScreenTheme"/>
-        <activity android:name="com.mabeijianxi.smallvideo2.VideoPlayerActivity" android:theme="@style/FullScreenTheme"    android:screenOrientation="portrait"/>
-        <activity android:name="com.mabeijianxi.smallvideo2.VideoPlayerActivity2" android:theme="@style/FullScreenTheme"    android:screenOrientation="portrait"/>
-        <activity android:name="com.mabeijianxi.smallvideo2.VideoActivity" android:theme="@style/FullScreenTheme"    android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.mabeijianxi.smallvideorecord2.MediaRecorderActivity"
+            android:theme="@style/FullScreenTheme" />
+        <activity
+            android:name="com.mabeijianxi.smallvideo2.VideoPlayerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullScreenTheme" />
+        <activity
+            android:name="com.mabeijianxi.smallvideo2.VideoPlayerActivity2"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullScreenTheme" />
+        <activity
+            android:name="com.mabeijianxi.smallvideo2.VideoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullScreenTheme" />
 
         <!--<provider-->
         <!--android:name="android.support.v4.content.FileProvider"-->

@@ -73,10 +73,7 @@ android {
 //        jackOptions {
 //            enabled true
 //        }
-        ndk {
-            abiFilters "armeabi-v7a"
-//            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
-        }
+
 
 
     }
@@ -123,6 +120,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
             signingConfig signingConfigs.release
+            ndk {
+                abiFilters "armeabi-v7a"
+//            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
+            }
         }
 
         debug {
@@ -130,6 +131,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
             debuggable true
+            ndk {
+                abiFilters "armeabi-v7a","x86"
+//            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
+            }
         }
     }
 //    buildTypes {

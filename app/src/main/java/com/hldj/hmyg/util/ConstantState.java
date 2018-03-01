@@ -15,6 +15,7 @@ public interface ConstantState {
     int SAVE_SUCCEED = 202;//保存成功 状态码
     int SAVE_REQUEST = 203;//保存成功 状态码
     int PUBLIC_SUCCEED = 204;//发布成功 状态码
+    int PUBLIC_TMP_SUCCEED = 2040;//临时保存成功 状态码
 
 
     int DELETE_SUCCEED = 205;//采购详情界面   订单删除成功状态码

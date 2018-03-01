@@ -5,6 +5,7 @@ import com.hldj.hmyg.Ui.friend.bean.MomentsReply;
 import com.hldj.hmyg.Ui.friend.bean.UnRead;
 import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
 import com.hldj.hmyg.buyer.M.PurchaseListPageGsonBean;
+import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
 import com.hldj.hmyg.util.ConstantState;
 
 import java.io.Serializable;
@@ -38,6 +39,9 @@ public class SimpleGsonBean implements Serializable {
         public PurchaseListPageGsonBean.DataBeanX.HeadPurchaseBean headPurchase;
 
         public PurchaseItemBean_new purchaseItem;
+
+        /*临时报价*/
+        public SellerQuoteJsonBean quote;
 
 
         /*未读消息列表   */

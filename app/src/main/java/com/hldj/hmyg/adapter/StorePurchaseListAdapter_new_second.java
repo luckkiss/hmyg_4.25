@@ -97,7 +97,7 @@ public abstract class StorePurchaseListAdapter_new_second extends StorePurchaseL
 
 
     @Override
-    protected void jump2Quote(Activity context, PurchaseItemBean_new purchaseItemBeanNew) {
+    protected void jump2Quote(Activity context, PurchaseItemBean_new purchaseItemBeanNew,ListView listView) {
 //      super.jump2Quote(context, purchaseItemBeanNew);
         purchaseItemBeanNew.pid1 = getItemId();
         purchaseItemBeanNew.pid2 = getItemId();

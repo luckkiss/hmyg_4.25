@@ -21,6 +21,8 @@ public class StorePurchaseListActivityAlongSecond extends StorePurchaseListActiv
 //        host = "purchase/historyQuoteList";
 //        ToastUtil.showLongToast(host);
 //      host = "admin/purchase/secondQuoteList";
+        host = "admin/purchase/purchaseItemList";
+
         return true;
     }
 
@@ -29,6 +31,9 @@ public class StorePurchaseListActivityAlongSecond extends StorePurchaseListActiv
         super.initHeadBean(headPurchase);
 
         ((TextView) getView(R.id.tv_06)).setText("截止时间：" + headPurchase.preCloseDate);
+
+
+
     }
 
     @Override

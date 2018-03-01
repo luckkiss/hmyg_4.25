@@ -302,9 +302,9 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 //            }
 //
 
-            if (gsonBean.data.preBidList != null || gsonBean.data.unEditList != null) {
+//            if (gsonBean.data.preBidList != null || gsonBean.data.unEditList != null) {
                 initSecondList(gsonBean.data.preBidList, gsonBean.data.unEditList);
-            }
+//            }
 
 
 //                    is = gsonBean.data.expired;

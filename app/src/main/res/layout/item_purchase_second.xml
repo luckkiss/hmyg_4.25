@@ -1,419 +1,436 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/gray_bg_ed"
-    android:orientation="vertical">
-
+    android:layout_height="wrap_content" android:background="@color/gray_bg_ed">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        android:weightSum="2">
-
-
-        <com.coorchice.library.SuperTextView
-            android:layout_width="wrap_content"
-            android:layout_height="27dp"
-            android:gravity="center|start"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="采购报价:"
-            android:textColor="@color/orange"
-            android:textSize="13sp"
-            app:solid="@color/trans" />
-
-
-        <TextView
-            android:id="@+id/tv_quote_item_sellerName"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical|start"
-            android:paddingLeft="10dp"
-            android:text="以下是您的报价记录"
-            android:textColor="@color/text_color"
-            android:textSize="10sp" />
-
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/line"
-        style="@style/View_line_gray_1dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-
-        <com.coorchice.library.SuperTextView
-            android:layout_width="wrap_content"
-            android:layout_height="27dp"
-            android:gravity="center|start"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="价        格:"
-            android:textSize="12sp"
-            app:solid="@color/trans" />
-
-        <com.coorchice.library.SuperTextView
-            android:id="@+id/tv_quote_item_price"
-            android:layout_width="0dp"
-            android:layout_height="27dp"
-            android:layout_weight="0.78"
-            android:gravity="center_vertical|start"
-            android:paddingLeft="10dp"
-            android:paddingRight="5dp"
-            android:textColor="@color/price_orige"
-            android:textSize="12sp"
-            app:solid="@color/trans"
-            tools:text="160" />
+        android:id="@+id/content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/gray_bg_ed"
+        android:orientation="vertical">
 
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.2">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="2">
+
 
             <com.coorchice.library.SuperTextView
                 android:layout_width="wrap_content"
                 android:layout_height="27dp"
-                android:gravity="center"
+                android:gravity="center|start"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:text="报价时间:"
-                android:textSize="12sp"
+                android:text="采购报价:"
+                android:textColor="@color/orange"
+                android:textSize="13sp"
                 app:solid="@color/trans" />
 
 
             <TextView
-                android:id="@+id/tv_quote_item_time"
-                android:layout_width="0dp"
+                android:id="@+id/tv_quote_item_sellerName"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
                 android:gravity="center_vertical|start"
-                android:paddingLeft="5dp"
-                android:singleLine="true"
-                android:textSize="12sp"
-                tools:text="fsafddsafddasdfasdfaf-" />
+                android:paddingLeft="10dp"
+                android:text="以下是您的报价记录"
+                android:textColor="@color/text_color"
+                android:textSize="10sp" />
+
 
         </LinearLayout>
 
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+        <View
+            android:id="@+id/line"
+            style="@style/View_line_gray_1dp" />
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.05">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
 
             <com.coorchice.library.SuperTextView
                 android:layout_width="wrap_content"
                 android:layout_height="27dp"
-                android:gravity="center"
+                android:gravity="center|start"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:text="预估到货价:"
+                android:text="价        格:"
                 android:textSize="12sp"
                 app:solid="@color/trans" />
 
-
-            <TextView
-                android:id="@+id/tv_quote_item_pre_price"
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_quote_item_price"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
+                android:layout_height="27dp"
+                android:layout_weight="0.78"
                 android:gravity="center_vertical|start"
-                android:paddingLeft="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
                 android:textColor="@color/price_orige"
                 android:textSize="12sp"
-                tools:text="-" />
+                app:solid="@color/trans"
+                tools:text="160" />
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2">
+
+                <com.coorchice.library.SuperTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="27dp"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="报价时间:"
+                    android:textSize="12sp"
+                    app:solid="@color/trans" />
+
+
+                <TextView
+                    android:id="@+id/tv_quote_item_time"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|start"
+                    android:paddingLeft="5dp"
+                    android:singleLine="true"
+                    android:textSize="12sp"
+                    tools:text="fsafddsafddasdfasdfaf-" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
 
-        <com.coorchice.library.SuperTextView
-            android:layout_width="wrap_content"
-            android:layout_height="27dp"
-            android:gravity="center|end"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="可供数量:"
-            android:textSize="12sp"
-            app:solid="@color/trans" />
-
-        <com.coorchice.library.SuperTextView
-            android:id="@+id/tv_quote_item_count"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8"
-            android:gravity="center_vertical|start"
-            android:minHeight="27dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:textSize="12sp"
-            app:solid="@color/trans"
-            tools:text="666"
-
-            />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
-
-        <com.coorchice.library.SuperTextView
-            android:id="@+id/tv_quote_item_left"
-            android:layout_width="wrap_content"
-            android:layout_height="27dp"
-            android:gravity="center|end"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="品种规格:"
-            android:textSize="12sp"
-            app:solid="@color/trans" />
-
-        <com.coorchice.library.SuperTextView
-            android:id="@+id/tv_quote_item_specText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8"
-            android:gravity="center_vertical|start"
-            android:minHeight="27dp"
-            android:paddingRight="5dp"
-            android:textSize="12sp"
-            app:solid="@color/trans"
-            tools:text="高度：5地径：55（0.1m量）高度：5"
-
-            />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"></LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:weightSum="2">
-
-        <com.coorchice.library.SuperTextView
-            android:layout_width="wrap_content"
-            android:layout_height="27dp"
-            android:gravity="center|end"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="苗源地址:"
-            android:textSize="12sp"
-            app:solid="@color/trans" />
-
-        <com.coorchice.library.SuperTextView
-            android:id="@+id/tv_quote_item_cityName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.78"
-            android:gravity="center_vertical|start"
-            android:minHeight="27dp"
-            android:paddingRight="5dp"
-            android:textSize="12sp"
-            app:solid="@color/trans"
-            tools:text="福建 厦门" />
-
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.2">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.05">
+
+                <com.coorchice.library.SuperTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="27dp"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="预估到货价:"
+                    android:textSize="12sp"
+                    app:solid="@color/trans" />
+
+
+                <TextView
+                    android:id="@+id/tv_quote_item_pre_price"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|start"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/price_orige"
+                    android:textSize="12sp"
+                    tools:text="-" />
+
+            </LinearLayout>
+
 
             <com.coorchice.library.SuperTextView
                 android:layout_width="wrap_content"
                 android:layout_height="27dp"
-                android:gravity="center"
+                android:gravity="center|end"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:text="种植类型:"
+                android:text="可供数量:"
                 android:textSize="12sp"
                 app:solid="@color/trans" />
 
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_quote_item_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:gravity="center_vertical|start"
+                android:minHeight="27dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textSize="12sp"
+                app:solid="@color/trans"
+                tools:text="666"
 
-            <TextView
-                android:id="@+id/tv_quote_item_plantTypeName"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_quote_item_left"
+                android:layout_width="wrap_content"
+                android:layout_height="27dp"
+                android:gravity="center|end"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="品种规格:"
+                android:textSize="12sp"
+                app:solid="@color/trans" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_quote_item_specText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:gravity="center_vertical|start"
+                android:minHeight="27dp"
+                android:paddingRight="5dp"
+                android:textSize="12sp"
+                app:solid="@color/trans"
+                tools:text="高度：5地径：55（0.1m量）高度：5"
+
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:weightSum="2">
+
+            <com.coorchice.library.SuperTextView
+                android:layout_width="wrap_content"
+                android:layout_height="27dp"
+                android:gravity="center|end"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="苗源地址:"
+                android:textSize="12sp"
+                app:solid="@color/trans" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_quote_item_cityName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.78"
+                android:gravity="center_vertical|start"
+                android:minHeight="27dp"
+                android:paddingRight="5dp"
+                android:textSize="12sp"
+                app:solid="@color/trans"
+                tools:text="福建 厦门" />
+
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:gravity="center_vertical|start"
-                android:paddingLeft="5dp"
-                android:textSize="12sp"
-                tools:text="地栽苗" />
+                android:layout_weight="1.2">
+
+                <com.coorchice.library.SuperTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="27dp"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="种植类型:"
+                    android:textSize="12sp"
+                    app:solid="@color/trans" />
+
+
+                <TextView
+                    android:id="@+id/tv_quote_item_plantTypeName"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|start"
+                    android:paddingLeft="5dp"
+                    android:textSize="12sp"
+                    tools:text="地栽苗" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
-
-        <com.coorchice.library.SuperTextView
-            android:layout_width="wrap_content"
-            android:layout_height="27dp"
-            android:gravity="center|end"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="报价说明:"
-            android:textSize="12sp"
-            app:solid="@color/trans" />
-
-
-        <com.coorchice.library.SuperTextView
-            android:id="@+id/tv_quote_item_declare"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
-            android:gravity="center_vertical|start"
-            android:minHeight="27dp"
-            android:paddingRight="5dp"
-            android:textSize="12sp"
-            app:solid="@color/trans"
-            tools:text="134654646134654641346546461346134654646134654646134654646134654646134
+            android:gravity="center_vertical">
+
+            <com.coorchice.library.SuperTextView
+                android:layout_width="wrap_content"
+                android:layout_height="27dp"
+                android:gravity="center|end"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="报价说明:"
+                android:textSize="12sp"
+                app:solid="@color/trans" />
+
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_quote_item_declare"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:gravity="center_vertical|start"
+                android:minHeight="27dp"
+                android:paddingRight="5dp"
+                android:textSize="12sp"
+                app:solid="@color/trans"
+                tools:text="134654646134654641346546461346134654646134654646134654646134654646134
             65464613465464613465464654646134654646134654646134
             6546461346546461346546466134654646134654646134654646134654646134654646" />
 
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/abc"
+                android:layout_width="wrap_content"
+                android:layout_height="27dp"
+                android:gravity="center|end"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="苗木图片:"
+                android:textSize="12sp"
+
+                app:solid="@color/trans" />
+
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_quote_item_photo_num"
+                android:layout_width="0dp"
+                android:layout_height="27dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="0.8"
+                android:gravity="center_vertical|start"
+                android:paddingRight="5dp"
+                android:textSize="12sp"
+                app:isShowState="true"
+                app:paddingEnd="10dp"
+                app:solid="@color/trans"
+                app:state_drawable="@drawable/baojia_chakantupian"
+                app:state_drawable_height="20dp"
+                app:state_drawable_mode="right"
+                app:state_drawable_width="20dp"
+                tools:text="有1张图片" />
+        </LinearLayout>
+
+
+        <View style="@style/View_line_green" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <com.coorchice.library.SuperTextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center|end"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="当前报价状态:"
+                android:textSize="12sp"
+                app:solid="@color/trans" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_show_is_quote"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="0.8"
+                android:gravity="center_vertical|start"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textColor="@color/orange_color"
+                android:textSize="12sp"
+                app:solid="@color/trans"
+                tools:text="已报价" />
+
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_change_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:gravity="center"
+                android:paddingBottom="4dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="4dp"
+                android:text="编辑"
+                android:textColor="@color/main_color"
+                android:textSize="12sp"
+                app:solid="@color/trans"
+                app:stroke_color="@color/main_color"
+                app:stroke_width="1dp" />
+
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_delete_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:gravity="center"
+                android:paddingBottom="4dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="4dp"
+                android:text="删除"
+                android:textColor="@color/price_orige"
+                android:textSize="12sp"
+                app:solid="@color/trans"
+                app:stroke_color="@color/price_orige"
+                app:stroke_width="1dp" />
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <com.coorchice.library.SuperTextView
-            android:id="@+id/abc"
-            android:layout_width="wrap_content"
-            android:layout_height="27dp"
-            android:gravity="center|end"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="苗木图片:"
-            android:textSize="12sp"
-
-            app:solid="@color/trans" />
-
-
-        <com.coorchice.library.SuperTextView
-            android:id="@+id/tv_quote_item_photo_num"
-            android:layout_width="0dp"
-            android:layout_height="27dp"
-            android:layout_marginRight="4dp"
-            android:layout_weight="0.8"
-            android:gravity="center_vertical|start"
-            android:paddingRight="5dp"
-            android:textSize="12sp"
-            app:isShowState="true"
-            app:paddingEnd="10dp"
-            app:solid="@color/trans"
-            app:state_drawable="@drawable/baojia_chakantupian"
-            app:state_drawable_height="20dp"
-            app:state_drawable_mode="right"
-            app:state_drawable_width="20dp"
-            tools:text="有1张图片" />
-    </LinearLayout>
-
-
-    <View style="@style/View_line_green" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/iv_status"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:layout_gravity="right"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/weitijiao_gray"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
-        <com.coorchice.library.SuperTextView
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:gravity="center|end"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="当前报价状态:"
-            android:textSize="12sp"
-            app:solid="@color/trans" />
-
-        <com.coorchice.library.SuperTextView
-            android:id="@+id/tv_show_is_quote"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="0.8"
-            android:gravity="center_vertical|start"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:textColor="@color/orange_color"
-            android:textSize="12sp"
-            app:solid="@color/trans"
-            tools:text="已报价" />
-
-
-        <com.coorchice.library.SuperTextView
-            android:id="@+id/tv_change_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:gravity="center"
-            android:paddingBottom="4dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="4dp"
-            android:text="编辑"
-            android:textColor="@color/main_color"
-            android:textSize="12sp"
-            app:solid="@color/trans"
-            app:stroke_color="@color/main_color"
-            app:stroke_width="1dp" />
-
-
-        <com.coorchice.library.SuperTextView
-            android:id="@+id/tv_delete_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:gravity="center"
-            android:paddingBottom="4dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="4dp"
-            android:text="删除"
-            android:textColor="@color/price_orige"
-            android:textSize="12sp"
-            app:solid="@color/trans"
-            app:stroke_color="@color/price_orige"
-            app:stroke_width="1dp" />
-
-    </LinearLayout>
-
-
-</LinearLayout>
+</FrameLayout>

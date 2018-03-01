@@ -10,11 +10,10 @@
         android:id="@+id/ll_item_broker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/r_o_white"
         android:orientation="vertical"
-        android:layout_marginBottom="12dp"
-        android:paddingTop="8dp"
-      >
+        android:paddingTop="8dp">
 
 
         <RelativeLayout
@@ -187,14 +186,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="28dp"
                     android:layout_gravity="center_vertical"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/arrow_gray_selector"
                     android:gravity="center"
                     android:paddingBottom="4.5dp"
                     android:singleLine="true"
                     android:textColor="@color/gray"
-                    android:textSize="12.0sp"
-                    tools:text="已有1条报价"
-
-                    />
+                    android:textSize="13.0sp"
+                    tools:text="已有1条报价" />
 
                 <TextView
                     android:id="@+id/tv_11"

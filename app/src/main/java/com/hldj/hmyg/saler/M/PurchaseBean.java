@@ -98,6 +98,7 @@ public class PurchaseBean {
     public String closeDate;
     public boolean needInvoice;
     public boolean needPreQuote;
+    public boolean isPackage;/*是否整包 报价*/
     public String customerId;
     public String status;
     public String source;

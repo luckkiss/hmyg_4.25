@@ -23,12 +23,12 @@ import com.hldj.hmyg.buyer.M.QuoteStatus;
 import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
 import com.hldj.hmyg.buyer.P.PurchaseDeatilP;
 import com.hldj.hmyg.buyer.Ui.DialogActivity;
-import com.hldj.hmyg.buyer.Ui.QuoteListActivity_bak;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
 import com.zf.iosdialog.widget.AlertDialog;
+import com.zzy.common.widget.MeasureListView;
 
 import java.util.List;
 
@@ -59,10 +59,12 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
         super(context, data, layoutId);
     }
 
+
     public static boolean isShow = true;
 
     @Override
     public void setConverView(ViewHolders myViewHolder, PurchaseItemBean_new purchaseItemBeanNew, int position) {
+
 
         if (purchaseItemBeanNew.id.equals("-1")) return;
         int viewRootId = R.layout.list_item_store_purchase;
@@ -89,7 +91,8 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
         setSpaceAndRemark(myViewHolder.getView(R.id.tv_05), purchaseItemBeanNew.specText, purchaseItemBeanNew.remarks);
 
         TextView tv_10 = myViewHolder.getView(R.id.tv_10);
-        setTv10(tv_10, purchaseItemBeanNew);
+        Log.i(TAG, "setConverView: " + tv_10.isSelected());
+        setTv10(tv_10, purchaseItemBeanNew, true);//点击查看   ↓
 
         if (isExpired()) {
             tv_10.setVisibility(View.GONE);
@@ -146,7 +149,8 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 //                                purchaseItemBeanNew.pid2 = getItemId();
 //                                DialogActivity.start((Activity) context, purchaseItemBeanNew);
 
-                                jump2Quote((Activity) context, purchaseItemBeanNew);
+                                jump2Quote((Activity) context, purchaseItemBeanNew, listView);
+//                                processListView(listView);
 
 //                    DialogActivitySecond.start2Activity((Activity) context, purchaseItemBeanNew.id ,purchaseItemBeanNew);
                             }
@@ -176,13 +180,19 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 
     }
 
-    protected void jump2Quote(Activity context, PurchaseItemBean_new purchaseItemBeanNew) {
+    protected void jump2Quote(Activity context, PurchaseItemBean_new purchaseItemBeanNew, ListView list) {
 
         purchaseItemBeanNew.pid1 = getItemId();
         purchaseItemBeanNew.pid2 = getItemId();
         DialogActivity.start((Activity) context, purchaseItemBeanNew);
 
     }
+
+//    protected void processListView(ListView listview) {
+//
+//
+//    }
+
 
     protected void initListView(ListView listView, Context context, PurchaseItemBean_new purchaseItemBeanNew) {
 
@@ -212,6 +222,11 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 
             @Override
             public void setConverView(ViewHolders myViewHolder, SellerQuoteJsonBean jsonBean, int position) {
+
+                if (!((MeasureListView) listView).isOnMeasure) {
+                    return;
+                }
+
                 D.e("=====setConverView======str=============" + jsonBean.toString());
 
                 TextView tv = myViewHolder.getView(R.id.textView32);
@@ -320,24 +335,40 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 
     }
 
-    private void setTv10(TextView tv_10, PurchaseItemBean_new purchaseItemBeanNew) {
-        if (MyApplication.getUserBean().showQuoteCount)//拥有权限
-        {
-            StringFormatUtil fillColor = new StringFormatUtil(context, "已有"
+    //, boolean isOpen
+    public void setTv10(TextView tv_10, PurchaseItemBean_new purchaseItemBeanNew, boolean isOpen) {
+
+        tv_10.setVisibility(View.VISIBLE);
+        if (isOpen) {
+            StringFormatUtil fillColor = new StringFormatUtil(context, "点击查看"
                     + purchaseItemBeanNew.quoteCountJson + "条报价", purchaseItemBeanNew.quoteCountJson + "",
                     R.color.red).fillColor();
             tv_10.setText(fillColor.getResult());
-            tv_10.setVisibility(View.VISIBLE);
-            if (purchaseItemBeanNew.quoteCountJson == 0) {
-                //跳转到报价列表详情
-                tv_10.setOnClickListener(v -> ToastUtil.showShortToast("暂无报价"));
-            } else {
-                //跳转到报价列表详情
-                tv_10.setOnClickListener(v -> QuoteListActivity_bak.start2Activity((Activity) context, purchaseItemBeanNew.id));
-            }
+
+//                tv_10.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+            tv_10.setSelected(false); //下 ↓
+//                    }
+//                },100);
+
         } else {
-            tv_10.setVisibility(View.INVISIBLE);//没有权限 就不显示  和没有点击事件
+            StringFormatUtil fillColor = new StringFormatUtil(context, "点击收起"
+                    + purchaseItemBeanNew.quoteCountJson + "条报价", purchaseItemBeanNew.quoteCountJson + "",
+                    R.color.red).fillColor();
+            tv_10.setText(fillColor.getResult());
+            tv_10.setSelected(true);
         }
+
+
+//            if (purchaseItemBeanNew.quoteCountJson == 0) {
+//                //跳转到报价列表详情
+//                tv_10.setOnClickListener(v -> ToastUtil.showShortToast("暂无报价"));
+//            } else {
+//                //跳转到报价列表详情
+//                tv_10.setOnClickListener(v -> QuoteListActivity_bak.start2Activity((Activity) context, purchaseItemBeanNew.id));
+//            }
+
     }
 
 
