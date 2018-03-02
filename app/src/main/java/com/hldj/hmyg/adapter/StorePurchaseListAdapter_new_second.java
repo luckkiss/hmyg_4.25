@@ -97,14 +97,15 @@ public abstract class StorePurchaseListAdapter_new_second extends StorePurchaseL
 
 
     @Override
-    protected void jump2Quote(Activity context, PurchaseItemBean_new purchaseItemBeanNew,ListView listView) {
+    protected void jump2Quote(Activity context, PurchaseItemBean_new purchaseItemBeanNew,ListView listView,ViewHolders parentHolders) {
 //      super.jump2Quote(context, purchaseItemBeanNew);
         purchaseItemBeanNew.pid1 = getItemId();
         purchaseItemBeanNew.pid2 = getItemId();
         DialogActivitySecond.start2Activity((Activity) context, purchaseItemBeanNew.id, purchaseItemBeanNew);
     }
 
-    protected void initListView(ListView listView, Context context, PurchaseItemBean_new purchaseItemBeanNew) {
+    @Override
+    protected void initListView(ViewHolders parentHolders,ListView listView, Context context, PurchaseItemBean_new purchaseItemBeanNew) {
 
 
         listView.setAdapter(new GlobBaseAdapter<SellerQuoteJsonBean>(context, purchaseItemBeanNew.sellerQuoteListJson, R.layout.item_purchase_second) {

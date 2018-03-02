@@ -42,11 +42,11 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="6dp"
         android:background="@drawable/round_rectangle_bg_btn"
+        android:textColor="@color/color_purch_sub"
         android:gravity="center"
         android:minWidth="55dp"
         android:padding="3dp"
         android:text="采用"
-        android:textColor="@color/color_purch_sub"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

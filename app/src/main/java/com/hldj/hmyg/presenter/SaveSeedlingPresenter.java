@@ -796,7 +796,7 @@ public class SaveSeedlingPresenter {
 
                 if (imageBackGsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
                     D.e("===上传成功==");
-                    resultCallBack.onSuccess(new Pic(imageBackGsonBean.getData().getImage().getId(), false, imageBackGsonBean.getData().getImage().getOssMediumImagePath(), a));
+                    resultCallBack.onSuccess(new Pic(imageBackGsonBean.getData().getImage().getId(), false, imageBackGsonBean.getData().getImage().getUrl(), a));
                 } else {
                     resultCallBack.onFailure(new Throwable(imageBackGsonBean.getMsg()), Integer.parseInt(imageBackGsonBean.getCode()), imageBackGsonBean.getMsg());
                     D.e("===上传失败==");

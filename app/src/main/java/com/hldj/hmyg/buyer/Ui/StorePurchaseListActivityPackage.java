@@ -4,16 +4,22 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.adapter.StorePurchaseListAdapter_new_package;
+import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
 import com.hldj.hmyg.buyer.M.PurchaseListPageGsonBean;
 import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
+import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
+import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static com.hldj.hmyg.R.id.bottom_tv;
 import static com.hldj.hmyg.util.ConstantState.PUBLIC_TMP_SUCCEED;
 
 /**
@@ -34,12 +40,40 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
 
         //修改 报价时间为   第一次结束时间
 
-//          ((TextView) getView(R.id.tv_06)).setText("截止时间：" + 666);
+//      ((TextView) getView(R.id.tv_06)).setText("截止时间：" + 666);
         ((TextView) getView(R.id.tv_06)).setText("截止时间：" + headPurchase.closeDate);
         getView(R.id.tv_show_tip).setVisibility(View.VISIBLE);
 
-        getView(R.id.bottom_tv).setVisibility(View.VISIBLE);
+        getView(bottom_tv).setVisibility(View.VISIBLE);
         getView(R.id.bottom_btn).setVisibility(View.VISIBLE);
+        getView(R.id.bottom_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (tempBeans.isEmpty()) {
+                    ToastUtil.showLongToast("还未全部报价,请全部报价!");
+                    return;
+                }
+                StringBuffer buffer = new StringBuffer();
+                for (SellerQuoteJsonBean sellerQuoteJsonBean : tempBeans) {
+                    buffer.append(sellerQuoteJsonBean.id + "|");
+                }
+                ToastUtil.showLongToast("打包报价=======" + buffer);
+
+                new BasePresenter()
+                        .putParams("quoteTempIds", buffer.toString())
+                        .doRequest("admin/quote/package/save", true, new HandlerAjaxCallBack() {
+                            @Override
+                            public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                ToastUtil.showLongToast(gsonBean.msg);
+                            }
+                        });
+            }
+        });
+//        TextView bottom_tv = getView(R.id.bottom_tv);
+//        bottom_tv.setText("共3个品种,已报价0个品种");
+
+
     }
 
     public void setEditAble(List<PurchaseItemBean_new> editAble, boolean flag) {
@@ -49,8 +83,18 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
     }
 
 
+    private int totalCount = 0;
+
     //打包报价   执行
     public void initPageBeans(List<PurchaseItemBean_new> data) {
+        totalCount = data.size();
+        TextView bottom_tv = getView(R.id.bottom_tv);
+//        bottom_tv.setText("共" + totalCount + "个品种,已报价0个品种");
+        String str ="共" + totalCount + "个品种,已报价" + tempBeans.size() + "个品种";
+        StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, totalCount+"", tempBeans.size() + "", R.color.red).fillColor();
+        bottom_tv
+                .setText(stringFormatUtil.getResult());
+
 
         for (int i = 0; i < data.size(); i++) {
             shareBean.text += data.get(i).name + ",";
@@ -91,8 +135,23 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
 
         onLoad();
 
+        xListView.setPullRefreshEnable(false);
+        xListView.setPullLoadEnable(false);
+
     }
 
+
+    @Override
+    protected void onLoad() {
+
+    }
+
+    @Override
+    public void onRefresh() {
+
+    }
+
+    List<SellerQuoteJsonBean> tempBeans = new ArrayList<>();
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -113,11 +172,21 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
 //            } catch (Exception e) {
 //                onRefresh();
 //            }
-            ((StorePurchaseListAdapter_new_package) listAdapter).processListView(null,tmp_quote);
+            tempBeans.add(tmp_quote);
+            ((StorePurchaseListAdapter_new_package) listAdapter).processListView(null, tmp_quote);
 
 
             ToastUtil.showLongToast("临时保存成功+tmp_quote" + tmp_quote.toString());
             D.i("=======临时保存成功======" + tmp_quote.toString());
+
+
+
+            String str ="共" + totalCount + "个品种,已报价" + tempBeans.size() + "个品种";
+            StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, totalCount+"", tempBeans.size() + "", R.color.red).fillColor();
+
+            ((TextView) getView(R.id.bottom_tv))
+                    .setText(stringFormatUtil.getResult());
+
 
 
         }
@@ -188,7 +257,7 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
 //    }
 
 
-    //一轮报价时 执行
+//    一轮报价时 执行
 //    @Override
 //    public void initPageBeans(List<PurchaseItemBean_new> data) {
 //      super. initPageBeans(data);

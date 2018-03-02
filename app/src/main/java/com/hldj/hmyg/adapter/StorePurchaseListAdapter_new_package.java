@@ -32,6 +32,7 @@ import com.hy.utils.ToastUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.hldj.hmyg.R.id.tv_caozuo01;
 import static me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity.strFilter;
 
 /**
@@ -89,18 +90,51 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
     }
 
 
+    @Override
+    protected void initListView(ViewHolders parentHolders, ListView listView, Context context, PurchaseItemBean_new purchaseItemBeanNew) {
+        super.initListView(parentHolders, listView, context, purchaseItemBeanNew);
+        int parentId = R.layout.list_item_store_purchase;
+        if (purchaseItemBeanNew.footSellerQuoteListJson != null) {
+            TextView textView = new TextView(context);
+            configureTextView(textView);
+            View view = LayoutInflater.from(context).inflate(R.layout.item_purchase_second, null);
+            StorePurchaseListAdapter_new_package.initFootView(context, view, purchaseItemBeanNew.footSellerQuoteListJson, textView);
+            listView.addFooterView(view);
+       /*不为空则   已经报价过本item  将马上报价  隐藏  */
+            TextView textView1 = parentHolders.getView(tv_caozuo01);
+            textView1.setText("已经报价");
+            textView1.setOnClickListener(null);
+//        textView1.setTextColor(Color.GRAY);
+//        textView1.setBackgroundResource(R.drawable.gray_button_background);
+            textView1.setBackground(ContextCompat.getDrawable(context, R.drawable.gray_button_background));
+            textView1.setSelected(true);
+//        android:background="@drawable/round_rectangle_bg_btn"
+            textView1.setTextColor(ContextCompat.getColor(context, R.color.text_login_type));
+            textView1.setVisibility(View.GONE);
+        }
+
+
+    }
+
+    @Override
+    protected void processChildHolders(ViewHolders myViewHolder) {
+        // 内部listview  执行之后  进行最后的
+        myViewHolder.getView(R.id.tv_delete_item).setVisibility(View.GONE);
+    }
+
+
     /**
      * Configures text view. Is called for the TEXT_VIEW_ITEM_RESOURCE views.
      *
      * @param view the text view to be configured
      */
-    protected void configureTextView(TextView view) {
+    public static void configureTextView(TextView view) {
 //        view.setTextColor();
         view.setGravity(Gravity.CENTER);
         view.setTextSize(14);
         view.setEllipsize(TextUtils.TruncateAt.END);
         view.setLines(1);
-        view.setHeight(MyApplication.dp2px(context, 30));
+        view.setHeight(MyApplication.dp2px(view.getContext(), 30));
 //        view.setBackgroundColor(ContextCompat.getColor(context, R.color.gray_bg_ed));
         view.setBackgroundColor(Color.parseColor("#EFEFEF"));
 //        view.setCompoundDrawablePadding(20);
@@ -109,7 +143,7 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 
 
     @Override
-    protected void jump2Quote(Activity context, PurchaseItemBean_new purchaseItemBeanNew, ListView listView) {
+    protected void jump2Quote(Activity context, PurchaseItemBean_new purchaseItemBeanNew, ListView listView, ViewHolders parentHolders) {
 //      super.jump2Quote(context, purchaseItemBeanNew);
 //        purchaseItemBeanNew.pid1 = getItemId();
 //        purchaseItemBeanNew.pid2 = getItemId();
@@ -117,12 +151,15 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
         ToastUtil.showLongToast("整包报价");
 //        processListView(listView);
         this.listview = listView;
-
+        this.currentTextView = parentHolders.getView(R.id.tv_caozuo01);
+        this.currentPurchaseItemBeanNew = purchaseItemBeanNew;
     }
 
     private ListView listview;
+    private PurchaseItemBean_new currentPurchaseItemBeanNew;
+    private TextView currentTextView;/*当前点击的    报价按钮*/
 
-    public void processListView(ListView ll,SellerQuoteJsonBean jsonBean) {
+    public void processListView(ListView ll, SellerQuoteJsonBean jsonBean) {
 //        if (listview.getFooterViewsCount() > 0) {
 //            listview.removeFooterView(listFootViews.get(0));
 //            listFootViews.remove(0);
@@ -141,9 +178,16 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 
 
 //        SellerQuoteJsonBean jsonBean = mokeBean();
-        initFootView(view, jsonBean, textView);
+        initFootView(context, view, jsonBean, textView);
         listview.addFooterView(view);
         listFootViews.add(view);
+
+        currentPurchaseItemBeanNew.footSellerQuoteListJson = jsonBean;
+
+        if (currentTextView != null) {
+            currentTextView.setVisibility(View.GONE);
+        }
+
 
     }
 
@@ -181,7 +225,7 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
     }
 
 
-    private void initFootView(View view, SellerQuoteJsonBean jsonBean, TextView textView) {
+    public static void initFootView(Context context, View view, SellerQuoteJsonBean jsonBean, TextView textView) {
 
 //        ViewGroup viewGroup = ((ViewGroup) view);
 //        ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) viewGroup.getLayoutParams();
@@ -392,6 +436,8 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
         view.setLayoutParams(marginParams);
         return marginParams;
     }
+
+
 }
 
 

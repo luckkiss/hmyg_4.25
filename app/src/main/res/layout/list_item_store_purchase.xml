@@ -206,6 +206,8 @@
                     android:textSize="12.0sp"
                     android:visibility="gone" />
             </LinearLayout>
+            <!--android:background="@drawable/green_btn_selector"-->
+            <!--android:textColor="@color/main_color"-->
 
             <TextView
                 android:id="@+id/tv_caozuo01"
@@ -215,7 +217,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="0dp"
-                android:background="@drawable/green_btn_selector"
+                android:background="@drawable/round_rectangle_bg_btn"
+                android:textColor="@color/color_purch_sub"
                 android:gravity="center_vertical"
                 android:paddingBottom="2.5dip"
                 android:paddingLeft="5.0dip"
@@ -223,7 +226,6 @@
                 android:paddingTop="2.5dip"
                 android:singleLine="true"
                 android:text="马上报价"
-                android:textColor="@color/main_color"
                 android:textSize="14sp" />
 
             <View

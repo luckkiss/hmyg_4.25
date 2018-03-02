@@ -72,7 +72,7 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
 
                 Log.i("is selected", "onClick: " + me.isSelected());
 //                setTv10(me, purchaseItemBeanNew, !v.isSelected());
-                if (me.getText().toString().contains("收起")) {//如果  点击的是 已经展开。不需要请求网络。直接清除  item 列表
+                if (me.getText().toString().contains("隐藏")) {//如果  点击的是 已经展开。不需要请求网络。直接清除  item 列表
                     D.i("=======如果  点击的是 已经展开。不需要请求网络。直接清除  item 列表=======");
 
                     if (purchaseItemBeanNew.sellerQuoteListJson != null)
@@ -120,6 +120,7 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
 
 
                                     globBaseAdapter.addData(gsonBean.getData().purchaseItem.sellerQuoteListJson);
+                                    purchaseItemBeanNew.sellerQuoteListJson = gsonBean.getData().purchaseItem.sellerQuoteListJson;
                                     globBaseAdapter.notifyDataSetChanged();
                                     me.setSelected(false);
                                     setTv10(me, purchaseItemBeanNew, false);
@@ -137,14 +138,15 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
     }
 
     @Override
-    protected void jump2Quote(Activity context, PurchaseItemBean_new purchaseItemBeanNew, ListView listView) {
+    protected void jump2Quote(Activity context, PurchaseItemBean_new purchaseItemBeanNew, ListView listView, ViewHolders parentHolders) {
 //      super.jump2Quote(context, purchaseItemBeanNew);
         purchaseItemBeanNew.pid1 = getItemId();
         purchaseItemBeanNew.pid2 = getItemId();
         DialogActivitySecond.start2Activity((Activity) context, purchaseItemBeanNew.id, purchaseItemBeanNew);
     }
 
-    protected void initListView(ListView listView, Context context, PurchaseItemBean_new purchaseItemBeanNew) {
+    @Override
+    protected void initListView(ViewHolders parentHolders, ListView listView, Context context, PurchaseItemBean_new purchaseItemBeanNew) {
 
         listView.setAdapter(new GlobBaseAdapter<SellerQuoteJsonBean>(context, purchaseItemBeanNew.sellerQuoteListJson, R.layout.item_purchase_second) {
             @Override
@@ -285,10 +287,20 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
                 });
 
 
+                processChildHolders(myViewHolder);
+
+
             }
         });
 
+
     }
+
+    protected void processChildHolders(ViewHolders myViewHolder) {
+//        执行   删除按钮 隐藏时使用。。子类调用     只有 package 打包报价时强制隐藏删除按钮
+    }
+
+    ;
 
 
 }

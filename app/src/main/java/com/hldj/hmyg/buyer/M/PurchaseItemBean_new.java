@@ -83,6 +83,8 @@ public class PurchaseItemBean_new implements Serializable {
 
     public List<SellerQuoteJsonBean> sellerQuoteListJson;
 
+    public SellerQuoteJsonBean footSellerQuoteListJson; /* 底部临时保存的   quote 报价 对象 */
+
 
     public static class PurchaseJsonBeanX implements Serializable {
         public String cityName = "";/**/

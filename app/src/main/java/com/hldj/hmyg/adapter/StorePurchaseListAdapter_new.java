@@ -25,7 +25,6 @@ import com.hldj.hmyg.buyer.P.PurchaseDeatilP;
 import com.hldj.hmyg.buyer.Ui.DialogActivity;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
-import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
 import com.zf.iosdialog.widget.AlertDialog;
 import com.zzy.common.widget.MeasureListView;
@@ -111,10 +110,10 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
             purchaseItemBeanNew.sellerQuoteListJson = null;
         }
 
-        initListView(listView, context, purchaseItemBeanNew);
+        initListView(myViewHolder, listView, context, purchaseItemBeanNew);
 
 
-        setTv_isloagin(myViewHolder.getView(tv_caozuo01), purchaseItemBeanNew);
+//      setTv_isloagin(myViewHolder.getView(tv_caozuo01), purchaseItemBeanNew);
 
         if (!purchaseItemBeanNew.editAble) {
             TextView tv_caozuo01 = myViewHolder.getView(R.id.tv_caozuo01);
@@ -149,7 +148,7 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 //                                purchaseItemBeanNew.pid2 = getItemId();
 //                                DialogActivity.start((Activity) context, purchaseItemBeanNew);
 
-                                jump2Quote((Activity) context, purchaseItemBeanNew, listView);
+                                jump2Quote((Activity) context, purchaseItemBeanNew, listView,myViewHolder);
 //                                processListView(listView);
 
 //                    DialogActivitySecond.start2Activity((Activity) context, purchaseItemBeanNew.id ,purchaseItemBeanNew);
@@ -180,7 +179,7 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 
     }
 
-    protected void jump2Quote(Activity context, PurchaseItemBean_new purchaseItemBeanNew, ListView list) {
+    protected void jump2Quote(Activity context, PurchaseItemBean_new purchaseItemBeanNew, ListView list ,ViewHolders parentHolders) {
 
         purchaseItemBeanNew.pid1 = getItemId();
         purchaseItemBeanNew.pid2 = getItemId();
@@ -194,7 +193,7 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 //    }
 
 
-    protected void initListView(ListView listView, Context context, PurchaseItemBean_new purchaseItemBeanNew) {
+    protected void initListView(ViewHolders parentHolders, ListView listView, Context context, PurchaseItemBean_new purchaseItemBeanNew) {
 
         listView.setAdapter(new GlobBaseAdapter<SellerQuoteJsonBean>(context, purchaseItemBeanNew.sellerQuoteListJson, R.layout.item_purchase_first_cons) {
 
@@ -340,10 +339,11 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 
         tv_10.setVisibility(View.VISIBLE);
         if (isOpen) {
-            StringFormatUtil fillColor = new StringFormatUtil(context, "点击查看"
-                    + purchaseItemBeanNew.quoteCountJson + "条报价", purchaseItemBeanNew.quoteCountJson + "",
-                    R.color.red).fillColor();
-            tv_10.setText(fillColor.getResult());
+//            StringFormatUtil fillColor = new StringFormatUtil(context, "点击查看"
+//                    + purchaseItemBeanNew.quoteCountJson + "条报价", purchaseItemBeanNew.quoteCountJson + "",
+//                    R.color.red).fillColor();
+//            tv_10.setText(fillColor.getResult());
+            tv_10.setText("查看历史报价");
 
 //                tv_10.postDelayed(new Runnable() {
 //                    @Override
@@ -353,10 +353,11 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 //                },100);
 
         } else {
-            StringFormatUtil fillColor = new StringFormatUtil(context, "点击收起"
-                    + purchaseItemBeanNew.quoteCountJson + "条报价", purchaseItemBeanNew.quoteCountJson + "",
-                    R.color.red).fillColor();
-            tv_10.setText(fillColor.getResult());
+//            StringFormatUtil fillColor = new StringFormatUtil(context, "点击收起"
+//                    + purchaseItemBeanNew.quoteCountJson + "条报价", purchaseItemBeanNew.quoteCountJson + "",
+//                    R.color.red).fillColor();
+//            tv_10.setText(fillColor.getResult());
+            tv_10.setText("隐藏历史报价");
             tv_10.setSelected(true);
         }
 
