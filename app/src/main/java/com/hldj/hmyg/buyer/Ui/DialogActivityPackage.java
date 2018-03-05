@@ -8,7 +8,6 @@ import android.view.View;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.base.MyFinalActivity;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
 import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
@@ -53,7 +52,6 @@ public class DialogActivityPackage extends DialogActivitySecond {
     @Override
     public void initView() {
         super.initView();
-        MyFinalActivity.initInjectedView(mActivity);
         commit.setText("暂存");
         getView(R.id.tv_show_tip).setVisibility(View.VISIBLE);
     }

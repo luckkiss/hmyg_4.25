@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:overScrollMode="ifContentScrolls">
@@ -12,6 +13,55 @@
 
         <include layout="@layout/toolbar_3_0" />
 
+
+        <RadioGroup
+            android:id="@+id/top_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="类型:"
+                android:layout_marginLeft="8dp"
+                android:layout_gravity="center_vertical"
+
+                />
+
+            <RadioButton
+                android:layout_gravity="center_vertical"
+
+                android:id="@+id/rb_type_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:padding="5dp"
+                style="@style/simple_radio_bg"
+                android:text="发布供应" />
+
+            <RadioButton
+                android:layout_gravity="center_vertical"
+
+                android:id="@+id/rb_type_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:padding="5dp"
+                style="@style/simple_radio_bg"
+                android:text="发布求购" />
+
+
+        </RadioGroup>
+
+
+        <View
+            android:id="@+id/top_line"
+            style="@style/View_line_gray" />
+
         <EditText
             android:id="@+id/et_content"
             android:layout_width="match_parent"
@@ -22,7 +72,7 @@
             android:maxHeight="250dp"
             android:maxLines="7"
             android:minHeight="150dp"
-            android:padding="6dp"
+            android:padding="10dp"
             android:textColorHint="@color/hint_text_color"
             android:textSize="16sp" />
 
@@ -66,16 +116,13 @@
                 android:layout_height="23dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
                 android:src="@drawable/close_red"
                 android:text="x"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
                 android:textColor="@color/white"
-                android:tint="@color/price_orige"
-                android:background="@color/white"
-                />
-
-
+                android:tint="@color/price_orige" />
 
 
             <TextView
@@ -90,8 +137,8 @@
                 android:gravity="center"
                 android:src="@drawable/error_center_x"
                 android:text=" ! "
-                android:textSize="16sp"
                 android:textColor="@color/white"
+                android:textSize="16sp"
                 android:tint="@color/main_color" />
 
 

@@ -95,7 +95,7 @@ public class StorePurchaseListAdapter extends BaseAdapter {
 //            tv_caozuo01.setText("");
             if (!expired)//false 未过期
             {
-                tv_caozuo01.setText("马上报价");
+                tv_caozuo01.setText("新增报价");
                 tv_caozuo01.setBackground(ContextCompat.getDrawable(context, R.drawable.green_btn_selector));
             } else {//已过期
                 tv_caozuo01.setText("采购已关闭");

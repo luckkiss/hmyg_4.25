@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -125,6 +127,17 @@ public class PublishActivity extends BaseMVPActivity {
     ImageView play;
 
 
+    /*顶部 类型  显示区域   当 tag 为 all 的时候显示。。用于首页跳转时选择发布类型 */
+    @ViewInject(id = R.id.top_radio_group)
+    RadioGroup top_radio_group;
+
+    @ViewInject(id = R.id.rb_type_left)/*发布供应*/
+            RadioButton rb_type_left;
+
+    @ViewInject(id = R.id.rb_type_right)/*发布求购*/
+            RadioButton rb_type_right;
+
+
     private String cityCode = "";
 
     /**
@@ -136,6 +149,11 @@ public class PublishActivity extends BaseMVPActivity {
      */
     public static String PUBLISH = "publish";
 
+
+    /**
+     * all  发布与采购
+     */
+    public static String ALL = "all";
 
     @ViewInject(id = R.id.et_content)
     EditText et_content;
@@ -355,7 +373,7 @@ public class PublishActivity extends BaseMVPActivity {
 
         //发布按钮显示，并赋值
         toolbar_right_text.setText("发布");
-        toolbar_right_text.setTextColor(getColorByRes(R.color.main_color));
+//        toolbar_right_text.setTextColor(getColorByRes(R.color.text_color111));
         toolbar_right_text.setVisibility(View.VISIBLE);
         View.OnClickListener clickListener = null;
 
@@ -386,10 +404,12 @@ public class PublishActivity extends BaseMVPActivity {
 
             };
             toolbar_right_text.setOnClickListener(clickListener);
+
         } else if (getTag().equals(PUBLISH)) {
             location.setLeftText("苗源地");
             /*发布*/
             setTitle("发布供应");
+
             et_content.setHint(R.string.publish_content);
             clickListener = v -> {
                 if (TextUtils.isEmpty(et_content.getText())) {
@@ -410,6 +430,90 @@ public class PublishActivity extends BaseMVPActivity {
 //                ToastUtil.showLongToast("发布供应");
             };
             toolbar_right_text.setOnClickListener(clickListener);
+        } else if (getTag().equals(ALL)) {
+
+
+            top_radio_group.setVisibility(View.VISIBLE);
+//            setTitle("我的苗友圈");
+            location.setLeftText("用苗地");
+            /*采购*/
+            et_content.setHint(R.string.purchase_content);
+            setTitle("发布求购");
+            rb_type_left.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    ToastUtil.showLongToast("发布供应");
+                    D.i("发布供应");
+
+                    location.setLeftText("苗源地");
+            /*发布*/
+                    setTitle("发布供应");
+
+                    et_content.setHint(R.string.publish_content);
+
+                    View.OnClickListener clickListener = v1 -> {
+//                ToastUtil.showLongToast("发布求购");
+                        if (TextUtils.isEmpty(et_content.getText())) {
+                            ToastUtil.showLongToast("先写点什么嘛^_^");
+                            return;
+                        }
+                        if (TextUtils.isEmpty(cityCode)) {
+                            ToastUtil.showLongToast("请先选择地址^_^");
+                            return;
+                        }
+
+
+                        if (!currentVideoPath.isEmpty()) {
+//                    ToastUtil.showLongToast("开始上传视频");
+                            doUpVideo(MomentsType.supply.getEnumValue());
+                        } else {
+                            requestUpload(MomentsType.supply.getEnumValue());
+                        }
+
+                    };
+                    toolbar_right_text.setOnClickListener(clickListener);
+
+
+                }
+            });
+            rb_type_right.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    ToastUtil.showLongToast("发布求购");
+                    D.i("发布求购");
+
+                    location.setLeftText("用苗地");
+            /*采购*/
+                    et_content.setHint(R.string.purchase_content);
+                    setTitle("发布求购");
+
+
+                    et_content.setHint(R.string.publish_content);
+                    View.OnClickListener clickListener = v3 -> {
+                        if (TextUtils.isEmpty(et_content.getText())) {
+                            ToastUtil.showLongToast("先写点什么嘛^_^");
+                            return;
+                        }
+                        if (TextUtils.isEmpty(cityCode)) {
+                            ToastUtil.showLongToast("请先选择地址^_^");
+                            return;
+                        }
+
+                        if (!currentVideoPath.isEmpty()) {
+//                    ToastUtil.showLongToast("开始上传视频");
+                            doUpVideo(MomentsType.purchase.getEnumValue());
+                        } else {
+                            requestUpload(MomentsType.purchase.getEnumValue());
+                        }
+//                ToastUtil.showLongToast("发布供应");
+                    };
+                    toolbar_right_text.setOnClickListener(clickListener);
+
+
+                }
+            });
+
+
         }
 
         /*初始化地址*/

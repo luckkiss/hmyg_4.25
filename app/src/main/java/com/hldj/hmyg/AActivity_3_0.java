@@ -2,6 +2,7 @@ package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -19,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -40,6 +42,7 @@ import com.hldj.hmyg.M.IndexGsonBean;
 import com.hldj.hmyg.Ui.NewsActivity;
 import com.hldj.hmyg.Ui.NoticeActivity;
 import com.hldj.hmyg.Ui.NoticeActivity_detail;
+import com.hldj.hmyg.Ui.friend.child.PublishActivity;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.StateBarUtil;
@@ -50,9 +53,11 @@ import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.Type;
 import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
 import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
+import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment1;
 import com.hldj.hmyg.buyer.weidet.SwipeViewHeader;
 import com.hldj.hmyg.presenter.AActivityPresenter;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
+import com.hldj.hmyg.saler.SaveSeedlingActivity;
 import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
@@ -105,6 +110,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private ImageView iv_msg;
     private NestedScrollView scrollView;
     private Button toTopBtn;// 返回顶部的按钮
+    private ImageView iv_publish;//  发布按钮
     private int scrollY = 0;// 标记上次滑动位置
     private View contentView;
     private final String TAG = "test";
@@ -140,7 +146,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             contentView = scrollView.getChildAt(0);
         }
         toTopBtn = (Button) findViewById(R.id.top_btn);
+        iv_publish = (ImageView) findViewById(R.id.iv_publish);
         toTopBtn.setOnClickListener(this);
+        iv_publish.setOnClickListener(this);
 
         LayoutParams l_params = new RelativeLayout.LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -697,6 +705,17 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 });
                 toTopBtn.setVisibility(View.GONE);
                 break;
+            case R.id.iv_publish:
+
+                Log.i(TAG, "-----首页发布----- onClick: iv_publish");
+
+//                ToastUtil.showLongToast("首页发布");
+
+
+                publish(AActivity_3_0.this);
+
+
+                break;
 
             case R.id.iv_a_msg:
 
@@ -751,6 +770,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         }
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
@@ -802,7 +822,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             });
         }
     }
-
 
 
 //    int currenY = 0;
@@ -952,4 +971,31 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         res.updateConfiguration(config, res.getDisplayMetrics());
         return res;
     }
+
+
+    /*  发布  按钮   选择发布 苗木圈  发布 供应   */
+    private void publish(Activity mActivity) {
+        Log.i(TAG, "-----首页发布-- publish(Activity mActivity)--- ");
+        CommonDialogFragment1.newInstance(context -> {
+            Dialog dialog1 = new Dialog(context);
+            dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog1.setContentView(R.layout.item_home_type);
+            dialog1.findViewById(R.id.iv_left).setOnClickListener(v1 -> {
+//                            ToastUtil.showLongToast("left");
+                dialog1.dismiss();
+//                PublishActivity.start(mActivity, PublishActivity.ALL);
+                SaveSeedlingActivity.start2Activity(AActivity_3_0.this);
+            });
+            dialog1.findViewById(R.id.iv_right).setOnClickListener(v1 -> {
+//                            ToastUtil.showLongToast("right");
+                dialog1.dismiss();
+                PublishActivity.start(mActivity, PublishActivity.ALL);
+            });
+
+            return dialog1;
+        }, true).show(getSupportFragmentManager(), TAG);
+
+    }
+
+
 }

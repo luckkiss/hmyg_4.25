@@ -27,7 +27,6 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hy.utils.ToastUtil;
 import com.zf.iosdialog.widget.AlertDialog;
-import com.zzy.common.widget.MeasureListView;
 
 import java.util.List;
 
@@ -148,7 +147,7 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 //                                purchaseItemBeanNew.pid2 = getItemId();
 //                                DialogActivity.start((Activity) context, purchaseItemBeanNew);
 
-                                jump2Quote((Activity) context, purchaseItemBeanNew, listView,myViewHolder);
+                                jump2Quote((Activity) context, purchaseItemBeanNew, listView, myViewHolder);
 //                                processListView(listView);
 
 //                    DialogActivitySecond.start2Activity((Activity) context, purchaseItemBeanNew.id ,purchaseItemBeanNew);
@@ -179,7 +178,7 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 
     }
 
-    protected void jump2Quote(Activity context, PurchaseItemBean_new purchaseItemBeanNew, ListView list ,ViewHolders parentHolders) {
+    protected void jump2Quote(Activity context, PurchaseItemBean_new purchaseItemBeanNew, ListView list, ViewHolders parentHolders) {
 
         purchaseItemBeanNew.pid1 = getItemId();
         purchaseItemBeanNew.pid2 = getItemId();
@@ -222,9 +221,9 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
             @Override
             public void setConverView(ViewHolders myViewHolder, SellerQuoteJsonBean jsonBean, int position) {
 
-                if (!((MeasureListView) listView).isOnMeasure) {
-                    return;
-                }
+//                if (!((MeasureListView) listView).isOnMeasure) {
+//                    return;
+//                }
 
                 D.e("=====setConverView======str=============" + jsonBean.toString());
 
@@ -322,7 +321,7 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
         if (!isExpired())//false 未过期
         {
 
-            tv_caozuo01.setText("马上报价");
+            tv_caozuo01.setText("新增报价");
             tv_caozuo01.setBackground(ContextCompat.getDrawable(context, R.drawable.green_btn_selector));
         } else
 

@@ -22,8 +22,8 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:singleLine="true"
-            android:textColor="@color/main_color"
-            android:textSize="@dimen/x16"
+            android:textColor="@color/text_color111"
+            android:textSize="16sp"
             tools:text="标题要改" />
 
         <ImageView
@@ -32,8 +32,8 @@
             android:layout_height="@dimen/backWH"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/x10"
-            android:padding="3dp"
-            android:src="@drawable/btn_back" />
+            android:padding="5dp"
+            android:src="@drawable/ic_stepper_left" />
 
 
         <ImageView

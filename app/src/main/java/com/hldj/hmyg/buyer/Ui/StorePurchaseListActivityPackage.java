@@ -1,6 +1,7 @@
 package com.hldj.hmyg.buyer.Ui;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -51,14 +52,15 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
             public void onClick(View v) {
 
                 if (tempBeans.isEmpty()) {
-                    ToastUtil.showLongToast("还未全部报价,请全部报价!");
+//                    ToastUtil.showLongToast("未全部报价!");
+                    Log.w("onClick", "未全部报价: ");
                     return;
                 }
                 StringBuffer buffer = new StringBuffer();
                 for (SellerQuoteJsonBean sellerQuoteJsonBean : tempBeans) {
                     buffer.append(sellerQuoteJsonBean.id + "|");
                 }
-                ToastUtil.showLongToast("打包报价=======" + buffer);
+                ToastUtil.showLongToast("批量报价=======" + buffer);
 
                 new BasePresenter()
                         .putParams("quoteTempIds", buffer.toString())
@@ -66,6 +68,14 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
                             @Override
                             public void onRealSuccess(SimpleGsonBean gsonBean) {
                                 ToastUtil.showLongToast(gsonBean.msg);
+
+                                if (gsonBean.isSucceed()) {
+//                                    StorePurchaseListActivityPackage.super.onRefresh();
+//                                    requestHeadData();
+                                    tempBeans.clear();
+                                    initData();
+                                }
+
                             }
                         });
             }
@@ -90,8 +100,8 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
         totalCount = data.size();
         TextView bottom_tv = getView(R.id.bottom_tv);
 //        bottom_tv.setText("共" + totalCount + "个品种,已报价0个品种");
-        String str ="共" + totalCount + "个品种,已报价" + tempBeans.size() + "个品种";
-        StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, totalCount+"", tempBeans.size() + "", R.color.red).fillColor();
+        String str = "共" + totalCount + "个品种,已报价" + tempBeans.size() + "个品种";
+        StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, totalCount + "", tempBeans.size() + "", R.color.red).fillColor();
         bottom_tv
                 .setText(stringFormatUtil.getResult());
 
@@ -124,6 +134,7 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
             };
             xListView.setAdapter(listAdapter);
         } else {
+            listAdapter.refreshState();
             listAdapter.addData(data);
         }
 
@@ -172,23 +183,36 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
 //            } catch (Exception e) {
 //                onRefresh();
 //            }
+
+
+            for (SellerQuoteJsonBean tempBean : tempBeans) {
+                if (tempBean.id.equals(tmp_quote.id)) {
+                    tempBeans.remove(tempBean);
+                    Log.i("remove", "onActivityResult: 删除  旧的数据  id = " + tempBean.id);
+                }
+            }
             tempBeans.add(tmp_quote);
+
+
             ((StorePurchaseListAdapter_new_package) listAdapter).processListView(null, tmp_quote);
+
+            listAdapter.notifyDataSetChanged();
 
 
             ToastUtil.showLongToast("临时保存成功+tmp_quote" + tmp_quote.toString());
             D.i("=======临时保存成功======" + tmp_quote.toString());
 
 
-
-            String str ="共" + totalCount + "个品种,已报价" + tempBeans.size() + "个品种";
-            StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, totalCount+"", tempBeans.size() + "", R.color.red).fillColor();
+            String str = "共" + totalCount + "个品种,已报价" + tempBeans.size() + "个品种";
+            StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, totalCount + "", tempBeans.size() + "", R.color.red).fillColor();
 
             ((TextView) getView(R.id.bottom_tv))
                     .setText(stringFormatUtil.getResult());
 
 
-
+            if (totalCount == tempBeans.size()) {
+                getView(R.id.bottom_btn).setSelected(true);
+            }
         }
 
 

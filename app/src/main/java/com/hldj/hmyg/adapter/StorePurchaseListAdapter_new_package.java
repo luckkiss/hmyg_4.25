@@ -98,7 +98,7 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
             TextView textView = new TextView(context);
             configureTextView(textView);
             View view = LayoutInflater.from(context).inflate(R.layout.item_purchase_second, null);
-            StorePurchaseListAdapter_new_package.initFootView(context, view, purchaseItemBeanNew.footSellerQuoteListJson, textView);
+            StorePurchaseListAdapter_new_package.initFootView(context, view, purchaseItemBeanNew.footSellerQuoteListJson, textView, purchaseItemBeanNew.name + "的报价",purchaseItemBeanNew);
             listView.addFooterView(view);
        /*不为空则   已经报价过本item  将马上报价  隐藏  */
             TextView textView1 = parentHolders.getView(tv_caozuo01);
@@ -120,6 +120,10 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
     protected void processChildHolders(ViewHolders myViewHolder) {
         // 内部listview  执行之后  进行最后的
         myViewHolder.getView(R.id.tv_delete_item).setVisibility(View.GONE);
+        myViewHolder.getView(R.id.tv_show_is_quote).setVisibility(View.INVISIBLE);
+        myViewHolder.getView(R.id.tv_show_is_quote_title).setVisibility(View.INVISIBLE);
+
+
     }
 
 
@@ -138,7 +142,7 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 //        view.setBackgroundColor(ContextCompat.getColor(context, R.color.gray_bg_ed));
         view.setBackgroundColor(Color.parseColor("#EFEFEF"));
 //        view.setCompoundDrawablePadding(20);
-        view.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
+        view.setTypeface(Typeface.SANS_SERIF, Typeface.NORMAL);
     }
 
 
@@ -147,12 +151,16 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 //      super.jump2Quote(context, purchaseItemBeanNew);
 //        purchaseItemBeanNew.pid1 = getItemId();
 //        purchaseItemBeanNew.pid2 = getItemId();
-        DialogActivityPackage.start2Activity((Activity) context, purchaseItemBeanNew.id, purchaseItemBeanNew);
         ToastUtil.showLongToast("整包报价");
-//        processListView(listView);
         this.listview = listView;
-        this.currentTextView = parentHolders.getView(R.id.tv_caozuo01);
         this.currentPurchaseItemBeanNew = purchaseItemBeanNew;
+        this.currentTextView = parentHolders.getView(R.id.tv_caozuo01);
+//        processListView(null, mokeBean());
+
+        DialogActivityPackage.start2Activity((Activity) context, purchaseItemBeanNew.id, purchaseItemBeanNew);
+//        this.listview = listView;
+//        this.currentTextView = parentHolders.getView(R.id.tv_caozuo01);
+//        this.currentPurchaseItemBeanNew = purchaseItemBeanNew;
     }
 
     private ListView listview;
@@ -178,8 +186,12 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 
 
 //        SellerQuoteJsonBean jsonBean = mokeBean();
-        initFootView(context, view, jsonBean, textView);
+        initFootView(context, view, jsonBean, textView, currentPurchaseItemBeanNew.name + "的报价",currentPurchaseItemBeanNew);
+
+
         listview.addFooterView(view);
+
+
         listFootViews.add(view);
 
         currentPurchaseItemBeanNew.footSellerQuoteListJson = jsonBean;
@@ -225,7 +237,7 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
     }
 
 
-    public static void initFootView(Context context, View view, SellerQuoteJsonBean jsonBean, TextView textView) {
+    public static void initFootView(Context context, View view, SellerQuoteJsonBean jsonBean, TextView textView, String text , PurchaseItemBean_new itemBean_new) {
 
 //        ViewGroup viewGroup = ((ViewGroup) view);
 //        ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) viewGroup.getLayoutParams();
@@ -247,10 +259,10 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 //
 
         LinearLayout content = (LinearLayout) view.findViewById(R.id.content);
-        setViewMargin(content, false, 40, 40, 25, 0);
+        setViewMargin(content, false, 8, 8, 20, 0);
 
 
-        textView.setText("红车的报价");
+        textView.setText(text);//红车的报价
         textView.setBackgroundColor(ContextCompat.getColor(context, R.color.divider_color_bg));
         content.addView(textView, 0);
 
@@ -360,8 +372,7 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
             abc.setTextColor(ContextCompat.getColor(context, R.color.price_orige));
         }
 
-
-
+        state.setText("未提交");
 
 
                 /*删除*/
@@ -382,9 +393,8 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 
 
                 ToastUtil.showLongToast("编辑");
-//                DialogActivitySecond.start2Activity((Activity) context, purchaseItemBeanNew.id, purchaseItemBeanNew, jsonBean);
-
-
+//                DialogActivitySecond.start2Activity((Activity) context, itemBean_new.id,);
+                DialogActivityPackage.start2Activity((Activity) context, itemBean_new.id, itemBean_new, jsonBean);
             }
         });
 

@@ -92,6 +92,7 @@ public class PurchaseJsonBean implements Serializable {
     public String publishDate;
     public String closeDate;
     public boolean needInvoice;
+    public boolean needImage;
     public String customerId;
     public String status;
     public String source;

@@ -209,7 +209,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
 
     /*三*/
-    private void initData() {
+    protected void initData() {
         showLoading();
 
         //initHeadBean(gsonBean.data.headPurchase);

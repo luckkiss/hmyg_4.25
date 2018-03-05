@@ -6,12 +6,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <!--        android:background="@drawable/r_o_white"
+-->
     <LinearLayout
         android:id="@+id/ll_item_broker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:background="@drawable/r_o_white"
+        android:background="@color/bg_cgd"
         android:orientation="vertical"
         android:paddingTop="8dp">
 

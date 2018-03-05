@@ -32,22 +32,22 @@
     <TextView
         android:id="@+id/bottom_tv"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_marginLeft="15dp"
         android:gravity="center_vertical"
-        android:text="共3个品种,已报价1个品种"
-        android:textSize="18sp"
+        android:text="共3个品种,已报价0个品种"
+        android:textSize="14sp"
         android:visibility="gone"
         tools:visibility="visible" />
-
 
     <Button
         android:id="@+id/bottom_btn"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/main_color"
-        android:text="打包报价"
+        android:background="@drawable/submit_states"
+        android:text="批量报价"
         android:textColor="@color/white"
+        android:textSize="16sp"
         android:visibility="gone"
         tools:visibility="visible" />
 

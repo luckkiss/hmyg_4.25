@@ -167,7 +167,7 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
                 holder.photoIv.setVisibility(View.VISIBLE);
             }
             holder.photoIv.setScaleType(ImageView.ScaleType.FIT_XY);
-            holder.photoIv.setImageResource(R.drawable.add_image_icon_big);
+            holder.photoIv.setImageResource(R.drawable.add_image_icon);
 //            holder.photoIv.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.add_image_icon_big));
             holder.photoIv.requestLayout();
             holder.iv_img2.setVisibility(View.INVISIBLE);

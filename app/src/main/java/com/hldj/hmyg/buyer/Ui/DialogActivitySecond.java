@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.base.MyFinalActivity;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PicSerializableMaplist;
@@ -33,11 +34,11 @@ import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hldj.hmyg.widget.AutoAddRelative;
 import com.hy.utils.ToastUtil;
 import com.zhy.view.flowlayout.TagFlowLayout;
 import com.zzy.common.widget.MeasureGridView;
 
-import net.tsz.afinal.FinalActivity;
 import net.tsz.afinal.annotation.view.ViewInject;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
 
 
     @ViewInject(id = R.id.commit)
-    public  TextView commit;
+    public TextView commit;
 
     @ViewInject(id = R.id.price)
     public EditText 价格;
@@ -308,7 +309,8 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
 
     @Override
     public void initView() {
-        FinalActivity.initInjectedView(mActivity);
+//        FinalActivity.initInjectedView(mActivity);
+        MyFinalActivity.initInjectedView(mActivity);
 
         //窗口对齐屏幕宽度
         Window win = this.getWindow();
@@ -322,7 +324,6 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
         fillData(getData());
 
         fillHistory(getBeanHistory());
-
 
     }
 
@@ -380,8 +381,19 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
                     initProtocol(saveSeedingGsonBean.getData().getTypeList());
                     initAutoLayout2(getView(R.id.tfl_purchase_auto_add_plant), saveSeedingGsonBean.getData().getPlantTypeList());
                 }
+
+                /* 图片的必须项目  星星的显示  */
+
+
+
+
+                    AutoAddRelative.isShowLeft(saveSeedingGsonBean.getData().getItem().purchaseJson.needImage,getView(R.id.tv_purchase_add_pic),R.drawable.seller_redstar);
+
+
+
                 hindLoading();
             }
+
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {

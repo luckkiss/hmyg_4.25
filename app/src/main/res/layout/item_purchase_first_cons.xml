@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="2dp"
     android:layout_marginTop="2dp"
-    android:background="@color/gray_bg"
+    android:background="@color/color_bg_f5"
     android:paddingBottom="4dp"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="25dp">
@@ -113,8 +113,6 @@
         android:text="当前报价状态："
         app:layout_constraintBottom_toBottomOf="@+id/state"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/state"
-        app:layout_constraintVertical_bias="0.0"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintTop_creator="1" />
 

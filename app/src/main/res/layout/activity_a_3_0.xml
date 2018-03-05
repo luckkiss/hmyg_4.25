@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/top_padding_statu" />
@@ -216,7 +217,7 @@
                             app:state_drawable_width="50dp"
                             tools:text="最新采购" />
 
-                        <View style="@style/View_line_gray_1px"/>
+                        <View style="@style/View_line_gray_1px" />
 
                         <com.jarvis.MyView.MyListView
                             android:id="@+id/lv_00"
@@ -226,9 +227,8 @@
                             android:descendantFocusability="blocksDescendants"
                             android:divider="@color/divider_color_bg"
                             android:dividerHeight="2px"
-                            app:dividerHeight="2px"
                             android:headerDividersEnabled="true"
-                            />
+                            app:dividerHeight="2px" />
                     </LinearLayout>
 
 
@@ -354,17 +354,34 @@
         <!--app:fabSize="normal"-->
         <!--app:rippleColor="@color/main_color" />-->
 
+
         <Button
             android:id="@+id/top_btn"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_above="@+id/iv_publish"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/top_btn_bg"
+            android:gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+
+
+        <ImageView
+            android:id="@+id/iv_publish"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/top_btn_bg"
             android:gravity="center"
-            android:visibility="gone" />
+            android:visibility="visible"
+            android:src="@mipmap/home_publish"
+            />
 
 
     </RelativeLayout>
