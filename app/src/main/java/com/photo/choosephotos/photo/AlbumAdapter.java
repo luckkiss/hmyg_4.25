@@ -47,7 +47,7 @@ public class AlbumAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if(convertView == null){
-			convertView = (LinearLayout)LayoutInflater.from(context).inflate(R.layout.list_album_item, null);
+			convertView = LayoutInflater.from(context).inflate(R.layout.list_album_item, null);
 			holder = new ViewHolder();
 			holder.iv = (ImageView)convertView.findViewById(R.id.photoalbum_item_image);
 			holder.tv = (TextView)convertView.findViewById(R.id.photoalbum_item_name);

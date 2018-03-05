@@ -16,8 +16,7 @@
 
 package cn.bingoogolapple.badgeview;
 
-import java.util.Random;
-
+import android.animation.ValueAnimator;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -26,7 +25,8 @@ import android.graphics.Rect;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
 
-import com.nineoldandroids.animation.ValueAnimator;
+import java.util.Random;
+
 
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com

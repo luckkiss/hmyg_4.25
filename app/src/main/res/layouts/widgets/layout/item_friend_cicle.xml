@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <com.hldj.hmyg.widget.MyCircleImageView
+        android:id="@+id/head"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/icon_persion_pic"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="1dp"
+        android:text="Cherry"
+        android:textColor="@color/text_color333"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toRightOf="@+id/head"
+        app:layout_constraintTop_toTopOf="@+id/head" />
+
+    <TextView
+        android:id="@+id/time_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:text="11小时前  福建  厦门"
+        android:textColor="@color/text_color999"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/head"
+        app:layout_constraintLeft_toLeftOf="@+id/title" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="28dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginRight="27dp"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/purchase"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/tv_right_top"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@color/error_stroke_color"
+        android:text="删除"
+        android:visibility="gone"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:visibility="visible" />
+
+
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/descript"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:autoLink="phone"
+        android:lineSpacingMultiplier="1.3"
+        android:maxLines="5"
+        android:text="香樟价格实惠质量又a好，可供应5000株可供应5000株."
+        android:textColor="@color/text_color333"
+        android:textSize="15sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/time_city"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/head"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
+
+    <com.zzy.common.widget.MeasureGridView
+        android:id="@+id/imageView8"
+        android:layout_width="0dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="56dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="6dp"
+        android:adjustViewBounds="true"
+        android:horizontalSpacing="0dp"
+        android:listSelector="@color/transparent"
+        android:numColumns="3"
+        android:verticalSpacing="0dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/descript"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descript"
+        app:layout_goneMarginTop="4dp"
+        tools:background="@color/red"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_editor_absoluteY="111dp"
+        tools:padding="10dp" />
+
+
+    <!--<ImageView-->
+    <!--android:id="@+id/imageView8"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginEnd="16dp"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:layout_marginRight="8dp"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:adjustViewBounds="true"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:src="@drawable/simple"-->
+    <!--app:layout_constraintHorizontal_bias="0.656"-->
+    <!--app:layout_constraintLeft_toLeftOf="@+id/descript"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/descript" />-->
+
+
+    <com.hldj.hmyg.widget.DrawableCenterText
+        android:id="@+id/first"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="6dp"
+        android:drawableLeft="@drawable/like_selector"
+        android:drawablePadding="5dp"
+        android:text="点赞 4 "
+        android:textColor="@color/text_color666"
+        android:textSize="14sp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="@+id/textView29"
+        app:layout_constraintRight_toLeftOf="@+id/second"
+        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+
+    <com.hldj.hmyg.widget.DrawableCenterText
+        android:id="@+id/fourth"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginRight="0dp"
+        android:drawableLeft="@mipmap/more"
+        android:drawablePadding="5dp"
+        android:gravity="left|center"
+        android:text="更多"
+        android:textColor="@color/text_color666"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/first"
+        app:layout_constraintLeft_toRightOf="@+id/third"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/first"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <com.hldj.hmyg.widget.DrawableCenterText
+        android:id="@+id/third"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:drawableLeft="@mipmap/phone"
+        android:drawablePadding="5dp"
+        android:text="电话"
+        android:textColor="@color/text_color666"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/first"
+        app:layout_constraintLeft_toRightOf="@+id/second"
+        app:layout_constraintRight_toLeftOf="@+id/fourth"
+        app:layout_constraintTop_toTopOf="@+id/first"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <com.hldj.hmyg.widget.DrawableCenterText
+        android:id="@+id/second"
+        layout="@layout/item_friend_other"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:drawableLeft="@mipmap/msg_big"
+        android:drawablePadding="5dp"
+        android:text="评论"
+        android:textColor="@color/text_color666"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@+id/first"
+        app:layout_constraintRight_toLeftOf="@+id/third"
+        app:layout_constraintTop_toTopOf="@+id/first" />
+
+    <!--底部 黑色块线-->
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        android:layout_marginLeft="0dp"
+        android:alpha="0.5"
+        android:background="@color/divider_color_bg"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:background="@color/gray_bg_ed"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
+
+
+    <!--复制出来的线-->
+    <!--<View-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="1px"-->
+    <!--android:layout_marginBottom="8dp"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:layout_marginRight="8dp"-->
+    <!--android:layout_marginTop="4dp"-->
+    <!--android:background="@color/trans"-->
+    <!--android:padding="100dp"-->
+    <!--app:layout_constraintLeft_toLeftOf="@+id/textView5"-->
+    <!--app:layout_constraintRight_toRightOf="@+id/textView5"-->
+    <!--app:layout_constraintTop_toTopOf="@+id/receive"-->
+    <!--tools:background="@color/main_color" />-->
+
+
+    <!--android:foreground="@drawable/ic_play_circle_outline_black_24dp"-->
+    <!--android:foregroundGravity="center_vertical|center_horizontal"-->
+    <com.hldj.hmyg.widget.MyImageViewShowVideo
+        android:id="@+id/video"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/transparent"
+
+        android:foregroundTint="@color/white"
+        android:scaleType="centerCrop"
+        android:visibility="visible"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@id/imageView8"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8"
+        tools:background="@color/main_color"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_height="80dp"
+        tools:layout_width="80dp"
+        tools:text="这是一个video"
+        tools:width="100dp" />
+
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/divider_color"
+        android:padding="10dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@id/imageView8"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/video"
+        tools:background="@color/main_color"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_height="40dp"
+        tools:padding="10dp"
+        tools:text="1346546  textView29"
+        tools:width="100dp" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/divider_color"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/textView29"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fourth"
+        tools:background="@color/blue"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_height="41px"
+        tools:text="点赞下边一条线a textView30" />
+
+    <com.zzy.common.widget.MeasureListView
+        android:id="@+id/receive"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="-1dp"
+        android:background="@color/color_bg_f5"
+        android:divider="@null"
+        android:dividerHeight="0px"
+        android:paddingBottom="6dp"
+        android:paddingRight="8dp"
+        android:text="leei:这棵树不错"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/textView29"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView30"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:padding="30dp" />
+
+</android.support.constraint.ConstraintLayout>

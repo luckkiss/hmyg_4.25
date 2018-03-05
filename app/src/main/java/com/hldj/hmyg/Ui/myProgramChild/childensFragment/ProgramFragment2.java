@@ -81,7 +81,7 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
                 helper.setText(R.id.item_program_car_card, item.carNum);//车牌号码
                 helper.setText(R.id.item_program_time, item.receiptDate);//创建时间
                 helper.setText(R.id.item_program_car_type, item.carTypeName);// 车型
-                helper.setText(R.id.item_program_trans_price, "￥" + item.carPrice);//  运费
+                helper.setText(R.id.item_program_trans_price, "¥" + item.carPrice);//  运费
                 helper.setText(R.id.item_program_project_name, item.projectNames);//  项目名称
 
                 helper.addOnClickListener(R.id.item_program_confirmation, view1 ->
@@ -115,7 +115,8 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
                 helper.convertView.setOnClickListener(v -> ProgramFragment2DetailActivity.start(mActivity, item.id));
                 helper.addOnClickListener(R.id.item_program_detail, view1 -> ProgramFragment2DetailActivity.start(mActivity, item.id));
 
-                helper.setVisible(R.id.item_program_confirmation, getStatus().equals(SENDED));//待收货 显示 确认收货按钮
+                helper.setVisible(R.id.item_program_confirmation, false);//待收货 显示 确认收货按钮
+//                helper.setVisible(R.id.item_program_confirmation, getStatus().equals(SENDED));//待收货 显示 确认收货按钮
 
                 String str = item.carFirstItemName + "等" + item.carItemsCount + "个品种";
                 StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, item.carFirstItemName, item.carItemsCount + "", R.color.main_color).fillColor();
@@ -193,8 +194,10 @@ public class ProgramFragment2 extends BaseFragment implements View.OnClickListen
         if (view.getId() == R.id.tv_no_get) {
             //未收货
 //            ToastUtil.showShortToast("已发车");
+            showLoading();
             setStatus(SENDED);
         } else if (view.getId() == R.id.tv_yes_get) {
+            showLoading();
 //            ToastUtil.showShortToast("已收货");
             setStatus(RECEIPED);
         }

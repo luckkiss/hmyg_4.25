@@ -1,5 +1,7 @@
 package com.hldj.hmyg.presenter;
 
+import android.util.Log;
+
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.bean.StoreGsonBean;
@@ -27,6 +29,9 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class StorePresenter extends StoreContract.Presenter {
+
+    public int count;
+
     @Override
     public void onStart() {
 
@@ -35,12 +40,12 @@ public class StorePresenter extends StoreContract.Presenter {
 
     @Override
     public Observable<String> getIndexData() {
-
-
+        Log.i("===1", "subscribe: " + Thread.currentThread().getName());
         return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {
 
+                Log.i("===2", "subscribe: " + Thread.currentThread().getName());
                 mModel.getIndexData(new ResultCallBack<String>() {
                     @Override
                     public void onSuccess(String json) {
@@ -50,6 +55,8 @@ public class StorePresenter extends StoreContract.Presenter {
                             mView.initIndexBean(storeGsonBean.data);
 
                             e.onNext(storeGsonBean.data.owner.id);
+
+                            count = storeGsonBean.data.momentsCount;
 
                         } else {
                             mView.showErrir(storeGsonBean.msg);
@@ -65,7 +72,10 @@ public class StorePresenter extends StoreContract.Presenter {
                     }
                 }, mView.getStoreID());
             }
-        });
+        })
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread());
+//                .subscribeOn(Schedulers.io());
 
 
 //        mView.showLoading();

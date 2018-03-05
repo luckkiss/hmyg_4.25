@@ -2,7 +2,6 @@ package com.hldj.hmyg.application;
 
 import android.graphics.Bitmap;
 
-import com.example.listedittext.paramsData;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.Purchase;
 import com.hy.utils.GetServerUrl;
@@ -38,7 +37,7 @@ public class Data {
     // 图标
     public static ArrayList<String> collect_ids = new ArrayList<String>();
     // 图标
-    public static ArrayList<paramsData> paramsDatas = new ArrayList<paramsData>();
+//    public static ArrayList<paramsData> paramsDatas = new ArrayList<paramsData>();
     // 要上传的图片
     public static ArrayList<String> pics = new ArrayList<String>();
 

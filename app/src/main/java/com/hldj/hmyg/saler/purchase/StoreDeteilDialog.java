@@ -1,33 +1,21 @@
 package com.hldj.hmyg.saler.purchase;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import net.tsz.afinal.FinalBitmap;
-
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.buyer.AddReceiptAdressActivity;
-import com.hldj.hmyg.buyer.ReceiptAdressListActivity;
-import com.hldj.hmyg.saler.purchase.WebViewDialog.Builder;
+
+import java.util.ArrayList;
 
 public class StoreDeteilDialog extends Dialog {
 
@@ -72,7 +60,7 @@ public class StoreDeteilDialog extends Dialog {
         /**
          * Set the Dialog message from resource
          *
-         * @param title
+         * @param
          * @return
          */
         public Builder setMessage(int message) {
@@ -196,7 +184,7 @@ public class StoreDeteilDialog extends Dialog {
                 ((Button) layout.findViewById(R.id.positiveButton))
                         .setText(positiveButtonText);
                 if (positiveButtonClickListener != null) {
-                    ((Button) layout.findViewById(R.id.positiveButton))
+                    layout.findViewById(R.id.positiveButton)
                             .setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
                                     positiveButtonClickListener.onClick(dialog,
@@ -214,7 +202,7 @@ public class StoreDeteilDialog extends Dialog {
                 ((Button) layout.findViewById(R.id.negativeButton))
                         .setText(negativeButtonText);
                 if (negativeButtonClickListener != null) {
-                    ((Button) layout.findViewById(R.id.negativeButton))
+                    layout.findViewById(R.id.negativeButton)
                             .setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
                                     negativeButtonClickListener.onClick(dialog,

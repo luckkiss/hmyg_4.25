@@ -1,6 +1,7 @@
 package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,19 +23,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flyco.animation.BaseAnimatorSet;
-import com.flyco.animation.BounceEnter.BounceTopEnter;
-import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.dialog.listener.OnBtnClickL;
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
-import com.hldj.hmyg.base.rxbus.RxBus;
+import com.hldj.hmyg.bean.SimpleGsonBean;
+import com.hldj.hmyg.presenter.AActivityPresenter;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.JpushUtil;
 import com.hldj.hmyg.util.SPUtil;
 import com.hldj.hmyg.util.SPUtils;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
+import com.tencent.bugly.beta.Beta;
+import com.tencent.bugly.beta.UpgradeInfo;
 import com.white.update.UpdateInfo;
 import com.white.utils.SettingUtils;
+import com.zf.iosdialog.widget.AlertDialog;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -48,6 +55,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.mhao.widget.SlipButton;
 import me.mhao.widget.SlipButton.OnChangedListener;
 
+
 public class SettingActivity extends NeedSwipeBackActivity implements
         OnChangedListener {
     private Editor e;
@@ -58,20 +66,91 @@ public class SettingActivity extends NeedSwipeBackActivity implements
     private BaseAnimatorSet mBasOut;
 
     // 更新版本要用到的一些信息
-    public void setBasIn(BaseAnimatorSet bas_in) {
-        this.mBasIn = bas_in;
-    }
 
-    public void setBasOut(BaseAnimatorSet bas_out) {
-        this.mBasOut = bas_out;
+    private static final String TAG = "SettingActivity";
+
+    private void restartApplication(Context context) {
+        final Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        mBasIn = new BounceTopEnter();
-        mBasOut = new SlideBottomExit();
+
+//        ToastUtil.showLongToast("3s后自动重启.....");
+//        Flowable.timer(3000, TimeUnit.MILLISECONDS)
+//                .subscribe(new Consumer<Long>() {
+//                    @Override
+//                    public void accept(@NonNull Long aLong) throws Exception {
+//                        Beta.canNotifyUserRestart = true;
+////                      restartApplication(MyApplication.getInstance());
+//                        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+//                        manager.restartPackage("com.hldj.hmyg");
+//
+//
+//                    }
+//                });
+
+        //补丁修改
+        findViewById(R.id.test_show_pach).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                UpgradeInfo updateInfo = Beta.getUpgradeInfo();
+                String str = "";
+                if (updateInfo != null) {
+                    ToastUtil.showShortToast(updateInfo.newFeature);
+                } else {
+                    ToastUtil.showShortToast("积分系统 新版发布");
+                }
+
+//                Log.i(TAG, "hello world");
+//                Toast.makeText(SettingActivity.this, "hello world", Toast.LENGTH_SHORT).show();
+
+
+//                ToastUtil.showShortToast("测试补丁信息是否及时获取");
+                /**
+                 * Beta.cleanTinkerPatch();
+                 注：清除补丁之后，就会回退基线版本状态。
+
+                 主动检查更新
+
+                 Beta.checkUpgrade();
+                 */
+            }
+        });
+
+
+//        UpgradeInfo updateInfo = Beta.getUpgradeInfo();
+//        String update = (null == updateInfo) ? "没有信息" : updateInfo + "";
+//        D.e("==========updateInfo=======" + update);
+//        ToastUtil.showLongToast("updateInfo:" + update);
+
+
+//        findViewById(R.id.test_show_pach1).setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ToastUtil.showShortToast("13次补丁下发。清除 补丁");
+//                Beta.cleanTinkerPatch();
+//
+//                /**
+//                 * Beta.cleanTinkerPatch();
+//                 注：清除补丁之后，就会回退基线版本状态。
+//
+//                 主动检查更新
+//
+//                 Beta.checkUpgrade();
+//                 */
+//            }
+//        });
+
+
+        initaaa();
+
+
         e = MyApplication.Userinfo.edit();
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -88,6 +167,25 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         }
         TextView tv_out = (TextView) findViewById(R.id.tv_out);
         LinearLayout ll_01 = (LinearLayout) findViewById(R.id.ll_01);
+        LinearLayout ll_login_out = (LinearLayout) findViewById(R.id.ll_login_out);
+
+        ll_login_out.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //清除异地登录
+                ToastUtil.showLongToast("清除异地登录");
+
+                AActivityPresenter.otherUserGetOut(new HandlerAjaxCallBack() {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+//                        ToastUtil.showLongToast(gsonBean.msg);
+                    }
+                });
+
+
+            }
+        });
+
         LinearLayout ll_02 = (LinearLayout) findViewById(R.id.ll_02);
         LinearLayout ll_03 = (LinearLayout) findViewById(R.id.ll_03);
         LinearLayout ll_04 = (LinearLayout) findViewById(R.id.ll_04);
@@ -113,6 +211,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
         newMsgAlertStatusOnOff.setOnChangedListener(this);
         receiptMsg.setOnChangedListener(this);
     }
+
 
     @Override
     public void onChanged(boolean checkState, View v) {
@@ -267,7 +366,6 @@ public class SettingActivity extends NeedSwipeBackActivity implements
             }
         }
 
-        ;
     };
     private TextView tv_version;
     private SlipButton newMsgAlertStatusOnOff;
@@ -300,8 +398,14 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                 if (Environment.getExternalStorageState().equals(
                         Environment.MEDIA_MOUNTED)) {
                     // downFile(updateInfo.getUrl());
-                    SettingUtils.launchBrowser(SettingActivity.this,
-                            updateInfo.getUrl());
+                    try {
+                        SettingUtils.launchBrowser(SettingActivity.this, updateInfo.getUrl());
+                    } catch (Exception e1) {
+                        ToastUtil.showShortToast("下载地址获取失败，请稍后重试");
+                        e1.printStackTrace();
+                    }
+
+
                 } else {
                     Toast.makeText(SettingActivity.this,
                             R.string.sd_card_is_disable,
@@ -463,30 +567,65 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                     case R.id.ll_05:
                         // getUpDateInfo();
                         // getUpDateInfo4Pgyer();
-                        getVersion();
+
+
+                        UpgradeInfo updateInfo = Beta.getUpgradeInfo();
+                        String update = (null == updateInfo) ? "没有信息" : updateInfo + "";
+                        D.e("==========updateInfo=======" + update);
+//                        ToastUtil.showLongToast("updateInfo:" + update);
+
+//                        if (updateInfo == null) {
+
+                        if (updateInfo != null) {
+                            ToastUtil.showLongToast(updateInfo.newFeature);
+                            Log.i(TAG, "onClick: " + updateInfo.newFeature);
+                        }
+//                        Log.i(TAG, "===没有升级信息==检测补丁");
+//                            Beta.checkUpgrade();
+//                        Log.i(TAG, "onClick: 设置监听start");
+                        MyApplication.Flag = true;
+//                        Beta.betaPatchListener = MyBetaPatchListener.MY_BETA_PATCH_LISTENER;
+//                        Log.i(TAG, "onClick: 设置监听end");
+//                            Beta.installTinker();
+
+//                        } else {
+                        /***** 检查更新 *****/
+                        D.e("===有升级信息，检查更新==");
+                        Beta.checkUpgrade();
+//                        }
+
+//                      getVersion();
                         break;
                     case R.id.tv_out:
-                        e.putBoolean("isLogin", false);
-                        e.putString("showUserName", "");
-                        e.clear(); // 清除所有登录数据
-                        e.commit();
-                        e.putBoolean("notification",
-                                newMsgAlertStatusOnOff.isIsOpen());
-                        e.commit();
-                        setResult(6);
 
-                        //把userbean 存入 application 中
-//					SPUtil.clear( SPUtils.UserBean,SettingActivity.this);
-                        SPUtil.remove(SettingActivity.this, SPUtils.UserBean);
-                        MyApplication.getInstance().setUserBean(null);
+                        new AlertDialog(mActivity).builder()
+                                .setTitle("确定退出登录?")
+                                .setPositiveButton("退出登录", v1 -> {
+                                    exit2Home(mActivity, e, true);
+                                }).setNegativeButton("取消", v2 -> {
+                        }).show();
 
-
-                        D.e("===" + SPUtil.get(SettingActivity.this, SPUtils.UserBean, "").toString());
-
-                        D.e("====" + MyApplication.getUserBean());
-
-                        finish();
-                        MainActivity.toA();
+//                        e.putBoolean("isLogin", false);
+//                        e.putString("showUserName", "");
+//                        e.clear(); // 清除所有登录数据
+//                        e.commit();
+//                        e.putBoolean("notification",
+//                                newMsgAlertStatusOnOff.isIsOpen());
+//                        e.commit();
+//                        setResult(6);
+//
+//                        //把userbean 存入 application 中
+////					SPUtil.clear( SPUtils.UserBean,SettingActivity.this);
+//                        SPUtil.remove(SettingActivity.this, SPUtils.UserBean);
+//                        MyApplication.setUserBean(null);
+//
+//
+//                        D.e("===" + SPUtil.get(SettingActivity.this, SPUtils.UserBean, "").toString());
+//
+//                        D.e("====" + MyApplication.getUserBean());
+//
+//                        finish();
+//                        MainActivity.toA();
                         break;
 
                     default:
@@ -497,6 +636,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                 new TimeThread().start();
             }
         }
+
 
         /**
          * 计时线程（防止在一定时间段内重复点击按钮）
@@ -514,7 +654,87 @@ public class SettingActivity extends NeedSwipeBackActivity implements
     }
 
 
+    public static void clearCache(Activity context, Editor editor) {
+        editor.putBoolean("isLogin", false);
+        editor.putString("showUserName", "");
+        editor.clear(); // 清除所有登录数据
+        editor.commit();
+        editor.putBoolean("notification", false);
+        editor.commit();
+        context.setResult(6);
+        //把userbean 存入 application 中
+//					SPUtil.clear( SPUtils.UserBean,SettingActivity.this);
+        SPUtil.remove(context, SPUtils.UserBean);
+        MyApplication.setUserBean(null);
+        JpushUtil.setAlias("游客");
+
+
+        D.e("===" + SPUtil.get(context, SPUtils.UserBean, "").toString());
+
+        D.e("====" + MyApplication.getUserBean());
+
+    }
+
+    public static void clearCache(Editor editor) {
+        editor.putBoolean("isLogin", false);
+        editor.putString("showUserName", "");
+        editor.clear(); // 清除所有登录数据
+        editor.commit();
+        editor.putBoolean("notification", false);
+        editor.commit();
+        //把userbean 存入 application 中
+//					SPUtil.clear( SPUtils.UserBean,SettingActivity.this);
+        SPUtil.remove(MyApplication.getInstance(), SPUtils.UserBean);
+        MyApplication.setUserBean(null);
+        JpushUtil.setAlias("游客");
+        D.e("===" + SPUtil.get(MyApplication.getInstance(), SPUtils.UserBean, "").toString());
+        D.e("====" + MyApplication.getUserBean());
+    }
+
+    public static void exit2Home(Activity context, Editor editor, boolean shouldFinish) {
+
+        clearCache(context, editor);
+
+
+        if (shouldFinish) {
+//            if (context instanceof SwipeBackBActivity)
+//            {
+            context.finish();
+//            }
+            MainActivity.toA();
+        } else {
+//            LoginActivity.start2Activity(context);
+            MainActivity.toA();
+        }
+
+
+    }
+
     public static void start2Activity(Context mActivity) {
         mActivity.startActivity(new Intent(mActivity, SettingActivity.class));
+    }
+
+
+    private void initaaa() {
+        findViewById(R.id.test_show_pach2).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.showLongToast("TestPatchActivity activity");
+//                ToastUtil.showShortToast("重新下载补丁");
+//                Beta.checkUpgrade();
+                /**
+                 * Beta.cleanTinkerPatch();
+                 注：清除补丁之后，就会回退基线版本状态。
+                 主动检查更新
+                 Beta.checkUpgrade();
+                 */
+                TestPatchActivity.start2Activity(mActivity);
+            }
+        });
+    }
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
     }
 }

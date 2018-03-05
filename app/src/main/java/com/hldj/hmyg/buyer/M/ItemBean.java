@@ -1,12 +1,13 @@
 package com.hldj.hmyg.buyer.M;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/4/27.
  */
 
-public class ItemBean {
+public class ItemBean implements Serializable{
 
     /**
      * id : 54101356f7114c8286cac1e69b58a138
@@ -50,54 +51,55 @@ public class ItemBean {
      * purchaseType : quoting
      */
 
-    public String id;
-    public String remarks;
-    public String createBy;
-    public String createDate;
-    public String prCode;
-    public String ciCode;
-    public String coCode;
-    public String twCode;
-    public String firstSeedlingTypeId;
-    public String secondSeedlingTypeId;
+    public String id = "";
+    public String remarks= "";
+    public String createBy= "";
+    public String createDate= "";
+    public String prCode= "";
+    public String ciCode= "";
+    public String coCode= "";
+    public String twCode= "";
+    public String firstSeedlingTypeId= "";
+    public String secondSeedlingTypeId= "";
     public int diameter;
-    public String diameterType;
+    public String diameterType= "";
     public int crown;
-    public String plantType;
-    public String unitType;
-    public String firstTypeName;
-    public String unitTypeName;
-    public String plantTypeName;
-    public String diameterTypeName;
-    public String dbhTypeName;
-    public String thumbnailImageUrl;
-    public String smallImageUrl;
-    public String mediumImageUrl;
-    public String largeImageUrl;
-    public String seedlingParams;
-    public String specText;
-    public String purchaseId;
-    public String name;
+    public String plantType= "";
+    public String unitType= "";
+    public String firstTypeName= "";
+    public String unitTypeName= "";
+    public String plantTypeName= "";
+    public String diameterTypeName= "";
+    public String dbhTypeName= "";
+    public String thumbnailImageUrl= "";
+    public String smallImageUrl= "";
+    public String mediumImageUrl= "";
+    public String largeImageUrl= "";
+    public String seedlingParams= "";
+    public String specText= "";
+    public String purchaseId = "";
+    public String name= "";
     public int count;
     public String status = "";
     public PurchaseJsonBean purchaseJson;
-    public String statusName;
+    public String statusName= "";
     public int quoteCountJson;
-    public String orderBy;
-    public String seedlingCityCodeName;
-    public String source;
-    public String purchaseType;
+    public String orderBy= "";
+    public String seedlingCityCodeName= "";
+    public String source= "";
+    public String plantTypeArrayNames= "";
+    public String purchaseType= "";
     public SellerQuoteJsonBean sellerQuoteJson;
+    public List<SellerQuoteJsonBean> sellerQuoteListJson;
     public List<String> paramsList;
     public List<SpecListBean> specList;
     public BuyerBean buyer = new BuyerBean();
 
 
-
     public boolean isQuoted;
 
 
-    public static class SpecListBean {
+    public static class SpecListBean implements Serializable{
         /**
          * name : 地径
          * value : 40CM(0.1M量)

@@ -56,7 +56,7 @@ public class SPUtil {
      */
     public static void put(Context context, String key, Object obj) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
-                context.MODE_PRIVATE);
+                Context.MODE_PRIVATE);
         Editor editor = sp.edit();
 
         if (obj instanceof Boolean) {
@@ -76,7 +76,7 @@ public class SPUtil {
     public static void put(String spname, Context context, String key,
                            Object obj) {
         SharedPreferences sp = context.getSharedPreferences(spname,
-                context.MODE_PRIVATE);
+                Context.MODE_PRIVATE);
         Editor editor = sp.edit();
 
         if (obj instanceof Boolean) {
@@ -105,7 +105,7 @@ public class SPUtil {
         if (null == context)
             return null;
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
-                context.MODE_PRIVATE);
+                Context.MODE_PRIVATE);
         if (defaultObj instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObj);
         } else if (defaultObj instanceof Float) {
@@ -126,7 +126,7 @@ public class SPUtil {
     public static Object get(String spname, Context context, String key,
                              Object defaultObj) {
         SharedPreferences sp = context.getSharedPreferences(spname,
-                context.MODE_PRIVATE);
+                Context.MODE_PRIVATE);
 
         if (defaultObj instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObj);
@@ -151,7 +151,7 @@ public class SPUtil {
      */
     public static void remove(Context context, String key) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
-                context.MODE_PRIVATE);
+                Context.MODE_PRIVATE);
         Editor editor = sp.edit();
         editor.remove(key);
         editor.commit();
@@ -159,7 +159,7 @@ public class SPUtil {
 
     public static void remove(String spname, Context context, String key) {
         SharedPreferences sp = context.getSharedPreferences(spname,
-                context.MODE_PRIVATE);
+                Context.MODE_PRIVATE);
         Editor editor = sp.edit();
         editor.remove(key);
         editor.commit();
@@ -172,14 +172,14 @@ public class SPUtil {
      */
     public static Map<String, ?> getAll(Context context) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
-                context.MODE_PRIVATE);
+                Context.MODE_PRIVATE);
         Map<String, ?> map = sp.getAll();
         return map;
     }
 
     public static Map<String, ?> getAll(String spname, Context context) {
         SharedPreferences sp = context.getSharedPreferences(spname,
-                context.MODE_PRIVATE);
+                Context.MODE_PRIVATE);
         Map<String, ?> map = sp.getAll();
         return map;
     }
@@ -191,7 +191,7 @@ public class SPUtil {
      */
     public static void clear(Context context) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
-                context.MODE_PRIVATE);
+                Context.MODE_PRIVATE);
         Editor editor = sp.edit();
         editor.clear();
         editor.commit();
@@ -199,7 +199,7 @@ public class SPUtil {
 
     public static void clear(String spname, Context context) {
         SharedPreferences sp = context.getSharedPreferences(spname,
-                context.MODE_PRIVATE);
+                Context.MODE_PRIVATE);
         Editor editor = sp.edit();
         editor.clear();
         editor.commit();

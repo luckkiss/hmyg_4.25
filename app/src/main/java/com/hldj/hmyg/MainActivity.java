@@ -1,26 +1,18 @@
 package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TabActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -31,36 +23,23 @@ import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
-import com.flyco.animation.BaseAnimatorSet;
-import com.flyco.animation.BounceEnter.BounceTopEnter;
-import com.flyco.animation.SlideExit.SlideBottomExit;
-import com.flyco.dialog.listener.OnBtnClickL;
+import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.Ui.Eactivity3_0;
+import com.hldj.hmyg.Ui.friend.FriendCycleActivity;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.PermissionUtils;
-import com.hldj.hmyg.buy.bean.CollectCar;
-import com.hldj.hmyg.saler.StorageSaveActivity;
+import com.hldj.hmyg.bean.UserInfoGsonBean;
+import com.hldj.hmyg.presenter.LoginPresenter;
 import com.hldj.hmyg.update.UpdateDialog;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.MLocationManager;
 import com.hldj.hmyg.util.MyUtil;
 import com.hldj.hmyg.util.StartBarUtils;
-import com.hy.utils.GetServerUrl;
-import com.hy.utils.JsonGetInfo;
 import com.white.update.UpdateInfo;
 import com.white.utils.SettingUtils;
 
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
@@ -74,43 +53,67 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     private static TabHost tabHost;
     private static RadioGroup radioderGroup;
     MaterialDialog mMaterialDialog;
-    private BaseAnimatorSet mBasIn;
-    private BaseAnimatorSet mBasOut;
+
     // 更新版本要用到的一些信息
     private ProgressDialog progressDialog;
     private UpdateInfo updateInfo;
-    private static String DB_NAME = "flower.db";
-    private static final String DB_TABLE = "savetable";
-    private static final int DB_VERSION = 1;
-    private SQLiteDatabase db;
-    private ArrayList<CollectCar> userList = new ArrayList<CollectCar>();
-
-    private String check = "1";
-
-    public void setBasIn(BaseAnimatorSet bas_in) {
-        this.mBasIn = bas_in;
-    }
-
-    public void setBasOut(BaseAnimatorSet bas_out) {
-        this.mBasOut = bas_out;
-    }
-
-
-    private ProgressDialog progDialog;
 
 
     public Editor e;
 
+
+    private View friend_view;
+    public static View.OnClickListener clicks;
+
+
+    long mLastTime;
+    long mCurTime;
+
+    public String check = "1";
+
+    public void aaa() {
+        friend_view = findViewById(R.id.iv_publish);
+        friend_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLastTime = mCurTime;
+                mCurTime = System.currentTimeMillis();
+                if (mCurTime - mLastTime < 500) {
+//                    Toast.makeText(MainActivity.this, "这就是传说中的双击事件", Toast.LENGTH_LONG).show();
+                    if (clicks != null) {
+                        Log.i(TAG, "onClick: 触发回调");
+                        clicks.onClick(v);
+                    }
+                }
+                Log.i(TAG, "onClick: 点击了苗木圈");
+            }
+        });
+    }
+
+    ;
+
+
+    public static MainActivity instance;
 
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        instance = this;
+        try {
+            if (savedInstanceState != null) {
+                updateInfo = (UpdateInfo) savedInstanceState.getSerializable("updateInfo");
+            }
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+
+
 //        String str = null ;
 //        D.e("======="+ str.toString() );
-
-//        ToastUtil.showShortToast("heheda  更新包");
+        //补丁修改
+//        ToastUtil.showShortToast("13次修复混淆问题   热更新生效 \n   修改搜索 筛选 的内容");
 
         /**
          * 控制状态栏为黑色  miui flyme
@@ -118,6 +121,10 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         StartBarUtils.FlymeSetStatusBarLightMode(getWindow(), true);
         StartBarUtils.MIUISetStatusBarLightMode(getWindow(), true);
         setContentView(R.layout.activity_main);
+
+        aaa();
+
+
         getAddr();
 
         e = MyApplication.Userinfo.edit();//初始化 sp
@@ -131,59 +138,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 //         StatusBarCompat.compat(this);// 状态栏
 //         StateBarUtil.setStatusBarIconDark(this,true);
         mMaterialDialog = new MaterialDialog(this);
-        mBasIn = new BounceTopEnter();//进出场动画
-        mBasOut = new SlideBottomExit();//进出场动画
-        DBOpenHelper dbOpenHelper = new DBOpenHelper(MainActivity.this,//创建数据库
-                DB_NAME, null, DB_VERSION);
-        try {
-            db = dbOpenHelper.getWritableDatabase();
-        } catch (SQLiteException ex) {
-            db = dbOpenHelper.getReadableDatabase();
-        }
-        // 执行SQL语句
-        Cursor cursor = db.query(DB_TABLE, null, null, null, null, null,
-                "_id DESC");
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            int id = cursor.getInt(0);
-            String img = cursor.getString(1);
-            String title = cursor.getString(2);
-            String time = cursor.getString(3);
-            String money = cursor.getString(4);
-            String storage_save_id = cursor.getString(5);
-            CollectCar car = new CollectCar(img, title, time, money, id,
-                    storage_save_id, false, false, "");
-            userList.add(car);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        if (userList.size() > 0) {
-            // 草稿箱上有东西
-            if (mMaterialDialog != null) {
-                mMaterialDialog
-                        .setTitle("提示")
-                        .setMessage("草稿箱内有未上传资源。是否进入草稿箱？")
-                        .setPositiveButton(getString(R.string.ok),
-                                new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        mMaterialDialog.dismiss();
-                                        Intent toStorageSaveActivity = new Intent(
-                                                MainActivity.this,
-                                                StorageSaveActivity.class);
-                                        startActivity(toStorageSaveActivity);
-                                    }
-
-                                })
-                        .setNegativeButton(getString(R.string.cancle),
-                                new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        mMaterialDialog.dismiss();
-                                    }
-                                }).setCanceledOnTouchOutside(true).show();
-            }
-        }
 
 
         tabHost = this.getTabHost();
@@ -193,13 +147,17 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
             @Override
             public void gotResult(int arg0, String arg1, Set<String> arg2) {
                 // TODO Auto-generated method stub
-
+                Log.w(TAG, "gotResult: " + arg0);
+                Log.w(TAG, "gotResult: " + arg1);
+                Log.w(TAG, "gotResult: " + arg2);
             }
         });
         if (MyApplication.Userinfo.getBoolean("notification", true)) {
             JPushInterface.resumePush(getApplicationContext());
+            Log.i(TAG, "onCreate: 开启  极光通知");
         } else {
             JPushInterface.stopPush(getApplicationContext());
+            Log.i(TAG, "onCreate: 关闭  极光通知");
         }
 
         tabHost.addTab(tabHost.newTabSpec("1").setIndicator("1")
@@ -207,8 +165,8 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                 .setContent(new Intent(this, AActivity_3_0.class)));
         tabHost.addTab(tabHost.newTabSpec("2").setIndicator("2")
                 .setContent(new Intent(this, BActivity_new_test.class)));
-//        tabHost.addTab(tabHost.newTabSpec("3").setIndicator("3")
-//                .setContent(new Intent(this, CActivity2.class)));
+        tabHost.addTab(tabHost.newTabSpec("3").setIndicator("3")
+                .setContent(new Intent(this, FriendCycleActivity.class)));
         tabHost.addTab(tabHost.newTabSpec("4").setIndicator("4")
                 .setContent(new Intent(this, DActivity_new.class)));//跳转到收藏夹  界面
         tabHost.addTab(tabHost.newTabSpec("5").setIndicator("5")
@@ -217,13 +175,13 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 //        RadioButton tab_c = (RadioButton) findViewById(R.id.tab_c);
 
 
-
         radioderGroup.setOnCheckedChangeListener(this);
         radioderGroup.check(R.id.tab_a);// 默认第一个按钮
         check = "1";
         // getUpDateInfo();
         // getUpDateInfo4Pgyer();
-        getVersion();
+//      getVersion();
+
         if (getIntent().getScheme() != null
                 && getIntent().getDataString() != null) {
             String scheme = this.getIntent().getScheme();// 获得Scheme名称
@@ -252,15 +210,22 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
             }
         }
 
+        requestUserInfo();
+
     }
 
 
     public static void toA() {
+
         radioderGroup.check(R.id.tab_a);
     }
 
     public static void toB() {
         radioderGroup.check(R.id.tab_b);
+    }
+
+    public static void toC() {
+        radioderGroup.check(R.id.iv_publish);
     }
 
     int old_item_id = R.id.tab_a;//默认是 主页
@@ -274,6 +239,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
             }
         }
     }
+
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -291,8 +257,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                 tabHost.setCurrentTabByTag("3");
                 check = "3";
                 break;
-
-
             case R.id.tab_d:
                 if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {
                     start2ActivityWithResult(LoginActivity.class, 4);
@@ -316,19 +280,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     }
 
 
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//
-//        if (keyCode == KeyEvent.KEYCODE_BACK) {
-//            ToastUtil.showShortToast("hellow world");
-//            Intent home = new Intent(Intent.ACTION_MAIN);
-//            home.addCategory(Intent.CATEGORY_HOME);
-//            startActivity(home);
-//            return true;
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
-
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             Intent home = new Intent(Intent.ACTION_MAIN);
@@ -341,192 +292,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         return super.dispatchKeyEvent(event);
     }
 
-
-    public void finishAc() {
-        int currentVersion = android.os.Build.VERSION.SDK_INT;
-        if (currentVersion > android.os.Build.VERSION_CODES.ECLAIR_MR1) {
-            Intent startMain = new Intent(Intent.ACTION_MAIN);
-            startMain.addCategory(Intent.CATEGORY_HOME);
-            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(startMain);
-        } else {// android2.1
-            ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-            am.restartPackage(getPackageName());
-        }
-    }
-
-    public UpdateInfo getUpDateInfo() {
-
-        updateInfo = new UpdateInfo();
-        FinalHttp fh = new FinalHttp();
-        fh.get(GetServerUrl.getFIR(), new AjaxCallBack<Object>() {
-
-            @Override
-            public void onSuccess(Object t) {
-                // TODO Auto-generated method stub
-                JSONObject jsonObject;
-                try {
-                    jsonObject = new JSONObject(t.toString());
-                    String changelog = JsonGetInfo.getJsonString(jsonObject,
-                            "changelog");
-                    String versionShort = JsonGetInfo.getJsonString(jsonObject,
-                            "versionShort");
-                    String install_url = JsonGetInfo.getJsonString(jsonObject,
-                            "install_url");
-                    String new_version = JsonGetInfo.getJsonString(jsonObject,
-                            "version");
-                    updateInfo.setVersion(versionShort);
-                    updateInfo.setDescription(changelog);
-                    updateInfo.setUrl(install_url);
-                    // 获取当前版本号
-                    String now_version = "";
-                    try {
-                        PackageManager packageManager = getPackageManager();
-                        PackageInfo packageInfo = packageManager
-                                .getPackageInfo(getPackageName(), 0);
-                        now_version = packageInfo.versionName;
-                    } catch (NameNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    if (!versionShort.equals(now_version)) {
-                        handler1.sendEmptyMessage(0);
-                    } else {
-                        handler1.sendEmptyMessage(1);
-                    }
-
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-                super.onSuccess(t);
-            }
-
-        });
-        return updateInfo;
-    }
-
-    public UpdateInfo getVersion() {
-
-        updateInfo = new UpdateInfo();
-        FinalHttp fh = new FinalHttp();
-        GetServerUrl.addHeaders(fh, true);
-        AjaxParams params = new AjaxParams();
-        params.put("appType", "Android");
-        fh.post(GetServerUrl.getUrl() + "version/getVersion", params,
-                new AjaxCallBack<Object>() {
-
-                    @Override
-                    public void onSuccess(Object t) {
-                        // TODO Auto-generated method stub
-                        JSONObject jsonObject;
-                        try {
-                            jsonObject = new JSONObject(t.toString());
-                            JSONObject data = JsonGetInfo.getJSONObject(
-                                    jsonObject, "data");
-                            JSONObject version = JsonGetInfo.getJSONObject(
-                                    data, "version");
-                            String changelog = JsonGetInfo.getJsonString(
-                                    version, "remarks");
-                            String versionNum = JsonGetInfo.getJsonString(
-                                    version, "versionNum");
-                            String url = JsonGetInfo.getJsonString(version,
-                                    "url");
-                            String new_version = JsonGetInfo.getJsonString(
-                                    version, "versionNum");
-                            boolean isForce = JsonGetInfo.getJsonBoolean(version,
-                                    "isForce");
-                            updateInfo.setVersion(versionNum);
-                            updateInfo.setDescription(changelog);
-                            updateInfo.setUrl(url);
-                            // updateInfo.setUrl(GetServerUrl.getPGYER_UPLOAD());
-                            updateInfo.setForce(isForce);
-                            // 获取当前版本号
-                            String now_version = "";
-                            try {
-                                PackageManager packageManager = getPackageManager();
-                                PackageInfo packageInfo = packageManager
-                                        .getPackageInfo(getPackageName(), 0);
-                                now_version = packageInfo.versionName;
-                            } catch (NameNotFoundException e) {
-                                e.printStackTrace();
-                            }
-                            if (!versionNum.equals(now_version)) {
-                                handler1.sendEmptyMessage(0);
-                            } else {
-                                handler1.sendEmptyMessage(1);
-                            }
-
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-
-                        super.onSuccess(t);
-                    }
-
-                });
-        return updateInfo;
-    }
-
-    public UpdateInfo getUpDateInfo4Pgyer() {
-
-        updateInfo = new UpdateInfo();
-        FinalHttp fh = new FinalHttp();
-        AjaxParams params = new AjaxParams();
-        params.put("aId", GetServerUrl.getaId());
-        params.put("_api_key", GetServerUrl.get_api_key());
-        params.put("uKey", GetServerUrl.getuKey());
-        fh.post(GetServerUrl.getPGYER(), params, new AjaxCallBack<Object>() {
-
-            @Override
-            public void onSuccess(Object t) {
-                // TODO Auto-generated method stub
-                JSONObject Jo;
-                try {
-                    Jo = new JSONObject(t.toString());
-                    JSONArray data = JsonGetInfo.getJsonArray(Jo, "data");
-                    if (data.length() > 0) {
-                        JSONObject jsonObject = data.getJSONObject(data
-                                .length() - 1);
-                        String changelog = JsonGetInfo.getJsonString(
-                                jsonObject, "appUpdateDescription");
-                        String versionShort = JsonGetInfo.getJsonString(
-                                jsonObject, "appVersion");
-                        String install_url = GetServerUrl.getPGYER_UPLOAD();
-                        String new_version = JsonGetInfo.getJsonString(
-                                jsonObject, "appVersionNo");
-                        updateInfo.setVersion(versionShort);
-                        updateInfo.setDescription(changelog);
-                        updateInfo.setUrl(install_url);
-                        // 获取当前版本号
-                        String now_version = "";
-                        try {
-                            PackageManager packageManager = getPackageManager();
-                            PackageInfo packageInfo = packageManager
-                                    .getPackageInfo(getPackageName(), 0);
-                            now_version = packageInfo.versionName;
-                        } catch (NameNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                        if (!versionShort.equals(now_version)) {
-                            handler1.sendEmptyMessage(0);
-                        } else {
-                            handler1.sendEmptyMessage(1);
-                        }
-                    }
-
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-                super.onSuccess(t);
-            }
-
-        });
-        return updateInfo;
-    }
 
     @SuppressLint("HandlerLeak")
     private Handler handler1 = new Handler() {
@@ -544,12 +309,16 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
             }
         }
 
-        ;
     };
-    private Dialog dialog;
 //    private ChooseManagerAdapter myadapter;
 
+    private static final String TAG = "MainActivity";
+
     private void showUpdateDialog2() {
+        if (updateInfo == null || TextUtils.isEmpty(updateInfo.getUrl())) {
+            Log.i(TAG, "showUpdateDialog2: updateInfo == null");
+            return;
+        }
 
         UpdateDialog.Builder builder = new UpdateDialog.Builder(this);
         builder.setTitle(getResources().getString(
@@ -564,11 +333,15 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
         builder.setPositiveButton("确定", (dialog12, which) -> {
             dialog12.dismiss();
-            if (Environment.getExternalStorageState().equals(
-                    Environment.MEDIA_MOUNTED)) {
+            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                 // downFile(updateInfo.getUrl());
-                SettingUtils.launchBrowser(MainActivity.this,
-                        updateInfo.getUrl());
+                try {
+                    SettingUtils.launchBrowser(MainActivity.this, updateInfo.getUrl());
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+
+
             } else {
                 Toast.makeText(MainActivity.this,
                         R.string.sd_card_is_disable, Toast.LENGTH_SHORT)
@@ -593,112 +366,12 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
     }
 
-    // 显示是否要更新的对话框
-    private void showUpdateDialog() {
-
-        final com.flyco.dialog.widget.MaterialDialog dialog = new com.flyco.dialog.widget.MaterialDialog(
-                MainActivity.this);
-        dialog.title(
-                getResources().getString(R.string.please_update_app_to_version)
-                        + updateInfo.getVersion())
-                .content(updateInfo.getDescription())
-                //
-                .btnText(getResources().getString(R.string.cancle),
-                        getResources().getString(R.string.ok))//
-                .showAnim(mBasIn)//
-                .dismissAnim(mBasOut)//
-                .show();
-
-        dialog.setOnBtnClickL(new OnBtnClickL() {// left btn click listener
-            @Override
-            public void onBtnClick() {
-                if (updateInfo.isForce()) {
-                    finishAc();
-                } else {
-                    dialog.dismiss();
-                }
-
-            }
-        }, new OnBtnClickL() {// right btn click listener
-            @Override
-            public void onBtnClick() {
-                dialog.dismiss();
-                if (Environment.getExternalStorageState().equals(
-                        Environment.MEDIA_MOUNTED)) {
-                    // downFile(updateInfo.getUrl());
-                    SettingUtils.launchBrowser(MainActivity.this,
-                            updateInfo.getUrl());
-                } else {
-                    Toast.makeText(MainActivity.this,
-                            R.string.sd_card_is_disable,
-                            Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-    }
-
-    void downFile(final String url) {
-        progressDialog = new ProgressDialog(MainActivity.this); // 进度条，在下载的时候实时更新进度，提高用户友好度
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setTitle(getResources().getString(R.string.is_download));
-        progressDialog.setMessage(getResources().getString(
-                R.string.please_waiting));
-        progressDialog.setProgress(0);
-        progressDialog.show();
-    }
-
-
-    /**
-     * 静态Helper类，用于建立、更新和打开数据库
-     */
-    private static class DBOpenHelper extends SQLiteOpenHelper {
-
-        public DBOpenHelper(Context context, String name,
-                            CursorFactory factory, int version) {
-            super(context, name, factory, version);
-        }
-
-        private static final String DB_CREATE = "create table savetable(_id integer primary key autoincrement,img text,title text,time text,money text,storage_save_id text)";
-
-        @Override
-        public void onCreate(SQLiteDatabase _db) {
-            _db.execSQL(DB_CREATE);
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase _db, int _oldVersion,
-                              int _newVersion) {
-            _db.execSQL("DROP TABLE IF EXISTS " + DB_TABLE);
-            onCreate(_db);
-        }
-    }
-
-
-    /**
-     * 显示进度条对话框
-     */
-    public void showDialog2() {
-        progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progDialog.setIndeterminate(false);
-        progDialog.setCancelable(true);
-        progDialog.setMessage("正在获取地址");
-        progDialog.show();
-    }
-
-    /**
-     * 隐藏进度条对话框
-     */
-    public void dismissDialog() {
-        if (progDialog != null) {
-            progDialog.dismiss();
-        }
-    }
-
-
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save the user's current game state：保存其他数据
+        savedInstanceState.putSerializable("updateInfo", updateInfo);
+
     }
 
 
@@ -747,6 +420,26 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     }
 
 
+    private void requestUserInfo() {
+//        if (GetServerUrl.isTest) {
+//            ToastUtil.showShortToast("测试时显示\n请求 个人数据");
+//        }
+        LoginPresenter.getUserInfo(MyApplication.Userinfo.getString("id", ""), new ResultCallBack<UserInfoGsonBean>() {
+            @Override
+            public void onSuccess(UserInfoGsonBean userInfoGsonBean) {
+                D.e("========获取个人数据=====userInfoGsonBean=====" + userInfoGsonBean.toString());
+//                if (GetServerUrl.isTest) {
+//                    ToastUtil.showShortToast("测试时显示\n请求 个人数据" + userInfoGsonBean.toString());
+//                }
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                D.e("=========strMsg=========" + strMsg);
+            }
+        });
+    }
+
     public static AMapLocation alocation;
     public static String latitude = "0.0";
     public static String longitude = "0.0";
@@ -764,5 +457,26 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
      */
 
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+    }
+
+
+    @Override
+    public Resources getResources() {
+        Resources res = super.getResources();
+        Configuration config = new Configuration();
+        config.setToDefaults();
+        res.updateConfiguration(config, res.getDisplayMetrics());
+        return res;
+    }
 
 }

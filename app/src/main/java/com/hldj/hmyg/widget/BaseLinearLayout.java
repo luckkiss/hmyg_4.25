@@ -7,15 +7,16 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
- * Created by Administrator on 2017/4/19.
+ *
  */
 
-public abstract class BaseLinearLayout extends LinearLayout {
+public abstract class BaseLinearLayout<T> extends LinearLayout {
 
 
-    Context context;
+    protected Context context;
     private View viewRoot;
 
     public BaseLinearLayout(Context context) {
@@ -55,12 +56,16 @@ public abstract class BaseLinearLayout extends LinearLayout {
 
     }
 
+    protected void setText(TextView tv_text, String s) {
+        tv_text.setText(s);
+    }
+
     protected abstract int setContextView();
 
 
     public abstract BaseLinearLayout initViewHolder(View viewRoot);
 
-    public abstract <T> BaseLinearLayout setDatas(T t);
+    public abstract BaseLinearLayout setDatas(T t);
 
 
     public BaseLinearLayout addText(int resId, String msg) {

@@ -27,7 +27,7 @@ public class Utils {
             InputStream inputStream = process.getInputStream();
             outputStream.write("id\n".getBytes());
             outputStream.flush();
-            outputStream.write("exit\n".getBytes());
+            outputStream.write("wd_exit\n".getBytes());
             outputStream.flush();
             process.waitFor();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));

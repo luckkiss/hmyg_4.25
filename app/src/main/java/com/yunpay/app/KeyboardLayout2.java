@@ -48,11 +48,7 @@ public class KeyboardLayout2 extends LinearLayout {
         Log.d(TAG, "--------------------------------------------------------------");
         Log.d(TAG, "w----" + w + "\n" + "h-----" + h + "\n" + "oldW-----" + oldw + "\noldh----" + oldh);
         if (null != mChangedListener && 0 != oldw && 0 != oldh) {
-            if (h < oldh) {
-                mShowKeyboard = true;
-            } else {
-                mShowKeyboard = false;
-            }
+            mShowKeyboard = h < oldh;
             mChangedListener.onChanged(mShowKeyboard);
             Log.d(TAG, "mShowKeyboard-----      " + mShowKeyboard);
         }

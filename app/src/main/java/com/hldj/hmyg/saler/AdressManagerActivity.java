@@ -16,13 +16,13 @@ import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.contract.AdressListContract;
 import com.hldj.hmyg.model.AdressListModel;
 import com.hldj.hmyg.presenter.AdressListPresenter;
+import com.hldj.hmyg.saler.M.AdressQueryBean;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.SaveSeedingBottomLinearLayout;
 import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -41,12 +41,12 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
         ToastUtil.showShortToast(erMst);
     }
 
-    private class AdressQueryBean implements Serializable {
-        public String pageIndex = "0";
-        public String pageSize = "20";
-        public String type = "";
-        public String searchKey = "";
-    }
+//    private static class AdressQueryBean implements Serializable {
+//        public String pageIndex = "0";
+//        public String pageSize = "20";
+//        public String type = "";
+//        public String searchKey = "";
+//    }
 
     private AdressQueryBean queryBean = null;
 
@@ -69,6 +69,11 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
             //修改成功
             coreRecyclerView.onRefresh();
             ToastUtil.showShortToast("添加成功 ^_^ ");
+        }
+        if (resultCode == ConstantState.DELETE_SUCCEED) {
+            //删除成功
+            coreRecyclerView.onRefresh();
+            ToastUtil.showShortToast("删除成功 ^_^ ");
         }
 
     }
@@ -165,14 +170,18 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
                 helper.addOnClickListener(R.id.tv_recy_item_right, view -> {
 //                    ToastUtil.showShortToast("删除");
                     D.e("删除");
+                    showLoading();
                     mPresenter.deleteAddr(item.id);
                 });
             }
 
 
         }).openLoadMore(100, page -> {
+            showLoading();
             mPresenter.getData(getQueryBean());
-        }).openRefresh().openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        }).openRefresh()
+                .openLoadAnimation(BaseQuickAdapter.ALPHAIN)
+                .closeDefaultEmptyView();
         //initRecycle 下一步执行
         mPresenter.getData(getQueryBean());//初始化  地址数据列表
     }
@@ -195,13 +204,19 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
     public void initRecycle(List<AddressBean> beens) {
         coreRecyclerView.getAdapter().addData(beens);
         coreRecyclerView.selfRefresh(false);
+        if (coreRecyclerView.isDataNull()) {
+            coreRecyclerView.setNoData("");
+        }
+        hindLoading();
 
     }
+
 
     @Override
     public void OnDeleteAddr(boolean bo) {
         if (bo) coreRecyclerView.onRefresh();//删除成功。刷新界面
         ToastUtil.showShortToast("地址删除成功");
+        hindLoading();
 
     }
 
@@ -211,6 +226,7 @@ public class AdressManagerActivity extends BaseMVPActivity<AdressListPresenter, 
             coreRecyclerView.onRefresh();//修改地址。刷新界面
             ToastUtil.showShortToast("地址修改成功");
         }
+        hindLoading();
     }
 
 

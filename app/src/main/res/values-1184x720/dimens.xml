@@ -1,0 +1,6 @@
+<resources>
+
+
+    <dimen name="grid_padding">1dp</dimen>
+    <dimen name="margin_top">25dp</dimen>
+</resources>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_padding_statu" />
+
+    <include layout="@layout/toolbar_radio_3_0" />
+
+    <!--<me.kaede.tagview.TagView-->
+    <!--android:id="@+id/tagview"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingLeft="5dp"-->
+    <!--app:lineMargin="5dp"-->
+    <!--app:tagMargin="3dp"-->
+    <!--app:textPaddingBottom="3dp"-->
+    <!--app:textPaddingLeft="10dp"-->
+    <!--app:textPaddingRight="10dp"-->
+    <!--app:textPaddingTop="3dp" />-->
+
+    <!--<View-->
+    <!--android:id="@+id/id_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1px"-->
+    <!--android:background="@color/main_color" />-->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+
+        <include layout="@layout/include_search_layout" />
+
+        <View
+            android:id="@+id/fl_search"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+    </FrameLayout>
+
+    <View style="@style/View_line_divider_1px" />
+
+    <Button
+        android:id="@+id/message"
+        android:layout_width="140dp"
+        android:layout_height="34dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:alpha="0.8"
+        android:background="@drawable/message_conner"
+        android:text="2条新消息"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--<com.hldj.hmyg.buyer.weidet.CoreRecyclerView-->
+    <!--android:id="@+id/core_rv_c"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1" />-->
+</LinearLayout>

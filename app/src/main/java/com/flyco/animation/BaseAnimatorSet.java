@@ -1,11 +1,11 @@
 package com.flyco.animation;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.view.View;
 import android.view.animation.Interpolator;
 
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.view.ViewHelper;
+
 
 //封装的动画基类
 public abstract class BaseAnimatorSet {
@@ -62,14 +62,25 @@ public abstract class BaseAnimatorSet {
 	}
 
 	public static void reset(View view) {
-		ViewHelper.setAlpha(view, 1);
-		ViewHelper.setScaleX(view, 1);
-		ViewHelper.setScaleY(view, 1);
-		ViewHelper.setTranslationX(view, 0);
-		ViewHelper.setTranslationY(view, 0);
-		ViewHelper.setRotation(view, 0);
-		ViewHelper.setRotationY(view, 0);
-		ViewHelper.setRotationX(view, 0);
+
+		view.setAlpha(1);
+		view.setScaleX(1);
+		view.setScaleY(1);
+		view.setTranslationX(0);
+		view.setTranslationY(0);
+		view.setRotation(0);
+		view.setRotation(0);
+		view.setRotationY(0);
+		view.setRotationX(0);
+		
+//		ViewHelper.setAlpha(view, 1);
+//		ViewHelper.setScaleX(view, 1);
+//		ViewHelper.setScaleY(view, 1);
+//		ViewHelper.setTranslationX(view, 0);
+//		ViewHelper.setTranslationY(view, 0);
+//		ViewHelper.setRotation(view, 0);
+//		ViewHelper.setRotationY(view, 0);
+//		ViewHelper.setRotationX(view, 0);
 	}
 
 	/** 设置动画时长 */

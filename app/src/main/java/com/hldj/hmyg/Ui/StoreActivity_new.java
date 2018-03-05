@@ -1,5 +1,8 @@
 package com.hldj.hmyg.Ui;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,9 +23,12 @@ import com.google.zxing.WriterException;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.M.BPageGsonBean;
+import com.hldj.hmyg.M.QueryBean;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.friend.child.CenterActivity;
 import com.hldj.hmyg.Ui.storeChild.StoreDetailFragment;
 import com.hldj.hmyg.Ui.storeChild.StoreHomeFragment;
+import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.StoreGsonBean;
@@ -49,6 +55,7 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
@@ -57,6 +64,11 @@ import io.reactivex.schedulers.Schedulers;
 import static com.hldj.hmyg.StoreActivity.getRoundCornerImage;
 
 public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreModel> implements StoreContract.View {
+
+    private Disposable disposable;
+
+    TextView miao;
+    private String persiId = "";
 
     @Override
     public int bindLayoutID() {
@@ -70,9 +82,64 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
     FinalBitmap bitmap;
     private ArrayList<Pic> ossImagePaths = new ArrayList<Pic>();
 
+
+    private ValueAnimator createDropAnimator(final View view, int start, int end) {
+
+        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int value = (int) animation.getAnimatedValue();
+                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+                layoutParams.height = value;
+                view.setLayoutParams(layoutParams);
+            }
+        });
+        return animator;
+    }
+
+
+    private void animateOpen(View view) {
+//        count
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                if (mPresenter.count <= 0) return;
+                view.setVisibility(View.VISIBLE);
+
+
+                miao.setText(filterColor("TA的苗木圈有" + mPresenter.count + "条动态>>>", mPresenter.count + "", R.color.price_orige));
+                ValueAnimator animator = createDropAnimator(view, 0, 100);
+                animator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        miao.setText(filterColor("TA的苗木圈有" + mPresenter.count + "条动态>>>", mPresenter.count + "", R.color.price_orige));
+                    }
+                });
+                animator.start();
+            }
+        }, 1500);
+
+    }
+
     //step 1   初始化 控件
     @Override
     public void initView() {
+
+
+//        StartBarUtils.FlymeSetStatusBarLightMode(getWindow(),false);
+//        StartBarUtils.MIUISetStatusBarLightMode(getWindow(),false);
+
+        miao = (TextView) findViewById(R.id.miao);
+
+
+        miao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CenterActivity.start(mActivity, persiId);
+            }
+        });
 
         (((ViewGroup) getView(R.id.cons_store))).setBackgroundColor(getColorByRes(R.color.white));
 
@@ -84,11 +151,14 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
                 if (state == State.EXPANDED) {
                     //展开状态
                     getView(R.id.tv_store_name).setVisibility(View.GONE);
+                    StateBarUtil.setStatusTranslater(mActivity, false);//变白
                 } else if (state == State.COLLAPSED) {
                     //折叠状态
                     getView(R.id.tv_store_name).setVisibility(View.VISIBLE);
+                    StateBarUtil.setStatusTranslater(mActivity, true);//变黑
                 } else {
                     //中间状态
+                    StateBarUtil.setStatusTranslater(mActivity, true);//变黑
                 }
             }
         });
@@ -181,49 +251,73 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
          */
         // 先获取 index  数据   在通过index  中的数据  获取    列表信息
         //step 2.1    网络请求
-        mPresenter.getIndexData()/*请求头部数据*/
+     /*请求头部数据*///传入左边  对象   转换  右边对象
+        disposable = mPresenter.getIndexData()/*请求头部数据*/
+                .observeOn(AndroidSchedulers.mainThread())
                 .map(new Function<String, String>() {//传入左边  对象   转换  右边对象
                     @Override
                     public String apply(@NonNull String persion_id) throws Exception {
-
+                        Log.i("===4", "subscribe: " + Thread.currentThread().getName());
                         D.e("=======getIndexData=======" + persion_id);
-
                         return persion_id;
                     }
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(@NonNull String persion_id) throws Exception {
+                               @Override
+                               public void accept(@NonNull String persion_id) throws Exception {
+                                   Log.i("===5", "subscribe: " + Thread.currentThread().getName());
 
-                        ArrayList<Fragment> fragments = new ArrayList<Fragment>() {
-                            {
-                                add(StoreHomeFragment.Instance(persion_id));
-                                add(StoreDetailFragment.Instance(getStoreID()));
-                            }
-                        };
+                                   persiId = persion_id;
 
-                        ArrayList<String> titles = new ArrayList<String>() {
-                            {
-                                add("titile1");
-                                add("titile2");
+                                   animateOpen(miao);
+//                                   miao.setVisibility(View.VISIBLE);
+//                        miao.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                miao.setVisibility(View.VISIBLE);
+//                            }
+//                        });
+
+
+                                   ArrayList<Fragment> fragments = new ArrayList<Fragment>() {
+                                       {
+                                           add(StoreHomeFragment.Instance(persion_id));
+                                           add(StoreDetailFragment.Instance(getStoreID()));
+                                       }
+                                   };
+
+                                   ArrayList<String> titles = new ArrayList<String>() {
+                                       {
+                                           add("titile1");
+                                           add("titile2");
+                                       }
+                                   };
+                                   getViewPager().setAdapter(new FragmentPagerAdapter_TabLayout(getSupportFragmentManager(), titles, fragments));
+                               }
+                           }
+
+                        , new Consumer<Throwable>() {
+                            @Override
+                            public void accept(@NonNull Throwable throwable) throws Exception {
+                                hindLoading();
                             }
-                        };
-                        getViewPager().setAdapter(new FragmentPagerAdapter_TabLayout(getSupportFragmentManager(), titles, fragments));
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable) throws Exception {
-                        hindLoading();
-                    }
-                }, new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        hindLoading();
-                        ToastUtil.showShortToast("error");
-                    }
-                });
+                        }, new Action() {
+                            @Override
+                            public void run() throws Exception {
+                                hindLoading();
+
+                                ToastUtil.showShortToast("complete");
+                            }
+                        }, new Consumer<Disposable>() {
+                            @Override
+                            public void accept(@NonNull Disposable disposable) throws Exception {
+
+                            }
+                        }
+
+                );
 
 
         /**
@@ -237,7 +331,11 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
 
     @Override
     public void showErrir(String erMst) {
-        super.showErrir(erMst);
+        if ("参数错误".equals(erMst)) {
+            erMst = "参数错误，可能店铺没有开通~_~ ";
+        } else {
+            super.showErrir(erMst);
+        }
         new Handler().postDelayed(() -> {
             setResult(ConstantState.STORE_OPEN_FAILD);//商店打开失败
             finish();
@@ -348,7 +446,7 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
     }
 
     @Override
-    public StoreHomeFragment.QueryBean getQueryBean() {
+    public QueryBean getQueryBean() {
         return null;
     }
 
@@ -368,6 +466,14 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
 
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
+    }
 
     public void setShareUrl(String shareUrl) {
 

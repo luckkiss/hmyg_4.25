@@ -8,12 +8,12 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hldj.hmyg.M.AddressBean;
-import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
@@ -22,12 +22,20 @@ import com.hldj.hmyg.buyer.Ui.OnlyDirstreetWheelDialogF;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
-import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hy.utils.GetServerUrl;
+import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
 import com.mrwujay.cascade.activity.GetCitiyNameByCode;
+import com.tencent.bugly.crashreport.CrashReport;
+import com.zf.iosdialog.widget.AlertDialog;
 
+import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 
@@ -44,6 +52,7 @@ public class AddAdressActivity extends BaseMVPActivity {
 
     @Override
     public void initView() {
+//        ToastUtil.showShortToast("添加地址界面");
         addressBean = new AddressBean();
 
         if (getExtral() != null) {
@@ -55,7 +64,16 @@ public class AddAdressActivity extends BaseMVPActivity {
             setTitle("编辑苗源地址");
             this.setBackgroAndTextAndVis(getView(R.id.toolbar_right_text), "删除", R.drawable.red_btn_selector);
             getView(R.id.toolbar_right_text).setOnClickListener(v -> {
-                AddAdressActivity_bak.DelAdress(mActivity, getExtral().id);
+
+
+                new AlertDialog(this).builder()
+                        .setTitle("确定删除本条地址?")
+                        .setPositiveButton("确定删除", v1 -> {
+                            DelAdress(getExtral().id);
+                        }).setNegativeButton("取消", v2 -> {
+                }).show();
+
+
             });
 
         } else {
@@ -75,14 +93,14 @@ public class AddAdressActivity extends BaseMVPActivity {
      */
     private void autoSetLoc() {
 
-        if (MainActivity.aMapLocation != null) {
-            addressBean.cityCode = MainActivity.aMapLocation.getAdCode();
-            addressBean.longitude = Double.parseDouble(MainActivity.longitude);
-            addressBean.latitude = Double.parseDouble(MainActivity.latitude);
-            addressBean.detailAddress = FUtil.$(" ", MainActivity.aMapLocation.getStreet(), MainActivity.aMapLocation.getStreetNum(), MainActivity.aMapLocation.getAoiName());
-        }
-        addressBean.contactPhone = MyApplication.getUserBean().phone;
-        addressBean.contactName = MyApplication.getUserBean().realName;
+//        if (MainActivity.aMapLocation != null) {
+//            addressBean.cityCode = MainActivity.aMapLocation.getAdCode();
+//            addressBean.longitude = Double.parseDouble(MainActivity.longitude);
+//            addressBean.latitude = Double.parseDouble(MainActivity.latitude);
+//            addressBean.detailAddress = FUtil.$(" ", MainActivity.aMapLocation.getStreet(), MainActivity.aMapLocation.getStreetNum(), MainActivity.aMapLocation.getAoiName());
+//        }
+//        addressBean.contactPhone = MyApplication.getUserBean().phone;
+//        addressBean.contactName = MyApplication.getUserBean().realName;
         initExtral(addressBean);
         /**
          * street=七星西路#streetNum=31号#aoiName=七星大厦(七星西路)
@@ -93,6 +111,11 @@ public class AddAdressActivity extends BaseMVPActivity {
     protected void initListener() {
         //提交按钮点击事件是公用的
         getView(R.id.tv_aaa_save).setOnClickListener(v -> {
+
+            if (!submit(getView(R.id.et_aaa_contactPhone), "联系电话") || !submit(getView(R.id.et_aaa_detailAddress), "详细地址")) {
+                return;
+            }
+
 
             MyPresenter myPresenter = new MyPresenter();
 
@@ -106,18 +129,36 @@ public class AddAdressActivity extends BaseMVPActivity {
             myPresenter.doSave(constructionBean(), new AjaxCallBack<String>() {
                 @Override
                 public void onSuccess(String json) {
-                    SimpleGsonBean bean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
-                    hindLoading();
-                    if (bean.isSucceed()) {
-                        if (isAddAddr()) {
-                            setResult(ConstantState.ADD_SUCCEED);
-                        } else {
-                            setResult(ConstantState.CHANGE_DATES);
-                        }
 
+                    try {
+                        SimpleGsonBean bean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
+                        hindLoading();
+                        if (bean.isSucceed()) {
+                            if (isAddAddr()) {
+                                AdressActivity.Address address = new AdressActivity.Address();
+                                address.isDefault = bean.getData().nursery.isDefault;
+                                address.addressId = bean.getData().nursery.id;
+                                address.fullAddress = bean.getData().nursery.fullAddress;
+                                address.contactName = bean.getData().nursery.contactName;
+                                address.contactPhone = bean.getData().nursery.contactPhone;
+                                address.name = bean.getData().nursery.name;
+                                Intent intent = new Intent();
+                                intent.putExtra("address", address);
+                                setResult(ConstantState.ADD_SUCCEED, intent);
+                            } else {
+                                setResult(ConstantState.CHANGE_DATES);
+                            }
+
+                            finish();
+                        } else {
+                            ToastUtil.showShortToast(bean.msg);
+                        }
+                    } catch (Exception e) {
+                        setResult(ConstantState.ADD_SUCCEED);
                         finish();
-                    } else {
-                        ToastUtil.showShortToast(bean.msg);
+                        D.e("=============自动显示失败========");
+                        CrashReport.postCatchedException(e);
+                        e.printStackTrace();
                     }
                 }
 
@@ -160,12 +201,23 @@ public class AddAdressActivity extends BaseMVPActivity {
         });
     }
 
+    private boolean submit(EditText editText, String errorMsgHead) {
+        if (TextUtils.isEmpty(editText.getText().toString().trim())) {
+            ToastUtil.showShortToast(errorMsgHead + " 必须填写");
+            return false;
+        }
+        return true;
+    }
+
     /**
      * 初始化 传递过来的 地址对象
      *
      * @param extral 地址对象
      */
     private void initExtral(AddressBean extral) {
+        if (extral == null) {
+            extral = new AddressBean();
+        }
 
         this.setText(getView(R.id.et_aaa_name), extral.name);//苗圃名称
         this.setText(getView(R.id.et_aaa_contactName), extral.contactName);//联系人
@@ -315,7 +367,7 @@ public class AddAdressActivity extends BaseMVPActivity {
         public void getStreets(String cityCode) {
 //            141121
             if (TextUtils.isEmpty(cityCode)) {
-                ToastUtil.showShortToast("请先选择地区");
+                ToastUtil.showShortToast("请选择地区");
                 return;
             }
             if (cityCode.length() > 6) {
@@ -360,5 +412,51 @@ public class AddAdressActivity extends BaseMVPActivity {
             putParams("parentCode", cityCode);
             doRequest("city/getChilds", false, callBack);
         }
+    }
+
+
+    private void DelAdress(String id) {
+        // TODO Auto-generated method stub
+        FinalHttp finalHttp = new FinalHttp();
+        GetServerUrl.addHeaders(finalHttp, true);
+        AjaxParams params = new AjaxParams();
+        params.put("id", id);
+        finalHttp.post(GetServerUrl.getUrl() + "admin/nursery/delete", params,
+                new AjaxCallBack<Object>() {
+
+                    @Override
+                    public void onSuccess(Object t) {
+                        // TODO Auto-generated method stub
+                        try {
+                            JSONObject jsonObject = new JSONObject(t.toString());
+                            String code = JsonGetInfo.getJsonString(jsonObject, "code");
+                            String msg = JsonGetInfo.getJsonString(jsonObject,
+                                    "msg");
+
+                            if ("1".equals(code)) {
+                                setResult(ConstantState.DELETE_SUCCEED);
+                                finish();
+                            } else {
+                                ToastUtil.showShortToast(msg);
+                            }
+
+                        } catch (JSONException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        super.onSuccess(t);
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo,
+                                          String strMsg) {
+                        // TODO Auto-generated method stub
+                        Toast.makeText(AddAdressActivity.this,
+                                R.string.error_net, Toast.LENGTH_SHORT).show();
+                        super.onFailure(t, errorNo, strMsg);
+                    }
+
+                });
+
     }
 }

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <com.hldj.hmyg.widget.MyCircleImageView
+            android:id="@+id/head"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/icon_persion_pic"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_alignTop="@+id/head"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="1dp"
+            android:layout_toRightOf="@+id/head"
+            android:textColor="@color/text_color333"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toRightOf="@+id/head"
+            app:layout_constraintTop_toTopOf="@+id/head"
+            tools:text="Cherry" />
+
+
+        <TextView
+            android:id="@+id/time_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/head"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/head"
+            android:textColor="@color/text_color999"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/head"
+            app:layout_constraintLeft_toLeftOf="@+id/title"
+            tools:text="11小时前  福建  厦门" />
+
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="28dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="27dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="1px"
+            android:adjustViewBounds="true"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/purchase" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/tv_right_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/error_stroke_color"
+            android:backgroundTint="@color/red"
+            android:padding="5dp"
+            android:text="删除"
+            android:textColor="@color/main_color"
+            android:visibility="gone"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/descript"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:autoLink="phone"
+        android:ellipsize="end"
+        android:lineSpacingMultiplier="1.3"
+        android:textColor="@color/text_color333"
+        android:textIsSelectable="true"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/head"
+        tools:text="香樟价格实惠质量香樟价格实惠质量又好     价格实惠质量又好，可供应5000株香樟价又好，可供应5000株香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，可供应5000株可供应5000株." />
+
+
+    <com.zzy.common.widget.MeasureGridView
+        android:id="@+id/imageView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="true"
+        android:horizontalSpacing="0dp"
+        android:listSelector="@color/transparent"
+        android:numColumns="3"
+        android:verticalSpacing="0dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descript" />
+
+
+    <com.hldj.hmyg.widget.MyImageViewShowVideo
+        android:id="@+id/video"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="12dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        tools:background="@color/main_color"
+        tools:visibility="visible"
+        android:layout_marginBottom="10dp"
+        />
+
+
+</LinearLayout>

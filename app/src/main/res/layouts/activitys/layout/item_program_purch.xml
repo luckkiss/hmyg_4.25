@@ -68,7 +68,7 @@
     <TextView
         android:id="@+id/tv_program_purch_price_num"
         android:layout_width="wrap_content"
-        android:layout_height="17dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
@@ -83,7 +83,7 @@
         android:layout_marginLeft="18dp"
         android:layout_marginStart="18dp"
         android:layout_marginTop="8dp"
-        android:text="宜采用一条"
+        android:text="已采用一条"
         android:textColor="@color/orange"
         app:layout_constraintLeft_toRightOf="@+id/tv_program_purch_price_num"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
@@ -100,6 +100,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_alreay_order" />
 
     <ImageView
+        android:id="@+id/iv_program_purch_right_top"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginRight="0dp"
@@ -115,9 +116,9 @@
         android:layout_marginBottom="7dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
+        android:drawablePadding="5dp"
         android:drawableRight="@drawable/arrow_green_selector"
         android:text="查看报价"
-        android:drawablePadding="5dp"
         android:textColor="@color/main_color"
         app:layout_constraintBottom_toTopOf="@+id/view2"
         app:layout_constraintRight_toRightOf="parent"

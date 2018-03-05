@@ -1,103 +1,40 @@
 package com.hldj.hmyg.saler.purchase;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences.Editor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewConfiguration;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.RelativeLayout;
-import android.widget.SectionIndexer;
-import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
-import com.astuetz.PagerSlidingTabStrip;
-import com.example.sortlistview.CharacterParser;
-import com.example.sortlistview.PinyinComparatorSubscribe;
-import com.example.sortlistview.SideBar;
-import com.example.sortlistview.SideBar.OnTouchingLetterChangedListener;
-import com.flyco.animation.BaseAnimatorSet;
-import com.flyco.animation.BounceEnter.BounceTopEnter;
-import com.flyco.animation.SlideExit.SlideBottomExit;
-import com.flyco.dialog.listener.OnBtnClickL;
-import com.hldj.hmyg.BFragment;
 import com.hldj.hmyg.CallBack.ResultCallBack;
-import com.hldj.hmyg.LoginActivity;
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.application.MyApplication;
-import com.hldj.hmyg.base.CommonPopupWindow;
 import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
-import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment1;
+import com.hldj.hmyg.saler.Adapter.MapSearchAdapter;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
 import com.hldj.hmyg.saler.M.PurchaseBean;
 import com.hldj.hmyg.saler.P.PurchasePyMapPresenter;
-import com.hldj.hmyg.saler.SubscribeManagerListActivity;
-import com.hldj.hmyg.saler.bean.ParamsList;
-import com.hldj.hmyg.saler.bean.Subscribe;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.ComonShareDialogFragment;
+import com.hldj.hmyg.widget.SegmentedGroup;
 import com.hy.utils.GetServerUrl;
-import com.hy.utils.JsonGetInfo;
-import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
-import com.mrwujay.cascade.activity.BaseSecondActivity;
-import com.mrwujay.cascade.activity.GetCodeByName;
+import com.weavey.loading.lib.LoadingLayout;
 
-import net.tsz.afinal.FinalBitmap;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import info.hoang8f.android.segmented.SegmentedGroup;
 import io.reactivex.Observable;
-import kankan.wheel.widget.OnWheelChangedListener;
-import kankan.wheel.widget.WheelView;
-import kankan.wheel.widget.adapters.ArrayWheelAdapter;
-import me.drakeet.materialdialog.MaterialDialog;
-import me.kaede.tagview.OnTagDeleteListener;
-import me.kaede.tagview.TagView;
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
 
@@ -105,83 +42,31 @@ import me.maxwin.view.XListView.IXListViewListener;
  * 快速报价
  */
 @SuppressLint({"NewApi", "ResourceAsColor"})
-public class PurchasePyMapActivity extends BaseSecondActivity implements
+public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCheckedChangeListener, IXListViewListener {
 
-        OnCheckedChangeListener, OnWheelChangedListener, IXListViewListener {
 
-    private RelativeLayout rl_choose_type;
-    private ImageView iv_seller_arrow2;
-    private ImageView iv_seller_arrow3;
     private XListView listview;
-    private String orderBy = "";
-    private String priceSort = "";
-    private String publishDateSort = "";
-    private ArrayList<Subscribe> datas = new ArrayList<Subscribe>();
-    private ArrayList<PurchaseList> puchaseDatas = new ArrayList<PurchaseList>();
+
     private int pageSize = 10;
     private int pageIndex = 0;
     private MapSearchAdapter Adapter;
     boolean getdata; // 避免刷新多出数据
-    private String noteType = "1";
-    FinalHttp finalHttp = new FinalHttp();
-    private String minSpec = "";
-    private String maxSpec = "";
-    private String minHeight = "";
-    private String maxHeight = "";
-    private String minCrown = "";
-    private String maxCrown = "";
-    private String name = "";
-    private String cityCode = "";
-    private String cityName = "";
-    private Dialog dialog;
-    private WheelView mViewProvince;
-    private WheelView mViewCity;
-    private WheelView mViewDistrict;
-    private TagView tagView;
-    MaterialDialog mMaterialDialog;
-    private String[] keySort = new String[]{"A", "B", "C", "D", "E", "F",
-            "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
-            "T", "U", "V", "W", "X", "Y", "Z"};
-    /**
-     * 上次第一个可见元素，用于滚动时记录标识。
-     */
-    private int lastFirstVisibleItem = -1;
-    /**
-     * 汉字转换成拼音的类
-     */
-    private CharacterParser characterParser;
 
-    /**
-     * 根据拼音来排列ListView里面的数据类
-     */
-    private PinyinComparatorSubscribe pinyinComparator;
-    private SideBar sideBar;
-    private EditText et_search;
+
+    //    private TagView tagView;
+//    MaterialDialog mMaterialDialog;
+
+
+    //    private EditText et_search;
     private RadioButton button31;
     private RadioButton button32;
     private XListView lv;
-    private FrameLayout fl_type;
     private PurchaseListAdapter listAdapter;
     private ArrayList<String> lanmus = new ArrayList<String>();
-    private ViewPager pager;
-    private PagerSlidingTabStrip tabs;
-    private DisplayMetrics dm;
-    String type = "quoting";
+    String type = "";
     private LinearLayout ll_01;
-    private TextView tv_xiaoxitishi;
-    private ImageView iv_close;
-    private BaseAnimatorSet mBasIn;
-    private BaseAnimatorSet mBasOut;
 
-    public void setBasIn(BaseAnimatorSet bas_in) {
-        this.mBasIn = bas_in;
-    }
-
-    public void setBasOut(BaseAnimatorSet bas_out) {
-        this.mBasOut = bas_out;
-    }
-
-    private Editor e;
+    private GlobBaseAdapter purchaseBeenad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,37 +77,15 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
         button31 = (RadioButton) findViewById(R.id.button31);
         button32 = (RadioButton) findViewById(R.id.button32);
         ll_01 = (LinearLayout) findViewById(R.id.ll_01);
-        tv_xiaoxitishi = (TextView) findViewById(R.id.tv_xiaoxitishi);
-        iv_close = (ImageView) findViewById(R.id.iv_close);
-        e = MyApplication.Userinfo.edit();
-        mBasIn = new BounceTopEnter();
-        mBasOut = new SlideBottomExit();
-        setOverflowShowingAlways();
-        dm = getResources().getDisplayMetrics();
+
         lanmus.add("按采购单");
         lanmus.add("按品种");
-        pager = (ViewPager) findViewById(R.id.pager);
-        tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-        pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
-        pager.setOffscreenPageLimit(lanmus.size());
-        tabs.setViewPager(pager);
-        setTabsValue();
-        showNotice(0);
-        // 实例化汉字转拼音类
-        characterParser = CharacterParser.getInstance();
-        pinyinComparator = new PinyinComparatorSubscribe();
-        mMaterialDialog = new MaterialDialog(this);
-        ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
-        TextView id_tv_edit_all = (TextView) findViewById(R.id.id_tv_edit_all);
-        rl_choose_type = (RelativeLayout) findViewById(R.id.rl_choose_type);
-        RelativeLayout rl_choose_price = (RelativeLayout) findViewById(R.id.rl_choose_price);
-        RelativeLayout rl_choose_time = (RelativeLayout) findViewById(R.id.rl_choose_time);
-        RelativeLayout rl_choose_screen = (RelativeLayout) findViewById(R.id.rl_choose_screen);
-        RelativeLayout RelativeLayout2 = (RelativeLayout) findViewById(R.id.RelativeLayout2);
-        fl_type = (FrameLayout) findViewById(R.id.fl_type);
 
-        iv_seller_arrow2 = (ImageView) findViewById(R.id.iv_seller_arrow2);
-        iv_seller_arrow3 = (ImageView) findViewById(R.id.iv_seller_arrow3);
+        ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
+        View id_tv_edit_all = findViewById(R.id.id_tv_edit_all);
+//        TextView id_tv_edit_all = (TextView) findViewById(R.id.iv_right);
+//        id_tv_edit_all.setVisibility(View.GONE);
+
         listview = (XListView) findViewById(R.id.listview);
         lv = (XListView) findViewById(R.id.lv);
         listview.setPullLoadEnable(true);
@@ -233,265 +96,23 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
         listview.setXListViewListener(this);
         segmented3.setOnCheckedChangeListener(this);
         button31.setChecked(true);
-        tagView = (TagView) this.findViewById(R.id.tagview);
 
-        tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
-
-            @Override
-            public void onTagDeleted(int position, me.kaede.tagview.Tag tag) {
-                // TODO Auto-generated method stub
-                if (tag.id == 1) {
-                    cityCode = "";
-                    onRefresh();
-                } else if (tag.id == 2) {
-                    name = "";
-                    onRefresh();
-                } else if (tag.id == 3) {
-                    minSpec = "";
-                    maxSpec = "";
-                    onRefresh();
-                } else if (tag.id == 4) {
-                    minHeight = "";
-                    maxHeight = "";
-                    onRefresh();
-                } else if (tag.id == 5) {
-                    minCrown = "";
-                    maxCrown = "";
-                    onRefresh();
-                }
-
-            }
-        });
-        // init();
+//         init();
         listAdapter = new PurchaseListAdapter(PurchasePyMapActivity.this, null, R.layout.list_item_purchase_list_new);
 
         listview.setAdapter(listAdapter);
-        showLoading();
 
+//        showLoading();
         initData();
-        sideBar = (SideBar) findViewById(R.id.sidrbar);
-        TextView dialog = (TextView) findViewById(R.id.dialog);
-        sideBar.setTextView(dialog);
-        // 设置右侧触摸监听
-        sideBar.setOnTouchingLetterChangedListener(new OnTouchingLetterChangedListener() {
-
-            @Override
-            public void onTouchingLetterChanged(String s) {
-                // 该字母首次出现的位置
-                int position = Adapter.getPositionForSection(s.charAt(0));
-                if (position != -1) {
-                    listview.setSelection(position);
-                }
-
-            }
-        });
-        et_search = (EditText) findViewById(R.id.et_search);
-        et_search.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-        et_search.setOnEditorActionListener(new OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId,
-                                          KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    if (et_search.getText().toString().length() != 0) {
 
 
-                    }
-
-                }
-                return false;
-            }
-        });
         MultipleClickProcess multipleClickProcess = new MultipleClickProcess();
-        rl_choose_type.setOnClickListener(multipleClickProcess);
-        rl_choose_price.setOnClickListener(multipleClickProcess);
-        rl_choose_time.setOnClickListener(multipleClickProcess);
-        rl_choose_screen.setOnClickListener(multipleClickProcess);
+
         btn_back.setOnClickListener(multipleClickProcess);
         id_tv_edit_all.setOnClickListener(multipleClickProcess);
-        RelativeLayout2.setOnClickListener(multipleClickProcess);
-        iv_close.setOnClickListener(multipleClickProcess);
 
     }
 
-    private void showNotice(int position) {
-        // TODO Auto-generated method stub
-        if (0 == position) {
-            if (MyApplication.Userinfo.getBoolean("NeedShowquoting", true)) {
-                tv_xiaoxitishi.setText("采购中：已经确认采购且即将调苗的采购项目。");
-                ll_01.setVisibility(View.VISIBLE);
-            } else {
-                ll_01.setVisibility(View.GONE);
-            }
-        } else if (1 == position) {
-            if (MyApplication.Userinfo.getBoolean("NeedShowunquote", true)) {
-                tv_xiaoxitishi.setText("待采购：已经确认采购但还未确定调苗时间的采购项目。");
-                ll_01.setVisibility(View.VISIBLE);
-            } else {
-                ll_01.setVisibility(View.GONE);
-            }
-        }
-    }
-
-    private void DialogNoti(String string) {
-        // TODO Auto-generated method stub
-
-        CommonDialogFragment1.newInstance(new CommonDialogFragment1.OnCallDialog() {
-            @Override
-            public Dialog getDialog(Context context) {
-                Dialog dialog = new Dialog(context);
-                //添加这一行
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCancelable(true);
-                dialog.setContentView(R.layout.purchase_tips);
-                TextView textView = ((TextView) dialog.findViewById(R.id.tv_pur_content));
-
-                if ("quoting".equals(type)) {
-                    StringFormatUtil formatUtil = new StringFormatUtil(context, "[采购中]：已经确认采购且即将调苗的采购项目。", "[采购中]", R.color.red).fillColor();
-                    textView.setText(formatUtil.getResult());
-                } else if ("unquote".equals(type)) {
-                    StringFormatUtil formatUtil = new StringFormatUtil(context, "[待采购]：已经确认采购且即将调苗的采购项目。", "[待采购]", R.color.red).fillColor();
-                    textView.setText(formatUtil.getResult());
-                }
-                dialog.findViewById(R.id.btn_left).setOnClickListener(view -> {
-                    if ("quoting".equals(type)) {
-                        e.putBoolean("NeedShowquoting", false);
-                    } else if ("unquote".equals(type)) {
-                        e.putBoolean("NeedShowunquote", false);
-                    }
-                    e.commit();
-                    dialog.cancel();
-                    ll_01.setVisibility(View.GONE);
-                });
-                dialog.findViewById(R.id.btn_right).setOnClickListener(view -> {
-                    dialog.cancel();
-                    ll_01.setVisibility(View.GONE);
-                });
-                //[待采购]：已经确认采购且即将调苗的采购项目。
-
-
-                return dialog;
-            }
-        }, true)
-                .show(getSupportFragmentManager(), getClass().getName());
-
-        final com.flyco.dialog.widget.MaterialDialog dialog = new com.flyco.dialog.widget.MaterialDialog(
-                PurchasePyMapActivity.this);
-        dialog.title("温馨提示").content(string)
-                //
-                .btnText("不再提示", "取消")//
-//                .showAnim(mBasIn)//
-//                .dismissAnim(mBasOut)//
-        ;
-
-        dialog.setOnBtnClickL(new OnBtnClickL() {// left btn click listener
-            @Override
-            public void onBtnClick() {
-                if ("quoting".equals(type)) {
-                    e.putBoolean("NeedShowquoting", false);
-                } else if ("unquote".equals(type)) {
-                    e.putBoolean("NeedShowbangwo", false);
-                }
-                e.commit();
-                dialog.dismiss();
-                ll_01.setVisibility(View.GONE);
-            }
-        }, new OnBtnClickL() {// right btn click listener
-            @Override
-            public void onBtnClick() {
-                dialog.dismiss();
-                ll_01.setVisibility(View.GONE);
-
-            }
-        });
-
-    }
-
-    public class MyPagerAdapter extends FragmentPagerAdapter {
-
-        public MyPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return lanmus.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return lanmus.size();
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            BFragment fragment = new BFragment();
-            return fragment;
-
-        }
-    }
-
-    private void setOverflowShowingAlways() {
-        try {
-            ViewConfiguration config = ViewConfiguration.get(this);
-            Field menuKeyField = ViewConfiguration.class
-                    .getDeclaredField("sHasPermanentMenuKey");
-            menuKeyField.setAccessible(true);
-            menuKeyField.setBoolean(config, false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void setTabsValue() {
-
-        // 设置Tab是自动填充满屏幕的
-        tabs.setShouldExpand(true);
-        // 设置Tab的分割线是透明的
-        tabs.setDividerColor(Color.TRANSPARENT);
-        tabs.setDividerPadding(5);
-        // 设置Tab底部线的高度
-        tabs.setUnderlineHeight((int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 1, dm));
-        // 设置Tab Indicator的高度
-        tabs.setIndicatorHeight((int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 2, dm));
-        // 设置Tab标题文字的大小
-        tabs.setTextSize((int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_SP, 13, dm));
-        tabs.setTextColor(getResources().getColor(R.color.gray));
-        // 设置Tab Indicator的颜色
-        tabs.setIndicatorColor(getResources().getColor(R.color.main_color));
-        // 设置选中Tab文字的颜色 (这是我自定义的一个方法)
-        tabs.setSelectedTextColor(getResources().getColor(R.color.main_color));
-        // 取消点击Tab时的背景色
-        tabs.setTabBackground(0);
-        tabs.setOnPageChangeListener(new OnPageChangeListener() {
-
-            @Override
-            public void onPageSelected(int arg0) {
-
-                if (arg0 == 0) {
-                    fl_type.setVisibility(View.GONE);
-                    listview.setVisibility(View.VISIBLE);
-                } else {
-                    fl_type.setVisibility(View.VISIBLE);
-                    listview.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
-                // TODO Auto-generated method stub
-            }
-        });
-
-    }
 
     public class MultipleClickProcess implements OnClickListener {
         private boolean flag = true;
@@ -506,79 +127,9 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                     case R.id.btn_back:
                         onBackPressed();
                         break;
-                    case R.id.rl_choose_type:
-                        showCitys();
-                        break;
-
-                    case R.id.iv_close:
-                        // TODO Auto-generated method stub
-                        DialogNoti("关闭提示");
-                        break;
-                    case R.id.rl_choose_price:
-                        if ("".equals(priceSort)) {
-                            priceSort = "price_asc";
-                            iv_seller_arrow2
-                                    .setImageResource(R.drawable.icon_seller_arrow2);
-                        } else if ("price_asc".equals(priceSort)) {
-                            priceSort = "price_desc";
-                            iv_seller_arrow2
-                                    .setImageResource(R.drawable.icon_seller_arrow3);
-                        } else if ("price_desc".equals(priceSort)) {
-                            priceSort = "";
-                            iv_seller_arrow2
-                                    .setImageResource(R.drawable.icon_seller_arrow1);
-                        }
-                        onRefresh();
-                        break;
-                    case R.id.rl_choose_time:
-                        if ("".equals(publishDateSort)) {
-                            publishDateSort = "createDate_asc";
-                            iv_seller_arrow3
-                                    .setImageResource(R.drawable.icon_seller_arrow2);
-                        } else if ("createDate_asc".equals(publishDateSort)) {
-                            publishDateSort = "createDate_desc";
-                            iv_seller_arrow3
-                                    .setImageResource(R.drawable.icon_seller_arrow3);
-                        } else if ("createDate_desc".equals(publishDateSort)) {
-                            publishDateSort = "";
-                            iv_seller_arrow3
-                                    .setImageResource(R.drawable.icon_seller_arrow1);
-                        }
-                        onRefresh();
-                        break;
-
                     case R.id.id_tv_edit_all:
                         D.e("订阅 与 分享");
-
-
-                        CommonPopupWindow.builder(mActivity)
-                                .bindLayoutId(R.layout.popuplayout)
-                                .setCovertViewListener(new CommonPopupWindow.OnCovertViewListener() {
-                                    @Override
-                                    public void covertView(View viewRoot) {
-                                        //订阅
-                                        viewRoot.findViewById(R.id.pup_subscriber).setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                subscriber();
-
-                                            }
-                                        });
-                                        //分享
-                                        viewRoot.findViewById(R.id.pup_show_share).setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                share();
-                                            }
-                                        });
-                                    }
-                                })
-                                .setWidthDp(100)
-                                .setHeightDp(115)
-                                .build()
-                                .showAsDropDown(view);
-
-
+                        share();
                         break;
                     default:
                         break;
@@ -619,23 +170,6 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                 .show(getSupportFragmentManager(), getClass().getName());
     }
 
-    /**
-     * 执行订阅方法
-     */
-    private void subscriber() {
-        D.e("订阅");
-        if (MyApplication.Userinfo.getBoolean("isLogin", false) == false) {
-            Intent toLoginActivity = new Intent(
-                    PurchasePyMapActivity.this, LoginActivity.class);
-            startActivityForResult(toLoginActivity, 4);
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-        } else {
-            Intent toSubscribeManagerListActivity = new Intent(
-                    PurchasePyMapActivity.this,
-                    SubscribeManagerListActivity.class);
-            startActivityForResult(toSubscribeManagerListActivity, 1);
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -665,214 +199,6 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
 
     }
 
-    private void init() {
-        // TODO Auto-generated method stub
-        datas.clear();
-        if (Adapter != null) {
-            Adapter.notifyDataSetChanged();
-        }
-        getdata = false;
-        GetServerUrl.addHeaders(finalHttp, true);
-        AjaxParams params = new AjaxParams();
-        params.put("type", type);
-        finalHttp.post(GetServerUrl.getUrl() + "purchase/pyMap", params,
-                new AjaxCallBack<Object>() {
-
-                    @Override
-                    public void onSuccess(Object t) {
-                        // TODO Auto-generated method stub
-                        try {
-                            JSONObject jsonObject = new JSONObject(t.toString());
-                            String code = JsonGetInfo.getJsonString(jsonObject,
-                                    "code");
-                            String msg = JsonGetInfo.getJsonString(jsonObject,
-                                    "msg");
-                            if (!"".equals(msg)) {
-                            }
-                            if ("1".equals(code)) {
-                                JSONObject data = JsonGetInfo.getJSONObject(
-                                        jsonObject, "data");
-                                JSONObject pyMaps = JsonGetInfo.getJSONObject(
-                                        data, "pyMaps");
-                                for (int r = 0; r < keySort.length; r++) {
-                                    JSONArray jsonArray = JsonGetInfo
-                                            .getJsonArray(pyMaps, keySort[r]);
-                                    for (int i = 0; i < jsonArray.length(); i++) {
-                                        JSONObject jsonObject2 = jsonArray
-                                                .getJSONObject(i);
-                                        Subscribe hMap = new Subscribe();
-                                        hMap.setSortLetters(keySort[r]);
-                                        hMap.setId(JsonGetInfo.getJsonString(
-                                                jsonObject2, "id"));
-                                        hMap.setCreateBy(JsonGetInfo
-                                                .getJsonString(jsonObject2,
-                                                        "createBy"));
-                                        hMap.setCreateDate(JsonGetInfo
-                                                .getJsonString(jsonObject2,
-                                                        "createDate"));
-                                        hMap.setName(JsonGetInfo.getJsonString(
-                                                jsonObject2, "name"));
-                                        hMap.setAliasName(JsonGetInfo
-                                                .getJsonString(jsonObject2,
-                                                        "aliasName"));
-                                        hMap.setParentId(JsonGetInfo
-                                                .getJsonString(jsonObject2,
-                                                        "parentId"));
-                                        hMap.setParentName(JsonGetInfo
-                                                .getJsonString(jsonObject2,
-                                                        "parentName"));
-                                        hMap.setFullPinyin(JsonGetInfo
-                                                .getJsonString(jsonObject2,
-                                                        "firstPinyin"));
-                                        hMap.setFirstPinyin(JsonGetInfo
-                                                .getJsonString(jsonObject2,
-                                                        "firstPinyin"));
-                                        hMap.setSeedlingParams(JsonGetInfo
-                                                .getJsonString(jsonObject2,
-                                                        "seedlingParams"));
-                                        hMap.setIsTop(JsonGetInfo
-                                                .getJsonString(jsonObject2,
-                                                        "isTop"));
-                                        hMap.setParentSeedlingParams(JsonGetInfo
-                                                .getJsonString(jsonObject2,
-                                                        "parentSeedlingParams"));
-                                        hMap.setSubscribeId(JsonGetInfo
-                                                .getJsonString(jsonObject2,
-                                                        "subscribeId"));
-                                        hMap.setLevel(JsonGetInfo.getJsonInt(
-                                                jsonObject2, "level"));
-                                        hMap.setSort(JsonGetInfo.getJsonInt(
-                                                jsonObject2, "sort"));
-                                        hMap.setCountPurchaseBysubscribeJson(JsonGetInfo
-                                                .getJsonInt(jsonObject2,
-                                                        "countPurchaseBysubscribeJson"));
-                                        ArrayList<String> str_plantTypeLists = new ArrayList<String>();
-                                        ArrayList<String> str_plantTypeList_ids_s = new ArrayList<String>();
-                                        ArrayList<String> str_qualityTypeLists = new ArrayList<String>();
-                                        ArrayList<String> str_qualityTypeList_ids = new ArrayList<String>();
-                                        ArrayList<String> str_qualityGradeLists = new ArrayList<String>();
-                                        ArrayList<String> str_qualityGradeList_ids = new ArrayList<String>();
-                                        ArrayList<ParamsList> paramsLists = new ArrayList<ParamsList>();
-                                        JSONArray paramsList = JsonGetInfo
-                                                .getJsonArray(jsonObject2,
-                                                        "paramsList");
-                                        JSONArray qualityTypeList = JsonGetInfo
-                                                .getJsonArray(jsonObject2,
-                                                        "qualityTypeList");
-                                        JSONArray plantTypeList = JsonGetInfo
-                                                .getJsonArray(jsonObject2,
-                                                        "plantTypeList");
-                                        JSONArray qualityGradeList = JsonGetInfo
-                                                .getJsonArray(jsonObject2,
-                                                        "qualityGradeList");
-                                        for (int m = 0; m < paramsList.length(); m++) {
-
-                                            JSONObject jsonObject3 = paramsList
-                                                    .getJSONObject(m);
-                                            paramsLists.add(new ParamsList(
-                                                    JsonGetInfo.getJsonString(
-                                                            jsonObject3,
-                                                            "value"),
-                                                    JsonGetInfo.getJsonBoolean(
-                                                            jsonObject3,
-                                                            "required")));
-                                        }
-                                        for (int o = 0; o < qualityTypeList
-                                                .length(); o++) {
-                                            JSONObject qualityType = qualityTypeList
-                                                    .getJSONObject(o);
-                                            str_qualityTypeLists.add(JsonGetInfo
-                                                    .getJsonString(qualityType,
-                                                            "text"));
-                                            str_qualityTypeList_ids.add(JsonGetInfo
-                                                    .getJsonString(qualityType,
-                                                            "value"));
-                                        }
-                                        for (int p = 0; p < plantTypeList
-                                                .length(); p++) {
-                                            JSONObject plantType1 = plantTypeList
-                                                    .getJSONObject(p);
-                                            str_plantTypeLists.add(JsonGetInfo
-                                                    .getJsonString(plantType1,
-                                                            "text"));
-                                            str_plantTypeList_ids_s
-                                                    .add(JsonGetInfo
-                                                            .getJsonString(
-                                                                    plantType1,
-                                                                    "value"));
-                                        }
-                                        for (int q = 0; q < qualityGradeList
-                                                .length(); q++) {
-                                            JSONObject qualityGrade = qualityGradeList
-                                                    .getJSONObject(q);
-                                            str_qualityGradeLists.add(JsonGetInfo
-                                                    .getJsonString(
-                                                            qualityGrade,
-                                                            "text"));
-                                            str_qualityGradeList_ids.add(JsonGetInfo
-                                                    .getJsonString(
-                                                            qualityGrade,
-                                                            "value"));
-                                        }
-                                        hMap.setStr_plantTypeLists(str_plantTypeLists);
-                                        hMap.setStr_plantTypeList_ids_s(str_plantTypeList_ids_s);
-                                        hMap.setStr_qualityGradeLists(str_qualityGradeLists);
-                                        hMap.setStr_qualityGradeList_ids(str_qualityGradeList_ids);
-                                        hMap.setStr_qualityTypeLists(str_qualityTypeLists);
-                                        hMap.setStr_qualityTypeList_ids(str_qualityTypeList_ids);
-                                        hMap.setParamsLists(paramsLists);
-                                        hMap.setEdit(false);
-                                        datas.add(hMap);
-
-                                    }
-                                    // pageIndex++;
-                                }
-                                if (Adapter == null) {
-                                    Adapter = new MapSearchAdapter(
-                                            PurchasePyMapActivity.this, datas);
-                                    lv.setAdapter(Adapter);
-                                    lv.setOnItemClickListener(new OnItemClickListener() {
-
-                                        @Override
-                                        public void onItemClick(
-                                                AdapterView<?> arg0, View arg1,
-                                                int position, long arg3) {
-                                        }
-                                    });
-
-                                } else {
-                                    Adapter.notifyDataSetChanged();
-                                }
-                                if (datas.size() > 0) {
-                                    sideBar.setVisibility(View.VISIBLE);
-                                    // 根据a-z进行排序源数据
-                                    Collections.sort(datas, pinyinComparator);
-                                } else {
-                                    sideBar.setVisibility(View.GONE);
-                                }
-
-                            } else {
-
-                            }
-
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                        super.onSuccess(t);
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t, int errorNo,
-                                          String strMsg) {
-                        // TODO Auto-generated method stub
-                        super.onFailure(t, errorNo, strMsg);
-                    }
-
-                });
-        getdata = true;
-    }
-
     private void initData() {
         showLoading();
         //初始化监听接口
@@ -881,12 +207,17 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
             public void onSuccess(List<PurchaseBean> purchaseBeen) {
                 listAdapter.addData(purchaseBeen);//返回空 就添加到数组中，并刷新  如果为null  listAdapter 会自动清空
                 getdata = true;//成功获取到了
-                onLoad();
+                if (purchaseBeen == null || purchaseBeen.size() == 0) {
+                    hidenContent(getView(R.id.listview_loading));
+                } else {
+                    showContent(getView(R.id.listview_loading));
+                }
+
 
                 Observable.timer(500, TimeUnit.MILLISECONDS).subscribe(delay -> {
                     hindLoading();
                 });
-
+                onLoad();
 
             }
 
@@ -917,9 +248,11 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
         listview.setPullRefreshEnable(false);
         initData();
         onLoad();
+//        ToastUtil.showLongToast("onLoadMore");
     }
 
     private void onLoad() {
+//        ToastUtil.showLongToast("onLoad");
         new Handler().postDelayed(new Runnable() {
 
             @Override
@@ -945,39 +278,51 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
 
         switch (checkedId) {
             case R.id.button31:
-                showLoading();
-                type = "quoting";
-                onRefresh();
-                init();
-                showNotice(0);
-                getView(R.id.ll_show_3).setVisibility(View.GONE);
-                getView(R.id.ll_show_12).setVisibility(View.VISIBLE);
-                break;
-            case R.id.button32:
-                showLoading();
-                type = "unquote";
-                onRefresh();
-                init();
-                showNotice(1);
+
+                StorePurchaseListActivity.shouldShow = true;
+//                if (listAdapter == null) {
+//                    showLoading();
+//                    StorePurchaseListActivity.shouldShow = true;
+//
+////              type = "quoting";
+//                    type = "";
+//                    onRefresh();
+//
+//                    new Handler().postDelayed(() -> {
+//                        init();
+//                    }, 30);
+//
+//                    showNotice(0);
+//                }
+
+
                 getView(R.id.ll_show_3).setVisibility(View.GONE);
                 getView(R.id.ll_show_12).setVisibility(View.VISIBLE);
                 break;
 
             case R.id.button33:
 
+                StorePurchaseListActivity.shouldShow = false;
+                if (purchaseBeenad != null) {
+                    getView(R.id.ll_show_3).setVisibility(View.VISIBLE);
+                    getView(R.id.ll_show_12).setVisibility(View.GONE);
+                    return;
+                }
+                type = "";
                 showLoading();
+
                 getView(R.id.ll_show_3).setVisibility(View.VISIBLE);
                 getView(R.id.ll_show_12).setVisibility(View.GONE);
 
 
-                XListView listView = getView(R.id.listview_show_3);
-                listview.setPullLoadEnable(true);
-                listview.setPullRefreshEnable(true);
-                listview.setDivider(null);
+                XListView listView3 = getView(R.id.listview_show_3);
+//                listview.setPullLoadEnable(true);
+//                listview.setPullRefreshEnable(true);
+//                listview.setDivider(null);
                 lv.setPullLoadEnable(false);
                 lv.setPullRefreshEnable(false);
-                GlobBaseAdapter purchaseBeenad = new PurchaseListAdapter(PurchasePyMapActivity.this, null, R.layout.list_item_purchase_list_new);
-                listView.setAdapter(purchaseBeenad);
+                purchaseBeenad = new PurchaseListAdapter(PurchasePyMapActivity.this, null, R.layout.list_item_purchase_list_new_three);
+                listView3.setAdapter(purchaseBeenad);
                 //初始化监听接口
                 ResultCallBack<List<PurchaseBean>> callBack = new ResultCallBack<List<PurchaseBean>>() {
                     @Override
@@ -988,28 +333,34 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                             pageIndex3++;
                         }
 
+                        if (purchaseBeen == null || purchaseBeen.size() == 0) {
+                            hidenContent(getView(R.id.listview_show_3_loading));
+                        } else {
+                            showContent(getView(R.id.listview_show_3_loading));
+                        }
+
                         getdata = true;//成功获取到了
-                        onLoad3(listView);
+                        onLoad3(listView3);
                         hindLoading();
                     }
 
                     @Override
                     public void onFailure(Throwable t, int errorNo, String strMsg) {
                         getdata = true;//获取到了，但是失败了
-                        onLoad3(listView);
+                        onLoad3(listView3);
                         hindLoading();
                     }
                 };
 
 
-                listView.setXListViewListener(new IXListViewListener() {
+                listView3.setXListViewListener(new IXListViewListener() {
                     @Override
                     public void onRefresh() {
                         showLoading();
                         req3(callBack, 0);
                         pageIndex3 = 0;
                         purchaseBeenad.setState(GlobBaseAdapter.REFRESH);
-                        onLoad3(listView);
+                        onLoad3(listView3);
                     }
 
 
@@ -1017,7 +368,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                     public void onLoadMore() {
                         listview.setPullRefreshEnable(false);
                         req3(callBack, pageIndex3);
-                        onLoad3(listView);
+                        onLoad3(listView3);
                     }
                 });
 
@@ -1032,22 +383,30 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
         }
     }
 
-    private void onLoad3(XListView listview) {
+    private void onLoad3(XListView listView3) {
         new Handler().postDelayed(new Runnable() {
 
             @Override
             public void run() {
-                // TODO Auto-generated method stub
-                listview.stopRefresh();
 
-                listview.stopLoadMore();
-                if (listAdapter.getDatas().size() % pageSize == 0) {
-                    listview.setPullLoadEnable(true);
+                if (purchaseBeenad == null)
+                    return;
+
+                // TODO Auto-generated method stub
+                listView3.stopRefresh();
+
+                listView3.stopLoadMore();
+
+
+                if (purchaseBeenad.getDatas().size() % pageSize == 0) {
+                    listView3.setPullLoadEnable(true);
                 } else {
-                    listview.setPullLoadEnable(false);
+                    listView3.setPullLoadEnable(false);
                 }
-                listview.setRefreshTime(new Date().toLocaleString());
-                listview.setPullRefreshEnable(true);
+
+
+                listView3.setRefreshTime(new Date().toLocaleString());
+                listView3.setPullRefreshEnable(true);
             }
         }, com.hldj.hmyg.application.Data.refresh_time);
 
@@ -1056,6 +415,7 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
     public int pageIndex3 = 0;
 
     public void req3(ResultCallBack<List<PurchaseBean>> callBack, int index) {
+        showLoading();
         //根据参数请求数据
         new PurchasePyMapPresenter()
                 .putParams("pageSize", 10 + "")
@@ -1064,254 +424,33 @@ public class PurchasePyMapActivity extends BaseSecondActivity implements
                 .requestDatas("purchase/historyList");
     }
 
-    private void showCitys() {
-        View dia_choose_share = getLayoutInflater().inflate(
-                R.layout.dia_choose_city, null);
-        TextView tv_sure = (TextView) dia_choose_share
-                .findViewById(R.id.tv_sure);
-        mViewProvince = (WheelView) dia_choose_share
-                .findViewById(R.id.id_province);
-        mViewCity = (WheelView) dia_choose_share.findViewById(R.id.id_city);
-        mViewDistrict = (WheelView) dia_choose_share
-                .findViewById(R.id.id_district);
-        mViewCity.setVisibility(View.GONE);
-        mViewDistrict.setVisibility(View.GONE);
-        // 添加change事件
-        mViewProvince.addChangingListener(this);
-        // 添加change事件
-        mViewCity.addChangingListener(this);
-        // 添加change事件
-        mViewDistrict.addChangingListener(this);
-        setUpData();
-
-        dialog = new Dialog(this, R.style.transparentFrameWindowStyle);
-        dialog.setContentView(dia_choose_share, new LayoutParams(
-                LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-        Window window = dialog.getWindow();
-        // 设置显示动画
-        window.setWindowAnimations(R.style.main_menu_animstyle);
-        WindowManager.LayoutParams wl = window.getAttributes();
-        wl.x = 0;
-        wl.y = getWindowManager().getDefaultDisplay().getHeight();
-        // 以下这两句是为了保证按钮可以水平满屏
-        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-
-        // 设置显示位置
-        dialog.onWindowAttributesChanged(wl);
-        // 设置点击外围解散
-        dialog.setCanceledOnTouchOutside(true);
-        tv_sure.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                cityName = mCurrentProviceName + "\u0020" + mCurrentCityName
-                        + "\u0020" + mCurrentDistrictName + "\u0020";
-                cityCode = GetCodeByName.initProvinceDatas(
-                        PurchasePyMapActivity.this, mCurrentProviceName,
-                        mCurrentCityName);
-                onRefresh();
-                if (!PurchasePyMapActivity.this.isFinishing() && dialog != null) {
-                    if (dialog.isShowing()) {
-                        dialog.cancel();
-                    } else {
-                        dialog.show();
-                    }
-                }
-
-            }
-        });
-
-        if (!PurchasePyMapActivity.this.isFinishing() && dialog.isShowing()) {
-            dialog.cancel();
-        } else if (!PurchasePyMapActivity.this.isFinishing() && dialog != null
-                && !dialog.isShowing()) {
-            dialog.show();
-        }
-
-    }
-
-    private void setUpData() {
-        initProvinceDatas();
-        mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(
-                PurchasePyMapActivity.this, mProvinceDatas));
-        // 设置可见条目数量
-        mViewProvince.setVisibleItems(7);
-        mViewCity.setVisibleItems(7);
-        mViewDistrict.setVisibleItems(7);
-        updateCities();
-        updateAreas();
-    }
-
-    @Override
-    public void onChanged(WheelView wheel, int oldValue, int newValue) {
-        // TODO Auto-generated method stub
-        if (wheel == mViewProvince) {
-            updateCities();
-            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[0];
-            // mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
-            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
-                    + mCurrentDistrictName);
-        } else if (wheel == mViewCity) {
-            updateAreas();
-            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[0];
-            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
-                    + mCurrentDistrictName);
-        } else if (wheel == mViewDistrict) {
-            mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[newValue];
-            mCurrentZipCode = mZipcodeDatasMap.get(mCurrentCityName
-                    + mCurrentDistrictName);
-        }
-    }
-
-    /**
-     * 根据当前的市，更新区WheelView的信息
-     */
-    private void updateAreas() {
-        int pCurrent = mViewCity.getCurrentItem();
-        mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
-        String[] areas = mDistrictDatasMap.get(mCurrentCityName);
-
-        if (areas == null) {
-            areas = new String[]{""};
-        }
-        mViewDistrict
-                .setViewAdapter(new ArrayWheelAdapter<String>(this, areas));
-        mViewDistrict.setCurrentItem(0);
-    }
-
-    /**
-     * 根据当前的省，更新市WheelView的信息
-     */
-    private void updateCities() {
-        int pCurrent = mViewProvince.getCurrentItem();
-        mCurrentProviceName = mProvinceDatas[pCurrent];
-        String[] cities = mCitisDatasMap.get(mCurrentProviceName);
-        if (cities == null) {
-            cities = new String[]{""};
-        }
-        mViewCity.setViewAdapter(new ArrayWheelAdapter<String>(this, cities));
-        mViewCity.setCurrentItem(0);
-        updateAreas();
-    }
-
-    private void showSelectedResult() {
-        Toast.makeText(
-                PurchasePyMapActivity.this,
-                "当前选中:" + mCurrentProviceName + "," + mCurrentCityName + ","
-                        + mCurrentDistrictName + "," + mCurrentZipCode,
-                Toast.LENGTH_SHORT).show();
-    }
-
-    public class MapSearchAdapter extends BaseAdapter implements SectionIndexer {
-        private static final String TAG = "MapSearchAdapter";
-
-        private ArrayList<Subscribe> data = null;
-
-        private Context context = null;
-        private FinalBitmap fb;
-
-        public MapSearchAdapter(Context context, ArrayList<Subscribe> data) {
-            this.data = data;
-            this.context = context;
-            fb = FinalBitmap.create(context);
-            fb.configLoadingImage(R.drawable.no_image_show);
-        }
-
-        @Override
-        public int getCount() {
-            return this.data.size();
-        }
-
-        @Override
-        public Object getItem(int arg0) {
-            return this.data.get(arg0);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(final int position, View convertView,
-                            ViewGroup parent) {
-            View inflate = LayoutInflater.from(context).inflate(
-                    R.layout.list_item, null);
-            RelativeLayout xiao_rl_popo_list_item = (RelativeLayout) inflate
-                    .findViewById(R.id.rl_popo_list_item);
-            TextView xiao_quyu_tv_item = (TextView) inflate
-                    .findViewById(R.id.tv_item);
-            TextView tvLetter = (TextView) inflate.findViewById(R.id.catalog);
-            xiao_quyu_tv_item.setText("[" + data.get(position).getParentName()
-                    + "]" + data.get(position).getName());
-            // 根据position获取分类的首字母的Char ascii值
-            int section = getSectionForPosition(position);
-
-            // 如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
-            if (position == getPositionForSection(section)) {
-                tvLetter.setVisibility(View.VISIBLE);
-                tvLetter.setText(data.get(position).getSortLetters());
-                tvLetter.setBackgroundColor(getResources().getColor(
-                        R.color.gray_line));
-            } else {
-                tvLetter.setVisibility(View.GONE);
-            }
-
-            inflate.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(PurchasePyMapActivity.this,
-                            StorePurchaseListActivity.class);
-                    intent.putExtra("secondSeedlingTypeId", data.get(position)
-                            .getId());
-                    intent.putExtra("title", "["
-                            + data.get(position).getParentName() + "]"
-                            + data.get(position).getName());
-                    startActivity(intent);
-                    // subscribeSave(data.get(position).getId(), position);
-                }
-
-            });
-
-            return inflate;
-        }
-
-        public void notify(ArrayList<Subscribe> data) {
-            this.data = data;
-            notifyDataSetChanged();
-        }
-
-        @Override
-        public Object[] getSections() {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
-        @Override
-        public int getPositionForSection(int sectionIndex) {
-            for (int i = 0; i < getCount(); i++) {
-                String sortStr = data.get(i).getSortLetters();
-                char firstChar = sortStr.toUpperCase().charAt(0);
-                if (firstChar == sectionIndex) {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
-        @Override
-        public int getSectionForPosition(int position) {
-            // TODO Auto-generated method stub
-            return data.get(position).getSortLetters().charAt(0);
-        }
-
-    }
 
     public static void start2Activity(Context context) {
         context.startActivity(new Intent(context, PurchasePyMapActivity.class));
     }
 
+    public void showContent(LoadingLayout loadingLayout) {
+        loadingLayout.setStatus(LoadingLayout.Success);
+    }
+
+    public void hidenContent(LoadingLayout loadingLayout) {
+        loadingLayout.setStatus(LoadingLayout.Empty);
+        loadingLayout.setOnReloadListener(new LoadingLayout.OnReloadListener() {
+            @Override
+            public void onReload(View v) {
+                onRefresh();
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//      StorePurchaseListActivity.shouldShow = true;
+    }
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

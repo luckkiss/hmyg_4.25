@@ -12,6 +12,7 @@ import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.base.MySwipeAdapter;
 import com.hldj.hmyg.base.ViewHolders;
+import com.hldj.hmyg.util.D;
 
 import java.util.List;
 
@@ -27,6 +28,10 @@ public class BProduceAdapt extends GlobBaseAdapter<BPageGsonBean.DatabeanX.Pageb
 
     @Override
     public void setConverView(ViewHolders myViewHolder, BPageGsonBean.DatabeanX.Pagebean.Databean item, int position) {
+
+
+        if (position == 1)
+            D.e("=======PurchaseListAdapter=====" + item.toString());
         int layout_id = R.layout.list_view_seedling_new;
 
         ImageView iv_img = myViewHolder.getView(R.id.iv_img);
@@ -56,8 +61,7 @@ public class BProduceAdapt extends GlobBaseAdapter<BPageGsonBean.DatabeanX.Pageb
 
         TextView tv_07 = myViewHolder.getView(R.id.tv_07);
         TextView tv_08 = myViewHolder.getView(R.id.tv_08);
-        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego,tv_08);
-
+        ProductListAdapter.setPrice(tv_07, item.priceStr, item.minPrice, item.isNego, tv_08);
 
 
         tv_08.setText(" /" + item.unitTypeName);
@@ -83,6 +87,18 @@ public class BProduceAdapt extends GlobBaseAdapter<BPageGsonBean.DatabeanX.Pageb
                 return;
             } else {
                 tv_06.setText("发布人: -");
+            }
+        }
+    }
+
+    public static void setPublishNameNoStart(TextView tv_06, String... str) {
+
+        for (int i = 0; i < str.length; i++) {
+            if (!TextUtils.isEmpty(str[i])) {
+                tv_06.setText(str[i]);
+                return;
+            } else {
+                tv_06.setText("-");
             }
         }
     }

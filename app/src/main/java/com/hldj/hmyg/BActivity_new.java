@@ -204,9 +204,8 @@ public class BActivity_new extends NeedSwipeBackActivity {
         //最小 最大  crow
         tagView.addTag(TagFactory.createDelTag(queryBean.minCrown, queryBean.maxCrown, "冠幅"), 96);
 
-
-        //最小 最大厘米
-        tagView.addTag(TagFactory.createDelTag(queryBean.specMinValue, queryBean.specMaxValue, queryBean.searchSpec), 97);
+        //最小
+        tagView.addTag(TagFactory.createDelTag(queryBean.minRod, queryBean.maxRod, "杆径"), 97);
 
 
         if (!TextUtils.isEmpty(queryBean.plantTypes)) {
@@ -337,7 +336,7 @@ public class BActivity_new extends NeedSwipeBackActivity {
 
 
         }
-        ((BaseMultAdapter) recyclerView1.getAdapter()).onAttachedToRecyclerView(recyclerView1.getRecyclerView());
+        recyclerView1.getAdapter().onAttachedToRecyclerView(recyclerView1.getRecyclerView());
     }
 
     int now_position = 0;
@@ -364,7 +363,6 @@ public class BActivity_new extends NeedSwipeBackActivity {
         } else {
             iv_right_top.setVisibility(View.GONE);
             tv_04.setText("苗源地: " + item.nurseryJson.getCityName());
-
         }
 
 
@@ -393,7 +391,7 @@ public class BActivity_new extends NeedSwipeBackActivity {
 
         TextView tv_07 = helper.getView(R.id.tv_07);
         TextView tv_08 = helper.getView(R.id.tv_08);
-        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego, tv_08);
+        ProductListAdapter.setPrice(tv_07, item.priceStr, item.minPrice, item.isNego, tv_08);
 
         tv_08.setText("元/" + item.unitTypeName);
         TextView tv_09 = helper.getView(R.id.tv_09);

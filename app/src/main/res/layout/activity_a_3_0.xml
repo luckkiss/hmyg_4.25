@@ -1,404 +1,203 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_padding_statu" />
 
-    <LinearLayout
+    <include layout="@layout/activity_a_top_toolbar" />
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/line_bak"
+        android:visibility="gone" />
+
+    <!--<me.hwang.library.widgit.SmartRefreshLayout-->
+    <!--android:id="@+id/rotate_header_web_view_frame"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="#f1f1f1"-->
+    <!--app:enablePullDown="true"-->
+    <!--app:enablePullUp="true">-->
+
+
+    <!--com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout-->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:orientation="vertical">
+        android:background="@android:color/white">
 
-        <include layout="@layout/activity_a_top_toolbar" />
-
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/line_bak"
-            android:visibility="gone" />
-
-        <!--<me.hwang.library.widgit.SmartRefreshLayout-->
-        <!--android:id="@+id/rotate_header_web_view_frame"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="#f1f1f1"-->
-        <!--app:enablePullDown="true"-->
-        <!--app:enablePullUp="true">-->
-
-
-        <!--com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout-->
-        <RelativeLayout
+        <com.hldj.hmyg.widget.swipeview.MySwipeRefreshLayout
+            android:id="@+id/swipe_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white">
+            app:loadmore_enable="false"
+            app:pull_refresh_enable="true">
 
-            <com.hldj.hmyg.widget.MySwipeRefreshLayout
-                android:id="@+id/swipe_main"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:loadmore_enable="false"
-                app:pull_refresh_enable="true">
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/rotate_header_scroll_view"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/white"
+                android:scrollbars="none">
 
-                <android.support.v4.widget.NestedScrollView
-                    android:id="@+id/rotate_header_scroll_view"
+                <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:background="@color/white"
-                    android:scrollbars="none">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.javis.ab.view.AbSlidingPlayView
+                        android:id="@+id/viewPager_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="185dp"
+                        android:background="#00000000"
+                        android:visibility="gone" />
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.autoscrollview.widget.AutoScrollViewPager
+                            android:id="@+id/view_pager"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" />
+
+                        <com.autoscrollview.widget.indicator.CirclePageIndicator
+                            android:id="@+id/indicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/view_pager"
+                            android:layout_centerHorizontal="true"
+                            android:padding="8.0dip" />
+                    </RelativeLayout>
 
                     <LinearLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <com.javis.ab.view.AbSlidingPlayView
-                            android:id="@+id/viewPager_menu"
+
+                        <View
                             android:layout_width="match_parent"
-                            android:layout_height="185dp"
-                            android:background="#00000000"
-                            android:visibility="gone" />
-
-                        <RelativeLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content">
-
-                            <com.autoscrollview.widget.AutoScrollViewPager
-                                android:id="@+id/view_pager"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content" />
-
-                            <com.autoscrollview.widget.indicator.CirclePageIndicator
-                                android:id="@+id/indicator"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignBottom="@+id/view_pager"
-                                android:layout_centerHorizontal="true"
-                                android:padding="8.0dip" />
-                        </RelativeLayout>
+                            android:layout_height="1dp"
+                            android:background="@color/gray_bg" />
 
                         <LinearLayout
+                            android:id="@+id/ll_fenlei"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:visibility="gone">
-
-                                <ImageView
-                                    android:id="@+id/iv_fuwu"
-                                    android:layout_width="30.0dip"
-                                    android:layout_height="70.0dip"
-                                    android:scaleType="fitXY"
-                                    android:src="@drawable/shouye_fuwu3" />
-
-                                <com.jarvis.MyView.MyGridView
-                                    android:id="@+id/gd_01"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="@color/white"
-                                    android:horizontalSpacing="@dimen/y1"
-                                    android:numColumns="4"
-                                    android:padding="@dimen/y5"
-                                    android:verticalSpacing="@dimen/y1" />
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/gray_bg" />
-
-                            <LinearLayout
-                                android:id="@+id/ll_fenlei"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:orientation="horizontal">
+                            android:background="@color/white"
+                            android:orientation="horizontal">
 
 
-                                <com.coorchice.library.SuperTextView
-                                    android:id="@+id/stv_home_1"
-                                    style="@style/home_types"
-                                    android:text="苗木管理"
-                                    app:state_drawable="@mipmap/home_mmgl" />
+                            <com.coorchice.library.SuperTextView
+                                android:id="@+id/stv_home_1"
+                                style="@style/home_types"
+                                android:text="苗木管理"
+                                app:state_drawable="@mipmap/home_mmgl" />
 
-                                <com.coorchice.library.SuperTextView
-                                    android:id="@+id/stv_home_2"
-                                    style="@style/home_types"
-                                    android:text="采购报价"
-                                    app:state_drawable="@drawable/home_kuaisubj" />
+                            <com.coorchice.library.SuperTextView
+                                android:id="@+id/stv_home_2"
+                                style="@style/home_types"
+                                android:text="采购报价"
+                                app:state_drawable="@drawable/home_kuaisubj" />
 
-                                <com.coorchice.library.SuperTextView
-                                    android:id="@+id/stv_home_3"
-                                    style="@style/home_types"
-                                    android:text="成交公告"
-                                    app:state_drawable="@drawable/home_chengjiaogg" />
+                            <com.coorchice.library.SuperTextView
+                                android:id="@+id/stv_home_3"
+                                style="@style/home_types"
+                                android:text="成交公告"
+                                app:state_drawable="@drawable/home_chengjiaogg" />
 
-                                <com.coorchice.library.SuperTextView
-                                    android:id="@+id/stv_home_4"
-                                    style="@style/home_types"
-                                    android:text="新闻资讯"
-                                    app:state_drawable="@drawable/home_xinwenzx" />
-
-
-                                <com.jarvis.MyView.MyGridView
-                                    android:id="@+id/gd_00"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="@color/white"
-                                    android:horizontalSpacing="@dimen/y1"
-                                    android:numColumns="4"
-                                    android:padding="@dimen/y5"
-                                    android:verticalSpacing="@dimen/y1"
-                                    android:visibility="gone" />
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/gray_bg" />
+                            <com.coorchice.library.SuperTextView
+                                android:id="@+id/stv_home_4"
+                                style="@style/home_types"
+                                android:text="新闻资讯"
+                                app:state_drawable="@drawable/home_xinwenzx" />
 
 
                             <com.jarvis.MyView.MyGridView
-                                android:id="@+id/gd"
+                                android:id="@+id/gd_00"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@color/gray_bg"
+                                android:background="@color/white"
                                 android:horizontalSpacing="@dimen/y1"
-                                android:numColumns="2"
+                                android:numColumns="4"
+                                android:padding="@dimen/y5"
                                 android:verticalSpacing="@dimen/y1"
                                 android:visibility="gone" />
                         </LinearLayout>
 
-
                         <View
-                            style="@style/View_line_gray"
-                            android:visibility="visible" />
-
-
-                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            tools:visibility="visible">
-
-                            <ImageView
-                                android:id="@+id/iv_home_left"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_centerVertical="true"
-                                android:layout_marginBottom="4dp"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginRight="0dp"
-                                android:layout_marginTop="4dp"
-                                android:paddingLeft="5dp"
-                                android:src="@drawable/home_cj_gg" />
-
-                            <!--android:layout_margin="5dp"-->
-                            <com.hldj.hmyg.widget.UPMarqueeView
-                                android:id="@+id/upview1"
-                                android:layout_width="match_parent"
-                                android:layout_height="60dp"
-                                android:layout_toRightOf="@+id/iv_home_left" />
+                            android:layout_height="1dp"
+                            android:background="@color/gray_bg" />
 
 
-                            <!--<LinearLayout-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:background="@color/white"-->
-                            <!--android:orientation="vertical">-->
-                            <!--&lt;!&ndash;成交公告&ndash;&gt;-->
-                            <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="30dp"-->
-                            <!--android:layout_gravity="center"-->
-                            <!--android:gravity="center"-->
-                            <!--android:text="最新：2017/4/18 关于'采购单（P0051）'的成交公告 "-->
-                            <!--android:textColor="@color/black_de"-->
-                            <!--android:textSize="13sp" />-->
-
-                            <!--<TextView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="30dp"-->
-                            <!--android:layout_gravity="center"-->
-                            <!--android:gravity="center"-->
-                            <!--android:text="最新：2017/4/18 关于'采购单（P0051）'的成交公告 "-->
-                            <!--android:textColor="@color/black_de"-->
-                            <!--android:textSize="13sp" />-->
-                            <!--</LinearLayout>-->
-
-                        </RelativeLayout>
-
-
-                        <!--如果没有采购，隐藏本项目-->
-                        <LinearLayout
-                            android:id="@+id/ll_caigou_parent"
+                        <com.jarvis.MyView.MyGridView
+                            android:id="@+id/gd"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:orientation="vertical">
-
-                            <View style="@style/View_line_gray" />
-
-                            <com.coorchice.library.SuperTextView
-                                android:id="@+id/home_title_first"
-                                android:layout_width="match_parent"
-                                android:layout_height="35dp"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentStart="true"
-                                android:layout_alignParentTop="true"
-                                android:layout_gravity="center_vertical"
-                                android:gravity="start|center_vertical"
-                                android:paddingLeft="10dp"
-                                android:textColor="@color/text_color333"
-                                android:textSize="17sp"
-                                app:isShowState="true"
-                                app:state_drawable="@drawable/home_more"
-                                app:state_drawable_height="13dp"
-                                app:state_drawable_mode="right"
-                                app:state_drawable_padding_left="-15dp"
-                                app:state_drawable_width="50dp"
-                                tools:text="最新采购" />
+                            android:layout_height="match_parent"
+                            android:background="@color/gray_bg"
+                            android:horizontalSpacing="@dimen/y1"
+                            android:numColumns="2"
+                            android:verticalSpacing="@dimen/y1"
+                            android:visibility="gone" />
+                    </LinearLayout>
 
 
-                            <!--成交公告-->
-                            <!--<TextView-->
-                            <!--android:id="@+id/home_title_first"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="30dp"-->
-                            <!--android:layout_alignParentLeft="true"-->
-                            <!--android:layout_alignParentStart="true"-->
-                            <!--android:layout_alignParentTop="true"-->
-                            <!--android:layout_gravity="center_vertical"-->
-                            <!--android:gravity="center"-->
-                            <!--android:textColor="@color/text_color333"-->
-                            <!--android:textSize="16sp"-->
-                            <!--tools:text="采购" />-->
+                    <View
+                        style="@style/View_line_gray"
+                        android:visibility="visible" />
 
 
-                            <!--<ImageView-->
-                            <!--android:id="@+id/iv_home_more_cg"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="30dp"-->
-                            <!--android:layout_alignParentRight="true"-->
-                            <!--android:padding="9dp"-->
-                            <!--android:scaleType="fitCenter"-->
-                            <!--android:src="@drawable/home_more" />-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        tools:visibility="visible">
 
-                            <com.jarvis.MyView.MyListView
-                                android:id="@+id/lv_00"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white" />
-                        </LinearLayout>
+                        <ImageView
+                            android:id="@+id/iv_home_left"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginBottom="4dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="0dp"
+                            android:layout_marginTop="4dp"
+                            android:paddingLeft="5dp"
+                            android:src="@drawable/home_cj_gg" />
 
-
-                        <LinearLayout
-                            android:id="@+id/ll_tuijian_parent"
+                        <!--android:layout_margin="5dp"-->
+                        <com.hldj.hmyg.widget.UPMarqueeView
+                            android:id="@+id/upview1"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <View style="@style/View_line_gray" />
-
-                            <!--<RelativeLayout-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:background="@color/white"-->
-                            <!--android:orientation="vertical"-->
-                            <!--android:paddingLeft="10dp">-->
-                            <!--&lt;!&ndash;此处为热门商家  @drawable/home_merchants  &ndash;&gt;-->
-
-                            <!--&lt;!&ndash;成交公告&ndash;&gt;-->
-                            <!--<TextView-->
-                            <!--android:id="@+id/home_title_second"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="30dp"-->
-                            <!--android:layout_gravity="center"-->
-                            <!--android:gravity="center"-->
-                            <!--android:textColor="@color/text_color333"-->
-                            <!--android:textSize="16sp"-->
-                            <!--tools:text="推荐资源" />-->
+                            android:layout_height="60dp"
+                            android:layout_toRightOf="@+id/iv_home_left" />
 
 
-                            <!--<ImageView-->
-                            <!--android:id="@+id/iv_home_more_tj"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="30dp"-->
-                            <!--android:layout_alignParentRight="true"-->
-                            <!--android:padding="9dp"-->
-                            <!--android:scaleType="fitCenter"-->
-                            <!--android:src="@drawable/home_more" />-->
-                            <!--</RelativeLayout>-->
-                            <com.coorchice.library.SuperTextView
-                                android:id="@+id/home_title_second"
-                                android:layout_width="match_parent"
-                                android:layout_height="35dp"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentStart="true"
-                                android:layout_alignParentTop="true"
-                                android:layout_gravity="center_vertical"
-                                android:gravity="start|center_vertical"
-                                android:paddingLeft="10dp"
-                                android:textColor="@color/text_color333"
-                                android:textSize="17sp"
-                                app:isShowState="true"
-                                app:state_drawable="@drawable/home_more"
-                                app:state_drawable_height="13dp"
-                                app:state_drawable_mode="right"
-                                app:state_drawable_padding_left="-15dp"
-                                app:state_drawable_width="50dp"
-                                tools:text="推荐资源" />
+                    </RelativeLayout>
 
-                            <View style="@style/View_line_gray_1dp" />
 
-                            <com.jarvis.MyView.MyListView
-                                android:id="@+id/lv_00_store"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:divider="@null" />
-                        </LinearLayout>
-
+                    <!--如果没有采购，隐藏本项目-->
+                    <LinearLayout
+                        android:id="@+id/ll_caigou_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:visibility="visible">
 
                         <View style="@style/View_line_gray" />
 
-                        <!--<RelativeLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:background="@color/white"-->
-                        <!--android:orientation="vertical"-->
-                        <!--android:paddingLeft="10dp">-->
-                        <!--&lt;!&ndash;此处为热门商家  @drawable/home_merchants  &ndash;&gt;-->
-                        <!--&lt;!&ndash;成交公告&ndash;&gt;-->
-                        <!--<TextView-->
-                        <!--android:id="@+id/home_title_third"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="30dp"-->
-                        <!--android:layout_gravity="center"-->
-                        <!--android:gravity="center"-->
-                        <!--android:textColor="@color/text_color333"-->
-                        <!--android:textSize="16sp"-->
-                        <!--tools:text="热门商家" />-->
-
-                        <!--<ImageView-->
-                        <!--android:id="@+id/iv_home_more_rm"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="30dp"-->
-                        <!--android:layout_alignParentRight="true"-->
-                        <!--android:padding="9dp"-->
-                        <!--android:scaleType="fitCenter"-->
-                        <!--android:src="@drawable/home_more"-->
-                        <!--android:visibility="visible" />-->
-                        <!--</RelativeLayout>-->
                         <com.coorchice.library.SuperTextView
-                            android:id="@+id/home_title_third"
+                            android:id="@+id/home_title_first"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:layout_alignParentLeft="true"
@@ -415,51 +214,161 @@
                             app:state_drawable_mode="right"
                             app:state_drawable_padding_left="-15dp"
                             app:state_drawable_width="50dp"
-                            tools:text="热门商家" />
+                            tools:text="最新采购" />
 
+                        <View style="@style/View_line_gray_1px"/>
+
+                        <com.jarvis.MyView.MyListView
+                            android:id="@+id/lv_00"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:descendantFocusability="blocksDescendants"
+                            android:divider="@color/divider_color_bg"
+                            android:dividerHeight="2px"
+                            app:dividerHeight="2px"
+                            android:headerDividersEnabled="true"
+                            />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_tuijian_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <View style="@style/View_line_gray" />
+
+                        <!--<RelativeLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@color/white"-->
+                        <!--android:orientation="vertical"-->
+                        <!--android:paddingLeft="10dp">-->
+                        <!--&lt;!&ndash;此处为热门商家  @drawable/home_merchants  &ndash;&gt;-->
+
+                        <!--&lt;!&ndash;成交公告&ndash;&gt;-->
+                        <!--<TextView-->
+                        <!--android:id="@+id/home_title_second"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="30dp"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:gravity="center"-->
+                        <!--android:textColor="@color/text_color333"-->
+                        <!--android:textSize="16sp"-->
+                        <!--tools:text="推荐资源" />-->
+
+
+                        <!--<ImageView-->
+                        <!--android:id="@+id/iv_home_more_tj"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="30dp"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:padding="9dp"-->
+                        <!--android:scaleType="fitCenter"-->
+                        <!--android:src="@drawable/home_more" />-->
+                        <!--</RelativeLayout>-->
+                        <com.coorchice.library.SuperTextView
+                            android:id="@+id/home_title_second"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="start|center_vertical"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/text_color333"
+                            android:textSize="17sp"
+                            app:isShowState="true"
+                            app:state_drawable="@drawable/home_more"
+                            app:state_drawable_height="13dp"
+                            app:state_drawable_mode="right"
+                            app:state_drawable_padding_left="-15dp"
+                            app:state_drawable_width="50dp"
+                            tools:text="推荐资源" />
 
                         <View style="@style/View_line_gray_1dp" />
 
-                        <RelativeLayout
-                            android:id="@+id/con0"
+                        <com.jarvis.MyView.MyListView
+                            android:id="@+id/lv_00_store"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:focusable="false"
-                            android:paddingBottom="@dimen/y8" />
-
-
+                            android:background="@color/white"
+                            android:descendantFocusability="blocksDescendants"
+                            android:divider="@null" />
                     </LinearLayout>
-                </android.support.v4.widget.NestedScrollView>
 
-            </com.hldj.hmyg.widget.MySwipeRefreshLayout>
-            <!--<android.support.design.widget.FloatingActionButton-->
-            <!--android:id="@+id/top_btn"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_marginBottom="40dip"-->
-            <!--android:layout_marginRight="10dip"-->
-            <!--android:clickable="true"-->
-            <!--android:src="@drawable/top_btn_bg"-->
-            <!--app:background="@color/main_color"-->
-            <!--app:backgroundTint="@color/main_color"-->
-            <!--app:fabSize="normal"-->
-            <!--app:rippleColor="@color/main_color" />-->
 
-            <Button
-                android:id="@+id/top_btn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/top_btn_bg"
-                android:gravity="center"
-                android:visibility="gone" />
-        </RelativeLayout>
-        <!--</me.hwang.library.widgit.SmartRefreshLayout>-->
-    </LinearLayout>
+                    <View style="@style/View_line_gray" />
 
-</android.support.design.widget.CoordinatorLayout>
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/home_title_third"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="start|center_vertical"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/text_color333"
+                        android:textSize="17sp"
+                        app:isShowState="true"
+                        app:state_drawable="@drawable/home_more"
+                        app:state_drawable_height="13dp"
+                        app:state_drawable_mode="right"
+                        app:state_drawable_padding_left="-15dp"
+                        app:state_drawable_width="50dp"
+                        tools:text="热门商家" />
+
+
+                    <View style="@style/View_line_gray_1dp" />
+
+                    <RelativeLayout
+                        android:id="@+id/con0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:paddingBottom="@dimen/y8" />
+
+
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+
+        </com.hldj.hmyg.widget.swipeview.MySwipeRefreshLayout>
+        <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/top_btn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_marginBottom="40dip"-->
+        <!--android:layout_marginRight="10dip"-->
+        <!--android:clickable="true"-->
+        <!--android:src="@drawable/top_btn_bg"-->
+        <!--app:background="@color/main_color"-->
+        <!--app:backgroundTint="@color/main_color"-->
+        <!--app:fabSize="normal"-->
+        <!--app:rippleColor="@color/main_color" />-->
+
+        <Button
+            android:id="@+id/top_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/top_btn_bg"
+            android:gravity="center"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+    <!--</me.hwang.library.widgit.SmartRefreshLayout>-->
+    <!--</LinearLayout>-->
+
+</LinearLayout>

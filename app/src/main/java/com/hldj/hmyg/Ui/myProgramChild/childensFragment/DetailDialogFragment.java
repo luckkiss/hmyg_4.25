@@ -98,8 +98,8 @@ public class DetailDialogFragment extends BaseDialogFragment {
 
 
                 helper.setText(R.id.tv_item_detail_load_count, item.loadCount + item.unitTypeName);//数量 + 单位   10株
-                helper.setText(R.id.tv_item_detail_price, "￥" + item.price);//采购 单价 49.5
-                helper.setText(R.id.tv_item_detail_totalPrice, "￥" + item.totalPrice);
+                helper.setText(R.id.tv_item_detail_price, "¥" + item.price);//采购 单价 49.5
+                helper.setText(R.id.tv_item_detail_totalPrice, "¥" + item.totalPrice);
                 helper.setText(R.id.tv_item_detail_spec_text, item.specText);
             }
         });

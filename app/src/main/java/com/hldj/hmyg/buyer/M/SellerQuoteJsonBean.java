@@ -1,5 +1,6 @@
 package com.hldj.hmyg.buyer.M;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by Administrator on 2017/4/27.
  */
 
-public class SellerQuoteJsonBean {
+public class SellerQuoteJsonBean implements Serializable {
     /**
      * id : 95566496cd934b1da84f986db30e6a30
      * remarks : 备注
@@ -49,6 +50,7 @@ public class SellerQuoteJsonBean {
     public String remarks;
     public String createBy;
     public String createDate;
+    public String quoteDateStr;
     public String cityCode;
     public String cityName;
     public String prCode;
@@ -57,6 +59,7 @@ public class SellerQuoteJsonBean {
     public String twCode;
     public String firstSeedlingTypeId;
     public int dbh;
+    public int diameter;
     public int height;
     public int crown;
     public String plantType;
@@ -64,6 +67,8 @@ public class SellerQuoteJsonBean {
     public String plantTypeName;
     public String diameterTypeName;
     public String dbhTypeName;
+    public String dbhType = "";
+    public String diameterType = "";
     public String thumbnailImageUrl;
     public String smallImageUrl;
     public String mediumImageUrl;
@@ -74,20 +79,21 @@ public class SellerQuoteJsonBean {
     public String purchaseItemId;
     public String sellerId;
     public String price;
-    public String status ;
+    public String prePrice;
+    public String status;
     public String sellerName;
     public String sellerPhone;
     public String purchaseItemStatus;
     public List<String> paramsList;
     public List<SpecListBean> specList;
-    public int  count;
+    public int count;
 
 
     public List<ImagesJsonBean> imagesJson = new ArrayList<>();
 //     public ImagesJsonBean imagesJson ;
 
 
-    public static class SpecListBean {
+    public static class SpecListBean implements Serializable {
         /**
          * name : 胸径
          * value : 58CM

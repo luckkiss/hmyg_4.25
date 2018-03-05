@@ -51,14 +51,22 @@ public class SaveSeedingGsonBean implements Serializable {
     }
 
     public static class DataBean implements Serializable {
+
+        public ArrayList<SeedlingBean.ImagesJsonBean> seedlingImage = new ArrayList<>();
         public boolean canQuote = false;
+        public boolean isOneQuote = false;
         private SeedlingBean seedling = new SeedlingBean();
+        //      private SeedlingBean seedlingNote = new SeedlingBean();
         private ItemBean item;
         public List<UsedQuoteListBean> usedQuoteList = new ArrayList<>();
         private List<TypeListBean> typeList;
         private List<TypeListBean.PlantTypeListBean> plantTypeList;
 
         public List<UnitTypeBean> unitTypeList = new ArrayList<>();
+
+        public List<SpecTypeBean> dbhTypeList = new ArrayList<>();
+        public List<SpecTypeBean> diameterTypeList = new ArrayList<>();
+
 
         public SeedlingBean.NurseryJsonBean nursery = new SeedlingBean.NurseryJsonBean();
 
@@ -124,6 +132,11 @@ public class SaveSeedingGsonBean implements Serializable {
             private int maxDbh;
             private int minOffbarHeight;
             private int maxOffbarHeight;
+
+            public String minSpec = "";
+            public String maxSpec = "";
+
+
             private int minLength;
             private int maxLength;
             private int minHeight;
@@ -205,7 +218,7 @@ public class SaveSeedingGsonBean implements Serializable {
             private boolean isServiceCovered;
 
             private boolean isDefault;
-            private String priceStr;
+            private String priceStr = "";
 
             private String diameterStr;
             private String dbhStr;
@@ -1258,11 +1271,11 @@ public class SaveSeedingGsonBean implements Serializable {
                  * fullAddress : 福建省厦门市思明区梧村街道无
                  */
 
-                private String id = "";
+                public String id = "";
                 private String createBy;
                 private String createDate;
                 private String cityCode;
-                private String cityName = "";
+                private String cityName = "-";
                 private String prCode;
                 private String ciCode;
                 private String coCode;
@@ -1271,8 +1284,7 @@ public class SaveSeedingGsonBean implements Serializable {
                 private CiCityBeanX ciCity;
                 private CoCityBeanX coCity;
                 private TwCityBeanX twCity;
-                private String name;
-                private String detailAddress;
+                private String detailAddress = "-";
                 private int nurseryArea;
                 private String type;
                 private String typeName;
@@ -1282,8 +1294,12 @@ public class SaveSeedingGsonBean implements Serializable {
                 private String publicName = "";
                 private String realName = "";
                 private String phone = "";
-                private String fullAddress;
-                public Boolean isDefault = false;
+
+                public String name = ""; // 苗圃名称
+                public String fullAddress = "";//详细地址
+                public String contactPhone = "";//联系电话
+                public String contactName = "";//联系人姓名
+                public Boolean isDefault = false;//是否默认地址
 
 
                 @Override

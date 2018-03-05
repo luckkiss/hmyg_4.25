@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,26 +18,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.barryzhang.temptyview.TViewUtil;
-import com.cn2che.androids.swipe.OnlyListViewSwipeGesture;
 import com.google.gson.Gson;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.DaoBean.SaveJson.DaoSession;
 import com.hldj.hmyg.DaoBean.SaveJson.SavaBean;
 import com.hldj.hmyg.DaoBean.SaveJson.SavaBeanDao;
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.base.ViewHolders;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
-import com.hldj.hmyg.buy.bean.CollectCar;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
@@ -67,7 +63,6 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
     private static final int DB_VERSION = 1;
     private SQLiteDatabase db;
     private boolean flag = true; // 全选或全取消
-    private ArrayList<CollectCar> userList = new ArrayList<CollectCar>();
     private FinalBitmap fb;
     private Gson gson;
     private ImageView btn_back;
@@ -103,23 +98,20 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
         initDao();
         initData();
 
-        final OnlyListViewSwipeGesture touchListener = new OnlyListViewSwipeGesture(
-                GroupManList, swipeListener, this);
-        touchListener.SwipeType = OnlyListViewSwipeGesture.Double; // 设置两个选项列表项的背景
-        GroupManList.setOnTouchListener(touchListener);
-        TViewUtil.EmptyViewBuilder.getInstance(StorageSaveActivity.this)
-                .setEmptyText(getResources().getString(R.string.nodata))
-                .setEmptyTextSize(12).setEmptyTextColor(Color.GRAY)
-                .setShowButton(false)
-                .setActionText(getResources().getString(R.string.reload))
-                .setAction(new OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        // Toast.makeText(getApplicationContext(),
-                        // "Yes, clicked~",Toast.LENGTH_SHORT).show();
-                        onRefresh();
-                    }
-                }).setShowIcon(false).setShowText(false).bindView(GroupManList);
+
+//        TViewUtil.EmptyViewBuilder.getInstance(StorageSaveActivity.this)
+//                .setEmptyText(getResources().getString(R.string.nodata))
+//                .setEmptyTextSize(12).setEmptyTextColor(Color.GRAY)
+//                .setShowButton(false)
+//                .setActionText(getResources().getString(R.string.reload))
+//                .setAction(new OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        // Toast.makeText(getApplicationContext(),
+//                        // "Yes, clicked~",Toast.LENGTH_SHORT).show();
+//                        onRefresh();
+//                    }
+//                }).setShowIcon(false).setShowText(false).bindView(GroupManList);
         btn_back.setOnClickListener(this);
         tv_all.setOnClickListener(this);
         tv_begin.setOnClickListener(this);
@@ -153,49 +145,6 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
         }
     };
 
-
-    OnlyListViewSwipeGesture.TouchCallbacks swipeListener = new OnlyListViewSwipeGesture.TouchCallbacks() {
-
-        @Override
-        public void FullSwipeListView(int position) {
-            // TODO Auto-generated method stub
-            Toast.makeText(StorageSaveActivity.this, "Action_2",
-                    Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void HalfSwipeListView(int position) {
-            // TODO Auto-generated method stub
-            db.delete(DB_TABLE, "storage_save_id="
-                    + userList.get(position).getStorage_save_id(), null);
-            userList.remove(position);
-            baseAdapter.notifyDataSetChanged();
-        }
-
-        @Override
-        public void LoadDataForScroll(int count) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-            // TODO Auto-generated method stub
-            // Toast.makeText(StorageSaveActivity.this, "Delete",
-            // Toast.LENGTH_SHORT).show();
-            // for(int i:reverseSortedPositions){
-            // data.remove(i);
-            // new MyAdapter().notifyDataSetChanged();
-            // }
-        }
-
-        @Override
-        public void OnClickListView(int position) {
-            // TODO Auto-generated method stub
-
-        }
-
-    };
     private MyAdapter_now myadapter;
     private TextView id_tv_edit_all;
 
@@ -336,6 +285,7 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
     List<Pic> onlinePics = new ArrayList<>();
 
     private void fabu(AjaxParams params) {
+        errorNum = 0;
         onlinePics.clear();
 
         //执行上传图片接口
@@ -352,13 +302,26 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
             hud_numHud.show();
             hud_numHud.updateLable("正在上传第" + (1) + "/" + arrayList.size() + "张图片");
             //   上传图片  可能多图片
-            new SaveSeedlingPresenter().upLoad(arrayList, new ResultCallBack<Pic>() {
+            new SaveSeedlingPresenter(mActivity).upLoad(arrayList, new ResultCallBack<Pic>() {
                 @Override
 //                        public void onSuccess(UpImageBackGsonBean imageBackGsonBean) {//
                 public void onSuccess(Pic pic) {//
                     hud_numHud.updateLable("已上传第" + (pic.getSort() + 1) + "/" + arrayList.size() + "张图片");
-                    onlinePics.add(pic);
-                    if (onlinePics.size() == arrayList.size()) {
+                    if (!TextUtils.isEmpty(pic.getUrl())) {
+                        onlinePics.add(pic);
+//                        listPicsOnline.add(pic);
+                    } else {
+                        errorNum++;
+                        ToastUtil.showLongToast("有图片损坏，您可以修改后重新上传！");
+                    }
+
+
+                    if ((onlinePics.size() + errorNum) == arrayList.size()) {
+                        if (onlinePics.size() == 0) {
+                            ToastUtil.showLongToast("请上传图片");
+                            hindLoading();
+                            return;
+                        }
                         hud_numHud.updateLable("图片上传成功");
 
                         putParams(params, "imagesData", GsonUtil.Bean2Json(onlinePics));
@@ -388,6 +351,8 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
 
         D.e("===没有问题可以发布==");
     }
+
+    public int errorNum = 0;
 
 
     private void seedlingSave(AjaxParams ajaxParams) {
@@ -546,10 +511,8 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
 
         if (!checkNoNull("地址", "nurseryId", seedlingBean.getNurseryId(), params)) return false;
 
-        if (!checkNoNull("有效期", "validity", seedlingBean.getValidity() + "", params))
-            return false;
+        return checkNoNull("有效期", "validity", seedlingBean.getValidity() + "", params);
 
-        return true;
     }
 
     private boolean submitParamsLis(SaveSeedingGsonBean.DataBean.TypeListBean.ParamsListBean item, SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean, AjaxParams params) {
@@ -778,8 +741,8 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
 
             TextView tv_07 = myViewHolder.getView(R.id.tv_07);//价格
 
-
-            ProductListAdapter.setPrice(tv_07, seedlingBean.getMaxPrice(), seedlingBean.getMinPrice(), seedlingBean.isNego(), null);
+            tv_07.setText(FUtil.$("-", seedlingBean.getMinPrice(), seedlingBean.getMaxPrice()));
+//            ProductListAdapter.setPrice(tv_07, seedlingBean.getPriceStr(), seedlingBean.getMinPrice(), seedlingBean.isNego(), null);
 
 
             TextView tv_num_res = myViewHolder.getView(R.id.tv_num_res);//库存

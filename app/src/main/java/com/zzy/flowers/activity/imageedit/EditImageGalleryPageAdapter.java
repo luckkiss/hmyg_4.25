@@ -45,7 +45,7 @@ public class EditImageGalleryPageAdapter extends BaseAdapter {
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.no_image_big_show)
 //		.showImageOnLoading(R.drawable.no_image_big_show)
-                .showImageOnFail(R.drawable.no_image_big_show_2)
+                .showImageOnFail(R.drawable.no_image_big_show)
                 .bitmapConfig(Bitmap.Config.ARGB_8888)
                 .cacheOnDisc(true)
                 .build();
@@ -133,7 +133,7 @@ public class EditImageGalleryPageAdapter extends BaseAdapter {
                         }
                     });
         } else {
-            if (!isGifPic(picPath)) {
+            if (true) {
                 holder.gifImageView.setVisibility(View.GONE);
                 holder.mGestureView.setVisibility(View.VISIBLE);
                 Bitmap bm = getSourceBitmap(picPath);

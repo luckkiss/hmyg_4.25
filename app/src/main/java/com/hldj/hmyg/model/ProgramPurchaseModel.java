@@ -18,6 +18,10 @@ import net.tsz.afinal.http.AjaxCallBack;
  */
 
 public class ProgramPurchaseModel extends BasePresenter implements ProgramPurchaseContract.Model {
+
+    /*可采用报价权限*/
+    private boolean tureQuote;
+
     @Override
     public void getDatas(String page, String purchaseId, String searchKey, ResultCallBack callBack) {
 
@@ -66,6 +70,9 @@ public class ProgramPurchaseModel extends BasePresenter implements ProgramPurcha
                     D.e("=json====" + json);
                     ProgramPurchaseIndexGsonBean gsonBean = GsonUtil.formateJson2Bean(json, ProgramPurchaseIndexGsonBean.class);
                     if (gsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
+                        tureQuote = gsonBean.data.tureQuote;
+                        /*----*/
+                        gsonBean.data.purchase.tureQuote = gsonBean.data.tureQuote;
                         gsonBean.data.purchase.showQuote = gsonBean.data.showQuote;
                         gsonBean.data.purchase.servicePoint = gsonBean.data.servicePoint;
                         gsonBean.data.purchase.lastTime = gsonBean.data.lastTime;

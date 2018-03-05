@@ -5,8 +5,16 @@ def bakPath = file("${buildDir}/bakApk/")
 /**
  * 此处填写每次构建生成的基准包目录
  */
-def baseApkDir = "app-0713-09-09-45"
+//def baseApkDir = "app-0907-18-09-41"  3.0.4fix1 使用
+//def baseApkDir = "app-0926-12-54-35"   3.0.5. 1
+//def baseApkDir = "app-1030-15-54-46"    // 3.0.5release
 
+def baseApkDir = "app-0115-15-01-32"    //
+//def baseApkDir = "app-1229-10-02-35"    //
+
+//def baseApkDir = ""    // 3.0.5fix1
+//def baseApkDir = "app-1107-15-32-11"   // 内测版本2.1.1 72
+//
 /**
  * 对于插件各参数的详细解析请参考
  */
@@ -32,8 +40,39 @@ tinkerSupport {
     baseApkResourceMapping = "${bakPath}/${baseApkDir}/app-release-R.txt"
 
     // 构建基准包和补丁包都要指定不同的tinkerId，并且必须保证唯一性
-      tinkerId = "base-3.0.2"
-//    tinkerId = "patch-3.0.2"
+
+//        tinkerId = "base-2.1.0_test"
+//      tinkerId = "patch-2.1.0_test"
+//      tinkerId = "patch-3.0.5release"
+//    tinkerId = "base-3.0.5release"
+//      tinkerId = "patch-3.0.5release"
+
+//        tinkerId = "base-3.0.6release_fix1"
+//        tinkerId = "patch-3.0.6release_fix1"
+
+
+    tinkerId = "base-3.0.6release_fix4"
+//  tinkerId = "patch-3.0.6release_fix4"
+
+//        tinkerId = "base-3.0.6release_fix3"
+//      tinkerId = "patch-3.0.6release_fix3"
+
+//    tinkerId = "base-3.0.6release_fix2"
+//      tinkerId = "patch-3.0.6release_fix2"
+
+//      tinkerId = "patch-3.0.5release"
+
+//    tinkerId = "base-3.0.5bete3"
+//      tinkerId = "patch-3.0.5bete3"
+
+//    tinkerId = "base-3.0.5bete2"
+//      tinkerId = "patch-3.0.5bete2"
+
+//        tinkerId = "base-3.0.5bete1"
+//          tinkerId = "patch-3.0.5bete1"
+
+//        tinkerId = "base-3.0.4.fix1"
+//        tinkerId = "patch-3.0.4.fix1"
 
     // 是否启用覆盖tinkerPatch配置功能，默认值false
     // 开启后tinkerPatch配置不生效，即无需添加tinkerPatch

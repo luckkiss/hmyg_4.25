@@ -29,6 +29,12 @@ public class TagFlowLayout extends FlowLayout implements TagAdapter.OnDataChange
 
     private Set<Integer> mSelectedView = new HashSet<Integer>();
 
+    private boolean canCancle = true;
+
+    public void setCanCancle(boolean cancleable) {
+        this.canCancle = cancleable;
+    }
+
 
     public TagFlowLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -78,6 +84,10 @@ public class TagFlowLayout extends FlowLayout implements TagAdapter.OnDataChange
 
     public interface OnTagClickListener {
         boolean onTagClick(View view, int position, FlowLayout parent);
+    }
+
+    public interface OnTagClickWithCancleListener extends OnTagClickListener {
+        boolean onCancleClick(View view, int position, FlowLayout parent);
     }
 
     private OnTagClickListener mOnTagClickListener;
@@ -162,12 +172,14 @@ public class TagFlowLayout extends FlowLayout implements TagAdapter.OnDataChange
         int pos = findPosByView(child);
         if (child != null) {
             doSelect(child, pos);
-            if (mOnTagClickListener != null) {
+            if (mOnTagClickListener != null && (!isDoCancle || !canCancle)) {
                 return mOnTagClickListener.onTagClick(child.getTagView(), pos, this);
             }
         }
         return true;
     }
+
+    boolean isDoCancle = false;
 
 
     public void setMaxSelectCount(int count) {
@@ -183,6 +195,7 @@ public class TagFlowLayout extends FlowLayout implements TagAdapter.OnDataChange
     }
 
     private void doSelect(TagView child, int position) {
+        isDoCancle = child.isChecked();
         if (mAutoSelectEffect) {
             if (!child.isChecked()) {
                 //处理max_select=1的情况
@@ -201,8 +214,14 @@ public class TagFlowLayout extends FlowLayout implements TagAdapter.OnDataChange
                     mSelectedView.add(position);
                 }
             } else {
-                child.setChecked(false);
-                mSelectedView.remove(position);
+                if (canCancle) {
+                    if (mOnTagClickListener != null && mOnTagClickListener instanceof OnTagClickWithCancleListener) {
+                        ((OnTagClickWithCancleListener) mOnTagClickListener).onCancleClick(child.getTagView(), position, this);
+                    }
+                    child.setChecked(false);
+                    mSelectedView.remove(position);
+                }
+
             }
             if (mOnSelectListener != null) {
                 mOnSelectListener.onSelected(new HashSet<Integer>(mSelectedView));

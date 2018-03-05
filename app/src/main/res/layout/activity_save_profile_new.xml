@@ -20,7 +20,7 @@
         <com.lqr.optionitemview.OptionItemView
             style="@style/geren_text"
             app:left_text="绑定手机:"
-            app:right_src="@drawable/ic_right_icon_new"
+            app:right_src="@drawable/arrow_right_eq"
             app:right_text="24134646" />
 
         <View style="@style/View_line_gray_1dp" />
@@ -180,7 +180,7 @@
 
             style="@style/geren_text"
             app:left_text="所在地区:"
-            app:right_src="@drawable/ic_right_icon_new"
+            app:right_src="@drawable/arrow_right_eq"
             app:right_text="24134646" />
 
         <View style="@style/View_line_gray_1dp" />
@@ -190,7 +190,7 @@
 
             style="@style/geren_text"
             app:left_text="街道地址:"
-            app:right_src="@drawable/ic_right_icon_new"
+            app:right_src="@drawable/arrow_right_eq"
             app:right_text="24134646" />
 
         <View style="@style/View_line_gray_1dp" />

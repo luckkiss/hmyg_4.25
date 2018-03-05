@@ -8,9 +8,8 @@
 
     <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y16"
+        android:layout_height="@dimen/y20"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/y5"
         android:background="@color/white"
         android:orientation="horizontal"
         android:weightSum="2">
@@ -31,7 +30,9 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
-            android:background="@color/divider_color" />
+            android:background="@color/divider_color"
+            android:layout_marginBottom="3dp"
+            />
 
         <RadioButton
             android:id="@+id/tv_yes_get"
@@ -44,12 +45,13 @@
             android:textSize="@dimen/textSizeXX" />
     </RadioGroup>
 
+    <View style="@style/View_line_gray_1dp" />
+
 
     <com.weavey.loading.lib.LoadingLayout
         android:id="@+id/loading_program2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-       >
+        android:layout_height="match_parent">
 
         <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
             android:id="@+id/recycle_program2"

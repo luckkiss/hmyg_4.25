@@ -84,7 +84,7 @@ public class Utils {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 Method var8 = Activity.class.getDeclaredMethod("convertToTranslucent", translucentConversionListenerClazz, ActivityOptions.class);
                 var8.setAccessible(true);
-                var8.invoke(activity, new Object[]{null, null});
+                var8.invoke(activity, null, null);
             } else {
                 Method var8 = Activity.class.getDeclaredMethod("convertToTranslucent", translucentConversionListenerClazz);
                 var8.setAccessible(true);

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="top_padding_statu">24dp</dimen>
+    <dimen name="status_bar_height">70dp</dimen>
+
 </resources>

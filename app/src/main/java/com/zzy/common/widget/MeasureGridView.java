@@ -9,19 +9,22 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.adapter.PublishFlowerInfoPhotoAdapter;
+import com.hldj.hmyg.adapter.PublishFlowerInfoPhotoAdapterFriend;
 import com.hldj.hmyg.application.PermissionUtils;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin2;
 import com.hldj.hmyg.util.TakePhotoUtil;
 import com.hy.utils.ToastUtil;
-import com.zzy.flowers.activity.photoalbum.EditGalleryImageActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class MeasureGridView extends GridView {
     public static Context context;
+
+    public boolean isOpenVideo = false;
     /**
      * 照片适配器
      */
@@ -30,21 +33,19 @@ public class MeasureGridView extends GridView {
     public MeasureGridView(Context context, AttributeSet attrs,
                            int defStyle) {
         super(context, attrs, defStyle);
-        this.context = context;
-
-
+        MeasureGridView.context = context;
     }
 
     public MeasureGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.context = context;
+        MeasureGridView.context = context;
 
 
     }
 
     public MeasureGridView(Context context) {
         super(context);
-        this.context = context;
+        MeasureGridView.context = context;
 
     }
 
@@ -55,17 +56,30 @@ public class MeasureGridView extends GridView {
     static PhotoGvOnItemClickListener gvOnItemClickListener;
 
     public void init(Context context, ArrayList<Pic> urlPaths, ViewGroup ainView, FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener listener) {
-
-
         adapter = new PublishFlowerInfoPhotoAdapter(context, urlPaths);
         this.setAdapter(adapter);
-
+        adapter.setColumeNum(this.getNumColumns());
 
         this.setOnItemClickListener(new PhotoGvOnItemClickListener(ainView, listener));
-
-
     }
 
+    public void init(Context context, ArrayList<Pic> urlPaths, ViewGroup ainView, boolean isOpen, FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener listener) {
+        isOpenVideo = isOpen;
+        init(context, urlPaths, ainView, listener);
+    }
+
+
+    public void initFriend(Context context, ArrayList<Pic> urlPaths, ViewGroup ainView, FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener listener) {
+        adapter = new PublishFlowerInfoPhotoAdapterFriend(context, urlPaths);
+        this.setAdapter(adapter);
+        adapter.setColumeNum(this.getNumColumns());
+        this.setOnItemClickListener(new PhotoGvOnItemClickListener(ainView, listener));
+    }
+
+
+    public void openVideo() {
+        isOpenVideo = true;
+    }
 
     public void setImageNumColumns(int num) {
         setNumColumns(num);
@@ -103,14 +117,24 @@ public class MeasureGridView extends GridView {
                     ToastUtil.showShortToast("您未同意应用读取SD卡权限");
                     return;
                 }
-                popwin = new FlowerInfoPhotoChoosePopwin2((Activity) context, listener);
+                if (isOpenVideo) {
+                    popwin = new FlowerInfoPhotoChoosePopwin2(context, listener, isOpenVideo);
+                } else {
+                    popwin = new FlowerInfoPhotoChoosePopwin2(context, listener);
+                }
                 popwin.showAtLocation(mainView, Gravity.BOTTOM
                         | Gravity.CENTER_HORIZONTAL, 0, 0);
             } else {
-                EditGalleryImageActivity.startEditGalleryImageActivity(
-                        (Activity) context,
-                        EditGalleryImageActivity.TO_EDIT_PUBLISH_IMAGE,
-                        position, adapter.getDataList());
+//                EditGalleryImageActivity.startEditGalleryImageActivity(
+//                        context,
+//                        EditGalleryImageActivity.TO_EDIT_PUBLISH_IMAGE,
+//                        position, adapter.getDataList());
+                if (onViewImagesListener != null) {
+                    onViewImagesListener.onViewImages(context, position, adapter.getDataList());
+                } else {
+                    GalleryImageActivity.startGalleryImageActivity(
+                            context, position, adapter.getDataList());
+                }
             }
 
         }
@@ -143,5 +167,16 @@ public class MeasureGridView extends GridView {
 
     }
 
+    public OnViewImagesListener onViewImagesListener;
+
+    public void setOnViewImagesListener(OnViewImagesListener listener) {
+        onViewImagesListener = listener;
+    }
+
+    public static interface OnViewImagesListener {
+        void onViewImages(Context mContext, int pos, ArrayList<Pic> pics);
+    }
 
 }
+
+

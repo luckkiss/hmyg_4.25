@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hy.utils.ToastUtil;
 import com.zf.iosdialog.widget.AlertDialog;
 
@@ -72,16 +74,20 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
                     protected void convert(BaseViewHolder helper, QuoteListBean item) {
                         D.e("==hellow world==");
                         initRecycleItem(helper, item);
+                        hindLoading();
                     }
                 })
+                .closeRefresh()
                 .openLoadMore(1000, page -> {
                     D.e("==hellow world==");
+                    showLoading();
                     getDatas();
                 })
                 .addRefreshListener(() -> {
                     D.e("==refresh==");
                 })
-                .openRefresh();
+                .closeDefaultEmptyView()
+                .closeRefresh();
 
     }
 
@@ -96,11 +102,15 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
         int viewid = R.layout.item_quote;
         helper.setText(R.id.tv_quote_item_sellerName, strFilter(item.sellerName).equals("") ? strFilter(item.sellerPhone) : strFilter(item.sellerName));//报价人
         helper.setText(R.id.tv_quote_item_cityName, strFilter(item.cityName));//苗源地址
-        helper.setText(R.id.tv_quote_item_price, strFilter(item.price + ""));//价格
+        helper.setText(R.id.tv_quote_item_price, strFilter("¥" + item.price + ""));//价格
+
+        if (!TextUtils.isEmpty(item.prePrice)) {
+            helper.setText(R.id.tv_quote_item_pre_price, strFilter("¥" + FUtil.$_zero(item.prePrice) + ""));// 预估到岸价
+        }
         helper.setText(R.id.tv_quote_item_plantTypeName, strFilter(item.plantTypeName));//种植类型
         helper.setText(R.id.tv_quote_item_specText, strFilter(item.specText));//要求规格
         helper.setText(R.id.tv_quote_item_count, strFilter(item.count + ""));// 可供数量
-        helper.setText(R.id.tv_quote_item_remark, strFilter(item.remarks + ""));//  备注信息
+        helper.setText(R.id.tv_quote_item_remark, strFilter(item.remarks));//  备注信息
 //
 //        StorePurchaseListAdapter.setSpaceAndRemark(helper.getView(R.id.tv_quote_item_specText), item.specText, item.remarks);
 
@@ -187,11 +197,16 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
 //              quoteList  recycle_quit
                 recycle_quit.getAdapter().addData(saveSeedingGsonBean.data.quoteList);
 
+                hindLoading();
+
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
-
+                hindLoading();
+                finish();
+                ToastUtil.showLongToast(strMsg);
             }
         })
                 .getDatas(getIntent().getExtras().get(GOOD_ID).toString())
@@ -229,7 +244,7 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
         public SuperTextView tv_quote_price_sug;
 
         public ViewHolder(Activity rootView) {
-            this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
+            this.tv_title = (TextView) rootView.findViewById(R.id.toolbar_title);
             this.btn_back = (ImageView) rootView.findViewById(R.id.toolbar_left_icon);
             this.tv_quote_name = (TextView) rootView.findViewById(R.id.tv_quote_name);
             this.tv_quote_size = (SuperTextView) rootView.findViewById(R.id.tv_quote_size);
@@ -268,4 +283,8 @@ public class QuoteListActivity_bak extends NeedSwipeBackActivity implements Purc
     }
 
 
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

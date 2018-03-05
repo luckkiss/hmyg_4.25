@@ -5,18 +5,19 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/white"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/rl_title"
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/y34"
-            android:background="@color/white" >
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:minHeight="40dp">
 
             <TextView
                 android:id="@+id/tv_title"
@@ -28,7 +29,7 @@
                 android:textColor="@color/main_color"
                 android:textSize="@dimen/x18" />
 
-            <info.hoang8f.android.segmented.SegmentedGroup
+            <com.hldj.hmyg.widget.SegmentedGroup
                 android:id="@+id/segmented3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,25 +37,47 @@
                 android:layout_centerVertical="true"
                 android:layout_margin="10dp"
                 android:orientation="horizontal"
+                android:visibility="visible"
                 app:sc_unchecked_tint_color="@color/white"
                 segmentedgroup:sc_border_width="1dp"
                 segmentedgroup:sc_corner_radius="5dp"
-                segmentedgroup:sc_tint_color="@color/main_color" >
+                segmentedgroup:sc_tint_color="@color/main_color">
 
                 <RadioButton
                     android:id="@+id/button31"
                     style="@style/RadioButton3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
+                    android:minWidth="75dp"
                     android:text="我的资源" />
+
+                <RadioButton
+                    android:layout_width="1px"
+                    android:layout_height="28dp"
+                    android:background="@drawable/arrow_gray_selector"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:id="@+id/button_center"
+                    style="@style/RadioButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:minWidth="75dp"
+                    android:text="团队共享"
+                    android:visibility="visible" />
 
                 <RadioButton
                     android:id="@+id/button32"
                     style="@style/RadioButton3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
+                    android:minWidth="75dp"
                     android:text="共享资源" />
-            </info.hoang8f.android.segmented.SegmentedGroup>
+
+
+
+
+            </com.hldj.hmyg.widget.SegmentedGroup>
 
             <ImageView
                 android:id="@+id/btn_back"
@@ -71,158 +94,48 @@
             android:background="@drawable/line_bak" />
 
         <LinearLayout
+            android:id="@+id/ll_fil_content"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y24"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/x3"
-            android:paddingLeft="@dimen/x13"
-            android:paddingRight="@dimen/x13"
-            android:paddingTop="@dimen/x3" >
+            android:layout_height="38dp"
+            android:background="@color/white">
 
-            <RelativeLayout
-                android:id="@+id/rl_choose_type"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:text="地区"
-                        android:textSize="@dimen/y9" />
-
-                    <ImageView
-                        android:layout_width="@dimen/x10"
-                        android:layout_height="@dimen/x10"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:src="@drawable/icon_seller_arrow1"
-                        android:visibility="gone" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <ImageView
-                android:layout_width="2px"
-                android:layout_height="15.0dip"
-                android:background="@color/gray" />
-
-            <RelativeLayout
+            <com.coorchice.library.SuperTextView
                 android:id="@+id/rl_choose_screen"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:text="@string/bactivity_choose_screen"
-                        android:textSize="@dimen/y9" />
-
-                    <ImageView
-                        android:layout_width="@dimen/x10"
-                        android:layout_height="@dimen/x10"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:src="@drawable/icon_seller_arrow1"
-                        android:visibility="gone" />
-                </LinearLayout>
-            </RelativeLayout>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="筛选"
+                app:isShowState="true"
+                app:state_drawable="@drawable/ic_arrow_down"
+                app:state_drawable_height="6dp"
+                app:state_drawable_mode="center"
+                app:state_drawable_padding_left="24dp"
+                app:state_drawable_width="10dp" />
 
             <ImageView
                 android:layout_width="2px"
-                android:layout_height="15.0dip"
-                android:background="@color/gray" />
+                android:layout_height="18.0dip"
+                android:layout_gravity="center_vertical"
+                android:background="@color/hint_text_color" />
 
-            <RelativeLayout
-                android:id="@+id/rl_choose_time"
-                android:layout_width="wrap_content"
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_b_sort"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" >
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="排序"
+                app:isShowState="true"
+                app:state_drawable="@drawable/ic_arrow_down"
+                app:state_drawable_height="6dp"
+                app:state_drawable_mode="center"
+                app:state_drawable_padding_left="24dp"
+                app:state_drawable_width="10dp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal" >
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:text="@string/bactivity_choose_time"
-                        android:textSize="@dimen/y9" />
-
-                    <ImageView
-                        android:id="@+id/iv_seller_arrow3"
-                        android:layout_width="@dimen/x10"
-                        android:layout_height="@dimen/x10"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:src="@drawable/icon_seller_arrow1" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <ImageView
-                android:layout_width="2px"
-                android:layout_height="15.0dip"
-                android:background="@color/gray" />
-
-            <RelativeLayout
-                android:id="@+id/rl_choose_price"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:text="@string/bactivity_choose_price"
-                        android:textSize="@dimen/y9" />
-
-                    <ImageView
-                        android:id="@+id/iv_seller_arrow2"
-                        android:layout_width="@dimen/x10"
-                        android:layout_height="@dimen/x10"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:src="@drawable/icon_seller_arrow1" />
-                </LinearLayout>
-            </RelativeLayout>
         </LinearLayout>
+
 
         <ImageView
             android:layout_width="match_parent"
@@ -231,28 +144,55 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <me.kaede.tagview.TagView
                 android:id="@+id/tagview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="2.5dp"
-                app:lineMargin="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:paddingTop="5dp"
+                app:lineMargin="3dp"
                 app:tagMargin="3dp"
                 app:textPaddingBottom="3dp"
                 app:textPaddingLeft="10dp"
                 app:textPaddingRight="10dp"
-                app:textPaddingTop="3dp" >
-            </me.kaede.tagview.TagView>
+                app:textPaddingTop="3dp" />
+            <!--android:layout_margin="2.5dp"-->
 
-            <me.maxwin.view.XListView
-                android:id="@+id/xlistView"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="#fff0f0f0" />
         </LinearLayout>
+
+        <me.maxwin.view.XListView
+            android:id="@+id/xlistView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#fff0f0f0"
+            android:divider="@null"
+            android:dividerHeight="0px"
+
+            />
+
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_save"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y31"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/publish"
+            style="@style/bottom_button_green"
+            android:text="快速记苗" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
 
 </LinearLayout>

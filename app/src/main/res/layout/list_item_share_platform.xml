@@ -15,7 +15,7 @@
         android:layout_margin="2.5dip"
         android:paddingLeft="10.0dip"
         android:paddingRight="10.0dip"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/logo" />
 
     <TextView
         android:id="@+id/tv_name"

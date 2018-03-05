@@ -1,13 +1,15 @@
 package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,9 +21,9 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -32,32 +34,35 @@ import com.autoscrollview.adapter.ImagePagerAdapter;
 import com.autoscrollview.widget.AutoScrollViewPager;
 import com.autoscrollview.widget.indicator.CirclePageIndicator;
 import com.coorchice.library.SuperTextView;
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.M.BProduceAdapt;
 import com.hldj.hmyg.M.IndexGsonBean;
 import com.hldj.hmyg.Ui.NewsActivity;
 import com.hldj.hmyg.Ui.NoticeActivity;
 import com.hldj.hmyg.Ui.NoticeActivity_detail;
-import com.hldj.hmyg.adapter.TypeAdapter;
+import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.bean.ABanner;
 import com.hldj.hmyg.bean.ArticleBean;
-import com.hldj.hmyg.bean.HomeFunction;
 import com.hldj.hmyg.bean.HomeStore;
+import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.Type;
 import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
+import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
 import com.hldj.hmyg.buyer.weidet.SwipeViewHeader;
+import com.hldj.hmyg.presenter.AActivityPresenter;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
 import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
-import com.hldj.hmyg.widget.MySwipeRefreshLayout;
 import com.hldj.hmyg.widget.UPMarqueeView;
+import com.hldj.hmyg.widget.swipeview.MySwipeRefreshLayout;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
-import com.javis.ab.view.AbSlidingPlayView;
-import com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.white.utils.ScreenUtil;
 import com.white.utils.StringUtil;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
@@ -76,61 +81,41 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import aom.xingguo.huang.banner.MyFragment;
-import cn.hugo.android.scanner.CaptureActivity;
-import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import me.hwang.library.widgit.SmartRefreshLayout;
+
+import static com.hldj.hmyg.R.id.home_title_first;
 
 
 /**
  * change a list hellow world
  */
+//@NotProguard
 @SuppressLint("NewApi")
 public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
     private ArrayList<HashMap<String, Object>> datas = new ArrayList<HashMap<String, Object>>();
     private ArrayList<ABanner> aBanners = new ArrayList<ABanner>();// 底部图片轮播 集合
-    private ArrayList<Type> gd_datas = new ArrayList<Type>();
-    private ArrayList<Type> gd_home_pay_datas = new ArrayList<Type>();
-    private ArrayList<HomeFunction> home_functions = new ArrayList<HomeFunction>();
     ArrayList<HomeStore> url0s = new ArrayList<HomeStore>();
-    private ArrayList<HashMap<String, Object>> lv_datas = new ArrayList<HashMap<String, Object>>();
     private ImagePagerAdapter imagePagerAdapter;
     private CirclePageIndicator indicator;
     private AutoScrollViewPager viewPager;
-    private GridView gd_00;
-    private GridView gd_01;
-    private GridView gd;
     private ListView lv_00;
-    //	private ImageView iv_Capture;//扫描二维码
     private ImageView iv_msg;
-    private DrawerLayout dl_content;
-    //    private ImageView iv_home_merchants;//热门商家
-    private ImageView iv_home_preferential;
-    private RelativeLayout relativeLayout2;//
-    private PtrClassicFrameLayout mPtrFrame;
     private NestedScrollView scrollView;
     private Button toTopBtn;// 返回顶部的按钮
     private int scrollY = 0;// 标记上次滑动位置
     private View contentView;
     private final String TAG = "test";
-    private ImageView iv_fuwu;
-    //    private ImageView iv_fenlei;
-    private LinearLayout ll_fenlei;
     private ACache mCache;
-    private TypeAdapter myadapter;
-    private AbSlidingPlayView absviewPager; // 底部viewpager 轮播控件。。。封装好。
-    private ArrayList allListView;
-    private SmartRefreshLayout mLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a_3_0);
         mCache = ACache.get(this);
-
 
 //      ToastUtil.showShortToast("bugly 热更新生效");
         viewPager = (AutoScrollViewPager) findViewById(R.id.view_pager);
@@ -145,14 +130,10 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //		relativeLayout2 = (RelativeLayout) findViewById(R.id.RelativeLayout2);
 //		iv_Capture = (ImageView) findViewById(iv_Capture);
 //        iv_home_merchants = (ImageView) findViewById(R.id.iv_home_merchants);
-        iv_home_preferential = (ImageView) findViewById(R.id.iv_home_preferential);
-        iv_fuwu = (ImageView) findViewById(R.id.iv_fuwu);
+//        iv_home_preferential = (ImageView) findViewById(R.id.iv_home_preferential);
 //        iv_fenlei = (ImageView) findViewById(R.id.iv_fenlei);
-        gd = (GridView) findViewById(R.id.gd);
-        gd_01 = (GridView) findViewById(R.id.gd_01);
-        gd_00 = (GridView) findViewById(R.id.gd_00);
+
         lv_00 = (ListView) findViewById(R.id.lv_00);
-        ll_fenlei = (LinearLayout) findViewById(R.id.ll_fenlei);
         lv_00.setDivider(null);
         scrollView = (NestedScrollView) findViewById(R.id.rotate_header_scroll_view);
         if (contentView == null) {
@@ -164,7 +145,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         LayoutParams l_params = new RelativeLayout.LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         WindowManager wm = this.getWindowManager();
-        l_params.height = (int) (wm.getDefaultDisplay().getWidth() * 1 / 2);
+        l_params.height = wm.getDefaultDisplay().getWidth() * 1 / 2;
         viewPager.setLayoutParams(l_params);
         initView();
 
@@ -179,6 +160,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         findViewById(R.id.tv_a_search).setOnClickListener(this);
 
         initSwipe();
+        setListAtMost();
 
     }
 
@@ -230,15 +212,15 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             @Override
             public void onRefreshPulStateChange(float parent, int state) {
                 switch (state) {
-                    case SHSwipeRefreshLayout.NOT_OVER_TRIGGER_POINT:
+                    case MySwipeRefreshLayout.NOT_OVER_TRIGGER_POINT:
 //                mViewHeader.setLoaderViewText("下拉刷新");
                         swipeViewHeader.setState(0);
                         break;
-                    case SHSwipeRefreshLayout.OVER_TRIGGER_POINT:
+                    case MySwipeRefreshLayout.OVER_TRIGGER_POINT:
 //                swipeRefreshLayout.setLoaderViewText("松开刷新");
                         swipeViewHeader.setState(1);
                         break;
-                    case SHSwipeRefreshLayout.START:
+                    case MySwipeRefreshLayout.START:
 //                swipeRefreshLayout.setLoaderViewText("正在刷新");
                         swipeViewHeader.setState(2);
                         break;
@@ -260,51 +242,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     }
 
 
-    /**
-     * 初始化需要循环的View
-     * 为了灵活的使用滚动的View，所以把滚动的内容让用户自定义
-     * 假如滚动的是三条或者一条，或者是其他，只需要把对应的布局，和这个方法稍微改改就可以了，
-     */
-    private void setView() {
-        for (int i = 0; i < data.size(); i = i + 2) {
-            final int position = i;
-            //设置滚动的单个布局
-            LinearLayout moreView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_home_cjgg, null);
-            //初始化布局的控件
-            TextView tv1 = (TextView) moreView.findViewById(R.id.tv_taggle1);
-            TextView tv2 = (TextView) moreView.findViewById(R.id.tv_taggle2);
-
-            /**
-             * 设置监听
-             */
-            moreView.findViewById(R.id.tv_taggle1).setOnClickListener(view -> {
-                String url = GetServerUrl.getHtmlUrl() + "article/detail/" + data.get(position).id + ".html?isHeader=true";
-                D.e("url=" + url);
-                // static String API_01 = "http://api.hmeg.cn/";
-                NoticeActivity_detail.start2Activity(AActivity_3_0.this, url);
-            });
-            /**
-             * 设置监听
-             */
-            moreView.findViewById(R.id.tv_taggle2).setOnClickListener(view -> {
-                String url = GetServerUrl.getHtmlUrl() + "article/detail/" + data.get(position + 1).id + ".html?isHeader=true";
-                D.e("url=" + url);
-                NoticeActivity_detail.start2Activity(AActivity_3_0.this, url);
-            });
-            //进行对控件赋值
-            tv1.setText(data.get(i).title);
-            if (data.size() > i + 1) {
-                //因为淘宝那儿是两条数据，但是当数据是奇数时就不需要赋值第二个，所以加了一个判断，还应该把第二个布局给隐藏掉
-                tv2.setText(data.get(i + 1).title);
-            } else {
-                moreView.findViewById(R.id.tv_taggle2).setVisibility(View.GONE);
-            }
-
-            //添加到循环滚动数组里面去
-            views.add(moreView);
-        }
-    }
-
     List<ArticleBean> data = new ArrayList<>();
     List<View> views = new ArrayList<>();
 
@@ -325,7 +262,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //        data.addAll(articleList);
 //        setView();//设置数据
         UPMarqueeView upview1 = (UPMarqueeView) findViewById(R.id.upview1);
-        upview1.setViews(AActivity_3_0_alibaba.getViewsByDatas(AActivity_3_0.this, articleList));
+        upview1.setViews(getViewsByDatas(AActivity_3_0.this, articleList));
         /**
          * 设置item_view的监听
          */
@@ -349,11 +286,11 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         //新闻资讯
         findViewById(R.id.stv_home_4).setOnClickListener(v -> NewsActivity.start2Activity(AActivity_3_0.this));
         //采购
-        findViewById(R.id.home_title_first).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this));
+        findViewById(home_title_first).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this));
         //苗木商城 更多
         findViewById(R.id.home_title_second).setOnClickListener(v -> MainActivity.toB());
         //热门商家
-        findViewById(R.id.home_title_third).setOnClickListener(v -> ToastUtil.showShortToast("更多热门商家正在开发中..."));
+//        findViewById(R.id.home_title_third).setOnClickListener(v -> ToastUtil.showShortToast("更多热门商家正在开发中..."));
 
 
         // http://blog.csdn.net/jiangwei0910410003/article/details/17024287
@@ -378,6 +315,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 }
             };
 
+            @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     handler.sendMessageDelayed(
@@ -391,6 +329,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
              *
              * @param view
              */
+
             private void handleStop(Object view) {
 
                 Log.i(TAG, "handleStop");
@@ -405,7 +344,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     }
 
     private boolean isLogin() {
-        if (!MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {//没有登录跳转到登录界面
+        if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {//没有登录跳转到登录界面
             LoginActivity.start2Activity(this);
             return false;
 
@@ -463,8 +402,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         GetServerUrl.addHeaders(finalHttp, false);
         AjaxParams params = new AjaxParams();
         params.put("latitude", MyApplication.Userinfo.getString("latitude", ""));
-        params.put("longitude",
-                MyApplication.Userinfo.getString("longitude", ""));
+        params.put("longitude", MyApplication.Userinfo.getString("longitude", ""));
         finalHttp.post(GetServerUrl.getUrl() + "index", params,
                 new AjaxCallBack<Object>() {
                     @Override
@@ -472,8 +410,8 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                         D.e("json= \n" + t);
                         mCache.remove("index");
                         mCache.put("index", t.toString());
+//                        LoadCache(t.toString());
                         LoadCache(t.toString());
-                        LoadCache(mCache.getAsString("index"));
                         super.onSuccess(t);
                     }
 
@@ -501,10 +439,15 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         }
 
         // TODO Auto-generated method stub
-        IndexGsonBean indexGsonBean = GsonUtil.formateJson2Bean(t, IndexGsonBean.class);
-
-
-        if (indexGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
+        IndexGsonBean indexGsonBean = null;
+        try {
+            indexGsonBean = GsonUtil.formateJson2Bean(t, IndexGsonBean.class);
+        } catch (Exception e) {
+            CrashReport.postCatchedException(e);  // bugly会将这个throwable上报
+            ToastUtil.showShortToast("数据解析失败");
+            e.printStackTrace();
+        }
+        if (indexGsonBean != null && indexGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
             initNewList(indexGsonBean);//初始化 采购列表
             initArticles(indexGsonBean.data.articleList);//初始化  头条新闻
         }
@@ -593,77 +536,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                     initViewPager();
                     // initAbsViewPager();
                 }
-                if (aBanners.size() > 0) {
-                }
-
-                // 分类
-                // JSONArray seedlingTypeList = jsonObject
-                // .getJSONObject("data").getJSONArray(
-                // "seedlingTypeList");
-                JSONArray seedlingTypeList = JsonGetInfo
-                        .getJsonArray(JsonGetInfo
-                                        .getJSONObject(jsonObject,
-                                                "data"),
-                                "seedlingTypeList");
-                if (seedlingTypeList.length() > 0) {
-                    gd_datas.clear();
-                    if (myadapter != null) {
-                        myadapter.notifyDataSetChanged();
-                    } else {
-                        myadapter = new TypeAdapter(
-                                AActivity_3_0.this, gd_datas);
-                        gd_00.setAdapter(myadapter);
-                    }
-                }
-                gd_datas.clear();
-                for (int i = 0; i < seedlingTypeList.length(); i++) {
-                    JSONObject jsonObject2 = seedlingTypeList
-                            .getJSONObject(i);
-                    HashMap<String, Object> hMap = new HashMap<String, Object>();
-                    String id = JsonGetInfo.getJsonString(
-                            jsonObject2, "id");
-                    String icon = JsonGetInfo.getJsonString(
-                            jsonObject2, "icon");
-                    String name = JsonGetInfo.getJsonString(
-                            jsonObject2, "name");
-                    if ("乔木".equals(name)) {
-                        type = new Type(id, name, icon,
-                                R.drawable.home_icon_type01);
-                    } else if ("灌木".equals(name)) {
-                        type = new Type(id, name, icon,
-                                R.drawable.home_icon_type02);
-                    } else if ("桩景".equals(name)) {
-                        type = new Type(id, name, icon,
-                                R.drawable.home_icon_type03);
-                    } else if ("地被".equals(name)) {
-                        type = new Type(id, name, icon,
-                                R.drawable.home_icon_type04);
-                    } else if ("草皮".equals(name)) {
-                        type = new Type(id, name, icon,
-                                R.drawable.home_icon_type05);
-                    } else if ("棕榈".equals(name)) {
-                        type = new Type(id, name, icon,
-                                R.drawable.home_icon_type06);
-                    } else if ("苏铁".equals(name)) {
-                        type = new Type(id, name, icon,
-                                R.drawable.home_icon_type07);
-                    } else if ("更多".equals(name)) {
-                        type = new Type(id, name, icon,
-                                R.drawable.home_icon_type08);
-                    }
-                    gd_datas.add(type);
-                }
-
-                if (gd_datas.size() > 0) {
-                    if (myadapter != null) {
-                        myadapter.notifyDataSetChanged();
-                    } else {
-                        myadapter = new TypeAdapter(
-                                AActivity_3_0.this, gd_datas);
-                        gd_00.setAdapter(myadapter);
-                    }
-                }
-                lv_datas.clear();
 
 
                 // 商铺
@@ -709,41 +581,12 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 }
                 ft.commitAllowingStateLoss();
 
-//                                Rect bounds = new Rect();
-//                                findViewById(R.id.con0).getDrawingRect(bounds);
 
-//                                Rect scrollBounds = new Rect(
-//                                        scrollView.getScrollX(),
-//                                        scrollView.getScrollY(),
-//                                        scrollView.getScrollX() + scrollView.getWidth(),
-//                                        scrollView.getScrollY() + scrollView.getWidth());
-
-
-//                                if (myFragment0.getviewpager() != null) {
-//                                    myFragment0.setAutoChange(false);
-
-
-//                                    scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-//                                        @Override
-//                                        public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                                            if (Rect.intersects(scrollBounds, bounds)) {
-//                                                D.e("======is===visible====");
-//                                                myFragment0.setAutoChange(true);
-//                                            } else {
-//                                                D.e("======no===visible====");
-//                                                myFragment0.setAutoChange(false);
-//                                            }
-//                                        }
-//                                    });
             }
-
-//
-//                            } else {
-
-//                            }
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block
+            CrashReport.postCatchedException(e);  // bugly会将这个throwable上报
             e.printStackTrace();
         }
     }
@@ -755,14 +598,21 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
      * @param indexGsonBean
      */
     private void initNewList(IndexGsonBean indexGsonBean) {
-
-
         try {//采购项目
+
+            View view = findViewById(R.id.ll_caigou_parent);
+//
             if (indexGsonBean.data.purchaseList.size() != 0) {
-                findViewById(R.id.ll_caigou_parent).setVisibility(View.VISIBLE);
+                view.setVisibility(View.VISIBLE);
+                PurchaseListAdapter adapter = new PurchaseListAdapter(AActivity_3_0.this, indexGsonBean.data.purchaseList, R.layout.list_item_purchase_list_new);
+                lv_00.setAdapter(adapter);
+                D.e("VISIBLE");
+            } else {
+                view.setVisibility(View.GONE);
+                ((ViewGroup) findViewById(R.id.home_title_first).getParent()).setVisibility(View.GONE);
+                D.e("GONE");
             }
-            PurchaseListAdapter adapter = new PurchaseListAdapter(AActivity_3_0.this, indexGsonBean.data.purchaseList, R.layout.list_item_purchase_list_new);
-            lv_00.setAdapter(adapter);
+
         } catch (Exception e) {
             findViewById(R.id.ll_caigou_parent).setVisibility(View.GONE);
             D.e("=============没有采购列表，或者采购数据异常===============");
@@ -771,12 +621,16 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         try {
             if (indexGsonBean.data.seedlingList.size() != 0) {
                 findViewById(R.id.ll_tuijian_parent).setVisibility(View.VISIBLE);
+                BProduceAdapt bProduceAdapt = new BProduceAdapt(AActivity_3_0.this, indexGsonBean.data.seedlingList, R.layout.list_view_seedling_new);
+                ((ListView) findViewById(R.id.lv_00_store)).setAdapter(bProduceAdapt);
+            } else {
+                findViewById(R.id.ll_tuijian_parent).setVisibility(View.GONE);
             }
-            BProduceAdapt bProduceAdapt = new BProduceAdapt(AActivity_3_0.this, indexGsonBean.data.seedlingList, R.layout.list_view_seedling_new);
-            ((ListView) findViewById(R.id.lv_00_store)).setAdapter(bProduceAdapt);
+
         } catch (Exception e) {
             findViewById(R.id.ll_tuijian_parent).setVisibility(View.GONE);
             D.e("=============没有推荐列表，或者数据异常===============");
+
             e.printStackTrace();
         }
 
@@ -802,34 +656,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
     }
 
-//    private void initAbsViewPager() {
-//
-//        if (allListView != null) {
-//            allListView.clear();
-//            allListView = null;
-//        }
-//        allListView = new ArrayList<View>();
-//
-//        for (int i = 0; i < datas.size(); i++) {
-//            // 导入ViewPager的布局
-//            View view = LayoutInflater.from(this).inflate(R.layout.pic_item,
-//                    null);
-//            ImageView imageView = (ImageView) view.findViewById(R.id.pic_item);
-//            if (datas.get(i).get("url").toString().startsWith("http")) {
-//                ImageLoader.getInstance().displayImage(
-//                        datas.get(i).get("url").toString(), imageView);
-//                // holder.imageView.setImageResource(imageIdList.get(getPosition(position)));
-//            } else {
-//                imageView.setImageResource(R.drawable.ic_launcher);
-//            }
-//            allListView.add(view);
-//        }
-//
-//        absviewPager.addViews(allListView);
-//        // 开始轮播
-//        absviewPager.startPlay();
-//
-//    }
 
     /**
      * 初始化 顶部
@@ -873,7 +699,25 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 break;
 
             case R.id.iv_a_msg:
-                if (!MyApplication.getInstance().Userinfo.getBoolean("isLogin", false)) {//没有登录跳转到登录界面
+
+
+                AActivityPresenter.isShowRead = false;
+//              DialogActivitySecond.start2Activity(this,"8e5aa65a2c374de99662dcf6e7e399a9",new PurchaseItemBean_new());
+
+
+                // TODO Auto-generated method stub
+//                Intent intent1 = new Intent(AActivity_3_0.this,
+//                        StorePurchaseListActivitySecond.class);
+//                intent1.putExtra("purchaseFormId", "2bb0859e7d094314a1a162a82a4fa408");
+////                intent1.putExtra("purchaseFormId", "8e5aa65a2c374de99662dcf6e7e399a9");
+////                intent.putExtra("title", item.num);
+//                startActivity(intent1);
+
+
+//                DialogActivity.start(this);
+
+
+                if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {//没有登录跳转到登录界面
                     LoginActivity.start2Activity(this);
                     return;
                 }
@@ -882,20 +726,25 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 startActivity(toMessageListActivity);
                 getParent().overridePendingTransition(R.anim.slide_in_left,
                         R.anim.slide_out_right);
+//
+//
+//                D.w("=================发送自定义推送消息 start===================");
+//
+//
+////                JpushUtil.sendCustommPush();
+//
+//
+//                D.w("=================发送自定义推送消息 end===================");
+
                 break;
-//            case R.id.RelativeLayout2://搜索按钮
-//			Intent intent = new Intent(AActivity.this,
-//					PurchaseSearchListActivity.class);
-//			intent.putExtra("from", "AActivity");
-//			startActivityForResult(intent, 1);
-//                break;
 
             case R.id.tv_a_search://搜索按钮 --- new
                 //// TODO: 2017/4/10  需要添加 共享动画
-                Intent intent = new Intent(AActivity_3_0.this,
-                        PurchaseSearchListActivity.class);
-                intent.putExtra("from", "AActivity");
-                startActivityForResult(intent, 1);
+//                Intent intent = new Intent(AActivity_3_0.this, PurchaseSearchListActivity.class);
+//                intent.putExtra("from", "AActivity");
+//                startActivityForResult(intent, 1);
+                PurchaseSearchListActivity.start(AActivity_3_0.this, PurchaseSearchListActivity.FROM_HOME);
+
                 break;
             default:
                 break;
@@ -923,6 +772,87 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        D.e("====onResume====");
+//        setListAtMost();
+        scrollView.postDelayed(() -> {
+            scrollView.scrollTo(0, scrollY);
+//            scrollView.smoothScrollBy(0, scrollY);
+//            ToastUtil.showShortToast("smoothY=" + currenY);
+        }, 30);
+
+
+        setStatusBars();
+
+
+        StorePurchaseListActivity.shouldShow = true;
+
+        Log.i(TAG, "AActivityPresenter.isShowRead: " + AActivityPresenter.isShowRead);
+        if (!AActivityPresenter.isShowRead) {
+            AActivityPresenter.requestUnReadCount(new HandlerAjaxCallBack() {
+                @Override
+                public void onRealSuccess(SimpleGsonBean gsonBean) {
+//                    ToastUtil.showLongToast(gsonBean.msg + "   unReadCount=" + gsonBean.getData().unReadCount);
+                    AActivityPresenter.isShowRead = (gsonBean.getData().unReadCount != 0);
+                    iv_msg.setSelected(AActivityPresenter.isShowRead);
+                    Log.i(TAG, "AActivityPresenter.isShowRead : " + AActivityPresenter.isShowRead);
+                }
+            });
+        }
+    }
+
+
+
+//    int currenY = 0;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        D.e("====onPause====");
+//        ToastUtil.showShortToast("currentY=" + currenY);
+//        currenY = scrollView.getScrollY();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        D.e("====onDestroy====");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        D.e("====onRestart====");
+    }
+
+    public void setListAtMost() {
+        setListViewHeightBasedOnChildren((ListView) findViewById(R.id.lv_00_store));
+        setListViewHeightBasedOnChildren((ListView) findViewById(R.id.lv_00));
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+    }
+
+
     public void autoSetTitles(TextView[] tvs, List<IndexGsonBean.TitleBean> list, View[] views) {
         if (list.size() == 0) {
             //all gone
@@ -933,7 +863,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         } else {
             for (int i = 0; i < tvs.length; i++) {
                 tvs[i].setText(list.get(i).title);
-                ((ViewGroup) tvs[i].getParent()).setVisibility(View.VISIBLE);
+//              ((ViewGroup) tvs[i].getParent()).setVisibility(View.VISIBLE);
 
                 if (list.get(i).isClick) {
                     ((SuperTextView) views[i]).setShowState(true);
@@ -948,4 +878,78 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         }
     }
 
+
+    public static List<View> getViewsByDatas(Activity aActivity, List<ArticleBean> data) {
+        List<View> views = new ArrayList<>();
+        for (int i = 0; i < data.size(); i = i + 2) {
+            final int position = i;
+            //设置滚动的单个布局
+            LinearLayout moreView = (LinearLayout) LayoutInflater.from(aActivity).inflate(R.layout.item_home_cjgg, null);
+            //初始化布局的控件
+            SuperTextView tv1 = (SuperTextView) moreView.findViewById(R.id.tv_taggle1);
+            SuperTextView tv2 = (SuperTextView) moreView.findViewById(R.id.tv_taggle2);
+            /**
+             * 设置监听
+             */
+            moreView.findViewById(R.id.tv_taggle1).setOnClickListener(view -> {
+                String url = Data.getNotices_and_news_url_only_by_id(data.get(position).id);
+                D.e("url=" + url);
+                NoticeActivity_detail.start2Activity(aActivity, url);
+            });
+            /**
+             * 设置监听
+             */
+            moreView.findViewById(R.id.tv_taggle2).setOnClickListener(view -> {
+                String url = Data.getNotices_and_news_url_only_by_id(data.get(position + 1).id);
+                D.e("url=" + url);
+                NoticeActivity_detail.start2Activity(aActivity, url);
+            });
+            //进行对控件赋值
+            tv1.setText(data.get(i).title);
+
+            if (data.get(i).isNew) {
+                tv1.setShowState(data.get(i).isNew);
+                tv1.setPadding(MyApplication.dp2px(aActivity, 40), 0, 0, 0);
+            } else {
+                tv1.setPadding(10, 0, 0, 0);
+                tv1.setShowState(data.get(i).isNew);
+            }
+
+            if (data.size() > i + 1) {
+                //因为淘宝那儿是两条数据，但是当数据是奇数时就不需要赋值第二个，所以加了一个判断，还应该把第二个布局给隐藏掉
+                tv2.setText(data.get(i + 1).title);
+
+                if (data.get(i + 1).isNew) {
+                    tv2.setShowState(true);
+                    tv2.setPadding(MyApplication.dp2px(aActivity, 40), 0, 0, 0);
+                } else {
+                    tv2.setPadding(10, 0, 0, 0);
+                    tv2.setShowState(false);
+                }
+            } else {
+                moreView.findViewById(R.id.tv_taggle2).setVisibility(View.GONE);
+            }
+
+            //添加到循环滚动数组里面去
+            views.add(moreView);
+        }
+
+        return views;
+    }
+
+    private void setStatusBars() {
+        StateBarUtil.setStatusTranslater(MainActivity.instance, true);
+        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
+        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
+    }
+
+
+    @Override
+    public Resources getResources() {
+        Resources res = super.getResources();
+        Configuration config = new Configuration();
+        config.setToDefaults();
+        res.updateConfiguration(config, res.getDisplayMetrics());
+        return res;
+    }
 }

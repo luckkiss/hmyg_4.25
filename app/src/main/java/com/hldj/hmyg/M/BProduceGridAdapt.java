@@ -43,7 +43,7 @@ public class BProduceGridAdapt extends GlobBaseAdapter<BPageGsonBean.DatabeanX.P
 
         TextView tv_07 = myViewHolder.getView(R.id.tv_07);
         TextView tv_08 = myViewHolder.getView(R.id.tv_08);
-        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego,tv_08);
+        ProductListAdapter.setPrice(tv_07, item.priceStr, item.minPrice, item.isNego,tv_08);
 
 
         tv_08.setText("元/" + item.unitTypeName);

@@ -43,7 +43,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/x15"
-            android:padding="3dp"
+            android:padding="5dp"
             android:src="@drawable/ic_sousuo"
             android:visibility="gone"
             tools:visibility="visible" />
@@ -55,11 +55,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="13dp"
             android:gravity="center"
             android:padding="3dp"
             android:textSize="@dimen/titleRightTex"
             android:visibility="gone"
+            android:textColor="@color/text_color111"
             tools:text="titile"
             tools:visibility="visible" />
 
@@ -67,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_alignParentBottom="true"
-            android:background="@color/main_color" />
+            android:background="@color/gray_bg_ed" />
 
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

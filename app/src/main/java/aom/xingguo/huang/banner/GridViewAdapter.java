@@ -110,7 +110,7 @@ public class GridViewAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if (!"".equals(arrayList.get(position).getId())) {
 
-                    StoreActivity_new.start2Activity((Activity) context, arrayList.get(position) .getId());
+                    StoreActivity_new.start2Activity(context, arrayList.get(position) .getId());
 
 
                 }

@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.buyer.weidet.BaseItemDraggableAdapter;
+import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 
 
 public class ItemDragAndSwipeCallback extends ItemTouchHelper.Callback {
@@ -79,11 +80,7 @@ public class ItemDragAndSwipeCallback extends ItemTouchHelper.Callback {
 
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder source, RecyclerView.ViewHolder target) {
-        if (source.getItemViewType() != target.getItemViewType()) {
-            return false;
-        } else {
-            return true;
-        }
+        return source.getItemViewType() == target.getItemViewType();
     }
 
     @Override
@@ -183,11 +180,8 @@ public class ItemDragAndSwipeCallback extends ItemTouchHelper.Callback {
 
     private boolean isViewCreateByAdapter(RecyclerView.ViewHolder viewHolder) {
         int type = viewHolder.getItemViewType();
-        if (type == mAdapter.HEADER_VIEW || type == mAdapter.LOADING_VIEW
-                || type == mAdapter.FOOTER_VIEW || type == mAdapter.EMPTY_VIEW) {
-            return true;
-        }
-        return false;
+        return type == BaseQuickAdapter.HEADER_VIEW || type == BaseQuickAdapter.LOADING_VIEW
+                || type == BaseQuickAdapter.FOOTER_VIEW || type == BaseQuickAdapter.EMPTY_VIEW;
 
     }
 }

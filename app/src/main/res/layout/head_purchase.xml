@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutRoot"
     android:layout_width="fill_parent"
@@ -14,7 +15,6 @@
         android:paddingTop="5dp">
 
         <RelativeLayout
-            android:id="@+id/RelativeLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2.5dip"
@@ -26,7 +26,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="2.0dip"
-                android:layout_toLeftOf="@+id/tv_03"
                 android:orientation="horizontal"
                 android:paddingLeft="10.0dip"
                 android:paddingRight="10.0dip">
@@ -44,8 +43,9 @@
                     tools:text="股装二路精光" />
             </LinearLayout>
 
+
+            <!--旧 使用的  控件   报价说明-->
             <TextView
-                android:id="@+id/tv_03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -60,7 +60,9 @@
                 android:singleLine="true"
                 android:text="报价说明"
                 android:textColor="@color/main_color"
-                android:textSize="@dimen/textSizeS" />
+                android:textSize="@dimen/textSizeS"
+                android:visibility="gone"
+                tools:visibility="visible" />
         </RelativeLayout>
 
         <LinearLayout
@@ -78,8 +80,51 @@
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/textSize"
+                android:textSize="13sp"
                 tools:text="厦门花木易购有心公司" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_content_company_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="3dip"
+            android:orientation="horizontal"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:text="用苗单位："
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+
+            <TextView
+                android:id="@+id/tv_021"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:maxWidth="190dp"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                tools:text="用苗门某某某用苗窗）" />
+
+
+            <TextView
+                android:id="@+id/tv_ymdw"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="@string/company_info"
+                android:textColor="@color/fabu_yellow"
+                android:textSize="13sp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -93,41 +138,96 @@
                 android:id="@+id/tv_04"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="3dp"
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/textSize"
+                android:textSize="13sp"
                 tools:text="用苗地块：厦门" />
         </LinearLayout>
-
-        <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1px"-->
-            <!--android:background="#fff0f0f0" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="2.5dp"
-            android:paddingTop="2.05dp"
-            android:layout_marginTop="2.5dip"
-            android:orientation="vertical"
-            android:background="@color/white_60"
-            android:paddingLeft="10.0dip"
-            android:paddingRight="10.0dip">
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_050"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:paddingLeft="10.0dip"
+                android:paddingTop="3dp"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                tools:text="联系人:  " />
+
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center|bottom"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/dianhua" />
 
             <TextView
                 android:id="@+id/tv_05"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
                 android:paddingTop="3dp"
-                android:singleLine="true"
+                android:textColor="@color/fabu_yellow"
+                android:textSize="13sp"
+                tools:text="14568164" />
+        </LinearLayout>
+
+
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px"-->
+        <!--android:background="#fff0f0f0" />-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_03"
+                android:layout_width="110dp"
+                android:layout_height="29dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="报价要求"
                 android:textColor="@color/white"
-                android:textSize="@dimen/textSizeS"
-                tools:text="联系电话：14568164" />
+                android:textSize="@dimen/textSizeX"
+                app:corner="4dp"
+                app:left_bottom_corner="true"
+                app:left_top_corner="true"
+                app:right_bottom_corner="true"
+                app:right_top_corner="true"
+                app:solid="@color/main_color"
+                app:stroke_color="@color/white"
+                app:stroke_width="2px"
+
+                />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2.5dip"
+            android:background="@color/white_60"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="2.5dp"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip"
+            android:paddingTop="2.05dp">
+
 
             <TextView
                 android:id="@+id/tv_06"
@@ -135,13 +235,105 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:background="@color/trans"
                 android:paddingBottom="3dp"
                 android:paddingTop="3dp"
                 android:textColor="@color/white"
-                android:background="@color/trans"
-                android:textSize="@dimen/textSizeS"
+                android:textSize="13sp"
                 tools:text="截止时间" />
         </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_show_tip"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/gray_bg_ed"
+            android:gravity="center"
+            android:text="本采购单为整单报价,需所有品种报价后批量提交"
+            android:textColor="@color/price_orige"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.coorchice.library.SuperTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:minWidth="70dp"
+                    android:text="一轮报价"
+                    android:textColor="@color/main_color"
+                    app:isShowState="true"
+                    app:state_drawable="@drawable/cycle"
+                    app:state_drawable_height="9px"
+                    app:state_drawable_mode="rightTop"
+                    app:state_drawable_width="9px" />
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="3px"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/main_color" />
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="2px"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_bg_ed" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.coorchice.library.SuperTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:minWidth="70dp"
+                    android:text="预中标"
+                    android:textColor="@color/main_color"
+                    app:isShowState="true"
+                    app:state_drawable="@drawable/cycle"
+                    app:state_drawable_height="9px"
+                    app:state_drawable_mode="rightTop"
+                    app:state_drawable_width="9px" />
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="3px"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/main_color" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
     </LinearLayout>
+
 
 </FrameLayout>

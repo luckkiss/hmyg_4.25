@@ -22,6 +22,7 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
 
     public static final String SEEDLING_KEY = "seedlin_key";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,6 +157,10 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
 
         SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean = saveSeedingGsonBean.getData().getSeedling();
 
+        if (seedlingBean.getNurseryJson() == null) {
+            seedlingBean.setNurseryJson(saveSeedingGsonBean.getData().nursery);
+        }
+
 //        SaveSeedingBottomLinearLayout.upLoadDatas upLoadDatas = new SaveSeedingBottomLinearLayout.upLoadDatas();
         SaveSeedingBottomLinearLayout.upLoadDatas upLoadDatas = viewHolder.bottom_ll.getUpLoadDatas();
 //        upLoadDatas.price_max =seedlingBean.get ;
@@ -173,9 +178,11 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
         //地址对象
         AdressActivity.Address address = new AdressActivity.Address();
         address.addressId = seedling.getNurseryId();
-        address.contactPhone = seedling.getNurseryJson().getPhone();
-        address.contactName = seedling.getNurseryJson().getRealName();
+        address.contactPhone = seedling.getNurseryJson().contactPhone;
+        address.contactName = seedling.getNurseryJson().contactName;
         address.cityName = seedling.getNurseryJson().getCityName();
+        address.name = seedling.getNurseryJson().getName();
+        address.fullAddress = seedling.getNurseryJson().getFullAddress();
         address.isDefault = seedling.isDefault();
 
         upLoadDatas.address = address;

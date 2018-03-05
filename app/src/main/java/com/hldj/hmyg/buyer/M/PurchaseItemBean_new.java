@@ -1,6 +1,7 @@
 package com.hldj.hmyg.buyer.M;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -54,7 +55,16 @@ public class PurchaseItemBean_new implements Serializable {
      * diameterType : size10
      * offbarHeight : 200
      */
+
+    /**
+     * 编辑类型----是否可以编辑  0  可以  1  不可用
+     */
+    public boolean editAble = true;
+
+
     public String id;/**/
+    public String purchaseId;/*采购单id*/
+    public String plantTypeArrayNames = "-";/**/
     public String remarks;/**/
     public String unitTypeName;/**/
     public String specText;/**/
@@ -64,7 +74,19 @@ public class PurchaseItemBean_new implements Serializable {
     public int quoteCountJson;/**/
     public boolean isQuoted;/**/
 
-    public static class PurchaseJsonBeanX implements Serializable{
+
+    public String status = "";/**/
+
+
+    public String pid1 = "";
+    public String pid2 = "";
+
+    public List<SellerQuoteJsonBean> sellerQuoteListJson;
+
+    public SellerQuoteJsonBean footSellerQuoteListJson; /* 底部临时保存的   quote 报价 对象 */
+
+
+    public static class PurchaseJsonBeanX implements Serializable {
         public String cityName = "";/**/
     }
 

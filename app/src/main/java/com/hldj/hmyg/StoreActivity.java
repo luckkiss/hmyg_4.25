@@ -222,7 +222,7 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         WindowManager wm = this.getWindowManager();
-        l_params.height = (int) (wm.getDefaultDisplay().getWidth() * 1 / 2);
+        l_params.height = wm.getDefaultDisplay().getWidth() * 1 / 2;
         iv_banner.setLayoutParams(l_params);
         tv_store_name = (TextView) findViewById(R.id.tv_store_name);
         tv_plant_type = (TextView) findViewById(R.id.tv_plant_type);
@@ -890,6 +890,9 @@ public class StoreActivity extends NeedSwipeBackActivity implements
                                         hMap.put("maxPrice", JsonGetInfo
                                                 .getJsonString(jsonObject3,
                                                         "maxPrice"));
+                                        hMap.put("priceStr", JsonGetInfo
+                                                .getJsonString(jsonObject3,
+                                                        "priceStr"));
 
 
                                         hMap.put("count", JsonGetInfo

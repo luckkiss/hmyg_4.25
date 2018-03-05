@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+
+    <ImageButton
+        android:id="@+id/toolbar_left_icon"
+        android:layout_width="43dp"
+        android:layout_height="43dp"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:foreground="?attr/selectableItemBackground"
+        android:src="@drawable/arrow_left_back"
+        android:textSize="20sp" />
+    <!--ic_arrow_left_green-->
+
+
+    <com.example.sortlistview.ClearEditText
+        android:id="@+id/search_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_top_default"
+        android:layout_margin="5dp"
+        android:layout_toLeftOf="@+id/iv_view_type"
+        android:layout_toRightOf="@+id/toolbar_left_icon"
+        android:background="@drawable/conner_edit"
+        android:drawableLeft="@drawable/sousuo2"
+        android:drawablePadding="6dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:hint="品种名称/用户名称"
+        android:imeOptions="actionSearch"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:singleLine="true"
+        android:textColor="@color/text_color111"
+        android:textColorHint="@color/hint_text_color"
+        android:textSize="15sp" />
+
+
+    <TextView
+        android:id="@+id/iv_view_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/x6"
+        android:layout_marginRight="@dimen/x10"
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp"
+        android:text="搜索"
+
+        />
+</RelativeLayout>

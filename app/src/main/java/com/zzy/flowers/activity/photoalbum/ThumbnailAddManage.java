@@ -1,12 +1,12 @@
 package com.zzy.flowers.activity.photoalbum;
-
-import java.io.File;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.white.utils.ImageTools;
 import com.zzy.flowers.iupdate.image.IThumbnailUpdate;
+
+import java.io.File;
+
 
 /**
  * 相册缓存图片通知

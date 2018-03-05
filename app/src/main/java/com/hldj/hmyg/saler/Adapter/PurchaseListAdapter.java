@@ -6,22 +6,28 @@ import android.content.Intent;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hhl.library.FlowTagLayout;
+import com.hldj.hmyg.LoginActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.GlobBaseAdapter;
 import com.hldj.hmyg.base.ViewHolders;
-import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
+import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivityAlongSecond;
+import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivityHistory;
+import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivityPackage;
 import com.hldj.hmyg.saler.M.PurchaseBean;
+import com.hldj.hmyg.util.D;
 import com.hy.utils.StringFormatUtil;
 import com.hy.utils.TagAdapter;
+import com.hy.utils.ToastUtil;
 
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/5/12.
+ * 采购单  适配器
  */
 
 public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
@@ -33,17 +39,32 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
     @Override
     public void setConverView(ViewHolders myViewHolder, PurchaseBean item, int position) {
 
+
+        if (position == 1)
+            D.e("=======PurchaseListAdapter=====" + item.toString());
+
+        /*是否显示简易报价 图标*/
+        ImageView iv_jianyi = myViewHolder.getView(R.id.iv_jianyi);
+        iv_jianyi.setVisibility(item.needPreQuote ? View.VISIBLE : View.GONE);
+
+        if (item.status.equals("expired")) {
+            iv_jianyi.setVisibility(View.GONE);
+        }
+        iv_jianyi.setVisibility(item.isPackage ? View.VISIBLE : View.GONE);
+
+
         int id = R.layout.list_item_purchase_list_new;
 
         TextView tv_01 = myViewHolder.getView(R.id.tv_01);
         TextView tv_03 = myViewHolder.getView(R.id.tv_03);
         TextView tv_04 = myViewHolder.getView(R.id.tv_04);
+        TextView tv_05 = myViewHolder.getView(R.id.tv_05);
 //            TextView tv_08 =   myViewHolder.getView(R.id.tv_08);
         TextView tv_10 = myViewHolder.getView(R.id.tv_10);
         TextView tv_11 = myViewHolder.getView(R.id.tv_11);
         TextView tv_caozuo01 = myViewHolder.getView(R.id.tv_caozuo01);
 
-        FlowTagLayout mMobileFlowTagLayout = (FlowTagLayout) myViewHolder.getView(R.id.mobile_flow_layout);
+        FlowTagLayout mMobileFlowTagLayout = myViewHolder.getView(R.id.mobile_flow_layout);
 
         // 移动研发标签
         TagAdapter<String> mMobileTagAdapter = new TagAdapter<>(context);
@@ -53,7 +74,7 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
 
         mMobileTagAdapter.onlyAddAll(item.itemNameList);
 
-        mMobileFlowTagLayout.ClearClickAble(true, view1 -> jump((Activity) context,item));
+        mMobileFlowTagLayout.ClearClickAble(true, view1 -> jump((Activity) context, item));
 
 //            Html.fromHtml("北京市发布霾黄色预警，<font color='#ff0000'><big><big>外出携带好</big></big></font>口罩")
 
@@ -64,6 +85,16 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
 
         tv_03.setText(item.cityName);
         tv_04.setText("采购商家：" + item.buyer.companyName);
+
+
+//        ToastUtil.showShortToast("item.showConsumerName" + item.showConsumerName);
+        if (item.showConsumerName) {
+            tv_05.setText("用苗单位：" + item.consumerFullName);
+            tv_05.setVisibility(View.VISIBLE);
+        } else {
+            tv_05.setVisibility(View.GONE);
+        }
+
 
         if (MyApplication.getUserBean().showQuoteCount) {
             if (item.quoteCountJson > 0) {
@@ -97,25 +128,57 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
 
 
         myViewHolder.getConvertView().setOnClickListener(v -> {
-            jump((Activity) context,item);
+            jump((Activity) context, item);
         });
 
 
     }
 
-    public static void jump(Activity context,PurchaseBean item) {
-        // TODO Auto-generated method stub
-        Intent intent = new Intent(context,
-                StorePurchaseListActivity.class);
-        intent.putExtra("purchaseFormId", item.purchaseFormId);
-        intent.putExtra("title", item.num);
-        context.startActivity(intent);
+    public static void jump(Activity context, PurchaseBean item) {
+
+
+//        if (item.needPreQuote) {
+        // 修改 成 打包报价
+        if (item.isPackage) {
+//            ToastUtil.showLongToast("跳转简易报价------");
+            // TODO Auto-generated method stub
+            Intent intent = new Intent(context,
+                    StorePurchaseListActivityPackage.class);
+            intent.putExtra("purchaseFormId", item.purchaseFormId);
+            intent.putExtra("title", item.num);
+            context.startActivity(intent);
+        } else {
+
+
+            /*已过期 的跳到历史记录界面*/
+            if (item.status.equals("expired")) {
+//                ToastUtil.showLongToast("expired");
+                Intent intent = new Intent(context, StorePurchaseListActivityHistory.class);
+                intent.putExtra("purchaseFormId", item.purchaseFormId);
+                intent.putExtra("title", item.num);
+                context.startActivity(intent);
+            } else {
+                if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {
+                    Intent toLoginActivity = new Intent(context, LoginActivity.class);
+                    ToastUtil.showLongToast("请先登录哦^_^");
+                    context.startActivity(toLoginActivity);
+                    return;
+                }
+//                ToastUtil.showLongToast("statues = " + item.status);
+
+                //ToastUtil.showLongToast("直接到二次报价 ");
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(context, StorePurchaseListActivityAlongSecond.class);
+                intent.putExtra("purchaseFormId", item.purchaseFormId);
+                intent.putExtra("title", item.num);
+                context.startActivity(intent);
+            }
+
+
+        }
+
+
     }
-
-
-
-
-
 
 
 }

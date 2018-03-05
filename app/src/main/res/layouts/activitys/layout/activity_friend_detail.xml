@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:contentScrim="@color/white"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <!--app:expandedTitleMarginBottom="100dp"-->
+            <LinearLayout
+                android:id="@+id/ll_activity_purchase_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/title_top_default"
+                android:visibility="visible"
+                app:layout_collapseMode="none"
+                tools:visibility="visible">
+
+                <!--<include layout="@layout/item_friend_cicle" />-->
+                <include layout="@layout/item_friend_cicle_simple" />
+
+                <View
+                    style="@style/View_line_gray"
+                    android:background="@color/divider_color_bg"
+                    android:alpha="0.5" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/title_top_default"
+                android:background="@color/white"
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_activity_purchase_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/title_top_default"
+                        android:background="@drawable/bg_bottom_line"
+                        android:drawableLeft="@drawable/arrow_left_back"
+                        android:gravity="center"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:text="详情"
+                        android:textSize="@dimen/textSizeXXXX" />
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.Toolbar>
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:tabIndicatorColor="@color/main_color"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/main_color"
+            app:tabTextColor="@color/text_color333" android:background="@drawable/bg_bottom_line">
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tab1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点赞" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tab2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="评论" />
+
+
+        </android.support.design.widget.TabLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+
+    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+        android:id="@+id/recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="40dp"
+        android:background="@color/white"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+    <com.hldj.hmyg.Ui.friend.widget.FriendBottomView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" />
+
+
+</android.support.design.widget.CoordinatorLayout>

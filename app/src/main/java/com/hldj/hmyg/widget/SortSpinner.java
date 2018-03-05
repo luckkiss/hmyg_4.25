@@ -59,7 +59,6 @@ public class SortSpinner {
         this.parent = parent;
         initData();//初始化数据
         initWedget();//初始化控件
-
     }
 
 
@@ -115,6 +114,17 @@ public class SortSpinner {
         return list_maps;
     }
 
+
+    public List getListMaps() {
+        return list_maps;
+    }
+
+    public SortSpinner setSortMaps(List<Map<String, String>> maps) {
+        list_maps = maps;
+        return sortSpinner;
+    }
+
+
     /**
      * NSDictionary *sortDic1=@{@"key":@"综合排序",@"value":@"default_asc"};
      * NSDictionary *sortDic2=@{@"key":@"最新发布",@"value":@"publishDate_desc"};
@@ -158,7 +168,7 @@ public class SortSpinner {
      */
     private void initPopuWindow() {
         // PopupWindow浮动下拉框布局
-        View loginwindow = (View) activity.getLayoutInflater().inflate(R.layout.popo_shop_type_list, null);
+        View loginwindow = activity.getLayoutInflater().inflate(R.layout.popo_shop_type_list, null);
 
 
         loginwindow.findViewById(R.id.fr_out).setOnClickListener(new View.OnClickListener() {
@@ -237,6 +247,16 @@ public class SortSpinner {
         return this;
     }
 
+    /**
+     * 显示PopupWindow窗口
+     *
+     * @param
+     */
+    public SortSpinner ShowDefault() {
+        selectPopupWindow.showAsDropDown(parent, 0, -3);
+        optionsAdapter.notifyDataSetChanged();
+        return this;
+    }
 
     /**
      * 显示PopupWindow窗口
@@ -260,7 +280,7 @@ public class SortSpinner {
             int y = location[1];
 //            ToastUtil.showShortToast("y="+y);
             Log.e(getClass().getSimpleName(), "x : " + x + ", y : " + y);
-            selectPopupWindow.showAtLocation(parent, Gravity.NO_GRAVITY, 0, y - 1 +getStatusBarHeight());
+            selectPopupWindow.showAtLocation(parent, Gravity.NO_GRAVITY, 0, y - 1 + getStatusBarHeight());
         }
 
         optionsAdapter.notifyDataSetChanged();
@@ -353,7 +373,7 @@ public class SortSpinner {
         if (resourceId > 0) {
             result = activity.getResources().getDimensionPixelSize(resourceId);
         }
-        return result;
+        return 0;
     }
 
 }

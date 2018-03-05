@@ -15,6 +15,7 @@ public interface ConstantState {
     int SAVE_SUCCEED = 202;//保存成功 状态码
     int SAVE_REQUEST = 203;//保存成功 状态码
     int PUBLIC_SUCCEED = 204;//发布成功 状态码
+    int PUBLIC_TMP_SUCCEED = 2040;//临时保存成功 状态码
 
 
     int DELETE_SUCCEED = 205;//采购详情界面   订单删除成功状态码
@@ -23,8 +24,14 @@ public interface ConstantState {
     int FILTER_OK = 207;//筛选完成
     int ADD_SUCCEED = 207;//添加地址成功
 
-    public int FLOW_BACK = 208;// 详情界面返回 result 代码
-    public int STORE_OPEN_FAILD = 209;//  商店打开失败
+
+    int FLOW_BACK = 208;// 详情界面返回 result 代码
+    int STORE_OPEN_FAILD = 209;//  商店打开失败
+
+    int REFRESH = 210; //刷新代号
+
+    int PUBLISH_SUCCEED = 211;//发布成功
+    int PURCHASE_SUCCEED = 212;//求购成功
 
 
     String ERROR_CODE = "1003";
@@ -34,6 +41,10 @@ public interface ConstantState {
     String COLLECT_REFRESH = "COLLECT_REFRESH";
 
     boolean ON_OFF = true;//打开强制更新
+
+    //被呼叫号码类型：
+    String TYPE_OWNER = "owner";//owner(发布人)、
+    String TYPE_NURSERY = "nursery";//nursery(苗圃)
 
 
 }

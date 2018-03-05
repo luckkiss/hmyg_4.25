@@ -127,13 +127,14 @@ public class ProductListAdapterForManager extends BaseAdapter {
 //		tv_04_1.setText(data.get(position).get("specText").toString());
         String minPrice = data.get(position).get("minPrice") + "";
         String maxPrice = data.get(position).get("maxPrice") + "";
+        String priceStr = data.get(position).get("priceStr") + "";
 
 
         boolean isNego = (boolean) data.get(position).get("isNego");
 
 
         tv_08.setText("/" + data.get(position).get("unitTypeName"));
-        ProductListAdapter.setPrice(tv_07, maxPrice, minPrice, isNego, tv_08);
+        ProductListAdapter.setPrice(tv_07, priceStr, minPrice, isNego, tv_08);
         tv_09.setText("库存：" + data.get(position).get("count"));
         fb.display(iv_img, data.get(position).get("imageUrl").toString());
 

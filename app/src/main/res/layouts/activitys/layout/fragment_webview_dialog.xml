@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/trans"
+    android:background="@color/transparent"
     android:orientation="vertical">
 
-
     <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="350dp"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
         android:layout_centerInParent="true"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:background="@color/transparent"
+        android:minHeight="100dp"
+        android:orientation="vertical"
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="3dp"
-            android:gravity="start|center_vertical"
-            android:paddingLeft="5dp"
-            android:text="报价说明"
-            android:textColor="@color/main_color" />
+        >
+
+        <!--android:drawableRight="@drawable/close"-->
+        <!--android:paddingLeft="20dp"-->
+        <!--android:paddingRight="15dp"-->
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/tv_show_title"
+            style="@style/super_main_conner_top" />
 
         <View
             style="@style/View_line_gray_1dp"
             android:layout_marginLeft="5dp"
-
             android:layout_marginRight="5dp" />
 
         <WebView
@@ -33,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -51,17 +52,12 @@
                 android:visibility="visible" />
         </ScrollView>
 
-        <TextView
+        <com.coorchice.library.SuperTextView
             android:id="@+id/tv_ok_to_close"
-            android:layout_width="80dp"
-            android:layout_height="26dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="8dp"
-            android:background="@color/main_color"
-            android:gravity="center"
-            android:text="我知道了"
-            android:textColor="@color/white"
-            android:textSize="12dp" />
+            style="@style/super_main_conner_bottom"
+            android:text="已阅读并同意以上报价条款"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

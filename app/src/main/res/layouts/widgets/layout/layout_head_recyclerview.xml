@@ -6,18 +6,18 @@
 
 
     <!--<com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout-->
-    <com.hldj.hmyg.widget.MySwipeRefreshLayout
+    <com.hldj.hmyg.widget.swipeview.MySwipeRefreshLayout
         android:id="@+id/swipeLayout_head"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:loadmore_enable="false"
         android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.hldj.hmyg.widget.MySwipeRefreshLayout>
+            android:layout_height="match_parent" />
+    </com.hldj.hmyg.widget.swipeview.MySwipeRefreshLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_list1"

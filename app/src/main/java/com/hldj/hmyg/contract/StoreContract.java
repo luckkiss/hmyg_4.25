@@ -4,7 +4,7 @@ import android.support.v4.view.ViewPager;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.M.BPageGsonBean;
-import com.hldj.hmyg.Ui.storeChild.StoreHomeFragment;
+import com.hldj.hmyg.M.QueryBean;
 import com.hldj.hmyg.base.Rx.BaseModel;
 import com.hldj.hmyg.base.Rx.BasePresenter;
 import com.hldj.hmyg.base.Rx.BaseView;
@@ -21,21 +21,21 @@ import io.reactivex.Observable;
 
 public interface StoreContract {
 
-    public interface View extends BaseView {
+    interface View extends BaseView {
         void initStoreData(List<BPageGsonBean.DatabeanX.Pagebean.Databean> bPageGsonBean);
         void initIndexBean(StoreGsonBean.DataBean indexBean);
-        StoreHomeFragment.QueryBean getQueryBean ();
+        QueryBean getQueryBean ();
         String getStoreID();
         ViewPager getViewPager();
 
     }
 
-    public interface Model extends BaseModel {
+    interface Model extends BaseModel {
         void getData(ResultCallBack resultCallBack ,Serializable serializable);
         void getIndexData(ResultCallBack resultCallBack ,String string);
     }
 
-    public abstract static class Presenter extends BasePresenter<Model, View> {
+    abstract class Presenter extends BasePresenter<Model, View> {
 
         public abstract void onStart();
 

@@ -149,7 +149,7 @@ public class ListUtils {
      * @return if entry already exist in sourceList, return false, else add it and return true.
      */
     public static <V> boolean addDistinctEntry(List<V> sourceList, V entry) {
-        return (sourceList != null && !sourceList.contains(entry)) ? sourceList.add(entry) : false;
+        return (sourceList != null && !sourceList.contains(entry)) && sourceList.add(entry);
     }
 
     /**
@@ -212,7 +212,7 @@ public class ListUtils {
      *         </ul>
      */
     public static <V> boolean addListNotNullValue(List<V> sourceList, V value) {
-        return (sourceList != null && value != null) ? sourceList.add(value) : false;
+        return (sourceList != null && value != null) && sourceList.add(value);
     }
 
     /**

@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_gravity="center_vertical"
             android:scaleType="fitXY"
             tools:src="@drawable/ic_arrow_right" />
@@ -27,9 +27,9 @@
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             android:minHeight="30dp"
-            android:paddingLeft="5dp"
             android:minWidth="120dp"
-            android:textColor="@color/text_color333"
+            android:paddingLeft="5dp"
+            android:textColor="@color/white"
             android:textSize="13sp"
             tools:text="hellow world " />
     </LinearLayout>

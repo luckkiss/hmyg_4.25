@@ -6,10 +6,14 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 
 import static com.hldj.hmyg.util.ConstantParams.container;
+import static com.hldj.hmyg.util.ConstantParams.count;
 import static com.hldj.hmyg.util.ConstantParams.dbh;
 import static com.hldj.hmyg.util.ConstantParams.diameter;
 import static com.hldj.hmyg.util.ConstantParams.heelin;
+import static com.hldj.hmyg.util.ConstantParams.height;
+import static com.hldj.hmyg.util.ConstantParams.length;
 import static com.hldj.hmyg.util.ConstantParams.mijing;
+import static com.hldj.hmyg.util.ConstantParams.offbarHeight;
 import static com.hldj.hmyg.util.ConstantParams.planted;
 import static com.hldj.hmyg.util.ConstantParams.transplant;
 
@@ -45,16 +49,18 @@ public class TagFactory {
 
         if (!TextUtils.isEmpty(item) && !TextUtils.isEmpty(item2)) {
             if (!isNull)
-                return getTagViewByName(getTypeName(searchSpec) + item + "-" + item2 + " cm");
+                return getTagViewByName(getTypeName(searchSpec, true) + item + "-" + item2 + " cm");
             return getTagViewByName(item + "-" + item2 + " cm");
         } else if (!TextUtils.isEmpty(item)) {
-            if (!isNull) return getTagViewByName(getTypeName(searchSpec) + item + " cm");
+            if (!isNull) return getTagViewByName(getTypeName(searchSpec, true) + item + " cm");
             return getTagViewByName(item + " cm");
         } else if (!TextUtils.isEmpty(item2)) {
-            if (!isNull) return getTagViewByName(getTypeName(searchSpec) + item2 + " cm");
+            if (!isNull) return getTagViewByName(getTypeName(searchSpec, true) + item2 + " cm");
             return getTagViewByName(item2 + " cm");
+        } else if (TextUtils.isEmpty(item) && TextUtils.isEmpty(item2)) {
+            return null;
         } else {
-            if (!isNull) return getTagViewByName(getTypeName(searchSpec) + item);
+            if (!isNull) return getTagViewByName(getTypeName(searchSpec, true) + item);
             return getTagViewByName(searchSpec + item);
         }
 
@@ -73,6 +79,37 @@ public class TagFactory {
         }
     }
 
+
+    private static String getTypeName(String item, boolean isSeach) {
+//        planted container transplant heelin
+        switch (item) {
+            case planted:
+                return "地栽苗";
+            case container:
+                return "容器苗";
+            case heelin:
+                return "假植苗";
+            case transplant:
+                return "移植苗";
+            case mijing:
+                return "米径";
+            case diameter:
+            case dbh:
+                return "杆径";
+            case height:
+                return "高度";
+            case offbarHeight:
+                return "脱杆高";
+            case length:
+                return "长度";
+            case count:
+                return "数量";
+            default:
+                return item;
+        }
+    }
+
+
     private static String getTypeName(String item) {
 //        planted container transplant heelin
         switch (item) {
@@ -90,6 +127,14 @@ public class TagFactory {
                 return "地径";
             case dbh:
                 return "胸径";
+            case height:
+                return "高度";
+            case offbarHeight:
+                return "脱杆高";
+            case length:
+                return "长度";
+            case count:
+                return "数量";
             default:
                 return item;
         }

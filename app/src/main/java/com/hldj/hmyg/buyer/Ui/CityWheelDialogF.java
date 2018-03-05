@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
@@ -22,6 +24,7 @@ import com.hldj.hmyg.util.GsonUtil;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.WheelView;
@@ -96,13 +99,13 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
         super.onStart();
         WindowManager.LayoutParams lp = getDialog().getWindow().getAttributes();
         lp.gravity = Gravity.BOTTOM;
-        lp.width = (int) (getDialog().getWindow().getWindowManager().getDefaultDisplay().getWidth());
+        lp.width = getDialog().getWindow().getWindowManager().getDefaultDisplay().getWidth();
         getDialog().getWindow().setGravity(Gravity.BOTTOM);
     }
 
 
     private void initView(View dialog) {
-        ((ViewGroup) dialog.findViewById(R.id.ll_wheel_bottom)).setBackgroundColor(Color.WHITE);
+        dialog.findViewById(R.id.ll_wheel_bottom).setBackgroundColor(Color.WHITE);
 //        View view = dialog.inflate(R.layout.whell_city,null);
         mViewProvince = (WheelView) dialog.findViewById(R.id.id_province);
 
@@ -132,6 +135,7 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
             this.dismiss();
         });
 
+
     }
 
     private WheelView mViewCity;
@@ -141,9 +145,17 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
 
     protected void initProvinceDatas() {
         arrayWheelAdapterNew = new ArrayWheelAdapter_new(getActivity(), null);
+//        arrayWheelAdapterNew.setTextColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.black_de));
+//        mViewCity.setWheelForeground(R.drawable.white_radius);
+//        mViewCity.setWheelBackground(R.drawable.bg_white);
+//        mViewCity.setBackgroundColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.white));
         mViewCity.setViewAdapter(arrayWheelAdapterNew);
+
         arrayWheelAdapterNew_dir = new ArrayWheelAdapter_new(getActivity(), null);
+
+
         mViewDistrict.setViewAdapter(arrayWheelAdapterNew_dir);
+        arrayWheelAdapterNew_dir.setTextColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.black_de));
 
         /**
          *  // InputStream input = asset.open("city_json2.rtf");
@@ -192,6 +204,16 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
         }
 
 
+        privBeans = gsonBean.data.bannerList.get(pCurrent);
+
+        if (isShowCity) {
+            gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent);
+        }
+
+        if (isShowDistrict) {
+            disBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent).childs.get(0);
+        }
+
     }
 
     int pCurrent = 0;
@@ -224,7 +246,15 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
                 childBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent);
 
                 arrayWheelAdapterNew_dir.notifyAllDatas1(childBeans.childs);
-                disBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent).childs.get(0);
+
+
+                try {
+                    disBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent).childs.get(0);
+                } catch (Exception e) {
+                    disBeans = childBeans;
+                    arrayWheelAdapterNew_dir.notifyAllDatas1(new ArrayList<>());
+                    e.printStackTrace();
+                }
             }
 
             /**

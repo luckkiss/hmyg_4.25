@@ -1,8 +1,5 @@
 package com.hy.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +9,9 @@ import android.widget.TextView;
 
 import com.hhl.library.OnInitSelectedPosition;
 import com.hldj.hmyg.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by HanHailong on 15/10/19.
@@ -56,6 +56,9 @@ public class TagAdapter<T> extends BaseAdapter implements OnInitSelectedPosition
     }
 
     public void onlyAddAll(List<T> datas) {
+        if (datas == null) {
+            datas = new ArrayList<T>();
+        }
         mDataList.addAll(datas);
         notifyDataSetChanged();
     }
@@ -67,9 +70,6 @@ public class TagAdapter<T> extends BaseAdapter implements OnInitSelectedPosition
 
     @Override
     public boolean isSelectedPosition(int position) {
-        if (position % 2 == 0) {
-            return true;
-        }
-        return false;
+        return position % 2 == 0;
     }
 }

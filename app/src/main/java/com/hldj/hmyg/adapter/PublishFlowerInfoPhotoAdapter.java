@@ -26,18 +26,28 @@ import java.util.ArrayList;
 
 public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
 
-    private ArrayList<Pic> urlPaths = new ArrayList<Pic>();
+    protected ArrayList<Pic> urlPaths = new ArrayList<Pic>();
 
-    private LayoutInflater inflater;
+    protected LayoutInflater inflater;
 
     private Context context;
 
-    private ViewHolder holder;
+    protected ViewHolder holder ;
 
     private int dip30px;
     public static final int TO_CHOOSE_NEW_PIC = 20;
 
-    public static final int MAX_IMAGE_COUNT = 10;
+    public static final int MAX_IMAGE_COUNT = 9;
+
+    private int columeNum = 4;
+
+    public int getColumeNum() {
+        return columeNum;
+    }
+
+    public void setColumeNum(int columeNum) {
+        this.columeNum = columeNum;
+    }
 
     private int width;
     private boolean isUpdataNoti;
@@ -59,6 +69,9 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         if (urlPaths.size() < MAX_IMAGE_COUNT) {
+            if (ismIsCloseAll()) {
+                return urlPaths.size();
+            }
             return urlPaths.size() + 1;
         }
         return MAX_IMAGE_COUNT;
@@ -87,12 +100,12 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
 
     public void addItems(ArrayList<Pic> items) {
         urlPaths.addAll(items);
-        notify(urlPaths);
+        notifyDataSetChanged();
     }
 
     public void removeItem(int pos) {
         urlPaths.remove(pos);
-        notify(urlPaths);
+        notifyDataSetChanged();
 
     }
 
@@ -101,12 +114,16 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
     }
 
     public void notify(ArrayList<Pic> data) {
-        this.urlPaths = data;
+//        this.urlPaths = data;
+        urlPaths.clear();
+        urlPaths.addAll(data);
         notifyDataSetChanged();
     }
 
     public void notify(ArrayList<Pic> data, boolean isShowSucceesOrOrrer) {
-        this.urlPaths = data;
+//        this.urlPaths = data;
+        urlPaths.clear();
+        urlPaths.addAll(data);
         this.isShowSucceesOrOrrer = isShowSucceesOrOrrer;
         notifyDataSetChanged();
     }
@@ -122,18 +139,41 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
             holder.iv_img2 = (ImageView) convertView.findViewById(R.id.iv_img2);
             holder.iv_img1 = (ImageView) convertView.findViewById(R.id.iv_img1);
             LayoutParams para = holder.photoIv.getLayoutParams();
-            para.width = (width - dip30px) / 4;
-            para.height = para.width * 4 / 3;
+
+            if (getColumeNum() == 4) {
+                para.width = (width - dip30px) / 4;
+                para.height = para.width * 4 / 3;
+            } else {
+
+                para.width = (width) / 3;
+                para.height = (width) / 3;
+//                ViewGroup pr = (ViewGroup) holder.photoIv.getParent();
+//                pr.setLayoutParams(new LinearLayout.LayoutParams(MyApplication.dp2px(context, 100),MyApplication.dp2px(context, 100)));
+//
+//                para.width = MyApplication.dp2px(context, 100);
+//                para.height = MyApplication.dp2px(context, 100) ;
+            }
+
             holder.photoIv.setLayoutParams(para);
+
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         if (position == urlPaths.size()) {
+            if (position == MAX_IMAGE_COUNT) {
+                holder.photoIv.setVisibility(View.GONE);
+            } else {
+                holder.photoIv.setVisibility(View.VISIBLE);
+            }
+            holder.photoIv.setScaleType(ImageView.ScaleType.FIT_XY);
             holder.photoIv.setImageResource(R.drawable.add_image_icon_big);
+//            holder.photoIv.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.add_image_icon_big));
+            holder.photoIv.requestLayout();
             holder.iv_img2.setVisibility(View.INVISIBLE);
             holder.iv_img1.setVisibility(View.INVISIBLE);
         } else {
+            holder.photoIv.setScaleType(ImageView.ScaleType.CENTER_CROP);
             holder.iv_img2.setVisibility(View.VISIBLE);
             holder.iv_img1.setVisibility(View.VISIBLE);
             holder.iv_img2.setImageResource(R.drawable.shanchu);
@@ -153,6 +193,7 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
                     holder.iv_img1.setImageResource(R.drawable.tupian_shibai);
                     isGone = false;
                 }
+
 
                 // holder.iv_img1.setVisibility(View.INVISIBLE);
                 File file = new File(urlPaths.get(position).getUrl());
@@ -183,11 +224,17 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
                     removeItem(position);
-
                 }
             });
-
         }
+
+
+        if (ismIsCloseAll()) {
+            closeDelIco(holder.iv_img2);
+            closeAddIco(holder.iv_img1);
+//            closeSuccIco(holder.photoIv);
+        }
+
         return convertView;
     }
 
@@ -199,9 +246,40 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        private ImageView photoIv;
+        public ImageView photoIv;
         private ImageView iv_img2;
         private ImageView iv_img1;
+    }
+
+
+    /*关闭删除按钮*/
+    public void closeDelIco(ImageView ic_del) {
+
+        ic_del.setVisibility(View.GONE);
+    }
+
+    /*关闭添加图标*/
+    public void closeAddIco(ImageView ic_add) {
+
+        ic_add.setVisibility(View.GONE);
+    }
+
+    /*关闭成功图标*/
+    public void closeSuccIco(ImageView ic_succ) {
+
+        ic_succ.setVisibility(View.GONE);
+    }
+
+    private boolean mIsCloseAll = false;
+
+    public void closeAll(boolean isCloseAll) {
+
+        this.mIsCloseAll = isCloseAll;
+
+    }
+
+    private boolean ismIsCloseAll() {
+        return mIsCloseAll;
     }
 
 }

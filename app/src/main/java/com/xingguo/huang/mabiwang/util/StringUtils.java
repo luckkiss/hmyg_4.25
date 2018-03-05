@@ -316,10 +316,6 @@ public class StringUtils {
      * @return
      */
     public static boolean formatBoolean(String booleanStr) {
-        if ("true".equalsIgnoreCase(booleanStr)) {
-            return true;
-        } else {
-            return false;
-        }
+        return "true".equalsIgnoreCase(booleanStr);
     }
 }

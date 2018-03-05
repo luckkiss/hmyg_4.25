@@ -10,34 +10,37 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
 import android.support.multidex.MultiDex;
+import android.text.TextUtils;
+import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.hldj.hmyg.CallBack.MyBetaPatchListener;
 import com.hldj.hmyg.DaoBean.SaveJson.DaoMaster;
 import com.hldj.hmyg.DaoBean.SaveJson.DaoSession;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.base.Rx.JumpUtil;
 import com.hldj.hmyg.bean.UserBean;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.SPUtil;
 import com.hldj.hmyg.util.SPUtils;
+import com.hldj.hmyg.util.VideoHempler;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.SdkChangeByTagUtil;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
-import com.tencent.bugly.beta.interfaces.BetaPatchListener;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.weavey.loading.lib.LoadingLayout;
 import com.white.utils.ScreenUtil;
 
 import java.io.File;
-import java.util.Locale;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
@@ -45,6 +48,7 @@ import cn.sharesdk.framework.ShareSDK;
 
 public class MyApplication extends Application {
 
+    private static final String TAG = "MyApplication";
     public static SharedPreferences Userinfo;
     public static SharedPreferences Deviceinfo;
     private static MyApplication myApplication = null;
@@ -57,23 +61,26 @@ public class MyApplication extends Application {
     //存储userbean
     private static UserBean userBean;
 
+
     public static void setUserBean(UserBean userBean) {
         MyApplication.userBean = userBean;
     }
 
     public static UserBean getUserBean() {
         if (userBean == null) {
-            String json = SPUtil.get(getInstance(), SPUtils.UserBean, "").toString();
-            if (json.equals("")) {
+            String json = (String) SPUtil.get(getInstance(), SPUtils.UserBean, "");
+            if (TextUtils.isEmpty(json)) {
+                return new UserBean();
 //                ToastUtil.showShortToast("未登录");
             } else {
-                userBean = GsonUtil.formateJson2Bean(json, UserBean.class);
+                return userBean = GsonUtil.formateJson2Bean(json, UserBean.class);
             }
-            return new UserBean();
         }
         return userBean;
 
     }
+
+    public static boolean Flag = true;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -81,49 +88,13 @@ public class MyApplication extends Application {
         // you must install multiDex whatever tinker is installed!
         MultiDex.install(base);
         // 安装tinker
-
-        Beta.betaPatchListener = new BetaPatchListener() {
-            @Override
-            public void onPatchReceived(String patchFile) {
-                Toast.makeText(base, "补丁下载地址" + patchFile, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onDownloadReceived(long savedLength, long totalLength) {
-                Toast.makeText(base,
-                        String.format(Locale.getDefault(), "%s %d%%",
-                                Beta.strNotificationDownloading,
-                                (int) (totalLength == 0 ? 0 : savedLength * 100 / totalLength)),
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onDownloadSuccess(String msg) {
-                Toast.makeText(base, "补丁下载成功", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onDownloadFailure(String msg) {
-                Toast.makeText(base, "补丁下载失败", Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onApplySuccess(String msg) {
-                Toast.makeText(base, "补丁应用成功", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onApplyFailure(String msg) {
-                Toast.makeText(base, "补丁应用失败", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onPatchRollback() {
-                Toast.makeText(base, "补丁回滚", Toast.LENGTH_SHORT).show();
-            }
-        };
+//        if (BuildConfig.DEBUG) {
+        Beta.canNotifyUserRestart = true;
+        Beta.betaPatchListener = MyBetaPatchListener.MY_BETA_PATCH_LISTENER;
         Beta.installTinker();
+
+//        Log.i(TAG, "hello world");
+//        Toast.makeText(base, "hello world", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -147,7 +118,26 @@ public class MyApplication extends Application {
         //设置为开发设备
         CrashReport.setIsDevelopmentDevice(this, GetServerUrl.isTest);
         Bugly.init(this, "be88780120", true);
-        CrashReport.setUserId(this, "17074990702");
+
+
+        Userinfo = getSharedPreferences("Userinfo", Context.MODE_PRIVATE);
+        Deviceinfo = getSharedPreferences("Deviceinfo", Context.MODE_PRIVATE);
+
+
+        String tag = GetServerUrl.isTest ? "  ----->  (测试)" : "  ----->  (正式)";
+        Log.i("==crash_user_id==", "onCreate: " + Userinfo.getBoolean("isLogin", false));
+        if (!Userinfo.getBoolean("isLogin", false)) {
+            CrashReport.setUserId(this, "访客" + tag);
+            Log.i("==crash_user_id==", "访客 ");
+        } else {
+            String phone = MyApplication.Userinfo.getString("phone", "");
+            String userName = MyApplication.Userinfo.getString("userName", "");
+            String realName = MyApplication.Userinfo.getString("realName", "");
+            CrashReport.setUserId(this, FUtil.choseOne(realName, userName) + "   " + phone + tag);
+            Log.i("==crash_user_id==", FUtil.choseOne(realName, userName) + "   " + phone);
+
+        }
+//        CrashReport.setUserId(this, MyApplication.getUserBean().userName +  "17074990702");
 
         GetServerUrl.sdk_version = Build.VERSION.SDK_INT + "";
 
@@ -167,12 +157,11 @@ public class MyApplication extends Application {
 //        CrashHandler1 crashHandler = CrashHandler1.getInstance();
 //        crashHandler.init(this);
         // 本地奔溃保存
-        Userinfo = getSharedPreferences("Userinfo", Context.MODE_PRIVATE);
-        Deviceinfo = getSharedPreferences("Deviceinfo", Context.MODE_PRIVATE);
+
 
         JPushInterface.setDebugMode(GetServerUrl.isTest);
         JPushInterface.init(this);
-        initImageLoader(getApplicationContext());
+        initImageLoader();
         createSDCardDir(getApplicationContext());
         // 由于Application类本身已经单例，所以直接按以下处理即可。
         myApplication = this;
@@ -188,6 +177,9 @@ public class MyApplication extends Application {
 
         initDao();
         JumpUtil.init(this);
+
+
+        VideoHempler.initSmallVideo();
 
 //        initLoadingLayout();
 
@@ -280,27 +272,34 @@ public class MyApplication extends Application {
         return (int) (px / scale + 0.5f);
     }
 
-    public static void initImageLoader(Context context) {
+    public void initImageLoader() {
         // This configuration tuning is custom. You can tune every option, you
         // may tune some of them,
         // or you can create default configuration by
         // ImageLoaderConfiguration.createDefault(this);
         // method.
+
+        //设置默认的配置，设置缓存，这里不设置可以到别的地方设置
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .showImageForEmptyUri(R.drawable.icon_persion_pic)
+                .build();
+
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-                context).threadPriority(Thread.NORM_PRIORITY - 2)
+                this).threadPriority(Thread.NORM_PRIORITY - 2)
                 .denyCacheImageMultipleSizesInMemory()
+                .defaultDisplayImageOptions(defaultOptions)
                 .diskCacheSize(60 * 1024 * 1024) // 50 Mb
-                .memoryCache(new LruMemoryCache(10 * 1024 * 1024)).tasksProcessingOrder(QueueProcessingType.LIFO)//
+                .memoryCache(new LruMemoryCache(10 * 1024 * 1024))
+                .tasksProcessingOrder(QueueProcessingType.LIFO)//
                 .discCacheFileNameGenerator(new Md5FileNameGenerator())
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
                 .writeDebugLogs() // Remove for release app
                 .build();
         // Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config);
-
-
 // Initialize ImageLoader with configuration.
-        ImageLoader.getInstance().init(config);
     }
 
 

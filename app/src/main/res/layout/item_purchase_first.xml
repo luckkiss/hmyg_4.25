@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_item_broker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="9dip"
+        android:layout_marginRight="9dip"
+        android:layout_marginTop="9dip"
+        android:background="@drawable/r_o_white"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2.5dip"
+            android:layout_marginTop="2.5dip"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="2.0dip"
+                android:orientation="horizontal"
+                android:paddingLeft="10.0dip"
+                android:paddingRight="10.0dip">
+
+                <TextView
+                    android:id="@+id/tv_01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:button="@drawable/agreement_checkbox_bg"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:textSize="14.0sp"
+                    tools:text="价格：￥100" />
+
+                <TextView
+                    android:id="@+id/tv_ac"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/red"
+                    android:textSize="14.0sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_03"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10.0dip"
+                android:gravity="center_vertical"
+                android:paddingBottom="2.5dip"
+                android:paddingLeft="5.0dip"
+                android:paddingRight="5.0dip"
+                android:paddingTop="2.5dip"
+                android:singleLine="true"
+                android:textColor="@color/orange"
+                android:textSize="12sp"
+                tools:text="厦门" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="2.0dip"
+                android:paddingLeft="10.0dip"
+                android:paddingRight="10.0dip">
+
+                <TextView
+                    android:id="@+id/tv_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:paddingBottom="4.5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/gray"
+                    android:textSize="12.0sp"
+                    tools:text="已有1条报价"
+
+                    />
+
+                <TextView
+                    android:id="@+id/tv_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textColor="#5A5A5A"
+                    android:textSize="12.0sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_caozuo01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/green_btn_selector"
+                android:gravity="center_vertical"
+                android:paddingBottom="2.5dip"
+                android:paddingLeft="5.0dip"
+                android:paddingRight="5.0dip"
+                android:paddingTop="2.5dip"
+                android:singleLine="true"
+                android:text="马上报价"
+                android:textColor="@color/main_color"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="33dp" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_img2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+
+            android:src="@drawable/yibaojia2x" />
+    </RelativeLayout>
+
+</FrameLayout>

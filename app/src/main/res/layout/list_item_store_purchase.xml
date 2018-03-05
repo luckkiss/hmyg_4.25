@@ -10,19 +10,16 @@
         android:id="@+id/ll_item_broker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="9dip"
-        android:layout_marginRight="9dip"
-        android:layout_marginTop="9dip"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/r_o_white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="8dp">
 
 
         <RelativeLayout
-            android:id="@+id/RelativeLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2.5dip"
-            android:layout_marginTop="2.5dip"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -34,7 +31,7 @@
                 android:paddingLeft="10.0dip"
                 android:paddingRight="10.0dip">
 
-                <com.neopixl.pixlui.components.textview.TextView
+                <TextView
                     android:id="@+id/tv_01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -59,7 +56,7 @@
                     android:textSize="14.0sp" />
             </LinearLayout>
 
-            <com.neopixl.pixlui.components.textview.TextView
+            <TextView
                 android:id="@+id/tv_03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -81,17 +78,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2.0dip"
+            android:orientation="horizontal"
             android:paddingLeft="10.0dip"
             android:paddingRight="10.0dip">
 
             <TextView
                 android:id="@+id/tv_02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#5A5A5A"
+                android:textSize="12.0sp"
+                android:visibility="visible"
+                tools:text="种植类型：" />
+
+            <TextView
+                android:id="@+id/tv_021"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#5A5A5A"
                 android:textSize="12.0sp"
-                android:visibility="gone"
-                tools:text="采购商家：花木易购有限公司" />
+                android:visibility="visible"
+                tools:text="地栽苗，移植苗" />
         </LinearLayout>
 
         <LinearLayout
@@ -145,7 +152,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="2.0dip"
             android:paddingLeft="10.0dip">
-
+            <!--规格-->
             <TextView
                 android:id="@+id/tv_05"
                 android:layout_width="match_parent"
@@ -154,12 +161,12 @@
                 android:textSize="12.0sp" />
         </LinearLayout>
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y11"
-            android:background="#fff0f0f0"
-            android:scaleType="fitXY"
-            android:src="@drawable/baojia_hengxian" />
+            android:layout_height="1px"
+            android:layout_margin="8dp"
+            android:background="@color/gray_bg_ed"
+            android:scaleType="fitXY" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -169,7 +176,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
                 android:layout_marginBottom="2.0dip"
                 android:paddingLeft="10.0dip"
                 android:paddingRight="10.0dip">
@@ -177,16 +184,16 @@
                 <TextView
                     android:id="@+id/tv_10"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="28dp"
                     android:layout_gravity="center_vertical"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/arrow_gray_selector"
                     android:gravity="center"
                     android:paddingBottom="4.5dp"
                     android:singleLine="true"
                     android:textColor="@color/gray"
-                    android:textSize="12.0sp"
-                    tools:text="已有1条报价"
-
-                    />
+                    android:textSize="13.0sp"
+                    tools:text="已有1条报价" />
 
                 <TextView
                     android:id="@+id/tv_11"
@@ -199,6 +206,8 @@
                     android:textSize="12.0sp"
                     android:visibility="gone" />
             </LinearLayout>
+            <!--android:background="@drawable/green_btn_selector"-->
+            <!--android:textColor="@color/main_color"-->
 
             <TextView
                 android:id="@+id/tv_caozuo01"
@@ -206,9 +215,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="11dp"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/green_btn_selector"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/round_rectangle_bg_btn"
+                android:textColor="@color/color_purch_sub"
                 android:gravity="center_vertical"
                 android:paddingBottom="2.5dip"
                 android:paddingLeft="5.0dip"
@@ -216,12 +226,18 @@
                 android:paddingTop="2.5dip"
                 android:singleLine="true"
                 android:text="马上报价"
-                android:textColor="@color/main_color" />
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="1px"
-                android:layout_height="40dp" />
+                android:layout_height="33dp" />
         </RelativeLayout>
+
+        <com.zzy.common.widget.MeasureListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -298,7 +314,21 @@
                 android:textColor="@color/main_color"
                 android:textSize="11.0sp" />
         </LinearLayout>
+
+
+        <!--<include layout="@layout/item_purchase_first_cons" />-->
+
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px" />-->
+
+        <!--<include layout="@layout/item_purchase_first_cons" />-->
+
+        <!--<include layout="@layout/item_quote_dir_po" />-->
+
+
     </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -308,11 +338,14 @@
 
         <ImageView
             android:id="@+id/iv_img2"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/yibaojia2x" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="70dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/yibaojia_red" />
     </RelativeLayout>
 
 </FrameLayout>

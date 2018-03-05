@@ -155,7 +155,7 @@ public class LoginPresenter {
                     Save2Sp(MyApplication.Userinfo.edit(), json);
                     if (gsonBean.getData().getUser() != null) {
                         SPUtil.put(MyApplication.getInstance(), SPUtils.UserBean, GsonUtil.Bean2Json(gsonBean.getData().getUser()));//把json 存储在sp中，需要的话直接通过gson 转换
-                        MyApplication.getInstance().setUserBean(gsonBean.getData().getUser());
+                        MyApplication.setUserBean(gsonBean.getData().getUser());
                     } else {
                         D.e("======getUser====为空，后台数据改变=====");
                     }
@@ -180,7 +180,7 @@ public class LoginPresenter {
         if (gsonBean.getCode().equals(ConstantState.SUCCEED_CODE) && gsonBean.getData() != null) {
             if (gsonBean.getData().getUser() != null) {
                 SPUtil.put(MyApplication.getInstance(), SPUtils.UserBean, GsonUtil.Bean2Json(gsonBean.getData().getUser()));//把json 存储在sp中，需要的话直接通过gson 转换
-                MyApplication.getInstance().setUserBean(gsonBean.getData().getUser());
+                MyApplication.setUserBean(gsonBean.getData().getUser());
             } else {
                 D.e("======getUser====为空，后台数据改变=====");
             }
@@ -291,10 +291,18 @@ public class LoginPresenter {
                     .getJsonString(JsonGetInfo
                                     .getJSONObject(user, "coCity"),
                             "fullName"));
+
+
             editor.putString("coCitycityCode", JsonGetInfo
                     .getJsonString(JsonGetInfo
                                     .getJSONObject(user, "coCity"),
                             "cityCode"));
+
+            JSONObject object = JsonGetInfo.getJSONObject(user, "ciCity");
+            String ss = JsonGetInfo.getJsonString(object, "fullName");
+            editor.putString("ciCityFullName", ss);
+
+
             editor.putString("twCityfullName", JsonGetInfo
                     .getJsonString(JsonGetInfo
                                     .getJSONObject(user, "twCity"),
@@ -316,9 +324,9 @@ public class LoginPresenter {
             editor.putBoolean("isClerk", JsonGetInfo
                     .getJsonBoolean(user, "isClerk"));
             editor.putBoolean("isLogin", true);
-            editor.putBoolean("notification",
-                    MyApplication.Userinfo.getBoolean(
-                            "notification", false));
+            editor.putBoolean("notification", true);
+
+
             editor.commit();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -356,7 +364,10 @@ public class LoginPresenter {
         finalHttp.post(GetServerUrl.getUrl() + "admin/user/getInfo", params, new AjaxCallBack<String>() {
             @Override
             public void onSuccess(String json) {
-                UserInfoGsonBean userInfoGsonBean = new GsonUtil().formateJson2Bean(json, UserInfoGsonBean.class);
+
+
+                UserInfoGsonBean userInfoGsonBean = null;
+                userInfoGsonBean = new GsonUtil().formateJson2Bean(json, UserInfoGsonBean.class);
 
 //                        MyApplication.spUtils.putString(UserBean, json);//把json 存储在sp中，需要的话直接通过gson 转换
                 //成功
@@ -365,15 +376,13 @@ public class LoginPresenter {
                     JpushUtil.setAlias(id);
                     Save2Sp(MyApplication.Userinfo.edit(), json);
 
-
                     //设置 极光推送
                     resultCallBack.onSuccess(userInfoGsonBean);
-
 
                 }
 
                 if (userInfoGsonBean.getCode().equals(ConstantState.ERROR_CODE)) {
-
+                    ToastUtil.showLongToast(userInfoGsonBean.getMsg());
                     D.e("================获取个人信息失败=====================================");
                 }
             }

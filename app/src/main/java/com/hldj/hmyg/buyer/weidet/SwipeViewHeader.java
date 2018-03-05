@@ -23,7 +23,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.xrecyclerview.BaseRefreshHeader;
 import com.hldj.hmyg.R;
 
 import java.util.Date;
@@ -63,13 +62,13 @@ public class SwipeViewHeader extends LinearLayout implements BaseRefreshHeader {
         // 初始情况，设置下拉刷新view高度为0
 
         LayoutInflater.from(context).inflate(R.layout.swipe_rc_view_header, this);
-        mContainer = (RelativeLayout) findViewById(com.alibaba.android.vlayout.R.id.xlistview_header_content);
+        mContainer = (RelativeLayout) findViewById(R.id.xlistview_header_content);
         mMeasuredHeight = getMeasuredHeight();
 
-        mArrowImageView = (ImageView) findViewById(com.alibaba.android.vlayout.R.id.xlistview_header_arrow);
-        mHintTextView = (TextView) findViewById(com.alibaba.android.vlayout.R.id.xlistview_header_hint_textview);
-        xlistview_header_time = (TextView) findViewById(com.alibaba.android.vlayout.R.id.xlistview_header_time);
-        mProgressBar = (ProgressBar) findViewById(com.alibaba.android.vlayout.R.id.xlistview_header_progressbar);
+        mArrowImageView = (ImageView) findViewById(R.id.xlistview_header_arrow);
+        mHintTextView = (TextView) findViewById(R.id.xlistview_header_hint_textview);
+        xlistview_header_time = (TextView) findViewById(R.id.xlistview_header_time);
+        mProgressBar = (ProgressBar) findViewById(R.id.xlistview_header_progressbar);
         mIvState = (ImageView) findViewById(R.id.xlistview_header_state);
 
         mRotateUpAnim = new RotateAnimation(0.0f, -180.0f,
@@ -125,20 +124,20 @@ public class SwipeViewHeader extends LinearLayout implements BaseRefreshHeader {
                 if (mState == STATE_REFRESHING) {
                     mArrowImageView.clearAnimation();
                 }
-                mHintTextView.setText(com.alibaba.android.vlayout.R.string.listview_header_hint_normal);
+                mHintTextView.setText(R.string.listview_header_hint_normal);
                 break;
             case STATE_RELEASE_TO_REFRESH:
                 if (mState != STATE_RELEASE_TO_REFRESH) {
                     mArrowImageView.clearAnimation();
                     mArrowImageView.startAnimation(mRotateUpAnim);
-                    mHintTextView.setText(com.alibaba.android.vlayout.R.string.listview_header_hint_release);
+                    mHintTextView.setText(R.string.listview_header_hint_release);
                 }
                 break;
             case STATE_REFRESHING:
-                mHintTextView.setText(com.alibaba.android.vlayout.R.string.refreshing);
+                mHintTextView.setText(R.string.refreshing);
                 break;
             case STATE_DONE:
-                mHintTextView.setText(com.alibaba.android.vlayout.R.string.refresh_done);
+                mHintTextView.setText(R.string.refresh_done);
                 xlistview_header_time.setText(new Date().toLocaleString());
                 break;
             default:

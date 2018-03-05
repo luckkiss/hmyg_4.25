@@ -17,7 +17,7 @@ public interface AbOnScrollListener {
 =======
 >>>>>>> 16aa3723ca8ecf564aea4f2abb40f22c8701fd14
      */
-    public void onScroll(int arg1); 
+    void onScroll(int arg1);
     
     /**
 <<<<<<< HEAD
@@ -25,7 +25,7 @@ public interface AbOnScrollListener {
 =======
 >>>>>>> 16aa3723ca8ecf564aea4f2abb40f22c8701fd14
 	 */
-    public void onScrollStoped();
+    void onScrollStoped();
 
 	/**
 <<<<<<< HEAD
@@ -33,7 +33,7 @@ public interface AbOnScrollListener {
 =======
 >>>>>>> 16aa3723ca8ecf564aea4f2abb40f22c8701fd14
 	 */
-    public void onScrollToLeft();
+    void onScrollToLeft();
 
 	/**
 <<<<<<< HEAD
@@ -41,6 +41,6 @@ public interface AbOnScrollListener {
 =======
 >>>>>>> 16aa3723ca8ecf564aea4f2abb40f22c8701fd14
 	 */
-    public void onScrollToRight();
+    void onScrollToRight();
 
 }

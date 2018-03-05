@@ -111,7 +111,7 @@ public class PurchaseJsonBean implements Serializable {
 
     public BuyerBean buyer = new BuyerBean();
 
-    public static class CiCityBean implements Serializable{
+    public static class CiCityBean implements Serializable {
         /**
          * id : 31595
          * name : 北海
@@ -123,7 +123,7 @@ public class PurchaseJsonBean implements Serializable {
 
         public String id;
         public String name;
-        public String fullName;
+        public String fullName = "-";
         public String cityCode;
         public String parentCode;
         public int level;

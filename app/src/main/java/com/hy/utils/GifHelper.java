@@ -109,7 +109,7 @@ public class GifHelper {
   public int getDelay(int n) {  
       delay = -1;  
       if ((n >= 0) && (n < frameCount)) {  
-          delay = ((GifFrame) frames.elementAt(n)).delay;  
+          delay = frames.elementAt(n).delay;
       }  
       return delay;  
   }  
@@ -210,7 +210,7 @@ public class GifHelper {
   public Bitmap getFrame(int n) {  
       Bitmap im = null;  
       if ((n >= 0) && (n < frameCount)) {  
-          im = ((GifFrame) frames.elementAt(n)).image;  
+          im = frames.elementAt(n).image;
       }  
       return im;  
   }  
@@ -225,11 +225,11 @@ public class GifHelper {
       if (frameindex > frames.size() - 1) {  
           frameindex = 0;  
       }  
-      return ((GifFrame) frames.elementAt(frameindex)).image;  
+      return frames.elementAt(frameindex).image;
   }  
 
   public int nextDelay() {  
-      return ((GifFrame) frames.elementAt(frameindex)).delay;  
+      return frames.elementAt(frameindex).delay;
   }  
 
   // to read & parse all *.gif stream  

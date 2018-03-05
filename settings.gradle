@@ -1,2 +1,2 @@
 //include ':app'
-include ':app', ':vlayout'
+include ':app', ':SmallVideoLib2', ':smallvideo'

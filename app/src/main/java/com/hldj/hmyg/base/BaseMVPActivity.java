@@ -1,13 +1,18 @@
 package com.hldj.hmyg.base;
 
 import android.app.ProgressDialog;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableStringBuilder;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.hldj.hmyg.LoginActivity;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.Rx.BaseModel;
 import com.hldj.hmyg.base.Rx.BasePresenter;
 import com.hldj.hmyg.base.Rx.BaseView;
@@ -54,7 +59,6 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
             e.printStackTrace();
         }
 
-
         initView();
         initVH();
         initData();
@@ -67,8 +71,6 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
 
     }
 
-    ;
-
     public void initData() {
 
     }
@@ -76,6 +78,7 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
     protected void init() {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(bindLayoutID());
+
 
         title = (TextView) findViewById(R.id.toolbar_title);
 
@@ -112,6 +115,7 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
      *
      * @return
      */
+    @Override
     public abstract boolean setSwipeBackEnable();
 
 
@@ -125,7 +129,9 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
 
     @Override
     public void hindLoading() {
+
         super.hindLoading();
+
     }
 
     @Override
@@ -174,7 +180,33 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
 
 
     public int getColorByRes(int resColorId) {
-     return    ContextCompat.getColor(mActivity, resColorId);
+        return ContextCompat.getColor(mActivity, resColorId);
     }
+
+
+    public boolean isLogin() {
+        boolean isLogin = MyApplication.Userinfo.getBoolean("isLogin", false);
+        Log.i("LOGIN", "判断是否登录: \n" + isLogin);
+        return isLogin;
+    }
+
+    /**
+     * 判断是否需要登录
+     *
+     * @return
+     */
+    public boolean commitLogin() {
+        if (isLogin()) {
+            return true;
+        } else {
+            LoginActivity.start2Activity(mActivity);
+            ToastUtil.showLongToast("请先登录 ^_^ ");
+            return false;
+        }
+    }
+
+
+
+
 
 }

@@ -1,5 +1,7 @@
 package com.hldj.hmyg.bean;
 
+import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
+
 /**
  * Created by Administrator on 2017/4/28.
  */
@@ -62,13 +64,13 @@ public class UserBean {
     public String coCode;
     public String twCode;
     public CoCityBean coCity;
-    public String userName;
-    public String realName;
-    public String publicName;
+    public String userName = "";
+    public String realName = "";
+    public String publicName = "";
     public String publicPhone;
     public String plainPassword;
     public String sex;
-    public String phone;
+    public String phone = "";
     public String email;
     public String address;
     public String variety;
@@ -78,7 +80,7 @@ public class UserBean {
     public boolean isClerk;
     public boolean isInvoices;
     public String permissions;
-    public String storeId;
+    public String storeId = "";
     public String headImage;
     public boolean isPartners;
     public boolean cashOnDelivery;
@@ -92,10 +94,12 @@ public class UserBean {
     public String recUserId;
     public String agentTypeName;
     public boolean isDirectAgent;
-    public String displayName;
+    public String displayName = "";
     public String adminDisplayName;
     public String displayPhone;
     public String permissionsName;
+
+    public PurchaseJsonBean.CiCityBean ciCity ;
 
     public static class CoCityBean {
         /**

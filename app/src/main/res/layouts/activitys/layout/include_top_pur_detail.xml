@@ -5,35 +5,35 @@
     android:id="@+id/ll_mainView_bottom"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical" android:background="@color/white">
 
 
-    <include layout="@layout/toolbar_3_0"/>
+    <!--<include layout="@layout/toolbar_3_0"/>-->
 
     <!--<RelativeLayout-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="@dimen/title_top_default"-->
-        <!--android:background="@color/white">-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="@dimen/title_top_default"-->
+    <!--android:background="@color/white">-->
 
-        <!--<TextView-->
-            <!--android:id="@+id/tv_title"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:text="采购详情"-->
-            <!--android:textColor="@color/main_color"-->
-            <!--android:textSize="@dimen/title_size" />-->
+    <!--<TextView-->
+    <!--android:id="@+id/tv_title"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:text="采购详情"-->
+    <!--android:textColor="@color/main_color"-->
+    <!--android:textSize="@dimen/title_size" />-->
 
 
-        <!--<ImageView-->
-            <!--android:id="@+id/btn_back"-->
-            <!--android:layout_width="@dimen/backWH"-->
-            <!--android:layout_height="@dimen/backWH"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginLeft="@dimen/x10"-->
-            <!--android:padding="5dp"-->
-            <!--android:src="@drawable/btn_back" />-->
+    <!--<ImageView-->
+    <!--android:id="@+id/btn_back"-->
+    <!--android:layout_width="@dimen/backWH"-->
+    <!--android:layout_height="@dimen/backWH"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginLeft="@dimen/x10"-->
+    <!--android:padding="5dp"-->
+    <!--android:src="@drawable/btn_back" />-->
     <!--</RelativeLayout>-->
 
     <View style="@style/View_line_gray" />
@@ -66,7 +66,7 @@
 
     </LinearLayout>
 
-    <View style="@style/View_line_gray_1dp" />
+    <View style="@style/View_line_divider_1px" />
 
 
     <RelativeLayout
@@ -103,15 +103,18 @@
 
     </RelativeLayout>
 
-    <View style="@style/View_line_gray_1dp" />
+    <View style="@style/View_line_divider_1px" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:minHeight="32dp">
 
         <com.coorchice.library.SuperTextView
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+
             android:gravity="center"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
@@ -121,13 +124,14 @@
         <com.coorchice.library.SuperTextView
             android:id="@+id/tv_quote_type"
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.8"
             android:gravity="center_vertical|start"
+            android:minHeight="32dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:textSize="13sp"
-            tools:text="假植苗" />
+            tools:text="假植苗假植苗假植苗假植苗假植苗假苗假植苗假植苗假植苗假苗假植苗假植苗假植苗假植苗假植苗" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -137,9 +141,11 @@
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_left"
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="0.8"
                 android:gravity="center_vertical|start"
+                android:minHeight="32dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:text="采购数量:"
@@ -148,7 +154,8 @@
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_quote_num"
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="0.8"
                 android:gravity="center_vertical|start"
                 android:paddingRight="5dp"
@@ -159,7 +166,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <View style="@style/View_line_gray_1dp" />
+    <View style="@style/View_line_divider_1px" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -188,11 +195,12 @@
 
     </LinearLayout>
 
-    <View style="@style/View_line_gray_1dp" />
+    <View style="@style/View_line_divider_1px" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <com.coorchice.library.SuperTextView
             android:layout_width="wrap_content"
@@ -206,18 +214,20 @@
         <com.coorchice.library.SuperTextView
             android:id="@+id/tv_quote_close_date"
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="match_parent"
             android:layout_weight="0.8"
-            android:gravity="center_vertical|start"
+            android:gravity="center_vertical"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:textSize="13sp"
-            tools:text="2017-05-27" />
+            android:maxLines="1"
+            android:textSize="12sp"
+            tools:text="2017-05-272272272272272272272272272272272272" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center_vertical" android:background="@color/white">
 
             <!--<CheckBox-->
             <!--android:id="@+id/tv_quote_store_detail"-->
@@ -232,32 +242,40 @@
             <!--android:layout_margin="5dp"-->
             <!--android:text="采购商家信息"-->
             <!--android:textColor="@color/rb_left_selecteor" /> -->
-            <Button
+            <TextView
                 android:id="@+id/tv_quote_store_detail"
                 style="@style/radio_seedling_common"
-                android:layout_margin="5dp"
+                android:layout_margin="4dp"
                 android:background="@drawable/rb_center_selecteor"
-
-                android:padding="2dp"
-                android:text="采购商家信息"
+                android:text="商家信息"
                 android:textColor="@color/rb_left_selecteor"
-                android:textSize="11sp" />
+                android:textSize="13sp" />
 
-            <Button
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1px"
+                android:layout_weight="0.06" />
+
+            <TextView
                 android:id="@+id/tv_quote_price_sug"
                 style="@style/radio_seedling_common"
-                android:layout_margin="5dp"
+                android:layout_margin="4dp"
+                android:layout_marginRight="6dp"
                 android:background="@drawable/rb_center_select"
                 android:checked="true"
                 android:text="报价要求"
                 android:textColor="@color/white"
-                android:textSize="11sp" />
+                android:textSize="13sp" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1px"
+                android:layout_weight="0.08" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp" />
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="5dp" />-->
 
 </LinearLayout>

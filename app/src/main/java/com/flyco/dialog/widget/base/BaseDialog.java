@@ -1,5 +1,6 @@
 package com.flyco.dialog.widget.base;
 
+import android.animation.Animator;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -19,7 +20,6 @@ import android.widget.LinearLayout;
 
 import com.flyco.animation.BaseAnimatorSet;
 import com.flyco.dialog.utils.StatusBarUtils;
-import com.nineoldandroids.animation.Animator;
 
 public abstract class BaseDialog<T extends BaseDialog<T>> extends Dialog {
     /** mTag(日志) */

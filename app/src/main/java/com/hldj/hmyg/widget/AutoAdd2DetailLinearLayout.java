@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,17 +60,39 @@ public class AutoAdd2DetailLinearLayout extends BaseLinearLayout {
     }
 
     @Override
-    public <T> BaseLinearLayout setDatas(T t) {
-
-        return this;
+    public BaseLinearLayout setDatas(Object o) {
+        return null;
     }
 
 
     List<View> listViews = new ArrayList<>();
 
+
+    public AutoAdd2DetailLinearLayout changeLeftText(String string) {
+        viewHolder_derail.top_left.setText(string);
+        return this;
+    }
+
+    public AutoAdd2DetailLinearLayout changeText(String string) {
+        viewHolder_derail.seedlingNum.setText(string);
+        return this;
+    }
+
+//    public BaseLinearLayout hidenView(@IdRes int viewId ) {
+//        viewHolder_derail.top_left.setText();
+//
+//        return this;
+//    }
+
     public BaseLinearLayout setDatas(UploadDatas t) {
 
         viewHolder_derail.remarks.setText(t.remarks);
+
+        if (TextUtils.isEmpty(t.firstTypeName)) {
+            ((ViewGroup) viewHolder_derail.firstTypeName.getParent()).setVisibility(GONE);
+            changeText("资源编号");
+        }
+
         viewHolder_derail.firstTypeName.setText(t.firstTypeName);
         viewHolder_derail.seedlingNum.setText(t.seedlingNum);
 
@@ -158,10 +181,12 @@ public class AutoAdd2DetailLinearLayout extends BaseLinearLayout {
         public View rootView;
         public TextView seedlingNum;
         public TextView firstTypeName;
+        public TextView top_left;
         public TextView remarks;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
+            this.top_left = (TextView) rootView.findViewById(R.id.top_left);
             this.seedlingNum = (TextView) rootView.findViewById(R.id.seedlingNum);
             this.firstTypeName = (TextView) rootView.findViewById(R.id.firstTypeName);
             this.remarks = (TextView) rootView.findViewById(R.id.remarks);

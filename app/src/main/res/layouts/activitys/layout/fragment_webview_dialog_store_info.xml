@@ -4,29 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/trans"
-    android:orientation="vertical"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp">
+    android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:background="@color/white"
         android:orientation="vertical"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
 
-        >
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
 
         <TextView
+            android:id="@+id/tv_show_title"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="3dp"
-            android:gravity="start|center_vertical"
+            android:layout_height="35dp"
+            android:background="@color/main_color"
+            android:drawableRight="@drawable/close"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="15dp"
             android:text="商家信息"
-            android:textColor="@color/main_color" />
+            android:textColor="@color/white" />
 
         <View style="@style/View_line_gray_1dp" />
 
@@ -34,8 +34,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp">
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -161,14 +161,13 @@
 
         <TextView
             android:id="@+id/tv_ok_to_close"
-            android:layout_width="80dp"
-            android:layout_height="26dp"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="5dp"
             android:background="@color/main_color"
             android:gravity="center"
             android:text="确定"
-            android:layout_marginTop="5dp"
             android:textColor="@color/white"
             android:textSize="12dp" />
 

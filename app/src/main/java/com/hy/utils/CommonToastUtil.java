@@ -32,6 +32,17 @@ public class CommonToastUtil {
         }
     }
 
+    public static void showLongToast(String text) {
+        if (AndroidUtil.isClientRunTop(MyApplication.getInstance())) {// 前台运行
+            if (t == null) {
+                t = Toast.makeText(MyApplication.getInstance(), text, Toast.LENGTH_LONG);
+            } else {
+                t.setText(text);
+            }
+            t.show();
+        }
+    }
+
 
     /**
      * Toast.makeText(MainActivity.this,"我是一个屏蔽通知我也是可以显示的Toast",Toast.LENGTH_SHORT).show();

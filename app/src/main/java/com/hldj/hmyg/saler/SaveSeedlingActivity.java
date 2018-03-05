@@ -6,9 +6,13 @@ import android.os.Bundle;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.bean.SpecTypeBean;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.util.D;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 发布苗木资源
@@ -17,6 +21,10 @@ public class SaveSeedlingActivity extends SaveSeedlingActivityBase {
 
 
     ACache aCache;
+
+    public List<SpecTypeBean> dbhTypeList = new ArrayList<>();
+    public List<SpecTypeBean> diameterTypeList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +79,13 @@ public class SaveSeedlingActivity extends SaveSeedlingActivityBase {
         //地址对象
         AdressActivity.Address address = new AdressActivity.Address();
         address.addressId = this.saveSeedingGsonBean.getData().nursery.getId();
-        address.contactPhone = this.saveSeedingGsonBean.getData().nursery.getPhone();
-        address.contactName = this.saveSeedingGsonBean.getData().nursery.getRealName();
+        address.contactPhone = this.saveSeedingGsonBean.getData().nursery.contactPhone;
+        address.contactName = this.saveSeedingGsonBean.getData().nursery.contactName;
         address.cityName = this.saveSeedingGsonBean.getData().nursery.getCityName();
+        address.name = this.saveSeedingGsonBean.getData().nursery.getName();//苗圃名称
+        address.fullAddress = this.saveSeedingGsonBean.getData().nursery.getFullAddress();//详细地址
         address.isDefault = this.saveSeedingGsonBean.getData().nursery.isDefault;
+
         viewHolder.bottom_ll.setDefaultAddr(address);
     }
 

@@ -1,52 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
-    android:layout_marginBottom="5dp"
     android:layout_marginRight="5dp"
-    android:layout_marginTop="5dp"
-    android:background="@drawable/login_bottom_line">
+    android:background="@drawable/login_bottom_line"
 
-    <TextView
-        android:id="@+id/tv_params_01"
-        android:layout_width="50dp"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:text="脱杆高" />
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:minHeight="40dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp">
 
-    <TextView
-        android:id="@+id/tv_params_02"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:text="(选填)"
-        android:textColor="@color/hint_text_color"
-        android:visibility="gone"/>
+        <TextView
+            android:id="@+id/tv_params_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/text_color333"
+            android:minWidth="50dp"
+            android:text="脱杆高\n (预估)"  />
+
+        <TextView
+            android:id="@+id/tv_params_02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="(选填)"
+            android:textColor="@color/hint_text_color"
+            android:visibility="gone" />
 
 
-    <EditText
-        android:id="@+id/et_params_03"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="10dp"
-        android:layout_weight="1"
-        android:background="@drawable/conner_edit"
-        android:gravity="center_vertical"
-        android:hint="cm"
-        android:inputType="number"
-        android:maxLength="6"
-        android:minWidth="70dp"
-        android:padding="5dp"
-        android:paddingLeft="5dp"
-        android:textColor="@color/text_color333"
-        android:textColorHint="@color/hint_text_color"
-        android:textSize="15sp" />
-
-    <View
-        android:layout_width="5dp"
-        android:layout_height="1px" />
+        <EditText
+            android:id="@+id/et_params_03"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/conner_edit"
+            android:gravity="center_vertical"
+            android:hint="cm"
+            android:inputType="number"
+            android:maxLength="6"
+            android:minWidth="70dp"
+            android:padding="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="@color/text_color333"
+            android:textColorHint="@color/hint_text_color"
+            android:textSize="15sp" />
+    </LinearLayout>
 
 
     <!--<RelativeLayout-->
@@ -55,16 +63,36 @@
     <!--android:layout_gravity="center_vertical"-->
     <!--android:layout_weight="1">-->
 
-
-    <!--<include layout="@layout/view_stub_item_radio" android:id="@+id/vb_radions"/>-->
-    <ViewStub
-        android:id="@+id/vb_radions"
-        android:layout_gravity="center_vertical"
-        android:layout="@layout/view_stub_item_radio"
-        android:layout_height="wrap_content"
+    <FrameLayout
         android:layout_width="wrap_content"
-        android:minWidth="160dp"
-        />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <ViewStub
+            android:id="@+id/vb_radions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="6dp"
+            android:layout="@layout/view_stub_item_radio"
+            android:minWidth="160dp" />
+
+    </FrameLayout>
+
+    <!--  <include
+            android:id="@+id/vb_radions"
+            layout="@layout/view_stub_item_radio" />-->
+
+
+    <!--<ViewStub-->
+    <!--android:id="@+id/vb_radions"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:layout="@layout/view_stub_item_radio"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:minWidth="160dp"-->
+    <!--/>-->
 
 
     <!--</RelativeLayout>-->

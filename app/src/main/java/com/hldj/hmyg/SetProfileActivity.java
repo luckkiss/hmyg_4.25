@@ -280,6 +280,8 @@ public class SetProfileActivity extends BaseActivity implements
                             if ("1".equals(code)) {
                                 userSave();
                             } else {
+                                Toast.makeText(SetProfileActivity.this, msg,
+                                        Toast.LENGTH_LONG).show();
                             }
 
                         } catch (JSONException e) {
@@ -359,6 +361,8 @@ public class SetProfileActivity extends BaseActivity implements
 
 
                             } else {
+                                Toast.makeText(SetProfileActivity.this, msg,
+                                        Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (JSONException e) {
@@ -428,14 +432,18 @@ public class SetProfileActivity extends BaseActivity implements
                             + mCurrentDistrictName + "\u0020";
                     coCitycityCode = mCurrentZipCode;
                     tv_cocity.setText(coCityfullName);
-                    if (!SetProfileActivity.this.isFinishing()
-                            && dialog != null) {
+
+                    if (!SetProfileActivity.this.isFinishing() && dialog != null) {
                         if (dialog.isShowing()) {
                             dialog.cancel();
                         } else {
                             dialog.show();
                         }
                     }
+
+                    //重置  街道信息  需要再次选择
+                    resetCountry();
+
 
                 }
             });
@@ -499,7 +507,7 @@ public class SetProfileActivity extends BaseActivity implements
                                     }
                                 }
 
-                                if (mStreetIdDatas.length > 0) {
+                                if (mStreetIdDatas != null && mStreetIdDatas.length > 0) {
                                     showAreas();
                                 }
                             } else {
@@ -671,6 +679,15 @@ public class SetProfileActivity extends BaseActivity implements
                 Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 初始化   街道内容
+     */
+    public void resetCountry() {
+        twCitycityCode = "";
+        tv_twcity.setText("未选择");
+    }
+
+
     //获取个人信息
     public void getUserInfo(LoginGsonBean loginGsonBean) {
 
@@ -678,7 +695,12 @@ public class SetProfileActivity extends BaseActivity implements
 
     public static void start2ActivitySet(Activity mActivity, int reqCode) {
         mActivity.startActivityForResult(new Intent(mActivity, SetProfileActivity.class), reqCode);
-        MyUtil.overridePendingTransition_open((Activity) mActivity);
+        MyUtil.overridePendingTransition_open(mActivity);
     }
 
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

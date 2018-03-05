@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/white"
     android:orientation="vertical">
+
+
+    <include layout="@layout/toolbar_3_0" />
 
     <include layout="@layout/include_top_pur_detail" />
 
@@ -14,8 +18,7 @@
     <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
         android:id="@+id/recycle_quit"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </com.hldj.hmyg.buyer.weidet.CoreRecyclerView>
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>

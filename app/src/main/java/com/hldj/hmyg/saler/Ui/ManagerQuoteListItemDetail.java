@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -152,7 +151,7 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
             @Override
             protected void convert(BaseViewHolder helper, UsedQuoteListBean item) {
                 D.e("==========item=============" + item.toString());
-                helper.setText(R.id.tv_recycle_detail_bottom, strFilter("价格：￥" + item.price + ""));
+                helper.setText(R.id.tv_recycle_detail_bottom, strFilter("价格：¥" + item.price + ""));
 
                 if (helper.getAdapterPosition() != 0) {
                     helper.setVisible(R.id.tv_recycle_detail_bottom_title, false);
@@ -373,8 +372,8 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
         public ImageView btn_back;
         public SuperTextView tv_purchase_address;
         public SuperTextView tv_purchase_close_date;
-        public Button tv_purchase_store_detail;
-        public Button tv_purchase_price_sug;
+        public TextView tv_purchase_store_detail;
+        public TextView tv_purchase_price_sug;
         public TextView tv_purchase_city_name;
 
         public TextView tv_purchase_name;
@@ -393,8 +392,8 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
             this.tv_quote_num = (TextView) rootView.findViewById(R.id.tv_quote_num);
             this.tv_purchase_address = (SuperTextView) rootView.findViewById(R.id.tv_quote_address);
             this.tv_purchase_close_date = (SuperTextView) rootView.findViewById(R.id.tv_quote_close_date);
-            this.tv_purchase_store_detail = (Button) rootView.findViewById(R.id.tv_quote_store_detail);//采购商家信息
-            this.tv_purchase_price_sug = (Button) rootView.findViewById(R.id.tv_quote_price_sug);//报价要求
+            this.tv_purchase_store_detail = (TextView) rootView.findViewById(R.id.tv_quote_store_detail);//采购商家信息
+            this.tv_purchase_price_sug = (TextView) rootView.findViewById(R.id.tv_quote_price_sug);//报价要求
             this.tv_purchase_city_name = (TextView) rootView.findViewById(R.id.tv_purchase_city_name);
 
 

@@ -180,7 +180,7 @@
                     android:textSize="15.0sp" />
             </LinearLayout>
 
-            <com.neopixl.pixlui.components.textview.TextView
+            <TextView
                 android:id="@+id/set_passward"
                 style="@style/NoActionBarTheme.TextHuaWenXiHei"
                 android:layout_width="fill_parent"

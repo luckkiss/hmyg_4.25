@@ -49,7 +49,7 @@ public class QuoteListBean {
      */
 
     public String id;
-    public String remarks;
+    public String remarks = "";
     public String createBy;
     public String createDate;
     public String cityCode;
@@ -78,6 +78,7 @@ public class QuoteListBean {
     public String purchaseItemId;
     public String sellerId;
     public String price;
+    public String prePrice;
     public String sellerName;
     public String sellerPhone;
     public String purchaseItemStatus;

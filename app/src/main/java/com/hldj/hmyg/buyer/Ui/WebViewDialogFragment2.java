@@ -60,6 +60,7 @@ public class WebViewDialogFragment2 extends DialogFragment {
 
     private void initView(View view) {
         TextView tv_ok_to_close = (TextView) view.findViewById(R.id.tv_ok_to_close);
+        TextView tv_show_title = (TextView) view.findViewById(R.id.tv_show_title);
 
         tv_sotreName = ((TextView) view.findViewById(R.id.tv_sotreName));
         tv_inTheCity = ((TextView) view.findViewById(R.id.tv_inTheCity));
@@ -67,7 +68,12 @@ public class WebViewDialogFragment2 extends DialogFragment {
         tv_itemNum = ((TextView) view.findViewById(R.id.tv_itemNum));
         tv_priced = ((TextView) view.findViewById(R.id.tv_priced));
 
-
+        tv_show_title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
         tv_ok_to_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

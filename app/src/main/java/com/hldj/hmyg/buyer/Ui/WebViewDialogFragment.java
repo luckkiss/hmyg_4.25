@@ -1,13 +1,18 @@
 package com.hldj.hmyg.buyer.Ui;
 
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.text.Html;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -27,6 +32,13 @@ public class WebViewDialogFragment extends DialogFragment {
     private TextView tv_ok_to_close;
     String url = "http://blog.csdn.net/lmj623565791/article/details/37815413/";
     String html = "http://blog.csdn.net/lmj623565791/article/details/37815413/";
+    private TextView tv_show_html;
+
+
+    public String mTitle = "报价说明";
+    public String mCloseContent = "确定";
+    private TextView tv_show_title;
+    private Window window;
 
     public static WebViewDialogFragment newInstance(String strs) {
         WebViewDialogFragment f = new WebViewDialogFragment();
@@ -37,6 +49,16 @@ public class WebViewDialogFragment extends DialogFragment {
         return f;
     }
 
+    public WebViewDialogFragment setTitle(String title) {
+        mTitle = title;
+        return this;
+    }
+
+    public WebViewDialogFragment setCloseContent(String closeContent) {
+        mCloseContent = closeContent;
+        return this;
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,22 +67,61 @@ public class WebViewDialogFragment extends DialogFragment {
     }
 
 
-    @Nullable
+//    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+////        View view = inflater.inflate(R.layout.fragment_webview_dialog, null);
+////        initView(view);
+//
+//        //添加这一行
+//        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+//
+//        return view;
+//    }
+
+
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.fragment_webview_dialog, null);
-        initView(view);
 
-        //添加这一行
-        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+        final Dialog dialog = new Dialog(getActivity(), R.style.Dialog);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
 
-        return view;
+        window = dialog.getWindow();
+         window.setGravity(Gravity.CENTER); //可设置dialog的位置
+          window.getDecorView().setPadding(50, 0, 50, 0); //消除边距
+        window.getDecorView().setBackgroundDrawable(new ColorDrawable(0));
+        WindowManager.LayoutParams lp =  window.getAttributes();
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;   //设置宽度充满屏幕
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
+        initView(dialog);
+
+        return dialog;
+
     }
 
-    private void initView(View view) {
-        TextView tv_show_html = (TextView) view.findViewById(R.id.tv_show_html);
+
+    public void setContent(String h) {
+//        if (tv_show_html != null)
+        html = h;
+//            tv_show_html.setText(Html.fromHtml(h, null, null));
+    }
+
+    private void initView(Dialog view) {
+        tv_show_html = (TextView) view.findViewById(R.id.tv_show_html);
+        tv_show_title = (TextView) view.findViewById(R.id.tv_show_title);
 
         tv_show_html.setText(Html.fromHtml(html, null, null));
+        tv_show_title.setText(mTitle);
+
+        tv_show_html.setVisibility(View.GONE);
+        ((ViewGroup) tv_show_html.getParent()).setVisibility(View.GONE);
 
 
 //        tv_show_html.setText(html);
@@ -80,8 +141,11 @@ public class WebViewDialogFragment extends DialogFragment {
             }
             //WebViewClient帮助WebView去处理一些页面控制和请求通知
         });
+
+
         //启用支持Javascript
         WebSettings settings = webView.getSettings();
+        settings.setDefaultTextEncodingName("UTF -8");//设置默认为utf-8
         settings.setJavaScriptEnabled(true);
         //WebView加载页面优先使用缓存加载
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
@@ -101,10 +165,18 @@ public class WebViewDialogFragment extends DialogFragment {
 
 
         });
+
+        webView.loadData(html , "text/html; charset=UTF-8", null);//这种写法可以正确解码
+
         tv_ok_to_close = (TextView) view.findViewById(R.id.tv_ok_to_close);
+        view.findViewById(R.id.tv_show_title).setOnClickListener(v -> {
+            dismiss();
+        });
+
         tv_ok_to_close.setOnClickListener(v -> {
             dismiss();
         });
+        tv_ok_to_close.setText(mCloseContent);
 
 
     }

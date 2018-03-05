@@ -6,13 +6,12 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 
-import com.neopixl.pixlui.components.textview.TextView;
 
 /**
  * Created by Administrator on 2017/4/1.
  */
 
-public class DrawableCenterText extends TextView {
+public class DrawableCenterText extends android.support.v7.widget.AppCompatTextView {
 
 
     public DrawableCenterText(Context context) {

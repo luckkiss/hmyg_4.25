@@ -1,6 +1,7 @@
 package com.hldj.hmyg.saler.M;
 
 import com.hldj.hmyg.buyer.M.BuyerBean;
+import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ public class PurchaseBean {
 
     public boolean showQuote;
     public String servicePoint = "0.0";
+
+    public boolean tureQuote;
 
     public long lastTime;
     /**
@@ -94,6 +97,8 @@ public class PurchaseBean {
     public String publishDate;
     public String closeDate;
     public boolean needInvoice;
+    public boolean needPreQuote;
+    public boolean isPackage;/*是否整包 报价*/
     public String customerId;
     public String status;
     public String source;
@@ -104,7 +109,7 @@ public class PurchaseBean {
     public String dispatchName;
     public boolean isPrivate;
     public String authcPhone;
-    public BuyerBean buyer;
+    public BuyerBean buyer = new BuyerBean();
     public String statusName;
     public int quoteCountJson = 0;
     public String itemCountJson = "0";
@@ -113,8 +118,13 @@ public class PurchaseBean {
     public String typeName;
     public String blurProjectName;
     public String blurName;
+
+    public String consumerFullName = "-";//用苗单位
+    public boolean showConsumerName = false;// 是否显示用苗单位
+
     public List<String> itemNameList;
     public AttrDataBean attrData = new AttrDataBean();
+    public PurchaseJsonBean.CiCityBean ciCity;
 
 
 //    "attrData": {"closeDateStr": "2017年06月09日 14点10分"},

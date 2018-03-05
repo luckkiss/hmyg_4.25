@@ -23,17 +23,17 @@ public class BuyerBean implements Serializable {
      * displayPhone : 4006-579-888
      */
 
-    public String id;
-    public String prCode;
-    public String ciCode;
-    public String coCode;
-    public String twCode;
-    public String phone;
-    public String companyName;
+    public String id = "";
+    public String prCode = "";
+    public String ciCode = "";
+    public String coCode = "";
+    public String twCode = "";
+    public String phone = "";
+    public String companyName = "";
     public boolean isInvoices;
-    public String agentTypeName;
+    public String agentTypeName = "";
     public boolean isDirectAgent;
-    public String displayName;
-    public String adminDisplayName;
-    public String displayPhone;
+    public String displayName = "";
+    public String adminDisplayName = "";
+    public String displayPhone = "";
 }

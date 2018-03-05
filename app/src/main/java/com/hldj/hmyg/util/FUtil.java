@@ -3,7 +3,7 @@ package com.hldj.hmyg.util;
 import android.text.TextUtils;
 
 /**
- * Created by Administrator on 2017/7/11 0011.
+ *
  */
 
 public class FUtil {
@@ -30,6 +30,37 @@ public class FUtil {
 
 
     /**
+     * 为  str 添加一个头
+     *
+     * @param head
+     * @param str
+     * @return
+     */
+    public static String $_head(String head, String str) {
+        if (TextUtils.isEmpty(str)) {
+            return "-";
+        }
+        return head + str;
+    }
+
+
+    public static String $_zero(String str) {
+        if ("0".equals(str) || TextUtils.isEmpty(str)) {
+            return "-";
+        }
+        return str;
+    }
+
+
+
+    public static String $_zero_2_null(String str) {
+        if ("0".equals(str) || TextUtils.isEmpty(str)) {
+            return "";
+        }
+        return str;
+    }
+
+    /**
      * 过滤 一个数组
      *
      * @param
@@ -45,7 +76,7 @@ public class FUtil {
 
         //先过滤掉 strs 数组中 为空的 字段
         for (int i = 0; i < strs.length; i++) {
-            if (!TextUtils.isEmpty(strs[i])) {
+            if (!TextUtils.isEmpty(strs[i]) && !"0".equals(strs[i])) {
                 newSize++;//便利 查找非空长度
             }
         }
@@ -53,7 +84,7 @@ public class FUtil {
         newSize = 0;
 
         for (int i = 0; i < strs.length; i++) {
-            if (!TextUtils.isEmpty(strs[i])) {
+            if (!TextUtils.isEmpty(strs[i]) && !"0".equals(strs[i])) {
                 newStrs[newSize] = strs[i];
                 newSize++;//便利 查找非空长度
             }
@@ -75,5 +106,6 @@ public class FUtil {
 
         return buffer.toString();
     }
+
 
 }

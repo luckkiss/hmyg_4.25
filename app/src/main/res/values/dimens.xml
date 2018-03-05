@@ -1,5 +1,6 @@
 <resources>
-
+    <dimen name="grid_padding">15dp</dimen>
+    <dimen name="margin_top">5dp</dimen>
     <dimen name="srl_effective_scroll">60dp</dimen>
     <dimen name="srl_header_padding_bottom">5dp</dimen>
     <dimen name="srl_footer_padding_top">5dp</dimen>
@@ -39,6 +40,7 @@
     <dimen name="common_circle_width">3dp</dimen>
     <dimen name="progress_circle_radius">34dp</dimen>
     <dimen name="top_padding_statu">1dp</dimen>
+    <dimen name="status_bar_height">45dp</dimen>
 
     <dimen name="loadingbar_icon">40dp</dimen>
     <dimen name="title_top_default">39dp</dimen>

@@ -3,29 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl_popo_list_item"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#EEFFFFFF">
 
     <TextView
         android:id="@+id/tv_item"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="15dp"
-        android:padding="7dp"
+        android:paddingBottom="7dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="7dp"
         android:textSize="16sp"
         tools:text="hellow world" />
 
     <ImageView
         android:id="@+id/is_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="15dp"
-        android:padding="7dp"
+        android:padding="4dp"
         android:src="@drawable/yixuan"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
 </RelativeLayout>

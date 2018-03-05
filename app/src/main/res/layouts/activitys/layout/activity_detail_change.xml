@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <include layout="@layout/toolbar_3_0" />
+
+
+        <com.zzy.common.widget.MeasureGridView
+            android:id="@+id/grid_img1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dip"
+            android:layout_marginLeft="5dip"
+            android:background="@color/white"
+            android:listSelector="@color/transparent"
+            android:numColumns="4"
+            android:scrollbars="none" />
+
+        <include layout="@layout/include_bottom_pur_detail" />
+
+    </LinearLayout>
+
+</ScrollView>

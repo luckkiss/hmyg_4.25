@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include
+        android:id="@+id/search_bar"
+        layout="@layout/search_top_toolbar" />
+
+
+    <View
+        style="@style/View_line_gray"
+        android:layout_height="1px"
+        android:background="@color/divider_color_bg" />
+
+    <LinearLayout
+        android:id="@+id/out"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/white">
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/tv_filter"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="全部"
+            android:textColor="@color/text_color666"
+            app:isShowState="true"
+            app:state_drawable="@drawable/ic_arrow_down"
+            app:state_drawable_height="6dp"
+            app:state_drawable_mode="center"
+            app:state_drawable_padding_left="24dp"
+            app:state_drawable_width="10dp" />
+
+        <ImageView
+            android:layout_width="2px"
+            android:layout_height="15.0dip"
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/tv_sort"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="地区"
+            android:textColor="@color/text_color666"
+            app:isShowState="true"
+            app:state_drawable="@drawable/ic_arrow_down"
+            app:state_drawable_height="6dp"
+            app:state_drawable_mode="center"
+            app:state_drawable_padding_left="24dp"
+            app:state_drawable_width="10dp" />
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        style="@style/View_line_gray"
+        android:layout_height="1px"
+        android:background="@color/divider_color_bg" />
+
+    <include
+        layout="@layout/toolbar_radio_3_0"
+        android:visibility="gone" />
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--<com.hldj.hmyg.buyer.weidet.CoreRecyclerView-->
+    <!--android:id="@+id/core_rv_c"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1" />-->
+
+
+</LinearLayout>

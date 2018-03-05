@@ -1,124 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#ffffffff"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/y34"
+    <include
+
+        layout="@layout/search_top_toolbar" />
+
+    <View style="@style/View_line_divider_1px" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/top"
         android:background="@color/white">
 
-        <LinearLayout
-            android:layout_width="@dimen/x265"
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/left"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/y5"
-            android:layout_toLeftOf="@+id/edit_btn"
-            android:layout_toRightOf="@+id/btn_back"
-            android:background="@drawable/search_edit_selector"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/ll_sp"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                tools:visibility="visible">
-
-                <Spinner
-                    android:id="@+id/spinner1"
-                    android:layout_width="100.0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="5dp"
-                    android:background="@android:color/transparent"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/tv_choose"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="5dp"
-                    android:background="@android:color/transparent"
-                    android:text="苗木资源"
-                    android:textColor="@color/main_color" />
-
-                <ImageView
-                    android:id="@+id/iv_seller_arrow2"
-                    android:layout_width="@dimen/x8"
-                    android:layout_height="@dimen/x5"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    android:gravity="center"
-                    android:src="@drawable/seller_arrow4x" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="1px"
-                android:layout_height="match_parent"
-                android:background="@color/main_color"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                />
-
-            <EditText
-                android:id="@+id/et_search"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:ems="10"
-                android:hint="找苗/报价/店铺"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingLeft="5dip"
-                android:paddingRight="2.5dip"
-                android:textColor="@color/gray"
-                android:textColorHint="@color/gray"
-                android:textSize="14.5sp"></EditText>
-        </LinearLayout>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="苗木资源 （0）"
+            android:textColor="@color/main_color"
+            app:isShowState="true"
+            app:state_drawable_height="6dp"
+            app:state_drawable_mode="center"
+            app:state_drawable_padding_left="24dp"
+            app:state_drawable_width="10dp" />
 
         <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="@dimen/x24"
-            android:layout_height="@dimen/x24"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/x10"
-            android:background="@drawable/btn_back"
-            android:visibility="gone" />
+            android:layout_width="2px"
+            android:layout_height="15.0dip"
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray" />
 
-        <Button
-            android:id="@+id/edit_btn"
-            android:layout_width="@dimen/x55"
-            android:layout_height="@dimen/x27"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/x9"
-            android:background="@drawable/r_o_green"
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="搜索"
-            android:textColor="@color/white"
-            android:textSize="@dimen/textSize" />
-    </RelativeLayout>
+            android:text="店铺 （0）"
+            app:isShowState="true"
+            app:state_drawable_height="6dp"
+            app:state_drawable_mode="center"
+            app:state_drawable_padding_left="24dp"
+            app:state_drawable_width="10dp" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/line_bak" />
 
-    <me.maxwin.view.XListView
-        android:id="@+id/xlistView"
+    </LinearLayout>
+
+
+    <View style="@style/View_line_divider_1px" />
+
+    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+        android:id="@+id/recycle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#fff0f0f0"
-        android:clickable="true"
-        android:fadingEdge="none"
-        android:scrollingCache="false" />
+        android:layout_height="match_parent" />
+
 
 </LinearLayout>

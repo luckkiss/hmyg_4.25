@@ -8,5 +8,5 @@ public interface IThumbnailUpdate {
 	 * @param filename
 	 * @param path
 	 */
-	public void updateThumbnailView(long photoId);
+    void updateThumbnailView(long photoId);
 }

@@ -6,15 +6,23 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.bean.SpecTypeBean;
+import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.widget.BaseLinearLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/4/26.
@@ -55,7 +63,7 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
     }
 
     @Override
-    public <T> BaseLinearLayout setDatas(T t) {
+    public BaseLinearLayout setDatas(Object o) {
         return null;
     }
 
@@ -67,13 +75,34 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
         return required;
     }
 
+    public BaseLinearLayout setDefaultData(String msg) {
+
+        getViewHolder().et_params_03.setText(FUtil.$_zero_2_null(msg));
+        return this;
+    }
+
+    public BaseLinearLayout setDefaultSize(String size) {
+
+        RadioGroup radio_group_auto_add = (RadioGroup) findViewById(R.id.radio_group_auto_add);
+
+        for (int i = 0; i < radio_group_auto_add.getChildCount(); i++) {
+            RadioButton button = ((RadioButton) radio_group_auto_add.getChildAt(i));
+            D.e("==tag=" + button.getTag());
+            D.e("==tag=" + button.getTag());
+            if (button.getTag().equals(size)) {
+                button.setChecked(true);
+            }
+        }
+        setSelect_size(size);
+        return this;
+    }
+
     public BaseLinearLayout setData(PlantBean plantBean) {
 
-        if (plantBean.name.equals("价格")) {
+        if (plantBean.name.equals("价格") || plantBean.name.contains("到货价")) {
             getViewHolder().et_params_03.setHint("元");
             getViewHolder().et_params_03.setInputType(EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.TYPE_NUMBER_FLAG_DECIMAL);
 //            getViewHolder().et_params_03.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
-
         }
         if (plantBean.name.equals("数量")) {
             getViewHolder().et_params_03.setHint("可供数量");
@@ -94,16 +123,19 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
 
         if (plantBean.value.equals("dbh"))//为胸径时显示 radiobutton
         {
-            select_size = "size30";
+            select_size = "";
             getViewHolder().vb_radions.setVisibility(VISIBLE);
             type = "dbh";
             //显示完以后为radio button 添加获取值
-            initStubView(getViewHolder().vb_radions);
+            initStubView(getViewHolder().vb_radions, plantBean);
 
 
         } else if (plantBean.value.equals("diameter")) {
-            select_size = "size0";
+            select_size = "";
+            type = "diameter";
             getViewHolder().vb_radions.setVisibility(VISIBLE);
+            initStubView(getViewHolder().vb_radions, plantBean);
+            //0  0.3
         }
 //|| plantBean.value.equals("diameter")
 
@@ -111,12 +143,53 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
     }
 
     //初始化viewstub
-    private void initStubView(ViewStub vb_radions) {
+    private void initStubView(ViewStub vb_radions, PlantBean plantBean) {
+
+        RadioGroup radio_group_auto_add = (RadioGroup) this.findViewById(R.id.radio_group_auto_add);
+        RadioButton left = (RadioButton) this.findViewById(R.id.rb_auto_add_left);
+        RadioButton center = (RadioButton) this.findViewById(R.id.rb_auto_add_center);
+        RadioButton right = (RadioButton) this.findViewById(R.id.rb_auto_add_right);
+        left.setVisibility(GONE);
+        left.setTag("");
+        center.setTag("");
+        right.setTag("");
+        center.setVisibility(GONE);
+        right.setVisibility(GONE);
+        List<SpecTypeBean> typeBeen = new ArrayList<>();
+
+        if (type.equals("dbh")) {
+
+            typeBeen.addAll(plantBean.dbh);
+
+        } else if (type.equals("diameter")) {
+            typeBeen.addAll(plantBean.dim);
+            left.setText("出土量");
+            center.setText("0.1M量");
+            right.setText("0.3M量");
+        }
+
+        for (int i = 0; i < typeBeen.size(); i++) {
+            RadioButton button = (RadioButton) LayoutInflater.from(context).inflate(R.layout.radio, null);
+
+            button.setId(1000 + i);
+            button.setText(typeBeen.get(i).text);
+            button.setTag(typeBeen.get(i).value);
+            button.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    select_size = v.getTag().toString();
+//                    ToastUtil.showLongToast(select_size);
+                }
+            });
+
+            radio_group_auto_add.addView(button);
+        }
 
 
-        this.findViewById(R.id.rb_auto_add_left).setOnClickListener(clickListener);
-        this.findViewById(R.id.rb_auto_add_center).setOnClickListener(clickListener);
-        this.findViewById(R.id.rb_auto_add_right).setOnClickListener(clickListener);
+        left.setOnClickListener(clickListener);
+        center.setOnClickListener(clickListener);
+        right.setOnClickListener(clickListener);
+
 
         //需要初始化  select_size
 
@@ -124,13 +197,17 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
     }
 
     private OnClickListener clickListener = v -> {
+
+
         switch (v.getId()) {
+
             case R.id.rb_auto_add_left:
                 if (type.equals("dbh")) {
                     select_size = "size30";
                 } else {
                     select_size = "size0";
                 }
+
                 break;
             case R.id.rb_auto_add_center:
                 if (type.equals("dbh")) {
@@ -145,9 +222,12 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
                 } else {
                     select_size = "size30";
                 }
-                break;
 
+                break;
         }
+
+        D.e("size = " + getSelect_size());
+
     };
 
 
@@ -162,6 +242,10 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
         return select_size;
     }
 
+    public void setSelect_size(String size) {
+        select_size = size;
+    }
+
     public static class PlantBean {
         /**
          * +
@@ -172,6 +256,10 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
         public String name = "";
         public String value = "";
         public boolean required;
+
+        List<SpecTypeBean> dbh;
+        List<SpecTypeBean> dim;
+
 
         @Override
         public String toString() {
@@ -187,6 +275,13 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
             this.value = value;
             this.required = required;
         }
+
+        public PlantBean setSizeList(List<SpecTypeBean> dbh, List<SpecTypeBean> dim) {
+            this.dbh = dbh;
+            this.dim = dim;
+            return this;
+        }
+
     }
 
     private ViewHolder viewHolder;

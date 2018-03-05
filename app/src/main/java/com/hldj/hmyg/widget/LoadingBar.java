@@ -294,7 +294,7 @@ public class LoadingBar extends Dialog {
 	}
 
 	public interface OnDialogDismiss {
-		public void onDismiss();
+		void onDismiss();
 	}
 
 }

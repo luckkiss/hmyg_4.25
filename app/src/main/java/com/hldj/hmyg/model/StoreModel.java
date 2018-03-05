@@ -1,5 +1,7 @@
 package com.hldj.hmyg.model;
 
+import android.util.Log;
+
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.contract.StoreContract;
 import com.hldj.hmyg.saler.P.BasePresenter;
@@ -30,6 +32,9 @@ public class StoreModel extends BasePresenter implements StoreContract.Model {
                 resultCallBack.onFailure(t, errorNo, strMsg);
             }
         };
+
+
+//        ToastUtil.showShortToast("执行在线程---"+ );
         doRequest("seedling/list", false, ajaxCallBack);
 
 
@@ -50,6 +55,7 @@ public class StoreModel extends BasePresenter implements StoreContract.Model {
                 resultCallBack.onFailure(t, 0, strMsg);
             }
         };
+        Log.i("===3", "subscribe: "+ Thread.currentThread().getName() );
         doRequest("store/index", false, ajaxCallBack);
     }
 

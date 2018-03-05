@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutRoot"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/btn_my_list"
+    android:background="@color/white"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2px"
-        android:background="#fff0f0f0"
-        />
+    <!--<View-->
+    <!--android:id="@+id/view_top"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="2px"-->
+    <!--android:background="#fff0f0f0" />-->
     <!--android:background="#fff0f0f0" />-->
 
     <LinearLayout
@@ -21,17 +23,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginBottom="2.0dip"
-            android:background="@color/divider_color_bg" />
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px"-->
+        <!--android:layout_marginBottom="2.0dip"-->
+        <!--android:background="@color/divider_color_bg" />-->
 
         <RelativeLayout
-            android:id="@+id/RelativeLayout1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -64,13 +64,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:button="@drawable/agreement_checkbox_bg"
-                    android:checked="false"
-                    android:gravity="center|start"
                     android:maxLines="2"
                     android:textColor="@color/text_color333"
                     android:textSize="14sp"
-                    tools:text="tv_01" />
+                    tools:text="agreement_checkbox_bgagreement_checkbox_bgagreement_checkbox_bg" />
+                <!--android:button="@drawable/agreement_checkbox_bg"-->
+                <!--  android:checked="false"-->
+
 
                 <!--<TextView-->
                 <!--android:id="@+id/tv_ac"-->
@@ -105,6 +105,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingLeft="10.0dip"
             android:paddingRight="10.0dip">
 
@@ -119,6 +120,20 @@
                 android:textColor="@color/text_color666"
                 android:textSize="13sp"
                 tools:text="tv_04" />
+
+            <TextView
+                android:id="@+id/tv_05"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/text_color666"
+                android:textSize="13sp"
+                android:visibility="gone"
+                tools:text="tv_04_采购界面显示"
+                tools:visibility="visible" />
         </LinearLayout>
 
 
@@ -197,15 +212,16 @@
 
         <com.coorchice.library.SuperTextView
             android:id="@+id/tv_caozuo01"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/y20"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_gravity="end"
             android:layout_marginRight="10.0dip"
             android:drawableLeft="@drawable/sy_sj"
             android:drawablePadding="@dimen/x5"
-            android:gravity="center_vertical|start"
+            android:gravity="center_vertical|end"
             android:paddingBottom="5dip"
             android:paddingLeft="10.0dip"
             android:paddingRight="5.0dip"
@@ -315,4 +331,18 @@
         </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/iv_jianyi"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="0dp"
+        android:src="@drawable/zhengbaobaojia"
+        android:visibility="gone"
+        tools:visibility="visible"
+        />
+
+
+</RelativeLayout>
+

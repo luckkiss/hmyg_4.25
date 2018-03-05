@@ -1,8 +1,9 @@
 package com.example.framework;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -19,15 +20,14 @@ import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 
 import com.jarvis.MyView.MyGridView;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorListenerAdapter;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
+
+import java.util.LinkedList;
+import java.util.List;
+
 
 /**
  * @blog http://blog.csdn.net/xiaanming 
@@ -304,7 +304,7 @@ public class DragGridView extends MyGridView{
 	
 	/**
 	 * 是否点击在GridView的item上面
-	 * @param itemView
+	 * @param
 	 * @param x
 	 * @param y
 	 * @return
@@ -387,8 +387,8 @@ public class DragGridView extends MyGridView{
 	
 	/**
 	 * 拖动item，在里面实现了item镜像的位置更新，item的相互交换以及GridView的自行滚动
-	 * @param x
-	 * @param y
+	 * @param
+	 * @param
 	 */
 	private void onDragItem(int moveX, int moveY){
 		mWindowLayoutParams.x = moveX - mPoint2ItemLeft + mOffset2Left;
@@ -470,7 +470,7 @@ public class DragGridView extends MyGridView{
 	 * @return
 	 */
 	private AnimatorSet createTranslationAnimations(View view, float startX,
-			float endX, float startY, float endY) {
+													float endX, float startY, float endY) {
 		ObjectAnimator animX = ObjectAnimator.ofFloat(view, "translationX",
 				startX, endX);
 		ObjectAnimator animY = ObjectAnimator.ofFloat(view, "translationY",

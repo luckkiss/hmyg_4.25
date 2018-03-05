@@ -135,11 +135,7 @@ public class SlipButton extends View implements OnTouchListener {
 
 			OnSlip = false;
 			boolean LastChoose = IsOpen;
-			if (event.getX() >= (bg_on.getWidth() / 2)) {
-				IsOpen = true;
-			} else {
-				IsOpen = false;
-			}
+            IsOpen = event.getX() >= (bg_on.getWidth() / 2);
 
 			if (isChgLsnOn && (LastChoose != IsOpen))// 如果设置了监听器,就调用其方法..
 			{
@@ -165,6 +161,6 @@ public class SlipButton extends View implements OnTouchListener {
 	}
 
 	public interface OnChangedListener {
-		abstract void onChanged(boolean checkState, View v);
+		void onChanged(boolean checkState, View v);
 	}
 }

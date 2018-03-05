@@ -40,4 +40,6 @@ public class SetProfileActivity_new extends BaseMVPActivity {
     public static void start2ActivitySet(NeedSwipeBackActivity mActivity, int i) {
         mActivity.startActivity(new Intent(mActivity, SetProfileActivity_new.class));
     }
+
+
 }

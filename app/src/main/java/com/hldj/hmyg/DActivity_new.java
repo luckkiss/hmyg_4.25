@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
+import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.base.MySwipeAdapter;
 import com.hldj.hmyg.bean.CollectGsonBean;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
@@ -61,8 +62,16 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 //                .setLabel("数据加载中...").setMaxProgress(100).setCancellable(true)
 //                .setDimAmount(0f);
 
+
         setContentView(R.layout.activity_d_new);
 //        instance = this;
+
+//        StatusBarUtil.setColor(MainActivity.instance, Color.WHITE);
+//        StateBarUtil.setStatusBarIconDark(MainActivity.instance, true);
+//        mActivity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+//        StatusBarUtil.setColor(MainActivity.instance, Color.GREEN);
+//        StateBarUtil.setStatusBarIconDark(MainActivity.instance, true);
+//        StateBarUtil.setStatusTranslaterNoFullStatus(MainActivity.instance, true);
 
         setSwipeBackEnable(false);
         initView();
@@ -131,7 +140,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
         );
 
 
-        xlistView_d_new = (XListView) getView(R.id.xlistView_d_new);
+        xlistView_d_new = getView(R.id.xlistView_d_new);
 //        xlistView_d_new.setDivider(new BitmapDrawable() );
         xlistView_d_new.setPullLoadEnable(true);
         xlistView_d_new.setPullRefreshEnable(true);
@@ -300,9 +309,12 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
         @Override
 
         public void onReceive(Context context, Intent intent) {
-            seedlingBeen.clear();
-            pageIndex = 0;
-            initData();
+
+
+            onRefresh();
+//            seedlingBeen.clear();
+//            pageIndex = 0;
+//            initData();
             D.e("==refresh===");
 
         }
@@ -323,4 +335,30 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
         context.startActivity(intent);
 
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+//        StatusBarUtil.setColor(MainActivity.instance, Color.WHITE);
+//        mActivity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+//        View deco = mActivity.getWindow().getDecorView();
+//        deco.setBackgroundColor(Color.WHITE);
+//        deco.setPadding(0, 50, 0, 0);
+
+//      StatusBarUtil.setColor(MainActivity.instance, Color.WHITE);
+//      StatusBarUtil.setColor(MainActivity.instance, ContextCompat.getColor(mActivity, R.color.main_color));
+
+//        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
+//        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
+        StateBarUtil.setStatusTranslater(MainActivity.instance, true);
+//        StateBarUtil.setStatusTranslater(mActivity, true);
+        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
+        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
+
+    }
+
+
 }
+

@@ -16,7 +16,6 @@
         android:paddingTop="5dp">
 
         <RelativeLayout
-            android:id="@+id/RelativeLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2.5dip"
@@ -47,20 +46,6 @@
             </LinearLayout>
 
 
-            <com.coorchice.library.SuperTextView
-                android:id="@+id/stv_1"
-                android:layout_width="70dp"
-                android:layout_height="20dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:text="报价说明"
-                android:textColor="@color/white"
-                android:textSize="11sp"
-                app:solid="@color/main_color"
-                app:stroke_color="@color/white"
-                app:stroke_width="1dp" />
-
         </RelativeLayout>
 
 
@@ -73,7 +58,7 @@
             android:paddingRight="10.0dip"
             android:singleLine="true"
             android:textColor="@color/white"
-            android:textSize="@dimen/textSize"
+            android:textSize="13sp"
             tools:text="用苗地块：厦门" />
 
         <LinearLayout
@@ -89,16 +74,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
-                android:paddingTop="3dp"
+                android:paddingTop="5dp"
                 android:singleLine="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/textSizeS"
+                android:textSize="13sp"
                 tools:text="联系客服：中小花" />
 
 
             <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:paddingTop="3dp"
@@ -110,10 +95,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
-                android:paddingTop="3dp"
+                android:paddingTop="5dp"
                 android:singleLine="true"
                 android:textColor="@color/fabu_yellow"
-                android:textSize="@dimen/textSizeS"
+                android:textSize="13sp"
                 tools:text="15864982148" />
 
 
@@ -129,17 +114,39 @@
             android:paddingBottom="3dp"
             android:paddingLeft="10.0dip"
             android:paddingRight="10.0dip"
-            android:paddingTop="3dp"
+            android:paddingTop="5dp"
             android:textColor="@color/white"
-            android:textSize="@dimen/textSizeS"
+            android:textSize="13sp"
             tools:text="截止时间" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_1"
+            android:layout_width="110dp"
+            android:layout_height="29dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="报价说明"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSizeX"
+            app:corner="4dp"
+            app:left_bottom_corner="true"
+            app:left_top_corner="true"
+            app:right_bottom_corner="true"
+            app:right_top_corner="true"
+            app:solid="@color/main_color"
+            app:stroke_color="@color/white"
+            app:stroke_width="1dp" />
+
 
         <TextView
             android:id="@+id/tv_head_ser_po"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white_60"
-            android:drawableLeft="@drawable/xiaoxiti"
             android:drawablePadding="6dp"
             android:gravity="center_vertical"
             android:paddingBottom="5dp"
@@ -148,6 +155,18 @@
             android:text="一下报价未包含10%服务费"
             android:textColor="@color/white"
             android:textSize="@dimen/textSize" />
+
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_no_permision"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:background="@color/white"-->
+            <!--android:gravity="center"-->
+            <!--android:text="-&#45;&#45; 您没有选标权限 -&#45;&#45;"-->
+            <!--android:textColor="@color/price_orige"-->
+            <!--android:visibility="gone"-->
+            <!--tools:visibility="visible" />-->
 
     </LinearLayout>
 

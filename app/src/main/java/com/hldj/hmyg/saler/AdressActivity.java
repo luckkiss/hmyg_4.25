@@ -14,6 +14,7 @@ import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.contract.AdressListContract;
 import com.hldj.hmyg.model.AdressListModel;
 import com.hldj.hmyg.presenter.AdressListPresenter;
+import com.hldj.hmyg.saler.M.AdressQueryBean;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.SaveSeedingBottomLinearLayout;
@@ -39,12 +40,6 @@ public class AdressActivity extends BaseMVPActivity<AdressListPresenter, AdressL
         ToastUtil.showShortToast(erMst);
     }
 
-    private class AdressQueryBean implements Serializable {
-        public String pageIndex = "0";
-        public String pageSize = "20";
-        public String type = "";
-        public String searchKey = "";
-    }
 
     private AdressQueryBean queryBean = null;
 
@@ -61,8 +56,26 @@ public class AdressActivity extends BaseMVPActivity<AdressListPresenter, AdressL
         if (resultCode == ConstantState.CHANGE_DATES) {
             //修改成功
             coreRecyclerView.onRefresh();
-            ToastUtil.showShortToast("修改成功");
+            ToastUtil.showShortToast("修改成功^_^");
+        } else if (resultCode == ConstantState.ADD_SUCCEED) {
+            coreRecyclerView.onRefresh();
+
+            //添加成功不需要刷新，直接把新增 address  对象 返回到上一页
+
+            if (data != null) {
+                if (data.getSerializableExtra("address") instanceof AdressActivity.Address) {
+                    AdressActivity.Address address = (AdressActivity.Address) data.getSerializableExtra("address");
+                    onAddressSelectListener.onAddressSelect(address);
+                }
+            }
+            ToastUtil.showShortToast("新增地址成功^_^");
+            finish();
+
+        } else if (resultCode == ConstantState.DELETE_SUCCEED) {
+            coreRecyclerView.onRefresh();
+            ToastUtil.showShortToast("删除成功^_^");
         }
+
 
     }
 
@@ -164,6 +177,8 @@ public class AdressActivity extends BaseMVPActivity<AdressListPresenter, AdressL
                     address.cityName = item.cityName;
                     address.contactName = item.contactName;
                     address.contactPhone = item.contactPhone;
+                    address.fullAddress = item.fullAddress;
+                    address.name = item.name;
                     address.isDefault = item.isDefault;
                     D.e("====" + item.isDefault);
 //                    if (TextUtils.isEmpty(item.twCode)) {
@@ -217,12 +232,27 @@ public class AdressActivity extends BaseMVPActivity<AdressListPresenter, AdressL
     }
 
 
-    public static class Address {
+    public static class Address implements Serializable {
         public String addressId = "";
         public String contactPhone = "";
         public String contactName = "";
         public String cityName = "";
+        public String name = "";//苗圃名称
+        public String fullAddress = "";// 拼接好的 详细地址地址
         public boolean isDefault = false;
+
+        @Override
+        public String toString() {
+            return "Address{" +
+                    "addressId='" + addressId + '\'' +
+                    ", contactPhone='" + contactPhone + '\'' +
+                    ", contactName='" + contactName + '\'' +
+                    ", cityName='" + cityName + '\'' +
+                    ", name='" + name + '\'' +
+                    ", fullAddress='" + fullAddress + '\'' +
+                    ", isDefault=" + isDefault +
+                    '}';
+        }
     }
 
 

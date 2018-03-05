@@ -29,18 +29,14 @@ buildscript {
 //        classpath ('com.tencent.tinker:tinker-patch-gradle-plugin:1.7.9')
     }
 
-
-
 }
-
-
-
 
 allprojects {
     repositories {
         jcenter()
 //        maven { url 'https://jitpack.io' }
         maven { url "https://jitpack.io" }
+        maven { url "https://maven.google.com" }
 
         // 添加这一行即可
         maven { url "https://raw.githubusercontent.com/miomin/mvn-repo-ione/master" }
@@ -55,12 +51,12 @@ allprojects {
 }
 
 
-task ('processWithJavassist') << {
-    String classPath = file('build/intermediates/classes/debug')//项目编译class所在目录
-    com.cuieney.groovy.PatchClass.process(classPath, project(':hookdex').buildDir
-            .absolutePath + '/intermediates/classes/debug')//第二个参数是hackdex的class所在目录
-
-}
+//task ('processWithJavassist') << {
+//    String classPath = file('build/intermediates/classes/debug')//项目编译class所在目录
+//    com.cuieney.groovy.PatchClass.process(classPath, project(':hookdex').buildDir
+//            .absolutePath + '/intermediates/classes/debug')//第二个参数是hackdex的class所在目录
+//
+//}
 
 
 task clean(type: Delete) {

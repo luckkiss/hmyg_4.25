@@ -1,6 +1,7 @@
 package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
@@ -24,6 +26,7 @@ import com.hldj.hmyg.M.BProduceAdapt;
 import com.hldj.hmyg.P.BPresenter;
 import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.base.MySwipeAdapter;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.QueryBean;
@@ -71,8 +74,11 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_b_to_toolbar_test);
         bitmap = FinalBitmap.create(this);
+
+
         initViewClick();
         recyclerView1 = (CoreHeadRecyclerView) findViewById(R.id.core_rv_b);
+
         recyclerView1.getRecyclerView().setHasFixedSize(true);
         recyclerView1.getRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
@@ -96,8 +102,8 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
                     FlowerDetailActivity.start2Activity(BActivity_new_test.this, "seedling_list", item.id);
                 });
             }
-        }).setDefaultEmptyView()
-
+        })
+//                .setDefaultEmptyView()
                 .openLoadMore(getQueryBean().pageSize, page -> {
                     showLoading();
                     queryBean.pageIndex = page;
@@ -107,12 +113,18 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
                 .selfRefresh(true);
         getExtras();//在初始化数据之前
 
+
+        LinearLayout view = new LinearLayout(mActivity);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, 100);
+        view.setLayoutParams(params);
+
+        recyclerView1.addFooterView(view);
         recyclerView1.onRefresh();
 
     }
 
 
-    public void setColor(TextView tvLeft, TextView tvRight, String tag) {
+    public static void setColor(TextView tvLeft, TextView tvRight, String tag, Activity mActivity) {
         if (tag.equals("0")) {
             tvLeft.setTextColor(ContextCompat.getColor(mActivity, R.color.main_color));
             tvRight.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color));
@@ -126,15 +138,12 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
         //搜索
 
         getView(R.id.sptv_b_search).setOnClickListener(v -> {
-            Intent intent = new Intent(BActivity_new_test.this, PurchaseSearchListActivity.class);
-            intent.putExtra("from", "BActivity");
-            startActivityForResult(intent, 1);
+//            Intent intent = new Intent(BActivity_new_test.this, PurchaseSearchListActivity.class);
+//            intent.putExtra("from", "BActivity");
+//            startActivityForResult(intent, 1);
+            PurchaseSearchListActivity.start(mActivity, PurchaseSearchListActivity.FROM_STORE);
         });
-        //筛选
-        getView(R.id.tv_b_filter).setOnClickListener(v -> {
-            SellectActivity2.start2Activity(this, queryBean);
-            setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "0");
-        });
+
 
         getView(R.id.iv_view_type).setOnClickListener(v -> {
             if (v.isSelected())//选中.点击了grid 变换成grid
@@ -150,10 +159,16 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
             }
         });
 
+        //筛选
+        getView(R.id.tv_b_filter).setOnClickListener(v -> {
+            SellectActivity2.start2Activity(this, queryBean);
+            setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "0", mActivity);
+        });
+
         //排序
         getView(R.id.tv_b_sort).setOnClickListener(v -> {
             ChoiceSortList();
-            setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "1");
+            setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "1", mActivity);
         });
 
 
@@ -231,13 +246,16 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 
 
         //最小 最大 hight
-//        tagView.addTag(TagFactory.createDelTag(queryBean.minHeight, queryBean.maxHeight, "高度"), 95);
+        tagView.addTag(TagFactory.createDelTag(queryBean.minHeight, queryBean.maxHeight, "高度"), 95);
 
         //最小 最大  crow
-//        tagView.addTag(TagFactory.createDelTag(queryBean.minCrown, queryBean.maxCrown, "冠幅"), 96);
+        tagView.addTag(TagFactory.createDelTag(queryBean.minCrown, queryBean.maxCrown, "冠幅"), 96);
+
+        //最小
+        tagView.addTag(TagFactory.createDelTag(queryBean.minRod, queryBean.maxRod, "杆径"), 97);
 
         //最小 最大厘米
-        tagView.addTag(TagFactory.createDelTag(queryBean.specMinValue, queryBean.specMaxValue, queryBean.searchSpec), 97);
+//        tagView.addTag(TagFactory.createDelTag(queryBean.specMinValue, queryBean.specMaxValue, queryBean.searchSpec), 97);
 
         if (!TextUtils.isEmpty(queryBean.plantTypes)) {
             String[] strs = queryBean.plantTypes.split(",");
@@ -268,9 +286,9 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
                 getQueryBean().minCrown = "";
                 getQueryBean().maxCrown = "";
             } else if (tag.id == 97) {
-                getQueryBean().specMinValue = "";
-                getQueryBean().specMaxValue = "";
-                getQueryBean().searchSpec = "";
+                getQueryBean().minRod = "";
+                getQueryBean().maxRod = "";
+//                getQueryBean().searchSpec = "";
             } else if (tag.id == 98) {
                 getQueryBean().searchKey = "";
             } else if (tag.id == 99) {
@@ -379,7 +397,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 
 
         }
-        ((BaseMultAdapter) recyclerView1.getAdapter()).onAttachedToRecyclerView(recyclerView1.getRecyclerView());
+        recyclerView1.getAdapter().onAttachedToRecyclerView(recyclerView1.getRecyclerView());
     }
 
     int now_position = 0;
@@ -424,7 +442,8 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
             BProduceAdapt.setPublishName(tv_06,
                     item.ownerJson.companyName,
                     item.ownerJson.publicName,
-                    item.ownerJson.realName);
+                    item.ownerJson.realName,
+                    item.ownerJson.userName);
         } else {
             if (item.closeDate.length() > 10) {
                 tv_06.setText("下架日期：" + item.closeDate.substring(0, 10));
@@ -435,9 +454,12 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 
         TextView tv_07 = helper.getView(R.id.tv_07);
         TextView tv_08 = helper.getView(R.id.tv_08);
-        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego, tv_08);
+        tv_08.setVisibility(View.GONE);
+//        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego, tv_08);
+//        tv_07.setText("priceStr --- >" + item.priceStr);
+        ProductListAdapter.setPrice(tv_07, item.priceStr, item.minPrice, item.isNego, tv_08);
 
-        tv_08.setText("元/" + item.unitTypeName);
+//        tv_08.setText("元/" + item.unitTypeName);
         TextView tv_09 = helper.getView(R.id.tv_09);
         tv_09.setText("库存：" + item.count);
 
@@ -453,7 +475,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
         tv_03.setText(item.ciCity.fullName);
         TextView tv_07 = helper.getView(R.id.tv_07);
         TextView tv_08 = helper.getView(R.id.tv_08);
-        ProductListAdapter.setPrice(tv_07, item.maxPrice, item.minPrice, item.isNego, tv_08);
+        ProductListAdapter.setPrice(tv_07, item.priceStr, item.minPrice, item.isNego, tv_08);
 
         tv_08.setText("元/" + item.unitTypeName);
         bitmap.display(iv_img, item.smallImageUrl);
@@ -468,13 +490,17 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
                         recyclerView1.selfRefresh(false);
                         D.e("==============");
                         recyclerView1.getAdapter().addData(pageBean);
+
+                        if (recyclerView1.isDataNull()) {
+                            recyclerView1.setNoData("");
+                        }
                         hindLoading();
                     }
 
                     @Override
                     public void onFailure(Throwable t, int errorNo, String strMsg) {
                         D.e("==============");
-                        recyclerView1.selfRefresh(false);
+                        recyclerView1.setNoData("网络异常...");
                         hindLoading();
                     }
                 });
@@ -571,5 +597,30 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
         recyclerView1.onRefresh();
 //        recyclerView1.selfRefresh(true);
 //        new Handler().postDelayed(() -> initData(), 600);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setStatusBars();
+
+    }
+
+
+    private void setStatusBars() {
+        StateBarUtil.setStatusTranslaterWhite(MainActivity.instance, true);
+//        getWindow().getDecorView().setSystemUiVisibility(   View.SYSTEM_UI_FLAG_VISIBLE);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//        getWindow().setStatusBarColor(Color.WHITE);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+//                View.SYSTEM_UI_FLAG_LOW_PROFILE);//有点虚无
+        //         SYSTEM_UI_FLAG_VISIBLE 普通状态栏
+//        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
+//        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
+
+//        StateBarUtil.setColorPrimaryDark(Color.WHITE, getWindow());
+
     }
 }

@@ -1,6 +1,8 @@
 package com.zzy.flowers.activity.photoalbum;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -11,6 +13,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.provider.MediaStore.Video;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,8 +22,10 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.friend.child.PublishActivity;
+import com.hldj.hmyg.Ui.jimiao.SaveMiaoActivity;
 import com.hldj.hmyg.bean.Pic;
-import com.hldj.hmyg.jimiao.SaveMiaoActivity;
+import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivityChange;
 import com.hldj.hmyg.saler.ChoosePhotoGalleryActivity;
 import com.hldj.hmyg.saler.CoreActivity;
 import com.hldj.hmyg.saler.GlobalConstant;
@@ -46,6 +52,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
+import static android.provider.MediaStore.Images.Media.query;
+
+
 public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
 
     public static final String INTENT_START_TYPE_KEY = "intent_start_type";
@@ -69,7 +78,7 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
 
     public static final int TO_CHOOSE_NEW_PIC = 20;
 
-    public static final int MAX_IMAGE_COUNT = 10;
+    public static final int MAX_IMAGE_COUNT = 9;
 
     public static PhotoActivity instance = null;
 
@@ -198,6 +207,7 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
 
             @Override
             public void run() {
+//                setVideoData();
                 setPhotoData();
                 mHandler.sendEmptyMessage(TO_LOAD_IMAGE_OVER);
             }
@@ -210,7 +220,7 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
      * 获取相册信息
      */
     private void setPhotoData() {
-        Cursor cursor = MediaStore.Images.Media.query(getContentResolver(),
+        Cursor cursor = query(getContentResolver(),
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 FileTypeUtil.STORE_IMAGES, MediaStore.Images.Media.BUCKET_ID
                         + " = " + dirId, null);
@@ -226,6 +236,54 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
         cursor.close();
         Collections.sort(dataList);
     }
+
+
+    /**
+     * 获取 video 视频信息
+     */
+    private void setVideoData() {
+//        queryAllVideo(this);
+        Cursor cursor = MediaStore.Video.query(
+                getContentResolver(),
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null);
+
+        //查询数据库，参数分别为（路径，要查询的列名，条件语句，条件参数，排序）
+//        cursor = getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null, null, null, null);
+
+
+        PhotoItem videoitem = null;
+        while (cursor.moveToNext()) {
+//            String path = cursor.getString(cursor
+//                    .getColumnIndex(MediaStore.Video.Media.DATA));
+//            long id = Integer.valueOf(cursor.getString(1));
+            int idColumnIndex = cursor.getColumnIndex(MediaStore.Video.Media._ID);
+            long id = Integer.valueOf(cursor.getString(idColumnIndex));
+/**
+ * MediaStore.Images.Media.DISPLAY_NAME, // 显示的名称
+ MediaStore.Images.Media._ID, // ID
+ MediaStore.Images.Media.BUCKET_ID, // dir id 目录ID
+ MediaStore.Images.Media.BUCKET_DISPLAY_NAME, // dir name 目录名字
+ MediaStore.Images.Media.DATA, // 目录的路径
+ MediaStore.Images.Media.SIZE // 文件的大小
+ */
+            int titleStrColumnIndex = cursor.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME);
+            titleStr = cursor.getString(titleStrColumnIndex);
+
+            int pathStrColumnIndex = cursor.getColumnIndex(MediaStore.Video.Media.DATA);
+            String path = cursor.getString(pathStrColumnIndex);//video/mp4
+
+            videoitem = new PhotoItem(id, path);
+
+            int picSizeColumnIndex = cursor.getColumnIndex(MediaStore.Video.Media.SIZE);
+            videoitem.picSize = cursor.getLong(picSizeColumnIndex);
+
+            dataList.add(videoitem);
+//            dataList.add(path);
+        }
+        cursor.close();
+        Collections.sort(dataList);
+    }
+
 
     /**
      * 增加选中图片
@@ -350,13 +408,23 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
         if (SaveSeedlingActivity.instance != null) {
             SaveSeedlingActivity.instance.addPicUrls(resultPathList);
         }
+        if (PurchaseDetailActivityChange.instance != null) {
+            PurchaseDetailActivityChange.instance.addPicUrls(resultPathList);
+        }
+
         if (SaveMiaoActivity.instance != null) {
             SaveMiaoActivity.instance.addPicUrls(resultPathList);
         }
+//        if (SaveMiaoActivity.instance != null) {
+//            SaveMiaoActivity.instance.addPicUrls(resultPathList);
+//        }
 
-        if (UpdataImageActivity_bak.instance != null)
-        {
+        if (UpdataImageActivity_bak.instance != null) {
             UpdataImageActivity_bak.instance.addPicUrls(resultPathList);
+        }
+
+        if (PublishActivity.instance != null) {
+            PublishActivity.instance.addPicUrls(resultPathList);
         }
 //        else if (PurchaseDetailActivityBase.instance != null) {
 //            PurchaseDetailActivityBase.instance.addPicUrls(resultPathList);
@@ -570,5 +638,49 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
             }
         }
     }
+
+
+    private static final String TAG = "PhotoActivity";
+
+    public ArrayList<PhotoItem> queryAllVideo(final Context context) {
+        if (context == null) { //判断传入的参数的有效性
+            return null;
+        }
+        ArrayList<PhotoItem> videos = new ArrayList<PhotoItem>();
+        ContentResolver resolver = context.getContentResolver();
+        Cursor cursor = null;
+        try {
+            //查询数据库，参数分别为（路径，要查询的列名，条件语句，条件参数，排序）
+            cursor = resolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null, null, null, null);
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    PhotoItem video = new PhotoItem(100, "bb");
+                    video.setPhotoId(cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media._ID))); //获取唯一id
+                    video.setPath(cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA))); //文件路径
+                    video.setPath(cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME))); //文件名
+                    //...   还有很多属性可以设置
+                    //可以通过下一行查看属性名，然后在Video.Media.里寻找对应常量名
+                    Log.i(TAG, "queryAllImage --- all column name --- " + cursor.getColumnName(cursor.getPosition()));
+
+                    //获取缩略图（如果数据量大的话，会很耗时——需要考虑如何开辟子线程加载）
+                /*
+                 * 可以访问android.provider.MediaStore.Video.Thumbnails查询图片缩略图
+                 * Thumbnails下的getThumbnail方法可以获得图片缩略图，其中第三个参数类型还可以选择MINI_KIND
+                 */
+                    Bitmap thumbnail = MediaStore.Video.Thumbnails.getThumbnail(resolver, video.getPhotoId(), Video.Thumbnails.MICRO_KIND, null);
+//                    video.setThumbnail(thumbnail);
+                    videos.add(video);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return videos;
+    }
+
 
 }

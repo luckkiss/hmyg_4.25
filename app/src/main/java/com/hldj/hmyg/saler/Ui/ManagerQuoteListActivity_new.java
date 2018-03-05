@@ -113,5 +113,8 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
         context.startActivity(new Intent(context, ManagerQuoteListActivity_new.class));
     }
 
-
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

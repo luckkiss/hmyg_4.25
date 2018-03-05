@@ -1,3 +1,8 @@
+
+
+
+
+
 # Add project specific ProGuard rules here.
 # By default, the flags in this file are appended to flags specified
 # in /Users/zhangshaowen/Library/Android/sdk/tools/proguard/proguard-android.txt
@@ -19,6 +24,9 @@
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
 -keep  class  android.support.**{*;}
+
+
+
 
 
 #############################################
@@ -181,6 +189,30 @@
 
 
 #-----------处理第三方依赖库---------
+#手动启用support keep注解
+#http://tools.android.com/tech-docs/support-annotations
+-dontskipnonpubliclibraryclassmembers
+-printconfiguration
+-keep,allowobfuscation @interface android.support.annotation.Keep
+
+-keep @android.support.annotation.Keep class *
+-keepclassmembers class * {
+    @android.support.annotation.Keep *;
+}
+
+
+#-----------通过注解同意过滤处理---------
+# keep annotated by NotProguard
+#-keep @com.hldj.hmyg.util.NotProguard class * {*;}
+#-keep class * {
+#@com.hldj.hmyg.util.NotProguard <fields>;
+#}
+#-keep
+##-keepclassmembers class * {
+#-keepclassmembers class * {
+#@com.hldj.hmyg.util.NotProguard <methods>;
+#}
+#-----------通过注解同意过滤处理---------
 
 
 # Gson
@@ -200,10 +232,27 @@
 -keep class com.hldj.hmyg.model.** { *;}
 -keep class com.hldj.hmyg.saler.bean.** { *;}
 -keep class com.hldj.hmyg.saler.M.** { *;}
+-keep class com.autoscrollview.adapter.** { *;}
+-keep class com.hldj.hmyg.Ui.friend.bean.** {*;}
+
+
 -keepattributes Exceptions,InnerClasses,...
--keep class com.hldj.hmyg.SellectActivity2$* {
-       * ;
-}
+-keep class com.hldj.hmyg.SellectActivity2$* { * ; }
+-keep class com.hldj.hmyg.saler.AdressManagerActivity$* { * ; }
+-keep class com.hldj.hmyg.widget.ComonShareDialogFragment* { * ; }
+
+
+#-keep class com.autoscrollview.adapter.ImagePagerAdapter { * ; }
+#-keep class com.hldj.hmyg.AActivity_3_0* { * ; }
+#$TypeBean
+
+#-keepattributes Exceptions,InnerClasses,...
+#-keep class com.hldj.hmyg.saler.AdressManagerActivity$AdressQueryBean { * ; }
+#-keepattributes Exceptions,InnerClasses,...
+#-keep class com.hldj.hmyg.saler.AdressManagerActivity$AdressQueryBean {  public <fields>; }
+#-keep class com.hldj.hmyg.Ui.storeChild.StoreHomeFragment$QueryBean {
+#         public <fields>;
+# }
 
 
 #-keepattributes Exceptions,InnerClasses,...
@@ -287,6 +336,8 @@ public static java.lang.String TABLENAME;
 -keep class com.sina.**{*;}
 -keep class **.R$* {*;}
 -keep class **.R{*;}
+-keep class com.mob.**{*;}
+-dontwarn com.mob.**
 -dontwarn cn.sharesdk.**
 -dontwarn **.R$*
 
@@ -325,3 +376,15 @@ public static java.lang.String TABLENAME;
  -keep interface com.novell.sasl.client.** {*; }
  -keep interface de.measite.smack.** {*; }
  -keep interface org.** {*; }
+
+
+
+
+
+ -keep class com.mabeijianxi.smallvideorecord2.jniinterface.** {*; }
+
+
+
+
+
+

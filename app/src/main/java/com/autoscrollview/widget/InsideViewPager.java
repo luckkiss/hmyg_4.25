@@ -63,7 +63,7 @@ public class InsideViewPager extends ViewPager {
      }  
       
      public interface OnSingleTouchListener {  
-     public void onSingleTouch();  
+     void onSingleTouch();
      }  
       
      public void setOnSingleTouchListner(  

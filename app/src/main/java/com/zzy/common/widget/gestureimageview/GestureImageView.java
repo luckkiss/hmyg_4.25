@@ -253,7 +253,7 @@ public class GestureImageView extends ImageView {
 			}
 
 			if (isChooseHeadPic) {
-				this.centerY = (float) ((chooseframeRect.bottom - chooseframeRect.top) / 2.0f + chooseframeRect.top);
+				this.centerY = (chooseframeRect.bottom - chooseframeRect.top) / 2.0f + chooseframeRect.top;
 			} else {
 				this.centerY = (float) measuredHeight / 2.0f;
 			}
@@ -316,8 +316,8 @@ public class GestureImageView extends ImageView {
 	}
 
 	protected float getFrameMinScale(int imageWidth, int imageHeight) {
-		float frameHScale = (float) chooseframeWidth / (float) imageWidth;
-		float frameVScale = (float) chooseFrameHeight / (float) imageHeight;
+		float frameHScale = chooseframeWidth / (float) imageWidth;
+		float frameVScale = chooseFrameHeight / (float) imageHeight;
 		return Math.max(frameHScale, frameVScale);
 	}
 
@@ -342,12 +342,12 @@ public class GestureImageView extends ImageView {
 			startingRomateScale = Math.min(fitRomateScaleHorizontal,
 					fitRomateScaleVertical);
 			if (isChooseHeadPic) {
-				if (((float) imageHeight * startingScale) < (float) chooseFrameHeight) {
-					startingScale = (float) chooseFrameHeight
+				if (((float) imageHeight * startingScale) < chooseFrameHeight) {
+					startingScale = chooseFrameHeight
 							/ (float) imageHeight;
 				}
-				if (((float) imageWidth * startingScale) < (float) chooseframeWidth) {
-					startingScale = (float) chooseframeWidth
+				if (((float) imageWidth * startingScale) < chooseframeWidth) {
+					startingScale = chooseframeWidth
 							/ (float) imageWidth;
 				}
 			}
@@ -357,12 +357,12 @@ public class GestureImageView extends ImageView {
 			startingRomateScale = Math.min(fitRomateScaleHorizontal,
 					fitRomateScaleVertical);
 			if (isChooseHeadPic) {
-				if (((float) imageHeight * startingScale) < (float) chooseFrameHeight) {
-					startingScale = (float) chooseFrameHeight
+				if (((float) imageHeight * startingScale) < chooseFrameHeight) {
+					startingScale = chooseFrameHeight
 							/ (float) imageHeight;
 				}
-				if (((float) imageWidth * startingScale) < (float) chooseframeWidth) {
-					startingScale = (float) chooseframeWidth
+				if (((float) imageWidth * startingScale) < chooseframeWidth) {
+					startingScale = chooseframeWidth
 							/ (float) imageWidth;
 				}
 			}

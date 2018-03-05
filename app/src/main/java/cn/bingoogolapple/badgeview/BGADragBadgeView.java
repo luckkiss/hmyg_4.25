@@ -16,6 +16,9 @@
 
 package cn.bingoogolapple.badgeview;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -32,9 +35,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.OvershootInterpolator;
 
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorListenerAdapter;
-import com.nineoldandroids.animation.ValueAnimator;
+
 
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com

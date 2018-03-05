@@ -80,7 +80,7 @@ public class RippleAdjuster extends SuperTextView.Adjuster {
     @Override
     public boolean onTouch(SuperTextView v, MotionEvent event) {
         int action = event.getAction();
-        Log.e("onTouch", "action = " + action);
+//        Log.e("onTouch", "action = " + action);
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 x = event.getX();

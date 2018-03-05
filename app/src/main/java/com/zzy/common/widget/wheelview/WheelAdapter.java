@@ -19,14 +19,14 @@ package com.zzy.common.widget.wheelview;
 public interface WheelAdapter {
 	
 	/** 获取条目总数 */
-    public abstract int getItemsCount();
+    int getItemsCount();
 
     /** 获取条目ID */
-    public abstract int getItemId(int index);
+    int getItemId(int index);
 
     /** 获取条目内容 */
-    public abstract String getItem(int index);
+    String getItem(int index);
 
     /** 获取条目内容最长长度 */
-    public abstract int getMaximumLength();
+    int getMaximumLength();
 }

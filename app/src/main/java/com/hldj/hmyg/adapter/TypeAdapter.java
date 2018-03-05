@@ -42,7 +42,7 @@ public class TypeAdapter extends BaseAdapter {
         l_params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT);
         WindowManager wm = ((Activity) context).getWindowManager();
-        l_params.height = (int) (wm.getDefaultDisplay().getWidth() * 1 / 4);
+        l_params.height = wm.getDefaultDisplay().getWidth() * 1 / 4;
     }
 
     @Override

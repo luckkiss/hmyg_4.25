@@ -129,8 +129,7 @@ public class NoticeActivity extends NeedSwipeBackActivity {
         });
 
 
-//          webView.loadUrl("file:///asset/test.html");
-//          webView.loadUrl("file:///android_asset/test.html");
+
 //        webView.loadUrl("http://192.168.1.252:8090/article?isHeader=true");
 //       http://test.m.hmeg.cn/noticeArticle?isHeader=true
           webView.loadUrl(Data.noticesUrls);

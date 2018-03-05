@@ -6,12 +6,12 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:paddingTop="@dimen/top_padding_statu"
         android:visibility="visible"
         app:elevation="0dp">
 
@@ -42,7 +42,7 @@
                 app:state_drawable_height="6dp"
                 app:state_drawable_mode="center"
                 app:state_drawable_padding_left="24dp"
-                app:state_drawable_width="12dp" />
+                app:state_drawable_width="10dp" />
 
             <ImageView
                 android:layout_width="2px"
@@ -62,7 +62,7 @@
                 app:state_drawable_height="6dp"
                 app:state_drawable_mode="center"
                 app:state_drawable_padding_left="24dp"
-                app:state_drawable_width="12dp" />
+                app:state_drawable_width="10dp" />
 
 
         </LinearLayout>

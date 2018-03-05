@@ -26,8 +26,8 @@
                 android:layout_width="@dimen/y25"
                 android:layout_height="@dimen/y25"
                        android:layout_gravity="center_horizontal"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_launcher" />
+                android:padding="5dp"
+                android:src="@drawable/logo" />
         </cn.bingoogolapple.badgeview.BGABadgeLinearLayout>
 
         <LinearLayout
@@ -50,7 +50,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/x15" />
 
-                <com.neopixl.pixlui.components.textview.TextView
+                <TextView
                     android:id="@+id/tv_createDateStr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                     android:textSize="@dimen/x12" />
             </RelativeLayout>
 
-            <com.neopixl.pixlui.components.textview.TextView
+            <TextView
                 android:id="@+id/tv_message"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

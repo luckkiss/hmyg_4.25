@@ -65,6 +65,18 @@ public class SplashActivity extends FragmentActivity {
         }
 
 
+//        boolean flag = (PackageManager.PERMISSION_GRANTED ==
+//                pm.checkPermission("android.permission.RECORD_AUDIO", "包名"));
+//        boolean flag = PermissionChecker.checkSelfPermission(this, Manifest.permission.)== PermissionChecker.PERMISSION_GRANTED;
+//        if (flag){
+//            ToastUtil.showMessage("有权限");
+//        }else {
+//            ToastUtil.showMessage("无权限");
+//            return;
+//        }
+
+
+
     }
 
     public void putSpInfo_Before_6() {

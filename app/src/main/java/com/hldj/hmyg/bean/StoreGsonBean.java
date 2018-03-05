@@ -29,6 +29,7 @@ public class StoreGsonBean implements Serializable {
 
         public StoreBean store;
         public OwnerBean owner;
+        public int momentsCount;
         public List<TypeListBean> typeList;
 
         public static class StoreBean implements Serializable {
@@ -105,6 +106,7 @@ public class StoreGsonBean implements Serializable {
              * permissions : PUBLISH_PURCHASE;ADD_TO_CART;PUBLISH_SEEDLINGS;PRICE_APPLY
              * storeId : 534c6ef74f1045779f19e17313295017
              * headImage : http://image.hmeg.cn/upload/image/201705/75eba6368874429ebf566cffb6544a9d.jpg
+             * banner img : ***** *---*-*- *-* -*
              * isPartners : false
              * cashOnDelivery : true
              * receiptMsg : false

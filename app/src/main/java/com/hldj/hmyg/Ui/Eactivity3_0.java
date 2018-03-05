@@ -7,15 +7,18 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.annotation.Keep;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -26,6 +29,7 @@ import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.FeedBackActivity;
 import com.hldj.hmyg.GalleryImageActivity;
+import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.ManagerListActivity_new;
 import com.hldj.hmyg.MessageListActivity;
 import com.hldj.hmyg.R;
@@ -33,10 +37,16 @@ import com.hldj.hmyg.SafeAcountActivity;
 import com.hldj.hmyg.SetProfileActivity;
 import com.hldj.hmyg.SettingActivity;
 import com.hldj.hmyg.StoreActivity;
+import com.hldj.hmyg.Ui.friend.child.CenterActivity;
+import com.hldj.hmyg.Ui.jimiao.MiaoNoteListActivity;
+import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.base.rxbus.annotation.Subscribe;
 import com.hldj.hmyg.base.rxbus.event.EventThread;
 import com.hldj.hmyg.bean.Pic;
+import com.hldj.hmyg.bean.SimpleGsonBean;
+import com.hldj.hmyg.presenter.AActivityPresenter;
 import com.hldj.hmyg.presenter.EPrestenter;
 import com.hldj.hmyg.saler.AdressManagerActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
@@ -44,16 +54,22 @@ import com.hldj.hmyg.saler.StoreSettingActivity;
 import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.RippleAdjuster;
 import com.hldj.hmyg.util.UploadHeadUtil;
+import com.hldj.hmyg.widget.BounceScrollView;
 import com.hldj.hmyg.widget.ShareDialogFragment;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.ToastUtil;
 import com.lqr.optionitemview.OptionItemView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.zf.iosdialog.widget.ActionSheetDialog;
+import com.zf.iosdialog.widget.AlertDialog;
 import com.zym.selecthead.tools.FileTools;
+
+import net.tsz.afinal.http.AjaxCallBack;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -66,6 +82,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
+import static com.hldj.hmyg.R.id.sptv_wd_gys;
 import static com.hldj.hmyg.util.UploadHeadUtil.CHOOSE_PHOTO;
 import static com.hldj.hmyg.util.UploadHeadUtil.CROP_PHOTO;
 import static com.hldj.hmyg.util.UploadHeadUtil.TAKE_PHOTO;
@@ -81,6 +98,18 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
     UploadHeadUtil uploadHeadUtil;
 
+    public static boolean showSeedlingNoteShare = false;//是否显示 共享资源
+    public static boolean showSeedlingNoteTeam = false;//是否显示 团队共享
+    private boolean isQuote;/*是否报价权限  true  ----   不需要读取 网页 http://192.168.1.252:8090/app/protocol/supplier*/
+
+
+    BounceScrollView alfa_scroll;
+
+//    FinalBitmap finalBitmap;
+
+
+    public float distance;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +119,24 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
         cachPath = UploadHeadUtil.getDiskCacheDir(this) + "/handimg.jpg";//图片路径
         cacheFile = uploadHeadUtil.getCacheFile(new File(getDiskCacheDir(this)), "handimg.jpg");
+
+//        finalBitmap = FinalBitmap.create(mActivity);
+//        finalBitmap.configLoadfailImage(R.drawable.icon_persion_pic);
+//        finalBitmap.configLoadingImage(R.drawable.icon_persion_pic);
+
+//        StatusBarUtil.setColor(MainActivity.instance, Color.GREEN);
+
+//        StateBarUtil.setStatusBarIconDark(MainActivity.instance, true);
+//        StateBarUtil.setStatusTranslaterNoFullStatus(MainActivity.instance, false);
+
+//        if (isDark) {
+//                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+//
+//            } else {
+//                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+//
+//            }
+
 
         setSwipeBackEnable(false);
         RxRegi();
@@ -107,6 +154,47 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
 
         LinearLayout ll_me_content = (LinearLayout) findViewById(R.id.ll_me_content);
+        BounceScrollView alfa_scroll = (BounceScrollView) findViewById(R.id.alfa_scroll);
+        TextView tip = (TextView) findViewById(R.id.tip);
+        alfa_scroll.onMoveListener = new BounceScrollView.OnMoveListener() {
+            @Override
+            public void onMove(float preY, float deltaY, float y) {
+
+
+                Log.i("onMove", "y abs  ----->" + (y - preY));
+
+
+                if (curStar == Math.abs(deltaY) < MyApplication.dp2px(mActivity, 65)) {
+                    return;
+                }
+
+                setStatues(Math.abs(deltaY) < MyApplication.dp2px(mActivity, 65));
+
+                distance += y - preY;
+
+
+                // I/onMove: y ----->736.61633
+                //  y ----->738.6153
+
+            }
+
+            @Override
+            public void onUp() {
+                Log.i("onUp", "getHeight y " + tip.getHeight());
+                Log.i("onUp", "getMeasuredHeight y " + tip.getMeasuredHeight());
+                Log.i("onUp", "distance y " + distance);
+                Log.i("onUp", " content padding top  " + ll_me_content.getPaddingTop());
+//                Log.i("onUp", " content margin top  " + (G)ll_me_content.getLayoutParams());
+                setStatues(false);
+            }
+        };
+        Log.i("onUp", "tip y " + tip.getHeight());
+
+        if (!GetServerUrl.isTest) {
+            alfa_scroll.setBackgroundColor(Color.WHITE);
+        }
+//        ViewGroup viewGroup = (ViewGroup) alfa_scroll.getChildAt(0);
+//        viewGroup.addView(new Button(mActivity),0);
 
         /**
          * 为所有suptertextivew 设置点击效果
@@ -119,7 +207,8 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
         this.getView(R.id.sptv_wd_mmgl).setOnClickListener(v -> ManagerListActivity_new.start2Activity(mActivity));//苗木管理
         this.getView(R.id.sptv_wd_bjgl).setOnClickListener(v -> ManagerQuoteListActivity_new.start2Activity(mActivity));//报价管理
-        this.getView(R.id.sptv_wd_wddp).setOnClickListener(v -> StoreActivity.start2ActivityForRsl(mActivity, getSpS("code")));//我的店铺
+        D.e("======商店id======" + MyApplication.getUserBean().storeId);
+        this.getView(R.id.sptv_wd_wddp).setOnClickListener(v -> StoreActivity.start2ActivityForRsl(mActivity, MyApplication.getUserBean().storeId));//我的店铺
         this.getView(R.id.sptv_wd_dpsz).setOnClickListener(v -> StoreSettingActivity.start2Activity(mActivity));//店铺设置
         this.getView(R.id.sptv_wd_zhaq).setOnClickListener(v -> SafeAcountActivity.start2Activity(mActivity));//账户安全
         this.getView(R.id.sptv_wd_mydz).setOnClickListener(v -> AdressManagerActivity.start2Activity(mActivity));//苗源地址管理
@@ -127,7 +216,14 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         this.getView(R.id.sptv_wd_kf).setOnClickListener(v -> Call_Phone()); // 客服
         this.getView(R.id.sptv_wd_yhfk).setOnClickListener(v -> FeedBackActivity.start2Activity(mActivity));//反馈
         this.getView(R.id.sptv_wd_bjzl).setOnClickListener(v -> SetProfileActivity.start2ActivitySet(mActivity, 100));//编辑资料
-        this.getView(R.id.sptv_wd_wdxm).setOnClickListener(v ->MyProgramActivity.start(mActivity));//我的项目
+        this.getView(R.id.sptv_wd_wdxm).setOnClickListener(v -> MyProgramActivity.start(mActivity));//我的项目
+        this.getView(R.id.sptv_wd_exit).setOnClickListener(v -> exit());//退出登录
+        this.getView(R.id.sptv_wd_ddzy).setOnClickListener(v -> DispatcherActivity.start(mActivity));// 调度专员
+        this.getView(R.id.sptv_wd_mmq).setOnClickListener(v -> CenterActivity.start(mActivity, MyApplication.getUserBean().id));//  我的苗木圈
+        this.getView(R.id.sptv_wd_jmb).setOnClickListener(v -> MiaoNoteListActivity.start(mActivity));// 记苗本
+
+        this.getView(R.id.sptv_wd_jf).setOnClickListener(v -> IntegralActivity.start(mActivity));//  积分
+        this.getView(sptv_wd_gys).setOnClickListener(v -> ProviderActivity.start(mActivity, isQuote));//  供应商
 
 
         this.getView(R.id.iv_circle_head).setOnClickListener(v -> {
@@ -136,6 +232,15 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
 
         OptionItemView optionItemView = this.getView(R.id.top_bar_option); // 这是title 左右边的点击事件
+
+        if (optionItemView.isSelected()) {
+            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx_small));
+            optionItemView.setSelected(!optionItemView.isSelected());
+        } else {
+            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx));
+            optionItemView.setSelected(!optionItemView.isSelected());
+        }
+
 
         optionItemView.setOnOptionItemClickListener(new OptionItemView.OnOptionItemClickListener() {
             @Override
@@ -155,6 +260,19 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         });
 
 
+        //第一次 时 显示 显示项目。需要重启引用
+//        isShowProject();
+
+    }
+
+    private void exit() {
+        new AlertDialog(mActivity).builder()
+                .setTitle("确定退出登录?")
+                .setPositiveButton("退出登录", v1 -> {
+                    SettingActivity.exit2Home
+                            (mActivity, MyApplication.Userinfo.edit(), false);
+                }).setNegativeButton("取消", v2 -> {
+        }).show();
     }
 
     private void setRealName(String username, String realName) {
@@ -168,6 +286,19 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
             ((TextView) this.getView(R.id.tv_usrname_relname)).setText("花木易购");
         }
 
+
+        // 地区   福建省 厦门市 思明区
+
+        String city = getSpS("ciCityFullName");
+//        String city = getSpS("coCityfullName");
+
+        if (TextUtils.isEmpty(city)) {
+            ((TextView) getView(R.id.wd_city)).setText("未设置城市");
+        } else {
+            ((TextView) getView(R.id.wd_city)).setText(getSpS("ciCityFullName"));
+        }
+
+
     }
 
     String headImg;
@@ -175,28 +306,36 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
     private void loadHeadImage(boolean isLogin) {
         if (isLogin)
-            ImageLoader.getInstance().displayImage(getSpS("headImage"), (ImageView) getView(R.id.iv_circle_head), new ImageLoadingListener() {
-                @Override
-                public void onLoadingStarted(String s, View view) {
+            if (TextUtils.isEmpty(getSpS("headImage"))) {
+                D.e("====空头像，不加载===");
+                ((ImageView) getView(R.id.iv_circle_head)).setImageResource(R.drawable.icon_persion_pic);
+                return;
+            }
+//        finalBitmap.display((ImageView) getView(R.id.iv_circle_head),getSpS("headImage"));
 
-                }
 
-                @Override
-                public void onLoadingFailed(String s, View view, FailReason failReason) {
+        ImageLoader.getInstance().displayImage(getSpS("headImage"), (ImageView) getView(R.id.iv_circle_head), new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String s, View view) {
+                D.e("");
+            }
 
-                    ((ImageView) getView(R.id.iv_circle_head)).setImageResource(R.drawable.icon_persion_pic);
-                }
+            @Override
+            public void onLoadingFailed(String s, View view, FailReason failReason) {
+                D.e("");
+                ((ImageView) getView(R.id.iv_circle_head)).setImageResource(R.drawable.icon_persion_pic);
+            }
 
-                @Override
-                public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+            @Override
+            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                D.e("");
+            }
 
-                }
-
-                @Override
-                public void onLoadingCancelled(String s, View view) {
-
-                }
-            });
+            @Override
+            public void onLoadingCancelled(String s, View view) {
+                D.e("");
+            }
+        });
 //            ImageLoader.getInstance().displayImage(str, (ImageView) getView(R.id.iv_circle_head));
     }
 
@@ -342,7 +481,14 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     private Uri imageUri;
 
     private void openCamera() {
-        cameraFile = uploadHeadUtil.getCacheFile(new File(getDiskCacheDir(this)), "output_image.jpg");
+        cameraFile = uploadHeadUtil.getCacheFile(new File(getDiskCacheDir(this)), "output_image1.jpg");
+//        if (cameraFile.exists()) {
+//            cameraFile.delete();
+//            cameraFile.mkdir();
+//        }
+
+        D.e("cameraFile size" + cameraFile.length());
+//        cacheFile = uploadHeadUtil.getCacheFile(new File(getDiskCacheDir(this)), "handimg.jpg");
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             imageUri = Uri.fromFile(cameraFile);
@@ -359,7 +505,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        D.e("size " + requestCode + " resultCode " + resultCode + " data=" + data);
         if (resultCode == Activity.RESULT_CANCELED) {
             return;
         }
@@ -370,12 +516,19 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                 break;
             case TAKE_PHOTO:
                 if (resultCode == RESULT_OK) {
+
+                    D.e("cameraFile size" + cameraFile.length());
+
+
+                    D.e("cameraFile size" + cameraFile.length());
                     try {
                         // 将拍摄的照片显示出来
                         uploadHeadUtil.startPhotoZoom(cameraFile, 1, cacheFile);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
+
                 }
                 break;
 
@@ -413,8 +566,10 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                                         new Handler().postDelayed(() -> {
                                             bitmap.recycle();
                                             D.e("===str=====" + str);
-                                            ImageLoader.getInstance().displayImage(getSpS("headImage"), (ImageView) getView(R.id.iv_circle_head));
+//                                            ImageLoader.getInstance().displayImage(getSpS("headImage"), (ImageView) getView(R.id.iv_circle_head));
                                             hindLoading("上传成功", 1500);
+                                            loadHeadImage(true);
+
                                         }, 200);
                                     }
 
@@ -448,6 +603,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     }
 
     //订阅
+    @Keep
     @Subscribe(tag = 5, thread = EventThread.MAIN_THREAD)
     private void dataBinding11(OnlineEvent event) {
         D.e("======Rx=======" + event.toString());
@@ -484,7 +640,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     }
 
     public static class OnlineEvent {
-        boolean isOnline = false;
+        public boolean isOnline = false;
 
         public OnlineEvent(boolean isOnline) {
             this.isOnline = isOnline;
@@ -502,10 +658,154 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     protected void onResume() {
         super.onResume();
         refresh();
+
+        setStatues(false);
+
+        OptionItemView optionItemView = this.getView(R.id.top_bar_option); // 这是title 左右边的点击事件
+        if (AActivityPresenter.isShowRead) {
+            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx_small));
+        } else {
+            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx));
+        }
     }
+
 
     public void refresh() {
         setRealName(getSpS("userName"), getSpS("realName"));
+        loadHeadImage(getSpB("isLogin"));
+        isShowProject();
+    }
+
+
+    /**
+     * 项目 显示关闭开关
+     */
+    public void isShowProject() {
+        new BasePresenter()
+                .doRequest("admin/user/getPermission", true, new AjaxCallBack<String>() {
+
+
+                    @Override
+                    public void onSuccess(String json) {
+                        Log.i("=======", "onSuccess: " + json);
+
+                        //{agentGrade:"level1","userPoint":14,"agentGradeText":
+                        // "普通供应商","showSeedlingNoteShare":true,
+                        // "showSeedlingNote":true,"hasProjectManage":true},
+                        // "version":"tomcat7.0.53"}
+
+
+//                        if (GetServerUrl.isTest)//测试的时候显示
+//                            ToastUtil.showShortToast("测试的时候显示\n" + "请求是否显示项目结果：\n" + json);
+                        SimpleGsonBean bean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
+                        if (bean.isSucceed()) {
+//                            GetServerUrl.isTest
+                            if (false) {
+                                getView(R.id.sptv_wd_wdxm).setVisibility(View.VISIBLE);
+                            } else {
+                                getView(R.id.sptv_wd_wdxm).setVisibility(bean.getData().hasProjectManage ? View.VISIBLE : View.GONE);
+                            }
+
+                            if (false) {
+                                getView(R.id.sptv_wd_jmb).setVisibility(View.VISIBLE);
+                            } else {
+                                getView(R.id.sptv_wd_jmb).setVisibility(bean.getData().showSeedlingNote ? View.VISIBLE : View.GONE);
+                            }
+                            showSeedlingNoteShare = bean.getData().showSeedlingNoteShare;
+                            isQuote = bean.getData().isQuote;
+
+//                            showSeedlingNoteTeam = !showSeedlingNoteTeam;
+//                            showSeedlingNoteShare = false;
+                            D.e("===========showSeedlingNoteShare===========" + showSeedlingNoteShare);
+
+                            checkGys_Point(bean.getData().agentGrade, bean.getData().userPoint, bean.getData().agentGradeText, isQuote);
+
+
+                        } else {
+                            ToastUtil.showLongToast(bean.msg);
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+                        ToastUtil.showLongToast("权限请求接口请求失败：" + strMsg);
+                    }
+                });
+    }
+
+
+    /**
+     * agentGrade":"level1","userPoint":14,"agentGradeText":"普通供应商
+     *
+     * @param agentGrade     供应商等级
+     * @param userPoint      积分
+     * @param agentGradeText 供应商名称
+     * @param quote
+     */
+    private void checkGys_Point(String agentGrade, String userPoint, String agentGradeText, boolean quote) {
+
+        TextView sptv_wd_jf = getView(R.id.sptv_wd_jf);
+        TextView sptv_wd_gys = getView(R.id.sptv_wd_gys);
+        sptv_wd_jf.setText("积分  " + userPoint);
+
+        if (quote) {
+            sptv_wd_gys.setText(agentGradeText);
+        }
+        Drawable drawable = null;
+        /// 这一步必须要做,否则不会显示.
+        //:{agentGrade:"level1","isQuote":true,"userPoint":421,"agentGradeText":"普通供应商","showS
+        sptv_wd_gys.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color666));
+        if (!quote) {
+            drawable = getResources().getDrawable(R.mipmap.wd_gys_no);
+            sptv_wd_gys.setText("申请成为供应商");
+            sptv_wd_gys.setTextColor(ContextCompat.getColor(mActivity, R.color.main_color));
+        } else if ("level1".equals(agentGrade)) {
+            drawable = getResources().getDrawable(R.mipmap.wd_gys_lv1);
+
+        } else if ("level2".equals(agentGrade)) {
+            drawable = getResources().getDrawable(R.mipmap.wd_gys_lv2);
+        } else if ("level3".equals(agentGrade)) {
+            drawable = getResources().getDrawable(R.mipmap.wd_gys_lv3);
+        } else if ("level4".equals(agentGrade)) {
+            drawable = getResources().getDrawable(R.mipmap.wd_gys_lv4);
+        } else if ("level5".equals(agentGrade)) {
+            drawable = getResources().getDrawable(R.mipmap.wd_gys_lv5);
+        } else {
+            drawable = getResources().getDrawable(R.mipmap.wd_gys_no);
+            sptv_wd_gys.setText("申请成为供应商");
+        }
+
+
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        sptv_wd_gys.setCompoundDrawables(drawable, null, null, null);
+
+    }
+
+
+    public boolean curStar = true;
+
+    private void setStatues(boolean isDark) {
+//        StatusBarUtil.setColor(MainActivity.instance, Color.TRANSPARENT);
+//        mActivity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+//        View deco = mActivity.getWindow().getDecorView();
+//        deco.setPadding(0, 50, 0, 0);
+
+//        ToastUtil.showPointAdd("每日登陆", "获得10积分");
+
+//        StatusBarUtil.setColor(MainActivity.instance, Color.TRANSPARENT);
+//        StatusBarUtil.setTranslucent(MainActivity.instance, 0);
+//        StatusBarUtil.setColor(MainActivity.instance, ContextCompat.getColor(mActivity, R.color.main_color));
+
+//        if (curStar == isDark) {
+//            return;
+//        }
+        curStar = isDark;
+        StateBarUtil.setStatusTranslater(MainActivity.instance, isDark);
+//        StateBarUtil.setStatusTranslater(MainActivity.instance, false);
+        StateBarUtil.setStatusTranslater(mActivity, isDark);
+        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, isDark);
+        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, isDark);
     }
 
 

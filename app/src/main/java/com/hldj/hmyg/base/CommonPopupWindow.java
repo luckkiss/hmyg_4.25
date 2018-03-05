@@ -1,6 +1,9 @@
 package com.hldj.hmyg.base;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,23 +11,83 @@ import android.widget.PopupWindow;
 
 import com.hldj.hmyg.R;
 
+
 /**
- * create by 罗擦擦   建造者模式初体验 ，参考dagger2 commponent 的自动生成代码
+ * 版权：公司 版权所有
+ * <p>
+ * 作者：罗擦擦
+ * <p>
+ * 版本：
+ * <p>
+ * 创建日期：2017/8/9 0009
+ * <p>
+ * 描述：大傻出品避暑精品
+ * 建造者模式初体验 ，参考dagger2 commponent 的自动生成代码
  */
 
 public class CommonPopupWindow extends PopupWindow {
 
+    public static int TYPE_WHITE_UP = R.drawable.up;
+    public static int TYPE_WHITE_DOWN = R.drawable.down;
+    public static int TYPE_BLACK_UP = R.drawable.bg_popupwindow;
+
+
+    Builder mBuilder;
 
     protected CommonPopupWindow(Builder builder) {
         initWithBuilder(builder);
     }
 
-    private void initWithBuilder(Builder builder) {
+    /**
+     * 设置显示在v上方（以v的中心位置为开始位置）
+     *
+     * @param v
+     */
+    public void showUp2(View v) {
+        //获取需要在其上方显示的控件的位置信息
+        int[] location = new int[2];
+        v.getLocationOnScreen(location);
+        Log.i("showUp2", "showUp2: " + location[0]);
+        Log.i("showUp2", "showUp2: " + location[1]);
+        //在控件上方显示
 
-        if (builder.layoutId == 0) {
-            throw new NullPointerException("布局id 必须设置,不然没有界面显示");
+        if (location[1] > 500) {
+            //↑
+//            TYPE_WHITE_DOWN
+            setBackgroundDrawable(mBuilder.mContext.getResources().getDrawable(TYPE_WHITE_DOWN));// 设置背景图片，不能在布局中设置，要通过代码来设置
+//            showAtLocation(v, Gravity.NO_GRAVITY, (location[0] + v.getWidth() / 2) - mBuilder.width / 2, location[1] - mBuilder.height + 10);
+//            showAtLocation(v, Gravity.NO_GRAVITY, (location[0] + this.getWidth() / 2) - mBuilder.width / 2, location[1] - mBuilder.height + 10);
+//            showAtLocation(v, Gravity.NO_GRAVITY, location[0], location[1] + this.getHeight());
+
+//          //加载PopupWindow的布局
+//          View view = View.inflate(this, R.layout.popwindow, null);
+////测量布局的大小
+            this.getContentView().measure(0, 0);
+////将布局大小设置为PopupWindow的宽高
+            PopupWindow popWindow = new PopupWindow(this.getContentView(), this.getContentView().getMeasuredWidth(), this.getContentView().getMeasuredHeight(), true);
+            popWindow.getHeight();
+            popWindow.getWidth();
+
+            Log.i("h", " popWindow.getH: " + popWindow.getHeight() + "   this.getContentView()" + this.getContentView().getWidth());
+            Log.i("w", " popWindow.getWidth(): " + popWindow.getWidth() + "   this.getContentView()" + this.getContentView().getHeight());
+
+            Log.i("w", "showUp2: " + this.getWidth());
+            Log.i("h", "showUp2: " + this.getHeight());
+            showAtLocation(v, Gravity.NO_GRAVITY, (location[0] + v.getWidth() / 2) - popWindow.getWidth() / 2, (int) (location[1] - (popWindow.getHeight() * 1.2) + 10));
+
+
+        } else {
+            //↓
+            setBackgroundDrawable(mBuilder.mContext.getResources().getDrawable(TYPE_WHITE_UP));// 设置背景图片，不能在布局中设置，要通过代码来设置
+
+            showAsDropDown(v);
         }
 
+
+    }
+
+    private void initWithBuilder(Builder builder) {
+        mBuilder = builder;
         View rootView = LayoutInflater.from(builder.mContext).inflate(builder.layoutId, null);
         this.setContentView(rootView);
         this.setWidth(builder.width);
@@ -40,7 +103,7 @@ public class CommonPopupWindow extends PopupWindow {
         if (builder.listener != null) {
             builder.listener.covertView(rootView);
         }
-        setBackgroundDrawable(builder.mContext.getResources().getDrawable(R.drawable.bg_popupwindow));// 设置背景图片，不能在布局中设置，要通过代码来设置
+        setBackgroundDrawable(builder.mContext.getResources().getDrawable(builder.bgType));// 设置背景图片，不能在布局中设置，要通过代码来设置
     }
 
     public static Builder builder(Context mContext) {
@@ -53,6 +116,7 @@ public class CommonPopupWindow extends PopupWindow {
         private int width = ViewGroup.LayoutParams.WRAP_CONTENT;
         private int height = ViewGroup.LayoutParams.WRAP_CONTENT;
         private int layoutId = 0;
+        private int bgType = TYPE_BLACK_UP;
         private Context mContext;
         private OnCovertViewListener listener;
 
@@ -65,11 +129,15 @@ public class CommonPopupWindow extends PopupWindow {
         private boolean isOutsideTouchable = true;
 
 
-        private Builder(Context context) {
+        public Builder(Context context) {
             this.mContext = context;
         }
 
         public CommonPopupWindow build() {
+
+            if (layoutId == 0) {
+                throw new NullPointerException("布局id 必须设置,不然没有界面显示");
+            }
 
             return new CommonPopupWindow(this);
         }
@@ -83,6 +151,11 @@ public class CommonPopupWindow extends PopupWindow {
          */
         public Builder bindLayoutId(int layoutId) {
             this.layoutId = layoutId;
+            return this;
+        }
+
+        public Builder setBgType(@IdRes int bgType) {
+            this.bgType = bgType;
             return this;
         }
 
@@ -100,7 +173,6 @@ public class CommonPopupWindow extends PopupWindow {
             this.width = w;
             return this;
         }
-
 
 
         public Builder setHeightPx(int h) {

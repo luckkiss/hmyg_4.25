@@ -2,6 +2,7 @@ package com.hldj.hmyg.base;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -108,11 +109,12 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
 
         boolean isNeGo = seedlingBean.isNego();
         String maxPrice = seedlingBean.getMinPrice() + "";
+        String priceStr = seedlingBean.getPriceStr() + "";
         String minPrice = seedlingBean.getMaxPrice() + "";
 
         TextView tv_08 = (TextView) view.findViewById(R.id.tv_08);
         tv_08.setText("/" + seedlingBean.getUnitTypeName());
-        ProductListAdapter.setPrice(tv_07, maxPrice, minPrice, isNeGo, tv_08);
+        ProductListAdapter.setPrice(tv_07, priceStr, minPrice, isNeGo, tv_08);
 
 //           库存
         TextView tv_09 = (TextView) view.findViewById(R.id.tv_09);
@@ -125,9 +127,15 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
                 public void onSuccess(SimpleGsonBean simpleGsonBean) {
                     ToastUtil.showShortToast("删除成功");
                     //成功删除某个item
-                    items.remove(i);
-                    notifyDataSetChanged();
-                    closeItem(i);
+                    try {
+                        items.remove(i);
+                        notifyDataSetChanged();
+                        closeItem(i);
+                    } catch (Exception e) {
+                        notifyDataSetChanged();
+                        Log.i("======删除报错===刷新列表===", "Exception: " + e.getMessage());
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override
@@ -171,8 +179,7 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
      * @param bean
      */
 
-    void setName(TextView textView, SaveSeedingGsonBean.DataBean.SeedlingBean bean) {
-
+    public static void setName(TextView textView, SaveSeedingGsonBean.DataBean.SeedlingBean bean) {
         if (bean.getOwnerJson() == null) {
             textView.setText("发布人:-");
             return;
@@ -183,6 +190,10 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
             textView.setText("发布人:" + bean.getOwnerJson().getPublicName());
         } else if (!TextUtils.isEmpty(bean.getOwnerJson().getRealName())) {
             textView.setText("发布人:" + bean.getOwnerJson().getRealName());
+        } else if (!TextUtils.isEmpty(bean.getOwnerJson().getUserName())) {//用户名
+            textView.setText("发布人:" + bean.getOwnerJson().getUserName());
+        } else {
+            textView.setText("发布人:-");
         }
     }
 

@@ -99,9 +99,9 @@ public class ImagePagerActivity extends FragmentActivity implements
 								+ picname + ".jpg", true, new AjaxCallBack() {
 
 							public void onLoading(long count, long current) {
-							};
+							}
 
-							public void onSuccess(Object t) {
+                            public void onSuccess(Object t) {
 								Toast.makeText(ImagePagerActivity.this,
 										"下载成功，请到相册中查看", Toast.LENGTH_SHORT)
 										.show();
@@ -111,9 +111,9 @@ public class ImagePagerActivity extends FragmentActivity implements
 												+ Environment
 														.getExternalStorageDirectory())));
 
-							};
+							}
 
-							@Override
+                            @Override
 							public void onFailure(Throwable t, int errorNo,
 									String strMsg) {
 								// TODO Auto-generated method stub
@@ -178,9 +178,9 @@ public class ImagePagerActivity extends FragmentActivity implements
 
 										public void onLoading(long count,
 												long current) {
-										};
+										}
 
-										public void onSuccess(Object t) {
+                                        public void onSuccess(Object t) {
 
 											WallpaperManager wallpaperManager = WallpaperManager
 													.getInstance(getApplicationContext());
@@ -201,9 +201,9 @@ public class ImagePagerActivity extends FragmentActivity implements
 												e.printStackTrace();
 											}
 
-										};
+										}
 
-										@Override
+                                        @Override
 										public void onFailure(Throwable t,
 												int errorNo, String strMsg) {
 											Toast.makeText(

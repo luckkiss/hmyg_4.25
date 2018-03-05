@@ -3,6 +3,7 @@ package com.hldj.hmyg.Ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
@@ -19,6 +20,7 @@ import com.hldj.hmyg.model.MyProgramGsonBean;
 import com.hldj.hmyg.model.MyProgramModel;
 import com.hldj.hmyg.presenter.MyProgramPresenter;
 import com.hldj.hmyg.util.D;
+import com.hy.utils.ToastUtil;
 
 import java.util.List;
 
@@ -40,15 +42,22 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
 
     @Override
     public void initView() {
+//        EditText editText = getView(R.id.et_program_serach_text);
+//        editText.setHint("请输入采购单名称");
 
         recyclerView = new CoreRecyclerView(mActivity);
+
         //初始化recycleview
         recyclerView.init(new BaseQuickAdapter<MyProgramGsonBean.DataBeanX.PageBean.DataBean, BaseViewHolder>(R.layout.item_program_list) {
             @Override
             protected void convert(BaseViewHolder helper, MyProgramGsonBean.DataBeanX.PageBean.DataBean item) {
                 helper.convertView.setOnClickListener(view -> {
-
+                    if (TextUtils.isEmpty(item.id)) {
+                        ToastUtil.showLongToast("项目信息获取失败");
+                        return;
+                    }
                     if (!item.typeName.equals("直购")) {
+
                         ProgramDirctActivity.start(mActivity, item.id);
                     } else {
                         ProgramProtocolActivity.start(mActivity, item.id);
@@ -62,7 +71,7 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
                 ;//
 
                 helper.setText(R.id.tv_program_load_car_count, filterColor(item.loadCarCount + "车", item.loadCarCount + "", R.color.main_color));//
-                helper.setText(R.id.tv_program_alreay_order, "￥" + item.totalAmount);//
+                helper.setText(R.id.tv_program_alreay_order, "¥" + item.totalAmount);//
                 helper.setText(R.id.tv_program_state, strFilter(item.typeName));//
 //                helper.setText(R.id.tv_program_state, item.typeName);//
                 int colorId = item.typeName.equals("直购") ? ContextCompat.getColor(mActivity, R.color.price_orige) : ContextCompat.getColor(mActivity, R.color.main_color);
@@ -70,18 +79,33 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
             }
         }, false)
                 .openLoadMore(10, page -> {
-//                    mPresenter.getData(page + "", search_key, "params2");
-//                    showLoading();
+//                  mPresenter.getData(page + "", search_key, "params2");
+                    showLoading();
                     mPresenter.getData(page + "", search_key);
                 })
+
+                .closeDefaultEmptyView()
+
                 .openRefresh();
+//        这句就是添加我们自定义的分隔线
+//        recyclerView.getRecyclerView().addItemDecoration(new MyDecoration(this, MyDecoration.VERTICAL_LIST));
+
+//        recyclerView.getRecyclerView().addItemDecoration(new RecycleViewDivider(
+//                mActivity, LinearLayoutManager.VERTICAL, 50, getResources().getColor(R.color.green)));
+//        recyclerView.getRecyclerView().addItemDecoration();
+
+
+//        recyclerView.getAdapter().setd
+//        recyclerView.setDividerDrawable(new ColorDrawable(ContextCompat.getColor(mActivity,R.color.gray_bg_ed)));
+//        recyclerView.setDividerPadding(20);
+//        recyclerView.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gray_bg_ed));
         getContentView().addView(recyclerView);
         recyclerView.onRefresh();
     }
 
     @Override
     public void showErrir(String erMst) {
-        recyclerView.selfRefresh(false, erMst);
+        recyclerView.setNoData(erMst);
         hindLoading();
     }
 
@@ -98,6 +122,9 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
     public void initXRecycle(List<MyProgramGsonBean.DataBeanX.PageBean.DataBean> gsonBean) {
         recyclerView.getAdapter().addData(gsonBean);
         recyclerView.selfRefresh(false);
+        if (recyclerView.getAdapter().getData().size() == 0) {
+            recyclerView.setDefaultEmptyView();
+        }
         hindLoading();
     }
 

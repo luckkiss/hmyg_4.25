@@ -13,11 +13,9 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:visibility="visible"
-        app:elevation="0dp"
-        >
+        app:elevation="0dp">
 
         <include layout="@layout/toolbar_3_0" />
-
 
 
         <LinearLayout
@@ -236,8 +234,7 @@
 
                 <ImageView
                     android:id="@+id/botton_lines_1"
-                    style="@style/bottom_view_line"
-                    />
+                    style="@style/bottom_view_line" />
 
                 <ImageView
                     android:id="@+id/botton_lines_2"
@@ -296,32 +293,21 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         app:layout_behavior="com.hldj.hmyg.behavior.BottomBarBehavior">
 
         <Button
             android:id="@+id/btn_manager_storege"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            style="@style/bottom_button_green"
             android:background="@color/simple_blue"
-            android:foreground="?attr/selectableItemBackground"
-            android:text="草稿箱(50)"
-            android:textColor="@color/white"
-            android:textSize="@dimen/y10" />
+            android:text="草稿箱(50)" />
 
         <Button
             android:id="@+id/btn_manager_publish"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/main_color"
-            android:foreground="?attr/selectableItemBackground"
-            android:text="发布苗木"
-            android:textColor="@color/white"
-            android:textSize="@dimen/y10" />
+            style="@style/bottom_button_green"
+            android:text="发布苗木" />
 
 
     </LinearLayout>

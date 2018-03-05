@@ -21,6 +21,8 @@ import com.hy.utils.ToastUtil;
 
 import java.util.List;
 
+import static com.hldj.hmyg.util.ConstantState.PUBLIC_SUCCEED;
+
 
 /**
  * 修改成 快速报价里面的详情界面一样，增加报价结束功能
@@ -41,6 +43,7 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
     @Override
     public void getDatas() {
         showLoading();
+        recyclerView.removeFooterView(bottomBiew);
         new PurchaseDeatilP(new ResultCallBack<SaveSeedingGsonBean>() {
             @Override
             public void onSuccess(SaveSeedingGsonBean saveSeedingGsonBean) {
@@ -53,6 +56,7 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
                     return;
                 }
                 usedQuoteList = saveSeedingGsonBean.getData().usedQuoteList;
+
 
                 initDatas(saveSeedingGsonBean);
 
@@ -71,7 +75,19 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
     @Override
     public void initRceycle(boolean direce) {
 //        overClick();
-        super.initRceycle(direce);
+        this.direce = direce;
+
+
+        if (recyclerView.getAdapter().getData().size()>0)
+        {
+//            recyclerView.getAdapter().setNewData(null);
+//            recyclerView.getAdapter().addData(sellerQuoteJsonBean);
+        }else{
+            recyclerView.getAdapter().addData(sellerQuoteJsonBean);
+        }
+
+
+
         if (usedQuoteList != null) {
             for (int i = 0; i < usedQuoteList.size(); i++) {
                 CardView cardView = new CardView(this);
@@ -80,9 +96,9 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
                     view.findViewById(R.id.tv_recycle_detail_bottom_title).setVisibility(View.GONE);
 
                 if (TextUtils.isEmpty(usedQuoteList.get(i).specText)) {
-                    ((TextView) view.findViewById(R.id.tv_recycle_detail_bottom)).setText(strFilter("价格：￥" + usedQuoteList.get(i).price));
+                    ((TextView) view.findViewById(R.id.tv_recycle_detail_bottom)).setText(strFilter("价格：¥" + usedQuoteList.get(i).price));
                 } else {
-                    ((TextView) view.findViewById(R.id.tv_recycle_detail_bottom)).setText(strFilter("价格：￥" + usedQuoteList.get(i).price + "  " + "[" + usedQuoteList.get(i).specText + "]"));
+                    ((TextView) view.findViewById(R.id.tv_recycle_detail_bottom)).setText(strFilter("价格：¥" + usedQuoteList.get(i).price + "  " + "[" + usedQuoteList.get(i).specText + "]"));
 
                 }
 
@@ -101,6 +117,25 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
         } else {
             D.e("===删除失败===");
         }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == PUBLIC_SUCCEED) {
+
+            recyclerView.getAdapter().setNewData(null);
+            getDatas();
+//            if (data.getSerializableExtra("bean") != null && data.getSerializableExtra("bean") instanceof PurchaseItemBean_new) {
+////                recyclerView.getAdapter().remove(0);
+////                recyclerView.getAdapter().addData(1,(PurchaseItemBean_new) data.getSerializableExtra("bean"));
+//                recyclerView.getAdapter().getData().set(0,data.getSerializableExtra("bean"));
+//                recyclerView.getAdapter().notifyDataSetChanged();
+//            }
+        }
+
+
     }
 
     /**

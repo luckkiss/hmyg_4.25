@@ -2,7 +2,7 @@
 <resources>
     <dimen name="titleSize">18sp</dimen>
     <dimen name="titleRightTex">16sp</dimen>
-    <dimen name="backWH">30dp</dimen>
+    <dimen name="backWH">28dp</dimen>
 
 
     <dimen name="textSizeS">12dp</dimen>
@@ -12,4 +12,6 @@
     <dimen name="textSizeXXX">16dp</dimen>
     <dimen name="textSizeXXXX">18dp</dimen>
     <dimen name="home_search_padding">-65dp</dimen>
+    <dimen name="empty_width">150dp</dimen>
+    <dimen name="empty_height">150dp</dimen>
 </resources>

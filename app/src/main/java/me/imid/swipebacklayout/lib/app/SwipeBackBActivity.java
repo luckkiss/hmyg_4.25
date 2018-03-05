@@ -36,6 +36,19 @@ public class SwipeBackBActivity extends FragmentActivity implements
 
     }
 
+    public void setLoadCancle(boolean cancle) {
+        dialog.setCanceledOutside(cancle);
+    }
+
+    public void showLoadingCus(String str) {
+        if (!dialog.isShowing()) {
+            dialog.show();
+            if (dialog.tv_loading_text != null) {
+                dialog.tv_loading_text.setText(str);
+            }
+        }
+    }
+
     public void showLoading(String str) {
         getLoad().setText(str).showToastAlong();
     }
@@ -64,7 +77,6 @@ public class SwipeBackBActivity extends FragmentActivity implements
             getLoad().cancel(str, delay);
         }
 
-
     }
 
 
@@ -80,7 +92,7 @@ public class SwipeBackBActivity extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         getLoad();
         dialog = new CustomDialog(this);
-//        loading = new Loading(SwipeBackBActivity.this, "努力加载中.....");
+//      loading = new Loading(SwipeBackBActivity.this, "努力加载中.....");
         /**
          * 控制状态栏为黑色  miui flyme
          */
@@ -88,17 +100,26 @@ public class SwipeBackBActivity extends FragmentActivity implements
         StartBarUtils.MIUISetStatusBarLightMode(getWindow(), true);
 
         mHelper = new SwipeBackActivityHelper(this);
-        mHelper.onActivityCreate();
+
+        if (setSwipeBackEnable()) {
+            mHelper.onActivityCreate();
+        }
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mHelper.onPostCreate();
+        if (setSwipeBackEnable())
+            mHelper.onPostCreate();
     }
 
     @Override
     public View findViewById(int id) {
+        if (!setSwipeBackEnable()) {
+            return super.findViewById(id);
+        }
+
+
         View v = super.findViewById(id);
         if (v == null && mHelper != null)
             return mHelper.findViewById(id);
@@ -112,7 +133,8 @@ public class SwipeBackBActivity extends FragmentActivity implements
 
     @Override
     public void setSwipeBackEnable(boolean enable) {
-        getSwipeBackLayout().setEnableGesture(enable);
+        if (setSwipeBackEnable())
+            getSwipeBackLayout().setEnableGesture(enable);
     }
 
     @Override
@@ -124,6 +146,16 @@ public class SwipeBackBActivity extends FragmentActivity implements
 
     public void showToast(String msg) {
         ToastUtil.showShortToast(this, msg);
+    }
+
+
+    /**
+     * 是否 侧滑 开启关闭按钮
+     *
+     * @return
+     */
+    public boolean setSwipeBackEnable() {
+        return false;
     }
 
 

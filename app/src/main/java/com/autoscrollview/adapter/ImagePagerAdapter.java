@@ -10,6 +10,7 @@ package com.autoscrollview.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Keep;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +21,12 @@ import com.autoscrollview.jakewharton.salvage.RecyclingPagerAdapter;
 import com.autoscrollview.utils.ListUtils;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.StoreActivity;
 import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.WebActivity;
 import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hldj.hmyg.util.NotProguard;
 import com.white.utils.StringUtil;
 
 import net.tsz.afinal.FinalBitmap;
@@ -36,10 +37,12 @@ import java.util.List;
 /**
  * ImagePagerAdapter
  */
+@Keep
 public class ImagePagerAdapter extends RecyclingPagerAdapter {
 
     private static final String TAG = "ImagePagerAdapter";
     private Context context;
+
     private List<HashMap<String, Object>> imageIdList;
 
     private int size;
@@ -97,7 +100,7 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
             finalBitmap.display(holder.imageView, imageIdList.get(position).get("url").toString());
             // holder.imageView.setImageResource(imageIdList.get(getPosition(position)));
         } else {
-            holder.imageView.setImageResource(R.drawable.ic_launcher);
+            holder.imageView.setImageResource(R.drawable.logo);
         }
 
         holder.imageView.setOnClickListener(v -> {
@@ -132,7 +135,7 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
                         FlowerDetailActivity.start2Activity(context, typeBean.sourceId);
                         break;
                     case "store":
-                        StoreActivity_new.start2Activity((Activity) context, typeBean.sourceId);
+                        StoreActivity_new.start2Activity(context, typeBean.sourceId);
                         break;
                     case "purchase":
                         //报价 详情
@@ -149,6 +152,7 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
         return view;
     }
 
+    @NotProguard
     private static class TypeBean {
         public String type = "";
         public String sourceId = "";

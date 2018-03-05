@@ -21,6 +21,8 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.V.SaveSeedlingV;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
+import com.hldj.hmyg.base.rxbus.RxBus;
+import com.hldj.hmyg.base.rxbus.event.PostObj;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
@@ -50,6 +52,8 @@ import java.util.List;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
+import static com.hldj.hmyg.saler.SaveSeedlingActivity_pubsh_quick.SEEDING_REFRESH;
+
 
 /**
  * 发布苗木资源  基类
@@ -58,7 +62,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
     private ACache mCache;
     public static SaveSeedlingActivityBase instance;
 
-    SaveSeedlingPresenter saveSeedlingPresenter = new SaveSeedlingPresenter();
+    SaveSeedlingPresenter saveSeedlingPresenter;
     KProgressHUD hud_numHud; // 上传时显示的等待框
 
     ViewHolder viewHolder;//控件管理类
@@ -75,7 +79,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_seedling);
 
-
+        saveSeedlingPresenter = new SaveSeedlingPresenter(this);
         autoAddRelative_top = new AutoAddRelative(this)
                 .initView(R.layout.save_seeding_auto_add_top);
         viewHolder_top = autoAddRelative_top.getViewHolder_top();
@@ -207,6 +211,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                 index = i;
             }
         }
+
+        viewHolder.id_flowlayout.setCanCancle(false);
         //设置默认
         //动态添加标签
         SaveSeedlingPresenter.initAutoLayout(viewHolder.id_flowlayout, typeListBeen, index, SaveSeedlingActivityBase.this, (view, position, parent) -> {
@@ -249,6 +255,9 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                 index = i;
             }
         }
+
+        viewHolder.id_flowlayout_2.setCanCancle(false);
+
         //动态添加标签
         SaveSeedlingPresenter.initAutoLayout2(viewHolder.id_flowlayout_2, plantTypeList, index, SaveSeedlingActivityBase.this, (view, position, parent) -> {
             tag_ID1 = plantTypeList.get(position).getValue();//上传值
@@ -291,7 +300,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             if (name.equals("地径") || name.equals("米径") || name.equals("胸径")) {//第一个添加带有radio button 选项的   地被不添加
                 autoAddRelative_rd = new AutoAddRelative(this)
                         .initView(R.layout.save_seeding_auto_add_radio)
-                        .setDatas_rd(paramsListBean.get(i));
+                        .setDatas_rd(paramsListBean.get(i), saveSeedingGsonBean.getData().dbhTypeList, saveSeedingGsonBean.getData().diameterTypeList);
                 autoAddRelative_rd.setSizeWithTag(paramsListBean.get(i).getValue());
                 viewHolder.ll_auto_add_layout.addView(autoAddRelative_rd);
                 viewHolder_rd = autoAddRelative_rd.getViewHolder_rd();
@@ -309,6 +318,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
             // TODO: 2017/4/15    添加 布局  删除布局 动画
         }
+
+        onAutoChanged();
 
     }
 
@@ -401,6 +412,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 //                        D.e("=====图片还没上传，，先上传图片========");
 //                    }
                     showLoading();
+                    setLoadCancle(false);
                     UpdateLoading("加载中...");
 //                    hud_numHud.show();
 //                    if (!hud_numHud.isShowing() || hud_numHud == null) {
@@ -435,8 +447,11 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                         @Override
 //                        public void onSuccess(UpImageBackGsonBean imageBackGsonBean) {//
                         public void onSuccess(Pic pic) {//
-
-                            urlPaths.add(pic);
+                            if (!TextUtils.isEmpty(pic.getUrl())) {
+                                urlPaths.add(pic);
+                            } else {
+                                ToastUtil.showLongToast("有图片损坏，您可以修改后重新上传！");
+                            }
 //                          urlPaths.replaceAll(,pic);
                             a = pic.getSort();
                             a++;
@@ -487,6 +502,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         }
     }
 
+    //保存
     private void seedlingSave() {
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, true);
@@ -520,15 +536,22 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                     //成功
                     ToastUtil.showShortToast("提交完毕");
                     setResult(ConstantState.PUBLIC_SUCCEED);
-                    finish();
 
+
+                    /**
+                     *   通过rx java 通知  记苗本 更新列表
+                     *  {@link com.hldj.hmyg.Ui.jimiao.MiaoNoteListActivity#dataBinding11}
+                     *  来发送  刷新通知  发送一个   id  ，列表通过便利id  来确定哪个 item 需要进行刷新
+                     */
+                    RxBus.getInstance().post(SEEDING_REFRESH, new PostObj<>(getSeedlingNoteId()));
+                    hindLoading();
+                    finish();
 
 //                    ManagerListActivity_new.start2Activity(instance);
                 } else {
+                    hindLoading();
                     ToastUtil.showShortToast(simpleGsonBean.msg);
-
                 }
-                hindLoading();
 
                 if (hud_numHud != null) {
                     hud_numHud.dismiss();
@@ -543,7 +566,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
     private boolean checkParames(AutoAddRelative autoAddRelative, String tag) {
 
         if (autoAddRelative == null) {
-            ToastUtil.showShortToast("请先选择种类");
+            ToastUtil.showShortToast("请选择种类");
             return false;
         }
 
@@ -556,12 +579,20 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
                         D.e("=============checkParames===================" + viewHolder_rd.tv_auto_add_left1.getText() + " 最大值或最小值必须填写!");
                         return false;
                     }
+
+                    if (TextUtils.isEmpty(autoAddRelative.getDiameterType())) {
+                        ToastUtil.showLongToast("请选择 *M量 选项");
+                        return false;
+                    }
+
                 }
+
+
                 break;
             case "2":
                 //若是必填
                 if (autoAddRelative.isRequiredis()) {
-                    if (TextUtils.isEmpty(autoAddRelative.getViewHolder().et_auto_add_min.getText().toString()) && TextUtils.isEmpty(autoAddRelative.getViewHolder().et_auto_add_min.getText().toString())) {
+                    if (TextUtils.isEmpty(autoAddRelative.getViewHolder().et_auto_add_min.getText().toString()) && TextUtils.isEmpty(autoAddRelative.getViewHolder().et_auto_add_max.getText().toString())) {
                         ToastUtil.showShortToast("请填写 " + autoAddRelative.getViewHolder().tv_auto_add_left1.getText() + " 的最大值或最小值!");
                         D.e("=============checkParames===================" + viewHolder_rd.tv_auto_add_left1.getText() + " 的最大值或最小值!");
                         return false;
@@ -594,13 +625,16 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         params.put("validity", upLoadDatas.getValidity());//发布有效期
         params.put("nurseryId", upLoadDatas.address.addressId);
         params.put("count", upLoadDatas.getRepertory_num());
+
+        params.put("seedlingNoteId", getSeedlingNoteId());
         D.e("=========checkParames1=========");
 
         if (autoAddRelative_rd != null) {
-//            if (!checkParames(autoAddRelative_rd, "1")) {
-//                D.e("=========null======1===");
-//                return null;
-//            }
+            if (!checkParames(autoAddRelative_rd, "1")) {
+                D.e("=========null======1===");
+                return null;
+            }
+
 
             if (autoAddRelative_rd.getMTag().equals("dbh")) {
                 params.put("dbhType", autoAddRelative_rd.getDiameterType());
@@ -617,17 +651,16 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
         for (int i = 0; i < arrayList_holders.size(); i++) {
             D.e("=========checkParames2=========");
-//            if (!checkParames(arrayList_holders.get(i), "2")) {
-//                D.e("=========null=====2===");
-//                return null;
-//            }
+            if (!checkParames(arrayList_holders.get(i), "2")) {
+                D.e("=========null=====2===");
+                return null;
+            }
 
             if (arrayList_holders.get(i).getTag().equals("高度")) {
                 //有高度 参数
                 params.put("minHeight", arrayList_holders.get(i).getViewHolder().et_auto_add_min.getText().toString());
                 params.put("maxHeight", arrayList_holders.get(i).getViewHolder().et_auto_add_max.getText().toString());
             }
-            ;
             if (arrayList_holders.get(i).getTag().equals("冠幅")) {
                 params.put("minCrown", arrayList_holders.get(i).getViewHolder().et_auto_add_min.getText().toString());
                 params.put("maxCrown", arrayList_holders.get(i).getViewHolder().et_auto_add_max.getText().toString());
@@ -665,15 +698,15 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             return false;
         }
         if (tag_ID.equals("")) {
-            ToastUtil.showShortToast("请先选择苗木分类");
+            ToastUtil.showShortToast("请选择苗木分类");
             return false;
         }
         if (TextUtils.isEmpty(viewHolder_top.tv_auto_add_name.getText())) {
-            ToastUtil.showShortToast("请先输入品名");
+            ToastUtil.showShortToast("请输入品名");
             return false;
         }
         if (tag_ID1.equals("")) {
-            ToastUtil.showShortToast("请先选择种植类型");
+            ToastUtil.showShortToast("请选择种植类型");
             return false;
         }
         return true;
@@ -729,6 +762,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
     }
 
 
+    //暂存草稿箱
     View.OnClickListener onClickListener = v -> {
         SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean1 = GsonUtil.formateJson2Bean("", SaveSeedingGsonBean.DataBean.SeedlingBean.class);
 
@@ -841,10 +875,19 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         AdressActivity.Address address = upLoadDatas.address;
         seedlingBean.setNurseryId(address.addressId);
         nurseryJsonBean.setPhone(address.contactPhone);
+        nurseryJsonBean.contactPhone = (address.contactPhone);
+        nurseryJsonBean.contactName = (address.contactName);
         nurseryJsonBean.setRealName(address.contactName);
         nurseryJsonBean.setCityName(address.cityName);
+
+        nurseryJsonBean.isDefault = address.isDefault;
+
+        nurseryJsonBean.setName(address.name);
+        nurseryJsonBean.setFullAddress(address.fullAddress);
+
         seedlingBean.setCityName(address.cityName);
         seedlingBean.setDefault(address.isDefault);
+
         seedlingBean.setNurseryJson(nurseryJsonBean);
 
         SaveSeedlingActivityBase.this.saveSeedingGsonBean.getData().setSeedling(seedlingBean);
@@ -892,4 +935,20 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         this.proId = proId;
     }
 
+
+    /**
+     * 布局改变结束  时 调用
+     */
+    public void onAutoChanged() {
+        D.e("---onAutoChanged----------");
+    }
+
+    public String getSeedlingNoteId() {
+        return "";
+    }
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

@@ -55,7 +55,7 @@ public class MyDialog {
 	 * 
 	 */
 	public interface Dialogcallback {
-		public void dialogdo(String string);
+		void dialogdo(String string);
 	}
 
 	public void setDialogCallback(Dialogcallback dialogcallback) {

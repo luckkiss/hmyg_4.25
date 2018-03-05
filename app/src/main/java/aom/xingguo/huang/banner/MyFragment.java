@@ -54,7 +54,7 @@ public class MyFragment extends Fragment implements OnPageChangeListener {
         inflate = inflater.inflate(R.layout.fragment_main, null);
         // 初始打气筒
         mInflater = LayoutInflater.from(getActivity());
-        WindowManager wm = ((Activity) getActivity()).getWindowManager();
+        WindowManager wm = getActivity().getWindowManager();
         width = wm.getDefaultDisplay().getWidth();
         initData();
 
@@ -220,7 +220,6 @@ public class MyFragment extends Fragment implements OnPageChangeListener {
             }
         }
 
-        ;
     };
 
     private boolean CanChange = false;

@@ -156,12 +156,12 @@ public class NewsFragment extends Fragment {
 
             if (url.contains("article/detail/")) {
                 D.e("=====yes=======");
-                OptionItemView optionItemView = (OptionItemView) ((NewsActivity) getActivity()).findViewById(R.id.news_title);
+                OptionItemView optionItemView = (OptionItemView) getActivity().findViewById(R.id.news_title);
                 optionItemView.showRightImg(true);
 //showRightImg
             } else {
                 D.e("=====no=======");
-                OptionItemView optionItemView = (OptionItemView) ((NewsActivity) getActivity()).findViewById(R.id.news_title);
+                OptionItemView optionItemView = (OptionItemView) getActivity().findViewById(R.id.news_title);
                 optionItemView.showRightImg(false);
             }
 

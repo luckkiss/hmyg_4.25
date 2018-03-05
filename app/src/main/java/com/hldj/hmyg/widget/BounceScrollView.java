@@ -64,13 +64,17 @@ public class BounceScrollView extends ScrollView {
     private void commOnTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                D.e("==dowm==");
+//                D.e("==dowm==");
                 break;
             case MotionEvent.ACTION_MOVE:
                 final float preY = y;// 按下时的y坐标
                 float nowY = ev.getY();// 时时y坐标
                 int deltaY = (int) (preY - nowY);// 滑动距离
-                D.e("==move==");
+
+                if (onMoveListener != null) {
+                    onMoveListener.onMove(preY, deltaY, nowY);
+                }
+//                D.e("==move==");
                 y = nowY;
                 if (isNeedMove()) {
                     // 初始化头部矩形
@@ -96,7 +100,11 @@ public class BounceScrollView extends ScrollView {
                     animation();
                     isCount = false;
                 }
-                D.e("==up==");
+
+                if (onMoveListener != null) {
+                    onMoveListener.onUp();
+                }
+//                D.e("==up==");
                 break;
 
         }
@@ -131,11 +139,17 @@ public class BounceScrollView extends ScrollView {
         int offset = innerView.getMeasuredHeight() - getHeight();
         int scrollY = getScrollY();
         // 0是顶部，后面那个是底部
-        if (scrollY == 0 || scrollY == offset) {
-            return true;
-        }
-        return false;
+        return scrollY == 0 || scrollY == offset;
     }
 
+
+    public OnMoveListener onMoveListener;
+
+    public static interface OnMoveListener {
+        void onMove(float preY, float deltaY, float y);//y轴
+
+        void onUp();
+
+    }
 
 }

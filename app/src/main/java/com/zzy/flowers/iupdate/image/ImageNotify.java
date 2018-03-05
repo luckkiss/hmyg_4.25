@@ -10,14 +10,14 @@ public class ImageNotify {
 
 	public interface IImageNotify {
 
-		public void notifyUploadImageSuccess(List<UploadImageData> dataList,
-				int type);
+		void notifyUploadImageSuccess(List<UploadImageData> dataList,
+                                      int type);
 
-		public void notifyDownloadImageSuccess(int type, int pos,
-				String filename, boolean isSmall);
+		void notifyDownloadImageSuccess(int type, int pos,
+                                        String filename, boolean isSmall);
 
-		public void notifyNormalUploadImageSuccess(ArrayList<String> dataList,
-				int type);
+		void notifyNormalUploadImageSuccess(ArrayList<String> dataList,
+                                            int type);
 	}
 
 	/** 软引用队列 */

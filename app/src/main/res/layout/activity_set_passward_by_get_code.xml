@@ -13,6 +13,7 @@
         android:background="@color/white">
 
         <TextView
+            android:id="@+id/tv_title_pwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -226,7 +227,7 @@
                     android:visibility="gone" />
             </LinearLayout>
 
-            <com.neopixl.pixlui.components.textview.TextView
+            <TextView
                 android:id="@+id/set_passward"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/x37"

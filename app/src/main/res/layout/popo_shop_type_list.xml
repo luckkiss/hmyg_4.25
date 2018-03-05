@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/popWinBgColor"
@@ -17,6 +18,57 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:divider="@null"
-            android:scrollbars="none" />
+            android:scrollbars="none"
+            tools:visibility="visible" />
+
+
+        <RelativeLayout
+            android:id="@+id/grid_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <GridView
+                android:id="@+id/grid"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/white"
+                android:horizontalSpacing="3dp"
+                android:listSelector="@color/trans"
+                android:numColumns="3"
+                android:verticalSpacing="3dp"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/grid"
+                android:background="@drawable/bg_top_bottom_line">
+
+                <Button
+                    android:id="@+id/reset"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_top_line"
+                    android:text="重置"
+                    android:textColor="@color/text_color333" />
+
+                <Button
+                    android:id="@+id/ok"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@color/main_color"
+                    android:text="确定"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
     </FrameLayout>
 </LinearLayout>

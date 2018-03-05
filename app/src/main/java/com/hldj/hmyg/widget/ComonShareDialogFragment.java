@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.PlatformForShare;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,6 +71,10 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
 
         this.setCancelable(true);
 
+        if (!shareBean.imgUrl.startsWith("http")) {
+            shareBean.imgUrl = GetServerUrl.ICON_PAHT;
+        }
+
         return dia_choose_share;
     }
 
@@ -93,7 +99,7 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
         super.onStart();
         WindowManager.LayoutParams lp = getDialog().getWindow().getAttributes();
         lp.gravity = Gravity.BOTTOM;
-        lp.width = (int) (getDialog().getWindow().getWindowManager().getDefaultDisplay().getWidth());
+        lp.width = getDialog().getWindow().getWindowManager().getDefaultDisplay().getWidth();
         getDialog().getWindow().setGravity(Gravity.BOTTOM);
     }
 
@@ -137,17 +143,18 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
 
     @Override
     public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+        ToastUtil.showShortToast("分享成功");
 
     }
 
     @Override
     public void onError(Platform platform, int i, Throwable throwable) {
-
+        ToastUtil.showShortToast("分享失败：" + throwable.getMessage());
     }
 
     @Override
     public void onCancel(Platform platform, int i) {
-
+        ToastUtil.showShortToast("分享取消");
     }
 
 
@@ -212,7 +219,7 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
                 }
 
                 D.e("=======分享内容=======" + shareBean.toString());
-
+                ShareDialogFragment.doShare2GetPoint();
 
             });
             return inflate;
@@ -223,6 +230,7 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
     private void ShareToQzone() {
         Platform.ShareParams sp5 = new Platform.ShareParams();
         sp5.setTitle(shareBean.title);
+        sp5.setShareType(shareBean.shareType);
         sp5.setTitleUrl(shareBean.pageUrl); // 标题的超链接
         sp5.setText(shareBean.text);
         sp5.setImageUrl(shareBean.imgUrl);
@@ -237,6 +245,7 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
     private void ShareToSinaWeibo() {
         Platform.ShareParams sp3 = new Platform.ShareParams();
         sp3.setText("苗木交易原来可以如此简单,配上花木易购APP,指尖轻点,交易无忧。");
+        sp3.setShareType(shareBean.shareType);
         // sp3.setImagePath("/mnt/sdcard/share/" + system_time + ".jpg");
         Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
         weibo.setPlatformActionListener(this); // 设置分享事件回调
@@ -246,7 +255,8 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
 
     private void ShareToWechat() {
         Platform.ShareParams sp1 = new Platform.ShareParams();
-        sp1.setShareType(Platform.SHARE_WEBPAGE);
+//        sp1.setShareType(Platform.SHARE_WEBPAGE);
+        sp1.setShareType(shareBean.shareType);
         sp1.setTitle(shareBean.title);
         sp1.setText(shareBean.text);
 //        sp1.setImageUrl(img);
@@ -261,8 +271,16 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
 
     private void ShareToWechatMoments() {
         Platform.ShareParams sp2 = new Platform.ShareParams();
-        sp2.setShareType(Platform.SHARE_WEBPAGE);
-        sp2.setTitle(shareBean.title);
+        sp2.setShareType(shareBean.shareType);
+//        sp2.setShareType(Platform.SHARE_WEBPAGE);
+
+
+        if (!TextUtils.isEmpty(shareBean.desc) && shareBean.desc.startsWith("_")) {
+            sp2.setTitle(shareBean.title + shareBean.desc);
+        } else {
+            sp2.setTitle(shareBean.title);
+        }
+
         sp2.setText(shareBean.text);
         sp2.setImageUrl(shareBean.imgUrl);
         sp2.setUrl(shareBean.pageUrl);
@@ -292,6 +310,7 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
         public String desc = "";//描述
         public String imgUrl = "";//图片链接地址
         public String pageUrl = "";// 
+        public int shareType = Platform.SHARE_WEBPAGE;// 默认网页分享
 
         public ShareBean(String title, String text, String desc, String imgUrl, String pageUrl) {
             this.title = title;
@@ -299,6 +318,15 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
             this.desc = desc;
             this.imgUrl = imgUrl;
             this.pageUrl = pageUrl;
+        }
+
+        public ShareBean(String title, String text, String desc, String imgUrl, String pageUrl, int shareType) {
+            this.title = title;
+            this.text = text;
+            this.desc = desc;
+            this.imgUrl = imgUrl;
+            this.pageUrl = pageUrl;
+            this.shareType = shareType;
         }
 
         public ShareBean() {

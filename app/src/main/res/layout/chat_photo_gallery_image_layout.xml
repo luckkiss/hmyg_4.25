@@ -38,7 +38,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
-            android:button="@drawable/photo_choose_checkbox_new_selector" />
+            android:button="@drawable/dagou_seletor" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -56,7 +56,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dip"
-            android:button="@drawable/photo_choose_source_checkbox_selector" />
+            android:button="@drawable/dagou_seletor" />
 
         <TextView
             android:id="@+id/choose_photo_source_size_tv"

@@ -74,7 +74,7 @@ public class Fragment3 extends Fragment {
                 helper.setText(R.id.tv_fr_item_plant_name, item.purchaseJson.name);
                 helper.setText(R.id.tv_fr_item_company_name, item.purchaseJson.buyer.displayName);
                 helper.setText(R.id.tv_fr_item_company_addr_name, item.purchaseJson.cityName);
-                helper.setText(R.id.tv_fr_item_price, "￥"+item.price);
+                helper.setText(R.id.tv_fr_item_price, "¥"+item.price);
                 helper.setText(R.id.tv_fr_item_specText, item.getSpecText());
                 helper.setText(R.id.stv_fragment_time, "日期：" +item.attrData.createDate);
 

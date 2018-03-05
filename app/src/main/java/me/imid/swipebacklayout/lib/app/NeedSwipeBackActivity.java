@@ -2,6 +2,8 @@ package me.imid.swipebacklayout.lib.app;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.SparseArray;
@@ -127,6 +129,15 @@ return (T) view;
 
     public String getText(TextView tv) {
         return TextUtils.isEmpty(tv.getText()) ? "" : tv.getText().toString();
+    }
+
+    @Override
+    public Resources getResources() {
+        Resources res = super.getResources();
+        Configuration config = new Configuration();
+        config.setToDefaults();
+        res.updateConfiguration(config, res.getDisplayMetrics());
+        return res;
     }
 
 }

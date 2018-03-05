@@ -56,16 +56,23 @@
                     android:text="@string/tab_b_text" />
 
 
-                <ImageView
+                <RadioButton
                     android:id="@+id/iv_publish"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:src="@mipmap/shouye_fabu"
-                    android:visibility="gone"
-                    />
+                    style="@style/tab_hdpi"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/tab_home_c"
+                    android:text="@string/tab_c_text" />
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/iv_publish"-->
+                    <!--android:layout_width="35dp"-->
+                    <!--android:layout_height="35dp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_marginLeft="15dp"-->
+                    <!--android:layout_marginRight="15dp"-->
+                    <!--android:src="@mipmap/shouye_fabu"-->
+                    <!--android:visibility="visible"-->
+                    <!--/>-->
 
 
                 <!--@string/tab_c_text-->

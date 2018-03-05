@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="46dp"
+    android:layout_height="@dimen/title_top_default"
     android:background="@color/white"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
@@ -20,7 +20,7 @@
 
         <RadioGroup
             android:id="@+id/radio_group_title"
-            android:layout_width="@dimen/x175"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/y17"
             android:layout_centerInParent="true"
             android:orientation="horizontal"
@@ -28,7 +28,9 @@
 
             <RadioButton
                 android:id="@+id/rb_title_left"
-                style="@style/radio_seedling_common"
+                style="@style/RadioButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@drawable/rb_left_selecteor"
                 android:checked="true"
                 android:text="采购单"
@@ -36,15 +38,20 @@
 
             <RadioButton
                 android:id="@+id/rb_title_center"
-                style="@style/radio_seedling_common"
+                style="@style/RadioButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="-1px"
                 android:background="@drawable/rb_center_selecteor"
-                android:text="装车列表"
+                android:text="发货信息"
                 android:textColor="@color/rb_left_selecteor" />
 
             <RadioButton
                 android:id="@+id/rb_title_right"
-                style="@style/radio_seedling_common"
+                style="@style/RadioButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-2px"
                 android:background="@drawable/rb_right_selecteor"
                 android:text="项目信息"
                 android:textColor="@color/rb_left_selecteor" />
@@ -92,6 +99,6 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_alignParentBottom="true"
-            android:background="@color/main_color" />
+            android:background="@color/divider_color_bg" />
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

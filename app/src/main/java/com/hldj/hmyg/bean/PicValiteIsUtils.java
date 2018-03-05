@@ -42,11 +42,7 @@ public class PicValiteIsUtils {
 				ex++;
 			}
 		}
-		if (web == urlPaths.size() && ex == 0) {
-			needpicValite = true;
-		} else {
-			needpicValite = false;
-		}
+        needpicValite = web == urlPaths.size() && ex == 0;
 		return needpicValite;
 
 	}
