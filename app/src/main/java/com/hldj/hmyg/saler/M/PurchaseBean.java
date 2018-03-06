@@ -133,6 +133,8 @@ public class PurchaseBean {
         public String closeDateStr = "";
         public Boolean isSupplier = false;
         public double servicePrice;
+        public String sellerName = "-";
+
 
     }
 

@@ -59,7 +59,7 @@
             android:singleLine="true"
             android:textColor="@color/white"
             android:textSize="13sp"
-            tools:text="用苗地块：厦门" />
+            tools:text="用苗地：厦门" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -148,26 +148,36 @@
             android:layout_height="wrap_content"
             android:background="@color/white_60"
             android:drawablePadding="6dp"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingLeft="10dp"
             android:paddingTop="5dp"
-            android:text="一下报价未包含10%服务费"
+            android:text="以下报价未包含10%服务费"
             android:textColor="@color/white"
             android:textSize="@dimen/textSize" />
 
 
         <!--<TextView-->
-            <!--android:id="@+id/tv_no_permision"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:background="@color/white"-->
-            <!--android:gravity="center"-->
-            <!--android:text="-&#45;&#45; 您没有选标权限 -&#45;&#45;"-->
-            <!--android:textColor="@color/price_orige"-->
-            <!--android:visibility="gone"-->
-            <!--tools:visibility="visible" />-->
+        <!--android:id="@+id/tv_no_permision"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:background="@color/white"-->
+        <!--android:gravity="center"-->
+        <!--android:text="-&#45;&#45; 您没有选标权限 -&#45;&#45;"-->
+        <!--android:textColor="@color/price_orige"-->
+        <!--android:visibility="gone"-->
+        <!--tools:visibility="visible" />-->
 
     </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:src="@mipmap/zdbj" />
 
 </FrameLayout>

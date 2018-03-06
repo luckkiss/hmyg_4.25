@@ -57,6 +57,9 @@ public class MyProgramGsonBean {
                 public int unReceiptCarCount;
                 public String totalAmount;
                 public String typeName;
+                public int purchaseCountJson;/* 采购单数量 */
+
+
 
                 public static class ClerkBean {
                     public String id;

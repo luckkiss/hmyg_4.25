@@ -83,6 +83,11 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
 //        TextView bottom_tv = getView(R.id.bottom_tv);
 //        bottom_tv.setText("共3个品种,已报价0个品种");
 
+        getView(R.id.iv_zbbj).setVisibility( View.VISIBLE );
+
+
+
+
 
     }
 
@@ -100,8 +105,8 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
         totalCount = data.size();
         TextView bottom_tv = getView(R.id.bottom_tv);
 //        bottom_tv.setText("共" + totalCount + "个品种,已报价0个品种");
-        String str = "共" + totalCount + "个品种,已报价" + tempBeans.size() + "个品种";
-        StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, totalCount + "", tempBeans.size() + "", R.color.red).fillColor();
+        String str = "共" + totalCount + "个品种,已报价 " + tempBeans.size() + "个品种";
+        StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, totalCount + "", " " + tempBeans.size() + "", R.color.red).fillColor();
         bottom_tv
                 .setText(stringFormatUtil.getResult());
 
@@ -199,12 +204,12 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
             listAdapter.notifyDataSetChanged();
 
 
-            ToastUtil.showLongToast("临时保存成功+tmp_quote" + tmp_quote.toString());
+//            ToastUtil.showLongToast("临时保存成功+tmp_quote" + tmp_quote.toString());
             D.i("=======临时保存成功======" + tmp_quote.toString());
 
 
-            String str = "共" + totalCount + "个品种,已报价" + tempBeans.size() + "个品种";
-            StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, totalCount + "", tempBeans.size() + "", R.color.red).fillColor();
+            String str = "共" + totalCount + "个品种,已报价" + " "+tempBeans.size() + " 个品种";
+            StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, totalCount + "", " "+tempBeans.size() + " ", R.color.red).fillColor();
 
             ((TextView) getView(R.id.bottom_tv))
                     .setText(stringFormatUtil.getResult());

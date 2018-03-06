@@ -1,9 +1,12 @@
 package com.hldj.hmyg.model;
 
+import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.M.ProgramPageGsonBean;
 import com.hldj.hmyg.M.ProgramPurchaseIndexGsonBean;
+import com.hldj.hmyg.M.QuoteUserGroup;
 import com.hldj.hmyg.bean.SimpleGsonBean;
+import com.hldj.hmyg.bean.SimpleGsonBean_new;
 import com.hldj.hmyg.contract.ProgramPurchaseContract;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
@@ -12,6 +15,9 @@ import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.http.AjaxCallBack;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Created by 罗擦擦 on 2017/6/11 0011.
@@ -22,13 +28,68 @@ public class ProgramPurchaseModel extends BasePresenter implements ProgramPurcha
     /*可采用报价权限*/
     private boolean tureQuote;
 
+
+    /* 获取供应商  请求接口  */
     @Override
-    public void getDatas(String page, String purchaseId, String searchKey, ResultCallBack callBack) {
+    public void getDatasGys(String page, String proId, String sellerId, ResultCallBack callBack) {
+
+
+        putParams("purchaseId", proId);
+
+        AjaxCallBack ajaxCallBack = new AjaxCallBack<String>() {
+            @Override
+            public void onSuccess(String json) {
+                D.e("==========json=============" + json);
+                try {
+
+//                    SimpleGsonBean_new<List<QuoteUserGroup>> pageGsonBean = GsonUtil.formateJson2List(json, List<QuoteUserGroup>);
+//                    Type userType = new TypeToken<List<QuoteUserGroup>>(){}.getType();
+
+                    Type beanType = new TypeToken<SimpleGsonBean_new<List<QuoteUserGroup>>>() {
+                    }.getType();
+
+//                    Type beanType = new TypeToken<SimpleGsonBean_new<SimplePageBean<List<Moments>>>>() {
+//                    }.getType();
+//                    SimpleGsonBean_new<SimplePageBean<List<Moments>>> bean_new = GsonUtil.formateJson2Bean(json, beanType);
+
+
+                    SimpleGsonBean_new<List<QuoteUserGroup>> pageGsonBean = GsonUtil.formateJson2Bean(json,beanType);
+
+
+                    if (pageGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
+                        callBack.onSuccess(pageGsonBean.data.list);
+                    } else {
+                        callBack.onFailure(null, 0, pageGsonBean.msg);
+                    }
+                } catch (Exception e) {
+                    callBack.onFailure(null, 0, e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                callBack.onFailure(t, errorNo, strMsg);
+                super.onFailure(t, errorNo, strMsg);
+            }
+
+        };
+
+//        doRequest("admin/project/list", true, ajaxCallBack);
+        doRequest("admin/project/purchaseSupply", true, ajaxCallBack);
+
+
+    }
+
+    @Override
+    public void getDatas(String page, String purchaseId, String sellerId, ResultCallBack callBack) {
 
         putParams("pageSize", "10");
         putParams("pageIndex", page);
         putParams("purchaseId", purchaseId);
-        putParams("searchKey", searchKey);
+//        putParams("searchKey", searchKey);
+        putParams("sellerId", sellerId);
+
 
         AjaxCallBack ajaxCallBack = new AjaxCallBack<String>() {
             @Override

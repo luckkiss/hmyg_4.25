@@ -49,6 +49,7 @@ public class PurchaseListPageGsonBean {
 
         public static class AttrDataBean {
             public String consumerRemarks = "暂无信息";//厦门海石景观股份有限公司
+            public String closeDateStr = "-";//厦门海石景观股份有限公司
         }
 
         public static class PageBean {

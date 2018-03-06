@@ -1183,6 +1183,14 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
     public int expandAll(int position, boolean init) {
         return expandAll(position, true, !init);
     }
+    public void expandAll() {
+
+        for (int i = mData.size() - 1 + getHeaderLayoutCount(); i >= getHeaderLayoutCount(); i--) {
+            expandAll(i, false, false);
+        }
+    }
+
+
 
     private int recursiveCollapse(@IntRange(from = 0) int position) {
         T item = getItem(position);

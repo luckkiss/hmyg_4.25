@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:background="@color/bg_cgd"
+        android:background="@color/white"
         android:orientation="vertical"
         android:paddingTop="8dp">
 
@@ -25,6 +25,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/ll_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -57,6 +58,19 @@
                     android:textColor="@color/red"
                     android:textSize="14.0sp" />
             </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/show_cankao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/ll_left"
+                android:background="@color/main_color"
+                android:padding="3dp"
+                android:text="参考图片"
+                android:textSize="11sp"
+                android:textColor="@color/white" />
+
 
             <TextView
                 android:id="@+id/tv_03"
@@ -220,7 +234,6 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/round_rectangle_bg_btn"
-                android:textColor="@color/color_purch_sub"
                 android:gravity="center_vertical"
                 android:paddingBottom="2.5dip"
                 android:paddingLeft="5.0dip"
@@ -228,6 +241,7 @@
                 android:paddingTop="2.5dip"
                 android:singleLine="true"
                 android:text="马上报价"
+                android:textColor="@color/color_purch_sub"
                 android:textSize="14sp" />
 
             <View

@@ -238,6 +238,10 @@
             android:name=".Ui.myProgramChild.ProgramPurchaseActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".Ui.myProgramChild.ProgramPurchaseActivityOnly"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="cn.hugo.android.scanner.CaptureActivity"
@@ -261,7 +265,7 @@
         <activity
             android:name=".Ui.friend.FriendCycleSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <!---->
         <!-- android:windowSoftInputMode="adjustPan|stateHidden"-->
         <activity

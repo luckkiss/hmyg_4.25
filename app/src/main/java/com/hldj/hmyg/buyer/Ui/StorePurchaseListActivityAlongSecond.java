@@ -30,8 +30,8 @@ public class StorePurchaseListActivityAlongSecond extends StorePurchaseListActiv
     protected void initHeadBean(PurchaseListPageGsonBean.DataBeanX.HeadPurchaseBean headPurchase) {
         super.initHeadBean(headPurchase);
 
-        ((TextView) getView(R.id.tv_06)).setText("截止时间：" + headPurchase.preCloseDate);
-
+        if (headPurchase == null) return;
+        ((TextView) getView(R.id.tv_06)).setText("截止时间：" + headPurchase.attrData.closeDateStr);
 
 
     }

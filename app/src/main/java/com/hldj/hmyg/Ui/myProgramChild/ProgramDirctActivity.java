@@ -13,7 +13,6 @@ import android.widget.RadioGroup;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.myProgramChild.childensFragment.ProgramFragment1;
-import com.hldj.hmyg.Ui.myProgramChild.childensFragment.ProgramFragment2;
 import com.hldj.hmyg.Ui.myProgramChild.childensFragment.ProgramFragment3;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.saler.Adapter.FragmentPagerAdapter_TabLayout;
@@ -34,25 +33,25 @@ public class ProgramDirctActivity extends BaseMVPActivity implements View.OnClic
     }
 
     private ArrayList<String> list_title = new ArrayList<String>() {{
-        add("采购中");
+//        add("采购中");
         add("待采购");
         add("历史采购");
     }};
 
     private ArrayList<Fragment> list_fragment = new ArrayList<Fragment>() {{
         add(new ProgramFragment1());
-        add(new ProgramFragment2());
+//        add(new ProgramFragment2());
         add(new ProgramFragment3());
     }};
 
 
     @Override
     public void initView() {
-
+        getView(R.id.rb_title_center).setVisibility(View.GONE);
         FragmentPagerAdapter_TabLayout mFragmentPagerAdapter_tabLayout = new FragmentPagerAdapter_TabLayout(getSupportFragmentManager(), list_title, list_fragment);
         getVpContent().setAdapter(mFragmentPagerAdapter_tabLayout);
         getVpContent().addOnPageChangeListener(this);
-        getVpContent().setOffscreenPageLimit(3);
+        getVpContent().setOffscreenPageLimit(2);
         mFragmentPagerAdapter_tabLayout.notifyDataSetChanged();
         ((RadioGroup) getView(R.id.radio_group_title)).setOnCheckedChangeListener(this);
         getView(R.id.toolbar_left_icon).setOnClickListener(view -> finish());
@@ -116,7 +115,7 @@ public class ProgramDirctActivity extends BaseMVPActivity implements View.OnClic
                 ((RadioButton) getView(R.id.rb_title_left)).setChecked(true);
                 break;
             case 1:
-                ((RadioButton) getView(R.id.rb_title_center)).setChecked(true);
+                ((RadioButton) getView(R.id.rb_title_right)).setChecked(true);
                 break;
             case 2:
                 ((RadioButton) getView(R.id.rb_title_right)).setChecked(true);
@@ -134,7 +133,7 @@ public class ProgramDirctActivity extends BaseMVPActivity implements View.OnClic
                 getVpContent().setCurrentItem(1);
                 break;
             case R.id.rb_title_right:
-                getVpContent().setCurrentItem(2);
+                getVpContent().setCurrentItem(1);
                 break;
         }
     }

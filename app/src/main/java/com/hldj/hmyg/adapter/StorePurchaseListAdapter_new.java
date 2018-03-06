@@ -77,6 +77,21 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 
         ((TextView) myViewHolder.getView(R.id.tv_01)).setText((position + 1) + "、" + purchaseItemBeanNew.name);
 
+        /* 参考图片  按钮  */
+
+
+        ((TextView) myViewHolder.getView(R.id.show_cankao)).setOnClickListener(v -> {
+            ToastUtil.showLongToast("参考图片");
+
+
+
+            D.i("==参考图片===");
+        });
+
+
+
+
+
         /*种植类型*/
         ((TextView) myViewHolder.getView(R.id.tv_021)).setText("种植类型: " + purchaseItemBeanNew.plantTypeArrayNames);
 
@@ -330,6 +345,13 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
             tv_caozuo01.setTextColor(ContextCompat.getColor(context, R.color.orange));
             tv_caozuo01.setBackground(ContextCompat.getDrawable(context, R.drawable.trans_bg));
         }
+
+        /*  第三种状态出现   变成灰色   */
+
+//        tv_caozuo01.setText("已填写");
+//        tv_caozuo01.setTextColor(ContextCompat.getColor(context, R.color.text_login_type));
+//        tv_caozuo01.setBackground(ContextCompat.getDrawable(context, R.drawable.gray_out_white_in__bg));
+
 
     }
 

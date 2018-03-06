@@ -78,14 +78,12 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
         this.direce = direce;
 
 
-        if (recyclerView.getAdapter().getData().size()>0)
-        {
+        if (recyclerView.getAdapter().getData().size() > 0) {
 //            recyclerView.getAdapter().setNewData(null);
 //            recyclerView.getAdapter().addData(sellerQuoteJsonBean);
-        }else{
+        } else {
             recyclerView.getAdapter().addData(sellerQuoteJsonBean);
         }
-
 
 
         if (usedQuoteList != null) {
@@ -187,4 +185,8 @@ public class ManagerQuoteListItemDetail_new extends PurchaseDetailActivity {
     }
 
 
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

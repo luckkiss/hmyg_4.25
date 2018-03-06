@@ -2,8 +2,10 @@ package com.hldj.hmyg.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/4/12.
@@ -50,6 +52,18 @@ public class GsonUtil<T> {
 //        return (E) getGson().fromJson(json, cls);
         return getGson().fromJson(json, cls);
     }
+
+    public static <E> E formateJson2List(String json, Class<E> cls) {
+
+//        System.out.println(t.getClass());
+
+        Type beanType = new TypeToken<List<E>>() {
+        }.getType();
+
+//        return (E) getGson().fromJson(json, cls);
+        return getGson().fromJson(json, beanType);
+    }
+
 
     public static <E> E formateJson2Bean(String json, Type beanType) {
 

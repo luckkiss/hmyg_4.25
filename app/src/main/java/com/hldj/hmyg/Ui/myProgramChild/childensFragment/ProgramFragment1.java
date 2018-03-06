@@ -64,7 +64,7 @@ public class ProgramFragment1 extends BaseFragment {
 
 
 //                helper.setText(R.id.tv_01, item.num);
-                String html_source = item.blurProjectName + "采购单";
+                String html_source = item.name + "";
                 String html_source1 = "(" + item.num + ")";
                 helper.setText(R.id.tv_01, Html.fromHtml(html_source + "<font color='#FFA19494'><small>" + html_source1 + "</small></font>"));
 //                helper.setText(R.id.tv_01, Html.fromHtml(item.blurProjectName + "采购单" + "<font color='#FFA19494'><small>" + "(" + item.num + ")" + "</small></font>"));

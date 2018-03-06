@@ -123,7 +123,10 @@
                 android:gravity="center"
                 android:text="@string/company_info"
                 android:textColor="@color/fabu_yellow"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                tools:visibility="invisible"
+                android:visibility="gone"
+                />
 
         </LinearLayout>
 
@@ -240,7 +243,7 @@
                 android:paddingTop="3dp"
                 android:textColor="@color/white"
                 android:textSize="13sp"
-                tools:text="截止时间" />
+                tools:text="截止时间:" />
         </LinearLayout>
 
 
@@ -334,6 +337,20 @@
 
 
     </LinearLayout>
+
+
+
+    <ImageView
+        android:id="@+id/iv_zbbj"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:src="@mipmap/zdbj"
+        android:layout_gravity="right"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        />
 
 
 </FrameLayout>

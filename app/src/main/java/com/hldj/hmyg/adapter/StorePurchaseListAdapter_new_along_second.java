@@ -24,7 +24,6 @@ import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
-import com.hy.utils.ToastUtil;
 
 import java.util.List;
 
@@ -55,12 +54,14 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
     public void setConverView(ViewHolders myViewHolder, final PurchaseItemBean_new purchaseItemBeanNew, int position) {
         super.setConverView(myViewHolder, purchaseItemBeanNew, position);
 
+
         ((TextView) myViewHolder.getView(R.id.tv_10)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showLongToast("被点击了");
+//                ToastUtil.showLongToast("被点击了");
 
                 TextView me = ((TextView) v);
+
 
 //                SpannableStringBuilder text = ((SpannableStringBuilder) me.getText());
 //                if (v.isSelected()) {
@@ -100,7 +101,7 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
                             .doRequest("admin/purchase/itemQuoteList", true, new HandlerAjaxCallBack((NeedSwipeBackActivity) context) {
                                 @Override
                                 public void onRealSuccess(SimpleGsonBean gsonBean) {
-                                    ToastUtil.showLongToast(gsonBean.msg);
+//                                    ToastUtil.showLongToast(gsonBean.msg);
 //                                    for (int i = 0; i < getDatas().size(); i++) {
 //                                        if (getDatas().get(i).id.equals(purchaseItemBeanNew.id)) {
 //                                            getDatas().set(i, gsonBean.getData().purchaseItem);
@@ -131,9 +132,20 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
 
 //                me.setText(text);
 
+
+
+
             }
         });
 
+
+        myViewHolder.getView(R.id.tv_10).setVisibility(purchaseItemBeanNew.isQuoted ? View.VISIBLE : View.INVISIBLE);
+
+
+          /*    去除点击   已经报价一次的 请情况   不允许 继续点击报价。。只能修改*/
+        if (purchaseItemBeanNew.footSellerQuoteListJson != null) {
+            myViewHolder.getConvertView().setOnClickListener(null);
+        }
 
     }
 
@@ -254,6 +266,8 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
 
 
 
+
+
                 /*删除*/
                 myViewHolder.getView(R.id.tv_delete_item).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -287,7 +301,7 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
                 });
 
 
-                processChildHolders(myViewHolder);
+                processChildHolders(myViewHolder, jsonBean);
 
 
             }
@@ -296,7 +310,7 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
 
     }
 
-    protected void processChildHolders(ViewHolders myViewHolder) {
+    protected void processChildHolders(ViewHolders myViewHolder, SellerQuoteJsonBean jsonBean) {
 //        执行   删除按钮 隐藏时使用。。子类调用     只有 package 打包报价时强制隐藏删除按钮
     }
 

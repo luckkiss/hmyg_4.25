@@ -102,6 +102,7 @@ public class QuoteListJsonBean implements Serializable, MultiItemEntity, IExpand
     public String purchaseItemId;
     public String sellerId;
     public String price;
+    public String prePrice = "-";
     public boolean isInvoice;
     public boolean isUsed;
     public String sendType = "";

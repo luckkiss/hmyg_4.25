@@ -303,7 +303,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 //
 
 //            if (gsonBean.data.preBidList != null || gsonBean.data.unEditList != null) {
-                initSecondList(gsonBean.data.preBidList, gsonBean.data.unEditList);
+            initSecondList(gsonBean.data.preBidList, gsonBean.data.unEditList);
 //            }
 
 
@@ -416,6 +416,8 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
         getView(R.id.ll_content_company_info).setVisibility(headPurchase.showConsumerName ? View.VISIBLE : View.GONE);
 
+
+
         companyInfo = headPurchase.attrData.consumerRemarks;
                         /* 单位信息*/
 
@@ -423,6 +425,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         ((TextView) getView(tv_03)).setText("报价说明");
         getView(tv_03).setOnClickListener(StorePurchaseListActivity.this);
         getView(R.id.tv_ymdw).setOnClickListener(StorePurchaseListActivity.this);
+        getView(R.id.tv_ymdw).setVisibility(View.GONE);
 
                         /* 用  苗  地*/
         ((TextView) getView(R.id.tv_04)).setText("用  苗  地：" + headPurchase.cityName);
@@ -447,11 +450,15 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                         /*   tv_06.setText("截止时间：" + closeDate);*/
 //                ((TextView) getView(R.id.tv_06)).setText("用  苗  地：" + headPurchase.closeDate);
 
+//        ((TextView) getView(R.id.tv_06)).append(headPurchase.attrData.closeDateStr);
+//        Log.i(TAG, "initHeadBean: closeDateStr ---- " + headPurchase.attrData.closeDateStr);
+//        ((TextView) getView(R.id.tv_06)).setTextColor(Color.RED);
+
         ((TextView) getView(R.id.tv_06)).setText("截止时间：" + headPurchase.closeDate);
 
 //        shareBean.text = "用  苗  地：" + headPurchase.cityName + "\n" + "截止时间：" + headPurchase.closeDate + "\n";
 
-        ((TextView) getView(R.id.tv_06)).setText("截止时间：" + headPurchase.preCloseDate);
+//        ((TextView) getView(R.id.tv_06)).setText("截止时间：" + headPurchase.preCloseDate);
 
     }
 

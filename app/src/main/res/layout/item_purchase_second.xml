@@ -33,7 +33,7 @@
                 android:text="采购报价:"
                 android:textColor="@color/orange"
                 android:textSize="13sp"
-               app:solid="@color/trans" />
+                app:solid="@color/trans" />
 
 
             <TextView
@@ -63,33 +63,33 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_weight="1"
-                >
-            <com.coorchice.library.SuperTextView
-                android:layout_width="wrap_content"
-                android:layout_height="27dp"
-                android:gravity="center|start"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="价        格:"
-                android:textSize="12sp"
-              
-             app:solid="@color/trans" />
+                android:orientation="horizontal">
 
-            <com.coorchice.library.SuperTextView
-                android:id="@+id/tv_quote_item_price"
-                android:layout_width="0dp"
-                android:layout_height="27dp"
-                android:layout_weight="0.78"
-                android:gravity="center_vertical|start"
-                android:paddingLeft="10dp"
-                android:paddingRight="5dp"
-                android:textColor="@color/price_orige"
-                android:textSize="12sp"
-                app:solid="@color/trans"
-                tools:text="160" />
-</LinearLayout>
+                <com.coorchice.library.SuperTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="27dp"
+                    android:gravity="center|start"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="价        格:"
+                    android:textSize="12sp"
+
+                    app:solid="@color/trans" />
+
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/tv_quote_item_price"
+                    android:layout_width="0dp"
+                    android:layout_height="27dp"
+                    android:layout_weight="0.78"
+                    android:gravity="center_vertical|start"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/price_orige"
+                    android:textSize="12sp"
+                    app:solid="@color/trans"
+                    tools:text="160" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -104,7 +104,7 @@
                     android:paddingRight="5dp"
                     android:text="报价时间:"
                     android:textSize="12sp"
-                  app:solid="@color/trans" />
+                    app:solid="@color/trans" />
 
 
                 <TextView
@@ -115,8 +115,8 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical|start"
                     android:paddingLeft="5dp"
-                    android:textColor="@color/text_color333"
                     android:singleLine="true"
+                    android:textColor="@color/text_color333"
                     android:textSize="12sp"
                     tools:text="fsafddsafddasdfasdfaf-" />
 
@@ -174,7 +174,7 @@
                     android:paddingRight="5dp"
                     android:text="可供数量:"
                     android:textSize="12sp"
-                   app:solid="@color/trans" />
+                    app:solid="@color/trans" />
 
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/tv_quote_item_count"
@@ -185,16 +185,13 @@
                     android:minHeight="27dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
+                    android:textColor="@color/text_color333"
                     android:textSize="12sp"
                     app:solid="@color/trans"
                     tools:text="666"
-                    android:textColor="@color/text_color333"
 
                     />
             </LinearLayout>
-
-
-
 
 
         </LinearLayout>
@@ -213,7 +210,7 @@
                 android:paddingRight="5dp"
                 android:text="品种规格:"
                 android:textSize="12sp"
-               app:solid="@color/trans" />
+                app:solid="@color/trans" />
 
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_quote_item_specText"
@@ -223,10 +220,10 @@
                 android:gravity="center_vertical|start"
                 android:minHeight="27dp"
                 android:paddingRight="5dp"
+                android:textColor="@color/text_color333"
                 android:textSize="12sp"
-               android:textColor="@color/text_color333"     app:solid="@color/trans"
-                tools:text="高度：5地径：55（0.1m量）高度：5"
-                />
+                app:solid="@color/trans"
+                tools:text="高度：5地径：55（0.1m量）高度：5" />
 
 
         </LinearLayout>
@@ -248,29 +245,31 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
-            <com.coorchice.library.SuperTextView
-                android:layout_width="wrap_content"
-                android:layout_height="27dp"
-                android:gravity="center|end"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="苗源地址:"
-                android:textSize="12sp"
-                 app:solid="@color/trans" />
+                <com.coorchice.library.SuperTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="27dp"
+                    android:gravity="center|end"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="苗源地址:"
+                    android:textSize="12sp"
+                    app:solid="@color/trans" />
 
-            <com.coorchice.library.SuperTextView
-                android:id="@+id/tv_quote_item_cityName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.78"
-                android:gravity="center_vertical|start"
-                android:minHeight="27dp"
-                android:paddingRight="5dp"
-                android:textSize="12sp"
-               android:textColor="@color/text_color333"     app:solid="@color/trans"
-                tools:text="福建 厦门" />
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/tv_quote_item_cityName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.78"
+                    android:gravity="center_vertical|start"
+                    android:minHeight="27dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/text_color333"
+                    android:textSize="12sp"
+                    app:solid="@color/trans"
+                    tools:text="福建 厦门" />
 
-                </LinearLayout>
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -284,7 +283,7 @@
                     android:paddingRight="5dp"
                     android:text="种植类型:"
                     android:textSize="12sp"
-                   app:solid="@color/trans"
+                    app:solid="@color/trans"
 
                     />
 
@@ -297,8 +296,8 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical|start"
                     android:paddingLeft="5dp"
-                    android:textSize="12sp"
                     android:textColor="@color/text_color333"
+                    android:textSize="12sp"
 
                     tools:text="地栽苗" />
 
@@ -321,7 +320,7 @@
                 android:paddingRight="5dp"
                 android:text="报价说明:"
                 android:textSize="12sp"
-               app:solid="@color/trans" />
+                app:solid="@color/trans" />
 
 
             <com.coorchice.library.SuperTextView
@@ -332,16 +331,15 @@
                 android:gravity="center_vertical|start"
                 android:minHeight="27dp"
                 android:paddingRight="5dp"
+                android:textColor="@color/text_color333"
                 android:textSize="12sp"
-               android:textColor="@color/text_color333"     app:solid="@color/trans"
+                app:solid="@color/trans"
                 tools:text="134654646134654641346546461346134654646134654646134654646134654646134
             65464613465464613465464654646134654646134654646134
             6546461346546461346546466134654646134654646134654646134654646134654646" />
 
 
         </LinearLayout>
-
-
 
 
         <LinearLayout
@@ -358,7 +356,7 @@
                 android:text="苗木图片:"
                 android:textSize="12sp"
 
-                  app:solid="@color/trans" />
+                app:solid="@color/trans" />
 
 
             <com.coorchice.library.SuperTextView
@@ -369,10 +367,11 @@
                 android:layout_weight="0.8"
                 android:gravity="center_vertical|start"
                 android:paddingRight="5dp"
+                android:textColor="@color/text_color333"
                 android:textSize="12sp"
                 app:isShowState="true"
                 app:paddingEnd="10dp"
-               android:textColor="@color/text_color333"     app:solid="@color/trans"
+                app:solid="@color/trans"
                 app:state_drawable="@drawable/baojia_chakantupian"
                 app:state_drawable_height="20dp"
                 app:state_drawable_mode="right"
@@ -398,6 +397,20 @@
             android:layout_height="wrap_content"
             android:gravity="center">
 
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="0dp"
+                android:drawableLeft="@drawable/sy_sj"
+                android:drawablePadding="5dp"
+                android:text="2018-1-03 15:41"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_program_purch_sub_images_count"
+                tools:visibility="visible" />
+
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_show_is_quote_title"
                 android:layout_width="wrap_content"
@@ -407,7 +420,8 @@
                 android:paddingRight="5dp"
                 android:text="当前报价状态:"
                 android:textSize="12sp"
-                 app:solid="@color/trans" />
+                app:solid="@color/trans"
+                tools:visibility="invisible" />
 
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_show_is_quote"
@@ -419,9 +433,9 @@
                 android:paddingRight="5dp"
                 android:textColor="@color/orange_color"
                 android:textSize="12sp"
-                tools:text="已报价"
                 app:solid="@color/trans"
-                />
+                tools:text="已报价"
+                tools:visibility="invisible" />
 
 
             <com.coorchice.library.SuperTextView

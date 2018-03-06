@@ -224,4 +224,9 @@ public class NoticeActivity extends NeedSwipeBackActivity {
         }
 
     }
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

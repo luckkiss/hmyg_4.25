@@ -11,7 +11,6 @@ import java.util.List;
 public class ProgramPageGsonBean {
 
 
-
     public String code;
     public String msg;
     public DataBeanX data;
@@ -31,6 +30,9 @@ public class ProgramPageGsonBean {
         public String servicePoint;
         public PurchaseBean purchase;
 
+        public List<ProgramPurchaseExpanBean> list;/* 列表由分页  变为单页请求  */
+
+
         public static class PageBean {
             /**
              * pageNo : 0
@@ -46,7 +48,7 @@ public class ProgramPageGsonBean {
             public int total;
             public int firstResult;
             public int maxResults;
-            public List<ProgramPurchaseExpanBean> data;
+//            public List<ProgramPurchaseExpanBean> data;
 
 
         }

@@ -265,7 +265,7 @@
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/sptv_wd_wdxm"
                     style="@style/home_types"
-                    android:text="我的项目"
+                    android:text="采购选标"
                     android:visibility="invisible"
                     app:state_drawable="@mipmap/wd_wdxm"
                     tools:visibility="visible" />

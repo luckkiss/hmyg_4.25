@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Created by luocaca on 2017/6/27 0027.
- * 我的项目  ---- 项目列表
+ * 我的项目  ---- 项目列表  采购选标
  */
 
 public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyProgramModel> implements MyProgramContract.View {
@@ -51,6 +51,8 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
         recyclerView.init(new BaseQuickAdapter<MyProgramGsonBean.DataBeanX.PageBean.DataBean, BaseViewHolder>(R.layout.item_program_list) {
             @Override
             protected void convert(BaseViewHolder helper, MyProgramGsonBean.DataBeanX.PageBean.DataBean item) {
+
+
                 helper.convertView.setOnClickListener(view -> {
                     if (TextUtils.isEmpty(item.id)) {
                         ToastUtil.showLongToast("项目信息获取失败");
@@ -70,7 +72,8 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
                         .setVisible(R.id.tv_program_service_price, item.servicePoint != 0.0)
                 ;//
 
-                helper.setText(R.id.tv_program_load_car_count, filterColor(item.loadCarCount + "车", item.loadCarCount + "", R.color.main_color));//
+                helper.setText(R.id.tv_program_load_car_count, item.purchaseCountJson + "");//
+//                helper.setText(R.id.tv_program_load_car_count, filterColor(item.loadCarCount + "车", item.loadCarCount + "", R.color.main_color));//
                 helper.setText(R.id.tv_program_alreay_order, "¥" + item.totalAmount);//
                 helper.setText(R.id.tv_program_state, strFilter(item.typeName));//
 //                helper.setText(R.id.tv_program_state, item.typeName);//
@@ -163,7 +166,7 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
 
     @Override
     public String setTitle() {
-        return "项目列表";
+        return "采购选标";
     }
 
 

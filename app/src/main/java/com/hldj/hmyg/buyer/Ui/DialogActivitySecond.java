@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.ResultCallBack;
+import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.base.MyFinalActivity;
 import com.hldj.hmyg.bean.CityGsonBean;
@@ -502,6 +503,20 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
         tv.setText(filterColor(data.name + "  " + data.count + data.unitTypeName, data.count + data.unitTypeName));
         setText(getView(R.id.space_text), "种植类型: " + data.plantTypeArrayNames);
         setText(getView(R.id.guige), "规格: " + FUtil.$_zero(data.specText));
+
+        cityBeans = new CityGsonBean.ChildBeans();
+        if (MainActivity.aMapLocation != null) {
+            if (!TextUtils.isEmpty(MainActivity.cityCode))
+            {
+                cityCode = MainActivity.cityCode;
+                cityBeans.cityCode = MainActivity.cityCode;
+                city.setText(MainActivity.province_loc + " " + MainActivity.city_loc);
+                cityBeans.fullName = MainActivity.province_loc + " " + MainActivity.city_loc;
+            }
+        }
+
+
+
     }
 
 

@@ -50,6 +50,7 @@ public class CustomDaysPickPopwin extends PopupWindow {
 		confirmBtn = (Button) popView.findViewById(R.id.confirm_btn);
 		customBtn = (Button) popView.findViewById(R.id.custom_btn);
 		wv_string = (WheelView) popView.findViewById(R.id.stringwheel);
+
 		this.dayChangeListener = dayChangeListener;
 		this.pos = pos;
 		this.dataSource = dataSource;

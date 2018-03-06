@@ -11,6 +11,7 @@
     app:layout_constraintBottom_toTopOf="@+id/view2"
     tools:layout_editor_absoluteX="0dp">
 
+
     <TextView
         android:id="@+id/tv_program_purch_pos"
         android:layout_width="wrap_content"
@@ -27,14 +28,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_program_purch_name"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:maxWidth="200dp"
         android:singleLine="true"
+        android:text="供应商1"
         android:textColor="@color/text_color333"
         android:textSize="@dimen/textSizeXX"
         app:layout_constraintLeft_toRightOf="@+id/tv_program_purch_pos"
@@ -42,14 +43,15 @@
         tools:text="TextView " />
 
     <TextView
-        android:id="@+id/tv_program_purch_space_text"
+        android:id="@+id/tv_ycy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:text="已采用：5个品种"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_zzlx"
+        app:layout_constraintTop_toBottomOf="@+id/tv_pzsl"
         tools:text="spacetext" />
 
     <View
@@ -57,36 +59,13 @@
         android:layout_width="0dp"
         android:layout_height="5dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/xuxian"
         android:layerType="software"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_space_text" />
-
-    <TextView
-        android:id="@+id/tv_program_purch_price_num"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="有3条报价"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-    <TextView
-        android:id="@+id/tv_program_purch_alreay_order"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="8dp"
-        android:text="已采用一条"
-        android:textColor="@color/orange"
-        app:layout_constraintLeft_toRightOf="@+id/tv_program_purch_price_num"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_myd" />
 
     <View
         android:id="@+id/view2"
@@ -94,58 +73,79 @@
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
+        android:background="@color/color_bg_f5"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@color/color_bg_f5"
-        app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_alreay_order" />
-
-    <ImageView
-        android:id="@+id/iv_program_purch_right_top"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
-        android:src="@mipmap/yicaiyong_r"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail" />
 
     <TextView
-        android:id="@+id/tv_program_purch_see_detail"
+        android:id="@+id/tv_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:drawableLeft="@mipmap/ckxq"
         android:drawablePadding="5dp"
-        android:drawableRight="@drawable/arrow_green_selector"
-        android:text="查看报价"
+        android:text="查看详情"
         android:textColor="@color/main_color"
-        app:layout_constraintBottom_toTopOf="@+id/view2"
+        android:textSize="15sp"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <TextView
-        android:id="@+id/tv_program_purch_num_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="16dp"
+        android:id="@+id/tv_right_price"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="27dp"
+        android:gravity="center"
         android:textColor="@color/actionsheet_red"
-        app:layout_constraintLeft_toRightOf="@+id/tv_program_purch_name"
+        app:layout_constraintBottom_toTopOf="@+id/textView9"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="1000" />
+        app:layout_constraintVertical_bias="0.545"
+        tools:background="@mipmap/wkb"
+        tools:text="￥\n14000期" />
 
     <TextView
-        android:id="@+id/tv_zzlx"
+        android:id="@+id/tv_pzsl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
-        android:text="种植类型：13146464"
+        android:text="报价品种数量：5个"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_name" />
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/line"
+        android:layout_width="1px"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/gray_bg_ed"
+        app:layout_constraintBottom_toTopOf="@+id/textView9"
+        app:layout_constraintRight_toLeftOf="@+id/tv_right_price"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_myd"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="start"
+        tools:text="苗源地：广东 中山  福建 福州"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/line"
+        app:layout_constraintTop_toBottomOf="@+id/tv_ycy" />
 
 
 </android.support.constraint.ConstraintLayout>

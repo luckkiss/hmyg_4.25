@@ -2,9 +2,12 @@ package com.hldj.hmyg.presenter;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.M.ProgramPageGsonBean;
+import com.hldj.hmyg.M.QuoteUserGroup;
 import com.hldj.hmyg.contract.ProgramPurchaseContract;
 import com.hldj.hmyg.saler.M.PurchaseBean;
 import com.hy.utils.ToastUtil;
+
+import java.util.List;
 
 /**
  * Created by 罗擦擦 on 2017/6/11 0011.
@@ -17,12 +20,26 @@ public class ProgramPurchasePresenter extends ProgramPurchaseContract.Presenter 
     }
 
     @Override
-    public void getData(String page, String purchaseId ,String searchKey) {
+    public void getData(String page, String purchaseId ,String sellerId) {
 
-        mModel.getDatas(page, purchaseId ,searchKey, new ResultCallBack<ProgramPageGsonBean>() {
+        mModel.getDatas(page, purchaseId ,sellerId, new ResultCallBack<ProgramPageGsonBean>() {
             @Override
             public void onSuccess(ProgramPageGsonBean gsonBean) {
-                mView.initXRecycle(gsonBean.data.page.data);
+                mView.initXRecycle(gsonBean.data.list);
+            }
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                mView.showErrir(strMsg);
+            }
+        });
+    }
+
+    @Override
+    public void getDatasGys(String page, String proId, String searchKey) {
+        mModel.getDatasGys(page, proId ,searchKey, new ResultCallBack<List<QuoteUserGroup>>() {
+            @Override
+            public void onSuccess(List<QuoteUserGroup> userGroups) {
+                mView.initXRecycleGys(userGroups);
             }
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {

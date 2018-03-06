@@ -360,7 +360,7 @@ public class WebViewDialogFragment3 extends DialogFragment {
 
     @JavascriptInterface
     public void show(String s) {
-        ToastUtil.showShortToast("网页的按钮被点击了被点击了");
+//        ToastUtil.showShortToast("网页的按钮被点击了被点击了");
     }
 
 

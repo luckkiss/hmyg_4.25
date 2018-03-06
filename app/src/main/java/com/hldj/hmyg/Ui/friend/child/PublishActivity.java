@@ -437,8 +437,8 @@ public class PublishActivity extends BaseMVPActivity {
 //            setTitle("我的苗友圈");
             location.setLeftText("用苗地");
             /*采购*/
-            et_content.setHint(R.string.purchase_content);
-            setTitle("发布求购");
+            et_content.setHint("写点什么....");
+            setTitle("发布苗木圈");
             rb_type_left.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -488,7 +488,7 @@ public class PublishActivity extends BaseMVPActivity {
                     setTitle("发布求购");
 
 
-                    et_content.setHint(R.string.publish_content);
+//                    et_content.setHint(R.string.publish_content);
                     View.OnClickListener clickListener = v3 -> {
                         if (TextUtils.isEmpty(et_content.getText())) {
                             ToastUtil.showLongToast("先写点什么嘛^_^");
@@ -889,7 +889,7 @@ public class PublishActivity extends BaseMVPActivity {
 
                     @Override
                     public void onSuccess(String json) {
-                        ToastUtil.showLongToast(json);
+//                        ToastUtil.showLongToast(json);
                         D.e("======onSuccess=======" + json);
                         SimpleGsonBean_new<VideoData> gsonBean = GsonUtil.formateJson2Bean(json, SimpleGsonBean_new.class);
                         if (gsonBean.isSucceed()) {

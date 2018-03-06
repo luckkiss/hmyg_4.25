@@ -1,13 +1,16 @@
 package com.hldj.hmyg.Ui.friend;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.Keep;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -81,7 +84,7 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
 //    @ViewInject(id = R.id.rb_right, click = "onClick")
 //    public RadioButton rb_right;
 
-//    @ViewInject(id = R.id.radios)
+    //    @ViewInject(id = R.id.radios)
 //    public RadioGroup radios;
     /*搜索框*/
     @ViewInject(id = R.id.search_content)
@@ -143,9 +146,13 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
 //        });
     }
 
+    private InputMethodManager inputMethod;
+
     @Override
     public void initView() {
         super.initView();
+
+
     }
 
     @Override
@@ -277,6 +284,20 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
         if (!TextUtils.isEmpty(searchContent)) // 避免空指针
             search_content.setSelection(searchContent.length());//将光标移至文字末尾
         currentType = MomentsType.all.getEnumValue();
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                inputMethod = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//                inputMethod.showSoftInput(search_content, 0);
+                inputMethod.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+
+
+//                ToastUtil.showLongToast("自动显示软键盘");
+            }
+        }, 1300);
+
     }
 
 
@@ -302,6 +323,13 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
     public FriendBaseFragment getCurrentFragment() {
 
         return (FriendBaseFragment) list_fragment.get(viewpager.getCurrentItem());
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
 }

@@ -32,7 +32,7 @@ import com.hy.utils.ToastUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.hldj.hmyg.R.id.tv_caozuo01;
+import static com.hldj.hmyg.R.id.tv_time;
 import static me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity.strFilter;
 
 /**
@@ -61,6 +61,11 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
     @Override
     public void setConverView(ViewHolders myViewHolder, PurchaseItemBean_new purchaseItemBeanNew, int position) {
         super.setConverView(myViewHolder, purchaseItemBeanNew, position);
+
+         /*    去除点击   已经报价一次的 请情况   不允许 继续点击报价。。只能修改*/
+        if (purchaseItemBeanNew.footSellerQuoteListJson != null) {
+            myViewHolder.getConvertView().setOnClickListener(null);
+        }
 
 
     }
@@ -98,32 +103,45 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
             TextView textView = new TextView(context);
             configureTextView(textView);
             View view = LayoutInflater.from(context).inflate(R.layout.item_purchase_second, null);
-            StorePurchaseListAdapter_new_package.initFootView(context, view, purchaseItemBeanNew.footSellerQuoteListJson, textView, purchaseItemBeanNew.name + "的报价",purchaseItemBeanNew);
+            StorePurchaseListAdapter_new_package.initFootView(context, view, purchaseItemBeanNew.footSellerQuoteListJson, textView, purchaseItemBeanNew.name + "的报价", purchaseItemBeanNew);
             listView.addFooterView(view);
        /*不为空则   已经报价过本item  将马上报价  隐藏  */
-            TextView textView1 = parentHolders.getView(tv_caozuo01);
-            textView1.setText("已经报价");
-            textView1.setOnClickListener(null);
-//        textView1.setTextColor(Color.GRAY);
-//        textView1.setBackgroundResource(R.drawable.gray_button_background);
-            textView1.setBackground(ContextCompat.getDrawable(context, R.drawable.gray_button_background));
-            textView1.setSelected(true);
-//        android:background="@drawable/round_rectangle_bg_btn"
-            textView1.setTextColor(ContextCompat.getColor(context, R.color.text_login_type));
-            textView1.setVisibility(View.GONE);
+//            TextView textView1 = parentHolders.getView(tv_caozuo01);
+//            textView1.setText("未提交");
+//            textView1.setOnClickListener(null);
+////        textView1.setTextColor(Color.GRAY);
+////        textView1.setBackgroundResource(R.drawable.gray_button_background);
+//            textView1.setBackground(ContextCompat.getDrawable(context, R.drawable.gray_button_background));
+//            textView1.setSelected(true);
+////        android:background="@drawable/round_rectangle_bg_btn"
+//            textView1.setTextColor(ContextCompat.getColor(context, R.color.text_login_type));
+////            textView1.setVisibility(View.GONE);
+
+
+               /*  第三种状态出现   变成灰色   */
+            TextView tv_caozuo01 = parentHolders.getView(R.id.tv_caozuo01);
+            tv_caozuo01.setText("已填写");
+            tv_caozuo01.setTextColor(ContextCompat.getColor(context, R.color.text_login_type));
+            tv_caozuo01.setBackground(ContextCompat.getDrawable(context, R.drawable.gray_out_white_in__bg));
+            tv_caozuo01.setVisibility(View.VISIBLE);
+
+
+
+
         }
 
 
     }
 
     @Override
-    protected void processChildHolders(ViewHolders myViewHolder) {
+    protected void processChildHolders(ViewHolders myViewHolder, SellerQuoteJsonBean jsonBean) {
         // 内部listview  执行之后  进行最后的
         myViewHolder.getView(R.id.tv_delete_item).setVisibility(View.GONE);
         myViewHolder.getView(R.id.tv_show_is_quote).setVisibility(View.INVISIBLE);
         myViewHolder.getView(R.id.tv_show_is_quote_title).setVisibility(View.INVISIBLE);
-
-
+    /* 显示报价时间    */
+        ((TextView) myViewHolder.getView(tv_time)).setText("" + jsonBean.createDate);
+        ((TextView) myViewHolder.getView(tv_time)).setVisibility(View.VISIBLE);
     }
 
 
@@ -151,7 +169,7 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 //      super.jump2Quote(context, purchaseItemBeanNew);
 //        purchaseItemBeanNew.pid1 = getItemId();
 //        purchaseItemBeanNew.pid2 = getItemId();
-        ToastUtil.showLongToast("整包报价");
+//        ToastUtil.showLongToast("整包报价");
         this.listview = listView;
         this.currentPurchaseItemBeanNew = purchaseItemBeanNew;
         this.currentTextView = parentHolders.getView(R.id.tv_caozuo01);
@@ -186,7 +204,7 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 
 
 //        SellerQuoteJsonBean jsonBean = mokeBean();
-        initFootView(context, view, jsonBean, textView, currentPurchaseItemBeanNew.name + "的报价",currentPurchaseItemBeanNew);
+        initFootView(context, view, jsonBean, textView, currentPurchaseItemBeanNew.name + "的报价", currentPurchaseItemBeanNew);
 
 
         listview.addFooterView(view);
@@ -197,7 +215,16 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
         currentPurchaseItemBeanNew.footSellerQuoteListJson = jsonBean;
 
         if (currentTextView != null) {
-            currentTextView.setVisibility(View.GONE);
+//            currentTextView.setVisibility(View.GONE);
+
+         /*  第三种状态出现   变成灰色   */
+
+
+            currentTextView.setText("已填写");
+            currentTextView.setTextColor(ContextCompat.getColor(context, R.color.text_login_type));
+            currentTextView.setBackground(ContextCompat.getDrawable(context, R.drawable.gray_out_white_in__bg));
+            currentTextView.setVisibility(View.VISIBLE);
+
         }
 
 
@@ -237,7 +264,7 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
     }
 
 
-    public static void initFootView(Context context, View view, SellerQuoteJsonBean jsonBean, TextView textView, String text , PurchaseItemBean_new itemBean_new) {
+    public static void initFootView(Context context, View view, SellerQuoteJsonBean jsonBean, TextView textView, String text, PurchaseItemBean_new itemBean_new) {
 
 //        ViewGroup viewGroup = ((ViewGroup) view);
 //        ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) viewGroup.getLayoutParams();
@@ -373,10 +400,26 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
         }
 
         state.setText("未提交");
+        TextView tv_time = (TextView) view.findViewById(R.id.tv_time);
+        tv_time.setText(jsonBean.createDate);
+        tv_time.setVisibility(View.VISIBLE);
 
 
                 /*删除*/
         view.findViewById(R.id.tv_delete_item).setVisibility(View.GONE);
+
+
+        state.setVisibility(View.INVISIBLE);
+
+
+        TextView tv_show_is_quote_title = (TextView) view.findViewById(R.id.tv_show_is_quote_title);
+        tv_show_is_quote_title.setVisibility(View.INVISIBLE);
+        TextView tv_show_is_quote = (TextView) view.findViewById(R.id.tv_show_is_quote);
+        tv_show_is_quote_title.setVisibility(View.INVISIBLE);
+
+
+
+
 
                 /*编辑*/
         view.findViewById(R.id.tv_change_item).setOnClickListener(new View.OnClickListener() {

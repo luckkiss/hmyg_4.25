@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.M.CountTypeGsonBean;
 import com.hldj.hmyg.M.ProgramPurchaseExpanBean;
+import com.hldj.hmyg.M.QuoteUserGroup;
 import com.hldj.hmyg.base.Rx.BaseModel;
 import com.hldj.hmyg.base.Rx.BasePresenter;
 import com.hldj.hmyg.base.Rx.BaseView;
@@ -18,17 +19,29 @@ import java.util.List;
 
 public interface ProgramPurchaseContract {
     interface Model extends BaseModel {
-        void getDatas(String page, String proId ,String searchKey, ResultCallBack callBack);
-        void getIndexDatas(ResultCallBack callBack,String purchaseId);
+        /* 获取供应商   的信息  */
+        void getDatasGys(String page, String proId, String searchKey, ResultCallBack callBack);
+
+        void getDatas(String page, String proId, String searchKey, ResultCallBack callBack);
+
+        void getIndexDatas(ResultCallBack callBack, String purchaseId);
+
         void doDelete(String id, ResultCallBack callBack);
     }
 
     interface View extends BaseView {
+        void initXRecycleGys(List<QuoteUserGroup> gsonBean);
+
         void initXRecycle(List<ProgramPurchaseExpanBean> gsonBean);
+
         void initCounts(CountTypeGsonBean gsonBean);
+
         void onDeled(boolean bo);
+
         void initHeadDatas(PurchaseBean purchaseBean);
+
         String getSearchText();
+
         ViewGroup getContentView();
     }
 
@@ -36,7 +49,10 @@ public interface ProgramPurchaseContract {
 
         public abstract void onStart();
 
-        public abstract void getData(String page ,String proId ,String searchKey  );
+        public abstract void getData(String page, String proId, String searchKey);
+
+        /* 获取供应商信息 */
+        public abstract void getDatasGys(String page, String proId, String searchKey);
 
 
         public abstract void getIndexDatas(String purchaseId);

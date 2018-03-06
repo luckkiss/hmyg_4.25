@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +26,8 @@ import com.hy.utils.TagAdapter;
 import com.hy.utils.ToastUtil;
 
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * 采购单  适配器
@@ -50,7 +53,15 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
         if (item.status.equals("expired")) {
             iv_jianyi.setVisibility(View.GONE);
         }
-        iv_jianyi.setVisibility(item.isPackage ? View.VISIBLE : View.GONE);
+//        iv_jianyi.setVisibility(item.isPackage ? View.VISIBLE : View.GONE);
+//        iv_jianyi.setVisibility(item.status.equals("expired") ? View.GONE : View.VISIBLE);/* 过期了 就不显示了 */
+        if (item.status.equals("expired")) {
+            iv_jianyi.setVisibility(View.GONE);/* 过期了 就不显示了 */
+        } else if (item.isPackage) {
+            iv_jianyi.setVisibility(View.VISIBLE);/* 没过期 并且 是 打包报价 */
+        } else {
+            iv_jianyi.setVisibility(View.GONE);/* 什么都不是 */
+        }
 
 
         int id = R.layout.list_item_purchase_list_new;
@@ -135,6 +146,15 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
     }
 
     public static void jump(Activity context, PurchaseBean item) {
+
+        if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {
+            Intent intent = new Intent(context, LoginActivity.class);
+            context.startActivityForResult(intent, 4);
+            ToastUtil.showLongToast("请先登录^_^哦");
+            Log.i(TAG, "是否登录");
+            return;
+        }
+        Log.i(TAG, "是否登录" + MyApplication.Userinfo.getBoolean("isLogin", false));
 
 
 //        if (item.needPreQuote) {

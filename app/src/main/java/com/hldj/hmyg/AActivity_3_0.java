@@ -386,7 +386,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             if (myFragment0 != null) myFragment0.setAutoChange(false);
             toTopBtn.setVisibility(View.GONE);
             Log.i(TAG, "top");
-        } else if (scrollView.getScrollY() > 30) {
+        } else if (scrollView.getScrollY() > 150) {
             toTopBtn.setVisibility(View.VISIBLE);
             if (myFragment0 != null)
                 myFragment0.setAutoChange(false);
@@ -975,6 +975,18 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
     /*  发布  按钮   选择发布 苗木圈  发布 供应   */
     private void publish(Activity mActivity) {
+
+
+        if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {
+            Intent intent = new Intent(mActivity, LoginActivity.class);
+            startActivityForResult(intent, 4);
+            ToastUtil.showLongToast("请先登录^_^哦");
+            Log.i(TAG, "是否登录");
+            return;
+        }
+        Log.i(TAG, "是否登录" + MyApplication.Userinfo.getBoolean("isLogin", false));
+
+
         Log.i(TAG, "-----首页发布-- publish(Activity mActivity)--- ");
         CommonDialogFragment1.newInstance(context -> {
             Dialog dialog1 = new Dialog(context);
