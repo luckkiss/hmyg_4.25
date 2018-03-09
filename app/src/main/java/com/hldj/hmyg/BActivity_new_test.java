@@ -609,7 +609,11 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 
 
     private void setStatusBars() {
-        StateBarUtil.setStatusTranslaterWhite(MainActivity.instance, true);
+        try {
+            StateBarUtil.setStatusTranslaterWhite(MainActivity.instance, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 //        getWindow().getDecorView().setSystemUiVisibility(   View.SYSTEM_UI_FLAG_VISIBLE);
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 //        getWindow().setStatusBarColor(Color.WHITE);

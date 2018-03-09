@@ -145,7 +145,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             contentView = scrollView.getChildAt(0);
         }
         toTopBtn = (Button) findViewById(R.id.top_btn);
-        iv_publish = (ImageView) findViewById(R.id.iv_publish);
+        iv_publish = (ImageView) findViewById(R.id.iv_publish_home);
         toTopBtn.setOnClickListener(this);
         iv_publish.setOnClickListener(this);
 
@@ -718,7 +718,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 });
                 toTopBtn.setVisibility(View.GONE);
                 break;
-            case R.id.iv_publish:
+            case R.id.iv_publish_home:
 
                 Log.i(TAG, "-----首页发布----- onClick: iv_publish");
 
@@ -970,9 +970,14 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     }
 
     private void setStatusBars() {
-        StateBarUtil.setStatusTranslater(MainActivity.instance, true);
-        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
-        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
+        try {
+            StateBarUtil.setStatusTranslater(MainActivity.instance, true);
+            StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
+            StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

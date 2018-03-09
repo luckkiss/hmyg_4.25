@@ -22,12 +22,15 @@ public class PurchasePyMapPresenter {
     ResultCallBack resultCallBack;
     private AjaxParams ajaxParams;
 
+    private TotalPageListener mListener;
+
     public AjaxParams getAjaxParams() {
         if (null == ajaxParams) {
             ajaxParams = new AjaxParams();
         }
         return ajaxParams;
     }
+
 
     //初始化清空
     public PurchasePyMapPresenter() {
@@ -38,6 +41,16 @@ public class PurchasePyMapPresenter {
         this.resultCallBack = resultCallBack;
         return this;
     }
+
+    public PurchasePyMapPresenter addOnTotalPageListener(TotalPageListener totalPageListener) {
+        mListener = totalPageListener;
+        return this;
+    }
+
+    public static interface TotalPageListener {
+        void onTotal(int total);
+    }
+
 
     public PurchasePyMapPresenter requestDatas(String path) {
         FinalHttp finalHttp = new FinalHttp();
@@ -56,6 +69,10 @@ public class PurchasePyMapPresenter {
                                 ToastUtil.showShortToast("数据加载失败！");
                                 return;
                             } else {
+
+                                if (mListener != null) {
+                                    mListener.onTotal(purchaseListGsonBean.data.page.total);
+                                }
                                 resultCallBack.onSuccess(purchaseListGsonBean.data.page.data);
                             }
                         } catch (Exception e) {

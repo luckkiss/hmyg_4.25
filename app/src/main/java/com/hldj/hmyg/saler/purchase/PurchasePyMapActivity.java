@@ -47,8 +47,9 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
 
     private XListView listview;
 
-    private int pageSize = 10;
+    private int pageSize = 20;
     private int pageIndex = 0;
+    private int mTotal = 0;
     private MapSearchAdapter Adapter;
     boolean getdata; // 避免刷新多出数据
 
@@ -207,6 +208,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
             public void onSuccess(List<PurchaseBean> purchaseBeen) {
                 listAdapter.addData(purchaseBeen);//返回空 就添加到数组中，并刷新  如果为null  listAdapter 会自动清空
                 getdata = true;//成功获取到了
+                pageIndex++;
                 if (purchaseBeen == null || purchaseBeen.size() == 0) {
                     hidenContent(getView(R.id.listview_loading));
                 } else {
@@ -218,7 +220,6 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
                     hindLoading();
                 });
                 onLoad();
-
             }
 
             @Override
@@ -239,6 +240,9 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
                 .putParams("pageIndex", pageIndex + "")
                 .putParams("type", type)
                 .addResultCallBack(callBack)
+                .addOnTotalPageListener(total -> {
+                    mTotal = total;
+                })
                 .requestDatas("purchase/purchaseList");
 
     }
@@ -260,8 +264,8 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
                 // TODO Auto-generated method stub
                 listview.stopRefresh();
 
-                listview.stopLoadMore();
-                if (listAdapter.getDatas().size() % pageSize == 0) {
+                listview.stopLoadMore();// 10
+                if (listAdapter.getDatas().size() % pageSize == 0 && listAdapter.getDatas().size() != mTotal) {
                     listview.setPullLoadEnable(true);
                 } else {
                     listview.setPullLoadEnable(false);
