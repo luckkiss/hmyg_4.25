@@ -98,18 +98,19 @@
 
     <TextView
         android:id="@+id/tv_right_price"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="27dp"
         android:gravity="center"
         android:textColor="@color/actionsheet_red"
+        android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/textView9"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.545"
         tools:background="@mipmap/wkb"
-        tools:text="￥\n14000期" />
+        tools:text="￥\n14000111122" />
 
     <TextView
         android:id="@+id/tv_pzsl"
@@ -121,14 +122,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <TextView
+    <View
         android:id="@+id/line"
         android:layout_width="1px"
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="17dp"
         android:layout_marginTop="16dp"
-        android:background="@color/gray_bg_ed"
+        android:background="@color/divider_color_bg"
+        android:layerType="software"
         app:layout_constraintBottom_toTopOf="@+id/textView9"
         app:layout_constraintRight_toLeftOf="@+id/tv_right_price"
         app:layout_constraintTop_toTopOf="parent"
@@ -142,10 +144,10 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:gravity="start"
-        tools:text="苗源地：广东 中山  福建 福州"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/line"
-        app:layout_constraintTop_toBottomOf="@+id/tv_ycy" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_ycy"
+        tools:text="苗源地：广东 中山  福建 福州" />
 
 
 </android.support.constraint.ConstraintLayout>

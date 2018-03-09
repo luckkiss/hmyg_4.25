@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutRoot"
     android:layout_width="fill_parent"
@@ -34,6 +35,21 @@
                 android:paddingLeft="10.0dip"
                 android:paddingRight="10.0dip">
 
+
+                <TextView
+                    android:id="@+id/tv_pos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="6dp"
+                    android:background="@color/main_color"
+                    android:gravity="center"
+                    android:minHeight="17dp"
+                    android:minWidth="17dp"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    tools:text="1"
+                    tools:visibility="visible" />
+
                 <TextView
                     android:id="@+id/tv_01"
                     android:layout_width="wrap_content"
@@ -60,16 +76,22 @@
             </LinearLayout>
 
 
-            <TextView
+            <com.coorchice.library.SuperTextView
                 android:id="@+id/show_cankao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/ll_left"
-                android:background="@color/main_color"
-                android:padding="3dp"
+                android:padding="2.5dp"
                 android:text="参考图片"
-                android:textSize="11sp"
-                android:textColor="@color/white" />
+                android:textColor="@color/main_color"
+                android:textSize="10sp"
+                app:corner="3dp"
+                app:left_bottom_corner="true"
+                app:left_top_corner="true"
+                app:right_bottom_corner="true"
+                app:right_top_corner="true"
+                app:stroke_color="@color/main_color"
+                app:stroke_width="1px" />
 
 
             <TextView

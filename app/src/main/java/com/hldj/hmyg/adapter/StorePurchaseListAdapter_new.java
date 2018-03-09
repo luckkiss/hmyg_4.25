@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.LoginActivity;
 import com.hldj.hmyg.R;
@@ -23,6 +24,7 @@ import com.hldj.hmyg.buyer.M.QuoteStatus;
 import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
 import com.hldj.hmyg.buyer.P.PurchaseDeatilP;
 import com.hldj.hmyg.buyer.Ui.DialogActivity;
+import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hy.utils.ToastUtil;
@@ -75,18 +77,31 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
         }
 
 
-        ((TextView) myViewHolder.getView(R.id.tv_01)).setText((position + 1) + "、" + purchaseItemBeanNew.name);
+        ((TextView) myViewHolder.getView(R.id.tv_01)).setText(purchaseItemBeanNew.name);
+        ((TextView) myViewHolder.getView(R.id.tv_pos)).setText((position + 1) + "");
+        ((TextView) myViewHolder.getView(R.id.tv_pos)).setVisibility(View.VISIBLE);
+
 
         /* 参考图片  按钮  */
 
 
-        ((TextView) myViewHolder.getView(R.id.show_cankao)).setOnClickListener(v -> {
-            ToastUtil.showLongToast("参考图片");
+        SuperTextView tv_cankao = myViewHolder.getView(R.id.show_cankao);
+        if (purchaseItemBeanNew.imagesJson != null && purchaseItemBeanNew.imagesJson.size() > 0) {
+            tv_cankao.setVisibility(View.VISIBLE);
+            PurchaseDetailActivity.setImgCounts((Activity) context, tv_cankao, purchaseItemBeanNew.imagesJson);
+            tv_cankao.setText("参考图片");
+        } else {
+            tv_cankao.setVisibility(View.GONE);
+            tv_cankao.setOnClickListener(null);
+        }
 
-
-
-            D.i("==参考图片===");
-        });
+//        ((TextView) myViewHolder.getView(R.id.show_cankao)).setOnClickListener(v -> {
+//            ToastUtil.showLongToast("参考图片");
+//
+//            ToastUtil.showLongToast(purchaseItemBeanNew.imagesJson + "");
+//
+//            D.i("==参考图片===");
+//        });
 
 
 

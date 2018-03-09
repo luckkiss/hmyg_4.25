@@ -1,15 +1,14 @@
 package com.hldj.hmyg.Ui.friend.child;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.annotation.Keep;
 import android.support.design.widget.TabLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ImageView;
 
 import com.google.gson.reflect.TypeToken;
@@ -30,16 +29,18 @@ import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
-import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment1;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hldj.hmyg.util.VideoHempler;
 import com.hldj.hmyg.widget.MyCircleImageView;
 import com.hy.utils.ToastUtil;
 import com.lqr.optionitemview.OptionItemView;
+import com.mabeijianxi.smallvideo2.VideoPlayerActivity2;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zf.iosdialog.widget.AlertDialog;
 import com.zzy.common.widget.MeasureGridView;
 
 import net.tsz.afinal.FinalActivity;
@@ -55,6 +56,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.hldj.hmyg.R.id.recycle;
 import static com.hldj.hmyg.base.rxbus.RxBus.TAG_UPDATE;
@@ -85,6 +87,7 @@ public class CenterActivity extends BaseMVPActivity {
     @ViewInject(id = R.id.toolbar_right_icon, click = "onClick")
     public ImageView toolbar_right_icon;//发布按钮
 
+
     public int bindLayoutID() {
         return R.layout.activity_friend_center;
     }
@@ -103,25 +106,30 @@ public class CenterActivity extends BaseMVPActivity {
             toolbar_right_icon.setVisibility(View.VISIBLE);
             toolbar_right_icon.setImageResource(R.mipmap.friend_publish_edit);
             toolbar_right_icon.setOnClickListener(v -> {
-                CommonDialogFragment1.newInstance(context -> {
-                    Dialog dialog1 = new Dialog(context);
-                    dialog1.setCanceledOnTouchOutside(true);
-                    dialog1.setCancelable(true);
-                    dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog1.setContentView(R.layout.item_friend_type);
-                    dialog1.findViewById(R.id.iv_left).setOnClickListener(v1 -> {
-//                            ToastUtil.showLongToast("left");
-                        dialog1.dismiss();
-                        PublishActivity.start(mActivity, PublishActivity.PUBLISH);
-                    });
-                    dialog1.findViewById(R.id.iv_right).setOnClickListener(v1 -> {
-//                            ToastUtil.showLongToast("right");
-                        dialog1.dismiss();
-                        PublishActivity.start(mActivity, PublishActivity.PURCHASE);
-                    });
+                PublishActivity.start(mActivity, PublishActivity.ALL);
 
-                    return dialog1;
-                }, true).show(getSupportFragmentManager(), TAG);
+//                CommonDialogFragment1.newInstance(context -> {
+//                    Dialog dialog1 = new Dialog(context);
+//                    dialog1.setCanceledOnTouchOutside(true);
+//                    dialog1.setCancelable(true);
+//                    dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//                    dialog1.setContentView(R.layout.item_friend_type);
+//                    dialog1.findViewById(R.id.iv_left).setOnClickListener(v1 -> {
+////                            ToastUtil.showLongToast("left");
+//                        dialog1.dismiss();
+//                        PublishActivity.start(mActivity, PublishActivity.PUBLISH);
+//                    });
+//                    dialog1.findViewById(R.id.iv_right).setOnClickListener(v1 -> {
+////                            ToastUtil.showLongToast("right");
+//                        dialog1.dismiss();
+//                        PublishActivity.start(mActivity, PublishActivity.PURCHASE);
+//                    });
+//
+//                    return dialog1;
+//                }, true).show(getSupportFragmentManager(), TAG);
+
+
+
             });
         }
 
@@ -177,8 +185,17 @@ public class CenterActivity extends BaseMVPActivity {
                         .setVisible(R.id.tv_right_top, isSelf())
                         .addOnClickListener(R.id.tv_right_top, v ->
                                 {
-//                                    ToastUtil.showLongToast("删除");
-                                    doDelete(item, helper.getAdapterPosition());
+
+
+                                    new AlertDialog(mActivity).builder()
+                                            .setTitle("确定删除本项?")
+                                            .setPositiveButton("确定删除", v1 -> {
+                                                //                                    ToastUtil.showLongToast("删除");
+                                                doDelete(item, helper.getAdapterPosition());
+
+                                            }).setNegativeButton("取消", v2 -> {
+                                    }).show();
+
                                 }
                         );
                 helper.setText(R.id.descript, item.content);//描述
@@ -207,6 +224,48 @@ public class CenterActivity extends BaseMVPActivity {
                     if (!TextUtils.isEmpty(item.attrData.headImage))
                         ImageLoader.getInstance().displayImage(item.attrData.headImage, circleImageView);
 //                    circleImageView.setImageURL(item.attrData.headImage);
+
+                }
+
+
+
+                  /* 视频  预览图片   */
+                if (item.isVideo) {
+                    ImageView video = helper.getView(R.id.video);
+                    video.setVisibility(View.VISIBLE);
+//                  video.setImageBitmap(VideoHempler.createVideoThumbnail(item.videoUrl, MyApplication.dp2px(mContext, 80), MyApplication.dp2px(mContext, 80)));
+
+                    D.e("============加载地址===========" + item.attrData.videoImageUrl);
+                    if (item.attrData != null && !TextUtils.isEmpty(item.attrData.videoImageUrl))
+                        ImageLoader.getInstance().displayImage(item.attrData.videoImageUrl, video);
+                    else {
+                        Observable.just(item.videoUrl)
+                                .filter(test -> !TextUtils.isEmpty(item.videoUrl))
+                                .subscribeOn(Schedulers.io())
+                                .map(s -> VideoHempler.createVideoThumbnail(item.videoUrl, MyApplication.dp2px(mContext, 80), MyApplication.dp2px(mContext, 80)))
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Consumer<Bitmap>() {
+                                    @Override
+                                    public void accept(@NonNull Bitmap result) throws Exception {
+                                        video.setImageBitmap(result);
+                                    }
+                                });
+                    }
+
+
+//                ImageLoader.getInstance().displayImage(item.videoUrl, video);
+
+                    video.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(mActivity, VideoPlayerActivity2.class).putExtra(
+                                    "path", item.videoUrl));
+                        }
+                    });
+
+                } else {
+                    ImageView video = helper.getView(R.id.video);
+                    video.setVisibility(View.GONE);
                 }
 
 
@@ -215,12 +274,13 @@ public class CenterActivity extends BaseMVPActivity {
                 gridView.setHorizontalSpacing(6);
                 gridView.setVerticalSpacing(6);
                 gridView.initFriend(mActivity, PurchaseDetailActivity.getPicList(item.imagesJson), (ViewGroup) gridView.getParent(), null);
-                gridView.setOnViewImagesListener( (mContext, pos, pics) ->{
+                gridView.setOnViewImagesListener((mContext, pos, pics) -> {
                     GalleryImageActivity.startGalleryImageActivity(
                             mContext, pos, PurchaseDetailActivity.getPicListOriginal(item.imagesJson));
                 });
 //                gridView.getAdapter().closeAll(true);
 //                gridView.getAdapter().notifyDataSetChanged();
+
 
                 helper.addOnClickListener(R.id.first, clickListener).setText(R.id.first, " " + item.thumbUpCount);//按钮一 点赞
 

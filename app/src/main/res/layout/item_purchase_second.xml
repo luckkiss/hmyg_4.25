@@ -4,15 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/gray_bg_ed"
+    android:background="@color/color_bg_f5"
     android:paddingLeft="8dp"
-    android:paddingRight="8dp">
+    android:paddingRight="8dp"
+    android:paddingTop="6dp">
+
+
+
 
     <LinearLayout
         android:id="@+id/content"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/gray_bg_ed"
+
         android:orientation="vertical">
 
 
@@ -26,7 +30,7 @@
 
             <com.coorchice.library.SuperTextView
                 android:layout_width="wrap_content"
-                android:layout_height="27dp"
+                android:layout_height="25dp"
                 android:gravity="center|start"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -50,9 +54,9 @@
 
         </LinearLayout>
 
-        <View
-            android:id="@+id/line"
-            style="@style/View_line_gray_1dp" />
+        <!--<View-->
+            <!--android:id="@+id/line"-->
+            <!--style="@style/View_line_gray_1dp" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,25 +71,26 @@
                 android:orientation="horizontal">
 
                 <com.coorchice.library.SuperTextView
+                    android:id="@+id/type"
                     android:layout_width="wrap_content"
-                    android:layout_height="27dp"
+                    android:layout_height="25dp"
                     android:gravity="center|start"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="价        格:"
+                    android:text="[容器苗]"
+                    android:textColor="@color/text_color333"
                     android:textSize="12sp"
-
                     app:solid="@color/trans" />
 
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/tv_quote_item_price"
                     android:layout_width="0dp"
-                    android:layout_height="27dp"
+                    android:layout_height="25dp"
                     android:layout_weight="0.78"
                     android:gravity="center_vertical|start"
                     android:paddingLeft="10dp"
                     android:paddingRight="5dp"
-                    android:textColor="@color/price_orige"
+                    android:textColor="@color/text_color333"
                     android:textSize="12sp"
                     app:solid="@color/trans"
                     tools:text="160" />
@@ -94,11 +99,12 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:visibility="invisible">
 
                 <com.coorchice.library.SuperTextView
                     android:layout_width="wrap_content"
-                    android:layout_height="27dp"
+                    android:layout_height="25dp"
                     android:gravity="center"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
@@ -138,7 +144,7 @@
 
                 <com.coorchice.library.SuperTextView
                     android:layout_width="wrap_content"
-                    android:layout_height="27dp"
+                    android:layout_height="25dp"
                     android:gravity="center"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
@@ -155,7 +161,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical|start"
                     android:paddingLeft="5dp"
-                    android:textColor="@color/price_orige"
+                    android:textColor="@color/orange_color"
                     android:textSize="12sp"
                     tools:text="-" />
 
@@ -164,11 +170,12 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:visibility="gone">
 
                 <com.coorchice.library.SuperTextView
                     android:layout_width="wrap_content"
-                    android:layout_height="27dp"
+                    android:layout_height="25dp"
                     android:gravity="center|end"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
@@ -182,7 +189,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
                     android:gravity="center_vertical|start"
-                    android:minHeight="27dp"
+                    android:minHeight="25dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:textColor="@color/text_color333"
@@ -199,12 +206,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:visibility="gone">
 
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_quote_item_left"
                 android:layout_width="wrap_content"
-                android:layout_height="27dp"
+                android:layout_height="25dp"
                 android:gravity="center|end"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -218,7 +226,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.8"
                 android:gravity="center_vertical|start"
-                android:minHeight="27dp"
+                android:minHeight="25dp"
                 android:paddingRight="5dp"
                 android:textColor="@color/text_color333"
                 android:textSize="12sp"
@@ -247,7 +255,7 @@
 
                 <com.coorchice.library.SuperTextView
                     android:layout_width="wrap_content"
-                    android:layout_height="27dp"
+                    android:layout_height="25dp"
                     android:gravity="center|end"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
@@ -261,7 +269,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.78"
                     android:gravity="center_vertical|start"
-                    android:minHeight="27dp"
+                    android:minHeight="25dp"
                     android:paddingRight="5dp"
                     android:textColor="@color/text_color333"
                     android:textSize="12sp"
@@ -273,11 +281,12 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:visibility="invisible">
 
                 <com.coorchice.library.SuperTextView
                     android:layout_width="wrap_content"
-                    android:layout_height="27dp"
+                    android:layout_height="25dp"
                     android:gravity="center"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
@@ -314,7 +323,7 @@
 
             <com.coorchice.library.SuperTextView
                 android:layout_width="wrap_content"
-                android:layout_height="27dp"
+                android:layout_height="25dp"
                 android:gravity="center|end"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -329,14 +338,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.8"
                 android:gravity="center_vertical|start"
-                android:minHeight="27dp"
+                android:minHeight="25dp"
                 android:paddingRight="5dp"
                 android:textColor="@color/text_color333"
                 android:textSize="12sp"
                 app:solid="@color/trans"
-                tools:text="134654646134654641346546461346134654646134654646134654646134654646134
-            65464613465464613465464654646134654646134654646134
-            6546461346546461346546466134654646134654646134654646134654646134654646" />
+                tools:text="1346546134654646134654646" />
 
 
         </LinearLayout>
@@ -349,7 +356,7 @@
             <com.coorchice.library.SuperTextView
                 android:id="@+id/abc"
                 android:layout_width="wrap_content"
-                android:layout_height="27dp"
+                android:layout_height="25dp"
                 android:gravity="center|end"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -362,7 +369,7 @@
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_quote_item_photo_num"
                 android:layout_width="0dp"
-                android:layout_height="27dp"
+                android:layout_height="25dp"
                 android:layout_marginRight="4dp"
                 android:layout_weight="0.8"
                 android:gravity="center_vertical|start"
@@ -406,6 +413,7 @@
                 android:drawableLeft="@drawable/sy_sj"
                 android:drawablePadding="5dp"
                 android:text="2018-1-03 15:41"
+                android:textColor="@color/text_color333"
                 android:visibility="gone"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_program_purch_sub_images_count"
@@ -476,16 +484,14 @@
 
     </LinearLayout>
 
-
     <ImageView
         android:id="@+id/iv_status"
         android:layout_width="85dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="35dp"
         android:src="@drawable/weitijiao_gray"
         android:visibility="gone"
         tools:visibility="visible" />
-
 </FrameLayout>

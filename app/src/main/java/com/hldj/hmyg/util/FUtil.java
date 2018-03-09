@@ -43,6 +43,20 @@ public class FUtil {
         return head + str;
     }
 
+    /**
+     * 为  str 添加一个头
+     *
+     * @param head
+     * @param str
+     * @return
+     */
+    public static String $_head_no_(String head, String str) {
+        if (TextUtils.isEmpty(str) || str.equals("0")) {
+            return "";
+        }
+        return head + str;
+    }
+
 
     public static String $_zero(String str) {
         if ("0".equals(str) || TextUtils.isEmpty(str)) {
@@ -50,7 +64,6 @@ public class FUtil {
         }
         return str;
     }
-
 
 
     public static String $_zero_2_null(String str) {

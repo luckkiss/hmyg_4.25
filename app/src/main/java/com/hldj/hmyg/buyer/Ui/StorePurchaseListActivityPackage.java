@@ -18,7 +18,9 @@ import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.hldj.hmyg.R.id.bottom_tv;
 import static com.hldj.hmyg.util.ConstantState.PUBLIC_TMP_SUCCEED;
@@ -60,7 +62,7 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
                 for (SellerQuoteJsonBean sellerQuoteJsonBean : tempBeans) {
                     buffer.append(sellerQuoteJsonBean.id + "|");
                 }
-                ToastUtil.showLongToast("批量报价=======" + buffer);
+//                ToastUtil.showLongToast("批量报价=======" + buffer);
 
                 new BasePresenter()
                         .putParams("quoteTempIds", buffer.toString())
@@ -74,6 +76,8 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
 //                                    requestHeadData();
                                     tempBeans.clear();
                                     initData();
+                                    getView(R.id.bottom_btn).setSelected(false);
+                                    tempMap.clear();
                                 }
 
                             }
@@ -83,10 +87,7 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
 //        TextView bottom_tv = getView(R.id.bottom_tv);
 //        bottom_tv.setText("共3个品种,已报价0个品种");
 
-        getView(R.id.iv_zbbj).setVisibility( View.VISIBLE );
-
-
-
+        getView(R.id.iv_zbbj).setVisibility(View.VISIBLE);
 
 
     }
@@ -105,7 +106,7 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
         totalCount = data.size();
         TextView bottom_tv = getView(R.id.bottom_tv);
 //        bottom_tv.setText("共" + totalCount + "个品种,已报价0个品种");
-        String str = "共" + totalCount + "个品种,已报价 " + tempBeans.size() + "个品种";
+        String str = "共" + totalCount + "个品种,已填写 " + tempBeans.size() + "个品种的报价";
         StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, totalCount + "", " " + tempBeans.size() + "", R.color.red).fillColor();
         bottom_tv
                 .setText(stringFormatUtil.getResult());
@@ -154,6 +155,35 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
         xListView.setPullRefreshEnable(false);
         xListView.setPullLoadEnable(false);
 
+
+//        if (tempBeans.size() == 0) {
+//            return;
+//        }
+
+        for (PurchaseItemBean_new itemBean_new : data) {
+            D.i(" ===footSellerQuoteListJson===" + itemBean_new.footSellerQuoteListJson);
+
+            itemBean_new.footSellerQuoteListJson = getTempBeanById(itemBean_new.id);
+
+            if (itemBean_new.footSellerQuoteListJson != null) {
+                tempBeans.add(itemBean_new.footSellerQuoteListJson);
+            }
+
+        }
+
+
+        String str1 = "共" + totalCount + "个品种,已填写" + " " + tempBeans.size() + " 个品种的报价";
+
+        StringFormatUtil stringFormatUtil1 = new StringFormatUtil(mActivity, str1, totalCount + "", " " + tempBeans.size() + " ", R.color.red).fillColor();
+
+        ((TextView) getView(R.id.bottom_tv))
+                .setText(stringFormatUtil1.getResult());
+
+        if (totalCount == tempBeans.size()) {
+            getView(R.id.bottom_btn).setSelected(true);
+        }
+
+
     }
 
 
@@ -167,7 +197,23 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
 
     }
 
-    List<SellerQuoteJsonBean> tempBeans = new ArrayList<>();
+    /* 打包报价  临时保存集合   成功保存之后  删除   */
+    private List<SellerQuoteJsonBean> tempBeans = new ArrayList<>();
+
+    /* 临时保存 集合  */
+    public static Map<String, SellerQuoteJsonBean> tempMap = new HashMap<>();
+
+    /* id  每个采购单的    id  */
+    public static void saveTempBeanById(String id, SellerQuoteJsonBean tempBean) {
+        tempMap.put(id, tempBean);
+        Log.i("getTempBeanById", "保存到集合 临时集合里面    ---采购单 - " + id);
+    }
+
+    public static SellerQuoteJsonBean getTempBeanById(String id) {
+        Log.i("getTempBeanById", " 临时集合里面  ---   存储的数据    id " + id);
+        return tempMap.get(id);
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -196,6 +242,18 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
                     Log.i("remove", "onActivityResult: 删除  旧的数据  id = " + tempBean.id);
                 }
             }
+
+
+            if (tempBeans.size() > 0) {
+                for (int i = 0; i < tempBeans.size(); i++) {
+                    if (tmp_quote.id.equals(tempBeans.get(i).id)) {
+                        tempBeans.remove(tmp_quote);
+                        Log.i("remove", "onActivityResult: 删除  旧的数据  id = " + tempBeans.get(i).id);
+                    }
+                }
+            }
+
+
             tempBeans.add(tmp_quote);
 
 
@@ -208,8 +266,9 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
             D.i("=======临时保存成功======" + tmp_quote.toString());
 
 
-            String str = "共" + totalCount + "个品种,已报价" + " "+tempBeans.size() + " 个品种";
-            StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, totalCount + "", " "+tempBeans.size() + " ", R.color.red).fillColor();
+            String str = "共" + totalCount + "个品种,已填写" + " " + tempBeans.size() + " 个品种的报价";
+
+            StringFormatUtil stringFormatUtil = new StringFormatUtil(mActivity, str, totalCount + "", " " + tempBeans.size() + " ", R.color.red).fillColor();
 
             ((TextView) getView(R.id.bottom_tv))
                     .setText(stringFormatUtil.getResult());

@@ -89,7 +89,8 @@ public class PurchaseListAdapter extends GlobBaseAdapter<PurchaseBean> {
 
 //            Html.fromHtml("北京市发布霾黄色预警，<font color='#ff0000'><big><big>外出携带好</big></big></font>口罩")
 
-        String html_source = item.blurProjectName + "采购单";
+        //+ "采购单"
+        String html_source = item.name ;
         String html_source1 = "(" + item.num + ")";
 
         tv_01.setText(Html.fromHtml(html_source + "<font color='#FFA19494'><small>" + html_source1 + "</small></font>"));

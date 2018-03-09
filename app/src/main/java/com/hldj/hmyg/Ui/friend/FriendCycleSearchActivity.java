@@ -281,6 +281,7 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
         toolbar_left_icon.setOnClickListener(v -> finish());
         searchContent = getSearchContent();
         search_content.setText(searchContent);
+        search_content.setHint("请输入内容进行搜索");
         if (!TextUtils.isEmpty(searchContent)) // 避免空指针
             search_content.setSelection(searchContent.length());//将光标移至文字末尾
         currentType = MomentsType.all.getEnumValue();

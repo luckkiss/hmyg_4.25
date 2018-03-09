@@ -55,12 +55,14 @@
         android:id="@+id/imageView"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginEnd="110dp"
-        android:layout_marginRight="110dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="71dp"
         android:src="@drawable/yicaiyong_selector"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_ygdhj"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintVertical_bias="0.418" />
 
     <TextView
         android:id="@+id/tv_program_purch_sub_suplier"
@@ -69,12 +71,13 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="花木易购供应商花木易购供应商花木花木易购供应商花木易购供应商花木易购供应商花木易购供应商花木易购供应商花木易购供应商易购供应商"
+        android:layout_marginTop="4dp"
+        android:text="花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商"
         android:textColor="@color/main_color"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/tv_program_purch_sub_use_state"
-        app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_price_cont_serv_pric" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_price_cont_serv_pric"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <TextView
         android:id="@+id/tv_program_purch_sub_plant_addt"
@@ -83,7 +86,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/guideline5"
@@ -160,7 +163,6 @@
         app:state_drawable_mode="center"
         app:state_drawable="@drawable/baojia_chakantupian"
         app:right_top_corner="true"
-
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_remark" />
 
@@ -176,7 +178,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_images_count"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        android:id="@+id/view10" />
 
     <TextView
         android:id="@+id/tv_program_purch_sub_plant_type"
@@ -203,7 +206,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="预估到货价："
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_suplier" />
@@ -220,8 +223,10 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:solid="@color/trans"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_remark" />
+        android:layout_marginTop="7dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_remark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp" />
 
 
 </android.support.constraint.ConstraintLayout>

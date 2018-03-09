@@ -9,7 +9,7 @@ def bakPath = file("${buildDir}/bakApk/")
 //def baseApkDir = "app-0926-12-54-35"   3.0.5. 1
 //def baseApkDir = "app-1030-15-54-46"    // 3.0.5release
 
-def baseApkDir = "app-0115-15-01-32"    //
+def baseApkDir = "app-0308-10-59-48"    //
 //def baseApkDir = "app-1229-10-02-35"    //
 
 //def baseApkDir = ""    // 3.0.5fix1
@@ -51,7 +51,10 @@ tinkerSupport {
 //        tinkerId = "patch-3.0.6release_fix1"
 
 
-    tinkerId = "base-3.0.6release_fix4"
+//    tinkerId = "base-3.0.6release_fix5"
+  tinkerId = "patch-3.0.6release_fix5"
+
+//    tinkerId = "base-3.0.6release_fix4"
 //  tinkerId = "patch-3.0.6release_fix4"
 
 //        tinkerId = "base-3.0.6release_fix3"

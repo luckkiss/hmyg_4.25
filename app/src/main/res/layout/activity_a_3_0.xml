@@ -225,10 +225,10 @@
                             android:layout_height="wrap_content"
                             android:background="@color/white"
                             android:descendantFocusability="blocksDescendants"
-                            android:divider="@color/divider_color_bg"
-                            android:dividerHeight="2px"
+                            android:divider="@color/gray_bg_ed"
+                            android:dividerHeight="3px"
                             android:headerDividersEnabled="true"
-                            app:dividerHeight="2px" />
+                            app:dividerHeight="3px" />
                     </LinearLayout>
 
 
@@ -357,12 +357,12 @@
 
         <Button
             android:id="@+id/top_btn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
             android:layout_above="@+id/iv_publish"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="10dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="11dp"
             android:background="@drawable/top_btn_bg"
             android:gravity="center"
             android:visibility="gone"
@@ -372,8 +372,8 @@
 
         <ImageView
             android:id="@+id/iv_publish"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="10dp"

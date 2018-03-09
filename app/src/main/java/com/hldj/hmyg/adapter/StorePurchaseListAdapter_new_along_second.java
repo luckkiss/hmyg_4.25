@@ -24,6 +24,7 @@ import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
+import com.hy.utils.StringFormatUtil;
 
 import java.util.List;
 
@@ -133,8 +134,6 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
 //                me.setText(text);
 
 
-
-
             }
         });
 
@@ -167,7 +166,17 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
 
                 /*价格*/
                 TextView tv = myViewHolder.getView(R.id.tv_quote_item_price);
-                tv.setText("¥" + jsonBean.price);
+                tv.setText("¥" + jsonBean.price + "/" + jsonBean.unitTypeName);
+                //价格 变色
+                StringFormatUtil fillColorPrice = new StringFormatUtil(context, "¥" + jsonBean.price + "/" + jsonBean.unitTypeName, "¥" + jsonBean.price, R.color.red)
+                        .fillColor();
+                tv.setText(fillColorPrice.getResult());
+
+
+
+                     /*植物类型  [容器苗 假植苗   ---  ]*/
+                TextView type = myViewHolder.getView(R.id.type);
+                type.setText("[" + jsonBean.plantTypeName + "]");
 
                 /*报价时间*/
                 TextView time = myViewHolder.getView(R.id.tv_quote_item_time);
@@ -175,7 +184,7 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
 
                /*预估到货价*/
                 TextView pre_price = myViewHolder.getView(R.id.tv_quote_item_pre_price);
-                pre_price.setText(FUtil.$_zero(jsonBean.prePrice));
+                pre_price.setText(FUtil.$_head("¥", jsonBean.prePrice));
 
                  /*可供数量*/
                 TextView count = myViewHolder.getView(R.id.tv_quote_item_count);
@@ -195,13 +204,24 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
 
                     /*报价说明*/
                 TextView remark = myViewHolder.getView(R.id.tv_quote_item_declare);
-                remark.setText(FUtil.$_zero(jsonBean.remarks));
-
+//                remark.setText(FUtil.$_zero(jsonBean.remarks) + );
+//                remark.setText(jsonBean.specText + " " + FUtil.$_zero(jsonBean.remarks) + "  可供数量" + FUtil.$_zero(jsonBean.count + ""));
+                remark.setText(FUtil.$(" ", FUtil.$_head_no_("", jsonBean.specText), FUtil.$_head_no_("", jsonBean.remarks), FUtil.$_head_no_("可供数量", jsonBean.count + "")));
 
                       /*苗木图片*/
                 SuperTextView photo_num = myViewHolder.getView(R.id.tv_quote_item_photo_num);
                 photo_num.setText("有" + strFilter("1") + "张图片");//有多少张图片
                 PurchaseDetailActivity.setImgCounts((Activity) context, photo_num, jsonBean.imagesJson);
+                if (jsonBean.imagesJson.size() > 0) {
+                    //有多少张图片
+                    StringFormatUtil fillColor = new StringFormatUtil(context, "有" + jsonBean.imagesJson.size() + "张图片", jsonBean.imagesJson.size() + "", R.color.red)
+                            .fillColor();
+                    photo_num.setText(fillColor.getResult());
+                    photo_num.setShowState(true);
+                }else {
+                    photo_num.setShowState(false);
+
+                }
 
 //                textView35  苗源地
 
@@ -210,8 +230,8 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
                 city.setText(FUtil.$_zero(jsonBean.cityName));
 
 
-                TextView textView42 = myViewHolder.getView(R.id.tv_quote_item_declare);
-                textView42.setText(FUtil.$_zero(jsonBean.remarks));
+//                TextView textView42 = myViewHolder.getView(R.id.tv_quote_item_declare);
+//                textView42.setText(FUtil.$_zero(jsonBean.remarks));
 
                 TextView state = myViewHolder.getView(R.id.tv_show_is_quote);
 

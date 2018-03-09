@@ -388,7 +388,7 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
 
 
 
-                    AutoAddRelative.isShowLeft(saveSeedingGsonBean.getData().getItem().purchaseJson.needImage,getView(R.id.tv_purchase_add_pic),R.drawable.seller_redstar);
+                    AutoAddRelative.isShowLeftAndRight(saveSeedingGsonBean.getData().getItem().purchaseJson.needImage,getView(R.id.tv_purchase_add_pic),R.drawable.seller_redstar,R.drawable.ic_right_icon_new);
 
 
 

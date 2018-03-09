@@ -17,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
@@ -303,7 +302,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         // http://blog.csdn.net/jiangwei0910410003/article/details/17024287
         /******************** 监听ScrollView滑动停止 *****************************/
-        scrollView.setOnTouchListener(new OnTouchListener() {
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
             private int lastY = 0;
             private int touchEventId = -9983761;
             Handler handler = new Handler() {
@@ -349,6 +348,20 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         });
         /***********************************************************/
 
+
+//        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                Log.i(TAG, "scrollY: " + scrollY + "  oldScrollY = " + oldScrollY);//scrollY: 421  oldScrollY = 410 ↑
+//                Log.i(TAG, "scrollY: " + scrollY + "  oldScrollY = " + oldScrollY);//scrollY: 1099  oldScrollY = 1101 ↓
+//
+//                if (scrollY - oldScrollY > 0)
+//                    doOnBorderListener();
+//
+//            }
+//        });
+
+
     }
 
     private boolean isLogin() {
@@ -386,7 +399,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             if (myFragment0 != null) myFragment0.setAutoChange(false);
             toTopBtn.setVisibility(View.GONE);
             Log.i(TAG, "top");
-        } else if (scrollView.getScrollY() > 150) {
+        } else if (scrollView.getScrollY() > 500) {
             toTopBtn.setVisibility(View.VISIBLE);
             if (myFragment0 != null)
                 myFragment0.setAutoChange(false);

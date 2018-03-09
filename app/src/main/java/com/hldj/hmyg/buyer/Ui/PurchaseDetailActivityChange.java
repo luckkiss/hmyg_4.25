@@ -259,7 +259,7 @@ public class PurchaseDetailActivityChange extends BaseMVPActivity implements Cha
         //直购 代购
         TextView tv_purchase_add_pic = getView(R.id.tv_purchase_add_pic);
         LinearLayout ll_purc_auto_add = getView(R.id.ll_purc_auto_add);
-        AutoAddRelative.isShowLeftAndRight(false, tv_purchase_add_pic, R.drawable.seller_redstar, R.drawable.ic_right_icon_new);
+        AutoAddRelative.isShowLeftAndRight(true, tv_purchase_add_pic, R.drawable.seller_redstar, R.drawable.ic_right_icon_new);
 
         autoLayouts.clear();
         ll_purc_auto_add.removeAllViews();//动态添加前先删除所有

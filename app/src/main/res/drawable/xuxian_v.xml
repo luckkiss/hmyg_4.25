@@ -1,0 +1,8 @@
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromDegrees="90"
+    android:toDegrees="90"
+    android:drawable="@drawable/xuxian"/>
+    <!--<?xml version="1.0" encoding="utf-8"?>--><!--<shape xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:shape="line" >--><!--&lt;!&ndash; 形状的高度&ndash;&gt;--><!--<size android:height="100dp" />--><!--&lt;!&ndash; 实际显示的线 &ndash;&gt;--><!--<stroke--><!--android:width="100dp"--><!--android:color="@color/divider_color_bg"--><!--android:dashGap="4dp"--><!--android:dashWidth="4dp" />-->
+
+
+    <!--</shape>-->

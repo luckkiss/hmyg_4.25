@@ -35,7 +35,7 @@
         android:layout_height="35dp"
         android:layout_marginLeft="15dp"
         android:gravity="center_vertical"
-        android:text="共3个品种,已报价0个品种"
+        android:text="共0个品种,已填写0个品种的报价"
         android:textSize="14sp"
         android:visibility="gone"
         tools:visibility="visible" />

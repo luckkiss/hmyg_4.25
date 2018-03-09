@@ -253,12 +253,14 @@ public class FriendBaseFragment extends BaseFragment {
                     tv_bottom_line.setBackgroundResource(R.mipmap.bottom_triangle);
                     params.height = dp2px(mActivity, 9);
                     params.setMargins(0, 0, 0, 0);//4个参数按顺序分别是左上右下
+                    tv_bottom_line.setVisibility(View.VISIBLE);
                 } else {
                     //没有评论    ------------
                     params.height = 1;
 //                    params.setMargins(0,  dp2px(14), 0, 0);//4个参数按顺序分别是左上右下
                     params.setMargins(dp2px(mActivity, 0), dp2px(mActivity, 4), dp2px(mActivity, 0), dp2px(mActivity, 4));//4个参数按顺序分别是左上右下
                     tv_bottom_line.setBackgroundColor(baseMVPActivity.getColorByRes(R.color.divider_color));
+                    tv_bottom_line.setVisibility(View.INVISIBLE);
                 }
                 tv_bottom_line.setText("");
                 tv_bottom_line.setLayoutParams(params);

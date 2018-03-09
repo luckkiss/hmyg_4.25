@@ -341,7 +341,13 @@ public class PublishActivity extends BaseMVPActivity {
             @Override
             public void onVideoing() {
 //                ToastUtil.showLongToast("跳转录屏");
-                VideoHempler.start(mActivity);
+
+
+                if (grid.getAdapter().getDataList().size() == 0) {
+                    VideoHempler.start(mActivity);
+                } else {
+                    Log.i("取消", "================");
+                }
 
 
             }
@@ -375,7 +381,13 @@ public class PublishActivity extends BaseMVPActivity {
         toolbar_right_text.setText("发布");
 //        toolbar_right_text.setTextColor(getColorByRes(R.color.text_color111));
         toolbar_right_text.setVisibility(View.VISIBLE);
-        View.OnClickListener clickListener = null;
+        View.OnClickListener clickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.showLongToast("请先选择发布类型^_^");
+            }
+        };
+        toolbar_right_text.setOnClickListener(clickListener);
 
         if (getTag().equals(PURCHASE)) {
 
@@ -794,6 +806,14 @@ public class PublishActivity extends BaseMVPActivity {
     protected void onDestroy() {
         super.onDestroy();
         instance = null;
+
+        File file = new File(currentVideoPath);
+        if (!file.exists()) {
+            D.i("===文件不存在==" + currentVideoPath);
+            return;
+        }
+        D.i("==删除 文件夹 操作 start==");
+        deleteAllFile(file.getParentFile(), delete_all);
     }
 
     @Override
@@ -966,8 +986,8 @@ public class PublishActivity extends BaseMVPActivity {
                 return;
             }
             D.i("==删除 文件夹 操作 start==");
-            deleteAllFile(file.getParentFile());
-            file.getParentFile().delete();
+            deleteAllFile(file.getParentFile(), delete_video);
+//            file.getParentFile().delete();
 //            if (file.exists()) {
 //                File parent = file.getParentFile();
 //                //direct 文件夹，删除操作
@@ -988,18 +1008,48 @@ public class PublishActivity extends BaseMVPActivity {
 
     }
 
-    public void deleteAllFile(File file) {
+    private static final int delete_video = 0;
+    private static final int delete_picture = 1;
+    private static final int delete_all = 2;
+
+    public void deleteAllFile(File file, int flag) {
         if (file.isDirectory()) {
             //是文件夹的话 便利删除子文件
             File[] childs = file.listFiles();
+
+            String startStr = "";
+            if (flag == delete_video) {
+                startStr = "video_";
+            } else if (flag == delete_picture) {
+                startStr = "picture_";
+            } else {
+                startStr = "";
+            }
+
+
             for (File child : childs) {
                 D.i("===" + child.getName());
-                if (child.isFile()) {
-                    child.delete();
+
+                if (TextUtils.isEmpty(startStr)) {
+                    //delete all
+                    if (child.isFile()) {
+                        child.delete();
+                    } else {
+                        //文件夹
+                        deleteAllFile(file, flag);
+                    }
                 } else {
-                    //文件夹
-                    deleteAllFile(file);
+                    if (child.getName().startsWith(startStr)) {
+                        if (child.isFile()) {
+                            child.delete();
+                        } else {
+                            //文件夹
+                            deleteAllFile(file, flag);
+                        }
+                    }
                 }
+
+
             }
 
 
@@ -1065,4 +1115,6 @@ public class PublishActivity extends BaseMVPActivity {
 //            video.pause();
 //        }
     }
+
+
 }

@@ -283,7 +283,13 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
                     helper.setVisible(R.id.imageView, item.isUsed);// 采用 未采用
                     helper.
-                            setText(R.id.tv_ygdhj, filterColor("预估到货价：" + "￥" + item.prePrice, "￥" + item.prePrice, R.color.orange));// 3200/株
+                            setText(R.id.tv_ygdhj, filterColor("预估到货价：" + FUtil.$_head("￥", item.prePrice), FUtil.$_head("￥", item.prePrice), R.color.orange));// 3200/株
+//                    if (FUtil.$_zero_2_null(item.prePrice).equals("")) {
+//
+//                        helper.
+//                                setText(R.id.tv_ygdhj, filterColor("预估到货价：" + "￥" + item.prePrice, "￥" + item.prePrice, R.color.orange));// 3200/株
+//
+//                    }
 
 //                    TextView textView = helper.getView(R.id.tv_ygdhj);
 //                    textView.append(filterColor("------预估到货价：" + item.prePrice, item.prePrice, R.color.fabu_yellow));
@@ -423,7 +429,15 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //                    helper.setText(R.id.tv_bottom_left, filterColor("苗木图片：" + "有" + item.imagesJson.size() + "张图片", item.imagesJson.size() + ""));//
 //                    helper.setText(R.id.tv_program_purch_sub_images_count, filterColor("有" + item.imagesJson.size() + "张图片", item.imagesJson.size() + "", R.color.orange_color));//
                     PurchaseDetailActivity.setImgCounts(mActivity, helper.getView(R.id.tv_bottom_left), item.imagesJson);
-                    helper.setText(R.id.tv_bottom_left, filterColor("苗木图片：" + "有" + item.imagesJson.size() + "张图片", item.imagesJson.size() + ""));//
+
+                    if (item.imagesJson.size() != 0) {
+                        helper.setVisible(R.id.tv_program_purch_sub_images_count, true);
+                        helper.setText(R.id.tv_bottom_left, filterColor("苗木图片：" + "有" + item.imagesJson.size() + "张图片", item.imagesJson.size() + ""));//
+                    } else {
+                        helper.getView(R.id.tv_program_purch_sub_images_count).setVisibility(View.INVISIBLE);
+
+                        helper.setText(R.id.tv_bottom_left, "苗木图片：" + "未上传图片");//
+                    }
 
 
                     Log.e(TAG, "TYPE_LEVEL_1" + helper.getAdapterPosition());
@@ -588,7 +602,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                 .setText(R.id.tv_pzsl, filterColor("报价品种数量：" + item.quoteItemCount + "个", item.quoteItemCount + ""))
                 .setText(R.id.tv_ycy, filterColor("已采用：" + item.usedCount + "个品种", item.usedCount + ""))
                 .setText(R.id.tv_myd, item.cityNames == null ? "苗源地 ：-" : "苗源地：" + item.cityNames.toString().substring(1, item.cityNames.toString().length() - 1))
-                .setText(R.id.tv_right_price, showQuote ? "￥\n" + item.quoteTotalPrice + " 起" : "")
+                .setText(R.id.tv_right_price, showQuote ? "￥\n" + item.quoteTotalPrice + "起" : "")
                 .setBackgroundRes(R.id.tv_right_price, showQuote ? 0 : R.mipmap.wkb)
                 .addOnClickListener(R.id.tv_detail, v -> {
 //                    ToastUtil.showLongToast("-----------查看详情-----------" + item.sellerId);
@@ -700,7 +714,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
         TextView tv_program_pur_city = getView(R.id.tv_program_pur_city);
         TextView tv_program_pur_phoner = getView(R.id.tv_program_pur_phoner);
         TextView tv_program_pur_phone_num = getView(R.id.tv_program_pur_phone_num);
-        tv_program_pur_projectName_num.setText(purchaseBean.projectName + "(" + purchaseBean.num + ")");
+        tv_program_pur_projectName_num.setText(purchaseBean.name + "(" + purchaseBean.num + ")");
         tv_program_pur_city.setText("用苗地：" + purchaseBean.cityName);
         tv_program_pur_phoner.setText("联系客服：" + purchaseBean.dispatchName);
         if (purchaseBean.num != null)

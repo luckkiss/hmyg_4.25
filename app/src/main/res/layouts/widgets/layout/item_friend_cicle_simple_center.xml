@@ -34,15 +34,15 @@
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="1dp"
-            android:textColor="@color/text_color333"
-            android:textSize="15sp"
             android:layout_toLeftOf="@+id/tv_right_top"
             android:layout_toRightOf="@+id/head"
             android:ellipsize="end"
             android:maxLines="1"
-            tools:text="CherrCherryCherryCherryCherryCherryy"
+            android:textColor="@color/text_color333"
+            android:textSize="15sp"
             app:layout_constraintLeft_toRightOf="@+id/head"
-            app:layout_constraintTop_toTopOf="@+id/head" />
+            app:layout_constraintTop_toTopOf="@+id/head"
+            tools:text="CherrCherryCherryCherryCherryCherryy" />
 
 
         <TextView
@@ -50,9 +50,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/head"
-            android:layout_marginTop="3dp"
             android:layout_marginBottom="1dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="3dp"
             android:layout_toRightOf="@+id/head"
             android:text="11小时前  福建  厦门"
             android:textColor="@color/text_color999"
@@ -109,8 +109,8 @@
         android:layout_marginLeft="56dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="56dp"
-        android:ellipsize="end"
         android:autoLink="phone"
+        android:ellipsize="end"
         android:lineSpacingMultiplier="1.3"
         android:text="香樟价格实惠质量香樟价格实惠质量又好     价格实惠质量又好，可供应5000株香樟价又好，可供应5000株香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，可供应5000株香樟价格实惠质量又好，可供应5000株可供应5000株."
         android:textColor="@color/text_color333"
@@ -138,6 +138,19 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descript" />
+
+
+    <com.hldj.hmyg.widget.MyImageViewShowVideo
+        android:id="@+id/video"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="56dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        tools:background="@color/main_color"
+        tools:visibility="visible"
+        android:layout_marginBottom="10dp"
+        />
 
 
     <LinearLayout

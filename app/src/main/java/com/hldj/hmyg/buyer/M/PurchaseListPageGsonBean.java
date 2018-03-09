@@ -31,6 +31,7 @@ public class PurchaseListPageGsonBean {
             public String dispatchName = "";/*ok*/
             public String displayName = "";/*ok*/
             public String blurProjectName = "";/*ok*/
+            public String name = "";/*ok*/
             public String quoteDesc = "";/*ok*/
             public String status = "";/*ok*/
             public String num = "";/*ok*/

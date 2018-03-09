@@ -25,15 +25,15 @@ import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
 import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
 import com.hldj.hmyg.buyer.Ui.DialogActivityPackage;
 import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
+import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivityPackage;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
-import com.hy.utils.ToastUtil;
+import com.hy.utils.StringFormatUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.hldj.hmyg.R.id.tv_time;
-import static me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity.strFilter;
 
 /**
  * 整包 报价 适配器  适配器
@@ -99,12 +99,28 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
     protected void initListView(ViewHolders parentHolders, ListView listView, Context context, PurchaseItemBean_new purchaseItemBeanNew) {
         super.initListView(parentHolders, listView, context, purchaseItemBeanNew);
         int parentId = R.layout.list_item_store_purchase;
-        if (purchaseItemBeanNew.footSellerQuoteListJson != null) {
-            TextView textView = new TextView(context);
-            configureTextView(textView);
-            View view = LayoutInflater.from(context).inflate(R.layout.item_purchase_second, null);
-            StorePurchaseListAdapter_new_package.initFootView(context, view, purchaseItemBeanNew.footSellerQuoteListJson, textView, purchaseItemBeanNew.name + "的报价", purchaseItemBeanNew);
-            listView.addFooterView(view);
+        //  获取 静态 数组
+         if (StorePurchaseListActivityPackage.getTempBeanById(purchaseItemBeanNew.id) != null) {
+            purchaseItemBeanNew.footSellerQuoteListJson = StorePurchaseListActivityPackage.getTempBeanById(purchaseItemBeanNew.id);
+            initFootView(parentHolders, listView, context, purchaseItemBeanNew);
+        }
+       else if (purchaseItemBeanNew.footSellerQuoteListJson != null) {
+            initFootView(parentHolders, listView, context, purchaseItemBeanNew);
+        }
+
+
+
+
+
+
+    }
+
+    private void initFootView(ViewHolders parentHolders, ListView listView, Context context, PurchaseItemBean_new purchaseItemBeanNew) {
+        TextView textView = new TextView(context);
+        configureTextView(textView);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_purchase_second, null);
+        StorePurchaseListAdapter_new_package.initFootView(context, view, purchaseItemBeanNew.footSellerQuoteListJson, textView, purchaseItemBeanNew.name + "的报价", purchaseItemBeanNew);
+        listView.addFooterView(view);
        /*不为空则   已经报价过本item  将马上报价  隐藏  */
 //            TextView textView1 = parentHolders.getView(tv_caozuo01);
 //            textView1.setText("未提交");
@@ -119,19 +135,13 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 
 
                /*  第三种状态出现   变成灰色   */
-            TextView tv_caozuo01 = parentHolders.getView(R.id.tv_caozuo01);
-            tv_caozuo01.setText("已填写");
-            tv_caozuo01.setTextColor(ContextCompat.getColor(context, R.color.text_login_type));
-            tv_caozuo01.setBackground(ContextCompat.getDrawable(context, R.drawable.gray_out_white_in__bg));
-            tv_caozuo01.setVisibility(View.VISIBLE);
-
-
-
-
-        }
-
-
+        TextView tv_caozuo01 = parentHolders.getView(R.id.tv_caozuo01);
+        tv_caozuo01.setText("已填写");
+        tv_caozuo01.setTextColor(ContextCompat.getColor(context, R.color.text_login_type));
+        tv_caozuo01.setBackground(ContextCompat.getDrawable(context, R.drawable.gray_out_white_in__bg));
+        tv_caozuo01.setVisibility(View.VISIBLE);
     }
+
 
     @Override
     protected void processChildHolders(ViewHolders myViewHolder, SellerQuoteJsonBean jsonBean) {
@@ -192,7 +202,10 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 //            return;
 //        }
 
-        if (listview == null) return;
+        if (listview == null){
+            StorePurchaseListActivityPackage.saveTempBeanById(jsonBean.purchaseItemId, jsonBean);
+            return;
+        }
 
 
         int viewRootId = R.layout.list_item_store_purchase;
@@ -206,6 +219,16 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 //        SellerQuoteJsonBean jsonBean = mokeBean();
         initFootView(context, view, jsonBean, textView, currentPurchaseItemBeanNew.name + "的报价", currentPurchaseItemBeanNew);
 
+        /* 保存的 静态数组中  */
+        if (currentPurchaseItemBeanNew != null )
+        {
+            StorePurchaseListActivityPackage.saveTempBeanById(currentPurchaseItemBeanNew.id, jsonBean);
+        }else {
+            StorePurchaseListActivityPackage.saveTempBeanById(jsonBean.purchaseItemId, jsonBean);
+        }
+
+        D.i("============= 保存的 静态数组中 ============" + currentPurchaseItemBeanNew.id);
+        /* 保存的 静态数组中  */
 
         listview.addFooterView(view);
 
@@ -304,7 +327,15 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 
                 /*价格*/
         TextView tv = (TextView) view.findViewById(R.id.tv_quote_item_price);
-        tv.setText("¥" + jsonBean.price);
+        tv.setText("¥" + jsonBean.price + "/" + jsonBean.unitTypeName);
+        //价格 变色
+        StringFormatUtil fillColorPrice = new StringFormatUtil(context, "¥" + jsonBean.price + "/" + jsonBean.unitTypeName, "¥" + jsonBean.price, R.color.red)
+                .fillColor();
+        tv.setText(fillColorPrice.getResult());
+
+       /*植物类型  [容器苗 假植苗   ---  ]*/
+        TextView type = (TextView) view.findViewById(R.id.type);
+        type.setText("[" + jsonBean.plantTypeName + "]");
 
                 /*报价时间*/
         TextView time = (TextView) view.findViewById(R.id.tv_quote_item_time);
@@ -312,7 +343,7 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 
                /*预估到货价*/
         TextView pre_price = (TextView) view.findViewById(R.id.tv_quote_item_pre_price);
-        pre_price.setText(FUtil.$_zero(jsonBean.prePrice));
+        pre_price.setText(FUtil.$_head("¥", jsonBean.prePrice));
 
                  /*可供数量*/
         TextView count = (TextView) view.findViewById(R.id.tv_quote_item_count);
@@ -332,23 +363,29 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 
                     /*报价说明*/
         TextView remark = (TextView) view.findViewById(R.id.tv_quote_item_declare);
-        remark.setText(FUtil.$_zero(jsonBean.remarks));
+//        remark.setText(jsonBean.specText + " " + FUtil.$_zero(jsonBean.remarks) + "  可供数量" + FUtil.$_zero(jsonBean.count + ""));
+//        remark.setText(FUtil.$(" ", jsonBean.remarks + "  可供数量" + FUtil.$_head_no_(jsonBean.count + "")));
+        remark.setText(FUtil.$(" ", FUtil.$_head_no_("", jsonBean.specText), FUtil.$_head_no_("", jsonBean.remarks), FUtil.$_head_no_("可供数量", jsonBean.count + "")));
 
 
                       /*苗木图片*/
         SuperTextView photo_num = (SuperTextView) view.findViewById(R.id.tv_quote_item_photo_num);
-        photo_num.setText("有" + strFilter("1") + "张图片");//有多少张图片
+//        photo_num.setText("有" + strFilter("1") + "张图片");//有多少张图片
         PurchaseDetailActivity.setImgCounts((Activity) context, photo_num, jsonBean.imagesJson);
-
 //                textView35  苗源地
-
+        //有多少张图片
+        if (jsonBean.imagesJson.size() > 0) {
+            StringFormatUtil fillColor = new StringFormatUtil(context, "有" + jsonBean.imagesJson.size() + "张图片", jsonBean.imagesJson.size() + "", R.color.red)
+                    .fillColor();
+            photo_num.setText(fillColor.getResult());
+        }
 
         TextView city = (TextView) view.findViewById(R.id.tv_quote_item_cityName);
         city.setText(FUtil.$_zero(jsonBean.cityName));
 
 
-        TextView textView42 = (TextView) view.findViewById(R.id.tv_quote_item_declare);
-        textView42.setText(FUtil.$_zero(jsonBean.remarks));
+//        TextView textView42 = (TextView) view.findViewById(R.id.tv_quote_item_declare);
+//        textView42.setText(FUtil.$_zero(jsonBean.remarks));
 
         TextView state = (TextView) view.findViewById(R.id.tv_show_is_quote);
 
@@ -401,7 +438,7 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 
         state.setText("未提交");
         TextView tv_time = (TextView) view.findViewById(R.id.tv_time);
-        tv_time.setText(jsonBean.createDate);
+        tv_time.setText(jsonBean.quoteDateStr);
         tv_time.setVisibility(View.VISIBLE);
 
 
@@ -435,7 +472,7 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 //                        purchaseItemBeanNew.pid2 = getItemId();
 
 
-                ToastUtil.showLongToast("编辑");
+//                ToastUtil.showLongToast("编辑");
 //                DialogActivitySecond.start2Activity((Activity) context, itemBean_new.id,);
                 DialogActivityPackage.start2Activity((Activity) context, itemBean_new.id, itemBean_new, jsonBean);
             }

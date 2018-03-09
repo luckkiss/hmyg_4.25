@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.cjt2325.cameralibrary.CaptureLayout;
 import com.cjt2325.cameralibrary.JCameraView;
 import com.cjt2325.cameralibrary.listener.ClickListener;
 import com.cjt2325.cameralibrary.listener.ErrorListener;
@@ -67,7 +68,8 @@ public class VideoActivity extends AppCompatActivity {
         jCameraView.setSaveVideoPath(Environment.getExternalStorageDirectory().getPath() + File.separator + "JCamera");
 
 //设置只能录像或只能拍照或两种都可以（默认两种都可以）
-        jCameraView.setFeatures(JCameraView.BUTTON_STATE_BOTH);
+        jCameraView.setFeatures(JCameraView.BUTTON_STATE_ONLY_RECORDER);
+//        jCameraView.setFeatures(JCameraView.BUTTON_STATE_BOTH);
 
 //设置视频质量
         jCameraView.setMediaQuality(JCameraView.MEDIA_QUALITY_MIDDLE);
@@ -148,6 +150,7 @@ public class VideoActivity extends AppCompatActivity {
             }
         });
 
+
         jCameraView.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -169,6 +172,9 @@ public class VideoActivity extends AppCompatActivity {
             }
         }, 400);
 
+
+        CaptureLayout capture_layout = (CaptureLayout) jCameraView.findViewById(R.id.capture_layout);
+        capture_layout.setTextWithAnimation("长按录像");
 
     }
 

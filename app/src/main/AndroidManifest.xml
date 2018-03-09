@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hldj.hmyg"
-    android:versionCode="88"
-    android:versionName="3.0.6release_fix4">
+    android:versionCode="89"
+    android:versionName="3.0.6release_fix5">
+
+    <!--android:versionCode="88"
+    android:versionName="3.0.6release_fix4">-->
 
     <!--android:versionCode="87"
     android:versionName="3.0.6release_fix3"-->

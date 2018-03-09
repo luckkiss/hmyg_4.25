@@ -118,8 +118,14 @@ public class MeasureGridView extends GridView {
                     return;
                 }
                 if (isOpenVideo) {
-                    popwin = new FlowerInfoPhotoChoosePopwin2(context, listener, isOpenVideo);
+                    if (adapter.getDataList().size() == 0) {
+                        popwin = new FlowerInfoPhotoChoosePopwin2(context, listener, isOpenVideo);
+                    } else {
+                        popwin = new FlowerInfoPhotoChoosePopwin2(context, listener);
+                    }
                 } else {
+
+
                     popwin = new FlowerInfoPhotoChoosePopwin2(context, listener);
                 }
                 popwin.showAtLocation(mainView, Gravity.BOTTOM

@@ -252,22 +252,27 @@ public class DetailActivity extends BaseMVPActivity {
 //          finalBitmap.display(head, moments.attrData.headImage);
 //            if (!TextUtils.isEmpty(moments.attrData.headImage)) {
             ImageLoader.getInstance().displayImage(moments.attrData.headImage, head);
-            video.setVisibility(View.VISIBLE);
-            video.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(mActivity, VideoPlayerActivity2.class).putExtra(
-                            "path", moments.videoUrl));
-                }
-            });
-            ImageLoader.getInstance().displayImage(moments.attrData.videoImageUrl, video);
+
+            if (!TextUtils.isEmpty(moments.videoUrl)) {
+                video.setVisibility(View.VISIBLE);
+                video.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(mActivity, VideoPlayerActivity2.class).putExtra(
+                                "path", moments.videoUrl));
+                    }
+                });
+                ImageLoader.getInstance().displayImage(moments.attrData.videoImageUrl, video);
+            } else {
+                video.setVisibility(View.GONE);
+            }
+
+
             head.setOnClickListener(v -> {
                 //未登录。跳转登录界面
 //                if (!commitLogin()) return;
                 CenterActivity.start(mActivity, moments.ownerId);
             });
-
-
 
 
 //            }

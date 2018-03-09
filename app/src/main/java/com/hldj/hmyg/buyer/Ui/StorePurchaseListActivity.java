@@ -146,8 +146,8 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
         if (getIntent().getStringExtra("purchaseFormId") != null) {
             purchaseFormId = getIntent().getStringExtra("purchaseFormId");
-            shareBean.pageUrl = "http://m.hmeg.cn/purchase/order/list/" + purchaseFormId + ".html ";
-//            "http://m.hmeg.cn/purchase/order/list/f945f5ba092046b58b4f50682b2c9978.html"
+            shareBean.pageUrl = "http://m.hmeg.cn/admin/purchase/detail/" + purchaseFormId + ".html ";
+//            "http://m.hmeg.cn/admin/purchase/detail/f945f5ba092046b58b4f50682b2c9978.html"
         }
         if (getIntent().getStringExtra("secondSeedlingTypeId") != null) {
             secondSeedlingTypeId = getIntent().getStringExtra("secondSeedlingTypeId");
@@ -285,6 +285,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
     }
 
     protected void processJson(String t) {
+        /*参考报价*/
         PurchaseListGsonBean gsonBean = GsonUtil.formateJson2Bean(t, PurchaseListGsonBean.class);
 //                ToastUtil.showLongToast(gsonBean.msg);
         if (gsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
@@ -404,7 +405,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
         int headViewId = R.layout.head_purchase;
                         /*项目名*/
-        String res = headPurchase.blurProjectName + "采购单" + "<font color='#FFA19494'><small>" + "(" + headPurchase.num + ")" + "</small></font>";
+        String res = headPurchase.name + "" + "<font color='#FFA19494'><small>" + "(" + headPurchase.num + ")" + "</small></font>";
         shareBean.title = headPurchase.blurProjectName + "【" + headPurchase.num + "】";
 
         ((TextView) getView(R.id.tv_01)).setText(Html.fromHtml(res));
@@ -652,7 +653,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
             "",
             "",
             "" + GetServerUrl.ICON_PAHT,
-            "http://m.hmeg.cn/purchase/order/list/f945f5ba092046b58b4f50682b2c9978.html"
+            "http://m.hmeg.cn/admin/purchase/detail/f945f5ba092046b58b4f50682b2c9978.html"
     );
 
     /**

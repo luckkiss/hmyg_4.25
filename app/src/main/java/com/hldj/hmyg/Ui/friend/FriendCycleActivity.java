@@ -1,7 +1,6 @@
 package com.hldj.hmyg.Ui.friend;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.Keep;
@@ -9,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,7 +34,6 @@ import com.hldj.hmyg.base.MyFinalActivity;
 import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.base.rxbus.annotation.Subscribe;
 import com.hldj.hmyg.bean.SimpleGsonBean;
-import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment1;
 import com.hldj.hmyg.saler.Adapter.FragmentPagerAdapter_TabLayout;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
@@ -149,10 +146,10 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
         toolbar_left_icon.setImageResource(R.mipmap.friend_filter);
         toolbar_left_icon.setVisibility(View.GONE);
 
-        if (et_search!=null)
-        {
+        if (et_search != null) {
             et_search.setCursorVisible(false);
             et_search.clearFocus();
+            et_search.setHint("请输入内容进行搜索");
         }
 
         initChild();
@@ -256,24 +253,28 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
             /*选择发布类型*/
             case R.id.toolbar_right_icon:
                 if (!commitLogin()) return;
-                CommonDialogFragment1.newInstance(context -> {
-                    Dialog dialog1 = new Dialog(context);
-                    dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog1.setContentView(R.layout.item_friend_type);
-                    dialog1.findViewById(R.id.iv_left).setOnClickListener(v1 -> {
-//                            ToastUtil.showLongToast("left");
-                        dialog1.dismiss();
-                        PublishActivity.start(mActivity, PublishActivity.PUBLISH);
+                PublishActivity.start(mActivity, PublishActivity.ALL);
+//                CommonDialogFragment1.newInstance(context -> {
+//                    Dialog dialog1 = new Dialog(context);
+//                    dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//                    dialog1.setContentView(R.layout.item_friend_type);
+//                    dialog1.findViewById(R.id.iv_left).setOnClickListener(v1 -> {
+////                            ToastUtil.showLongToast("left");
+//                        dialog1.dismiss();
+//                        PublishActivity.start(mActivity, PublishActivity.PUBLISH);
+//
+//                    });
+//                    dialog1.findViewById(R.id.iv_right).setOnClickListener(v1 -> {
+////                            ToastUtil.showLongToast("right");
+//                        dialog1.dismiss();
+//                        PublishActivity.start(mActivity, PublishActivity.PURCHASE);
+//                    });
+//
+//                    return dialog1;
+//                }, true).show(getSupportFragmentManager(), TAG);
 
-                    });
-                    dialog1.findViewById(R.id.iv_right).setOnClickListener(v1 -> {
-//                            ToastUtil.showLongToast("right");
-                        dialog1.dismiss();
-                        PublishActivity.start(mActivity, PublishActivity.PURCHASE);
-                    });
 
-                    return dialog1;
-                }, true).show(getSupportFragmentManager(), TAG);
+
                 break;
         }
 
@@ -436,9 +437,16 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 
 
     private void setStatusBars() {
-        StateBarUtil.setStatusTranslater(MainActivity.instance, true);
+
+        try {
+            StateBarUtil.setStatusTranslater(MainActivity.instance, true);
         StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
-        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
+            StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 
