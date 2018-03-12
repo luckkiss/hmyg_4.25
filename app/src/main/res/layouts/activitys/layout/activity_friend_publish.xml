@@ -156,14 +156,15 @@
 
         <View style="@style/View_line_gray_1px" />
 
-        <com.lqr.optionitemview.OptionItemView
+        <!--com.lqr.optionitemview.OptionItemView-->
+        <com.hldj.hmyg.widget.MyOptionItemView
             android:id="@+id/location"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             app:left_src="@mipmap/loaction"
             app:left_text="苗源地"
             app:left_text_color="@color/text_color111"
-            app:right_src="@drawable/arrow_right_eq"
+            app:right_src="@drawable/ic_right_icon"
             app:right_text="未选择"
             app:right_text_color="@color/text_color111" />
 

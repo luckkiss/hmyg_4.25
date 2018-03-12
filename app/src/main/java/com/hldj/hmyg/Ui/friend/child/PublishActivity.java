@@ -43,9 +43,9 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.TakePhotoUtil;
 import com.hldj.hmyg.util.VideoHempler;
+import com.hldj.hmyg.widget.MyOptionItemView;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
-import com.lqr.optionitemview.OptionItemView;
 import com.mabeijianxi.smallvideo2.VideoPlayerActivity2;
 import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -103,7 +103,7 @@ public class PublishActivity extends BaseMVPActivity {
 
     /*底部 未知选择[*/
     @ViewInject(id = R.id.location)
-    OptionItemView location;
+    MyOptionItemView location;
 
     /*发布窗口*/
     @ViewInject(id = R.id.grid)
@@ -370,7 +370,9 @@ public class PublishActivity extends BaseMVPActivity {
             public void onCancle() {
                 D.e("===========onCancle=============");
             }
-        });
+        },true);
+        grid.setVerticalSpacing(10);
+        grid.setHorizontalSpacing(10);
 
 
     }

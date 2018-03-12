@@ -22,8 +22,8 @@
             android:layout_width="@dimen/backWH"
             android:layout_height="@dimen/backWH"
             android:layout_centerVertical="true"
-            android:padding="3dp"
             android:layout_marginLeft="5dp"
+            android:padding="3dp"
             android:src="@drawable/back_nol"
             android:visibility="gone"
             tools:visibility="visible" />
@@ -57,7 +57,31 @@
         android:layout_height="wrap_content"
         android:background="@drawable/line_bak" />
 
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="资源收藏" />
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="苗木圈收藏" />
+
+
+    </android.support.design.widget.TabLayout>
+
+
     <LinearLayout
+        android:id="@+id/left_content"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
@@ -86,17 +110,28 @@
                 android:layout_width="@dimen/empty_width"
                 android:layout_height="@dimen/empty_height"
                 android:layout_gravity="center"
-                android:src="@drawable/wushuju" />
+                android:src="@drawable/wushuju" android:layout_marginBottom="15dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:text="暂无数据..." />
+                android:text="暂无数据..."
+                android:layout_marginBottom="15dp"
+                />
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+        android:id="@+id/coreRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+
+    </com.hldj.hmyg.buyer.weidet.CoreRecyclerView>
+
 
 </LinearLayout>

@@ -63,9 +63,12 @@ public class MeasureGridView extends GridView {
         this.setOnItemClickListener(new PhotoGvOnItemClickListener(ainView, listener));
     }
 
-    public void init(Context context, ArrayList<Pic> urlPaths, ViewGroup ainView, boolean isOpen, FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener listener) {
+
+
+    public void init(Context context, ArrayList<Pic> urlPaths, ViewGroup ainView, boolean isOpen, FlowerInfoPhotoChoosePopwin2.onPhotoStateChangeListener listener,boolean mustEqualWidth ) {
         isOpenVideo = isOpen;
         init(context, urlPaths, ainView, listener);
+        adapter.isEquleWidth = mustEqualWidth;
     }
 
 

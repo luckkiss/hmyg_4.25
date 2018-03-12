@@ -39,6 +39,7 @@ public interface ConstantState {
     String NO_NET_CODE = "110";
 
     String COLLECT_REFRESH = "COLLECT_REFRESH";
+    String COLLECT_CENTER_REFRESH = "COLLECT_CENTER_REFRESH";/* 苗木圈  收藏  刷新 */
 
     boolean ON_OFF = true;//打开强制更新
 

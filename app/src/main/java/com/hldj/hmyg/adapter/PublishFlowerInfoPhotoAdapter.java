@@ -11,6 +11,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Pic;
@@ -28,11 +29,13 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
 
     protected ArrayList<Pic> urlPaths = new ArrayList<Pic>();
 
+    public boolean isEquleWidth = false;
+
     protected LayoutInflater inflater;
 
     private Context context;
 
-    protected ViewHolder holder ;
+    protected ViewHolder holder;
 
     private int dip30px;
     public static final int TO_CHOOSE_NEW_PIC = 20;
@@ -140,20 +143,30 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
             holder.iv_img1 = (ImageView) convertView.findViewById(R.id.iv_img1);
             LayoutParams para = holder.photoIv.getLayoutParams();
 
-            if (getColumeNum() == 4) {
+            if (isEquleWidth) {
                 para.width = (width - dip30px) / 4;
-                para.height = para.width * 4 / 3;
+                para.height =  (width - dip30px) / 4;
+                                ViewGroup pr = (ViewGroup) holder.photoIv.getParent();
+                pr.setLayoutParams(new LinearLayout.LayoutParams( para.width, para.width));
+//                pr.setLayoutParams(new LinearLayout.LayoutParams( para.width, para.width));
+//
             } else {
+                if (getColumeNum() == 4) {
+                    para.width = (width - dip30px) / 4;
+                    para.height = para.width * 4 / 3;
+                } else {
 
-                para.width = (width) / 3;
-                para.height = (width) / 3;
+                    para.width = (width) / 3;
+                    para.height = (width) / 3;
 //                ViewGroup pr = (ViewGroup) holder.photoIv.getParent();
 //                pr.setLayoutParams(new LinearLayout.LayoutParams(MyApplication.dp2px(context, 100),MyApplication.dp2px(context, 100)));
 //
 //                para.width = MyApplication.dp2px(context, 100);
 //                para.height = MyApplication.dp2px(context, 100) ;
-            }
+                }
 
+
+            }
             holder.photoIv.setLayoutParams(para);
 
             convertView.setTag(holder);
@@ -167,7 +180,15 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
                 holder.photoIv.setVisibility(View.VISIBLE);
             }
             holder.photoIv.setScaleType(ImageView.ScaleType.FIT_XY);
-            holder.photoIv.setImageResource(R.drawable.add_image_icon);
+
+            if (isEquleWidth)
+            {
+
+                holder.photoIv.setImageResource(R.drawable.add_image_icon_big_eq);
+            }else {
+
+                holder.photoIv.setImageResource(R.drawable.add_image_icon);
+            }
 //            holder.photoIv.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.add_image_icon_big));
             holder.photoIv.requestLayout();
             holder.iv_img2.setVisibility(View.INVISIBLE);

@@ -1,6 +1,8 @@
 package com.hldj.hmyg.Ui.friend.presenter;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +20,7 @@ import com.hldj.hmyg.base.CommonPopupWindow;
 import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.hy.utils.GetServerUrl;
@@ -251,6 +254,9 @@ public class FriendPresenter {
                             public void onRealSuccess(SimpleGsonBean gsonBean) {
                                 ToastUtil.showLongToast(gsonBean.msg);
                                 item.isFavour = gsonBean.getData().isCollect();
+
+                                LocalBroadcastManager.getInstance(baseMVPActivity).sendBroadcast(new Intent(ConstantState.COLLECT_CENTER_REFRESH));
+
                             }
                         });
                         popupWindow1.dismiss();
