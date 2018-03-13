@@ -219,6 +219,12 @@
                 android:paddingLeft="10.0dip"
                 android:paddingRight="10.0dip">
 
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="28dp"
+
+                    />
+
                 <TextView
                     android:id="@+id/tv_10"
                     android:layout_width="wrap_content"
@@ -236,13 +242,17 @@
                 <TextView
                     android:id="@+id/tv_11"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="28dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="6dp"
                     android:gravity="center"
+                    android:paddingBottom="4.5dp"
                     android:singleLine="true"
+                    tools:text="共有3条报价"
                     android:textColor="#5A5A5A"
                     android:textSize="12.0sp"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    tools:visibility="visible" />
             </LinearLayout>
             <!--android:background="@drawable/green_btn_selector"-->
             <!--android:textColor="@color/main_color"-->

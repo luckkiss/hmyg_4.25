@@ -25,8 +25,10 @@ import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
 import com.hldj.hmyg.buyer.P.PurchaseDeatilP;
 import com.hldj.hmyg.buyer.Ui.DialogActivity;
 import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
+import com.hldj.hmyg.buyer.Ui.QuoteListActivity_bak;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
+import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
 import com.zf.iosdialog.widget.AlertDialog;
 
@@ -125,6 +127,10 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
         if (isExpired()) {
             tv_10.setVisibility(View.GONE);
         }
+
+        TextView tv_11 = myViewHolder.getView(R.id.tv_11);
+        setTv11(tv_11, purchaseItemBeanNew);
+
 
         setTv_isloagin(myViewHolder.getView(tv_caozuo01), purchaseItemBeanNew);
 
@@ -369,6 +375,27 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 
 
     }
+
+    private void setTv11(TextView tv_11, PurchaseItemBean_new purchaseItemBeanNew) {
+        if (MyApplication.getUserBean().showQuoteCount)//拥有权限
+        {
+            StringFormatUtil fillColor = new StringFormatUtil(context, "已有"
+                    + purchaseItemBeanNew.quoteCountJson + "条报价", purchaseItemBeanNew.quoteCountJson + "",
+                    R.color.red).fillColor();
+            tv_11.setText(fillColor.getResult());
+            tv_11.setVisibility(View.VISIBLE);
+            if (purchaseItemBeanNew.quoteCountJson == 0) {
+                //跳转到报价列表详情
+                tv_11.setOnClickListener(v -> ToastUtil.showShortToast("暂无报价"));
+            } else {
+                //跳转到报价列表详情
+                tv_11.setOnClickListener(v -> QuoteListActivity_bak.start2Activity((Activity) context, purchaseItemBeanNew.id));
+            }
+        } else {
+            tv_11.setVisibility(View.GONE);//没有权限 就不显示  和没有点击事件
+        }
+    }
+
 
     //, boolean isOpen
     public void setTv10(TextView tv_10, PurchaseItemBean_new purchaseItemBeanNew, boolean isOpen) {

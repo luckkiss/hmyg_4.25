@@ -138,7 +138,7 @@ public abstract class StorePurchaseListAdapter_new_along_second extends StorePur
         });
 
 
-        myViewHolder.getView(R.id.tv_10).setVisibility(purchaseItemBeanNew.isQuoted ? View.VISIBLE : View.INVISIBLE);
+        myViewHolder.getView(R.id.tv_10).setVisibility(purchaseItemBeanNew.isQuoted ? View.VISIBLE : View.GONE);
 
 
           /*    去除点击   已经报价一次的 请情况   不允许 继续点击报价。。只能修改*/
