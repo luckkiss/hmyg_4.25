@@ -122,7 +122,7 @@ public class FriendPresenter {
                                 , "_" + item.content,
 //                        (item.imagesJson != null && item.imagesJson.size() > 0) ? item.imagesJson.get(0).ossMediumImagePath : GetServerUrl.ICON_PAHT,
                                 headUrl,
-                                GetServerUrl.getHtmlUrl() + "moments/detail/" + item.id + ".html", Platform.SHARE_VIDEO)
+                                GetServerUrl.getHtmlUrl() + "moments/detail/" + item.id + ".html", item.isVideo ? Platform.SHARE_VIDEO : Platform.SHARE_IMAGE)
 
                 )
                 .show(activity.getSupportFragmentManager(), activity.getClass().getName());

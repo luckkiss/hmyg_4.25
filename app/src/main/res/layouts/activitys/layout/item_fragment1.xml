@@ -35,7 +35,7 @@
                 android:gravity="center|start"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:textColor="@color/black_de"
+                android:textColor="@color/main_color"
                 android:textSize="13sp"
                 tools:text="百花鸡蛋花" />
 
@@ -61,29 +61,59 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <com.coorchice.library.SuperTextView
                     android:layout_width="wrap_content"
                     android:layout_height="21dp"
+                    android:layout_gravity="center"
                     android:gravity="center|start"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="采购商家:"
+                    android:text="采购单:"
                     android:textSize="12sp" />
 
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/tv_fr_item_company_name"
                     android:layout_width="0dp"
-                    android:layout_height="21dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:gravity="center_vertical|start"
+                    android:gravity="center_vertical"
+                    android:minHeight="21dp"
                     android:paddingRight="5dp"
                     android:textSize="12sp"
-                    tools:text="厦门花木易购电子商务有限公司" />
+                    tools:text="厦门花木子商务有限公司限公司" />
 
             </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.coorchice.library.SuperTextView
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+                android:gravity="center|end"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="用苗地:"
+                android:textSize="12sp" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_fr_item_company_addr_name"
+                android:layout_width="0dp"
+                android:layout_height="21dp"
+                android:layout_weight="0.8"
+                android:gravity="center_vertical|start"
+                android:paddingRight="5dp"
+                android:textSize="12sp"
+                tools:text="厦门" />
 
 
         </LinearLayout>
@@ -102,7 +132,7 @@
                 android:textSize="12sp" />
 
             <com.coorchice.library.SuperTextView
-                android:id="@+id/tv_fr_item_company_addr_name"
+                android:id="@+id/tv_fr_item_company_addr_source"
                 android:layout_width="0dp"
                 android:layout_height="21dp"
                 android:layout_weight="0.8"
@@ -114,6 +144,7 @@
 
         </LinearLayout>
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -124,7 +155,7 @@
                 android:gravity="center|end"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:text="规格要求:"
+                android:text="报价参数:"
                 android:textSize="12sp" />
 
             <com.coorchice.library.SuperTextView
@@ -143,20 +174,114 @@
         </LinearLayout>
 
 
-        <View style="@style/View_line_gray_1dp" />
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.coorchice.library.SuperTextView
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+                android:gravity="center|end"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="报价日期:"
+                android:textSize="12sp" />
+
+
+            <com.coorchice.library.SuperTextView
                 android:id="@+id/stv_fragment_time"
+                android:layout_width="0dp"
+                android:layout_height="21dp"
+                android:layout_weight="0.8"
+                android:gravity="center_vertical|start"
+                android:paddingRight="5dp"
+                android:textSize="12sp"
+                tools:text="1992.06.12" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.coorchice.library.SuperTextView
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+                android:gravity="center|end"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="苗木图片:"
+                android:textSize="12sp" />
+
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_fragment_show_images"
+                android:layout_width="0dp"
+                android:layout_height="27dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="0.8"
+                android:gravity="center_vertical|start"
+                android:paddingRight="5dp"
+                android:textSize="12sp"
+                app:isShowState="true"
+                app:paddingEnd="10dp"
+                app:state_drawable="@drawable/baojia_chakantupian"
+                app:state_drawable_height="20dp"
+                app:state_drawable_mode="right"
+                app:state_drawable_width="20dp"
+                tools:text="有1张图片" />
+
+
+        </LinearLayout>
+
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <!---->
+
+
+        <!--<com.coorchice.library.SuperTextView-->
+        <!--android:id="@+id/tv_quote_item_photo_num"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="27dp"-->
+        <!--android:layout_marginRight="4dp"-->
+        <!--android:layout_weight="0.8"-->
+        <!--android:gravity="center_vertical|start"-->
+        <!--android:paddingRight="5dp"-->
+        <!--android:textSize="12sp"-->
+        <!--app:isShowState="true"-->
+        <!--app:paddingEnd="10dp"-->
+        <!--app:state_drawable="@drawable/baojia_chakantupian"-->
+        <!--app:state_drawable_height="20dp"-->
+        <!--app:state_drawable_mode="right"-->
+        <!--app:state_drawable_width="20dp"-->
+        <!--tools:text="有1张图片" />-->
+        <!--</LinearLayout>-->
+
+        <View
+            style="@style/View_line_gray_1dp"
+            android:layout_height="2dp"
+            android:background="@drawable/xuxian"
+            android:layerType="software" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_fr_item_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingLeft="5dp"
-                android:text="时间：1992.12.11"
-                android:textSize="12sp" />
+                android:text="报价：￥66/株"
+                android:textColor="@color/price_orige"
+                android:textSize="13sp" />
 
 
             <com.coorchice.library.SuperTextView
@@ -170,17 +295,18 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_fr_item_price"
+                android:id="@+id/tv_fr_item_pre_price"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right"
+                android:layout_marginRight="15dp"
                 android:gravity="center_vertical|start"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:textColor="@color/red"
                 android:textSize="12sp"
-                tools:text="30" />
+                tools:text="预估到货价：￥100" />
 
 
         </RelativeLayout>

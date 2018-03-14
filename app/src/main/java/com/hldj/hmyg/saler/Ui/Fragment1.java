@@ -13,24 +13,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.CollectGsonBean;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
+import java.util.List;
+
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+
+import static com.zzy.common.widget.MeasureGridView.context;
 
 
 /**
@@ -92,19 +100,10 @@ public class Fragment1 extends Fragment {
             @Override
             protected void convert(BaseViewHolder helper, SaveSeedingGsonBean.DataBean.SeedlingBean item) {
 
-                D.e("==========item=============" + item.toString());
-                helper.setText(R.id.tv_fr_item_plant_name, item.purchaseJson.name);
-                helper.setText(R.id.tv_fr_item_company_name, item.purchaseJson.buyer.displayName);
-                helper.setText(R.id.tv_fr_item_company_addr_name, item.purchaseJson.cityName);
-                helper.setText(R.id.tv_fr_item_price, "¥" + item.price);
-                helper.setText(R.id.tv_fr_item_specText, item.getSpecText());
-                helper.setText(R.id.stv_fragment_time, "日期：" + item.attrData.createDate);
 
-                setStatus(helper, item.getStatus());//通过状态设置背景颜色
-                helper.addOnClickListener(R.id.cv_root, v -> {
-//                    ManagerQuoteListItemDetail.start2Activity(getActivity(), item);
-                    ManagerQuoteListItemDetail_new.start2Activity(getActivity(), item.getId());
-                });
+                D.e("==========item=============" + item.toString());
+
+                doConvert(helper, item, mActivity);
 
 
             }
@@ -118,6 +117,63 @@ public class Fragment1 extends Fragment {
         return recyclerView;
     }
 
+    public static void doConvert(BaseViewHolder helper, SaveSeedingGsonBean.DataBean.SeedlingBean item, Activity mActivity) {
+
+        helper.setText(R.id.tv_fr_item_plant_name, item.purchaseItemJson.name);
+
+        helper.setText(R.id.tv_fr_item_company_name, item.purchaseJson.name + " (" + item.purchaseJson.num + ")");
+//                helper.setText(R.id.tv_fr_item_company_name, item.purchaseJson.buyer.displayName);
+        helper.setText(R.id.tv_fr_item_company_addr_name, FUtil.$_zero(item.purchaseJson.cityName));
+
+                /* 苗源地址 */
+        helper.setText(R.id.tv_fr_item_company_addr_source, FUtil.$_zero(item.getCityName()));
+        helper.setText(R.id.tv_fr_item_price, "报价：" + "¥" + item.price + FUtil.$_head_no_("/", item.getUnitTypeName()));
+
+        setImageCountAndClick(helper.getView(R.id.stv_fragment_show_images), item.getImagesJson(), mActivity);
+
+        if (!TextUtils.isEmpty(FUtil.$_zero_2_null(item.prePrice))) {
+            helper.setText(R.id.tv_fr_item_pre_price, "预估到货价：¥" + "" + item.prePrice);
+        } else {
+            helper.setText(R.id.tv_fr_item_pre_price, "");
+        }
+
+        String plant = "";
+        if (TextUtils.isEmpty(item.getPlantTypeName())) {
+            plant = "";
+        } else {
+            plant = "[" + item.getPlantTypeName() + "]";
+        }
+        helper.setText(R.id.tv_fr_item_specText, plant + FUtil.$(item.getSpecText()) + FUtil.$_head("可供数量：", FUtil.$_zero_2_null(item.getCount() + "")));
+
+
+        helper.setText(R.id.stv_fragment_time, item.attrData.createDate);
+
+
+        setStatus(helper, item.getStatus());//通过状态设置背景颜色
+        helper.addOnClickListener(R.id.cv_root, v -> {
+//                    ManagerQuoteListItemDetail.start2Activity(getActivity(), item);
+            ManagerQuoteListItemDetail_new.start2Activity(mActivity, item.getId());
+        });
+
+    }
+
+    public static void setImageCountAndClick(SuperTextView superTextView, List<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean> imagesJson, Activity mActivity) {
+        superTextView.setText("有" + imagesJson.size() + "张图片");
+        PurchaseDetailActivity.setImgCountsSeed(mActivity, superTextView, imagesJson);
+//                textView35  苗源地
+        //有多少张图片
+        if (imagesJson.size() > 0) {
+            StringFormatUtil fillColor = new StringFormatUtil(context, "有" + imagesJson.size() + "张图片", imagesJson.size() + "", R.color.red)
+                    .fillColor();
+            superTextView.setText(fillColor.getResult());
+            superTextView.setShowState(true);
+        } else {
+            superTextView.setShowState(false);
+        }
+
+
+    }
+
     public static void setStatus(BaseViewHolder helper, String status) {
         if (TextUtils.isEmpty(status)) {
             helper.setVisible(R.id.tv_fr_item_state, false);
@@ -129,6 +185,10 @@ public class Fragment1 extends Fragment {
             helper.setVisible(R.id.tv_fr_item_state, true);
             helper.setText(R.id.tv_fr_item_state, "已中标");
             helper.setTextColor(R.id.tv_fr_item_state, MyApplication.getInstance().getResources().getColor(R.color.main_color));
+        } else if (status.equals("choosing")) {
+            helper.setVisible(R.id.tv_fr_item_state, true);
+            helper.setText(R.id.tv_fr_item_state, "选标中");
+            helper.setTextColor(R.id.tv_fr_item_state, MyApplication.getInstance().getResources().getColor(R.color.orange));
         } else {
             helper.setVisible(R.id.tv_fr_item_state, false);
         }

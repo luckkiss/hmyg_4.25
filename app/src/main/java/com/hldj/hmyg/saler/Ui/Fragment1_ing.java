@@ -2,6 +2,7 @@ package com.hldj.hmyg.saler.Ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,20 +22,24 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+
 import static com.hldj.hmyg.saler.Ui.Fragment1.doConvert;
 
+
 /**
- * Created by Administrator on 2017/5/2.
+ * 选标中 界面
  */
 
-public class Fragment2 extends Fragment {
+public class Fragment1_ing extends Fragment {
 
-
+    private static final String TAG = "Fragment1_ing";
 
     private Activity mActivity;
 
@@ -45,6 +50,19 @@ public class Fragment2 extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         this.mActivity = (Activity) context;
+    }
+
+    public void showLoading(Activity mActivity) {
+        if (mActivity != null && mActivity instanceof NeedSwipeBackActivity) {
+            ((NeedSwipeBackActivity) mActivity).showLoading();
+        }
+    }
+
+    public void hideLoading(Activity mActivity) {
+
+        if (mActivity != null && mActivity instanceof NeedSwipeBackActivity) {
+            ((NeedSwipeBackActivity) mActivity).hindLoading();
+        }
     }
 
     @Nullable
@@ -64,32 +82,31 @@ public class Fragment2 extends Fragment {
 
         initData(0);
 
-
     }
-
-//    private void getData() {
-//        initData();
-//
-//        // TODO: 2017/5/2 0002
-//    }
 
     public View getContentView() {
 
         recyclerView = new CoreRecyclerView(getActivity());
-        recyclerView.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.gray_bg_ed));
+        recyclerView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.gray_bg_ed));
         recyclerView.initView(getActivity()).init(new BaseQuickAdapter<SaveSeedingGsonBean.DataBean.SeedlingBean, BaseViewHolder>(R.layout.item_fragment1) {
             @Override
             protected void convert(BaseViewHolder helper, SaveSeedingGsonBean.DataBean.SeedlingBean item) {
+
+                D.e("==========item=============" + item.toString());
                 doConvert(helper, item, mActivity);
 
-
             }
-        }).openLoadMore(6, page -> {
+        }, true).openLoadMore(6, page -> {
             initData(page);
-        }).openRefresh();
+        }).openRefresh()
+                .selfRefresh(true)
+                .closeDefaultEmptyView();
+
         recyclerView.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         return recyclerView;
     }
+
+
 
 
     @Override
@@ -102,10 +119,14 @@ public class Fragment2 extends Fragment {
 
 
     private void initData(int pageIndex) {
+
+        showLoading(mActivity);
+
+        showLoading((NeedSwipeBackActivity) mActivity);
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, true);
         AjaxParams params = new AjaxParams();
-        params.put("status", "used");
+        params.put("status", "choosing");
         params.put("pageSize", 6 + "");
         params.put("pageIndex", pageIndex + "");
         finalHttp.post(GetServerUrl.getUrl() + "admin/quote/list", params, new AjaxCallBack<String>() {
@@ -117,16 +138,38 @@ public class Fragment2 extends Fragment {
                 if (pageBean.code.equals(ConstantState.SUCCEED_CODE)) {
                     recyclerView.getAdapter().addData(pageBean.data.page.data);
 
+                    if (recyclerView.isDataNull()) {
+                        recyclerView.setNoData("");
+                    }
                 }
-                super.onSuccess(json);
                 recyclerView.selfRefresh(false);
+                hideLoading(mActivity);
+                super.onSuccess(json);
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
-                super.onFailure(t, errorNo, strMsg);
                 recyclerView.selfRefresh(false);
+                recyclerView.setNoData("网络错误,请稍后重试！");
+                hideLoading(mActivity);
+                super.onFailure(t, errorNo, strMsg);
             }
         });
     }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ConstantState.DELETE_SUCCEED) {
+            ToastUtil.showShortToast("删除成功");
+            refresh();
+        }
+    }
+
+    public void refresh() {
+        recyclerView.selfRefresh(true);
+        recyclerView.onRefresh();
+    }
+
 }

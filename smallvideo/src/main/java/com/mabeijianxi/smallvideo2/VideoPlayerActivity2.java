@@ -9,6 +9,7 @@ import android.media.MediaPlayer.OnInfoListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -18,12 +19,19 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.mabeijianxi.smallvideorecord2.DeviceUtils;
 import com.mabeijianxi.smallvideorecord2.StringUtils;
 import com.mabeijianxi.smallvideorecord2.SurfaceVideoView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 
 
@@ -41,6 +49,9 @@ public class VideoPlayerActivity2 extends FragmentActivity implements
      */
 //    private SurfaceVideoView mVideoView;
     private VideoView mVideoView;
+
+    private ImageView iv_load_file;
+
     /**
      * 暂停按钮
      */
@@ -62,6 +73,7 @@ public class VideoPlayerActivity2 extends FragmentActivity implements
     float x2 = 0;
     float y1 = 0;
     float y2 = 0;
+    private VideoCacheHempler videoCacheHempler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +141,7 @@ public class VideoPlayerActivity2 extends FragmentActivity implements
                 } else if (x2 - x1 > 50) {
 //                    Toast.makeText(MainActivity.this, "向右滑", Toast.LENGTH_SHORT).show();
                     finish();
-                }else {
+                } else {
                     onStateChanged(mVideoView.isPlaying());
                 }
 
@@ -144,12 +156,94 @@ public class VideoPlayerActivity2 extends FragmentActivity implements
 ////		mVideoView.getLayoutParams().height = DeviceUtils.getScreenWidth(this);
 //
 //        findViewById(R.id.root).setOnClickListener(this);
-        mVideoView.setVideoPath(mPath);
-
-        mVideoView.setOnPreparedListener(this);
 
 
-        mVideoView.start();
+        videoCacheHempler = new VideoCacheHempler(this, new VideoCacheHempler.OnDisplayListener() {
+            @Override
+            public void onDisplay(String url) {
+                if (!VideoPlayerActivity2.this.isFinishing()) {
+                    mVideoView.setVideoPath(url);
+                    mVideoView.setOnPreparedListener(VideoPlayerActivity2.this);
+                    mVideoView.start();
+
+                    findViewById(R.id.iv_load_file).setVisibility(View.VISIBLE);
+                    findViewById(R.id.iv_load_file).setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+
+                            String videoDirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "myvideos/";
+
+                            if (!new File(videoDirPath).exists()) {
+                                new File(videoDirPath).mkdirs();
+                            }
+
+                            File cacheFile = new File(url);
+
+                            File newFile = new File(videoDirPath + cacheFile.getName());
+
+                            if (newFile.exists()) {
+                                newFile.delete();
+                            }
+
+
+                            InputStream inputStream;
+                            FileOutputStream outputStream;
+                            try {
+                                /* 根据缓存文件 获取输入留 */
+                                inputStream = new FileInputStream(cacheFile);
+                                byte[] data = new byte[1024];
+
+                                /* 根据新地址 创建新文件  并且获取输出流，能够写文件 */
+                                outputStream = new FileOutputStream(newFile);
+
+
+                                while (inputStream.read(data) != -1) {
+                                    outputStream.write(data);
+                                }
+
+                                inputStream.close();
+                                outputStream.close();
+
+                                Toast.makeText(VideoPlayerActivity2.this, "已经保存到相册:" + videoDirPath, Toast.LENGTH_LONG).show();
+                                videoCacheHempler.updateVideo(newFile.getAbsolutePath());
+                            } catch (IOException e) {
+                                Toast.makeText(VideoPlayerActivity2.this, "保存失败\n" + e.getMessage() + videoDirPath, Toast.LENGTH_LONG).show();
+                                e.printStackTrace();
+                            }
+
+
+                        }
+
+                    });
+
+
+                }
+
+            }
+
+            @Override
+            public void onLoadFailed(String msg) {
+                Toast.makeText(VideoPlayerActivity2.this, msg, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onProcess(int progress) {
+                Log.i("onProcess  ---  ", progress + "");
+
+
+            }
+
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }).prepareStart(mPath);
 
 
     }

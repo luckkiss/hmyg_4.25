@@ -384,7 +384,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 
         new BasePresenter()
                 .putParams("userId", MyApplication.getUserBean().id)
-                .doRequest("admin/collect/collectCount", true, new HandlerAjaxCallBack() {
+                .doRequest("admin/collect/collectCount", true, new HandlerAjaxCallBack(mActivity) {
                     @Override
                     public void onRealSuccess(SimpleGsonBean gsonBean) {
                         tabAt.setText("商城资源 ( " + gsonBean.getData().seedlingCount + " )");

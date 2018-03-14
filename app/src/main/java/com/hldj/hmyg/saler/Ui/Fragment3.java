@@ -1,5 +1,7 @@
 package com.hldj.hmyg.saler.Ui;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,6 +26,8 @@ import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
+import static com.hldj.hmyg.saler.Ui.Fragment1.doConvert;
+
 /**
  * Created by Administrator on 2017/5/2.
  */
@@ -34,6 +38,15 @@ public class Fragment3 extends Fragment {
 
     private CoreRecyclerView recyclerView;
     View view;
+
+    private Activity mActivity;
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mActivity = (Activity) context;
+    }
 
     @Nullable
     @Override
@@ -69,20 +82,20 @@ public class Fragment3 extends Fragment {
         recyclerView.initView(getActivity()).init(new BaseQuickAdapter<SaveSeedingGsonBean.DataBean.SeedlingBean, BaseViewHolder>(R.layout.item_fragment1) {
             @Override
             protected void convert(BaseViewHolder helper, SaveSeedingGsonBean.DataBean.SeedlingBean item) {
-
-                D.e("==========item=============" + item.toString());
-                helper.setText(R.id.tv_fr_item_plant_name, item.purchaseJson.name);
-                helper.setText(R.id.tv_fr_item_company_name, item.purchaseJson.buyer.displayName);
-                helper.setText(R.id.tv_fr_item_company_addr_name, item.purchaseJson.cityName);
-                helper.setText(R.id.tv_fr_item_price, "¥"+item.price);
-                helper.setText(R.id.tv_fr_item_specText, item.getSpecText());
-                helper.setText(R.id.stv_fragment_time, "日期：" +item.attrData.createDate);
-
-                Fragment1.setStatus(helper, item.getStatus());//通过状态设置背景颜色
-                helper.addOnClickListener(R.id.cv_root, v -> {
-                    ManagerQuoteListItemDetail_new.start2Activity(getActivity(), item.getId());
-//                    ManagerQuoteListItemDetail.start2Activity(getActivity(), item);
-                });
+                doConvert(helper, item, mActivity);
+//                D.e("==========item=============" + item.toString());
+//                helper.setText(R.id.tv_fr_item_plant_name, item.purchaseJson.name);
+//                helper.setText(R.id.tv_fr_item_company_name, item.purchaseJson.buyer.displayName);
+//                helper.setText(R.id.tv_fr_item_company_addr_name, item.purchaseJson.cityName);
+//                helper.setText(R.id.tv_fr_item_price, "¥"+item.price);
+//                helper.setText(R.id.tv_fr_item_specText, item.getSpecText());
+//                helper.setText(R.id.stv_fragment_time, "日期：" +item.attrData.createDate);
+//
+//                Fragment1.setStatus(helper, item.getStatus());//通过状态设置背景颜色
+//                helper.addOnClickListener(R.id.cv_root, v -> {
+//                    ManagerQuoteListItemDetail_new.start2Activity(getActivity(), item.getId());
+////                    ManagerQuoteListItemDetail.start2Activity(getActivity(), item);
+//                });
             }
         }).openLoadMore(6, page -> {
             initData(page);

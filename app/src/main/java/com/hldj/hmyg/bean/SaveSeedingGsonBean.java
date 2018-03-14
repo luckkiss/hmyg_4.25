@@ -187,6 +187,7 @@ public class SaveSeedingGsonBean implements Serializable {
 
             public boolean isQuoted;
             public String price = "";
+            public String prePrice = "";
 
 
             private int validity;

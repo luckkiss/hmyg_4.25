@@ -41,12 +41,14 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
     FragmentPagerAdapter_TabLayout mFragmentPagerAdapter_tabLayout;
     private ArrayList<String> list_title = new ArrayList<String>() {{
         add("全部");
+        add("选标中");
         add("已中标");
         add("未中标");
     }};
 
     private ArrayList<Fragment> list_fragment = new ArrayList<Fragment>() {{
         add(new Fragment1());
+        add(new Fragment1_ing());
         add(new Fragment2());
         add(new Fragment3());
     }};

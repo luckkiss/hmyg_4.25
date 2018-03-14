@@ -482,6 +482,25 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         }
     }
 
+    public static void setImgCountsSeed(Activity activity, SuperTextView textView, List<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean> imagesJson) {
+        if (imagesJson.size() != 0) {
+            textView.setText(strFilter("有" + imagesJson.size() + "张图片"));//有多少张图片
+            textView.setShowState(true);
+        } else {
+            textView.setShowState(true);
+            textView.setText(strFilter("未上传图片"));//有多少张图片
+        }
+        if (imagesJson.size() != 0) {
+            textView.setOnClickListener(view -> {
+                //穿list pic 集合到新的activity 显示 所有的图片
+                GalleryImageActivity.startGalleryImageActivity(activity, 0, getPicListOriginalSeed(imagesJson));
+            });
+
+        } else {
+            textView.setOnClickListener(null);
+        }
+    }
+
 
     public void onDeleteFinish(boolean isSucceed) {
         D.e("==========删除成功失败===========" + isSucceed);
@@ -509,6 +528,19 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         }
         for (int i = 0; i < imagesJson.size(); i++) {
             pics.add(new Pic(imagesJson.get(i).id, false, imagesJson.get(i).ossUrl, i));
+        }
+        return pics;
+    }
+    //解析  原始 图片
+    public static ArrayList<Pic> getPicListOriginalSeed(List<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean> imagesJson) {
+
+        ArrayList pics = new ArrayList<Pic>();
+
+        if (imagesJson == null || imagesJson.size() == 0) {
+            return pics;
+        }
+        for (int i = 0; i < imagesJson.size(); i++) {
+            pics.add(new Pic(imagesJson.get(i).getId(), false, imagesJson.get(i).getOssUrl(), i));
         }
         return pics;
     }
