@@ -89,6 +89,15 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
     //    private KProgressHUD hud;
     private LocalBroadcastReceiver localReceiver;
 
+
+    /* 清空收藏夹 需要的属性  */
+
+    private static final String seedling = "seedling";
+    private static final String moment = "moment";
+    String deleteType = seedling;
+
+    /* 清空收藏夹 需要的属性  */
+
     /*  新增  苗木圈收藏列表  各种属性*/
     TabItem left;
     TabItem right;
@@ -319,6 +328,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
                 .openLoadMore(10, page -> {
                     showLoadingCus("刷新数据");
                     requestDatas(page + "", MomentsType.collect.getEnumValue(), MyApplication.getUserBean().id);
+                    requestCount(tabLayout.getTabAt(0), tabLayout.getTabAt(1), false);
                 })
                 .setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
                     @Override
@@ -346,6 +356,11 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
                 left_content.setVisibility(tab.getPosition() == 0 ? View.VISIBLE : View.GONE);
                 mCoreRecyclerView.setVisibility(tab.getPosition() == 0 ? View.GONE : View.VISIBLE);
 
+                if (tab.getPosition() == 0) {
+                    deleteType = seedling;
+                } else {
+                    deleteType = moment;
+                }
 
             }
 
@@ -359,7 +374,44 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
         });
 
 
+        requestCount(tabLayout.getTabAt(0), tabLayout.getTabAt(1), true);
+
     }
+
+
+
+    private void requestCount(TabLayout.Tab tabAt, TabLayout.Tab tabAt1, boolean move2) {
+
+        new BasePresenter()
+                .putParams("userId", MyApplication.getUserBean().id)
+                .doRequest("admin/collect/collectCount", true, new HandlerAjaxCallBack() {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+                        tabAt.setText("商城资源 ( " + gsonBean.getData().seedlingCount + " )");
+                        tabAt1.setText("苗木圈 ( " + gsonBean.getData().momentsCount + " )");
+
+                        //seedlingCount
+//                        momentsCount
+                        if (gsonBean.getData().seedlingCount == 0 && gsonBean.getData().momentsCount != 0 && move2) {
+                            tabAt1.select();
+                        }
+
+
+                    }
+                });
+
+//        new BasePresenter()
+//                .putParams("userId", getUserId())
+//                .doRequest("moments/momentsCount", true, new HandlerAjaxCallBack() {
+//                    @Override
+//                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+//                        tabAt.setText("供应 ( " + gsonBean.getData().supplyCount + " )");
+//                        tabAt1.setText("求购 ( " + gsonBean.getData().purchaseCount + " )");
+//                        tabAt2.setText("收藏 ( " + gsonBean.getData().collectCount + " )");
+//                    }
+//                });
+    }
+
 
     private void doConvert(BaseViewHolder helper, Moments item) {
 
@@ -429,23 +481,31 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 
         getView(R.id.tv_clear_all).setOnClickListener(v -> {
                     D.e("==============清空收藏夹============");
+                    String deleteTitle = deleteType.equals(seedling) ? "确认清空资源收藏?" : "确认清空苗木圈收藏?";
                     new AlertDialog(this).builder()
-                            .setTitle("确定清空所有收藏?")
-                            .setPositiveButton("确定删除", v1 -> {
+//                            .setTitle("确定清空所有收藏?")
+                            .setTitle(deleteTitle)
+                            .setPositiveButton("确定", v1 -> {
                                 new CollectPresenter(new ResultCallBack<SimpleGsonBean>() {
                                     @Override
                                     public void onSuccess(SimpleGsonBean simpleGsonBean) {
 //                                        pageIndex = 0;
 //                                        seedlingBeen.clear();
 //                                        collectAdapter.notifyDataSetChanged();
-                                        onRefresh();
+
+                                        if (deleteType.equals(moment)) {
+                                            mCoreRecyclerView.onRefresh();
+                                        } else {
+                                            onRefresh();
+                                        }
+
                                     }
 
                                     @Override
                                     public void onFailure(Throwable t, int errorNo, String strMsg) {
 
                                     }
-                                }).reqClearCollect("seedling");
+                                }).reqClearCollect(deleteType);
                             }).setNegativeButton("取消", v2 -> {
                     }).show();
 
@@ -558,6 +618,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 
     @Override
     public void onRefresh() {
+        requestCount(tabLayout.getTabAt(0), tabLayout.getTabAt(1), false);
         // TODO Auto-generated method stub
         xlistView_d_new.setPullLoadEnable(false);
         pageIndex = 0;

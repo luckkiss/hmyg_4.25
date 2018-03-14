@@ -3,6 +3,7 @@ package com.hldj.hmyg.bean;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.bean.MomentsReply;
 import com.hldj.hmyg.Ui.friend.bean.UnRead;
+import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
 import com.hldj.hmyg.buyer.M.PurchaseListPageGsonBean;
 import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
@@ -64,7 +65,9 @@ public class SimpleGsonBean implements Serializable {
         public int purchaseCount = 0;
         /*收藏数量*/
         public int collectCount = 0;
-//        CenterActivity
+        //        CenterActivity
+        public int seedlingCount = 0;/*商城资源*/
+        public int momentsCount = 0;/* 苗木圈资源数量 */
 
 
         public MomentsReply momentsReply;
@@ -102,6 +105,7 @@ public class SimpleGsonBean implements Serializable {
         public SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean nursery;
 
 
+        public ImagesJsonBean image;
 //        public String name ="-";
 //        public String detailAddress ="-";
 //        public String contactName ="-";

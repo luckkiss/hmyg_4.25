@@ -223,14 +223,6 @@ public class UploadHeadUtil {
         Log.i("TAG", "file://" + imagePath + "选择图片的URI" + uri);
         startPhotoZoom(new File(imagePath), size, cacheFile);
     }
-
-    public void handleImageBeforeKitKat(Intent data, File cacheFile) {
-        Uri uri = data.getData();
-        String imagePath = getImagePath(uri, null);
-//        displayImage(imagePath);
-        Log.i("TAG", "file://" + imagePath + "选择图片的URI" + uri);
-        startPhotoZoom(new File(imagePath), 1, 1, cacheFile);
-    }
     public void handleImageBeforeKitKat(Intent data,int size, File cacheFile) {
         Uri uri = data.getData();
         String imagePath = getImagePath(uri, null);
@@ -239,9 +231,18 @@ public class UploadHeadUtil {
         startPhotoZoom(new File(imagePath), size, cacheFile);
     }
 
+    public void handleImageBeforeKitKat(Intent data, File cacheFile) {
+        Uri uri = data.getData();
+        String imagePath = getImagePath(uri, null);
+//        displayImage(imagePath);
+        Log.i("TAG", "file://" + imagePath + "选择图片的URI" + uri);
+        startPhotoZoom(new File(imagePath), 1, 1, cacheFile);
+    }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private String uriToPath(Uri uri) {
+    public String uriToPath(Uri uri) {
         String path = null;
         if (DocumentsContract.isDocumentUri(mContext, uri)) {
             // 如果是document类型的Uri，则通过document id处理

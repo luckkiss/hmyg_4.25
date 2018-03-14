@@ -24,6 +24,7 @@ public class PurchaseListPageGsonBean {
         // "attrData": {"consumerRemarks": "厦门海石景观股份有限公司"},
         public static class HeadPurchaseBean {
             public String cityName = "";/*ok*/
+            public String ciCityFullName = "";/*ok*/
             public String closeDate = "";/*ok*/
             public String preCloseDate = "";/*ok*/
             public String displayPhone = "";/*ok*/
@@ -42,6 +43,8 @@ public class PurchaseListPageGsonBean {
 
             public String consumerFullName = "";/*ok 用苗单位*/
             public BuyerBean buyer = new BuyerBean();
+
+            public PurchaseJsonBean.CiCityBean ciCity = new PurchaseJsonBean.CiCityBean();
 
             public static class BuyerBean {
                 public String displayName = "";/*ok*/

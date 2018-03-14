@@ -68,13 +68,13 @@
             android:id="@+id/left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="资源收藏" />
+            android:text="商城资源" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="苗木圈收藏" />
+            android:text="苗木圈" />
 
 
     </android.support.design.widget.TabLayout>
@@ -110,15 +110,15 @@
                 android:layout_width="@dimen/empty_width"
                 android:layout_height="@dimen/empty_height"
                 android:layout_gravity="center"
-                android:src="@drawable/wushuju" android:layout_marginBottom="15dp" />
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/wushuju" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="暂无数据..."
                 android:layout_marginBottom="15dp"
-                />
+                android:text="暂无数据..." />
 
         </LinearLayout>
 

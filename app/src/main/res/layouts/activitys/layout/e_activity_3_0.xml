@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:gravity="bottom|center_horizontal"
-        android:text="放开我...." android:visibility="gone"/>
+        android:text="放开我...."
+        android:visibility="gone" />
 
     <com.hldj.hmyg.widget.BounceScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -137,8 +138,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="3">
 
+                <com.hldj.hmyg.widget.DrawableCenterText
+                    android:id="@+id/sptv_wd_sfz"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@color/accent_color"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_horizontal"
+                    android:text="未实名认证 "
+                    android:textSize="15sp" />
+
+                <View
+                    style="@style/View_line_gray_1px"
+                    android:layout_width="2px"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center" />
 
                 <com.hldj.hmyg.widget.DrawableCenterText
                     android:id="@+id/sptv_wd_gys"

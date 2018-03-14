@@ -327,6 +327,7 @@
             android:theme="@style/e_activity_theme" />
         <activity android:name=".Ui.IntegralDetailsActivity" />
         <activity android:name=".Ui.ProviderActivity" />
+        <activity android:name=".Ui.AuthenticationActivity" />
 
 
         <activity

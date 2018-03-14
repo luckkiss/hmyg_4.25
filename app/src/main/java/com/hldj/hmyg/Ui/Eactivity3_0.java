@@ -83,6 +83,7 @@ import io.reactivex.schedulers.Schedulers;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 import static com.hldj.hmyg.R.id.sptv_wd_gys;
+import static com.hldj.hmyg.R.id.sptv_wd_sfz;
 import static com.hldj.hmyg.util.UploadHeadUtil.CHOOSE_PHOTO;
 import static com.hldj.hmyg.util.UploadHeadUtil.CROP_PHOTO;
 import static com.hldj.hmyg.util.UploadHeadUtil.TAKE_PHOTO;
@@ -224,6 +225,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
         this.getView(R.id.sptv_wd_jf).setOnClickListener(v -> IntegralActivity.start(mActivity));//  积分
         this.getView(sptv_wd_gys).setOnClickListener(v -> ProviderActivity.start(mActivity, isQuote));//  供应商
+        this.getView(sptv_wd_sfz).setOnClickListener(v -> AuthenticationActivity.start(mActivity, isQuote));//  身份认证
 
 
         this.getView(R.id.iv_circle_head).setOnClickListener(v -> {
@@ -372,7 +374,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     }
 
 
-    public interface PermissionListener {
+    public static interface PermissionListener {
         /**
          * 成功获取权限
          */
@@ -747,7 +749,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
         TextView sptv_wd_jf = getView(R.id.sptv_wd_jf);
         TextView sptv_wd_gys = getView(R.id.sptv_wd_gys);
-        sptv_wd_jf.setText("积分  " + userPoint);
+        sptv_wd_jf.setText("积分" + userPoint);
 
         if (quote) {
             sptv_wd_gys.setText(agentGradeText);

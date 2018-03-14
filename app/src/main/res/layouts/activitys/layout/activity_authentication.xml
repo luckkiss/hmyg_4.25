@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar_3_0" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/gray_bg_ed"
+            android:gravity="center|start"
+            android:paddingLeft="8dp"
+            android:text="身份信息"
+
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="8dp"
+                android:text="真实姓名:" />
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/trans_bg"
+                android:gravity="center|start"
+                android:hint="请输入真实姓名"
+                android:padding="5dp"
+                android:textColorHint="@color/hint_text_color"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="8dp"
+                android:text="身份证号:" />
+
+            <EditText
+                android:id="@+id/et_card_num"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/trans_bg"
+                android:gravity="center|start"
+                android:hint="请输入身份证号"
+                android:padding="5dp"
+                android:inputType="number"
+                android:textColorHint="@color/hint_text_color"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/gray_bg_ed"
+            android:gravity="center|start"
+            android:paddingLeft="8dp"
+            android:text="身份证正面" />
+
+
+        <ImageView
+            android:id="@+id/iv_zheng"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="8dp"
+
+            android:src="@drawable/add_image_icon_big_eq" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/gray_bg_ed"
+            android:gravity="center|start"
+            android:paddingLeft="8dp"
+            android:text="身份证背面" />
+
+
+        <ImageView
+            android:id="@+id/iv_fan"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/add_image_icon_big_eq" />
+
+
+        <Button
+            android:id="@+id/btn_save"
+            style="@style/save_bottom"
+            android:text="提交认证" />
+
+
+    </LinearLayout>
+
+</ScrollView>

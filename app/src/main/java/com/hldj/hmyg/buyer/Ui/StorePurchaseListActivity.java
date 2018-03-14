@@ -429,7 +429,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         getView(R.id.tv_ymdw).setVisibility(View.GONE);
 
                         /* 用  苗  地*/
-        ((TextView) getView(R.id.tv_04)).setText("用  苗  地：" + headPurchase.cityName);
+        ((TextView) getView(R.id.tv_04)).setText("用  苗  地：" + headPurchase.ciCity.fullName);
 
                         /*联系人*/
 
