@@ -61,14 +61,18 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        app:tabIndicatorColor="@color/main_color"
+        app:tabSelectedTextColor="@color/main_color">
 
 
         <android.support.design.widget.TabItem
             android:id="@+id/left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="商城资源" />
+            android:text="商城资源"
+
+            />
 
         <android.support.design.widget.TabItem
             android:id="@+id/right"

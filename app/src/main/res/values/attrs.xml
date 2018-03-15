@@ -14,11 +14,12 @@
         <attr name="mhv_HeightRatio" format="reference|float" />
         <attr name="mhv_HeightDimen" format="reference|dimension" />
     </declare-styleable>
+
     <declare-styleable name="SnappingStepper">
         <attr name="min" format="integer" />
         <attr name="max" format="integer" />
         <attr name="value" format="integer" />
-        <attr name="step" format="integer" />
+        <attr name="step"  format="integer"/>
         <attr name="text" format="string" />
         <attr name="mode" format="enum">
             <enum name="auto" value="0" />
@@ -365,6 +366,16 @@
         <attr name="loadmore_enable" format="boolean" />
     </declare-styleable>
 
+
+
+
+    <declare-styleable name="StepView">
+        <!-- 声明我们的属性， 名称为 default_size , 取值类型为 尺寸类型 (dp,px 等) -->
+        <attr name="xx_step" format="integer"/>
+        <attr name="xx_main_color" format="color" />
+        <attr name="xx_radius" format="dimension" />
+        <attr name="xx_textSize" format="dimension|reference"  />
+    </declare-styleable>
 
 
 </resources>

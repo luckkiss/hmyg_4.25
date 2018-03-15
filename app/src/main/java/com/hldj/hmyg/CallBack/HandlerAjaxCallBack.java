@@ -34,7 +34,7 @@ public abstract class HandlerAjaxCallBack extends AjaxCallBack<String> {
     }
 
     public void onLoading(long count, long current) {
-
+        super.onLoading(count, current);
     }
 
     public final void onSuccess(String json) {

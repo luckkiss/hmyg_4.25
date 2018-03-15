@@ -2,7 +2,8 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -11,10 +12,19 @@
 
         <include layout="@layout/toolbar_3_0" />
 
+        <com.hldj.hmyg.widget.StepView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            app:xx_main_color="@color/main_color"
+            app:xx_step="1"
+            app:xx_textSize="12sp"
+
+            />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/gray_bg_ed"
+            android:background="@color/store_bg_coloc"
             android:gravity="center|start"
             android:paddingLeft="8dp"
             android:text="身份信息"
@@ -75,8 +85,8 @@
                 android:background="@drawable/trans_bg"
                 android:gravity="center|start"
                 android:hint="请输入身份证号"
-                android:padding="5dp"
                 android:inputType="number"
+                android:padding="5dp"
                 android:textColorHint="@color/hint_text_color"
                 android:textSize="14sp" />
 
@@ -87,7 +97,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/gray_bg_ed"
+            android:background="@color/store_bg_coloc"
             android:gravity="center|start"
             android:paddingLeft="8dp"
             android:text="身份证正面" />
@@ -99,13 +109,13 @@
             android:layout_height="70dp"
             android:layout_margin="5dp"
             android:layout_marginLeft="8dp"
-
+            android:scaleType="centerCrop"
             android:src="@drawable/add_image_icon_big_eq" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/gray_bg_ed"
+            android:background="@color/store_bg_coloc"
             android:gravity="center|start"
             android:paddingLeft="8dp"
             android:text="身份证背面" />

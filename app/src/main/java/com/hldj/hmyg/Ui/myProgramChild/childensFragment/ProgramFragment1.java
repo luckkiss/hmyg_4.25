@@ -1,13 +1,19 @@
 package com.hldj.hmyg.Ui.myProgramChild.childensFragment;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.coorchice.library.SuperTextView;
 import com.hhl.library.FlowTagLayout;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.myProgramChild.ProgramDirctActivity;
@@ -29,6 +35,10 @@ import com.hy.utils.ToastUtil;
 import com.weavey.loading.lib.LoadingLayout;
 
 import net.tsz.afinal.http.AjaxCallBack;
+
+import java.util.Random;
+
+import static com.hldj.hmyg.R.id.tv_caozuo01;
 
 /**
  * 采购单
@@ -92,7 +102,7 @@ public class ProgramFragment1 extends BaseFragment {
                 }
 
 
-                helper.setText(R.id.tv_caozuo01, "截止时间：" + item.attrData.closeDateStr);
+                helper.setText(tv_caozuo01, "截止时间：" + item.attrData.closeDateStr);
 
                 // 移动研发标签
                 TagAdapter<String> mMobileTagAdapter = new TagAdapter<>(mActivity);
@@ -103,6 +113,35 @@ public class ProgramFragment1 extends BaseFragment {
                 ((FlowTagLayout) helper.getView(R.id.mobile_flow_layout)).ClearClickAble(true, view1 -> ProgramPurchaseActivity.start(mActivity, item.id));
 
                 helper.convertView.setOnClickListener(view -> ProgramPurchaseActivity.start(mActivity, item.id));
+
+                   /*是否显示简易报价 图标*/
+                ImageView iv_jianyi = helper.getView(R.id.iv_jianyi);
+//                iv_jianyi.setVisibility(item.needPreQuote ? View.VISIBLE : View.GONE);
+//        iv_jianyi.setVisibility(item.isPackage ? View.VISIBLE : View.GONE);
+//        iv_jianyi.setVisibility(item.status.equals("expired") ? View.GONE : View.VISIBLE);/* 过期了 就不显示了 */
+                if (item.isPackage) {
+                    iv_jianyi.setVisibility(View.VISIBLE);/* 没过期 并且 是 打包报价 */
+                } else {
+                    iv_jianyi.setVisibility(View.GONE);/* 什么都不是 */
+                }
+
+                SuperTextView textView = helper.getView(R.id.tv_caozuo01);
+                if (item.attrData.isOpen) {
+                    helper.setTextColorRes(R.id.tv_caozuo01, R.color.price_orige);
+//                    Drawable[] drawable = textView.getdr
+                    Drawable drawable = tintDrawable(textView.getCompoundDrawables()[0], ColorStateList.valueOf(Color.parseColor("#e75b45")));
+                    textView.setDrawable(drawable);
+                } else {
+                    helper.setTextColorRes(R.id.tv_caozuo01, R.color.text_color666);
+                    Drawable drawable = tintDrawable(textView.getCompoundDrawables()[0], ColorStateList.valueOf(Color.parseColor("#666666")));
+                    textView.setDrawable(drawable);
+                }
+
+
+                /* 过期了 就不显示了 */
+
+//                    */
+
 
             }
         }, false)
@@ -217,4 +256,29 @@ public class ProgramFragment1 extends BaseFragment {
 ///admin/project/purchaseItemlist
 
     }
+
+
+    public static Drawable tintDrawable(Drawable drawable, ColorStateList colors) {
+        final Drawable wrappedDrawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTintList(wrappedDrawable, colors);
+        return wrappedDrawable;
+    }
+
+
+    public int getRandomColor() {
+        String r, g, b;
+        Random random = new Random();
+        r = Integer.toHexString(random.nextInt(256)).toUpperCase();
+        g = Integer.toHexString(random.nextInt(256)).toUpperCase();
+        b = Integer.toHexString(random.nextInt(256)).toUpperCase();
+
+        r = r.length() == 1 ? "0" + r : r;
+        g = g.length() == 1 ? "0" + g : g;
+        b = b.length() == 1 ? "0" + b : b;
+
+
+        return Color.parseColor("#" + r + g + b);
+    }
+
+
 }

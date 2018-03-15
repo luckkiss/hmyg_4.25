@@ -63,7 +63,8 @@ public class UserBean {
     public String ciCode;
     public String coCode;
     public String twCode;
-    public CoCityBean coCity;
+    public CoCityBean coCity = new CoCityBean();
+    public CoCityBean twCity = new CoCityBean();
     public String userName = "";
     public String realName = "";
     public String publicName = "";
@@ -118,6 +119,7 @@ public class UserBean {
         public String parentCode;
         public int level;
     }
+
 
     @Override
     public String toString() {

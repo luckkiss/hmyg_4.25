@@ -23,6 +23,7 @@ import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.LoginGsonBean;
+import com.hldj.hmyg.bean.UserBean;
 import com.hldj.hmyg.bean.UserInfoGsonBean;
 import com.hldj.hmyg.presenter.LoginPresenter;
 import com.hldj.hmyg.util.ConstantState;
@@ -100,6 +101,60 @@ public class SetProfileActivity extends BaseActivity implements
         ((TextView) findViewById(R.id.toolbar_title)).setText("个人资料");
 
 
+//        LoginPresenter.getUserInfo(MyApplication.getUserBean().id);
+
+
+        showLoading();
+
+        LoginPresenter.getUserInfo(MyApplication.Userinfo.getString("id", ""), new ResultCallBack<UserInfoGsonBean>() {
+            @Override
+            public void onSuccess(UserInfoGsonBean userInfoGsonBean) {
+                D.e("个人信息获取成功" + userInfoGsonBean.toString());
+//                setResult(ConstantState.CHANGE_DATES);//修该数据成功
+
+                hindLoading();
+
+                try {
+                    if (userInfoGsonBean.getData().getUser() != null) {
+                        UserBean userBean = userInfoGsonBean.getData().getUser();
+
+                        phone = userBean.phone;
+                        userName = userBean.userName;
+                        realName = userBean.realName;
+                        email = userBean.email;
+                        address = userBean.address;
+                        companyName = userBean.companyName;
+                        publicName = userBean.publicName;
+                        publicPhone = userBean.publicPhone;
+                        coCityfullName = userBean.coCity.fullName;
+                        twCityfullName = userBean.twCity.name;
+                        coCitycityCode = userBean.coCity.cityCode;
+                        //                    twCityfullName =  userBean.twCity;   // --------  todo
+                    }
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+//                tv_twcity.setText(twCityfullName);
+
+                initView();
+//                finish();
+
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                initView();
+                hindLoading();
+            }
+        });
+
+    }
+
+    private void initView() {
+
+
         LinearLayout ll_01 = (LinearLayout) findViewById(R.id.ll_01);
         LinearLayout ll_area1 = (LinearLayout) findViewById(R.id.ll_area1);
         LinearLayout ll_area2 = (LinearLayout) findViewById(R.id.ll_area2);
@@ -171,13 +226,15 @@ public class SetProfileActivity extends BaseActivity implements
         ll_area1.setOnClickListener(multipleClickProcess);
         ll_area2.setOnClickListener(multipleClickProcess);
         ll_save.setOnClickListener(multipleClickProcess);
+
+
     }
 
     @Override
     protected void onResume() {
         // TODO Auto-generated method stub
-        phone = MyApplication.Userinfo.getString("phone", "");
-        tv_phone.setText(phone);
+//        phone = MyApplication.Userinfo.getString("phone", "");
+//        tv_phone.setText(phone);
         super.onResume();
     }
 

@@ -290,6 +290,11 @@ public class AuthenticationActivity extends BaseMVPActivity {
                     }
 
                     @Override
+                    public void onLoading(long count, long current) {
+                        Log.i("onLoading", "onLoading: \n" + current + "/" + count);
+                    }
+
+                    @Override
                     public void onFailure(Throwable t, int errorNo, String strMsg) {
                         super.onFailure(t, errorNo, strMsg);
                         uploadListener.uploadFaild(strMsg);
@@ -394,13 +399,10 @@ public class AuthenticationActivity extends BaseMVPActivity {
                                     /* 1 张的时候 */
                                     GalleryImageActivity.startGalleryImageActivity(mActivity, 0, ossUrls);
                                 }
-                                if (ossUrls.size() == 2)
-                                {
-                                    if (currentType .equals(zheng)  )
-                                    {
+                                if (ossUrls.size() == 2) {
+                                    if (currentType.equals(zheng)) {
                                         GalleryImageActivity.startGalleryImageActivity(mActivity, 0, ossUrls);
-                                    }
-                                    else {
+                                    } else {
                                         GalleryImageActivity.startGalleryImageActivity(mActivity, 1, ossUrls);
                                     }
                                 }
