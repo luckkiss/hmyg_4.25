@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.FlowerDetailActivity;
@@ -18,6 +19,7 @@ import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.presenter.CollectPresenter;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.ToastUtil;
+import com.zf.iosdialog.widget.AlertDialog;
 
 import net.tsz.afinal.FinalBitmap;
 
@@ -45,6 +47,7 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
     @Override
     public int getSwipeLayoutResourceId(int i) {
         return R.id.sl_content;
+//        return R.id.sl_content;
     }
 
 
@@ -64,10 +67,15 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
 //        TextView tv = (TextView) view.findViewById(R.id.tv);
 //        final CheckBox cb_swipe_tag1 = (CheckBox) view.findViewById(R.id.cb_swipe_tag1);
 
+
         SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean = items.get(i);
         closeAllItems();
 
         int layoutId = R.layout.list_view_seedling_new_shoucan;
+
+        SwipeLayout layout = (SwipeLayout) view.findViewById(getSwipeLayoutResourceId(i));
+        layout.setSwipeEnabled(false);
+
 
         ImageView iv_img = (ImageView) view.findViewById(R.id.iv_img);
         finalBitmap.display(iv_img, seedlingBean.getSmallImageUrl());
@@ -121,29 +129,43 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
         tv_09.setText("库存: " + seedlingBean.getCount() + "");
 
 
-        view.findViewById(R.id.tv_delete_item).setOnClickListener(v -> {
-            new CollectPresenter(new ResultCallBack<SimpleGsonBean>() {
-                @Override
-                public void onSuccess(SimpleGsonBean simpleGsonBean) {
-                    ToastUtil.showShortToast("删除成功");
-                    //成功删除某个item
-                    try {
-                        items.remove(i);
-                        notifyDataSetChanged();
-                        closeItem(i);
-                    } catch (Exception e) {
-                        notifyDataSetChanged();
-                        Log.i("======删除报错===刷新列表===", "Exception: " + e.getMessage());
-                        e.printStackTrace();
-                    }
-                }
+//                tv_delete_item   侧滑 删除时使用
+        view.findViewById(R.id.tv_delete).setOnClickListener(v -> {
 
-                @Override
-                public void onFailure(Throwable t, int errorNo, String strMsg) {
+            new AlertDialog(context).builder()
+//                            .setTitle("确定清空所有收藏?")
+                    .setTitle("确定删除本项?")
+                    .setPositiveButton("确定", v1 -> {
 
-                }
-            })
-                    .reqCollect(items.get(i).getId());
+                        {
+                            new CollectPresenter(new ResultCallBack<SimpleGsonBean>() {
+                                @Override
+                                public void onSuccess(SimpleGsonBean simpleGsonBean) {
+                                    ToastUtil.showShortToast("删除成功");
+                                    //成功删除某个item
+                                    try {
+                                        items.remove(i);
+                                        notifyDataSetChanged();
+                                        closeItem(i);
+                                    } catch (Exception e) {
+                                        notifyDataSetChanged();
+                                        Log.i("======删除报错===刷新列表===", "Exception: " + e.getMessage());
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Throwable t, int errorNo, String strMsg) {
+
+                                }
+                            })
+                                    .reqCollect(items.get(i).getId());
+
+                        }
+
+
+                    }).setNegativeButton("取消", v2 -> {
+            }).show();
 
 
         });

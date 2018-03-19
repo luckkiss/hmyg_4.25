@@ -236,7 +236,7 @@ public class StepView extends View {
         paint1.setTextSize(mTextSize);
         paint1.getTextBounds("发起认证", 0, 4, innerRect1);
 
-        canvas.drawText("发起认证", point_step1_center.x - innerRect1.width() / 2, point_step1_center.y + innerRect1.height() + banjin + 5, paint1);
+        canvas.drawText("发起认证", point_step1_center.x - innerRect1.width() / 2, point_step1_center.y + innerRect1.height() + banjin + 10, paint1);
 
 //        canvas.drawRect((innerRect1.left + 50), innerRect1.top + 50, innerRect1.right + 50, innerRect1.bottom + 50, cycleGreenPaint);
 
@@ -259,7 +259,7 @@ public class StepView extends View {
 
         paint1.setColor(paint.getColor());
         paint1.getTextBounds("审核中", 0, 3, innerRect2);
-        canvas.drawText("审核中", point_step2_center.x - innerRect2.width() / 2, point_step2_center.y + innerRect2.height() + banjin + 5, paint1);
+        canvas.drawText("审核中", point_step2_center.x - innerRect2.width() / 2, point_step2_center.y + innerRect2.height() + banjin + 10, paint1);
 
 
         /* 0.5  1   */
@@ -286,7 +286,7 @@ public class StepView extends View {
 
         canvas.drawText("3", point_step3_center.x - innerRect.width(), point_step3_center.y + innerRect.width(), paint);
         paint1.setColor(paint.getColor());
-        canvas.drawText("认证完成", point_step3_center.x - innerRect1.width() / 2, point_step3_center.y + innerRect1.height() + banjin + 5, paint1);
+        canvas.drawText("认证完成", point_step3_center.x - innerRect1.width() / 2, point_step3_center.y + innerRect1.height() + banjin + 10, paint1);
 
 
           /* 1.5 --  2   */

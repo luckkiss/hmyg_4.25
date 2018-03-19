@@ -920,6 +920,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             //初始化布局的控件
             SuperTextView tv1 = (SuperTextView) moreView.findViewById(R.id.tv_taggle1);
             SuperTextView tv2 = (SuperTextView) moreView.findViewById(R.id.tv_taggle2);
+            SuperTextView tv3 = (SuperTextView) moreView.findViewById(R.id.tv_taggle3);
             /**
              * 设置监听
              */
@@ -961,6 +962,26 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             } else {
                 moreView.findViewById(R.id.tv_taggle2).setVisibility(View.GONE);
             }
+
+            if (data.size() > i + 2)
+            {
+
+                //因为淘宝那儿是两条数据，但是当数据是奇数时就不需要赋值第二个，所以加了一个判断，还应该把第二个布局给隐藏掉
+                tv3.setText(data.get(i + 2).title);
+
+                if (data.get(i + 2).isNew) {
+                    tv3.setShowState(true);
+                    tv3.setPadding(MyApplication.dp2px(aActivity, 40), 0, 0, 0);
+                } else {
+                    tv3.setPadding(10, 0, 0, 0);
+                    tv3.setShowState(false);
+                }
+
+            }
+            else {
+                moreView.findViewById(R.id.tv_taggle3).setVisibility(View.GONE);
+            }
+
 
             //添加到循环滚动数组里面去
             views.add(moreView);

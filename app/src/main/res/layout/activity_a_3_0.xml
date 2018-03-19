@@ -166,21 +166,31 @@
                         <ImageView
                             android:id="@+id/iv_home_left"
                             android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_height="75dp"
                             android:layout_centerVertical="true"
                             android:layout_marginBottom="4dp"
                             android:layout_marginLeft="4dp"
                             android:layout_marginRight="0dp"
                             android:layout_marginTop="4dp"
                             android:paddingLeft="5dp"
-                            android:src="@drawable/home_cj_gg" />
+                            android:src="@drawable/home_cj_gg_more" />
+
+                        <View
+                            android:id="@+id/line"
+                            android:layout_width="1px"
+                            android:layout_height="75dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="3dp"
+                            android:layout_toRightOf="@+id/iv_home_left"
+                            android:background="@color/gray_bg_ed" />
+
 
                         <!--android:layout_margin="5dp"-->
                         <com.hldj.hmyg.widget.UPMarqueeView
                             android:id="@+id/upview1"
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:layout_toRightOf="@+id/iv_home_left" />
+                            android:layout_height="85dp"
+                            android:layout_toRightOf="@+id/line" />
 
 
                     </RelativeLayout>
@@ -366,8 +376,7 @@
             android:background="@drawable/top_btn_bg"
             android:gravity="center"
             android:visibility="gone"
-            tools:visibility="visible"
-            />
+            tools:visibility="visible" />
 
 
         <ImageView
@@ -379,9 +388,11 @@
             android:layout_marginBottom="10dp"
             android:layout_marginRight="10dp"
             android:gravity="center"
-            android:visibility="visible"
             android:src="@mipmap/home_publish"
-            />
+            android:visibility="visible" />
+
+
+
 
 
     </RelativeLayout>

@@ -209,7 +209,7 @@ public class StringUtil {
 	 * @return
 	 */
 	public static boolean isHttpUrlPicPath(String urlPath) {
-		return urlPath.startsWith("http:");
+		return urlPath.startsWith("http");
 	}
 
 	/**

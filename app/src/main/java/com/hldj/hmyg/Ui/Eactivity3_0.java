@@ -225,7 +225,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
         this.getView(R.id.sptv_wd_jf).setOnClickListener(v -> IntegralActivity.start(mActivity));//  积分
         this.getView(sptv_wd_gys).setOnClickListener(v -> ProviderActivity.start(mActivity, isQuote));//  供应商
-        this.getView(sptv_wd_sfz).setOnClickListener(v -> AuthenticationActivity.start(mActivity, isQuote));//  身份认证
+        this.getView(sptv_wd_sfz).setOnClickListener(v -> AuthenticationActivity.start(mActivity, AuthenticationActivity.no_auth, "审核不通过原因：身份证不清晰，请重新上传"));//  身份认证
 
 
         this.getView(R.id.iv_circle_head).setOnClickListener(v -> {
@@ -748,7 +748,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     private void checkGys_Point(String agentGrade, String userPoint, String agentGradeText, boolean quote) {
 
         TextView sptv_wd_jf = getView(R.id.sptv_wd_jf);
-        TextView sptv_wd_gys = getView(R.id.sptv_wd_gys);
+        SuperTextView sptv_wd_gys = getView(R.id.sptv_wd_gys);
         sptv_wd_jf.setText("积分" + userPoint);
 
         if (quote) {
@@ -778,9 +778,10 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
             sptv_wd_gys.setText("申请成为供应商");
         }
 
-
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-        sptv_wd_gys.setCompoundDrawables(drawable, null, null, null);
+//        sptv_wd_gys.setCompoundDrawables(drawable, null, null, null);
+        sptv_wd_gys.setDrawable(drawable);
+
 
     }
 

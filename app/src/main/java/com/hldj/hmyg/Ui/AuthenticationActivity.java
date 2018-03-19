@@ -4,15 +4,20 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.GalleryImageActivity;
@@ -25,10 +30,14 @@ import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.UploadHeadUtil;
+import com.hldj.hmyg.widget.MyImageViewShowUserCard;
+import com.hldj.hmyg.widget.StepView;
 import com.hy.utils.ToastUtil;
 import com.zf.iosdialog.widget.ActionSheetDialog;
 
 import net.tsz.afinal.FinalBitmap;
+import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
+import net.tsz.afinal.bitmap.display.Displayer;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -41,6 +50,8 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
+import static com.hldj.hmyg.R.id.et_card_num;
+import static com.hldj.hmyg.R.id.et_name;
 import static com.hldj.hmyg.util.UploadHeadUtil.CHOOSE_PHOTO;
 import static com.hldj.hmyg.util.UploadHeadUtil.TAKE_PHOTO;
 import static com.hldj.hmyg.util.UploadHeadUtil.getDiskCacheDir;
@@ -51,9 +62,14 @@ import static com.hldj.hmyg.util.UploadHeadUtil.getDiskCacheDir;
 
 public class AuthenticationActivity extends BaseMVPActivity {
 
+    public static final int no_auth = 1;/* 未认证  */
+    public static final int succeed = 3; /*认证成功 */
+    public static final int authing = 2;/*认证中*/
+    public static final int failed = -1;/*认证失败*/
 
-    ImageView iv_zheng;
-    ImageView iv_fan;
+
+    MyImageViewShowUserCard iv_zheng;
+    MyImageViewShowUserCard iv_fan;
     private View btn_save;
     /**/
     private String currentType = "";
@@ -82,6 +98,8 @@ public class AuthenticationActivity extends BaseMVPActivity {
 
     @Override
     public void initView() {
+
+
         uploadHeadUtil = new UploadHeadUtil(mActivity);
         cachPath = getDiskCacheDir(this) + "/handimg.jpg";//图片路径
         cacheFile = uploadHeadUtil.getCacheFile(new File(getDiskCacheDir(this)), "handimg.jpg");
@@ -95,6 +113,7 @@ public class AuthenticationActivity extends BaseMVPActivity {
             }
         });
 
+
         iv_fan = getView(R.id.iv_fan);
         iv_fan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +122,10 @@ public class AuthenticationActivity extends BaseMVPActivity {
                 choosePics();
             }
         });
+
+        initExtras();
+
+
         btn_save = getView(R.id.btn_save);
         btn_save.setOnClickListener(v -> {
             totalCount = 0;
@@ -115,7 +138,7 @@ public class AuthenticationActivity extends BaseMVPActivity {
                 File file = ((File) iv_fan.getTag());
                 D.i("========fan path===========" + file.getAbsolutePath());
             }
-            D.i("========et_name=========" + getText(getView(R.id.et_name)));
+            D.i("========et_name=========" + getText(getView(et_name)));
             D.i("========et_card_num=========" + getText(getView(R.id.et_card_num)));
 
 
@@ -156,6 +179,7 @@ public class AuthenticationActivity extends BaseMVPActivity {
 
 
     }
+
 
     private String pic_json1;
     private String pic_json2;
@@ -354,9 +378,221 @@ public class AuthenticationActivity extends BaseMVPActivity {
     }
 
 
-    public static void start(Activity mActivity, boolean isQuot) {
+    /* 对状态进行处理 */
+    private void initExtras() {
+
+        TextView tv_top_tip = getView(R.id.tv_top_tip);
+
+        StepView stepView = getView(R.id.step_view);
+
+        if (!TextUtils.isEmpty(getFailedMsg()) && getAuthingState() == failed) {
+            tv_top_tip.setVisibility(View.VISIBLE);
+        } else {
+            tv_top_tip.setVisibility(View.GONE);
+        }
+        tv_top_tip.setText(getFailedMsg());
+
+        switch (getAuthingState()) {
+            case no_auth:/* 未认证 --  发起认证 */
+
+                doNoAuth();
+                break;
+
+            case succeed:/*认证成功 */
+                doAuthing();
+                break;
+
+            case authing:/*认证中*/
+
+            /*审核中 */
+
+                doAuthing();
+
+                break;
+
+            case failed:
+                 /*认证失败*/
+
+                doAuthFailed();
+
+
+                break;
+
+        }
+
+        stepView.setStep(getAuthingState());
+
+        if (getAuthingState() == failed) {
+            stepView.setVisibility(View.GONE);
+        }
+
+
+    }
+
+    private void doNoAuth() {
+
+        /* 展示 初始状态   显示 一个拍照  外宽 田    消除  背景   消除  半透明边框  消除  重新上传   图标 */
+        iv_zheng.showUp();
+
+//        iv_zheng.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (iv_zheng.isAgain) {
+//                    iv_zheng.showUp();
+//                } else {
+//                    iv_zheng.showUpAgain();
+//                }
+//            }
+//        });
+        iv_fan.showUp();
+
+
+    }
+
+    String http_zheng = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521200445415&di=0227ffbe405e51fbae862b1a4d132792&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20130530%2FImg377522814.jpg";
+    String http_fan = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521200426297&di=70c4b374bd72b41baadf3f7a0ed1b6d3&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dpixel_huitu%252C0%252C0%252C294%252C40%2Fsign%3Db05d0b3c38fa828bc52e95a394672458%2Fd788d43f8794a4c2717d681205f41bd5ad6e39a8.jpg";
+
+    private void doAuthFailed() {
+
+        setText(getView(et_name), "大傻么么哒");
+        setText(getView(et_card_num), "350435465476416549647");
+
+        iv_fan.showUpAgain();
+        iv_zheng.showUpAgain();
+
+        Log.i("loadCompletedisplay", "start: ");
+
+        Displayer displayer = new Displayer() {
+            @Override
+            public void loadCompletedisplay(View view, Bitmap bitmap, BitmapDisplayConfig bitmapDisplayConfig) {
+
+                ImageView aa = ((ImageView) view);
+
+                aa.setBackground(new BitmapDrawable(bitmap));
+                aa.setImageResource(R.drawable.chongxinshangchuan);
+
+                if (aa  ==  iv_fan)
+                {
+                    aa.setTag(http_fan);
+                }else {
+                    aa.setTag(http_zheng);
+                }
+
+                Log.i("loadCompletedisplay", "loadCompletedisplay: ");
+
+                ToastUtil.showLongToast("-----加载结束----");
+            }
+
+            @Override
+            public void loadFailDisplay(View view, Bitmap bitmap) {
+
+            }
+        };
+
+
+        FinalBitmap finalBitmap = FinalBitmap.create(mActivity)
+                .configDisplayer(displayer);
+
+//        finalBitmap.clearCache(http_zheng);
+        finalBitmap.display(iv_zheng, http_zheng);
+        Log.i("loadCompletedisplay", "end: ");
+
+        if (finalBitmap.getBitmapFromCache(http_zheng) != null) {
+
+
+            iv_zheng.setBackground(new BitmapDrawable(finalBitmap.getBitmapFromCache(http_zheng)));
+            iv_zheng.setImageResource(R.drawable.chongxinshangchuan);
+            iv_zheng.setTag(http_zheng);
+            Log.i("loadCompletedisplay", "loadCompletedisplay: ");
+
+        }
+
+
+//        iv_zheng.showUpAgain();
+
+
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                FinalBitmap.create(mActivity)
+//                        .configDisplayer(new Displayer() {
+//                            @Override
+//                            public void loadCompletedisplay(View view, Bitmap bitmap, BitmapDisplayConfig bitmapDisplayConfig) {
+//                                iv_fan.setBackground(new BitmapDrawable(bitmap));
+//                                iv_fan.setImageResource(R.drawable.chongxinshangchuan);
+////                        this.setImageResource(R.drawable.chongxinshangchuan);
+//                                iv_fan.setTag("");
+//                            }
+//
+//                            @Override
+//                            public void loadFailDisplay(View view, Bitmap bitmap) {
+//
+//                            }
+//                        })
+        finalBitmap.display(iv_fan, http_fan);
+
+
+        if (finalBitmap.getBitmapFromCache(http_fan) != null) {
+
+
+            iv_fan.setBackground(new BitmapDrawable(finalBitmap.getBitmapFromCache(http_fan)));
+            iv_fan.setImageResource(R.drawable.chongxinshangchuan);
+            iv_fan.setTag(http_fan);
+            Log.i("loadCompletedisplay", "loadCompletedisplay: ");
+
+        }
+
+//            }
+//        }, 1200);
+
+
+    }
+
+
+    /*审核中*/
+    private void doAuthing() {
+        getView(R.id.btn_save).setVisibility(View.GONE);
+        getView(R.id.iv_zheng).setVisibility(View.GONE);
+        getView(R.id.iv_fan).setVisibility(View.GONE);
+        getView(R.id.tv_zheng).setVisibility(View.GONE);
+        getView(R.id.tv_fan).setVisibility(View.GONE);
+
+        getView(R.id.iv_zheng_shili).setVisibility(View.VISIBLE);
+        getView(R.id.iv_fan_shili).setVisibility(View.VISIBLE);
+
+        FinalBitmap.create(mActivity).display(getView(R.id.iv_zheng_shili), "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521200445415&di=0227ffbe405e51fbae862b1a4d132792&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20130530%2FImg377522814.jpg");
+        getView(R.id.iv_zheng_shili).setPadding(0, 0, 0, 0);
+
+        FinalBitmap.create(mActivity).display(getView(R.id.iv_fan_shili), "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521200426297&di=70c4b374bd72b41baadf3f7a0ed1b6d3&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dpixel_huitu%252C0%252C0%252C294%252C40%2Fsign%3Db05d0b3c38fa828bc52e95a394672458%2Fd788d43f8794a4c2717d681205f41bd5ad6e39a8.jpg");
+        getView(R.id.iv_fan_shili).setPadding(0, 0, 0, 0);
+
+
+        setText(getView(et_name), "大傻么么哒");
+        setText(getView(et_card_num), "350435465476416549647");
+        EditText editText = ((EditText) getView(et_name));
+        editText.setFocusable(false);
+        EditText et_card_num = ((EditText) getView(R.id.et_card_num));
+        et_card_num.setFocusable(false);
+
+    }
+
+
+    /* 获取失败信息 */
+    public String getFailedMsg() {
+        return getIntent().getStringExtra("failedMsg");
+    }
+
+
+    /* 获取 当前认证状态 */
+    public int getAuthingState() {
+        return getIntent().getIntExtra("state", no_auth);
+    }
+
+
+    public static void start(Activity mActivity, int state, String failedMsg) {
         Intent intent = new Intent(mActivity, AuthenticationActivity.class);
-        intent.putExtra("isQuot", isQuot);
+        intent.putExtra("state", state);
+        intent.putExtra("failedMsg", failedMsg);
         mActivity.startActivity(intent);
     }
 
@@ -384,10 +620,19 @@ public class AuthenticationActivity extends BaseMVPActivity {
                         which -> {
                             ArrayList<Pic> ossUrls = new ArrayList<>();
                             if (iv_zheng.getTag() != null) {
-                                ossUrls.add(new Pic("", false, ((File) iv_zheng.getTag()).getAbsolutePath(), 0));
+                                if (iv_zheng.getTag() instanceof String) {
+                                    ossUrls.add(new Pic("", false, iv_zheng.getTag() + "", 0));
+                                } else {
+                                    ossUrls.add(new Pic("", false, ((File) iv_zheng.getTag()).getAbsolutePath(), 0));
+                                }
+
                             }
                             if (iv_fan.getTag() != null) {
-                                ossUrls.add(new Pic("", false, ((File) iv_fan.getTag()).getAbsolutePath(), 1));
+                                if (iv_fan.getTag() instanceof String) {
+                                    ossUrls.add(new Pic("", false, iv_fan.getTag() + "", 1));
+                                } else {
+                                    ossUrls.add(new Pic("", false, ((File) iv_fan.getTag()).getAbsolutePath(), 1));
+                                }
                             }
 
                             if (ossUrls.size() == 0) {
@@ -505,13 +750,12 @@ public class AuthenticationActivity extends BaseMVPActivity {
                 if (resultCode == RESULT_OK) {
                     try {
                         if (currentType.equals(zheng)) {
-                            FinalBitmap.create(mActivity)
-                                    .display(iv_zheng, cameraFile.getAbsolutePath());
-                            iv_zheng.setTag(cameraFile);
+                            displayIv(iv_zheng, cameraFile);
                         } else {
-                            FinalBitmap.create(mActivity)
-                                    .display(iv_fan, cameraFile.getAbsolutePath());
-                            iv_fan.setTag(cameraFile);
+//                            FinalBitmap.create(mActivity)
+//                                    .display(iv_fan, cameraFile.getAbsolutePath());
+//                            iv_fan.setTag(cameraFile);
+                            displayIv(iv_fan, cameraFile);
                         }
 
                     } catch (Exception e) {
@@ -531,13 +775,17 @@ public class AuthenticationActivity extends BaseMVPActivity {
                         String imagePath = uploadHeadUtil.uriToPath(uri);
 //        displayImage(imagePath); // 根据图片路径显示图片
                         if (currentType.equals(zheng)) {
-                            FinalBitmap.create(mActivity)
-                                    .display(iv_zheng, imagePath);
-                            iv_zheng.setTag(new File(imagePath));
+//                            FinalBitmap.create(mActivity)
+//                                    .display(iv_zheng, imagePath);
+//                            iv_zheng.setTag(new File(imagePath));
+                            displayIv(iv_zheng, new File(imagePath));
+
                         } else {
-                            FinalBitmap.create(mActivity)
-                                    .display(iv_fan, imagePath);
-                            iv_fan.setTag(new File(imagePath));
+//                            FinalBitmap.create(mActivity)
+//                                    .display(iv_fan, imagePath);
+//                            iv_fan.setTag(new File(imagePath));
+
+                            displayIv(iv_fan, new File(imagePath));
                         }
 
 
@@ -551,13 +799,20 @@ public class AuthenticationActivity extends BaseMVPActivity {
                         String imagePath = uploadHeadUtil.getImagePath(uri, null);
 //        displayImage(imagePath); // 根据图片路径显示图片
                         if (currentType.equals(zheng)) {
-                            FinalBitmap.create(mActivity)
-                                    .display(iv_zheng, imagePath);
-                            iv_zheng.setTag(new File(imagePath));
+//                            FinalBitmap.create(mActivity)
+//                                    .display(iv_zheng, imagePath);
+//                            iv_zheng.setTag(new File(imagePath));
+
+                            displayIv(iv_zheng, new File(imagePath));
+
                         } else {
-                            FinalBitmap.create(mActivity)
-                                    .display(iv_fan, imagePath);
-                            iv_fan.setTag(new File(imagePath));
+//                            FinalBitmap.create(mActivity)
+//                                    .display(iv_fan, imagePath);
+//                            iv_fan.setTag(new File(imagePath));
+
+                            displayIv(iv_fan, new File(imagePath));
+
+
                         }
 
                     }
@@ -567,6 +822,41 @@ public class AuthenticationActivity extends BaseMVPActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void displayIv(MyImageViewShowUserCard iv, File file) {
+
+
+        iv.setTag(file);
+
+        iv.showUpAgain();
+
+       FinalBitmap finalBitmap =   FinalBitmap.create(mActivity)
+                .configDisplayer(new Displayer() {
+                    @Override
+                    public void loadCompletedisplay(View view, Bitmap bitmap, BitmapDisplayConfig bitmapDisplayConfig) {
+                        iv.setBackground(new BitmapDrawable(bitmap));
+                        iv.setImageResource(R.drawable.chongxinshangchuan);
+//                        this.setImageResource(R.drawable.chongxinshangchuan);
+                    }
+
+                    @Override
+                    public void loadFailDisplay(View view, Bitmap bitmap) {
+
+                    }
+                });
+        finalBitmap .display(iv,file.getAbsolutePath() );
+
+        if (finalBitmap.getBitmapFromCache(file.getAbsolutePath())!=null)
+        {
+            iv.setBackground(new BitmapDrawable(finalBitmap.getBitmapFromCache(file.getAbsolutePath())));
+            iv.setImageResource(R.drawable.chongxinshangchuan);
+        }
+
+
+//        iv.setBackground(new ColorDrawable(Color.YELLOW));
+
+
     }
 
 

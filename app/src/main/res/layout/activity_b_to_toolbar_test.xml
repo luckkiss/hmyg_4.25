@@ -112,4 +112,10 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
+    <ImageView
+        android:id="@+id/iv_b_publish"
+        style="@style/iv_home_publish"
+        android:layout_gravity="right|bottom" />
+
+
 </android.support.design.widget.CoordinatorLayout>

@@ -23,7 +23,6 @@
         android:layout_margin="5dp"
         android:drawablePadding="3dp"
         android:ellipsize="end"
-
         android:maxEms="999"
         android:paddingLeft="40dp"
         android:singleLine="true"
@@ -68,6 +67,8 @@
         android:drawablePadding="3dp"
         android:ellipsize="end"
         android:maxEms="999"
+        android:layout_margin="5dp"
+
         android:paddingLeft="40dp"
         android:singleLine="true"
         android:textColor="@color/black_de"
@@ -80,6 +81,28 @@
         app:state_drawable_width="28dp"
         tools:text="2017/4/18 关于'采购单（P0051）'的成交公告 " />
 
+
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/tv_taggle3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:drawablePadding="3dp"
+        android:ellipsize="end"
+        android:maxEms="999"
+        android:paddingLeft="40dp"
+        android:singleLine="true"
+        android:textColor="@color/black_de"
+        android:textSize="13sp"
+        app:isShowState="true"
+        app:state_drawable="@drawable/home_cj_gg_zx"
+        app:state_drawable_height="15dp"
+        app:state_drawable_mode="left"
+        app:state_drawable_padding_left="5dp"
+        app:state_drawable_width="28dp"
+        tools:text="2017/4/18 关于'采购单（P0051）'的成交公告 " />
 
     <!--</LinearLayout>-->
 </LinearLayout>

@@ -12,6 +12,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -36,8 +37,10 @@ import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreHeadRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.saler.SaveSeedlingActivity;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.SortSpinner;
+import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalBitmap;
 
@@ -172,8 +175,34 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
         });
 
 
+        /* 发布 */
+
+        getView(R.id.iv_b_publish).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                ToastUtil.showLongToast("发布苗木");
+
+                if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {
+                    Intent intent = new Intent(mActivity, LoginActivity.class);
+                    startActivityForResult(intent, 4);
+                    ToastUtil.showLongToast("请先登录^_^哦");
+                    Log.i(TAG, "是否登录");
+                    return;
+                }
+                Log.i(TAG, "是否登录" + MyApplication.Userinfo.getBoolean("isLogin", false));
+                SaveSeedlingActivity.start2Activity(mActivity);
+
+
+            }
+        });
+
+
+
+
+
     }
 
+    private static final String TAG = "BActivity_new_test";
 
     int pos = 0;
     public SortSpinner sortSpinner;

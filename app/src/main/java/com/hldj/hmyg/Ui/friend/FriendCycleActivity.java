@@ -27,6 +27,7 @@ import com.hldj.hmyg.Ui.friend.child.FriendBaseFragment;
 import com.hldj.hmyg.Ui.friend.child.PublishActivity;
 import com.hldj.hmyg.Ui.friend.child.PushListActivity;
 import com.hldj.hmyg.Ui.friend.presenter.FriendPresenter;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.base.GlobBaseAdapter;
@@ -92,6 +93,9 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
     @ViewInject(id = R.id.et_program_serach_text)
     public EditText et_search;
 
+    @ViewInject(id = R.id.iv_cycle_publish, click = "onClick")
+    public ImageView iv_cycle_publish;
+
 
     public ArrayList<String> list_title = new ArrayList<String>() {{
         add("供应");
@@ -141,7 +145,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
         rb_title_center.setText(list_title.get(1));
         rb_title_right.setText(list_title.get(2));
         rb_title_center.setVisibility(View.VISIBLE);
-        toolbar_right_icon.setVisibility(View.VISIBLE);
+        toolbar_right_icon.setVisibility(View.GONE);
         toolbar_right_icon.setImageResource(R.mipmap.friend_publish_edit);
         toolbar_left_icon.setImageResource(R.mipmap.friend_filter);
         toolbar_left_icon.setVisibility(View.GONE);
@@ -207,6 +211,22 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
         switch (v.getId()) {
             /*搜索*/
 //            case R.id.toolbar_left_icon:
+            case R.id.iv_cycle_publish:
+                /* 发布苗木圈 */
+
+                if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {
+                    Intent intent = new Intent(mActivity, LoginActivity.class);
+                    startActivityForResult(intent, 4);
+                    ToastUtil.showLongToast("请先登录^_^哦");
+                    Log.i(TAG, "是否登录");
+                    return;
+                }
+                Log.i(TAG, "是否登录" + MyApplication.Userinfo.getBoolean("isLogin", false));
+
+                PublishActivity.start(mActivity,PublishActivity.ALL);
+                break;
+
+
             case R.id.fl_search:
 //                SearchActivity.start(mActivity, searchContent);
                 FriendCycleSearchActivity.start(mActivity, "");
@@ -272,7 +292,6 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 //
 //                    return dialog1;
 //                }, true).show(getSupportFragmentManager(), TAG);
-
 
 
                 break;
@@ -440,7 +459,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 
         try {
             StateBarUtil.setStatusTranslater(MainActivity.instance, true);
-        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
+            StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
             StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
         } catch (Exception e) {
             e.printStackTrace();

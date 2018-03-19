@@ -47,8 +47,7 @@
                 android:layout_centerVertical="true"
                 android:background="@color/white"
                 android:visibility="gone"
-                tools:visibility="visible"
-                >
+                tools:visibility="visible">
 
                 <ImageView
                     android:layout_width="70dp"
@@ -66,15 +65,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/y8"
-               >
+                android:paddingLeft="@dimen/y8">
 
                 <RelativeLayout
                     android:layout_width="@dimen/x85"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginTop="@dimen/y3"
-                    >
+                    android:layout_marginTop="@dimen/y3">
 
                     <ImageView
                         android:id="@+id/iv_img"
@@ -100,14 +97,14 @@
                             android:layout_alignParentRight="true"
                             android:src="@drawable/piao_right_top" />
 
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:paddingTop="7dp"
-                            >
+                            android:paddingTop="7dp">
 
                             <TextView
                                 android:id="@+id/tv_01"
@@ -130,71 +127,103 @@
                         </LinearLayout>
                     </RelativeLayout>
 
-                    <!--冠幅 高度 思密达-->
-                    <LinearLayout
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dip"
-                        android:layout_weight="2"
-                        android:orientation="vertical">
+                        android:layout_height="0dp"
+                        android:layout_weight="3">
 
-                        <TextView
-                            android:id="@+id/tv_03"
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:maxLines="1"
-                            android:textColor="@color/little_black_sm"
-                            android:textSize="@dimen/y8"
-                            tools:text="河南信阳" />
+                            android:layout_height="match_parent"
+                            android:layout_toLeftOf="@+id/tv_delete"
+                            android:layout_weight="3"
+                            android:orientation="vertical">
 
 
-                        <TextView
-                            android:id="@+id/tv_04"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:maxLines="1"
-                            android:textColor="@color/little_black_sm"
-                            android:textSize="@dimen/y8"
-                            tools:text="河南信阳" />
-                    </LinearLayout>
+                            <!--冠幅 高度 思密达-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="2"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tv_03"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical"
+                                    android:maxLines="1"
+                                    android:textColor="@color/little_black_sm"
+                                    android:textSize="@dimen/y8"
+                                    tools:text="河南信阳" />
 
 
-                    <!--地区移到右上角tv_04-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dip"
-                        android:layout_weight="0"
-                        android:visibility="gone">
+                                <TextView
+                                    android:id="@+id/tv_04"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical"
+                                    android:maxLines="1"
+                                    android:textColor="@color/little_black_sm"
+                                    android:textSize="@dimen/y8"
+                                    tools:text="河南信阳" />
+                            </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tv_05"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
 
-                            android:maxLines="1"
-                            android:textColor="@color/little_black_sm"
-                            android:textSize="@dimen/y8" />
-                    </LinearLayout>
+                            <!--地区移到右上角tv_04-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="0"
+                                android:visibility="gone">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dip"
-                        android:layout_weight="1">
+                                <TextView
+                                    android:id="@+id/tv_05"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
 
-                        <TextView
-                            android:id="@+id/tv_06"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:maxLines="1"
-                            android:textColor="@color/little_black_sm"
-                            android:textSize="@dimen/y8"
-                            tools:text="发布人：花木易购" />
-                    </LinearLayout>
+                                    android:maxLines="1"
+                                    android:textColor="@color/little_black_sm"
+                                    android:textSize="@dimen/y8" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:id="@+id/tv_06"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:maxLines="1"
+                                    android:textColor="@color/little_black_sm"
+                                    android:textSize="@dimen/y8"
+                                    tools:text="发布人：花木易购" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/tv_delete"
+                            android:layout_width="30dp"
+                            android:layout_height="60dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_margin="5dp"
+                            android:padding="5dp"
+                            android:scaleType="fitStart"
+                            android:src="@mipmap/ic_delete"
+                            android:tint="@color/main_color" />
+
+
+                    </RelativeLayout>
 
 
                     <RelativeLayout
@@ -241,9 +270,9 @@
                     </RelativeLayout>
 
 
-                    <View style="@style/View_line_gray_1dp"
-                        android:layout_marginTop="2dp"
-                        />
+                    <View
+                        style="@style/View_line_gray_1dp"
+                        android:layout_marginTop="2dp" />
 
                     <RelativeLayout
                         android:id="@+id/rl_floorPrice"
