@@ -29,6 +29,7 @@ import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.FeedBackActivity;
 import com.hldj.hmyg.GalleryImageActivity;
+import com.hldj.hmyg.M.userIdentity.enums.UserIdentityStatus;
 import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.ManagerListActivity_new;
 import com.hldj.hmyg.MessageListActivity;
@@ -102,6 +103,8 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     public static boolean showSeedlingNoteShare = false;//是否显示 共享资源
     public static boolean showSeedlingNoteTeam = false;//是否显示 团队共享
     private boolean isQuote;/*是否报价权限  true  ----   不需要读取 网页 http://192.168.1.252:8090/app/protocol/supplier*/
+    private String userIdentity = UserIdentityStatus.unaudited.enumValue;//auditing  默认 未认证 状态
+    private int authStatue = AuthenticationActivity.no_auth;
 
 
     BounceScrollView alfa_scroll;
@@ -225,7 +228,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
         this.getView(R.id.sptv_wd_jf).setOnClickListener(v -> IntegralActivity.start(mActivity));//  积分
         this.getView(sptv_wd_gys).setOnClickListener(v -> ProviderActivity.start(mActivity, isQuote));//  供应商
-        this.getView(sptv_wd_sfz).setOnClickListener(v -> AuthenticationActivity.start(mActivity, AuthenticationActivity.no_auth, "审核不通过原因：身份证不清晰，请重新上传"));//  身份认证
+        this.getView(sptv_wd_sfz).setOnClickListener(v -> AuthenticationActivity.start(mActivity, authStatue, "审核不通过原因：身份证不清晰，请重新上传"));//  身份认证
 
 
         this.getView(R.id.iv_circle_head).setOnClickListener(v -> {
@@ -691,10 +694,13 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                     public void onSuccess(String json) {
                         Log.i("=======", "onSuccess: " + json);
 
-                        //{agentGrade:"level1","userPoint":14,"agentGradeText":
-                        // "普通供应商","showSeedlingNoteShare":true,
-                        // "showSeedlingNote":true,"hasProjectManage":true},
-                        // "version":"tomcat7.0.53"}
+                        /**
+                         * {"code":"1","msg":"操作成功",
+                         * "data":{"agentGrade":"level1","isQuote":true,"userPoint":705,"agentGradeText":
+                         * "合作供应商",
+                         * "userIdentity":"auditing",
+                         * "showSeedlingNoteShare":true,"showSeedlingNote":true,"hasProjectManage":true},"version":"tomcat7.0.53"}
+                         */
 
 
 //                        if (GetServerUrl.isTest)//测试的时候显示
@@ -715,11 +721,13 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                             }
                             showSeedlingNoteShare = bean.getData().showSeedlingNoteShare;
                             isQuote = bean.getData().isQuote;
-
+                            userIdentity = bean.getData().userIdentityStatus;
+                            ProcessUserIdentity(getView(R.id.sptv_wd_sfz), userIdentity);
 //                            showSeedlingNoteTeam = !showSeedlingNoteTeam;
 //                            showSeedlingNoteShare = false;
                             D.e("===========showSeedlingNoteShare===========" + showSeedlingNoteShare);
 
+                            /* 积分   与 供应商 等级   */
                             checkGys_Point(bean.getData().agentGrade, bean.getData().userPoint, bean.getData().agentGradeText, isQuote);
 
 
@@ -734,6 +742,31 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                         ToastUtil.showLongToast("权限请求接口请求失败：" + strMsg);
                     }
                 });
+    }
+
+
+    /* 处理身份 认证 状态 */
+    private void ProcessUserIdentity(SuperTextView textView, String identityState) {
+//  private int authStatue = AuthenticationActivity.no_auth ;
+
+        if (UserIdentityStatus.unaudited.enumValue.equals(identityState)) {
+            textView.setText(UserIdentityStatus.unaudited.enumText);  /* 未认证 */
+            authStatue = AuthenticationActivity.no_auth;
+            textView.setDrawable(getResources().getDrawable(R.mipmap.wd_smrz));
+        } else if (UserIdentityStatus.auditing.enumValue.equals(identityState)) {
+            textView.setText(UserIdentityStatus.auditing.enumText);  /* 认证中 */
+            authStatue = AuthenticationActivity.authing;
+            textView.setDrawable(getResources().getDrawable(R.mipmap.wd_smrz));
+        } else if (UserIdentityStatus.pass.enumValue.equals(identityState)) {
+            textView.setText(UserIdentityStatus.pass.enumText);  /* 认证通过 */
+            textView.setDrawable(getResources().getDrawable(R.mipmap.wd_smrz_tg));
+            authStatue = AuthenticationActivity.succeed;
+        } else if (UserIdentityStatus.back.enumValue.equals(identityState)) {
+            textView.setText(UserIdentityStatus.back.enumText);  /* 认证失败 */
+            textView.setDrawable(getResources().getDrawable(R.mipmap.wd_smrz_wtg));
+            authStatue = AuthenticationActivity.failed;
+        }
+
     }
 
 
@@ -804,11 +837,15 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 //            return;
 //        }
         curStar = isDark;
-        StateBarUtil.setStatusTranslater(MainActivity.instance, isDark);
+        try {
+            StateBarUtil.setStatusTranslater(MainActivity.instance, isDark);
 //        StateBarUtil.setStatusTranslater(MainActivity.instance, false);
-        StateBarUtil.setStatusTranslater(mActivity, isDark);
-        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, isDark);
-        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, isDark);
+            StateBarUtil.setStatusTranslater(mActivity, isDark);
+            StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, isDark);
+            StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, isDark);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

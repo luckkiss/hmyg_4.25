@@ -1,5 +1,7 @@
 package com.hldj.hmyg.bean;
 
+import com.hldj.hmyg.M.userIdentity.UserIdentity;
+import com.hldj.hmyg.M.userIdentity.enums.UserIdentityStatus;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.bean.MomentsReply;
 import com.hldj.hmyg.Ui.friend.bean.UnRead;
@@ -91,6 +93,10 @@ public class SimpleGsonBean implements Serializable {
         public boolean showSeedlingNoteShare = false;
         public boolean isQuote = false;/*是否需要申请成为供应商*/
 
+        public String userIdentityStatus = UserIdentityStatus.unaudited.enumValue; // 未认证
+        public UserIdentity userIdentity ; // 未认证
+
+
         public String agentGrade = " - ";
         public String userPoint = " - ";
         public String agentGradeText = " - ";
@@ -120,6 +126,9 @@ public class SimpleGsonBean implements Serializable {
     public boolean isSucceed() {
         return code.equals(ConstantState.SUCCEED_CODE);
     }
+
+
+
 
 
 }

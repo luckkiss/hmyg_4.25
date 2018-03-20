@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -21,12 +22,15 @@ import android.widget.TextView;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.GalleryImageActivity;
+import com.hldj.hmyg.M.userIdentity.UserIdentity;
+import com.hldj.hmyg.M.userIdentity.enums.UserIdentityStatus;
 import com.hldj.hmyg.MyLuban.MyLuban;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.UploadHeadUtil;
@@ -84,6 +88,7 @@ public class AuthenticationActivity extends BaseMVPActivity {
     private Uri imageUri;
 
     UploadHeadUtil uploadHeadUtil;
+    private FinalBitmap finalBitmap;
 
 
     @Override
@@ -93,8 +98,42 @@ public class AuthenticationActivity extends BaseMVPActivity {
 
     }
 
+    private String getRealName() {
+        return getText(getView(R.id.et_name));
+    }
+
+    private String getIdentityNum() {
+        return getText(getView(R.id.et_card_num));
+    }
+
 
     private int uploadImageCount = 0;
+    private UserIdentity userIdentity;
+
+    /* 请求  网络数据     认证的  各种数据 */
+    private void requestData() {
+        new BasePresenter()
+                .putParams("", "")
+                .doRequest("admin/userIdentity/getUserIdentity", true, new HandlerAjaxCallBack(mActivity) {
+
+
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+
+                        /* 获取 审核数据成功  */
+
+                        D.i("onRealSuccess: " + gsonBean.getData().userIdentity.toString());
+
+                    userIdentity = gsonBean.getData().userIdentity;
+
+                    initExtras();
+
+
+                }
+                });
+
+
+    }
 
     @Override
     public void initView() {
@@ -124,57 +163,273 @@ public class AuthenticationActivity extends BaseMVPActivity {
         });
 
         initExtras();
+        requestData();
 
 
         btn_save = getView(R.id.btn_save);
+
+
         btn_save.setOnClickListener(v -> {
             totalCount = 0;
-            if (iv_zheng.getTag() != null) {
-                File file = ((File) iv_zheng.getTag());
-                D.i("========zheng path===========" + file.getAbsolutePath());
+
+
+            if (getAuthingState() == failed) {
+                // 上传失败  处理
+                // 重一张图片
+                // 重传2 张图片
+                // 直接再次提交
+
+                showLoading();
+                upImageAgain(iv_zheng, iv_fan);
+
+
+            } else {
+
+
+                if (iv_zheng.getTag() != null && iv_zheng.getTag() instanceof File) {
+
+//                if (iv_zheng.getTag() instanceof String) {
+//                    ossUrls.add(new Pic("", false, iv_zheng.getTag() + "", 0));
+//                } else {
+//                    ossUrls.add(new Pic("", false, ((File) iv_zheng.getTag()).getAbsolutePath(), 0));
+//                }
+                    File file = ((File) iv_zheng.getTag());
+                    D.i("========zheng path===========" + file.getAbsolutePath());
+
+
+                } else {
+                    ToastUtil.showLongToast("正面图片未提交");
+                    return;
+                }
+
+                if (iv_fan.getTag() != null && iv_fan.getTag() instanceof File) {
+                    File file = ((File) iv_fan.getTag());
+                    D.i("========fan path===========" + file.getAbsolutePath());
+                } else {
+                    ToastUtil.showLongToast("背面图片未提交");
+                    return;
+                }
+
+                showLoading();
+                D.i("========et_name=========" + getText(getView(et_name)));
+                D.i("========et_card_num=========" + getText(getView(R.id.et_card_num)));
+                upDoubleImages();
+
             }
 
-            if (iv_fan.getTag() != null) {
-                File file = ((File) iv_fan.getTag());
-                D.i("========fan path===========" + file.getAbsolutePath());
-            }
-            D.i("========et_name=========" + getText(getView(et_name)));
-            D.i("========et_card_num=========" + getText(getView(R.id.et_card_num)));
+
+        });
 
 
-            ansyUploadImage(new UploadListener() {
-                @Override
-                public void uploadSucceed(Pic pic) {
+    }
 
-                    totalCount++;
+    private void upDoubleImages() {
 
-                    if (totalCount == 1) {
-                        pic_json1 = GsonUtil.Bean2Json(pic);
-                    } else {
-                        pic_json2 = GsonUtil.Bean2Json(pic);
+        ansyUploadImage(new UploadListener() {
+            @Override
+            public void uploadSucceed(Pic pic) {
+
+                totalCount++;
+
+                if (totalCount == 1) {
+
+                    ArrayList<Pic> arrayList = new ArrayList<>();
+                    arrayList.add(pic);
+
+                    if (pic.getSort() == 0)
+                    {
+                        pic_json1 = GsonUtil.Bean2Json(arrayList);
+                    }else {
+                        pic_json2 = GsonUtil.Bean2Json(arrayList);
                     }
 
-                    if (totalCount == 2) {
+                } else {
+                    ArrayList<Pic> arrayList = new ArrayList<>();
+                    arrayList.add(pic);
+
+                    if (pic.getSort() == 0)
+                    {
+                        pic_json1 = GsonUtil.Bean2Json(arrayList);
+                    }else {
+                        pic_json2 = GsonUtil.Bean2Json(arrayList);
+                    }
+//                    pic_json2 = GsonUtil.Bean2Json(arrayList);
+                }
+
+                if (totalCount == 2) {
                     /* 上传成功  上传数据  */
 
-                        ToastUtil.showLongToast("上传成功");
-                        Log.i("ansyUploadImage", "uploadSucceed: pic_json1" + pic_json1);
-                        Log.i("ansyUploadImage", "uploadSucceed: pic_json2" + pic_json2);
+                    ToastUtil.showLongToast("上传成功");
+                    Log.i("ansyUploadImage", "uploadSucceed: pic_json1" + pic_json1);
+                    Log.i("ansyUploadImage", "uploadSucceed: pic_json2" + pic_json2);
+
+                        /*  保存操作 */
+
+                    D.i("------------保存操作-----------");
+
+
+                    new BasePresenter()
+                            .putParams(ConstantParams.id, userIdentity.id)
+                            .putParams(ConstantParams.realName, getRealName())
+                            .putParams(ConstantParams.identityNum, getIdentityNum())
+                            .putParams(ConstantParams.frontData, pic_json1)
+                            .putParams(ConstantParams.backData, pic_json2)
+                            .doRequest("admin/userIdentity/save", true, new HandlerAjaxCallBack(mActivity) {
+                                @Override
+                                public void onRealSuccess(SimpleGsonBean gsonBean) {
+
+                                    ToastUtil.showLongToast(gsonBean.msg);
+                                    finish();
+
+                                }
+                            });
+                }
+
+
+            }
+
+            @Override
+            public void uploadFaild(String msg) {
+
+                ToastUtil.showLongToast("上传失败" + msg);
+                totalCount = 0;
+            }
+        }, ((File) iv_zheng.getTag()), ((File) iv_fan.getTag()));
+
+    }
+
+    private void upOneImage(File f, int type, UploadListener listener) {
+
+        if (f == null) {
+            listener.uploadSucceed(null);
+            return;
+        }
+
+        ArrayList<File> arrayList = new ArrayList<>();
+        arrayList.add(f);
+            /* zheng */
+        MyLuban.compress(mActivity, arrayList)
+                .setMaxSize(256)
+                .setMaxHeight((int) (1920))
+                .setMaxWidth((int) (1080))
+                .putGear(MyLuban.CUSTOM_GEAR)
+                .asListObservable() // 压缩代码，返回  List<File>
+                .flatMap(new Function<List<File>, ObservableSource<File>>() {
+                    @Override
+                    public ObservableSource<File> apply(@NonNull List<File> files) throws Exception {
+                        return Observable.fromIterable(files);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<File>() {
+                    @Override
+                    public void accept(@NonNull File file) throws Exception {
+
+                        new BasePresenter()
+                                .putFile("file", file)
+                                .doRequest("admin/file/image", true, new HandlerAjaxCallBack(mActivity) {
+                                    @Override
+                                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                        if (gsonBean.getData().image == null) {
+                                        } else {
+                                            if (gsonBean.isSucceed()) {
+                                                listener.uploadSucceed(new Pic(gsonBean.getData().image.id, true, gsonBean.getData().image.url, type));
+                                            }
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+                                        super.onFailure(t, errorNo, strMsg);
+                                        listener.uploadFaild(strMsg);
+                                    }
+                                });
+
 
                     }
+                }, throwable -> {
+                    listener.uploadFaild("上传失败，请重新提交");
+                });
+
+    }
+
+    private void upImageAgain(MyImageViewShowUserCard iv_zheng, MyImageViewShowUserCard iv_fan) {
+
+        if (iv_zheng.getTag() != null && iv_zheng.getTag() instanceof File && iv_fan.getTag() != null && iv_fan.getTag() instanceof File) {
+            /* 表示  正面 反面 重新上传了 照片 */
+            /* 走双面上传流程 */
+            upDoubleImages();
+
+        } else if (iv_zheng.getTag() != null && iv_zheng.getTag() instanceof File) {
+            /* 表示  正面重新上传了 照片 */
+
+            upOne(((File) iv_zheng.getTag()), 0);
+
+        } else if (iv_fan.getTag() != null && iv_fan.getTag() instanceof File) {
+            /* 表示  背面重新上传了 照片 */
+            upOne(((File) iv_fan.getTag()), 1);
+
+        } else {
+//            ToastUtil.showLongToast("请重新提交认证照片");
+            upOne(null, -1);
+
+        }
+
+    }
+
+    private void upOne(File upFile, int type) {
 
 
+        upOneImage(upFile, type, new UploadListener() {
+            @Override
+            public void uploadSucceed(Pic pic) {
+
+                if (type == 0) {
+                    ArrayList<Pic> arrayList = new ArrayList<>();
+                    arrayList.add(pic);
+                    pic_json1 = GsonUtil.Bean2Json(arrayList);
+                    arrayList.clear();
+                    arrayList.add(new Pic(userIdentity.backImageJson.id, true, userIdentity.backImageJson.url, 1));
+                    pic_json2 = GsonUtil.Bean2Json(arrayList);
+                } else if (type == 1) {
+                    ArrayList<Pic> arrayList = new ArrayList<>();
+                    arrayList.add(pic);
+                    pic_json2 = GsonUtil.Bean2Json(arrayList);
+                    arrayList.clear();
+                    arrayList.add(new Pic(userIdentity.backImageJson.id, true, userIdentity.frontImageJson.url, 1));
+                    pic_json1 = GsonUtil.Bean2Json(arrayList);
+                } else {
+                    ArrayList<Pic> arrayList = new ArrayList<>();
+                    arrayList.add(new Pic(userIdentity.frontImageJson.id, true, userIdentity.frontImageJson.url, 0));
+                    pic_json1 = GsonUtil.Bean2Json(arrayList);
+                    arrayList.clear();
+                    arrayList.add(new Pic(userIdentity.backImageJson.id, true, userIdentity.backImageJson.url, 1));
+                    pic_json2 = GsonUtil.Bean2Json(arrayList);
                 }
 
-                @Override
-                public void uploadFaild(String msg) {
+                new BasePresenter()
+                        .putParams(ConstantParams.id, userIdentity.id)
+                        .putParams(ConstantParams.realName, getRealName())
+                        .putParams(ConstantParams.identityNum, getIdentityNum())
+                        .putParams(ConstantParams.frontData, pic_json1)
+                        .putParams(ConstantParams.backData, pic_json2)
+                        .doRequest("admin/userIdentity/save", true, new HandlerAjaxCallBack(mActivity) {
+                            @Override
+                            public void onRealSuccess(SimpleGsonBean gsonBean) {
 
-                    ToastUtil.showLongToast("上传失败" + msg);
-                    totalCount = 0;
-                }
-            }, ((File) iv_zheng.getTag()), ((File) iv_fan.getTag()));
+                                ToastUtil.showLongToast(gsonBean.msg);
+                                hindLoading();
+                                finish();
 
+                            }
+                        });
+            }
 
+            @Override
+            public void uploadFaild(String msg) {
+
+            }
         });
 
 
@@ -185,6 +440,8 @@ public class AuthenticationActivity extends BaseMVPActivity {
     private String pic_json2;
     private int totalCount = 0;
 
+
+    /* 失败重新上传 问题   */
 
     private void ansyUploadImage(UploadListener uploadListener, File file1, File file2) {
 
@@ -380,6 +637,14 @@ public class AuthenticationActivity extends BaseMVPActivity {
 
     /* 对状态进行处理 */
     private void initExtras() {
+        if (userIdentity == null) {
+            D.w("初始化失败");
+            return;
+        }
+
+        http_zheng = userIdentity.frontImageUrl;
+        http_fan = userIdentity.backImageUrl;
+
 
         TextView tv_top_tip = getView(R.id.tv_top_tip);
 
@@ -454,8 +719,11 @@ public class AuthenticationActivity extends BaseMVPActivity {
 
     private void doAuthFailed() {
 
-        setText(getView(et_name), "大傻么么哒");
-        setText(getView(et_card_num), "350435465476416549647");
+//        setText(getView(et_name), "大傻么么哒");
+//        setText(getView(et_card_num), "350435465476416549647");
+
+        setText(getView(et_name), userIdentity.realName);
+        setText(getView(et_card_num), userIdentity.identityNum);
 
         iv_fan.showUpAgain();
         iv_zheng.showUpAgain();
@@ -471,10 +739,9 @@ public class AuthenticationActivity extends BaseMVPActivity {
                 aa.setBackground(new BitmapDrawable(bitmap));
                 aa.setImageResource(R.drawable.chongxinshangchuan);
 
-                if (aa  ==  iv_fan)
-                {
+                if (aa == iv_fan) {
                     aa.setTag(http_fan);
-                }else {
+                } else {
                     aa.setTag(http_zheng);
                 }
 
@@ -507,28 +774,6 @@ public class AuthenticationActivity extends BaseMVPActivity {
 
         }
 
-
-//        iv_zheng.showUpAgain();
-
-
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                FinalBitmap.create(mActivity)
-//                        .configDisplayer(new Displayer() {
-//                            @Override
-//                            public void loadCompletedisplay(View view, Bitmap bitmap, BitmapDisplayConfig bitmapDisplayConfig) {
-//                                iv_fan.setBackground(new BitmapDrawable(bitmap));
-//                                iv_fan.setImageResource(R.drawable.chongxinshangchuan);
-////                        this.setImageResource(R.drawable.chongxinshangchuan);
-//                                iv_fan.setTag("");
-//                            }
-//
-//                            @Override
-//                            public void loadFailDisplay(View view, Bitmap bitmap) {
-//
-//                            }
-//                        })
         finalBitmap.display(iv_fan, http_fan);
 
 
@@ -560,15 +805,27 @@ public class AuthenticationActivity extends BaseMVPActivity {
         getView(R.id.iv_zheng_shili).setVisibility(View.VISIBLE);
         getView(R.id.iv_fan_shili).setVisibility(View.VISIBLE);
 
-        FinalBitmap.create(mActivity).display(getView(R.id.iv_zheng_shili), "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521200445415&di=0227ffbe405e51fbae862b1a4d132792&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20130530%2FImg377522814.jpg");
+
+        finalBitmap = FinalBitmap.create(mActivity);
+        finalBitmap.display(getView(R.id.iv_zheng_shili), http_zheng);
         getView(R.id.iv_zheng_shili).setPadding(0, 0, 0, 0);
 
-        FinalBitmap.create(mActivity).display(getView(R.id.iv_fan_shili), "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521200426297&di=70c4b374bd72b41baadf3f7a0ed1b6d3&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dpixel_huitu%252C0%252C0%252C294%252C40%2Fsign%3Db05d0b3c38fa828bc52e95a394672458%2Fd788d43f8794a4c2717d681205f41bd5ad6e39a8.jpg");
+        finalBitmap.display(getView(R.id.iv_fan_shili), http_fan);
         getView(R.id.iv_fan_shili).setPadding(0, 0, 0, 0);
 
 
-        setText(getView(et_name), "大傻么么哒");
-        setText(getView(et_card_num), "350435465476416549647");
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finalBitmap.display(getView(R.id.iv_zheng_shili), http_zheng);
+                finalBitmap.display(getView(R.id.iv_fan_shili), http_fan);
+            }
+        }, 1000);
+
+
+
+        setText(getView(et_name), userIdentity.realName);
+        setText(getView(et_card_num), userIdentity.identityNum);
         EditText editText = ((EditText) getView(et_name));
         editText.setFocusable(false);
         EditText et_card_num = ((EditText) getView(R.id.et_card_num));
@@ -579,13 +836,32 @@ public class AuthenticationActivity extends BaseMVPActivity {
 
     /* 获取失败信息 */
     public String getFailedMsg() {
-        return getIntent().getStringExtra("failedMsg");
+        return userIdentity.auditLog;
+//        return getIntent().getStringExtra("failedMsg");
     }
 
 
     /* 获取 当前认证状态 */
     public int getAuthingState() {
-        return getIntent().getIntExtra("state", no_auth);
+
+        if (userIdentity == null || userIdentity.status == null ) {
+            return getIntent().getIntExtra("state", no_auth);
+        } else {
+            if (userIdentity.status.compareTo(UserIdentityStatus.unaudited) == 0) {
+                return no_auth;
+            } else if (userIdentity.status.compareTo(UserIdentityStatus.auditing) == 0) {
+                return authing;
+            } else if (userIdentity.status.compareTo(UserIdentityStatus.pass) == 0) {
+                return succeed;
+            } else if (userIdentity.status.compareTo(UserIdentityStatus.back) == 0) {
+                return failed;
+            } else {
+                return getIntent().getIntExtra("state", no_auth);
+            }
+        }
+
+//        return getIntent().getIntExtra("state", no_auth);
+//        return getIntent().getIntExtra("state", no_auth);
     }
 
 
@@ -831,7 +1107,7 @@ public class AuthenticationActivity extends BaseMVPActivity {
 
         iv.showUpAgain();
 
-       FinalBitmap finalBitmap =   FinalBitmap.create(mActivity)
+        FinalBitmap finalBitmap = FinalBitmap.create(mActivity)
                 .configDisplayer(new Displayer() {
                     @Override
                     public void loadCompletedisplay(View view, Bitmap bitmap, BitmapDisplayConfig bitmapDisplayConfig) {
@@ -845,10 +1121,9 @@ public class AuthenticationActivity extends BaseMVPActivity {
 
                     }
                 });
-        finalBitmap .display(iv,file.getAbsolutePath() );
+        finalBitmap.display(iv, file.getAbsolutePath());
 
-        if (finalBitmap.getBitmapFromCache(file.getAbsolutePath())!=null)
-        {
+        if (finalBitmap.getBitmapFromCache(file.getAbsolutePath()) != null) {
             iv.setBackground(new BitmapDrawable(finalBitmap.getBitmapFromCache(file.getAbsolutePath())));
             iv.setImageResource(R.drawable.chongxinshangchuan);
         }
@@ -867,4 +1142,9 @@ public class AuthenticationActivity extends BaseMVPActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        hindLoading();
+        super.onDestroy();
+    }
 }

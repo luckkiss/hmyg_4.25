@@ -43,7 +43,8 @@ public interface ConstantParams {
     /**
      * 长度
      */
-    String length = "length"; /**
+    String length = "length";
+    /**
      * 数量
      */
     String count = "count";
@@ -98,11 +99,11 @@ public interface ConstantParams {
      */
     String container = "container";
     /**
-     *  假植苗
+     * 假植苗
      */
     String heelin = "heelin";
     /**
-     *   移植苗
+     * 移植苗
      */
     String transplant = "transplant";
 
@@ -111,6 +112,28 @@ public interface ConstantParams {
      * 直购
      */
     String direct = "direct";
+
+
+    /**
+     * 真实姓名
+     */
+    String realName = "realName";
+
+    /**
+     * 身份证号
+     */
+    String identityNum = "identityNum";
+
+    /**
+     * 正面身份证  数据 json
+     */
+      String frontData= "frontData";
+
+    /**
+     * 反面身份证  数据 json
+     */
+      String backData = "backData";
+
     /**
      * projectType
      direct直购

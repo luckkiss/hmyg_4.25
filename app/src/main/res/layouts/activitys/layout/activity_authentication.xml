@@ -2,6 +2,7 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,10 +19,16 @@
             android:id="@+id/tv_top_tip"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/error_stroke_color"
-            android:gravity="center"
+            android:background="@color/error_bg_color"
+            android:gravity="center|start"
+            android:paddingLeft="15dp"
             android:text="审核不通过原因：身份证不清晰，请重新上传"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:visibility="gone"
+
+            tools:visibility="visible"
+
+            />
 
 
         <com.hldj.hmyg.widget.StepView
@@ -129,10 +136,18 @@
                 android:layout_gravity="center_vertical"
                 android:layout_margin="5dp"
                 android:layout_marginLeft="8dp"
-                android:background="@mipmap/shili1"
-                android:padding="16dp"
-                android:src="@drawable/chongxinshangchuan"
-                />
+                android:background="@drawable/add_image_icon_big_eq"
+                android:padding="16dp" />
+            <!--<com.hldj.hmyg.widget.MyImageViewShowUserCard-->
+            <!--android:id="@+id/iv_zheng"-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="70dp"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:background="@mipmap/shili1"-->
+            <!--android:padding="16dp"-->
+            <!--android:src="@drawable/chongxinshangchuan" />-->
 
 
             <TextView
@@ -148,10 +163,13 @@
 
             <ImageView
                 android:id="@+id/iv_zheng_shili"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
+                android:layout_width="110dp"
+                android:layout_height="70dp"
                 android:layout_gravity="center_vertical"
-                android:adjustViewBounds="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="3dp"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/shili1" />
 
 
@@ -179,10 +197,20 @@
                 android:layout_height="70dp"
                 android:layout_margin="5dp"
                 android:layout_marginLeft="8dp"
+                android:background="@drawable/add_image_icon_big_eq"
                 android:padding="16dp"
-                android:src="@drawable/chongxinshangchuan"
-                android:background="@mipmap/shili2"
                 android:scaleType="centerCrop" />
+
+            <!--<com.hldj.hmyg.widget.MyImageViewShowUserCard-->
+            <!--android:id="@+id/iv_fan"-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="70dp"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:background="@mipmap/shili2"-->
+            <!--android:padding="16dp"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@drawable/chongxinshangchuan" />-->
 
 
             <TextView
@@ -198,11 +226,13 @@
 
             <ImageView
                 android:id="@+id/iv_fan_shili"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
+                android:layout_width="110dp"
+                android:layout_height="70dp"
                 android:layout_gravity="center_vertical"
-                android:adjustViewBounds="true"
-                android:padding="4dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="3dp"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/shili2" />
 
 

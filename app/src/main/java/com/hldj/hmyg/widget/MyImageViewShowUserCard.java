@@ -11,6 +11,7 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.hldj.hmyg.R;
 
@@ -18,7 +19,7 @@ import com.hldj.hmyg.R;
  * 正方形的  ImageView
  */
 
-public class MyImageViewShowUserCard extends android.support.v7.widget.AppCompatImageView {
+public class MyImageViewShowUserCard extends ImageView {
 
 
     private Bitmap bitmap;
