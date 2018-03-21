@@ -124,12 +124,12 @@ public class AuthenticationActivity extends BaseMVPActivity {
 
                         D.i("onRealSuccess: " + gsonBean.getData().userIdentity.toString());
 
-                    userIdentity = gsonBean.getData().userIdentity;
+                        userIdentity = gsonBean.getData().userIdentity;
 
-                    initExtras();
+                        initExtras();
 
 
-                }
+                    }
                 });
 
 
@@ -137,7 +137,7 @@ public class AuthenticationActivity extends BaseMVPActivity {
 
     @Override
     public void initView() {
-
+        finalBitmap = FinalBitmap.create(mActivity);
 
         uploadHeadUtil = new UploadHeadUtil(mActivity);
         cachPath = getDiskCacheDir(this) + "/handimg.jpg";//图片路径
@@ -180,6 +180,7 @@ public class AuthenticationActivity extends BaseMVPActivity {
                 // 直接再次提交
 
                 showLoading();
+                setLoadCancle(false);
                 upImageAgain(iv_zheng, iv_fan);
 
 
@@ -236,10 +237,9 @@ public class AuthenticationActivity extends BaseMVPActivity {
                     ArrayList<Pic> arrayList = new ArrayList<>();
                     arrayList.add(pic);
 
-                    if (pic.getSort() == 0)
-                    {
+                    if (pic.getSort() == 0) {
                         pic_json1 = GsonUtil.Bean2Json(arrayList);
-                    }else {
+                    } else {
                         pic_json2 = GsonUtil.Bean2Json(arrayList);
                     }
 
@@ -247,10 +247,9 @@ public class AuthenticationActivity extends BaseMVPActivity {
                     ArrayList<Pic> arrayList = new ArrayList<>();
                     arrayList.add(pic);
 
-                    if (pic.getSort() == 0)
-                    {
+                    if (pic.getSort() == 0) {
                         pic_json1 = GsonUtil.Bean2Json(arrayList);
-                    }else {
+                    } else {
                         pic_json2 = GsonUtil.Bean2Json(arrayList);
                     }
 //                    pic_json2 = GsonUtil.Bean2Json(arrayList);
@@ -656,6 +655,8 @@ public class AuthenticationActivity extends BaseMVPActivity {
             tv_top_tip.setVisibility(View.GONE);
         }
         tv_top_tip.setText(getFailedMsg());
+        ImageView imageView = getView(R.id.iv_auth_states);
+
 
         switch (getAuthingState()) {
             case no_auth:/* 未认证 --  发起认证 */
@@ -664,11 +665,14 @@ public class AuthenticationActivity extends BaseMVPActivity {
                 break;
 
             case succeed:/*认证成功 */
+                imageView.setImageResource(R.mipmap.auth_shtg);
+                imageView.setVisibility(View.VISIBLE);
                 doAuthing();
                 break;
 
             case authing:/*认证中*/
-
+                imageView.setImageResource(R.mipmap.auth_shz);
+                imageView.setVisibility(View.VISIBLE);
             /*审核中 */
 
                 doAuthing();
@@ -757,8 +761,8 @@ public class AuthenticationActivity extends BaseMVPActivity {
         };
 
 
-        FinalBitmap finalBitmap = FinalBitmap.create(mActivity)
-                .configDisplayer(displayer);
+
+                finalBitmap.configDisplayer(displayer);
 
 //        finalBitmap.clearCache(http_zheng);
         finalBitmap.display(iv_zheng, http_zheng);
@@ -805,10 +809,27 @@ public class AuthenticationActivity extends BaseMVPActivity {
         getView(R.id.iv_zheng_shili).setVisibility(View.VISIBLE);
         getView(R.id.iv_fan_shili).setVisibility(View.VISIBLE);
 
+        View.OnClickListener listener = v -> {
+            ArrayList<Pic> ossUrls = new ArrayList<>();
+            ossUrls.add(new Pic("", false, http_zheng, 0));
+            ossUrls.add(new Pic("", false, http_fan, 1));
+            GalleryImageActivity.startGalleryImageActivity(mActivity, 0, ossUrls);
+        };
+        View.OnClickListener listener1 = v -> {
+            ArrayList<Pic> ossUrls = new ArrayList<>();
+            ossUrls.add(new Pic("", false, http_zheng, 0));
+            ossUrls.add(new Pic("", false, http_fan, 1));
+            GalleryImageActivity.startGalleryImageActivity(mActivity, 1, ossUrls);
+        };
 
-        finalBitmap = FinalBitmap.create(mActivity);
+
+        getView(R.id.iv_zheng_shili).setOnClickListener(listener);
+        getView(R.id.iv_fan_shili).setOnClickListener(listener1);
+
+
         finalBitmap.display(getView(R.id.iv_zheng_shili), http_zheng);
         getView(R.id.iv_zheng_shili).setPadding(0, 0, 0, 0);
+
 
         finalBitmap.display(getView(R.id.iv_fan_shili), http_fan);
         getView(R.id.iv_fan_shili).setPadding(0, 0, 0, 0);
@@ -821,7 +842,6 @@ public class AuthenticationActivity extends BaseMVPActivity {
                 finalBitmap.display(getView(R.id.iv_fan_shili), http_fan);
             }
         }, 1000);
-
 
 
         setText(getView(et_name), userIdentity.realName);
@@ -844,7 +864,7 @@ public class AuthenticationActivity extends BaseMVPActivity {
     /* 获取 当前认证状态 */
     public int getAuthingState() {
 
-        if (userIdentity == null || userIdentity.status == null ) {
+        if (userIdentity == null || userIdentity.status == null) {
             return getIntent().getIntExtra("state", no_auth);
         } else {
             if (userIdentity.status.compareTo(UserIdentityStatus.unaudited) == 0) {
@@ -1145,6 +1165,20 @@ public class AuthenticationActivity extends BaseMVPActivity {
     @Override
     protected void onDestroy() {
         hindLoading();
+        if (finalBitmap!=null)
+        {
+            finalBitmap.configDisplayer(new Displayer() {
+                @Override
+                public void loadCompletedisplay(View view, Bitmap bitmap, BitmapDisplayConfig bitmapDisplayConfig) {
+
+                }
+
+                @Override
+                public void loadFailDisplay(View view, Bitmap bitmap) {
+
+                }
+            });
+        }
         super.onDestroy();
     }
 }

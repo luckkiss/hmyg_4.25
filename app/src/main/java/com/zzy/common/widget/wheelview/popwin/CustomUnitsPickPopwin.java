@@ -152,7 +152,32 @@ public class CustomUnitsPickPopwin extends PopupWindow {
 
         @Override
         public String getItem(int index) {
-            return datas.get(index).text;
+            if (datas == null || datas.size() == 0) {
+                return "株";
+            } else {
+                return datas.get(index).text;
+            }
+
+//            if (index == 0) {
+//                if (datas.size() > 0) {
+//                    return datas.get(index).text;
+//                } else {
+//                    return "0";
+//                }
+//            } else {
+//                return datas.get(index).text;
+//            }
+
+//            if (index == 0) {
+//                if (datas.size() > 0) {
+//                    return datas.get(index).text;
+//                } else {
+//                    return "0";
+//                }
+//            } else {
+//                return datas.get(index).text;
+//            }
+
         }
 
 

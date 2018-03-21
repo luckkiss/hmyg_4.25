@@ -1649,10 +1649,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                     "code");
                             String msg = JsonGetInfo.getJsonString(jsonObject,
                                     "msg");
-                            if (!"".equals(msg)) {
-                                Toast.makeText(FlowerDetailActivity.this, msg,
-                                        Toast.LENGTH_SHORT).show();
-                            }
+
                             if ("1".equals(code)) {
                                 JSONObject jsonObject2 = JsonGetInfo
                                         .getJSONObject(JsonGetInfo
@@ -1682,7 +1679,10 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                             0, 0);
                                 }
                             } else {
-
+                                if (!"".equals(msg)) {
+                                    Toast.makeText(FlowerDetailActivity.this, msg,
+                                            Toast.LENGTH_SHORT).show();
+                                }
                             }
 
                         } catch (JSONException e) {

@@ -236,13 +236,22 @@ public class StorePurchaseListActivityPackage extends StorePurchaseListActivityA
 //            }
 
 
-            for (SellerQuoteJsonBean tempBean : tempBeans) {
-                if (tempBean.id.equals(tmp_quote.id)) {
-                    tempBeans.remove(tempBean);
-                    Log.i("remove", "onActivityResult: 删除  旧的数据  id = " + tempBean.id);
-                }
-            }
-
+//            for (SellerQuoteJsonBean tempBean : tempBeans) {
+//                if (tempBean.id.equals(tmp_quote.id)) {
+//                    tempBeans.remove(tempBean);
+//                    Log.i("remove", "onActivityResult: 删除  旧的数据  id = " + tempBean.id);
+//                }
+//            }
+//
+//            Iterator<SellerQuoteJsonBean> iterator = tempBeans.iterator();
+//
+//            while (iterator.hasNext()) {
+//                SellerQuoteJsonBean jsonBean = iterator.next();
+//                if (jsonBean.id.equals(tmp_quote.id)) {
+//                    iterator.remove();
+//                }
+//            }
+//http://blog.csdn.net/androidboy365/article/details/50540202/
 
             if (tempBeans.size() > 0) {
                 for (int i = 0; i < tempBeans.size(); i++) {

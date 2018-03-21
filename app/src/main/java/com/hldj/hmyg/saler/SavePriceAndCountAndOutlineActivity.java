@@ -356,6 +356,8 @@ public class SavePriceAndCountAndOutlineActivity extends NeedSwipeBackActivity {
                                 setResult(ConstantState.CHANGE_DATES);
                                 finish();
                             } else {
+
+
                             }
 
                         } catch (JSONException e) {

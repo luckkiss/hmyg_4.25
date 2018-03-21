@@ -180,8 +180,6 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
                             holder.tv_save_seeding_price_max.setFocusableInTouchMode(true);
                             holder.tv_save_seeding_price_max.requestFocus();
                             holder.tv_save_seeding_price_max.requestFocusFromTouch();
-
-
                         }
 
 
