@@ -13,6 +13,7 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.UpImageBackGsonBean;
+import com.hldj.hmyg.exception.NoUserIdentityException;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
@@ -114,6 +115,29 @@ public class SaveSeedlingPresenter {
                             resultCallBack.onSuccess(gsonBean);
                         } else {
                             D.e("===失败===");
+                            if (!gsonBean.getCode().equals(1020)) {
+                                ToastUtil.showLongToast(gsonBean.getMsg());
+                            }
+                            resultCallBack.onFailure(new NoUserIdentityException("未身份认证"), Integer.parseInt(gsonBean.getCode()), gsonBean.getMsg());
+
+
+//                            new AlertDialog(MyApplication.getInstance())
+//                                    .setCancelable(false)
+//                                    .setMsg(gsonBean.getMsg())
+//                                    .setTitle("实名认证啦---")
+//                                    .setNegativeButton("取消", new View.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(View v) {
+//                                            ToastUtil.showLongToast("取消");
+//                                        }
+//                                    }).setPositiveButton("实名认证去", new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    ToastUtil.showLongToast("实名认证去");
+//                                }
+//                            }).builder().show();
+
+
                         }
                     }
 
@@ -594,9 +618,6 @@ public class SaveSeedlingPresenter {
 //    }
 
 
-
-
-
     public void upLoadRx(ArrayList<Pic> dataList, ResultCallBack<Pic> resultCallBack) {
         a = 0;
         int list_size = dataList.size();
@@ -750,7 +771,6 @@ public class SaveSeedlingPresenter {
             }
         }
     }
-
 
 
     public static List<File> getFileList(List<Pic> pics) {

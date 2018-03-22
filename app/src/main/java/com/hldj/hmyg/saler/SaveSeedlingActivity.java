@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.hldj.hmyg.CallBack.ResultCallBack;
+import com.hldj.hmyg.Ui.AuthenticationActivity;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.SpecTypeBean;
+import com.hldj.hmyg.exception.NoUserIdentityException;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.util.D;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
@@ -51,6 +53,42 @@ public class SaveSeedlingActivity extends SaveSeedlingActivityBase {
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
+
+                /* 1020身份证  未认证 错误码    */
+                if (t instanceof NoUserIdentityException && errorNo == 1020) {
+//                    new AlertDialog(mActivity).builder()
+//                            .setCancelable(false)
+//                            .setTitle("未实名认证")
+//                            .setPositiveButton("实名认证", v1 -> {
+////                              ToastUtil.showLongToast("实名认证");
+//                                AuthenticationActivity.start(mActivity, AuthenticationActivity.no_auth, "");
+//                                mActivity.finish();
+//                            }).setNegativeButton("关闭", v2 -> {
+//                        mActivity.finish();
+//                    }).show();
+
+                    final com.flyco.dialog.widget.MaterialDialog dialog = new com.flyco.dialog.widget.MaterialDialog(
+                            mActivity);
+                    dialog.title("未实名认证")
+                            .content("应互联网安全法需求，从今日起，需要对发布苗木的人员进行实名认证，请麻烦走起一波，带动互联网安全氛围")//
+                            .btnText("退出", "实名认证")//
+                            .show();
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.setCancelable(false);
+                    dialog.setOnBtnClickL(() -> {
+                                dialog.dismiss();
+                                mActivity.finish();
+                            }, () -> {
+                                AuthenticationActivity.start(mActivity, AuthenticationActivity.no_auth, "");
+                                dialog.dismiss();
+                                mActivity.finish();
+                            }
+                    );
+
+
+                }
+
+
                 D.e("============数据加载失败===========");
                 if (aCache.getAsObject("publish_data") != null) {
                     SaveSeedingGsonBean saveSeedingGsonBean = (SaveSeedingGsonBean) aCache.getAsObject("publish_data");
