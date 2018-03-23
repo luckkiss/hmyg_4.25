@@ -67,23 +67,26 @@ public class SaveSeedlingActivity extends SaveSeedlingActivityBase {
 //                        mActivity.finish();
 //                    }).show();
 
-                    final com.flyco.dialog.widget.MaterialDialog dialog = new com.flyco.dialog.widget.MaterialDialog(
-                            mActivity);
-                    dialog.title("未实名认证")
-                            .content("应互联网安全法需求，从今日起，需要对发布苗木的人员进行实名认证，请麻烦走起一波，带动互联网安全氛围")//
-                            .btnText("退出", "实名认证")//
-                            .show();
-                    dialog.setCanceledOnTouchOutside(false);
-                    dialog.setCancelable(false);
-                    dialog.setOnBtnClickL(() -> {
-                                dialog.dismiss();
-                                mActivity.finish();
-                            }, () -> {
-                                AuthenticationActivity.start(mActivity, AuthenticationActivity.no_auth, "");
-                                dialog.dismiss();
-                                mActivity.finish();
-                            }
-                    );
+                    if (!mActivity.isFinishing()) {
+                        final com.flyco.dialog.widget.MaterialDialog dialog = new com.flyco.dialog.widget.MaterialDialog(
+                                mActivity);
+                        dialog.title("未实名认证")
+//                            .content("应互联网安全法需求，从今日起，需要对发布苗木的人员进行实名认证，请麻烦走起一波，带动互联网安全氛围")//
+                                .content(strMsg)//
+                                .btnText("退出", "实名认证")//
+                                .show();
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.setCancelable(false);
+                        dialog.setOnBtnClickL(() -> {
+                                    dialog.dismiss();
+                                    mActivity.finish();
+                                }, () -> {
+                                    AuthenticationActivity.start(mActivity, AuthenticationActivity.no_auth, "");
+                                    dialog.dismiss();
+                                    mActivity.finish();
+                                }
+                        );
+                    }
 
 
                 }

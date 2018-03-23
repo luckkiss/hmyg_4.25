@@ -115,7 +115,7 @@ public class SaveSeedlingPresenter {
                             resultCallBack.onSuccess(gsonBean);
                         } else {
                             D.e("===失败===");
-                            if (!gsonBean.getCode().equals(1020)) {
+                            if (!gsonBean.getCode().equals("1020")) {
                                 ToastUtil.showLongToast(gsonBean.getMsg());
                             }
                             resultCallBack.onFailure(new NoUserIdentityException("未身份认证"), Integer.parseInt(gsonBean.getCode()), gsonBean.getMsg());
