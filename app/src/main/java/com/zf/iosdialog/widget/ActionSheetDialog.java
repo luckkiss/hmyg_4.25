@@ -230,7 +230,8 @@ public class ActionSheetDialog {
             textView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onClick(index - 1);
+                    if (listener != null)
+                        listener.onClick(index - 1);
                     dialog.dismiss();
                 }
             });
@@ -263,7 +264,7 @@ public class ActionSheetDialog {
     }
 
     public enum SheetItemColor {
-        Blue("#037BFF"), Red("#FD4A2E") , Black("#333333");
+        Blue("#037BFF"), Red("#FD4A2E"), Black("#333333");
 
         private String name;
 

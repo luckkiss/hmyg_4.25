@@ -461,6 +461,13 @@ public class DetailActivity extends BaseMVPActivity {
                 .doRequest("moments/detail", true, new HandlerAjaxCallBack_test<SimpleGsonBean_test<Moments>>(mActivity) {
                     @Override
                     public void onRealSuccess(SimpleGsonBean_test<Moments> result) {
+
+                        if (result == null || result.data == null || result.data.moments == null) {
+                            Log.i(TAG, "onRealSuccess: 判空步曲。。。进入则为空");
+                            ToastUtil.showLongToast("数据获取失败 -_- ");
+                            return;
+                        }
+
 //                      setResult(ConstantState.REFRESH);
                         Log.i(TAG, "onRealSuccess: " + result);
                         mMoments = result.data.moments;
@@ -474,11 +481,15 @@ public class DetailActivity extends BaseMVPActivity {
                                 super.onTabSelected(tab);
 //                                ToastUtil.showLongToast(tab.getText().toString());
                                 mCoreRecyclerView.getAdapter().setDatasState(100);
+
+
                                 if (tab.getPosition() == 1) {
                                     mCoreRecyclerView.getAdapter().addData(result.data.moments.thumbUpListJson);
                                 } else {
                                     mCoreRecyclerView.getAdapter().addData(result.data.moments.itemListJson);
                                 }
+
+
                             }
                         });
                         if (tablayout.getSelectedTabPosition() == 1) {

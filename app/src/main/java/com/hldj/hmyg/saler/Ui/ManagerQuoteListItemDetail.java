@@ -42,8 +42,6 @@ import java.util.List;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
-import static com.zzy.common.widget.MeasureGridView.context;
-
 
 /**
  * Created by Administrator on 2017/5/3.
@@ -266,7 +264,7 @@ public class ManagerQuoteListItemDetail extends NeedSwipeBackActivity {
 
     private void initItem(SaveSeedingGsonBean.DataBean.SeedlingBean item) {
         //头部与底部是一样的    这里初始化头部
-        StringFormatUtil fillColor = new StringFormatUtil(context, item.purchaseItemJson.name + "  " + item.purchaseItemJson.count + item.purchaseItemJson.unitTypeName, item.purchaseItemJson.count + item.purchaseItemJson.unitTypeName, R.color.red).fillColor();
+        StringFormatUtil fillColor = new StringFormatUtil(mActivity, item.purchaseItemJson.name + "  " + item.purchaseItemJson.count + item.purchaseItemJson.unitTypeName, item.purchaseItemJson.count + item.purchaseItemJson.unitTypeName, R.color.red).fillColor();
         getViewHolder_pur().tv_purchase_name.setText(strFilter(item.purchaseItemJson.name));
         getViewHolder_pur().tv_purchase_size.setText(strFilter(item.purchaseItemJson.specText));
         getViewHolder_pur().tv_purchase_type.setText(strFilter(item.getPlantTypeName()));

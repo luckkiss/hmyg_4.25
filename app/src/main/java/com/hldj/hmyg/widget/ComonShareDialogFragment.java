@@ -244,8 +244,14 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
 
     private void ShareToSinaWeibo() {
         Platform.ShareParams sp3 = new Platform.ShareParams();
-        sp3.setText("苗木交易原来可以如此简单,配上花木易购APP,指尖轻点,交易无忧。");
+//        sp3.setText("苗木交易原来可以如此简单,配上花木易购APP,指尖轻点,交易无忧。");
+        sp3.setTitle(shareBean.title);
         sp3.setShareType(shareBean.shareType);
+        sp3.setTitleUrl(shareBean.pageUrl); // 标题的超链接
+        sp3.setText(shareBean.text);
+        sp3.setImageUrl(shareBean.imgUrl);
+        sp3.setSite(getString(R.string.app_name));
+        sp3.setSiteUrl(shareBean.pageUrl);
         // sp3.setImagePath("/mnt/sdcard/share/" + system_time + ".jpg");
         Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
         weibo.setPlatformActionListener(this); // 设置分享事件回调

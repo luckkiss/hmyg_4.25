@@ -136,6 +136,10 @@ public class StateBarUtil {
     }
 
     public static boolean setMiuiStatusBarDarkMode(Activity activity, boolean darkmode) {
+        if (activity == null) {
+            Log.i("set state bar util ", "状态栏修改失败");
+            return false;
+        }
         Class<? extends Window> clazz = activity.getWindow().getClass();
         try {
             int darkModeFlag = 0;
@@ -153,6 +157,10 @@ public class StateBarUtil {
 
 
     public static void setStatusTranslater(Activity mActivity, Boolean isDark) {
+        if (mActivity == null) {
+            Log.i("setStatusTranslater", "mActivity is null ");
+            return;
+        }
         Window window = mActivity.getWindow();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { // 5.0 以上全透明状态栏
@@ -183,6 +191,11 @@ public class StateBarUtil {
     }
 
     public static void setStatusTranslaterWhite(Activity mActivity, Boolean isDark) {
+
+        if (mActivity == null) {
+            Log.i("StateBarUtil", "状态栏 状态修改失败: ");
+            return;
+        }
         Window window = mActivity.getWindow();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { // 5.0 以上全透明状态栏

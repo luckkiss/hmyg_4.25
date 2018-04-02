@@ -22,6 +22,7 @@ import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.base.rxbus.annotation.Subscribe;
+import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
 import com.hldj.hmyg.bean.SimplePageBean;
@@ -129,7 +130,6 @@ public class CenterActivity extends BaseMVPActivity {
 //                }, true).show(getSupportFragmentManager(), TAG);
 
 
-
             });
         }
 
@@ -221,8 +221,21 @@ public class CenterActivity extends BaseMVPActivity {
                     //显示图片
 //                    finalBitmap.display(helper.getView(R.id.head), item.attrData.headImage);
                     MyCircleImageView circleImageView = helper.getView(R.id.head);
-                    if (!TextUtils.isEmpty(item.attrData.headImage))
+                    if (!TextUtils.isEmpty(item.attrData.headImage)) {
                         ImageLoader.getInstance().displayImage(item.attrData.headImage, circleImageView);
+                        ArrayList<Pic> arrayList = new ArrayList<>();
+                        arrayList.add(new Pic("0", false, item.attrData.headImage, 0));
+
+                        circleImageView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                GalleryImageActivity.startGalleryImageActivity(mActivity, 0, arrayList);
+                            }
+                        });
+
+                    }
+
+
 //                    circleImageView.setImageURL(item.attrData.headImage);
 
                 }

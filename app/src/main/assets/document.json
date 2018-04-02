@@ -291,7 +291,7 @@
                 "id": "566",
                 "name": "宁河县",
                 "fullName": "天津市宁河县",
-                "cityCode": "120221",
+                "cityCode": "120121",
                 "parentCode": "1201",
                 "level": 3
               },
@@ -299,7 +299,7 @@
                 "id": "581",
                 "name": "静海县",
                 "fullName": "天津市静海县",
-                "cityCode": "120223",
+                "cityCode": "120123",
                 "parentCode": "1201",
                 "level": 3
               },
@@ -307,7 +307,7 @@
                 "id": "601",
                 "name": "蓟县",
                 "fullName": "天津市蓟县",
-                "cityCode": "120225",
+                "cityCode": "120125",
                 "parentCode": "1201",
                 "level": 3
               }

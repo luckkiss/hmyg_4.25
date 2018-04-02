@@ -32,7 +32,9 @@ import com.hldj.hmyg.saler.GlobalConstant;
 import com.hldj.hmyg.saler.SaveSeedlingActivity;
 import com.hldj.hmyg.saler.UpdataImageActivity;
 import com.hldj.hmyg.saler.UpdataImageActivity_bak;
+import com.hldj.hmyg.util.D;
 import com.hy.utils.ToastUtil;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.white.utils.ExpandViewTouchUtil;
 import com.white.utils.FileTypeUtil;
 import com.white.utils.FileUtil;
@@ -49,6 +51,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -274,14 +277,41 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
 
             videoitem = new PhotoItem(id, path);
 
+
+            videoitem.video_image_path = getImagePath(id);
+
+
             int picSizeColumnIndex = cursor.getColumnIndex(MediaStore.Video.Media.SIZE);
             videoitem.picSize = cursor.getLong(picSizeColumnIndex);
-
+            videoitem.type = "video";
             dataList.add(videoitem);
 //            dataList.add(path);
         }
         cursor.close();
         Collections.sort(dataList);
+    }
+
+    private String getImagePath(long videoId) {
+
+        //提前生成缩略图，再获取：http://stackoverflow.com/questions/27903264/how-to-get-the-video-thumbnail-path-and-not-the-bitmap
+        MediaStore.Video.Thumbnails.getThumbnail(getContentResolver(), videoId, MediaStore.Video.Thumbnails.MICRO_KIND, null);
+        String[] projection = {MediaStore.Video.Thumbnails._ID, MediaStore.Video.Thumbnails.DATA};
+        Cursor cursor = getContentResolver().query(MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI
+                , projection
+                , MediaStore.Video.Thumbnails.VIDEO_ID + "=?"
+                , new String[]{videoId + ""}
+                , null);
+        String thumbPath = "";
+
+        assert cursor != null;
+        while (cursor.moveToNext()) {
+            thumbPath = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Thumbnails.DATA));
+        }
+        cursor.close();
+
+
+        return thumbPath;
+
     }
 
 
@@ -629,14 +659,36 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
 
     @Override
     public void updateThumbnailView(long photoId) {
-        for (PhotoItem item : dataList) {
-            if (photoId == item.getPhotoId()) {
-                item.setIsHadThumbnail(true);
-                item.isLoadingThumbnailBm = false;
-                mHandler.sendEmptyMessage(REFRESH_PHOTO_VIEW);
-                break;
+
+        D.i("updateThumbnailView");
+        Iterator<PhotoItem> photoItemIterator = dataList.iterator();
+
+        try {
+            while (photoItemIterator.hasNext()) {
+                PhotoItem item = photoItemIterator.next();
+                if (photoId == item.getPhotoId()) {
+                    item.setIsHadThumbnail(true);
+                    item.isLoadingThumbnailBm = false;
+                    mHandler.sendEmptyMessage(REFRESH_PHOTO_VIEW);
+                    break;
+                }
             }
+        } catch (Exception e) {
+            CrashReport.postCatchedException(e);
+            Log.w(TAG, "updateThumbnailView: " + e.getMessage());
         }
+
+
+//        for (PhotoItem item : dataList) {
+//            if (photoId == item.getPhotoId()) {
+//                item.setIsHadThumbnail(true);
+//                item.isLoadingThumbnailBm = false;
+//                mHandler.sendEmptyMessage(REFRESH_PHOTO_VIEW);
+//                break;
+//            }
+//        }
+
+
     }
 
 

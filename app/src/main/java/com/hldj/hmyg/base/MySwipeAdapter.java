@@ -81,13 +81,16 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
         finalBitmap.display(iv_img, seedlingBean.getSmallImageUrl());
 
 
-        View tv_right_top = view.findViewById(R.id.iv_right_top);
+        View iv_right_top = view.findViewById(R.id.iv_right_top);
 
         if (seedlingBean.attrData.ziying) {//自营显示票
-            tv_right_top.setVisibility(View.VISIBLE);
+            iv_right_top.setVisibility(View.VISIBLE);
         } else {
-            tv_right_top.setVisibility(View.GONE);
+            iv_right_top.setVisibility(View.GONE);
         }
+
+
+
 
 
         //设置小图标
@@ -129,8 +132,10 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
         tv_09.setText("库存: " + seedlingBean.getCount() + "");
 
 
-//                tv_delete_item   侧滑 删除时使用
-        view.findViewById(R.id.tv_delete).setOnClickListener(v -> {
+        View tv_right_top = view.findViewById(R.id.tv_right_top);
+        tv_right_top.setVisibility(View.VISIBLE);
+//      tv_delete_item   侧滑 删除时使用
+        view.findViewById(R.id.tv_right_top).setOnClickListener(v -> {
 
             new AlertDialog(context).builder()
 //                            .setTitle("确定清空所有收藏?")

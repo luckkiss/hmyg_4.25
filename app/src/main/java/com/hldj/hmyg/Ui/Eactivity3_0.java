@@ -359,7 +359,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                         Log.i("title", "onClick: ");
                     }
                 })
-                .addSheetItem("供苗专线: 158-6012-8888 卢经理", ActionSheetDialog.SheetItemColor.Blue,
+                .addSheetItem("购苗专线: 158-6012-8888 卢经理", ActionSheetDialog.SheetItemColor.Blue,
                         which -> {
 
                             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:15860128888"));
@@ -371,7 +371,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
 //                                SelectHeadTools.startCamearPicCut(mActivity, photoUri);
                         })
-                .addSheetItem("购苗专线: 158-6013-8888 叶经理", ActionSheetDialog.SheetItemColor.Blue,
+                .addSheetItem("供苗专线: 158-6013-8888 叶经理", ActionSheetDialog.SheetItemColor.Blue,
                         which -> {
 
                             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel::15860138888"));

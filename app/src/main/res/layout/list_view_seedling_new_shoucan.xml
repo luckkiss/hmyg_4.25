@@ -53,9 +53,8 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="70dp"
                     android:src="@mipmap/yixiajia" />
-
 
             </FrameLayout>
 
@@ -95,13 +94,38 @@
                             android:layout_width="34dp"
                             android:layout_height="34dp"
                             android:layout_alignParentRight="true"
-                            android:src="@drawable/piao_right_top" />
+                            android:src="@drawable/piao_right_top"
+                            tools:visibility="gone" />
+
+                        <com.coorchice.library.SuperTextView
+                            android:id="@+id/tv_right_top"
+                            android:layout_width="64dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginTop="12dp"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="删除"
+                            android:textColor="@color/text_color999"
+                            android:visibility="gone"
+                            app:corner="4dp"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:left_bottom_corner="true"
+                            app:left_top_corner="true"
+                            app:right_bottom_corner="true"
+                            app:right_top_corner="true"
+                            app:stroke_color="@color/text_color999"
+                            app:stroke_width="2px"
+                            tools:visibility="visible" />
 
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
+                            android:layout_toLeftOf="@+id/tv_right_top"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
                             android:paddingTop="7dp">
@@ -120,10 +144,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="3dp"
+                                android:ellipsize="end"
                                 android:gravity="center_vertical"
                                 android:maxLines="1"
                                 android:textColor="@color/main_color"
-                                android:textSize="@dimen/y11" />
+                                android:textSize="@dimen/y11"
+                                tools:text="af45s64fd6a4sf64s6adf46a4fd6a46sf46afa"
+
+                                />
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -220,7 +248,8 @@
                             android:padding="5dp"
                             android:scaleType="fitStart"
                             android:src="@mipmap/ic_delete"
-                            android:tint="@color/main_color" />
+                            android:tint="@color/main_color"
+                            android:visibility="gone" />
 
 
                     </RelativeLayout>

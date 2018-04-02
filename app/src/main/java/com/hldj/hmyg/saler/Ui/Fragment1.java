@@ -38,8 +38,6 @@ import java.util.List;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
-import static com.zzy.common.widget.MeasureGridView.context;
-
 
 /**
  * Created by Administrator on 2017/5/2.
@@ -119,7 +117,17 @@ public class Fragment1 extends Fragment {
 
     public static void doConvert(BaseViewHolder helper, SaveSeedingGsonBean.DataBean.SeedlingBean item, Activity mActivity) {
 
-        helper.setText(R.id.tv_fr_item_plant_name, item.purchaseItemJson.name);
+        String plant = "";
+        if (TextUtils.isEmpty(item.getPlantTypeName())) {
+            plant = "";
+        } else {
+            plant = "[" + item.getPlantTypeName() + "]";
+        }
+
+        StringFormatUtil fillColor = new StringFormatUtil(mActivity, plant + item.purchaseItemJson.name, item.purchaseItemJson.name, R.color.main_color).fillColor();
+
+
+        helper.setText(R.id.tv_fr_item_plant_name, fillColor.getResult());
 
         helper.setText(R.id.tv_fr_item_company_name, item.purchaseJson.name + " (" + item.purchaseJson.num + ")");
 //                helper.setText(R.id.tv_fr_item_company_name, item.purchaseJson.buyer.displayName);
@@ -137,13 +145,9 @@ public class Fragment1 extends Fragment {
             helper.setText(R.id.tv_fr_item_pre_price, "");
         }
 
-        String plant = "";
-        if (TextUtils.isEmpty(item.getPlantTypeName())) {
-            plant = "";
-        } else {
-            plant = "[" + item.getPlantTypeName() + "]";
-        }
-        helper.setText(R.id.tv_fr_item_specText, plant + FUtil.$(item.getSpecText()) + FUtil.$_head("可供数量：", FUtil.$_zero_2_null(item.getCount() + "")));
+
+        helper.setText(R.id.tv_fr_item_specText, FUtil.$(item.getSpecText()) + FUtil.$_head("可供数量：", FUtil.$_zero_2_null(item.getCount() + "")));
+//        helper.setText(R.id.tv_fr_item_specText, plant + FUtil.$(item.getSpecText()) + FUtil.$_head("可供数量：", FUtil.$_zero_2_null(item.getCount() + "")));
 
 
         helper.setText(R.id.stv_fragment_time, item.attrData.createDate);
@@ -163,7 +167,7 @@ public class Fragment1 extends Fragment {
 //                textView35  苗源地
         //有多少张图片
         if (imagesJson.size() > 0) {
-            StringFormatUtil fillColor = new StringFormatUtil(context, "有" + imagesJson.size() + "张图片", imagesJson.size() + "", R.color.red)
+            StringFormatUtil fillColor = new StringFormatUtil(mActivity, "有" + imagesJson.size() + "张图片", imagesJson.size() + "", R.color.red)
                     .fillColor();
             superTextView.setText(fillColor.getResult());
             superTextView.setShowState(true);

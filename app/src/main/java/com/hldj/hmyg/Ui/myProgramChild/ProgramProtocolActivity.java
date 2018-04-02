@@ -93,7 +93,7 @@ public class ProgramProtocolActivity extends ProgramDirctActivity implements Vie
     private static final String PRO_ID = "project_id";
 
     public String getExtralID() {
-        String pro_id = getIntent().getExtras().getString(PRO_ID);
+        String pro_id = getIntent().getExtras().getString(PRO_ID,"");
         D.e("=======PRO_ID===========" + pro_id);
         if (TextUtils.isEmpty(pro_id)) {
             return "";

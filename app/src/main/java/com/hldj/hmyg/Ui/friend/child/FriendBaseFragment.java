@@ -50,6 +50,7 @@ import com.hldj.hmyg.widget.MyCircleImageView;
 import com.hy.utils.ToastUtil;
 import com.mabeijianxi.smallvideo2.VideoPlayerActivity2;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.zzy.common.widget.MeasureGridView;
 import com.zzy.common.widget.MeasureListView;
 
@@ -281,8 +282,9 @@ public class FriendBaseFragment extends BaseFragment {
                     measureListView.setVisibility(View.GONE);
                 } else {
                     measureListView.setVisibility(View.VISIBLE);
-                }
 
+
+                }
                 measureListView.setAdapter(new GlobBaseAdapter<MomentsReply>(mActivity, item.itemListJson, R.layout.item_list_simple) {
                     @Override
                     public void setConverView(ViewHolders myViewHolder, MomentsReply s, int position) {
@@ -480,16 +482,27 @@ public class FriendBaseFragment extends BaseFragment {
                     @Override
                     public void onSuccess(String json) {
                         isFirst = false;
+
                         Log.i(TAG, "onSuccess: " + json);
                         Type beanType = new TypeToken<SimpleGsonBean_new<SimplePageBean<List<Moments>>>>() {
                         }.getType();
-                        SimpleGsonBean_new<SimplePageBean<List<Moments>>> bean_new = GsonUtil.formateJson2Bean(json, beanType);
 
-                        if (bean_new.data != null && bean_new.data.page != null)
-                            mRecyclerView.getAdapter().addData(bean_new.data.page.data);
+                        try {
+
+                            SimpleGsonBean_new<SimplePageBean<List<Moments>>> bean_new = GsonUtil.formateJson2Bean(json, beanType);
+
+                            if (bean_new.data != null && bean_new.data.page != null)
+                                mRecyclerView.getAdapter().addData(bean_new.data.page.data);
 //                        ToastUtil.showLongToast(bean_new.data.page.total + "条数据");
+                        } catch (Exception e) {
+                            CrashReport.postCatchedException(e);  // bugly会将这个throwable上报
+                            ToastUtil.showShortToast("数据解析失败");
+                        }
+
                         mRecyclerView.selfRefresh(false);
                         baseMVPActivity.hindLoading();
+
+
                     }
 
                     @Override

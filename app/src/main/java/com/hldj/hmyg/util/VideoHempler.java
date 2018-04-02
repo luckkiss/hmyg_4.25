@@ -44,7 +44,7 @@ public class VideoHempler {
         JianXiCamera.initialize(false, null);
     }
 
-
+    private static final String TAG = "VideoHempler";
     public static void start(Context mContext) {
         // recording
 //        MediaRecorderConfig config = new MediaRecorderConfig.Buidler()
@@ -60,6 +60,23 @@ public class VideoHempler {
 //        MediaRecorderActivity.goSmallVideoRecorder((Activity) mContext, PublishActivity.class.getName(), config);
 
         VideoActivity.start((Activity) mContext);
+
+
+//        String video = Environment.getExternalStorageDirectory().getPath() + File.separator
+//                + "myvideos" + File.separator + "a1.mp4";
+//
+//        if (new File(video).exists()) {
+//            Log.i(TAG, "存在此视频: ");
+//        } else {
+//            Log.w(TAG, "不 存在此视频: ");
+//        }
+//
+//        Intent intent1 = new Intent();
+//        intent1.putExtra(EsayVideoEditActivity.PATH, video);
+//        intent1.setClass(mContext, EsayVideoEditActivity.class);
+//        mContext.startActivity(intent1);
+
+
 
 //        MediaRecorderActivity.goSmallVideoRecorder((Activity) mContext, MediaRecorderActivity.class.getName(), config);
 //  Select local video compression

@@ -15,6 +15,7 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.hy.utils.ToastUtil;
@@ -52,8 +53,44 @@ public class UploadHeadUtil {
         String cachePath = null;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
                 || !Environment.isExternalStorageRemovable()) {
-            cachePath = context.getExternalCacheDir().getPath();
+//            cachePath = context.getExternalCacheDir().getPath();
+            File cacheDir = context.getExternalCacheDir();
+            if (cacheDir!=null)
+            {
+                cachePath = cacheDir.getAbsolutePath();
+            }
+
+            if (TextUtils.isEmpty(cachePath))
+            {
+                cachePath = Environment.getExternalStorageDirectory().getPath() + "/Android/data/com.hldj.hmyg/cache/";
+            }
+
+            /**
+             * File cacheDir = mContext.getExternalCacheDir();
+             if(null != cacheDir){
+             mCacheDirPath = cacheDir.getAbsolutePath() + "/images/";
+             }
+             if(TextUtils.isEmpty(mCacheDirPath)){
+             if(Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
+             mCacheDirPath = Environment.getExternalStorageDirectory().getPath() + "/Android/data/com.meiyaapp.meiya/cache/images/";
+             }else{
+             Toast.makeText(mContext,"SD卡状态错误,请调整后重试哦。",Toast.LENGTH_SHORT).show();
+             }
+             }
+             */
+
+            /**
+             *
+             * context.getExternalCacheDir()  、 context.getCacheDir()
+             *
+             *         不同点：
+
+             1、目录的路径不同。前者的目录存在外部SD卡上的。后者的目录存在app的内部存储上。
+
+             2、前者的路径在手机里可以直接看到。后者的路径需要root以后，用Root Explorer 文件管理器才能看到。
+             */
         } else {
+
             cachePath = context.getCacheDir().getPath();
         }
         return cachePath;

@@ -6,7 +6,7 @@ apply plugin: 'org.greenrobot.greendao'
 //
 
 def isDebug = true
-apply from: 'tinker-support.gradle'
+//apply from: 'tinker-support.gradle'
 
 //if (!isDebug) {
 
@@ -122,6 +122,7 @@ android {
             signingConfig signingConfigs.release
             ndk {
                 abiFilters "armeabi-v7a"
+               // 但4.2那个时代，v7已经普及了，你们从4.2开始，去掉v6 没问题。 我们苦逼的还要支持2.3
 //            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
             }
         }
@@ -199,4 +200,7 @@ dependencies {
     //    compile 'com.mabeijianxi:small-video-record2:2.0.3@aar'
     compile project(':SmallVideoLib2')
     compile project(':smallvideo')
+
+//    compile 'com.luocaca:maventest:1.1.2'
+//    compile 'com.github.bumptech.glide:glide:3.7.0'
 }

@@ -3,6 +3,7 @@ package com.hldj.hmyg.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -145,9 +146,9 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
 
             if (isEquleWidth) {
                 para.width = (width - dip30px) / 4;
-                para.height =  (width - dip30px) / 4;
-                                ViewGroup pr = (ViewGroup) holder.photoIv.getParent();
-                pr.setLayoutParams(new LinearLayout.LayoutParams( para.width, para.width));
+                para.height = (width - dip30px) / 4;
+                ViewGroup pr = (ViewGroup) holder.photoIv.getParent();
+                pr.setLayoutParams(new LinearLayout.LayoutParams(para.width, para.width));
 //                pr.setLayoutParams(new LinearLayout.LayoutParams( para.width, para.width));
 //
             } else {
@@ -181,11 +182,10 @@ public class PublishFlowerInfoPhotoAdapter extends BaseAdapter {
             }
             holder.photoIv.setScaleType(ImageView.ScaleType.FIT_XY);
 
-            if (isEquleWidth)
-            {
+            if (isEquleWidth) {
 
                 holder.photoIv.setImageResource(R.drawable.add_image_icon_big_eq);
-            }else {
+            } else {
 
                 holder.photoIv.setImageResource(R.drawable.add_image_icon);
             }

@@ -64,9 +64,12 @@
 
     <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
 
+
+        <!--AppKey="3230034994"-->
+        <!--AppSecret="f0c68cc5a4a86eb6bf0e4ab632ba17e7"   -->
     <SinaWeibo
-        AppKey="3230034994"
-        AppSecret="f0c68cc5a4a86eb6bf0e4ab632ba17e7"
+        AppKey="1439121485"
+        AppSecret="1bbf7fe05ec8787ce3569738b5b8eaea"
         Enable="true"
         Id="1"
         RedirectUrl="https://api.weibo.com/oauth2/default.html"

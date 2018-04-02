@@ -32,8 +32,6 @@ import java.util.List;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
-import static com.zzy.common.widget.MeasureGridView.context;
-
 /**
  * 采购详情  基础类
  */
@@ -214,7 +212,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
 //        D.e("==count====="+item.sellerQuoteJson.count);
 
         //头部与底部是一样的    这里初始化头部
-        StringFormatUtil fillColor = new StringFormatUtil(context, item.name + "  " + item.count + item.unitTypeName, item.count + item.unitTypeName, R.color.red).fillColor();
+        StringFormatUtil fillColor = new StringFormatUtil(mActivity, item.name + "  " + item.count + item.unitTypeName, item.count + item.unitTypeName, R.color.red).fillColor();
         getViewHolder_pur().tv_purchase_name.setText(strFilter(item.name));
 
 //        头部与底部是一样的    这里初始化头部

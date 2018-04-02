@@ -34,7 +34,7 @@ public class ProgramPurchaseActivityOnly extends ProgramPurchaseActivity {
         mModel = new ProgramPurchaseModel();
         mPresenter.setVM(this, mModel);
 
-        searchKey = getIntent().getExtras().getString("sellerId");
+        searchKey = getIntent().getExtras().getString("sellerId","");
 
         super.initView();
         getView(R.id.appbar).setVisibility(View.GONE);

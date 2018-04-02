@@ -80,12 +80,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:gravity="center"
             android:padding="5dp"
             android:text="删除"
-            android:textColor="@color/main_color"
-            android:visibility="gone"
+            android:textColor="@color/text_color999"
+            android:visibility="visible"
             app:corner="4dp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -93,8 +93,9 @@
             app:left_top_corner="true"
             app:right_bottom_corner="true"
             app:right_top_corner="true"
-            app:stroke_color="@color/main_color"
+            app:stroke_color="@color/text_colorccc"
             app:stroke_width="2px"
+
             tools:visibility="visible" />
 
 

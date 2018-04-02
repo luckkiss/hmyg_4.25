@@ -203,7 +203,11 @@ public class ProgramFragment1 extends BaseFragment {
 
 
     public String getProjectId() {
-        return ((ProgramDirctActivity) mActivity).getExtralID();
+        if (mActivity != null && mActivity instanceof ProgramDirctActivity) {
+            return ((ProgramDirctActivity) mActivity).getExtralID();
+        } else {
+            return "";
+        }
     }
 
 

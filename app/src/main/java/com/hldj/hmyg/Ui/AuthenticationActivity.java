@@ -42,6 +42,7 @@ import com.zf.iosdialog.widget.ActionSheetDialog;
 import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
 import net.tsz.afinal.bitmap.display.Displayer;
+import net.tsz.afinal.bitmap.display.SimpleDisplayer;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -738,20 +739,25 @@ public class AuthenticationActivity extends BaseMVPActivity {
             @Override
             public void loadCompletedisplay(View view, Bitmap bitmap, BitmapDisplayConfig bitmapDisplayConfig) {
 
-                ImageView aa = ((ImageView) view);
 
-                aa.setBackground(new BitmapDrawable(bitmap));
-                aa.setImageResource(R.drawable.chongxinshangchuan);
+                if (view instanceof MyImageViewShowUserCard) {
+                    ImageView aa = ((ImageView) view);
 
-                if (aa == iv_fan) {
-                    aa.setTag(http_fan);
-                } else {
-                    aa.setTag(http_zheng);
+                    aa.setBackground(new BitmapDrawable(bitmap));
+                    aa.setImageResource(R.drawable.chongxinshangchuan);
+
+                    if (aa == iv_fan) {
+                        aa.setTag(http_fan);
+                    } else {
+                        aa.setTag(http_zheng);
+                    }
+
+                    Log.i("loadCompletedisplay", "loadCompletedisplay: ");
+
+//                ToastUtil.showLongToast("-----加载结束----");
                 }
 
-                Log.i("loadCompletedisplay", "loadCompletedisplay: ");
 
-                ToastUtil.showLongToast("-----加载结束----");
             }
 
             @Override
@@ -761,8 +767,7 @@ public class AuthenticationActivity extends BaseMVPActivity {
         };
 
 
-
-                finalBitmap.configDisplayer(displayer);
+        finalBitmap.configDisplayer(displayer);
 
 //        finalBitmap.clearCache(http_zheng);
         finalBitmap.display(iv_zheng, http_zheng);
@@ -1131,9 +1136,14 @@ public class AuthenticationActivity extends BaseMVPActivity {
                 .configDisplayer(new Displayer() {
                     @Override
                     public void loadCompletedisplay(View view, Bitmap bitmap, BitmapDisplayConfig bitmapDisplayConfig) {
-                        iv.setBackground(new BitmapDrawable(bitmap));
-                        iv.setImageResource(R.drawable.chongxinshangchuan);
+
+                        if (view instanceof MyImageViewShowUserCard) {
+                            iv.setBackground(new BitmapDrawable(bitmap));
+                            iv.setImageResource(R.drawable.chongxinshangchuan);
 //                        this.setImageResource(R.drawable.chongxinshangchuan);
+                        }
+
+
                     }
 
                     @Override
@@ -1165,19 +1175,21 @@ public class AuthenticationActivity extends BaseMVPActivity {
     @Override
     protected void onDestroy() {
         hindLoading();
-        if (finalBitmap!=null)
-        {
-            finalBitmap.configDisplayer(new Displayer() {
-                @Override
-                public void loadCompletedisplay(View view, Bitmap bitmap, BitmapDisplayConfig bitmapDisplayConfig) {
-
-                }
-
-                @Override
-                public void loadFailDisplay(View view, Bitmap bitmap) {
-
-                }
-            });
+        if (finalBitmap != null) {
+            finalBitmap.configDisplayer(new SimpleDisplayer());
+//            finalBitmap.configDisplayer(new Displayer() {
+//                @Override
+//                public void loadCompletedisplay(View view, Bitmap bitmap, BitmapDisplayConfig bitmapDisplayConfig) {
+//                    if (view instanceof ImageView) {
+//                        ((ImageView) view).setImageBitmap(bitmap);
+//                    }
+//                }
+//
+//                @Override
+//                public void loadFailDisplay(View view, Bitmap bitmap) {
+//
+//                }
+//            });
         }
         super.onDestroy();
     }

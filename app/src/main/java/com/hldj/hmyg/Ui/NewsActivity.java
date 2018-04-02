@@ -226,4 +226,9 @@ public class NewsActivity extends NeedSwipeBackActivity {
         }
 
     }
+
+    @Override
+    public boolean setSwipeBackEnable() {
+        return true;
+    }
 }

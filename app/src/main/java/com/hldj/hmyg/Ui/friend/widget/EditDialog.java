@@ -42,6 +42,7 @@ public class EditDialog extends BaseDialogFragment {
     @Override
     public void initData() {
         this.setCancelable(true);
+        /* 4.x 版本无法 自动设置 需要手动设置。 */
         getDialog().setCanceledOnTouchOutside(true);
     }
 

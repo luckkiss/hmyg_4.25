@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MeasureGridView extends GridView {
-    public static Context context;
+    public  Context context;
 
     public boolean isOpenVideo = false;
     /**
@@ -33,19 +33,19 @@ public class MeasureGridView extends GridView {
     public MeasureGridView(Context context, AttributeSet attrs,
                            int defStyle) {
         super(context, attrs, defStyle);
-        MeasureGridView.context = context;
+        MeasureGridView.this.context = context;
     }
 
     public MeasureGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        MeasureGridView.context = context;
+        MeasureGridView.this.context = context;
 
 
     }
 
     public MeasureGridView(Context context) {
         super(context);
-        MeasureGridView.context = context;
+        MeasureGridView.this.context = context;
 
     }
 

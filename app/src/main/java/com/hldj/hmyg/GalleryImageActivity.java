@@ -31,6 +31,7 @@ import com.hldj.hmyg.bean.PicSerializableMaplist;
 import com.hldj.hmyg.saler.CoreActivity;
 import com.hy.utils.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.white.utils.FileUtil;
 import com.white.utils.StringUtil;
 import com.zzy.common.widget.galleryView.ImageGalleryPageAdapter;
@@ -115,8 +116,15 @@ public class GalleryImageActivity extends CoreActivity implements
 
         currentPage = getIntent().getIntExtra(INTENT_CURRENT_PAGE, 0);
         Bundle bundle = getIntent().getExtras();
-        urlPaths = ((PicSerializableMaplist) bundle
-                .get("INTENT_URL_LIST")).getMaplist();
+
+
+        try {
+            urlPaths = (  bundle.get("INTENT_URL_LIST")) != null ? ((PicSerializableMaplist) bundle.get("INTENT_URL_LIST")).getMaplist() : null;
+        } catch (NullPointerException e) {
+            ToastUtil.showLongToast("图片加载失败");
+            CrashReport.postCatchedException(e);
+        }
+
 
         initView();
         initListener();
@@ -554,7 +562,7 @@ public class GalleryImageActivity extends CoreActivity implements
 
 
         // 最后通知图库更新
-        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" +file.getAbsoluteFile())));
+        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getAbsoluteFile())));
 
         context.sendBroadcast(new Intent(
                 Intent.ACTION_MEDIA_MOUNTED,

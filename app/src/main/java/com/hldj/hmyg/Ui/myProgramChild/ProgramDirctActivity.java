@@ -87,7 +87,7 @@ public class ProgramDirctActivity extends BaseMVPActivity implements View.OnClic
     private static final String PRO_ID = "project_id";
 
     public String getExtralID() {
-        String pro_id = getIntent().getExtras().getString(PRO_ID);
+        String pro_id = getIntent().getExtras().getString(PRO_ID,"");
         if (TextUtils.isEmpty(pro_id)) {
             return "";
         }

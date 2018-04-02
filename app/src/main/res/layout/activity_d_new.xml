@@ -24,7 +24,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:padding="3dp"
-            android:src="@drawable/back_nol"
+            android:src="@drawable/ic_stepper_left"
+            android:tint="@color/text_color666"
             android:visibility="gone"
             tools:visibility="visible" />
 
@@ -36,7 +37,7 @@
             android:layout_marginRight="20dp"
             android:layout_toLeftOf="@+id/btn_delete"
             android:text="收藏夹"
-            android:textColor="@color/main_color"
+
             android:textSize="@dimen/titleSize" />
 
         <TextView

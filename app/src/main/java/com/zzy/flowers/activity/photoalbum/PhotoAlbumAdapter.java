@@ -1,8 +1,5 @@
 package com.zzy.flowers.activity.photoalbum;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -13,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PhotoAlbumAdapter extends BaseAdapter {
 

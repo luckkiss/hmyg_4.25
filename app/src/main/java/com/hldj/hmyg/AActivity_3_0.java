@@ -289,7 +289,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         findViewById(R.id.stv_home_2).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this));
         ////成交公告
         findViewById(R.id.stv_home_3).setOnClickListener(v -> NoticeActivity.start2Activity(AActivity_3_0.this));
-        findViewById(R.id.iv_home_left).setOnClickListener(v -> NoticeActivity.start2Activity(AActivity_3_0.this));
+
+        findViewById(R.id.iv_home_left).setOnClickListener(v ->  NewsActivity.start2Activity(AActivity_3_0.this) );
+//        findViewById(R.id.iv_home_left).setOnClickListener(v -> NoticeActivity.start2Activity(AActivity_3_0.this));
         //新闻资讯
         findViewById(R.id.stv_home_4).setOnClickListener(v -> NewsActivity.start2Activity(AActivity_3_0.this));
         //采购

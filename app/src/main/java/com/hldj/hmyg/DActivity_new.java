@@ -379,7 +379,6 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
     }
 
 
-
     private void requestCount(TabLayout.Tab tabAt, TabLayout.Tab tabAt1, boolean move2) {
 
         new BasePresenter()
@@ -480,6 +479,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 
 
         getView(R.id.tv_clear_all).setOnClickListener(v -> {
+                    showLoading();
                     D.e("==============清空收藏夹============");
                     String deleteTitle = deleteType.equals(seedling) ? "确认清空资源收藏?" : "确认清空苗木圈收藏?";
                     new AlertDialog(this).builder()
@@ -499,11 +499,12 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
                                             onRefresh();
                                         }
 
+                                        hindLoading();
                                     }
 
                                     @Override
                                     public void onFailure(Throwable t, int errorNo, String strMsg) {
-
+                                        hindLoading();
                                     }
                                 }).reqClearCollect(deleteType);
                             }).setNegativeButton("取消", v2 -> {
@@ -737,6 +738,9 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 
     }
 
-
+    @Override
+    public boolean setSwipeBackEnable() {
+        return false;
+    }
 }
 

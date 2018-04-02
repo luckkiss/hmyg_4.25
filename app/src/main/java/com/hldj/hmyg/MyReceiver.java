@@ -331,22 +331,22 @@ public class MyReceiver extends BroadcastReceiver {
 
             loginOut = jsonObject.getString("deviceId");
 
+            if (loginOut.equals(GetServerUrl.deviceId)) {
+//            ToastUtil.showLongToast("是自己,不需要退出登录");
+            } else {
+//            ToastUtil.showLongToast("执行退出登录" + loginOut);
+//              Call_Phone(context);
 
+                SettingActivity.clearCache(MyApplication.Userinfo.edit());
+                Intent intent1 = new Intent(mContent, LoginOutDialogActivity.class);
+                mContent.startActivity(intent1);
+            }
         } catch (JSONException e) {
             loginOut = "";
             e.printStackTrace();
         }
 
-        if (loginOut.equals(GetServerUrl.deviceId)) {
-//            ToastUtil.showLongToast("是自己,不需要退出登录");
-        } else {
-//            ToastUtil.showLongToast("执行退出登录" + loginOut);
-//              Call_Phone(context);
 
-            SettingActivity.clearCache(MyApplication.Userinfo.edit());
-            Intent intent1 = new Intent(mContent, LoginOutDialogActivity.class);
-            mContent.startActivity(intent1);
-        }
 
 
     }
@@ -382,6 +382,11 @@ public class MyReceiver extends BroadcastReceiver {
     // 打印所有的 intent extra 数据
     private static String printBundle(Bundle bundle) {
         StringBuilder sb = new StringBuilder();
+        if (bundle == null || bundle.keySet() == null) {
+            Log.w(TAG, "printBundle: is null");
+            return "";
+        }
+
         for (String key : bundle.keySet()) {
             if (key.equals(JPushInterface.EXTRA_NOTIFICATION_ID)) {
                 sb.append("\nkey:" + key + ", value:" + bundle.getInt(key));

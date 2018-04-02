@@ -197,9 +197,6 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
         });
 
 
-
-
-
     }
 
     private static final String TAG = "BActivity_new_test";
