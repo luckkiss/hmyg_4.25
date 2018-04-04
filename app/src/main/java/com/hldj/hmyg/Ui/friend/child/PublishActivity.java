@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
@@ -51,6 +52,7 @@ import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.white.utils.FileUtil;
 import com.zf.iosdialog.widget.AlertDialog;
 import com.zzy.common.widget.MeasureGridView;
 
@@ -254,55 +256,64 @@ public class PublishActivity extends BaseMVPActivity {
             ToastUtil.showLongToast("小视频录制失败~_~");
             D.w("===========录屏为空===========");
         } else {
-            currentVideoPath = url;
 
-             /*关闭视频控件 */
-            toggleVideo(true);
-        /*关闭删除按钮*/
-            toggleDeleteIcon(true);
-        /*关闭失败按钮*/
-            toggleFailedIcon(false);
-            grid.setVisibility(View.GONE);
-            video.setVisibility(View.VISIBLE);
-//            video.setVideoPath(url);
-            video.start();
-//            video.seekTo(1);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    video.pause();
-                }
-            }, 500);
-
-            ImageLoader.getInstance().displayImage(screen_shot.trim(), play, new ImageLoadingListener() {
-                @Override
-                public void onLoadingStarted(String imageUri, View view) {
-                    Log.i(TAG, "onLoadingStarted: ");
-                }
-
-                @Override
-                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                    Log.i(TAG, "onLoadingFailed: ");
-
-                }
-
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    Log.i(TAG, "onLoadingComplete: ");
-
-                }
-
-                @Override
-                public void onLoadingCancelled(String imageUri, View view) {
-                    Log.i(TAG, "onLoadingCancelled: ");
-
-                }
-            });
-
-            Bitmap bitmap = BitmapFactory.decodeFile(screen_shot.trim());
-            play.setImageBitmap(bitmap);
+            doShowVideo(url, screen_shot.trim());
 
         }
+
+
+    }
+
+    private void doShowVideo(String url, String screen_shot) {
+
+
+        currentVideoPath = url;
+
+             /*关闭视频控件 */
+        toggleVideo(true);
+        /*关闭删除按钮*/
+        toggleDeleteIcon(true);
+        /*关闭失败按钮*/
+        toggleFailedIcon(false);
+        grid.setVisibility(View.GONE);
+        video.setVisibility(View.VISIBLE);
+//            video.setVideoPath(url);
+        video.start();
+//            video.seekTo(1);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                video.pause();
+            }
+        }, 500);
+
+        ImageLoader.getInstance().displayImage(screen_shot.trim(), play, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+                Log.i(TAG, "onLoadingStarted: ");
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                Log.i(TAG, "onLoadingFailed: ");
+
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                Log.i(TAG, "onLoadingComplete: ");
+
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+                Log.i(TAG, "onLoadingCancelled: ");
+
+            }
+        });
+
+        Bitmap bitmap = BitmapFactory.decodeFile(screen_shot.trim());
+        play.setImageBitmap(bitmap);
 
 
     }
@@ -363,14 +374,16 @@ public class PublishActivity extends BaseMVPActivity {
             public void onChoosePic() {
                 D.e("===========onChoosePic=============");
                 //通过本界面 addPicUrls 方法回调
-                TakePhotoUtil.toChoosePic(mActivity, grid.getAdapter());
+                TakePhotoUtil.toChoosePicAndVideo(mActivity, grid.getAdapter(), true);
             }
 
             @Override
             public void onCancle() {
                 D.e("===========onCancle=============");
             }
-        },true);
+        }, true);
+
+
         grid.setVerticalSpacing(10);
         grid.setHorizontalSpacing(10);
 
@@ -714,6 +727,21 @@ public class PublishActivity extends BaseMVPActivity {
 //        D.e("=========addPicUrls=========" + resultPathList.get(0).toString());
     }
 
+
+    public void addVideo(String path, String screen) {
+
+        ToastUtil.showLongToast("path = " + path);
+        Log.i(TAG, "addVideo: " + path);
+
+        doShowVideo(path, screen);
+
+//        currentVideoPath = resultPathList.get(0).getUrl();
+//        video.setVideoPath(resultPathList.get(0).getUrl());
+//        video.start();
+////        viewHolder.publish_flower_info_gv.getAdapter().getDataList();
+//        D.e("=========addPicUrls=========" + resultPathList.get(0).toString());
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -809,13 +837,36 @@ public class PublishActivity extends BaseMVPActivity {
         super.onDestroy();
         instance = null;
 
+
+
+// Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "myvideos"
+        /* 删除所有  文件目录 */
+        //   String video = EsayVideoEditActivity.this.videoResutlDir + File.separator + "clip" + System.currentTimeMillis() / 1000L + ".mp4";
+        File file1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "myvideos");
+
+        Log.i(TAG, "删除所有add    文件目录: myvideos file1" + file1);
+        if (file1.exists()) {
+            // 删除里面所有的   文件夹  不包括文件
+            for (int i = 0; i < file1.listFiles().length; i++) {
+                String file2 = file1.listFiles()[i].getAbsolutePath();
+                FileUtil.deleteDirectory(file2);
+                Log.i(TAG, "onDestroy: " + file2);
+            }
+
+        }
+
+
+
         File file = new File(currentVideoPath);
         if (!file.exists()) {
             D.i("===文件不存在==" + currentVideoPath);
             return;
         }
+
         D.i("==删除 文件夹 操作 start==");
         deleteAllFile(file.getParentFile(), delete_all);
+
+
     }
 
     @Override

@@ -14,6 +14,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Video;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -60,10 +61,15 @@ import static android.provider.MediaStore.Images.Media.query;
 
 public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
 
+    public static final String INTENT_CHOOSE_PHOTOS = "intent_choose_photos";
+    public static final String INTENT_CHOOSE_VIDEOS = "intent_choose_videos";
+    public static final String INTENT_CHOOSE_TYPE = "intent_choose_type";
+
     public static final String INTENT_START_TYPE_KEY = "intent_start_type";
     public static final String INTENT_DIR_ID_KEY = "intent_dir_id";
     public static final String INTENT_PHOTO_TYPE_KEY = "intent_photo_type";
     public static final String INTENT_HAD_CHOOSE_PHOTO_KEY = "intent_had_choose_photo";
+    public static final String INTENT_HAD_CHOOSE_VIDEO_KEY = "intent_had_choose_video";
 
     public static final int INTENT_NOT_NEED_FOR_RESULT = -1;
 
@@ -141,15 +147,18 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
     private static final Logger logger = Logger.getLogger("");
 
     private boolean isSendSourcePic = false;
+    private String chooseType;
 
 
     public static void startPhotoActivity(Activity context, int startType,
-                                          String dirId, int photoType, int hadChoosePicCount, int requestCode) {
+                                          String dirId, int photoType, int hadChoosePicCount, int requestCode, String chooseType) {
         Intent intent = new Intent(context, PhotoActivity.class);
         intent.putExtra(INTENT_START_TYPE_KEY, startType);
         intent.putExtra(INTENT_DIR_ID_KEY, dirId);
         intent.putExtra(INTENT_PHOTO_TYPE_KEY, photoType);
         intent.putExtra(INTENT_HAD_CHOOSE_PHOTO_KEY, hadChoosePicCount);
+        intent.putExtra(INTENT_CHOOSE_TYPE, chooseType);
+
         if (requestCode != INTENT_NOT_NEED_FOR_RESULT) {
             context.startActivityForResult(intent, requestCode);
         } else {
@@ -170,6 +179,10 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
                 PHOTO_TYPE_PUBLISH_SEED_ATTACH);
         hadChoosePicCount = getIntent().getIntExtra(
                 INTENT_HAD_CHOOSE_PHOTO_KEY, 0);
+
+        /* 选择 标志   选择视频 还是选择图片   */
+        chooseType = getIntent().getStringExtra(INTENT_CHOOSE_TYPE);
+
         instance = this;
 
         initView();
@@ -210,8 +223,11 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
 
             @Override
             public void run() {
-//                setVideoData();
-                setPhotoData();
+                if (chooseType.equals(INTENT_CHOOSE_VIDEOS)) {
+                    setVideoData();
+                } else {
+                    setPhotoData();
+                }
                 mHandler.sendEmptyMessage(TO_LOAD_IMAGE_OVER);
             }
         }).start();
@@ -246,21 +262,42 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
      */
     private void setVideoData() {
 //        queryAllVideo(this);
-        Cursor cursor = MediaStore.Video.query(
-                getContentResolver(),
-                MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null);
+        // 直接查询全部  无法 根据 条件查找
+//        Cursor cursor = MediaStore.Video.query(
+//                getContentResolver(),
+//                MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null);
 
+//        Cursor cursor = query(
+//                getContentResolver(),
+//                MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+//                FileTypeUtil.STORE_VIDEOS,
+//                MediaStore.Video.VideoColumns .MIME_TYPE   + " = " + dirId  ,
+//                null);
+
+        Cursor cursor = getContentResolver().query(
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                FileTypeUtil.STORE_VIDEOS,
+                Video.VideoColumns.MIME_TYPE + "=? " + " and " + Video.VideoColumns.DURATION + "<=? ", new String[]{"video/mp4", "300000"},
+                Video.DEFAULT_SORT_ORDER
+        );
+
+//  MediaStore.Video.Media.BUCKET_ID + " =? ",
+//        new String[]{dirId}
         //查询数据库，参数分别为（路径，要查询的列名，条件语句，条件参数，排序）
 //        cursor = getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null, null, null, null);
 
 
         PhotoItem videoitem = null;
+
+
         while (cursor.moveToNext()) {
 //            String path = cursor.getString(cursor
 //                    .getColumnIndex(MediaStore.Video.Media.DATA));
 //            long id = Integer.valueOf(cursor.getString(1));
             int idColumnIndex = cursor.getColumnIndex(MediaStore.Video.Media._ID);
             long id = Integer.valueOf(cursor.getString(idColumnIndex));
+
+
 /**
  * MediaStore.Images.Media.DISPLAY_NAME, // 显示的名称
  MediaStore.Images.Media._ID, // ID
@@ -278,12 +315,24 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
             videoitem = new PhotoItem(id, path);
 
 
-            videoitem.video_image_path = getImagePath(id);
+            videoitem.video_image_path = getImagePath(id, instance);
+            if (TextUtils.isEmpty(videoitem.video_image_path)) {
+                refreshPhotoo(id, instance);
+                videoitem.video_image_path = getImagePath(id, instance);
+                Log.i(TAG, "setVideoData:相册刷新 " );
+            }
 
+
+            Log.i(TAG, "setVideoData:video_image_path " + videoitem.video_image_path);
+
+
+            int duration_index = cursor.getColumnIndex(Video.Media.DURATION);
+            long duration = Integer.valueOf(cursor.getString(duration_index));
 
             int picSizeColumnIndex = cursor.getColumnIndex(MediaStore.Video.Media.SIZE);
             videoitem.picSize = cursor.getLong(picSizeColumnIndex);
             videoitem.type = "video";
+            videoitem.duration = duration;
             dataList.add(videoitem);
 //            dataList.add(path);
         }
@@ -291,12 +340,18 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
         Collections.sort(dataList);
     }
 
-    private String getImagePath(long videoId) {
+
+    public static void refreshPhotoo(long videoId, Context mContext) {
+        MediaStore.Video.Thumbnails.getThumbnail(mContext.getContentResolver(), videoId, MediaStore.Video.Thumbnails.MICRO_KIND, null);
+    }
+
+    public static String getImagePath(long videoId, Context mContext) {
+
 
         //提前生成缩略图，再获取：http://stackoverflow.com/questions/27903264/how-to-get-the-video-thumbnail-path-and-not-the-bitmap
-        MediaStore.Video.Thumbnails.getThumbnail(getContentResolver(), videoId, MediaStore.Video.Thumbnails.MICRO_KIND, null);
+//       MediaStore.Video.Thumbnails.getThumbnail(getContentResolver(), videoId, MediaStore.Video.Thumbnails.MICRO_KIND, null);
         String[] projection = {MediaStore.Video.Thumbnails._ID, MediaStore.Video.Thumbnails.DATA};
-        Cursor cursor = getContentResolver().query(MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI
+        Cursor cursor = mContext.getContentResolver().query(MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI
                 , projection
                 , MediaStore.Video.Thumbnails.VIDEO_ID + "=?"
                 , new String[]{videoId + ""}
@@ -429,6 +484,14 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
             mHandler.sendEmptyMessage(COMPRESS_PHOTO_OVER_BY_GALLERY);
         }
     }
+
+
+    /* 发送一个 视频 地址出来 */
+//    public void sendVideo(String path) {
+//        if (PublishActivity.instance != null) {
+//            PublishActivity.instance.addVideo(path);
+//        }
+//    }
 
     public void sendPhotos() {
 

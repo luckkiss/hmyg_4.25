@@ -3,13 +3,16 @@ package com.hldj.hmyg.util;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.media.ThumbnailUtils;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 
+import com.example.maventest.EsayVideoEditActivity;
 import com.mabeijianxi.smallvideo2.VideoActivity;
 import com.mabeijianxi.smallvideorecord2.DeviceUtils;
 import com.mabeijianxi.smallvideorecord2.JianXiCamera;
@@ -45,6 +48,53 @@ public class VideoHempler {
     }
 
     private static final String TAG = "VideoHempler";
+
+
+    /* 处理视频 */
+    public static void startProcessVideo(Context mContext, String videoPath) {
+        // recording
+//        MediaRecorderConfig config = new MediaRecorderConfig.Buidler()
+//                .fullScreen(true)
+//                .smallVideoWidth(480)
+//                .smallVideoHeight(846)
+//                .recordTimeMax(10000)
+//                .recordTimeMin(1500)
+//                .maxFrameRate(25)
+//                .videoBitrate(750000)
+//                .captureThumbnailsTime(1)
+//                .build();
+//        MediaRecorderActivity.goSmallVideoRecorder((Activity) mContext, PublishActivity.class.getName(), config);
+
+
+        String video = Environment.getExternalStorageDirectory().getPath() + File.separator
+                + "myvideos" + File.separator + "a1.mp4";
+
+        if (new File(videoPath).exists()) {
+            Log.i(TAG, "存在此视频: ");
+        } else {
+            Log.w(TAG, "不 存在此视频: ");
+        }
+
+        Intent intent1 = new Intent();
+        EsayVideoEditActivity.isOk2Finish = true;
+        intent1.putExtra(EsayVideoEditActivity.PATH, videoPath);
+        intent1.setClass(mContext, EsayVideoEditActivity.class);
+        mContext.startActivity(intent1);
+
+
+//        MediaRecorderActivity.goSmallVideoRecorder((Activity) mContext, MediaRecorderActivity.class.getName(), config);
+//  Select local video compression
+//        LocalMediaConfig.Buidler buidler = new LocalMediaConfig.Buidler();
+//        final LocalMediaConfig config = buidler
+//                .setVideoPath(path)
+//                .captureThumbnailsTime(1)
+//                .doH264Compress(new AutoVBRMode())
+//                .setFramerate(15)
+//                .setScale(1.0f)
+//                .build();
+//        OnlyCompressOverBean onlyCompressOverBean = new LocalMediaCompress(config).startCompress();
+    }
+
     public static void start(Context mContext) {
         // recording
 //        MediaRecorderConfig config = new MediaRecorderConfig.Buidler()
@@ -75,7 +125,6 @@ public class VideoHempler {
 //        intent1.putExtra(EsayVideoEditActivity.PATH, video);
 //        intent1.setClass(mContext, EsayVideoEditActivity.class);
 //        mContext.startActivity(intent1);
-
 
 
 //        MediaRecorderActivity.goSmallVideoRecorder((Activity) mContext, MediaRecorderActivity.class.getName(), config);

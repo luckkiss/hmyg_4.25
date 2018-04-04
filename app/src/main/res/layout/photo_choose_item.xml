@@ -17,8 +17,7 @@
             android:layout_height="75dip"
             android:layout_centerInParent="true"
             android:scaleType="centerCrop"
-            tools:src="@color/gray_bg_ed"
-            />
+            tools:src="@color/gray_bg_ed" />
 
         <CheckBox
             android:id="@+id/photo_choose_check_iv"
@@ -31,24 +30,24 @@
             android:button="@drawable/dagou_seletor"
             tools:checked="true" />
 
-        <!--<TextView-->
-            <!--android:id="@+id/isvideo"-->
-            <!--android:layout_width="75dip"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="这是视频吗"-->
-            <!--android:layout_alignBottom="@+id/photo_choose_iv"-->
-            <!--android:layout_alignLeft="@+id/photo_choose_iv"-->
-            <!--android:layout_alignStart="@+id/photo_choose_iv" />-->
+        <TextView
+            android:id="@+id/isvideo"
+            android:layout_width="75dip"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/photo_choose_iv"
+            android:layout_alignLeft="@+id/photo_choose_iv"
+            android:layout_alignStart="@+id/photo_choose_iv"
+            android:text="这是视频吗"
+            android:textColor="@color/main_color" />
 
 
-        <!--<ImageView-->
-            <!--android:id="@+id/aa"-->
-            <!--android:layout_width="75dip"-->
-            <!--android:layout_height="75dip"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:src="@drawable/record_camera_switch_normal"-->
-            <!--android:padding="16dp"-->
-            <!--/>-->
+        <ImageView
+            android:id="@+id/forund_bg"
+            android:layout_width="75dip"
+            android:layout_height="75dip"
+            android:layout_centerInParent="true"
+            android:padding="16dp"
+            android:src="@drawable/record_camera_switch_normal" />
 
     </RelativeLayout>
 

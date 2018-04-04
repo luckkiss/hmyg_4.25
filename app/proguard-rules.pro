@@ -382,6 +382,7 @@ public static java.lang.String TABLENAME;
 
 
  -keep class com.mabeijianxi.smallvideorecord2.jniinterface.** {*; }
+ -keep class com.esay.ffmtool.** {*; }
 
 
 

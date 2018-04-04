@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 
@@ -178,6 +181,9 @@ public class VideoCacheHempler {
     /**
      * 将视频插入图库
      *
+     *
+     *  https://blog.csdn.net/chendong_/article/details/52290329
+     *
      * @param url 视频路径地址
      */
     public void updateVideo(String url) {
@@ -190,6 +196,28 @@ public class VideoCacheHempler {
         ContentValues localContentValues = getVideoContentValues(mActivity, file, System.currentTimeMillis());
         //insert语句负责插入一条新的纪录，如果插入成功则会返回这条记录的id，如果插入失败会返回-1。
         Uri localUri = localContentResolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, localContentValues);
+
+        Uri localUr1i = Uri.fromFile(file);
+
+        Log.i("uri = ", "localUri: " + localUri);
+        Log.i("uri = ", "localUr1i: " + localUr1i);
+
+        Intent localIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, localUr1i);
+        Intent localIntent1 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, localUri);
+
+        mActivity.sendBroadcast(localIntent);
+        mActivity.sendBroadcast(localIntent1);
+
+
+//      MediaScannerConnection.scanFile(mActivity, new String[]{Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath() + "/" + "myvideos"}, null, null);
+        MediaScannerConnection.scanFile(mActivity, new String[]{Environment.getExternalStorageDirectory().getPath() + "/" + "myvideos"}, new String[]{"video/mp4"}, null);
+
+
+        AlbumNotifyHelper. insertVideoToMediaStore(mActivity,url,localContentValues.getAsLong("datetaken"),66);
+
+
+        AlbumNotifyHelper.scanFile(mActivity,Environment.getExternalStorageDirectory().getPath() + "/" + "myvideos");
+
     }
 
 
@@ -198,7 +226,7 @@ public class VideoCacheHempler {
         ContentValues localContentValues = new ContentValues();
         localContentValues.put("title", paramFile.getName());
         localContentValues.put("_display_name", paramFile.getName());
-        localContentValues.put("mime_type", "video/3gp");
+        localContentValues.put("mime_type", "video/mp4");
         localContentValues.put("datetaken", Long.valueOf(paramLong));
         localContentValues.put("date_modified", Long.valueOf(paramLong));
         localContentValues.put("date_added", Long.valueOf(paramLong));
@@ -206,6 +234,21 @@ public class VideoCacheHempler {
         localContentValues.put("_size", Long.valueOf(paramFile.length()));
         return localContentValues;
     }
+
+
+//    //android把  文件添加到相册
+//    public void udpateMedia(String url){
+//        //图片路径
+//        File file=new File(url);
+//        ContentResolver localContentResolver = getContentResolver();
+//        ContentValues localContentValues = getImageContentValues(UnityPlayerNativeActivity.this, file,      System.currentTimeMillis());
+//        localContentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, localContentValues);
+//        Intent localIntent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
+//        final Uri localUri = Uri.fromFile(file);
+//        localIntent.setData(localUri);
+//        //发送广播即时更新图库
+//        sendBroadcast(localIntent);
+//    }
 
 
 }

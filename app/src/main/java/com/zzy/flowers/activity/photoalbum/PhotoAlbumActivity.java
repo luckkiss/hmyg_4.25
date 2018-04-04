@@ -34,6 +34,7 @@ public class PhotoAlbumActivity extends CoreActivity implements
         IThumbnailUpdate {
 
     private static final int TO_CHOOSE_PHOTO = 1;
+//    private static final int TO_CHOOSE_VIDEO = 2;
 
     public static final int TO_LOAD_IMAGE_OVER = 10;
     public static final int TO_LOAD_IMAGE_ERROR = 11;
@@ -52,6 +53,8 @@ public class PhotoAlbumActivity extends CoreActivity implements
      */
     private int hadChoosePicCount = 0;
 
+    private boolean isChooseVideos = false;
+
     private GridView photoAlbumGv;
     private PhotoAlbumAdapter adapter;
     private List<PhotoAlbumItem> dataList = new ArrayList<PhotoAlbumItem>();
@@ -66,6 +69,19 @@ public class PhotoAlbumActivity extends CoreActivity implements
         intent.putExtra(PhotoActivity.INTENT_HAD_CHOOSE_PHOTO_KEY,
                 hadChoosePicCount);
         context.startActivity(intent);
+    }
+
+
+    public static void startPhotoAlbumActivityVideo(Context context, int photoType,
+                                                    int hadChoosePicCount, boolean isChooseVideos) {
+        Intent intent = new Intent(context, PhotoAlbumActivity.class);
+        intent.putExtra(PhotoActivity.INTENT_PHOTO_TYPE_KEY, photoType);
+        intent.putExtra(PhotoActivity.INTENT_HAD_CHOOSE_PHOTO_KEY,
+                hadChoosePicCount);
+
+        intent.putExtra(PhotoActivity.INTENT_HAD_CHOOSE_VIDEO_KEY, isChooseVideos);
+
+        context.startActivity(intent);
 
 
     }
@@ -79,6 +95,11 @@ public class PhotoAlbumActivity extends CoreActivity implements
                 PhotoActivity.PHOTO_TYPE_PUBLISH_SEED_ATTACH);
         hadChoosePicCount = getIntent().getIntExtra(
                 PhotoActivity.INTENT_HAD_CHOOSE_PHOTO_KEY, 0);
+
+        isChooseVideos = getIntent().getBooleanExtra(
+                PhotoActivity.INTENT_HAD_CHOOSE_VIDEO_KEY, false);
+
+
         initView();
         initListener();
         initContent();
@@ -148,16 +169,30 @@ public class PhotoAlbumActivity extends CoreActivity implements
     private class AlbumOnItemClickListener implements OnItemClickListener {
 
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                                long id) {
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             SystemSetting.getInstance(PhotoAlbumActivity.this).setChoosePhotoDirId(
                     dataList.get(position).getDirId());
+//            int request ;
+//            if (position == 0) {
+//                request = TO_CHOOSE_VIDEO;
+//            } else {
+//                request = TO_CHOOSE_PHOTO;
+//            }
+
+            if (hadChoosePicCount == 0 && isChooseVideos) {
             PhotoActivity.startPhotoActivity(PhotoAlbumActivity.this,
                     PhotoActivity.START_TYPE_JUMP_IN_FROM_ALBUM,
                     dataList.get(position).getDirId(), photoType,
-                    hadChoosePicCount, TO_CHOOSE_PHOTO
-            );
+                    hadChoosePicCount, TO_CHOOSE_PHOTO, position == 0 ? PhotoActivity.INTENT_CHOOSE_VIDEOS : PhotoActivity.INTENT_CHOOSE_PHOTOS);
+        } else {
+            PhotoActivity.startPhotoActivity(PhotoAlbumActivity.this,
+                    PhotoActivity.START_TYPE_JUMP_IN_FROM_ALBUM,
+                    dataList.get(position).getDirId(), photoType,
+                    hadChoosePicCount, TO_CHOOSE_PHOTO, PhotoActivity.INTENT_CHOOSE_PHOTOS);
         }
+
+
+    }
     }
 
     /**
@@ -197,6 +232,17 @@ public class PhotoAlbumActivity extends CoreActivity implements
             dataList.add(countMap.get(key));
         }
         Collections.sort(dataList);
+
+
+        /* 如果没有选择 图片。显示视频  如果有图片了。就不显示 视频    */
+        if (hadChoosePicCount == 0 && isChooseVideos) {
+            //        PhotoAlbumItem albumItem = dataList.get(0);
+            PhotoAlbumItem albumItem = new PhotoAlbumItem("", "所有视频", 10, 100, "");
+            albumItem.setName("所有视频");
+            dataList.add(0, albumItem);
+        }
+
+
     }
 
     private class LoadHandler extends Handler {
@@ -213,6 +259,8 @@ public class PhotoAlbumActivity extends CoreActivity implements
                     hideDialog();
                     adapter = new PhotoAlbumAdapter(PhotoAlbumActivity.this,
                             dataList);
+                    adapter.setSelectCount(hadChoosePicCount);
+                    adapter.setChooseVideos(isChooseVideos);
                     photoAlbumGv.setAdapter(adapter);
                     break;
                 case REFRESH_PHOTOALBUM_VIEW:

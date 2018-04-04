@@ -122,13 +122,20 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
 
     @Override
     public void showLoading() {
-        super.showLoading();
+
+        if (!mActivity.isFinishing() && !dialog.isShowing()) {
+            super.showLoading();
+        }
+
     }
 
     @Override
     public void hindLoading() {
 
-        super.hindLoading();
+
+        if (!mActivity.isFinishing() && dialog.isShowing()) {
+            super.hindLoading();
+        }
 
     }
 

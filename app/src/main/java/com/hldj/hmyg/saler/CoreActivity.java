@@ -8,7 +8,6 @@ import android.content.res.Resources;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -18,7 +17,9 @@ import com.white.utils.AndroidUtil;
 import com.white.utils.GlobalData;
 import com.white.utils.ZzyProgressDiologUtil;
 
-public abstract class CoreActivity extends FragmentActivity {
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+
+public abstract class CoreActivity extends NeedSwipeBackActivity {
 
 	/** 系统输入管理对象 */
 	private InputMethodManager inputMethod;
@@ -255,5 +256,11 @@ public abstract class CoreActivity extends FragmentActivity {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
+	}
+
+
+	@Override
+	public boolean setSwipeBackEnable() {
+		return false;
 	}
 }

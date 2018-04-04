@@ -278,10 +278,7 @@ public class TakePhotoUtil {
     public static void toChoosePic(Context context, PublishFlowerInfoPhotoAdapter adapter) {
         String picstatus = Environment.getExternalStorageState();
         if (picstatus.equals(Environment.MEDIA_MOUNTED)) {
-            if (SystemSetting.getInstance(context).choosePhotoDirId.length() > 0
-                    && SystemSetting.isAlbumHasPhoto(
-                    context.getContentResolver(),
-                    context)) {
+            if (SystemSetting.getInstance(context).choosePhotoDirId.length() > 0   && SystemSetting.isAlbumHasPhoto(    context.getContentResolver(),   context)) {
                 // UpdataImageActivity
                 // .startPhotoActivity(
                 // UpdataImageActivity.this,
@@ -301,6 +298,43 @@ public class TakePhotoUtil {
                         context,
                         PhotoActivity.PHOTO_TYPE_PUBLISH_SEED_ATTACH,
                         adapter.getUrlPathsCount()
+                );
+            }
+        } else {
+            Toast.makeText(context, R.string.sdcard_is_unmount, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    /**
+     *
+     * @param context
+     * @param adapter
+     */
+    public static void toChoosePicAndVideo(Context context, PublishFlowerInfoPhotoAdapter adapter , boolean isHadVideo) {
+        String picstatus = Environment.getExternalStorageState();
+        if (picstatus.equals(Environment.MEDIA_MOUNTED)) {
+            if (SystemSetting.getInstance(context).choosePhotoDirId.length() > 0   && SystemSetting.isAlbumHasPhoto(    context.getContentResolver(),   context)) {
+                // UpdataImageActivity
+                // .startPhotoActivity(
+                // UpdataImageActivity.this,
+                // PhotoActivity.START_TYPE_JUMP_IN_NOT_FROM_ALBUM,
+                // SystemSetting
+                // .getInstance(UpdataImageActivity.this).choosePhotoDirId,
+                // PhotoActivity.PHOTO_TYPE_PUBLISH_SEED_ATTACH,
+                // adapter.getUrlPathsCount(),
+                // PhotoActivity.INTENT_NOT_NEED_FOR_RESULT);
+                PhotoAlbumActivity.startPhotoAlbumActivityVideo(
+                        context,
+                        PhotoActivity.PHOTO_TYPE_PUBLISH_SEED_ATTACH,
+                        adapter.getUrlPathsCount()
+                        ,isHadVideo
+                );
+            } else {
+                PhotoAlbumActivity.startPhotoAlbumActivityVideo(
+                        context,
+                        PhotoActivity.PHOTO_TYPE_PUBLISH_SEED_ATTACH,
+                        adapter.getUrlPathsCount(),isHadVideo
                 );
             }
         } else {

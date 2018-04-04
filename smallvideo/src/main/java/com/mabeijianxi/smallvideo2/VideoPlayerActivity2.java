@@ -91,6 +91,9 @@ public class VideoPlayerActivity2 extends FragmentActivity implements
         mVideoView = (VideoView) findViewById(R.id.auto_video);
 
 
+//        mVideoView.setRotationX(90);
+
+
 //        int screenWidth = getScreenWidth(this);
 //        int screenHeight = getScreenHeight(this);
 //        int videoHight = getScreenHeight(this);

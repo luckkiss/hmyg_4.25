@@ -1,7 +1,10 @@
 package com.zzy.flowers.activity.photoalbum;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,13 +16,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.maventest.EsayVideoEditActivity;
+import com.example.maventest.OnProcessListener;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.friend.child.PublishActivity;
 import com.hldj.hmyg.saler.ChoosePhotoGalleryActivity;
+import com.hldj.hmyg.util.VideoHempler;
 import com.white.utils.AndroidUtil;
 import com.white.utils.GlobalData;
 
+import net.tsz.afinal.FinalBitmap;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 public class PhotoAdapter extends BaseAdapter {
 
@@ -66,8 +77,10 @@ public class PhotoAdapter extends BaseAdapter {
             holder.imageIv = (ImageView) convertView
                     .findViewById(R.id.photo_choose_iv);
 
-//            holder.isvideo = (TextView) convertView
-//                    .findViewById(R.id.isvideo);
+            holder.isvideo = (TextView) convertView
+                    .findViewById(R.id.isvideo);
+            holder.forund_bg = (ImageView) convertView
+                    .findViewById(R.id.forund_bg);
 
             holder.checkIv = (CheckBox) convertView
                     .findViewById(R.id.photo_choose_check_iv);
@@ -80,14 +93,20 @@ public class PhotoAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-//        holder.isvideo.setText("是否视频：-> " + item.type);
+
+        if (item.type.equals("video")) {
+
+            FinalBitmap.create(context).display(holder.imageIv, item.video_image_path);
+//            holder.isvideo.setText("是否视频：-> " + item.type);
+            holder.isvideo.setText(item.duration / 1000 + " s");
 
 
-//        if (item.type.equals("video")) {
+            holder.forund_bg.setVisibility(View.VISIBLE);
 
-//            FinalBitmap.create(context).display(holder.imageIv, item.video_image_path);
+            holder.checkIv.setVisibility(View.GONE);
 
-//        }else {
+
+        } else {
             /** 通过ID 获取缩略图 */
             Bitmap thumbnail = item.getThumbnailBm();
             /** 通过ID 获取缩略图 */
@@ -104,7 +123,13 @@ public class PhotoAdapter extends BaseAdapter {
                                     item.picPath, item.getPhotoId());
                 }
             }
-//        }
+
+            holder.isvideo.setVisibility(View.GONE);
+            holder.forund_bg.setVisibility(View.GONE);
+            holder.checkIv.setVisibility(View.VISIBLE);
+
+
+        }
 
 
         holder.checkIv.setChecked(item.isSelect());
@@ -150,11 +175,76 @@ public class PhotoAdapter extends BaseAdapter {
         }
 
         private void toPreviewImages() {
-            GlobalData.galleryImageData = dataList;
-            ChoosePhotoGalleryActivity.startChoosePhotoGalleryActivity(
-                    PhotoActivity.instance, position,
-                    PhotoActivity.instance.isSendSourcePic(),
-                    PhotoActivity.TO_CHOOSE_NEW_PIC);
+
+            if (dataList.get(position).type.equals("video")) {
+
+
+                /* 判断合法的视频  直接通过 */
+
+                Log.i("toPreviewImages", "duration: " + dataList.get(position).duration / 1000);
+                Log.i("toPreviewImages", "videoSize: " + dataList.get(position).picSize / 1024);
+
+                if (dataList.get(position).duration / 1000 <= 15 && dataList.get(position).picSize / 1024  < 4000) {
+                    Log.i("toPreviewImages---> ", "");
+                    PublishActivity.instance.addVideo(dataList.get(position).getPath(), dataList.get(position).video_image_path);
+                    Intent completeIntent = new Intent();
+                    ((NeedSwipeBackActivity) context).setResult(Activity.RESULT_OK, completeIntent);
+                    ((NeedSwipeBackActivity) context).hindLoading();
+                    ((NeedSwipeBackActivity) context).finish();
+                    return;
+                }
+
+
+                VideoHempler.startProcessVideo(context, dataList.get(position).getPath());
+                EsayVideoEditActivity.onProcessListener = new OnProcessListener() {
+                    @Override
+                    public void onStart() {
+                        ((NeedSwipeBackActivity) context).showLoading();
+                        ((NeedSwipeBackActivity) context).UpdateLoading("开始裁剪....");
+                    }
+
+                    @Override
+                    public void onClipSuccess(String s) {
+                        ((NeedSwipeBackActivity) context).UpdateLoading("裁剪成功,开始压缩...");
+
+                    }
+
+                    @Override
+                    public void onCompressSuccess(String s) {
+                        ((NeedSwipeBackActivity) context).UpdateLoading("压缩成功");
+                        PublishActivity.instance.addVideo(s, dataList.get(position).video_image_path);
+                        Intent completeIntent = new Intent();
+                        ((NeedSwipeBackActivity) context).setResult(Activity.RESULT_OK, completeIntent);
+                        ((NeedSwipeBackActivity) context).hindLoading();
+                        ((NeedSwipeBackActivity) context).finish();
+
+                    }
+
+                    @Override
+                    public void onFailed(String s) {
+                        ((NeedSwipeBackActivity) context).UpdateLoading("失败");
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        ((NeedSwipeBackActivity) context).hindLoading();
+                    }
+                };
+
+
+
+                /* 判断   10 s  内  并小于 3 M  直接选择上传。。。 */
+
+
+            } else {
+                GlobalData.galleryImageData = dataList;
+                ChoosePhotoGalleryActivity.startChoosePhotoGalleryActivity(
+                        PhotoActivity.instance, position,
+                        PhotoActivity.instance.isSendSourcePic(),
+                        PhotoActivity.TO_CHOOSE_NEW_PIC);
+            }
+
+
         }
 
     }
@@ -163,6 +253,7 @@ public class PhotoAdapter extends BaseAdapter {
         public ImageView imageIv;
         public CheckBox checkIv;
         public TextView isvideo;
+        public ImageView forund_bg;
     }
 
 }

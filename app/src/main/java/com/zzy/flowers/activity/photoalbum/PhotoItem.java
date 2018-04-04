@@ -39,6 +39,9 @@ public class PhotoItem implements Serializable, Comparable<PhotoItem> {
     private long photoId = 0;
     private boolean isSelect = false;
     public boolean isHadThumbnailBm = false;
+
+    public long duration;
+
     /**
      * 是否正在缓存预览图
      */

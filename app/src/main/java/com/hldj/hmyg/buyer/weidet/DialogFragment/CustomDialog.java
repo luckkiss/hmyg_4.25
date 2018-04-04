@@ -11,12 +11,14 @@ import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 
+import java.io.Serializable;
+
 
 /**
- * Created by Administrator on 2017/5/6 0006.
+ *
  */
 
-public class CustomDialog extends Dialog {
+public class CustomDialog extends Dialog implements Serializable {
 
     private AnimationDrawable mAnimationDrawable;
     public TextView tv_loading_text;
@@ -37,8 +39,7 @@ public class CustomDialog extends Dialog {
     }
 
 
-    public void setCanceledOutside(boolean flag)
-    {
+    public void setCanceledOutside(boolean flag) {
         setCanceledOnTouchOutside(flag);
     }
 
@@ -49,7 +50,7 @@ public class CustomDialog extends Dialog {
 
         setContentView(R.layout.load_dialog);
 
-        tv_loading_text = (TextView)this.findViewById(R.id.tv_loading_text);
+        tv_loading_text = (TextView) this.findViewById(R.id.tv_loading_text);
 
 
         WindowManager.LayoutParams params = getWindow().getAttributes();
