@@ -49,14 +49,12 @@ import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 import com.mabeijianxi.smallvideo2.VideoPlayerActivity2;
 import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.white.utils.FileUtil;
 import com.zf.iosdialog.widget.AlertDialog;
 import com.zzy.common.widget.MeasureGridView;
 
 import net.tsz.afinal.FinalActivity;
+import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.annotation.view.ViewInject;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -287,34 +285,41 @@ public class PublishActivity extends BaseMVPActivity {
             }
         }, 500);
 
-        ImageLoader.getInstance().displayImage(screen_shot.trim(), play, new ImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String imageUri, View view) {
-                Log.i(TAG, "onLoadingStarted: ");
-            }
 
-            @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                Log.i(TAG, "onLoadingFailed: ");
+        D.i("screen_shot= -" + screen_shot + "-");
 
-            }
+//        ImageLoader.getInstance().displayImage(screen_shot, play, new ImageLoadingListener() {
+//            @Override
+//            public void onLoadingStarted(String imageUri, View view) {
+//                Log.i(TAG, "onLoadingStarted: ");
+//            }
+//
+//            @Override
+//            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+//                Log.i(TAG, "onLoadingFailed: ");
+//
+//            }
+//
+//            @Override
+//            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+//                Log.i(TAG, "onLoadingComplete: ");
+//
+//            }
+//
+//            @Override
+//            public void onLoadingCancelled(String imageUri, View view) {
+//                Log.i(TAG, "onLoadingCancelled: ");
+//
+//            }
+//        });
 
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                Log.i(TAG, "onLoadingComplete: ");
 
-            }
+//        Bitmap bitmap = BitmapFactory.decodeFile(screen_shot);
+//        play.setImageBitmap(bitmap);
 
-            @Override
-            public void onLoadingCancelled(String imageUri, View view) {
-                Log.i(TAG, "onLoadingCancelled: ");
 
-            }
-        });
-
-        Bitmap bitmap = BitmapFactory.decodeFile(screen_shot.trim());
-        play.setImageBitmap(bitmap);
-
+        FinalBitmap.create(mActivity)
+                .display(play, screen_shot);
 
     }
 
@@ -838,7 +843,6 @@ public class PublishActivity extends BaseMVPActivity {
         instance = null;
 
 
-
 // Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "myvideos"
         /* 删除所有  文件目录 */
         //   String video = EsayVideoEditActivity.this.videoResutlDir + File.separator + "clip" + System.currentTimeMillis() / 1000L + ".mp4";
@@ -854,7 +858,6 @@ public class PublishActivity extends BaseMVPActivity {
             }
 
         }
-
 
 
         File file = new File(currentVideoPath);
@@ -1031,7 +1034,20 @@ public class PublishActivity extends BaseMVPActivity {
             });
         }
 
-        if (!flag) {//如果是关闭的话 。清空当前视频地址，。。。 需要删除视频
+        if (flag) {//如果是关闭的话 。清空当前视频地址，。。。 需要删除视频
+//        if (!flag) {//如果是关闭的话 。清空当前视频地址，。。。 需要删除视频
+
+            /* 只有拍摄的视频。跟 压缩裁剪的视频 需要 删除。相册选出来的视频 不需要删除 */
+
+            // aa-hcanare
+            if (!currentVideoPath.contains("JCamera") || !currentVideoPath.contains("myvideos")) {
+                Log.i(TAG, "toggleVideo: 不包含 这2个文件夹目录，不需要删除");
+                return;
+            }
+
+            Log.i(TAG, "包含: JCamera myvideos 这2个文件夹目录，需要删除");
+            /* 只有拍摄的视频。跟 压缩裁剪的视频 需要 删除。相册选出来的视频 不需要删除 */
+
 
             File file = new File(currentVideoPath);
             if (!file.exists()) {
@@ -1059,6 +1075,9 @@ public class PublishActivity extends BaseMVPActivity {
             currentVideoPath = "";
         }
 
+        D.i("==清空  上传  路径==");
+
+        currentVideoPath = "";
     }
 
     private static final int delete_video = 0;

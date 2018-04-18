@@ -30,24 +30,36 @@
             android:button="@drawable/dagou_seletor"
             tools:checked="true" />
 
-        <TextView
-            android:id="@+id/isvideo"
-            android:layout_width="75dip"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/photo_choose_iv"
-            android:layout_alignLeft="@+id/photo_choose_iv"
-            android:layout_alignStart="@+id/photo_choose_iv"
-            android:text="这是视频吗"
-            android:textColor="@color/main_color" />
 
-
-        <ImageView
-            android:id="@+id/forund_bg"
+        <RelativeLayout
             android:layout_width="75dip"
             android:layout_height="75dip"
-            android:layout_centerInParent="true"
-            android:padding="16dp"
-            android:src="@drawable/record_camera_switch_normal" />
+            android:layout_centerInParent="true">
+
+
+            <TextView
+                android:id="@+id/isvideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignTop="@+id/forund_bg"
+                android:layout_toLeftOf="@+id/forund_bg"
+                android:gravity="center"
+                android:text="00:12"
+                android:textColor="@color/white" android:layout_marginRight="4dp"/>
+
+
+            <ImageView
+                android:id="@+id/forund_bg"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/record_time" />
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
 

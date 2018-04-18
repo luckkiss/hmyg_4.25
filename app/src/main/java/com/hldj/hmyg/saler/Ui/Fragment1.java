@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.R;
@@ -22,6 +23,7 @@ import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
+import com.hldj.hmyg.buyer.weidet.decoration.SectionDecoration;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
@@ -110,6 +112,47 @@ public class Fragment1 extends Fragment {
         }).openRefresh()
                 .selfRefresh(true)
                 .closeDefaultEmptyView();
+
+//        SectionDecoration.PowerGroupListener groupListener = new SectionDecoration.PowerGroupListener() {
+//            @Override
+//            public String getGroupName(int position) {
+//
+//                if (position < 3) {
+//                    return "group 1";
+//                } else if (position < 6) {
+//                    return "group 2";
+//                } else {
+//                    return "group 3";
+//                }
+//            }
+//
+//            @Override
+//            public View getGroupView(int position) {
+//                if (position < 3) {
+//                    View view = LayoutInflater.from(mActivity).inflate(R.layout.item_tag_style, null);
+//                    TextView textView = (TextView) view.findViewById(R.id.text1);
+//                    textView.setText("hello world");
+//                    return view;
+//                } else if (position < 6) {
+//                    View view = LayoutInflater.from(mActivity).inflate(R.layout.item_list_simple, null);
+//                    TextView textView = (TextView) view.findViewById(android.R.id.text1);
+//                    textView.setText("2222");
+//                    return view;
+//                } else {
+//                    View view = LayoutInflater.from(mActivity).inflate(R.layout.item_tag, null);
+//                    TextView textView = (TextView) view.findViewById(R.id.text1);
+//                    textView.setText("3333");
+//                    return view;
+//                }
+//
+//
+//            }
+//        };
+//        SectionDecoration itemDecoration = SectionDecoration.Builder.init(groupListener)
+//                .setGroupHeight(100)
+//                .build();
+//
+//        recyclerView.getRecyclerView().addItemDecoration(itemDecoration);
 
         recyclerView.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         return recyclerView;
