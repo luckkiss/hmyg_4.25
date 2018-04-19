@@ -15,6 +15,8 @@ public class UnitTypeBean implements Serializable {
         this.value = value;
         this.text = text;
     }
+
+    public static UnitTypeBean unitDefault = new UnitTypeBean("株", "plant");
 /**
  *  "text": "株",
  "value": "plant"

@@ -118,6 +118,12 @@ public class CustomUnitsPickPopwin extends PopupWindow {
                     // TODO 确定
                     if (onUnitSelect != null) {
                         onUnitSelect.onUnitSelect(dataSource.get(wv_string.getCurrentItem()));
+                        if (dataSource == null || dataSource.size() == 0) {
+                            onUnitSelect.onUnitSelect(UnitTypeBean.unitDefault);
+                        } else {
+                            onUnitSelect.onUnitSelect(dataSource.get(wv_string.getCurrentItem()));
+                        }
+
                     }
                     dismiss();
                     break;
