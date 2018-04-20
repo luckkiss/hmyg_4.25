@@ -41,9 +41,12 @@ public class SdkChangeByTagUtil {
         if (level.contains("26")) {
             return "Android 8.0";
         }
+        if (level.contains("27")) {
+            return "Android 8.1";
+        }
+//        return "不确定：" + level;
+        return "9.0 up";
 
-
-        return "不确定：" + level;
     }
 
 

@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.hldj.hmyg.widget.CommonListSpinner.showAsDropDown;
+
 public class SortSpinner1 {
     // PopupWindow对象
     private PopupWindow selectPopupWindow = null;
@@ -232,9 +234,9 @@ public class SortSpinner1 {
         // （是否会产生缝隙，及产生缝隙的大小，可能会根据机型、Android系统版本不同而异吧，不太清楚）
 //        selectPopupWindow.showAsDropDown(parent, 0, -3);
 
-        if (Build.VERSION.SDK_INT < 24) {
+        if (Build.VERSION.SDK_INT < 24 ) {
             selectPopupWindow.showAsDropDown(parent, 0, -3);
-        } else {
+        } else if (Build.VERSION.SDK_INT < 26){
             // 适配 android 7.0
             int[] location = new int[2];
 //             selectPopupWindow(location);
@@ -244,6 +246,9 @@ public class SortSpinner1 {
 //            ToastUtil.showShortToast("y="+y);
             Log.e(getClass().getSimpleName(), "x : " + x + ", y : " + y);
             selectPopupWindow.showAtLocation(parent, Gravity.NO_GRAVITY, 0, y + 5);
+        }else {
+            //8.0 以上
+            showAsDropDown(selectPopupWindow, parent, 0, -3);
         }
 
         optionsAdapter.notifyDataSetChanged();

@@ -2,6 +2,7 @@ package com.hldj.hmyg.widget;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
@@ -212,7 +213,7 @@ public class CommonListSpinner {
 
         if (Build.VERSION.SDK_INT < 24) {
             selectPopupWindow.showAsDropDown(parent, 0, -3);
-        } else {
+        } else if (Build.VERSION.SDK_INT < 26){
             // 适配 android 7.0
             int[] location = new int[2];
 //             selectPopupWindow(location);
@@ -222,6 +223,8 @@ public class CommonListSpinner {
 //            ToastUtil.showShortToast("y="+y);
             Log.e(getClass().getSimpleName(), "x : " + x + ", y : " + y);
             selectPopupWindow.showAtLocation(parent, Gravity.NO_GRAVITY, 0, y + 5);
+        }else {
+            showAsDropDown(selectPopupWindow, parent, 0, -3);
         }
 
         optionsAdapter.notifyDataSetChanged();
@@ -240,9 +243,12 @@ public class CommonListSpinner {
         // 这是为了防止下拉框与文本框之间产生缝隙，影响界面美化
         // （是否会产生缝隙，及产生缝隙的大小，可能会根据机型、Android系统版本不同而异吧，不太清楚）
 //        selectPopupWindow.showAsDropDown(parent, 0, -3);
+        //showAsDropDown
+
+
         if (Build.VERSION.SDK_INT < 24) {
             selectPopupWindow.showAsDropDown(parent, 0, -3);
-        } else {
+        } else if (Build.VERSION.SDK_INT < 26) {
             // 适配 android 7.0
             int[] location = new int[2];
 //             selectPopupWindow(location);
@@ -252,6 +258,9 @@ public class CommonListSpinner {
 //            ToastUtil.showShortToast("y="+y);
             Log.e(getClass().getSimpleName(), "x : " + x + ", y : " + y);
             selectPopupWindow.showAtLocation(parent, Gravity.NO_GRAVITY, 0, y - 1 + getStatusBarHeight());
+        } else {
+            //8.0 以上
+            showAsDropDown(selectPopupWindow, parent, 0, -3);
         }
 
         optionsAdapter.notifyDataSetChanged();
@@ -365,5 +374,25 @@ public class CommonListSpinner {
         int getLayoutId();
     }
 
+
+    /**
+     * @param pw     popupWindow
+     * @param anchor v
+     * @param xoff   x轴偏移
+     * @param yoff   y轴偏移
+     */
+    public static void showAsDropDown(final PopupWindow pw, final View anchor, final int xoff, final int yoff) {
+
+
+        if (Build.VERSION.SDK_INT >= 24) {
+            Rect visibleFrame = new Rect();
+            anchor.getGlobalVisibleRect(visibleFrame);
+            int height = anchor.getResources().getDisplayMetrics().heightPixels - visibleFrame.bottom;
+            pw.setHeight(height);
+            pw.showAsDropDown(anchor, xoff, yoff);
+        } else {
+            pw.showAsDropDown(anchor, xoff, yoff);
+        }
+    }
 
 }

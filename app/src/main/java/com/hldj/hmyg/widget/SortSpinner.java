@@ -26,6 +26,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.hldj.hmyg.widget.CommonListSpinner.showAsDropDown;
+
+//https://blog.csdn.net/zhihui_520/article/details/79097161
+// popu  window 错位问题  7.0 7.1  8.0 以上问题
 public class SortSpinner {
     // PopupWindow对象
     private PopupWindow selectPopupWindow = null;
@@ -231,7 +235,7 @@ public class SortSpinner {
 
         if (Build.VERSION.SDK_INT < 24) {
             selectPopupWindow.showAsDropDown(parent, 0, -3);
-        } else {
+        } else if (Build.VERSION.SDK_INT < 26) {
             // 适配 android 7.0
             int[] location = new int[2];
 //             selectPopupWindow(location);
@@ -241,6 +245,8 @@ public class SortSpinner {
 //            ToastUtil.showShortToast("y="+y);
             Log.e(getClass().getSimpleName(), "x : " + x + ", y : " + y);
             selectPopupWindow.showAtLocation(parent, Gravity.NO_GRAVITY, 0, y + 5);
+        } else {
+            showAsDropDown(selectPopupWindow, parent, 0, -3);
         }
 
         optionsAdapter.notifyDataSetChanged();
@@ -271,7 +277,7 @@ public class SortSpinner {
 //        selectPopupWindow.showAsDropDown(parent, 0, -3);
         if (Build.VERSION.SDK_INT < 24) {
             selectPopupWindow.showAsDropDown(parent, 0, -3);
-        } else {
+        } else if (Build.VERSION.SDK_INT < 26) {
             // 适配 android 7.0
             int[] location = new int[2];
 //             selectPopupWindow(location);
@@ -281,7 +287,10 @@ public class SortSpinner {
 //            ToastUtil.showShortToast("y="+y);
             Log.e(getClass().getSimpleName(), "x : " + x + ", y : " + y);
             selectPopupWindow.showAtLocation(parent, Gravity.NO_GRAVITY, 0, y - 1 + getStatusBarHeight());
+        } else {
+            showAsDropDown(selectPopupWindow, parent, 0, -3);
         }
+
 
         optionsAdapter.notifyDataSetChanged();
         return this;

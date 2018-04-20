@@ -312,6 +312,11 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
             int pathStrColumnIndex = cursor.getColumnIndex(MediaStore.Video.Media.DATA);
             String path = cursor.getString(pathStrColumnIndex);//video/mp4
 
+            if (!new File(path).exists()) {
+                Log.i(TAG, "setVideoData: 视频不存在 或者已经损坏");
+                continue;
+            }
+
             videoitem = new PhotoItem(id, path);
 
 
@@ -319,7 +324,7 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
             if (TextUtils.isEmpty(videoitem.video_image_path)) {
                 refreshPhotoo(id, instance);
                 videoitem.video_image_path = getImagePath(id, instance);
-                Log.i(TAG, "setVideoData:相册刷新 " );
+                Log.i(TAG, "setVideoData:相册刷新 ");
             }
 
 
