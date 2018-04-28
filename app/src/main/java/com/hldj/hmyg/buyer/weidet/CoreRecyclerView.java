@@ -298,7 +298,17 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
     }
 
     public CoreRecyclerView setDefaultEmptyView() {
+        return setDefaultEmptyView(false,null);
+    }
+
+    public CoreRecyclerView setDefaultEmptyView(boolean isOpenRetryButton, View.OnClickListener retry) {
         View empty = LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null);
+
+        if (isOpenRetryButton) {
+            TextView textView = empty.findViewById(R.id.go_to);
+            textView.setVisibility(VISIBLE);
+            textView.setOnClickListener(retry);
+        }
 //        View empty  = getContext(). inflate(R.layout.empty_view, null);
         empty.setOnClickListener(view1 -> onRefresh());
         final RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT);
@@ -311,6 +321,7 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
         mQuickAdapter.setEmptyView(empty);
         return this;
     }
+
 
     public CoreRecyclerView setEmptyView(View emptyView) {
         View empty = LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null);
@@ -391,6 +402,16 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
     }
 
     public CoreRecyclerView selfRefresh(boolean b, String errMsg) {
+        this.selfRefresh(b);
+        TextView tv_empty_err = (TextView) mQuickAdapter.getEmptyView().findViewById(R.id.t_emptyTextView);
+        if (tv_empty_err != null) {
+            if (!TextUtils.isEmpty(errMsg))
+                tv_empty_err.setText(errMsg);
+        }
+        return this;
+    }
+
+    public CoreRecyclerView selfRefresh(boolean b, String errMsg, boolean openRetryButton) {
         this.selfRefresh(b);
         TextView tv_empty_err = (TextView) mQuickAdapter.getEmptyView().findViewById(R.id.t_emptyTextView);
         if (tv_empty_err != null) {

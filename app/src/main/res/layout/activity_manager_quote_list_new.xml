@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
 
-    <include layout="@layout/toolbar_3_0" />
+    <include layout="@layout/toolbar_radio_3_0" />
     <!--<RelativeLayout-->
     <!--android:layout_width="fill_parent"-->
     <!--android:layout_height="35dp"-->
@@ -69,6 +69,12 @@
 
             />
     </com.weavey.loading.lib.LoadingLayout>
+
+
+    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+        android:id="@+id/recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>

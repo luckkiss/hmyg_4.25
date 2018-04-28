@@ -251,8 +251,25 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
      */
     public void addData(T data) {
         mData.add(data);
-        notifyItemInserted(mData.size() - 1);
+//        notifyItemInserted(mData.size() - 1);
+        notifyItemInserted(mData.size() + getHeaderLayoutCount());
+
+        compatibilityDataSizeChanged(1);
+
     }
+
+    /**
+     * compatible getLoadMoreViewCount and getEmptyViewCount may change
+     *
+     * @param size Need compatible data size
+     */
+    private void compatibilityDataSizeChanged(int size) {
+        final int dataSize = mData == null ? 0 : mData.size();
+        if (dataSize == size) {
+            notifyDataSetChanged();
+        }
+    }
+
 
     /**
      * add new data in to certain location
@@ -424,6 +441,8 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
     public int getItemCount() {
         int i = isLoadMore() ? 1 : 0;
         int count = mData.size() + i + getHeaderLayoutCount() + getFooterLayoutCount();
+//                int count = mData.size() + i + getHeaderLayoutCount() + getFooterLayoutCount()+getmEmptyViewCount();
+
         if (mData.size() == 0 && mEmptyView != null) {
             /**
              *  setEmptyView(false) and add emptyView

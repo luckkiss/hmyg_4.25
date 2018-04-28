@@ -100,13 +100,13 @@
                             <com.coorchice.library.SuperTextView
                                 android:id="@+id/stv_home_1"
                                 style="@style/home_types"
-                                android:text="苗木管理"
+                                android:text="采购报价"
                                 app:state_drawable="@mipmap/home_mmgl" />
 
                             <com.coorchice.library.SuperTextView
                                 android:id="@+id/stv_home_2"
                                 style="@style/home_types"
-                                android:text="采购报价"
+                                android:text="用户求购"
                                 app:state_drawable="@drawable/home_kuaisubj" />
 
                             <com.coorchice.library.SuperTextView
@@ -241,6 +241,52 @@
                             app:dividerHeight="3px" />
                     </LinearLayout>
 
+
+                    <!-- 用户求购 -->
+                    <LinearLayout
+                        android:id="@+id/ll_qiu_gou_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <View style="@style/View_line_gray" />
+
+                        <com.coorchice.library.SuperTextView
+                            android:id="@+id/home_title_qiu_gou"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/text_color333"
+                            android:textSize="17sp"
+                            app:isShowState="true"
+                            app:state_drawable="@drawable/home_more"
+                            app:state_drawable_height="13dp"
+                            app:state_drawable_mode="right"
+                            app:state_drawable_padding_left="-15dp"
+                            app:state_drawable_width="50dp"
+                            android:text="用户求购" />
+
+                        <View style="@style/View_line_gray_1px" />
+
+                        <com.jarvis.MyView.MyListView
+                            android:id="@+id/lv_qiu_gou"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:descendantFocusability="blocksDescendants"
+                            android:divider="@color/gray_bg_ed"
+                            android:dividerHeight="3px"
+                            android:headerDividersEnabled="true"
+                            app:dividerHeight="3px" />
+                    </LinearLayout>
+                    <!-- 用户求购 -->
 
                     <LinearLayout
                         android:id="@+id/ll_tuijian_parent"
@@ -390,9 +436,6 @@
             android:gravity="center"
             android:src="@mipmap/home_publish"
             android:visibility="visible" />
-
-
-
 
 
     </RelativeLayout>

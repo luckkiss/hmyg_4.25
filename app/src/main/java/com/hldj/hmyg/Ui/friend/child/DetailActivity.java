@@ -83,6 +83,10 @@ public class DetailActivity extends BaseMVPActivity {
 
     @ViewInject(id = R.id.tv_activity_purchase_back)
     TextView tv_activity_purchase_back;
+
+    @ViewInject(id = R.id.tv_jb)
+    TextView tv_jb;/* 举报按钮 */
+
     @ViewInject(id = R.id.tab1)
     TabItem tab1;
     @ViewInject(id = R.id.tab2)
@@ -129,6 +133,11 @@ public class DetailActivity extends BaseMVPActivity {
             moments.thumbUpListJson = new ArrayList<>();
         }
 
+        tv_jb.setOnClickListener(v->{
+            ReportActivity.start(mActivity,"");
+
+
+        });
         tablayout.getTabAt(1).setText("点赞 (" + moments.thumbUpCount + ")");
         first.setText("点赞 " + moments.thumbUpCount);
         first.setSelected(moments.isFavour);

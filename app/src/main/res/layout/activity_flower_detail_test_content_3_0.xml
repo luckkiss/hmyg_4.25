@@ -7,7 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="320dp">
+        android:layout_height="320dp"
+        tools:visibility="gone">
 
         <com.javis.ab.view.AbSlidingPlayView
             android:id="@+id/viewPager_menu"
@@ -17,18 +18,18 @@
             android:visibility="visible" />
 
 
+        <!--   android:background="@color/black_color_60"-->
         <TextView
             android:id="@+id/tv_last_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/viewPager_menu"
             android:layout_gravity="bottom"
-            android:background="@color/black_color_60"
+            android:background="@color/main_color"
             android:paddingBottom="4dp"
             android:paddingLeft="10dp"
             android:paddingTop="4dp"
             android:textColor="@color/white"
-            android:textSize="@dimen/y8"
             android:visibility="visible"
             tools:text="下架时间：2017-05-09  还剩下34天6小时43分09秒" />
 
@@ -41,59 +42,161 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!-- 重新布局开始 -->
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x8"
+            android:layout_height="55dp"
+            android:layout_marginLeft="12dp"
             android:layout_marginRight="@dimen/x8"
             android:layout_marginTop="@dimen/x8">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_plant"
-                    android:layout_width="@dimen/y10"
-                    android:layout_height="@dimen/y10"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:background="@drawable/icon_seller_rong"
                     android:gravity="center_vertical"
                     android:singleLine="true"
                     android:textSize="@dimen/y11"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
                     android:gravity="center_vertical"
                     android:singleLine="true"
                     android:textColor="@color/main_color"
-                    android:textSize="@dimen/y10"
+                    android:textSize="@dimen/textSizeTitle"
                     tools:text="香樟" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_statusName"
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="2dp">
+
+                <TextView
+                    android:id="@+id/tv_seedlingNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="@dimen/y3"
+                    android:singleLine="true"
+                    android:textColor="@color/text_color666"
+                    android:textSize="@dimen/textSizeContent"
+                    tools:text="种植类型：假植苗" />
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:gravity="center_vertical"
-                android:singleLine="true"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/y10"
-                tools:text="福建漳州" />
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/tv_add_car"
+                    style="@style/tab_hdpi"
+                    android:checked="true"
+                    android:drawableTop="@drawable/ic_winstyle_share"
+                    android:text="分享"
+                    android:textColor="@color/text_color666" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/text_color666"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp" />
+
+                <RadioButton
+                    android:id="@+id/ll_to_d4"
+                    style="@style/tab_hdpi"
+                    android:checked="true"
+                    android:drawableTop="@drawable/collect_no_select"
+                    android:text="收藏"
+                    android:textColor="@color/text_color666" />
+
+
+            </LinearLayout>
+
+
         </RelativeLayout>
+
+
+        <!-- 重新布局结束 -->
+
+
+        <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="@dimen/x8"-->
+        <!--android:layout_marginRight="@dimen/x8"-->
+        <!--android:layout_marginTop="@dimen/x8">-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/tv_plant"-->
+        <!--android:layout_width="@dimen/y10"-->
+        <!--android:layout_height="@dimen/y10"-->
+        <!--android:background="@drawable/icon_seller_rong"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:singleLine="true"-->
+        <!--android:textSize="@dimen/y11"-->
+        <!--android:visibility="visible" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/tv_name"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="4dp"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:singleLine="true"-->
+        <!--android:textColor="@color/main_color"-->
+        <!--android:textSize="@dimen/y10"-->
+        <!--tools:text="香樟" />-->
+        <!--</LinearLayout>-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/tv_statusName"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:singleLine="true"-->
+        <!--android:textColor="@color/text_color"-->
+        <!--android:textSize="@dimen/y10"-->
+        <!--tools:text="福建漳州" />-->
+        <!--</RelativeLayout>-->
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x8"
-            android:layout_marginRight="@dimen/x8">
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="@dimen/x8"
+            android:paddingBottom="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -101,58 +204,16 @@
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_seedlingNum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:gravity="center_vertical"
-                        android:paddingBottom="@dimen/y3"
-                        android:paddingTop="@dimen/y6"
-                        android:singleLine="true"
-                        android:textColor="#666666"
-                        android:textSize="@dimen/y8"
-                        tools:text="种植类型：假植苗" />
-                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/tv_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:gravity="center_vertical"
-                        android:paddingBottom="@dimen/y3"
-                        android:singleLine="true"
-                        android:textColor="#666666"
-                        android:textSize="@dimen/y8"
-                        tools:text="库存：110" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:paddingBottom="@dimen/y3"
-                            android:singleLine="true"
-                            android:text="价格："
-                            android:textColor="#666666"
-                            android:textSize="@dimen/y8" />
 
                         <TextView
                             android:id="@+id/tv_price"
@@ -161,7 +222,7 @@
                             android:gravity="center_vertical"
                             android:singleLine="true"
                             android:textColor="#FA0000"
-                            android:textSize="@dimen/y10"
+                            android:textSize="@dimen/textSizeTitle"
                             tools:text="Y3000-4000" />
 
                         <TextView
@@ -182,36 +243,117 @@
                             android:textColor="@color/red"
                             android:textSize="@dimen/y10" />
                     </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/tv_statusName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/y10"
+                        android:visibility="gone"
+                        tools:text="福建漳州" />
+
+                    <TextView
+                        android:id="@+id/tv_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="12dp"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="@dimen/y3"
+                        android:singleLine="true"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/textSizeContent"
+                        tools:text="库存：110" />
                 </RelativeLayout>
 
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/iv_lianxi"
-                android:layout_width="45.0dip"
-                android:layout_height="45.0dip"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:gravity="center_vertical"
-                android:src="@drawable/seller_makingacall_2"
-                android:visibility="visible" />
+            <!--<ImageView-->
+            <!--android:id="@+id/iv_lianxi"-->
+            <!--android:layout_width="15.0dip"-->
+            <!--android:layout_height="15.0dip"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:src="@drawable/seller_makingacall_2"-->
+            <!--android:visibility="visible" />-->
         </RelativeLayout>
 
-        <View
+
+        <View style="@style/View_line_gray" />
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="20px"
-            android:background="@color/white" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_bottom_line"
+            android:minHeight="@dimen/tableHeight"
+            android:paddingLeft="8dp"
+            android:weightSum="8">
+
+            <TextView
+                style="@style/table_row_left"
+                android:layout_weight="2"
+                android:background="@color/trans"
+                android:gravity="center_vertical"
+                android:text="商品编号"
+                android:textColor="@color/text_color666"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/spbh"
+                style="@style/table_row_right"
+                android:layout_weight="6"
+                android:background="@color/trans"
+                android:textColor="@color/text_color333"
+                tools:text="1044654660" />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tableHeight"
+            android:background="@drawable/bg_bottom_line"
+            android:minHeight="32dp"
+            android:paddingLeft="8dp"
+            android:weightSum="8">
+
+            <TextView
+                style="@style/table_row_left"
+                android:layout_weight="2"
+                android:background="@color/trans"
+                android:gravity="center_vertical"
+                android:text="分类"
+                android:textColor="@color/text_color666"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/fl"
+                style="@style/table_row_right"
+                android:layout_weight="6"
+                android:background="@color/trans"
+                android:textColor="@color/text_color333"
+                tools:text="乔木" />
+        </TableRow>
+
+
+        <View style="@style/View_line_gray" />
 
 
         <TextView
             android:id="@+id/stv_is_show_piao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:drawableLeft="@drawable/piao"
             android:drawablePadding="5dp"
-            android:padding="10dp"
+            android:padding="12dp"
             android:text="自营店品种，开具13%增值税专用票"
             android:textSize="@dimen/y9"
             android:visibility="gone"
@@ -234,26 +376,23 @@
                 android:id="@+id/ll_auto_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp"
-                android:orientation="vertical" />
+                android:orientation="vertical"
+                android:paddingLeft="8dp" />
 
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20px"
-            android:layout_marginTop="10.0dip"
-            android:background="#F3F5F7" />
+        <View style="@style/View_line_gray" />
+
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="clip_vertical"
-            android:layout_margin="@dimen/x7"
+            android:layout_height="@dimen/tableHeight"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
             android:text="商家信息"
             android:textColor="#333333"
-            android:textSize="@dimen/y10" />
+            android:textSize="@dimen/textSizeTitle" />
 
         <View
             android:layout_width="match_parent"
@@ -270,53 +409,63 @@
             android:id="@+id/ll_store"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x8"
-            android:layout_marginRight="@dimen/x8"
             android:orientation="vertical"
             android:padding="@dimen/x2"
+            android:paddingLeft="@dimen/x8"
+            android:paddingRight="@dimen/x8"
             android:visibility="visible">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/tableHeight"
+                android:layout_gravity="center_vertical"
                 android:layout_marginTop="@dimen/x5"
-                android:orientation="horizontal">
+                android:background="@drawable/bg_bottom_line"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
 
                 <!--<ImageView-->
                 <!--android:layout_width="@dimen/x15"-->
                 <!--android:layout_height="@dimen/x15"-->
-                <!--android:layout_gravity="clip_vertical"-->
+                <!--android:layout_gravity="center_vertical"-->
                 <!--android:src="@drawable/seller_company"-->
                 <!--android:visibility="gone" />-->
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="clip_vertical"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="2"
-                    android:text="公司名称:" />
+                    android:text="公司名称:"
+                    android:textColor="@color/text_color666" />
 
                 <TextView
                     android:id="@+id/tv_store_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="clip_vertical"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="6"
+                    android:paddingLeft="15dp"
+
+                    android:textColor="@color/text_color333"
+
                     tools:text="漳树(漳州) 园林有限公司" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/x5"
-                android:orientation="horizontal">
+                android:layout_height="@dimen/tableHeight"
+                android:background="@drawable/bg_bottom_line"
+                android:orientation="horizontal"
+
+                android:paddingLeft="12dp">
 
                 <!--<ImageView-->
                 <!--android:layout_width="@dimen/x15"-->
                 <!--android:layout_height="@dimen/x15"-->
-                <!--android:layout_gravity="clip_vertical"-->
+                <!--android:layout_gravity="center_vertical"-->
                 <!--android:src="@drawable/seller_area"-->
                 <!--android:visibility="gone" />-->
 
@@ -324,30 +473,59 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="clip_vertical"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="2"
-                    android:text="所在地区:" />
+                    android:text="所在地区:"
 
-                <TextView
-                    android:id="@+id/tv_store_area"
+                    android:textColor="@color/text_color666" />
+
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="clip_vertical"
+                    android:layout_height="match_parent"
                     android:layout_weight="6"
-                    tools:text="福建   漳州" />
+                    android:paddingRight="6dp">
+
+                    <TextView
+                        android:id="@+id/tv_store_area"
+                        android:layout_width="0dp"
+
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="15dp"
+                        android:textColor="@color/text_color333"
+                        tools:text="福建   漳州" />
+
+                    <View
+                        android:layout_width="1px"
+
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/readed_gray" />
+
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/location_marker"
+                        android:text="未定位" />
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/x5"
-                android:orientation="horizontal">
+                android:layout_height="@dimen/tableHeight"
+                android:background="@drawable/bg_bottom_line"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
 
                 <!--<ImageView-->
                 <!--android:layout_width="@dimen/x15"-->
                 <!--android:layout_height="@dimen/x15"-->
-                <!--android:layout_gravity="clip_vertical"-->
+                <!--android:layout_gravity="center_vertical"-->
                 <!--android:src="@drawable/ditu_lianxiren"-->
                 <!--android:visibility="gone" />-->
 
@@ -356,29 +534,34 @@
 
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="clip_vertical"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="2"
-                    android:text="联  系  人:" />
+                    android:text="联  系  人:"
+
+                    android:textColor="@color/text_color666" />
 
                 <TextView
                     android:id="@+id/tv_contanct_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="clip_vertical"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="6"
+                    android:paddingLeft="15dp"
+                    android:textColor="@color/text_color333"
                     tools:text="吴先生" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/x5"
-                android:orientation="horizontal">
+                android:layout_height="@dimen/tableHeight"
+                android:background="@drawable/bg_bottom_line"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp">
 
                 <!--<ImageView-->
                 <!--android:layout_width="@dimen/x15"-->
                 <!--android:layout_height="@dimen/x15"-->
-                <!--android:layout_gravity="clip_vertical"-->
+                <!--android:layout_gravity="center_vertical"-->
                 <!--android:src="@drawable/ditu_dianhua"-->
                 <!--android:visibility="gone" />-->
 
@@ -386,16 +569,20 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="clip_vertical"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="2"
-                    android:text="电        话:" />
+                    android:text="电        话:"
+
+                    android:textColor="@color/text_color666" />
 
                 <TextView
                     android:id="@+id/tv_store_phone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="clip_vertical"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="6"
+                    android:paddingLeft="15dp"
+                    android:textColor="@color/text_color333"
                     tools:text="15750701573" />
 
 

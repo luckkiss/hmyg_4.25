@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+
+    <TextView
+        android:id="@+id/dhj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:text="[到货价]"
+        android:textColor="@color/main_color"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="￥100"
+        android:textColor="@color/price_orige"
+        app:layout_constraintStart_toEndOf="@+id/dhj"
+        app:layout_constraintTop_toTopOf="@+id/dhj" />
+
+    <TextView
+        android:id="@+id/unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="/株"
+        app:layout_constraintStart_toEndOf="@+id/price"
+        app:layout_constraintTop_toTopOf="@+id/dhj" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tableHeight"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/bg_bottom_line"
+        android:gravity="center_vertical"
+        android:paddingLeft="4dp"
+        android:text="共2条报价"
+        android:textColor="@color/text_color333"
+        android:textSize="@dimen/textSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="28dp"
+        android:layout_height="26dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/icon_start"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/tupian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="共2张图片"
+        android:textSize="@dimen/textSizeContent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView19"
+        app:layout_constraintTop_toTopOf="@+id/dhj" />
+
+    <TextView
+        android:id="@+id/myd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:text="苗源地："
+        android:textSize="@dimen/textSizeContent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dhj" />
+
+    <TextView
+        android:id="@+id/remarks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:text="说明："
+        android:textSize="@dimen/textSizeContent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myd" />
+
+    <TextView
+        android:id="@+id/myd_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="广东中山"
+        android:textColor="@color/text_color333"
+        android:textSize="@dimen/textSizeContent"
+        app:layout_constraintStart_toEndOf="@+id/myd"
+        app:layout_constraintTop_toTopOf="@+id/myd" />
+
+
+    <TextView
+        android:id="@+id/remarks_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="这是种植苗5cm的苗"
+        android:textColor="@color/text_color333"
+        android:textSize="@dimen/textSizeContent"
+        app:layout_constraintStart_toEndOf="@+id/remarks"
+        app:layout_constraintTop_toTopOf="@+id/remarks" />
+
+    <TextView
+        android:id="@+id/textView66"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/divider_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/remarks" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageView20"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/icon_persion_pic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView66" />
+
+    <TextView
+        android:id="@+id/textView68"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="福建园林花木"
+        android:textColor="@color/text_color333"
+        android:textSize="@dimen/textSizeTitle"
+        app:layout_constraintStart_toEndOf="@+id/imageView20"
+        app:layout_constraintTop_toTopOf="@+id/imageView20" />
+
+    <TextView
+        android:id="@+id/textView70"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="大傻么么哒"
+        app:layout_constraintStart_toStartOf="@+id/textView68"
+        app:layout_constraintTop_toBottomOf="@+id/textView68" />
+
+    <TextView
+        android:id="@+id/ddh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/tag_bg2"
+        android:padding="4dp"
+        android:text="打电话"
+        android:textColor="@color/main_color"
+        android:textSize="@dimen/textSizeContent"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView20"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView20" />
+
+    <TextView
+        android:id="@+id/bhs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/red_btn_selector"
+        android:padding="4dp"
+        android:text="不合适"
+        android:textColor="@color/price_orige"
+        android:textSize="@dimen/textSizeContent"
+        app:layout_constraintBottom_toBottomOf="@+id/ddh"
+        app:layout_constraintEnd_toStartOf="@+id/ddh"
+        app:layout_constraintTop_toTopOf="@+id/ddh" />
+
+    <ImageView
+        android:id="@+id/iv_bhs"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/buheshi"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ddh"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

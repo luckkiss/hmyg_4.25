@@ -50,8 +50,14 @@ public class AddAdressActivity extends BaseMVPActivity {
         return R.layout.activity_add_adress;
     }
 
+
+
+
     @Override
     public void initView() {
+
+
+
 //        ToastUtil.showShortToast("添加地址界面");
         addressBean = new AddressBean();
 
@@ -88,6 +94,7 @@ public class AddAdressActivity extends BaseMVPActivity {
 
     }
 
+
     /**
      * 通过定位  获取地址
      */
@@ -110,7 +117,7 @@ public class AddAdressActivity extends BaseMVPActivity {
     @Override
     protected void initListener() {
         //提交按钮点击事件是公用的
-        getView(R.id.tv_aaa_save).setOnClickListener(v -> {
+        getView(R.id.tv_save).setOnClickListener(v -> {
 
             if (!submit(getView(R.id.et_aaa_contactPhone), "联系电话") || !submit(getView(R.id.et_aaa_detailAddress), "详细地址")) {
                 return;

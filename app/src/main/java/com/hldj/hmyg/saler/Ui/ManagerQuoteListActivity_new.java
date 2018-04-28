@@ -2,14 +2,20 @@ package com.hldj.hmyg.saler.Ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.RadioButton;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
+import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
+import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.Adapter.FragmentPagerAdapter_TabLayout;
 import com.hldj.hmyg.saler.ManagerQuoteListAdapter;
 import com.hldj.hmyg.util.D;
@@ -34,10 +40,14 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
     private String status = "";
     private View mainView;
 
+
     // 报价管理列表
 
     TabLayout mTabLayout;
     ViewPager mViewPager;
+
+    CoreRecyclerView coreRecyclerView;
+
     FragmentPagerAdapter_TabLayout mFragmentPagerAdapter_tabLayout;
     private ArrayList<String> list_title = new ArrayList<String>() {{
         add("全部");
@@ -60,7 +70,9 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_quote_list_new);
 
-        ((TextView) findViewById(R.id.toolbar_title)).setText("我的报价");
+
+//        ((TextView) findViewById(R.id.toolbar_title)).setText("我的报价");
+
 
 //        StatusBarUtil.setTranslucent(this,122);
 //        setContentView(R.layout.activity_manager_quote_list_new);
@@ -71,6 +83,9 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
 //        loadingLayout.setStatus(loadingLayout.Loading);
 //        loadingLayout.show
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+
+        coreRecyclerView = (CoreRecyclerView) findViewById(R.id.recycle);
+
         mViewPager = (ViewPager) findViewById(R.id.view_pager_manager);
         mViewPager.setOffscreenPageLimit(3);
 
@@ -91,6 +106,51 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
 //        loadingLayout.setStatus(LoadingLayout.Success);表示加载成功，
 //        会使得loadingLayout界面消失
 //                展示正常应用应该展示的界面
+
+
+        setTextOrHinden(R.id.rb_title_left, View.VISIBLE, "平台采购", v -> {
+            mTabLayout.setVisibility(View.VISIBLE);
+            loadingLayout.setVisibility(View.VISIBLE);
+
+        });
+        setTextOrHinden(R.id.rb_title_center, View.GONE, "", null);
+        setTextOrHinden(R.id.rb_title_right, View.VISIBLE, "用户求购", v -> {
+            mTabLayout.setVisibility(View.GONE);
+            loadingLayout.setVisibility(View.GONE);
+        });
+
+
+        initRecycleView(coreRecyclerView);
+
+
+    }
+
+    private void initRecycleView(CoreRecyclerView coreRecyclerView) {
+
+
+        coreRecyclerView.init(new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_ask_to_by) {
+            @Override
+            protected void convert(BaseViewHolder helper, String item) {
+
+                helper.setVisible(R.id.linearLayout, false);
+            }
+        });
+        coreRecyclerView.getRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                outRect.set(0, 2, 0, 0);
+            }
+        });
+
+        coreRecyclerView.getAdapter().addData("aaa");
+        coreRecyclerView.getAdapter().addData("aaa");
+        coreRecyclerView.getAdapter().addData("aaa");
+        coreRecyclerView.getAdapter().addData("aaa");
+        coreRecyclerView.getAdapter().addData("aaa");
+        coreRecyclerView.getAdapter().addData("aaa");
+        coreRecyclerView.getAdapter().addData("aaa");
+        coreRecyclerView.getAdapter().addData("aaa");
 
 
     }
@@ -118,5 +178,20 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
     @Override
     public boolean setSwipeBackEnable() {
         return true;
+    }
+
+
+    public void setTextOrHinden(@IdRes int id, int visible, String text, View.OnClickListener onClickListener) {
+
+        RadioButton radioButton = getView(id);
+
+        radioButton.setVisibility(visible);
+
+        radioButton.setText(text);
+
+
+        radioButton.setOnClickListener(onClickListener);
+
+
     }
 }

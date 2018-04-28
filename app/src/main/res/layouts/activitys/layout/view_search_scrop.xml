@@ -7,15 +7,17 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y22"
+        android:layout_height="80dp"
         android:layout_marginTop="@dimen/x8"
         android:background="@color/white"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/x10"
         android:paddingRight="@dimen/x10"
         android:visibility="visible">
+
 
         <TextView
             android:id="@+id/tv_text"
@@ -28,11 +30,30 @@
             android:textSize="@dimen/x15"
             android:visibility="visible" />
 
+
+        <com.hldj.hmyg.saler.purchase.userbuy.RxSeekBar
+            android:id="@+id/seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cellMode="number"
+            app:lineColorEdge="@color/radio_button_unselected_color"
+            app:lineColorSelected="@color/main_color"
+            app:markTextArray="@array/kedu"
+            app:maxProgress="100"
+            app:minProgress="0"
+            app:seekBarHeight="4dp"
+            app:seekBarMode="range"
+            app:textPadding="17dp"
+            app:thumbPrimaryColor="@color/main_color"
+            app:thumbSecondaryColor="@color/main_color"
+            app:thumbSize="20dp" />
+
         <EditText
             android:id="@+id/et_min"
             android:layout_width="0.0dip"
             android:layout_height="@dimen/x27"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:background="@drawable/green_btn_selector"
             android:gravity="center"
@@ -43,8 +64,7 @@
             android:textColor="@color/gray"
             android:textColorHint="@color/hint_text_color"
             android:textSize="@dimen/x15"
-            android:layout_marginLeft="10dp"
-            />
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -54,7 +74,8 @@
             android:padding="@dimen/x2"
             android:text="━"
             android:textColor="@color/main_color"
-            android:textSize="@dimen/x15" />
+            android:textSize="@dimen/x15"
+            android:visibility="gone" />
 
         <EditText
             android:id="@+id/et_max"
@@ -70,7 +91,8 @@
             android:padding="@dimen/x2"
             android:textColor="@color/gray"
             android:textColorHint="@color/hint_text_color"
-            android:textSize="@dimen/x15" />
+            android:textSize="@dimen/x15"
+            android:visibility="gone" />
     </LinearLayout>
 
     <com.zhy.view.flowlayout.TagFlowLayout
@@ -83,8 +105,6 @@
         android:visibility="visible"
         app:auto_select_effect="true"
         app:max_select="1" />
-
-
 
 
 </LinearLayout>

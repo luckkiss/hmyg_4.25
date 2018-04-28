@@ -7,9 +7,6 @@
     android:background="#ffffffff"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/top_padding_statu" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -58,32 +55,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/line_bak" />
 
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:tabIndicatorColor="@color/main_color"
-        app:tabSelectedTextColor="@color/main_color">
-
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="商城资源"
-
-            />
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="苗木圈" />
-
-
-    </android.support.design.widget.TabLayout>
-
+    <include layout="@layout/include_tab_head_double"/>
 
     <LinearLayout
         android:id="@+id/left_content"

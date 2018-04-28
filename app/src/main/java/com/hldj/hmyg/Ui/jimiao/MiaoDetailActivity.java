@@ -206,7 +206,7 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
                                     String num = JsonGetInfo.getJsonString(seedling, "num");
 //                                    tv_id_num.setText("编号：" + num);
 //                                    uploadDatas.seedlingNum = "资源编号：" + num;
-                                    autoAdd2DetailLinearLayout.changeText(num);
+//                                    autoAdd2DetailLinearLayout.changeText(num);
 
                                     for (int i = 0; i < imagesJson.length(); i++) {
                                         JSONObject image = imagesJson

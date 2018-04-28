@@ -308,6 +308,7 @@ public class AutoAddRelative extends RelativeLayout {
                 break;
         }
         setMTag(tag);
+
     }
 
 

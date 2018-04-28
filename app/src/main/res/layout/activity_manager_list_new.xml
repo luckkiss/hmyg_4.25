@@ -276,6 +276,15 @@
                 app:textPaddingTop="3dp" />
 
 
+            <!-- 已上架 状态显示栏目-->
+
+
+            <include layout="@layout/include_ready_head" />
+
+
+            <!-- 已上架 状态显示栏目-->
+
+
         </LinearLayout>
 
 

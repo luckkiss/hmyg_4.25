@@ -62,7 +62,7 @@ import static com.hldj.hmyg.util.UploadHeadUtil.TAKE_PHOTO;
 import static com.hldj.hmyg.util.UploadHeadUtil.getDiskCacheDir;
 
 /**
- * 积分详情界面
+ * 实名认证界面
  */
 
 public class AuthenticationActivity extends BaseMVPActivity {

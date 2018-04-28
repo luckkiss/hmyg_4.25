@@ -19,6 +19,7 @@ public abstract class HandlerAjaxCallBack extends AjaxCallBack<String> {
     private NeedSwipeBackActivity needSwipeBackActivity;
 
 
+
     public HandlerAjaxCallBack() {
 
     }

@@ -106,7 +106,7 @@ public class FriendUtil {
                     }
 
                     @Override
-                    public View getView(int position, ProvinceModel provinceModel, CommonListSpinner1.ViewHolder viewHolder, String codeStrings) {
+                    public void convert(int position, ProvinceModel provinceModel, CommonListSpinner1.ViewHolder viewHolder, String codeStrings) {
 
 //                      int resId =
                         D.i("=========getView=========position =" + provinceModel.toString());
@@ -188,7 +188,6 @@ public class FriendUtil {
                         });
 
 
-                        return null;
                     }
 
                     @Override

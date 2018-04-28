@@ -19,6 +19,8 @@
 
     <!--6.0之后 提供亮色状态栏，，能黑白交换-->
     <style name="AppBaseTheme" parent="NoActionBarThemeWhite">
+
+
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>

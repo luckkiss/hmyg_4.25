@@ -201,16 +201,27 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
 
     public void initSearchView(SearchScropView view, TypesBean.DataBean.MainSpecBean model, String min, String max) {
         view.setDatas(model);
+        ToastUtil.showLongToast("aaa");
         if (view.type.equals("rod")) {
             view.setMin(queryBean.minRod);
             view.setMax(queryBean.maxRod);
+            view.setSeek_bar(queryBean.minRod,queryBean.maxRod);
         } else if (view.type.equals("height")) {
             view.setMin(queryBean.minHeight);
             view.setMax(queryBean.maxHeight);
+
+            view.setSeek_bar(queryBean.minHeight,queryBean.maxHeight);
         } else if (view.type.equals("crown")) {
             view.setMin(queryBean.minCrown);
             view.setMax(queryBean.maxCrown);
+
+            view.setSeek_bar(queryBean.minCrown,queryBean.maxCrown);
+
         }
+
+
+
+
     }
 
     private void initSpecList(List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> specList) {

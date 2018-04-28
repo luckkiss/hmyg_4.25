@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:text="地径"
-        android:textSize="@dimen/x15" android:layout_marginTop="20dp" />
+        android:textSize="@dimen/textSizeContent" android:layout_marginTop="20dp" />
 
     <TextView
         android:id="@+id/tv_auto_add_left2"

@@ -26,6 +26,7 @@ import com.hldj.hmyg.util.D;
 import java.util.List;
 
 import static android.widget.AbsListView.CHOICE_MODE_NONE;
+import static com.hldj.hmyg.widget.CommonListSpinner.showAsDropDown;
 
 /**
  * 通用  spinner
@@ -36,7 +37,7 @@ public class CommonListSpinner1<T> {
     // 自定义Adapter
     private SortListAdapter optionsAdapter = null;
     // 下拉框依附组件
-    private View parent;
+//    private View parent;
     // 下拉框依附组件宽度，也将作为下拉框的宽度
     private int pwidth;
 
@@ -73,7 +74,7 @@ public class CommonListSpinner1<T> {
 
     private void initWedget() {
         // 获取下拉框依附的组件宽度
-        int width = parent.getWidth();
+        int width = mBuilder.mApplyParentView.getWidth();
         pwidth = width;
 
         // 初始化PopupWindow
@@ -229,7 +230,7 @@ public class CommonListSpinner1<T> {
 
         if (Build.VERSION.SDK_INT < 24) {
             selectPopupWindow.showAsDropDown(mBuilder.mApplyParentView, 0, -3);
-        } else {
+        } else if (Build.VERSION.SDK_INT < 26) {
             // 适配 android 7.0
             int[] location = new int[2];
 //             selectPopupWindow(location);
@@ -238,10 +239,13 @@ public class CommonListSpinner1<T> {
             int y = location[1];
 //            ToastUtil.showShortToast("y="+y);
             Log.e(getClass().getSimpleName(), "x : " + x + ", y : " + y);
-            selectPopupWindow.showAtLocation(mBuilder.mApplyParentView, Gravity.NO_GRAVITY, 0, y + getStatusBarHeight());
-//        }
-            optionsAdapter.notifyDataSetChanged();
+            selectPopupWindow.showAtLocation(mBuilder.mApplyParentView, Gravity.NO_GRAVITY, 0, y + 5);
+        } else {
+            showAsDropDown(selectPopupWindow, mBuilder.mApplyParentView, 0, -3);
+
         }
+
+        optionsAdapter.notifyDataSetChanged();
         return this;
 
     }
@@ -255,7 +259,7 @@ public class CommonListSpinner1<T> {
 
         if (Build.VERSION.SDK_INT < 24) {
             selectPopupWindow.showAsDropDown(mBuilder.mApplyParentView, 0, -3);
-        } else {
+        } else if (Build.VERSION.SDK_INT < 26) {
             // 适配 android 7.0
             int[] location = new int[2];
 //             selectPopupWindow(location);
@@ -264,7 +268,9 @@ public class CommonListSpinner1<T> {
             int y = location[1];
 //            ToastUtil.showShortToast("y="+y);
             Log.e(getClass().getSimpleName(), "x : " + x + ", y : " + y);
-            selectPopupWindow.showAtLocation(mBuilder.mApplyParentView, Gravity.NO_GRAVITY, 0, y + getStatusBarHeight());
+            selectPopupWindow.showAtLocation(mBuilder.mApplyParentView, Gravity.NO_GRAVITY, 0, y + 5);
+        } else {
+            showAsDropDown(selectPopupWindow, mBuilder.mApplyParentView, 0, -3);
         }
 
 
@@ -289,7 +295,7 @@ public class CommonListSpinner1<T> {
 //        selectPopupWindow.showAsDropDown(parent, 0, -3);
         if (Build.VERSION.SDK_INT < 24) {
             selectPopupWindow.showAsDropDown(mBuilder.mApplyParentView, 0, -3);
-        } else {
+        } else if (Build.VERSION.SDK_INT < 26) {
             // 适配 android 7.0
             int[] location = new int[2];
 //             selectPopupWindow(location);
@@ -298,7 +304,9 @@ public class CommonListSpinner1<T> {
             int y = location[1];
 //            ToastUtil.showShortToast("y="+y);
             Log.e(getClass().getSimpleName(), "x : " + x + ", y : " + y);
-            selectPopupWindow.showAtLocation(mBuilder.mApplyParentView, Gravity.NO_GRAVITY, 0, y - 1 + getStatusBarHeight());
+            selectPopupWindow.showAtLocation(mBuilder.mApplyParentView, Gravity.NO_GRAVITY, 0, y + 5);
+        } else {
+            showAsDropDown(selectPopupWindow, mBuilder.mApplyParentView, 0, -3);
         }
 
         optionsAdapter.notifyDataSetChanged();
@@ -364,7 +372,7 @@ public class CommonListSpinner1<T> {
                 mViewHolder = (ViewHolder) convertView.getTag();
             }
             if (mBuilder.contentView != null) {
-                mBuilder.contentView.getView(position, getItem(position), mViewHolder, historyCityCodes);
+                mBuilder.contentView.convert(position, getItem(position), mViewHolder, historyCityCodes);
             } else {
                 Log.w("getView", "-------接口没有 设置-------");
             }
@@ -477,7 +485,7 @@ public class CommonListSpinner1<T> {
     }
 
     public static interface CallContentView<T> {
-        View getView(int position, T obj, ViewHolder viewHolder, String codeStrings);
+        void convert(int position, T obj, ViewHolder viewHolder, String codeStrings);
 
         @LayoutRes
         int getLayoutId();

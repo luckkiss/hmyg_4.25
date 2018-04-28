@@ -53,8 +53,8 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
             if (this instanceof BaseView)
                 mPresenter.setVM(this, mModel);
         } catch (Exception e) {
-            D.e("===mvp 设置失败====e=====" + e.getMessage());
-            e.printStackTrace();
+            D.e("===mvp 设置失败====e=====");
+//            e.printStackTrace(); // 不打印堆栈  难看的要死
         }
 
         initView();

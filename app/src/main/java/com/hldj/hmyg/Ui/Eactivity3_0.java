@@ -27,17 +27,15 @@ import android.widget.TextView;
 
 import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.CallBack.ResultCallBack;
+import com.hldj.hmyg.DActivity_new;
 import com.hldj.hmyg.FeedBackActivity;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.M.userIdentity.enums.UserIdentityStatus;
 import com.hldj.hmyg.MainActivity;
-import com.hldj.hmyg.ManagerListActivity_new;
 import com.hldj.hmyg.MessageListActivity;
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.SafeAcountActivity;
 import com.hldj.hmyg.SetProfileActivity;
 import com.hldj.hmyg.SettingActivity;
-import com.hldj.hmyg.StoreActivity;
 import com.hldj.hmyg.Ui.friend.child.CenterActivity;
 import com.hldj.hmyg.Ui.jimiao.MiaoNoteListActivity;
 import com.hldj.hmyg.application.MyApplication;
@@ -47,9 +45,11 @@ import com.hldj.hmyg.base.rxbus.annotation.Subscribe;
 import com.hldj.hmyg.base.rxbus.event.EventThread;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SimpleGsonBean;
+import com.hldj.hmyg.me.AskToByActivity;
+import com.hldj.hmyg.me.AttentionActivity;
+import com.hldj.hmyg.me.HistoryActivity;
 import com.hldj.hmyg.presenter.AActivityPresenter;
 import com.hldj.hmyg.presenter.EPrestenter;
-import com.hldj.hmyg.saler.AdressManagerActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.StoreSettingActivity;
 import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
@@ -59,7 +59,6 @@ import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.RippleAdjuster;
 import com.hldj.hmyg.util.UploadHeadUtil;
 import com.hldj.hmyg.widget.BounceScrollView;
-import com.hldj.hmyg.widget.ShareDialogFragment;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 import com.lqr.optionitemview.OptionItemView;
@@ -209,14 +208,15 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         loadHeadImage(getSpB("isLogin"));//加载头像
         setRealName(getSpS("userName"), getSpS("realName"));
 
-        this.getView(R.id.sptv_wd_mmgl).setOnClickListener(v -> ManagerListActivity_new.start2Activity(mActivity));//苗木管理
+//        this.getView(R.id.sptv_wd_mmgl).setOnClickListener(v -> ManagerListActivity_new.start2Activity(mActivity));//苗木管理
         this.getView(R.id.sptv_wd_bjgl).setOnClickListener(v -> ManagerQuoteListActivity_new.start2Activity(mActivity));//报价管理
         D.e("======商店id======" + MyApplication.getUserBean().storeId);
-        this.getView(R.id.sptv_wd_wddp).setOnClickListener(v -> StoreActivity.start2ActivityForRsl(mActivity, MyApplication.getUserBean().storeId));//我的店铺
-        this.getView(R.id.sptv_wd_dpsz).setOnClickListener(v -> StoreSettingActivity.start2Activity(mActivity));//店铺设置
-        this.getView(R.id.sptv_wd_zhaq).setOnClickListener(v -> SafeAcountActivity.start2Activity(mActivity));//账户安全
-        this.getView(R.id.sptv_wd_mydz).setOnClickListener(v -> AdressManagerActivity.start2Activity(mActivity));//苗源地址管理
-        this.getView(R.id.sptv_wd_fxapp).setOnClickListener(v -> ShareDialogFragment.newInstance().show(getSupportFragmentManager(), getClass().getName()));//分享 app
+//        this.getView(R.id.sptv_wd_wddp).setOnClickListener(v -> StoreActivity.start2ActivityForRsl(mActivity, MyApplication.getUserBean().storeId));//我的店铺
+//        this.getView(R.id.sptv_wd_dpsz).setOnClickListener(v -> StoreSettingActivity.start2Activity(mActivity));//店铺设置
+//        this.getView(R.id.sptv_wd_zhaq).setOnClickListener(v -> SafeAcountActivity.start2Activity(mActivity));//账户安全
+//        this.getView(R.id.sptv_wd_mydz).setOnClickListener(v -> AdressManagerActivity.start2Activity(mActivity));//苗源地址管理
+//        this.getView(R.id.sptv_wd_fxapp).setOnClickListener(v -> ShareDialogFragment.newInstance().show(getSupportFragmentManager(), getClass().getName()));//分享 app
+        this.getView(R.id.sptv_wd_fxapp).setOnClickListener(v -> InviteFriendActivity.start(mActivity));//分享 app
         this.getView(R.id.sptv_wd_kf).setOnClickListener(v -> Call_Phone()); // 客服
         this.getView(R.id.sptv_wd_yhfk).setOnClickListener(v -> FeedBackActivity.start2Activity(mActivity));//反馈
         this.getView(R.id.sptv_wd_bjzl).setOnClickListener(v -> SetProfileActivity.start2ActivitySet(mActivity, 100));//编辑资料
@@ -229,6 +229,22 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         this.getView(R.id.sptv_wd_jf).setOnClickListener(v -> IntegralActivity.start(mActivity));//  积分
         this.getView(sptv_wd_gys).setOnClickListener(v -> ProviderActivity.start(mActivity, isQuote));//  供应商
         this.getView(sptv_wd_sfz).setOnClickListener(v -> AuthenticationActivity.start(mActivity, authStatue, "审核不通过原因：身份证不清晰，请重新上传"));//  身份认证
+
+
+        this.getView(R.id.sptv_wd_qg).setOnClickListener(v -> AskToByActivity.start(mActivity));//
+
+
+        this.getView(R.id.tv_wd_sc).setOnClickListener(v -> DActivity_new.start2Activity(mActivity, true));//
+        this.getView(R.id.tv_wd_gz).setOnClickListener(v -> {
+            ToastUtil.showLongToast("我的关注");
+            AttentionActivity.start(mActivity);
+        });//
+
+        this.getView(R.id.tv_wd_zj).setOnClickListener(v -> {
+            ToastUtil.showLongToast("我的足迹");
+            HistoryActivity.start(mActivity);
+//          AddContactActivity.start(mActivity);
+        });//
 
 
         this.getView(R.id.iv_circle_head).setOnClickListener(v -> {

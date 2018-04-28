@@ -56,6 +56,8 @@ public abstract class BaseFragment extends Fragment {
         return rootView;
     }
 
+
+
     protected void initListener() {
 
     }
@@ -196,14 +198,16 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * 在这里实现Fragment数据的缓加载.
+     * 在这里实现Fragment数据的缓加载. 方法是比onCreate更早调用的
+     * setUserVisibleHint(boolean isVisibleToUser)
      */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (getUserVisibleHint()) {
             mIsVisible = true;
-            onVisible();
+            onVisible();// 调用在oncreate 之前。更新ui  会报错
+
         } else {
             mIsVisible = false;
             onInvisible();
@@ -248,6 +252,19 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 

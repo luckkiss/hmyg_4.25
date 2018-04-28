@@ -1085,7 +1085,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
  this.tv_purchase_remark = getBootomBiew().findViewById(R.id.tv_purchase_remark);
  this.tv_purchase_commit = getBootomBiew().findViewById(R.id.tv_purchase_commit);
  this.ll_purc_auto_add = getBootomBiew().findViewById(R.id.ll_purc_auto_add);//采购报价 动态加载
- //            this.ll_mainView_bottom = (LinearLayout) rootView.findViewById(R.id.ll_mainView_bottom);//采购报价 动态加载
+ //            this.ll_mainView_bottom = (LinearLayout) mRootView.findViewById(R.id.ll_mainView_bottom);//采购报价 动态加载
  this.et_purchase_remark = getBootomBiew().findViewById(R.id.et_purchase_remark);//备注
  */
 }

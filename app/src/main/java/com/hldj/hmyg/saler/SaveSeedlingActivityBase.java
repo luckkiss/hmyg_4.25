@@ -864,7 +864,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 //                seedling.getUnitTypeName();
         seedlingBean.setUnitTypeName(upLoadDatas.getUnit().text);//plant 需要根据  tag  来返回 name 来显示
         seedlingBean.setUnitType(upLoadDatas.getUnit().value);
-        seedlingBean.setValidity(MyUtil.formateString2Int(upLoadDatas.getValidity()));
+        seedlingBean.setValidity(MyUtil.formateString2Int(upLoadDatas.getValidity()) + "");
+//        seedlingBean.setValidity(MyUtil.formateString2Int(upLoadDatas.getValidity()));
         seedlingBean.setRemarks(upLoadDatas.getRemark());
 
 

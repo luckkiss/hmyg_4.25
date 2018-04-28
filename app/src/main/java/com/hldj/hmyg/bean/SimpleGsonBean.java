@@ -9,6 +9,7 @@ import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
 import com.hldj.hmyg.buyer.M.PurchaseListPageGsonBean;
 import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
+import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.util.ConstantState;
 
 import java.io.Serializable;
@@ -43,6 +44,8 @@ public class SimpleGsonBean implements Serializable {
 
         public PurchaseItemBean_new purchaseItem;
 
+        public UserPurchase userPurchase;
+
         /*临时报价*/
         public SellerQuoteJsonBean quote;
 
@@ -50,6 +53,8 @@ public class SimpleGsonBean implements Serializable {
         /*未读消息列表   */
         public List<UnRead> optionList;
 
+
+        public List<SeedlingType> seedlingTypeList;
 
         //        "thumbUpCount":2,"isThumUp":true
         public int thumbUpCount;
@@ -94,7 +99,7 @@ public class SimpleGsonBean implements Serializable {
         public boolean isQuote = false;/*是否需要申请成为供应商*/
 
         public String userIdentityStatus = UserIdentityStatus.unaudited.enumValue; // 未认证
-        public UserIdentity userIdentity ; // 未认证
+        public UserIdentity userIdentity; // 未认证
 
 
         public String agentGrade = " - ";
@@ -120,15 +125,27 @@ public class SimpleGsonBean implements Serializable {
 //        public String id ="";
 
 
+
+        /* 用户报价 使用  临时属性 */
+        public List<SpecTypeBean> diameterTypeList ;
+        public List<UnitTypeBean> unitTypeList ;
+        public List<SpecTypeBean> dbhTypeList ;
+        public List<UnitTypeBean> validityList ;
+        public List<TypeListBean> typeList ;
+
+
+        /* 用户报价 使用  临时属性 */
+
+
+
+
+
     }
 
 
     public boolean isSucceed() {
         return code.equals(ConstantState.SUCCEED_CODE);
     }
-
-
-
 
 
 }

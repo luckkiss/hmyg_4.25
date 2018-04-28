@@ -20,6 +20,46 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+
+            <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/iv_logo"-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="70dp"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:background="@drawable/dpsz_sclg"-->
+            <!--android:scaleType="centerCrop" />-->
+
+
+            <!--<TextView-->
+            <!--android:id="@+id/change_logo"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:layout_toRightOf="@+id/iv_logo"-->
+            <!--android:drawableRight="@drawable/arrow_right_eq"-->
+            <!--android:gravity="right|center_vertical"-->
+            <!--android:text="点击修改logo"-->
+
+            <!--/>-->
+
+
+            <!--</RelativeLayout>-->
+            <!---->
+
+            <View style="@style/View_line_gray" />
+
+            <include layout="@layout/include_head_view" />
+
+            <View style="@style/View_line_gray" />
+
+
             <!--店铺域名-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,7 +126,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/store_bg_coloc"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp">
@@ -94,42 +134,23 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:drawablePadding="4dp"
                     android:gravity="center_vertical"
                     android:text="店铺名称"
-                    android:drawablePadding="4dp"
                     android:textColor="@color/text_color666"
-                    android:drawableRight="@drawable/seller_redstar"
                     android:textSize="@dimen/textSizeXX" />
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:gravity="center_vertical"
-                    android:text=" ( 取个好名字很重要 )"
-                    android:textColor="@color/text_colorccc"
-                    android:textSize="@dimen/textSizeX" />
-
-            </LinearLayout>
-
-
-            <!--请输入店铺名称-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
 
                 <EditText
                     android:id="@+id/et_store_name"
                     android:layout_width="match_parent"
                     android:layout_height="43dp"
+                    android:layout_margin="@dimen/x4"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:hint="请输入店请输入店铺名称铺名称"
+                    android:hint="请输入店铺名称"
                     android:maxLength="20"
                     android:maxLines="1"
+                    android:paddingLeft="25dp"
                     android:scrollHorizontally="true"
                     android:singleLine="true"
                     android:textColor="@color/text_color666"
@@ -146,7 +167,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/store_bg_coloc"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp">
@@ -154,11 +175,25 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:drawablePadding="4dp"
                     android:gravity="center_vertical"
                     android:text="经营品种"
                     android:textColor="@color/text_color666"
-                    android:drawablePadding="4dp"
-                    android:drawableRight="@drawable/seller_redstar"
+                    android:textSize="@dimen/textSizeXX" />
+
+                <EditText
+                    android:id="@+id/et_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_margin="@dimen/x4"
+                    android:background="@null"
+                    android:hint="请在此输入经营的品种"
+                    android:maxLength="100"
+                    android:minHeight="@dimen/y88"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/text_color666"
+                    android:textColorHint="@color/text_colorccc"
                     android:textSize="@dimen/textSizeXX" />
 
 
@@ -166,22 +201,30 @@
 
 
             <!--请输入店铺简介-->
-            <EditText
 
-                android:id="@+id/et_type"
+            <!-- 企业认证 -->
+
+            <com.lqr.optionitemview.OptionItemView
+                android:id="@+id/qyrz"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/x4"
-                android:background="@null"
-                android:gravity="top"
-                android:hint="请在此输入经营的品种"
-                android:maxLength="100"
-                android:minHeight="@dimen/y88"
-                android:paddingLeft="5dp"
-                android:paddingRight="10dp"
-                android:textColor="@color/text_color666"
-                android:textColorHint="@color/text_colorccc"
-                android:textSize="@dimen/textSizeXX" />
+                android:layout_height="43dp"
+                app:left_text="企业认证"
+                app:left_text_color="@color/text_color666"
+                app:right_src="@drawable/ic_right_icon_new"
+                app:right_text="未认证"
+                app:right_text_color="@color/text_color666" />
+
+            <!-- 企业二维码 -->
+
+            <com.lqr.optionitemview.OptionItemView
+                android:id="@+id/qyewm"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                app:left_text="店铺二维码"
+                app:left_text_color="@color/text_color666"
+                app:right_src="@drawable/ic_right_icon_new"
+                app:right_text="查看"
+                app:right_text_color="@color/text_color666" />
 
 
             <!--APP店铺logo和横幅-->
@@ -210,66 +253,8 @@
                 tools:visibility="visible">
 
 
-                <!--APP店铺logo和横幅-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:gravity="center_vertical"
-                        android:text="APP店铺logo和横幅"
-                        android:textColor="@color/text_color666"
-                        android:textSize="@dimen/textSizeXX" />
-
-                </LinearLayout>
-
                 <View style="@style/View_line_gray_1dp" />
 
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/iv_logo"
-                        android:layout_width="70dp"
-                        android:layout_height="90dp"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/dpsz_sclg"
-                        android:scaleType="centerCrop" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="@string/store_format_01" />
-
-
-                    <ImageView
-                        android:id="@+id/iv_banner"
-                        android:layout_width="140dp"
-                        android:layout_height="90dp"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/dpsz_schf"
-                        android:scaleType="centerCrop" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="@string/store_format_02" />
-
-
-                </LinearLayout>
-
-
-                <View style="@style/View_line_gray" />
 
                 <!--店铺简介-->
                 <LinearLayout
@@ -292,14 +277,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:gravity="center_vertical"
-                        android:text=" ( 不超过100个字 )"
+
                         android:textColor="@color/text_colorccc"
                         android:textSize="@dimen/textSizeX" />
 
                 </LinearLayout>
-
-                <View style="@style/View_line_gray_1dp" />
-
 
                 <!--请输入店铺简介-->
                 <EditText
@@ -307,17 +289,66 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/x4"
-                    android:background="@null"
+                    android:background="@drawable/conner_edit"
                     android:gravity="top"
-                    android:hint="请输入店铺简介"
+                    android:hint="请输入店铺简介 ( 不超过200个字 )"
                     android:maxLength="100"
                     android:minHeight="@dimen/y88"
+                    android:padding="8dp"
                     android:paddingLeft="5dp"
 
                     android:paddingRight="10dp"
                     android:textColor="@color/text_color666"
                     android:textColorHint="@color/text_colorccc"
                     android:textSize="@dimen/textSizeXX" />
+
+                <View style="@style/View_line_gray" />
+
+
+                <!--APP店铺logo和横幅-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical"
+                        android:text="横幅"
+                        android:textColor="@color/text_color666"
+                        android:textSize="@dimen/textSizeXX" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:text="@string/store_format_01" />-->
+
+
+                    <ImageView
+                        android:id="@+id/iv_banner"
+                        android:layout_width="180dp"
+                        android:layout_margin="16dp"
+                        android:layout_height="120dp"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/dpsz_schf"
+                        android:scaleType="centerCrop" />
+
+
+                </LinearLayout>
+
+                <View style="@style/View_line_gray_1dp" />
 
 
             </LinearLayout>

@@ -33,6 +33,7 @@ import com.hldj.hmyg.saler.GlobalConstant;
 import com.hldj.hmyg.saler.SaveSeedlingActivity;
 import com.hldj.hmyg.saler.UpdataImageActivity;
 import com.hldj.hmyg.saler.UpdataImageActivity_bak;
+import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserDetailActivity;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.ToastUtil;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -524,6 +525,13 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
         if (PublishActivity.instance != null) {
             PublishActivity.instance.addPicUrls(resultPathList);
         }
+
+
+        if (PublishForUserDetailActivity.instance != null) {
+            PublishForUserDetailActivity.instance.addPicUrls(resultPathList);
+        }
+
+
 //        else if (PurchaseDetailActivityBase.instance != null) {
 //            PurchaseDetailActivityBase.instance.addPicUrls(resultPathList);
 //        }

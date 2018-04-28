@@ -75,9 +75,20 @@ public class IntegralActivity extends BaseMVPActivity {
 
             @Override
             public void rightOnClick() {
-                IntegralDetailsActivity.start(mActivity);
+//                IntegralDetailsActivity.start(mActivity);
                 Log.i("", "rightOnClick: ");
             }
+        });
+
+
+        getView(R.id.btn_jfmx).setOnClickListener(v -> {
+            IntegralDetailsActivity.start(mActivity);
+            Log.i("onClick", "积分明细: ");
+        });
+
+        getView(R.id.btn_yyq).setOnClickListener(v -> {
+            InviteFriendListActivity.start(mActivity);
+            Log.i("onClick", "已邀请: ");
         });
 
 //        StateBarUtil.setColorPrimaryDark(getColorByRes(R.color.main_color), this.getWindow());
@@ -130,7 +141,33 @@ public class IntegralActivity extends BaseMVPActivity {
                 ((TextView) getView(score)).setText(bean_new.data.point + "");
 
                 recycle.getAdapter().setDatasState(100);
+
+                /**
+                 *
+                 public String title;
+
+                 public boolean finish;
+
+                 public String icon;
+
+                 public int point;
+
+                 public String detail;
+
+                 public String value;
+                 */
+
                 recycle.getAdapter().addData(bean_new.data.userPointTypeList);
+
+                UserPointType userPointType = new UserPointType();
+                userPointType.title = "邀请好友注册";
+                userPointType.detail = "每成功邀请好友注册获得50积分";
+                userPointType.point = 50;
+                userPointType.icon = "";
+                userPointType.value = "yaoqing";
+
+
+                recycle.getAdapter().add(0, userPointType);
 //                ToastUtil.showLongToast(json);
                 hindLoading();
             }
@@ -156,6 +193,12 @@ public class IntegralActivity extends BaseMVPActivity {
 
 
         switch (tag) {
+            case "yaoqing":// 好友邀请
+
+//                ToastUtil.showLongToast("好友yaoqing");
+                InviteFriendActivity.start(mActivity);
+
+                break;
             case "dailyLogin"://每日登陆
                 break;
             case "publishMoments"://发布苗木圈
@@ -196,6 +239,7 @@ public class IntegralActivity extends BaseMVPActivity {
 
         if (integralBeens == null) {
             integralBeens = new ArrayList<>();
+            integralBeens.add(new IntegralBean(R.mipmap.jf_fbmmq, "发布苗木圈", "每条获得5分，每天上限20分", true));
             integralBeens.add(new IntegralBean(R.mipmap.jf_fbmmq, "发布苗木圈", "每条获得5分，每天上限20分", true));
             integralBeens.add(new IntegralBean(R.mipmap.jf_fbsp, "发布商品", "发布或更新商品5分", false));
             integralBeens.add(new IntegralBean(R.mipmap.jf_cgbj, "采购报价", "每日报价获得5分，不设上限", false));

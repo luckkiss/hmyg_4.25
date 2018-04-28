@@ -44,7 +44,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+        app:layout_constraintTop_toBottomOf="@+id/et_aaa_detailAddress" />
 
     <View
         android:id="@+id/view11"
@@ -76,16 +76,16 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="14dp"
-        android:text="苗圃名称："
+        android:layout_marginTop="18dp"
+        android:text="苗圃名称"
+        android:textColor="@color/text_color666"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
     <View
         android:id="@+id/textView19"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="14dp"
+        style="@style/View_line_gray"
+        android:layout_marginTop="18dp"
         android:background="@color/gray_bg_ed"
         android:text="TextView"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -132,36 +132,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="14dp"
-        android:text="联  系  人："
+        android:text="联系人"
+        android:textColor="@color/text_color666"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19"
-        android:layout_marginStart="14dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
     <TextView
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="14dp"
-        android:drawableLeft="@drawable/seller_redstar"
-
-        android:text="联系电话："
+        android:text="联系电话"
+        android:textColor="@color/text_color666"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3"
-        android:layout_marginStart="14dp" />
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
 
     <TextView
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="14dp"
-        android:drawableLeft="@drawable/seller_redstar"
         android:text="所在区域"
+        android:textColor="@color/text_color666"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view5"
-        android:layout_marginStart="14dp" />
+        app:layout_constraintTop_toBottomOf="@+id/view5" />
 
     <TextView
         android:id="@+id/textView23"
@@ -176,39 +176,40 @@
         android:id="@+id/textView24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
         android:text="地图标注"
+        android:textColor="@color/text_color666"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view8"
-        android:layout_marginStart="14dp" />
+        app:layout_constraintTop_toBottomOf="@+id/et_aaa_detailAddress" />
 
     <TextView
         android:id="@+id/textView25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="14dp"
-        android:drawableLeft="@drawable/seller_redstar"
         android:text="详细地址："
 
+        android:textColor="@color/text_color666"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view6"
-        android:layout_marginStart="14dp" />
+        app:layout_constraintTop_toBottomOf="@+id/view6" />
 
     <CheckBox
         android:id="@+id/checkBox3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="14dp"
         android:button="@drawable/agreement_checkbox_bg"
         android:paddingLeft="8dp"
         android:text="设为默认地址"
         android:textColor="@color/text_color666"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view11"
-        android:layout_marginStart="14dp" />
+        app:layout_constraintTop_toBottomOf="@+id/view11" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline6"
@@ -216,105 +217,105 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="100dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="100dp" />
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="0dp" />
 
 
     <EditText
         android:id="@+id/et_aaa_contactPhone"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="4dp"
         android:background="@color/trans"
+        android:hint="输入联系电话"
         android:inputType="phone"
         android:singleLine="true"
-        android:textColor="@color/text_color333"
+        android:textColor="@color/text_color666"
+        android:textColorHint="@color/hint_text_color"
         android:textSize="15sp"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="@+id/guideline6"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view4"
-        tools:text="1345464646"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
 
     <EditText
         android:id="@+id/et_aaa_contactName"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:background="@color/trans"
+        android:hint="输入联系人姓名"
         android:singleLine="true"
-        android:textColor="@color/text_color333"
+        android:textColor="@color/text_color666"
+        android:textColorHint="@color/hint_text_color"
         android:textSize="15sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView20"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/guideline6"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:text="1345464646"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <EditText
         android:id="@+id/et_aaa_detailAddress"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:background="@color/trans"
+        android:gravity="start|top"
+        android:hint="请输入详细地址信息"
         android:maxLines="2"
         android:singleLine="true"
-        android:textColor="@color/text_color333"
+        android:textColor="@color/text_color666"
+        android:textColorHint="@color/hint_text_color"
         android:textSize="15sp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/guideline6"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView25"
-        tools:text="鼓浪屿"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintTop_toTopOf="@+id/textView25" />
 
     <EditText
         android:id="@+id/et_aaa_name"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/trans"
+        android:hint="字数不能超过20个字"
         android:singleLine="true"
-        android:textColor="@color/text_color333"
+        android:textColor="@color/text_color666"
+        android:textColorHint="@color/hint_text_color"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView19"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="@+id/guideline6"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView36"
-        app:layout_constraintVertical_bias="0.437"
-        tools:text="苗圃名称"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tv_aaa_loac"
         android:layout_width="0dp"
-        android:layout_height="42dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:drawablePadding="5dp"
-        android:drawableRight="@drawable/ic_arrow_right"
+        android:drawableRight="@drawable/arrow_right_eq"
         android:gravity="end|center_vertical"
         android:text="点击智能定位"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view8"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="0dp"
         app:layout_constraintBottom_toTopOf="@+id/view11"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline6" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline6"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view8" />
 
     <TextView
         android:id="@+id/tv_aaa_street"
@@ -336,28 +337,51 @@
         android:id="@+id/tv_aaa_area"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:drawablePadding="5dp"
-        android:drawableRight="@drawable/ic_arrow_right"
-        android:gravity="end|center_vertical"
 
+        android:drawableRight="@drawable/arrow_right_eq"
+        android:gravity="end|center_vertical"
         app:layout_constraintBottom_toTopOf="@+id/view7"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/guideline6"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view5"
         app:layout_constraintVertical_bias="0.695"
-        tools:text="福建省厦门市思明区tools"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        tools:text="福建省厦门市思明区tools" />
 
     <TextView
-        android:id="@+id/tv_aaa_save"
+        android:id="@+id/tv_delete"
         style="@style/save_bottom"
-        android:text="保存"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/px88"
+        app:layout_constraintHorizontal_weight="3"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/round_rectangle_gray_bg"
+        android:text="删除苗圃"
+        android:textColor="@color/text_color999"
+        app:layout_constraintEnd_toStartOf="@+id/tv_save"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
+
+
+    <TextView
+        android:id="@+id/tv_save"
+        style="@style/save_bottom"
+        android:layout_width="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_height="@dimen/px88"
+        android:text="保存"
+        android:background="@drawable/round_textview_main_color_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="7"
+        app:layout_constraintStart_toEndOf="@+id/tv_delete"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
+
 
 </android.support.constraint.ConstraintLayout>

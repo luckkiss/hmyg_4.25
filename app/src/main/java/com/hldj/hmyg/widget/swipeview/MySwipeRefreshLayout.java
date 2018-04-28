@@ -21,7 +21,6 @@ import android.support.v4.view.NestedScrollingParentHelper;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -170,7 +169,11 @@ public class MySwipeRefreshLayout extends FrameLayout implements NestedScrolling
         this.headerView.setBackgroundColor(this.mGuidanceViewBgColor);
 //        this.headerView.setProgressBgColor(this.mProgressBgColor);
 //        this.headerView.setProgressColor(this.mProgressColor);
-        this.addView(this.headerView, lp);
+        try {
+            this.addView(this.headerView, lp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 //        lp = new LayoutParams(-1, 0);
 //        lp.gravity = 80;

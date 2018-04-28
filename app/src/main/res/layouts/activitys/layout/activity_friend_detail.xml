@@ -30,20 +30,21 @@
                 app:layout_collapseMode="none"
                 tools:visibility="visible">
 
+                <View style="@style/View_line_gray_1dp" />
                 <!--<include layout="@layout/item_friend_cicle" />-->
                 <include layout="@layout/item_friend_cicle_simple" />
 
                 <View
                     style="@style/View_line_gray"
-                    android:background="@color/divider_color_bg"
-                    android:alpha="0.5" />
+                    android:alpha="0.5"
+                    android:background="@color/divider_color_bg" />
 
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/title_top_default"
-                android:background="@color/white"
+                android:background="@drawable/bg_bottom_line"
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin">
 
@@ -51,19 +52,40 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:layout_width="54dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:src="@drawable/arrow_left_back" />
+
 
                     <TextView
                         android:id="@+id/tv_activity_purchase_back"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="@dimen/title_top_default"
-                        android:background="@drawable/bg_bottom_line"
-                        android:drawableLeft="@drawable/arrow_left_back"
+                        android:layout_weight="1"
+                        android:background="@color/trans"
                         android:gravity="center"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
                         android:text="详情"
                         android:textSize="@dimen/textSizeXXXX" />
+
+
+                    <TextView
+                        android:id="@+id/tv_jb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="12dp"
+                        android:drawableLeft="@mipmap/wd_gys_lv2"
+                        android:gravity="center_vertical"
+                        android:text="举报" />
 
                 </LinearLayout>
 
@@ -78,10 +100,11 @@
             android:id="@+id/tablayout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:background="@drawable/bg_bottom_line"
             app:tabIndicatorColor="@color/main_color"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/main_color"
-            app:tabTextColor="@color/text_color333" android:background="@drawable/bg_bottom_line">
+            app:tabTextColor="@color/text_color333">
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tab1"
@@ -100,7 +123,6 @@
 
 
     </android.support.design.widget.AppBarLayout>
-
 
 
     <com.hldj.hmyg.buyer.weidet.CoreRecyclerView

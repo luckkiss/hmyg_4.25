@@ -6,12 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -29,20 +27,21 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.StoreActivity;
+import com.hldj.hmyg.Ui.AuthenticationActivity;
+import com.hldj.hmyg.Ui.AuthenticationCompanyActivity;
 import com.hldj.hmyg.Ui.Eactivity3_0;
+import com.hldj.hmyg.Ui.QcCodeActivity;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.UploadHeadUtil;
-import com.hy.utils.BitmapHelper;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.Loading;
 import com.hy.utils.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.soundcloud.android.crop.Crop;
-import com.xingguo.huang.mabiwang.util.CacheUtils;
 import com.zf.iosdialog.widget.ActionSheetDialog;
 import com.zym.selecthead.config.Configs;
 import com.zym.selecthead.tools.FileTools;
@@ -58,8 +57,6 @@ import org.json.JSONObject;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +77,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
     private EditText et_store_name;
     private TextView tv_open_close;
     private ImageView iv_logo;
+    private TextView change_logo;
     private ImageView iv_banner;
     private static final int REQUEST_CODE_ALBUM = 6;
     private static final int REQUEST_CODE_CAMERA = 2;
@@ -139,7 +137,8 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
         TextView title = (TextView) findViewById(R.id.toolbar_title);
         title.setText("店铺设置");
 
-        iv_logo = (ImageView) findViewById(R.id.iv_logo);
+        iv_logo = (ImageView) findViewById(R.id.imageView17);
+        change_logo = (TextView) findViewById(R.id.head_name);
         tv_open_close = (TextView) findViewById(R.id.tv_open_close);
         iv_banner = (ImageView) findViewById(R.id.iv_banner);
         ll_ed = (LinearLayout) findViewById(R.id.ll_ed);
@@ -153,20 +152,15 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
         getStore();
         btn_back.setOnClickListener(multipleClickProcess);
         iv_logo.setOnClickListener(multipleClickProcess);
+        change_logo.setOnClickListener(multipleClickProcess);
         iv_banner.setOnClickListener(multipleClickProcess);
         et_domian.setOnClickListener(multipleClickProcess);
         sure.setOnClickListener(multipleClickProcess);
         tv_open_close.setOnClickListener(multipleClickProcess);
+        getView(R.id.qyrz).setOnClickListener(multipleClickProcess);
+        getView(R.id.qyewm).setOnClickListener(multipleClickProcess);
 
-        // et_domian.setOnEditorActionListener(new OnEditorActionListener() {
-        //
-        // public boolean onEditorAction(TextView v, int actionId, KeyEvent
-        // event) {
-        // // TODO Auto-generated method stub
-        //
-        // return false;
-        // }
-        // });
+
     }
 
     private void getStore() {
@@ -288,54 +282,6 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                 });
     }
 
-    private void validate() {
-        // TODO Auto-generated method stub
-        FinalHttp finalHttp = new FinalHttp();
-        GetServerUrl.addHeaders(finalHttp, true);
-        AjaxParams params = new AjaxParams();
-        params.put("code", et_domian.getText().toString());
-        finalHttp.post(GetServerUrl.getUrl() + "admin/store/validate", params,
-                new AjaxCallBack<Object>() {
-
-                    @Override
-                    public void onSuccess(Object t) {
-                        // TODO Auto-generated method stub
-                        try {
-                            JSONObject jsonObject = new JSONObject(t.toString());
-                            String code = JsonGetInfo.getJsonString(jsonObject,
-                                    "code");
-                            String msg = JsonGetInfo.getJsonString(jsonObject,
-                                    "msg");
-                            if (!"".equals(msg)) {
-                                // Toast.makeText(StoreSettingActivity.this,
-                                // msg,
-                                // Toast.LENGTH_SHORT).show();
-                            }
-                            if ("1".equals(code)) {
-                                save();
-                            } else if ("4003".equals(code)) {
-                                // 存在
-                                et_domian.requestFocus();
-                            }
-
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                        super.onSuccess(t);
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t, int errorNo,
-                                          String strMsg) {
-                        // TODO Auto-generated method stub
-                        Toast.makeText(StoreSettingActivity.this,
-                                R.string.error_net, Toast.LENGTH_SHORT).show();
-                        super.onFailure(t, errorNo, strMsg);
-                    }
-
-                });
-    }
 
     private void save() {
         if (TextUtils.isEmpty(et_store_name.getText())) {
@@ -422,6 +368,19 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
         public void onClick(View view) {
             if (flag) {
                 switch (view.getId()) {
+                    case R.id.qyrz:
+                        D.i("========企业认证==========");
+
+                        AuthenticationCompanyActivity.start(mActivity, AuthenticationActivity.no_auth, "");
+
+                        break;
+                    case R.id.qyewm:
+                        D.i("========企业二维码==========");
+
+                        QcCodeActivity.start(mActivity, 1, "hello world");
+
+
+                        break;
                     case R.id.toolbar_left_icon:
                         onBackPressed();
                         break;
@@ -445,7 +404,8 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                             startActivity(toStoreActivity);
                         }
                         break;
-                    case R.id.iv_logo:
+                    case R.id.imageView17:
+                    case R.id.head_name:
                         imagType_tag = "storeLogo";
                         choosePics();
                         break;
@@ -474,48 +434,6 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
             }
         }
 
-
-        private void takePhotoForAlbum() {
-            String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-            requestRuntimePermission(permissions, new Eactivity3_0.PermissionListener() {
-                @Override
-                public void onGranted() {
-                    openAlbum();
-                }
-
-                @Override
-                public void onDenied(List<String> deniedPermission) {
-                    //没有获取到权限，什么也不执行，看你心情
-                }
-            });
-        }
-
-        /**
-         *
-         */
-        private void openAlbum() {
-            Intent intent = new Intent("android.intent.action.GET_CONTENT");
-            intent.setType("image/*");
-            startActivityForResult(intent, CHOOSE_PHOTO); // 打开相册
-        }
-
-
-        //andrpoid 6.0 需要写运行时权限
-        public void requestRuntimePermission(String[] permissions, Eactivity3_0.PermissionListener listener) {
-
-            mListener = listener;
-            List<String> permissionList = new ArrayList<>();
-            for (String permission : permissions) {
-                if (ContextCompat.checkSelfPermission(mActivity, permission) != PackageManager.PERMISSION_GRANTED) {
-                    permissionList.add(permission);
-                }
-            }
-            if (!permissionList.isEmpty()) {
-                ActivityCompat.requestPermissions(mActivity, permissionList.toArray(new String[permissionList.size()]), 1);
-            } else {
-                mListener.onGranted();
-            }
-        }
 
         /**
          * 计时线程（防止在一定时间段内重复点击按钮）
@@ -690,29 +608,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(Uri.fromFile(new File(cachPath))));
 
                         updateImage("", imagType_tag, "", bitmap);
-//                        Drawable drawable = new BitmapDrawable(bitmap);
-////                     D.e("=========bitmap======="+bitmap.getByteCount()/1024/1024);
-//                        RelativeLayout relativeLayout = getView(R.id.e_background);
-//                        relativeLayout.setBackgroundDrawable(drawable);
-//                        BasePresenter presenter = new EPrestenter()
-//                                .addResultCallBack(new ResultCallBack<String>() {
-//                                    @Override
-//                                    public void onSuccess(String str) {
-//
-//                                        new Handler().postDelayed(() -> {
-//                                            bitmap.recycle();
-//                                            D.e("===str=====" + str);
-//                                            ImageLoader.getInstance().displayImage(str, (ImageView) getView(R.id.iv_logo));
-//                                            ImageLoader.getInstance().displayImage(str, (ImageView) getView(R.id.iv_banner));
-//                                        }, 500);
-//                                    }
-//
-//                                    @Override
-//                                    public void onFailure(Throwable t, int errorNo, String strMsg) {
-//                                    }
-//                                });
-//
-//                        ((EPrestenter) presenter).upLoadHeadImg("admin/file/uploadHeadImage", true, cachPath, bitmap);
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -862,7 +758,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
 
                                 if (imagType_tag.equals("storeLogo")) {
 
-                                    ImageLoader.getInstance().displayImage(image, (ImageView) getView(R.id.iv_logo));
+                                    ImageLoader.getInstance().displayImage(image, (ImageView) getView(R.id.imageView17));
                                 } else {
 
                                     ImageLoader.getInstance().displayImage(image, (ImageView) getView(R.id.iv_banner));
@@ -903,35 +799,6 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                 });
     }
 
-    private Bitmap compressImageFromFile(String srcPath) {
-        BitmapFactory.Options newOpts = new BitmapFactory.Options();
-        newOpts.inJustDecodeBounds = true;// 只读边,不读内容
-        Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
-
-        newOpts.inJustDecodeBounds = false;
-        int w = newOpts.outWidth;
-        int h = newOpts.outHeight;
-        float hh = 800f;//
-        float ww = 480f;//
-        int be = 1;
-        if (w > h && w > ww) {
-            be = (int) (newOpts.outWidth / ww);
-        } else if (w < h && h > hh) {
-            be = (int) (newOpts.outHeight / hh);
-        }
-        if (be <= 0)
-            be = 1;
-        newOpts.inSampleSize = be;// 设置采样率
-
-        newOpts.inPreferredConfig = Config.ARGB_8888;// 该模式是默认的,可不设
-        newOpts.inPurgeable = true;// 同时设置才会有效
-        newOpts.inInputShareable = true;// 。当系统内存不够时候图片自动被回收
-
-        bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
-        // return compressBmpFromBmp(bitmap);//原来的方法调用了这个方法企图进行二次压缩
-        // 其实是无效的,大家尽管尝试
-        return bitmap;
-    }
 
     public byte[] Bitmap2Bytes(Bitmap bm) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -939,135 +806,6 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
         return baos.toByteArray();
     }
 
-    public String saveToSdCard(Bitmap bitmap) {
-        String files = CacheUtils.getCacheDirectory(StoreSettingActivity.this,
-                true, "pic") + dateTime + "_11";
-        File file = new File(files);
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            if (bitmap.compress(Bitmap.CompressFormat.JPEG, 50, out)) {
-                out.flush();
-                out.close();
-            }
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return file.getAbsolutePath();
-    }
-
-    /**
-     * 开始裁剪 附加选项 数据类型 描述 crop String 发送裁剪信号 aspectX int X方向上的比例 aspectY int
-     * Y方向上的比例 outputX int 裁剪区的宽 outputY int 裁剪区的高 scale boolean 是否保留比例
-     * return-data boolean 是否将数据保留在Bitmap中返回 data Parcelable 相应的Bitmap数据
-     * circleCrop String 圆形裁剪区域？ MediaStore.EXTRA_OUTPUT ("output") URI
-     * 将URI指向相应的file:///...
-     *
-     * @param uri uri
-     */
-    private void startCrop(Uri uri, int outputX, int outputY) {
-        Bitmap bitmap = null;
-        String str = "";
-
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),
-                    uri);
-            str = MediaStore.Images.Media.insertImage(getContentResolver(),
-                    bitmap, "", "");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (bitmap == null || TextUtils.isEmpty(str)) {
-            Toast.makeText(StoreSettingActivity.this, "找不到此图片",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-        uri = Uri.parse(str);
-
-        Intent intent = new Intent("com.android.camera.action.CROP"); // 调用Android系统自带的一个图片剪裁页面
-        intent.setDataAndType(uri, "image/*");
-        intent.putExtra("crop", "true");// 进行修剪
-        // aspectX aspectY 是宽高的比例
-        if (outputX == outputY) {
-            intent.putExtra("aspectX", 1);
-            intent.putExtra("aspectY", 1);
-        } else {
-            intent.putExtra("scale", true);
-        }
-        // outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputX", outputX);
-        intent.putExtra("outputY", outputY);
-        intent.putExtra("return-data", false);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                Uri.fromFile(getTempCropFile()));
-        startActivityForResult(intent, CROP_REQUEST_CODE);
-    }
-
-    private File getTempCropFile() {
-        if (mTempCropFile == null) {
-            mTempCropFile = getTempMediaFile();
-        }
-        return mTempCropFile;
-    }
-
-    private File getTempCameraFile() {
-        if (mTempCameraFile == null)
-            mTempCameraFile = getTempMediaFile();
-        return mTempCameraFile;
-    }
-
-    private File composBitmap(File file) {
-        Bitmap bitmap = BitmapHelper.revisionImageSize(file);
-        return BitmapHelper.saveBitmap2file(StoreSettingActivity.this, bitmap);
-    }
-
-    private void sendImage(final File file) {
-        if (file == null) {
-            Toast.makeText(StoreSettingActivity.this, "找不到此图片",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-        // 可以在这里统一进行联网上传操作，把上传结果传回，也可以直接传file交给原页面处理
-    }
-
-    /**
-     * 原项目用的RxJava的Action2
-     */
-    public interface Action2 {
-        void call(File file, int mode);
-    }
-
-    /**
-     * 获取相机的file
-     */
-    public File getTempMediaFile() {
-        File file = null;
-        if (Environment.MEDIA_MOUNTED.equals(Environment
-                .getExternalStorageState())) {
-            String fileName = getTempMediaFileName();
-            file = new File(fileName);
-        }
-        return file;
-    }
-
-    public String getTempMediaFileName() {
-        return getParentPath() + "image" + System.currentTimeMillis() + ".jpg";
-    }
-
-    private String getParentPath() {
-        String parent = Environment.getExternalStorageDirectory()
-                + File.separator + ROOT_NAME + File.separator;
-        mkdirs(parent);
-        return parent;
-    }
-
-    public boolean mkdirs(String path) {
-        File file = new File(path);
-        return !file.exists() && file.mkdirs();
-    }
 
     @Override
     public boolean setSwipeBackEnable() {

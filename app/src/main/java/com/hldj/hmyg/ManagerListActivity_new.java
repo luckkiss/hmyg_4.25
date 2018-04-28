@@ -6,11 +6,17 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,12 +59,20 @@ import me.kaede.tagview.TagView;
  * 苗木管理界面
  */
 @SuppressLint("ClickableViewAccessibility")
-public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresenter, ManagerListModel> implements ManagerListContract.View {
+public class ManagerListActivity_new<P extends ManagerListPresenter, M extends ManagerListModel> extends BaseMVPActivity<ManagerListPresenter, ManagerListModel> implements ManagerListContract.View {
 
     private static final String TAG = "ManagerListActivity_new";
     private String status = "";
     private String searchKey = "";
     CoreRecyclerView xRecyclerView;
+
+    public boolean isOpenEdit = false;
+    public boolean isOpenCheck = false;
+
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     List<TextView> list_counts = new ArrayList<>();//显示count 的几个textview
 
@@ -71,6 +85,7 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
     public String setTitle() {
         return "苗木管理";
     }
+
 
     @Override
     public void initView() {
@@ -90,6 +105,20 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
 //                return R.id.swipe_manager;
 //            }
 
+
+//            @Override
+//            public void onViewRecycled(@NonNull BaseViewHolder holder) {
+//
+////                if (holder != null && holder.getView(R.id.et) != null) {
+////                    Log.i(TAG, "" + holder.getAdapterPosition() + "  - >" + ((EditText) holder.getView(R.id.et)).getText());
+////
+////                }
+//
+//                super.onViewRecycled(holder);
+//
+//
+//            }
+
             @Override
             protected void convert(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item) {
 
@@ -98,7 +127,69 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
                  */
 //                SwipeLayout.addSwipeView(helper.getView(R.id.swipe_manager));
 
+                helper.setIsRecyclable(false);
                 BActivity_new.initListType(helper, item, FinalBitmap.create(mContext), "Manager");
+
+                EditText editText = helper.getView(R.id.et);
+                CheckBox checkBox = helper.getView(R.id.cb);
+
+
+                if (isOpenEdit) {
+                    editText.setVisibility(View.VISIBLE);
+                    Log.i(TAG, helper.getAdapterPosition() + "---> " + item.inputNum);
+
+                    editText.setTag(helper.getAdapterPosition());
+                    editText.clearFocus();
+                    editText.setText(getData().get(Integer.valueOf(editText.getTag().toString())).inputNum + "");
+
+
+                    editText.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+//                        if (((int) editText.getTag()) == helper.getAdapterPosition()) {
+                            try {
+                                item.inputNum = Integer.valueOf(s.toString());
+                                Log.i(TAG, "afterTextChanged: succeed " + item.inputNum);
+                            } catch (Exception e) {
+                                item.inputNum = -1;
+                                Log.i(TAG, "afterTextChanged: failed" + item.inputNum);
+                            }
+
+//                        }
+                        }
+                    });
+
+                } else {
+                    editText.setVisibility(View.GONE);
+                }
+
+                if (isOpenCheck) {
+                    checkBox.setChecked(item.isChecked);
+                    checkBox.setVisibility(View.VISIBLE);
+                    checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                        item.isChecked = isChecked;
+                        Log.i(TAG, "pos = " + helper.getAdapterPosition() + " -- > " + item.isChecked);
+                    });
+                } else {
+                    checkBox.setVisibility(View.GONE);
+                }
+
+
+//                editText.setText(item.inputNum == -1 ? "" : item.inputNum + "");
+
+
+//                helper.getView(R.id.et).setTag(helper.getAdapterPosition());
 
                 ProductListAdapterForManager.setStateColor(helper.getView(R.id.tv_right_top), item.status, item.statusName);
 
@@ -127,11 +218,15 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
         }).openLoadMore(10, page -> {
 //            xRecyclerView.selfRefresh(true);
             showLoading();
-            mPresenter.getData(page + "", status, searchKey);
-            mPresenter.getCounts();
+            requestData(page);
         }).openLoadAnimation(BaseQuickAdapter.ALPHAIN)
                 .openRefresh();
         switch2Refresh("", 0);
+    }
+
+    public void requestData(int page) {
+        mPresenter.getData(page + "", status, searchKey);
+        mPresenter.getCounts();
     }
 
 
@@ -221,8 +316,10 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
 
     TextView[] tvs = null;
     ImageView[] ivs = null;
+    ViewGroup[] rls = null;
+    View[] lines = null;
 
-    private void switch2Refresh(String stat, int index) {
+    public void switch2Refresh(String stat, int index) {
 
         if (tvs == null) {
             tvs = new TextView[]{getView(R.id.tv_01), getView(R.id.tv_02), getView(R.id.tv_03), getView(R.id.tv_04), getView(R.id.tv_05), getView(R.id.tv_06)};
@@ -230,8 +327,18 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
         if (ivs == null) {
             ivs = new ImageView[]{getView(R.id.botton_lines_1), getView(R.id.botton_lines_2), getView(R.id.botton_lines_3), getView(R.id.botton_lines_4), getView(R.id.botton_lines_5), getView(R.id.botton_lines_6)};
         }
+        if (rls == null) {
+            //rl_01
+            rls = new RelativeLayout[]{getView(R.id.rl_01), getView(R.id.rl_02), getView(R.id.rl_03), getView(R.id.rl_04), getView(R.id.rl_05), getView(R.id.rl_06),};
+        }
+        if (lines == null) {
+            //rl_01
+            lines = new View[]{getView(R.id.botton_lines_1), getView(R.id.botton_lines_2), getView(R.id.botton_lines_3), getView(R.id.botton_lines_4), getView(R.id.botton_lines_5), getView(R.id.botton_lines_6),};
+        }
 
         status = stat;
+
+
         for (int i1 = 0; i1 < tvs.length; i1++) {
             if (index == i1) {
                 tvs[i1].setTextColor(ContextCompat.getColor(mActivity, R.color.main_color));
@@ -242,9 +349,8 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
             }
         }
         xRecyclerView.onRefresh();
-
-
     }
+
 
     @Override
     public boolean setSwipeBackEnable() {
@@ -348,7 +454,7 @@ public class ManagerListActivity_new extends BaseMVPActivity<ManagerListPresente
         xRecyclerView.selfRefresh(false);
         hindLoading();
 
-        if (xRecyclerView.isDataNull()){
+        if (xRecyclerView.isDataNull()) {
             xRecyclerView.setNoData("");
         }
     }

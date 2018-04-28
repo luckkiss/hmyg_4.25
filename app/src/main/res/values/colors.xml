@@ -27,7 +27,7 @@
     <color name="kprogresshud_default_color">#b1000000</color>
     <color name="kprogresshud_grey_color">#449E9E9E</color>
     <color name="grey">#ACACAC</color>
-    <color name="primary_color">#009688</color>
+    <color name="primary_color">@color/main_color</color>
     <color name="accent_color">#FFC107</color>
     <color name="price_orige">#e75b45</color>
     <color name="primary_text">#212121</color>

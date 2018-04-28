@@ -536,12 +536,9 @@
     <style name="table_row_left">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
-
-        <item name="android:gravity">center</item>
-        <item name="android:layout_marginLeft">@dimen/x9</item>
-        <item name="android:background">@drawable/table_row_left</item>
         <item name="android:textColor">@color/text_color666</item>
-        <item name="android:textSize">@dimen/y8</item>
+        <item name="android:textSize">@dimen/textSize</item>
+        <item name="android:gravity">center_vertical</item>
         <item name="android:padding">@dimen/y3</item>
     </style>
 
@@ -549,9 +546,9 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:background">@drawable/table_row_right</item>
+
         <item name="android:textColor">@color/text_color999</item>
-        <item name="android:textSize">@dimen/y8</item>
+        <item name="android:textSize">@dimen/textSize</item>
         <item name="android:layout_marginRight">20dp</item>
         <item name="android:paddingLeft">20dp</item>
         <item name="android:enabled">true</item>
@@ -734,7 +731,7 @@
 
     <style name="geren_text">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_height">44dp</item>
         <item name="left_text_size">@dimen/textSizeX</item>
         <item name="right_text_size">@dimen/textSizeX</item>
         <item name="left_text_color">@color/text_color333</item>

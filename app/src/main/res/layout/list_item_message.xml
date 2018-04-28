@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/btn_my_list"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y34"
+        android:layout_height="wrap_content"
         android:background="@drawable/btn_my_list"
         android:orientation="horizontal"
-        android:paddingRight="@dimen/x7" >
+        android:paddingRight="@dimen/x7">
 
         <cn.bingoogolapple.badgeview.BGABadgeLinearLayout
             android:id="@+id/ll_yanmiao_nei_01"
             android:layout_width="wrap_content"
-            android:padding="@dimen/x3"
             android:layout_height="wrap_content"
-             android:layout_gravity="center_vertical"
-            android:orientation="vertical" >
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="@dimen/x3">
 
             <ImageView
                 android:id="@+id/iv_img"
-                android:layout_width="@dimen/y25"
-                android:layout_height="@dimen/y25"
-                       android:layout_gravity="center_horizontal"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_gravity="center_horizontal"
                 android:padding="5dp"
-                android:src="@drawable/logo" />
+                android:src="@mipmap/home_publish_plant" />
         </cn.bingoogolapple.badgeview.BGABadgeLinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1" >
+                android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -46,9 +47,11 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/x12"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="2dp"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/x15" />
+                    android:textSize="@dimen/textSizeTitle"
+                    tools:text="被撤回" />
 
                 <TextView
                     android:id="@+id/tv_createDateStr"
@@ -59,7 +62,9 @@
                     android:gravity="center_vertical"
                     android:singleLine="true"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/x12" />
+                    android:textSize="@dimen/x12"
+                    tools:text="2017-09-07"
+                    />
             </RelativeLayout>
 
             <TextView
@@ -71,7 +76,9 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/x12"
                 android:singleLine="true"
+                android:layout_marginBottom="4dp"
                 android:textColor="@color/black"
+                tools:text="您的苗木资源(m002346)已被客服审核,。。。。"
                 android:textSize="@dimen/x12" />
         </LinearLayout>
 

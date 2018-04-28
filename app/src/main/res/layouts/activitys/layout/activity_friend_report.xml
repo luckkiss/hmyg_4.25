@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".Ui.friend.child.ReportActivity">
+
+
+    <include layout="@layout/toolbar_3_0" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="8dp"
+        android:weightSum="3">
+
+        <CheckBox
+            android:id="@+id/cb_type_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:text="违法信息"
+            android:textColor="@color/text_color666"
+            android:textSize="13sp" />
+
+        <CheckBox
+            android:id="@+id/cb_type_02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:text="身份冒用"
+            android:textColor="@color/text_color666"
+            android:textSize="13sp" />
+
+        <CheckBox
+            android:id="@+id/cb_type_03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:text="其他信息"
+            android:textColor="@color/text_color666"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="8dp"
+        android:weightSum="3">
+
+
+        <CheckBox
+            android:id="@+id/cb_type_04"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:text="虚假宣传"
+            android:textColor="@color/text_color666"
+            android:textSize="13sp" />
+
+        <CheckBox
+            android:id="@+id/cb_type_05"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:text="内容抄袭"
+            android:textColor="@color/text_color666"
+            android:textSize="13sp" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:text="没有内容"
+            android:textColor="@color/text_color666"
+            android:textSize="13sp"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
+
+    <View style="@style/View_line_gray" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_bottom_line"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="描述：(不超过100个字)"
+        android:textColor="@color/text_color333" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@color/trans"
+        android:gravity="start"
+        android:hint="请描述您的举报详情..."
+        android:padding="13dp" />
+
+
+    <Button
+        style="@style/save_bottom"
+        android:onClick="submit"
+        android:text="提交" />
+
+
+</LinearLayout>

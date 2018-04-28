@@ -46,6 +46,9 @@ import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 
+/**
+ * 编辑资料  界面
+ */
 public class SetProfileActivity extends BaseActivity implements
         OnWheelChangedListener {
 

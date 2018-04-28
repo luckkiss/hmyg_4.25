@@ -21,7 +21,9 @@
                 android:id="@+id/t_emptyImageIcon"
                 android:layout_width="@dimen/empty_width"
                 android:layout_height="@dimen/empty_height"
-                android:layout_centerInParent="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="200dp"
                 android:src="@drawable/wushuju" />
 
             <TextView
@@ -34,6 +36,22 @@
                 android:gravity="center"
                 android:text="暂无数据..."
                 android:textColor="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/go_to"
+                style="@style/save_bottom"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/t_emptyTextView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="立即发布"
+                android:textSize="14sp"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
 
         </RelativeLayout>
     </FrameLayout>

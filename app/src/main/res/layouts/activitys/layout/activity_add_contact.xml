@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@color/white">
+
+    <include layout="@layout/toolbar_3_0" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="8dp" />
+
+    <include layout="@layout/include_search_layout" />
+
+
+    <View
+        style="@style/View_line_gray"
+        android:layout_marginTop="8dp" />
+
+
+    <com.coorchice.library.SuperTextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="60dp"
+        android:text="一键关注手机联系人"
+        app:isShowState="true"
+        app:state_drawable="@drawable/icon_persion_pic"
+        app:state_drawable_height="40dp"
+        app:state_drawable_mode="left"
+        app:state_drawable_padding_left="10dp"
+        app:state_drawable_width="40dp" />
+    <View
+        style="@style/View_line_gray"
+       />
+
+    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+        android:id="@+id/recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>

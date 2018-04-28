@@ -155,7 +155,10 @@ public class FriendBaseFragment extends BaseFragment {
                 helper.addOnClickListener(R.id.head, v -> {
 //                    ToastUtil.showLongToast("点击头像--->跳转个人商店");
 //                    if (!commitLogin()) return;
-                    CenterActivity.start(mActivity, item.ownerId);
+                    HeadDetailActivity.start(mActivity, item.ownerId);
+                    /* 新家详细资料 界面 */
+
+
                 });
 
                 if (item.attrData != null) {
@@ -268,7 +271,7 @@ public class FriendBaseFragment extends BaseFragment {
 
 
 //                ConstraintSet mConstraintSet1 = new ConstraintSet(); // create a Constraint Set
-//                ConstraintLayout c = (ConstraintLayout) rootView.findViewById(R.id.constraint);
+//                ConstraintLayout c = (ConstraintLayout) mRootView.findViewById(R.id.constraint);
 //                mConstraintSet1.clone(c);
 //                mConstraintSet1.
 //                TransitionManager.beginDelayedTransition(c);

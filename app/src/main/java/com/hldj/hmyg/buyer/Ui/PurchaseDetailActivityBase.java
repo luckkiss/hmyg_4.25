@@ -447,7 +447,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
 
 
         public ViewHolder(Activity rootView) {
-//            this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
+//            this.tv_title = (TextView) mRootView.findViewById(R.id.tv_title);
 
             this.btn_back = (ImageView) rootView.findViewById(R.id.toolbar_left_icon);
             this.toolbar_title = (TextView) rootView.findViewById(R.id.toolbar_title);
@@ -468,7 +468,7 @@ public abstract class PurchaseDetailActivityBase extends NeedSwipeBackActivity i
             this.ll_purc_auto_add = (LinearLayout) getBootomBiew().findViewById(R.id.ll_purc_auto_add);//采购报价 动态加载
 
 
-//            this.ll_mainView_bottom = (LinearLayout) rootView.findViewById(R.id.ll_mainView_bottom);//采购报价 动态加载
+//            this.ll_mainView_bottom = (LinearLayout) mRootView.findViewById(R.id.ll_mainView_bottom);//采购报价 动态加载
             this.et_purchase_remark = (EditText) getBootomBiew().findViewById(R.id.et_purchase_remark);//备注
 
             toolbar_title.setText("采购详情");

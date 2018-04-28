@@ -59,7 +59,7 @@ public class FUtil {
 
 
     public static String $_zero(String str) {
-        if ("0".equals(str) || TextUtils.isEmpty(str)) {
+        if  ( TextUtils.isEmpty(str)  || "0".equals(str)) {
             return "-";
         }
         return str;

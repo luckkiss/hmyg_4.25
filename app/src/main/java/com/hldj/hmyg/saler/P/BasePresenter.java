@@ -56,6 +56,13 @@ public class BasePresenter {
         }
     }
 
+    public BasePresenter doRequest(String path, AjaxCallBack callBack) {
+        {
+            return doRequest(path, true, callBack);
+
+        }
+    }
+
 
     /**
      * 先传参数

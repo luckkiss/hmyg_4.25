@@ -328,7 +328,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
                 .openLoadMore(10, page -> {
                     showLoadingCus("刷新数据");
                     requestDatas(page + "", MomentsType.collect.getEnumValue(), MyApplication.getUserBean().id);
-                    requestCount(tabLayout.getTabAt(0), tabLayout.getTabAt(1), false);
+                    requestCount(tabLayout.getTabAt(0), tabLayout.getTabAt(1), false, mActivity);
                 })
                 .setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
                     @Override
@@ -374,12 +374,12 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
         });
 
 
-        requestCount(tabLayout.getTabAt(0), tabLayout.getTabAt(1), true);
+        requestCount(tabLayout.getTabAt(0), tabLayout.getTabAt(1), true, mActivity);
 
     }
 
 
-    private void requestCount(TabLayout.Tab tabAt, TabLayout.Tab tabAt1, boolean move2) {
+    public static void requestCount(TabLayout.Tab tabAt, TabLayout.Tab tabAt1, boolean move2, NeedSwipeBackActivity mActivity) {
 
         new BasePresenter()
                 .putParams("userId", MyApplication.getUserBean().id)
@@ -619,7 +619,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 
     @Override
     public void onRefresh() {
-        requestCount(tabLayout.getTabAt(0), tabLayout.getTabAt(1), false);
+        requestCount(tabLayout.getTabAt(0), tabLayout.getTabAt(1), false, mActivity);
         // TODO Auto-generated method stub
         xlistView_d_new.setPullLoadEnable(false);
         pageIndex = 0;

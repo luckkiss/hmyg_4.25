@@ -35,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -121,7 +122,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     private TextView tv_closeDate;
     private TextView tv_remarks;
     private LinearLayout ll_to_d3;
-    private LinearLayout ll_to_d4;
+    private RadioButton ll_to_d4;
     private LinearLayout ll_manager_backed;
     private LinearLayout ll_manager_unaudit;
     private LinearLayout ll_manager_unsubmit;
@@ -194,7 +195,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     private int turang = 0;
     private int zhixiagao = 0;
     private int validity = 0;
-    private ImageView iv_lianxi;
+    private TextView iv_lianxi;
     private LinearLayout ll_data;
     private ImageView sc_ziying;
     private ImageView sc_fuwufugai;
@@ -273,7 +274,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
             onBackPressed();
         });
 
-        iv_lianxi = (ImageView) findViewById(R.id.iv_lianxi);
+        iv_lianxi = (TextView) findViewById(R.id.iv_lianxi);
         lv_00 = (ListView) findViewById(R.id.lv_00);
 //        lv_00.setDivider(null);
         tv_no_server_area = (TextView) findViewById(R.id.tv_no_server_area);
@@ -327,7 +328,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         ll_bohao = (LinearLayout) findViewById(R.id.ll_bohao);
         ll_to_d3 = (LinearLayout) findViewById(R.id.ll_to_d3);//店铺  跳转
         ll_to_d3.setOnClickListener(multipleClickProcess);
-        ll_to_d4 = (LinearLayout) findViewById(R.id.ll_to_d4);
+        ll_to_d4 = (RadioButton) findViewById(R.id.ll_to_d4);
         ll_to_d4.setOnClickListener(multipleClickProcess);
 
         ll_manager_backed = (LinearLayout) findViewById(R.id.ll_manager_backed);
@@ -647,12 +648,12 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
                                 boolean isCollect = JsonGetInfo.getJsonBoolean(
                                         jsonObject2, "isCollect");
-                                findViewById(R.id.iv_shou_can).setSelected(isCollect);
+                                findViewById(R.id.ll_to_d4).setSelected(isCollect);
 
                                 if (isCollect) {
-                                    ((TextView) getView(R.id.tv_shou_can)).setText("已收藏");
+                                    ((TextView) getView(R.id.ll_to_d4)).setText("已收藏");
                                 } else {
-                                    ((TextView) getView(R.id.tv_shou_can)).setText("收藏");
+                                    ((TextView) getView(R.id.ll_to_d4)).setText("收藏");
                                 }
 
                                 if (floorPrice > 0
@@ -742,7 +743,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
                                 if ("manage_list".equals(show_type)) {
                                     iv_lianxi.setVisibility(View.GONE);
-                                    tv_statusName.setVisibility(View.VISIBLE);
+                                    tv_statusName.setVisibility(View.GONE);
                                     ll_buy_car.setVisibility(View.GONE);
                                     if ("backed".equals(status)) {
                                         ll_manager_backed.setVisibility(View.VISIBLE);
@@ -785,7 +786,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                     tv_05_03.setOnClickListener(multipleClickProcess);
 
                                 } else if ("seedling_list".equals(show_type)) {//商城界面跳转过来的
-                                    tv_statusName.setVisibility(View.VISIBLE);
+                                    tv_statusName.setVisibility(View.GONE);
                                     ll_buy_car.setVisibility(View.VISIBLE);
                                     ll_manager_backed.setVisibility(View.GONE);
                                     ll_manager_unaudit.setVisibility(View.GONE);
@@ -797,7 +798,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                 } else {
                                     //什么都不是的时候，隐藏底部
 //                                    findViewById(R.id.activity_flower_detail_bottom).setVisibility(View.GONE);
-                                    tv_statusName.setVisibility(View.VISIBLE);
+                                    tv_statusName.setVisibility(View.GONE);
                                     ll_buy_car.setVisibility(View.VISIBLE);
                                     ll_manager_backed.setVisibility(View.GONE);
                                     ll_manager_unaudit.setVisibility(View.GONE);
@@ -884,6 +885,12 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
 //                                if (isFirst)
                                 ((AutoAdd2DetailLinearLayout) findViewById(R.id.ll_auto_detail)).setDatas(uploadDatas);
+
+                                 TextView spbh = getView(R.id.spbh);
+                                spbh.setText(uploadDatas.seedlingNum);
+                                TextView fl = getView(R.id.fl);
+                                fl.setText(uploadDatas.firstTypeName);
+
 //                                isFirst = false;
 
                                 // if (specList.length() > 0) {
@@ -1483,12 +1490,12 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         new CollectPresenter(new ResultCallBack<SimpleGsonBean>() {
             @Override
             public void onSuccess(SimpleGsonBean simpleGsonBean) {
-                findViewById(R.id.iv_shou_can).setSelected(simpleGsonBean.getData().isCollect());
+                findViewById(R.id.ll_to_d4).setSelected(simpleGsonBean.getData().isCollect());
 
                 if (simpleGsonBean.getData().isCollect()) {
-                    ((TextView) getView(R.id.tv_shou_can)).setText("已收藏");
+                    ((TextView) getView(R.id.ll_to_d4)).setText("已收藏");
                 } else {
-                    ((TextView) getView(R.id.tv_shou_can)).setText("收藏");
+                    ((TextView) getView(R.id.ll_to_d4)).setText("收藏");
                 }
                 LocalBroadcastManager.getInstance(FlowerDetailActivity.this).sendBroadcast(new Intent(ConstantState.COLLECT_REFRESH));
 
@@ -1528,9 +1535,9 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 //                    ToastUtil.showShortToast("修改成功");
 //
 //                    if (simpleGsonBean.getData().isCollect()) {
-//                        findViewById(R.id.iv_shou_can).setSelected(true);
+//                        findViewById(R.id.ll_to_d4).setSelected(true);
 //                    } else {
-//                        findViewById(R.id.iv_shou_can).setSelected(false);
+//                        findViewById(R.id.ll_to_d4).setSelected(false);
 //                    }
 //                } else {
 //                    ToastUtil.showShortToast(simpleGsonBean.msg);
@@ -1959,6 +1966,8 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
 
     AutoAdd2DetailLinearLayout.UploadDatas uploadDatas = new AutoAdd2DetailLinearLayout.UploadDatas();
+
+
 
 
     public void toLogin() {

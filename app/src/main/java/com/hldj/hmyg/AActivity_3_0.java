@@ -45,6 +45,8 @@ import com.hldj.hmyg.Ui.friend.child.PublishActivity;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.StateBarUtil;
+import com.hldj.hmyg.base.GlobBaseAdapter;
+import com.hldj.hmyg.base.ViewHolders;
 import com.hldj.hmyg.bean.ABanner;
 import com.hldj.hmyg.bean.ArticleBean;
 import com.hldj.hmyg.bean.HomeStore;
@@ -57,6 +59,7 @@ import com.hldj.hmyg.buyer.weidet.SwipeViewHeader;
 import com.hldj.hmyg.presenter.AActivityPresenter;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
 import com.hldj.hmyg.saler.SaveSeedlingActivity;
+import com.hldj.hmyg.saler.purchase.userbuy.BuyForUserActivity;
 import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
@@ -106,6 +109,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private CirclePageIndicator indicator;
     private AutoScrollViewPager viewPager;
     private ListView lv_00;
+    private ListView lv_qiu_gou;
     private ImageView iv_msg;
     private NestedScrollView scrollView;
     private Button toTopBtn;// 返回顶部的按钮
@@ -139,7 +143,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //        iv_fenlei = (ImageView) findViewById(R.id.iv_fenlei);
 
         lv_00 = (ListView) findViewById(R.id.lv_00);
+        lv_qiu_gou = (ListView) findViewById(R.id.lv_qiu_gou);
         lv_00.setDivider(null);
+        lv_qiu_gou.setDivider(null);
         scrollView = (NestedScrollView) findViewById(R.id.rotate_header_scroll_view);
         if (contentView == null) {
             contentView = scrollView.getChildAt(0);
@@ -283,14 +289,18 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private void initView() {
         //商城管理
         findViewById(R.id.stv_home_1).setOnClickListener(v -> {
-            if (isLogin()) ManagerListActivity_new.start2Activity(AActivity_3_0.this);
+//            if (isLogin()) ManagerListActivity_new.start2Activity(AActivity_3_0.this);
+            PurchasePyMapActivity.start2Activity(AActivity_3_0.this);
         });
         //快速报价
-        findViewById(R.id.stv_home_2).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this));
+        findViewById(R.id.stv_home_2).setOnClickListener(v -> {
+            ToastUtil.showLongToast(" 用户求购 ");
+            BuyForUserActivity.start2Activity(AActivity_3_0.this);
+        });
         ////成交公告
         findViewById(R.id.stv_home_3).setOnClickListener(v -> NoticeActivity.start2Activity(AActivity_3_0.this));
 
-        findViewById(R.id.iv_home_left).setOnClickListener(v ->  NewsActivity.start2Activity(AActivity_3_0.this) );
+        findViewById(R.id.iv_home_left).setOnClickListener(v -> NewsActivity.start2Activity(AActivity_3_0.this));
 //        findViewById(R.id.iv_home_left).setOnClickListener(v -> NoticeActivity.start2Activity(AActivity_3_0.this));
         //新闻资讯
         findViewById(R.id.stv_home_4).setOnClickListener(v -> NewsActivity.start2Activity(AActivity_3_0.this));
@@ -641,6 +651,40 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             D.e("=============没有采购列表，或者采购数据异常===============");
             e.printStackTrace();
         }
+
+        try {//采购项目
+
+            View view = findViewById(R.id.ll_qiu_gou_parent);
+//
+//            if (indexGsonBean.data.purchaseList.size() != 0) {
+            if (true) {
+                view.setVisibility(View.VISIBLE);
+//                PurchaseListAdapter adapter = new PurchaseListAdapter(AActivity_3_0.this, indexGsonBean.data.purchaseList, R.layout.item_buy_for_user);
+
+                List<String> ars = new ArrayList<>();
+                ars.add("13213");
+                ars.add("13213");
+                ars.add("13213");
+                lv_qiu_gou.setAdapter(new GlobBaseAdapter<String>(AActivity_3_0.this, ars, R.layout.item_buy_for_user) {
+                    @Override
+                    public void setConverView(ViewHolders myViewHolder, String s, int position) {
+
+                    }
+                });
+                D.e("VISIBLE");
+            } else {
+                view.setVisibility(View.GONE);
+                ((ViewGroup) findViewById(R.id.home_title_first).getParent()).setVisibility(View.GONE);
+                D.e("GONE");
+            }
+
+        } catch (Exception e) {
+            findViewById(R.id.ll_caigou_parent).setVisibility(View.GONE);
+            D.e("=============没有采购列表，或者采购数据异常===============");
+            e.printStackTrace();
+        }
+
+
         try {
             if (indexGsonBean.data.seedlingList.size() != 0) {
                 findViewById(R.id.ll_tuijian_parent).setVisibility(View.VISIBLE);
@@ -965,8 +1009,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 moreView.findViewById(R.id.tv_taggle2).setVisibility(View.GONE);
             }
 
-            if (data.size() > i + 2)
-            {
+            if (data.size() > i + 2) {
 
                 //因为淘宝那儿是两条数据，但是当数据是奇数时就不需要赋值第二个，所以加了一个判断，还应该把第二个布局给隐藏掉
                 tv3.setText(data.get(i + 2).title);
@@ -979,8 +1022,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                     tv3.setShowState(false);
                 }
 
-            }
-            else {
+            } else {
                 moreView.findViewById(R.id.tv_taggle3).setVisibility(View.GONE);
             }
 

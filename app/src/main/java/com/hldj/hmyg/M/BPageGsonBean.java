@@ -32,6 +32,8 @@ public class BPageGsonBean {
 
             public static class Databean {
 
+                public int inputNum = -1;
+                public boolean isChecked = false;
 
                 public String id;
                 public String remarks;
@@ -57,7 +59,7 @@ public class BPageGsonBean {
                 public String ossUrl;
                 public String firstTypeName;
 
-                public String unitTypeName ="";
+                public String unitTypeName = "";
                 public String plantTypeName;
                 public String diameterTypeName;
                 public String dbhTypeName;
@@ -82,7 +84,7 @@ public class BPageGsonBean {
 
                 public String customerId;
 
-                public OwnerJsonbean ownerJson ;
+                public OwnerJsonbean ownerJson;
                 public long lastTime;
 
                 public String orderBy;
@@ -135,15 +137,15 @@ public class BPageGsonBean {
                     public String coCode;
                     public String twCode;
                     public String userName;
-                    public String realName ="";
-                    public String publicName ="";
+                    public String realName = "";
+                    public String publicName = "";
                     public String publicPhone;
                     public String plainPassword;
                     public String sex;
                     public String phone;
                     public String email;
                     public String address;
-                    public String companyName ="";
+                    public String companyName = "";
                     public String status;
                     public boolean isInvoices;
                     public String permissions;

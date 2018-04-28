@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.SellectActivity2;
+import com.hldj.hmyg.saler.purchase.userbuy.RxSeekBar;
 import com.hldj.hmyg.util.D;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -24,6 +25,7 @@ import java.util.List;
 
 public class SearchScropView extends BaseLinearLayout<SellectActivity2.TypesBean.DataBean.MainSpecBean> {
 
+    private RxSeekBar seek_bar;
     private ViewHolder mViewHolder;
     public String type = "";//上传时候用，表示类型   --- 肝经  地径  胸襟  什么的
 
@@ -79,6 +81,7 @@ public class SearchScropView extends BaseLinearLayout<SellectActivity2.TypesBean
 //                    ToastUtil.showShortToast("" +model);
                     setMin(model.min);
                     setMax(model.max);
+                    setSeek_bar(model.min, model.max);
                     return true;
                 }
             });
@@ -91,15 +94,27 @@ public class SearchScropView extends BaseLinearLayout<SellectActivity2.TypesBean
         TextView tv_text;
         EditText et_min;
         EditText et_max;
+        RxSeekBar seek_bar;
         TagFlowLayout flowlayout;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
+            this.seek_bar = (RxSeekBar) rootView.findViewById(R.id.seek_bar);
             this.tv_text = (TextView) rootView.findViewById(R.id.tv_text);
             this.et_min = (EditText) rootView.findViewById(R.id.et_min);
             this.et_max = (EditText) rootView.findViewById(R.id.et_max);
             this.flowlayout = (TagFlowLayout) rootView.findViewById(R.id.flowlayout);
+
+            seek_bar.setOnRangeChangedListener(new RxSeekBar.OnRangeChangedListener() {
+                @Override
+                public void onRangeChanged(RxSeekBar view, float min, float max, boolean isFromUser) {
+                    et_min.setText(((int) min) + "");
+                    et_max.setText(((int) max) + "");
+                }
+            });
+
         }
+
 
     }
 
@@ -112,6 +127,13 @@ public class SearchScropView extends BaseLinearLayout<SellectActivity2.TypesBean
     //还原最小值
     public void setMin(String oldValue) {
         setText(mViewHolder.et_min, oldValue);
+
+    }
+
+    public void setSeek_bar(String min, String max) {
+        int mi = intFormat(min, 0);
+        int ma = intFormat(max, 100);
+        mViewHolder.seek_bar.setValue(mi, ma);
     }
 
     //还原最大值
@@ -154,5 +176,18 @@ public class SearchScropView extends BaseLinearLayout<SellectActivity2.TypesBean
         D.e("=======选择之后====进行添加数据=========" + typeListBeen.toString());
 
 
+    }
+
+
+    public int intFormat(String str, int def) {
+        float it = def;
+        try {
+            it = Float.valueOf(str);
+        } catch (NumberFormatException e) {
+            it = def;
+        }
+
+
+        return ((int) it);
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,7 @@ import java.util.List;
 
 public class AutoAdd2DetailLinearLayout extends BaseLinearLayout {
 
-    private ViewHolder viewHolder_derail;
+//    private ViewHolder viewHolder_derail;
 
     public AutoAdd2DetailLinearLayout(Context context) {
         super(context);
@@ -54,7 +53,7 @@ public class AutoAdd2DetailLinearLayout extends BaseLinearLayout {
     @Override
     public BaseLinearLayout initViewHolder(View viewRoot) {
 
-        viewHolder_derail = new ViewHolder(viewRoot);
+//        viewHolder_derail = new ViewHolder(viewRoot);
 
         return this;
     }
@@ -68,15 +67,15 @@ public class AutoAdd2DetailLinearLayout extends BaseLinearLayout {
     List<View> listViews = new ArrayList<>();
 
 
-    public AutoAdd2DetailLinearLayout changeLeftText(String string) {
-        viewHolder_derail.top_left.setText(string);
-        return this;
-    }
+//    public AutoAdd2DetailLinearLayout changeLeftText(String string) {
+//        viewHolder_derail.top_left.setText(string);
+//        return this;
+//    }
 
-    public AutoAdd2DetailLinearLayout changeText(String string) {
-        viewHolder_derail.seedlingNum.setText(string);
-        return this;
-    }
+//    public AutoAdd2DetailLinearLayout changeText(String string) {
+//        viewHolder_derail.seedlingNum.setText(string);
+//        return this;
+//    }
 
 //    public BaseLinearLayout hidenView(@IdRes int viewId ) {
 //        viewHolder_derail.top_left.setText();
@@ -86,22 +85,22 @@ public class AutoAdd2DetailLinearLayout extends BaseLinearLayout {
 
     public BaseLinearLayout setDatas(UploadDatas t) {
 
-        viewHolder_derail.remarks.setText(t.remarks);
+//        viewHolder_derail.remarks.setText(t.remarks);
 
-        if (TextUtils.isEmpty(t.firstTypeName)) {
-            ((ViewGroup) viewHolder_derail.firstTypeName.getParent()).setVisibility(GONE);
-            changeText("资源编号");
-        }
+//        if (TextUtils.isEmpty(t.firstTypeName)) {
+//            ((ViewGroup) viewHolder_derail.firstTypeName.getParent()).setVisibility(GONE);
+//            changeText("资源编号");
+//        }
 
-        viewHolder_derail.firstTypeName.setText(t.firstTypeName);
-        viewHolder_derail.seedlingNum.setText(t.seedlingNum);
+//        viewHolder_derail.firstTypeName.setText(t.firstTypeName);
+//        viewHolder_derail.seedlingNum.setText(t.seedlingNum);
 
         try {
 
-            if (listViews.size() != 0) {
-                ((ViewGroup) this.getChildAt(0)).removeViews(3, listViews.size());
-                listViews.clear();
-            }
+//            if (listViews.size() != 0) {
+//                ((ViewGroup) this.getChildAt(0)).removeViews(3, listViews.size());
+//                listViews.clear();
+//            }
 
             D.e("");
             for (int i = 0; i < t.jsonArray.length(); i++) {
@@ -116,9 +115,8 @@ public class AutoAdd2DetailLinearLayout extends BaseLinearLayout {
 
                 listViews.add(tableRow);
 
-                int index = ((ViewGroup) this.getChildAt(0)).getChildCount();//取子布局的  控件数量
-
-                ((ViewGroup) this.getChildAt(0)).addView(tableRow, index - 1);
+//                int index = ((ViewGroup) this.getChildAt(0)).getChildCount();//取子布局的  控件数量
+                ((ViewGroup) this.getChildAt(0)).addView(tableRow);
             }
 
         } catch (JSONException e) {
@@ -177,20 +175,20 @@ public class AutoAdd2DetailLinearLayout extends BaseLinearLayout {
     }
 
 
-    public static class ViewHolder {
-        public View rootView;
-        public TextView seedlingNum;
-        public TextView firstTypeName;
-        public TextView top_left;
-        public TextView remarks;
+//    public static class ViewHolder {
+//        public View mRootView;
+//        public TextView seedlingNum;
+//        public TextView firstTypeName;
+//        public TextView top_left;
+//        public TextView remarks;
+//
+//        public ViewHolder(View mRootView) {
+//            this.mRootView = mRootView;
+//            this.top_left = (TextView) mRootView.findViewById(R.id.top_left);
+//            this.seedlingNum = (TextView) mRootView.findViewById(R.id.seedlingNum);
+//            this.firstTypeName = (TextView) mRootView.findViewById(R.id.firstTypeName);
+//            this.remarks = (TextView) mRootView.findViewById(R.id.remarks);
+//        }
 
-        public ViewHolder(View rootView) {
-            this.rootView = rootView;
-            this.top_left = (TextView) rootView.findViewById(R.id.top_left);
-            this.seedlingNum = (TextView) rootView.findViewById(R.id.seedlingNum);
-            this.firstTypeName = (TextView) rootView.findViewById(R.id.firstTypeName);
-            this.remarks = (TextView) rootView.findViewById(R.id.remarks);
-        }
-
-    }
+//    }
 }

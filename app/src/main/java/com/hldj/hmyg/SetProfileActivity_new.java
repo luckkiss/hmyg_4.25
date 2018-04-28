@@ -18,11 +18,6 @@ public class SetProfileActivity_new extends BaseMVPActivity {
     }
 
     @Override
-    public void initVH() {
-
-    }
-
-    @Override
     public String setTitle() {
         return "个人资料";
     }

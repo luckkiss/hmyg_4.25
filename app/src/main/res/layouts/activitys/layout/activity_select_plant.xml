@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_3_0" />
+
+    <View
+        style="@style/View_line_gray_1px"
+        android:layout_marginBottom="8dp" />
+
+    <include layout="@layout/include_search_layout" />
+
+    <View
+        style="@style/View_line_gray_1px"
+        android:layout_marginTop="6dp" />
+
+    <View style="@style/View_line_gray" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px80"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:text="没有搜到?我要添加新品种>>>"
+        android:textColor="@color/main_color"
+
+        />
+
+
+    <com.weavey.loading.lib.LoadingLayout
+        android:id="@+id/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:isFirstVisible="true">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+                android:id="@+id/recycle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.example.sortlistview.SideBar
+                android:id="@+id/slide_bar"
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="right" />
+
+
+            <TextView
+                android:id="@+id/center"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="中间提示" android:visibility="gone"/>
+        </FrameLayout>
+    </com.weavey.loading.lib.LoadingLayout>
+
+
+</LinearLayout>

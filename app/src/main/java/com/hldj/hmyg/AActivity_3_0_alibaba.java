@@ -725,11 +725,11 @@
 ////        public RecyclerView a_recycleview;
 ////        public SwipeRefreshLayout al_refresh_swip;
 ////
-////        public ViewHolder(Activity rootView) {
-////            this.tv_a_search = (SuperTextView) rootView.findViewById(R.id.tv_a_search);
-////            this.iv_a_msg = (ImageView) rootView.findViewById(R.id.iv_a_msg);
-////            this.a_recycleview = (RecyclerView) rootView.findViewById(R.id.a_recycleview);
-////            this.al_refresh_swip = (SwipeRefreshLayout) rootView.findViewById(R.id.al_refresh_swip);
+////        public ViewHolder(Activity mRootView) {
+////            this.tv_a_search = (SuperTextView) mRootView.findViewById(R.id.tv_a_search);
+////            this.iv_a_msg = (ImageView) mRootView.findViewById(R.id.iv_a_msg);
+////            this.a_recycleview = (RecyclerView) mRootView.findViewById(R.id.a_recycleview);
+////            this.al_refresh_swip = (SwipeRefreshLayout) mRootView.findViewById(R.id.al_refresh_swip);
 ////        }
 ////
 ////    }

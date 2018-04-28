@@ -190,7 +190,7 @@ public class SaveSeedingGsonBean implements Serializable {
             public String prePrice = "";
 
 
-            private int validity;
+            private String validity;
             private String nurseryId;
             private int count;
             private int saleCount;
@@ -642,11 +642,11 @@ public class SaveSeedingGsonBean implements Serializable {
                 this.isNego = isNego;
             }
 
-            public int getValidity() {
+            public String getValidity() {
                 return validity;
             }
 
-            public void setValidity(int validity) {
+            public void setValidity(String validity) {
                 this.validity = validity;
             }
 

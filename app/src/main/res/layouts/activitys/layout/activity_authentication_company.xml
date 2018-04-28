@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar_3_0" />
+
+
+        <TextView
+            android:id="@+id/tv_top_tip"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/error_bg_color"
+            android:gravity="center|start"
+            android:paddingLeft="15dp"
+            android:text="审核不通过原因：身份证不清晰，请重新上传"
+            android:textColor="@color/white"
+            android:visibility="gone"
+
+            tools:visibility="visible"
+
+            />
+
+
+        <com.hldj.hmyg.widget.StepView
+            android:id="@+id/step_view"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/white"
+            app:xx_main_color="@color/main_color"
+            app:xx_step="1"
+            app:xx_textSize="12sp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/store_bg_coloc"
+            android:gravity="center|start"
+            android:paddingLeft="8dp"
+            android:text="身份信息"
+
+            />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_auth_states"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="25dp"
+                android:src="@mipmap/auth_shtg"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/ll_up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="8dp"
+                    android:text="企业名"
+                    android:textColor="@color/text_color333" />
+
+                <EditText
+                    android:id="@+id/et_name"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/trans_bg"
+                    android:gravity="center|start"
+                    android:hint="请输入企业的名称"
+                    android:padding="5dp"
+                    android:textColorHint="@color/hint_text_color"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_up"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="8dp"
+                    android:text="营业执照注册代码"
+                    android:textColor="@color/text_color333" />
+
+                <EditText
+                    android:id="@+id/et_card_num"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/trans_bg"
+                    android:digits="1234567890xX"
+                    android:gravity="center|start"
+                    android:hint="请输入营业执照注册代码"
+                    android:inputType="number"
+                    android:padding="5dp"
+                    android:textColorHint="@color/hint_text_color"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+
+            <!-- 法人名字 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_center"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="8dp"
+                    android:text="法人名字"
+                    android:textColor="@color/text_color333" />
+
+                <EditText
+                    android:id="@+id/et_card_faren_name"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/trans_bg"
+                    android:digits="1234567890xX"
+                    android:gravity="center|start"
+                    android:hint="请输入法人姓名"
+                    android:inputType="number"
+                    android:padding="5dp"
+                    android:textColorHint="@color/hint_text_color"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/store_bg_coloc"
+            android:gravity="center|start"
+            android:paddingLeft="8dp"
+            android:text="营业执照" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.hldj.hmyg.widget.MyImageViewShowUserCard
+                android:id="@+id/iv_zheng"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/add_image_icon_big_eq"
+                android:padding="16dp" />
+            <!--<com.hldj.hmyg.widget.MyImageViewShowUserCard-->
+            <!--android:id="@+id/iv_zheng"-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="70dp"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:background="@mipmap/shili1"-->
+            <!--android:padding="16dp"-->
+            <!--android:src="@drawable/chongxinshangchuan" />-->
+
+
+            <TextView
+                android:id="@+id/tv_zheng"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="15dp"
+                android:text="所传照片需要4角齐全,字迹清晰"
+                android:textColor="@color/text_color999"
+                android:textSize="12sp" />
+
+
+            <ImageView
+                android:id="@+id/iv_zheng_shili"
+                android:layout_width="110dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="3dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/shili1" />
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/store_bg_coloc"
+            android:gravity="center|start"
+            android:paddingLeft="8dp"
+            android:text="法人身份证正面" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <com.hldj.hmyg.widget.MyImageViewShowUserCard
+                android:id="@+id/iv_fan"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/add_image_icon_big_eq"
+                android:padding="16dp"
+                android:scaleType="centerCrop" />
+
+            <!--<com.hldj.hmyg.widget.MyImageViewShowUserCard-->
+            <!--android:id="@+id/iv_fan"-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="70dp"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:background="@mipmap/shili2"-->
+            <!--android:padding="16dp"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@drawable/chongxinshangchuan" />-->
+
+
+            <TextView
+                android:id="@+id/tv_fan"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="15dp"
+                android:text="所传照片需要4角齐全,字迹清晰"
+                android:textColor="@color/text_color999"
+                android:textSize="12sp" />
+
+
+            <ImageView
+                android:id="@+id/iv_fan_shili"
+                android:layout_width="110dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="3dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/shili2" />
+
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_save"
+            style="@style/save_bottom"
+            android:text="提交审核" />
+
+
+    </LinearLayout>
+
+</ScrollView>

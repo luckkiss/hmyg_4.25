@@ -428,6 +428,8 @@ public class SaveSeedlingPresenter {
 //                        D.e("===========开始上传图片=========\n" + i + "   图片大小：" + file1.length() / 1024 + " k ");
 //                        D.e("===========图片地址=========\n" + dataList.get(i).getUrl());
 
+        } else {
+            resultCallBack.onSuccess(new Pic("id", true, "", -1));
         }
 
         /**
