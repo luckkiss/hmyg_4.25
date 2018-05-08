@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".Ui.friend.child.ReportActivity">
@@ -18,7 +18,7 @@
         android:gravity="center"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:paddingTop="8dp"
+        android:paddingTop="16dp"
         android:weightSum="3">
 
         <CheckBox
@@ -26,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:button="@drawable/dagou_seletor"
             android:paddingLeft="5dp"
             android:text="违法信息"
             android:textColor="@color/text_color666"
@@ -36,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:button="@drawable/dagou_seletor"
             android:paddingLeft="5dp"
             android:text="身份冒用"
             android:textColor="@color/text_color666"
@@ -46,6 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:button="@drawable/dagou_seletor"
             android:paddingLeft="5dp"
             android:text="其他信息"
             android:textColor="@color/text_color666"
@@ -58,9 +61,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:paddingBottom="16dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:paddingTop="8dp"
+        android:paddingTop="16dp"
         android:weightSum="3">
 
 
@@ -69,6 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:button="@drawable/dagou_seletor"
             android:paddingLeft="5dp"
             android:text="虚假宣传"
             android:textColor="@color/text_color666"
@@ -79,6 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:button="@drawable/dagou_seletor"
             android:paddingLeft="5dp"
             android:text="内容抄袭"
             android:textColor="@color/text_color666"
@@ -88,6 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:button="@drawable/dagou_seletor"
             android:paddingLeft="5dp"
             android:text="没有内容"
             android:textColor="@color/text_color666"
@@ -109,12 +116,14 @@
         android:textColor="@color/text_color333" />
 
     <EditText
+        android:id="@+id/remark"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:background="@color/trans"
         android:gravity="start"
         android:hint="请描述您的举报详情..."
-        android:padding="13dp" />
+        android:padding="13dp"
+        android:textSize="13sp" />
 
 
     <Button

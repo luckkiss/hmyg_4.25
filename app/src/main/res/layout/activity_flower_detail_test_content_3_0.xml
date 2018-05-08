@@ -108,7 +108,7 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/tv_add_car"
+                    android:id="@+id/share"
                     style="@style/tab_hdpi"
                     android:checked="true"
                     android:drawableTop="@drawable/ic_winstyle_share"

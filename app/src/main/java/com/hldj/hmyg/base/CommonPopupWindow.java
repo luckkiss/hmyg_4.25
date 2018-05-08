@@ -1,7 +1,6 @@
 package com.hldj.hmyg.base;
 
 import android.content.Context;
-import android.support.annotation.IdRes;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -30,6 +29,8 @@ public class CommonPopupWindow extends PopupWindow {
     public static int TYPE_WHITE_UP = R.drawable.up;
     public static int TYPE_WHITE_DOWN = R.drawable.down;
     public static int TYPE_BLACK_UP = R.drawable.bg_popupwindow;
+    public static int TYPE_BLACK_UP_NEW = R.drawable.bg_popupwindow_new;
+    public static int trans = R.drawable.trans_bg;
 
 
     Builder mBuilder;
@@ -37,6 +38,20 @@ public class CommonPopupWindow extends PopupWindow {
     protected CommonPopupWindow(Builder builder) {
         initWithBuilder(builder);
     }
+
+
+    public void simpleShow(View v) {
+        //获取需要在其上方显示的控件的位置信息
+        int[] location = new int[2];
+        v.getLocationOnScreen(location);
+
+        //↓
+        setBackgroundDrawable(mBuilder.mContext.getResources().getDrawable(mBuilder.bgType));// 设置背景图片，不能在布局中设置，要通过代码来设置
+
+        showAsDropDown(v);
+
+    }
+
 
     /**
      * 设置显示在v上方（以v的中心位置为开始位置）
@@ -101,7 +116,7 @@ public class CommonPopupWindow extends PopupWindow {
         this.setOutsideTouchable(builder.isOutsideTouchable);
 
         if (builder.listener != null) {
-            builder.listener.covertView(rootView);
+            builder.listener.covertView(rootView, this);
         }
         setBackgroundDrawable(builder.mContext.getResources().getDrawable(builder.bgType));// 设置背景图片，不能在布局中设置，要通过代码来设置
     }
@@ -154,7 +169,7 @@ public class CommonPopupWindow extends PopupWindow {
             return this;
         }
 
-        public Builder setBgType(@IdRes int bgType) {
+        public Builder setBgType(int bgType) {
             this.bgType = bgType;
             return this;
         }
@@ -209,7 +224,7 @@ public class CommonPopupWindow extends PopupWindow {
 
 
     public interface OnCovertViewListener {
-        void covertView(View viewRoot);
+        void covertView(View viewRoot, CommonPopupWindow popupWindow);
     }
 
 

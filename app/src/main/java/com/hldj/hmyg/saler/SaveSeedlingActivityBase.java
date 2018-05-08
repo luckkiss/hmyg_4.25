@@ -26,6 +26,7 @@ import com.hldj.hmyg.base.rxbus.event.PostObj;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
+import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
@@ -625,7 +626,6 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         params.put("validity", upLoadDatas.getValidity());//发布有效期
         params.put("nurseryId", upLoadDatas.address.addressId);
         params.put("count", upLoadDatas.getRepertory_num());
-
         params.put("seedlingNoteId", getSeedlingNoteId());
         D.e("=========checkParames1=========");
 
@@ -771,11 +771,10 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         //step 1  图片如何插入
         if (viewHolder.publish_flower_info_gv.getAdapter().getDataList().size() != 0) {//
 
-            List<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean> list_imgs
-                    = new ArrayList<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean>();
+            List<ImagesJsonBean> list_imgs
+                    = new ArrayList<ImagesJsonBean>();
             for (int i = 0; i < viewHolder.publish_flower_info_gv.getAdapter().getDataList().size(); i++) {
-                SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean
-                        imagesJsonBean = new SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean()
+                ImagesJsonBean   imagesJsonBean = new ImagesJsonBean()
                         .setLocal_url(viewHolder.publish_flower_info_gv.getAdapter()
                                 .getDataList()
                                 .get(i).getUrl());

@@ -9,18 +9,29 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 
+import com.google.gson.reflect.TypeToken;
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.bean.SimpleGsonBean_new;
+import com.hldj.hmyg.bean.SimplePageBean;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.Adapter.FragmentPagerAdapter_TabLayout;
 import com.hldj.hmyg.saler.ManagerQuoteListAdapter;
+import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.saler.bean.UserQuote;
+import com.hldj.hmyg.saler.purchase.userbuy.BuyForUserActivity;
+import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserDetailActivity;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.weavey.loading.lib.LoadingLayout;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -113,7 +124,9 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
             loadingLayout.setVisibility(View.VISIBLE);
 
         });
+
         setTextOrHinden(R.id.rb_title_center, View.GONE, "", null);
+
         setTextOrHinden(R.id.rb_title_right, View.VISIBLE, "用户求购", v -> {
             mTabLayout.setVisibility(View.GONE);
             loadingLayout.setVisibility(View.GONE);
@@ -122,35 +135,90 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
 
         initRecycleView(coreRecyclerView);
 
+        mTabLayout.setVisibility(initLeft ? View.VISIBLE : View.GONE);
+        loadingLayout.setVisibility(initLeft ? View.VISIBLE : View.GONE);
+        RadioButton rb_title_right = getView(R.id.rb_title_right);
+        rb_title_right.setChecked(!initLeft);
 
     }
 
     private void initRecycleView(CoreRecyclerView coreRecyclerView) {
 
 
-        coreRecyclerView.init(new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_ask_to_by) {
+        coreRecyclerView.init(new BaseQuickAdapter<UserQuote, BaseViewHolder>(R.layout.item_ask_to_by) {
             @Override
-            protected void convert(BaseViewHolder helper, String item) {
-
+            protected void convert(BaseViewHolder helper, UserQuote item) {
                 helper.setVisible(R.id.linearLayout, false);
+                doConvert(helper, item);
             }
-        });
+        })
+                .setDefaultEmptyView(true, "立即求购", retry -> {
+//                    ToastUtil.showLongToast("go to publish");
+                    BuyForUserActivity.start2Activity(mActivity);
+                })
+                .openRefresh().openLoadMore(20, this::requestData);
+
         coreRecyclerView.getRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
-                outRect.set(0, 2, 0, 0);
+                outRect.set(0, 0, 0, 15);
+//                view.setBackgroundColor(Color.RED);
+                parent.setBackgroundColor(getResources().getColor(R.color.gray_bg_ed));
             }
         });
 
-        coreRecyclerView.getAdapter().addData("aaa");
-        coreRecyclerView.getAdapter().addData("aaa");
-        coreRecyclerView.getAdapter().addData("aaa");
-        coreRecyclerView.getAdapter().addData("aaa");
-        coreRecyclerView.getAdapter().addData("aaa");
-        coreRecyclerView.getAdapter().addData("aaa");
-        coreRecyclerView.getAdapter().addData("aaa");
-        coreRecyclerView.getAdapter().addData("aaa");
+
+        coreRecyclerView.onRefresh();
+    }
+
+    private void requestData(int page) {
+
+        Type type = new TypeToken<SimpleGsonBean_new<SimplePageBean<List<UserQuote>>>>() {
+        }.getType();
+
+        new BasePresenter()
+                .putParams("pageSize", "20")
+                .putParams("pageIndex", "" + page)
+                .doRequest("admin/userQuote/list", new HandlerAjaxCallBackPage<UserQuote>(mActivity, type, UserQuote.class) {
+                    @Override
+                    public void onRealSuccess(List<UserQuote> userQuotes) {
+                        coreRecyclerView.getAdapter().addData(userQuotes);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        coreRecyclerView.selfRefresh(false);
+                    }
+                });
+
+
+    }
+
+    private void doConvert(BaseViewHolder helper, UserQuote item) {
+        int layid = R.layout.item_ask_to_by;
+        Log.i("doConvert", "doConvert: " + item.toString());
+
+        helper
+                .setText(R.id.title, item.attrData.name)
+                .setText(R.id.shuliang, FUtil.$_zero(item.attrData.count + " " + item.attrData.unitTypeName))
+                .setText(R.id.qubaojia, "")
+                .setText(R.id.price, "￥" + item.price + "/" + item.attrData.unitTypeName)
+                .setText(R.id.space_text, item.attrData.specText)
+                .setText(R.id.city, item.attrData.cityName)
+                .setText(R.id.update_time, item.createDate);
+
+        helper
+                .convertView.setOnClickListener(v -> {
+            PublishForUserDetailActivity.start2Activity(mActivity, item.purchaseId, "");
+        });
+
+        // UserQuote{id='ae7b275efdd545ca8b047cde75b3a947', sellerId='2876f7e0f51c4153aadc603b661fedfa',
+        // purchaseId='2a3d420100284c27a90ac5d56270adc9', price='123.00', priceType='shangche',
+        // ciCode='1403', cityName='山西 阳泉', cityBean=null, remarks='4564', images=null,
+        // imagesJson=[], isExclude=null, priceTypeName='上车价',
+        // closeDateStr='null', attrData=com.hldj.hmyg.saler.bean.UserQuote$AttrData@a49554e}
 
 
     }
@@ -171,9 +239,12 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
     }
 
 
+    public static boolean initLeft = true;
+
     public static void start2Activity(Context context) {
         context.startActivity(new Intent(context, ManagerQuoteListActivity_new.class));
     }
+
 
     @Override
     public boolean setSwipeBackEnable() {

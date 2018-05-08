@@ -18,17 +18,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="103dp"
-        android:layout_height="102dp"
+        android:id="@+id/qc_code"
+        android:layout_width="153dp"
+        android:layout_height="153dp"
         android:layout_marginTop="60dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/jf_cgbj"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
-        android:src="@mipmap/jf_cgbj" />
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
 
     <TextView
         android:id="@+id/textView10"
@@ -40,44 +41,52 @@
         android:text="面对面扫二维码注册app"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+        app:layout_constraintTop_toBottomOf="@+id/qc_code" />
 
     <TextView
         android:id="@+id/textView26"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="我是一根线"
+        style="@style/View_line_gray_1px"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-    <ImageView
-        android:id="@+id/imageView11"
+    <TextView
+        android:id="@+id/share_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView12"
+        android:drawableTop="@drawable/share_wechat"
+        android:src="@drawable/share_wechat"
+        android:text="微信好友"
+        app:layout_constraintEnd_toStartOf="@+id/share_right"
         app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView26"
-        android:src="@drawable/ic_share_wechat_friend" />
+        android:drawablePadding="8dp"
 
-    <ImageView
-        android:id="@+id/imageView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView26"
+
+        />
+
+    <TextView
+        android:id="@+id/share_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:drawableTop="@drawable/share_wechat_moments"
+        android:src="@drawable/share_wechat_moments"
+        android:text="微信朋友圈"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/textView26"
-        android:src="@drawable/ic_share_wechat_friend_circle" />
+        android:drawablePadding="8dp"
+        app:layout_constraintStart_toEndOf="@+id/share_left"
+        app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
 
 </android.support.constraint.ConstraintLayout>

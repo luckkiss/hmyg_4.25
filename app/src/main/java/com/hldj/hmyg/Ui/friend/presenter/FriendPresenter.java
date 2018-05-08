@@ -1,5 +1,6 @@
 package com.hldj.hmyg.Ui.friend.presenter;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.LocalBroadcastManager;
@@ -14,6 +15,8 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.bean.enums.MomentsType;
+import com.hldj.hmyg.Ui.friend.bean.enums.TipoffSourceType;
+import com.hldj.hmyg.Ui.friend.child.ReportActivity;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.base.CommonPopupWindow;
@@ -102,15 +105,13 @@ public class FriendPresenter {
             headUrl = item.imagesJson.get(0).ossMediumImagePath;
         } else {
 
-            if (item.isVideo)
-            {
+            if (item.isVideo) {
                 headUrl = item.attrData.videoImageUrl;
-            }else {
+            } else {
                 headUrl = GetServerUrl.HEAD_DEFAULT;
             }
 
         }
-
 
 
         String type = "";
@@ -156,8 +157,9 @@ public class FriendPresenter {
      * /callLog/save
      */
 
-    public static void postWhoPhone(String callSourceId, String callPhone, String callTargetType) {
+    public static void postWhoPhone(String ownerId ,String callSourceId, String callPhone, String callTargetType) {
         new BasePresenter()
+                .putParams("ownerId", ownerId)
                 .putParams("callSourceType", "moments")
                 .putParams("callSourceId", callSourceId)
                 .putParams("userId", MyApplication.Userinfo.getString("id", ""))
@@ -193,7 +195,7 @@ public class FriendPresenter {
         return popupWindow1 = new CommonPopupWindow.Builder(baseMVPActivity)
                 .setOutsideTouchable(true)
                 .bindLayoutId(R.layout.friend_more)
-                .setCovertViewListener(viewRoot -> {
+                .setCovertViewListener((viewRoot, popupWindow) -> {
 
                                 /*分享按钮*/
                     TextView pup_share = (TextView) viewRoot.findViewById(R.id.pup_share);
@@ -286,6 +288,14 @@ public class FriendPresenter {
                         StoreActivity_new.start2Activity(baseMVPActivity, item.attrData.storeId);
                         popupWindow1.dismiss();
                     });
+
+                    TextView pup_jb = (TextView) viewRoot.findViewById(R.id.pup_jb);
+                    pup_jb.setOnClickListener(v -> {
+                        ReportActivity.start(((Activity) v.getContext()),item.id , TipoffSourceType.moments.getEnumValue());
+                        popupWindow1.dismiss();
+                    });
+
+
                 })
                 .build();//按钮4 电话
     }

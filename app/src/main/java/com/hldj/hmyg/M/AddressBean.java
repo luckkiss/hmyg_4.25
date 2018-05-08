@@ -32,6 +32,21 @@ public class AddressBean implements Serializable{
     public String fullAddress= "";
     public int nurseryArea;
 
+
+
+    /**
+     * 苗圃内已上架的苗木数量
+     */
+    public int onShelf;
+    public int onShelfJson;
+
+    /**
+     * 苗圃内已下架的资源数量
+     */
+    public int downShelf;
+    public int downShelfJson;
+
+
     @Override
     public String toString() {
         return "AddressBean{" +

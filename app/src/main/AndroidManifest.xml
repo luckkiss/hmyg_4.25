@@ -93,6 +93,15 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
+
+    <!-- 通讯录 -->
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+
+    <!-- 通讯录 -->
+
+
     <!-- Required -->
     <uses-permission android:name="com.hldj.hmyg.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -278,6 +287,10 @@
         <activity android:name=".Ui.friend.child.HeadDetailActivity" />
         <activity android:name=".Ui.friend.child.ReportActivity" />
         <activity android:name=".Ui.friend.child.BeReportActivity" />
+        <!-- 来电记录 -->
+        <activity android:name=".Ui.friend.child.PhoneLogActivity" />
+        <!-- 匹配求购界面 -->
+        <activity android:name=".Ui.friend.child.MarchingPurchaseActivity" />
         <activity
             android:name=".Ui.friend.child.DetailActivity"
             android:screenOrientation="portrait"
@@ -490,6 +503,10 @@
         <activity android:name="com.hldj.hmyg.me.HandleTipActivity" />
         <!-- 我的关注 -->
         <activity android:name="com.hldj.hmyg.me.AttentionActivity" />
+        <!-- 访客  -->
+        <activity android:name="com.hldj.hmyg.me.FootMarkActivity" />
+        <!-- 我的粉丝  -->
+        <activity android:name="com.hldj.hmyg.me.FansActivity" />
         <!-- be关注 -->
         <activity android:name="com.hldj.hmyg.me.BeAttentionActivity" />
         <!-- 添加联系人 -->
@@ -650,6 +667,8 @@
         <activity
             android:name="com.hldj.hmyg.ManagerSplitListActivity_new"
             android:screenOrientation="portrait" />
+        <!-- 待处理界面 -->
+        <activity android:name=".Ui.miaopu.PendingActivity" />
         <activity
             android:name="com.hldj.hmyg.LoginActivity"
             android:screenOrientation="portrait"

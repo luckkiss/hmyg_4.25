@@ -17,9 +17,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true">
+        android:orientation="vertical">
 
 
         <com.hldj.hmyg.application.AlphaTitleScrollView
@@ -53,8 +53,7 @@
         <View
             android:id="@+id/view_detail_top"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/top_padding_statu"
-            />
+            android:layout_height="@dimen/top_padding_statu" />
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -80,6 +79,16 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/x10"
                 android:background="@drawable/btn_back" />
+
+            <ImageView
+                android:id="@+id/iv_more"
+                android:layout_width="@dimen/x24"
+                android:layout_height="@dimen/x24"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/x10"
+                android:padding="5dp"
+                android:src="@drawable/more" />
 
         </RelativeLayout>
     </LinearLayout>

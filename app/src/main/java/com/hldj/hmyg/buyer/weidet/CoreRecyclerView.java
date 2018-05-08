@@ -298,15 +298,24 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
     }
 
     public CoreRecyclerView setDefaultEmptyView() {
-        return setDefaultEmptyView(false,null);
+        return setDefaultEmptyView(false,null,null);
     }
 
-    public CoreRecyclerView setDefaultEmptyView(boolean isOpenRetryButton, View.OnClickListener retry) {
+    public void setRetryText()
+    {
+
+    }
+
+    public CoreRecyclerView setDefaultEmptyView(boolean isOpenRetryButton,String text, View.OnClickListener retry) {
         View empty = LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null);
 
         if (isOpenRetryButton) {
             TextView textView = empty.findViewById(R.id.go_to);
             textView.setVisibility(VISIBLE);
+            if (!TextUtils.isEmpty(text))
+            {
+                textView.setText(text);
+            }
             textView.setOnClickListener(retry);
         }
 //        View empty  = getContext(). inflate(R.layout.empty_view, null);

@@ -18,6 +18,7 @@ import com.hldj.hmyg.bean.SimplePageBean;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
+import com.hldj.hmyg.me.AskToByActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserActivity;
@@ -119,6 +120,9 @@ public class AskToByFragment extends BaseLazyFragment {
                     public void onFinish() {
                         super.onFinish();
                         recycle.selfRefresh(false);
+                        if (mActivity != null && mActivity instanceof AskToByActivity) {
+                            ((AskToByActivity) mActivity).refreshCount();
+                        }
 
                     }
                 });
@@ -180,7 +184,7 @@ public class AskToByFragment extends BaseLazyFragment {
 
                 });
             }
-        }).setDefaultEmptyView(true, v -> {
+        }).setDefaultEmptyView(true, "", v -> {
             ToastUtil.showLongToast("retry  bottom btn");
             PublishForUserActivity.start2Activity(mActivity);
         }).openLoadMore(100, page -> {
@@ -236,6 +240,12 @@ public class AskToByFragment extends BaseLazyFragment {
                         ToastUtil.showLongToast(" 结束求购 成功");
                         deleteItem(id, pos);
                     }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        recycle.onRefresh();
+                    }
                 });
     }
 
@@ -247,6 +257,12 @@ public class AskToByFragment extends BaseLazyFragment {
                     public void onRealSuccess(SimpleGsonBean gsonBean) {
                         ToastUtil.showLongToast(" 删除 成功");
                         deleteItem(id, pos);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        recycle.onRefresh();
                     }
                 });
 //        ToastUtil.showLongToast("删除求购");

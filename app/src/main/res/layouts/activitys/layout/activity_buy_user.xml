@@ -25,6 +25,7 @@
         android:background="@drawable/bg_bottom_line">
 
         <TextView
+            android:id="@+id/select_city"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/tableHeight"
             android:layout_marginLeft="3dp"
@@ -33,7 +34,7 @@
             android:drawableRight="@drawable/ic_arrow_down"
             android:gravity="center_vertical"
             android:padding="5dp"
-            android:text="福建 厦门" />
+            android:text="全国" />
     </FrameLayout>
 
 
@@ -45,8 +46,7 @@
         <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
             android:id="@+id/recycle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-           />
+            android:layout_height="match_parent" />
 
 
         <ImageView

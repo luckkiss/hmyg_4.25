@@ -12,18 +12,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.CollectGsonBean;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
-import com.hldj.hmyg.buyer.weidet.decoration.SectionDecoration;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
@@ -204,7 +203,7 @@ public class Fragment1 extends Fragment {
 
     }
 
-    public static void setImageCountAndClick(SuperTextView superTextView, List<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean> imagesJson, Activity mActivity) {
+    public static void setImageCountAndClick(SuperTextView superTextView, List<ImagesJsonBean> imagesJson, Activity mActivity) {
         superTextView.setText("有" + imagesJson.size() + "张图片");
         PurchaseDetailActivity.setImgCountsSeed(mActivity, superTextView, imagesJson);
 //                textView35  苗源地

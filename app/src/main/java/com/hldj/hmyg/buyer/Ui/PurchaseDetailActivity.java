@@ -482,7 +482,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         }
     }
 
-    public static void setImgCountsSeed(Activity activity, SuperTextView textView, List<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean> imagesJson) {
+    public static void setImgCountsSeed(Activity activity, SuperTextView textView, List<ImagesJsonBean> imagesJson) {
         if (imagesJson.size() != 0) {
             textView.setText(strFilter("有" + imagesJson.size() + "张图片"));//有多少张图片
             textView.setShowState(true);
@@ -532,7 +532,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         return pics;
     }
     //解析  原始 图片
-    public static ArrayList<Pic> getPicListOriginalSeed(List<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean> imagesJson) {
+    public static ArrayList<Pic> getPicListOriginalSeed(List<ImagesJsonBean> imagesJson) {
 
         ArrayList pics = new ArrayList<Pic>();
 

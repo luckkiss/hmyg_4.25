@@ -89,7 +89,9 @@ public class AuthenticationActivity extends BaseMVPActivity {
     private Uri imageUri;
 
     UploadHeadUtil uploadHeadUtil;
-    private FinalBitmap finalBitmap;
+    public FinalBitmap finalBitmap;
+    private Pic fanImage;
+    private Pic backImage;
 
 
     @Override
@@ -99,11 +101,11 @@ public class AuthenticationActivity extends BaseMVPActivity {
 
     }
 
-    private String getRealName() {
+    public String getRealName() {
         return getText(getView(R.id.et_name));
     }
 
-    private String getIdentityNum() {
+    public String getIdentityNum() {
         return getText(getView(R.id.et_card_num));
     }
 
@@ -112,7 +114,7 @@ public class AuthenticationActivity extends BaseMVPActivity {
     private UserIdentity userIdentity;
 
     /* 请求  网络数据     认证的  各种数据 */
-    private void requestData() {
+    public void requestData() {
         new BasePresenter()
                 .putParams("", "")
                 .doRequest("admin/userIdentity/getUserIdentity", true, new HandlerAjaxCallBack(mActivity) {
@@ -268,21 +270,8 @@ public class AuthenticationActivity extends BaseMVPActivity {
                     D.i("------------保存操作-----------");
 
 
-                    new BasePresenter()
-                            .putParams(ConstantParams.id, userIdentity.id)
-                            .putParams(ConstantParams.realName, getRealName())
-                            .putParams(ConstantParams.identityNum, getIdentityNum())
-                            .putParams(ConstantParams.frontData, pic_json1)
-                            .putParams(ConstantParams.backData, pic_json2)
-                            .doRequest("admin/userIdentity/save", true, new HandlerAjaxCallBack(mActivity) {
-                                @Override
-                                public void onRealSuccess(SimpleGsonBean gsonBean) {
+                 doSave();;
 
-                                    ToastUtil.showLongToast(gsonBean.msg);
-                                    finish();
-
-                                }
-                            });
                 }
 
 
@@ -296,6 +285,24 @@ public class AuthenticationActivity extends BaseMVPActivity {
             }
         }, ((File) iv_zheng.getTag()), ((File) iv_fan.getTag()));
 
+    }
+
+    public void doSave(){
+        new BasePresenter()
+                .putParams(ConstantParams.id, userIdentity.id)
+                .putParams(ConstantParams.realName, getRealName())
+                .putParams(ConstantParams.identityNum, getIdentityNum())
+                .putParams(ConstantParams.frontData, pic_json1)
+                .putParams(ConstantParams.backData, pic_json2)
+                .doRequest("admin/userIdentity/save", true, new HandlerAjaxCallBack(mActivity) {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+
+                        ToastUtil.showLongToast(gsonBean.msg);
+                        finish();
+
+                    }
+                });
     }
 
     private void upOneImage(File f, int type, UploadListener listener) {
@@ -390,40 +397,46 @@ public class AuthenticationActivity extends BaseMVPActivity {
                     arrayList.add(pic);
                     pic_json1 = GsonUtil.Bean2Json(arrayList);
                     arrayList.clear();
-                    arrayList.add(new Pic(userIdentity.backImageJson.id, true, userIdentity.backImageJson.url, 1));
+                    arrayList.add(getBackImage());
+                    arrayList.add(getFanImage());
+
                     pic_json2 = GsonUtil.Bean2Json(arrayList);
-                } else if (type == 1) {
+                } else if (type == 1) {//  /* 表示  背面重新上传了 照片 */
                     ArrayList<Pic> arrayList = new ArrayList<>();
                     arrayList.add(pic);
                     pic_json2 = GsonUtil.Bean2Json(arrayList);
                     arrayList.clear();
-                    arrayList.add(new Pic(userIdentity.backImageJson.id, true, userIdentity.frontImageJson.url, 1));
+                    arrayList.add(getBackImage());
+//                    arrayList.add(new Pic(userIdentity.backImageJson.id, true, userIdentity.backImageJson.url, 1));
                     pic_json1 = GsonUtil.Bean2Json(arrayList);
                 } else {
                     ArrayList<Pic> arrayList = new ArrayList<>();
-                    arrayList.add(new Pic(userIdentity.frontImageJson.id, true, userIdentity.frontImageJson.url, 0));
+                    arrayList.add(getFanImage());
                     pic_json1 = GsonUtil.Bean2Json(arrayList);
                     arrayList.clear();
-                    arrayList.add(new Pic(userIdentity.backImageJson.id, true, userIdentity.backImageJson.url, 1));
+                    arrayList.add(getBackImage());
+//                    arrayList.add(new Pic(userIdentity.backImageJson.id, true, userIdentity.backImageJson.url, 1));
                     pic_json2 = GsonUtil.Bean2Json(arrayList);
                 }
 
-                new BasePresenter()
-                        .putParams(ConstantParams.id, userIdentity.id)
-                        .putParams(ConstantParams.realName, getRealName())
-                        .putParams(ConstantParams.identityNum, getIdentityNum())
-                        .putParams(ConstantParams.frontData, pic_json1)
-                        .putParams(ConstantParams.backData, pic_json2)
-                        .doRequest("admin/userIdentity/save", true, new HandlerAjaxCallBack(mActivity) {
-                            @Override
-                            public void onRealSuccess(SimpleGsonBean gsonBean) {
 
-                                ToastUtil.showLongToast(gsonBean.msg);
-                                hindLoading();
-                                finish();
-
-                            }
-                        });
+                doSave();
+//                new BasePresenter()
+//                        .putParams(ConstantParams.id, userIdentity.id)
+//                        .putParams(ConstantParams.realName, getRealName())
+//                        .putParams(ConstantParams.identityNum, getIdentityNum())
+//                        .putParams(ConstantParams.frontData, pic_json1)
+//                        .putParams(ConstantParams.backData, pic_json2)
+//                        .doRequest("admin/userIdentity/save", true, new HandlerAjaxCallBack(mActivity) {
+//                            @Override
+//                            public void onRealSuccess(SimpleGsonBean gsonBean) {
+//
+//                                ToastUtil.showLongToast(gsonBean.msg);
+//                                hindLoading();
+//                                finish();
+//
+//                            }
+//                        });
             }
 
             @Override
@@ -436,8 +449,8 @@ public class AuthenticationActivity extends BaseMVPActivity {
     }
 
 
-    private String pic_json1;
-    private String pic_json2;
+    public String pic_json1;
+    public String pic_json2;
     private int totalCount = 0;
 
 
@@ -699,7 +712,7 @@ public class AuthenticationActivity extends BaseMVPActivity {
 
     }
 
-    private void doNoAuth() {
+    public void doNoAuth() {
 
         /* 展示 初始状态   显示 一个拍照  外宽 田    消除  背景   消除  半透明边框  消除  重新上传   图标 */
         iv_zheng.showUp();
@@ -722,7 +735,7 @@ public class AuthenticationActivity extends BaseMVPActivity {
     String http_zheng = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521200445415&di=0227ffbe405e51fbae862b1a4d132792&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20130530%2FImg377522814.jpg";
     String http_fan = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521200426297&di=70c4b374bd72b41baadf3f7a0ed1b6d3&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dpixel_huitu%252C0%252C0%252C294%252C40%2Fsign%3Db05d0b3c38fa828bc52e95a394672458%2Fd788d43f8794a4c2717d681205f41bd5ad6e39a8.jpg";
 
-    private void doAuthFailed() {
+    public void doAuthFailed() {
 
 //        setText(getView(et_name), "大傻么么哒");
 //        setText(getView(et_card_num), "350435465476416549647");
@@ -804,7 +817,7 @@ public class AuthenticationActivity extends BaseMVPActivity {
 
 
     /*审核中*/
-    private void doAuthing() {
+    public void doAuthing() {
         getView(R.id.btn_save).setVisibility(View.GONE);
         getView(R.id.iv_zheng).setVisibility(View.GONE);
         getView(R.id.iv_fan).setVisibility(View.GONE);
@@ -1162,6 +1175,14 @@ public class AuthenticationActivity extends BaseMVPActivity {
 //        iv.setBackground(new ColorDrawable(Color.YELLOW));
 
 
+    }
+
+    public Pic getFanImage() {
+        return new Pic(userIdentity.frontImageJson.id, true, userIdentity.frontImageJson.url, 0);
+    }
+
+    public Pic getBackImage() {
+        return new Pic(userIdentity.backImageJson.id, true, userIdentity.backImageJson.url, 1);
     }
 
 

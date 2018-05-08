@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.UnitTypeBean;
+import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.AutoAddRelative;
 import com.hldj.hmyg.widget.SaveSeedingBottomLinearLayout;
@@ -66,7 +67,7 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
 
     private void initExtra(SaveSeedingGsonBean saveSeedingGsonBean) {
 
-        List<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean> imagesJsonBeans = saveSeedingGsonBean.getData().getSeedling().getImagesJson();
+        List<ImagesJsonBean> imagesJsonBeans = saveSeedingGsonBean.getData().getSeedling().getImagesJson();
 
         if (null != imagesJsonBeans && imagesJsonBeans.size() != 0) {
 

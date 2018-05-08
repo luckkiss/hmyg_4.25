@@ -10,8 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="20dp"
         android:text="地径"
-        android:textSize="@dimen/textSizeContent" android:layout_marginTop="20dp" />
+        android:textSize="@dimen/textSizeContent" />
 
     <TextView
         android:id="@+id/tv_auto_add_left2"
@@ -31,7 +33,8 @@
         android:layout_width="@dimen/x160"
         android:layout_height="32dp"
         android:layout_centerHorizontal="true"
-        android:orientation="horizontal" android:layout_marginTop="14dp" >
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal">
         <!--android:paddingLeft="@dimen/x14"-->
         <!--android:paddingRight="@dimen/x14"-->
 
@@ -50,7 +53,8 @@
 
     <TextView
         android:id="@+id/et_auto_add_unit"
-        style="@style/text_seeding_cm" android:layout_marginTop="14dp" />
+        style="@style/text_seeding_cm"
+        android:layout_marginTop="14dp" />
 
 
     <RadioGroup
@@ -59,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:visibility="visible">
 

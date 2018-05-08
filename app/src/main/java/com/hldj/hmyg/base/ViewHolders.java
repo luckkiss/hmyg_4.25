@@ -5,6 +5,9 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.hldj.hmyg.application.MyApplication;
 
 /**
  *
@@ -61,6 +64,22 @@ public class ViewHolders {
 
     public void setTag(Object object) {
         convertView.setTag(object);
+    }
+
+
+    public void setText(int id, String str) {
+        TextView textView = getView(id);
+        textView.setText(str);
+    }
+
+    public void setTextColorRes(int viewId, int colorId) {
+        TextView textView = getView(viewId);
+        textView.setTextColor(MyApplication.getInstance().getResources().getColor(colorId));
+    }
+
+
+    public void setVisible(int viewId, boolean isVisible) {
+        getView(viewId).setVisibility(isVisible ? View.VISIBLE : View.GONE);
     }
 
 }

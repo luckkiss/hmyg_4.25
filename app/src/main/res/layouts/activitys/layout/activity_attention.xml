@@ -4,23 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar_3_0" />
 
-    <TextView
+    <com.coorchice.library.SuperTextView
         android:id="@+id/tijia"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:drawableLeft="@mipmap/phone"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
-        android:paddingLeft="16dp"
+        android:paddingLeft="40dp"
         android:text="添加手机联系人"
         android:textColor="@color/text_color333"
-        android:textSize="@dimen/textSizeXXX" />
+        android:textSize="@dimen/textSizeXXX"
+        app:isShowState="true"
+        app:state_drawable="@mipmap/txl"
+        app:state_drawable_height="35dp"
+        app:state_drawable_mode="left"
+        app:state_drawable_padding_left="12dp"
+        app:state_drawable_width="20dp" />
 
     <View style="@style/View_line_gray" />
 

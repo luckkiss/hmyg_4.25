@@ -25,9 +25,12 @@ import com.hldj.hmyg.DaoBean.SaveJson.SavaBean;
 import com.hldj.hmyg.DaoBean.SaveJson.SavaBeanDao;
 import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.M.CountTypeGsonBean;
+import com.hldj.hmyg.M.StatusCountBean;
 import com.hldj.hmyg.adapter.ProductListAdapterForManager;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.bean.SimpleGsonBean;
+import com.hldj.hmyg.bean.SimpleGsonBeanData;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
@@ -38,8 +41,10 @@ import com.hldj.hmyg.saler.SaveSeedlingActivity;
 import com.hldj.hmyg.saler.SearchActivity;
 import com.hldj.hmyg.saler.StorageSaveActivity;
 import com.hldj.hmyg.util.ConstantState;
+import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.FinalHttp;
@@ -53,28 +58,52 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.fanrunqi.swipelayoutlibrary.SwipeLayout;
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.kaede.tagview.TagView;
 
 /**
  * 苗木管理界面
  */
 @SuppressLint("ClickableViewAccessibility")
-public class ManagerListActivity_new<P extends ManagerListPresenter, M extends ManagerListModel> extends BaseMVPActivity<ManagerListPresenter, ManagerListModel> implements ManagerListContract.View {
+public abstract class ManagerListActivity_new<P extends ManagerListPresenter, M extends ManagerListModel> extends BaseMVPActivity<ManagerListPresenter, ManagerListModel> implements ManagerListContract.View {
 
     private static final String TAG = "ManagerListActivity_new";
     private String status = "";
+    private String mType = "";
+    private String nurseryId = "";
+    private String storeId = "";
     private String searchKey = "";
-    CoreRecyclerView xRecyclerView;
+    public CoreRecyclerView xRecyclerView;
+
 
     public boolean isOpenEdit = false;
     public boolean isOpenCheck = false;
 
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
+    }
 
     public void setStatus(String status) {
         this.status = status;
     }
 
-    List<TextView> list_counts = new ArrayList<>();//显示count 的几个textview
+    public String getStatus() {
+        return status;
+    }
+
+    public void setType(String type) {
+        mType = type;
+    }
+
+    public String getType() {
+        return mType;
+    }
+
+    public void setNurseryId(String id) {
+        nurseryId = id;
+    }
+
+  public    List<TextView> list_counts = new ArrayList<>();//显示count 的几个textview
 
     @Override
     public int bindLayoutID() {
@@ -121,6 +150,9 @@ public class ManagerListActivity_new<P extends ManagerListPresenter, M extends M
 
             @Override
             protected void convert(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item) {
+
+
+
 
                 /**
                  * add this swipeview
@@ -214,6 +246,8 @@ public class ManagerListActivity_new<P extends ManagerListPresenter, M extends M
                 });
 
 
+                invadeDoConvert(helper, item, mActivity);
+
             }
         }).openLoadMore(10, page -> {
 //            xRecyclerView.selfRefresh(true);
@@ -221,14 +255,27 @@ public class ManagerListActivity_new<P extends ManagerListPresenter, M extends M
             requestData(page);
         }).openLoadAnimation(BaseQuickAdapter.ALPHAIN)
                 .openRefresh();
+
         switch2Refresh("", 0);
+
     }
 
+    public abstract void invadeDoConvert(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item, NeedSwipeBackActivity mActivity);
+
+
     public void requestData(int page) {
-        mPresenter.getData(page + "", status, searchKey);
+        mPresenter.getData(page + "",storeId, nurseryId, mType, status, searchKey);
+        requestCounts();
+    }
+
+    public void requestCounts() {
         mPresenter.getCounts();
     }
 
+
+    public void setSearchKey(String searchKey) {
+        this.searchKey = searchKey;
+    }
 
     private void seedlingDoDel(String id, final int pos) {
         FinalHttp finalHttp = new FinalHttp();
@@ -314,10 +361,10 @@ public class ManagerListActivity_new<P extends ManagerListPresenter, M extends M
     }
 
 
-    TextView[] tvs = null;
-    ImageView[] ivs = null;
-    ViewGroup[] rls = null;
-    View[] lines = null;
+    public TextView[] tvs = null;
+    public ImageView[] ivs = null;
+    public ViewGroup[] rls = null;
+    public View[] lines = null;
 
     public void switch2Refresh(String stat, int index) {
 
@@ -348,8 +395,13 @@ public class ManagerListActivity_new<P extends ManagerListPresenter, M extends M
                 ivs[i1].setVisibility(View.INVISIBLE);
             }
         }
-        xRecyclerView.onRefresh();
+        xRecyclerView.openRefresh();
     }
+
+
+//    public void initRequest() {
+//        switch2Refresh("", 0);
+//    }
 
 
     @Override
@@ -415,7 +467,7 @@ public class ManagerListActivity_new<P extends ManagerListPresenter, M extends M
 //    }
 
 
-    private void findTagTextView(ViewGroup viewGroup) {
+    public void findTagTextView(ViewGroup viewGroup) {
 
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             if (viewGroup.getChildAt(i) instanceof ViewGroup) {
@@ -522,6 +574,72 @@ public class ManagerListActivity_new<P extends ManagerListPresenter, M extends M
             }
         }
 
+    }
+
+    @Override
+    public void initCounts2(SimpleGsonBeanData<StatusCountBean> gsonBean) {
+
+//,"pendingCount":1,"statusList":["unaudit","published"],"sellingCount"
+        ToastUtil.showLongToast(gsonBean.msg);
+        list_counts.clear();
+        LinearLayout linearLayout = getView(R.id.ll_counts_content);
+        findTagTextView(linearLayout);
+        for (int i = 0; i < list_counts.size(); i++) {
+            switch (i) {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    list_counts.get(i).setText("(" + gsonBean.data.sellingCount + ")");
+                    break;
+                case 3:
+//                    list_counts.get(i).setText("(" + gsonBean.data.pendingCount + ")");
+                    break;
+                case 4:
+//                    list_counts.get(i).setText("(" + gsonBean.data.countMap.backed + ")");
+                    break;
+                case 5:
+                    list_counts.get(i).setText("(" + gsonBean.data.pendingCount + ")");
+                    break;
+
+            }
+        }
+
+    }
+
+
+    @Override
+    public void initTodoStatusCount(SimpleGsonBean gsonBean) {
+        ToastUtil.showLongToast(gsonBean.msg);
+        list_counts.clear();
+        LinearLayout linearLayout = getView(R.id.ll_counts_content);
+        findTagTextView(linearLayout);
+        for (int i = 0; i < list_counts.size(); i++) {
+            switch (i) {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    list_counts.get(i).setText("(" + gsonBean.getData().backedCount + ")");
+
+                    D.w( " storeId is =====>  " + gsonBean.getData().storeId);
+                    break;
+                case 3:
+//                    list_counts.get(i).setText("(" + gsonBean.data.pendingCount + ")");
+                    break;
+                case 4:
+//                    list_counts.get(i).setText("(" + gsonBean.data.countMap.backed + ")");
+                    break;
+                case 5:
+                    list_counts.get(i).setText("(" + gsonBean.getData().outlineCount + ")");
+
+//                    list_counts.get(i).setText("(" + gsonBean.data.pendingCount + ")");
+                    break;
+
+            }
+        }
     }
 
     @Override

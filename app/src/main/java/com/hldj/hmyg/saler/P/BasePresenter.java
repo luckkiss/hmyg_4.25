@@ -47,6 +47,8 @@ public class BasePresenter {
 
     public BasePresenter doRequest(String path, boolean isAddHeaders, AjaxCallBack callBack) {
         {
+
+            D.w("--------request path ------>>>\n" + GetServerUrl.getUrl() + path);
 //            FinalHttp finalHttp = new FinalHttp();
             GetServerUrl.addHeaders(finalHttp, isAddHeaders);
             finalHttp.post(GetServerUrl.getUrl() + path, getAjaxParams(), callBack);
@@ -123,6 +125,8 @@ public class BasePresenter {
 
     /**
      * 通过对象  反射出 key 与value  进行 请求 网络
+     * 执行这个方法 会 清空   ajaxParams  如果要额外添加
+     * putParams(String key, String value) 属性   需要写在此 方法之后
      *
      * @param t
      * @return

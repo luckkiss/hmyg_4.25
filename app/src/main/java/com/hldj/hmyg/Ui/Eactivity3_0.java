@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.coorchice.library.SuperTextView;
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.DActivity_new;
 import com.hldj.hmyg.FeedBackActivity;
@@ -36,6 +37,8 @@ import com.hldj.hmyg.MessageListActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.SetProfileActivity;
 import com.hldj.hmyg.SettingActivity;
+import com.hldj.hmyg.Ui.friend.bean.tipNum.TipNum;
+import com.hldj.hmyg.Ui.friend.bean.tipNum.TipNumType;
 import com.hldj.hmyg.Ui.friend.child.CenterActivity;
 import com.hldj.hmyg.Ui.jimiao.MiaoNoteListActivity;
 import com.hldj.hmyg.application.MyApplication;
@@ -47,6 +50,7 @@ import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.me.AskToByActivity;
 import com.hldj.hmyg.me.AttentionActivity;
+import com.hldj.hmyg.me.FansActivity;
 import com.hldj.hmyg.me.HistoryActivity;
 import com.hldj.hmyg.presenter.AActivityPresenter;
 import com.hldj.hmyg.presenter.EPrestenter;
@@ -78,6 +82,8 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
@@ -90,7 +96,9 @@ import static com.hldj.hmyg.util.UploadHeadUtil.TAKE_PHOTO;
 import static com.hldj.hmyg.util.UploadHeadUtil.getDiskCacheDir;
 
 /**
- * Created by Administrator on 2017/5/18.
+ *
+ *
+ *
  */
 
 public class Eactivity3_0 extends NeedSwipeBackActivity {
@@ -112,6 +120,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
 
     public float distance;
+    private Disposable subscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,7 +218,10 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         setRealName(getSpS("userName"), getSpS("realName"));
 
 //        this.getView(R.id.sptv_wd_mmgl).setOnClickListener(v -> ManagerListActivity_new.start2Activity(mActivity));//苗木管理
-        this.getView(R.id.sptv_wd_bjgl).setOnClickListener(v -> ManagerQuoteListActivity_new.start2Activity(mActivity));//报价管理
+        this.getView(R.id.sptv_wd_bjgl).setOnClickListener(v -> {
+            ManagerQuoteListActivity_new.initLeft = true;
+            ManagerQuoteListActivity_new.start2Activity(mActivity);
+        });//报价管理
         D.e("======商店id======" + MyApplication.getUserBean().storeId);
 //        this.getView(R.id.sptv_wd_wddp).setOnClickListener(v -> StoreActivity.start2ActivityForRsl(mActivity, MyApplication.getUserBean().storeId));//我的店铺
 //        this.getView(R.id.sptv_wd_dpsz).setOnClickListener(v -> StoreSettingActivity.start2Activity(mActivity));//店铺设置
@@ -236,12 +248,16 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
         this.getView(R.id.tv_wd_sc).setOnClickListener(v -> DActivity_new.start2Activity(mActivity, true));//
         this.getView(R.id.tv_wd_gz).setOnClickListener(v -> {
-            ToastUtil.showLongToast("我的关注");
+//            ToastUtil.showLongToast("我的关注");
             AttentionActivity.start(mActivity);
-        });//
+        });
+        this.getView(R.id.tv_wd_fs).setOnClickListener(v -> {
+//            ToastUtil.showLongToast("我的粉丝");
+            FansActivity.start(mActivity);
+        });
 
         this.getView(R.id.tv_wd_zj).setOnClickListener(v -> {
-            ToastUtil.showLongToast("我的足迹");
+//            ToastUtil.showLongToast("我的足迹");
             HistoryActivity.start(mActivity);
 //          AddContactActivity.start(mActivity);
         });//
@@ -666,7 +682,8 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     @Subscribe(tag = 5, thread = EventThread.MAIN_THREAD)
     private void dataBinding11(OnlineEvent event) {
         D.e("======Rx=======" + event.toString());
-        Observable.just(event)
+        //加载头像
+        subscription = Observable.just(event)
                 .filter(event1 -> event.isOnline)
                 .map((Function<OnlineEvent, Object>) event12 -> event12.isOnline)
                 .subscribeOn(Schedulers.io())
@@ -675,6 +692,11 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                 .subscribe((b) -> {
                     loadHeadImage(getSpB("isLogin"));//加载头像
                     setRealName(getSpS("userName"), getSpS("realName"));
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        D.w("=============Consumer=监听登录成功报错===========" + throwable.getMessage());
+                    }
                 });
 
 //        Observable.timer(1, TimeUnit.SECONDS)
@@ -696,6 +718,9 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     protected void onDestroy() {
         super.onDestroy();
         RxUnRegi();
+        if (subscription != null && !subscription.isDisposed()) {
+            subscription.dispose();
+        }
     }
 
     public static class OnlineEvent {
@@ -733,6 +758,56 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         setRealName(getSpS("userName"), getSpS("realName"));
         loadHeadImage(getSpB("isLogin"));
         isShowProject();
+
+        requestListNum();
+    }
+
+    private void requestListNum() {
+
+        //admin/personal/index
+        new BasePresenter()
+                .doRequest("admin/personal/index", new HandlerAjaxCallBack() {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+//                        ToastUtil.showLongToast("===" + gsonBean.getData().collectCount);
+//                        ToastUtil.showLongToast("===" + gsonBean.getData().beFollowCount);
+//                        ToastUtil.showLongToast("===" + gsonBean.getData().followCount);
+//                        ToastUtil.showLongToast("===" + gsonBean.getData().footMarkCount);
+
+
+
+                        TipNumType.isShowRightTop(gsonBean.getData().tipList,
+                                getView(R.id.tv_wd_sc),
+                                getView(R.id.tv_wd_gz),
+                                getView(R.id.tv_wd_fs),
+                                getView(R.id.tv_wd_zj));
+
+//                          <com.coorchice.library.SuperTextView
+//                        android:id="@+id/tv_wd_sc"
+//
+//                        android:text="115\n我的收藏"
+
+                        /**
+                         * 	result.setData("collectCount", collectCount);
+                         // 粉丝数量
+                         int beFollowCount = UserFollowUtils.getBeFollowCount(user.getId());
+                         result.setData("beFollowCount", beFollowCount);
+                         // 关注数量
+                         int followCount = UserFollowUtils.getFollowCount(user.getId());
+                         result.setData("followCount", followCount);
+                         // 足迹数量
+                         int footMarkCount = FootMarkUtils.getFootMarkCount(user.getId());
+                         result.setData("footMarkCount", footMarkCount);
+                         */
+                    }
+                });
+
+
+    }
+
+    private void showSuperText(List<TipNum> tipList) {
+
+
     }
 
 

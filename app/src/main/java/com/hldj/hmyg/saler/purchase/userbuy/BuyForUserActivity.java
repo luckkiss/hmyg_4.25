@@ -2,20 +2,26 @@ package com.hldj.hmyg.saler.purchase.userbuy;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
 import com.hldj.hmyg.bean.SimplePageBean;
+import com.hldj.hmyg.buyer.Ui.CityWheelDialogF;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.UserPurchase;
+import com.hldj.hmyg.util.ConstantParams;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.FUtil;
 
 import net.tsz.afinal.FinalActivity;
@@ -39,6 +45,11 @@ public class BuyForUserActivity extends BaseMVPActivity {
     @ViewInject(id = R.id.fbqg)
     ImageView fbqg;
 
+    @ViewInject(id = R.id.select_city)
+    TextView select_city;
+
+    private String mCityCode = "";
+
     @Override
     public int bindLayoutID() {
         return R.layout.activity_buy_user;
@@ -49,11 +60,42 @@ public class BuyForUserActivity extends BaseMVPActivity {
     public void initView() {
         FinalActivity.initInjectedView(this);
         fbqg.setOnClickListener(v -> 发布求购());
+        select_city
+                .setOnClickListener(v -> {
+
+//                    ComonCityWheelDialogF.instance().addSelectListener((province, city, distrect, cityCode) -> {
+////                        ToastUtil.showLongToast(province + " " + city);
+//                        mCityCode = cityCode.substring(0, 4);
+//                        select_city.setText(province + " " + city);
+//                        recycle.onRefresh();
+//                    }).show(getSupportFragmentManager(), TAG);
+
+
+                    CityWheelDialogF.instance()
+                            .isShowCity(true)
+                            .addSelectListener(new CityWheelDialogF.OnCitySelectListener() {
+                                @Override
+                                public void onCitySelect(CityGsonBean.ChildBeans childBeans) {
+
+                                    mCityCode = childBeans.cityCode;
+                                    select_city.setText(childBeans.fullName);
+                                    recycle.onRefresh();
+
+                                }
+
+                                @Override
+                                public void onProvinceSelect(CityGsonBean.ChildBeans childBeans) {
+
+                                }
+                            }).show(getSupportFragmentManager(), "SellectActivity2");
+
+
+                });
 
         initRecycleView(recycle);
 
 
-        requestData();
+        requestData(0);
 
     }
 
@@ -64,15 +106,19 @@ public class BuyForUserActivity extends BaseMVPActivity {
 
     private void initRecycleView(CoreRecyclerView recycle) {
 
-        recycle.init(new BaseQuickAdapter<UserPurchase, BaseViewHolder>(R.layout.item_buy_for_user) {
-            @Override
-            protected void convert(BaseViewHolder helper, UserPurchase item) {
-                helper.convertView.setOnClickListener(v -> PublishForUserDetailActivity.start2Activity(mActivity, item.id, item.ownerId));
-                doConvert(helper, item, mActivity);
+        recycle
+                .init(new BaseQuickAdapter<UserPurchase, BaseViewHolder>(R.layout.item_buy_for_user) {
+                    @Override
+                    protected void convert(BaseViewHolder helper, UserPurchase item) {
+                        helper.convertView.setOnClickListener(v -> PublishForUserDetailActivity.start2Activity(mActivity, item.id, item.ownerId));
+                        doConvert(helper, item, mActivity);
 
 
-            }
-        });
+                    }
+                })
+                .openRefresh()
+                .openLoadMore(999, page -> requestData(page))
+        ;
 
 
     }
@@ -84,13 +130,27 @@ public class BuyForUserActivity extends BaseMVPActivity {
         helper.setText(R.id.shuliang, FUtil.$_zero(item.count + "/" + item.unitTypeName));
 
 //        helper.setText(R.id.shuliang, FUtil.$_zero(item.count + ""));
-        helper.setText(R.id.qubaojia, FUtil.$(item.quoteCountJson) + "条报价");
+
+        if (TextUtils.isEmpty(FUtil.$_zero_2_null(item.quoteCountJson))) {
+            helper.setText(R.id.qubaojia, "暂无报价 ");
+            helper.setTextColorRes(R.id.qubaojia, R.color.text_color999);
+        } else {
+            helper.setText(R.id.qubaojia, FUtil.$(item.quoteCountJson) + "条报价");
+            helper.setTextColorRes(R.id.qubaojia, R.color.main_color);
+        }
         helper.setText(R.id.space_text, item.specText);
         helper.setText(R.id.city, "用苗地:" + item.cityName);
         helper.setText(R.id.update_time, "结束时间:" + item.closeDateStr + "");
 
         if (helper.getView(R.id.state) != null)
-            helper.setVisible(R.id.state, item.isUserQuoted);
+            helper.setVisible(R.id.state, item.attrData.isUserQuoted);
+
+        if (item.attrData.isExclude) {
+            helper.setVisible(R.id.state, item.attrData.isUserQuoted);
+            helper.setImageResource(R.id.state, R.mipmap.buheshi);
+
+        }
+
         //                    this.rootView = rootView;
 //                    this.title = (TextView) rootView.findViewById(R.id.title);
 //                    this.shuliang = (TextView) rootView.findViewById(R.id.shuliang);
@@ -125,13 +185,15 @@ public class BuyForUserActivity extends BaseMVPActivity {
 
 
     /*  test page gsonbean  format */
-    public void requestData() {
+    public void requestData(int page) {
 
         Type type = new TypeToken<SimpleGsonBean_new<SimplePageBean<List<UserPurchase>>>>() {
         }.getType();
 
 
         new BasePresenter()
+                .putParams(ConstantParams.pageIndex, page + "")
+                .putParams("cityCode", mCityCode)
                 .doRequest("userPurchase/list", true, new HandlerAjaxCallBackPage<UserPurchase>(mActivity, type, UserPurchase.class) {
                     @Override
                     public void onRealSuccess(List<UserPurchase> seedlingBeans) {
@@ -139,19 +201,27 @@ public class BuyForUserActivity extends BaseMVPActivity {
                         Log.i(TAG, "onRealSuccess: " + seedlingBeans);
                         recycle.getAdapter().addData(seedlingBeans);
                     }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        recycle.selfRefresh(false);
+                    }
                 });
     }
-/**
- *     new BasePresenter()
- .doRequest("userPurchase/list", true, new HandlerAjaxCallBackPage<List<SaveSeedingGsonBean.DataBean.SeedlingBean>>() {
-@Override public void onRealSuccess(SimpleGsonBean_new<SimplePageBean<List<SaveSeedingGsonBean.DataBean.SeedlingBean>>> beanTest) {
-String str = beanTest.msg;
-Log.i(TAG, "onRealSuccess: " + str);
 
-// 最终  想要的结果就是  传出 list数组
-}
-});
- */
+    /**
+     * new BasePresenter()
+     * .doRequest("userPurchase/list", true, new HandlerAjaxCallBackPage<List<SaveSeedingGsonBean.DataBean.SeedlingBean>>() {
+     *
+     * @Override public void onRealSuccess(SimpleGsonBean_new<SimplePageBean<List<SaveSeedingGsonBean.DataBean.SeedlingBean>>> beanTest) {
+     * String str = beanTest.msg;
+     * Log.i(TAG, "onRealSuccess: " + str);
+     * <p>
+     * // 最终  想要的结果就是  传出 list数组
+     * }
+     * });
+     */
 
 //    public void requestData() {
 //        new BasePresenter()
@@ -173,6 +243,11 @@ Log.i(TAG, "onRealSuccess: " + str);
 //                    }
 //                });
 //    }
-
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ConstantState.PUBLIC_SUCCEED) {
+            recycle.onRefresh();
+        }
+    }
 }

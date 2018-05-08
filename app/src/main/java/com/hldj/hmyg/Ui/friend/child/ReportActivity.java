@@ -6,8 +6,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.friend.bean.Tipoff;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.bean.SimpleGsonBean;
+import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hy.utils.ToastUtil;
 
 /**
@@ -20,6 +25,8 @@ import com.hy.utils.ToastUtil;
 public class ReportActivity extends BaseMVPActivity {
 
     private static final String TAG = "ReportActivity";
+    private String remark;
+    private String sourceId;
 
 
     public int bindLayoutID() {
@@ -41,6 +48,18 @@ public class ReportActivity extends BaseMVPActivity {
 ////            CenterActivity.start(mActivity, item.ownerId);
 //        });
 //        requestData();
+
+
+        for (CheckBox checkBox : checkBoxs) {
+            checkBox.setOnClickListener(v -> {
+                for (int i = 0; i < checkBoxs.length; i++) {
+
+                    checkBoxs[i].setChecked(false);
+
+                }
+                ((CheckBox) v).setChecked(true);
+            });
+        }
 
 
     }
@@ -65,9 +84,10 @@ public class ReportActivity extends BaseMVPActivity {
     }
 
 
-    public static void start(Activity activity, String id) {
+    public static void start(Activity activity, String id, String type) {
         Intent intent = new Intent(activity, ReportActivity.class);
         intent.putExtra(TAG, id);
+        intent.putExtra("sourceType", type);
         activity.startActivityForResult(intent, 110);
     }
 
@@ -82,7 +102,25 @@ public class ReportActivity extends BaseMVPActivity {
     public void submit(View view) {
 
 
-        ToastUtil.showLongToast("提交" + getSubmitString());
+//        ToastUtil.showLongToast("提交" + getSubmitString());
+
+        Tipoff tipoff = new Tipoff();
+        tipoff.acceptRemarks = getRemark();
+        tipoff.sourceId = getSourceId();
+        tipoff.tipoffUserId = MyApplication.getUserBean().id;
+        tipoff.sourceType = getSourceType();
+        tipoff.title = getSubmitString();
+
+
+        new BasePresenter()
+                .putParams(tipoff)
+                .doRequest("admin/tipoff/save", new HandlerAjaxCallBack(mActivity) {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+                        ToastUtil.showLongToast(gsonBean.msg);
+//                        finish();
+                    }
+                });
 
 
         Log.i(TAG, "submit: ");
@@ -95,11 +133,22 @@ public class ReportActivity extends BaseMVPActivity {
 
         for (CheckBox checkBox : checkBoxs) {
             if (checkBox.isChecked())
-            stringBuffer.append("  " + checkBox.getText());
+                stringBuffer.append("  " + checkBox.getText());
         }
 
         return stringBuffer.toString();
 
     }
 
+    public String getRemark() {
+        return getText(getView(R.id.remark));
+    }
+
+    public String getSourceId() {
+        return getIntent().getStringExtra(TAG);
+    }
+
+    public String getSourceType() {
+        return getIntent().getStringExtra("sourceType");
+    }
 }

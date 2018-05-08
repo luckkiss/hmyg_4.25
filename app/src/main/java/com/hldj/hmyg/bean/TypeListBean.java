@@ -16,6 +16,12 @@ public class TypeListBean {
     public String name = "";
     public String sort = "";
 
+
+    public String text = "";
+    public String count = "";
+    public String value = "";
+
+
     public List<SaveSeedingGsonBean.DataBean.TypeListBean.ParamsListBean> paramsList;
 
 

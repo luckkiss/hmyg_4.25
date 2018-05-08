@@ -112,38 +112,81 @@
                     android:layout_height="60dp"
                     android:layout_alignParentBottom="true">
 
-                    <TextView
+                    <com.coorchice.library.SuperTextView
                         android:id="@+id/tv_wd_sc"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:lineSpacingMultiplier="1.3"
-                        android:text="115\n我的收藏"
-                        android:textSize="12sp"
-                        android:textColor="@color/white" />
+                        android:text="0\n我的收藏"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        app:isShowState="false"
+                        app:solid="@color/trans"
+                        app:state_drawable="@drawable/dot_red"
+                        app:state_drawable_height="8dp"
+                        app:state_drawable_mode="rightTop"
+                        app:state_drawable_padding_left="-15dp"
+                        app:state_drawable_padding_top="5dp"
+                        app:state_drawable_width="8dp" />
 
-                    <TextView
+                    <com.coorchice.library.SuperTextView
                         android:id="@+id/tv_wd_gz"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:lineSpacingMultiplier="1.3"
-                        android:text="115\n我的关注"
-                        android:textSize="12sp"
-                        android:textColor="@color/white" />
+                        android:text="0\n我的关注"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        app:isShowState="false"
+                        app:solid="@color/trans"
+                        app:state_drawable="@drawable/dot_red"
+                        app:state_drawable_height="8dp"
+                        app:state_drawable_mode="rightTop"
+                        app:state_drawable_padding_left="-15dp"
+                        app:state_drawable_padding_top="5dp"
+                        app:state_drawable_width="8dp" />
 
-                    <TextView
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/tv_wd_fs"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:lineSpacingMultiplier="1.3"
+                        android:text="0\n我的粉丝"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        app:isShowState="false"
+                        app:solid="@color/trans"
+                        app:state_drawable="@drawable/dot_red"
+                        app:state_drawable_height="8dp"
+                        app:state_drawable_mode="rightTop"
+                        app:state_drawable_padding_left="-15dp"
+                        app:state_drawable_padding_top="5dp"
+                        app:state_drawable_width="8dp" />
+
+                    <com.coorchice.library.SuperTextView
                         android:id="@+id/tv_wd_zj"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:lineSpacingMultiplier="1.3"
-                        android:text="115\n我的足迹"
-                        android:textSize="12sp"
-                        android:textColor="@color/white" />
+                        android:text="0\n我的足迹"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        app:isShowState="false"
+                        app:solid="@color/trans"
+                        app:state_drawable="@drawable/dot_red"
+                        app:state_drawable_height="8dp"
+                        app:state_drawable_mode="rightTop"
+                        app:state_drawable_padding_left="-15dp"
+                        app:state_drawable_padding_top="5dp"
+                        app:state_drawable_width="8dp" />
 
 
                 </LinearLayout>

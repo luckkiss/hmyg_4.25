@@ -2,17 +2,20 @@ package com.hldj.hmyg.me;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.base.BaseLazyFragment;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.me.fragments.AskToByFragment;
 import com.hldj.hmyg.saler.Adapter.FragmentPagerAdapter_TabLayout;
+import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserActivity;
 
 import net.tsz.afinal.FinalActivity;
@@ -35,7 +38,7 @@ public class AskToByActivity extends BaseMVPActivity implements View.OnClickList
     ViewPager viewpager;
 
     @ViewInject(id = R.id.fab)
-    FloatingActionButton fab;
+    ImageView fab;
 
     @ViewInject(id = R.id.tab_head)
     TabLayout tabLayout;
@@ -66,9 +69,11 @@ public class AskToByActivity extends BaseMVPActivity implements View.OnClickList
     public void initView() {
         FinalActivity.initInjectedView(this);
 
-        fab.setOnClickListener(v->{
+        fab.setOnClickListener(v -> {
             PublishForUserActivity.start2Activity(mActivity);
         });
+
+        refreshCount();
 
         FragmentPagerAdapter_TabLayout mFragmentPagerAdapter_tabLayout = new FragmentPagerAdapter_TabLayout(getSupportFragmentManager(), list_title, list_fragment);
         viewpager.setAdapter(mFragmentPagerAdapter_tabLayout);
@@ -114,5 +119,26 @@ public class AskToByActivity extends BaseMVPActivity implements View.OnClickList
     @Override
     public String setTitle() {
         return "我的求购";
+    }
+
+
+    public void refreshCount() {
+
+        new BasePresenter()
+                .doRequest("admin/userPurchase/countStatus", new HandlerAjaxCallBack() {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+
+//                        ToastUtil.showLongToast(gsonBean.getData().closeCount + "<--close  ---> open" + gsonBean.getData().openCount);
+
+                        tabLayout.getTabAt(0).setText(String.format("求购中  (%d)", gsonBean.getData().openCount));
+                        tabLayout.getTabAt(1).setText(String.format("已结束  (%d)", gsonBean.getData().closeCount));
+
+
+
+                    }
+                });
+
+
     }
 }

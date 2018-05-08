@@ -1,6 +1,7 @@
 package com.hldj.hmyg.bean;
 
 import com.hldj.hmyg.M.QuoteListJsonBean;
+import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.buyer.M.ItemBean;
 import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
 import com.hldj.hmyg.saler.bean.PurchaseItemJsonBean;
@@ -52,7 +53,7 @@ public class SaveSeedingGsonBean implements Serializable {
 
     public static class DataBean implements Serializable {
 
-        public ArrayList<SeedlingBean.ImagesJsonBean> seedlingImage = new ArrayList<>();
+        public ArrayList<ImagesJsonBean> seedlingImage = new ArrayList<>();
         public boolean canQuote = false;
         public boolean isOneQuote = false;
         private SeedlingBean seedling = new SeedlingBean();
@@ -1274,6 +1275,7 @@ public class SaveSeedingGsonBean implements Serializable {
 
                 public String id = "";
                 private String createBy;
+                public String rePublishDate;
                 private String createDate;
                 private String cityCode;
                 private String cityName = "-";
@@ -2569,153 +2571,153 @@ public class SaveSeedingGsonBean implements Serializable {
                 }
             }
 
-            public static class ImagesJsonBean implements Serializable {
-                /**
-                 * id : 005c473a5cbc49309857062fe27c8aea
-                 * imageType : seedling
-                 * name : image_20170420122040_0.jpg
-                 * url : http://image.hmeg.cn/upload/image/201704/645e35ff421940158333f9b8b627ad1b.jpg
-                 * sourceId : 3fb1328e1e8f469aac8bf4f3ed8dabb5
-                 * isCover : false
-                 * sort : 0
-                 * ossUrl : http://images.hmeg.cn/upload/image/201704/645e35ff421940158333f9b8b627ad1b.jpg@!wt
-                 * ossThumbnailImagePath : http://images.hmeg.cn/upload/image/201704/645e35ff421940158333f9b8b627ad1b.jpg@!65_87
-                 * ossSmallImagePath : http://images.hmeg.cn/upload/image/201704/645e35ff421940158333f9b8b627ad1b.jpg@!170_227
-                 * ossMediumImagePath : http://images.hmeg.cn/upload/image/201704/645e35ff421940158333f9b8b627ad1b.jpg@!210_280
-                 * ossLargeImagePath : http://images.hmeg.cn/upload/image/201704/645e35ff421940158333f9b8b627ad1b.jpg@!300_400
-                 * ossAppLargeImagePath : http://images.hmeg.cn/upload/image/201704/645e35ff421940158333f9b8b627ad1b.jpg@!450_600
-                 */
-
-                private String local_url = "";
-                private String id;
-                private String imageType;
-                private String name;
-                private String url;
-                private String sourceId;
-                private boolean isCover;
-                private int sort;
-                private String ossUrl;
-                private String ossThumbnailImagePath;
-                private String ossSmallImagePath;
-                private String ossMediumImagePath;
-                private String ossLargeImagePath;
-                private String ossAppLargeImagePath;
-
-                public String getId() {
-                    return id;
-                }
-
-                public void setId(String id) {
-                    this.id = id;
-                }
-
-                public String getImageType() {
-                    return imageType;
-                }
-
-                public void setImageType(String imageType) {
-                    this.imageType = imageType;
-                }
-
-                public String getName() {
-                    return name;
-                }
-
-                public void setName(String name) {
-                    this.name = name;
-                }
-
-                public String getUrl() {
-                    return url;
-                }
-
-                public void setUrl(String url) {
-                    this.url = url;
-                }
-
-                public String getSourceId() {
-                    return sourceId;
-                }
-
-                public void setSourceId(String sourceId) {
-                    this.sourceId = sourceId;
-                }
-
-                public boolean isIsCover() {
-                    return isCover;
-                }
-
-                public void setIsCover(boolean isCover) {
-                    this.isCover = isCover;
-                }
-
-                public int getSort() {
-                    return sort;
-                }
-
-                public void setSort(int sort) {
-                    this.sort = sort;
-                }
-
-                public String getOssUrl() {
-                    return ossUrl;
-                }
-
-                public void setOssUrl(String ossUrl) {
-                    this.ossUrl = ossUrl;
-                }
-
-                public String getOssThumbnailImagePath() {
-                    return ossThumbnailImagePath;
-                }
-
-                public void setOssThumbnailImagePath(String ossThumbnailImagePath) {
-                    this.ossThumbnailImagePath = ossThumbnailImagePath;
-                }
-
-                public String getOssSmallImagePath() {
-                    return ossSmallImagePath;
-                }
-
-                public void setOssSmallImagePath(String ossSmallImagePath) {
-                    this.ossSmallImagePath = ossSmallImagePath;
-                }
-
-                public String getOssMediumImagePath() {
-                    return ossMediumImagePath;
-                }
-
-                public void setOssMediumImagePath(String ossMediumImagePath) {
-                    this.ossMediumImagePath = ossMediumImagePath;
-                }
-
-                public String getOssLargeImagePath() {
-                    return ossLargeImagePath;
-                }
-
-                public void setOssLargeImagePath(String ossLargeImagePath) {
-                    this.ossLargeImagePath = ossLargeImagePath;
-                }
-
-                public String getOssAppLargeImagePath() {
-                    return ossAppLargeImagePath;
-                }
-
-                public void setOssAppLargeImagePath(String ossAppLargeImagePath) {
-                    this.ossAppLargeImagePath = ossAppLargeImagePath;
-                }
-
-                public String getLocal_url() {
-                    return local_url;
-                }
-
-                public ImagesJsonBean setLocal_url(String local_url) {
-                    this.local_url = local_url;
-                    return this;
-                }
-
-
-            }
+//            public static class ImagesJsonBean implements Serializable {
+//                /**
+//                 * id : 005c473a5cbc49309857062fe27c8aea
+//                 * imageType : seedling
+//                 * name : image_20170420122040_0.jpg
+//                 * url : http://image.hmeg.cn/upload/image/201704/645e35ff421940158333f9b8b627ad1b.jpg
+//                 * sourceId : 3fb1328e1e8f469aac8bf4f3ed8dabb5
+//                 * isCover : false
+//                 * sort : 0
+//                 * ossUrl : http://images.hmeg.cn/upload/image/201704/645e35ff421940158333f9b8b627ad1b.jpg@!wt
+//                 * ossThumbnailImagePath : http://images.hmeg.cn/upload/image/201704/645e35ff421940158333f9b8b627ad1b.jpg@!65_87
+//                 * ossSmallImagePath : http://images.hmeg.cn/upload/image/201704/645e35ff421940158333f9b8b627ad1b.jpg@!170_227
+//                 * ossMediumImagePath : http://images.hmeg.cn/upload/image/201704/645e35ff421940158333f9b8b627ad1b.jpg@!210_280
+//                 * ossLargeImagePath : http://images.hmeg.cn/upload/image/201704/645e35ff421940158333f9b8b627ad1b.jpg@!300_400
+//                 * ossAppLargeImagePath : http://images.hmeg.cn/upload/image/201704/645e35ff421940158333f9b8b627ad1b.jpg@!450_600
+//                 */
+//
+//                private String local_url = "";
+//                private String id;
+//                private String imageType;
+//                private String name;
+//                private String url;
+//                private String sourceId;
+//                private boolean isCover;
+//                private int sort;
+//                private String ossUrl;
+//                private String ossThumbnailImagePath;
+//                private String ossSmallImagePath;
+//                private String ossMediumImagePath;
+//                private String ossLargeImagePath;
+//                private String ossAppLargeImagePath;
+//
+//                public String getId() {
+//                    return id;
+//                }
+//
+//                public void setId(String id) {
+//                    this.id = id;
+//                }
+//
+//                public String getImageType() {
+//                    return imageType;
+//                }
+//
+//                public void setImageType(String imageType) {
+//                    this.imageType = imageType;
+//                }
+//
+//                public String getName() {
+//                    return name;
+//                }
+//
+//                public void setName(String name) {
+//                    this.name = name;
+//                }
+//
+//                public String getUrl() {
+//                    return url;
+//                }
+//
+//                public void setUrl(String url) {
+//                    this.url = url;
+//                }
+//
+//                public String getSourceId() {
+//                    return sourceId;
+//                }
+//
+//                public void setSourceId(String sourceId) {
+//                    this.sourceId = sourceId;
+//                }
+//
+//                public boolean isIsCover() {
+//                    return isCover;
+//                }
+//
+//                public void setIsCover(boolean isCover) {
+//                    this.isCover = isCover;
+//                }
+//
+//                public int getSort() {
+//                    return sort;
+//                }
+//
+//                public void setSort(int sort) {
+//                    this.sort = sort;
+//                }
+//
+//                public String getOssUrl() {
+//                    return ossUrl;
+//                }
+//
+//                public void setOssUrl(String ossUrl) {
+//                    this.ossUrl = ossUrl;
+//                }
+//
+//                public String getOssThumbnailImagePath() {
+//                    return ossThumbnailImagePath;
+//                }
+//
+//                public void setOssThumbnailImagePath(String ossThumbnailImagePath) {
+//                    this.ossThumbnailImagePath = ossThumbnailImagePath;
+//                }
+//
+//                public String getOssSmallImagePath() {
+//                    return ossSmallImagePath;
+//                }
+//
+//                public void setOssSmallImagePath(String ossSmallImagePath) {
+//                    this.ossSmallImagePath = ossSmallImagePath;
+//                }
+//
+//                public String getOssMediumImagePath() {
+//                    return ossMediumImagePath;
+//                }
+//
+//                public void setOssMediumImagePath(String ossMediumImagePath) {
+//                    this.ossMediumImagePath = ossMediumImagePath;
+//                }
+//
+//                public String getOssLargeImagePath() {
+//                    return ossLargeImagePath;
+//                }
+//
+//                public void setOssLargeImagePath(String ossLargeImagePath) {
+//                    this.ossLargeImagePath = ossLargeImagePath;
+//                }
+//
+//                public String getOssAppLargeImagePath() {
+//                    return ossAppLargeImagePath;
+//                }
+//
+//                public void setOssAppLargeImagePath(String ossAppLargeImagePath) {
+//                    this.ossAppLargeImagePath = ossAppLargeImagePath;
+//                }
+//
+//                public String getLocal_url() {
+//                    return local_url;
+//                }
+//
+//                public ImagesJsonBean setLocal_url(String local_url) {
+//                    this.local_url = local_url;
+//                    return this;
+//                }
+//
+//
+//            }
 
 
 //            	 "attrData": [

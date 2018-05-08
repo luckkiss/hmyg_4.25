@@ -69,7 +69,7 @@ public abstract class HandlerAjaxCallBack extends AjaxCallBack<String> {
     }
 
 
-    private void onFinish() {
+    public void onFinish() {
         if (needSwipeBackActivity != null && !needSwipeBackActivity.isFinishing()) {
             needSwipeBackActivity.hindLoading();
         }

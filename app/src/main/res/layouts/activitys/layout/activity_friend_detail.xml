@@ -79,13 +79,15 @@
 
                     <TextView
                         android:id="@+id/tv_jb"
-                        android:layout_width="wrap_content"
+                        android:layout_width="30dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginRight="12dp"
-                        android:drawableLeft="@mipmap/wd_gys_lv2"
-                        android:gravity="center_vertical"
-                        android:text="举报" />
+                        android:gravity="center"
+                        android:text="···"
+                        android:textSize="22dp"
+                        android:visibility="gone"
+                        />
 
                 </LinearLayout>
 

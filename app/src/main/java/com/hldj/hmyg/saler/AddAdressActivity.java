@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.hldj.hmyg.M.AddressBean;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
@@ -51,11 +52,8 @@ public class AddAdressActivity extends BaseMVPActivity {
     }
 
 
-
-
     @Override
     public void initView() {
-
 
 
 //        ToastUtil.showShortToast("添加地址界面");
@@ -82,6 +80,7 @@ public class AddAdressActivity extends BaseMVPActivity {
 
             });
 
+
         } else {
             //添加数据
             setTitle("新增苗源地址");
@@ -92,8 +91,15 @@ public class AddAdressActivity extends BaseMVPActivity {
         }
 
 
+        isShowDelete(getExtral() != null);
+
+
     }
 
+
+    private void isShowDelete(boolean isShow) {
+        getView(R.id.tv_delete).setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
 
     /**
      * 通过定位  获取地址
@@ -342,6 +348,7 @@ public class AddAdressActivity extends BaseMVPActivity {
      * @return
      */
     public AddressBean constructionBean() {
+
         addressBean.name = this.getText(getView(R.id.et_aaa_name));
         addressBean.contactName = this.getText(getView(R.id.et_aaa_contactName));
         addressBean.contactPhone = this.getText(getView(R.id.et_aaa_contactPhone));
@@ -368,6 +375,7 @@ public class AddAdressActivity extends BaseMVPActivity {
         public void doSave(Serializable obj, AjaxCallBack callBack) {
             showLoading();
             putParams(obj);
+            putParams("storeId", MyApplication.getUserBean().storeId);
             doRequest("admin/nursery/save", true, callBack);
         }
 

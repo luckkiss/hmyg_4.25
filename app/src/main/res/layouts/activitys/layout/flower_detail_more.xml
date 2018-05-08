@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.coorchice.library.SuperTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:layout_margin="3dp"
+    android:drawablePadding="5dp"
+    android:gravity="center"
+    android:paddingLeft="25dp"
+    android:text="举报此品种"
+    android:textColor="@color/white"
+    app:isShowState="true"
+    app:solid="@color/trans"
+    app:state_drawable="@mipmap/jubao"
+    app:state_drawable_height="20dp"
+    app:state_drawable_mode="left"
+    app:state_drawable_width="20dp"
+
+
+    />
+
+

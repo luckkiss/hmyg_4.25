@@ -2,7 +2,6 @@ package com.hldj.hmyg.application;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -36,7 +35,7 @@ public class AlphaTitleScrollView extends ScrollView {
     private void init(Context context) {
         // mSlop = ViewConfiguration.get(context).getScaledDoubleTapSlop();
         mSlop = 25;
-        Log.i(TAG, mSlop + "");
+//        Log.i(TAG, mSlop + "");
     }
 
 
@@ -78,7 +77,7 @@ public class AlphaTitleScrollView extends ScrollView {
 
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-        Log.i(TAG, mSlop + "");
+//        Log.i(TAG, mSlop + "");
         float headHeight = 500
                 - toolbar.getMeasuredHeight();
         int alpha = (int) (((float) t / headHeight) * 255);

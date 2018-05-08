@@ -17,6 +17,7 @@ import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.bean.MomentsThumbUp;
+import com.hldj.hmyg.Ui.friend.bean.enums.AgentGrade;
 import com.hldj.hmyg.Ui.friend.bean.enums.MomentsType;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
@@ -223,6 +224,25 @@ public class CenterActivity extends BaseMVPActivity {
                     MyCircleImageView circleImageView = helper.getView(R.id.head);
                     if (!TextUtils.isEmpty(item.attrData.headImage)) {
                         ImageLoader.getInstance().displayImage(item.attrData.headImage, circleImageView);
+
+                        AgentGrade anEnum = Enum.valueOf(AgentGrade.class, item.attrData.level);
+
+                        ImageView imageView14 = helper.getView(R.id.imageView14);
+
+
+                        Log.i(TAG, "convert: " + anEnum.getUpScore());
+                        imageView14.setImageDrawable(mActivity.getResources().getDrawable(anEnum.getUpScore()));
+
+
+                        ImageView imageView13 = helper.getView(R.id.imageView13);
+                        imageView13.setVisibility(item.attrData.identity ? View.VISIBLE : View.GONE);
+
+
+
+
+
+
+
                         ArrayList<Pic> arrayList = new ArrayList<>();
                         arrayList.add(new Pic("0", false, item.attrData.headImage, 0));
 

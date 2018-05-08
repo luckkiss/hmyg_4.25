@@ -11,6 +11,12 @@ public interface ConstantParams {
     /**
      * 到岸价
      */
+    String pageIndex = "pageIndex";
+
+
+    /**
+     * 到岸价
+     */
     String prePrice = "prePrice";
     /**
      * 苗木单价
@@ -125,14 +131,42 @@ public interface ConstantParams {
     String identityNum = "identityNum";
 
     /**
+     * 法人姓名
+     */
+    String legalPersonName = "legalPersonName";
+
+
+    /**
+     * 企业名
+     */
+    String companyName = "companyName";
+    /**
+     * 营业执照  号码
+     */
+    String licenceNum = "licenceNum";
+    /**
+     * 店铺id
+     */
+    String storeId = "storeId";
+    /**
+     * 营业执照
+     */
+    String licenceData = "licenceData";
+    /**
+     * 法人身份证照片
+     */
+    String legalPersonData = "legalPersonData";
+
+
+    /**
      * 正面身份证  数据 json
      */
-      String frontData= "frontData";
+    String frontData = "frontData";
 
     /**
      * 反面身份证  数据 json
      */
-      String backData = "backData";
+    String backData = "backData";
 
     /**
      * projectType

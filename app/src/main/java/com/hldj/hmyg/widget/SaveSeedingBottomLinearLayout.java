@@ -16,11 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hldj.hmyg.M.AddressBean;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.UnitTypeBean;
-import com.hldj.hmyg.saler.M.StorageSave;
 import com.hldj.hmyg.saler.AdressActivity;
 import com.hldj.hmyg.saler.AdressManagerActivity;
+import com.hldj.hmyg.saler.M.StorageSave;
 import com.hldj.hmyg.util.D;
 import com.zf.iosdialog.widget.ActionSheetDialog_new;
 import com.zzy.common.widget.wheelview.popwin.CustomDaysPickPopwin;
@@ -34,6 +35,22 @@ import java.util.List;
  */
 
 public class SaveSeedingBottomLinearLayout extends LinearLayout {
+
+
+    public static AddressBean addressBean;
+
+    public static AdressActivity.Address convertAddress(AddressBean bean) {
+        AdressActivity.Address address = new AdressActivity.Address();
+        address.addressId = bean.id;
+        address.id = bean.id;
+        address.cityName = bean.cityName;
+        address.contactName = bean.contactName;
+        address.fullAddress = bean.fullAddress;
+        address.contactPhone = bean.contactPhone;
+        address.name = bean.name;
+        address.isDefault = bean.isDefault;
+        return address;
+    }
 
 
     Context context;
@@ -189,18 +206,29 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
             upLoadDatas = new upLoadDatas();
 
             {
-                OnClickListener onClickListener = v -> {
-                    D.e("=========苗原地点击===========");
-                    AdressActivity.start2AdressListActivity(context, upLoadDatas.address.addressId, "SaveSeedlingActivity", address -> {
-                        D.e("===========返回的地址==========" + address);
-                        initAddressView(rootView, address);
-                        upLoadDatas.address = address;
-                    });
 
 
-                };
-                this.rl_save_seeding_home.setOnClickListener(onClickListener);
-                this.list_item_adress.setOnClickListener(onClickListener);
+                if (addressBean == null) {
+
+                    OnClickListener onClickListener = v -> {
+                        D.e("=========苗原地点击===========");
+                        AdressActivity.start2AdressListActivity(context, upLoadDatas.address.addressId, "SaveSeedlingActivity", address -> {
+                            D.e("===========返回的地址==========" + address);
+                            initAddressView(rootView, address);
+                            upLoadDatas.address = address;
+                        });
+                    };
+
+
+                    this.rl_save_seeding_home.setOnClickListener(onClickListener);
+                    this.list_item_adress.setOnClickListener(onClickListener);
+
+                } else {
+                    initAddressView(rootView, convertAddress(addressBean));
+                    upLoadDatas.address = convertAddress(addressBean);
+                }
+
+
             }
 
             //单位点击时间
@@ -267,12 +295,18 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
 
         if (!TextUtils.isEmpty(address.addressId)) {
             // 隐藏   苗源地址按钮
-            holder.rl_save_seeding_home.setVisibility(GONE);
-            holder.list_item_adress.setVisibility(VISIBLE);
+//            holder.rl_save_seeding_home.setVisibility(GONE);
+
+            rootView.findViewById(R.id.rl_save_seeding_home).setVisibility(GONE);
+            rootView.findViewById(R.id.list_item_adress).setVisibility(VISIBLE);
+//            holder.list_item_adress.setVisibility(VISIBLE);
         } else {
             // 隐藏
-            holder.rl_save_seeding_home.setVisibility(VISIBLE);
-            holder.list_item_adress.setVisibility(GONE);
+//            holder.rl_save_seeding_home.setVisibility(VISIBLE);
+//            holder.list_item_adress.setVisibility(GONE);
+            rootView.findViewById(R.id.rl_save_seeding_home).setVisibility(VISIBLE);
+            rootView.findViewById(R.id.list_item_adress).setVisibility(GONE);
+
         }
 
 
@@ -395,7 +429,15 @@ public class SaveSeedingBottomLinearLayout extends LinearLayout {
     }
 
     public void setDefaultAddr(AdressActivity.Address address) {
-        initAddressView(holder.rootView, address);
+
+
+        if (addressBean!=null )
+        {
+            initAddressView(holder.rootView, convertAddress(addressBean));
+        }else {
+            initAddressView(holder.rootView, address);
+        }
+
     }
 
 

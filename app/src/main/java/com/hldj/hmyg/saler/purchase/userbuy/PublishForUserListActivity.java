@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.coorchice.library.SuperTextView;
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
@@ -18,6 +19,7 @@ import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
 import com.hldj.hmyg.bean.SimplePageBean;
+import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.buyer.weidet.ExpandableItemAdapter;
@@ -117,7 +119,7 @@ public class PublishForUserListActivity extends BaseMVPActivity {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
-                outRect.set(0, 0, 40, 0);
+                outRect.set(0, 0, 0, 15);
                 parent.setBackgroundResource(R.color.gray_bg);
             }
         });
@@ -135,6 +137,7 @@ public class PublishForUserListActivity extends BaseMVPActivity {
                 .setText(R.id.price, item.price)
                 .setText(R.id.unit, "/" + item.attrData.unitTypeName)
                 .setText(R.id.tupian, "有" + item.imagesJson.size() + "张图片")
+//                .addOnClickListener(R.id.tupian,   )
                 .setText(R.id.myd_content, item.cityName)
                 .setText(R.id.remarks_content, item.remarks)
                 .setText(R.id.textView68, item.attrData.storeName)
@@ -146,6 +149,9 @@ public class PublishForUserListActivity extends BaseMVPActivity {
                 .addOnClickListener(R.id.ddh, v -> FlowerDetailActivity.CallPhone(item.attrData.phone, mActivity)) // 打电话
                 .addOnClickListener(R.id.bhs, v -> 不合适(item.id, helper.getAdapterPosition())) // 不合适
         ;
+
+        SuperTextView superTextView =  helper.getView(R.id.tupian) ;
+        PurchaseDetailActivity.setImgCountsSeed(mActivity,superTextView, item.imagesJson);  ;
 
 
         Log.i(TAG, "doConvert: 是否合适---> " + item.isExclude);
@@ -161,7 +167,7 @@ public class PublishForUserListActivity extends BaseMVPActivity {
                 .doRequest("admin/userQuote/saveExclude", new HandlerAjaxCallBack() {
                     @Override
                     public void onRealSuccess(SimpleGsonBean gsonBean) {
-                        ToastUtil.showLongToast(gsonBean.isSucceed() + "");
+                        ToastUtil.showLongToast(gsonBean.msg);
 
                         refresh(pos);
                     }

@@ -3,6 +3,7 @@ package com.hldj.hmyg.M;
 import com.autoscrollview.adapter.ImagePagerAdapter_ali;
 import com.hldj.hmyg.bean.ArticleBean;
 import com.hldj.hmyg.saler.M.PurchaseBean;
+import com.hldj.hmyg.saler.bean.UserPurchase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,9 @@ public class IndexGsonBean {
 //        public List<HomeStore> storeList = new ArrayList<>();
 
         public List<ImagePagerAdapter_ali.BannarBean> bannerList = new ArrayList<>();
+
+
+        public List<UserPurchase> userPurchaseList = new ArrayList<>();
 
 
         /**

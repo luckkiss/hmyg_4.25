@@ -12,13 +12,13 @@
         android:id="@+id/muzt"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:gravity="center"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:drawablePadding="4dp"
         android:drawableRight="@drawable/ic_arrow_down"
+        android:gravity="center"
         android:text="苗木状态"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -33,6 +33,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         android:text="修改库存"
+        android:visibility="gone"
         android:textColor="@color/main_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,6 +44,7 @@
 
     <com.coorchice.library.SuperTextView
         android:id="@+id/sj"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -71,6 +73,7 @@
         app:text_fill_color="@color/main_color" />
 
     <com.coorchice.library.SuperTextView
+        android:visibility="gone"
         android:id="@+id/sc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -101,6 +104,7 @@
         app:text_fill_color="@color/red" />
 
     <com.coorchice.library.SuperTextView
+        android:visibility="gone"
         android:id="@+id/qx"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

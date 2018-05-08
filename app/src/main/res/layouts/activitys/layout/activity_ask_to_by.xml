@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".me.AskToByActivity">
@@ -28,14 +28,33 @@
         android:layout_below="@+id/tab_head" />
 
 
-    <android.support.design.widget.FloatingActionButton
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/fab"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_marginBottom="50dp"-->
+    <!--android:layout_marginRight="@dimen/tableHeight"-->
+
+    <!--android:src="@drawable/seller_makingacall_2"-->
+
+    <!--app:elevation="2dp"-->
+    <!--app:rippleColor="#ff87ffeb"-->
+    <!---->
+    <!--/>-->
+
+    <ImageView
         android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="50dp"
-        android:layout_marginRight="@dimen/tableHeight" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:src="@mipmap/home_publish"
+        android:visibility="visible" />
 
 
 </RelativeLayout>

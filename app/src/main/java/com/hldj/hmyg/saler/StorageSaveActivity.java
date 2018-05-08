@@ -30,6 +30,7 @@ import com.hldj.hmyg.base.ViewHolders;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
+import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.ConstantState;
@@ -409,7 +410,7 @@ public class StorageSaveActivity extends NeedSwipeBackActivity implements OnClic
     }
 
 
-    List<SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean> list_imagejsons = null;
+    List<ImagesJsonBean> list_imagejsons = null;
 
 
     public SaveSeedingGsonBean getGsonBean() {

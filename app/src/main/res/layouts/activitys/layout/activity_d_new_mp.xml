@@ -14,14 +14,12 @@
     <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
         android:id="@+id/recycle"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-    </com.hldj.hmyg.buyer.weidet.CoreRecyclerView>
+        android:layout_height="match_parent"
+      />
 
 
     <!--<Button-->
-        <!--style="@style/save_bottom"-->
-        <!--android:text="有10条求购匹配您的苗圃品种，点击查看 X" />-->
+    <!--style="@style/save_bottom"-->
+    <!--android:text="有10条求购匹配您的苗圃品种，点击查看 X" />-->
 
 </LinearLayout>

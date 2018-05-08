@@ -1,5 +1,7 @@
 package com.hldj.hmyg.bean;
 
+import com.hldj.hmyg.M.userIdentity.enums.CompanyIdentityStatus;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -71,7 +73,15 @@ public class StoreGsonBean implements Serializable {
             public String shareContent;
             public String shareUrl;
             public String storeUrl;
+
+            public AttrData attrData = new AttrData();
+
         }
+
+        public static class AttrData {
+         public    String store_identity = CompanyIdentityStatus.unaudited.getEnumValue();
+        }
+
 
         public static class OwnerBean implements Serializable {
             /**

@@ -1,5 +1,6 @@
 package com.hldj.hmyg.Ui.friend.bean;
 
+import com.hldj.hmyg.Ui.friend.bean.enums.AgentGrade;
 import com.hldj.hmyg.bean.UserBean;
 import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
@@ -137,6 +138,9 @@ public class Moments implements Serializable {
         public String storeId;
         public String displayPhone;
         public String videoImageUrl = "";//视频 封面图
+
+        public String level = AgentGrade.level0.getEnumValue();
+        public boolean identity = false;
 
 
     }

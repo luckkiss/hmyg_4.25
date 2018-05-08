@@ -79,7 +79,7 @@
                 <RadioButton
                     android:id="@+id/tab_d"
                     style="@style/tab_hdpi"
-                    android:drawableTop="@drawable/collect_selecter"
+                    android:drawableTop="@drawable/miaopu_selecter"
                     android:text="@string/tab_d_text" />
 
                 <RadioButton

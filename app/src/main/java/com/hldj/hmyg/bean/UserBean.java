@@ -96,6 +96,8 @@ public class UserBean {
     public String agentTypeName;
     public boolean isDirectAgent;
     public String displayName = "";
+    public String timeStampStr = "";
+    public String cityName = "";
     public String adminDisplayName;
     public String displayPhone;
     public String permissionsName;

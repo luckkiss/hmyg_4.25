@@ -233,6 +233,7 @@ public class AdressActivity extends BaseMVPActivity<AdressListPresenter, AdressL
 
 
     public static class Address implements Serializable {
+        public String id = "";
         public String addressId = "";
         public String contactPhone = "";
         public String contactName = "";

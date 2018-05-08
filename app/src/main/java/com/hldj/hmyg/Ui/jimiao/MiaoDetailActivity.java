@@ -105,6 +105,7 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
     public int a = 0;
     private AutoAdd2DetailLinearLayout.UploadDatas uploadDatas;
     private AutoAdd2DetailLinearLayout autoAdd2DetailLinearLayout;
+    private String ownerId = "";
 
 
     @Override
@@ -204,6 +205,8 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
                                                     "imagesJson");
 
                                     String num = JsonGetInfo.getJsonString(seedling, "num");
+                                    ownerId = JsonGetInfo.getJsonString(seedling, "ownerId");
+//                                    ToastUtil.showLongToast("ownerId is -- > " + ownerId);
 //                                    tv_id_num.setText("编号：" + num);
 //                                    uploadDatas.seedlingNum = "资源编号：" + num;
 //                                    autoAdd2DetailLinearLayout.changeText(num);
@@ -433,8 +436,6 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
         }
 
 
-
-
 //		getWindow().getDecorView().setSystemUiVisibility( View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 //		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN| View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR );
 //		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
@@ -459,10 +460,8 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
     }
 
 
-
-
     public void setToolBarAlfaScr() {
-        AlphaTitleScrollView   scroll = (AlphaTitleScrollView) findViewById(R.id.alfa_scroll);
+        AlphaTitleScrollView scroll = (AlphaTitleScrollView) findViewById(R.id.alfa_scroll);
         LinearLayout title = (LinearLayout) findViewById(R.id.ll_detail_toolbar);
         TextView tv_title = getView(R.id.tv_title);
         View head = findViewById(R.id.view_detail_top);
@@ -489,16 +488,6 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
 //        }, 100);
 
     }
-
-
-
-
-
-
-
-
-
-
 
 
     private String getTextByKey(String staceType) {
@@ -545,7 +534,7 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
 
     private ACache mCache;
 
-//    private TextView id_tv_edit_all;
+    //    private TextView id_tv_edit_all;
     private EditText et_crown;
     private EditText et_height;
     private EditText et_maxHeight;
@@ -653,18 +642,6 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     private void initViewPager(AbSlidingPlayView viewPager, ArrayList<Pic> urlPaths) {
 
 
@@ -696,16 +673,20 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
 
 
     public void CallPhone(View view) {
-        postWhoPhone(id, contactPhone, ConstantState.TYPE_NURSERY);
-        FlowerDetailActivity.CallPhone(contactPhone, mActivity);
+
+        FlowerDetailActivity.CallPhone(contactPhone, mActivity, v -> {
+            postWhoPhone(ownerId, id, contactPhone, ConstantState.TYPE_NURSERY);
+        });
         if (TextUtils.isEmpty(contactPhone)) {
             ToastUtil.showShortToast("电话号码未填写");
         }
     }
 
     public void CallPhone1(View view) {
-        postWhoPhone(id, ownerPhone, ConstantState.TYPE_OWNER);
-        FlowerDetailActivity.CallPhone(ownerPhone, mActivity);
+
+        FlowerDetailActivity.CallPhone(ownerPhone, mActivity, succeed -> {
+            postWhoPhone(ownerId, id, ownerPhone, ConstantState.TYPE_OWNER);
+        });
         if (TextUtils.isEmpty(ownerPhone)) {
             ToastUtil.showShortToast("电话号码未填写");
         }
@@ -725,8 +706,10 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
      * /callLog/save
      */
 
-    public static void postWhoPhone(String callSourceId, String callPhone, String callTargetType) {
+    public static void postWhoPhone(String ownerId, String callSourceId, String callPhone, String callTargetType) {
         new BasePresenter()
+                .putParams("ownerId", ownerId)
+                .putParams("callSourceType", "seedlingNote")
                 .putParams("callSourceType", "seedlingNote")
                 .putParams("callSourceId", callSourceId)
                 .putParams("userId", MyApplication.Userinfo.getString("id", ""))

@@ -31,6 +31,7 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.MyUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.ToastUtil;
 import com.loginjudge.LoginJudge;
 import com.mrwujay.cascade.activity.BaseActivity;
 
@@ -103,6 +104,17 @@ public class SetProfileActivity extends BaseActivity implements
 
         ((TextView) findViewById(R.id.toolbar_title)).setText("个人资料");
 
+
+        findViewById(R.id.change_password).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                ToastUtil.showLongToast("修改密码");
+
+//                SafeAcountActivity.start2Activity(SetProfileActivity.this);
+                SetPasswardByGetCodeActivity.start(SetProfileActivity.this, false);
+
+            }
+        });
 
 //        LoginPresenter.getUserInfo(MyApplication.getUserBean().id);
 

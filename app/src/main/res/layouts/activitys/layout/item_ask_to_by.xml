@@ -24,12 +24,15 @@
         android:id="@+id/shuliang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
+        android:layout_alignBaseline="@+id/title"
+        android:layout_alignBottom="@+id/title"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/title"
         android:layout_toRightOf="@+id/title"
         android:text="200株"
         android:textColor="@color/main_color"
-        android:textSize="@dimen/textSizeTitle" />
+        android:textSize="@dimen/textSizeContent" />
 
     <!-- 报价数量 -->
     <CheckedTextView

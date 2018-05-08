@@ -12,6 +12,7 @@ import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.NestedScrollView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -59,10 +60,13 @@ import com.hldj.hmyg.buyer.weidet.SwipeViewHeader;
 import com.hldj.hmyg.presenter.AActivityPresenter;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
 import com.hldj.hmyg.saler.SaveSeedlingActivity;
-import com.hldj.hmyg.saler.purchase.userbuy.BuyForUserActivity;
+import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
+import com.hldj.hmyg.saler.purchase.userbuy.BuyForUserActivity;
+import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserDetailActivity;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.UPMarqueeView;
 import com.hldj.hmyg.widget.swipeview.MySwipeRefreshLayout;
@@ -294,7 +298,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         });
         //快速报价
         findViewById(R.id.stv_home_2).setOnClickListener(v -> {
-            ToastUtil.showLongToast(" 用户求购 ");
+//            ToastUtil.showLongToast(" 用户求购 ");
             BuyForUserActivity.start2Activity(AActivity_3_0.this);
         });
         ////成交公告
@@ -656,18 +660,21 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
             View view = findViewById(R.id.ll_qiu_gou_parent);
 //
-//            if (indexGsonBean.data.purchaseList.size() != 0) {
-            if (true) {
+            if (indexGsonBean.data.userPurchaseList.size() != 0) {
+//            if (true) {
                 view.setVisibility(View.VISIBLE);
 //                PurchaseListAdapter adapter = new PurchaseListAdapter(AActivity_3_0.this, indexGsonBean.data.purchaseList, R.layout.item_buy_for_user);
 
-                List<String> ars = new ArrayList<>();
-                ars.add("13213");
-                ars.add("13213");
-                ars.add("13213");
-                lv_qiu_gou.setAdapter(new GlobBaseAdapter<String>(AActivity_3_0.this, ars, R.layout.item_buy_for_user) {
+//                List<UserPurchase> ars = new ArrayList<>();
+//                ars.add("13213");
+//                ars.add("13213");
+//                ars.add("13213");
+                lv_qiu_gou.setAdapter(new GlobBaseAdapter<UserPurchase>(AActivity_3_0.this, indexGsonBean.data.userPurchaseList, R.layout.item_buy_for_user) {
                     @Override
-                    public void setConverView(ViewHolders myViewHolder, String s, int position) {
+                    public void setConverView(ViewHolders myViewHolder, UserPurchase s, int position) {
+                        Log.i(TAG, ": " + s.name);
+
+                        doConvert(myViewHolder, s, AActivity_3_0.this);
 
                     }
                 });
@@ -703,14 +710,16 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         {  // 根据list 显示 title  并且设置点击事件
             TextView home_title_first = (TextView) findViewById(R.id.home_title_first);
+            TextView home_title_qiu_gou = (TextView) findViewById(R.id.home_title_qiu_gou);
             TextView home_title_second = (TextView) findViewById(R.id.home_title_second);
             TextView home_title_third = (TextView) findViewById(R.id.home_title_third);
-            TextView tv_titles[] = new TextView[]{home_title_first, home_title_second, home_title_third};
+            TextView tv_titles[] = new TextView[]{home_title_first, home_title_qiu_gou,home_title_second, home_title_third};
 
             View v1 = findViewById(R.id.home_title_first);
+            View v1_qiugou = findViewById(R.id.home_title_qiu_gou);
             View v2 = findViewById(R.id.home_title_second);
             View v3 = findViewById(R.id.home_title_third);
-            View views[] = new View[]{v1, v2, v3};
+            View views[] = new View[]{v1,v1_qiugou, v2, v3};
 
             try {
                 autoSetTitles(tv_titles, indexGsonBean.data.titleList, views);
@@ -1092,5 +1101,46 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
     }
 
+
+    public static void doConvert(ViewHolders helper, UserPurchase item, AActivity_3_0 mActivity) {
+
+//        helper.getConvertView().setOnClickListener(v -> {
+        helper.getConvertView().setOnClickListener(v -> PublishForUserDetailActivity.start2Activity(mActivity, item.id, item.ownerId));
+//
+//        });
+
+
+        helper.setText(R.id.title, FUtil.$_zero(item.name + ""));
+
+
+        helper.setText(R.id.shuliang, FUtil.$_zero(item.count + "/" + item.unitTypeName));
+
+//        helper.setText(R.id.shuliang, FUtil.$_zero(item.count + ""));
+
+        if (TextUtils.isEmpty(FUtil.$_zero_2_null(item.quoteCountJson))) {
+            helper.setText(R.id.qubaojia, "暂无报价");
+            helper.setTextColorRes(R.id.qubaojia, R.color.text_color999);
+        } else {
+            helper.setText(R.id.qubaojia, FUtil.$(item.quoteCountJson) + "条报价");
+            helper.setTextColorRes(R.id.qubaojia, R.color.main_color);
+        }
+        helper.setText(R.id.space_text, item.specText);
+        helper.setText(R.id.city, "用苗地:" + item.cityName);
+        helper.setText(R.id.update_time, "结束时间:" + item.closeDateStr + "");
+
+        if (helper.getView(R.id.state) != null)
+//         helper.getView(R.id.state).setVisibility(item.attrData.isUserQuoted? View.VISIBLE:View.GONE);
+            helper.setVisible(R.id.state, item.attrData.isUserQuoted);
+        //                    this.rootView = rootView;
+//                    this.title = (TextView) rootView.findViewById(R.id.title);
+//                    this.shuliang = (TextView) rootView.findViewById(R.id.shuliang);
+//                    this.qubaojia = (TextView) rootView.findViewById(R.id.qubaojia);
+//                    this.space_text = (TextView) rootView.findViewById(R.id.space_text);
+//                    this.city = (TextView) rootView.findViewById(R.id.city);
+//                    this.update_time = (TextView) rootView.findViewById(R.id.update_time);
+//                    this.bao_jia_num = (TextView) rootView.findViewById(R.id.bao_jia_num);
+//                    this.state = (ImageView) rootView.findViewById(R.id.state);
+
+    }
 
 }

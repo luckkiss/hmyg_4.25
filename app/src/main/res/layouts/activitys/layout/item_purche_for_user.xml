@@ -49,7 +49,7 @@
                 android:layout_margin="6dp"
                 android:padding="3dp"
                 android:textColor="@color/main_color"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:visibility="visible"
                 tools:text="2条报价" />
 

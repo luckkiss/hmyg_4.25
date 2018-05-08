@@ -3,6 +3,9 @@ package com.hldj.hmyg.saler.purchase.userbuy;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +22,14 @@ import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
-import com.hldj.hmyg.buyer.weidet.decoration.SectionDecoration;
 import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.util.D;
 import com.weavey.loading.lib.LoadingLayout;
 
 import net.tsz.afinal.FinalActivity;
 import net.tsz.afinal.annotation.view.ViewInject;
+
+import static com.hldj.hmyg.buyer.weidet.CoreRecyclerView.REFRESH;
 
 /**
  * 用户发布界面
@@ -51,6 +56,7 @@ public class SelectPlantActivity extends BaseMVPActivity implements OnClickListe
     @ViewInject(id = R.id.loading_layout)
     LoadingLayout loading_layout;
 
+    Handler handler = new Handler();
 
     @Override
     public int bindLayoutID() {
@@ -62,11 +68,13 @@ public class SelectPlantActivity extends BaseMVPActivity implements OnClickListe
 
         switch (v.getId()) {
             case R.id.sptv_program_do_search:
-                搜索("真萍婆");
+                搜索(getSearchKey());
                 break;
         }
+    }
 
-
+    public String getSearchKey() {
+        return getText(getView(R.id.et_program_serach_text));
     }
 
     private void 搜索(String key) {
@@ -78,6 +86,7 @@ public class SelectPlantActivity extends BaseMVPActivity implements OnClickListe
                     public void onRealSuccess(SimpleGsonBean gsonBean) {
 
                         Log.i("搜索", "onRealSuccess: " + gsonBean.isSucceed());
+                        recycle.getAdapter().setDatasState(REFRESH);
                         recycle.getAdapter().addData(gsonBean.getData().seedlingTypeList);
                     }
                 });
@@ -85,10 +94,39 @@ public class SelectPlantActivity extends BaseMVPActivity implements OnClickListe
 
     }
 
+
+    public Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            D.i("延时执行");
+        }
+    };
+
     @Override
     public void initView() {
         FinalActivity.initInjectedView(this);
-        et_search_content.setText("真萍婆");
+
+
+        et_search_content.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                handler.removeCallbacks(runnable);
+                handler.postDelayed(runnable, 800);
+                搜索(s.toString());
+            }
+        });
+        et_search_content.setText(getHistoryKey());
+
 
         loading_layout.setStatus(LoadingLayout.Success);
 
@@ -129,10 +167,16 @@ public class SelectPlantActivity extends BaseMVPActivity implements OnClickListe
 
         View empty_view = LayoutInflater.from(mActivity).inflate(R.layout.empty_view_select, null);
 
+        slide_bar.setVisibility(View.GONE);
+
+
         recycle.init(new BaseQuickAdapter<SeedlingType, BaseViewHolder>(R.layout.item_list_simple) {
             @Override
             protected void convert(BaseViewHolder helper, SeedlingType item) {
-                helper.setText(android.R.id.text1, item.name);
+                helper.setText(android.R.id.text1, item.name + " ( " + item.parentName + " )");
+
+                helper.getView(android.R.id.text1).setPadding(helper.getView(android.R.id.text1).getPaddingLeft(), 20, 0, 20);
+
 
                 helper.convertView.setOnClickListener(v -> {
                     Intent intent = new Intent();
@@ -145,31 +189,31 @@ public class SelectPlantActivity extends BaseMVPActivity implements OnClickListe
             }
         }).setEmptyView(empty_view);
 
-        recycle.getRecyclerView().addItemDecoration(SectionDecoration.Builder.init(new SectionDecoration.PowerGroupListener() {
-            @Override
-            public String getGroupName(int position) {
-
-                if (recycle.getAdapter().getData().size() == 0) {
-                    return null;
-                }
-
-                SeedlingType seedlingType = (SeedlingType) recycle.getAdapter().getData().get(position);
-                return seedlingType.parentName;
-            }
-
-            @Override
-            public View getGroupView(int position) {
-                if (recycle.getAdapter().getData().size() == 0)
-                    return null;
-                View view = LayoutInflater.from(mActivity).inflate(R.layout.item_tag, null);
-                TextView textView = view.findViewById(R.id.text1);
-                textView.setHeight((int) getResources().getDimension(R.dimen.px50));
-                SeedlingType seedlingType = (SeedlingType) recycle.getAdapter().getData().get(position);
-                textView.setText(seedlingType.parentName);
-                return view;
-
-            }
-        }).setGroupHeight((int) getResources().getDimension(R.dimen.px50)).build());
+//        recycle.getRecyclerView().addItemDecoration(SectionDecoration.Builder.init(new SectionDecoration.PowerGroupListener() {
+//            @Override
+//            public String getGroupName(int position) {
+//
+//                if (recycle.getAdapter().getData().size() == 0) {
+//                    return null;
+//                }
+//
+//                SeedlingType seedlingType = (SeedlingType) recycle.getAdapter().getData().get(position);
+//                return seedlingType.parentName;
+//            }
+//
+//            @Override
+//            public View getGroupView(int position) {
+//                if (recycle.getAdapter().getData().size() == 0)
+//                    return null;
+//                View view = LayoutInflater.from(mActivity).inflate(R.layout.item_tag, null);
+//                TextView textView = view.findViewById(R.id.text1);
+//                textView.setHeight((int) getResources().getDimension(R.dimen.px50));
+//                SeedlingType seedlingType = (SeedlingType) recycle.getAdapter().getData().get(position);
+//                textView.setText(seedlingType.parentName);
+//                return view;
+//
+//            }
+//        }).setGroupHeight((int) getResources().getDimension(R.dimen.px50)).build());
 
 //        recycle.getAdapter().addData("AA");
 //        recycle.getAdapter().addData("aaa");
@@ -196,10 +240,16 @@ public class SelectPlantActivity extends BaseMVPActivity implements OnClickListe
     }
 
 
-    public static void start2Activity(Activity mActivity) {
-        Intent intent = new Intent(mActivity, SelectPlantActivity.class);
-        mActivity.startActivityForResult(intent,100);
+    public String getHistoryKey() {
+        String str = getIntent().getStringExtra("searchKey");
+        D.i("------searchkey -is ---" + str);
+        return str;
+    }
 
+    public static void start2Activity(Activity mActivity, String searchKey) {
+        Intent intent = new Intent(mActivity, SelectPlantActivity.class);
+        intent.putExtra("searchKey", searchKey);
+        mActivity.startActivityForResult(intent, 100);
     }
 
     @Override

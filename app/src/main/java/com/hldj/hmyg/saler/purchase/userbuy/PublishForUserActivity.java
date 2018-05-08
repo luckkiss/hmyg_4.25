@@ -26,8 +26,10 @@ import com.hldj.hmyg.buyer.Ui.ComonCityWheelDialogF;
 import com.hldj.hmyg.saler.M.enums.ValidityEnum;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.UserPurchase;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.AutoAddRelative;
+import com.hy.utils.ToastUtil;
 import com.zzy.common.widget.wheelview.popwin.CustomDaysPickPopwin;
 import com.zzy.common.widget.wheelview.popwin.CustomUnitsPickPopwin;
 
@@ -76,7 +78,7 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
     }
 
     private void 请选择品种() {
-        SelectPlantActivity.start2Activity(mActivity);
+        SelectPlantActivity.start2Activity(mActivity, qxz_pz.getText().equals("请选择") ? "" : qxz_pz.getText().toString());
     }
 
 
@@ -88,7 +90,7 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
 
     public static void start2Activity(Activity mActivity) {
         Intent intent = new Intent(mActivity, PublishForUserActivity.class);
-        mActivity.startActivity(intent);
+        mActivity.startActivityForResult(intent, 100);
     }
 
     public String getId() {
@@ -103,7 +105,7 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
     public static void start2Activity(Activity mActivity, String purchaseId) {
         Intent intent = new Intent(mActivity, PublishForUserActivity.class);
         intent.putExtra("id", purchaseId);
-        mActivity.startActivity(intent);
+        mActivity.startActivityForResult(intent, 100);
     }
 
     @Override
@@ -115,7 +117,7 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && requestCode == 100) {
+        if (requestCode == 100 && resultCode == 100) {
             SeedlingType seedlingType = (SeedlingType) data.getSerializableExtra("item");
             qxz_pz.setText(seedlingType.name);
 
@@ -217,8 +219,8 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
                     | Gravity.CENTER, 0, 0);
         });
 
-        select_time.setText(validityList.get(3).text);
-        select_time.setTag(validityList.get(3).value);
+        select_time.setText(validityList.get(2).text);
+        select_time.setTag(validityList.get(2).value);
 
     }
 
@@ -282,19 +284,19 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
             if (arrayList_holders.get(i).getTag().equals("高度")) {
                 //有高度 参数
                 setMinByTag("高度", userPurchase.minHeight);
-                setMinByTag("高度", userPurchase.maxHeight);
+                setMaxByTag("高度", userPurchase.maxHeight);
             }
             if (arrayList_holders.get(i).getTag().equals("冠幅")) {
                 setMinByTag("冠幅", userPurchase.minCrown);
-                setMinByTag("冠幅", userPurchase.maxCrown);
+                setMaxByTag("冠幅", userPurchase.maxCrown);
             }
             if (arrayList_holders.get(i).getTag().equals("脱杆高")) {
                 setMinByTag("脱杆高", userPurchase.minOffbarHeight);
-                setMinByTag("脱杆高", userPurchase.maxOffbarHeight);
+                setMaxByTag("脱杆高", userPurchase.maxOffbarHeight);
             }
             if (arrayList_holders.get(i).getTag().equals("长度")) {
                 setMinByTag("长度", userPurchase.minLength);
-                setMinByTag("长度", userPurchase.maxLength);
+                setMaxByTag("长度", userPurchase.maxLength);
             }
         }
     }
@@ -480,8 +482,8 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
         Log.i(TAG, "用苗地---->" + getText(getView(R.id.select_city)) + "  " + getView(R.id.select_city).getTag());
         userPurchase.cityCode = getView(R.id.select_city).getTag().toString();
 
-        RadioButton radioButton = getView(R.id.radio_right);
-        Log.i(TAG, "可否无图---->" + radioButton.isChecked());
+        RadioButton radioButton = getView(R.id.radio_left);
+        Log.i(TAG, "图片比传嘛?---->" + radioButton.isChecked());
         userPurchase.needImage = radioButton.isChecked();
 
         Log.i(TAG, "求购描述---->" + getText(getView(R.id.et_remark)));
@@ -498,7 +500,9 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
                 .doRequest("admin/userPurchase/save", new HandlerAjaxCallBack(mActivity) {
                     @Override
                     public void onRealSuccess(SimpleGsonBean gsonBean) {
-
+                        ToastUtil.showLongToast(gsonBean.msg);
+                        setResult(ConstantState.PUBLIC_SUCCEED);
+                        finish();
                     }
                 })
         ;

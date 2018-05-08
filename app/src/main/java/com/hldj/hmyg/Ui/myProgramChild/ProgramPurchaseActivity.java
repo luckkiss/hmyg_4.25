@@ -350,7 +350,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                                     .setTextColorRes(tv_program_purch_sub_use_state, R.color.text_login_type)
                                     .setSelected(R.id.imageView, true);
                         } else {//兼容旧数据。。。默认 已采用
-                            helper.setText(tv_program_purch_sub_use_state, "已采用")
+                            helper.setText(R.id.tv_program_purch_sub_use_state, "已采用")
                                     .addOnClickListener(tv_program_purch_sub_use_state, null)
                                     .setSelected(tv_program_purch_sub_use_state, true)
                                     .setTextColorRes(tv_program_purch_sub_use_state, R.color.text_login_type)

@@ -8,6 +8,7 @@ import android.support.annotation.Keep;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
@@ -175,7 +176,7 @@ public class SaveSeedlingActivity_pubsh_quick extends SaveSeedlingActivityBase {
         ArrayList<Pic> pics = new ArrayList<>();
         index = 0;
         for (int i = 0; i < saveSeedingGsonBean1.getData().seedlingImage.size(); i++) {
-            SaveSeedingGsonBean.DataBean.SeedlingBean.ImagesJsonBean imagesJson = saveSeedingGsonBean1.getData().seedlingImage.get(i);
+            ImagesJsonBean imagesJson = saveSeedingGsonBean1.getData().seedlingImage.get(i);
             if (imagesJson != null)
                 pics.add(new Pic(imagesJson.getId(), true, imagesJson.getOssMediumImagePath(), index));
         }

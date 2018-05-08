@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Administrator on 2017/4/28.
  */
 
-public class ImagesJsonBean implements Serializable{
+public class ImagesJsonBean implements Serializable {
     /**
      * id : 7d148d63ecb44732ac91e71574bd1769
      * imageType : qoute
@@ -33,6 +33,35 @@ public class ImagesJsonBean implements Serializable{
     public String ossLargeImagePath;
     public String ossAppLargeImagePath;
 
+
+    public int sort ;
+
+    public String local_url;
+
+
+    public boolean isIsCover ;
+
+    public ImagesJsonBean setId(String id) {
+        this.id = id;
+        return this;
+
+    }
+
+    public String getId()
+    {
+        return id;
+    }
+
+    public String getLocal_url() {
+        return local_url;
+    }
+
+    public ImagesJsonBean setLocal_url(String url) {
+        this.local_url = url;
+        return this;
+    }
+
+
     @Override
     public String toString() {
         return "ImagesJsonBean{" +
@@ -48,5 +77,25 @@ public class ImagesJsonBean implements Serializable{
                 ", ossLargeImagePath='" + ossLargeImagePath + '\'' +
                 ", ossAppLargeImagePath='" + ossAppLargeImagePath + '\'' +
                 '}';
+    }
+
+    public boolean isIsCover() {
+            return isIsCover;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public int getSort() {
+        return sort;
+    }
+
+    public String getOssMediumImagePath() {
+        return ossMediumImagePath;
+    }
+
+    public String getOssUrl() {
+        return ossUrl;
     }
 }

@@ -309,4 +309,18 @@ public class ShareDialogFragment extends DialogFragment implements PlatformActio
         });
     }
 
+
+    public static void ShareToWechat(Platform.ShareParams shareParams) {
+        Platform Wechat_men = ShareSDK.getPlatform("Wechat");
+        Wechat_men.share(shareParams);
+    }
+
+    public static void ShareToWechatMoments(Platform.ShareParams shareParams) {
+
+        Platform Wechat_men = ShareSDK.getPlatform("WechatMoments");
+
+        Wechat_men.share(shareParams);
+
+    }
+
 }

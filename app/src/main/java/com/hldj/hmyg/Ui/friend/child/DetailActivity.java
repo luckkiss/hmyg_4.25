@@ -26,7 +26,9 @@ import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.bean.MomentsReply;
 import com.hldj.hmyg.Ui.friend.bean.MomentsThumbUp;
+import com.hldj.hmyg.Ui.friend.bean.enums.AgentGrade;
 import com.hldj.hmyg.Ui.friend.bean.enums.MomentsType;
+import com.hldj.hmyg.Ui.friend.bean.enums.TipoffSourceType;
 import com.hldj.hmyg.Ui.friend.presenter.FriendPresenter;
 import com.hldj.hmyg.Ui.friend.widget.EditDialog;
 import com.hldj.hmyg.application.MyApplication;
@@ -133,8 +135,8 @@ public class DetailActivity extends BaseMVPActivity {
             moments.thumbUpListJson = new ArrayList<>();
         }
 
-        tv_jb.setOnClickListener(v->{
-            ReportActivity.start(mActivity,"");
+        tv_jb.setOnClickListener(v -> {
+            ReportActivity.start(mActivity, moments.id, TipoffSourceType.moments.getEnumValue());
 
 
         });
@@ -262,6 +264,20 @@ public class DetailActivity extends BaseMVPActivity {
 //            if (!TextUtils.isEmpty(moments.attrData.headImage)) {
             ImageLoader.getInstance().displayImage(moments.attrData.headImage, head);
 
+
+            AgentGrade anEnum = Enum.valueOf(AgentGrade.class, moments.attrData.level);
+
+            ImageView imageView14 = getView(R.id.imageView14);
+
+
+            Log.i(TAG, "convert: " + anEnum.getUpScore());
+            imageView14.setImageDrawable(mActivity.getResources().getDrawable(anEnum.getUpScore()));
+
+
+            ImageView imageView13 = getView(R.id.imageView13);
+            imageView13.setVisibility(moments.attrData.identity ? View.VISIBLE : View.GONE);
+
+
             if (!TextUtils.isEmpty(moments.videoUrl)) {
                 video.setVisibility(View.VISIBLE);
                 video.setOnClickListener(new View.OnClickListener() {
@@ -291,7 +307,7 @@ public class DetailActivity extends BaseMVPActivity {
                 if (TextUtils.isEmpty(moments.attrData.displayPhone)) {
                     ToastUtil.showLongToast("未留电话号码~_~");
                 } else {
-                    FriendPresenter.postWhoPhone(moments.id, moments.attrData.displayPhone, ConstantState.TYPE_OWNER);
+                    FriendPresenter.postWhoPhone(moments.ownerId, moments.id, moments.attrData.displayPhone, ConstantState.TYPE_OWNER);
                     FlowerDetailActivity.CallPhone(moments.attrData.displayPhone, mActivity);
                 }
             });

@@ -164,7 +164,6 @@
                     android:digits="1234567890xX"
                     android:gravity="center|start"
                     android:hint="请输入法人姓名"
-                    android:inputType="number"
                     android:padding="5dp"
                     android:textColorHint="@color/hint_text_color"
                     android:textSize="14sp" />
@@ -231,9 +230,9 @@
                 android:layout_marginRight="5dp"
                 android:padding="3dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/shili1" />
+                android:src="@color/white" />
 
-
+            <!--android:src="@mipmap/shili1"-->
         </LinearLayout>
 
 
@@ -294,7 +293,8 @@
                 android:layout_marginRight="5dp"
                 android:padding="3dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/shili2" />
+                android:src="@color/white" />
+            <!--android:src="@mipmap/shili2" />-->
 
 
         </LinearLayout>

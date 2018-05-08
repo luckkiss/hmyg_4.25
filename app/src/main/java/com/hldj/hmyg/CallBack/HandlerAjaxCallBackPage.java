@@ -45,6 +45,11 @@ public abstract class HandlerAjaxCallBackPage<E> extends AjaxCallBack<String> {
         this.needSwipeBackActivity = activity;
     }
 
+    public HandlerAjaxCallBackPage(NeedSwipeBackActivity activity,Type type) {
+        this.type = type;
+        this.needSwipeBackActivity = activity;
+    }
+
     public void onStart() {
         if (needSwipeBackActivity != null) {
             needSwipeBackActivity.showLoading();

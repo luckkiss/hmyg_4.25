@@ -260,15 +260,17 @@ public class CommonListSpinner1<T> {
         if (Build.VERSION.SDK_INT < 24) {
             selectPopupWindow.showAsDropDown(mBuilder.mApplyParentView, 0, -3);
         } else if (Build.VERSION.SDK_INT < 26) {
-            // 适配 android 7.0
-            int[] location = new int[2];
-//             selectPopupWindow(location);
-            getLocationOnScreen(location);
-            int x = location[0];
-            int y = location[1];
-//            ToastUtil.showShortToast("y="+y);
-            Log.e(getClass().getSimpleName(), "x : " + x + ", y : " + y);
-            selectPopupWindow.showAtLocation(mBuilder.mApplyParentView, Gravity.NO_GRAVITY, 0, y + 5);
+//            // 适配 android 7.0
+//            int[] location = new int[2];
+////             selectPopupWindow(location);
+//            getLocationOnScreen(location);
+//            int x = location[0];
+//            int y = location[1];
+////            ToastUtil.showShortToast("y="+y);
+//            Log.e(getClass().getSimpleName(), "x : " + x + ", y : " + y);
+//            selectPopupWindow.showAtLocation(mBuilder.mApplyParentView, Gravity.NO_GRAVITY, 0, y + 5);
+
+            showAsDropDown(selectPopupWindow, mBuilder.mApplyParentView, 0, -3);
         } else {
             showAsDropDown(selectPopupWindow, mBuilder.mApplyParentView, 0, -3);
         }
@@ -296,15 +298,17 @@ public class CommonListSpinner1<T> {
         if (Build.VERSION.SDK_INT < 24) {
             selectPopupWindow.showAsDropDown(mBuilder.mApplyParentView, 0, -3);
         } else if (Build.VERSION.SDK_INT < 26) {
-            // 适配 android 7.0
-            int[] location = new int[2];
-//             selectPopupWindow(location);
-            getLocationOnScreen(location);
-            int x = location[0];
-            int y = location[1];
-//            ToastUtil.showShortToast("y="+y);
-            Log.e(getClass().getSimpleName(), "x : " + x + ", y : " + y);
-            selectPopupWindow.showAtLocation(mBuilder.mApplyParentView, Gravity.NO_GRAVITY, 0, y + 5);
+//            // 适配 android 7.0
+//            int[] location = new int[2];
+////             selectPopupWindow(location);
+//            getLocationOnScreen(location);
+//            int x = location[0];
+//            int y = location[1];
+////            ToastUtil.showShortToast("y="+y);
+//            Log.e(getClass().getSimpleName(), "x : " + x + ", y : " + y);
+//            selectPopupWindow.showAtLocation(mBuilder.mApplyParentView, Gravity.NO_GRAVITY, 0, y + 5);
+
+            showAsDropDown(selectPopupWindow, mBuilder.mApplyParentView, 0, -3);
         } else {
             showAsDropDown(selectPopupWindow, mBuilder.mApplyParentView, 0, -3);
         }

@@ -1,36 +1,58 @@
 package com.hldj.hmyg.M;
 
+import com.hldj.hmyg.Ui.friend.bean.enums.CallSourceType;
+
+import java.io.Serializable;
+
 /**
  * 电话日志对象
  */
 
-public class CallLog {
+public class CallLog implements Serializable {
+
+    public CallSourceType callSourceType;//seedling、seedlingNote
+
+
+    public String callSourceTypeName;//seedling、seedlingNote
+
+    public String callSourceId;//资源ID
+
+    public String callStoreId;//苗木资源所在店铺ID
 
     /**
-     * private String callSourceType;//seedling、seedlingNote
-     * <p>
-     * private String callSourceId;//资源ID
-     * <p>
-     * private String userId;//当前用户ID
-     * <p>
-     * private String callPhone;//被呼叫号码
-     * <p>
-     * private String callTargetType;//被呼叫号码类型：owner(发布人)、nursery(苗圃)
-     * /callLog/save
+     * 被叫资源拥有者ID
      */
-    private String callSourceType = "";
-    private String callSourceId = "";
-    private String callPhone = "";
-    private String callTargetType = "";
+    public String ownerId;
 
-    CallLog(String sourceType, String id, String phone, String targetTarget) {
-        this.callSourceType = sourceType;
-        this.callSourceId = id;
-        this.callPhone = phone;
-        this.callTargetType = targetTarget;
+    public String userId;//当前用户ID
+
+    public String callPhone;//被呼叫号码
+
+    public String userType;//系统类型 ：admin mall
+
+    public String callTargetType;//被呼叫号码类型：owner(发布人)、nursery(苗圃)
+
+    public AttrData attrData = new AttrData();
+
+    public String callTargetTypeText() {
+
+
+        return callTargetType;
+//        if (callTargetType != null) {
+//            return callTargetType.getEnumText();
+//        } else {
+//            return "";
+//        }
     }
 
 
+    public static class AttrData {
+        public String cityName = "";
+        public String headImage = "";
+        public String displayName = "";
+        public String timeStampStr = "";
+
+    }
 
 
 }

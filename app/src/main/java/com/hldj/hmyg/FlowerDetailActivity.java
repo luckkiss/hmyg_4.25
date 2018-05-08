@@ -43,12 +43,15 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.Ui.StoreActivity_new;
+import com.hldj.hmyg.Ui.friend.bean.enums.TipoffSourceType;
+import com.hldj.hmyg.Ui.friend.child.ReportActivity;
 import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.application.AlphaTitleScrollView;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.PermissionUtils;
 import com.hldj.hmyg.application.StateBarUtil;
+import com.hldj.hmyg.base.CommonPopupWindow;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PlatformForShare;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
@@ -139,7 +142,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     private TextView tv_04_03;
     private TextView tv_05_02;
     private TextView tv_05_03;
-    private TextView tv_add_car;
+    //    private TextView tv_add_car;
     private boolean isOwner;
     private boolean cartExist;
     private String url = "";
@@ -227,6 +230,8 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     private SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean;
     private AlphaTitleScrollView scroll;
     private String priceStr;
+    private RadioButton share;
+    private String ownerId;
 
 
     @Override
@@ -345,7 +350,8 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         ll_manager_outline = (LinearLayout) findViewById(R.id.ll_manager_outline);
         tv_05_02 = (TextView) findViewById(R.id.tv_05_02);
         tv_05_03 = (TextView) findViewById(R.id.tv_05_03);
-        tv_add_car = (TextView) findViewById(R.id.tv_add_car);
+//        tv_add_car = (TextView) findViewById(R.id.tv_add_car);
+        share = (RadioButton) findViewById(R.id.share);
         ll_buy_car = (LinearLayout) findViewById(R.id.ll_buy_car);
         ll_01 = (LinearLayout) findViewById(R.id.ll_01);
         ll_02 = (LinearLayout) findViewById(R.id.ll_02);
@@ -443,6 +449,28 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         TextView tv_title = getView(R.id.tv_title);
         View head = findViewById(R.id.view_detail_top);
         ImageView btn_back = getView(R.id.btn_back);
+        ImageView iv_more = getView(R.id.iv_more);
+        iv_more.setOnClickListener(v -> {
+//            ToastUtil.showLongToast("摸re");
+            new CommonPopupWindow.Builder(mActivity)
+                    .setBgType(CommonPopupWindow.TYPE_BLACK_UP_NEW)
+                    .setOutsideTouchable(true)
+                    .bindLayoutId(R.layout.flower_detail_more)
+                    .setCovertViewListener((viewRoot, popupWindow) -> {
+                        viewRoot.setOnClickListener(v1 -> {
+//                            ToastUtil.showLongToast("点击了");
+                            popupWindow.dismiss();
+
+                            ReportActivity.start(mActivity, id, TipoffSourceType.seedling.getEnumValue());
+
+
+                        });
+                    }).build().simpleShow(iv_more);
+        })
+
+        ;
+
+
         btn_back.setSelected(false);
         scroll.setTitleAndHead(title, head, new AlphaTitleScrollView.OnStateChange() {
             @Override
@@ -530,6 +558,9 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                             return;
                         }
                         seedlingBean = saveSeedingGsonBean.getData().getSeedling();
+
+                        ownerId = seedlingBean.getOwnerId();
+
                         if (seedlingBean.attrData.ziying) {//自营店铺显示发票
                             findViewById(R.id.stv_is_show_piao).setVisibility(View.VISIBLE);
                             ((TextView) findViewById(R.id.stv_is_show_piao)).setText(seedlingBean.attrData.ziyingRemarks);
@@ -552,6 +583,10 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                         .getJSONObject(JsonGetInfo
                                                 .getJSONObject(jsonObject,
                                                         "data"), "seedling");
+
+
+
+
                                 JSONObject store = JsonGetInfo.getJSONObject(
                                         JsonGetInfo.getJSONObject(jsonObject,
                                                 "data"), "store");
@@ -570,6 +605,13 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                 }
                                 JSONArray jsonArray = JsonGetInfo.getJsonArray(
                                         jsonObject2, "imagesJson");
+
+//                                  ownerId = JsonGetInfo.getJsonString(
+//                                        jsonObject2, ownerId);
+
+
+
+
                                 banners.clear();
                                 ossImagePaths.clear();
                                 if (jsonArray.length() > 0) {
@@ -779,6 +821,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                     tv_04_01.setOnClickListener(multipleClickProcess); // 下架
                                     tv_04_02.setOnClickListener(multipleClickProcess);// 延期
                                     tv_05_02.setOnClickListener(multipleClickProcess);// 上架
+                                    share.setOnClickListener(multipleClickProcess);//  分享
 
                                     tv_01_02.setOnClickListener(multipleClickProcess);
                                     tv_03_01.setOnClickListener(multipleClickProcess);
@@ -793,7 +836,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                     ll_manager_unsubmit.setVisibility(View.GONE);
                                     ll_manager_published.setVisibility(View.GONE);
                                     ll_manager_outline.setVisibility(View.GONE);
-                                    tv_add_car.setOnClickListener(multipleClickProcess);
+//                                    tv_add_car.setOnClickListener(multipleClickProcess);
                                     ll_buy_car.setOnClickListener(multipleClickProcess);
                                 } else {
                                     //什么都不是的时候，隐藏底部
@@ -805,7 +848,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                     ll_manager_unsubmit.setVisibility(View.GONE);
                                     ll_manager_published.setVisibility(View.GONE);
                                     ll_manager_outline.setVisibility(View.GONE);
-                                    tv_add_car.setOnClickListener(multipleClickProcess);
+//                                    tv_add_car.setOnClickListener(multipleClickProcess);
                                     ll_buy_car.setOnClickListener(multipleClickProcess);
                                 }
 
@@ -886,7 +929,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 //                                if (isFirst)
                                 ((AutoAdd2DetailLinearLayout) findViewById(R.id.ll_auto_detail)).setDatas(uploadDatas);
 
-                                 TextView spbh = getView(R.id.spbh);
+                                TextView spbh = getView(R.id.spbh);
                                 spbh.setText(uploadDatas.seedlingNum);
                                 TextView fl = getView(R.id.fl);
                                 fl.setText(uploadDatas.firstTypeName);
@@ -948,6 +991,9 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                         .getJSONObject(jsonObject2, "ownerJson");
                                 JSONObject coCity = JsonGetInfo.getJSONObject(
                                         ownerJson, "coCity");
+
+//                                ownerId = JsonGetInfo.getJsonString(  ownerJson, "ownerId");
+
                                 displayPhone = JsonGetInfo.getJsonString(
                                         ownerJson, "displayPhone");
                                 String displayName = JsonGetInfo.getJsonString(
@@ -1094,10 +1140,10 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     }
 
     public void unAddCart() {
-        tv_add_car.setBackgroundColor(Color.parseColor("#CCCCCC"));
-        tv_add_car.setTextColor(Color.parseColor("#FFFFFF"));
-        tv_add_car.setText("已加入购物车");
-        tv_add_car.setClickable(false);
+//        tv_add_car.setBackgroundColor(Color.parseColor("#CCCCCC"));
+//        tv_add_car.setTextColor(Color.parseColor("#FFFFFF"));
+//        tv_add_car.setText("已加入购物车");
+//        tv_add_car.setClickable(false);
     }
 
     private void visitsCount() {
@@ -1296,12 +1342,15 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
 
                         break;
-                    case R.id.tv_add_car://分享
+                    case R.id.share://分享
                         if (!isLogin()) {//没登录就直接登录
                             toLogin();
                             return;
                         }
                         share();
+
+
+//                        ToastUtil.showLongToast("分享");
 //                        if (isOwner == true) {
 //                            Toast.makeText(FlowerDetailActivity.this, "自家商品不可购买",
 //                                    Toast.LENGTH_SHORT).show();
@@ -1570,9 +1619,9 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                 }
             }
         }
-        tv_add_car.setTextColor(Color.parseColor("#FFFFFF"));
-        tv_add_car.setText("加入购物车");
-        tv_add_car.setClickable(true);
+//        tv_add_car.setTextColor(Color.parseColor("#FFFFFF"));
+//        tv_add_car.setText("加入购物车");
+//        tv_add_car.setClickable(true);
     }
 
     public void addCart() {
@@ -1782,7 +1831,9 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                     // contacts-related task you need to do.
                     // 同意给与权限 可以再此处调用拍照
                     Log.i("用户同意权限", "user granted the permission!");
-                    CallPhone(displayPhone, mActivity);
+                    CallPhone(displayPhone, mActivity,succeed->{
+                        postWhoPhone(ownerId, id, displayPhone, ConstantState.TYPE_OWNER);
+                    });
                 } else {
 
                     // permission denied, boo! Disable the
@@ -1799,6 +1850,10 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     }
 
     public static void CallPhone(final String displayPhone, Activity mAct) {
+        CallPhone(displayPhone, mAct, null);
+    }
+
+    public static void CallPhone(final String displayPhone, Activity mAct, View.OnClickListener succeed) {
         // TODO Auto-generated method stub
         if (!"".equals(displayPhone)) {
 
@@ -1817,6 +1872,11 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                 return;
                             }
                             mAct.startActivity(intent);
+
+                            if (succeed != null) {
+                                succeed.onClick(v);
+
+                            }
                         }
                     }).setNegativeButton("取消", new OnClickListener() {
                 @Override
@@ -1826,6 +1886,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
             }).show();
         }
     }
+
 
     class MyCount extends AdvancedCountdownTimer {
 
@@ -1952,8 +2013,10 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         if (isLogin()) {
             boolean requesCallPhonePermissions = new PermissionUtils(FlowerDetailActivity.this).requesCallPhonePermissions(200);
             if (requesCallPhonePermissions) {
-                postWhoPhone(id, displayPhone, ConstantState.TYPE_OWNER);
-                CallPhone(displayPhone, mActivity);
+
+                CallPhone(displayPhone, mActivity,succeed->{
+                    postWhoPhone(ownerId, id, displayPhone, ConstantState.TYPE_OWNER);
+                });
             }
         } else {
             Intent toLoginActivity = new Intent(FlowerDetailActivity.this, LoginActivity.class);
@@ -1966,8 +2029,6 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
 
     AutoAdd2DetailLinearLayout.UploadDatas uploadDatas = new AutoAdd2DetailLinearLayout.UploadDatas();
-
-
 
 
     public void toLogin() {
@@ -2351,8 +2412,9 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
      * /callLog/save
      */
 
-    public static void postWhoPhone(String callSourceId, String callPhone, String callTargetType) {
+    public static void postWhoPhone(String ownerId, String callSourceId, String callPhone, String callTargetType) {
         new BasePresenter()
+                .putParams("ownerId", ownerId)
                 .putParams("callSourceType", "seedling")
                 .putParams("callSourceId", callSourceId)
                 .putParams("userId", MyApplication.Userinfo.getString("id", ""))

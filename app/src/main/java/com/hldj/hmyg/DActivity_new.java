@@ -740,7 +740,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 
     @Override
     public boolean setSwipeBackEnable() {
-        return false;
+        return true;
     }
 }
 

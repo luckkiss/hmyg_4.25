@@ -421,7 +421,7 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">0.5</item>
         <item name="android:background">@null</item>
-        <item name="android:gravity">center</item>
+        <item name="android:gravity">center</item><item name="android:textSize">@dimen/textSizeContent</item>
         <item name="android:text">至</item>
     </style>
 
@@ -431,7 +431,7 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
         <item name="android:background">@drawable/conner_edit</item>
-        <item name="android:textSize">@dimen/x14</item>
+        <item name="android:textSize">@dimen/textSizeContent</item>
         <item name="android:gravity">center</item>
         <item name="android:hint">0</item>
         <item name="android:textColorHint">@color/hint_text_color</item>
@@ -449,7 +449,7 @@
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_marginRight">@dimen/x9</item>
         <item name="android:text">cm</item>
-        <item name="android:textSize">@dimen/x15</item>
+        <item name="android:textSize">@dimen/textSizeContent</item>
     </style>
 
     <style name="radio_seedling_common">
@@ -495,7 +495,7 @@
 
     <style name="rl_seeding_commom">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_height">@dimen/simpleHeightContent</item>
         <item name="android:background">@drawable/feedback_content_edittext_shape</item>
         <item name="android:paddingLeft">@dimen/x9</item>
         <item name="android:paddingRight">@dimen/x9</item>

@@ -23,6 +23,7 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.friend.FriendCycleSearchActivity;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.bean.MomentsReply;
+import com.hldj.hmyg.Ui.friend.bean.enums.AgentGrade;
 import com.hldj.hmyg.Ui.friend.bean.enums.MomentsType;
 import com.hldj.hmyg.Ui.friend.presenter.FriendPresenter;
 import com.hldj.hmyg.Ui.friend.widget.EditDialog;
@@ -167,6 +168,21 @@ public class FriendBaseFragment extends BaseFragment {
                     MyCircleImageView circleImageView = helper.getView(R.id.head);
 //                    circleImageView.setImageURL(item.attrData.headImage);
                     ImageLoader.getInstance().displayImage(item.attrData.headImage, circleImageView);
+
+                    AgentGrade anEnum = Enum.valueOf(AgentGrade.class, item.attrData.level);
+
+                    ImageView imageView14 = helper.getView(R.id.imageView14);
+
+
+                    Log.i(TAG, "convert: " + anEnum.getUpScore());
+                    imageView14.setImageDrawable(mActivity.getResources().getDrawable(anEnum.getUpScore()));
+
+
+                    ImageView imageView13 = helper.getView(R.id.imageView13);
+                    helper.setVisible(R.id.imageView13,item.attrData.identity);
+//                    imageView13.setVisibility(item.attrData.identity);
+
+
                 }
                 if (MomentsType.supply.getEnumValue().equals(item.momentsType)) {
                     helper.setImageResource(R.id.imageView7, R.mipmap.publish);
@@ -429,8 +445,10 @@ public class FriendBaseFragment extends BaseFragment {
                     if (TextUtils.isEmpty(item.attrData.displayPhone)) {
                         ToastUtil.showLongToast("未留电话号码~_~");
                     } else {
-                        FriendPresenter.postWhoPhone(item.id, item.attrData.displayPhone, ConstantState.TYPE_OWNER);
-                        FlowerDetailActivity.CallPhone(item.attrData.displayPhone, mActivity);
+
+                        FlowerDetailActivity.CallPhone(item.attrData.displayPhone, mActivity, succeed -> {
+                            FriendPresenter.postWhoPhone(item.ownerId, item.id, item.attrData.displayPhone, ConstantState.TYPE_OWNER);
+                        });
                     }
 //                    ToastUtil.showLongToast("点击第2个");
 //                    FlowerDetailActivity.CallPhone(item.attrData.displayPhone, mActivity);

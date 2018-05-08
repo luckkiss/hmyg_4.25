@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?><!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="fill_parent"--><!--android:layout_height="fill_parent">-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:background="@drawable/conner_white"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+    <!--   edit text  初始化时不弹键盘  也不获取焦点 -->
+    <!--http://blog.csdn.net/xiawj8957/article/details/45130175-->
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/close_title"
+        style="@style/super_main_conner_top"
+        android:layout_width="match_parent"
+        android:drawableRight="@drawable/close"
+        android:paddingLeft="26dp"
+        android:paddingRight="10dp"
+        android:text="修改库存"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="红车  7000株"
+        android:textColor="@color/text_color333"
+        android:textSize="15sp" />
+
+
+    <!--<TextView-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:drawableRight="@drawable/ic_right_icon_new"-->
+    <!--android:padding="8dp"-->
+    <!--android:text="苗源地"-->
+    <!--android:textColor="@color/text_color333"-->
+    <!--android:textSize="16sp" />-->
+
+    <View style="@style/View_line_gray_1px" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/left"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:text="库存"
+            android:textColor="@color/text_color333"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/descript"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="3dp"
+            android:inputType="number"
+            android:layout_toRightOf="@+id/left"
+            android:background="@drawable/conner_edit"
+            android:gravity="start"
+            android:hint="在此输入新库存...."
+            android:padding="12dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text=""
+            android:textColor="@color/text_color333"
+            android:textColorHint="@color/hint_text_color"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+
+    <View
+        style="@style/View_line_gray_1px"
+        android:layout_marginBottom="3dp" />
+
+
+    <View
+        style="@style/View_line_gray_1px"
+        android:layout_height="1dp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@color/gray_bg_ed"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text=""
+        android:textColor="@color/text_color333"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/commit"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/corner_main_bottom_bg"
+        android:text="提交"
+        android:textColor="@color/white" />
+
+
+</LinearLayout><!--</FrameLayout>-->

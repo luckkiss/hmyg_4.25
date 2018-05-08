@@ -10,6 +10,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:drawablePadding="2dp"
+        android:layout_marginLeft="8dp"
         android:text="高度"
         android:textSize="@dimen/textSizeContent"
 

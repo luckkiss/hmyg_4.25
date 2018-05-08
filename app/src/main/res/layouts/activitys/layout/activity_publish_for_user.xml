@@ -1,274 +1,295 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-
-    <include layout="@layout/toolbar_3_0" />
-
-    <View style="@style/View_line_gray" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/simpleHeightHead">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="18dp"
-            android:layout_marginStart="18dp"
-            android:text="品种名称"
-            android:textSize="@dimen/textSizeContent" />
-
-        <TextView
-            android:id="@+id/qxz_pz"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="13dp"
-            android:layout_marginRight="13dp"
-            android:drawableRight="@drawable/arrow_right_eq"
-            android:gravity="center_vertical|end"
-            android:text="请选择"
-            android:textSize="@dimen/textSizeContent" />
-
-
-    </RelativeLayout>
-
-    <View style="@style/View_line_gray" />
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/ll_auto_add_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
 
-    </LinearLayout>
+        <include layout="@layout/toolbar_3_0" />
 
+        <View style="@style/View_line_gray" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/simpleHeightContent"
-        android:background="@drawable/bg_bottom_line">
-
-        <TextView
-            android:id="@+id/left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="18dp"
-            android:layout_marginStart="18dp"
-            android:text="求购数量"
-            android:textSize="@dimen/textSizeContent" />
-
-        <EditText
-            android:id="@+id/qiu_gou_num"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="12dp"
-            android:layout_toRightOf="@+id/left"
-            android:background="@drawable/trans_bg"
-            android:gravity="center_vertical"
-            android:hint="请输入求购数量"
-            android:textColorHint="@color/hint_text_color"
-            android:textSize="14sp" />
+            android:layout_height="@dimen/simpleHeightHead">
 
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/simpleHeightContent"
-        android:background="@drawable/bg_bottom_line">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="18dp"
-            android:layout_marginStart="18dp"
-            android:text="单位"
-            android:textSize="@dimen/textSizeContent" />
-
-        <TextView
-            android:id="@+id/select_unit"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"
-            android:drawableRight="@drawable/arrow_right_eq"
-            android:gravity="center_vertical|end"
-            android:text="株"
-            android:textSize="@dimen/textSizeContent" />
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/simpleHeightContent"
-        android:background="@drawable/bg_bottom_line">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="18dp"
-            android:layout_marginStart="18dp"
-            android:text="求购期限"
-            android:textSize="@dimen/textSizeContent" />
-
-        <TextView
-            android:id="@+id/select_time"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"
-            android:drawableRight="@drawable/arrow_right_eq"
-            android:gravity="center_vertical|end"
-            android:text="7天"
-            android:textSize="@dimen/textSizeContent" />
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/simpleHeightContent"
-        android:background="@drawable/bg_bottom_line">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="18dp"
-            android:layout_marginStart="18dp"
-            android:text="用苗地"
-            android:textSize="@dimen/textSizeContent" />
-
-        <TextView
-            android:id="@+id/select_city"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"
-            android:drawableRight="@drawable/arrow_right_eq"
-            android:gravity="center_vertical|end"
-            android:text="福建  厦门"
-            android:textSize="@dimen/textSizeContent" />
-
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/simpleHeightContent"
-        android:background="@drawable/bg_bottom_line">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="18dp"
-            android:layout_marginStart="18dp"
-            android:text="没有图片可否报价"
-            android:textSize="@dimen/textSizeContent" />
-
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radio_left"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="可已"
-                android:textColor="@color/text_color666"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:drawableLeft="@drawable/seller_redstar"
+                android:text="品种名称"
                 android:textSize="@dimen/textSizeContent" />
 
-            <RadioButton
-                android:id="@+id/radio_right"
+            <TextView
+                android:id="@+id/qxz_pz"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="13dp"
+                android:layout_marginRight="13dp"
+                android:drawableRight="@drawable/arrow_right_eq"
+                android:gravity="center_vertical|end"
+                android:text="请选择"
+                android:textSize="@dimen/textSizeContent" />
+
+
+        </RelativeLayout>
+
+        <View style="@style/View_line_gray" />
+
+        <LinearLayout
+            android:id="@+id/ll_auto_add_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/simpleHeightContent"
+            android:background="@drawable/bg_bottom_line">
+
+            <TextView
+                android:id="@+id/left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:drawableLeft="@drawable/seller_redstar"
+                android:text="求购数量"
+                android:textSize="@dimen/textSizeContent" />
+
+            <EditText
+                android:id="@+id/qiu_gou_num"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="12dp"
+                android:layout_toRightOf="@+id/left"
+                android:background="@drawable/trans_bg"
+                android:gravity="center_vertical"
+                android:hint="请输入求购数量"
+                android:inputType="number"
+                android:textColorHint="@color/hint_text_color"
+                android:textSize="14sp" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/simpleHeightContent"
+            android:background="@drawable/bg_bottom_line">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:drawableLeft="@drawable/seller_redstar"
+                android:text="单位"
+
+                android:textSize="@dimen/textSizeContent" />
+
+            <TextView
+                android:id="@+id/select_unit"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:drawableRight="@drawable/arrow_right_eq"
+                android:gravity="center_vertical|end"
+                android:text="株"
+                android:textSize="@dimen/textSizeContent" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/simpleHeightContent"
+            android:background="@drawable/bg_bottom_line">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:drawableLeft="@drawable/seller_redstar"
+                android:text="求购期限"
+
+                android:textSize="@dimen/textSizeContent" />
+
+            <TextView
+                android:id="@+id/select_time"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:drawableRight="@drawable/arrow_right_eq"
+                android:gravity="center_vertical|end"
+                android:text="7天"
+                android:textSize="@dimen/textSizeContent" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/simpleHeightContent"
+            android:background="@drawable/bg_bottom_line">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:drawableLeft="@drawable/seller_redstar"
+                android:text="用苗地"
+
+                android:textSize="@dimen/textSizeContent" />
+
+            <TextView
+                android:id="@+id/select_city"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:drawableRight="@drawable/arrow_right_eq"
+                android:gravity="center_vertical|end"
+                android:text="福建  厦门"
+                android:textSize="@dimen/textSizeContent" />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/simpleHeightContent"
+            android:background="@drawable/bg_bottom_line">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:drawableLeft="@drawable/seller_redstar"
+                android:text="图片必传"
+                android:textSize="@dimen/textSizeContent" />
+
+
+            <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="12dp"
-                android:text="不可已"
-                android:textColor="@color/text_color666"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="是"
+                    android:textColor="@color/text_color666"
+                    android:textSize="@dimen/textSizeContent" />
+
+                <RadioButton
+                    android:id="@+id/radio_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="12dp"
+                    android:text="否"
+                    android:textColor="@color/text_color666"
+                    android:textSize="@dimen/textSizeContent" />
+
+            </RadioGroup>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_bottom_line">
+
+            <TextView
+                android:id="@+id/left1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="10dp"
+                android:text="求购描述"
                 android:textSize="@dimen/textSizeContent" />
 
-        </RadioGroup>
+            <EditText
+                android:id="@+id/et_remark"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="12dp"
+                android:layout_toRightOf="@+id/left1"
+                android:background="@drawable/trans_bg"
+                android:gravity="start"
+                android:hint="请输入求购描述的内容(内容不超过200个字)"
+                android:padding="12dp"
+                android:textColorHint="@color/hint_text_color"
+                android:textSize="13sp" />
 
 
-    </RelativeLayout>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/save_bottom"
+            style="@style/save_bottom"
+            android:text="发布" />
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_bottom_line">
+        <View
+            android:layout_width="1px"
+            android:layout_height="30dp" />
 
-        <TextView
-            android:id="@+id/left1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="18dp"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="10dp"
-            android:text="求购描述"
-            android:textSize="@dimen/textSizeContent" />
+    </LinearLayout>
 
-        <EditText
-            android:id="@+id/et_remark"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="12dp"
-            android:layout_toRightOf="@+id/left1"
-            android:background="@drawable/trans_bg"
-            android:gravity="start"
-            android:hint="请输入求购描述的内容(内容不超过200个字)"
-            android:padding="12dp"
-            android:textColorHint="@color/hint_text_color"
-            android:textSize="13sp" />
-
-
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/save_bottom"
-        style="@style/save_bottom"
-        android:text="发布" />
-
-
-</LinearLayout>
+</ScrollView>

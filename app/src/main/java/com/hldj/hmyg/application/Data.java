@@ -71,6 +71,16 @@ public class Data {
     //分享页面  分享下载链接
     public static final String appDoloadUrl = GetServerUrl.getHtmlUrl() + "page/appdown.html";
 
+
+    //分享 邀请好友 下载界面
+    public static final String appDoloadUrlForInvite = GetServerUrl.getHtmlUrl() + "page/appdown.html";
+    //http://192.168.1.252:8090/ user/registerInvite?fromUId=2876f7e0f51c4153aadc603b661fedfa
+
+    public static String getAppDoloadUrlForInvite(String userId) {
+        return GetServerUrl.getHtmlUrl() + "user/registerInvite/?fromUId=" + userId;
+
+    }
+
     //店铺   详情
     public static final String Store_Page = GetServerUrl.getHtmlUrl() + "page/store/";
     //http://test.api.hmeg.cn/page/store/534c6ef74f1045779f19e17313295017.html
@@ -80,7 +90,7 @@ public class Data {
     }
 
     //* 用户同意采购协议  http://192.168.1.252:8090/page/protocol.html
-    public static final String Protocol_Url = GetServerUrl.getHtmlUrl()+ "page/protocol.html";
+    public static final String Protocol_Url = GetServerUrl.getHtmlUrl() + "page/protocol.html";
 //    public static final String Protocol_Url = "http://m.hmeg.cn/" + "page/protocol.html";
 
     //成交公告

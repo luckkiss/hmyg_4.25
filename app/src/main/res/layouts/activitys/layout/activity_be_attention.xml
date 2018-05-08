@@ -12,6 +12,20 @@
         layout="@layout/toolbar_3_0" />
 
 
+    <TextView
+        android:id="@+id/nmfk"
+        style="@style/text_left_name_style"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/bg_bottom_line"
+        android:drawableRight="@drawable/arrow_right_eq"
+        android:paddingLeft="12dp"
+        android:textColor="@color/text_color333"
+        android:paddingRight="12dp"
+        android:text="匿名访客"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
     <!--item_invite_friend_list-->
     <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
         android:id="@+id/recycle"

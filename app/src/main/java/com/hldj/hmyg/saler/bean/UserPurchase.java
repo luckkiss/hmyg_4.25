@@ -112,8 +112,15 @@ public class UserPurchase implements MultiItemEntity {
     public String quoteCountJson;
     public boolean isUserQuoted;
 
-    public String price ;
+    public String price;
 
+    public AttData attrData = new AttData();
+
+
+    public static class AttData {
+        public boolean isUserQuoted;
+        public boolean isExclude;//不采用
+    }
 
     @Override
     public int getItemType() {

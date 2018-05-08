@@ -1,5 +1,7 @@
 package com.hldj.hmyg.Ui.friend.bean;
 
+import com.hldj.hmyg.buyer.M.ImagesJsonBean;
+
 import java.util.List;
 
 /**
@@ -126,37 +128,7 @@ public class test {
                     }
                 }
 
-                public static class ImagesJsonBean {
-                    /**
-                     * id : b85ce510105f4ca088bb307e2b0fa1c6
-                     * imageType : moments
-                     * name : image.jpeg
-                     * url : http://image.hmeg.cn/upload/image/201712/4780b09805ab4e7a80e68aa3a4767cf7.jpeg
-                     * sourceId : b18e9596bc264d0e974580b54adc9257
-                     * isCover : false
-                     * sort : 0
-                     * ossUrl : http://images.hmeg.cn/upload/image/201712/4780b09805ab4e7a80e68aa3a4767cf7.jpeg@!wt
-                     * ossThumbnailImagePath : http://images.hmeg.cn/upload/image/201712/4780b09805ab4e7a80e68aa3a4767cf7.jpeg@!65_87
-                     * ossSmallImagePath : http://images.hmeg.cn/upload/image/201712/4780b09805ab4e7a80e68aa3a4767cf7.jpeg@!170_227
-                     * ossMediumImagePath : http://images.hmeg.cn/upload/image/201712/4780b09805ab4e7a80e68aa3a4767cf7.jpeg@!210_280
-                     * ossLargeImagePath : http://images.hmeg.cn/upload/image/201712/4780b09805ab4e7a80e68aa3a4767cf7.jpeg@!300_400
-                     * ossAppLargeImagePath : http://images.hmeg.cn/upload/image/201712/4780b09805ab4e7a80e68aa3a4767cf7.jpeg@!450_600
-                     */
 
-                    public String id;
-                    public String imageType;
-                    public String name;
-                    public String url;
-                    public String sourceId;
-                    public boolean isCover;
-                    public int sort;
-                    public String ossUrl;
-                    public String ossThumbnailImagePath;
-                    public String ossSmallImagePath;
-                    public String ossMediumImagePath;
-                    public String ossLargeImagePath;
-                    public String ossAppLargeImagePath;
-                }
             }
         }
     }
