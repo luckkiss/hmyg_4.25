@@ -120,6 +120,9 @@ public class FansActivity extends BaseMVPActivity implements View.OnClickListene
                 })
 //                .setTextColorRes(R.id.fensi, R.color.main_color);
         ;
+        helper.getView(R.id.fensi).setMinimumWidth((int) getResources().getDimension(R.dimen.px133));
+
+
 
 
         helper.convertView.setOnClickListener(v -> {

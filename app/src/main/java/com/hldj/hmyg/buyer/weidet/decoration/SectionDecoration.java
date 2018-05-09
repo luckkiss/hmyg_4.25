@@ -2,18 +2,11 @@ package com.hldj.hmyg.buyer.weidet.decoration;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextPaint;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
-import com.hldj.hmyg.R;
 
 /**
  * https://blog.csdn.net/bydbbb/article/details/78709732

@@ -138,7 +138,7 @@
                     android:gravity="center_vertical"
                     android:text="店铺名称"
                     android:textColor="@color/text_color666"
-                    android:textSize="@dimen/textSizeXX" />
+                    android:textSize="@dimen/textSizeContent" />
 
                 <EditText
                     android:id="@+id/et_store_name"
@@ -155,7 +155,7 @@
                     android:singleLine="true"
                     android:textColor="@color/text_color666"
                     android:textColorHint="@color/text_colorccc"
-                    android:textSize="@dimen/textSizeXX" />
+                    android:textSize="@dimen/textSizeContent" />
 
 
             </LinearLayout>
@@ -179,7 +179,7 @@
                     android:gravity="center_vertical"
                     android:text="经营品种"
                     android:textColor="@color/text_color666"
-                    android:textSize="@dimen/textSizeXX" />
+                    android:textSize="@dimen/textSizeContent" />
 
                 <EditText
                     android:id="@+id/et_type"
@@ -194,7 +194,7 @@
                     android:paddingRight="10dp"
                     android:textColor="@color/text_color666"
                     android:textColorHint="@color/text_colorccc"
-                    android:textSize="@dimen/textSizeXX" />
+                    android:textSize="@dimen/textSizeContent" />
 
 
             </LinearLayout>
@@ -204,27 +204,33 @@
 
             <!-- 企业认证 -->
 
-            <com.lqr.optionitemview.OptionItemView
+            <com.hldj.hmyg.widget.MyOptionItemView
                 android:id="@+id/qyrz"
                 android:layout_width="match_parent"
-                android:layout_height="43dp"
+                android:layout_height="@dimen/simpleHeightContent"
                 app:left_text="企业认证"
                 app:left_text_color="@color/text_color666"
-                app:right_src="@drawable/ic_right_icon_new"
+                app:left_text_size="@dimen/textSizeContent"
+                app:right_src="@drawable/arrow_right_eq"
                 app:right_text="未认证"
-                app:right_text_color="@color/text_color666" />
+                android:paddingRight="12dp"
+                app:right_text_color="@color/text_color666"
+                app:right_text_size="@dimen/textSizeContent" />
 
             <!-- 企业二维码 -->
 
-            <com.lqr.optionitemview.OptionItemView
+            <com.hldj.hmyg.widget.MyOptionItemView
                 android:id="@+id/qyewm"
                 android:layout_width="match_parent"
-                android:layout_height="43dp"
+                android:layout_height="@dimen/simpleHeightContent"
                 app:left_text="店铺二维码"
                 app:left_text_color="@color/text_color666"
-                app:right_src="@drawable/ic_right_icon_new"
+                app:left_text_size="@dimen/textSizeContent"
+                app:right_src="@drawable/arrow_right_eq"
                 app:right_text="查看"
-                app:right_text_color="@color/text_color666" />
+                android:paddingRight="12dp"
+                app:right_text_color="@color/text_color666"
+                app:right_text_size="@dimen/textSizeContent" />
 
 
             <!--APP店铺logo和横幅-->
@@ -241,7 +247,7 @@
                 android:paddingRight="10dp"
                 android:text="其他信息"
                 android:textColor="@color/text_color666"
-                android:textSize="@dimen/textSizeXX" />
+                android:textSize="@dimen/textSizeContent" />
 
 
             <LinearLayout
@@ -270,7 +276,7 @@
                         android:gravity="center_vertical"
                         android:text="店铺简介"
                         android:textColor="@color/text_color666"
-                        android:textSize="@dimen/textSizeXX" />
+                        android:textSize="@dimen/textSizeContent" />
 
                     <TextView
 
@@ -279,7 +285,7 @@
                         android:gravity="center_vertical"
 
                         android:textColor="@color/text_colorccc"
-                        android:textSize="@dimen/textSizeX" />
+                        android:textSize="@dimen/textSizeContent" />
 
                 </LinearLayout>
 
@@ -300,7 +306,7 @@
                     android:paddingRight="10dp"
                     android:textColor="@color/text_color666"
                     android:textColorHint="@color/text_colorccc"
-                    android:textSize="@dimen/textSizeXX" />
+                    android:textSize="@dimen/textSizeContent" />
 
                 <View style="@style/View_line_gray" />
 
@@ -319,7 +325,7 @@
                         android:gravity="center_vertical"
                         android:text="横幅"
                         android:textColor="@color/text_color666"
-                        android:textSize="@dimen/textSizeXX" />
+                        android:textSize="@dimen/textSizeContent" />
 
                 </LinearLayout>
 
@@ -339,8 +345,8 @@
                     <ImageView
                         android:id="@+id/iv_banner"
                         android:layout_width="180dp"
-                        android:layout_margin="16dp"
                         android:layout_height="120dp"
+                        android:layout_margin="16dp"
                         android:adjustViewBounds="true"
                         android:background="@drawable/dpsz_schf"
                         android:scaleType="centerCrop" />

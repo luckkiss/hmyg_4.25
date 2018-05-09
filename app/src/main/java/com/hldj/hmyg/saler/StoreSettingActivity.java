@@ -195,6 +195,10 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                                         jsonObject3, "id");
                                 name = JsonGetInfo.getJsonString(jsonObject3,
                                         "name");
+
+
+
+
                                 code = JsonGetInfo.getJsonString(jsonObject3,
                                         "code");
                                 remarks = JsonGetInfo.getJsonString(

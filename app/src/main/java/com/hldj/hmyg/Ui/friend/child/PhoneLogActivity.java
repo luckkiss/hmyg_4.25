@@ -3,7 +3,6 @@ package com.hldj.hmyg.Ui.friend.child;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.text.Layout;
 import android.widget.ImageView;
 
 import com.google.gson.reflect.TypeToken;
@@ -119,12 +118,12 @@ public class PhoneLogActivity extends BaseMVPActivity {
                 .setText(R.id.title,
                         new SpanUtils()
                                 .append(item.attrData.displayName)
-                                .append("   " + item.attrData.cityName).setFontSize(13, true).setForegroundColor(getColorByRes(R.color.text_color999)).setAlign(Layout.Alignment.ALIGN_CENTER)
+//                                .append("   " + item.attrData.cityName).setFontSize(13, true).setForegroundColor(getColorByRes(R.color.text_color999)).setAlign(Layout.Alignment.ALIGN_CENTER)
                                 .create())
                 .setText(R.id.content, item.attrData.timeStampStr + "  " + item.attrData.cityName)
                 .setText(R.id.fensi, "来源：" + item.callSourceTypeName)
                 .setBackgroundColor(R.id.fensi, Color.TRANSPARENT)
-                .setTextColorRes(R.id.fensi, R.color.text_color666)
+                .setTextColorRes(R.id.fensi, R.color.text_color999)
 
         ;
 

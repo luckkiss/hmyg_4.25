@@ -36,7 +36,7 @@ public class ImagesJsonBean implements Serializable {
 
     public int sort ;
 
-    public String local_url;
+    public String local_url= "";
 
 
     public boolean isIsCover ;

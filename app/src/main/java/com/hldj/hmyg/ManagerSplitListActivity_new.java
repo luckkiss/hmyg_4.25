@@ -49,7 +49,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
  * 苗木管理界面  苗木 管理 界面。。根据苗圃进行拆分
  */
 @SuppressLint("ClickableViewAccessibility")
-public  class ManagerSplitListActivity_new<P extends ManagerListPresenter, M extends ManagerListModel> extends ManagerListActivity_new<ManagerListPresenter, ManagerListModel> implements ManagerListContract.View {
+public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M extends ManagerListModel> extends ManagerListActivity_new<ManagerListPresenter, ManagerListModel> implements ManagerListContract.View {
 
 
     int id = R.layout.activity_manager_list_new;
@@ -206,7 +206,7 @@ public  class ManagerSplitListActivity_new<P extends ManagerListPresenter, M ext
 
     private View.OnClickListener 删除(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item, NeedSwipeBackActivity mActivity) {
         return v -> {
-            ToastUtil.showLongToast("do left   删除");
+//            ToastUtil.showLongToast("do left   删除");
 
             MaterialDialog mMaterialDialog = new MaterialDialog(mActivity);
             mMaterialDialog.setMessage("确定删除该商品？")
@@ -220,6 +220,7 @@ public  class ManagerSplitListActivity_new<P extends ManagerListPresenter, M ext
                                             @Override
                                             public void onRealSuccess(SimpleGsonBean gsonBean) {
                                                 ToastUtil.showLongToast(gsonBean.msg);
+                                                xRecyclerView.onRefresh();
                                             }
                                         });
                             })
@@ -236,7 +237,7 @@ public  class ManagerSplitListActivity_new<P extends ManagerListPresenter, M ext
 
     private View.OnClickListener 下架(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item, NeedSwipeBackActivity mActivity) {
         return v -> {
-            ToastUtil.showLongToast("do left   下架");
+//            ToastUtil.showLongToast("do left   下架");
             MaterialDialog mMaterialDialog = new MaterialDialog(mActivity);
             mMaterialDialog.setMessage("确定是否下架该商品？")
                     // mMaterialDialog.setBackgroundResource(R.drawable.background);
@@ -249,6 +250,7 @@ public  class ManagerSplitListActivity_new<P extends ManagerListPresenter, M ext
                                             @Override
                                             public void onRealSuccess(SimpleGsonBean gsonBean) {
                                                 ToastUtil.showLongToast(gsonBean.msg);
+                                                xRecyclerView.onRefresh();
                                             }
                                         });
                             })
@@ -263,7 +265,7 @@ public  class ManagerSplitListActivity_new<P extends ManagerListPresenter, M ext
 
     private View.OnClickListener 撤回(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item, NeedSwipeBackActivity mActivity) {
         return v -> {
-            ToastUtil.showLongToast("do left   撤回");
+//            ToastUtil.showLongToast("do left   撤回");
 
 
             new BasePresenter()
@@ -272,6 +274,7 @@ public  class ManagerSplitListActivity_new<P extends ManagerListPresenter, M ext
                         @Override
                         public void onRealSuccess(SimpleGsonBean gsonBean) {
                             ToastUtil.showLongToast(gsonBean.msg);
+                            xRecyclerView.onRefresh();
                         }
                     });
 //            FinalHttp finalHttp = new FinalHttp();
@@ -360,7 +363,7 @@ public  class ManagerSplitListActivity_new<P extends ManagerListPresenter, M ext
 
 
         return v -> {
-            ToastUtil.showLongToast("修改库存");
+//            ToastUtil.showLongToast("修改库存");
             CommonDialogFragment.newInstance(new CommonDialogFragment.OnCallDialog() {
                 @Override
                 public Dialog getDialog(Context context) {
@@ -380,7 +383,7 @@ public  class ManagerSplitListActivity_new<P extends ManagerListPresenter, M ext
                     dialog1.findViewById(R.id.commit).setOnClickListener(v -> {
                         dialog1.dismiss();
 
-                        ToastUtil.showLongToast(editText.getText().toString());
+//                        ToastUtil.showLongToast(editText.getText().toString());
                         new BasePresenter()
                                 .putParams("id", item.id)
                                 .putParams("count", editText.getText().toString())
@@ -389,6 +392,7 @@ public  class ManagerSplitListActivity_new<P extends ManagerListPresenter, M ext
                                     public void onRealSuccess(SimpleGsonBean gsonBean) {
                                         if (gsonBean.isSucceed()) {
                                             ToastUtil.showLongToast(gsonBean.msg);
+                                            xRecyclerView.onRefresh();
                                         }
                                     }
                                 });
@@ -412,7 +416,7 @@ public  class ManagerSplitListActivity_new<P extends ManagerListPresenter, M ext
     public View.OnClickListener 编辑(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item, NeedSwipeBackActivity mActivity) {
 
         return v -> {
-            ToastUtil.showLongToast("编辑");
+//            ToastUtil.showLongToast("编辑");
             showLoading();
             new BasePresenter()
                     .putParams("id", item.id)
@@ -429,6 +433,7 @@ public  class ManagerSplitListActivity_new<P extends ManagerListPresenter, M ext
                             }
 
                             hindLoading();
+
                         }
 
                         @Override
@@ -515,8 +520,10 @@ public  class ManagerSplitListActivity_new<P extends ManagerListPresenter, M ext
                                     currentPos = position;
                                     commonListSpinner1.dismiss();
                                     muzt.setText(status.enumText);
-                                    ToastUtil.showLongToast(status.enumValue);
+//                                    ToastUtil.showLongToast(status.enumValue);
                                     setStatus(status.enumValue);
+
+                                    xRecyclerView.onRefresh();
 //                                    ToastUtil.showLongToast(datas.get(currentPos));
                                 }
                             });
@@ -632,7 +639,7 @@ public  class ManagerSplitListActivity_new<P extends ManagerListPresenter, M ext
     View.OnClickListener updata = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            ToastUtil.showLongToast("更新");
+//            ToastUtil.showLongToast("更新");
 
 //            Type type = new TypeToken<AddressBean>().getType();
 
@@ -666,8 +673,16 @@ public  class ManagerSplitListActivity_new<P extends ManagerListPresenter, M ext
         mPresenter.getCounts2(getExtraNurseryId());
     }
 
+    @Override
+    protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+        super.onActivityResult(arg0, arg1, arg2);
+        if (arg1 == ConstantState.PUBLIC_SUCCEED) {
+            xRecyclerView.onRefresh();
+        }
+    }
 
-//    @Override
+
+    //    @Override
 //    public void initTodoStatusCount(SimpleGsonBeanData<StatusCountBean> gsonBean) {
 //        // 子类实现
 //    }

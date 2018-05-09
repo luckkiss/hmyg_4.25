@@ -70,7 +70,7 @@ public class MyOptionItemView extends OptionItemView {
      * 标题字体大小
      */
     private float titleTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-            16, getResources().getDisplayMetrics());
+            14, getResources().getDisplayMetrics());
     /**
      * 标题颜色
      */
@@ -83,7 +83,7 @@ public class MyOptionItemView extends OptionItemView {
      * 左边文字大小
      */
     private float leftTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-            16, getResources().getDisplayMetrics());
+            14, getResources().getDisplayMetrics());
     /**
      * 左字左边距
      */
@@ -99,7 +99,7 @@ public class MyOptionItemView extends OptionItemView {
     /**
      * 左边文字颜色
      */
-    private int leftTextColor = Color.BLACK;
+    private int leftTextColor = Color.parseColor("#666666");
     /**
      * 右边文字
      */
@@ -112,7 +112,7 @@ public class MyOptionItemView extends OptionItemView {
     /**
      * 右边文字颜色
      */
-    private int rightTextColor = Color.BLACK;
+    private int rightTextColor = Color.parseColor("#666666");
     /**
      * 右字右边距
      */
@@ -259,11 +259,13 @@ public class MyOptionItemView extends OptionItemView {
         }
         if (rightImage != null && isShowRightImg) {
             // 计算右图范围
-            rect.right = mWidth - mWidth / 32 ;
-            rect.left =  rect.right - rightImage.getWidth() + 5;
+            rect.right = mWidth - getPaddingRight();
+            rect.left = rect.right - rightImage.getWidth();
 //            rect.left = rect.right - rightImage.getWidth();
-            rect.top = mHeight / 3 - 3;
-            rect.bottom = mHeight * 2 / 3 + 3;
+            rect.top = mHeight / 2 + rightImage.getHeight() / 2;
+//            rect.top = mHeight / 3 - 3 ;
+            rect.bottom = mHeight / 2 - rightImage.getHeight() / 2;
+//            rect.bottom = mHeight * 2 / 3 + 3;
 
 
 //            rect.right = mWidth - (rightImageMarginRight >= 0 ? rightImageMarginRight : mWidth / 26);

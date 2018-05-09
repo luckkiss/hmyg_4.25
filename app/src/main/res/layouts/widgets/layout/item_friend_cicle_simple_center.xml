@@ -50,10 +50,10 @@
             android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:layout_above="@+id/time_city"
+            android:layout_marginLeft="6dp"
             android:layout_toEndOf="@+id/title"
             android:layout_toRightOf="@+id/title"
             android:adjustViewBounds="true"
-            android:layout_marginLeft="6dp"
             android:src="@mipmap/wd_smrz_tg" />
 
         <ImageView
@@ -204,7 +204,9 @@
 
     </LinearLayout>
 
-    <View style="@style/View_line_gray" />
+    <View
+        android:id="@+id/botton_line"
+        style="@style/View_line_gray" />
 
 
 </LinearLayout>

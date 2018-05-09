@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -120,20 +121,22 @@
         </RelativeLayout>
 
 
-        <TextView
+        <com.hldj.hmyg.widget.MyOptionItemView
             android:id="@+id/select_city"
             android:layout_width="match_parent"
             android:layout_height="@dimen/simpleHeightContent"
-            android:layout_alignLeft="@+id/textView61"
-            android:layout_alignStart="@+id/textView61"
-            android:layout_below="@+id/textView61"
             android:background="@drawable/bg_bottom_line"
             android:drawableRight="@drawable/arrow_right_eq"
             android:gravity="center_vertical"
-            android:paddingLeft="16dp"
             android:paddingRight="10dp"
-            android:text="用苗地"
-            android:textSize="@dimen/textSize" />
+            app:left_text="用苗地"
+            app:left_text_color="@color/text_color666"
+            app:left_text_margin_left="16dp"
+            app:left_text_size="@dimen/textSize"
+            app:right_src="@drawable/arrow_right_eq"
+            app:right_text="未选择"
+            app:right_text_color="@color/text_color666"
+            app:right_text_size="@dimen/textSize" />
 
 
         <RelativeLayout

@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackData;
 import com.hldj.hmyg.CallBack.ResultCallBack;
+import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.friend.child.HeadDetailActivity;
 import com.hldj.hmyg.application.MyApplication;
@@ -37,6 +38,7 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.TakePhotoUtil;
+import com.hldj.hmyg.widget.MyOptionItemView;
 import com.hy.utils.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zf.iosdialog.widget.AlertDialog;
@@ -110,7 +112,8 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
                             if (!TextUtils.isEmpty(pic.getUrl())) {
                                 listOnline.add(pic);
                             } else {
-                                ToastUtil.showLongToast("有图片损坏，您可以修改后重新上传！");
+                                if (pic.getSort() > 0)
+                                    ToastUtil.showLongToast("有图片损坏，您可以修改后重新上传！");
                             }
 //                          urlPaths.replaceAll(,pic);
                             uploadCount = pic.getSort();
@@ -183,11 +186,15 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
             ComonCityWheelDialogF
                     .instance()
                     .addSelectListener((province, city, distrect, cityCode) -> {
-                        setText(getView(R.id.select_city), "用苗地  " + province + city);
+                        MyOptionItemView myOptionItemView = getView(R.id.select_city);
+//                        setText(getView(R.id.select_city), "用苗地  " + province + city);
+                        myOptionItemView.setRightText(province + city);
                         currentCityCode = cityCode.substring(0, 4);
 
                     }).show(getSupportFragmentManager(), "select_city");
         });
+
+        initLocation(getView(R.id.select_city), currentCityCode);
     }
 
     private void 提交报价() {
@@ -326,8 +333,10 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
 
 
                             setText(getView(R.id.textView67), result.data.userQuote.priceTypeName);
-                            TextView city = getView(R.id.select_city);
-                            setText(city, "用苗地  " + result.data.userQuote.cityName);
+                            MyOptionItemView city = getView(R.id.select_city);
+//                            setText(city, "用苗地  " + result.data.userQuote.cityName);
+                            city.setRightText(result.data.userQuote.cityName);
+
                             setText(getView(R.id.input_remark), result.data.userQuote.remarks);
 
                             submit.setText("删除报价");
@@ -389,7 +398,7 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
 
 
     @ViewInject(id = R.id.select_city)
-    TextView select_city;
+    MyOptionItemView select_city;
 
     public void isShowRight(boolean isShow) {
 
@@ -397,11 +406,11 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
         if (isShow) {
             Drawable drawable = getDrawable(R.drawable.arrow_right_eq);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            select_city.setCompoundDrawables(null, null, drawable, null);
+//            select_city.setCompoundDrawables(null, null, drawable, null);
         } else {
-            select_city.setCompoundDrawables(null, null, null, null);
-
+//            select_city.setCompoundDrawables(null, null, null, null);
         }
+        select_city.showRightImg(isShow);
 
 
     }
@@ -449,6 +458,9 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
              */
             isShowRight(true);
 
+//            TextView select_city = getView(R.id.select_city);
+
+
         }
 
 //        RadioButton radioButton = (RadioButton) sw.getChildAt(1);
@@ -468,7 +480,7 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
         input_remark.setEnabled(true);
 
         setText(getView(R.id.input), "");
-        setText(getView(R.id.select_city), "苗源地");
+//        setText(getView(R.id.select_city), "苗源地");
         setText(getView(R.id.input_remark), "");
 //        setText(getView(R.id.textView67), "元/" + mUnitTypeName);
 
@@ -482,6 +494,23 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
         grid.getAdapter().getDataList().clear();
         grid.getAdapter().notifyDataSetChanged();
         isShowRight(true);
+
+        initLocation(getView(R.id.select_city), currentCityCode);
+
+    }
+
+
+    public static void initLocation(MyOptionItemView city, String cityCode) {
+        if (MainActivity.aMapLocation != null) {
+            if (!TextUtils.isEmpty(MainActivity.cityCode)) {
+//                CityGsonBean.ChildBeans cityBeans = new CityGsonBean.ChildBeans();
+                cityCode = MainActivity.cityCode;
+                city.setRightText(MainActivity.province_loc + " " + MainActivity.city_loc);
+            }
+        } else {
+            city.setRightText("未选择");
+        }
+
 
     }
 

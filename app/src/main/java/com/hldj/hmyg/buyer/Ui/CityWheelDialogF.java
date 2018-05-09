@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.WheelView;
@@ -57,6 +58,7 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
     }
 
 
+    boolean isShow全国 = false;
     boolean isShowCity = false;
     boolean isShowDistrict = false;
 
@@ -67,6 +69,11 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
 
     public CityWheelDialogF isShowCity(boolean flag) {
         isShowCity = flag;
+        return this;
+    }
+
+    public CityWheelDialogF isShow全国(boolean flag) {
+        this.isShow全国 = flag;
         return this;
     }
 
@@ -189,12 +196,42 @@ public class CityWheelDialogF extends DialogFragment implements OnWheelChangedLi
 
     }
 
+    /**
+     * "id": "1",
+     * "name": "北京市",
+     * "fullName": "北京市",
+     * "cityCode": "11",
+     * "parentCode": "0",
+     * "level": 1,
+     */
+    public CityGsonBean.ChildBeans 全国(int level) {
+        if (level > 3) {
+            return null;
+        }
+        CityGsonBean.ChildBeans childBeans = new CityGsonBean.ChildBeans();
+        childBeans.id = "0";
+        childBeans.name = "全国";
+        childBeans.fullName = "全国";
+        childBeans.cityCode = "";
+        childBeans.parentCode = "";
+        childBeans.level = level + "";
+        List<CityGsonBean.ChildBeans> childBeans1 = new ArrayList<>();
+        childBeans1.add(全国(++level));
+        childBeans.childs = childBeans1;
+        return childBeans;
+    }
 
     private void setUpData() {
         initProvinceDatas();//获取省集合  与省集合代表的code 集合
+
+        if (isShow全国) {
+            gsonBean.data.bannerList.add(0, 全国(1));
+        }
+
         mViewProvince.setViewAdapter(new ArrayWheelAdapter_new(getActivity(), gsonBean.data.bannerList));
         if (isShowCity) {
             arrayWheelAdapterNew.notifyAllDatas1(gsonBean.data.bannerList.get(0).childs);
+
             childBeans = gsonBean.data.bannerList.get(pCurrent).childs.get(cCurrent);
         }
 

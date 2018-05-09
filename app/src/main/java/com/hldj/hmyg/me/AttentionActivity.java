@@ -107,7 +107,7 @@ public class AttentionActivity extends BaseMVPActivity implements View.OnClickLi
                 .setText(R.id.content, "主营品种： " + item.attrData.mainType)
                 .setText(R.id.fensi, "粉丝：" + item.attrData.followCount)
                 .setBackgroundColor(R.id.fensi, Color.TRANSPARENT)
-                .setTextColorRes(R.id.fensi,R.color.text_color666)
+                .setTextColorRes(R.id.fensi,R.color.text_color999)
 
         ;
 

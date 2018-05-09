@@ -110,11 +110,9 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> {
     }
 
     @Override
-    protected void doConvert(BaseViewHolder helper,Moments item, NeedSwipeBackActivity mActivity) {
+    protected void doConvert(BaseViewHolder helper, Moments item, NeedSwipeBackActivity mActivity) {
 
 //        D.i("=============doConvert==============" + item.getName());
-
-
 
 
         View.OnClickListener clickListener = v ->
@@ -149,8 +147,6 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> {
             time_city += "   " + item.ciCity.fullName;
         }
         helper.setText(R.id.time_city, time_city);//时间戳_发布点
-
-
 
 
 //                if (item.attrData != null && !TextUtils.isEmpty(item.ownerUserJson.headImage)) {
@@ -247,6 +243,7 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> {
         helper.addOnClickListener(R.id.second, clickListener).setText(R.id.second, " " + item.replyCount);//按钮2 评论
 
 
+        helper.setVisible(R.id.botton_line, false);
 
     }
 

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
@@ -23,6 +24,7 @@ import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.FUtil;
+import com.hy.utils.GetServerUrl;
 
 import net.tsz.afinal.FinalActivity;
 import net.tsz.afinal.annotation.view.ViewInject;
@@ -73,6 +75,7 @@ public class BuyForUserActivity extends BaseMVPActivity {
 
                     CityWheelDialogF.instance()
                             .isShowCity(true)
+                            .isShow全国(true)
                             .addSelectListener(new CityWheelDialogF.OnCitySelectListener() {
                                 @Override
                                 public void onCitySelect(CityGsonBean.ChildBeans childBeans) {
@@ -112,6 +115,11 @@ public class BuyForUserActivity extends BaseMVPActivity {
                     protected void convert(BaseViewHolder helper, UserPurchase item) {
                         helper.convertView.setOnClickListener(v -> PublishForUserDetailActivity.start2Activity(mActivity, item.id, item.ownerId));
                         doConvert(helper, item, mActivity);
+
+                        if (MyApplication.getUserBean().id.equals(item.ownerId)) {
+                            if (GetServerUrl.isTest)
+                                helper.setTextColorRes(R.id.title, R.color.main_color);
+                        }
 
 
                     }

@@ -580,7 +580,7 @@ public abstract class ManagerListActivity_new<P extends ManagerListPresenter, M 
     public void initCounts2(SimpleGsonBeanData<StatusCountBean> gsonBean) {
 
 //,"pendingCount":1,"statusList":["unaudit","published"],"sellingCount"
-        ToastUtil.showLongToast(gsonBean.msg);
+//        ToastUtil.showLongToast(gsonBean.msg);
         list_counts.clear();
         LinearLayout linearLayout = getView(R.id.ll_counts_content);
         findTagTextView(linearLayout);
