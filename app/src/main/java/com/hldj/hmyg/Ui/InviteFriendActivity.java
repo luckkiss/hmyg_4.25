@@ -61,7 +61,7 @@ public class InviteFriendActivity extends BaseMVPActivity {
 
         {
 
-           String shareUrl =Data.getAppDoloadUrlForInvite(MyApplication.getUserBean().id) ;
+            String shareUrl = Data.getAppDoloadUrlForInvite(MyApplication.getUserBean().id);
 
             if (TextUtils.isEmpty(shareUrl)) {
                 ToastUtil.showShortToast("对不起，无分享地址");
@@ -87,7 +87,6 @@ public class InviteFriendActivity extends BaseMVPActivity {
             }
 
 
-
         }
 
 
@@ -96,8 +95,8 @@ public class InviteFriendActivity extends BaseMVPActivity {
 
             Platform.ShareParams sp1 = new Platform.ShareParams();
             sp1.setShareType(Platform.SHARE_WEBPAGE);
-            sp1.setTitle("花木易购APP下载 ");
-            sp1.setText("欢迎使用花木易购代购型苗木交易平台。指尖轻点，交易无忧！ ");
+            sp1.setTitle(title);
+            sp1.setText(text);
 //        sp1.setImageUrl(img);
             sp1.setImageUrl("");
 //        Uri uri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getResourcePackageName(R.drawable.图片名称) + "/" + r.getResourceTypeName(R.drawable.图片名称) + "/" + r.getResourceEntryName(R.drawable.图片名称))
@@ -113,8 +112,8 @@ public class InviteFriendActivity extends BaseMVPActivity {
             ToastUtil.showLongToast("分享到朋友圈");
             Platform.ShareParams sp1 = new Platform.ShareParams();
             sp1.setShareType(Platform.SHARE_WEBPAGE);
-            sp1.setTitle("花木易购APP下载 ");
-            sp1.setText("欢迎使用花木易购代购型苗木交易平台。指尖轻点，交易无忧！ ");
+            sp1.setTitle(title);
+            sp1.setText(text);
 //        sp1.setImageUrl(img);
             sp1.setImageUrl("");
 //        Uri uri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getResourcePackageName(R.drawable.图片名称) + "/" + r.getResourceTypeName(R.drawable.图片名称) + "/" + r.getResourceEntryName(R.drawable.图片名称))
@@ -127,6 +126,9 @@ public class InviteFriendActivity extends BaseMVPActivity {
             ShareDialogFragment.ShareToWechatMoments(sp1);
         });
     }
+
+    private String title = "花木易购注册邀请";
+    private String text = "卖过那么多苗，用过那么多app，还是这个靠谱!";
 
 
     @Override

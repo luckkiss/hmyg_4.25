@@ -56,7 +56,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:checked="false"
-        android:drawableLeft="@mipmap/jf_jftb"
+        android:drawableLeft="@mipmap/jf_hb"
         android:drawablePadding="6dp"
         android:drawableRight="@drawable/arrow_right"
         android:gravity="center"

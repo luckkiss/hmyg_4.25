@@ -61,7 +61,7 @@ public class InviteFriendListActivity extends BaseMVPActivity {
         View emptyView = LayoutInflater.from(mActivity).inflate(R.layout.invite_friend_empty, null);
 
         emptyView.findViewById(R.id.tv_go_to_invite).setOnClickListener(v -> {
-            ToastUtil.showLongToast("go to inviteing  11111");
+//            ToastUtil.showLongToast("go to inviteing  11111");
 
             InviteFriendActivity.start(mActivity);
         });

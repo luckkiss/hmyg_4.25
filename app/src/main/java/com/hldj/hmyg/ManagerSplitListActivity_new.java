@@ -677,7 +677,7 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
     protected void onActivityResult(int arg0, int arg1, Intent arg2) {
         super.onActivityResult(arg0, arg1, arg2);
         if (arg1 == ConstantState.PUBLIC_SUCCEED) {
-            xRecyclerView.onRefresh();
+//            xRecyclerView.onRefresh();
         }
     }
 

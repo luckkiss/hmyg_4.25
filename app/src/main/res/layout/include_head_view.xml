@@ -35,9 +35,8 @@
         android:id="@+id/imageView17"
         android:layout_width="44dp"
         android:layout_height="44dp"
-        android:layout_marginRight="8dp"
+        android:src="@drawable/icon_persion_pic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView16"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/icon_persion_pic" />
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

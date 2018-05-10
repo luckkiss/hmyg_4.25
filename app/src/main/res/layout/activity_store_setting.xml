@@ -213,7 +213,7 @@
                 app:left_text_size="@dimen/textSizeContent"
                 app:right_src="@drawable/arrow_right_eq"
                 app:right_text="未认证"
-                android:paddingRight="12dp"
+                android:paddingRight="8dp"
                 app:right_text_color="@color/text_color666"
                 app:right_text_size="@dimen/textSizeContent" />
 
@@ -228,7 +228,7 @@
                 app:left_text_size="@dimen/textSizeContent"
                 app:right_src="@drawable/arrow_right_eq"
                 app:right_text="查看"
-                android:paddingRight="12dp"
+                android:paddingRight="8dp"
                 app:right_text_color="@color/text_color666"
                 app:right_text_size="@dimen/textSizeContent" />
 

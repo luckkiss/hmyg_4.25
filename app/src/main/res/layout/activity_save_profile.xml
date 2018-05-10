@@ -54,7 +54,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:drawableRight="@drawable/ic_right_icon_new"
+                    android:drawableRight="@drawable/arrow_right_eq"
                     android:gravity="center_vertical|end"
                     android:paddingLeft="@dimen/x12"
                     android:textSize="@dimen/textSize"
@@ -202,7 +202,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="40dp"
-                android:orientation="horizontal" android:visibility="gone">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -259,7 +260,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:drawableRight="@drawable/ic_right_icon_new"
+                    android:drawableRight="@drawable/arrow_right_eq"
                     android:gravity="center_vertical|end"
                     android:paddingLeft="@dimen/x12"
                     android:textSize="@dimen/textSize"
@@ -293,7 +294,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:drawableRight="@drawable/ic_right_icon_new"
+                    android:drawableRight="@drawable/arrow_right_eq"
                     android:gravity="center_vertical|end"
                     android:paddingLeft="@dimen/x12"
                     android:textSize="@dimen/textSize"
@@ -357,13 +358,13 @@
                     android:layout_gravity="center_vertical"
                     android:drawableRight="@drawable/arrow_right_eq"
                     android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
                     app:left_text="登录密码"
                     app:left_text_color="@color/text_color333"
                     app:left_text_size="@dimen/textSizeX"
                     app:right_src="@drawable/arrow_right_eq"
                     app:right_text="修改"
-                    app:right_text_color="@color/text_color333"
+                    app:right_text_color="@color/text_color666"
+                    app:right_text_margin_right="2dp"
                     app:right_text_size="@dimen/textSizeX" />
 
                 <EditText

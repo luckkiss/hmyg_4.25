@@ -297,9 +297,18 @@ public class MyOptionItemView extends OptionItemView {
             int w = mWidth;
             if (rightImage != null) {
                 w -= rightImageMarginRight >= 0 ? rightImageMarginRight : (mHeight / 16);//增加右图右间距
-                w -= mHeight * 1 / 2;//增加图宽
+                w -= getPaddingRight() ;//增加图宽
                 w -= rightImageMarginLeft >= 0 ? rightImageMarginLeft : (mWidth / 32);//增加右图左间距
                 w -= rightTextMarginRight > 0 ? rightTextMarginRight : 0;//增加右字右间距
+
+
+                /**
+                 *  w -= rightImageMarginRight >= 0 ? rightImageMarginRight : (mHeight / 16);//增加右图右间距
+                 // w -= mHeight * 1 / 2;//增加图宽
+                 w -= 0;//增加图宽
+                 w -= rightImageMarginLeft >= 0 ? rightImageMarginLeft : (mWidth / 32);//增加右图左间距
+                 w -= rightTextMarginRight > 0 ? rightTextMarginRight : (mWidth / 32);//增加右字右间距
+                 */
             } else {
                 w -= rightTextMarginRight >= 0 ? rightTextMarginRight : (mWidth / 32);//增加右字右间距
             }

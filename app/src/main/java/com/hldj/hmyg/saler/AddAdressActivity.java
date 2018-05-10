@@ -66,19 +66,11 @@ public class AddAdressActivity extends BaseMVPActivity {
             initExtral(getExtral());
 
             setTitle("编辑苗源地址");
-            this.setBackgroAndTextAndVis(getView(R.id.toolbar_right_text), "删除", R.drawable.red_btn_selector);
-            getView(R.id.toolbar_right_text).setOnClickListener(v -> {
+
+//            this.setBackgroAndTextAndVis(getView(R.id.toolbar_right_text), "删除", R.drawable.red_btn_selector);
 
 
-                new AlertDialog(this).builder()
-                        .setTitle("确定删除本条地址?")
-                        .setPositiveButton("确定删除", v1 -> {
-                            DelAdress(getExtral().id);
-                        }).setNegativeButton("取消", v2 -> {
-                }).show();
-
-
-            });
+            getView(R.id.toolbar_right_text).setVisibility(View.GONE);
 
 
         } else {
@@ -99,6 +91,17 @@ public class AddAdressActivity extends BaseMVPActivity {
 
     private void isShowDelete(boolean isShow) {
         getView(R.id.tv_delete).setVisibility(isShow ? View.VISIBLE : View.GONE);
+
+        getView(R.id.tv_delete).setOnClickListener(v -> {
+            new AlertDialog(this).builder()
+                    .setTitle("确定删除本条地址?")
+                    .setPositiveButton("确定删除", v1 -> {
+                        DelAdress(getExtral().id);
+                    }).setNegativeButton("取消", v2 -> {
+            }).show();
+
+        });
+
     }
 
     /**

@@ -13,6 +13,10 @@ public interface ConstantParams {
      */
     String pageIndex = "pageIndex";
 
+    String searchKey = "searchKey";
+
+    String name = "name";
+
 
     /**
      * 到岸价

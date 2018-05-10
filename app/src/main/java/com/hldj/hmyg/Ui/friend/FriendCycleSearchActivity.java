@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -151,6 +152,14 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
     @Override
     public void initView() {
         super.initView();
+        search_content.setOnEditorActionListener((arg0, arg1, arg2) -> {
+            if (arg1 == EditorInfo.IME_ACTION_SEARCH) {
+                searchContent = search_content.getText().toString().trim();
+                FriendBaseFragment fragment = (FriendBaseFragment) list_fragment.get(viewpager.getCurrentItem());
+                fragment.onRefresh(searchContent, currentType, "");
+            }
+            return true;
+        });
 
 
     }

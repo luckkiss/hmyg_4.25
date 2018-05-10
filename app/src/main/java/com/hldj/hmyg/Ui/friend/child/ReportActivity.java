@@ -1,10 +1,13 @@
 package com.hldj.hmyg.Ui.friend.child;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.R;
@@ -12,8 +15,8 @@ import com.hldj.hmyg.Ui.friend.bean.Tipoff;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.SimpleGsonBean;
+import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment;
 import com.hldj.hmyg.saler.P.BasePresenter;
-import com.hy.utils.ToastUtil;
 
 /**
  * Created by luocaca on 2017/11/27 0027.
@@ -117,8 +120,25 @@ public class ReportActivity extends BaseMVPActivity {
                 .doRequest("admin/tipoff/save", new HandlerAjaxCallBack(mActivity) {
                     @Override
                     public void onRealSuccess(SimpleGsonBean gsonBean) {
-                        ToastUtil.showLongToast(gsonBean.msg);
+//                        ToastUtil.showLongToast(gsonBean.msg);
 //                        finish();
+
+                        CommonDialogFragment.newInstance(context -> {
+                            Dialog dialog1 = new Dialog(context, R.style.DialogTheme);
+                            dialog1.setContentView(R.layout.feed_back_succeed);
+
+                            dialog1.findViewById(R.id.ll_feed_content).setBackgroundColor(Color.WHITE);
+
+                            TextView content = (TextView) dialog1.findViewById(R.id.content);
+                            content.setText(content.getText().toString().replace("意见", "举报"));
+
+                            dialog1.findViewById(R.id.tv_feed_ok).setOnClickListener(view1 -> onBackPressed());
+                            return dialog1;
+                        }, true, () -> {
+                            onBackPressed();
+                        }).show(getSupportFragmentManager(), TAG);
+
+
                     }
                 });
 

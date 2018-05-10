@@ -34,6 +34,7 @@ import com.hldj.hmyg.saler.AddAdressActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.StoreSettingActivity;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.hldj.hmyg.widget.SaveSeedingBottomLinearLayout;
 import com.hy.utils.SpanUtils;
 import com.hy.utils.ToastUtil;
@@ -56,6 +57,8 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
     private View headView;
     private View footerView;
+    private ComonShareDialogFragment.ShareBean shareBean;
+    private View head_parent;
 
     @Override
     public int bindLayoutID() {
@@ -80,10 +83,10 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
     @ViewInject(id = R.id.toolbar_left_icon)
     ImageView toolbar_left_icon;
 
-    @ViewInject(id = R.id.toolbar_right_icon)
+    @ViewInject(id = R.id.toolbar_right_icon, click = "onClick")
     ImageView toolbar_right_icon;
 
-    @ViewInject(id = R.id.toolbar_right_text)
+    @ViewInject(id = R.id.toolbar_right_text, click = "onClick")
     TextView toolbar_right_text;
 
 
@@ -95,12 +98,45 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
                 AddAdressActivity.start2Activity(mActivity, null);
                 break;
             case R.id.logo:
+            case R.id.head_parent:
                 D.i("========店铺设置==========");
                 StoreSettingActivity.start2Activity(mActivity);
+                break;
+            case R.id.toolbar_right_icon:
+                ToastUtil.showLongToast("search");
+                ManagerListActivity_new.start2Activity(mActivity);
+                break;
+            case R.id.toolbar_right_text:
+                if (shareBean == null) {
+                    ToastUtil.showLongToast("对不起,分享数据获取失败~_~");
+
+                    return;
+                }
+
+//                ComonShareDialogFragment
+//                        .newInstance()
+//                        .setShareBean(shareBean)
+//                        .show(getSupportFragmentManager(), "aaa");
+//
+
+                ComonShareDialogFragment.newInstance()
+                        .setShareBean(shareBean)
+                        .show(mActivity.getSupportFragmentManager(), "分享求购");
                 break;
         }
     }
 
+
+    private void createShareBean(StoreGsonBean.DataBean.StoreBean store, String headImage) {
+        shareBean = new ComonShareDialogFragment.ShareBean(
+               "qqq",
+                store.shareContent,
+                "https://blog.csdn.net/dqcfkyqdxym3f8rb0/article/details/80252828",
+//                store.shareUrl,
+                "https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_jpg/BnSNEaficFAZHNgJvEn6wU3HjZK9icJfibUPSS6N8FyGM5fyrxVf1S9ufxV9kXIcQ3LojexL3UU2sJlhbXY4bW2dg/640?wx_fmt=jpeg",
+                "https://blog.csdn.net/dqcfkyqdxym3f8rb0/article/details/80252828"
+        );
+    }
 
     @Override
     public void initView() {
@@ -209,6 +245,7 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
     private void initHeadView(View headView, StoreGsonBean.DataBean.StoreBean storeBean, List<TipNum> tipNums) {
         //           <cn.bingoogolapple.badgeview.BGABadgeLinearLayout
 //        android:id="@+id/ll_show_num1"
+        createShareBean(storeBean, storeBean.bannerUrl);
 
         int head_id = R.layout.item_head_d_new_mp;
         BGABadgeLinearLayout ll_show_num1 = headView.findViewById(R.id.ll_show_num1);
@@ -243,8 +280,10 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 //        setStyleAndText(ll_show_num3, "");
         // 头部控件初始化   点击事件 由框架注入
         logo = headView.findViewById(R.id.logo);
+        head_parent = headView.findViewById(R.id.head_parent);
         btn_xzmp = footerView.findViewById(R.id.btn_xzmp);
         logo.setOnClickListener(this);
+        head_parent.setOnClickListener(this);
         btn_xzmp.setOnClickListener(this);
 
 
@@ -312,8 +351,6 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
         return headView;
     }
-
-
 
 
     public static void start2Activity(Activity context) {

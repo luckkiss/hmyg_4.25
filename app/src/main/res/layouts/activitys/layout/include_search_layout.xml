@@ -25,6 +25,8 @@
         android:hint="请输入项目名称"
         android:paddingLeft="3dp"
         android:textColorHint="@color/hint_text_color"
+        android:imeOptions="actionSearch"
+        android:singleLine="true"
         android:textSize="@dimen/textSizeXX" />
 
     <com.coorchice.library.SuperTextView

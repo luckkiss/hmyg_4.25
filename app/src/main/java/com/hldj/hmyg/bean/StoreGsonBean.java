@@ -69,9 +69,9 @@ public class StoreGsonBean implements Serializable {
             public String mainType;
             public String description;
             public String ownerId;
-            public String shareTitle;
-            public String shareContent;
-            public String shareUrl;
+            public String shareTitle = "";
+            public String shareContent = "";
+            public String shareUrl = "";
             public String storeUrl;
 
             public AttrData attrData = new AttrData();

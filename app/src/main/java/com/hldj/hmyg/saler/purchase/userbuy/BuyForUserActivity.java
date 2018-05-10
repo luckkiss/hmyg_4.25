@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,7 +53,22 @@ public class BuyForUserActivity extends BaseMVPActivity {
     @ViewInject(id = R.id.select_city)
     TextView select_city;
 
+    @ViewInject(id = R.id.sptv_program_do_search, click = "sptv_program_do_search")
+    View sptv_program_do_search;
+
+    @ViewInject(id = R.id.et_program_serach_text)
+    EditText et_program_serach_text;
+
     private String mCityCode = "";
+
+
+    public void sptv_program_do_search(View view) {
+        recycle.onRefresh();
+    }
+
+    private String getSearchContent() {
+        return et_program_serach_text.getText().toString();
+    }
 
     @Override
     public int bindLayoutID() {
@@ -62,6 +80,13 @@ public class BuyForUserActivity extends BaseMVPActivity {
     public void initView() {
         FinalActivity.initInjectedView(this);
         fbqg.setOnClickListener(v -> 发布求购());
+        et_program_serach_text.setOnEditorActionListener((arg0, arg1, arg2) -> {
+            if (arg1 == EditorInfo.IME_ACTION_SEARCH) {
+                sptv_program_do_search(null);
+            }
+            return false;
+        });
+
         select_city
                 .setOnClickListener(v -> {
 
@@ -119,6 +144,7 @@ public class BuyForUserActivity extends BaseMVPActivity {
                         if (MyApplication.getUserBean().id.equals(item.ownerId)) {
                             if (GetServerUrl.isTest)
                                 helper.setTextColorRes(R.id.title, R.color.main_color);
+                            else helper.setTextColorRes(R.id.title, R.color.text_color666);
                         }
 
 
@@ -202,6 +228,7 @@ public class BuyForUserActivity extends BaseMVPActivity {
         new BasePresenter()
                 .putParams(ConstantParams.pageIndex, page + "")
                 .putParams("cityCode", mCityCode)
+                .putParams(ConstantParams.name, getSearchContent())
                 .doRequest("userPurchase/list", true, new HandlerAjaxCallBackPage<UserPurchase>(mActivity, type, UserPurchase.class) {
                     @Override
                     public void onRealSuccess(List<UserPurchase> seedlingBeans) {

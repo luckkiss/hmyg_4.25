@@ -107,7 +107,7 @@ public class IntegralActivity extends BaseMVPActivity {
                         switch2Start(v);
                     }
                 });
-                relative.setRightTextStates(item.finish, item.point + " 积分", item.value);
+                relative.setRightTextStates(item.finish, item.point + " 花币", item.value);
                 //red_btn_bg_color
 
 
@@ -167,7 +167,7 @@ public class IntegralActivity extends BaseMVPActivity {
                 userPointType.value = "yaoqing";
 
 
-                recycle.getAdapter().add(0, userPointType);
+//                recycle.getAdapter().add(0, userPointType);
 //                ToastUtil.showLongToast(json);
                 hindLoading();
             }
@@ -193,7 +193,7 @@ public class IntegralActivity extends BaseMVPActivity {
 
 
         switch (tag) {
-            case "yaoqing":// 好友邀请
+            case "invite":// 好友邀请
 
 //                ToastUtil.showLongToast("好友yaoqing");
                 InviteFriendActivity.start(mActivity);
