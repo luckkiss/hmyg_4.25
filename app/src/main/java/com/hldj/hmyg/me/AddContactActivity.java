@@ -11,6 +11,7 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
 import com.hldj.hmyg.bean.SimplePageBean;
+import com.hldj.hmyg.bean.TongXunGsonBean;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
@@ -104,6 +105,7 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
 //                });
 
 
+
         recycler.init(new BaseQuickAdapter<ContactInfoParser.ContactInfo, BaseViewHolder>(item_layout_id) {
             @Override
             protected void convert(BaseViewHolder helper, ContactInfoParser.ContactInfo item) {
@@ -123,7 +125,40 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
                     requestData(page);
                 })
                 .openRefresh();
-        recycler.onRefresh();
+
+
+//        recycler.getRecyclerView().addItemDecoration(   corecyclerView.getRecyclerView().addItemDecoration(
+//                SectionDecoration.Builder.init(new SectionDecoration.PowerGroupListener() {
+//                    @Override
+//                    public String getGroupName(int position) {
+//
+//                        if (mCoreRecyclerView.getAdapter().getData().size() == 0) {
+//                            return null;
+//                        } else {
+////                            dateStr
+//                            BPageGsonBean.DatabeanX.Pagebean.Databean databean = (BPageGsonBean.DatabeanX.Pagebean.Databean) mCoreRecyclerView.getAdapter().getItem(position);
+//                            return databean.attrData.dateStr;
+//                        }
+//
+//                    }
+//
+//                    @Override
+//                    public View getGroupView(int position) {
+////                        View view = LayoutInflater.from(HistoryActivity.this).inflate( R.layout.item_list_simple, null);
+////                        view.setBackgroundColor(getColorByRes(R.color.gray_bg_ed));
+////                        TextView tv = view.findViewById(android.R.id.text1);
+////                        tv.setText(recycler.getAdapter().getItem(position) + "");
+//                        View view = LayoutInflater.from(mActivity).inflate(R.layout.item_tag, null);
+//                        TextView textView = view.findViewById(R.id.text1);
+//                        textView.setHeight((int) getResources().getDimension(R.dimen.px74));
+//                        BPageGsonBean.DatabeanX.Pagebean.Databean databean = (BPageGsonBean.DatabeanX.Pagebean.Databean) mCoreRecyclerView.getAdapter().getItem(position);
+//                        textView.setText(databean.attrData.dateStr);
+//                        return view;
+//                    }
+//                }).setGroupHeight((int) getResources().getDimension(R.dimen.px74)).build());
+//);
+//
+//        recycler.onRefresh();
 
 
     }
@@ -188,12 +223,34 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
                     }
                 })
                 .filter(contactInfos -> contactInfos != null)
-                .flatMap(new Function<List<ContactInfoParser.ContactInfo>, ObservableSource<?>>() {
+                .flatMap(new Function<List<ContactInfoParser.ContactInfo>, ObservableSource<List<TongXunGsonBean.DataBean.UserDataBean>>>() {
                     @Override
-                    public ObservableSource<List<ContactInfoParser.ContactInfo>> apply(List<ContactInfoParser.ContactInfo> contactInfos) throws Exception {
+                    public ObservableSource<List<TongXunGsonBean.DataBean.UserDataBean>> apply(List<ContactInfoParser.ContactInfo> contactInfos) throws Exception {
+
+
                         return getContactInfoOnly(contactInfos);
                     }
                 })
+
+                .flatMap(new Function<List<TongXunGsonBean.DataBean.UserDataBean>, ObservableSource<TongXunGsonBean.DataBean.UserDataBean>>() {
+                    @Override
+                    public ObservableSource<TongXunGsonBean.DataBean.UserDataBean> apply(List<TongXunGsonBean.DataBean.UserDataBean> userDataBeans) throws Exception {
+//                        return Observable.just(userDataBeans);
+//                        TongXunGsonBean.DataBean.UserDataBean[] userDataBeans1 = (TongXunGsonBean.DataBean.UserDataBean[]) userDataBeans.toArray();
+//                      return Observable.just(userDataBeans.get(0));
+                        return Observable.fromIterable(userDataBeans);
+                    }
+                })
+
+//                .flatMap(new Function<List<TongXunGsonBean.DataBean.UserDataBean>, List<ContactInfoParser.ContactInfo>>() {
+//                    @Override
+//                    public  ObservableSource<List<TongXunGsonBean.DataBean.UserDataBean>>  apply(List<TongXunGsonBean.DataBean.UserDataBean> userDataBeans) throws Exception {
+//                        List<ContactInfoParser.ContactInfo> contactInfos = new ArrayList<>();
+//
+//                        return Ob;
+//                    }
+//                })
+
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally(() -> {
                             recycler.selfRefresh(false);
@@ -202,18 +259,19 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
                         }
                 )
                 .subscribe(contactInfos -> {
-                    recycler.getAdapter().addData((contactInfos));
+                    Log.i("resulet ", "  py  is  " + contactInfos.py + "   ---\n list  is = " + contactInfos.userList.toString());
+                    recycler.getAdapter().addData(contactInfos.userList);
                 }, throwable -> {
                     ToastUtil.showLongToast("请求失败" + throwable.getMessage());
                 });
     }
 
-    private ObservableSource<List<ContactInfoParser.ContactInfo>> getContactInfoOnly(List<ContactInfoParser.ContactInfo> contactInfos) {
+    private ObservableSource<List<TongXunGsonBean.DataBean.UserDataBean>> getContactInfoOnly(List<ContactInfoParser.ContactInfo> contactInfos) {
 
         return Observable
-                .create(new ObservableOnSubscribe<List<ContactInfoParser.ContactInfo>>() {
+                .create(new ObservableOnSubscribe<List<TongXunGsonBean.DataBean.UserDataBean>>() {
                     @Override
-                    public void subscribe(ObservableEmitter<List<ContactInfoParser.ContactInfo>> e) throws Exception {
+                    public void subscribe(ObservableEmitter<List<TongXunGsonBean.DataBean.UserDataBean>> e) throws Exception {
                         java.lang.reflect.Type type = new TypeToken<SimpleGsonBean_new<SimplePageBean<List<ContactInfoParser.ContactInfo>>>>() {
                         }.getType();
                         new BaseRxPresenter()
@@ -221,14 +279,10 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
                                 .doRequest("admin/userFollow/matchMobileUser", true, new AjaxCallBack<String>() {
                                     @Override
                                     public void onSuccess(String json) {
-
-
-//                                        TongXunGsonBean tongXunGsonBean = GsonUtil.formateJson2Bean(json, TongXunGsonBean.class);
-
-//                                        e.onNext(tongXunGsonBean.data.userList.aaBeans);
-//                                        e.onComplete();
-                                        Log.i("tongxun", "onSuccess: " + json);
-
+                                        TongXunGsonBean tongXunGsonBean = GsonUtil.formateJson2Bean(json, TongXunGsonBean.class);
+                                        e.onNext(tongXunGsonBean.data.userData);
+                                        e.onComplete();
+                                        Log.i("tongxun", "onSuccess: " + GsonUtil.formatJson2String(json));
                                     }
 
                                     @Override
@@ -236,29 +290,6 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
                                         Log.i("tongxun", "onSuccess: " + t.getMessage());
                                     }
                                 });
-
-
-//                                        , new HandlerAjaxCallBack() {
-//                                    @Override
-//                                    public void onRealSuccess(SimpleGsonBean gsonBean) {
-//                                        e.onNext(gsonBean.getData().userList);
-//                                        e.onComplete();
-//                                    }
-//
-//                                    @Override
-//                                    public void onFailure(Throwable t, int errorNo, String strMsg) {
-//                                        super.onFailure(t, errorNo, strMsg);
-//                                        e.onError(t);
-//                                    }
-//
-//                                    @Override
-//                                    public void onFinish() {
-//                                        super.onFinish();
-//                                        e.onComplete();
-//                                    }
-//                                });
-
-
                     }
                 });
 

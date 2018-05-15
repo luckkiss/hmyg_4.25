@@ -52,6 +52,7 @@ import com.hy.utils.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import net.tsz.afinal.FinalActivity;
+import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.annotation.view.ViewInject;
 
 import java.lang.reflect.Type;
@@ -388,6 +389,7 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
         ImageView logo = (ImageView) headView.findViewById(R.id.logo);
         ImageLoader.getInstance().displayImage(storeBean.logoUrl, logo);
+        FinalBitmap.create(mActivity).display(logo, storeBean.logoUrl);
 
         boolean isPass = storeBean.attrData.store_identity.equals(CompanyIdentityStatus.pass.getEnumValue());
 

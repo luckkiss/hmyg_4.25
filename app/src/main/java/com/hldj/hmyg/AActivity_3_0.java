@@ -303,9 +303,10 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     int[] location_1 = new int[2];
 
     // 滚动时执行
-    private void attachTablayout2View(TabLayout tablayout, TabLayout tablayout1, View attarchView , int pos) {
+    private void attachTablayout2View(TabLayout tablayout, TabLayout tablayout1, View attarchView ,View attarchView1, int pos) {
         if (pos == 1) {
             attarchView.getLocationOnScreen(location_0);
+            attarchView1.getLocationOnScreen(location_1);
 ///  scrollView.scrollTo(0, scrollView.getScrollY() + location3[1] - location[1] - tablayout.getHeight());
 
             int y = scrollView.getScrollY() + location3[1] - location[1] - tablayout.getHeight();
@@ -313,23 +314,48 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
             Log.i(TAG, "y -- >  " + y + "  " + location_0[1]);
 
+
+
             if (location_0[1] <= location[1] + tablayout.getHeight()) {
 
-                Log.i(TAG, "小于: ");
-
-                tablayout.clearOnTabSelectedListeners();
-                tablayout1.clearOnTabSelectedListeners();
-
-                tablayout.getTabAt(1).select();
-                tablayout1.getTabAt(1).select();
 
 
-                if (tablayout.getVisibility() == View.VISIBLE)
+                if (location_1[1] < location[1] + tablayout.getHeight() )
                 {
-                    tablayout.addOnTabSelectedListener(onTabSelectedListener);
+                    Log.i(TAG, "小于: ");
+
+                    tablayout.clearOnTabSelectedListeners();
+                    tablayout1.clearOnTabSelectedListeners();
+
+                    tablayout.getTabAt(2).select();
+                    tablayout1.getTabAt(2).select();
+
+
+                    if (tablayout.getVisibility() == View.VISIBLE)
+                    {
+                        tablayout.addOnTabSelectedListener(onTabSelectedListener);
+                    }else {
+                        tablayout1.addOnTabSelectedListener(onTabSelectedListener);
+                    }
                 }else {
-                    tablayout1.addOnTabSelectedListener(onTabSelectedListener);
+                    Log.i(TAG, "小于: ");
+
+                    tablayout.clearOnTabSelectedListeners();
+                    tablayout1.clearOnTabSelectedListeners();
+
+                    tablayout.getTabAt(1).select();
+                    tablayout1.getTabAt(1).select();
+
+
+                    if (tablayout.getVisibility() == View.VISIBLE)
+                    {
+                        tablayout.addOnTabSelectedListener(onTabSelectedListener);
+                    }else {
+                        tablayout1.addOnTabSelectedListener(onTabSelectedListener);
+                    }
+
                 }
+
 
 
             } else {
@@ -597,7 +623,8 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 }
 
 
-                attachTablayout2View(tablayout, tablayout1, findViewById(R.id.home_title_qiu_gou), 1);
+                attachTablayout2View(tablayout, tablayout1, findViewById(R.id.home_title_qiu_gou ) ,findViewById(R.id.home_title_second) , 1);
+//                attachTablayout2View(tablayout, tablayout1, findViewById(R.id.home_title_second), 2);
 //                attachTablayout2View(tablayout, tablayout1, findViewById(R.id.home_title_second), 2);
 
 

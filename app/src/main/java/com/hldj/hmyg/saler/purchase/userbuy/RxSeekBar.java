@@ -137,6 +137,10 @@ public class RxSeekBar extends View {
     private SeekBar rightSB;
     private SeekBar currTouch;
 
+    public void setTextArray(CharSequence[] mTextArray) {
+        this.mTextArray = mTextArray;
+    }
+
     private OnRangeChangedListener callback = new OnRangeChangedListener() {
         @Override
         public void onRangeChanged(RxSeekBar view, float min, float max, boolean isFromUser) {
@@ -641,11 +645,20 @@ public class RxSeekBar extends View {
         min = min + offsetValue;
         max = max + offsetValue;
 
+//        if (min < minValue) {
+//            throw new IllegalArgumentException("setValue() min < (preset min - offsetValue) . #min:" + min + " #preset min:" + minValue + " #offsetValue:" + offsetValue);
+//        }
         if (min < minValue) {
-            throw new IllegalArgumentException("setValue() min < (preset min - offsetValue) . #min:" + min + " #preset min:" + minValue + " #offsetValue:" + offsetValue);
+            minValue = min;
         }
+
+
+//        if (max > maxValue) {
+//            throw new IllegalArgumentException("setValue() max > (preset max - offsetValue) . #max:" + max + " #preset max:" + maxValue + " #offsetValue:" + offsetValue);
+//        }
+
         if (max > maxValue) {
-            throw new IllegalArgumentException("setValue() max > (preset max - offsetValue) . #max:" + max + " #preset max:" + maxValue + " #offsetValue:" + offsetValue);
+            maxValue = max;
         }
 
         if (reserveCount > 1) {
@@ -667,8 +680,12 @@ public class RxSeekBar extends View {
         }
         if (callback != null) {
             if (mSeekBarMode == 2) {
+                Log.i("--2-", "setValue:  leftSB.currPercent" + leftSB.currPercent);
+
+
                 callback.onRangeChanged(this, leftSB.currPercent, rightSB.currPercent, false);
             } else {
+                Log.i("--2-", "setValue:  leftSB.currPercent" + leftSB.currPercent);
                 callback.onRangeChanged(this, leftSB.currPercent, leftSB.currPercent, false);
             }
         }
@@ -896,6 +913,9 @@ public class RxSeekBar extends View {
 
                 if (callback != null) {
                     float[] result = getCurrentRange();
+
+                    Log.i("=====onRangeChanged===", ": " + result[0]);
+                    setTextArray(new CharSequence[]{((int) result[0]) + "", ((int) result[1]) + ""});
                     callback.onRangeChanged(this, result[0], result[1], true);
                 }
                 invalidate();

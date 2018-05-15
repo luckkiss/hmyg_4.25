@@ -127,18 +127,26 @@ public class SearchScropView extends BaseLinearLayout<SellectActivity2.TypesBean
     //还原最小值
     public void setMin(String oldValue) {
         setText(mViewHolder.et_min, oldValue);
+    }
 
+    public void setMin(int oldValue) {
+        setText(mViewHolder.et_min, oldValue + "");
     }
 
     public void setSeek_bar(String min, String max) {
         int mi = intFormat(min, 0);
-        int ma = intFormat(max, 100);
+        int ma = intFormat(max, 1200);
+        mViewHolder.seek_bar.setRules(Float.valueOf(min), Float.valueOf(max),0,1);
         mViewHolder.seek_bar.setValue(mi, ma);
-    }
+    }// (int) (Float.valueOf( max) - Float.valueOf(min) / 100)
 
     //还原最大值
     public void setMax(String oldValue) {
         setText(mViewHolder.et_max, oldValue);
+    }
+
+    public void setMax(int oldValue) {
+        setText(mViewHolder.et_max, oldValue + "");
     }
 
     //获取最大值

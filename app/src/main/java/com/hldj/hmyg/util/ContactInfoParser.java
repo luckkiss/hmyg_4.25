@@ -9,6 +9,8 @@ import android.provider.ContactsContract;
 import android.support.annotation.Keep;
 import android.util.Log;
 
+import com.hldj.hmyg.CallBack.IGroup;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,10 +77,22 @@ public class ContactInfoParser {
     }
 
     @Keep
-    public static class ContactInfo {
+    public static class ContactInfo implements IGroup {
         private String name;
         private String id;
         private String phone;
+
+        public String headImage;
+        public boolean isFollowed;
+
+        /**
+         * public String id;
+         * public String phone;
+         * public String headImage;
+         * public String name;
+         * public boolean isFollowed;
+         */
+
         //        private String email;
 //        private String qq;
 //        private String headImage;
@@ -125,6 +139,11 @@ public class ContactInfoParser {
 
         public void setPhones(List<String> phones) {
             this.mobileArray = phones;
+        }
+
+        @Override
+        public String getGroupName() {
+            return ChineseInital.getFirstLetter(name);
         }
     }
 

@@ -241,6 +241,7 @@
 
                         </RelativeLayout>
 
+                        <View style="@style/View_line_gray" />
 
                         <android.support.design.widget.TabLayout
                             android:id="@+id/tablayout1"

@@ -203,23 +203,22 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
         view.setDatas(model);
         ToastUtil.showLongToast("aaa");
         if (view.type.equals("rod")) {
-            view.setMin(queryBean.minRod);
-            view.setMax(queryBean.maxRod);
-            view.setSeek_bar(queryBean.minRod,queryBean.maxRod);
+            view.setMin(model.min);
+            view.setMax(model.max);
+//            view.setSeek_bar(queryBean.minRod, queryBean.maxRod);
+            view.setSeek_bar(model.min + "", model.max+ "");
         } else if (view.type.equals("height")) {
-            view.setMin(queryBean.minHeight);
-            view.setMax(queryBean.maxHeight);
+            view.setMin(model.min);
+            view.setMax(model.max);
 
-            view.setSeek_bar(queryBean.minHeight,queryBean.maxHeight);
+            view.setSeek_bar(model.min + "", model.max+ "");
+//            view.setSeek_bar(queryBean.minHeight, queryBean.maxHeight);
         } else if (view.type.equals("crown")) {
-            view.setMin(queryBean.minCrown);
-            view.setMax(queryBean.maxCrown);
-
-            view.setSeek_bar(queryBean.minCrown,queryBean.maxCrown);
-
+            view.setMin(model.min);
+            view.setMax(model.max);
+            view.setSeek_bar(model.min + "", model.max+ "");
+//            view.setSeek_bar(model.min + "", model.max + "");
         }
-
-
 
 
     }
@@ -576,11 +575,20 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
 //            MainSpecBean mainSpec = new MainSpecBean();
 
             public class MainSpecBean implements Serializable {
+
+
+                public int min = 0;
+                public int max = 1200;
+
+
                 public String title;
                 public String value;
                 /**
+                 * "min": 0,
                  * "title": "杆径",
+                 * "max": 30,
                  * "value": "rod",
+                 * "list": [
                  */
                 public List<ListBean> list;
 

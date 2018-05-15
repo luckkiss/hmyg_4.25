@@ -22,9 +22,9 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
-            android:foreground="@drawable/logo"
+            android:foreground="@drawable/zheng_white"
             android:padding="2dp"
-            android:src="@drawable/home_icon_type06" />
+            android:src="@drawable/logo" />
 
         <TextView
             android:id="@+id/name"

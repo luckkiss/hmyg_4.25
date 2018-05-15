@@ -80,6 +80,13 @@ public class MyReceiver extends BroadcastReceiver {
                     processUserPoint(extras);
                     return;
                 }
+
+                if (messageType.equals("menuTip")) {
+                    processTip(extras);
+                    return;
+                }
+
+
                 momentId = jsonObject.getString("momentsId");
             } catch (JSONException e) {
                 momentId = "";
@@ -296,6 +303,28 @@ public class MyReceiver extends BroadcastReceiver {
     }
 
 
+    private void processTip(String extras) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(extras);
+
+            String targetMenu = jsonObject.getString("targetMenu");
+
+            if (targetMenu.equals("store")) {
+                ToastUtil.showShortToast("store  刷新");
+            } else if (targetMenu.equals("personal")) {
+                ToastUtil.showShortToast("personal  刷新");
+            }
+
+
+        } catch (JSONException e) {
+            Log.w(TAG, "processUserPoint: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+
+    }
+
     /**
      * 处理积分消息 通知
      *
@@ -345,8 +374,6 @@ public class MyReceiver extends BroadcastReceiver {
             loginOut = "";
             e.printStackTrace();
         }
-
-
 
 
     }
