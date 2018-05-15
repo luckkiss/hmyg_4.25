@@ -310,9 +310,11 @@
 
     <color name="bg_cgd">#f0faf2</color>
 
+    <color name="maimiao_yellower">#f2b472</color>
+    <color name="maimiao_green">#97ce54</color>
+
 
     <color name="error_bg_color">#FD9A34</color>
-
 
 
 </resources>

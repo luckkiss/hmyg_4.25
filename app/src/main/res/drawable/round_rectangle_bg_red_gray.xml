@@ -10,7 +10,7 @@
         <shape android:shape="rectangle">
             <solid android:color="@color/white" />
             <!--描边-->
-            <stroke android:width="1px" android:color="@color/main_color" />
+            <stroke android:width="2px" android:color="@color/main_color" />
             <corners android:radius="@dimen/x3" />
         </shape>
     </item>
@@ -23,7 +23,7 @@
             <!--3 个弧度角-->
             <corners android:radius="@dimen/x3" />
             <!--描边-->
-            <stroke android:width="1px" android:color="@color/gray_line" />
+            <stroke android:width="2px" android:color="@color/gray_line" />
         </shape>
     </item>
 </selector>

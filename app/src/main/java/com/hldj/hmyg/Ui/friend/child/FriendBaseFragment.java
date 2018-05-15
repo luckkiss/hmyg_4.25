@@ -5,8 +5,12 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Keep;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.SpannableStringBuilder;
+import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +52,7 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.VideoHempler;
 import com.hldj.hmyg.widget.MyCircleImageView;
+import com.hy.utils.SpanUtils;
 import com.hy.utils.ToastUtil;
 import com.mabeijianxi.smallvideo2.VideoPlayerActivity2;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -179,7 +184,7 @@ public class FriendBaseFragment extends BaseFragment {
 
 
                     ImageView imageView13 = helper.getView(R.id.imageView13);
-                    helper.setVisible(R.id.imageView13,item.attrData.identity);
+                    helper.setVisible(R.id.imageView13, item.attrData.identity);
 //                    imageView13.setVisibility(item.attrData.identity);
 
 
@@ -319,41 +324,124 @@ public class FriendBaseFragment extends BaseFragment {
                         from = s.attrData.fromDisplayName;
 
 
+                        textView.setMovementMethod(LinkMovementMethod.getInstance());
+                        textView.setHighlightColor(ContextCompat.getColor(mActivity, android.R.color.transparent));
+                        SpanUtils spanUtils = new SpanUtils();
+
+                        ClickableSpan left = new ClickableSpan() {
+                            @Override
+                            public void onClick(View widget) {
+                                HeadDetailActivity.start(mActivity, s.attrData.fromUserId);
+                            }
+                            @Override
+                            public void updateDrawState(TextPaint ds) {
+//                                ds.setColor(Color.BLUE);
+                                ds.setUnderlineText(false);
+                            }
+                        };
+
+                        ClickableSpan right = new ClickableSpan() {
+                            @Override
+                            public void onClick(View widget) {
+//                                ToastUtil.showShortToast("被回复的人  ");
+                                HeadDetailActivity.start(mActivity, s.attrData.toUserId);
+                            } @Override
+                            public void updateDrawState(TextPaint ds) {
+//                                ds.setColor(Color.BLUE);
+                                ds.setUnderlineText(false);
+                            }
+                        };
+
+                        ClickableSpan clickContent = new ClickableSpan() {
+                            @Override
+                            public void onClick(View widget) {
+                                if (!commitLogin()) return;
+                                if (isSelf(measureListView, s, position, mActivity)) return;
+                                EditDialog.replyListener = reply -> {
+                                    new BasePresenter()
+                                            .putParams("momentsId", item.id)
+                                            .putParams("reply", reply)
+                                            .putParams("toId", s.fromId)
+                                            .doRequest("admin/momentsReply/save", true, new HandlerAjaxCallBack() {
+                                                @Override
+                                                public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                                    ToastUtil.showLongToast(gsonBean.msg);
+                                                    if (gsonBean.getData() != null && gsonBean.getData().momentsReply != null) {
+                                                        item.itemListJson.add(gsonBean.getData().momentsReply);
+                                                        GlobBaseAdapter globBaseAdapter = (GlobBaseAdapter) measureListView.getAdapter();
+                                                        globBaseAdapter.notifyDataSetChanged();
+                                                    }
+                                                }
+                                            });
+                                };
+                                EditDialog.instance("回复: " + s.attrData.fromDisplayName).show(baseMVPActivity.getSupportFragmentManager(), "aa");
+
+
+                            } @Override
+                            public void updateDrawState(TextPaint ds) {
+//                                ds.setColor(Color.BLUE);
+                                ds.setUnderlineText(false);
+                            }
+                        };
+
                         if (s.attrData.toDisplayName == null) {
                             //评论
-                            result = baseMVPActivity.filterColor(from + ": " + s.reply, from, R.color.main_color);
+//                            result = baseMVPActivity.filterColor(from + ": " + s.reply, from, R.color.main_color);
+                            spanUtils
+                                    .append(from).setForegroundColor(mActivity.getResources().getColor(R.color.main_color)).setClickSpan(left)
+                                    .append(": +" + s.reply).setForegroundColor(mActivity.getResources().getColor(R.color.text_color666)).setClickSpan(clickContent)
+                                    .append(".").setForegroundColor(mActivity.getResources().getColor(R.color.trans))
+                            ;
                         } else {
                             String to = s.attrData.toDisplayName;
                             SpannableStringBuilder str = baseMVPActivity.filterColor(from, from, R.color.main_color);
                             //回复
-                            result = str.append(baseMVPActivity.filterColor("回复" + to + ": " + s.reply, to, R.color.main_color));
+//                            result = str.append(baseMVPActivity.filterColor("回复" + to + ": " + s.reply, to, R.color.main_color));
+
+                            spanUtils
+                                    .append(from).setClickSpan(left).setForegroundColor(mActivity.getResources().getColor(R.color.main_color))
+                                    .append("回复").setForegroundColor(mActivity.getResources().getColor(R.color.text_color666))
+                                    .append(to).setForegroundColor(mActivity.getResources().getColor(R.color.main_color)).setClickSpan(right)
+                                    .append(": +" + s.reply).setClickSpan(clickContent)
+                                    .append(".").setForegroundColor(mActivity.getResources().getColor(R.color.trans))
+                            ;
+//                            spanUtils.append("回复")
+//                                    .append(to).setForegroundColor(mActivity.getResources().getColor(R.color.main_color))
+//                                    .setClickSpan(right)
+//                                    .append(s.reply)
+//                            ;
                         }
 
-                        textView.setText(result);
+                        textView.setText(spanUtils.create());
 
-                        textView.setOnClickListener(v -> {
-                            if (!commitLogin()) return;
-                            if (isSelf(measureListView, s, position, mActivity)) return;
-                            EditDialog.replyListener = reply -> {
 
-                                new BasePresenter()
-                                        .putParams("momentsId", item.id)
-                                        .putParams("reply", reply)
-                                        .putParams("toId", s.fromId)
-                                        .doRequest("admin/momentsReply/save", true, new HandlerAjaxCallBack() {
-                                            @Override
-                                            public void onRealSuccess(SimpleGsonBean gsonBean) {
-                                                ToastUtil.showLongToast(gsonBean.msg);
-                                                if (gsonBean.getData() != null && gsonBean.getData().momentsReply != null) {
-                                                    item.itemListJson.add(gsonBean.getData().momentsReply);
-                                                    GlobBaseAdapter globBaseAdapter = (GlobBaseAdapter) measureListView.getAdapter();
-                                                    globBaseAdapter.notifyDataSetChanged();
-                                                }
-                                            }
-                                        });
-                            };
-                            EditDialog.instance("回复: " + s.attrData.fromDisplayName).show(baseMVPActivity.getSupportFragmentManager(), "aa");
-                        });
+//                        textView.setText(result);
+
+//                        textView.setOnClickListener(v -> {
+//                            if (!commitLogin()) return;
+//                            if (isSelf(measureListView, s, position, mActivity)) return;
+//                            EditDialog.replyListener = reply -> {
+//
+//                                new BasePresenter()
+//                                        .putParams("momentsId", item.id)
+//                                        .putParams("reply", reply)
+//                                        .putParams("toId", s.fromId)
+//                                        .doRequest("admin/momentsReply/save", true, new HandlerAjaxCallBack() {
+//                                            @Override
+//                                            public void onRealSuccess(SimpleGsonBean gsonBean) {
+//                                                ToastUtil.showLongToast(gsonBean.msg);
+//                                                if (gsonBean.getData() != null && gsonBean.getData().momentsReply != null) {
+//                                                    item.itemListJson.add(gsonBean.getData().momentsReply);
+//                                                    GlobBaseAdapter globBaseAdapter = (GlobBaseAdapter) measureListView.getAdapter();
+//                                                    globBaseAdapter.notifyDataSetChanged();
+//                                                }
+//                                            }
+//                                        });
+//                            };
+//                            EditDialog.instance("回复: " + s.attrData.fromDisplayName).show(baseMVPActivity.getSupportFragmentManager(), "aa");
+//                        });
+
+
                     }
                 });
 

@@ -204,6 +204,11 @@
 
     </LinearLayout>
 
+
+    <include
+        layout="@layout/item_bottom_tow_button"
+        android:visibility="gone" />
+
     <View
         android:id="@+id/botton_line"
         style="@style/View_line_gray" />

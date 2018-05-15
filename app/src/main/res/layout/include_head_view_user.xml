@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:orientation="vertical" android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
 
     <TextView
@@ -41,11 +42,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/imageView17"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_marginLeft="16dp"
+        android:foreground="@drawable/zheng_white"
+        android:padding="2dp"
         android:src="@drawable/icon_persion_pic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

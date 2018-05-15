@@ -1,9 +1,11 @@
 package com.hldj.hmyg.Ui.friend.bean;
 
+import com.hldj.hmyg.CallBack.IFootMarkDelete;
 import com.hldj.hmyg.Ui.friend.bean.enums.AgentGrade;
 import com.hldj.hmyg.bean.UserBean;
 import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
+import com.hldj.hmyg.saler.bean.enums.FootMarkSourceType;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,12 +17,15 @@ import java.util.List;
  * @author luow
  * @version 2017-11-24
  */
-public class Moments implements Serializable {
+public class Moments implements Serializable, IFootMarkDelete {
 
     public static final long serialVersionUID = 4307497280064329128L;
 
 
     public String id;
+
+
+    public boolean allowRefresh = true ;
 
     /**
      * 省级代码
@@ -104,7 +109,7 @@ public class Moments implements Serializable {
     public UserBean ownerUserJson;
 
 
-    public AttrDataBean attrData;
+    public AttrDataBean attrData = new AttrDataBean();
     public String timeStampStr;
     public boolean isOwner;
     public int replyCount;
@@ -115,6 +120,30 @@ public class Moments implements Serializable {
     public boolean isVideo = false;
     public String videoUrl = "";
     public String videoPic = "";
+
+    public String typeName ;
+    public String type ;
+
+    @Override
+    public String getResourceId() {
+        return id;
+    }
+
+
+    @Override
+    public String getDomain() {
+        return "admin/footmark/userDel";
+    }
+
+    @Override
+    public FootMarkSourceType getType() {
+        return FootMarkSourceType.moments;
+    }
+
+    @Override
+    public String getFootMarkId() {
+        return attrData.footMarkId;
+    }
      /*end*/
 
 //     "isFavour": true,
@@ -135,9 +164,13 @@ public class Moments implements Serializable {
         public String headImage;
         public String userId;
         public String displayName;
+        public String dateStr;
+
         public String storeId;
         public String displayPhone;
         public String videoImageUrl = "";//视频 封面图
+
+        public String footMarkId = "";
 
         public String level = AgentGrade.level0.getEnumValue();
         public boolean identity = false;

@@ -92,10 +92,12 @@
         android:id="@+id/state"
         android:layout_width="69dp"
         android:layout_height="69dp"
+        android:src="@drawable/yibaojia_red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/qubaojia"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.507"
-        android:src="@drawable/yibaojia_red" />
+        app:layout_constraintVertical_bias="0.507" />
+
+
 
 </android.support.constraint.ConstraintLayout>

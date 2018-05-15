@@ -3,6 +3,7 @@ package com.hldj.hmyg.Ui;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,9 +13,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,9 +28,12 @@ import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.M.QueryBean;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.child.CenterActivity;
+import com.hldj.hmyg.Ui.friend.child.DetailActivity;
 import com.hldj.hmyg.Ui.storeChild.StoreDetailFragment;
 import com.hldj.hmyg.Ui.storeChild.StoreHomeFragment;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.Pic;
@@ -39,10 +45,10 @@ import com.hldj.hmyg.saler.Adapter.FragmentPagerAdapter_TabLayout;
 import com.hldj.hmyg.util.AppBarStateChangeListener;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
-import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.hldj.hmyg.widget.SharePopupWindow;
+import com.hldj.hmyg.widget.UPMarqueeView;
 import com.hy.utils.ToastUtil;
 import com.white.utils.FileUtil;
 import com.zxing.encoding.EncodingHandler;
@@ -141,8 +147,14 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
             }
         });
 
-        (((ViewGroup) getView(R.id.cons_store))).setBackgroundColor(getColorByRes(R.color.white));
+//        (((ViewGroup) getView(R.id.head_parent))).setBackgroundColor(getColorByRes(R.color.trans));
 
+        getView(R.id.head_parent).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StoreDetailActivity.start(mActivity, getStoreID());
+            }
+        });
         AppBarLayout layout = getView(R.id.app_bar);
         layout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
             @Override
@@ -152,13 +164,19 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
                     //展开状态
                     getView(R.id.tv_store_name).setVisibility(View.GONE);
                     StateBarUtil.setStatusTranslater(mActivity, false);//变白
+
+//                     getView(R.id.btn_back).setSelected(false);
+
+
                 } else if (state == State.COLLAPSED) {
                     //折叠状态
                     getView(R.id.tv_store_name).setVisibility(View.VISIBLE);
-                    StateBarUtil.setStatusTranslater(mActivity, true);//变黑
+//                    StateBarUtil.setStatusTranslater(mActivity, true);//变黑
+//                    getView(R.id.btn_back).setSelected(true);
                 } else {
                     //中间状态
-                    StateBarUtil.setStatusTranslater(mActivity, true);//变黑
+//                    StateBarUtil.setStatusTranslater(mActivity, true);//变黑
+//                    getView(R.id.btn_back).setSelected(true);
                 }
             }
         });
@@ -240,6 +258,10 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
 
     }
 
+
+//      <com.hldj.hmyg.widget.UPMarqueeView
+//    android:id="@+id/upview1"
+
     //step 2    网络请求
     @Override
     public void initVH() {
@@ -271,7 +293,7 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
 
                                    persiId = persion_id;
 
-                                   animateOpen(miao);
+//                                   animateOpen(miao);
 //                                   miao.setVisibility(View.VISIBLE);
 //                        miao.post(new Runnable() {
 //                            @Override
@@ -360,6 +382,23 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
         return getView(R.id.vp_store_content);
     }
 
+    @Override
+    public void initUpMarqueeView(List<Moments> moments) {
+//        moments = null;
+
+//        ToastUtil.showLongToast(moments.size() + "   moment size  is this");
+        UPMarqueeView upview1 = (UPMarqueeView) findViewById(R.id.upview1);
+
+        if (moments == null || moments.size() == 0) {
+            getView(R.id.line1).setVisibility(View.GONE);
+            getView(R.id.pa).setVisibility(View.GONE);
+        } else {
+            upview1.setViews(getViewsByDatas(mActivity, moments));
+
+        }
+
+    }
+
 
     /**
      * @param context
@@ -389,24 +428,27 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
 
         typeListJson = GsonUtil.Bean2Json(indexBean.typeList);
 
+        getView(R.id.store_identity).setVisibility(indexBean.identity ? View.VISIBLE : View.GONE);
+
+
         TextView tvTitle = getView(R.id.tv_store_name);
         tvTitle.setText(indexBean.store.name);
         tvTitle.setVisibility(View.GONE);
 
-        TextView tv_infot1 = getView(R.id.tv_infot1);
-        tv_infot1.setText(indexBean.owner.companyName);
-        TextView tv_infot2 = getView(R.id.tv_infot2);
-        tv_infot2.setText(FUtil.choseOne(indexBean.owner.realName, indexBean.owner.displayName));
-        TextView tv_infot3 = getView(R.id.tv_infot3);
-        tv_infot3.setText(indexBean.owner.displayPhone);
+        TextView tv_infot1 = getView(R.id.name);
+        tv_infot1.setText(indexBean.store.name);
+        TextView tv_infot2 = getView(R.id.brower_num);
+        tv_infot2.setText("浏览量  " + indexBean.visitsCount + "");
+//        TextView tv_infot3 = getView(R.id.tv_infot3);
+//        tv_infot3.setText(indexBean.owner.displayPhone);
         //拨打电话
         if (!TextUtils.isEmpty(indexBean.owner.displayPhone)) {
             getView(R.id.fab).setOnClickListener(v -> FlowerDetailActivity.CallPhone(indexBean.owner.displayPhone, mActivity));
-            getView(R.id.imageView6).setOnClickListener(v -> FlowerDetailActivity.CallPhone(indexBean.owner.displayPhone, mActivity));
+            getView(R.id.logo).setOnClickListener(v -> FlowerDetailActivity.CallPhone(indexBean.owner.displayPhone, mActivity));
         }
 
 
-        SuperTextView sptv_store_home_head = getView(R.id.sptv_store_home_head);
+        ImageView sptv_store_home_head = getView(R.id.logo);
 
 
         bitmap.display(sptv_store_home_head, indexBean.owner.headImage);
@@ -416,9 +458,9 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         WindowManager wm = this.getWindowManager();
-        l_params.height = (int) (wm.getDefaultDisplay().getWidth() * 1 / 1.9);
-        getView(R.id.iv_store_banner).setLayoutParams(l_params);
-        bitmap.display(getView(R.id.iv_store_banner), indexBean.store.appBannerUrl);
+//        l_params.height = (int) (wm.getDefaultDisplay().getWidth() * 1 / 1.9);
+//        getView(R.id.iv_store_banner).setLayoutParams(l_params);
+//        bitmap.display(getView(R.id.iv_store_banner), indexBean.store.appBannerUrl);
 
         shareUrl = indexBean.store.shareUrl;
         /**
@@ -496,4 +538,87 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
             e.printStackTrace();
         }
     }
+
+
+    public static List<View> getViewsByDatas(Activity aActivity, List<Moments> data) {
+
+//        if (data == null) {
+//            ToastUtil.showLongToast("苗木圈列表为空");
+//            return new ArrayList<>();
+//        }
+
+        List<View> views = new ArrayList<>();
+        for (int i = 0; i < data.size(); i = i + 1) {
+            final int position = i;
+            //设置滚动的单个布局
+            LinearLayout moreView = (LinearLayout) LayoutInflater.from(aActivity).inflate(R.layout.item_home_mmgg, null);
+            //初始化布局的控件
+            SuperTextView tv1 = (SuperTextView) moreView.findViewById(R.id.tv_taggle1);
+            TextView right_text1 = (TextView) moreView.findViewById(R.id.right_text1);
+            TextView right_text2 = (TextView) moreView.findViewById(R.id.right_text2);
+            SuperTextView tv2 = (SuperTextView) moreView.findViewById(R.id.tv_taggle2);
+            /**
+             * 设置监听
+             */
+            moreView.findViewById(R.id.tv_taggle1).setOnClickListener(view -> {
+//                String url = Data.getNotices_and_news_url_only_by_id(data.get(position).id);
+//                D.e("url=" + url);
+//                NoticeActivity_detail.start2Activity(aActivity, url);
+//                ToastUtil.showLongToast("点击事件");
+                DetailActivity.start(aActivity, data.get(position).id);
+            });
+            /**
+             * 设置监听
+             */
+            moreView.findViewById(R.id.tv_taggle2).setOnClickListener(view -> {
+//              String url = Data.getNotices_and_news_url_only_by_id(data.get(position + 1).id);
+//              D.e("url=" + url);
+//                NoticeActivity_detail.start2Activity(aActivity, url);
+//                ToastUtil.showLongToast("点击事件");
+                DetailActivity.start(aActivity, data.get(position + 1).id);
+            });
+            //进行对控件赋值
+            tv1.setText(data.get(i).content);
+            right_text1.setText(data.get(i).timeStampStr);
+
+
+            if (data.get(i).type.equals("supply")) {//供应
+                tv1.setShowState(true);
+                tv1.setDrawable(aActivity.getResources().getDrawable(R.drawable.home_cj_gg_gy));
+                tv1.setPadding(MyApplication.dp2px(aActivity, 40), 0, 0, 0);
+
+
+            } else {
+                tv1.setDrawable(aActivity.getResources().getDrawable(R.drawable.home_cj_gg_qg));
+                tv2.setPadding(MyApplication.dp2px(aActivity, 40), 0, 0, 0);
+                tv1.setShowState(true);
+            }
+
+            if (data.size() > i + 1) {
+                //因为淘宝那儿是两条数据，但是当数据是奇数时就不需要赋值第二个，所以加了一个判断，还应该把第二个布局给隐藏掉
+                tv2.setText(data.get(i + 1).content);
+                right_text2.setText(data.get(i + 1).timeStampStr);
+
+                if (data.get(i + 1).type.equals("supply")) {
+                    tv2.setShowState(true);
+                    tv2.setDrawable(aActivity.getResources().getDrawable(R.drawable.home_cj_gg_gy));
+                    tv2.setPadding(MyApplication.dp2px(aActivity, 40), 0, 0, 0);
+                } else {
+                    tv2.setDrawable(aActivity.getResources().getDrawable(R.drawable.home_cj_gg_qg));
+                    tv2.setPadding(MyApplication.dp2px(aActivity, 40), 0, 0, 0);
+                    tv2.setShowState(true);
+                }
+            } else {
+                moreView.findViewById(R.id.tv_taggle2).setVisibility(View.GONE);
+                moreView.findViewById(R.id.right_text2).setVisibility(View.GONE);
+            }
+
+
+            //添加到循环滚动数组里面去
+            views.add(moreView);
+        }
+
+        return views;
+    }
+
 }

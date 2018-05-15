@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.BActivity_new_test;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
+import com.hldj.hmyg.CallBack.IFootMarkEmpty;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.R;
@@ -17,6 +18,7 @@ import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.buyer.weidet.decoration.SectionDecoration;
 import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.saler.bean.enums.FootMarkSourceType;
 
 import net.tsz.afinal.FinalBitmap;
 
@@ -29,7 +31,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
  * 商城资源 历史记录
  */
 
-public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBean.DatabeanX.Pagebean.Databean> {
+public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBean.DatabeanX.Pagebean.Databean> implements IFootMarkEmpty {
 
 
     @Override
@@ -68,7 +70,9 @@ public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBe
                         if (mCoreRecyclerView.getAdapter().getData().size() == 0) {
                             return null;
                         } else {
-                            return mCoreRecyclerView.getAdapter().getItem(position) + "";
+//                            dateStr
+                            BPageGsonBean.DatabeanX.Pagebean.Databean databean = (BPageGsonBean.DatabeanX.Pagebean.Databean) mCoreRecyclerView.getAdapter().getItem(position);
+                            return databean.attrData.dateStr;
                         }
 
                     }
@@ -82,7 +86,8 @@ public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBe
                         View view = LayoutInflater.from(mActivity).inflate(R.layout.item_tag, null);
                         TextView textView = view.findViewById(R.id.text1);
                         textView.setHeight((int) getResources().getDimension(R.dimen.px74));
-                        textView.setText("2018-5-6");
+                        BPageGsonBean.DatabeanX.Pagebean.Databean databean = (BPageGsonBean.DatabeanX.Pagebean.Databean) mCoreRecyclerView.getAdapter().getItem(position);
+                        textView.setText(databean.attrData.dateStr);
                         return view;
                     }
                 }).setGroupHeight((int) getResources().getDimension(R.dimen.px74)).build());
@@ -99,11 +104,42 @@ public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBe
 //        D.i("=============doConvert==============" + item.getName());
         BActivity_new_test.initListType(helper, item, FinalBitmap.create(mActivity), "BActivity_new");
 
+        helper
+                .setVisible(R.id.tv_right_top, true)
+                .addOnClickListener(R.id.tv_right_top, v -> {
+                    doUserDelDelete(helper, item, mActivity);
+                })
+        ;
+
+
     }
+
 
     @Override
     public int bindRecycleItemId() {
-        return R.layout.list_view_seedling_new;
+        return R.layout.list_view_seedling_new_shoucan;
     }
+
+    @Override
+    public void doEmpty() {
+//        ToastUtil.showLongToast("清空  苗木资源");
+        doUserDelDelete(null, this, mActivity);
+    }
+
+    @Override
+    public String getResourceId() {
+        return null;
+    }
+
+    @Override
+    public String getDomain() {
+        return "admin/footmark/userDelBySource";
+    }
+
+    @Override
+    public FootMarkSourceType sourceType() {
+        return FootMarkSourceType.seedling;
+    }
+
 
 }

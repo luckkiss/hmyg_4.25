@@ -28,7 +28,7 @@
                         <!-- 红色背景 -->
                        
             <item>
-                <color android:color="@color/divider_color" />
+                <color android:color="@color/divider_color_bg" />
             </item>
                         <!-- 白色背景 -->
                        

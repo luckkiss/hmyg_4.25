@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,6 +29,7 @@ import com.hldj.hmyg.saler.M.enums.ValidityEnum;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.saler.bean.UserQuote;
+import com.hy.utils.SpanUtils;
 import com.hy.utils.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -128,12 +130,24 @@ public class PublishForUserListActivity extends BaseMVPActivity {
     }
 
     private void doConvert(BaseViewHolder helper, UserQuote item) {
+//String.format("共%s条报价(%d条未读)", count ,unreadQuoteCountJson )
+        SpannableStringBuilder unreadHead = new SpanUtils()
+                .append("共")
+                .append(count).setForegroundColor(getColorByRes(R.color.main_color))
+                .append("条报价")
+                .append(" (" + unreadQuoteCountJson + "条未读)").setForegroundColor(getColorByRes(R.color.price_orige))
+                .create();
+
+//        SpannableStringBuilder title = new SpanUtils()
+//                .append("共" + count + "条报价")
+//                .append("(" + unreadQuoteCountJson + "条未读)").setForegroundColor(getColorByRes(R.color.price_orige))
+//                .create();
 
 
         helper
                 .setVisible(R.id.title, helper.getAdapterPosition() == 1)
-                .setText(R.id.title, String.format("共%s条报价", count))
-                .setText(R.id.dhj, "[" + item.priceTypeName + "]")
+                .setText(R.id.title, unreadHead)
+                .setText(R.id.dhj, "[" + item.priceTypeName + "] ")
                 .setText(R.id.price, item.price)
                 .setText(R.id.unit, "/" + item.attrData.unitTypeName)
                 .setText(R.id.tupian, "有" + item.imagesJson.size() + "张图片")
@@ -145,13 +159,15 @@ public class PublishForUserListActivity extends BaseMVPActivity {
 
                 .setVisible(R.id.iv_bhs, item.isExclude)
                 .setVisible(R.id.bhs, !item.isExclude)
+                .setVisible(R.id.is_new, !item.isRead)
 
                 .addOnClickListener(R.id.ddh, v -> FlowerDetailActivity.CallPhone(item.attrData.phone, mActivity)) // 打电话
                 .addOnClickListener(R.id.bhs, v -> 不合适(item.id, helper.getAdapterPosition())) // 不合适
         ;
 
-        SuperTextView superTextView =  helper.getView(R.id.tupian) ;
-        PurchaseDetailActivity.setImgCountsSeed(mActivity,superTextView, item.imagesJson);  ;
+        SuperTextView superTextView = helper.getView(R.id.tupian);
+        PurchaseDetailActivity.setImgCountsSeed(mActivity, superTextView, item.imagesJson);
+        ;
 
 
         Log.i(TAG, "doConvert: 是否合适---> " + item.isExclude);
@@ -252,6 +268,7 @@ public class PublishForUserListActivity extends BaseMVPActivity {
                         Log.i(TAG, "onRealSuccess: " + gsonBean.isSucceed());
 
                         count = gsonBean.getData().userPurchase.quoteCountJson;
+                        unreadQuoteCountJson = gsonBean.getData().userPurchase.unreadQuoteCountJson;
 
                         List<UserPurchase> userPurchases = new ArrayList<>();
                         userPurchases.add(gsonBean.getData().userPurchase);
@@ -270,4 +287,5 @@ public class PublishForUserListActivity extends BaseMVPActivity {
 
 
     String count;
+    int unreadQuoteCountJson = 0;
 }

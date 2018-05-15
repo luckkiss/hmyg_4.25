@@ -30,10 +30,9 @@
             android:id="@+id/ll_buy_car"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:visibility="visible"
             android:background="@drawable/bg_top_bottom_line"
-            >
+            android:orientation="horizontal"
+            android:visibility="visible">
 
 
             <LinearLayout
@@ -51,9 +50,9 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
                     android:padding="@dimen/x3"
-                    android:text="店铺"
+                    android:text="进入店铺"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/text_color666"  />
+                    android:textColor="@color/text_color666" />
             </LinearLayout>
 
 
@@ -80,7 +79,7 @@
                     android:layout_gravity="center_vertical"
                     android:background="@color/main_color"
                     android:gravity="center"
-                    android:text="上架电话"
+                    android:text="打电话"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/white" />
 

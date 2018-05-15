@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_bg_ed"
     android:overScrollMode="ifContentScrolls">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <include layout="@layout/toolbar_3_0" />
@@ -26,32 +28,32 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="类型:"
-                android:layout_marginLeft="8dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:text="类型:"
 
                 />
 
             <RadioButton
-                android:layout_gravity="center_vertical"
-
                 android:id="@+id/rb_type_left"
+
+                style="@style/simple_radio_bg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:padding="5dp"
-                style="@style/simple_radio_bg"
                 android:text="发布供应" />
 
             <RadioButton
-                android:layout_gravity="center_vertical"
-
                 android:id="@+id/rb_type_right"
+
+                style="@style/simple_radio_bg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:padding="5dp"
-                style="@style/simple_radio_bg"
                 android:text="发布求购" />
 
 
@@ -161,16 +163,17 @@
             android:id="@+id/location"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:paddingRight="12dp"
             app:left_src="@mipmap/loaction"
             app:left_text="苗源地"
             app:left_text_color="@color/text_color111"
-            app:right_src="@drawable/ic_right_icon"
+            app:right_src="@drawable/arrow_right_eq"
             app:right_text="未选择"
             app:right_text_color="@color/text_color111" />
 
         <View
-            style="@style/View_line_gray_1px"
-            android:layout_marginBottom="25dp" />
+            style="@style/View_line_gray"
+            android:layout_height="40dp" />
 
 
     </LinearLayout>

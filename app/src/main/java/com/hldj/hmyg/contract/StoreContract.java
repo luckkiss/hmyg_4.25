@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.M.QueryBean;
+import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.base.Rx.BaseModel;
 import com.hldj.hmyg.base.Rx.BasePresenter;
 import com.hldj.hmyg.base.Rx.BaseView;
@@ -23,16 +24,23 @@ public interface StoreContract {
 
     interface View extends BaseView {
         void initStoreData(List<BPageGsonBean.DatabeanX.Pagebean.Databean> bPageGsonBean);
+
         void initIndexBean(StoreGsonBean.DataBean indexBean);
-        QueryBean getQueryBean ();
+
+        QueryBean getQueryBean();
+
         String getStoreID();
+
         ViewPager getViewPager();
+
+        void initUpMarqueeView(List<Moments> moments);
 
     }
 
     interface Model extends BaseModel {
-        void getData(ResultCallBack resultCallBack ,Serializable serializable);
-        void getIndexData(ResultCallBack resultCallBack ,String string);
+        void getData(ResultCallBack resultCallBack, Serializable serializable);
+
+        void getIndexData(ResultCallBack resultCallBack, String string);
     }
 
     abstract class Presenter extends BasePresenter<Model, View> {

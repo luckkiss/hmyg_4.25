@@ -14,13 +14,16 @@ import com.hldj.hmyg.Ui.friend.bean.tipNum.impl.FansTipNum;
 import com.hldj.hmyg.Ui.friend.bean.tipNum.impl.FollowTipNum;
 import com.hldj.hmyg.Ui.friend.bean.tipNum.impl.FootMarkTipNum;
 import com.hldj.hmyg.Ui.friend.bean.tipNum.impl.MatchPurchaseTipNum;
+import com.hldj.hmyg.Ui.friend.bean.tipNum.impl.NewQuoteTipNum;
 import com.hldj.hmyg.Ui.friend.bean.tipNum.impl.VisitorTipNum;
+import com.hldj.hmyg.application.MyApplication;
 import com.mabeijianxi.smallvideorecord2.StringUtils;
 
 import java.util.List;
 
 import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
 import cn.bingoogolapple.badgeview.BGABadgeViewHelper;
+import cn.bingoogolapple.badgeview.BGABadgeViewUtil;
 
 /**
  * 需要显示红点提示的菜单枚举
@@ -78,7 +81,12 @@ public enum TipNumType {
     /**
      * 我的足迹
      */
-    footMark("footMark", "我的足迹", personal, new FootMarkTipNum());
+    footMark("footMark", "我的足迹", personal, new FootMarkTipNum()),
+
+    /**
+     * 我的求购显示未读报价数量
+     */
+    userPurchase("userPurchase", "我的求购", personal, new NewQuoteTipNum());
 
     public String value;
     public String text;
@@ -169,6 +177,9 @@ public enum TipNumType {
         for (TipNum tipNum : tipNums) {
 //            Enum<TipNumType> tipNumType = TipNumType.valueOf();
             TipNumType tipNumType = TipNumType.str2Enum(tipNum.type.value);
+            //setBadgeHorizontalMarginDp
+
+
             if (tipNumType == null) {
                 continue;
             }
@@ -190,9 +201,28 @@ public enum TipNumType {
 
     }
 
+
+
+
+
+    public static void setTipNum(BGABadgeLinearLayout tip_wd_qg, String str) {
+        tip_wd_qg.showTextBadge(str);
+        tip_wd_qg.getBadgeViewHelper().setBadgeGravity(BGABadgeViewHelper.BadgeGravity.RightTop);
+        tip_wd_qg.getBadgeViewHelper().setBadgeVerticalMarginDp(8);
+        tip_wd_qg.getBadgeViewHelper().setBadgeHorizontalMarginDp(16);
+    }
+
     public static void setStyleAndText(BGABadgeLinearLayout ll_show_num, String s) {
         ll_show_num.getBadgeViewHelper().setBadgeGravity(BGABadgeViewHelper.BadgeGravity.RightTop);
         ll_show_num.showTextBadge(s);
+
+
+        ll_show_num.getBadgeViewHelper().setBadgeHorizontalMarginDp(22);
+        ll_show_num.getBadgeViewHelper().setBadgeVerticalMarginDp(12);
+
+//        ll_show_num4.getBadgeViewHelper().setBadgeTextSizeSp( BGABadgeViewUtil.sp2px(mActivity,4 ));
+        ll_show_num.getBadgeViewHelper().setBadgeTextSizeSp(BGABadgeViewUtil.sp2px(MyApplication.getInstance(), 4));
+
 //        ll_show_num.hiddenBadge();
 
 

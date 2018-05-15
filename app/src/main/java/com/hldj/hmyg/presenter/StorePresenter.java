@@ -7,6 +7,7 @@ import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.bean.StoreGsonBean;
 import com.hldj.hmyg.contract.StoreContract;
 import com.hldj.hmyg.util.ConstantState;
+import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
 
@@ -54,6 +55,12 @@ public class StorePresenter extends StoreContract.Presenter {
                         if (storeGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
                             mView.initIndexBean(storeGsonBean.data);
 
+                            mView.initUpMarqueeView(storeGsonBean.data.momentsList);
+
+
+//      <com.hldj.hmyg.widget.UPMarqueeView
+//    android:id="@+id/upview1"
+
                             e.onNext(storeGsonBean.data.owner.id);
 
                             count = storeGsonBean.data.momentsCount;
@@ -91,6 +98,8 @@ public class StorePresenter extends StoreContract.Presenter {
         mModel.getData(new ResultCallBack<String>() {
             @Override
             public void onSuccess(String json) {
+
+                D.i(GsonUtil.formatJson2String(json));
                 BPageGsonBean bPageGsonBean = GsonUtil.formateJson2Bean(json, BPageGsonBean.class);
                 if (bPageGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
                     mView.initStoreData(bPageGsonBean.data.page.data);

@@ -1,6 +1,8 @@
 package com.hldj.hmyg.M;
 
+import com.hldj.hmyg.CallBack.IFootMarkDelete;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.saler.bean.enums.FootMarkSourceType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,7 @@ public class BPageGsonBean {
             public int maxResults;
             public List<Databean> data = new ArrayList<>();
 
-            public static class Databean {
+            public static class Databean implements IFootMarkDelete {
 
                 public int inputNum = -1;
                 public boolean isChecked = false;
@@ -106,6 +108,34 @@ public class BPageGsonBean {
                 public SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean nurseryJson = new SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean();
 
                 public SaveSeedingGsonBean.DataBean.SeedlingBean.AttrDataBean attrData = new SaveSeedingGsonBean.DataBean.SeedlingBean.AttrDataBean();
+
+                @Override
+                public String getResourceId() {
+                    return id;
+                }
+
+//                @Override
+//                public FootMarkSourceType getType() {
+//                    return FootMarkSourceType.seedling;
+//                }
+
+                @Override
+                public String getDomain() {
+                    return "admin/footmark/userDel";//收藏 的  删除   host地址
+                }
+
+                @Override
+                public FootMarkSourceType getType() {
+                    return FootMarkSourceType.seedling;
+                }
+
+                @Override
+                public String getFootMarkId() {
+                    return attrData.footMarkId;
+                }
+
+
+
 
                 public static class CiCitybean {
                     /**

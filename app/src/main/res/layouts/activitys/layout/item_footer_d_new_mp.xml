@@ -6,8 +6,10 @@
 
     <Button xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/btn_xzmp"
-        style="@style/save_bottom"
-        android:text="新增苗圃" />
+        style="@style/save_bottom_no_yingying"
+        android:background="@drawable/corner_common_border_gray"
+        android:text="新增苗圃"
+        android:textColor="@color/text_color666" />
 
 
 </FrameLayout>

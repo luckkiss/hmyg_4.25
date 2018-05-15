@@ -288,6 +288,7 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
     public void initChild() {
         toolbar_left_icon.setImageResource(R.drawable.arrow_left_back);
         toolbar_left_icon.setOnClickListener(v -> finish());
+        toolbar_left_icon.setVisibility(View.VISIBLE);
         searchContent = getSearchContent();
         search_content.setText(searchContent);
         search_content.setHint("请输入内容进行搜索");

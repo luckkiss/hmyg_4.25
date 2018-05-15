@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="32dp"
                 android:minWidth="78dp"
-                android:text="采购中" />
+                android:text="平台直采" />
 
             <RadioButton
                 android:id="@+id/button32"
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="32dp"
                 android:minWidth="78dp"
-                android:text="历史采购" />
+                android:text="个人求购" />
         </com.hldj.hmyg.widget.SegmentedGroup>
 
 
@@ -59,6 +59,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:background="@drawable/btn_back" />
+
 
         <ImageView
             android:id="@+id/id_tv_edit_all"
@@ -74,6 +75,18 @@
             android:textColor="@color/main_color"
             android:textSize="7dp" />
 
+        <ImageView
+            android:id="@+id/iv_histtory"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/id_tv_edit_all"
+            android:gravity="center"
+            android:padding="10dp"
+            android:src="@drawable/sy_sj"
+            android:textColor="@color/main_color"
+            android:textSize="7dp" />
+
         <!-- android:text="●●●"-->
     </RelativeLayout>
 
@@ -81,8 +94,68 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:visibility="visible">
 
+        <LinearLayout
+            android:id="@+id/ll_show_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+
+            <include layout="@layout/include_search_layout" />
+
+
+            <View
+                style="@style/View_line_gray"
+                android:layout_marginTop="8dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_bottom_line">
+
+                <TextView
+                    android:id="@+id/select_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/tableHeight"
+                    android:layout_marginLeft="3dp"
+                    android:drawableLeft="@mipmap/ic_location"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/ic_arrow_down"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="全国" />
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+                    android:id="@+id/recycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
+                <ImageView
+                    android:id="@+id/fbqg"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="right|bottom"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/home_publish"
+                    android:visibility="visible" />
+            </FrameLayout>
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_show_3"
@@ -104,15 +177,21 @@
 
             </com.weavey.loading.lib.LoadingLayout>
 
+            <include layout="@layout/activity_buy_user" />
+
 
         </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/ll_show_12"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone"
+
+            >
 
 
             <ImageView
@@ -189,5 +268,8 @@
             </FrameLayout>
         </LinearLayout>
 
+
     </RelativeLayout>
+
+
 </LinearLayout>

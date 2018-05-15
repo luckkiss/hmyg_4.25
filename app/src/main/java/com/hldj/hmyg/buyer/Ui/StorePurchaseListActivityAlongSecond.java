@@ -1,11 +1,15 @@
 package com.hldj.hmyg.buyer.Ui;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.adapter.StorePurchaseListAdapter_new_along_second;
 import com.hldj.hmyg.buyer.M.PurchaseItemBean_new;
 import com.hldj.hmyg.buyer.M.PurchaseListPageGsonBean;
+import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.widget.ComonShareDialogFragment;
+import com.hy.utils.ToastUtil;
 
 import java.util.List;
 
@@ -83,6 +87,46 @@ public class StorePurchaseListActivityAlongSecond extends StorePurchaseListActiv
         }
 
         onLoad();
+
+    }
+
+
+    @Override
+    public void doShare(ImageView imageView) {
+
+//        ToastUtil.showShortToast("bbb");
+//        super.doShare(imageView);
+
+
+//        SharePopupWindow window = new SharePopupWindow(mActivity, constructionShareBean());
+//        window.showAsDropDown(imageView);
+
+
+        new com.zf.iosdialog.widget.AlertDialog(mActivity).builder()
+                .setTitle("请选择分享方式")
+                .setPositiveButton("整单分享", v1 -> {
+                    D.e("采购单 分享");
+//                    SharePopupWindow window = new SharePopupWindow(mActivity, constructionShareBean());
+//                    window.showAsDropDown(imageView);
+
+                    ComonShareDialogFragment.newInstance().setShareBean(constructionShareBean())
+                            .show(getSupportFragmentManager(), "AlertDialog");
+
+
+                }).setNegativeButton("部分品种分享", v2 -> {
+
+
+            if (shareList == null || shareList.size() == 0) {
+                ToastUtil.showShortToast("无选择品种列表");
+                return;
+            }
+            PartShareActivity.shareList = shareList;
+            PartShareActivity.start(mActivity);
+            ToastUtil.showShortToast("tiao ");
+
+
+        }).show();
+
 
     }
 

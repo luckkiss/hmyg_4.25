@@ -79,7 +79,7 @@ public class ContactInfoParser {
         private String name;
         private String id;
         private String phone;
-//        private String email;
+        //        private String email;
 //        private String qq;
 //        private String headImage;
         private List<String> mobileArray = new ArrayList<>();
@@ -119,7 +119,6 @@ public class ContactInfoParser {
         }
 
 
-
         public List<String> getPhones() {
             return mobileArray;
         }
@@ -130,7 +129,7 @@ public class ContactInfoParser {
     }
 
 
-    public static List<ContactInfo> getContacts(Activity mActivity) {
+    public static List<ContactInfo> getContacts(Activity mActivity, OnPhoneUpdateListener phoneUpdata) {
         //联系人的Uri，也就是content://com.android.contacts/contacts
         Uri uri = ContactsContract.Contacts.CONTENT_URI;
         //指定获取_id和display_name两列数据，display_name即为姓名
@@ -221,6 +220,8 @@ public class ContactInfoParser {
 //                }
 
                 Log.i("----", "  " + contactInfo.toString());
+
+                phoneUpdata.onUpdata(contactInfo);
                 contactInfos.add(contactInfo);
 //                i++;
             } while (cursor.moveToNext());
@@ -312,6 +313,12 @@ public class ContactInfoParser {
 
 
         return phones;
+    }
+
+
+    public static interface OnPhoneUpdateListener {
+        void onUpdata(ContactInfo contactInfo);
+
     }
 }
 

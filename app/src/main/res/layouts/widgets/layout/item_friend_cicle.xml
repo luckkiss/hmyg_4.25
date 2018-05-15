@@ -148,6 +148,14 @@
         app:layout_constraintRight_toLeftOf="@+id/second"
         app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
+    <View
+        android:id="@+id/li1"
+        style="@style/View_line_vertical"
+        app:layout_constraintBottom_toBottomOf="@id/first"
+        app:layout_constraintLeft_toRightOf="@+id/first"
+        app:layout_constraintRight_toLeftOf="@id/second"
+        app:layout_constraintTop_toTopOf="@id/first" />
+
 
     <com.hldj.hmyg.widget.DrawableCenterText
         android:id="@+id/fourth"
@@ -168,6 +176,14 @@
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintTop_creator="1" />
 
+    <View
+        android:id="@+id/li2"
+        style="@style/View_line_vertical"
+        app:layout_constraintBottom_toBottomOf="@id/second"
+        app:layout_constraintLeft_toRightOf="@+id/space_text"
+        app:layout_constraintRight_toLeftOf="@id/third"
+        app:layout_constraintTop_toTopOf="@id/second" />
+
     <com.hldj.hmyg.widget.DrawableCenterText
         android:id="@+id/third"
         android:layout_width="0dp"
@@ -183,6 +199,15 @@
         app:layout_constraintTop_toTopOf="@+id/first"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintTop_creator="1" />
+
+
+    <View
+        android:id="@+id/li3"
+        style="@style/View_line_vertical"
+        app:layout_constraintBottom_toBottomOf="@id/third"
+        app:layout_constraintLeft_toRightOf="@+id/space_text"
+        app:layout_constraintRight_toLeftOf="@id/fourth"
+        app:layout_constraintTop_toTopOf="@id/third" />
 
     <com.hldj.hmyg.widget.DrawableCenterText
         android:id="@+id/second"
@@ -337,5 +362,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/title"
         app:layout_constraintStart_toEndOf="@+id/imageView13"
         app:layout_constraintTop_toTopOf="@+id/title" />
+
 
 </android.support.constraint.ConstraintLayout>

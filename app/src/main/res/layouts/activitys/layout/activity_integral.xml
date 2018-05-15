@@ -56,7 +56,7 @@
                         android:layout_below="@+id/score"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:text="当前积分"
+                        android:text="当前花币"
                         android:textColor="@color/white" />
 
 
@@ -68,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center"
-                    android:text="---  如何快速获取积分?  ---"
+                    android:text="---  如何快速获取花币?  ---"
                     android:textColor="@color/text_color999" />
 
 
@@ -99,7 +99,7 @@
                     app:right_text_color="@color/white"
                     app:right_text_size="13sp"
                     app:splite_mode="true"
-                    app:title="积分"
+                    app:title="花币"
                     app:title_color="@color/white"
                     app:title_size="18sp" />
 
@@ -120,7 +120,7 @@
                 android:layout_weight="1"
                 android:background="@color/trans"
                 android:foreground="?attr/selectableItemBackground"
-                android:text="积分获得明细"
+                android:text="花币获得明细"
                 android:textColor="@color/price_orige" />
 
             <Button
@@ -139,7 +139,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
-            android:text="---  如何快速获得积分  ---"
+            android:text="---  如何快速获得花币  ---"
             android:textColor="@color/text_color999" />
 
 

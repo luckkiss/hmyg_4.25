@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="@dimen/px98"
     android:background="@drawable/bg_top_line"
     android:orientation="horizontal">
 
@@ -11,7 +11,7 @@
     <com.hldj.hmyg.widget.DrawableCenterText
         android:id="@+id/first"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/px98"
         android:layout_weight="1"
         android:drawableLeft="@drawable/like_selector"
         android:drawablePadding="4dp"
@@ -27,7 +27,7 @@
     <com.hldj.hmyg.widget.DrawableCenterText
         android:id="@+id/second"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/px98"
         android:layout_weight="1"
         android:drawableLeft="@mipmap/msg_big"
         android:drawablePadding="4dp"
@@ -43,7 +43,7 @@
     <com.hldj.hmyg.widget.DrawableCenterText
         android:id="@+id/third"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/px98"
         android:layout_weight="1"
         android:drawableLeft="@mipmap/phone"
         android:drawablePadding="4dp"
@@ -59,7 +59,7 @@
     <com.hldj.hmyg.widget.DrawableCenterText
         android:id="@+id/fourth"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/px98"
         android:layout_weight="1"
         android:drawableLeft="@mipmap/more"
         android:drawablePadding="4dp"

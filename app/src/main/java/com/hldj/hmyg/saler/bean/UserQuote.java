@@ -47,6 +47,9 @@ public class UserQuote implements MultiItemEntity {
     public String remarks;
 
 
+    public int unreadQuoteCountJson;
+
+
     /**
      * 报价图片集合
      */
@@ -57,6 +60,9 @@ public class UserQuote implements MultiItemEntity {
      * 是否被采购方设置不合适
      */
     public boolean isExclude ;
+
+
+    public boolean isRead ;
 
 
     public String priceTypeName;

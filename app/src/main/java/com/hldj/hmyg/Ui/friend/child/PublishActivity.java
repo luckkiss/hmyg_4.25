@@ -401,6 +401,7 @@ public class PublishActivity extends BaseMVPActivity {
         toolbar_right_text.setText("发布");
 //        toolbar_right_text.setTextColor(getColorByRes(R.color.text_color111));
         toolbar_right_text.setVisibility(View.VISIBLE);
+        toolbar_right_text.setTextColor(getColorByRes(R.color.main_color));
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -874,6 +875,8 @@ public class PublishActivity extends BaseMVPActivity {
 
     @Override
     public String setTitle() {
+
+
         return "我的苗友圈";
     }
 

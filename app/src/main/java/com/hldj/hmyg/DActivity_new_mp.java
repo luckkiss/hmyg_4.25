@@ -2,11 +2,18 @@ package com.hldj.hmyg;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.annotation.Keep;
+import android.text.Layout;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
@@ -14,6 +21,7 @@ import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
 import com.hldj.hmyg.M.AddressBean;
 import com.hldj.hmyg.M.userIdentity.enums.CompanyIdentityStatus;
+import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.Ui.friend.bean.tipNum.TipNum;
 import com.hldj.hmyg.Ui.friend.bean.tipNum.TipNumType;
 import com.hldj.hmyg.Ui.friend.child.MarchingPurchaseActivity;
@@ -22,6 +30,9 @@ import com.hldj.hmyg.Ui.miaopu.PendingActivity;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.base.rxbus.RxBus;
+import com.hldj.hmyg.base.rxbus.annotation.Subscribe;
+import com.hldj.hmyg.base.rxbus.event.EventThread;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
 import com.hldj.hmyg.bean.SimplePageBean;
@@ -45,8 +56,15 @@ import net.tsz.afinal.annotation.view.ViewInject;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 
@@ -90,6 +108,8 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
     TextView toolbar_right_text;
 
 
+    public static final int image_id = 16679496;
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -104,9 +124,11 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
                 break;
             case R.id.toolbar_right_icon:
                 ToastUtil.showLongToast("search");
-                ManagerListActivity_new.start2Activity(mActivity);
+                ManagerSplitListActivity_new.start2Activity(mActivity,"");
+//                ManagerListActivity_new.start2Activity(mActivity);
                 break;
             case R.id.toolbar_right_text:
+            case image_id:
                 if (shareBean == null) {
                     ToastUtil.showLongToast("对不起,分享数据获取失败~_~");
 
@@ -129,7 +151,7 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
     private void createShareBean(StoreGsonBean.DataBean.StoreBean store, String headImage) {
         shareBean = new ComonShareDialogFragment.ShareBean(
-               "qqq",
+                "qqq",
                 store.shareContent,
                 "https://blog.csdn.net/dqcfkyqdxym3f8rb0/article/details/80252828",
 //                store.shareUrl,
@@ -141,9 +163,45 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
     @Override
     public void initView() {
         FinalActivity.initInjectedView(this);
-
+        RxRegi();
         /* 由于注入是在 添加头部之前 。可能会找不到。需要手动 添加一个头部。再injection  不然会导致空指针 →_→  猜测*/
         initCoreRecycleView();
+
+
+        TextView text_text = getView(R.id.text_text);
+
+
+        SpanUtils spanUtils = new SpanUtils();
+
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                ToastUtil.showShortToast("事件触发了");
+            }
+
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setColor(Color.BLUE);
+                ds.setUnderlineText(false);
+            }
+        };
+
+
+        text_text.setMovementMethod(LinkMovementMethod.getInstance());
+
+//                .append("测试空格").appendSpace(30, Color.LTGRAY).appendSpace(50, Color.GREEN).appendSpace(100).appendSpace(30, Color.LTGRAY).appendSpace(50, Color.GREEN)
+//                .create());
+
+
+//        spanUtils  .append("from")
+//                .setForegroundColor(mActivity.getResources().getColor(R.color.main_color))
+//                .append("test clickspan")
+//                .setClickSpan(clickableSpan).append(": 134654646" )
+//                .append("test clickspan ")
+//        ;
+        text_text.setVisibility(View.GONE);
+//        text_text.setText(spanUtils.create());
 
 
 //        FinalActivity.initInjectedView(this, recycle);
@@ -151,9 +209,39 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
         toolbar_left_icon.setVisibility(View.GONE);
         toolbar_right_icon.setVisibility(View.VISIBLE);
         toolbar_right_text.setVisibility(View.VISIBLE);
-        toolbar_right_text.setText("分享");
+        toolbar_right_text.setText("");
 
 
+        toolbar_right_text.setMaxWidth(MyApplication.dp2px(mActivity, 28));
+        toolbar_right_text.setMinWidth(MyApplication.dp2px(mActivity, 1));
+        toolbar_right_text.setMinHeight(MyApplication.dp2px(mActivity, 1));
+        toolbar_right_text.setMaxHeight(MyApplication.dp2px(mActivity, 28));
+        toolbar_right_text.setBackground(getResources().getDrawable(R.drawable.ic_share));
+
+
+        LinearLayout linearLayout = ((LinearLayout) toolbar_right_text.getParent());
+        linearLayout.removeView(toolbar_right_text);
+        ImageView imageView = new ImageView(mActivity);
+        imageView.setMinimumWidth(MyApplication.dp2px(mActivity, 20));
+        imageView.setMaxHeight(MyApplication.dp2px(mActivity, 20));
+        imageView.setPadding(MyApplication.dp2px(mActivity, 3), MyApplication.dp2px(mActivity, 3), MyApplication.dp2px(mActivity, 3), MyApplication.dp2px(mActivity, 3));
+//        ViewGroup.MarginLayoutParams linearLayout1 = new LinearLayout.LayoutParams(mActivity, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(MyApplication.dp2px(mActivity, 18), MyApplication.dp2px(mActivity, 18));
+        params.setMargins(MyApplication.dp2px(mActivity, 8), MyApplication.dp2px(mActivity, 5), MyApplication.dp2px(mActivity, 0), MyApplication.dp2px(mActivity, 0));
+
+
+        imageView.setLayoutParams(params);
+        imageView.setPadding(19, 19, 19, 19);
+        imageView.setBackgroundResource(R.drawable.fenxiang);
+        imageView.setId(image_id);
+        imageView.setOnClickListener(this);
+
+        linearLayout.addView(imageView);
+
+
+//        text_text.setOnClickListener(v -> {
+//            SpanActivity.start(mActivity);
+//        });
 //        djck.setOnClickListener(v -> {
 //                 /* 苗圃管理 */
 //            D.i("========苗圃管理==========");
@@ -167,6 +255,9 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
     }
 
+
+    int count = 0;
+
     private void initCoreRecycleView() {
 
         int headViewId = R.layout.item_head_d_new_mp;
@@ -174,7 +265,6 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
         recycle.init(new BaseQuickAdapter<AddressBean, BaseViewHolder>(R.layout.item_d_new_mp) {
             @Override
             public void convert(BaseViewHolder helper, AddressBean item) {
-
 //                helper.convertView.setOnClickListener(v -> {
 //                    ToastUtil.showLongToast("aaa");
 //                    D.i("========苗圃管理==========");
@@ -191,11 +281,39 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
         })
 
                 .openLoadMore(999, page -> {
+                    count = 0;
                     requestData();
                     requestHead();
 
                 })
                 .openRefresh();
+
+
+        //添加自定义分割线
+//        DividerItemDecoration divider = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
+//        divider.setDrawable(ContextCompat.getDrawable(this,R.drawable.dot_red));
+//        recycle.getRecyclerView().addItemDecoration(divider);
+
+//        recycle.getRecyclerView().addItemDecoration(new DividerItemDecoration(mActivity, LinearLayoutManager.VERTICAL));
+
+
+//        recycle.getRecyclerView().addItemDecoration(new RecycleViewDivider(
+//                mActivity, LinearLayoutManager.VERTICAL, 10, getResources().getColor(R.color.gray_bg_ed)));
+//
+
+//        recycle.getRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
+//            @Override
+//            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+//                super.getItemOffsets(outRect, view, parent, state);
+//                if (count == 0) {
+//                    outRect.set(0, 0, 0, 0);
+//                } else {
+//                    outRect.set(0, 0, 0, 0);
+//                }
+//                count++;
+//                parent.setBackgroundResource(R.color.gray_bg_ed);
+//            }
+//        });
 
 
 //        headView = createHeadView();
@@ -298,10 +416,10 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
         helper
                 .setText(R.id.title, String.format("%s.%s", (helper.getAdapterPosition()), item.name))
                 .setText(R.id.textView64, new SpanUtils()
-                        .append("在售")
-                        .append("(" + item.onShelfJson + ")").setForegroundColor(getColorByRes(R.color.main_color))
-                        .append("下架")
-                        .append("(" + item.downShelfJson + ")").setForegroundColor(getColorByRes(R.color.main_color))
+                        .append("在售  ")
+                        .append("(" + item.onShelfJson + ")").setForegroundColor(getColorByRes(R.color.main_color)).setAlign(Layout.Alignment.ALIGN_NORMAL)
+                        .append("  下架  ")
+                        .append("(" + item.downShelfJson + ")").setForegroundColor(getColorByRes(R.color.main_color)).setAlign(Layout.Alignment.ALIGN_NORMAL)
                         .create())
         ;
 
@@ -394,5 +512,72 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
     }
 
 
+    /**
+     * 监听登录成功  刷新
+     */
+
+
+    private Disposable subscription;
+
+    //订阅
+    @Keep
+    @Subscribe(tag = 5, thread = EventThread.MAIN_THREAD)
+    private void dataBinding11(Eactivity3_0.OnlineEvent event) {
+        D.e("======Rx=======" + event.toString());
+        //加载头像
+        subscription = Observable.just(event)
+                .filter(event1 -> event.isOnline)
+                .map((Function<Eactivity3_0.OnlineEvent, Object>) event12 -> event12.isOnline)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .timeout(500, TimeUnit.MILLISECONDS)
+                .subscribe((b) -> {
+                    recycle.onRefresh();
+
+                    D.i("--------苗木界面刷新了--------");
+                    D.i("--------苗木界面刷新了--------");
+                    D.i("--------苗木界面刷新了--------");
+                    D.i("--------苗木界面刷新了--------");
+                    D.i("--------苗木界面刷新了--------");
+                    D.i("--------苗木界面刷新了--------");
+                    D.i("--------苗木界面刷新了--------");
+
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        D.w("=============Consumer=监听登录成功报错===========" + throwable.getMessage());
+                    }
+                });
+
+//        Observable.timer(1, TimeUnit.SECONDS)
+//                .filter(new Observable<OnlineEvent>() {
+//                    @Override
+//                    protected void subscribeActual(Observer<? super OnlineEvent> observer) {
+//
+//                    }
+//                })
+//                .subscribe(aa->{
+//
+//        });
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (subscription != null && !subscription.isDisposed())
+            subscription.dispose();
+
+        RxUnRegi();
+    }
+
+    public void RxRegi() {
+        RxBus.getInstance().register(this);
+    }
+
+    public void RxUnRegi() {
+        RxBus.getInstance().unRegister(this);
+    }
 }
 

@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/white"
+        android:background="@drawable/bg_bottom_line"
         android:orientation="horizontal">
 
         <com.hldj.hmyg.widget.DrawableCenterText
@@ -54,29 +54,34 @@
             android:text="价格"
             android:textColor="@color/text_color666" />
 
+        <View
+            android:layout_width="2px"
+            android:layout_height="22dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/divider_color"  android:layout_marginRight="8dp"/>
 
         <ImageView
             android:id="@+id/iv_store_l_g"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:foreground="?attr/selectableItemBackground"
-            android:padding="8dp"
+            android:padding="11dp"
             android:src="@drawable/selector_list_or_grid" />
 
     </LinearLayout>
 
 
     <!--<com.weavey.loading.lib.LoadingLayout-->
-        <!--android:id="@+id/store_loading"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--app:isFirstVisible="true">-->
+    <!--android:id="@+id/store_loading"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--app:isFirstVisible="true">-->
 
-        <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
-            android:id="@+id/store_recycle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+        android:id="@+id/store_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <!--</com.weavey.loading.lib.LoadingLayout>-->
 </LinearLayout>

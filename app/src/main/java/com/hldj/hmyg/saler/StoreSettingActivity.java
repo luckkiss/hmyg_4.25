@@ -25,24 +25,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.zxing.WriterException;
+import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.StoreActivity;
 import com.hldj.hmyg.Ui.AuthenticationActivity;
 import com.hldj.hmyg.Ui.AuthenticationCompanyActivity;
 import com.hldj.hmyg.Ui.Eactivity3_0;
-import com.hldj.hmyg.Ui.QcCodeActivity;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.UploadHeadUtil;
+import com.hldj.hmyg.widget.MyOptionItemView;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.Loading;
 import com.hy.utils.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.soundcloud.android.crop.Crop;
+import com.white.utils.FileUtil;
 import com.zf.iosdialog.widget.ActionSheetDialog;
+import com.zxing.encoding.EncodingHandler;
 import com.zym.selecthead.config.Configs;
 import com.zym.selecthead.tools.FileTools;
 
@@ -63,6 +68,7 @@ import java.util.List;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
+import static com.hldj.hmyg.StoreActivity.getRoundCornerImage;
 import static com.hldj.hmyg.util.UploadHeadUtil.CHOOSE_PHOTO;
 import static com.hldj.hmyg.util.UploadHeadUtil.CROP_PHOTO;
 import static com.hldj.hmyg.util.UploadHeadUtil.TAKE_PHOTO;
@@ -118,6 +124,11 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
     private File cameraFile;
     private Uri imageUri;
 
+
+    private MyOptionItemView qyrz;
+
+    private String shareUrl = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,6 +156,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
         et_domian = (EditText) findViewById(R.id.et_domain);
         et_store_name = (EditText) findViewById(R.id.et_store_name);
         et_detail = (EditText) findViewById(R.id.et_detail);
+        qyrz = (MyOptionItemView) findViewById(R.id.qyrz);
 
         et_type = (EditText) findViewById(R.id.et_type);
         et_introduction = (EditText) findViewById(R.id.et_introduction);
@@ -161,6 +173,8 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
         getView(R.id.qyewm).setOnClickListener(multipleClickProcess);
 
 
+        tv_open_close.setVisibility(View.GONE);
+
     }
 
     private void getStore() {
@@ -175,6 +189,8 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                     @Override
                     public void onSuccess(Object t) {
                         // TODO Auto-generated method stub
+
+                        D.i("" + GsonUtil.formatJson2String(t.toString()));
                         try {
                             JSONObject jsonObject = new JSONObject(t.toString());
                             String codes = JsonGetInfo.getJsonString(
@@ -189,14 +205,26 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                             if ("1".equals(codes)) {
                                 JSONObject jsonObject2 = JsonGetInfo
                                         .getJSONObject(jsonObject, "data");
+
+
+                                boolean identity = JsonGetInfo
+                                        .getJsonBoolean(jsonObject2, "identity");
+
+                                qyrz.setRightText(identity ? "已认证" : "未认证");
+
+//                                ToastUtil.showShortToast(identity + "   identity");
+
                                 JSONObject jsonObject3 = JsonGetInfo
                                         .getJSONObject(jsonObject2, "store");
                                 store_id = JsonGetInfo.getJsonString(
                                         jsonObject3, "id");
+                                shareUrl = JsonGetInfo.getJsonString(
+                                        jsonObject3, "shareUrl");
+
+//                                ToastUtil.showShortToast("share url is -----  \n" + shareUrl);
+
                                 name = JsonGetInfo.getJsonString(jsonObject3,
                                         "name");
-
-
 
 
                                 code = JsonGetInfo.getJsonString(jsonObject3,
@@ -292,10 +320,10 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
             ToastUtil.showLongToast("请填写店铺名称");
             return;
         }
-        if (TextUtils.isEmpty(et_type.getText())) {
-            ToastUtil.showLongToast("请填写品种名称");
-            return;
-        }
+//        if (TextUtils.isEmpty(et_type.getText())) {
+//            ToastUtil.showLongToast("请填写品种名称");
+//            return;
+//        }
 
         showLoading();
 
@@ -381,8 +409,15 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                     case R.id.qyewm:
                         D.i("========企业二维码==========");
 
-                        QcCodeActivity.start(mActivity, 1, "hello world");
-
+                        if (TextUtils.isEmpty(shareUrl)) {
+                            ToastUtil.showShortToast("二维码信息获取失败~_~");
+                            return;
+                        }
+//                        QcCodeActivity.start(mActivity, 1, "hello world");
+                        ToastUtil.showLongToast(getOssImagePaths(shareUrl).toString());
+                        if (ossImagePaths.size() > 0) {
+                            GalleryImageActivity.startGalleryImageActivity(mActivity, 0, ossImagePaths);
+                        }
 
                         break;
                     case R.id.toolbar_left_icon:
@@ -814,6 +849,35 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
     @Override
     public boolean setSwipeBackEnable() {
         return true;
+    }
+
+
+    private ArrayList<Pic> ossImagePaths = new ArrayList<Pic>();
+
+    public ArrayList<Pic> getOssImagePaths(String shareUrl) {
+
+        if (ossImagePaths.size() > 0) {
+            return ossImagePaths;
+        }
+        if (TextUtils.isEmpty(shareUrl)) {
+            ToastUtil.showShortToast("对不起，无分享地址");
+        }
+        try {
+            Bitmap qrCodeBitmap = EncodingHandler.createQRCode(shareUrl, 350);
+            qrCodeBitmap = getRoundCornerImage(qrCodeBitmap, 3);
+            String img_path = "";
+            try {
+                img_path = FileUtil.saveMyBitmap("commenQcCode", qrCodeBitmap);
+                if (!"".equals(img_path)) {
+                    ossImagePaths.add(new Pic("", false, img_path, 0));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+        return ossImagePaths;
     }
 
 

@@ -70,7 +70,7 @@ public class MyOptionItemView extends OptionItemView {
      * 标题字体大小
      */
     private float titleTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-            14, getResources().getDisplayMetrics());
+            13, getResources().getDisplayMetrics());
     /**
      * 标题颜色
      */
@@ -83,7 +83,7 @@ public class MyOptionItemView extends OptionItemView {
      * 左边文字大小
      */
     private float leftTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-            14, getResources().getDisplayMetrics());
+            13, getResources().getDisplayMetrics());
     /**
      * 左字左边距
      */
@@ -108,7 +108,7 @@ public class MyOptionItemView extends OptionItemView {
      * 右边文字大小
      */
     private float rightTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-            16, getResources().getDisplayMetrics());
+            13, getResources().getDisplayMetrics());
     /**
      * 右边文字颜色
      */
@@ -153,10 +153,10 @@ public class MyOptionItemView extends OptionItemView {
 
             } else if (attr == R.styleable.OptionItemView_title_size) {
                 titleTextSize = typedArray.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                        16, getResources().getDisplayMetrics()));
+                        15, getResources().getDisplayMetrics()));
 
             } else if (attr == R.styleable.OptionItemView_title_color) {
-                titleTextColor = typedArray.getColor(attr, Color.BLACK);
+                titleTextColor = typedArray.getColor(attr, Color.parseColor("#333333"));
 
             } else if (attr == R.styleable.OptionItemView_title) {
                 title = typedArray.getString(attr);
@@ -166,7 +166,7 @@ public class MyOptionItemView extends OptionItemView {
 
             } else if (attr == R.styleable.OptionItemView_left_text_size) {
                 leftTextSize = typedArray.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                        16, getResources().getDisplayMetrics()));
+                        13, getResources().getDisplayMetrics()));
 
             } else if (attr == R.styleable.OptionItemView_left_text_margin_left) {
                 leftTextMarginLeft = typedArray.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
@@ -178,13 +178,13 @@ public class MyOptionItemView extends OptionItemView {
                 leftImageMarginRight = typedArray.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                         -1, getResources().getDisplayMetrics()));
             } else if (attr == R.styleable.OptionItemView_left_text_color) {
-                leftTextColor = typedArray.getColor(attr, Color.BLACK);
+                leftTextColor = typedArray.getColor(attr, Color.parseColor("#666666"));
 
             } else if (attr == R.styleable.OptionItemView_right_text) {
                 rightText = typedArray.getString(attr);
             } else if (attr == R.styleable.OptionItemView_right_text_size) {
                 rightTextSize = typedArray.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                        16, getResources().getDisplayMetrics()));
+                        13, getResources().getDisplayMetrics()));
             } else if (attr == R.styleable.OptionItemView_right_text_margin_right) {
                 rightTextMarginRight = typedArray.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                         -1, getResources().getDisplayMetrics()));
@@ -195,7 +195,7 @@ public class MyOptionItemView extends OptionItemView {
                 rightImageMarginRight = typedArray.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                         -1, getResources().getDisplayMetrics()));
             } else if (attr == R.styleable.OptionItemView_right_text_color) {
-                rightTextColor = typedArray.getColor(attr, Color.BLACK);
+                rightTextColor = typedArray.getColor(attr, Color.parseColor("#666666"));
             } else if (attr == R.styleable.OptionItemView_splite_mode) {
                 mSpliteMode = typedArray.getBoolean(attr, false);
             }
@@ -297,10 +297,15 @@ public class MyOptionItemView extends OptionItemView {
             int w = mWidth;
             if (rightImage != null) {
                 w -= rightImageMarginRight >= 0 ? rightImageMarginRight : (mHeight / 16);//增加右图右间距
-                w -= getPaddingRight() ;//增加图宽
+                w -= getPaddingRight();//增加图宽
                 w -= rightImageMarginLeft >= 0 ? rightImageMarginLeft : (mWidth / 32);//增加右图左间距
                 w -= rightTextMarginRight > 0 ? rightTextMarginRight : 0;//增加右字右间距
 
+                if (!isShowRightImg) {
+                    w += rightImage.getWidth();
+                    w += rightTextMarginRight;
+                    w -= getPaddingRight();
+                }
 
                 /**
                  *  w -= rightImageMarginRight >= 0 ? rightImageMarginRight : (mHeight / 16);//增加右图右间距

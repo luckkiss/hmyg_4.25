@@ -85,6 +85,8 @@ public class DetailActivity extends BaseMVPActivity {
 
     @ViewInject(id = R.id.tv_activity_purchase_back)
     TextView tv_activity_purchase_back;
+    @ViewInject(id = R.id.iv_back)
+    ImageView iv_back;
 
     @ViewInject(id = R.id.tv_jb)
     TextView tv_jb;/* 举报按钮 */
@@ -296,7 +298,8 @@ public class DetailActivity extends BaseMVPActivity {
             head.setOnClickListener(v -> {
                 //未登录。跳转登录界面
 //                if (!commitLogin()) return;
-                CenterActivity.start(mActivity, moments.ownerId);
+//                CenterActivity.start(mActivity, moments.ownerId);
+                HeadDetailActivity.start(mActivity, moments.ownerId);
             });
 
 
@@ -379,6 +382,7 @@ public class DetailActivity extends BaseMVPActivity {
         finalBitmap.configLoadfailImage(R.drawable.no_image_show);
         finalBitmap.configLoadingImage(R.drawable.no_image_show);
         tv_activity_purchase_back.setOnClickListener(v -> finish());
+        iv_back.setOnClickListener(v -> finish());
 
         mCoreRecyclerView.init(new BaseQuickAdapter<Object, BaseViewHolder>(R.layout.item_list_simple_with_head) {
 
@@ -458,7 +462,9 @@ public class DetailActivity extends BaseMVPActivity {
                         public void onClick(View v) {
                             //未登录。跳转登录界面
 //                            if (!commitLogin()) return;
-                            CenterActivity.start(mActivity, ((MomentsThumbUp) item).ownerId);
+//                            CenterActivity.start(mActivity, ((MomentsThumbUp) item).ownerId);
+                            HeadDetailActivity.start(mActivity, ((MomentsThumbUp) item).ownerId);
+
                         }
                     };
                     helper.addOnClickListener(R.id.content, onClickListener);

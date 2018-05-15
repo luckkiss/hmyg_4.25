@@ -47,7 +47,8 @@ public class SharePopupWindow extends PopupWindow implements PlatformActionListe
         this.shareBean = shareBean;
 
         setContentView(view);
-        setWidth(AndroidUtil.dip2px(context, 155));
+//        setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        setWidth(AndroidUtil.dip2px(context, 125));
         setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         initView(view);
     }
@@ -87,7 +88,7 @@ public class SharePopupWindow extends PopupWindow implements PlatformActionListe
             }
         });
 
-        setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_popupwindow));// 设置背景图片，不能在布局中设置，要通过代码来设置
+        setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_popupwindow_new));// 设置背景图片，不能在布局中设置，要通过代码来设置
 
     }
 

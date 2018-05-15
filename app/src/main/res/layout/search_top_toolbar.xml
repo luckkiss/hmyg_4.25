@@ -28,7 +28,7 @@
         android:background="@drawable/conner_edit"
         android:drawableLeft="@drawable/sousuo2"
         android:drawablePadding="6dp"
-        android:foreground="?attr/selectableItemBackground"
+
         android:hint="品种名称/用户名称"
         android:imeOptions="actionSearch"
         android:paddingLeft="8dp"

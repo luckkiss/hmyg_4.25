@@ -9,7 +9,8 @@
 
     <include
         android:id="@+id/include4"
-        layout="@layout/toolbar_3_0" />
+        layout="@layout/toolbar_3_0"
+        android:visibility="gone" />
 
 
     <include layout="@layout/include_search_layout" />

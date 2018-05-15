@@ -126,8 +126,10 @@
                 <RadioButton
                     android:id="@+id/ll_to_d4"
                     style="@style/tab_hdpi"
-                    android:checked="true"
-                    android:drawableTop="@drawable/collect_no_select"
+                    android:layout_gravity="center_vertical"
+                    android:checked="false"
+                    android:drawablePadding="5.5dp"
+                    android:drawableTop="@drawable/collect_selecter"
                     android:text="收藏"
                     android:textColor="@color/text_color666" />
 
@@ -211,8 +213,12 @@
 
 
                     <LinearLayout
+                        android:id="@+id/left_parent"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+
+                        android:layout_centerVertical="true">
 
 
                         <TextView
@@ -241,7 +247,7 @@
                             android:gravity="center_vertical"
                             android:singleLine="true"
                             android:textColor="@color/red"
-                            android:textSize="@dimen/y10" />
+                            android:textSize="@dimen/textSizeContent" />
                     </LinearLayout>
 
 
@@ -262,11 +268,10 @@
                         android:id="@+id/tv_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginRight="12dp"
-                        android:gravity="center_vertical"
-                        android:paddingBottom="@dimen/y3"
+                        android:layout_toRightOf="@+id/left_parent"
                         android:singleLine="true"
                         android:textColor="#666666"
                         android:textSize="@dimen/textSizeContent"
@@ -380,6 +385,62 @@
                 android:paddingLeft="8dp" />
 
 
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <!--<View style="@style/View_line_green" />-->
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_bottom_line"
+                    android:minHeight="@dimen/tableHeight"
+                    android:paddingRight="20dp">
+
+                    <TextView
+                        style="@style/table_row_left"
+                        android:layout_weight="2"
+                        android:background="@null"
+                        android:text="备注"
+                        android:textColor="@color/text_color666"
+                        android:textSize="@dimen/textSizeTitle" />
+
+                    <TextView
+                        android:id="@+id/remark"
+                        style="@style/table_row_right"
+                        android:layout_marginLeft="12dp"
+                        android:layout_weight="6"
+                        android:text="-"
+                        android:visibility="visible" />
+                </TableRow>
+
+
+                <!--<TableRow-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:minHeight="32dp">-->
+
+                <!--<TextView-->
+                <!--style="@style/table_row_left"-->
+                <!--android:layout_weight="2"-->
+                <!--android:text="动态添加" />-->
+
+                <!--<TextView-->
+                <!--style="@style/table_row_right"-->
+                <!--android:layout_weight="6"-->
+                <!--android:text="中间动态添加" />-->
+                <!--</TableRow>-->
+
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
         <View style="@style/View_line_gray" />
@@ -390,7 +451,7 @@
             android:layout_height="@dimen/tableHeight"
             android:gravity="center_vertical"
             android:paddingLeft="12dp"
-            android:text="商家信息"
+            android:text="苗圃信息"
             android:textColor="#333333"
             android:textSize="@dimen/textSizeTitle" />
 
@@ -437,7 +498,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="2"
-                    android:text="公司名称:"
+                    android:text="苗圃名称:"
                     android:textColor="@color/text_color666" />
 
                 <TextView
@@ -475,7 +536,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="2"
-                    android:text="所在地区:"
+                    android:text="苗圃地址:"
 
                     android:textColor="@color/text_color666" />
 
@@ -505,10 +566,15 @@
 
 
                     <RadioButton
+                        android:id="@+id/location"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:button="@drawable/location_marker"
-                        android:text="未定位" />
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:button="@mipmap/ic_location"
+                        android:paddingLeft="5dp"
+                        android:text="未定位"
+                        android:visibility="visible"
+                        tools:visibility="visible" />
 
 
                 </LinearLayout>
@@ -556,7 +622,8 @@
                 android:layout_height="@dimen/tableHeight"
                 android:background="@drawable/bg_bottom_line"
                 android:orientation="horizontal"
-                android:paddingLeft="12dp">
+                android:paddingLeft="12dp"
+                android:visibility="gone">
 
                 <!--<ImageView-->
                 <!--android:layout_width="@dimen/x15"-->

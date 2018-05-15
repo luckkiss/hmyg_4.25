@@ -13,6 +13,7 @@ import com.hldj.hmyg.buyer.M.PurchaseListPageGsonBean;
 import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
 import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.util.ConstantState;
+import com.hldj.hmyg.util.ContactInfoParser;
 
 import java.io.Serializable;
 import java.util.List;
@@ -49,6 +50,14 @@ public class SimpleGsonBean implements Serializable {
         public int outlineCount;
 
 
+        public String shareUrl;
+        public String shareDetail;
+        public String shareTitle;
+
+
+        /* 匿名访客用 是否显示小 红点 */
+        public boolean hasNewGuest;
+
         /* 待处理列表 end */
         public CompanyIdentity companyIdentity;// 企业认证实体
 //        public ImagesJsonBean licenceImageJson;// 企业认证图片
@@ -58,6 +67,11 @@ public class SimpleGsonBean implements Serializable {
         /* 企业认证 临时属性 */
 
 
+        /* 联系人 匹配列表 */
+        public List<ContactInfoParser.ContactInfo> userList ;
+        /* 联系人 匹配列表 */
+
+
 
 
         /* 企业认证 临时属性 */
@@ -65,6 +79,7 @@ public class SimpleGsonBean implements Serializable {
         /* 苗圃  临时属性 */
 
         public StoreGsonBean.DataBean.StoreBean store;
+        public StoreGsonBean.DataBean.OwnerBean owner;
         public List<TipNum> tipList;
 
         /* 苗圃  临时属性 */
@@ -125,6 +140,12 @@ public class SimpleGsonBean implements Serializable {
         //        CenterActivity
         public int seedlingCount = 0;/*商城资源*/
         public int momentsCount = 0;/* 苗木圈资源数量 */
+        public int visitsCount = 0;/* 店铺浏览量 */
+        public int onShelfCount = 0; //商品数量
+        public String phone = ""; // 电话号码
+
+
+        public boolean identity;
 
 
         public MomentsReply momentsReply;
@@ -132,6 +153,7 @@ public class SimpleGsonBean implements Serializable {
 
 
         private boolean isCollect;
+        public String timeStampStr;
 
 
         public boolean isCollect() {

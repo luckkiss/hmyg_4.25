@@ -34,6 +34,9 @@ public interface ConstantState {
     int PURCHASE_SUCCEED = 212;//求购成功
 
 
+    int CANCLE_SUCCEED = 213;//不保价 成功 标识
+
+
     String ERROR_CODE = "1003";
     String SUCCEED_CODE = "1";
     String NO_NET_CODE = "110";

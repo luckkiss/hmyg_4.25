@@ -5,19 +5,24 @@
     android:layout_height="40dp"
     android:background="#FFFFFF"
     android:padding="4dp"
+    app:contentInsetStart="0dp"
     app:layout_scrollFlags="scroll|enterAlways">
 
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp">
 
         <com.coorchice.library.SuperTextView
             android:id="@+id/tv_a_search"
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_top_default"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/iv_a_msg"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/iv_a_msg"
+
             android:background="@drawable/search_edit_selector"
             android:drawablePadding="4dp"
             android:foreground="?attr/selectableItemBackground"
@@ -71,7 +76,8 @@
             android:layout_marginRight="6dp"
             android:foreground="?attr/selectableItemBackground"
             android:scaleType="fitXY"
-            android:src="@drawable/message_selector" />
+            android:src="@drawable/message_selector"
+            android:visibility="gone" />
 
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

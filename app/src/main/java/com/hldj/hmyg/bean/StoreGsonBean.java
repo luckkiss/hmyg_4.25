@@ -1,6 +1,7 @@
 package com.hldj.hmyg.bean;
 
 import com.hldj.hmyg.M.userIdentity.enums.CompanyIdentityStatus;
+import com.hldj.hmyg.Ui.friend.bean.Moments;
 
 import java.io.Serializable;
 import java.util.List;
@@ -31,8 +32,13 @@ public class StoreGsonBean implements Serializable {
 
         public StoreBean store;
         public OwnerBean owner;
+        public List<Moments> momentsList;
         public int momentsCount;
         public List<TypeListBean> typeList;
+        public int visitsCount ;
+        public boolean identity ;
+
+
 
         public static class StoreBean implements Serializable {
             /**
@@ -79,7 +85,7 @@ public class StoreGsonBean implements Serializable {
         }
 
         public static class AttrData {
-         public    String store_identity = CompanyIdentityStatus.unaudited.getEnumValue();
+            public String store_identity = CompanyIdentityStatus.unaudited.getEnumValue();
         }
 
 

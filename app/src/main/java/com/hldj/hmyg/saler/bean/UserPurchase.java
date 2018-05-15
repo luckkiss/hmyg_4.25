@@ -1,8 +1,10 @@
 package com.hldj.hmyg.saler.bean;
 
+import com.hldj.hmyg.CallBack.IFootMarkDelete;
 import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
 import com.hldj.hmyg.buyer.weidet.ExpandableItemAdapter;
 import com.hldj.hmyg.buyer.weidet.entity.MultiItemEntity;
+import com.hldj.hmyg.saler.bean.enums.FootMarkSourceType;
 
 import java.util.List;
 
@@ -10,7 +12,7 @@ import java.util.List;
  * 用户求购  实体对象
  */
 
-public class UserPurchase implements MultiItemEntity {
+public class UserPurchase implements MultiItemEntity, IFootMarkDelete {
 
     /**
      * id : 94a61b8865654112a48ce03f3c6b49eb
@@ -51,6 +53,7 @@ public class UserPurchase implements MultiItemEntity {
      * closeDateStr : 2018-04-27 09:39
      */
 
+    public int unreadQuoteCountJson ;
     public String name;
     public String id;
     public String remarks;
@@ -116,8 +119,30 @@ public class UserPurchase implements MultiItemEntity {
 
     public AttData attrData = new AttData();
 
+    @Override
+    public String getResourceId() {
+        return id;
+    }
+
+    @Override
+    public String getDomain() {
+        return "admin/footmark/userDel";
+    }
+
+    @Override
+    public FootMarkSourceType getType() {
+        return FootMarkSourceType.userPurchase;
+    }
+
+    @Override
+    public String getFootMarkId() {
+        return attrData.footMarkId;
+    }
+
 
     public static class AttData {
+        public String dateStr;
+        public String footMarkId;
         public boolean isUserQuoted;
         public boolean isExclude;//不采用
     }

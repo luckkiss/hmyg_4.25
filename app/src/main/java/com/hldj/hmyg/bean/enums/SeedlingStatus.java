@@ -3,7 +3,7 @@ package com.hldj.hmyg.bean.enums;
 public enum SeedlingStatus {
 
 
-    nullstatu("", "苗木状态"),
+    nullstatu("", "全部"),
     /**
      * 未提交
      */

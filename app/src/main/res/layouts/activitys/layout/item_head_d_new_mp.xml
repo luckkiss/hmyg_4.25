@@ -14,7 +14,7 @@
         android:background="@drawable/bg_bottom_line">
 
 
-        <com.hldj.hmyg.widget.MyCircleImageView
+        <ImageView
             android:id="@+id/logo"
             android:layout_width="@dimen/px128"
             android:layout_height="@dimen/px128"
@@ -22,6 +22,8 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
+            android:foreground="@drawable/logo"
+            android:padding="2dp"
             android:src="@drawable/home_icon_type06" />
 
         <TextView
@@ -100,14 +102,15 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
-                android:padding="8dp"
+                android:padding="10dp"
                 android:src="@drawable/fangke" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="访客" />
+                android:text="访客"
+                android:textSize="@dimen/textSizeContent" />
 
         </cn.bingoogolapple.badgeview.BGABadgeLinearLayout>
 
@@ -125,14 +128,15 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
-                android:padding="8dp"
+                android:padding="10dp"
                 android:src="@drawable/ldjl" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="来电记录" />
+                android:text="来电记录"
+                android:textSize="@dimen/textSizeContent" />
 
         </cn.bingoogolapple.badgeview.BGABadgeLinearLayout>
 
@@ -150,14 +154,15 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
-                android:padding="8dp"
+                android:padding="10dp"
                 android:src="@drawable/ppqg" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="匹配求购" />
+                android:text="匹配求购"
+                android:textSize="@dimen/textSizeContent" />
 
         </cn.bingoogolapple.badgeview.BGABadgeLinearLayout>
 
@@ -175,14 +180,15 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
-                android:padding="8dp"
+                android:padding="10dp"
                 android:src="@drawable/dcl" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="待处理" />
+                android:text="待处理"
+                android:textSize="@dimen/textSizeContent" />
 
         </cn.bingoogolapple.badgeview.BGABadgeLinearLayout>
 
@@ -195,11 +201,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/px74"
+        android:background="@drawable/bg_bottom_line"
         android:gravity="center_vertical"
         android:paddingLeft="8dp"
         android:text="我的苗圃"
         android:textColor="@color/text_color111"
-        android:textSize="@dimen/textSizeContent" />
+        android:textSize="@dimen/px26" />
 
 
 </LinearLayout>

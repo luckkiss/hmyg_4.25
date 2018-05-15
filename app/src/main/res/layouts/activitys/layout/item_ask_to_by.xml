@@ -2,6 +2,7 @@
 
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_bottom_line"
@@ -45,7 +46,7 @@
         android:checked="false"
         android:text="2条报价"
         android:textColor="@drawable/white_or_main_color"
-        android:textSize="@dimen/textSizeTitle" />
+        android:textSize="@dimen/textSizeContent" />
 
 
     <TextView
@@ -71,7 +72,7 @@
         android:layout_below="@+id/title"
         android:layout_marginTop="8dp"
         android:text="脱肛高33cm"
-        android:textColor="@color/text_color666" />
+        android:textColor="@color/text_color999" />
 
 
     <TextView
@@ -82,7 +83,7 @@
         android:layout_below="@+id/space_text"
         android:layout_marginTop="8dp"
         android:text="福建厦门市园林集团"
-        android:textColor="@color/text_color666" />
+        android:textColor="@color/text_color999" />
 
 
     <TextView
@@ -95,42 +96,26 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:text="更新时间:2019-05-16"
-        android:textColor="@color/text_color666" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px80"
-        android:layout_below="@+id/update_time"
-        android:background="@drawable/bg_top_bottom_line"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/bottom_left"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="分享求购" />
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:background="@color/text_color666" />
-
-        <TextView
-            android:id="@+id/bottom_right"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="结束求购"
-            android:textColor="@color/main_color" />
+        android:textColor="@color/text_color999" />
 
 
-    </LinearLayout>
+    <!-- 报价数量 -->
+    <CheckedTextView
+        android:id="@+id/unread"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/qubaojia"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:checked="false"
+        android:text="3条未读"
+        android:textColor="@color/text_color999"
+        android:textSize="@dimen/textSizeContent"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
+    <include layout="@layout/item_bottom_tow_button" />
 
 </RelativeLayout>
 

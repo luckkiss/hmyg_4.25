@@ -78,6 +78,7 @@ public class EventsActivity extends Activity implements OnMapClickListener,
 		id_tv_edit_all = (TextView) findViewById(R.id.id_tv_edit_all);
 		id_tv_edit_all.setOnClickListener(this);
 		btn_back.setOnClickListener(this);
+
 	}
 
 	/**

@@ -1,5 +1,7 @@
 package com.hldj.hmyg.buyer.M;
 
+import android.widget.Checkable;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,7 +9,7 @@ import java.util.List;
  *
  */
 
-public class PurchaseItemBean_new implements Serializable {
+public class PurchaseItemBean_new implements Serializable, Checkable {
     /**
      * id : dd48777f6d6e4071af0c3cd833ed41a9
      * remarks :
@@ -85,7 +87,26 @@ public class PurchaseItemBean_new implements Serializable {
 
     public SellerQuoteJsonBean footSellerQuoteListJson; /* 底部临时保存的   quote 报价 对象 */
 
-    public List<ImagesJsonBean> imagesJson ;
+    public List<ImagesJsonBean> imagesJson;
+
+
+    private boolean checked;
+
+    @Override
+    public void setChecked(boolean checked) {
+
+        this.checked = checked;
+    }
+
+    @Override
+    public boolean isChecked() {
+        return checked;
+    }
+
+    @Override
+    public void toggle() {
+        checked = !checked;
+    }
 
     public static class PurchaseJsonBeanX implements Serializable {
         public String cityName = "";/**/

@@ -37,6 +37,7 @@
                 android:horizontalSpacing="3dp"
                 android:listSelector="@color/trans"
                 android:numColumns="3"
+
                 android:verticalSpacing="3dp"
                 android:visibility="visible" />
 
@@ -53,7 +54,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_top_line"
                     android:text="重置"
-                    android:textColor="@color/text_color333" />
+                    android:textColor="@color/text_color999" />
 
                 <Button
                     android:id="@+id/ok"

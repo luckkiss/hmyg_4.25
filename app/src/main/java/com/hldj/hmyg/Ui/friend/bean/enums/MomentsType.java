@@ -16,7 +16,7 @@ public enum MomentsType {
 
     collect("collect", "收藏"),
 
-    all("", "全部");
+    all("", "全部分类");
 
     private String enumValue, enumText;
 

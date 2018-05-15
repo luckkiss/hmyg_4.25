@@ -6,10 +6,12 @@ import android.graphics.Color;
 import android.widget.ImageView;
 
 import com.google.gson.reflect.TypeToken;
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
 import com.hldj.hmyg.M.CallLog;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
 import com.hldj.hmyg.bean.SimplePageBean;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
@@ -149,5 +151,24 @@ public class PhoneLogActivity extends BaseMVPActivity {
     public String setTitle() {
         return "来电记录";
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        doCallLogIsRead();
+    }
+
+    public void doCallLogIsRead() {
+        new BasePresenter()
+                .doRequest("admin/callLog/callLogIsRead", new HandlerAjaxCallBack() {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+
+//                        ToastUtil.showShortToast(gsonBean.msg);
+                    }
+                });
+    }
+
 
 }

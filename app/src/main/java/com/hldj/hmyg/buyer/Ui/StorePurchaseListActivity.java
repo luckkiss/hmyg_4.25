@@ -257,6 +257,9 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
 
                 processJson(t);
 
+
+                PartShareActivity.shareBean = shareBean;
+                PartShareActivity.parentId = purchaseFormId ;
                 hindLoading();
                 onLoad();
                 getdata = true;
@@ -284,6 +287,8 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         getdata = true;
     }
 
+    public List<PurchaseItemBean_new> shareList = new ArrayList<>();
+
     protected void processJson(String t) {
         /*参考报价*/
         PurchaseListGsonBean gsonBean = GsonUtil.formateJson2Bean(t, PurchaseListGsonBean.class);
@@ -291,6 +296,9 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
         if (gsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
             if (gsonBean.data.list != null) {
                 initPageBeans(gsonBean.data.list);
+                shareList.clear();
+                shareList.addAll(gsonBean.data.list);
+
             } else {
                 initPageBeans(new ArrayList<>());
             }
@@ -416,7 +424,6 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
                         /*用苗单位*/
 
         getView(R.id.ll_content_company_info).setVisibility(headPurchase.showConsumerName ? View.VISIBLE : View.GONE);
-
 
 
         companyInfo = headPurchase.attrData.consumerRemarks;
@@ -637,11 +644,25 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
             imageView.setImageResource(R.drawable.fenxiang);
             imageView.setVisibility(View.VISIBLE);
             imageView.setOnClickListener(v -> {
-                D.e("采购单 分享");
-                SharePopupWindow window = new SharePopupWindow(mActivity, constructionShareBean());
-                window.showAsDropDown(imageView);
+
+
+                doShare(imageView);
+
+
+
             });
         }
+    }
+
+    public void doShare(ImageView imageView) {
+                ToastUtil.showShortToast("fffff");
+
+        SharePopupWindow window = new SharePopupWindow(mActivity, constructionShareBean());
+        window.showAsDropDown(imageView);
+
+
+
+
     }
 
 
@@ -661,7 +682,7 @@ public class StorePurchaseListActivity extends NeedSwipeBackActivity implements 
      *
      * @return
      */
-    private ComonShareDialogFragment.ShareBean constructionShareBean() {
+    public ComonShareDialogFragment.ShareBean constructionShareBean() {
 
         return shareBean;
     }

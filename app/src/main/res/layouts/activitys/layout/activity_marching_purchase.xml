@@ -23,6 +23,7 @@
         android:paddingRight="12dp"
         android:text="查看我的报价"
         android:textColor="@color/text_color333"
+        android:textSize="@dimen/textSizeTitle"
         android:visibility="gone"
         tools:visibility="visible" />
 

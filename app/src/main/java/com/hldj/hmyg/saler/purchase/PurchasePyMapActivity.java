@@ -5,22 +5,41 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.GlobBaseAdapter;
+import com.hldj.hmyg.bean.CityGsonBean;
+import com.hldj.hmyg.bean.SimpleGsonBean_new;
+import com.hldj.hmyg.bean.SimplePageBean;
+import com.hldj.hmyg.buyer.Ui.CityWheelDialogF;
 import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
+import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
+import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
+import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.Adapter.MapSearchAdapter;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
 import com.hldj.hmyg.saler.M.PurchaseBean;
+import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.P.PurchasePyMapPresenter;
+import com.hldj.hmyg.saler.bean.UserPurchase;
+import com.hldj.hmyg.saler.purchase.userbuy.BuyForUserActivity;
+import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserDetailActivity;
+import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.hldj.hmyg.widget.SegmentedGroup;
@@ -28,6 +47,7 @@ import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 import com.weavey.loading.lib.LoadingLayout;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -68,11 +88,20 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
     private LinearLayout ll_01;
 
     private GlobBaseAdapter purchaseBeenad;
+    private View iv_histtory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase_py_map);
+
+        recycle = getView(R.id.recycle);
+        sptv_program_do_search = getView(R.id.sptv_program_do_search);
+
+        iv_histtory = getView(R.id.iv_histtory);
+        fbqg = getView(R.id.fbqg);
+        et_program_serach_text = getView(R.id.et_program_serach_text);
+        select_city = getView(R.id.select_city);
 
         SegmentedGroup segmented3 = (SegmentedGroup) findViewById(R.id.segmented3);
         button31 = (RadioButton) findViewById(R.id.button31);
@@ -108,10 +137,49 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
 
 
         MultipleClickProcess multipleClickProcess = new MultipleClickProcess();
-
+        iv_histtory.setOnClickListener(multipleClickProcess);
+        sptv_program_do_search.setOnClickListener(multipleClickProcess);
         btn_back.setOnClickListener(multipleClickProcess);
         id_tv_edit_all.setOnClickListener(multipleClickProcess);
 
+        initViewPurchaseByUser();
+
+
+    }
+
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+        switch (checkedId) {
+            case R.id.button32:
+
+                break;
+            case R.id.button31:
+
+                StorePurchaseListActivity.shouldShow = true;
+
+
+                getView(R.id.ll_show_3).setVisibility(View.GONE);
+                getView(R.id.ll_show_2).setVisibility(View.GONE);
+                getView(R.id.ll_show_12).setVisibility(View.VISIBLE);
+
+
+                break;
+
+            case R.id.button33:
+
+//                ToastUtil.showShortToast("zhongjian");
+//                recycle.onRefresh();
+                getView(R.id.ll_show_2).setVisibility(View.VISIBLE);
+                getView(R.id.ll_show_3).setVisibility(View.GONE);
+                getView(R.id.ll_show_12).setVisibility(View.GONE);
+
+                break;
+
+            default:
+                // Nothing to do
+        }
     }
 
 
@@ -125,8 +193,90 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
         public void onClick(View view) {
             if (flag) {
                 switch (view.getId()) {
+                    case R.id.sptv_program_do_search:
+                        sptv_program_do_search(view);
+                        break;
                     case R.id.btn_back:
                         onBackPressed();
+                        break;
+                    case R.id.iv_histtory:
+
+                        StorePurchaseListActivity.shouldShow = false;
+                        if (purchaseBeenad != null) {
+                            getView(R.id.ll_show_3).setVisibility(View.VISIBLE);
+                            getView(R.id.ll_show_2).setVisibility(View.GONE);
+                            getView(R.id.ll_show_12).setVisibility(View.GONE);
+                            return;
+                        }
+                        type = "";
+                        showLoading();
+
+                        getView(R.id.ll_show_2).setVisibility(View.GONE);
+                        getView(R.id.ll_show_3).setVisibility(View.VISIBLE);
+                        getView(R.id.ll_show_12).setVisibility(View.GONE);
+
+
+                        XListView listView3 = getView(R.id.listview_show_3);
+//                listview.setPullLoadEnable(true);
+//                listview.setPullRefreshEnable(true);
+//                listview.setDivider(null);
+                        lv.setPullLoadEnable(false);
+                        lv.setPullRefreshEnable(false);
+                        purchaseBeenad = new PurchaseListAdapter(PurchasePyMapActivity.this, null, R.layout.list_item_purchase_list_new_three);
+                        listView3.setAdapter(purchaseBeenad);
+                        //初始化监听接口
+                        ResultCallBack<List<PurchaseBean>> callBack = new ResultCallBack<List<PurchaseBean>>() {
+                            @Override
+                            public void onSuccess(List<PurchaseBean> purchaseBeen) {
+                                purchaseBeenad.addData(purchaseBeen);
+
+                                if (purchaseBeen != null && purchaseBeen.size() % 10 == 0) {
+                                    pageIndex3++;
+                                }
+
+                                if (purchaseBeen == null || purchaseBeen.size() == 0) {
+                                    hidenContent(getView(R.id.listview_show_3_loading));
+                                } else {
+                                    showContent(getView(R.id.listview_show_3_loading));
+                                }
+
+                                getdata = true;//成功获取到了
+                                onLoad3(listView3);
+                                hindLoading();
+                            }
+
+                            @Override
+                            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                                getdata = true;//获取到了，但是失败了
+                                onLoad3(listView3);
+                                hindLoading();
+                            }
+                        };
+
+
+                        listView3.setXListViewListener(new IXListViewListener() {
+                            @Override
+                            public void onRefresh() {
+                                showLoading();
+                                req3(callBack, 0);
+                                pageIndex3 = 0;
+                                purchaseBeenad.setState(GlobBaseAdapter.REFRESH);
+                                onLoad3(listView3);
+                            }
+
+
+                            @Override
+                            public void onLoadMore() {
+                                listview.setPullRefreshEnable(false);
+                                req3(callBack, pageIndex3);
+                                onLoad3(listView3);
+                            }
+                        });
+
+
+                        req3(callBack, pageIndex3);
+                        getdata = false;//数据获取到了吗？
+
                         break;
                     case R.id.id_tv_edit_all:
                         D.e("订阅 与 分享");
@@ -277,115 +427,6 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
 
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-        switch (checkedId) {
-            case R.id.button31:
-
-                StorePurchaseListActivity.shouldShow = true;
-//                if (listAdapter == null) {
-//                    showLoading();
-//                    StorePurchaseListActivity.shouldShow = true;
-//
-////              type = "quoting";
-//                    type = "";
-//                    onRefresh();
-//
-//                    new Handler().postDelayed(() -> {
-//                        init();
-//                    }, 30);
-//
-//                    showNotice(0);
-//                }
-
-
-                getView(R.id.ll_show_3).setVisibility(View.GONE);
-                getView(R.id.ll_show_12).setVisibility(View.VISIBLE);
-                break;
-
-            case R.id.button33:
-
-                StorePurchaseListActivity.shouldShow = false;
-                if (purchaseBeenad != null) {
-                    getView(R.id.ll_show_3).setVisibility(View.VISIBLE);
-                    getView(R.id.ll_show_12).setVisibility(View.GONE);
-                    return;
-                }
-                type = "";
-                showLoading();
-
-                getView(R.id.ll_show_3).setVisibility(View.VISIBLE);
-                getView(R.id.ll_show_12).setVisibility(View.GONE);
-
-
-                XListView listView3 = getView(R.id.listview_show_3);
-//                listview.setPullLoadEnable(true);
-//                listview.setPullRefreshEnable(true);
-//                listview.setDivider(null);
-                lv.setPullLoadEnable(false);
-                lv.setPullRefreshEnable(false);
-                purchaseBeenad = new PurchaseListAdapter(PurchasePyMapActivity.this, null, R.layout.list_item_purchase_list_new_three);
-                listView3.setAdapter(purchaseBeenad);
-                //初始化监听接口
-                ResultCallBack<List<PurchaseBean>> callBack = new ResultCallBack<List<PurchaseBean>>() {
-                    @Override
-                    public void onSuccess(List<PurchaseBean> purchaseBeen) {
-                        purchaseBeenad.addData(purchaseBeen);
-
-                        if (purchaseBeen != null && purchaseBeen.size() % 10 == 0) {
-                            pageIndex3++;
-                        }
-
-                        if (purchaseBeen == null || purchaseBeen.size() == 0) {
-                            hidenContent(getView(R.id.listview_show_3_loading));
-                        } else {
-                            showContent(getView(R.id.listview_show_3_loading));
-                        }
-
-                        getdata = true;//成功获取到了
-                        onLoad3(listView3);
-                        hindLoading();
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t, int errorNo, String strMsg) {
-                        getdata = true;//获取到了，但是失败了
-                        onLoad3(listView3);
-                        hindLoading();
-                    }
-                };
-
-
-                listView3.setXListViewListener(new IXListViewListener() {
-                    @Override
-                    public void onRefresh() {
-                        showLoading();
-                        req3(callBack, 0);
-                        pageIndex3 = 0;
-                        purchaseBeenad.setState(GlobBaseAdapter.REFRESH);
-                        onLoad3(listView3);
-                    }
-
-
-                    @Override
-                    public void onLoadMore() {
-                        listview.setPullRefreshEnable(false);
-                        req3(callBack, pageIndex3);
-                        onLoad3(listView3);
-                    }
-                });
-
-
-                req3(callBack, pageIndex3);
-                getdata = false;//数据获取到了吗？
-
-                break;
-
-            default:
-                // Nothing to do
-        }
-    }
 
     private void onLoad3(XListView listView3) {
         new Handler().postDelayed(new Runnable() {
@@ -457,4 +498,146 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
     public boolean setSwipeBackEnable() {
         return true;
     }
+
+
+    /*    处理  用户报价内容   */
+    CoreRecyclerView recycle;
+
+
+    ImageView fbqg;
+
+    TextView select_city;
+
+    View sptv_program_do_search;
+
+    EditText et_program_serach_text;
+
+    private String mCityCode = "";
+
+
+    public void sptv_program_do_search(View view) {
+        recycle.onRefresh();
+    }
+
+    private String getSearchContent() {
+        return et_program_serach_text.getText().toString();
+    }
+
+
+    public void initViewPurchaseByUser() {
+//        ToastUtil.showShortToast("初始化底部");
+        Log.i(TAG, "初始化底部初始化底部初始化底部初始化底部: ");
+
+        getView(R.id.fbqg).setOnClickListener(v -> {
+            ToastUtil.showShortToast("asfda");
+        });
+        fbqg.setOnClickListener(v -> BuyForUserActivity.发布求购(mActivity));
+        et_program_serach_text.setOnEditorActionListener((arg0, arg1, arg2) -> {
+            if (arg1 == EditorInfo.IME_ACTION_SEARCH) {
+                sptv_program_do_search(null);
+            }
+            return false;
+        });
+
+
+        select_city
+                .setOnClickListener(v -> {
+
+//                    ComonCityWheelDialogF.instance().addSelectListener((province, city, distrect, cityCode) -> {
+////                        ToastUtil.showLongToast(province + " " + city);
+//                        mCityCode = cityCode.substring(0, 4);
+//                        select_city.setText(province + " " + city);
+//                        recycle.onRefresh();
+//                    }).show(getSupportFragmentManager(), TAG);
+
+
+                    CityWheelDialogF.instance()
+                            .isShowCity(true)
+                            .isShow全国(true)
+                            .addSelectListener(new CityWheelDialogF.OnCitySelectListener() {
+                                @Override
+                                public void onCitySelect(CityGsonBean.ChildBeans childBeans) {
+
+                                    mCityCode = childBeans.cityCode;
+                                    select_city.setText(childBeans.fullName);
+                                    recycle.onRefresh();
+
+                                }
+
+                                @Override
+                                public void onProvinceSelect(CityGsonBean.ChildBeans childBeans) {
+
+                                }
+                            }).show(getSupportFragmentManager(), "SellectActivity2");
+
+
+                });
+
+        recycle
+                .init(new BaseQuickAdapter<UserPurchase, BaseViewHolder>(R.layout.item_buy_for_user) {
+                    @Override
+                    protected void convert(BaseViewHolder helper, UserPurchase item) {
+                        Log.i(TAG, "chenggongconvertconvertconvertconvert: ");
+
+                        helper.convertView.setOnClickListener(v -> PublishForUserDetailActivity.start2Activity(mActivity, item.id, item.ownerId));
+                        BuyForUserActivity.doConvert(helper, item, mActivity);
+
+                        if (MyApplication.getUserBean().id.equals(item.ownerId)) {
+                            if (GetServerUrl.isTest)
+                                helper.setTextColorRes(R.id.title, R.color.main_color);
+                            else helper.setTextColorRes(R.id.title, R.color.text_color666);
+                        }
+
+
+                    }
+                })
+                .openRefresh()
+                .openLoadMore(10, page -> {
+                    requestData(0);
+                });
+
+//        BuyForUserActivity.
+//                requestData(0, mCityCode, getSearchContent(), mActivity, recycle);
+
+        recycle.onRefresh();
+    }
+
+
+    private static final String TAG = "PurchasePyMapActivity";
+
+    /*  test page gsonbean  format */
+    public void requestData(int page) {
+
+        Type type = new TypeToken<SimpleGsonBean_new<SimplePageBean<List<UserPurchase>>>>() {
+        }.getType();
+
+        new BasePresenter()
+                .putParams(ConstantParams.pageIndex, page + "")
+                .putParams("cityCode", mCityCode)
+                .putParams(ConstantParams.name, getSearchContent())
+                .doRequest("userPurchase/list", true, new HandlerAjaxCallBackPage<UserPurchase>(mActivity, type, UserPurchase.class) {
+                    @Override
+                    public void onRealSuccess(List<UserPurchase> seedlingBeans) {
+                        Log.i(TAG, "onRealSuccess: " + seedlingBeans);
+                        Log.i(TAG, "onRealSuccess: " + seedlingBeans);
+                        recycle.getAdapter().addData(seedlingBeans);
+//                        recycle.setBackgroundColor(Color.RED);
+                        Log.i(TAG, "chenggong: ");
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        recycle.selfRefresh(false);
+                    }
+                });
+    }
+
+
+
+
+
+    /*    处理  用户报价内容   */
+
+
 }

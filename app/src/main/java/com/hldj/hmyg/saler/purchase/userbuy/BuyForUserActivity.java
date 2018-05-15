@@ -28,6 +28,7 @@ import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.FUtil;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalActivity;
 import net.tsz.afinal.annotation.view.ViewInject;
@@ -66,7 +67,7 @@ public class BuyForUserActivity extends BaseMVPActivity {
         recycle.onRefresh();
     }
 
-    private String getSearchContent() {
+    public String getSearchContent() {
         return et_program_serach_text.getText().toString();
     }
 
@@ -79,7 +80,7 @@ public class BuyForUserActivity extends BaseMVPActivity {
     @Override
     public void initView() {
         FinalActivity.initInjectedView(this);
-        fbqg.setOnClickListener(v -> 发布求购());
+        fbqg.setOnClickListener(v -> 发布求购(this));
         et_program_serach_text.setOnEditorActionListener((arg0, arg1, arg2) -> {
             if (arg1 == EditorInfo.IME_ACTION_SEARCH) {
                 sptv_program_do_search(null);
@@ -120,19 +121,24 @@ public class BuyForUserActivity extends BaseMVPActivity {
 
                 });
 
-        initRecycleView(recycle);
+        initRecycleView(recycle, this, new CoreRecyclerView.addDataListener() {
+            @Override
+            public void addData(int page) {
+                ToastUtil.showShortToast("request");
+            }
+        });
 
 
-        requestData(0);
+        requestData(0, mCityCode, getSearchContent(), mActivity, recycle);
 
     }
 
 
-    private void 发布求购() {
+    public static void 发布求购(Activity mActivity) {
         PublishForUserActivity.start2Activity(mActivity);
     }
 
-    private void initRecycleView(CoreRecyclerView recycle) {
+    public void initRecycleView(CoreRecyclerView recycle, NeedSwipeBackActivity mActivity, CoreRecyclerView.addDataListener addDataListener) {
 
         recycle
                 .init(new BaseQuickAdapter<UserPurchase, BaseViewHolder>(R.layout.item_buy_for_user) {
@@ -140,6 +146,8 @@ public class BuyForUserActivity extends BaseMVPActivity {
                     protected void convert(BaseViewHolder helper, UserPurchase item) {
                         helper.convertView.setOnClickListener(v -> PublishForUserDetailActivity.start2Activity(mActivity, item.id, item.ownerId));
                         doConvert(helper, item, mActivity);
+
+                        Log.i(TAG, "byuse: byusebyusebyusebyusebyuse");
 
                         if (MyApplication.getUserBean().id.equals(item.ownerId)) {
                             if (GetServerUrl.isTest)
@@ -151,8 +159,7 @@ public class BuyForUserActivity extends BaseMVPActivity {
                     }
                 })
                 .openRefresh()
-                .openLoadMore(999, page -> requestData(page))
-        ;
+                .openLoadMore(10, addDataListener);
 
 
     }
@@ -219,7 +226,7 @@ public class BuyForUserActivity extends BaseMVPActivity {
 
 
     /*  test page gsonbean  format */
-    public void requestData(int page) {
+    public static void requestData(int page, String mCityCode, String searchKey, NeedSwipeBackActivity mActivity, CoreRecyclerView recycle) {
 
         Type type = new TypeToken<SimpleGsonBean_new<SimplePageBean<List<UserPurchase>>>>() {
         }.getType();
@@ -228,13 +235,14 @@ public class BuyForUserActivity extends BaseMVPActivity {
         new BasePresenter()
                 .putParams(ConstantParams.pageIndex, page + "")
                 .putParams("cityCode", mCityCode)
-                .putParams(ConstantParams.name, getSearchContent())
+                .putParams(ConstantParams.name, searchKey)
                 .doRequest("userPurchase/list", true, new HandlerAjaxCallBackPage<UserPurchase>(mActivity, type, UserPurchase.class) {
                     @Override
                     public void onRealSuccess(List<UserPurchase> seedlingBeans) {
                         Log.i(TAG, "onRealSuccess: " + seedlingBeans);
                         Log.i(TAG, "onRealSuccess: " + seedlingBeans);
                         recycle.getAdapter().addData(seedlingBeans);
+
                     }
 
                     @Override

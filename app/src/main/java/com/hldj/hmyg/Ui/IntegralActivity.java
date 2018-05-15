@@ -18,7 +18,6 @@ import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
-import com.hldj.hmyg.saler.SaveSeedlingActivity;
 import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
@@ -36,7 +35,7 @@ import java.util.List;
 import static com.hldj.hmyg.R.id.score;
 
 /**
- * 积分详情界面
+ * 花币 详情界面
  */
 
 public class IntegralActivity extends BaseMVPActivity {
@@ -207,7 +206,9 @@ public class IntegralActivity extends BaseMVPActivity {
                 MainActivity.toC();
                 break;
             case "publishSeedling"://发布苗木
-                SaveSeedlingActivity.start2Activity(mActivity);
+                finish();
+                MainActivity.toD();
+//                SaveSeedlingActivity.start2Activity(mActivity);
                 break;
             case "quote"://采购报价
                 PurchasePyMapActivity.start2Activity(mActivity);

@@ -19,7 +19,6 @@ import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantParams;
-import com.hy.utils.ToastUtil;
 import com.lqr.optionitemview.OptionItemView;
 import com.mabeijianxi.smallvideorecord2.Log;
 import com.nostra13.universalimageloader.core.ImageLoader;

@@ -27,6 +27,7 @@ import com.hldj.hmyg.M.QueryBean;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.StoreActivity;
 import com.hldj.hmyg.Ui.StoreActivity_new;
+import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.base.BaseFragment;
 import com.hldj.hmyg.bean.StoreGsonBean;
 import com.hldj.hmyg.buyer.weidet.BaseMultAdapter;
@@ -193,6 +194,11 @@ public class StoreHomeFragment extends BaseFragment implements StoreContract.Vie
     @Override
     public ViewPager getViewPager() {
         return null;
+    }
+
+    @Override
+    public void initUpMarqueeView(List<Moments> moments) {
+
     }
 
 

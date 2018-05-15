@@ -201,13 +201,13 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
         Log.i("doConvert", "doConvert: " + item.toString());
 
         helper
-                .setText(R.id.title, item.attrData.name)
+                .setText(R.id.title, item.attrData.name )
                 .setText(R.id.shuliang, FUtil.$_zero(item.attrData.count + " " + item.attrData.unitTypeName))
                 .setText(R.id.qubaojia, "")
                 .setText(R.id.price, "￥" + item.price + "/" + item.attrData.unitTypeName)
                 .setText(R.id.space_text, item.attrData.specText)
-                .setText(R.id.city, item.attrData.cityName)
-                .setText(R.id.update_time, item.createDate);
+                .setText(R.id.city, "用苗地:" + item.attrData.cityName)
+                .setText(R.id.update_time, "结束时间:" + item.createDate);
 
         helper
                 .convertView.setOnClickListener(v -> {

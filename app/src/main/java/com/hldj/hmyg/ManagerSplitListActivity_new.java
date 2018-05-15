@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -67,7 +68,8 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
     /*苗圃  id   -- -  地址id */
     private String getExtraNurseryId() {
         Bundle bundle = getIntent().getExtras();
-        if (bundle == null) {
+        if (TextUtils.isEmpty(bundle != null ? bundle.getString("id") : null)) {
+            findViewById(R.id.ll_bottom_layout).setVisibility(View.GONE);
             return "";
         } else {
             return bundle.getString("id", "");
@@ -300,6 +302,7 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
             tv_right.setVisibility(View.VISIBLE);
 
             tv_right.setText("修改库存");
+            tv_right.setTextColor(getColorByRes(R.color.main_color));
             return 修改库存(helper, item, mActivity);
             //已下架 -- 被撤回   、删除  上架
         } else if (
@@ -457,7 +460,7 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
 
     private void resetStateList() {
         if (muzt != null) {
-            muzt.setText("苗木状态");
+            muzt.setText("全部");
         }
         currentPos = 0;
         commonListSpinner1 = null;
@@ -591,12 +594,15 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
 
         if (index == 2) {   // 已上架
             tvs[2].setTextColor(ContextCompat.getColor(mActivity, R.color.main_color));
+
             ivs[2].setVisibility(View.VISIBLE);
 
             tvs[5].setTextColor(ContextCompat.getColor(mActivity, R.color.text_color333));
             ivs[5].setVisibility(View.INVISIBLE);
 
             setType("other");
+
+            getView(R.id.btn_manager_storege).setVisibility(View.VISIBLE);
 
 
         } else if (index == 5) // 带操作
@@ -606,9 +612,26 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
 
             tvs[5].setTextColor(ContextCompat.getColor(mActivity, R.color.main_color));
             ivs[5].setVisibility(View.VISIBLE);
+
             setType("pending");
 
+            /**
+             *
+             <Button
+             android:id="@+id/btn_manager_storege"
+             style="@style/bottom_button_green"
+             android:background="@color/simple_blue"
+             android:text="草稿箱(50)" />
+
+             <Button
+             android:id="@+id/btn_manager_publish"
+             style="@style/bottom_button_green"
+             android:text="发布苗木" />
+             */
+            getView(R.id.btn_manager_storege).setVisibility(View.GONE);
+
         }
+        tvs[5].setText("待处理");
 
 
         resetStateList();

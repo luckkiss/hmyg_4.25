@@ -37,6 +37,7 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.MLocationManager;
 import com.hldj.hmyg.util.MyUtil;
 import com.hldj.hmyg.util.StartBarUtils;
+import com.hldj.hmyg.widget.MainRadioButton;
 import com.white.update.UpdateInfo;
 import com.white.utils.SettingUtils;
 
@@ -223,6 +224,9 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     public static void toB() {
         radioderGroup.check(R.id.tab_b);
     }
+    public static void toD() {
+        radioderGroup.check(R.id.tab_d);
+    }
 
     public static void toC() {
         radioderGroup.check(R.id.iv_publish);
@@ -265,6 +269,10 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                     tabHost.setCurrentTabByTag("4");
                     check = "4";
                 }
+
+                MainRadioButton tab_c = findViewById(R.id.tab_e);
+                tab_c.setShowSmallDot(true);
+
                 break;
             case R.id.tab_e:
                 if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {
@@ -274,6 +282,11 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                     tabHost.setCurrentTabByTag("5");
                     check = "5";
                 }
+
+                MainRadioButton tab_e = findViewById(R.id.tab_e);
+                tab_e.setShowSmallDot(false);
+//                tab_e.setCompoundDrawablePadding(20);
+
 
                 break;
         }
@@ -288,6 +301,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
             return true;
 
         }
+
 
         return super.dispatchKeyEvent(event);
     }

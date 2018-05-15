@@ -17,7 +17,10 @@ import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
 import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.saler.purchase.userbuy.BuyForUserActivity;
+import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserActivity;
+import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserDetailActivity;
 import com.hldj.hmyg.util.ConstantParams;
+import com.hldj.hmyg.util.ConstantState;
 
 import net.tsz.afinal.FinalActivity;
 import net.tsz.afinal.annotation.view.ViewInject;
@@ -57,8 +60,22 @@ public class MarchingPurchaseActivity extends BaseMVPActivity {
             @Override
             protected void convert(BaseViewHolder helper, UserPurchase item) {
                 BuyForUserActivity.doConvert(helper, item, mActivity);
+                helper.convertView.setOnClickListener(v ->
+                        PublishForUserDetailActivity.start2Activity(mActivity, item.id, item.ownerId, true)
+                );
+
+
             }
         })
+                .setDefaultEmptyView(true, "发布苗木", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        ToastUtil.showShortToast("发布苗木");
+                        PublishForUserActivity.start2Activity(mActivity);
+                    }
+                })
+                .showEmptyAndSetTip("苗圃里的苗木品种越多，匹配到的求购越多")
+                .setEmptyText("未匹配到求购信息")
                 .openRefresh()
                 .openLoadMore(20, this::requestData)
         ;
@@ -76,6 +93,7 @@ public class MarchingPurchaseActivity extends BaseMVPActivity {
                 .doRequest("admin/userPurchase/listMatch", new HandlerAjaxCallBackPage<UserPurchase>(mActivity, type) {
                     @Override
                     public void onRealSuccess(List<UserPurchase> purchaseList) {
+                        recycler.getAdapter().addData(purchaseList);
 
                     }
 
@@ -103,4 +121,12 @@ public class MarchingPurchaseActivity extends BaseMVPActivity {
         return "匹配求购";
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == ConstantState.CANCLE_SUCCEED) {
+            recycler.onRefresh();
+        }
+    }
 }

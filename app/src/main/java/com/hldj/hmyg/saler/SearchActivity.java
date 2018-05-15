@@ -19,6 +19,7 @@ import com.zzy.flowers.widget.popwin.EditP2;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.maxwin.view.XListView;
 
+// 仿写 一个 com.hldj.hmyg.Ui.friend.child.SearchActivity
 public class SearchActivity extends NeedSwipeBackActivity {
     private XListView xListView;
 

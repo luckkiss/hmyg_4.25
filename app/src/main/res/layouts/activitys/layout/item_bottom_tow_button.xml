@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/px80"
+    android:layout_below="@+id/update_time"
+    android:background="@drawable/bg_top_bottom_line"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/bottom_left"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="分享求购" />
+
+    <View
+        android:layout_width="1px"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:background="@color/text_color666" />
+
+    <TextView
+        android:id="@+id/bottom_right"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="结束求购"
+        android:textColor="@color/main_color" />
+
+
+</LinearLayout>
+
+
+

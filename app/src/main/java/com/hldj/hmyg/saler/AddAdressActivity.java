@@ -65,7 +65,7 @@ public class AddAdressActivity extends BaseMVPActivity {
             //修改数据
             initExtral(getExtral());
 
-            setTitle("编辑苗源地址");
+            setTitle("编辑苗圃");
 
 //            this.setBackgroAndTextAndVis(getView(R.id.toolbar_right_text), "删除", R.drawable.red_btn_selector);
 
@@ -75,7 +75,7 @@ public class AddAdressActivity extends BaseMVPActivity {
 
         } else {
             //添加数据
-            setTitle("新增苗源地址");
+            setTitle("新增苗圃");
             autoSetLoc();
 
             //获取定位

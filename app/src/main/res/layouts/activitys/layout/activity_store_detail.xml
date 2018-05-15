@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/toolbar_3_0" />
+
+
+    <include
+        layout="@layout/include_store_user_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="12dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/bg_top_bottom_line">
+
+        <TextView
+            android:id="@+id/sps"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="0\n商品数" />
+
+        <View style="@style/View_line_vertical" />
+
+        <TextView
+            android:id="@+id/mmq"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="0\n苗木圈" />
+
+    </LinearLayout>
+
+
+    <View style="@style/View_line_gray" />
+
+
+    <com.hldj.hmyg.widget.MyOptionItemView
+        android:id="@+id/option_phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/simpleHeightContent"
+        android:background="@drawable/bg_bottom_line"
+        android:paddingRight="12dp"
+        app:left_text="联系商家"
+        app:right_text_color="@color/text_color666"
+        app:right_text_margin_right="12dp" />
+
+    <com.hldj.hmyg.widget.MyOptionItemView
+        android:id="@+id/option_qc_code"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/simpleHeightContent"
+        android:background="@drawable/bg_bottom_line"
+        android:paddingRight="12dp"
+        app:left_text="店铺二维码"
+        app:right_src="@drawable/arrow_right_eq"
+        app:right_text="查看"
+        app:right_text_color="@color/text_color666" />
+
+    <com.hldj.hmyg.widget.MyOptionItemView
+        android:id="@+id/option_identity"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/simpleHeightContent"
+        android:background="@drawable/bg_bottom_line"
+        android:paddingRight="12dp"
+        app:left_text="证照信息"
+        app:right_src="@drawable/arrow_right_eq"
+        app:right_text="已认证"
+        app:right_text_color="@color/main_color" />
+
+    <View style="@style/View_line_gray" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_bottom_line">
+
+        <TextView
+            android:id="@+id/mainType_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="7dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="8dp"
+            android:padding="5dp"
+            android:text="主营品种" />
+
+
+        <TextView
+            android:id="@+id/tv_mainType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/mainType_left"
+            android:gravity="end"
+            android:lineSpacingMultiplier="1.2"
+            android:padding="12dp"
+            tools:text="21154654646f4s6a215465464
+            6f4s6a54fd2154654646f4s6a54fd21" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_bottom_line">
+
+        <TextView
+            android:id="@+id/left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="7dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="8dp"
+            android:padding="5dp"
+            android:text="店铺简介" />
+
+
+        <TextView
+            android:id="@+id/tv_remarks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/left"
+            android:padding="12dp"
+            tools:text="2154654646f4s6a215465464
+            6f4s6a54fd2154654646f4s6a54fd2154654646f4
+            s6154654646f4
+            s6a54fd2154654646f4s6a54fd54fd"
+
+            />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

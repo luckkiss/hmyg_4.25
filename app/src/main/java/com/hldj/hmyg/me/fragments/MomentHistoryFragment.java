@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
+import com.hldj.hmyg.CallBack.IFootMarkEmpty;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
@@ -26,6 +27,7 @@ import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.buyer.weidet.decoration.SectionDecoration;
 import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.saler.bean.enums.FootMarkSourceType;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.VideoHempler;
@@ -50,7 +52,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
  *
  */
 
-public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> {
+public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> implements IFootMarkEmpty {
 
 
     @Override
@@ -87,7 +89,9 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> {
                         if (mCoreRecyclerView.getAdapter().getData().size() == 0) {
                             return null;
                         } else {
-                            return mCoreRecyclerView.getAdapter().getItem(position) + "";
+
+                            Moments databean = (Moments) mCoreRecyclerView.getAdapter().getItem(position);
+                            return databean.attrData.dateStr;
                         }
 
                     }
@@ -101,7 +105,9 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> {
                         View view = LayoutInflater.from(mActivity).inflate(R.layout.item_tag, null);
                         TextView textView = view.findViewById(R.id.text1);
                         textView.setHeight((int) getResources().getDimension(R.dimen.px74));
-                        textView.setText("3333");
+                        Moments databean = (Moments) mCoreRecyclerView.getAdapter().getItem(position);
+                        textView.setText(databean.attrData.dateStr);
+
                         return view;
                     }
                 }).setGroupHeight((int) getResources().getDimension(R.dimen.px74)).build());
@@ -125,10 +131,11 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> {
         helper.addOnClickListener(R.id.descript, clickListener);//描述
 
         helper.setVisible(R.id.imageView7, false)
-                .setVisible(R.id.tv_right_top, false)
+                .setVisible(R.id.tv_right_top, true)
                 .addOnClickListener(R.id.tv_right_top, v ->
                         {
 
+                            doUserDelDelete(helper, item, mActivity);
 
 //                            new AlertDialog(mActivity).builder()
 //                                    .setTitle("确定删除本项?")
@@ -251,5 +258,27 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> {
     public int bindRecycleItemId() {
         return R.layout.item_friend_cicle_simple_center;
     }
+
+    @Override
+    public void doEmpty() {
+//        ToastUtil.showLongToast("清空  " + FootMarkSourceType.moments.getEnumText());
+        doUserDelDelete(null, this, mActivity);
+    }
+
+    @Override
+    public String getResourceId() {
+        return null;
+    }
+
+    @Override
+    public String getDomain() {
+        return "admin/footmark/userDelBySource";
+    }
+
+    @Override
+    public FootMarkSourceType sourceType() {
+        return FootMarkSourceType.moments;
+    }
+
 
 }

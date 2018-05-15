@@ -2727,7 +2727,9 @@ public class SaveSeedingGsonBean implements Serializable {
             public static class AttrDataBean implements Serializable {
                 public boolean ziying = false;
                 public String createDate = "";
+                public String dateStr = "";
                 public String ziyingRemarks = "";
+                public String footMarkId = "";
 
             }
 

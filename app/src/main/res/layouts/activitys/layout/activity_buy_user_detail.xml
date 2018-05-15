@@ -187,12 +187,10 @@
             android:numColumns="4"
             android:scrollbars="none" />
 
-        <TextView
-            android:id="@+id/submit"
-            style="@style/save_bottom"
 
-            android:layout_height="45dp"
-            android:text="提交报价" />
+
+        <include layout="@layout/include_bottom_left_white_right_main" />
+
 
         <View
             android:layout_width="match_parent"

@@ -298,22 +298,20 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
     }
 
     public CoreRecyclerView setDefaultEmptyView() {
-        return setDefaultEmptyView(false,null,null);
+        return setDefaultEmptyView(false, null, null);
     }
 
-    public void setRetryText()
-    {
+    public void setRetryText() {
 
     }
 
-    public CoreRecyclerView setDefaultEmptyView(boolean isOpenRetryButton,String text, View.OnClickListener retry) {
+    public CoreRecyclerView setDefaultEmptyView(boolean isOpenRetryButton, String text, View.OnClickListener retry) {
         View empty = LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null);
 
         if (isOpenRetryButton) {
             TextView textView = empty.findViewById(R.id.go_to);
             textView.setVisibility(VISIBLE);
-            if (!TextUtils.isEmpty(text))
-            {
+            if (!TextUtils.isEmpty(text)) {
                 textView.setText(text);
             }
             textView.setOnClickListener(retry);
@@ -328,6 +326,34 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
         }
         empty.setLayoutParams(layoutParams);
         mQuickAdapter.setEmptyView(empty);
+        return this;
+    }
+
+    public CoreRecyclerView showEmptyAndSetTip(CharSequence str) {
+        if (mQuickAdapter.getEmptyView() != null) {
+            TextView t_tipTextView = mQuickAdapter.getEmptyView().findViewById(R.id.t_tipTextView);
+            if (t_tipTextView != null) {
+                t_tipTextView.setVisibility(VISIBLE);
+                t_tipTextView.setText(str);
+            }
+        }
+        return this;
+    }
+
+    public CoreRecyclerView setEmptyText(CharSequence str) {
+//        if (mQuickAdapter.getEmptyView() != null) {
+//            TextView t_tipTextView = mQuickAdapter.getEmptyView().findViewById(R.id.t_tipTextView);
+//            if (t_tipTextView != null) {
+//                t_tipTextView.setVisibility(VISIBLE);
+//                t_tipTextView.setText(str);
+//            }
+//        }
+        TextView tv_empty_err = (TextView) mQuickAdapter.getEmptyView().findViewById(R.id.t_emptyTextView);
+        if (tv_empty_err != null) {
+            if (!TextUtils.isEmpty(str))
+                tv_empty_err.setText(str);
+        }
+
         return this;
     }
 

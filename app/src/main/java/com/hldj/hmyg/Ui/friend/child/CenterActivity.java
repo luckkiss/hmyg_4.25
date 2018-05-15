@@ -183,11 +183,9 @@ public class CenterActivity extends BaseMVPActivity {
                 helper.addOnClickListener(R.id.descript, clickListener);//描述
 
                 helper.setVisible(R.id.imageView7, false)
-                        .setVisible(R.id.tv_right_top, isSelf())
+                        .setVisible(R.id.tv_right_top, false)
                         .addOnClickListener(R.id.tv_right_top, v ->
                                 {
-
-
                                     new AlertDialog(mActivity).builder()
                                             .setTitle("确定删除本项?")
                                             .setPositiveButton("确定删除", v1 -> {
@@ -199,6 +197,62 @@ public class CenterActivity extends BaseMVPActivity {
 
                                 }
                         );
+
+                helper
+                        .setText(R.id.bottom_left, "删除")
+                        .addOnClickListener(R.id.bottom_left, v -> {
+                            new AlertDialog(mActivity).builder()
+                                    .setTitle("确定删除本项?")
+                                    .setPositiveButton("确定删除", v1 -> {
+                                        //                                    ToastUtil.showLongToast("删除");
+                                        doDelete(item, helper.getAdapterPosition());
+
+                                    }).setNegativeButton("取消", v2 -> {
+                            }).show();
+                        })
+                ;
+
+
+                if (currentType.equals(MomentsType.collect.getEnumValue()))//enumValue  collect
+                {
+                    helper.setVisible(R.id.bottom_right, false);
+                } else {
+                    helper.setTextColorRes(R.id.bottom_right, item.allowRefresh ? R.color.main_color : R.color.text_color999);
+                    helper.setVisible(R.id.bottom_right, item.allowRefresh);
+                }
+
+
+                helper.setText(R.id.bottom_right, "更新")
+                        .addOnClickListener(R.id.bottom_right, v -> {
+                            new BasePresenter()
+                                    .putParams("id", item.id)
+                                    .doRequest("admin/moments/refresh", new HandlerAjaxCallBack(mActivity) {
+                                        @Override
+                                        public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                            ToastUtil.showLongToast(gsonBean.msg);
+                                            item.allowRefresh = false;
+
+                                            /**
+                                             *   String time_city = FUtil.$_zero(item.timeStampStr);
+                                             if (item.ciCity != null && item.ciCity.fullName != null) {
+                                             time_city += "   " + item.ciCity.fullName;
+                                             }
+                                             helper.setText(R.id.time_city, time_city);//时间戳_发布点
+                                             */
+                                            String time_city = gsonBean.getData().timeStampStr;
+                                            if (item.ciCity != null && item.ciCity.fullName != null) {
+                                                time_city += "   " + item.ciCity.fullName;
+                                            }
+                                            helper.setText(R.id.time_city, time_city);//时间戳_发布点
+
+                                            helper.setTextColorRes(R.id.bottom_right, R.color.text_color999);
+//                                            helper.setText(R.id., gsonBean.getData().timeStampStr);
+                                        }
+                                    });
+                        });
+                helper.setVisible(R.id.linearLayout, isSelf());
+
+
                 helper.setText(R.id.descript, item.content);//描述
                 String time_city = FUtil.$_zero(item.timeStampStr);
                 if (item.ciCity != null && item.ciCity.fullName != null) {
@@ -236,11 +290,6 @@ public class CenterActivity extends BaseMVPActivity {
 
                         ImageView imageView13 = helper.getView(R.id.imageView13);
                         imageView13.setVisibility(item.attrData.identity ? View.VISIBLE : View.GONE);
-
-
-
-
-
 
 
                         ArrayList<Pic> arrayList = new ArrayList<>();

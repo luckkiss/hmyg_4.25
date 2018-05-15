@@ -177,7 +177,7 @@
                     android:layout_height="40dp"
                     android:drawablePadding="4dp"
                     android:gravity="center_vertical"
-                    android:text="经营品种"
+                    android:text="主营品种"
                     android:textColor="@color/text_color666"
                     android:textSize="@dimen/textSizeContent" />
 
@@ -187,7 +187,7 @@
                     android:layout_height="40dp"
                     android:layout_margin="@dimen/x4"
                     android:background="@null"
-                    android:hint="请在此输入经营的品种"
+                    android:hint="输入经营的品种"
                     android:maxLength="100"
                     android:minHeight="@dimen/y88"
                     android:paddingLeft="25dp"
@@ -208,12 +208,12 @@
                 android:id="@+id/qyrz"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/simpleHeightContent"
+                android:paddingRight="8dp"
                 app:left_text="企业认证"
                 app:left_text_color="@color/text_color666"
                 app:left_text_size="@dimen/textSizeContent"
                 app:right_src="@drawable/arrow_right_eq"
-                app:right_text="未认证"
-                android:paddingRight="8dp"
+                app:right_text="未实名认证"
                 app:right_text_color="@color/text_color666"
                 app:right_text_size="@dimen/textSizeContent" />
 
@@ -223,12 +223,12 @@
                 android:id="@+id/qyewm"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/simpleHeightContent"
+                android:paddingRight="8dp"
                 app:left_text="店铺二维码"
                 app:left_text_color="@color/text_color666"
                 app:left_text_size="@dimen/textSizeContent"
                 app:right_src="@drawable/arrow_right_eq"
                 app:right_text="查看"
-                android:paddingRight="8dp"
                 app:right_text_color="@color/text_color666"
                 app:right_text_size="@dimen/textSizeContent" />
 
@@ -246,6 +246,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="其他信息"
+                android:visibility="gone"
                 android:textColor="@color/text_color666"
                 android:textSize="@dimen/textSizeContent" />
 
@@ -255,7 +256,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone"
+                android:visibility="visible"
                 tools:visibility="visible">
 
 
@@ -295,7 +296,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/x4"
-                    android:background="@drawable/conner_edit"
+                    android:background="@drawable/corner_common_border_gray"
                     android:gravity="top"
                     android:hint="请输入店铺简介 ( 不超过200个字 )"
                     android:maxLength="100"
@@ -317,7 +318,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
+                    android:paddingRight="10dp" android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -332,7 +333,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical" android:visibility="gone">
 
 
                     <!--<TextView-->

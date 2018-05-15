@@ -80,6 +80,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -238,7 +239,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         this.getView(R.id.sptv_wd_mmq).setOnClickListener(v -> CenterActivity.start(mActivity, MyApplication.getUserBean().id));//  我的苗木圈
         this.getView(R.id.sptv_wd_jmb).setOnClickListener(v -> MiaoNoteListActivity.start(mActivity));// 记苗本
 
-        this.getView(R.id.sptv_wd_jf).setOnClickListener(v -> IntegralActivity.start(mActivity));//  积分
+        this.getView(R.id.sptv_wd_jf).setOnClickListener(v -> IntegralActivity.start(mActivity));//   花币
         this.getView(sptv_wd_gys).setOnClickListener(v -> ProviderActivity.start(mActivity, isQuote));//  供应商
         this.getView(sptv_wd_sfz).setOnClickListener(v -> AuthenticationActivity.start(mActivity, authStatue, "审核不通过原因：身份证不清晰，请重新上传"));//  身份认证
 
@@ -760,9 +761,19 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         isShowProject();
 
         requestListNum();
+
+
     }
 
     private void requestListNum() {
+
+
+//        BGABadgeLinearLayout tip_wd_qg = getView(R.id.tip_wd_qg);
+//        tip_wd_qg.showTextBadge("55");
+//        tip_wd_qg.getBadgeViewHelper().setBadgeGravity(BGABadgeViewHelper.BadgeGravity.RightTop);
+//        tip_wd_qg.getBadgeViewHelper().setBadgeVerticalMarginDp(8);
+//        tip_wd_qg.getBadgeViewHelper().setBadgeHorizontalMarginDp(16);
+
 
         //admin/personal/index
         new BasePresenter()
@@ -775,12 +786,37 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 //                        ToastUtil.showLongToast("===" + gsonBean.getData().footMarkCount);
 
 
-
                         TipNumType.isShowRightTop(gsonBean.getData().tipList,
                                 getView(R.id.tv_wd_sc),
                                 getView(R.id.tv_wd_gz),
                                 getView(R.id.tv_wd_fs),
                                 getView(R.id.tv_wd_zj));
+                        /**
+                         * {
+                         "type":"footMark",
+                         "showPoint":false,
+                         "count":18
+                         }
+                         */
+
+//                        tip_wd_qg,gsonBean.getData().tipList.size()
+
+                        BGABadgeLinearLayout tip_wd_qg = getView(R.id.tip_wd_qg);
+
+                        if (gsonBean.getData().tipList != null && gsonBean.getData().tipList.size() > 0) {
+                            for (int i = 0; i < gsonBean.getData().tipList.size(); i++) {
+//                          TipNum tipNum = Enum.valueOf(TipNum.class, gsonBean.getData().tipList.get(i).type);
+                                TipNum tipNum = gsonBean.getData().tipList.get(i);
+                                if (tipNum.type.compareTo(TipNumType.userPurchase) == 0) {
+                                    if (tipNum.showPoint)
+                                        TipNumType.setTipNum(tip_wd_qg, tipNum.count + "");
+                                }
+                            }
+                        }
+
+
+//                        TipNumType.setCount(tip_wd_qg,gsonBean.getData().tipList.get());
+
 
 //                          <com.coorchice.library.SuperTextView
 //                        android:id="@+id/tv_wd_sc"
@@ -856,7 +892,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 //                            showSeedlingNoteShare = false;
                             D.e("===========showSeedlingNoteShare===========" + showSeedlingNoteShare);
 
-                            /* 积分   与 供应商 等级   */
+                            /*  花币   与 供应商 等级   */
                             checkGys_Point(bean.getData().agentGrade, bean.getData().userPoint, bean.getData().agentGradeText, isQuote);
 
 
@@ -903,7 +939,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
      * agentGrade":"level1","userPoint":14,"agentGradeText":"普通供应商
      *
      * @param agentGrade     供应商等级
-     * @param userPoint      积分
+     * @param userPoint      花币
      * @param agentGradeText 供应商名称
      * @param quote
      */
@@ -911,7 +947,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
         TextView sptv_wd_jf = getView(R.id.sptv_wd_jf);
         SuperTextView sptv_wd_gys = getView(R.id.sptv_wd_gys);
-        sptv_wd_jf.setText("积分" + userPoint);
+        sptv_wd_jf.setText("花币" + userPoint);
 
         if (quote) {
             sptv_wd_gys.setText(agentGradeText);
@@ -956,7 +992,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 //        View deco = mActivity.getWindow().getDecorView();
 //        deco.setPadding(0, 50, 0, 0);
 
-//        ToastUtil.showPointAdd("每日登陆", "获得10积分");
+//        ToastUtil.showPointAdd("每日登陆", "获得10 花币");
 
 //        StatusBarUtil.setColor(MainActivity.instance, Color.TRANSPARENT);
 //        StatusBarUtil.setTranslucent(MainActivity.instance, 0);

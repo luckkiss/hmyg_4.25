@@ -421,7 +421,8 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">0.5</item>
         <item name="android:background">@null</item>
-        <item name="android:gravity">center</item><item name="android:textSize">@dimen/textSizeContent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/textSizeContent</item>
         <item name="android:text">至</item>
     </style>
 
@@ -532,6 +533,14 @@
         <item name="android:layout_height">10dp</item>
         <item name="android:background">@color/gray_bg_ed</item>
     </style>
+
+    <style name="View_line_vertical">
+        <item name="android:layout_width">2px</item>
+        <item name="android:layout_height">18dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@color/gray_bg_ed</item>
+    </style>
+
 
     <style name="table_row_left">
         <item name="android:layout_width">0dp</item>
@@ -752,7 +761,7 @@
 
     <style name="bottom_button_green">
         <item name="android:layout_width">0.0dip</item>
-        <item name="android:layout_height">@dimen/y31</item>
+        <item name="android:layout_height">@dimen/y26</item>
         <item name="android:layout_weight">1</item>
         <item name="android:background">@color/main_color</item>
         <item name="android:gravity">center</item>
@@ -781,8 +790,25 @@
         <item name="android:paddingLeft">15dp</item>
         <!--<item name="android:foreground">?attr/selectableItemBackground</item>-->
         <item name="android:paddingRight">15dp</item>
+        <!--<item name="style">?android:attr/borderlessButtonStyle</item>-->
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/textSizeXXX</item>
+    </style>
+
+
+    <style name="save_bottom_no_yingying" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:background">@drawable/rb_left_select</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">15dp</item>
+        <!--<item name="android:foreground">?attr/selectableItemBackground</item>-->
+        <item name="android:paddingRight">15dp</item>
+        <!--<item name="style">?android:attr/borderlessButtonStyle</item>-->
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/textSizeXXX</item>
+
     </style>
 
 

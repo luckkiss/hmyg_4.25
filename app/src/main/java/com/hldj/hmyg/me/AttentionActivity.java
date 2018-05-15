@@ -9,11 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
 import com.hldj.hmyg.M.UserFollow;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.friend.child.HeadDetailActivity;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
 import com.hldj.hmyg.bean.SimplePageBean;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
@@ -107,7 +109,7 @@ public class AttentionActivity extends BaseMVPActivity implements View.OnClickLi
                 .setText(R.id.content, "主营品种： " + item.attrData.mainType)
                 .setText(R.id.fensi, "粉丝：" + item.attrData.followCount)
                 .setBackgroundColor(R.id.fensi, Color.TRANSPARENT)
-                .setTextColorRes(R.id.fensi,R.color.text_color999)
+                .setTextColorRes(R.id.fensi, R.color.text_color999)
 
         ;
 
@@ -157,5 +159,27 @@ public class AttentionActivity extends BaseMVPActivity implements View.OnClickLi
     public String setTitle() {
         return "我的关注";
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        doCallLogIsRead();
+    }
+
+    public void doCallLogIsRead() {
+        new BasePresenter()
+                .doRequest("admin/callLog/callLogIsRead", new HandlerAjaxCallBack() {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+
+//                        ToastUtil.showShortToast("清除成功");
+//                        ToastUtil.showShortToast(gsonBean.msg);
+                    }
+                });
+
+
+    }
+
 
 }

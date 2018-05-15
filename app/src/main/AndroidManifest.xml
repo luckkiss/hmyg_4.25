@@ -377,6 +377,8 @@
         <activity
             android:name="com.hldj.hmyg.SettingActivity"
             android:screenOrientation="portrait"></activity>
+
+        <activity android:name="com.hldj.hmyg.SpanActivity" />
         <activity
             android:name="com.hldj.hmyg.TestPatchActivity"
             android:screenOrientation="portrait" />
@@ -392,7 +394,7 @@
             android:name="com.hldj.hmyg.Ui.StoreActivity_new"
             android:screenOrientation="portrait"
             android:theme="@style/e_activity_theme" />
-
+        <activity android:name="com.hldj.hmyg.Ui.StoreDetailActivity" />
         <activity
             android:name="com.hldj.hmyg.store.StoreTypeActivity"
             android:screenOrientation="portrait"></activity>
@@ -443,6 +445,9 @@
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity"
             android:screenOrientation="portrait" />  <!--一轮报价-->
+
+        <activity android:name="com.hldj.hmyg.buyer.Ui.PartShareActivity" />  <!--一 部分商品 分享 -->
+
         <!--打包报价-->
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.StorePurchaseListActivityPackage"

@@ -11,11 +11,10 @@
         android:id="@+id/dhj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="4dp"
-        android:text="[到货价]"
+        android:layout_marginTop="6dp"
+        android:text=" [到货价]"
         android:textColor="@color/main_color"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/is_new"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <TextView
@@ -38,14 +37,13 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:background="@drawable/bg_bottom_line"
         android:gravity="center_vertical"
-        android:paddingLeft="4dp"
-        android:text="共2条报价"
-        android:textColor="@color/text_color333"
+        android:text="共2条报价(0条未读)"
+        android:textColor="@color/text_color666"
         android:textSize="@dimen/textSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -73,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="6dp"
         android:text="苗源地："
         android:textSize="@dimen/textSizeContent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -84,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="6dp"
         android:text="说明："
         android:textSize="@dimen/textSizeContent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -117,20 +115,22 @@
         android:layout_height="1px"
         android:layout_marginEnd="12dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="6dp"
         android:background="@color/divider_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/remarks" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/imageView20"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
+        android:foreground="@drawable/zheng_white"
+        android:padding="2dp"
         android:src="@drawable/icon_persion_pic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -159,7 +159,8 @@
 
     <TextView
         android:id="@+id/ddh"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="16dp"
@@ -175,7 +176,8 @@
 
     <TextView
         android:id="@+id/bhs"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
         android:background="@drawable/red_btn_selector"
@@ -196,6 +198,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ddh"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/is_new"
+        android:layout_width="24dp"
+        android:layout_height="0dp"
+        android:paddingRight="4dp"
+        android:src="@drawable/ic_new"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/dhj"
+        app:layout_constraintStart_toStartOf="@+id/title"
+        app:layout_constraintTop_toTopOf="@+id/dhj" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_bottom_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" android:padding="8dp">
+
+    <Button
+        android:id="@+id/bottom_left"
+        style="@style/bottom_button_green"
+        android:background="@color/white"
+        android:text="不报价"
+        android:textColor="@color/text_color666"
+        android:textSize="@dimen/textSizeTitle" />
+
+    <Button
+        android:id="@+id/bottom_right"
+        style="@style/bottom_button_green"
+        android:text="提交报价"
+        android:textSize="@dimen/textSizeTitle" />
+
+
+</LinearLayout>
+

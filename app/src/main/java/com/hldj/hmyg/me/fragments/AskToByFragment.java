@@ -156,6 +156,28 @@ public class AskToByFragment extends BaseLazyFragment {
 
                 helper.setText(R.id.price, item.price);
 
+
+                if (!item.isUserQuoted) {
+                    helper
+                            .setText(R.id.unread, "暂无报价")
+                            .setTextColorRes(R.id.unread, R.color.text_color999)
+                            .setVisible(R.id.unread, false)
+                    ;
+                } else if (item.unreadQuoteCountJson == 0) {
+                    helper
+                            .setText(R.id.unread, "0条未读")
+                            .setTextColorRes(R.id.unread, R.color.text_color999)
+                            .setVisible(R.id.unread, true)
+                    ;
+                } else {
+                    helper
+                            .setText(R.id.unread, item.unreadQuoteCountJson + "条未读")
+                            .setTextColorRes(R.id.unread, R.color.price_orige)
+                            .setVisible(R.id.unread, true)
+                    ;
+                }
+
+
                 helper.convertView.setOnClickListener(v -> {
                     PublishForUserListActivity.start2Activity(mActivity, item.id);
                 });

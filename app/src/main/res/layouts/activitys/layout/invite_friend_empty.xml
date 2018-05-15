@@ -31,7 +31,7 @@
         android:layout_marginTop="8dp"
         android:text="还没有好友接收邀请~"
         app:layout_constraintBottom_toTopOf="@+id/tv_go_to_invite"
-        android:textColor="@color/text_color666"
+        android:textColor="@color/text_color999"
         android:textSize="@dimen/textSizeContent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.friend.child.HeadDetailActivity;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
 import com.hldj.hmyg.bean.SimplePageBean;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
@@ -18,6 +21,7 @@ import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.FootMark;
 import com.hldj.hmyg.util.D;
+import com.hy.utils.SpanUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import net.tsz.afinal.FinalActivity;
@@ -28,7 +32,7 @@ import java.util.List;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 /**
- * 访客   界面
+ * 匿名访客   界面
  */
 
 public class FootMarkActivity extends BaseMVPActivity {
@@ -164,4 +168,52 @@ public class FootMarkActivity extends BaseMVPActivity {
     }
 
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        doCallLogIsRead();
+    }
+
+    public void doCallLogIsRead() {
+        new BasePresenter()
+                .doRequest("admin/footmark/beUserIsRead", new HandlerAjaxCallBack() {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+
+//                        ToastUtil.showShortToast("访客 未读 清除成功");
+//                        ToastUtil.showShortToast(gsonBean.msg);
+                    }
+                });
+
+        new BasePresenter()
+                .doRequest("admin/footmark/isShowNew", new HandlerAjaxCallBack() {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+
+//                        ToastUtil.showShortToast("访客 未读 清除成功");
+//                        ToastUtil.showShortToast(gsonBean.msg);
+
+                        TextView nmfk = getView(R.id.nmfk);
+
+
+                        if (gsonBean.getData().hasNewGuest) {
+                            nmfk.setText(
+                                    new SpanUtils()
+                                            .append("匿名访客 ")
+                                            .appendImage(R.drawable.dot_red, SpanUtils.ALIGN_TOP)
+                                            .create()
+                            );
+                        } else {
+                            nmfk.setText("匿名访客");
+                        }
+
+
+                    }
+                });
+
+
+    }
+
+
 }
+

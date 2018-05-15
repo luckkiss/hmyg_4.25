@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -34,6 +35,7 @@ import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin2;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.UserPurchaseGsonBean;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
@@ -66,7 +68,8 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
     public static PublishForUserDetailActivity instance;
 
     private String flowerInfoPhotoPath;
-    private TextView submit;
+    private Button submit;
+    private Button cancle;
 
     @Override
     public int bindLayoutID() {
@@ -93,8 +96,14 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
 
         initGrid();
 
+        cancle = getView(R.id.bottom_left);
 
-        submit = getView(R.id.submit);
+        cancle.setVisibility(isPiPei ? View.VISIBLE : View.GONE);
+
+        cancle.setOnClickListener(v -> {
+            不保价(getExtraID());
+        });
+        submit = getView(R.id.bottom_right);
         submit.setOnClickListener(v -> {
 
 
@@ -197,6 +206,33 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
         initLocation(getView(R.id.select_city), currentCityCode);
     }
 
+    private void 不保价(String extraID) {
+
+        new BasePresenter()
+                .putParams("id", extraID)
+                .doRequest("admin/userPurchase/saveExclude", new HandlerAjaxCallBack(mActivity) {
+
+                    public boolean isSucceed = false;
+
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+                        ToastUtil.showShortToast(gsonBean.msg);
+                        isSucceed = true;
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        if (isSucceed) {
+                            setResult(ConstantState.CANCLE_SUCCEED);
+                            finish();
+                        }
+                    }
+                });
+
+
+    }
+
     private void 提交报价() {
 
 
@@ -238,22 +274,27 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
 
 
     public static void start2Activity(Activity mActivity, String id, String owerId) {
-//        Intent intent = new Intent(mActivity, PublishForUserListActivity.class);
+        start2Activity(mActivity, id, owerId, false);
+    }
 
+    public static boolean isPiPei = false;//是否匹配求购
+
+    public static void start2Activity(Activity mActivity, String id, String owerId, boolean isPiPei) {
+        PublishForUserDetailActivity.isPiPei = isPiPei;
+//        Intent intent = new Intent(mActivity, PublishForUserListActivity.class);
         if (owerId.equals(MyApplication.getUserBean().id)) {
             Intent intent = new Intent(mActivity, PublishForUserListActivity.class);
             Log.i(TAG, "id is =====  " + id);
             intent.putExtra("ID", id);
-            mActivity.startActivity(intent);
+            mActivity.startActivityForResult(intent, 100);
         } else {
             Intent intent = new Intent(mActivity, PublishForUserDetailActivity.class);
             Log.i(TAG, "id is =====  " + id);
             intent.putExtra("ID", id);
-            mActivity.startActivity(intent);
+            mActivity.startActivityForResult(intent, 100);
         }
-
-
     }
+
 
     public String getExtraID() {
         return getIntent().getExtras().getString("ID", "");
@@ -337,7 +378,7 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
 //                            setText(city, "用苗地  " + result.data.userQuote.cityName);
                             city.setRightText(result.data.userQuote.cityName);
 
-                            setText(getView(R.id.input_remark), result.data.userQuote.remarks);
+                            setText(getView(R.id.input_remark), FUtil.$_zero(result.data.userQuote.remarks));
 
                             submit.setText("删除报价");
                             submit.setOnClickListener(v -> {

@@ -2,10 +2,20 @@ package com.hldj.hmyg.base;
 
 import android.view.View;
 
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
+import com.hldj.hmyg.CallBack.IDelete;
+import com.hldj.hmyg.CallBack.IFootMarkDelete;
+import com.hldj.hmyg.CallBack.IFootMarkEmpty;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
+import com.hldj.hmyg.me.HistoryActivity;
+import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.util.D;
+import com.hy.utils.ToastUtil;
+import com.zf.iosdialog.widget.AlertDialog;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
@@ -72,6 +82,49 @@ public abstract class BaseRecycleViewFragment<T> extends BaseLazyFragment {
     protected int bindLayoutID() {
         return R.layout.fragment_base_recycle_view;
     }
+
+    // 删除 与 清空 的
+    public <H extends IDelete, A extends NeedSwipeBackActivity> void doUserDelDelete(BaseViewHolder helper, H t, A a, HandlerAjaxCallBack handlerAjaxCallBack) {
+
+        new AlertDialog(a).builder()
+                .setTitle("确定删除本项?")
+                .setPositiveButton("确定", v1 -> {
+                    {
+                        if (t instanceof IFootMarkDelete) {
+                            new BasePresenter()
+                                    .putParams("ids", ((IFootMarkDelete) t).getFootMarkId())
+                                    .doRequest(t.getDomain(), handlerAjaxCallBack);
+                        }
+                        if (t instanceof IFootMarkEmpty) {
+                            new BasePresenter()
+                                    .putParams("sourceType",((IFootMarkEmpty) t).sourceType().getEnumValue())
+                                    .doRequest(t.getDomain(), handlerAjaxCallBack);
+                        }
+
+                    }
+                }).setNegativeButton("取消", v2 -> {
+        }).show();
+    }
+
+    public <H extends IDelete, A extends NeedSwipeBackActivity> void doUserDelDelete(BaseViewHolder helper, H t, A a) {
+        doUserDelDelete(helper, t, a, new HandlerAjaxCallBack() {
+            @Override
+            public void onRealSuccess(SimpleGsonBean gsonBean) {
+                D.i("============删除成功   位置 在base ================");
+                ToastUtil.showLongToast(gsonBean.msg);
+                if (a instanceof HistoryActivity) {
+                    //重新请求数量
+                    ((HistoryActivity) a).requestCounts();
+                }
+                mCoreRecyclerView.onRefresh();
+
+            }
+        });
+
+    }
+
+
+    // foot marks 清空
 
 
 }

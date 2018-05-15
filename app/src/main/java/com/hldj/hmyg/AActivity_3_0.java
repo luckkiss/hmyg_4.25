@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.NestedScrollView;
@@ -40,7 +41,6 @@ import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.M.BProduceAdapt;
 import com.hldj.hmyg.M.IndexGsonBean;
 import com.hldj.hmyg.Ui.NewsActivity;
-import com.hldj.hmyg.Ui.NoticeActivity;
 import com.hldj.hmyg.Ui.NoticeActivity_detail;
 import com.hldj.hmyg.Ui.friend.child.PublishActivity;
 import com.hldj.hmyg.application.Data;
@@ -57,12 +57,14 @@ import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
 import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
 import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment1;
 import com.hldj.hmyg.buyer.weidet.SwipeViewHeader;
+import com.hldj.hmyg.me.AskToByActivity;
 import com.hldj.hmyg.presenter.AActivityPresenter;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
 import com.hldj.hmyg.saler.SaveSeedlingActivity;
+import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
 import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
-import com.hldj.hmyg.saler.purchase.userbuy.BuyForUserActivity;
+import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserActivity;
 import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserDetailActivity;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
@@ -124,11 +126,23 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private ACache mCache;
 
 
+    private TabLayout tablayout;
+    private TabLayout tablayout1;
+
+    int[] location = new int[2];
+    int[] location2 = new int[2];
+    int[] location3 = new int[2];
+    private TabLayout.OnTabSelectedListener onTabSelectedListener;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a_3_0);
         mCache = ACache.get(this);
+
+        tablayout = findViewById(R.id.tablayout);
+        tablayout1 = findViewById(R.id.tablayout1);
 
 //      ToastUtil.showShortToast("bugly 热更新生效");
         viewPager = (AutoScrollViewPager) findViewById(R.id.view_pager);
@@ -164,6 +178,68 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         WindowManager wm = this.getWindowManager();
         l_params.height = wm.getDefaultDisplay().getWidth() * 1 / 2;
         viewPager.setLayoutParams(l_params);
+
+
+        //                tablayout1.getTabAt(tab.getPosition()).select();
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (!tablayout1.getTabAt(tab.getPosition()).isSelected()) {
+//                            tablayout1.getTabAt(tab.getPosition()).select();
+//                        }
+//                    }
+//                }, 20);
+//                ToastUtil.showShortToast("click");
+// 909 - 278  ↑ 滚
+//                scrollView.smoothScrollTo(0,scrollView.getScrollY()-  location3[1]  );
+        onTabSelectedListener = new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                ToastUtil.showShortToast(findViewById(R.id.left1) + "" + "" + tab.getText() + tab.getPosition());
+
+                if (tab.getPosition() == 0) {
+                    findViewById(R.id.home_title_first).getLocationOnScreen(location3);
+                } else if (tab.getPosition() == 1) {
+                    findViewById(R.id.home_title_qiu_gou).getLocationOnScreen(location3);
+                } else if (tab.getPosition() == 2) {
+                    findViewById(R.id.home_title_second).getLocationOnScreen(location3);
+                }
+
+
+//                tablayout1.getTabAt(tab.getPosition()).select();
+
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                if (!tablayout1.getTabAt(tab.getPosition()).isSelected()) {
+//                    tablayout1.getTabAt(tab.getPosition()).select();
+//                    tablayout.getTabAt(tab.getPosition()).select();
+//                }
+
+                tablayout1.getTabAt(tab.getPosition()).select();
+                tablayout.getTabAt(tab.getPosition()).select();
+//                    }
+//                }, 20);
+
+
+//                ToastUtil.showShortToast("click");
+                Log.i(TAG, "onClick: " + location3[1]);
+                // 909 - 278  ↑ 滚
+//                scrollView.smoothScrollTo(0,scrollView.getScrollY()-  location3[1]  );
+                scrollView.scrollTo(0, scrollView.getScrollY() + location3[1] - location[1] - tablayout.getHeight());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        };
         initView();
 
         if (mCache.getAsString("index") != null && !"".equals(mCache.getAsString("index"))) {
@@ -178,6 +254,151 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         initSwipe();
         setListAtMost();
+
+
+//        tablayout.addOnTabSelectedListener(onTabSelectedListener);
+
+        // 默认1 监听
+        tablayout1.addOnTabSelectedListener(onTabSelectedListener);
+//        tablayout.addOnTabSelectedListener(onTabSelectedListener);
+
+//        findViewById(R.id.left).setOnClickListener(v -> ToastUtil.showShortToast("left"));
+//        findViewById(R.id.center).setOnClickListener(v -> ToastUtil.showShortToast("center"));
+//        findViewById(R.id.right).setOnClickListener(v -> ToastUtil.showShortToast("right"));
+//
+//
+//        findViewById(R.id.left1).setOnClickListener(v -> ToastUtil.showShortToast("left1"));
+//        findViewById(R.id.center1).setOnClickListener(v -> ToastUtil.showShortToast("center1"));
+//        findViewById(R.id.right1).setOnClickListener(v -> ToastUtil.showShortToast("right1"));
+
+//        tablayout1.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ToastUtil.showShortToast("click");
+//                findViewById(R.id.home_title_second).getLocationOnScreen(location3);
+//                Log.i(TAG, "onClick: " + location3[1]);
+//
+//                // 909 - 278  ↑ 滚
+////                scrollView.smoothScrollTo(0,scrollView.getScrollY()-  location3[1]  );
+//                scrollView.scrollTo(0, scrollView.getScrollY() + location3[1] - location[1] - tablayout.getHeight());
+//            }
+//        });
+
+//        tablayout.setOnClickListener(v -> {
+//            ToastUtil.showShortToast("click");
+//            findViewById(R.id.home_title_first).getLocationOnScreen(location3);
+//            Log.i(TAG, "onClick: " + location3[1]);
+//
+//            // 909 - 278  ↑ 滚
+////                scrollView.smoothScrollTo(0,scrollView.getScrollY()-  location3[1]  );
+//            scrollView.scrollTo(0, scrollView.getScrollY() + location3[1] - location[1] - tablayout.getHeight());
+//
+//        });
+
+
+    }
+
+
+    int[] location_0 = new int[2];
+    int[] location_1 = new int[2];
+
+    // 滚动时执行
+    private void attachTablayout2View(TabLayout tablayout, TabLayout tablayout1, View attarchView , int pos) {
+        if (pos == 1) {
+            attarchView.getLocationOnScreen(location_0);
+///  scrollView.scrollTo(0, scrollView.getScrollY() + location3[1] - location[1] - tablayout.getHeight());
+
+            int y = scrollView.getScrollY() + location3[1] - location[1] - tablayout.getHeight();
+
+
+            Log.i(TAG, "y -- >  " + y + "  " + location_0[1]);
+
+            if (location_0[1] <= location[1] + tablayout.getHeight()) {
+
+                Log.i(TAG, "小于: ");
+
+                tablayout.clearOnTabSelectedListeners();
+                tablayout1.clearOnTabSelectedListeners();
+
+                tablayout.getTabAt(1).select();
+                tablayout1.getTabAt(1).select();
+
+
+                if (tablayout.getVisibility() == View.VISIBLE)
+                {
+                    tablayout.addOnTabSelectedListener(onTabSelectedListener);
+                }else {
+                    tablayout1.addOnTabSelectedListener(onTabSelectedListener);
+                }
+
+
+            } else {
+                tablayout.clearOnTabSelectedListeners();
+                tablayout1.clearOnTabSelectedListeners();
+
+
+                tablayout.getTabAt(0).select();
+                tablayout1.getTabAt(0).select();
+
+                if (tablayout.getVisibility() == View.VISIBLE)
+                {
+                    tablayout.addOnTabSelectedListener(onTabSelectedListener);
+                }else {
+                    tablayout1.addOnTabSelectedListener(onTabSelectedListener);
+                }
+
+                Log.e(TAG, "大于: ");
+            }
+
+//            if (location_0[])
+
+        } else if (pos == 2) {
+
+            attarchView.getLocationOnScreen(location_0);
+///  scrollView.scrollTo(0, scrollView.getScrollY() + location3[1] - location[1] - tablayout.getHeight());
+
+            int y = scrollView.getScrollY() + location3[1] - location[1] - tablayout.getHeight();
+
+
+            Log.i(TAG, "y -- >  " + y + "  " + location_0[1]);
+
+            if (location_0[1] < location[1] + tablayout.getHeight()) {
+
+                Log.i(TAG, "小于: ");
+
+                tablayout.clearOnTabSelectedListeners();
+                tablayout1.clearOnTabSelectedListeners();
+
+                tablayout.getTabAt(2).select();
+                tablayout1.getTabAt(2).select();
+
+                tablayout.addOnTabSelectedListener(onTabSelectedListener);
+
+
+            } else {
+                tablayout.clearOnTabSelectedListeners();
+                tablayout1.clearOnTabSelectedListeners();
+
+
+                tablayout.getTabAt(1).select();
+                tablayout1.getTabAt(1).select();
+
+                tablayout.addOnTabSelectedListener(onTabSelectedListener);
+                Log.e(TAG, "大于: ");
+            }
+
+//            attarchView.getLocationOnScreen(location_1);
+/////  scrollView.scrollTo(0, scrollView.getScrollY() + location3[1] - location[1] - tablayout.getHeight());
+//
+//            int y =  scrollView.getScrollY() + location3[1] - location[1] - tablayout.getHeight() ;
+//            if (location_1[1] <= y)
+//            {
+//                tablayout.getTabAt(2).select();
+//            }else {
+//                tablayout.getTabAt(1).select();
+//            }
+        }
+
 
     }
 
@@ -291,23 +512,57 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
      * 初始化 今日头条
      */
     private void initView() {
-        //商城管理
+        //商城管理  苗木商城
         findViewById(R.id.stv_home_1).setOnClickListener(v -> {
 //            if (isLogin()) ManagerListActivity_new.start2Activity(AActivity_3_0.this);
-            PurchasePyMapActivity.start2Activity(AActivity_3_0.this);
+//            PurchasePyMapActivity.start2Activity(AActivity_3_0.this);
+            MainActivity.toB();
+
         });
-        //快速报价
+        // 发布求购
         findViewById(R.id.stv_home_2).setOnClickListener(v -> {
 //            ToastUtil.showLongToast(" 用户求购 ");
-            BuyForUserActivity.start2Activity(AActivity_3_0.this);
+//            BuyForUserActivity.stat2Activity(AActivity_3_0.this);
+            PublishForUserActivity.start2Activity(AActivity_3_0.this);
+
         });
-        ////成交公告
-        findViewById(R.id.stv_home_3).setOnClickListener(v -> NoticeActivity.start2Activity(AActivity_3_0.this));
+        //我的求购
+        findViewById(R.id.stv_home_3).setOnClickListener(v ->
+//                NoticeActivity.start2Activity(AActivity_3_0.this)
+                        AskToByActivity.start(AActivity_3_0.this)
+        );
+
+
+        //苗圃管理
+        findViewById(R.id.stv_home_11).setOnClickListener(v -> {
+//            if (isLogin()) ManagerListActivity_new.start2Activity(AActivity_3_0.this);
+//            PurchasePyMapActivity.start2Activity(AActivity_3_0.this);
+            MainActivity.toD();
+
+        });
+
+        // 发布求购
+        findViewById(R.id.stv_home_22).setOnClickListener(v -> {
+//            ToastUtil.showLongToast(" 用户求购 ");
+//            BuyForUserActivity.stat2Activity(AActivity_3_0.this);
+//            PublishForUserActivity.start2Activity(AActivity_3_0.this);
+            PurchasePyMapActivity.start2Activity(AActivity_3_0.this);
+
+
+        });
+        //我的求购
+        findViewById(R.id.stv_home_33).setOnClickListener(v ->
+                {
+                    ManagerQuoteListActivity_new.initLeft = false;
+                    ManagerQuoteListActivity_new.start2Activity(AActivity_3_0.this);
+                }
+        );
+
 
         findViewById(R.id.iv_home_left).setOnClickListener(v -> NewsActivity.start2Activity(AActivity_3_0.this));
 //        findViewById(R.id.iv_home_left).setOnClickListener(v -> NoticeActivity.start2Activity(AActivity_3_0.this));
         //新闻资讯
-        findViewById(R.id.stv_home_4).setOnClickListener(v -> NewsActivity.start2Activity(AActivity_3_0.this));
+//        findViewById(R.id.stv_home_4).setOnClickListener(v -> NewsActivity.start2Activity(AActivity_3_0.this));
         //采购
         findViewById(home_title_first).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this));
         //苗木商城 更多
@@ -315,6 +570,40 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         //热门商家
 //        findViewById(R.id.home_title_third).setOnClickListener(v -> ToastUtil.showShortToast("更多热门商家正在开发中..."));
 
+
+        // 滚动时触发事件  必定是 tablay 有接口
+        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                Log.i(TAG, "onScrollChange: onScrollChangeonScrollChangeonScrollChange");
+                tablayout.getLocationOnScreen(location);
+                tablayout1.getLocationOnScreen(location2);
+//                D.w("tablayout.loaction()  --- > " + location[1] + "  y =" + location[1]);
+//                D.i("tablayout1.loaction()  --- > " + location2[1] + "  y =" + location2[1]);//168  --  248
+
+                if (location2[1] <= 168) {
+                    tablayout.setVisibility(View.VISIBLE);
+                    tablayout.addOnTabSelectedListener(onTabSelectedListener);
+                    tablayout1.clearOnTabSelectedListeners();
+//                    LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) tablayout.getLayoutParams();
+//                    lp.setMargins(30, lp.topMargin - 10, 22, 10);
+//                    tablayout.setLayoutParams(lp);
+                } else {
+                    tablayout.setVisibility(View.GONE);
+                    tablayout.clearOnTabSelectedListeners();
+                    tablayout1.addOnTabSelectedListener(onTabSelectedListener);
+//                    tablayout.setY(10);
+//                    setLayout(tablayout,0,-10);
+                }
+
+
+                attachTablayout2View(tablayout, tablayout1, findViewById(R.id.home_title_qiu_gou), 1);
+//                attachTablayout2View(tablayout, tablayout1, findViewById(R.id.home_title_second), 2);
+
+
+            }
+
+        });
 
         // http://blog.csdn.net/jiangwei0910410003/article/details/17024287
         /******************** 监听ScrollView滑动停止 *****************************/
@@ -340,10 +629,13 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     handler.sendMessageDelayed(
                             handler.obtainMessage(touchEventId, v), 5);
                 }
+
+
                 return false;
             }
 
@@ -378,6 +670,18 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //        });
 
 
+    }
+
+
+    /*
+   * 设置控件所在的位置YY，并且不改变宽高，
+   * XY为绝对位置
+   */
+    public static void setLayout(View view, int x, int y) {
+        ViewGroup.MarginLayoutParams margin = new ViewGroup.MarginLayoutParams(view.getLayoutParams());
+        margin.setMargins(x, y, x + margin.width, y + margin.height);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(margin);
+        view.setLayoutParams(layoutParams);
     }
 
     private boolean isLogin() {
@@ -713,13 +1017,13 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             TextView home_title_qiu_gou = (TextView) findViewById(R.id.home_title_qiu_gou);
             TextView home_title_second = (TextView) findViewById(R.id.home_title_second);
             TextView home_title_third = (TextView) findViewById(R.id.home_title_third);
-            TextView tv_titles[] = new TextView[]{home_title_first, home_title_qiu_gou,home_title_second, home_title_third};
+            TextView tv_titles[] = new TextView[]{home_title_first, home_title_qiu_gou, home_title_second, home_title_third};
 
             View v1 = findViewById(R.id.home_title_first);
             View v1_qiugou = findViewById(R.id.home_title_qiu_gou);
             View v2 = findViewById(R.id.home_title_second);
             View v3 = findViewById(R.id.home_title_third);
-            View views[] = new View[]{v1,v1_qiugou, v2, v3};
+            View views[] = new View[]{v1, v1_qiugou, v2, v3};
 
             try {
                 autoSetTitles(tv_titles, indexGsonBean.data.titleList, views);
@@ -949,7 +1253,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         } else {
             for (int i = 0; i < tvs.length; i++) {
-                tvs[i].setText(list.get(i).title);
+                tvs[i].setText("｜" + list.get(i).title);
 //              ((ViewGroup) tvs[i].getParent()).setVisibility(View.VISIBLE);
 
                 if (list.get(i).isClick) {
@@ -968,7 +1272,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
     public static List<View> getViewsByDatas(Activity aActivity, List<ArticleBean> data) {
         List<View> views = new ArrayList<>();
-        for (int i = 0; i < data.size(); i = i + 2) {
+        for (int i = 0; i < data.size(); i = i + 1) {
             final int position = i;
             //设置滚动的单个布局
             LinearLayout moreView = (LinearLayout) LayoutInflater.from(aActivity).inflate(R.layout.item_home_cjgg, null);
@@ -1018,22 +1322,24 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 moreView.findViewById(R.id.tv_taggle2).setVisibility(View.GONE);
             }
 
-            if (data.size() > i + 2) {
+//            if (data.size() > i + 2) {
+//
+//                //因为淘宝那儿是两条数据，但是当数据是奇数时就不需要赋值第二个，所以加了一个判断，还应该把第二个布局给隐藏掉
+//                tv3.setText(data.get(i + 2).title);
+//
+//                if (data.get(i + 2).isNew) {
+//                    tv3.setShowState(true);
+//                    tv3.setPadding(MyApplication.dp2px(aActivity, 40), 0, 0, 0);
+//                } else {
+//                    tv3.setPadding(10, 0, 0, 0);
+//                    tv3.setShowState(false);
+//                }
+//
+//            }
 
-                //因为淘宝那儿是两条数据，但是当数据是奇数时就不需要赋值第二个，所以加了一个判断，还应该把第二个布局给隐藏掉
-                tv3.setText(data.get(i + 2).title);
-
-                if (data.get(i + 2).isNew) {
-                    tv3.setShowState(true);
-                    tv3.setPadding(MyApplication.dp2px(aActivity, 40), 0, 0, 0);
-                } else {
-                    tv3.setPadding(10, 0, 0, 0);
-                    tv3.setShowState(false);
-                }
-
-            } else {
-                moreView.findViewById(R.id.tv_taggle3).setVisibility(View.GONE);
-            }
+//            else {
+//                moreView.findViewById(R.id.tv_taggle3).setVisibility(View.GONE);
+//            }
 
 
             //添加到循环滚动数组里面去

@@ -9,8 +9,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
+import com.hldj.hmyg.CallBack.IFootMarkEmpty;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.base.BaseRecycleViewFragment;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.me.fragments.MomentHistoryFragment;
 import com.hldj.hmyg.me.fragments.SeedlingHistoryFragment;
@@ -37,7 +39,7 @@ public class HistoryActivity extends BaseMVPActivity implements View.OnClickList
     @ViewInject(id = R.id.tabLayout)
     TabLayout tabLayout;
 
-    @ViewInject(id = R.id.toolbar_right_text)
+    @ViewInject(id = R.id.toolbar_right_text, click = "onClick")
     TextView toolbar_right_text;
 
 
@@ -74,6 +76,16 @@ public class HistoryActivity extends BaseMVPActivity implements View.OnClickList
             case R.id.tijia:
                 AddContactActivity.start(mActivity);
                 break;
+            case R.id.toolbar_right_text:
+//                ToastUtil.showLongToast("清空");
+//                ToastUtil.showLongToast("" + viewpager.getCurrentItem());
+                BaseRecycleViewFragment baseRecycleViewFragment = (BaseRecycleViewFragment) list_fragment.get(viewpager.getCurrentItem());
+                if (baseRecycleViewFragment instanceof IFootMarkEmpty) {
+                    ((IFootMarkEmpty) baseRecycleViewFragment).doEmpty();
+                }
+                break;
+
+
         }
 
     }

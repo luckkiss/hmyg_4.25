@@ -44,7 +44,6 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
-import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.FinalHttp;
@@ -611,7 +610,7 @@ public abstract class ManagerListActivity_new<P extends ManagerListPresenter, M 
 
     @Override
     public void initTodoStatusCount(SimpleGsonBean gsonBean) {
-        ToastUtil.showLongToast(gsonBean.msg);
+//        ToastUtil.showLongToast(gsonBean.msg);
         list_counts.clear();
         LinearLayout linearLayout = getView(R.id.ll_counts_content);
         findTagTextView(linearLayout);

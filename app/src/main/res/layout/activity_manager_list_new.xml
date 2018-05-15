@@ -317,7 +317,7 @@
         <Button
             android:id="@+id/btn_manager_publish"
             style="@style/bottom_button_green"
-            android:text="发布苗木" />
+            android:text="添加苗木" />
 
 
     </LinearLayout>
