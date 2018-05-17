@@ -48,7 +48,7 @@
             android:background="@color/store_bg_coloc"
             android:gravity="center|start"
             android:paddingLeft="8dp"
-            android:text="身份信息"
+            android:text="企业信息"
 
             />
 
@@ -81,6 +81,7 @@
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="8dp"
                     android:text="企业名"
+                    android:drawableLeft="@drawable/seller_redstar"
                     android:textColor="@color/text_color333" />
 
                 <EditText
@@ -161,7 +162,6 @@
                     android:layout_marginRight="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/trans_bg"
-                    android:digits="1234567890xX"
                     android:gravity="center|start"
                     android:hint="请输入法人姓名"
                     android:padding="5dp"
@@ -237,6 +237,7 @@
 
 
         <TextView
+            android:id="@+id/faren_title"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@color/store_bg_coloc"
@@ -246,6 +247,7 @@
 
 
         <LinearLayout
+            android:id="@+id/faren_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

@@ -2,14 +2,16 @@ package com.hldj.hmyg.saler.purchase.userbuy;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -160,12 +162,28 @@ public class SelectPlantActivity extends BaseMVPActivity implements OnClickListe
         });
 
 
+        if (TextUtils.isEmpty(getSearchKey())) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    InputMethodManager inputMethod = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//                inputMethod.showSoftInput(search_content, 0);
+                    inputMethod.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+
+
+//                ToastUtil.showLongToast("自动显示软键盘");
+                }
+            }, 1300);
+
+        }
+
+
     }
 
     private void initRecycleView(CoreRecyclerView recycle) {
 
 
-        View empty_view = LayoutInflater.from(mActivity).inflate(R.layout.empty_view_select, null);
+//        View empty_view = LayoutInflater.from(mActivity).inflate(R.layout.empty_view_select, null);
 
         slide_bar.setVisibility(View.GONE);
 
@@ -184,10 +202,8 @@ public class SelectPlantActivity extends BaseMVPActivity implements OnClickListe
                     setResult(100, intent);
                     finish();
                 });
-
-
             }
-        }).setEmptyView(empty_view);
+        }).setDefaultEmptyView();
 
 //        recycle.getRecyclerView().addItemDecoration(SectionDecoration.Builder.init(new SectionDecoration.PowerGroupListener() {
 //            @Override

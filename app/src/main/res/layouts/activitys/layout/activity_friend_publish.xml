@@ -36,14 +36,13 @@
 
             <RadioButton
                 android:id="@+id/rb_type_left"
-
                 style="@style/simple_radio_bg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:padding="5dp"
-                android:text="发布供应" />
+                android:padding="7dp"
+                android:text="供应信息" />
 
             <RadioButton
                 android:id="@+id/rb_type_right"
@@ -52,9 +51,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:padding="5dp"
-                android:text="发布求购" />
+                android:layout_marginLeft="8dp"
+                android:padding="7dp"
+                android:text="求购信息" />
 
 
         </RadioGroup>
@@ -165,6 +164,7 @@
             android:layout_height="40dp"
             android:paddingRight="12dp"
             app:left_src="@mipmap/loaction"
+            android:paddingLeft="8dp"
             app:left_text="苗源地"
             app:left_text_color="@color/text_color111"
             app:right_src="@drawable/arrow_right_eq"
@@ -173,7 +173,9 @@
 
         <View
             style="@style/View_line_gray"
-            android:layout_height="40dp" />
+            android:layout_height="20dp" />
+
+        <include layout="@layout/include_last_publish" />
 
 
     </LinearLayout>

@@ -71,7 +71,9 @@ public class BPageGsonBean {
                 public String largeImageUrl;
                 public String seedlingParams;
                 public String specText;
+
                 public String name = "";
+                public String standardName = "";
 
                 public boolean isNego;
 

@@ -5,9 +5,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckedTextView;
+import android.widget.ImageView;
 
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.friend.child.HeadDetailActivity;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
 import com.hldj.hmyg.bean.SimplePageBean;
@@ -18,7 +21,9 @@ import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BaseRxPresenter;
 import com.hldj.hmyg.util.ContactInfoParser;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hldj.hmyg.widget.CommonSectionDecoration;
 import com.hy.utils.ToastUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import net.tsz.afinal.FinalActivity;
@@ -105,26 +110,38 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
 //                });
 
 
-
         recycler.init(new BaseQuickAdapter<ContactInfoParser.ContactInfo, BaseViewHolder>(item_layout_id) {
             @Override
             protected void convert(BaseViewHolder helper, ContactInfoParser.ContactInfo item) {
+                int item_ = R.layout.item_invite_friend_list;
+
                 Log.i(TAG, "convert: " + item.toString());
                 helper
                         .setText(R.id.title, item.getName())
                         .setText(R.id.content, item.getPhone())
-                        .setText(R.id.fensi, " +关注 ").setTextColorRes(R.id.fensi, R.color.white)
+                        .setText(R.id.fensi, " +关注 ")
+//                        .setTextColorRes(R.id.fensi, R.color.white)
 //                        .setBackgroundRes(R.id.fensi, R.drawable.white_or_main_color)
 
                 ;
 
+                ImageLoader.getInstance().displayImage(item.headImage, (ImageView) helper.getView(R.id.circleImageView));
 
+                   /* 是否关注 */
+                CheckedTextView attention = helper.getView(R.id.fensi);
+                attention.setChecked(item.isFollowed);
+                attention.setText(!attention.isChecked() ? "+关注" : "已关注");
+                helper.addOnClickListener(R.id.fensi, v -> {
+                    HeadDetailActivity.取消关注或加关注(item.getId(), attention, !item.isFollowed, mActivity);
+                });
             }
         })
                 .openLoadMore(20, page -> {
                     requestData(page);
                 })
                 .openRefresh();
+
+        CommonSectionDecoration.simpleDecoration(recycler, mActivity);
 
 
 //        recycler.getRecyclerView().addItemDecoration(   corecyclerView.getRecyclerView().addItemDecoration(
@@ -158,7 +175,7 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
 //                }).setGroupHeight((int) getResources().getDimension(R.dimen.px74)).build());
 //);
 //
-//        recycler.onRefresh();
+        recycler.onRefresh();
 
 
     }
@@ -194,7 +211,7 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
 //                    }
 //                    return ContactInfoParser.findAll(mActivity);
                     if (permission.granted) {
-                        ToastUtil.showLongToast("获得权限");
+//                        ToastUtil.showLongToast("获得权限");
                         return ContactInfoParser.getContacts(mActivity, new ContactInfoParser.OnPhoneUpdateListener() {
                             @Override
                             public void onUpdata(ContactInfoParser.ContactInfo contactInfo) {
@@ -212,13 +229,13 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
 
                         // `permission.name` is granted !
                     } else if (permission.shouldShowRequestPermissionRationale) {
-                        ToastUtil.showLongToast("禁止本次");
+                        ToastUtil.showLongToast("通讯录权限被禁止");
                         return null;
                         // Denied permission without ask never again
                     } else {
                         // Denied permission with ask never again
                         // Need to go to the settings
-                        ToastUtil.showLongToast("永远禁止");
+                        ToastUtil.showLongToast("通讯录权限被禁止");
                         return null;
                     }
                 })
@@ -238,6 +255,9 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
 //                        return Observable.just(userDataBeans);
 //                        TongXunGsonBean.DataBean.UserDataBean[] userDataBeans1 = (TongXunGsonBean.DataBean.UserDataBean[]) userDataBeans.toArray();
 //                      return Observable.just(userDataBeans.get(0));
+
+//                        Collections.reverse(userDataBeans);
+
                         return Observable.fromIterable(userDataBeans);
                     }
                 })

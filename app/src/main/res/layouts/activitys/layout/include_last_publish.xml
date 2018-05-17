@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refresh_publish_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:visibility="gone"
+    tools:visibility="visible">
+
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="@dimen/px20"
+        android:foreground="@drawable/zheng_white"
+        android:padding="2dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="6dp"
+        android:maxLines="3"
+        android:textColor="@color/main_color"
+        app:layout_constraintEnd_toStartOf="@+id/refresh"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintRight_toLeftOf="@+id/refresh"
+        app:layout_constraintStart_toEndOf="@+id/icon"
+        app:layout_constraintTop_toTopOf="@+id/icon"
+        tools:text="【供应】 测 测试供应】 测测 测试供应】 测】测 】 测测 测试供应】 测】 测测 测试供应】 测】 测测 测试供应】 测测试供应】 测】测 测试供应】 测】测 测试供应】 测】测 测试供应】 测】测 测试供应】 测】】 测试" />
+
+    <TextView
+        android:id="@+id/right_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:text="刚刚"
+        android:textColor="@color/text_color999"
+        android:textSize="@dimen/px24"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckedTextView
+        android:id="@+id/refresh"
+        style="@style/save_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:height="44dp"
+        android:background="@drawable/bg_check_gray_uncheck_main_selecteor"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:text="刷新"
+        android:textSize="@dimen/textSizeContent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/right_top" />
+
+    <TextView
+        android:id="@+id/tip"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_top_line"
+        android:padding="8dp"
+        android:text="一键刷新上一条苗木圈发布时间,刷新更多请进入我的苗木圈"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/icon" />
+
+
+</android.support.constraint.ConstraintLayout>

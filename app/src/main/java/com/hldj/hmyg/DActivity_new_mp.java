@@ -6,12 +6,13 @@ import android.graphics.Color;
 import android.support.annotation.Keep;
 import android.text.Layout;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ import com.hldj.hmyg.Ui.miaopu.PendingActivity;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.base.CommonPopupWindow;
 import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.base.rxbus.annotation.Subscribe;
 import com.hldj.hmyg.base.rxbus.event.EventThread;
@@ -44,6 +46,8 @@ import com.hldj.hmyg.me.FootMarkActivity;
 import com.hldj.hmyg.saler.AddAdressActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.StoreSettingActivity;
+import com.hldj.hmyg.util.ConstantParams;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.hldj.hmyg.widget.SaveSeedingBottomLinearLayout;
@@ -75,7 +79,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickListener {
 
     private View headView;
-    private View footerView;
+    //    private View footerView;
     private ComonShareDialogFragment.ShareBean shareBean;
     private View head_parent;
 
@@ -84,9 +88,9 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
         return R.layout.activity_d_new_mp;
     }
 
-    //    @ViewInject(id = R.id.btn_xzmp, click = "onClick")
+    @ViewInject(id = R.id.btn_xzmp, click = "onClick")
         /* 动态添加的  view  无法注入 headview  */
-    Button btn_xzmp;
+            ImageView btn_xzmp;
 
     //    @ViewInject(id = R.id.logo, click = "onClick")
     /* 动态添加的  view  无法注入 headview  */
@@ -118,14 +122,48 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
                 D.i("========新增圃==========");
                 AddAdressActivity.start2Activity(mActivity, null);
                 break;
+            case R.id.sptv_program_do_search:
+                recycle.onRefresh();
+                break;
+            case R.id.filter:
+//                ToastUtil.showShortToast("search1");
+                new CommonPopupWindow.Builder(mActivity)
+                        .setBgType(CommonPopupWindow.TYPE_WHITE_UP_RIGHT_TOP)
+                        .setOutsideTouchable(true)
+                        .bindLayoutId(R.layout.item_mp_filter)
+                        .setCovertViewListener((viewRoot, popupWindow) -> {
+
+                            viewRoot.findViewById(R.id.search_mm).setOnClickListener(v2 -> {
+                                // 搜索苗木
+                                ManagerSplitListActivity_new.start2Activity(mActivity, "");
+
+//                                ToastUtil.showShortToast("11" + headView.findViewById(R.id.include_search));
+                                getView(R.id.include_search).setVisibility(View.GONE);
+//                                    getView().setVisibility(View.GONE);
+                                popupWindow.dismiss();
+
+
+                            });
+                            viewRoot.findViewById(R.id.search_mp).setOnClickListener(v2 -> {
+                                //搜索苗圃
+//                                    getView(R.id.include_search).setVisibility(View.VISIBLE);
+//                                ToastUtil.showShortToast("22" + headView.findViewById(R.id.include_search));
+                                getView(R.id.include_search).setVisibility(View.VISIBLE);
+                                popupWindow.dismiss();
+
+                            });
+
+
+                        }).build().simpleShow(getView(R.id.filter));
+                break;
             case R.id.logo:
             case R.id.head_parent:
                 D.i("========店铺设置==========");
                 StoreSettingActivity.start2Activity(mActivity);
                 break;
             case R.id.toolbar_right_icon:
-                ToastUtil.showLongToast("search");
-                ManagerSplitListActivity_new.start2Activity(mActivity,"");
+//                ToastUtil.showLongToast("search");
+                ManagerSplitListActivity_new.start2Activity(mActivity, "");
 //                ManagerListActivity_new.start2Activity(mActivity);
                 break;
             case R.id.toolbar_right_text:
@@ -208,7 +246,8 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 //        FinalActivity.initInjectedView(this, recycle);
 
         toolbar_left_icon.setVisibility(View.GONE);
-        toolbar_right_icon.setVisibility(View.VISIBLE);
+        toolbar_right_icon.setVisibility(View.INVISIBLE);
+        toolbar_right_icon.setImageResource(R.drawable.sousuo);
         toolbar_right_text.setVisibility(View.VISIBLE);
         toolbar_right_text.setText("");
 
@@ -228,7 +267,7 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
         imageView.setPadding(MyApplication.dp2px(mActivity, 3), MyApplication.dp2px(mActivity, 3), MyApplication.dp2px(mActivity, 3), MyApplication.dp2px(mActivity, 3));
 //        ViewGroup.MarginLayoutParams linearLayout1 = new LinearLayout.LayoutParams(mActivity, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(MyApplication.dp2px(mActivity, 18), MyApplication.dp2px(mActivity, 18));
-        params.setMargins(MyApplication.dp2px(mActivity, 8), MyApplication.dp2px(mActivity, 5), MyApplication.dp2px(mActivity, 0), MyApplication.dp2px(mActivity, 0));
+        params.setMargins(MyApplication.dp2px(mActivity, 8), MyApplication.dp2px(mActivity, 5), MyApplication.dp2px(mActivity, 3), MyApplication.dp2px(mActivity, 0));
 
 
         imageView.setLayoutParams(params);
@@ -281,12 +320,30 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
             }
         })
 
-                .openLoadMore(999, page -> {
+                .openLoadMore(20, page -> {
+
+                    if (没有开通店铺()) {
+                        recycle.selfRefresh(false);
+                        ToastUtil.showLongToast("未开通企业");
+                        return;
+                    }
+
+                    if (recycle.getAdapter().getHeaderLayoutCount() == 0) {
+                        recycle.addHeaderView(headView);
+                    }
+
                     count = 0;
-                    requestData();
+                    requestData(20, page);
                     requestHead();
 
                 })
+                .setDefaultEmptyView(true, "下一步", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        StoreSettingActivity.start2Activity(mActivity);
+                    }
+                })
+                .setEmptyText("请先完善企业信息")
                 .openRefresh();
 
 
@@ -321,7 +378,7 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 //        headView = LayoutInflater.from(mActivity).inflate(R.layout.item_head_d_new_mp, null);
         headView = getLayoutInflater().inflate(R.layout.item_head_d_new_mp, null);
 
-        footerView = getLayoutInflater().inflate(R.layout.item_footer_d_new_mp, null);
+//        footerView = getLayoutInflater().inflate(R.layout.item_footer_d_new_mp, null);
 //        footerView = LayoutInflater.from(mActivity).inflate(R.layout.item_footer_d_new_mp,null);
         recycle.addHeaderView(headView);
 //        recycle.addFooterView(footerView);
@@ -330,8 +387,30 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
     }
 
+    private boolean 没有开通店铺() {
+
+        String storeId = MyApplication.Userinfo.getString("storeId", "");
+        if (TextUtils.isEmpty(storeId)) {
+            ToastUtil.showLongToast(storeId);
+            D.i("store id  is = : " + storeId);
+
+
+            recycle.getAdapter().removeAllHeaderView();
+            recycle.getAdapter().removeAllFooterView();
+            recycle.getAdapter().getData().clear();
+            recycle.getAdapter().notifyDataSetChanged();
+
+            btn_xzmp.setVisibility(View.GONE);
+
+            return true;
+        }
+        btn_xzmp.setVisibility(View.VISIBLE);
+        return false;
+    }
+
     /* 请求店铺信息 */
     private void requestHead() {
+
 
         new BasePresenter()
                 .doRequest("admin/store/getStore", new HandlerAjaxCallBack(mActivity) {
@@ -345,7 +424,10 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
                         StoreGsonBean.DataBean.StoreBean storeBean = gsonBean.getData().store;
                         List<TipNum> tipNums = gsonBean.getData().tipList;
 
-
+                        setText(getView(R.id.title_left), new SpanUtils()
+                                .append("我的苗圃").setForegroundColor(getColorByRes(R.color.main_color))
+                                .append(String.format("  (共%d个苗圃)", gsonBean.getData().nurseryCount)).setForegroundColor(getColorByRes(R.color.text_color999)).setFontSize(12, true)
+                                .create());
                         initHeadView(headView, storeBean, tipNums);
 
 
@@ -354,7 +436,15 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
                     @Override
                     public void onStart() {
                         super.onStart();
-                        recycle.addFooterView(footerView);
+//                        recycle.removeAllFooterView();
+//                        recycle.addFooterView(footerView);
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+                        super.onFailure(t, errorNo, strMsg);
+                        D.i("--------------" + t.getMessage());
+
                     }
                 });
 
@@ -401,10 +491,17 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
         // 头部控件初始化   点击事件 由框架注入
         logo = headView.findViewById(R.id.logo);
         head_parent = headView.findViewById(R.id.head_parent);
-        btn_xzmp = footerView.findViewById(R.id.btn_xzmp);
+//        btn_xzmp = footerView.findViewById(R.id.btn_xzmp);
         logo.setOnClickListener(this);
         head_parent.setOnClickListener(this);
         btn_xzmp.setOnClickListener(this);
+
+
+//        headView.findViewById(R.id.include_search).setVisibility(View.GONE);
+        headView.findViewById(R.id.sptv_program_do_search).setOnClickListener(this);
+        EditText editText = headView.findViewById(R.id.et_program_serach_text);
+        editText.setHint("苗圃名称/联系人/联系电话/地址");
+        headView.findViewById(R.id.filter).setOnClickListener(this);
 
 
     }
@@ -425,12 +522,13 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
                         .create())
         ;
 
+
         helper.addOnClickListener(R.id.bj, v -> {
             AddAdressActivity.start2Activity(mActivity, item);
         });
 
         helper.addOnClickListener(R.id.mmgl, v -> {
-            ToastUtil.showLongToast("aaa");
+//            ToastUtil.showLongToast("aaa");
             D.i("========苗圃管理==========");
 //                    ManagerListActivity_new.start2Activity(mActivity);
 
@@ -441,14 +539,22 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
         });
 
+        helper.getConvertView().setOnClickListener(v -> {
+            SaveSeedingBottomLinearLayout.addressBean = item;
+            ManagerSplitListActivity_new.start2Activity(mActivity, item.id);
+        });
+
 
     }
 
-    private void requestData() {
+    private void requestData(int pageSize, int page) {
 
         Type type = new TypeToken<SimpleGsonBean_new<SimplePageBean<List<AddressBean>>>>() {
         }.getType();
         new BasePresenter()
+                .putParams(ConstantParams.searchKey, getSearchKey())
+                .putParams(ConstantParams.pageIndex, page + "")
+                .putParams(ConstantParams.pageSize, "" + pageSize)
                 .putParams("storeId", MyApplication.getUserBean().storeId)
                 .doRequest("admin/nursery/listByStore", new HandlerAjaxCallBackPage<AddressBean>(mActivity, type) {
                     @Override
@@ -461,6 +567,8 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
                         super.onFinish();
                         recycle.selfRefresh(false);
                     }
+
+
                 });
 
 
@@ -580,6 +688,39 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
     public void RxUnRegi() {
         RxBus.getInstance().unRegister(this);
+    }
+
+
+    public static final int refresh = 100;
+
+    //订阅
+    @Keep
+    @Subscribe(tag = refresh, thread = EventThread.MAIN_THREAD)
+    private void refreshCount(Eactivity3_0.OnlineEvent event) {
+        D.e("======Rx=======" + event.toString());
+        requestHead();
+        D.i("--------数量刷新了--------");
+        D.i("--------数量刷新了--------");
+        D.i("--------数量刷新了--------");
+
+    }
+
+
+    public String getSearchKey() {
+        if (getView(R.id.et_program_serach_text) != null) {
+            return getText(getView(R.id.et_program_serach_text));
+        } else {
+            return "";
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ConstantState.ADD_SUCCEED || resultCode == ConstantState.CHANGE_DATES) {
+            recycle.onRefresh();
+        }
     }
 }
 

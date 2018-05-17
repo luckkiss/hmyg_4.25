@@ -24,7 +24,6 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:text="品种暂未收录,点击去提交(花花木)?"
-
                 />
 
             <TextView

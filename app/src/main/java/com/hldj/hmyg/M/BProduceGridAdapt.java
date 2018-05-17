@@ -34,7 +34,7 @@ public class BProduceGridAdapt extends GlobBaseAdapter<BPageGsonBean.DatabeanX.P
 
 
         TextView tv_02 = myViewHolder.getView(R.id.tv_02);
-        tv_02.setText(item.name);
+        tv_02.setText(item.standardName);
 
 
         TextView tv_03 = myViewHolder.getView(R.id.tv_03);

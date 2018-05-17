@@ -438,11 +438,11 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
 
     public static void setSpaceAndRemark(TextView tv_05, String specText, String remarks) {
 
-        if (!TextUtils.isEmpty(specText) && !TextUtils.isEmpty(specText)) {
+        if (!TextUtils.isEmpty(specText) && !TextUtils.isEmpty(remarks)) {
             tv_05.setText("规格: " + specText + "   " + remarks);
-        } else if (!TextUtils.isEmpty(specText) && TextUtils.isEmpty(specText)) {
+        } else if (!TextUtils.isEmpty(specText) && TextUtils.isEmpty(remarks)) {
             tv_05.setText("规格: " + specText);
-        } else if (TextUtils.isEmpty(specText) && !TextUtils.isEmpty(specText)) {
+        } else if (TextUtils.isEmpty(specText) && !TextUtils.isEmpty(remarks)) {
             tv_05.setText("规格: " + remarks);
         } else {
             tv_05.setText("规格: - ");

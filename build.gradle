@@ -4,6 +4,7 @@ buildscript {
         mavenCentral()
         jcenter()
         google()
+
     }
 
 
@@ -20,6 +21,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
+//        classpath 'com.android.tools.build:gradle:2.3.0'  // or other
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.0'
 //        classpath 'me.tatarka.retrolambda.projectlombok:lombok.ast:0.2.3.a'
@@ -28,11 +30,18 @@ buildscript {
         // in the individual module build.gradle files
         // tinker gradle插件
 //        classpath ('com.tencent.tinker:tinker-patch-gradle-plugin:1.7.9')
+
+//        classpath "com.ceabie.dextools:gradle-dexknife-plugin:1.5.9"
+//        classpath 'com.ceabie.dextools:gradle-dexknife-plugin:1.6.1'
+
     }
 
 }
 
 allprojects {
+
+
+
     repositories {
         jcenter()
         google()

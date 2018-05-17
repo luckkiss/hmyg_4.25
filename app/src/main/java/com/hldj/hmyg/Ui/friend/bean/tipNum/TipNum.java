@@ -27,4 +27,12 @@ public class TipNum implements Serializable {
     public Integer count;
 
 
+    @Override
+    public String toString() {
+        return "TipNum{" +
+                "type=" + type +
+                ", showPoint=" + showPoint +
+                ", count=" + count +
+                '}';
+    }
 }

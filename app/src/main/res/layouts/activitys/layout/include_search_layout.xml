@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/include_search"
     android:layout_width="match_parent"
-    android:layout_height="30dp"
+    android:layout_height="35dp"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:background="@drawable/search_bg"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:visibility="visible">
 
     <ImageView
         android:layout_width="15dp"
@@ -23,10 +25,10 @@
         android:layout_weight="1"
         android:background="@null"
         android:hint="请输入项目名称"
-        android:paddingLeft="3dp"
-        android:textColorHint="@color/hint_text_color"
         android:imeOptions="actionSearch"
+        android:paddingLeft="3dp"
         android:singleLine="true"
+        android:textColorHint="@color/hint_text_color"
         android:textSize="@dimen/textSizeXX" />
 
     <com.coorchice.library.SuperTextView

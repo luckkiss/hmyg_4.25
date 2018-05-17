@@ -76,7 +76,7 @@
 
 
                 <!--@string/tab_c_text-->
-                <RadioButton
+                <com.hldj.hmyg.widget.MainRadioButton
                     android:id="@+id/tab_d"
                     style="@style/tab_hdpi"
                     android:drawableTop="@drawable/miaopu_selecter"
@@ -85,7 +85,6 @@
                 <com.hldj.hmyg.widget.MainRadioButton
                     android:id="@+id/tab_e"
                     style="@style/tab_hdpi"
-                    android:padding="0dp"
                     android:drawableTop="@drawable/tab_home_e"
                     android:text="@string/tab_e_text" />
             </RadioGroup>

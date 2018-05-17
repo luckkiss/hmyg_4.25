@@ -57,10 +57,10 @@ import com.hldj.hmyg.bean.PlatformForShare;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.presenter.CollectPresenter;
-import com.hldj.hmyg.saler.EventsActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.SavePriceAndCountAndOutlineActivity;
 import com.hldj.hmyg.saler.SaveSeedlingActivity_change_data;
+import com.hldj.hmyg.util.AMapUtil;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
@@ -236,6 +236,8 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     private String ownerId;
     private RadioButton location;
     private String nurseryJsonName;
+    private String longitude;
+    private String latitude;
 
 
     @Override
@@ -648,7 +650,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                     initViewPager();
                                 }
                                 name = JsonGetInfo.getJsonString(jsonObject2,
-                                        "name");
+                                        "standardName");
                                 tv_title.setText(name);
                                 firstSeedlingTypeId = JsonGetInfo
                                         .getJsonString(jsonObject2,
@@ -744,7 +746,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                     ProductListAdapter.setPrice(tv_price, priceStr, min_price, isNego, tv_unitTypeName);
 
                                     //库存数量
-                                    stock = JsonGetInfo.getJsonInt(jsonObject2, "stock");
+                                    stock = JsonGetInfo.getJsonInt(jsonObject2, "count");
                                     tv_count.setText("库存：" + FUtil.$_zero(stock + ""));
 
                                     //商品规格大小
@@ -1018,6 +1020,23 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                     JSONObject nurseryJson = JsonGetInfo.getJSONObject(jsonObject2, "nurseryJson");
                                     address_name = JsonGetInfo.getJsonString(nurseryJson, "cityName") + JsonGetInfo.getJsonString(nurseryJson, "detailAddress");
                                     nurseryJsonName = JsonGetInfo.getJsonString(nurseryJson, "name");
+//                                    ToastUtil.showShortToast("address_name->" + address_name);
+
+//                                    "longitude": 118.082658,
+//                                        "latitude": 24.445567,
+                                    longitude = JsonGetInfo.getJsonString(nurseryJson, "longitude");
+                                    latitude = JsonGetInfo.getJsonString(nurseryJson, "latitude");
+
+
+                                    if (!TextUtils.isEmpty(longitude) && !TextUtils.isEmpty(latitude)) {
+
+                                        location.setVisibility(View.VISIBLE);
+                                        location.setText("导航");
+                                    } else {
+                                        location.setVisibility(View.INVISIBLE);
+                                        location.setText("未定位");
+                                    }
+//                                    ToastUtil.showShortToast("longitude->" + longitude + "  latitude" + latitude);
 
 
                                     //登录后显示商家信息
@@ -1025,7 +1044,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                         ll_store.setVisibility(View.VISIBLE);
                                         findViewById(R.id.login_to_show).setVisibility(View.GONE);
                                         tv_store_name.setText(nurseryJsonName);//商家信息    公司
-                                        tv_store_area.setText(fullName);// 所在地区
+                                        tv_store_area.setText(address_name);// 所在地区
                                         tv_store_phone.setText(displayPhone);//电话
                                         tv_contanct_name.setText(publicName);//联系人
                                     } else {
@@ -1251,10 +1270,19 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                         onBackPressed();
                         break;
                     case R.id.location:
-                        ToastUtil.showLongToast("location");
+//                        ToastUtil.showLongToast("location");
 
-                        Intent intent = new Intent(mActivity, EventsActivity.class);
-                        startActivityForResult(intent, 1);
+                        if (TextUtils.isEmpty(latitude) || TextUtils.isEmpty(longitude)) {
+                            ToastUtil.showShortToast("未获取定位信息");
+                            return;
+                        }
+                        if (AMapUtil.isInstallByRead("com.autonavi.minimap")) {
+                            AMapUtil.goToNaviActivity(mActivity, "test", null, latitude, longitude, "1", "2");
+                        } else {
+                            ToastUtil.showShortToast("未安装高德导航");
+                        }
+//                        Intent intent = new Intent(mActivity, EventsActivity.class);
+//                        startActivityForResult(intent, 1);
 
                         break;
                     case R.id.ll_01:

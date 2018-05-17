@@ -30,20 +30,53 @@
             android:textSize="@dimen/x15"
             android:visibility="visible" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp">
+
+            <TextView
+                android:id="@+id/left"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/rangeBar"
+                android:hint="0" />
+
+            <TextView
+                android:id="@+id/right"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/rangeBar"
+                android:layout_alignParentRight="true"
+                android:gravity="end"
+                android:hint="999" />
+
+
+            <com.mabeijianxi.smallvideo2.RangeSeekBar
+                android:id="@+id/rangeBar"
+                android:layout_width="match_parent"
+                android:layout_height="24dip"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center_vertical"
+                app:cells="1"
+                app:max="120"
+                app:min="0" />
+
+        </RelativeLayout>
+
 
         <com.hldj.hmyg.saler.purchase.userbuy.RxSeekBar
             android:id="@+id/seek_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:cellMode="number"
+            app:hideProgressHint="false"
+            app:isHintHolder="true"
             app:lineColorEdge="@color/radio_button_unselected_color"
             app:lineColorSelected="@color/main_color"
             app:markTextArray="@array/kedu"
             app:maxProgress="110"
             app:minProgress="0"
-            app:hideProgressHint="false"
             app:seekBarHeight="4dp"
-            app:isHintHolder="true"
             app:seekBarMode="range"
             app:textPadding="17dp"
             app:thumbPrimaryColor="@color/main_color"

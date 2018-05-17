@@ -84,10 +84,10 @@
     <string name="app_name">花木易购</string>
     <string name="app_name_test">花木易购(内测)</string>
     <string name="tab_a_text">首页</string>
-    <string name="tab_b_text">商城</string>
+    <string name="tab_b_text">苗木商城</string>
     <string name="tab_c_text">苗木圈</string>
-    <string name="tab_d_text">苗圃</string>
-    <string name="tab_e_text">我的</string>
+    <string name="tab_d_text">苗圃管理</string>
+    <string name="tab_e_text">个人中心</string>
     <string name="store_introduction">店铺介绍</string>
     <string name="store_limmit_250">不超过250个字</string>
     <string name="store_format_01">文件格式：gif，JPG，PNG，JPEG 文件大小80k以内，建议尺寸120*120px</string>

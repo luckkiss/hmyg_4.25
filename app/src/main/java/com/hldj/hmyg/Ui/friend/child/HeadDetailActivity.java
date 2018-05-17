@@ -26,6 +26,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.lang.reflect.Type;
 
+import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
+
 /**
  * Created by luocaca on 2017/11/27 0027.
  * <p>
@@ -108,7 +110,7 @@ public class HeadDetailActivity extends BaseMVPActivity {
     }
 
 
-    public void 取消关注或加关注(String beFollowUserId, CheckedTextView attention, boolean flag) {
+    public static void 取消关注或加关注(String beFollowUserId, CheckedTextView attention, boolean flag, NeedSwipeBackActivity mActivity) {
         String host = "";
         if (flag) {// true
             host = "admin/userFollow/save";
@@ -157,7 +159,7 @@ public class HeadDetailActivity extends BaseMVPActivity {
 //            attention.setChecked(!attention.isChecked());
 
 
-            取消关注或加关注(result.userId, attention, !result.isFollowed);
+            取消关注或加关注(result.userId, attention, !result.isFollowed,mActivity);
 
         });
 

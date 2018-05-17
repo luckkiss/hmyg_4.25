@@ -140,7 +140,7 @@
                             </LinearLayout>
 
 
-                            <View style="@style/View_line_gray" />
+                            <View style="@style/View_line_gray" android:layout_height="@dimen/px10" />
 
                             <LinearLayout
                                 android:id="@+id/ll_fenlei2"
@@ -247,18 +247,19 @@
                             android:id="@+id/tablayout1"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:background="@drawable/bg_top_bottom_line"
                             android:visibility="visible"
                             app:tabIndicatorColor="@color/main_color"
                             app:tabSelectedTextColor="@color/main_color"
 
+                            app:tabTextAppearance="@style/CustomTabTextAppearanceStyle"
                             >
 
                             <android.support.design.widget.TabItem
                                 android:id="@+id/left1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="平台直采" />
+                                android:text="平台直采"
+                                />
 
                             <android.support.design.widget.TabItem
                                 android:id="@+id/center1"
@@ -495,8 +496,6 @@
                 android:layout_width="54dp"
                 android:layout_height="54dp"
                 android:layout_above="@+id/iv_publish_home"
-
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="10dp"
@@ -516,7 +515,7 @@
                 android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:src="@mipmap/home_publish"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
 
         </RelativeLayout>

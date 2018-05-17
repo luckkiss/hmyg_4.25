@@ -15,7 +15,9 @@
         android:visibility="visible"
         app:elevation="0dp">
 
-        <include layout="@layout/toolbar_3_0" />
+        <include layout="@layout/toolbar_3_0" android:id="@+id/toolbar1" />
+
+        <include layout="@layout/search_top_toolbar" android:visibility="gone" android:id="@+id/toolbar2"/>
 
 
         <LinearLayout

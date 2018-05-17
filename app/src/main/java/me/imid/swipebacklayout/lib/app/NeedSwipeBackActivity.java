@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.widget.MyOptionItemView;
 
 public class NeedSwipeBackActivity extends SwipeBackBActivity {
 
@@ -123,8 +124,14 @@ return (T) view;
 
     }
 
-    public void setText(TextView tv, String str) {
-        tv.setText(str);
+    public void setText(View tv, CharSequence str) {
+        if (tv instanceof TextView)
+        {
+            ((TextView) tv).setText(str);
+        }else if (tv instanceof MyOptionItemView)
+        {
+            ((MyOptionItemView) tv).setRightText(str.toString());
+        }
     }
 
     public String getText(TextView tv) {

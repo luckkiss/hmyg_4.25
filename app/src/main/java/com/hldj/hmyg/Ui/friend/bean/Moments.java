@@ -25,7 +25,7 @@ public class Moments implements Serializable, IFootMarkDelete {
     public String id;
 
 
-    public boolean allowRefresh = true ;
+    public boolean allowRefresh = true;
 
     /**
      * 省级代码
@@ -121,8 +121,22 @@ public class Moments implements Serializable, IFootMarkDelete {
     public String videoUrl = "";
     public String videoPic = "";
 
-    public String typeName ;
-    public String type ;
+    public String typeName;
+    public String type;
+    public String imageUrl    ;
+
+    public String getDisplayImageUrl() {
+
+        if (isVideo) {
+            return videoPic;
+        }
+        if (imagesJson !=null && imagesJson.size() > 0) {
+            return imagesJson.get(0).getOssMediumImagePath();
+        }
+        return "";
+
+
+    }
 
     @Override
     public String getResourceId() {

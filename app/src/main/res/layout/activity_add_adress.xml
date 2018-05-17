@@ -78,17 +78,22 @@
         android:layout_marginStart="14dp"
         android:layout_marginTop="18dp"
         android:drawableLeft="@drawable/seller_redstar"
+        android:gravity="start|center_vertical"
         android:text="苗圃名称"
         android:textColor="@color/text_color666"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
-    <View
+    <TextView
         android:id="@+id/textView19"
-        style="@style/View_line_gray"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
         android:layout_marginTop="18dp"
         android:background="@color/gray_bg_ed"
-        android:text="TextView"
+        android:gravity="center_vertical"
+        android:paddingLeft="14dp"
+        android:text="商城联系方式(在商城显示的联系方式)"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
@@ -194,8 +199,8 @@
         android:layout_marginLeft="14dp"
         android:layout_marginStart="14dp"
         android:layout_marginTop="14dp"
-        android:text="详细地址："
         android:drawableLeft="@drawable/seller_redstar"
+        android:text="详细地址："
         android:textColor="@color/text_color666"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view6" />
@@ -362,13 +367,14 @@
         style="@style/save_bottom"
         android:layout_width="0dp"
         android:layout_height="@dimen/px88"
-        app:layout_constraintHorizontal_weight="3"
         android:layout_marginTop="16dp"
         android:background="@drawable/round_rectangle_gray_bg"
         android:text="删除苗圃"
         android:textColor="@color/text_color999"
+        android:textSize="@dimen/textSizeTitle"
         app:layout_constraintEnd_toStartOf="@+id/tv_save"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
 
@@ -377,10 +383,11 @@
         android:id="@+id/tv_save"
         style="@style/save_bottom"
         android:layout_width="0dp"
-        android:layout_marginTop="8dp"
         android:layout_height="@dimen/px88"
-        android:text="保存"
+        android:layout_marginTop="8dp"
         android:background="@drawable/round_textview_main_color_bg"
+        android:text="保存"
+        android:textSize="@dimen/textSizeTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_weight="7"

@@ -135,17 +135,17 @@ public enum TipNumType {
 
             if (tipNumType.compareTo(TipNumType.collect) == 0) {
                 views[0].setShowState(tipNum.showPoint);
-                views[0].setText(String.format("%d\n我的收藏", tipNum.count));
+                views[0].setText(String.format("%d\n收藏", tipNum.count));
 
             } else if (tipNumType.compareTo(TipNumType.follow) == 0) {
                 views[1].setShowState(tipNum.showPoint);
-                views[1].setText(String.format("%d\n我的关注", tipNum.count));
+                views[1].setText(String.format("%d\n关注", tipNum.count));
             } else if (tipNumType.compareTo(TipNumType.fans) == 0) {
                 views[2].setShowState(tipNum.showPoint);
-                views[2].setText(String.format("%d\n我的粉丝", tipNum.count));
+                views[2].setText(String.format("%d\n粉丝", tipNum.count));
             } else if (tipNumType.compareTo(TipNumType.footMark) == 0) {
                 views[3].setShowState(tipNum.showPoint);
-                views[3].setText(String.format("%d\n我的足迹", tipNum.count));
+                views[3].setText(String.format("%d\n足迹", tipNum.count));
             }
 
 
@@ -187,22 +187,18 @@ public enum TipNumType {
             if (tipNumType.compareTo(TipNumType.storeBrowse) == 0) {
                 TextView brower_num = (TextView) headView.findViewById(R.id.brower_num);
                 brower_num.setText("浏览量 " + tipNum.count);
-
             } else if (tipNumType.compareTo(TipNumType.callLog) == 0) {
                 setStyleAndText(headView.findViewById(R.id.ll_show_num2), tipNum.count + "");
-
-            } else if (tipNumType.compareTo(TipNumType.callLog) == 0) {
-                setStyleAndText(headView.findViewById(R.id.ll_show_num2), tipNum.count + "");
-
             } else if (tipNumType.compareTo(TipNumType.downShelf) == 0) {
                 setStyleAndText(headView.findViewById(R.id.ll_show_num4), tipNum.count + "");
+            } else if (tipNumType.compareTo(TipNumType.visitor) == 0) {
+                setStyleAndText(headView.findViewById(R.id.ll_show_num1), tipNum.count + "");
+            } else if (tipNumType.compareTo(TipNumType.matchPurchase) == 0) {
+                setStyleAndText(headView.findViewById(R.id.ll_show_num3), tipNum.count + "");
             }
         }
 
     }
-
-
-
 
 
     public static void setTipNum(BGABadgeLinearLayout tip_wd_qg, String str) {
@@ -244,4 +240,15 @@ public enum TipNumType {
 //    	}
 //    	return childs;
 //    }
+
+
+    @Override
+    public String toString() {
+        return "TipNumType{" +
+                "value='" + value + '\'' +
+                ", text='" + text + '\'' +
+                ", parent=" + parent +
+                ", tipNumUtils=" + tipNumUtils +
+                '}';
+    }
 }

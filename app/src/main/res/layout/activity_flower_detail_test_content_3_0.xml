@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="320dp"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <com.javis.ab.view.AbSlidingPlayView
             android:id="@+id/viewPager_menu"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/viewPager_menu"
             android:layout_gravity="bottom"
-            android:background="@color/main_color"
+            android:background="@color/black_color_60"
             android:paddingBottom="4dp"
             android:paddingLeft="10dp"
             android:paddingTop="4dp"
@@ -69,14 +69,15 @@
 
                 <TextView
                     android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="214dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
+                    android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:singleLine="true"
                     android:textColor="@color/main_color"
                     android:textSize="@dimen/textSizeTitle"
-                    tools:text="香樟" />
+                    tools:text="香樟香樟香樟香樟香樟香樟香樟香樟香樟香樟" />
             </LinearLayout>
 
 
@@ -216,9 +217,9 @@
                         android:id="@+id/left_parent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
+                        android:layout_centerVertical="true"
 
-                        android:layout_centerVertical="true">
+                        android:gravity="center_vertical">
 
 
                         <TextView
@@ -269,8 +270,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="18dp"
-                        android:layout_marginTop="2dp"
                         android:layout_marginRight="12dp"
+                        android:layout_marginTop="2dp"
                         android:layout_toRightOf="@+id/left_parent"
                         android:singleLine="true"
                         android:textColor="#666666"
@@ -549,13 +550,13 @@
                     <TextView
                         android:id="@+id/tv_store_area"
                         android:layout_width="0dp"
-
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
+                        android:ellipsize="end"
                         android:paddingLeft="15dp"
                         android:textColor="@color/text_color333"
-                        tools:text="福建   漳州" />
+                        tools:text="福建   漳州福建   漳州州福建   漳州福建 州福   漳州福建 州福建   漳州福建 州福建   漳州福建 州福建建   漳州福建 " />
 
                     <View
                         android:layout_width="1px"
@@ -573,7 +574,7 @@
                         android:button="@mipmap/ic_location"
                         android:paddingLeft="5dp"
                         android:text="未定位"
-                        android:visibility="visible"
+                        android:visibility="invisible"
                         tools:visibility="visible" />
 
 

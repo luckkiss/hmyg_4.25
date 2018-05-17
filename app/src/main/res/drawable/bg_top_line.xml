@@ -28,11 +28,11 @@
                         <!-- 红色背景 -->
                        
             <item>
-                <color android:color="@color/divider_color_bg" />
+                <color android:color="@color/gray_bg_ed" />
             </item>
                         <!-- 白色背景 -->
                        
-            <item android:drawable="@color/white" android:top="1dp" />
+            <item android:drawable="@color/white" android:top="0.5dp" />
                    
         </layer-list>
            

@@ -145,6 +145,22 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
         initViewPurchaseByUser();
 
 
+        /**
+         *  报价权限判断
+         */
+
+
+//        if (!MyApplication.getUserBean().isQuote) {
+        if (!MyApplication.getUserBean().isQuote) {
+            RadioButton radioButton = (RadioButton) findViewById(R.id.button33);
+            radioButton.setChecked(true);
+        }
+        if (!isShowLeft) {
+            RadioButton radioButton = (RadioButton) findViewById(R.id.button33);
+            radioButton.setChecked(true);
+        }
+
+
     }
 
 
@@ -201,81 +217,11 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
                         break;
                     case R.id.iv_histtory:
 
+
+                        PurchaseHistoryActivity.start(mActivity);
+
                         StorePurchaseListActivity.shouldShow = false;
-                        if (purchaseBeenad != null) {
-                            getView(R.id.ll_show_3).setVisibility(View.VISIBLE);
-                            getView(R.id.ll_show_2).setVisibility(View.GONE);
-                            getView(R.id.ll_show_12).setVisibility(View.GONE);
-                            return;
-                        }
-                        type = "";
-                        showLoading();
 
-                        getView(R.id.ll_show_2).setVisibility(View.GONE);
-                        getView(R.id.ll_show_3).setVisibility(View.VISIBLE);
-                        getView(R.id.ll_show_12).setVisibility(View.GONE);
-
-
-                        XListView listView3 = getView(R.id.listview_show_3);
-//                listview.setPullLoadEnable(true);
-//                listview.setPullRefreshEnable(true);
-//                listview.setDivider(null);
-                        lv.setPullLoadEnable(false);
-                        lv.setPullRefreshEnable(false);
-                        purchaseBeenad = new PurchaseListAdapter(PurchasePyMapActivity.this, null, R.layout.list_item_purchase_list_new_three);
-                        listView3.setAdapter(purchaseBeenad);
-                        //初始化监听接口
-                        ResultCallBack<List<PurchaseBean>> callBack = new ResultCallBack<List<PurchaseBean>>() {
-                            @Override
-                            public void onSuccess(List<PurchaseBean> purchaseBeen) {
-                                purchaseBeenad.addData(purchaseBeen);
-
-                                if (purchaseBeen != null && purchaseBeen.size() % 10 == 0) {
-                                    pageIndex3++;
-                                }
-
-                                if (purchaseBeen == null || purchaseBeen.size() == 0) {
-                                    hidenContent(getView(R.id.listview_show_3_loading));
-                                } else {
-                                    showContent(getView(R.id.listview_show_3_loading));
-                                }
-
-                                getdata = true;//成功获取到了
-                                onLoad3(listView3);
-                                hindLoading();
-                            }
-
-                            @Override
-                            public void onFailure(Throwable t, int errorNo, String strMsg) {
-                                getdata = true;//获取到了，但是失败了
-                                onLoad3(listView3);
-                                hindLoading();
-                            }
-                        };
-
-
-                        listView3.setXListViewListener(new IXListViewListener() {
-                            @Override
-                            public void onRefresh() {
-                                showLoading();
-                                req3(callBack, 0);
-                                pageIndex3 = 0;
-                                purchaseBeenad.setState(GlobBaseAdapter.REFRESH);
-                                onLoad3(listView3);
-                            }
-
-
-                            @Override
-                            public void onLoadMore() {
-                                listview.setPullRefreshEnable(false);
-                                req3(callBack, pageIndex3);
-                                onLoad3(listView3);
-                            }
-                        });
-
-
-                        req3(callBack, pageIndex3);
-                        getdata = false;//数据获取到了吗？
 
                         break;
                     case R.id.id_tv_edit_all:
@@ -471,6 +417,15 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
 
 
     public static void start2Activity(Context context) {
+        start2Activity(context, true);
+//        context.startActivity(new Intent(context, PurchasePyMapActivity.class));
+    }
+
+
+    public static boolean isShowLeft = true;
+
+    public static void start2Activity(Context context, boolean isLeft) {
+        isShowLeft = isLeft;
         context.startActivity(new Intent(context, PurchasePyMapActivity.class));
     }
 
@@ -539,6 +494,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
             return false;
         });
 
+        et_program_serach_text.setHint("请输入品种名称");
 
         select_city
                 .setOnClickListener(v -> {
@@ -598,6 +554,16 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
 
 //        BuyForUserActivity.
 //                requestData(0, mCityCode, getSearchContent(), mActivity, recycle);
+
+//        recycle.getRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
+//            @Override
+//            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+//                super.getItemOffsets(outRect, view, parent, state);
+//
+//
+//            }
+//        });
+
 
         recycle.onRefresh();
     }

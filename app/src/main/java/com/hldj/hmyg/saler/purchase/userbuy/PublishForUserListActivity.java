@@ -7,8 +7,10 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.coorchice.library.SuperTextView;
 import com.google.gson.reflect.TypeToken;
@@ -89,6 +91,14 @@ public class PublishForUserListActivity extends BaseMVPActivity {
                         recycle.getAdapter().addData(e);
 
 
+                        if (e == null || e.size() == 0) {
+                            View foot = LayoutInflater.from(mActivity).inflate(R.layout.empty_view_top, null);
+                            TextView view = (TextView) foot.findViewById(R.id.t_emptyTextView);
+                            view.setText("暂无用户报价");
+                            recycle.addFooterView(foot);
+                        }
+
+
                     }
                 });
     }
@@ -131,11 +141,20 @@ public class PublishForUserListActivity extends BaseMVPActivity {
 
     private void doConvert(BaseViewHolder helper, UserQuote item) {
 //String.format("共%s条报价(%d条未读)", count ,unreadQuoteCountJson )
+
+        String str = "";
+
+        if (unreadQuoteCountJson == 0) {
+            str = " (全部已读)";
+        } else {
+            str = " (" + unreadQuoteCountJson + "条未读)";
+        }
+
         SpannableStringBuilder unreadHead = new SpanUtils()
                 .append("共")
                 .append(count).setForegroundColor(getColorByRes(R.color.main_color))
                 .append("条报价")
-                .append(" (" + unreadQuoteCountJson + "条未读)").setForegroundColor(getColorByRes(R.color.price_orige))
+                .append(str).setForegroundColor(getColorByRes(R.color.text_color999))
                 .create();
 
 //        SpannableStringBuilder title = new SpanUtils()

@@ -17,15 +17,26 @@
         android:layout_height="0dp" />
 
 
-    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
-        android:id="@+id/recycle"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/gray_bg_ed" />
+        android:layout_height="match_parent">
+
+        <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+            android:id="@+id/recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/gray_bg_ed" />
 
 
-    <!--<Button-->
-    <!--style="@style/save_bottom"-->
-    <!--android:text="有10条求购匹配您的苗圃品种，点击查看 X" />-->
+        <ImageView
+            android:id="@+id/btn_xzmp"
+            style="@style/iv_home_publish"
+            android:layout_gravity="right|bottom"
+            android:src="@mipmap/xzmp" />
 
+    </FrameLayout>
+
+
+    <!--<include layout="@layout/item_footer_d_new_mp" />-->
 </LinearLayout>

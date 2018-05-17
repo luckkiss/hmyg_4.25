@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.hldj.hmyg.CallBack.IGroup;
@@ -77,7 +78,7 @@ public class ContactInfoParser {
     }
 
     @Keep
-    public static class ContactInfo implements IGroup {
+    public static class ContactInfo implements IGroup, Comparable<ContactInfo> {
         private String name;
         private String id;
         private String phone;
@@ -144,6 +145,11 @@ public class ContactInfoParser {
         @Override
         public String getGroupName() {
             return ChineseInital.getFirstLetter(name);
+        }
+
+        @Override
+        public int compareTo(@NonNull ContactInfo o) {
+            return this.name.compareTo(o.name);
         }
     }
 

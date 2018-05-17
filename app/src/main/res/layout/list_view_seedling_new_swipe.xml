@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/swipe_manager1"
-        layout="@layout/list_view_seedling_new" />
+        layout="@layout/list_view_seedling_new_split" />
 
     <TextView
         android:id="@+id/btn_delete_manager"

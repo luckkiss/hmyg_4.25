@@ -57,6 +57,7 @@ public class FootMark implements Serializable {
         public String userCiCity="";
         public String timeStamp="";
         public String userId="";
+        public String cityName="";
         public String userName="";
         public String userHeadImage="";
     }

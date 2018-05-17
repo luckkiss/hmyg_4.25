@@ -193,4 +193,25 @@ public class FansActivity extends BaseMVPActivity implements View.OnClickListene
         return "我的粉丝";
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        doCallLogIsRead();
+    }
+
+    public void doCallLogIsRead() {
+        new BasePresenter()
+                .doRequest("admin/userFollow/beUserIsRead", new HandlerAjaxCallBack() {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+
+//                        ToastUtil.showShortToast("清除成功");
+//                        ToastUtil.showShortToast(gsonBean.msg);
+                    }
+                });
+
+
+    }
+
 }

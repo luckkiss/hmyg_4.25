@@ -134,9 +134,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:drawableLeft="@drawable/seller_redstar"
                     android:drawablePadding="4dp"
                     android:gravity="center_vertical"
-                    android:text="店铺名称"
+                    android:text="企业名称"
                     android:textColor="@color/text_color666"
                     android:textSize="@dimen/textSizeContent" />
 
@@ -177,19 +178,19 @@
                     android:layout_height="40dp"
                     android:drawablePadding="4dp"
                     android:gravity="center_vertical"
-                    android:text="主营品种"
+                    android:text="经营品种"
                     android:textColor="@color/text_color666"
                     android:textSize="@dimen/textSizeContent" />
 
                 <EditText
                     android:id="@+id/et_type"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/x4"
                     android:background="@null"
                     android:hint="输入经营的品种"
                     android:maxLength="100"
-                    android:minHeight="@dimen/y88"
+                    android:minHeight="40dp"
                     android:paddingLeft="25dp"
                     android:paddingRight="10dp"
                     android:textColor="@color/text_color666"
@@ -213,7 +214,7 @@
                 app:left_text_color="@color/text_color666"
                 app:left_text_size="@dimen/textSizeContent"
                 app:right_src="@drawable/arrow_right_eq"
-                app:right_text="未实名认证"
+                app:right_text="未认证"
                 app:right_text_color="@color/text_color666"
                 app:right_text_size="@dimen/textSizeContent" />
 
@@ -224,7 +225,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/simpleHeightContent"
                 android:paddingRight="8dp"
-                app:left_text="店铺二维码"
+                app:left_text="企业二维码"
                 app:left_text_color="@color/text_color666"
                 app:left_text_size="@dimen/textSizeContent"
                 app:right_src="@drawable/arrow_right_eq"
@@ -241,14 +242,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/store_bg_coloc"
-                android:drawableRight="@drawable/arrow_gray_selector"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="其他信息"
-                android:visibility="gone"
                 android:textColor="@color/text_color666"
-                android:textSize="@dimen/textSizeContent" />
+                android:textSize="@dimen/textSizeContent"
+                android:visibility="visible" />
+            <!--                android:drawableRight="@drawable/arrow_gray_selector"
+-->
 
 
             <LinearLayout
@@ -275,7 +277,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:gravity="center_vertical"
-                        android:text="店铺简介"
+                        android:text="企业简介"
                         android:textColor="@color/text_color666"
                         android:textSize="@dimen/textSizeContent" />
 
@@ -318,7 +320,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingLeft="10dp"
-                    android:paddingRight="10dp" android:visibility="gone">
+                    android:paddingRight="10dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -333,7 +336,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" android:visibility="gone">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
 
                     <!--<TextView-->

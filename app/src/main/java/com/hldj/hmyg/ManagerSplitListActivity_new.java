@@ -70,8 +70,28 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
         Bundle bundle = getIntent().getExtras();
         if (TextUtils.isEmpty(bundle != null ? bundle.getString("id") : null)) {
             findViewById(R.id.ll_bottom_layout).setVisibility(View.GONE);
+
+            findViewById(R.id.toolbar1).setVisibility(View.GONE);
+            findViewById(R.id.toolbar2).setVisibility(View.VISIBLE);
+
+
+            View view = findViewById(R.id.toolbar2);
+            view.findViewById(R.id.toolbar_left_icon).setOnClickListener(v -> {
+                finish();
+            });
+            EditText editText = (EditText) findViewById(R.id.search_content);
+            view.findViewById(R.id.iv_view_type).setOnClickListener(v -> {
+//              ToastUtil.showShortToast("搜索-->" +editText.getText());
+                setSearchKey(editText.getText().toString());
+                xRecyclerView.onRefresh();
+            });
+
             return "";
         } else {
+            findViewById(R.id.toolbar1).setVisibility(View.VISIBLE);
+            findViewById(R.id.toolbar2).setVisibility(View.GONE);
+
+
             return bundle.getString("id", "");
         }
     }
@@ -373,8 +393,10 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
                     Dialog dialog1 = new Dialog(context, R.style.DialogTheme);
                     dialog1.setContentView(R.layout.count_edit);
                     TextView textView = dialog1.findViewById(R.id.tv_title);
-                    textView.setText(item.name);
+                    EditText descript = (EditText) dialog1.findViewById(R.id.descript);
+                    textView.setText(item.standardName);
 
+                    descript.setText(item.count);
 
                     dialog1.findViewById(R.id.close_title).setOnClickListener(v -> {
                         dialog1.dismiss();

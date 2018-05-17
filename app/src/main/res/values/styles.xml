@@ -783,7 +783,7 @@
 
     <style name="save_bottom">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_height">40dp</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:background">@drawable/rb_left_select</item>
         <item name="android:gravity">center</item>
@@ -907,6 +907,22 @@
         <item name="android:src">@mipmap/home_publish</item>
         <item name="android:visibility">visible</item>
     </style>
+
+
+
+    <style name="option_view_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/simpleHeightContent</item>
+        <item name="android:background">@color/white</item>
+        <item name="left_text_color">@color/text_color666</item>
+        <item name="right_text_color">@color/text_color666</item>
+        <item name="left_text_size">@dimen/textSizeContent</item>
+        <item name="right_text_size">@dimen/textSizeContent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:src">@mipmap/home_publish</item>
+        <item name="android:visibility">visible</item>
+    </style>
+
 
 
 </resources>

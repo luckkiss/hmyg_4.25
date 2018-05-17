@@ -14,7 +14,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="店铺LOGO"
+        android:text="企业LOGO"
         android:textColor="@color/text_color333"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView17"
@@ -37,7 +37,8 @@
         android:layout_height="44dp"
         android:foreground="@drawable/zheng_white"
         android:padding="2dp"
-        android:src="@drawable/logo"
+        android:scaleType="centerCrop"
+        android:src="@drawable/company_head"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView16"
         app:layout_constraintTop_toTopOf="parent" />

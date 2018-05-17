@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.zxing.WriterException;
+import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.StoreActivity;
@@ -33,8 +34,11 @@ import com.hldj.hmyg.Ui.AuthenticationActivity;
 import com.hldj.hmyg.Ui.AuthenticationCompanyActivity;
 import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.application.Data;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.bean.Pic;
+import com.hldj.hmyg.bean.UserInfoGsonBean;
+import com.hldj.hmyg.presenter.LoginPresenter;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.UploadHeadUtil;
@@ -146,7 +150,7 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
         ImageView btn_back = (ImageView) findViewById(R.id.toolbar_left_icon);
 
         TextView title = (TextView) findViewById(R.id.toolbar_title);
-        title.setText("店铺设置");
+        title.setText("企业设置");
 
         iv_logo = (ImageView) findViewById(R.id.imageView17);
         change_logo = (TextView) findViewById(R.id.head_name);
@@ -168,12 +172,23 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
         iv_banner.setOnClickListener(multipleClickProcess);
         et_domian.setOnClickListener(multipleClickProcess);
         sure.setOnClickListener(multipleClickProcess);
-        tv_open_close.setOnClickListener(multipleClickProcess);
+//        tv_open_close.setOnClickListener(multipleClickProcess);
         getView(R.id.qyrz).setOnClickListener(multipleClickProcess);
         getView(R.id.qyewm).setOnClickListener(multipleClickProcess);
 
 
-        tv_open_close.setVisibility(View.GONE);
+//        tv_open_close.setVisibility(View.VISIBLE);
+
+
+        if (TextUtils.isEmpty(MyApplication.getUserBean().storeId)) {
+            qyrz.setVisibility(View.GONE);
+            getView(R.id.qyewm).setVisibility(View.GONE);
+        } else {
+            qyrz.setVisibility(View.VISIBLE);
+            getView(R.id.qyewm).setVisibility(View.VISIBLE);
+
+        }
+
 
     }
 
@@ -216,6 +231,34 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
 
                                 JSONObject jsonObject3 = JsonGetInfo
                                         .getJSONObject(jsonObject2, "store");
+
+                                JSONObject attrData = JsonGetInfo
+                                        .getJSONObject(jsonObject3, "attrData");
+
+                                String identityStatus = JsonGetInfo.getJsonString(
+                                        jsonObject2, "identityStatus");
+/**
+ * "attrData":{
+ "store_identity":"pass"
+ },
+ */
+                                qyrz.setRightText(identityStatus);
+//                                try {
+//                                    CompanyIdentityStatus companyIdentityStatus = CompanyIdentityStatus.valueOf(store_identity);
+//                                    if (companyIdentityStatus != null) {
+//                                        qyrz.setRightText(companyIdentityStatus.getEnumText());
+//                                    } else {
+//                                        qyrz.setRightText(CompanyIdentityStatus.unaudited.getEnumText());
+//                                    }
+//                                } catch (IllegalArgumentException e) {
+//                                    qyrz.setRightText(CompanyIdentityStatus.unaudited.getEnumText());
+//                                    e.printStackTrace();
+//
+//                                }
+
+
+//                                ToastUtil.showShortToast(store_identity);
+
                                 store_id = JsonGetInfo.getJsonString(
                                         jsonObject3, "id");
                                 shareUrl = JsonGetInfo.getJsonString(
@@ -268,6 +311,10 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                                     ll_ed.setBackgroundResource(R.drawable.store_edit_selector);
                                 }
                                 et_store_name.setText(name);
+                                if (!TextUtils.isEmpty(name)) {
+                                    et_store_name.setSelection(name.length());//将光标移至文字末尾
+                                }
+
                                 et_detail.setText(remarks);
                                 et_type.setText(mainType);
                                 if (!"".equals(logoId) && !"".equals(logoUrl)) {
@@ -362,8 +409,27 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                             }
                             if ("1".equals(code)) {
                                 Toast.makeText(StoreSettingActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
-                                RxBus.getInstance().post(5, new Eactivity3_0.OnlineEvent(true));
-                                finish();
+
+
+                                if (TextUtils.isEmpty(MyApplication.getUserBean().storeId)) {
+                                    LoginPresenter.getUserInfo(MyApplication.getUserBean().id, new ResultCallBack<UserInfoGsonBean>() {
+                                        @Override
+                                        public void onSuccess(UserInfoGsonBean userInfoGsonBean) {
+                                            RxBus.getInstance().post(5, new Eactivity3_0.OnlineEvent(true));
+                                            finish();
+                                        }
+
+                                        @Override
+                                        public void onFailure(Throwable t, int errorNo, String strMsg) {
+
+                                        }
+                                    });
+                                } else {
+                                    RxBus.getInstance().post(5, new Eactivity3_0.OnlineEvent(true));
+                                    finish();
+                                }
+
+
                             }
 
                         } catch (JSONException e) {
@@ -414,7 +480,9 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                             return;
                         }
 //                        QcCodeActivity.start(mActivity, 1, "hello world");
-                        ToastUtil.showLongToast(getOssImagePaths(shareUrl).toString());
+//                        ToastUtil.showLongToast(
+                        getOssImagePaths(shareUrl);
+//                        );
                         if (ossImagePaths.size() > 0) {
                             GalleryImageActivity.startGalleryImageActivity(mActivity, 0, ossImagePaths);
                         }

@@ -116,6 +116,8 @@ public class RxSeekBar extends View {
     private float reservePercent;
     private float maxValue, minValue;
 
+
+
     //真实的最大值和最小值
     //True maximum and minimum values
     private float mMin, mMax;

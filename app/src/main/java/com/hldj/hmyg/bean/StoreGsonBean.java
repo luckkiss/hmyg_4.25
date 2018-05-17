@@ -80,6 +80,9 @@ public class StoreGsonBean implements Serializable {
             public String shareUrl = "";
             public String storeUrl;
 
+            public String nurseryCount ;
+
+
             public AttrData attrData = new AttrData();
 
         }

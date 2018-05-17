@@ -12,6 +12,7 @@ public interface ConstantParams {
      * 到岸价
      */
     String pageIndex = "pageIndex";
+    String pageSize = "pageSize";
 
     String searchKey = "searchKey";
 

@@ -115,6 +115,12 @@ public class Data {
         return GetServerUrl.getHtmlUrl() + shareUrl + plantID + ".html";
     }
 
+    public static String getShareMyPurchase(String resourceId, String host) {
+        //http://192.168.1.252:8090/admin/userPurchase/detail/5f2d96a19f7540728ba764826c1a1625.html
+        return GetServerUrl.getHtmlUrl() + host + "/" + resourceId + ".html";
+    }
+
+
     // 新闻资讯  http://192.168.1.252:8090/article?isApp=true
     public static final String news_urls = GetServerUrl.getHtmlUrl() + "article?isHeader=true";
 

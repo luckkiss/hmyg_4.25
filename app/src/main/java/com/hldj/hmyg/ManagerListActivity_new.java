@@ -26,9 +26,11 @@ import com.hldj.hmyg.DaoBean.SaveJson.SavaBeanDao;
 import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.M.CountTypeGsonBean;
 import com.hldj.hmyg.M.StatusCountBean;
+import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.adapter.ProductListAdapterForManager;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBeanData;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
@@ -102,7 +104,7 @@ public abstract class ManagerListActivity_new<P extends ManagerListPresenter, M 
         nurseryId = id;
     }
 
-  public    List<TextView> list_counts = new ArrayList<>();//显示count 的几个textview
+    public List<TextView> list_counts = new ArrayList<>();//显示count 的几个textview
 
     @Override
     public int bindLayoutID() {
@@ -149,8 +151,6 @@ public abstract class ManagerListActivity_new<P extends ManagerListPresenter, M 
 
             @Override
             protected void convert(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item) {
-
-
 
 
                 /**
@@ -263,7 +263,7 @@ public abstract class ManagerListActivity_new<P extends ManagerListPresenter, M 
 
 
     public void requestData(int page) {
-        mPresenter.getData(page + "",storeId, nurseryId, mType, status, searchKey);
+        mPresenter.getData(page + "", storeId, nurseryId, mType, status, searchKey);
         requestCounts();
     }
 
@@ -412,7 +412,7 @@ public abstract class ManagerListActivity_new<P extends ManagerListPresenter, M 
     private void initToolbar() {
         ImageView iv_search = getView(R.id.toolbar_right_icon);
         iv_search.setVisibility(View.VISIBLE);
-        setTitle("苗木管理");
+//        setTitle("苗木管理");
         iv_search.setOnClickListener(view -> {
             Intent toSearchActivity = new Intent(ManagerListActivity_new.this, SearchActivity.class);
             toSearchActivity.putExtra("searchKey", searchKey);
@@ -535,7 +535,7 @@ public abstract class ManagerListActivity_new<P extends ManagerListPresenter, M 
 
         } else if (arg1 == ConstantState.PUBLIC_SUCCEED) {
             xRecyclerView.onRefresh();
-
+            RxBus.getInstance().post(DActivity_new_mp.refresh, new Eactivity3_0.OnlineEvent(true));
         } else if (arg1 == ConstantState.FLOW_BACK) {
             xRecyclerView.onRefresh();
         }
@@ -623,7 +623,7 @@ public abstract class ManagerListActivity_new<P extends ManagerListPresenter, M 
                 case 2:
                     list_counts.get(i).setText("(" + gsonBean.getData().backedCount + ")");
 
-                    D.w( " storeId is =====>  " + gsonBean.getData().storeId);
+                    D.w(" storeId is =====>  " + gsonBean.getData().storeId);
                     break;
                 case 3:
 //                    list_counts.get(i).setText("(" + gsonBean.data.pendingCount + ")");

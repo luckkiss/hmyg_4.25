@@ -157,7 +157,7 @@ public class StoreDetailActivity extends BaseMVPActivity {
         setText(getView(R.id.mmq), String.format("%d\n苗木圈", simpleGsonBean.getData().momentsCount));
 
 
-        option_phone.setRightText(simpleGsonBean.getData().phone);
+        option_phone.setRightText("\uD83D\uDCDE " + simpleGsonBean.getData().phone);
         option_phone.setOnClickListener(v -> {
 //            ToastUtil.showLongToast(simpleGsonBean.getData().phone);
             FlowerDetailActivity.CallPhone(
@@ -170,11 +170,17 @@ public class StoreDetailActivity extends BaseMVPActivity {
         option_identity.showRightImg(true);
 
         store_identity.setVisibility(simpleGsonBean.getData().identity ? View.VISIBLE : View.GONE);
-        option_identity.setOnClickListener(v -> {
-//            ToastUtil.showLongToast("认证");
-            AuthenticationCompanyActivity.start(mActivity, AuthenticationActivity.no_auth, "");
 
-        });
+
+        if (simpleGsonBean.getData().identity) {
+            option_identity.setOnClickListener(v -> {
+//            ToastUtil.showLongToast("认证");
+                AuthenticationCompanyActivity.start(mActivity, AuthenticationActivity.no_auth, "", false,StoreDetailActivity.storeId );
+            });
+        } else {
+            option_identity.showRightImg(false);
+        }
+
 
         /**
          android:id="@+id/mmq"
@@ -190,7 +196,13 @@ public class StoreDetailActivity extends BaseMVPActivity {
 
     private void initOwnerBean(StoreGsonBean.DataBean.OwnerBean owner) {
         D.i("---------initOwnerBean-------" + owner.headImage);
-        ImageLoader.getInstance().displayImage(owner.headImage, logo);
+
+        if (TextUtils.isEmpty(owner.headImage)) {
+            logo.setImageResource(R.drawable.company_head);
+        } else {
+            ImageLoader.getInstance().displayImage(owner.headImage, logo);
+
+        }
 
         getView(R.id.mmq).setOnClickListener(v -> {
             CenterActivity.start(mActivity, owner.id);

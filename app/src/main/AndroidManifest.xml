@@ -582,7 +582,8 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.hldj.hmyg.saler.purchase.PurchasePyMapActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"  android:windowSoftInputMode="stateHidden|stateUnchanged"  />
+        <activity android:name="com.hldj.hmyg.saler.purchase.PurchaseHistoryActivity" />
 
         <!--用户报价界面  -->
         <activity android:name="com.hldj.hmyg.saler.purchase.userbuy.BuyForUserActivity" />

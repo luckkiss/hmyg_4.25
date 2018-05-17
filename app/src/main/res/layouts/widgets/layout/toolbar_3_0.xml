@@ -33,7 +33,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/x6"
             android:padding="5dp"
-            android:src="@drawable/ic_stepper_left" />
+            android:src="@drawable/ic_stepper_left_new" />
 
 
         <LinearLayout

@@ -44,7 +44,7 @@ public class BProduceAdapt extends GlobBaseAdapter<BPageGsonBean.DatabeanX.Pageb
             iv_right_top.setVisibility(View.GONE);
         }
         TextView tv_02 = myViewHolder.getView(R.id.tv_02);
-        tv_02.setText(item.name);
+        tv_02.setText(item.standardName);
 
         TextView tv_03 = myViewHolder.getView(R.id.tv_03);// 高度 官服
         tv_03.setText(item.specText);

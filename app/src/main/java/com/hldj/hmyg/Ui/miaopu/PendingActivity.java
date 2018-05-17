@@ -174,6 +174,12 @@ public class PendingActivity extends ManagerSplitListActivity_new<ManagerListPre
 
     @Override
     public String setTitle() {
+
         return "待处理";
     }
+
+
+
+
+
 }

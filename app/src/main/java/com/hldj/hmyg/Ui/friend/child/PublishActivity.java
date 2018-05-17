@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -30,6 +31,7 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.SellectActivity2;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.bean.enums.MomentsType;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.Pic;
@@ -46,6 +48,7 @@ import com.hldj.hmyg.util.TakePhotoUtil;
 import com.hldj.hmyg.util.VideoHempler;
 import com.hldj.hmyg.widget.MyOptionItemView;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.SpanUtils;
 import com.hy.utils.ToastUtil;
 import com.mabeijianxi.smallvideo2.VideoPlayerActivity2;
 import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
@@ -233,7 +236,11 @@ public class PublishActivity extends BaseMVPActivity {
         });
 
 
+        requestLast();
+
+
     }
+
 
     private void checkIntent(Intent data) {
 
@@ -415,7 +422,7 @@ public class PublishActivity extends BaseMVPActivity {
             location.setLeftText("用苗地");
             /*采购*/
             et_content.setHint(R.string.purchase_content);
-            setTitle("发布求购");
+//            setTitle("发布求购");
             clickListener = v -> {
 //                ToastUtil.showLongToast("发布求购");
                 if (TextUtils.isEmpty(et_content.getText())) {
@@ -441,7 +448,7 @@ public class PublishActivity extends BaseMVPActivity {
         } else if (getTag().equals(PUBLISH)) {
             location.setLeftText("苗源地");
             /*发布*/
-            setTitle("发布供应");
+//            setTitle("发布供应");
 
             et_content.setHint(R.string.publish_content);
             clickListener = v -> {
@@ -471,7 +478,7 @@ public class PublishActivity extends BaseMVPActivity {
             location.setLeftText("用苗地");
             /*采购*/
             et_content.setHint("写点什么....");
-            setTitle("发布苗木圈");
+//            setTitle("发布苗木圈");
             rb_type_left.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -480,7 +487,7 @@ public class PublishActivity extends BaseMVPActivity {
 
                     location.setLeftText("苗源地");
             /*发布*/
-                    setTitle("发布供应");
+//                    setTitle("发布供应");
 
                     et_content.setHint(R.string.publish_content);
 
@@ -518,7 +525,7 @@ public class PublishActivity extends BaseMVPActivity {
                     location.setLeftText("用苗地");
             /*采购*/
                     et_content.setHint(R.string.purchase_content);
-                    setTitle("发布求购");
+//                    setTitle("发布求购");
 
 
 //                    et_content.setHint(R.string.publish_content);
@@ -877,7 +884,7 @@ public class PublishActivity extends BaseMVPActivity {
     public String setTitle() {
 
 
-        return "我的苗友圈";
+        return "发布苗木圈";
     }
 
 
@@ -1189,6 +1196,81 @@ public class PublishActivity extends BaseMVPActivity {
 //            video.stopPlayback();
 //            video.pause();
 //        }
+    }
+
+
+    /**
+     * 上一条数据
+     */
+    private void requestLast() {
+
+        //admin/moments/publish
+
+        new BasePresenter()
+                .doRequest("admin/moments/publish", new HandlerAjaxCallBack() {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+                        if (gsonBean.getData().moments != null) {
+                            Moments moments = gsonBean.getData().moments;
+//                            ToastUtil.showShortToast(moments.typeName);
+                            getView(R.id.refresh_publish_content).setVisibility(View.VISIBLE);
+                            getView(R.id.refresh_publish_content).setOnClickListener(v -> {
+                                DetailActivity.start(mActivity, moments.id);
+                            });
+
+                            FinalBitmap.create(mActivity).display(getView(R.id.icon), moments.imageUrl);
+
+                            setText(getView(R.id.right_top), moments.timeStampStr);
+
+                            CheckedTextView checkedTextView = getView(R.id.refresh);
+
+                            setText(getView(R.id.title), String.format("[%s]%s", moments.typeName, moments.content));
+
+
+                            TextView textView = getView(R.id.tip);
+                            textView.setText(new SpanUtils()
+                                    .append("一键刷新上一条苗木圈发布时间,刷新更多请进入")
+                                    .append("我的苗木圈").setForegroundColor(getColorByRes(R.color.main_color))
+                                    .create());
+
+
+                            getView(R.id.tip).setOnClickListener(v -> {
+//                                ToastUtil.showShortToast("show tip");
+
+                                CenterActivity.
+                                        start(mActivity, MyApplication.getUserBean().id);
+                            });
+
+                            checkedTextView.setOnClickListener(v -> {
+                                if (checkedTextView.isChecked()) return;
+                                new BasePresenter()
+                                        .putParams("id", moments.id)
+                                        .doRequest("admin/moments/refresh", new HandlerAjaxCallBack() {
+                                            @Override
+                                            public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                                ToastUtil.showShortToast(gsonBean.msg);
+                                                if (gsonBean.isSucceed()) {
+                                                    checkedTextView.setChecked(true);
+                                                    checkedTextView.setText("已刷新");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                                                super.onFailure(t, errorNo, strMsg);
+                                                checkedTextView.setChecked(true);
+                                                checkedTextView.setText("已刷新");
+
+                                            }
+                                        });
+                            });
+
+
+                        }
+                    }
+                });
+
+
     }
 
 

@@ -68,7 +68,7 @@ public class SimpleGsonBean implements Serializable {
 
 
         /* 联系人 匹配列表 */
-        public List<ContactInfoParser.ContactInfo> userList ;
+        public List<ContactInfoParser.ContactInfo> userList;
         /* 联系人 匹配列表 */
 
 
@@ -114,6 +114,9 @@ public class SimpleGsonBean implements Serializable {
         //        CenterActivity
         /*供应数量*/
         public int supplyCount = 0;
+
+        /* 苗圃数量 */
+        public int nurseryCount = 0;
         /*采购数量*/
         public int purchaseCount = 0;
         /*收藏数量*/

@@ -78,7 +78,7 @@
         android:layout_height="@dimen/simpleHeightContent"
         android:background="@drawable/bg_bottom_line"
         android:paddingRight="12dp"
-        app:left_text="证照信息"
+        app:left_text="企业认证"
         app:right_src="@drawable/arrow_right_eq"
         app:right_text="已认证"
         app:right_text_color="@color/main_color" />

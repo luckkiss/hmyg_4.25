@@ -129,7 +129,7 @@
             android:drawableRight="@drawable/arrow_right_eq"
             android:gravity="center_vertical"
             android:paddingRight="10dp"
-            app:left_text="用苗地"
+            app:left_text="苗源地"
             app:left_text_color="@color/text_color666"
             app:left_text_margin_left="16dp"
             app:left_text_size="@dimen/textSize"
@@ -186,7 +186,6 @@
             android:listSelector="@color/transparent"
             android:numColumns="4"
             android:scrollbars="none" />
-
 
 
         <include layout="@layout/include_bottom_left_white_right_main" />

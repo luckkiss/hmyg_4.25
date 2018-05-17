@@ -3,6 +3,7 @@ package com.hldj.hmyg;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Keep;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -41,6 +42,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import static com.hldj.hmyg.R.id.search_view2;
 import static com.hldj.hmyg.util.ConstantState.FILTER_OK;
 
+@Keep
 public class SellectActivity2 extends NeedSwipeBackActivity {
     //    MaterialDialog mMaterialDialog;
     private static String type01 = ""; // planted,
@@ -201,23 +203,51 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
 
     public void initSearchView(SearchScropView view, TypesBean.DataBean.MainSpecBean model, String min, String max) {
         view.setDatas(model);
-        ToastUtil.showLongToast("aaa");
+//        ToastUtil.showLongToast("aaa");
         if (view.type.equals("rod")) {
+
             view.setMin(model.min);
             view.setMax(model.max);
 //            view.setSeek_bar(queryBean.minRod, queryBean.maxRod);
-            view.setSeek_bar(model.min + "", model.max+ "");
+
+
+            view.setRule(((float) model.min), ((float) model.max));
+
+
+            if (!TextUtils.isEmpty(queryBean.minRod) && !TextUtils.isEmpty(queryBean.maxRod)) {
+                view.setSeek_bar(queryBean.minRod, queryBean.maxRod);
+                view.setMin(queryBean.minRod);
+                view.setMax(queryBean.maxRod);
+            }
+
+
         } else if (view.type.equals("height")) {
             view.setMin(model.min);
             view.setMax(model.max);
+            view.setRule(((float) model.min), ((float) model.max));
 
-            view.setSeek_bar(model.min + "", model.max+ "");
-//            view.setSeek_bar(queryBean.minHeight, queryBean.maxHeight);
+
+            if (!TextUtils.isEmpty(queryBean.minHeight) && !TextUtils.isEmpty(queryBean.maxHeight)) {
+                view.setMin(queryBean.minHeight);
+                view.setMax(queryBean.maxHeight);
+                view.setSeek_bar(queryBean.minHeight, queryBean.maxHeight);
+            }
+
         } else if (view.type.equals("crown")) {
             view.setMin(model.min);
             view.setMax(model.max);
-            view.setSeek_bar(model.min + "", model.max+ "");
+            view.setRule(((float) model.min), ((float) model.max));
+
+//            view.setMin(model.min);
+//            view.setMax(model.max);
 //            view.setSeek_bar(model.min + "", model.max + "");
+
+            if (!TextUtils.isEmpty(queryBean.minCrown) && !TextUtils.isEmpty(queryBean.maxCrown)) {
+                view.setMin(queryBean.minCrown);
+                view.setMax(queryBean.maxCrown);
+                view.setSeek_bar(queryBean.minCrown, queryBean.maxCrown);
+            }
+
         }
 
 

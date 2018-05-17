@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
+import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
@@ -192,6 +193,18 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
         select_city.setText("未选择");
         select_city.setTag("");
 
+        if (MainActivity.aMapLocation != null) {
+            if (!TextUtils.isEmpty(MainActivity.cityCode)) {
+                select_city.setText(MainActivity.province_loc + " " + MainActivity.city_loc);
+                select_city.setTag(MainActivity.cityCode);
+
+//                cityBeans = new CityGsonBean.ChildBeans();
+//                cityBeans.cityCode = MainActivity.cityCode;
+//                city.setRightText(MainActivity.province_loc + " " + MainActivity.city_loc);
+            }
+        }
+
+
     }
 
     private void 设置求购期限(List<UnitTypeBean> validityList, TextView select_time) {
@@ -333,7 +346,13 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
 //                .initView(R.layout.save_seeding_auto_add);
 //        AutoAddRelative autoAddRelative_rd = new AutoAddRelative(this);
 
-        List<SaveSeedingGsonBean.DataBean.TypeListBean.ParamsListBean> paramsListBean = mGsonBean.getData().typeList.get(0).paramsList;
+        List<SaveSeedingGsonBean.DataBean.TypeListBean.ParamsListBean> paramsListBean = null;
+        for (int i = 0; i < mGsonBean.getData().typeList.size(); i++) {
+            if (mGsonBean.getData().typeList.get(i).name.equals(parentName.parentName)) {
+                paramsListBean = mGsonBean.getData().typeList.get(i).paramsList;
+            }
+        }
+
 
         if (mGsonBean.getData().typeList != null && paramsListBean != null) {
 
@@ -348,6 +367,7 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
                             .initView(R.layout.save_seeding_auto_add_radio)
                             .setDatas_rd(paramsListBean.get(i), mGsonBean.getData().dbhTypeList, mGsonBean.getData().diameterTypeList)
                     ;
+
 
                     autoAddRelative_rd.setSizeWithTag(paramsListBean.get(i).getValue());
                     autoAddRelative_rd.setTag(paramsListBean.get(i).getValue());

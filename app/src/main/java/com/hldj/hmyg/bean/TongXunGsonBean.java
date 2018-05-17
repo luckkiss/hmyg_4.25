@@ -1,5 +1,7 @@
 package com.hldj.hmyg.bean;
 
+import android.support.annotation.NonNull;
+
 import com.hldj.hmyg.util.ContactInfoParser;
 
 import java.util.List;
@@ -22,7 +24,7 @@ public class TongXunGsonBean {
     public static class DataBean {
         public List<UserDataBean> userData;
 
-        public static class UserDataBean {
+        public static class UserDataBean implements Comparable<UserDataBean> {
             /**
              * py :
              * userList : [{"id":"2659ffd89e0146188b48ab8bdc66903f","phone":"13394058505","headImage":"http://image.hmeg.cn/upload/image/201712/506d04f393214eada4713d2c319149f5.jpeg"
@@ -30,6 +32,11 @@ public class TongXunGsonBean {
              */
             public String py;
             public List<ContactInfoParser.ContactInfo> userList;
+
+            @Override
+            public int compareTo(@NonNull UserDataBean o) {
+                return this.py.compareTo(o.py);
+            }
 
 //            public static class ContactInfo {
 //                /**

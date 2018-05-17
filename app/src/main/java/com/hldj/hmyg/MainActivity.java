@@ -60,6 +60,10 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     private UpdateInfo updateInfo;
 
 
+    public static MainRadioButton radio_d;
+    public static MainRadioButton radio_e;
+
+
     public Editor e;
 
 
@@ -177,6 +181,11 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
 
         radioderGroup.setOnCheckedChangeListener(this);
+
+        radio_d = findViewById(R.id.tab_d);
+        radio_e = findViewById(R.id.tab_e);
+
+
         radioderGroup.check(R.id.tab_a);// 默认第一个按钮
         check = "1";
         // getUpDateInfo();
@@ -224,6 +233,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     public static void toB() {
         radioderGroup.check(R.id.tab_b);
     }
+
     public static void toD() {
         radioderGroup.check(R.id.tab_d);
     }
@@ -270,8 +280,8 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                     check = "4";
                 }
 
-                MainRadioButton tab_c = findViewById(R.id.tab_e);
-                tab_c.setShowSmallDot(true);
+                MainRadioButton tab_c = findViewById(R.id.tab_d);
+                tab_c.setShowSmallDot(false);
 
                 break;
             case R.id.tab_e:

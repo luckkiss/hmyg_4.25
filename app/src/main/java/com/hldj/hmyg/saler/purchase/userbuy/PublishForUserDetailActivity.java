@@ -1,6 +1,5 @@
 package com.hldj.hmyg.saler.purchase.userbuy;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -57,7 +56,6 @@ import java.util.List;
 /**
  * 用户 报价(发布)详情 界面  包含成功  与   失败
  */
-@SuppressLint({"NewApi", "ResourceAsColor"})
 public class PublishForUserDetailActivity extends BaseMVPActivity implements OnClickListener {
 
 
@@ -105,6 +103,14 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
         });
         submit = getView(R.id.bottom_right);
         submit.setOnClickListener(v -> {
+
+
+            RadioButton left = getView(R.id.rb_title_left);
+            RadioButton rb_title_right = getView(R.id.rb_title_right);
+            if (!left.isChecked() && !rb_title_right.isChecked()) {
+                ToastUtil.showLongToast("请选择价格类型");
+                return;
+            }
 
 
             List<File> l = SaveSeedlingPresenter.getFileList(grid.getAdapter().getDataList());
@@ -203,7 +209,7 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
                     }).show(getSupportFragmentManager(), "select_city");
         });
 
-        initLocation(getView(R.id.select_city), currentCityCode);
+        initLocation(getView(R.id.select_city));
     }
 
     private void 不保价(String extraID) {
@@ -327,7 +333,10 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
                                 });
 
 
-                        setText(getView(R.id.head_name), FUtil.$_head(result.data.headerMap.storeName, ""));
+                        setText(getView(R.id.head_name), FUtil.$_head("", result.data.headerMap.storeName));
+//                    ToastUtil.showLongToast( );
+//                        ToastUtil.showLongToast("" + result.data.headerMap.storeName);
+
                         setText(getView(R.id.head_title_name), result.data.headerMap.displayName);
                         ImageLoader.getInstance().displayImage(result.data.headerMap.headImage, (ImageView) getView(R.id.imageView17));
 
@@ -422,9 +431,16 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
                                     public void onRealSuccess(SimpleGsonBean gsonBean) {
                                         Log.i(TAG, "onRealSuccess: " + gsonBean.isSucceed());
                                         if (gsonBean.isSucceed()) {
-                                            resetBottom();
-                                            initView();
-                                            ToastUtil.showLongToast("删除成功,正在为您刷新");
+                                            ToastUtil.showLongToast("删除成功");
+                                            showLoading();
+                                            new android.os.Handler().postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    resetBottom();
+                                                    initView();
+                                                }
+                                            }, 1000);
+//
                                         }
                                     }
                                 });
@@ -445,7 +461,8 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
 
 
         if (isShow) {
-            Drawable drawable = getDrawable(R.drawable.arrow_right_eq);
+            Drawable drawable = MyApplication.getInstance().getResources().getDrawable(R.drawable.arrow_right_eq);
+//            Drawable drawable = MyApplication.getInstance().getDrawable(R.drawable.arrow_right_eq);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
 //            select_city.setCompoundDrawables(null, null, drawable, null);
         } else {
@@ -463,7 +480,7 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
         {
             editText.setTextColor(getColorByRes(R.color.price_orige));
             view1.setVisibility(View.VISIBLE);
-            view1.setBackground(getDrawable(R.drawable.tag_bg2));
+            view1.setBackground(MyApplication.getInstance().getResources().getDrawable(R.drawable.tag_bg2));
             view1.setText(str);
             view1.setTextColor(getColorByRes(R.color.main_color));
 
@@ -473,7 +490,7 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
 
 
             submit.setTextColor(getColorByRes(R.color.text_color666));
-            submit.setBackground(getDrawable(R.drawable.round_rectangle_gray_bg));
+            submit.setBackground(MyApplication.getInstance().getResources().getDrawable(R.drawable.round_rectangle_gray_bg));
 
             isShowRight(false);
 
@@ -491,7 +508,7 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
             view1.setBackground(new ColorDrawable());
 
             submit.setTextColor(getColorByRes(R.color.white));
-            submit.setBackground(getDrawable(R.drawable.rb_left_select));
+            submit.setBackground(MyApplication.getInstance().getResources().getDrawable(R.drawable.rb_left_select));
 
             /**
              *    android:background="@drawable/white_btn_selector"
@@ -536,16 +553,16 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
         grid.getAdapter().notifyDataSetChanged();
         isShowRight(true);
 
-        initLocation(getView(R.id.select_city), currentCityCode);
+        initLocation(getView(R.id.select_city));
 
     }
 
 
-    public static void initLocation(MyOptionItemView city, String cityCode) {
+    public void initLocation(MyOptionItemView city) {
         if (MainActivity.aMapLocation != null) {
             if (!TextUtils.isEmpty(MainActivity.cityCode)) {
 //                CityGsonBean.ChildBeans cityBeans = new CityGsonBean.ChildBeans();
-                cityCode = MainActivity.cityCode;
+                currentCityCode = MainActivity.cityCode;
                 city.setRightText(MainActivity.province_loc + " " + MainActivity.city_loc);
             }
         } else {

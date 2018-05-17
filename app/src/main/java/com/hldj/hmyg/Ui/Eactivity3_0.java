@@ -33,7 +33,6 @@ import com.hldj.hmyg.FeedBackActivity;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.M.userIdentity.enums.UserIdentityStatus;
 import com.hldj.hmyg.MainActivity;
-import com.hldj.hmyg.MessageListActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.SetProfileActivity;
 import com.hldj.hmyg.SettingActivity;
@@ -52,7 +51,6 @@ import com.hldj.hmyg.me.AskToByActivity;
 import com.hldj.hmyg.me.AttentionActivity;
 import com.hldj.hmyg.me.FansActivity;
 import com.hldj.hmyg.me.HistoryActivity;
-import com.hldj.hmyg.presenter.AActivityPresenter;
 import com.hldj.hmyg.presenter.EPrestenter;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.StoreSettingActivity;
@@ -248,6 +246,11 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
 
         this.getView(R.id.tv_wd_sc).setOnClickListener(v -> DActivity_new.start2Activity(mActivity, true));//
+
+
+        this.getView(R.id.stv_wd_mpgl).setOnClickListener(v -> MainActivity.toD());//
+
+
         this.getView(R.id.tv_wd_gz).setOnClickListener(v -> {
 //            ToastUtil.showLongToast("我的关注");
             AttentionActivity.start(mActivity);
@@ -271,19 +274,21 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
         OptionItemView optionItemView = this.getView(R.id.top_bar_option); // 这是title 左右边的点击事件
 
-        if (optionItemView.isSelected()) {
-            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx_small));
-            optionItemView.setSelected(!optionItemView.isSelected());
-        } else {
-            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx));
-            optionItemView.setSelected(!optionItemView.isSelected());
-        }
+//        if (optionItemView.isSelected()) {
+//            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx_small));
+//            optionItemView.setSelected(!optionItemView.isSelected());
+//        } else {
+//            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx));
+//            optionItemView.setSelected(!optionItemView.isSelected());
+//        }
 
 
         optionItemView.setOnOptionItemClickListener(new OptionItemView.OnOptionItemClickListener() {
             @Override
             public void leftOnClick() {
-                SettingActivity.start2Activity(mActivity);
+                //消息
+//                MessageListActivity.start2Activity(mActivity);
+
             }
 
             @Override
@@ -292,8 +297,8 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
             @Override
             public void rightOnClick() {
-                //消息
-                MessageListActivity.start2Activity(mActivity);
+
+                SettingActivity.start2Activity(mActivity);
             }
         });
 
@@ -715,6 +720,20 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
     }
 
 
+    public static final int refresh_tip = 60;
+
+    //订阅
+    @Keep
+    @Subscribe(tag = refresh_tip, thread = EventThread.MAIN_THREAD)
+    private void dataBinding1RefreshTip(OnlineEvent event) {
+        D.e("======Rx=====refresh_tiprefresh_tip==");
+        D.e("======Rx=====refresh_tiprefresh_tip==");
+        D.e("======Rx=====refresh_tiprefresh_tip==");
+        D.e("======Rx=====refresh_tiprefresh_tip==");
+        requestListNum();
+    }
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -747,11 +766,11 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         setStatues(false);
 
         OptionItemView optionItemView = this.getView(R.id.top_bar_option); // 这是title 左右边的点击事件
-        if (AActivityPresenter.isShowRead) {
-            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx_small));
-        } else {
-            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx));
-        }
+//        if (AActivityPresenter.isShowRead) {
+//            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx_small));
+//        } else {
+//            optionItemView.setRightImage(BitmapFactory.decodeResource(getResources(), R.mipmap.wd_xx));
+//        }
     }
 
 
@@ -784,6 +803,9 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 //                        ToastUtil.showLongToast("===" + gsonBean.getData().beFollowCount);
 //                        ToastUtil.showLongToast("===" + gsonBean.getData().followCount);
 //                        ToastUtil.showLongToast("===" + gsonBean.getData().footMarkCount);
+
+
+//                        ToastUtil.showLongToast(gsonBean.getData().tipList.toString());
 
 
                         TipNumType.isShowRightTop(gsonBean.getData().tipList,
@@ -859,6 +881,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                     public void onSuccess(String json) {
                         Log.i("=======", "onSuccess: " + json);
 
+
                         /**
                          * {"code":"1","msg":"操作成功",
                          * "data":{"agentGrade":"level1","isQuote":true,"userPoint":705,"agentGradeText":
@@ -876,7 +899,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                             if (false) {
                                 getView(R.id.sptv_wd_wdxm).setVisibility(View.VISIBLE);
                             } else {
-                                getView(R.id.sptv_wd_wdxm).setVisibility(bean.getData().hasProjectManage ? View.VISIBLE : View.GONE);
+                                getView(R.id.sptv_wd_wdxm).setVisibility(bean.getData().hasProjectManage ? View.VISIBLE : View.INVISIBLE);
                             }
 
                             if (false) {
@@ -884,6 +907,8 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                             } else {
                                 getView(R.id.sptv_wd_jmb).setVisibility(bean.getData().showSeedlingNote ? View.VISIBLE : View.GONE);
                             }
+
+
                             showSeedlingNoteShare = bean.getData().showSeedlingNoteShare;
                             isQuote = bean.getData().isQuote;
                             userIdentity = bean.getData().userIdentityStatus;

@@ -11,6 +11,8 @@ import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.application.Data;
+import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseLazyFragment;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
@@ -157,24 +159,30 @@ public class AskToByFragment extends BaseLazyFragment {
                 helper.setText(R.id.price, item.price);
 
 
-                if (!item.isUserQuoted) {
+//                ToastUtil.showShortToast("item.unreadQuoteCountJson = "+ item.unreadQuoteCountJson);
+
+                if (item.quoteCountJson.equals("0")) {
                     helper
                             .setText(R.id.unread, "暂无报价")
-                            .setTextColorRes(R.id.unread, R.color.text_color999)
+                            .setTextColorRes(R.id.unread, R.color.text_colorccc)
                             .setVisible(R.id.unread, false)
                     ;
+//                    ToastUtil.showShortToast("helper.getview = 1");
                 } else if (item.unreadQuoteCountJson == 0) {
                     helper
-                            .setText(R.id.unread, "0条未读")
-                            .setTextColorRes(R.id.unread, R.color.text_color999)
+                            .setText(R.id.unread, "全部已读")
+                            .setTextColorRes(R.id.unread, R.color.text_colorccc)
                             .setVisible(R.id.unread, true)
                     ;
+//                    ToastUtil.showShortToast("helper.getview = 2");
                 } else {
                     helper
                             .setText(R.id.unread, item.unreadQuoteCountJson + "条未读")
                             .setTextColorRes(R.id.unread, R.color.price_orige)
                             .setVisible(R.id.unread, true)
                     ;
+                    Log.i(TAG, "convert: " + item.unreadQuoteCountJson + "条未读");
+//                    ToastUtil.showShortToast("helper.getview = 3");
                 }
 
 
@@ -193,7 +201,7 @@ public class AskToByFragment extends BaseLazyFragment {
                     if (isClose()) {
                         重新求购(item.id);
                     } else {
-                        分享求购();
+                        分享求购(item);
                     }
 
                 });
@@ -225,10 +233,24 @@ public class AskToByFragment extends BaseLazyFragment {
         return recycle;
     }
 
-    private void 分享求购() {
+    private void 分享求购(UserPurchase userPurchase) {
         ComonShareDialogFragment.newInstance()
-                .setShareBean(new ComonShareDialogFragment.ShareBean("我的求购", "快来看一看", "不好吃，不要钱", "https://t11.baidu.com/it/u=4102337005,112258636&fm=76", "https://blog.csdn.net/huamnge/article/details/53391934"))
+                .setShareBean(new ComonShareDialogFragment.ShareBean(String.format("求购：%s %s%s 电话:%s",
+                        userPurchase.name,
+                        userPurchase.count,
+                        userPurchase.unitTypeName, MyApplication.getUserBean().phone),
+                        "用苗地：" + userPurchase.cityName + " 规格要求：" + userPurchase.specText + " " + userPurchase.remarks,
+                        "",
+                        MyApplication.getUserBean().headImage,
+                        Data.getShareMyPurchase(userPurchase.id, "admin/userPurchase/detail")))
                 .show(mActivity.getSupportFragmentManager(), "分享求购");
+
+        //admin/userPurchase/detail/"
+        //http://192.168.1.252:8090/admin/userPurchase/detail/5f2d96a19f7540728ba764826c1a1625.html
+        /**
+         * 标题：求购：红花鸡蛋花 100株电话15900006666
+         内容：用苗地：福建 厦门 规格要求：胸径10cm 假植苗或中上品质优先
+         */
     }
 
 
@@ -322,4 +344,9 @@ public class AskToByFragment extends BaseLazyFragment {
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        recycle.onRefresh();
+    }
 }

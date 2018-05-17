@@ -23,7 +23,6 @@ import android.widget.TextView;
 
 import com.coorchice.library.SuperTextView;
 import com.google.zxing.WriterException;
-import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.M.QueryBean;
@@ -443,15 +442,15 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
 //        tv_infot3.setText(indexBean.owner.displayPhone);
         //拨打电话
         if (!TextUtils.isEmpty(indexBean.owner.displayPhone)) {
-            getView(R.id.fab).setOnClickListener(v -> FlowerDetailActivity.CallPhone(indexBean.owner.displayPhone, mActivity));
-            getView(R.id.logo).setOnClickListener(v -> FlowerDetailActivity.CallPhone(indexBean.owner.displayPhone, mActivity));
+//            getView(R.id.fab).setOnClickListener(v -> FlowerDetailActivity.CallPhone(indexBean.owner.displayPhone, mActivity));
+//            getView(R.id.logo).setOnClickListener(v -> FlowerDetailActivity.CallPhone(indexBean.owner.displayPhone, mActivity));
         }
 
 
         ImageView sptv_store_home_head = getView(R.id.logo);
 
 
-        bitmap.display(sptv_store_home_head, indexBean.owner.headImage);
+        bitmap.display(sptv_store_home_head, indexBean.store.logoUrl);
 
 
         ViewGroup.LayoutParams l_params = new LinearLayout.LayoutParams(

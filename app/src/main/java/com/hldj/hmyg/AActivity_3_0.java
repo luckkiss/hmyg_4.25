@@ -6,9 +6,11 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Keep;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -21,9 +23,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -60,7 +64,6 @@ import com.hldj.hmyg.buyer.weidet.SwipeViewHeader;
 import com.hldj.hmyg.me.AskToByActivity;
 import com.hldj.hmyg.presenter.AActivityPresenter;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
-import com.hldj.hmyg.saler.SaveSeedlingActivity;
 import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
 import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
@@ -99,12 +102,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.hldj.hmyg.R.id.home_title_first;
+import static com.hldj.hmyg.R.id.home_title_qiu_gou;
 
 
 /**
  * change a list hellow world
  */
-//@NotProguard
+@Keep
 @SuppressLint("NewApi")
 public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
@@ -143,6 +147,14 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         tablayout = findViewById(R.id.tablayout);
         tablayout1 = findViewById(R.id.tablayout1);
+
+        tablayout.getTabAt(0).setCustomView(getTabView(0));
+        tablayout.getTabAt(1).setCustomView(getTabView(1));
+        tablayout.getTabAt(2).setCustomView(getTabView(2));
+        tablayout1.getTabAt(0).setCustomView(getTabView(0));
+        tablayout1.getTabAt(1).setCustomView(getTabView(1));
+        tablayout1.getTabAt(2).setCustomView(getTabView(2));
+
 
 //      ToastUtil.showShortToast("bugly 热更新生效");
         viewPager = (AutoScrollViewPager) findViewById(R.id.view_pager);
@@ -196,7 +208,8 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
-                ToastUtil.showShortToast(findViewById(R.id.left1) + "" + "" + tab.getText() + tab.getPosition());
+//                ToastUtil.showShortToast(findViewById(R.id.left1) + "" + "" + tab.getText() + tab.getPosition());
+
 
                 if (tab.getPosition() == 0) {
                     findViewById(R.id.home_title_first).getLocationOnScreen(location3);
@@ -219,6 +232,10 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
                 tablayout1.getTabAt(tab.getPosition()).select();
                 tablayout.getTabAt(tab.getPosition()).select();
+
+
+                changeColor(tab.getPosition());
+
 //                    }
 //                }, 20);
 
@@ -228,10 +245,30 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 // 909 - 278  ↑ 滚
 //                scrollView.smoothScrollTo(0,scrollView.getScrollY()-  location3[1]  );
                 scrollView.scrollTo(0, scrollView.getScrollY() + location3[1] - location[1] - tablayout.getHeight());
+//                tab.getCustomView().findViewById(R.id.content).setSelected(true);
+
+                CheckedTextView checkedTextView = tab.getCustomView().findViewById(R.id.content);
+
+//                tablayout.getChildAt(tab.getPosition()).setSelected(true);
+//                tablayout1.getChildAt(tab.getPosition()).setSelected(true);
+
+//                checkedTextView.setChecked(true);
+
+
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+//                CheckedTextView checkedTextView = tab.getCustomView().findViewById(R.id.content);
+////                checkedTextView.setChecked(false);
+//
+//                TextView textView = tablayout.getTabAt(tab.getPosition()).getCustomView().findViewById(R.id.content);
+//                TextView textView1 = tablayout1.getTabAt(tab.getPosition()).getCustomView().findViewById(R.id.content);
+//
+//                if (textView != null) {
+//                    textView.setTextColor(getResources().getColor(R.color.text_color666));
+//                    textView1.setTextColor(getResources().getColor(R.color.text_color666));
+//                }
 
             }
 
@@ -303,7 +340,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     int[] location_1 = new int[2];
 
     // 滚动时执行
-    private void attachTablayout2View(TabLayout tablayout, TabLayout tablayout1, View attarchView ,View attarchView1, int pos) {
+    private void attachTablayout2View(TabLayout tablayout, TabLayout tablayout1, View attarchView, View attarchView1, int pos) {
         if (pos == 1) {
             attarchView.getLocationOnScreen(location_0);
             attarchView1.getLocationOnScreen(location_1);
@@ -315,13 +352,10 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             Log.i(TAG, "y -- >  " + y + "  " + location_0[1]);
 
 
-
             if (location_0[1] <= location[1] + tablayout.getHeight()) {
 
 
-
-                if (location_1[1] < location[1] + tablayout.getHeight() )
-                {
+                if (location_1[1] <= location[1] + tablayout.getHeight()) {
                     Log.i(TAG, "小于: ");
 
                     tablayout.clearOnTabSelectedListeners();
@@ -329,15 +363,15 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
                     tablayout.getTabAt(2).select();
                     tablayout1.getTabAt(2).select();
+                    changeColor(2);
 
 
-                    if (tablayout.getVisibility() == View.VISIBLE)
-                    {
+                    if (tablayout.getVisibility() == View.VISIBLE) {
                         tablayout.addOnTabSelectedListener(onTabSelectedListener);
-                    }else {
+                    } else {
                         tablayout1.addOnTabSelectedListener(onTabSelectedListener);
                     }
-                }else {
+                } else {
                     Log.i(TAG, "小于: ");
 
                     tablayout.clearOnTabSelectedListeners();
@@ -345,17 +379,15 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
                     tablayout.getTabAt(1).select();
                     tablayout1.getTabAt(1).select();
+                    changeColor(1);
 
-
-                    if (tablayout.getVisibility() == View.VISIBLE)
-                    {
+                    if (tablayout.getVisibility() == View.VISIBLE) {
                         tablayout.addOnTabSelectedListener(onTabSelectedListener);
-                    }else {
+                    } else {
                         tablayout1.addOnTabSelectedListener(onTabSelectedListener);
                     }
 
                 }
-
 
 
             } else {
@@ -365,11 +397,10 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
                 tablayout.getTabAt(0).select();
                 tablayout1.getTabAt(0).select();
-
-                if (tablayout.getVisibility() == View.VISIBLE)
-                {
+                changeColor(0);
+                if (tablayout.getVisibility() == View.VISIBLE) {
                     tablayout.addOnTabSelectedListener(onTabSelectedListener);
-                }else {
+                } else {
                     tablayout1.addOnTabSelectedListener(onTabSelectedListener);
                 }
 
@@ -388,7 +419,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
             Log.i(TAG, "y -- >  " + y + "  " + location_0[1]);
 
-            if (location_0[1] < location[1] + tablayout.getHeight()) {
+            if (location_0[1] <= location[1] + tablayout.getHeight()) {
 
                 Log.i(TAG, "小于: ");
 
@@ -591,46 +622,83 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //        findViewById(R.id.stv_home_4).setOnClickListener(v -> NewsActivity.start2Activity(AActivity_3_0.this));
         //采购
         findViewById(home_title_first).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this));
+        findViewById(home_title_qiu_gou).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this,false));
         //苗木商城 更多
         findViewById(R.id.home_title_second).setOnClickListener(v -> MainActivity.toB());
         //热门商家
 //        findViewById(R.id.home_title_third).setOnClickListener(v -> ToastUtil.showShortToast("更多热门商家正在开发中..."));
 
 
-        // 滚动时触发事件  必定是 tablay 有接口
-        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    Log.i(TAG, "onScrollChange: onScrollChangeonScrollChangeonScrollChange");
+                    tablayout.getLocationOnScreen(location);
+                    tablayout1.getLocationOnScreen(location2);
+                    if (location2[1] <= 168) {
+                        tablayout.setVisibility(View.VISIBLE);
+                        tablayout.addOnTabSelectedListener(onTabSelectedListener);
+                        tablayout1.clearOnTabSelectedListeners();
+                    } else {
+                        tablayout.setVisibility(View.GONE);
+                        tablayout.clearOnTabSelectedListeners();
+                        tablayout1.addOnTabSelectedListener(onTabSelectedListener);
+                    }
+                    attachTablayout2View(tablayout, tablayout1, findViewById(R.id.home_title_qiu_gou), findViewById(R.id.home_title_second), 1);
+                }
+            });
+        }else {
+            scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+                @Override
+                public void onScrollChanged() {
 //                Log.i(TAG, "onScrollChange: onScrollChangeonScrollChangeonScrollChange");
-                tablayout.getLocationOnScreen(location);
-                tablayout1.getLocationOnScreen(location2);
+                    tablayout.getLocationOnScreen(location);
+                    tablayout1.getLocationOnScreen(location2);
 //                D.w("tablayout.loaction()  --- > " + location[1] + "  y =" + location[1]);
 //                D.i("tablayout1.loaction()  --- > " + location2[1] + "  y =" + location2[1]);//168  --  248
 
-                if (location2[1] <= 168) {
-                    tablayout.setVisibility(View.VISIBLE);
-                    tablayout.addOnTabSelectedListener(onTabSelectedListener);
-                    tablayout1.clearOnTabSelectedListeners();
+                    if (location2[1] <= 168) {
+                        tablayout.setVisibility(View.VISIBLE);
+                        tablayout.addOnTabSelectedListener(onTabSelectedListener);
+                        tablayout1.clearOnTabSelectedListeners();
 //                    LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) tablayout.getLayoutParams();
 //                    lp.setMargins(30, lp.topMargin - 10, 22, 10);
 //                    tablayout.setLayoutParams(lp);
-                } else {
-                    tablayout.setVisibility(View.GONE);
-                    tablayout.clearOnTabSelectedListeners();
-                    tablayout1.addOnTabSelectedListener(onTabSelectedListener);
+                    } else {
+
+                        tablayout.setVisibility(View.GONE);
+                        tablayout.clearOnTabSelectedListeners();
+                        tablayout1.addOnTabSelectedListener(onTabSelectedListener);
 //                    tablayout.setY(10);
 //                    setLayout(tablayout,0,-10);
+                    }
+
+
+                    attachTablayout2View(tablayout, tablayout1, findViewById(R.id.home_title_qiu_gou), findViewById(R.id.home_title_second), 1);
+//                attachTablayout2View(tablayout, tablayout1, findViewById(R.id.home_title_second), 2);
+//                attachTablayout2View(tablayout, tablayout1, findViewById(R.id.home_title_second), 2);
+
+
                 }
+            });
 
+        }
 
-                attachTablayout2View(tablayout, tablayout1, findViewById(R.id.home_title_qiu_gou ) ,findViewById(R.id.home_title_second) , 1);
-//                attachTablayout2View(tablayout, tablayout1, findViewById(R.id.home_title_second), 2);
-//                attachTablayout2View(tablayout, tablayout1, findViewById(R.id.home_title_second), 2);
-
-
-            }
-
-        });
+        // 滚动时触发事件  必定是 tablay 有接口
+//        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+//            @Override
+//            public void onScrollChanged() {
+//
+//            }
+//
+//
+////            @Override
+////            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+////
+////            }
+//
+//        });
 
         // http://blog.csdn.net/jiangwei0910410003/article/details/17024287
         /******************** 监听ScrollView滑动停止 *****************************/
@@ -1280,7 +1348,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         } else {
             for (int i = 0; i < tvs.length; i++) {
-                tvs[i].setText("｜" + list.get(i).title);
+                tvs[i].setText("  ▎" + list.get(i).title);
 //              ((ViewGroup) tvs[i].getParent()).setVisibility(View.VISIBLE);
 
                 if (list.get(i).isClick) {
@@ -1421,7 +1489,15 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //                            ToastUtil.showLongToast("left");
                 dialog1.dismiss();
 //                PublishActivity.start(mActivity, PublishActivity.ALL);
-                SaveSeedlingActivity.start2Activity(AActivity_3_0.this);
+//                SaveSeedlingActivity.start2Activity(AActivity_3_0.this);
+                MainActivity.toD();
+
+            });
+            dialog1.findViewById(R.id.iv_center).setOnClickListener(v1 -> {
+//                            ToastUtil.showLongToast("left");
+                dialog1.dismiss();
+//                PublishActivity.start(mActivity, PublishActivity.ALL);
+                PublishForUserActivity.start2Activity(AActivity_3_0.this);
             });
             dialog1.findViewById(R.id.iv_right).setOnClickListener(v1 -> {
 //                            ToastUtil.showLongToast("right");
@@ -1452,7 +1528,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         if (TextUtils.isEmpty(FUtil.$_zero_2_null(item.quoteCountJson))) {
             helper.setText(R.id.qubaojia, "暂无报价");
-            helper.setTextColorRes(R.id.qubaojia, R.color.text_color999);
+            helper.setTextColorRes(R.id.qubaojia, R.color.text_colorccc);
         } else {
             helper.setText(R.id.qubaojia, FUtil.$(item.quoteCountJson) + "条报价");
             helper.setTextColorRes(R.id.qubaojia, R.color.main_color);
@@ -1476,4 +1552,59 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
     }
 
+
+    public View getTabView(int position) {
+        View view = LayoutInflater.from(this).inflate(R.layout.item_tab, null);
+        ImageView imageView = (ImageView) view.findViewById(R.id.ic);
+        if (position == 0)
+            imageView.setImageResource(R.drawable.ptzc_selecter);
+        if (position == 1)
+            imageView.setImageResource(R.drawable.grqg_selecter);
+        if (position == 2)
+            imageView.setImageResource(R.drawable.mmtj_selecter);
+
+        TextView txt_title = (TextView) view.findViewById(R.id.content);
+
+
+        if (position == 0) {
+            txt_title.setText("平台直采");
+            txt_title.setTextColor(getResources().getColor(R.color.main_color));
+
+        }
+        if (position == 1) {
+            txt_title.setText("个人求购");
+            txt_title.setTextColor(getResources().getColor(R.color.text_color666));
+        }
+        if (position == 2) {
+            txt_title.setText("苗木推荐");
+            txt_title.setTextColor(getResources().getColor(R.color.text_color666));
+
+        }
+
+        return view;
+    }
+
+
+    public void changeColor(int pos) {
+
+        for (int i = 0; i < 3; i++) {
+            if (pos == i) {
+                TextView textView = tablayout.getTabAt(i).getCustomView().findViewById(R.id.content);
+                TextView textView1 = tablayout1.getTabAt(i).getCustomView().findViewById(R.id.content);
+                if (textView != null) {
+                    textView.setTextColor(getResources().getColor(R.color.main_color));
+                    textView1.setTextColor(getResources().getColor(R.color.main_color));
+                }
+            } else {
+                TextView textView = tablayout.getTabAt(i).getCustomView().findViewById(R.id.content);
+                TextView textView1 = tablayout1.getTabAt(i).getCustomView().findViewById(R.id.content);
+                if (textView != null) {
+                    textView.setTextColor(getResources().getColor(R.color.text_color666));
+                    textView1.setTextColor(getResources().getColor(R.color.text_color666));
+                }
+            }
+        }
+
+
+    }
 }

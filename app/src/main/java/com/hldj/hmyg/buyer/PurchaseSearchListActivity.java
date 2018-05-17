@@ -1,6 +1,7 @@
 package com.hldj.hmyg.buyer;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Handler;
@@ -10,6 +11,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -142,6 +144,18 @@ public class PurchaseSearchListActivity extends BaseMVPActivity {
 
             }
         });
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                InputMethodManager inputMethod = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//                inputMethod.showSoftInput(search_content, 0);
+                inputMethod.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+
+
+//                ToastUtil.showLongToast("自动显示软键盘");
+            }
+        }, 1300);
 
 
     }

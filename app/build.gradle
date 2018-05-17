@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'org.greenrobot.greendao'
+//apply plugin: 'com.ceabie.dexnkife'
 //http://blog.csdn.net/amazing_alex/article/details/52064837 低版本分包bug  以后再改
 // 依赖插件脚本
 //
@@ -136,10 +137,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
             debuggable true
-//            ndk {
-//                abiFilters "armeabi-v7a","x86"
-//            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
-//            }
+            ndk {
+                abiFilters "armeabi-v7a","x86"
+            }
         }
     }
 //    buildTypes {

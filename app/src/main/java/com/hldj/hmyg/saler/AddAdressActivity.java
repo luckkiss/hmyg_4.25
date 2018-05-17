@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +23,7 @@ import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hldj.hmyg.widget.MyOptionItemView;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.ToastUtil;
@@ -48,7 +48,7 @@ public class AddAdressActivity extends BaseMVPActivity {
 
     @Override
     public int bindLayoutID() {
-        return R.layout.activity_add_adress;
+        return R.layout.activity_add_adress_new;
     }
 
 
@@ -128,7 +128,7 @@ public class AddAdressActivity extends BaseMVPActivity {
         //提交按钮点击事件是公用的
         getView(R.id.tv_save).setOnClickListener(v -> {
 
-            if (!submit(getView(R.id.et_aaa_contactPhone), "联系电话") || !submit(getView(R.id.et_aaa_detailAddress), "详细地址")) {
+            if (!submit(getView(R.id.et_aaa_nurseryContactPhone), "联系电话")) {
                 return;
             }
 
@@ -194,6 +194,9 @@ public class AddAdressActivity extends BaseMVPActivity {
                 public void onDistrectSelect(CityGsonBean.ChildBeans distrect) {
                     resetDirs(distrect.fullName);
                     setText(getView(R.id.tv_aaa_area), distrect.fullName);
+//                    MyOptionItemView myOptionItemView = getView(R.id.tv_aaa_area);
+//                    myOptionItemView.setRightText(distrect.fullName);
+
                     addressBean.cityCode = distrect.cityCode;
 
 
@@ -205,15 +208,16 @@ public class AddAdressActivity extends BaseMVPActivity {
                     .show(getSupportFragmentManager(), TAG);
 
         });
-        getView(R.id.tv_aaa_street).setOnClickListener(v -> {
-//            addressBean.cityCode
-            MyPresenter myPresenter = new MyPresenter();
-            myPresenter.getStreets(addressBean.cityCode);
-
-        });
+//        getView(R.id.tv_aaa_street).setOnClickListener(v -> {
+////            addressBean.cityCode
+//            MyPresenter myPresenter = new MyPresenter();
+//            myPresenter.getStreets(addressBean.cityCode);
+//
+//        });
         getView(R.id.tv_aaa_loac).setOnClickListener(v -> {
-            Intent intent = new Intent(mActivity, EventsActivity.class);
-            startActivityForResult(intent, 1);
+//            Intent intent = new Intent(mActivity, EventsActivity.class);
+            EventsActivity.start(mActivity, addressBean.latitude, addressBean.longitude);
+//            startActivityForResult(intent, 1);
         });
     }
 
@@ -239,16 +243,20 @@ public class AddAdressActivity extends BaseMVPActivity {
         this.setText(getView(R.id.et_aaa_contactName), extral.contactName);//联系人
         this.setText(getView(R.id.et_aaa_contactPhone), extral.contactPhone);//联系电话
         this.setText(getView(R.id.tv_aaa_area), GetCitiyNameByCode.initProvinceDatas(mActivity, extral.cityCode));//所在区域
-        this.setText(getView(R.id.tv_aaa_street), extral.cityName.replace(GetCitiyNameByCode.initProvinceDatas(mActivity, extral.cityCode), ""));
+//        this.setText(getView(R.id.tv_aaa_street), extral.cityName.replace(GetCitiyNameByCode.initProvinceDatas(mActivity, extral.cityCode), ""));
 
-        CheckBox checkBox = getView(R.id.checkBox3);
-        checkBox.setChecked(extral.isDefault);
+//        CheckBox checkBox = getView(R.id.checkBox3);
+//        checkBox.setChecked(extral.isDefault);
 
 
         if (extral.latitude != 0 && extral.longitude != 0) {
             this.setText(getView(R.id.tv_aaa_loac), "已标注");
         }
         this.setText(getView(R.id.et_aaa_detailAddress), extral.detailAddress);
+
+        this.setText(getView(R.id.et_aaa_nurseryContactName), extral.nurseryContactName);
+
+        this.setText(getView(R.id.et_aaa_nurseryContactPhone), extral.nurseryContactPhone);
 
 
 //        id = getExtral().id;
@@ -283,9 +291,9 @@ public class AddAdressActivity extends BaseMVPActivity {
      * @param newName
      */
     public void resetDirs(String newName) {
-        String oldName = getText(getView(R.id.tv_aaa_area));
+        String oldName = ((MyOptionItemView) getView(R.id.tv_aaa_area)).getRightText();
         if (!newName.equals(oldName)) {
-            this.setText(getView(R.id.tv_aaa_street), "");
+//            this.setText(getView(R.id.tv_aaa_street), "");
             addressBean.twCode = "";
         }
     }
@@ -326,15 +334,32 @@ public class AddAdressActivity extends BaseMVPActivity {
     }
 
 
-    public void setText(TextView tv, String str) {
-        tv.setText(str);
+    public void setText(View tv, String str) {
+
+        if (tv instanceof TextView) {
+
+            ((TextView) tv).setText(str);
+        } else if (tv instanceof MyOptionItemView) {
+            ((MyOptionItemView) tv).setRightText(str);
+        }
     }
 
-    public String getText(TextView tv) {
-        if (TextUtils.isEmpty(tv.getText())) {
-            return "";
+    public String getText(View tv) {
+        if (tv instanceof TextView) {
+            if (TextUtils.isEmpty(((TextView) tv).getText())) {
+                return "";
+            } else {
+                return ((TextView) tv).getText().toString();
+
+            }
+        } else if (tv instanceof MyOptionItemView) {
+            if (TextUtils.isEmpty(((MyOptionItemView) tv).getRightText())) {
+                return "";
+            }
+            return ((MyOptionItemView) tv).getRightText();
         }
-        return tv.getText().toString();
+        return "";
+
     }
 
     public void setBackgroAndTextAndVis(TextView text, String str, int drawId) {
@@ -356,6 +381,10 @@ public class AddAdressActivity extends BaseMVPActivity {
         addressBean.contactName = this.getText(getView(R.id.et_aaa_contactName));
         addressBean.contactPhone = this.getText(getView(R.id.et_aaa_contactPhone));
         addressBean.detailAddress = this.getText(getView(R.id.et_aaa_detailAddress));
+
+        addressBean.nurseryContactName = this.getText(getView(R.id.et_aaa_nurseryContactName));
+        addressBean.nurseryContactPhone = this.getText(getView(R.id.et_aaa_nurseryContactPhone));
+
         addressBean.isDefault = this.isDefault();//是否 默认
 
 //      addressBean.area    地址通过   接口返回
@@ -366,8 +395,8 @@ public class AddAdressActivity extends BaseMVPActivity {
     }
 
     private boolean isDefault() {
-        CheckBox checkBox = getView(R.id.checkBox3);
-        return checkBox.isChecked();
+//        CheckBox checkBox = getView(R.id.checkBox3);
+        return false;
     }
 
 
@@ -405,7 +434,7 @@ public class AddAdressActivity extends BaseMVPActivity {
                             OnlyDirstreetWheelDialogF.instance(new OnlyDirstreetWheelDialogF.OnDirSelectListener() {
                                 @Override
                                 public void onDirSelect(CityGsonBean.ChildBeans childBeans) {
-                                    setText(getView(R.id.tv_aaa_street), childBeans.name);
+//                                    setText(getView(R.id.tv_aaa_street), childBeans.name);
                                     addressBean.cityCode = childBeans.cityCode;
                                     //{id='16877', name='集美街道', fullName='福建省厦门市集美区集美街道', cityCode='350211001', parentCode='350211', level='4', childs=null}, ChildBeans{id='16878', name='侨英街道',
 

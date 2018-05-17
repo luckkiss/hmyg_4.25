@@ -48,6 +48,21 @@ public class AuthenticationCompanyActivity extends AuthenticationActivity {
     @Override
     public void initView() {
         super.initView();
+
+        if (isShowFaren) {
+            getView(R.id.faren_title).setVisibility(View.VISIBLE);
+            getView(R.id.faren_content).setVisibility(View.VISIBLE);
+            getView(R.id.step_view).setVisibility(View.VISIBLE);
+//            getView(R.id.iv_auth_states).setVisibility(View.VISIBLE);
+
+        } else {
+            getView(R.id.faren_title).setVisibility(View.GONE);
+            getView(R.id.faren_content).setVisibility(View.GONE);
+            getView(R.id.step_view).setVisibility(View.GONE);
+            getView(R.id.iv_auth_states).setVisibility(View.GONE);
+        }
+
+
     }
 
     @Override
@@ -56,7 +71,17 @@ public class AuthenticationCompanyActivity extends AuthenticationActivity {
     }
 
 
+    public static boolean isShowFaren = true;
+    public static String storeId = "";
+
     public static void start(Activity mActivity, int state, String failedMsg) {
+        start(mActivity, state, failedMsg, true, "");
+    }
+
+
+    public static void start(Activity mActivity, int state, String failedMsg, boolean isShow, String storeId) {
+        isShowFaren = isShow;
+        AuthenticationCompanyActivity.storeId = storeId;
         Intent intent = new Intent(mActivity, AuthenticationCompanyActivity.class);
         intent.putExtra("state", state);
         intent.putExtra("failedMsg", failedMsg);
@@ -71,9 +96,19 @@ public class AuthenticationCompanyActivity extends AuthenticationActivity {
 
     @Override
     public void requestData() {
+
+        String str = "";
+        String host = "";//
+        if (!isShowFaren && !TextUtils.isEmpty(storeId)) {
+            str = storeId;
+            host = "companyIdentity/detail";
+        } else {
+            str = MyApplication.getUserBean().storeId;
+            host = "admin/companyIdentity/detail";
+        }
         new BasePresenter()
-                .putParams("storeId", MyApplication.getUserBean().storeId)
-                .doRequest("admin/companyIdentity/detail", true, new HandlerAjaxCallBack(mActivity) {
+                .putParams("storeId", str)
+                .doRequest(host, true, new HandlerAjaxCallBack(mActivity) {
 
 
                     @Override
@@ -131,12 +166,15 @@ public class AuthenticationCompanyActivity extends AuthenticationActivity {
 
             case succeed:/*认证成功 */
                 imageView.setImageResource(R.mipmap.auth_shtg);
+
+                if (isShowFaren)
                 imageView.setVisibility(View.VISIBLE);
                 doAuthing();
                 break;
 
             case authing:/*认证中*/
                 imageView.setImageResource(R.mipmap.auth_shz);
+                if (isShowFaren)
                 imageView.setVisibility(View.VISIBLE);
             /*审核中 */
 

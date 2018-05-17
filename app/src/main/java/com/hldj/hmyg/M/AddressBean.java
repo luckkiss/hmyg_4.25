@@ -33,6 +33,15 @@ public class AddressBean implements Serializable{
     public int nurseryArea;
 
 
+    /**
+     * 真实苗场主联系人（不对外展示）
+     */
+    public String nurseryContactName;
+    /**
+     * 真实苗场主联系电话（不对外展示）
+     */
+    public String nurseryContactPhone;
+
 
     /**
      * 苗圃内已上架的苗木数量

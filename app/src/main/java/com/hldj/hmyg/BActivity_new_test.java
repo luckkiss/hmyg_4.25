@@ -455,7 +455,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 
 
         TextView tv_02 = helper.getView(R.id.tv_02);
-        tv_02.setText(item.name);
+        tv_02.setText(item.standardName);
 
         TextView tv_03 = helper.getView(R.id.tv_03);//sptext
         tv_03.setText(item.specText);
@@ -496,7 +496,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
         TextView tv_01 = helper.getView(R.id.tv_01);
         MySwipeAdapter.setSrcByType(tv_01, item.plantType);
         TextView tv_02 = helper.getView(R.id.tv_02);
-        tv_02.setText(item.name);
+        tv_02.setText(item.standardName);
         TextView tv_03 = helper.getView(R.id.tv_03);
         tv_03.setText(item.ciCity.fullName);
         TextView tv_07 = helper.getView(R.id.tv_07);
@@ -605,6 +605,11 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
             getView(R.id.ib_b_back).setVisibility(View.VISIBLE);
             getView(R.id.ib_b_back).setOnClickListener(view -> finish());
 
+//            getView(R.id.appbar).setPadding(0,0,0,0);
+
+
+            setSwipeBackEnable(true);
+
         } else {
             setSwipeBackEnable(false);//默认不可滑动
             getView(R.id.ib_b_back).setVisibility(View.GONE);
@@ -637,6 +642,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
     private void setStatusBars() {
         try {
             StateBarUtil.setStatusTranslaterWhite(MainActivity.instance, true);
+            StateBarUtil.setStatusTranslaterWhite(this, true);
         } catch (Exception e) {
             e.printStackTrace();
         }

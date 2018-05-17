@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import com.hldj.hmyg.R;
 import com.hldj.hmyg.SellectActivity2;
 import com.hldj.hmyg.saler.purchase.userbuy.RxSeekBar;
 import com.hldj.hmyg.util.D;
+import com.mabeijianxi.smallvideo2.RangeSeekBar;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -55,8 +57,8 @@ public class SearchScropView extends BaseLinearLayout<SellectActivity2.TypesBean
         } else {
             setText(mViewHolder.tv_text, mainSpecBean.title + ": ");//设置左边 显示的字    例如   规格   肝经
             type = mainSpecBean.value;
-            setText(mViewHolder.et_min, ""); // 最小值
-            setText(mViewHolder.et_max, ""); // 最大值
+            setText(mViewHolder.left, ""); // 最小值
+            setText(mViewHolder.right, ""); // 最大值
             initList(mainSpecBean.list); // 初始化  动态列表
         }
 
@@ -82,6 +84,8 @@ public class SearchScropView extends BaseLinearLayout<SellectActivity2.TypesBean
                     setMin(model.min);
                     setMax(model.max);
                     setSeek_bar(model.min, model.max);
+
+
                     return true;
                 }
             });
@@ -92,18 +96,33 @@ public class SearchScropView extends BaseLinearLayout<SellectActivity2.TypesBean
     private static class ViewHolder {
         View rootView;
         TextView tv_text;
+        TextView left;
+        TextView right;
         EditText et_min;
         EditText et_max;
+        RangeSeekBar rangeBar;
         RxSeekBar seek_bar;
         TagFlowLayout flowlayout;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
             this.seek_bar = (RxSeekBar) rootView.findViewById(R.id.seek_bar);
+            this.rangeBar = (RangeSeekBar) rootView.findViewById(R.id.rangeBar);
             this.tv_text = (TextView) rootView.findViewById(R.id.tv_text);
+            this.left = (TextView) rootView.findViewById(R.id.left);
+            this.right = (TextView) rootView.findViewById(R.id.right);
             this.et_min = (EditText) rootView.findViewById(R.id.et_min);
             this.et_max = (EditText) rootView.findViewById(R.id.et_max);
             this.flowlayout = (TagFlowLayout) rootView.findViewById(R.id.flowlayout);
+
+            rangeBar.setOnRangeChangedListener(new RangeSeekBar.OnRangeChangedListener() {
+                @Override
+                public void onRangeChanged(RangeSeekBar view, float min, float max) {
+                    D.i("onRangeChanged: min" + min + "  max = " + max);
+                    left.setText(((int) min) + "");
+                    right.setText(((int) max) + "");
+                }
+            });
 
             seek_bar.setOnRangeChangedListener(new RxSeekBar.OnRangeChangedListener() {
                 @Override
@@ -121,37 +140,69 @@ public class SearchScropView extends BaseLinearLayout<SellectActivity2.TypesBean
 
     //获取最小值
     public String getMin() {
-        return mViewHolder.et_min.getText().toString();
+        if (mViewHolder.left.getText().toString().equals(((int) mViewHolder.rangeBar.getMinValue()) + "")
+                &&
+                mViewHolder.right.getText().toString().equals(((int) mViewHolder.rangeBar.getMaxValue()) + "")) {
+            return "";
+        }
+
+        return mViewHolder.left.getText().toString();
     }
 
     //还原最小值
     public void setMin(String oldValue) {
-        setText(mViewHolder.et_min, oldValue);
+        setText(mViewHolder.left, oldValue);
     }
 
     public void setMin(int oldValue) {
-        setText(mViewHolder.et_min, oldValue + "");
+        setText(mViewHolder.left, oldValue + "");
+    }
+
+    public void setRule(float min, float max) {
+
+        Log.i("setRule", "min = " + min + "  max = " + max);
+        mViewHolder.rangeBar.setRules(min, max);
+        mViewHolder.left.setHint(((int) min) + "");
+        mViewHolder.right.setHint(((int) max) + "");
+        setSeek_bar(min + "", max + "");
     }
 
     public void setSeek_bar(String min, String max) {
         int mi = intFormat(min, 0);
         int ma = intFormat(max, 1200);
-        mViewHolder.seek_bar.setRules(Float.valueOf(min), Float.valueOf(max),0,1);
-        mViewHolder.seek_bar.setValue(mi, ma);
+//        mViewHolder.seek_bar.setMaxAndMin(intFormat(min, 0), Float.valueOf(max));
+//        mViewHolder.seek_bar.setRules(intFormat(min, 0), Float.valueOf(max), 0, 1);
+
+//        mViewHolder.seek_bar.setValue(mi, ma);
+
+
+        mViewHolder.rangeBar.setValue(mi, ma);
+
+//        mViewHolder.left.setText(((int) mi) + "");
+//        mViewHolder.right.setText(((int) ma) + "");
+
     }// (int) (Float.valueOf( max) - Float.valueOf(min) / 100)
 
     //还原最大值
     public void setMax(String oldValue) {
-        setText(mViewHolder.et_max, oldValue);
+        setText(mViewHolder.right, oldValue);
     }
 
     public void setMax(int oldValue) {
-        setText(mViewHolder.et_max, oldValue + "");
+        setText(mViewHolder.right, oldValue + "");
     }
 
     //获取最大值
     public String getMax() {
-        return mViewHolder.et_max.getText().toString();
+        Log.i("--1-", "" + mViewHolder.left.getText().toString());
+        Log.i("--2-", "" + mViewHolder.rangeBar.getMinValue() + "");
+
+        if (mViewHolder.left.getText().toString().equals(((int) mViewHolder.rangeBar.getMinValue()) + "")
+                &&
+                mViewHolder.right.getText().toString().equals(((int) mViewHolder.rangeBar.getMaxValue()) + "")) {
+            return "";
+        }
+        return mViewHolder.right.getText().toString();
     }
 
     public void resetValue() {

@@ -9,9 +9,12 @@ import android.widget.TextView;
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
+import com.hldj.hmyg.DActivity_new_mp;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.Ui.friend.child.HeadDetailActivity;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
 import com.hldj.hmyg.bean.SimplePageBean;
@@ -84,7 +87,7 @@ public class FootMarkActivity extends BaseMVPActivity {
         helper
                 .setVisible(R.id.fensi, false)
                 .setText(R.id.title, item.attrData.userName)
-                .setText(R.id.content, item.attrData.timeStamp + " " + item.attrData.userCiCity)
+                .setText(R.id.content, item.attrData.timeStamp + "   " + item.attrData.cityName)
         ;
 
 
@@ -175,15 +178,20 @@ public class FootMarkActivity extends BaseMVPActivity {
     }
 
     public void doCallLogIsRead() {
-        new BasePresenter()
-                .doRequest("admin/footmark/beUserIsRead", new HandlerAjaxCallBack() {
-                    @Override
-                    public void onRealSuccess(SimpleGsonBean gsonBean) {
 
+        if (是否匿名()) {
+            new BasePresenter()
+                    .doRequest("admin/footmark/guestIsRead", new HandlerAjaxCallBack() {
+                        @Override
+                        public void onRealSuccess(SimpleGsonBean gsonBean) {
+
+                          RxBus.getInstance().post(DActivity_new_mp.refresh, new Eactivity3_0.OnlineEvent(true));
 //                        ToastUtil.showShortToast("访客 未读 清除成功");
 //                        ToastUtil.showShortToast(gsonBean.msg);
-                    }
-                });
+                        }
+                    });
+        }
+
 
         new BasePresenter()
                 .doRequest("admin/footmark/isShowNew", new HandlerAjaxCallBack() {

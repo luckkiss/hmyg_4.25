@@ -152,13 +152,13 @@ public class HorizontalProgressBarWithNumber extends ProgressBar
 						R.styleable.HorizontalProgressBarWithNumber_progress_text_offset,
 						mTextOffset);
 
-		int textVisible = attributes
-				.getInt(R.styleable.HorizontalProgressBarWithNumber_progress_text_visibility,
-						VISIBLE);
-		if (textVisible != VISIBLE)
-		{
-			mIfDrawText = false;
-		}
+//		int textVisible = attributes
+//				.getInt(R.styleable.HorizontalProgressBarWithNumber_progress_text_visibility,
+//						VISIBLE);
+//		if (textVisible != VISIBLE)
+//		{
+//			mIfDrawText = false;
+//		}
 		attributes.recycle();
 	}
 

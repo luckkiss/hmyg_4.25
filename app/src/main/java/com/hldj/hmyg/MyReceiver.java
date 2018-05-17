@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack_test;
+import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.Ui.friend.bean.Message;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.child.DetailActivity;
@@ -18,7 +19,6 @@ import com.hldj.hmyg.buyer.Ui.LoginOutDialogActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
-import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalDb;
 
@@ -26,6 +26,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.jpush.android.api.JPushInterface;
+
+import static com.hldj.hmyg.DActivity_new_mp.refresh;
+import static com.hldj.hmyg.Ui.Eactivity3_0.refresh_tip;
 
 /**
  * 自定义接收器
@@ -78,6 +81,7 @@ public class MyReceiver extends BroadcastReceiver {
 
                 if (messageType.equals("userPoint")) {
                     processUserPoint(extras);
+
                     return;
                 }
 
@@ -311,9 +315,27 @@ public class MyReceiver extends BroadcastReceiver {
             String targetMenu = jsonObject.getString("targetMenu");
 
             if (targetMenu.equals("store")) {
-                ToastUtil.showShortToast("store  刷新");
+//                ToastUtil.showShortToast("store  刷新");
+                Log.i(TAG, "store: 刷新");
+                Log.i(TAG, "store: 刷新");
+                Log.i(TAG, "store: 刷新");
+                Log.i(TAG, "store: 刷新");
+                Log.i(TAG, "store: 刷新");
+
+                MainActivity.radio_d.setShowSmallDot(true);
+
+                RxBus.getInstance().post(refresh, new Eactivity3_0.OnlineEvent(true));
+
             } else if (targetMenu.equals("personal")) {
-                ToastUtil.showShortToast("personal  刷新");
+//                ToastUtil.showShortToast("personal  刷新");
+                Log.i(TAG, "personal:刷新 ");
+                Log.i(TAG, "personal:刷新 ");
+                Log.i(TAG, "personal:刷新 ");
+                Log.i(TAG, "personal:刷新 ");
+                Log.i(TAG, "personal:刷新 ");
+                Log.i(TAG, "personal:刷新 ");
+                RxBus.getInstance().post(refresh_tip, new Eactivity3_0.OnlineEvent(true));
+                MainActivity.radio_e.setShowSmallDot(true);
             }
 
 
@@ -337,7 +359,7 @@ public class MyReceiver extends BroadcastReceiver {
 
             String title = jsonObject.getString("title");
             String message = jsonObject.getString("message");
-            ToastUtil.showPointAdd(title, message);
+//            ToastUtil.showPointAdd(title, message);
 
 
         } catch (JSONException e) {

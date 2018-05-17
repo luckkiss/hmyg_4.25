@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="350dp"
+        android:layout_height="600dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="40dp">
+
+            <ImageView
+                android:id="@+id/t_emptyImageIcon"
+                android:layout_width="@dimen/empty_width"
+                android:layout_height="@dimen/empty_height"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="111dp"
+                android:src="@drawable/wushuju" />
+
+            <TextView
+                android:id="@+id/t_emptyTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/t_emptyImageIcon"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="暂无数据..."
+                android:textColor="@color/text_color666" />
+
+
+            <TextView
+                android:id="@+id/t_tipTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/t_emptyTextView"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="tip"
+                android:textColor="@color/text_color666"
+                android:visibility="gone"
+                tools:visibility="visible"
+
+                />
+
+            <TextView
+                android:id="@+id/go_to"
+                style="@style/save_bottom"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/t_tipTextView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="立即发布"
+                android:textSize="14sp"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+
+        </RelativeLayout>
+    </FrameLayout>
+</LinearLayout>

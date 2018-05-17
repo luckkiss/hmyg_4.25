@@ -357,17 +357,21 @@ public class BActivity_new extends NeedSwipeBackActivity {
         View iv_right_top = helper.getView(R.id.iv_right_top);
         TextView tv_04 = helper.getView(R.id.tv_04);
 
+
         if (tag.equals("BActivity_new")) {
             iv_right_top.setVisibility(item.attrData.ziying ? View.VISIBLE : View.GONE);
+
+            if (tv_04 !=null )
             tv_04.setText("苗源地: " + item.ciCity.fullName);
         } else {
             iv_right_top.setVisibility(View.GONE);
+            if (tv_04 !=null )
             tv_04.setText("苗源地: " + item.nurseryJson.getCityName());
         }
 
 
         TextView tv_02 = helper.getView(R.id.tv_02);
-        tv_02.setText(item.name);
+        tv_02.setText(item.standardName);
 
         TextView tv_03 = helper.getView(R.id.tv_03);//sptext
         tv_03.setText(item.specText);
@@ -404,7 +408,7 @@ public class BActivity_new extends NeedSwipeBackActivity {
         TextView tv_01 = helper.getView(R.id.tv_01);
         MySwipeAdapter.setSrcByType(tv_01, item.plantType);
         TextView tv_02 = helper.getView(R.id.tv_02);
-        tv_02.setText(item.name);
+        tv_02.setText(item.standardName);
         TextView tv_03 = helper.getView(R.id.tv_03);
         tv_03.setText(item.ciCity.fullName);
         TextView tv_07 = helper.getView(R.id.tv_07);

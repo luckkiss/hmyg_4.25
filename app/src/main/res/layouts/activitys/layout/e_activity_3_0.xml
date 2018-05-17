@@ -34,7 +34,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="200dp"
                 android:background="@drawable/me_bg_no_alf"
                 android:paddingTop="25dp">
 
@@ -43,9 +43,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
                     android:layout_alignParentTop="true"
-                    app:left_src="@mipmap/wd_sz"
-                    app:right_src="@mipmap/wd_xx_small"
+                    app:right_src="@mipmap/wd_sz"
                     app:splite_mode="true" />
+                <!--wd_xx_small-->
                 <!--<include layout="@layout/toolbar_3_0" />-->
 
 
@@ -59,7 +59,6 @@
                     android:layout_marginBottom="20dp"
                     android:layout_marginLeft="12dp"
                     android:layout_marginStart="12dp"
-                    android:layout_marginTop="18dp"
                     android:foreground="@drawable/cycle_white"
                     android:src="@drawable/icon_persion_pic" />
 
@@ -78,7 +77,7 @@
                     android:background="@color/trans"
                     android:text="@string/app_name"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/textSizeTitle" />
 
 
                 <TextView
@@ -119,7 +118,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:lineSpacingMultiplier="1.3"
-                        android:text="0\n我的收藏"
+                        android:text="0\n收藏"
                         android:textColor="@color/white"
                         android:textSize="13sp"
                         app:isShowState="false"
@@ -138,7 +137,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:lineSpacingMultiplier="1.3"
-                        android:text="0\n我的关注"
+                        android:text="0\n关注"
                         android:textColor="@color/white"
                         android:textSize="13sp"
                         app:isShowState="false"
@@ -157,7 +156,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:lineSpacingMultiplier="1.3"
-                        android:text="0\n我的粉丝"
+                        android:text="0\n粉丝"
                         android:textColor="@color/white"
                         android:textSize="13sp"
                         app:isShowState="false"
@@ -176,7 +175,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:lineSpacingMultiplier="1.3"
-                        android:text="0\n我的足迹"
+                        android:text="0\n足迹"
                         android:textColor="@color/white"
                         android:textSize="13sp"
                         app:isShowState="false"
@@ -241,9 +240,9 @@
                     style="@style/home_types"
                     android:text="未实名认证"
                     app:state_drawable="@mipmap/wd_smrz"
-                    app:state_drawable_height="25dp"
+                    app:state_drawable_height="23dp"
                     app:state_drawable_padding_top="16dp"
-                    app:state_drawable_width="30dp" />
+                    app:state_drawable_width="27dp" />
 
 
                 <View
@@ -278,9 +277,9 @@
                     android:id="@+id/sptv_wd_jf"
                     style="@style/home_types"
                     android:text=" --- "
+                    app:state_drawable="@mipmap/jf_e_hb"
                     app:state_drawable_height="30dp"
-                    app:state_drawable_width="30dp"
-                    app:state_drawable="@mipmap/jf_e_hb" />
+                    app:state_drawable_width="30dp" />
 
                 <!--<com.hldj.hmyg.widget.DrawableCenterText-->
                 <!--android:id="@+id/sptv_wd_jf"-->
@@ -335,10 +334,16 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp" />
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/stv_wd_mpgl"
+                    style="@style/home_types"
+                    android:text="苗圃管理"
+                    app:state_drawable="@mipmap/home_mpgl" />
 
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/sptv_wd_mmq"
@@ -352,7 +357,7 @@
                     android:id="@+id/sptv_wd_bjgl"
                     style="@style/home_types"
                     android:text="我的报价"
-                    app:state_drawable="@mipmap/wd_bjgl" />
+                    app:state_drawable="@mipmap/wd_wdbj" />
 
 
                 <cn.bingoogolapple.badgeview.BGABadgeLinearLayout
@@ -365,16 +370,14 @@
                         android:id="@+id/sptv_wd_qg"
                         style="@style/home_types"
                         android:text="我的求购"
-                        app:state_drawable="@mipmap/wd_wdxm" />
+                        app:state_drawable="@mipmap/wd_wdqg" />
+
+
                 </cn.bingoogolapple.badgeview.BGABadgeLinearLayout>
 
 
-                <com.coorchice.library.SuperTextView
-                    android:id="@+id/sptv_wd_wdxm"
-                    style="@style/home_types"
-                    android:text="采购选标"
-                    app:state_drawable="@mipmap/wd_wdxm"
-                    tools:visibility="visible" />
+
+
 
 
             </LinearLayout>
@@ -390,7 +393,15 @@
                     android:id="@+id/sptv_wd_jmb"
                     style="@style/home_types"
                     android:text="记苗本"
-                    app:state_drawable="@mipmap/wd_jmb"
+                    app:state_drawable="@mipmap/wd_wdjmb"
+                    tools:visibility="visible" />
+
+
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/sptv_wd_wdxm"
+                    style="@style/home_types"
+                    android:text="采购选标"
+                    app:state_drawable="@mipmap/wd_wdcgxb"
                     tools:visibility="visible" />
 
             </LinearLayout>
