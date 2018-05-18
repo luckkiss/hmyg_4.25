@@ -8,9 +8,12 @@ import android.widget.ImageView;
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
+import com.hldj.hmyg.DActivity_new_mp;
 import com.hldj.hmyg.M.CallLog;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
 import com.hldj.hmyg.bean.SimplePageBean;
@@ -164,8 +167,8 @@ public class PhoneLogActivity extends BaseMVPActivity {
                 .doRequest("admin/callLog/callLogIsRead", new HandlerAjaxCallBack() {
                     @Override
                     public void onRealSuccess(SimpleGsonBean gsonBean) {
-
 //                        ToastUtil.showShortToast(gsonBean.msg);
+                        RxBus.getInstance().post(DActivity_new_mp.refresh, new Eactivity3_0.OnlineEvent(true));
                     }
                 });
     }

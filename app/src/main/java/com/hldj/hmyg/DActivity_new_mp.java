@@ -718,7 +718,7 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == ConstantState.ADD_SUCCEED || resultCode == ConstantState.CHANGE_DATES) {
+        if (resultCode == ConstantState.ADD_SUCCEED || resultCode == ConstantState.CHANGE_DATES || resultCode == ConstantState.DELETE_SUCCEED) {
             recycle.onRefresh();
         }
     }

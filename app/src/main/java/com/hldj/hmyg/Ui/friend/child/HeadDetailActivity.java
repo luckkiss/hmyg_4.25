@@ -94,7 +94,7 @@ public class HeadDetailActivity extends BaseMVPActivity {
 
         new BasePresenter()
                 .putParams("id", getUserId())
-                .doRequest("admin/user/information", new HandlerAjaxCallBackSimpaleData<HeadDetail>(mActivity, type) {
+                .doRequest("user/information", new HandlerAjaxCallBackSimpaleData<HeadDetail>(mActivity, type) {
                     @Override
                     public void onRealSuccess(HeadDetail result) {
 

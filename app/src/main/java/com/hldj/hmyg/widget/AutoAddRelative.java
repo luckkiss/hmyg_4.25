@@ -2,6 +2,7 @@ package com.hldj.hmyg.widget;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -248,6 +249,10 @@ public class AutoAddRelative extends RelativeLayout {
      * @param size
      */
     public void setDiameterTypeWithSize(String size) {
+        if (TextUtils.isEmpty(size))
+        {
+            return;
+        }
 
         RadioGroup radioGroup = viewHolder_rd.radio_group_auto_add;
         int count = radioGroup.getChildCount();

@@ -54,11 +54,12 @@
 
         <ImageView
             android:id="@+id/btn_back"
-            android:layout_width="@dimen/x20"
-            android:layout_height="@dimen/x20"
+            android:layout_width="@dimen/backWH"
+            android:layout_height="@dimen/backWH"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
-            android:background="@drawable/btn_back" />
+            android:padding="5dp"
+            android:src="@drawable/ic_stepper_left_new" />
 
 
         <ImageView

@@ -283,7 +283,8 @@ public class MyApplication extends Application {
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
-                .showImageForEmptyUri(R.drawable.icon_persion_pic)
+                .showImageForEmptyUri(R.drawable.no_image_to_show)
+                .showImageOnFail(R.drawable.no_image_to_show)
                 .build();
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(

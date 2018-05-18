@@ -270,6 +270,6 @@ public class SelectPlantActivity extends BaseMVPActivity implements OnClickListe
 
     @Override
     public String setTitle() {
-        return "发布求购_选择品种";
+        return "品种搜索";
     }
 }

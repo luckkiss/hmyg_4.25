@@ -12,14 +12,14 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="@dimen/px20"
         android:foreground="@drawable/zheng_white"
-        android:padding="2dp"
+        android:padding="4dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/logo"
+        android:src="@drawable/no_image_to_show"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,6 +27,7 @@
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="6dp"
         android:maxLines="3"

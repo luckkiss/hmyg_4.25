@@ -53,6 +53,7 @@
 
 
         <TextView
+            android:id="@+id/sclxfs_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/simpleHeightContent"
             android:gravity="center_vertical"
@@ -82,11 +83,11 @@
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="12dp"
-                android:inputType="phone"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/left1"
                 android:background="@color/trans"
                 android:hint="请输入联系人"
+                android:inputType="phone"
                 android:textColorHint="@color/hint_text_color"
                 android:textSize="@dimen/textSizeContent" />
 
@@ -130,13 +131,14 @@
         <!-- 苗圃联系方式 -->
 
         <TextView
+            android:id="@+id/lxfs_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/simpleHeightContent"
             android:gravity="center_vertical"
             android:paddingLeft="12dp"
-            android:text="@string/lxdh_desc"
+            android:text="-"
             android:textSize="@dimen/textSizeContent" />
-
+<!--    android:text="@string/lxdh_desc"-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/simpleHeightContent"

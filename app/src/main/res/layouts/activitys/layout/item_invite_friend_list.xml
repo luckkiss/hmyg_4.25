@@ -48,7 +48,7 @@
         android:id="@+id/fensi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="12dp"
         android:background="@drawable/bg_check_gray_uncheck_main_selecteor"
         android:checked="false"
         android:paddingBottom="4dp"

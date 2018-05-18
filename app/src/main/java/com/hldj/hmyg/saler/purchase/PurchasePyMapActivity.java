@@ -181,6 +181,8 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
                 getView(R.id.ll_show_12).setVisibility(View.VISIBLE);
 
 
+                getView(R.id.iv_histtory).setVisibility(View.VISIBLE);
+
                 break;
 
             case R.id.button33:
@@ -191,6 +193,8 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
                 getView(R.id.ll_show_3).setVisibility(View.GONE);
                 getView(R.id.ll_show_12).setVisibility(View.GONE);
 
+
+                getView(R.id.iv_histtory).setVisibility(View.GONE);
                 break;
 
             default:

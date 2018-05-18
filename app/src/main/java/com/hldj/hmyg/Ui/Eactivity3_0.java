@@ -248,7 +248,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         this.getView(R.id.tv_wd_sc).setOnClickListener(v -> DActivity_new.start2Activity(mActivity, true));//
 
 
-        this.getView(R.id.stv_wd_mpgl).setOnClickListener(v -> MainActivity.toD());//
+//        this.getView(R.id.stv_wd_mpgl).setOnClickListener(v -> MainActivity.toD());//
 
 
         this.getView(R.id.tv_wd_gz).setOnClickListener(v -> {
@@ -830,10 +830,14 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 //                          TipNum tipNum = Enum.valueOf(TipNum.class, gsonBean.getData().tipList.get(i).type);
                                 TipNum tipNum = gsonBean.getData().tipList.get(i);
                                 if (tipNum.type.compareTo(TipNumType.userPurchase) == 0) {
-                                    if (tipNum.showPoint)
+                                    if (tipNum.showPoint && tipNum.count != 0)
                                         TipNumType.setTipNum(tip_wd_qg, tipNum.count + "");
+                                    else
+                                        tip_wd_qg.hiddenBadge();
                                 }
                             }
+                        } else {
+                            tip_wd_qg.hiddenBadge();
                         }
 
 
@@ -908,6 +912,8 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                                 getView(R.id.sptv_wd_jmb).setVisibility(bean.getData().showSeedlingNote ? View.VISIBLE : View.GONE);
                             }
 
+                            select2Show(getView(R.id.sptv_wd_wdxm), getView(R.id.sptv_wd_jmb), bean.getData().hasProjectManage, bean.getData().showSeedlingNote);
+
 
                             showSeedlingNoteShare = bean.getData().showSeedlingNoteShare;
                             isQuote = bean.getData().isQuote;
@@ -932,6 +938,54 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                         ToastUtil.showLongToast("权限请求接口请求失败：" + strMsg);
                     }
                 });
+    }
+
+    private void select2Show(SuperTextView view1, SuperTextView view2, boolean hasProjectManage1, boolean showSeedlingNote2) {
+        if (hasProjectManage1 && showSeedlingNote2) {
+            // 都显示
+            view1.setVisibility(View.VISIBLE);
+            view2.setVisibility(View.VISIBLE);
+            //写图标 跟 点击事件
+            //写图标 跟 点击事件
+            Drawable drawable = getResources().getDrawable(R.mipmap.wd_wdcgxb);
+            view1.setDrawable(drawable);
+            view1.setOnClickListener(v -> {
+                MyProgramActivity.start(mActivity);
+            });
+            view1.setText("采购选标");
+
+        } else if (hasProjectManage1) {
+            //显示 项目
+            view1.setVisibility(View.VISIBLE);
+            view2.setVisibility(View.GONE);
+
+            //写图标 跟 点击事件
+            Drawable drawable = getResources().getDrawable(R.mipmap.wd_wdcgxb);
+            view1.setDrawable(drawable);
+            view1.setOnClickListener(v -> {
+                MyProgramActivity.start(mActivity);
+            });
+            view1.setText("采购选标");
+
+        } else if (showSeedlingNote2) {
+            view1.setVisibility(View.VISIBLE);
+            view2.setVisibility(View.GONE);
+            //写图标 跟 点击事件
+            Drawable drawable = getResources().getDrawable(R.mipmap.wd_jmb);
+            view1.setDrawable(drawable);
+            view1.setOnClickListener(v -> {
+                MiaoNoteListActivity.start(mActivity);
+            });
+            view1.setText("记苗本");
+
+        } else {
+            //都隐藏
+            view1.setVisibility(View.GONE);
+            view2.setVisibility(View.GONE);
+
+        }
+
+
     }
 
 

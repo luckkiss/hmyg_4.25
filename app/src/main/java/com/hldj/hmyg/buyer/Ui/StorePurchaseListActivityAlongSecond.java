@@ -122,7 +122,7 @@ public class StorePurchaseListActivityAlongSecond extends StorePurchaseListActiv
             }
             PartShareActivity.shareList = shareList;
             PartShareActivity.start(mActivity);
-            ToastUtil.showShortToast("tiao ");
+//            ToastUtil.showShortToast("tiao ");
 
 
         }).show();

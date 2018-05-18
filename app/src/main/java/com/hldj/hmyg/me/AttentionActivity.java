@@ -23,7 +23,11 @@ import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hy.utils.SpanUtils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import net.tsz.afinal.FinalActivity;
 import net.tsz.afinal.annotation.view.ViewInject;
@@ -49,6 +53,7 @@ public class AttentionActivity extends BaseMVPActivity implements View.OnClickLi
     @ViewInject(id = R.id.recycle)
     CoreRecyclerView recycler;
 
+
     @ViewInject(id = R.id.tijia, click = "onClick")
     TextView tijia;
 
@@ -68,7 +73,7 @@ public class AttentionActivity extends BaseMVPActivity implements View.OnClickLi
         FinalActivity.initInjectedView(this);
 
         //RxPermissions rxPermissions = new RxPermissions(this); // where this is an Activity instance
-
+        tijia.setOnClickListener(this);
 
         recycler.init(new BaseQuickAdapter<UserFollow, BaseViewHolder>(item_layout_id) {
             @Override
@@ -98,7 +103,7 @@ public class AttentionActivity extends BaseMVPActivity implements View.OnClickLi
 
         int item_id = R.layout.item_invite_friend_list;
 
-        ImageLoader.getInstance().displayImage(item.attrData.headImage, (ImageView) helper.getView(R.id.circleImageView));
+        ImageLoader.getInstance().displayImage(item.attrData.headImage, (ImageView) helper.getView(R.id.circleImageView),getOption());
 
         helper
                 .setText(R.id.title,
@@ -110,9 +115,9 @@ public class AttentionActivity extends BaseMVPActivity implements View.OnClickLi
                 .setText(R.id.fensi, "粉丝：" + item.attrData.followCount)
                 .setBackgroundColor(R.id.fensi, Color.TRANSPARENT)
                 .setTextColorRes(R.id.fensi, R.color.text_color999)
-
         ;
 
+        helper.getView(R.id.fensi).setPadding(0,0,0,0);
 
         helper.convertView.setOnClickListener(v -> {
             HeadDetailActivity.start(mActivity, item.beFollowUserId);
@@ -179,6 +184,25 @@ public class AttentionActivity extends BaseMVPActivity implements View.OnClickLi
                 });
 
 
+    }
+
+    public static DisplayImageOptions getOption(){
+        DisplayImageOptions option=new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.no_image_show)//设置图片下载期间显示的图片
+                .showImageForEmptyUri(R.drawable.icon_persion_pic)//设置图片uri为空或是错误的时候显示的图片
+                .showImageOnFail(R.drawable.no_image_to_show)//设置图片加载或解码过程中发生错误显示的图片
+                .resetViewBeforeLoading(false)//设置图片在加载前是否重置、复位
+//.delayBeforeLoading(1000)//下载前的延迟时间
+                .cacheInMemory(true)//设置下载的图片是否缓存在内存中
+                .cacheOnDisk(true)//设置下载的图片是否缓存在sd卡中
+                .considerExifParams(false)//思考可交换的参数
+                .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2)//设置图片的显示比例
+//                .bitmapConfig(Config.RGB_565)//设置图片的解码类型
+                .displayer(new RoundedBitmapDisplayer(40))//设置图片的圆角半径
+                .displayer(new FadeInBitmapDisplayer(3000))//设置图片显示的透明度过程的时间
+                .build();
+
+        return option;
     }
 
 

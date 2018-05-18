@@ -64,8 +64,8 @@
             android:layout_height="@dimen/backWH"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/x10"
-            android:padding="3dp"
-            android:src="@drawable/arrow_left_back" />
+            android:padding="5dp"
+            android:src="@drawable/ic_stepper_left_new" />
 
 
         <ImageView

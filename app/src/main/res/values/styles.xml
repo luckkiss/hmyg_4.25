@@ -431,7 +431,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:background">@drawable/conner_edit</item>
+        <item name="android:background">@drawable/conner_edit_input</item>
         <item name="android:textSize">@dimen/textSizeContent</item>
         <item name="android:gravity">center</item>
         <item name="android:hint">0</item>
@@ -909,7 +909,6 @@
     </style>
 
 
-
     <style name="option_view_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/simpleHeightContent</item>
@@ -922,7 +921,6 @@
         <item name="android:src">@mipmap/home_publish</item>
         <item name="android:visibility">visible</item>
     </style>
-
 
 
 </resources>

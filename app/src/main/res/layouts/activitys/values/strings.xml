@@ -12,6 +12,6 @@
     <string name="publish_content">写点什么... \n例如：供应 红花 高2米 冠幅0.9米以上...</string>
     <string name="purchase_content">写点什么... \n例如：求购 红花 高2米 冠幅0.9米以上... </string>
     <string name="lxdh_desc">苗圃联系方式<font color='#e75b45'> (仅用于个人管理用，不对外展示)</font></string>
-    <string name="lxfs_title">商城联系人方式<font color='#999999'> (在商城显示的联系方式)</font></string>
+    <string name="lxfs_title">商城联系方式<font color='#999999'> (在商城显示的联系方式)</font></string>
 
 </resources>

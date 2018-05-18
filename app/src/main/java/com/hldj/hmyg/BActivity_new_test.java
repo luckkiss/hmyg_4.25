@@ -37,7 +37,6 @@ import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreHeadRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
-import com.hldj.hmyg.saler.SaveSeedlingActivity;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.SortSpinner;
 import com.hy.utils.ToastUtil;
@@ -190,7 +189,8 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
                     return;
                 }
                 Log.i(TAG, "是否登录" + MyApplication.Userinfo.getBoolean("isLogin", false));
-                SaveSeedlingActivity.start2Activity(mActivity);
+//                SaveSeedlingActivity.start2Activity(mActivity);
+                MainActivity.toD();
 
 
             }

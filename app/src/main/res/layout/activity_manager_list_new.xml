@@ -308,7 +308,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
-        app:layout_behavior="com.hldj.hmyg.behavior.BottomBarBehavior">
+       >
 
         <Button
             android:id="@+id/btn_manager_storege"

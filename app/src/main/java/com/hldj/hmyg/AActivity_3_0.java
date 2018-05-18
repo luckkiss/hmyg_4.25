@@ -622,7 +622,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //        findViewById(R.id.stv_home_4).setOnClickListener(v -> NewsActivity.start2Activity(AActivity_3_0.this));
         //采购
         findViewById(home_title_first).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this));
-        findViewById(home_title_qiu_gou).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this,false));
+        findViewById(home_title_qiu_gou).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this, false));
         //苗木商城 更多
         findViewById(R.id.home_title_second).setOnClickListener(v -> MainActivity.toB());
         //热门商家
@@ -648,7 +648,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                     attachTablayout2View(tablayout, tablayout1, findViewById(R.id.home_title_qiu_gou), findViewById(R.id.home_title_second), 1);
                 }
             });
-        }else {
+        } else {
             scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
                 @Override
                 public void onScrollChanged() {
@@ -1168,6 +1168,8 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                     @Override
                     public void run() {
                         scrollView.fullScroll(ScrollView.FOCUS_UP);
+                        scrollView.smoothScrollTo(0, 0);
+                        scrollY = 0;
                     }
                 });
                 toTopBtn.setVisibility(View.GONE);

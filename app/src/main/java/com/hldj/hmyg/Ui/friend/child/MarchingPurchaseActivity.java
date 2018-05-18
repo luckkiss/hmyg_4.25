@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
+import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
@@ -17,7 +18,6 @@ import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
 import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.saler.purchase.userbuy.BuyForUserActivity;
-import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserActivity;
 import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserDetailActivity;
 import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.ConstantState;
@@ -71,7 +71,11 @@ public class MarchingPurchaseActivity extends BaseMVPActivity {
                     @Override
                     public void onClick(View v) {
 //                        ToastUtil.showShortToast("发布苗木");
-                        PublishForUserActivity.start2Activity(mActivity);
+//                        PublishForUserActivity.start2Activity(mActivity);
+                        finish();
+
+                        MainActivity.toD();
+
                     }
                 })
                 .showEmptyAndSetTip("苗圃里的苗木品种越多，匹配到的求购越多")

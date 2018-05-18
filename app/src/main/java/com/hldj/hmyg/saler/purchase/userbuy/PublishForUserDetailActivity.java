@@ -325,6 +325,10 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
                 .doRequest("admin/userPurchase/detail", new HandlerAjaxCallBackData<UserPurchaseGsonBean>(mActivity) {
                     @Override
                     public void onRealSuccess(UserPurchaseGsonBean result) {
+
+
+                        getView(R.id.show_state).setVisibility(View.VISIBLE);
+
                         Log.i(TAG, "onRealSuccess: " + result.data.headerMap.ownerId);
                         getView(R.id.include_head)
                                 .setOnClickListener(v -> {

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -26,6 +27,7 @@ import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.MyOptionItemView;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.SpanUtils;
 import com.hy.utils.ToastUtil;
 import com.mrwujay.cascade.activity.GetCitiyNameByCode;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -59,6 +61,22 @@ public class AddAdressActivity extends BaseMVPActivity {
 //        ToastUtil.showShortToast("添加地址界面");
         addressBean = new AddressBean();
 
+//        <font color='#e75b45'> (仅用于个人管理用，不对外展示)</font>
+        SpannableStringBuilder spannableStringBuilder = new SpanUtils()
+                .append("苗圃联系方式")
+                .append(" (仅用于个人管理用，不对外展示)").setForegroundColor(mActivity.getResources().getColor(R.color.price_orige))
+                .create();
+        setText(getView(R.id.lxfs_title), spannableStringBuilder);
+
+
+        //商城联系人方式<font color='#999999'> (在商城显示的联系方式)</font>
+        SpannableStringBuilder spannableStringBuilder1 = new SpanUtils()
+                .append("商城联系方式")
+                .append(" (在商城显示的联系方式)").setForegroundColor(mActivity.getResources().getColor(R.color.text_color999)).setFontSize(13,true)
+                .create();
+        setText(getView(R.id.sclxfs_title), spannableStringBuilder1);
+
+
         if (getExtral() != null) {
             D.e("==========extral==== \n" + getExtral().toString());
             addressBean = getExtral();
@@ -77,6 +95,9 @@ public class AddAdressActivity extends BaseMVPActivity {
             //添加数据
             setTitle("新增苗圃");
             autoSetLoc();
+            EditText editText = getView(R.id.et_aaa_nurseryContactPhone);
+            editText.setText(MyApplication.getUserBean().phone);
+
 
             //获取定位
             //右上角 删除按钮的显示
@@ -128,7 +149,9 @@ public class AddAdressActivity extends BaseMVPActivity {
         //提交按钮点击事件是公用的
         getView(R.id.tv_save).setOnClickListener(v -> {
 
-            if (!submit(getView(R.id.et_aaa_nurseryContactPhone), "联系电话")) {
+            if (!submit(getView(R.id.et_aaa_nurseryContactPhone), "联系电话")
+                    || !submit(getView(R.id.et_aaa_name), "苗圃名称")
+                    ) {
                 return;
             }
 

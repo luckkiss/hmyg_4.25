@@ -57,7 +57,6 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:drawablePadding="4dp"
-        android:drawableRight="@drawable/arrow_right_eq"
         android:text="￥300/株"
         android:textColor="@color/price_orige"
         android:textSize="@dimen/textSizeTitle" />

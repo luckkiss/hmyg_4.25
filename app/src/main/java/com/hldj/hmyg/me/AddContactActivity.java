@@ -180,8 +180,11 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
 
     }
 
-    private void requestData(int page) {
 
+    int count = 0;
+
+    private void requestData(int page) {
+        count = 0;
 
         // Must be done during an initialization phase like onCreate
 //        rxPermissions
@@ -219,7 +222,9 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        UpdateLoading(contactInfo.getName());
+
+                                        count++;
+                                        UpdateLoading("已扫描联系人数量:" + count);
 
                                     }
                                 });

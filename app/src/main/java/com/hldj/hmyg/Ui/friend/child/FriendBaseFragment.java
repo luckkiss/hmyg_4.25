@@ -3,6 +3,7 @@ package com.hldj.hmyg.Ui.friend.child;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Keep;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -333,6 +334,7 @@ public class FriendBaseFragment extends BaseFragment {
                             public void onClick(View widget) {
                                 HeadDetailActivity.start(mActivity, s.attrData.fromUserId);
                             }
+
                             @Override
                             public void updateDrawState(TextPaint ds) {
 //                                ds.setColor(Color.BLUE);
@@ -345,7 +347,9 @@ public class FriendBaseFragment extends BaseFragment {
                             public void onClick(View widget) {
 //                                ToastUtil.showShortToast("被回复的人  ");
                                 HeadDetailActivity.start(mActivity, s.attrData.toUserId);
-                            } @Override
+                            }
+
+                            @Override
                             public void updateDrawState(TextPaint ds) {
 //                                ds.setColor(Color.BLUE);
                                 ds.setUnderlineText(false);
@@ -377,7 +381,9 @@ public class FriendBaseFragment extends BaseFragment {
                                 EditDialog.instance("回复: " + s.attrData.fromDisplayName).show(baseMVPActivity.getSupportFragmentManager(), "aa");
 
 
-                            } @Override
+                            }
+
+                            @Override
                             public void updateDrawState(TextPaint ds) {
 //                                ds.setColor(Color.BLUE);
                                 ds.setUnderlineText(false);
@@ -687,34 +693,50 @@ public class FriendBaseFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+//      ToastUtil.showLongToast("--gragment --  执行 回调");
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mRecyclerView != null )
+                mRecyclerView.onRefresh();
+
+            }
+        }, 500);
+
         if (mRecyclerView == null) {
             D.w("mRecyclerView==null,不能刷新");
             return;
         }
+
+
         if (resultCode == ConstantState.REFRESH) {
 //            mRecyclerView.onRefresh();
         } else if (resultCode == ConstantState.PUBLISH_SUCCEED) {
 //        } else if (resultCode == ConstantState.PUBLIC_SUCCEED) {
             //发布成功，当发布的时候刷新
-            if (currentType.equals(MomentsType.supply.getEnumValue()))
-                mRecyclerView.onRefresh();
-            else //切换到个别列表
-            {
-                currentType = MomentsType.supply.getEnumValue();
-                mRecyclerView.onRefresh();
-            }
+
+            mRecyclerView.onRefresh();
+
+//            if (currentType.equals(MomentsType.supply.getEnumValue()))
+//                mRecyclerView.onRefresh();
+//            else //切换到个别列表
+//            {
+//                currentType = MomentsType.supply.getEnumValue();
+//                mRecyclerView.onRefresh();
+//            }
             D.e("currentType" + currentType);
 
         } else if (resultCode == ConstantState.PURCHASE_SUCCEED) {
             //求购成功，当求购的时候刷新
-            if (currentType.equals(MomentsType.purchase.getEnumValue()))
-                mRecyclerView.onRefresh();
-            else {
-                {
-                    currentType = MomentsType.purchase.getEnumValue();
-                    mRecyclerView.onRefresh();
-                }
-            }
+//            if (currentType.equals(MomentsType.purchase.getEnumValue()))
+//                mRecyclerView.onRefresh();
+//            else {
+//                {
+//                    currentType = MomentsType.purchase.getEnumValue();
+//                    mRecyclerView.onRefresh();
+//                }
+//            }
             D.e("currentType" + currentType);
         }
 
@@ -907,4 +929,8 @@ public class FriendBaseFragment extends BaseFragment {
         return onwerId.equals(MyApplication.Userinfo.getString("id", ""));
     }
 
+
+    public void onrefresh() {
+        mRecyclerView.onRefresh();
+    }
 }

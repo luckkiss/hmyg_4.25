@@ -224,6 +224,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
+                    android:button="@drawable/dagou_seletor"
+                    android:drawablePadding="3dp"
+                    android:paddingLeft="3dp"
                     android:text="是"
                     android:textColor="@color/text_color666"
                     android:textSize="@dimen/textSizeContent" />
@@ -231,9 +234,12 @@
                 <RadioButton
                     android:id="@+id/radio_right"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="12dp"
+                    android:button="@drawable/dagou_seletor"
+                    android:drawablePadding="5dp"
+                    android:paddingLeft="3dp"
                     android:text="否"
                     android:textColor="@color/text_color666"
                     android:textSize="@dimen/textSizeContent" />

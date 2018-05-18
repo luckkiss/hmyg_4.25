@@ -315,32 +315,54 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
         } else if (resultCode == ConstantState.PUBLISH_SUCCEED) {
 //        } else if (resultCode == ConstantState.PUBLIC_SUCCEED) {
             //发布成功，当发布的时候刷新
-            if (currentType.equals(MomentsType.supply.getEnumValue()))
-                list_fragment.get(0).onActivityResult(requestCode, resultCode, data);
-            else //切换到个别列表
-            {
-                rb_title_left.setChecked(true);
-                currentType = MomentsType.supply.getEnumValue();
-                list_fragment.get(0).onActivityResult(requestCode, resultCode, data);
-            }
-
+//            if (currentType.equals(MomentsType.supply.getEnumValue()))
+//                list_fragment.get(0).onActivityResult(requestCode, resultCode, data);
+//            else //切换到个别列表
+//            {
+//
+//
+            rb_title_center.setChecked(true);
+            currentType = MomentsType.supply.getEnumValue();
+            list_fragment.get(0).onActivityResult(requestCode, resultCode, data);
+//            ((FriendBaseFragment) list_fragment.get(1)).onrefresh();
+//            ((FriendBaseFragment) list_fragment.get(2)).onrefresh();
+//            ((FriendBaseFragment) list_fragment.get(3)).onrefresh();
+            list_fragment.get(1).onActivityResult(requestCode, resultCode, data);
+            list_fragment.get(2).onActivityResult(requestCode, resultCode, data);
             D.e("currentType" + currentType);
 
         } else if (resultCode == ConstantState.PURCHASE_SUCCEED) {
             //求购成功，当求购的时候刷新
-            if (currentType.equals(MomentsType.purchase.getEnumValue())) {
-                list_fragment.get(1).onActivityResult(requestCode, resultCode, data);
-                FriendBaseFragment fragment = ((FriendBaseFragment) list_fragment.get(1));
-                fragment.onRefresh();
-            } else {
-                {
-                    rb_title_right.setChecked(true);
-                    currentType = MomentsType.purchase.getEnumValue();
-                    list_fragment.get(1).onActivityResult(requestCode, resultCode, data);
-                    FriendBaseFragment fragment = ((FriendBaseFragment) list_fragment.get(1));
-                    fragment.onRefresh();
-                }
-            }
+//            if (currentType.equals(MomentsType.purchase.getEnumValue())) {
+//                list_fragment.get(1).onActivityResult(requestCode, resultCode, data);
+//                FriendBaseFragment fragment = ((FriendBaseFragment) list_fragment.get(1));
+//                fragment.onRefresh();
+//            } else {
+//                {
+//
+//                    list_fragment.get(1).onActivityResult(requestCode, resultCode, data);
+//                    FriendBaseFragment fragment = ((FriendBaseFragment) list_fragment.get(1));
+//                    fragment.onRefresh();
+//                }
+//            }
+            rb_title_right.setChecked(true);
+            currentType = MomentsType.purchase.getEnumValue();
+            list_fragment.get(0).onActivityResult(requestCode, resultCode, data);
+            list_fragment.get(1).onActivityResult(requestCode, resultCode, data);
+            list_fragment.get(2).onActivityResult(requestCode, resultCode, data);
+//            ((FriendBaseFragment) list_fragment.get(1)).onrefresh();
+//            ((FriendBaseFragment) list_fragment.get(2)).onrefresh();
+//            ((FriendBaseFragment) list_fragment.get(3)).onrefresh();
+            D.e("currentType" + currentType);
+        }else {
+            rb_title_left.setChecked(true);
+            currentType = MomentsType.all.getEnumValue();
+            list_fragment.get(0).onActivityResult(requestCode, resultCode, data);
+//            ((FriendBaseFragment) list_fragment.get(1)).onrefresh();
+//            ((FriendBaseFragment) list_fragment.get(2)).onrefresh();
+//            ((FriendBaseFragment) list_fragment.get(3)).onrefresh();
+            list_fragment.get(1).onActivityResult(requestCode, resultCode, data);
+            list_fragment.get(2).onActivityResult(requestCode, resultCode, data);
             D.e("currentType" + currentType);
         }
 

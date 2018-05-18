@@ -318,7 +318,7 @@ public class AskToByFragment extends BaseLazyFragment {
 //        new BasePresenter()
 //                .putParams("id", id)
 //                .doRequest("admin/userPurchase/edit")
-        ToastUtil.showLongToast("重新求购.....");
+//        ToastUtil.showLongToast("重新求购.....");
 
 
         PublishForUserActivity.start2Activity(mActivity, id);

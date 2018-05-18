@@ -49,6 +49,7 @@ public class SimpleGsonBean implements Serializable {
         public String storeId;
         public int outlineCount;
 
+public String name;
 
         public String shareUrl;
         public String shareDetail;

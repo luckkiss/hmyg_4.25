@@ -31,6 +31,7 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.AutoAddRelative;
 import com.hy.utils.ToastUtil;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.zzy.common.widget.wheelview.popwin.CustomDaysPickPopwin;
 import com.zzy.common.widget.wheelview.popwin.CustomUnitsPickPopwin;
 
@@ -122,7 +123,13 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
             SeedlingType seedlingType = (SeedlingType) data.getSerializableExtra("item");
             qxz_pz.setText(seedlingType.name);
 
-            initAutoAddView(mGsonBean, seedlingType, null);
+            try {
+                initAutoAddView(mGsonBean, seedlingType, null);
+            } catch (Exception e) {
+                ToastUtil.showLongToast("初始化失败");
+                CrashReport.postCatchedException(e);
+                e.printStackTrace();
+            }
 
 
         }
@@ -161,6 +168,8 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
                             SeedlingType seedlingType = new SeedlingType();
                             seedlingType.id = gsonBean.getData().userPurchase.secondSeedlingTypeId;
                             seedlingType.parentId = gsonBean.getData().userPurchase.firstSeedlingTypeId;
+                            seedlingType.parentName =
+                                    getParentNameByFirstId(gsonBean.getData().userPurchase.firstSeedlingTypeId, gsonBean.getData().typeList);
 //                            new ty userPurchase.secondSeedlingTypeId = seedlingType.id;
 //                            userPurchase.firstSeedlingTypeId = seedlingType.parentId;
 
@@ -172,6 +181,21 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
 
                     }
                 });
+    }
+
+    private String getParentNameByFirstId(String firstSeedlingTypeId, List<TypeListBean> typeList) {
+
+        if (typeList == null || typeList.size() == 0) {
+            return "";
+        }
+        for (TypeListBean typeListBean : typeList) {
+            if (typeListBean.id.equals(firstSeedlingTypeId)) {
+                return typeListBean.name;
+            }
+        }
+
+
+        return "";
     }
 
     private void 设置是否需要添加图片(RadioButton radioButton, RadioButton radioButton1) {
@@ -228,6 +252,7 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
 //            String[] ars = (String[]) validityList.toArray();
 
             CustomDaysPickPopwin daysPopwin = new CustomDaysPickPopwin(mActivity, dayChangeListener, string, string, 0);
+            daysPopwin.hidenCustomBtn();
             daysPopwin.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM
                     | Gravity.CENTER, 0, 0);
         });
@@ -366,6 +391,7 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
                     autoAddRelative_rd = new AutoAddRelative(this)
                             .initView(R.layout.save_seeding_auto_add_radio)
                             .setDatas_rd(paramsListBean.get(i), mGsonBean.getData().dbhTypeList, mGsonBean.getData().diameterTypeList)
+
                     ;
 
 

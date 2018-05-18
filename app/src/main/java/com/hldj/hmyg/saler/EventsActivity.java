@@ -318,14 +318,14 @@ public class EventsActivity extends Activity implements OnMapClickListener,
 
         //自定义点标记
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(new LatLng(34, 115)).title("标题").snippet("内容");
+        markerOptions.position(new LatLng(latitude, longitude)).title("当前").snippet("位置");
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                .decodeResource(getResources(), R.mipmap.ic_launcher)));//设置图标
+                .decodeResource(getResources(), R.mipmap.loaction)));//设置图标
         aMap.addMarker(markerOptions);
 
         //改变可视区域为指定位置
         //CameraPosition4个参数分别为位置，缩放级别，目标可视区域倾斜度，可视区域指向方向（正北逆时针算起，0-360）
-        cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng, 8, 0, 30));
+        cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng, 12, 0, 30));
         aMap.moveCamera(cameraUpdate);//地图移向指定区域
 
         //位置坐标的点击事件

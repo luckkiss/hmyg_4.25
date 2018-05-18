@@ -52,6 +52,7 @@ import com.hy.utils.SpanUtils;
 import com.hy.utils.ToastUtil;
 import com.mabeijianxi.smallvideo2.VideoPlayerActivity2;
 import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.white.utils.FileUtil;
 import com.zf.iosdialog.widget.AlertDialog;
 import com.zzy.common.widget.MeasureGridView;
@@ -140,6 +141,8 @@ public class PublishActivity extends BaseMVPActivity {
     @ViewInject(id = R.id.rb_type_right)/*发布求购*/
             RadioButton rb_type_right;
 
+
+    private String currentType = "";
 
     private String cityCode = "";
 
@@ -418,7 +421,7 @@ public class PublishActivity extends BaseMVPActivity {
         toolbar_right_text.setOnClickListener(clickListener);
 
         if (getTag().equals(PURCHASE)) {
-
+            currentType = MomentsType.purchase.getEnumValue();
             location.setLeftText("用苗地");
             /*采购*/
             et_content.setHint(R.string.purchase_content);
@@ -450,6 +453,7 @@ public class PublishActivity extends BaseMVPActivity {
             /*发布*/
 //            setTitle("发布供应");
 
+            currentType = MomentsType.supply.getEnumValue();
             et_content.setHint(R.string.publish_content);
             clickListener = v -> {
                 if (TextUtils.isEmpty(et_content.getText())) {
@@ -484,7 +488,7 @@ public class PublishActivity extends BaseMVPActivity {
                 public void onClick(View v) {
 //                    ToastUtil.showLongToast("发布供应");
                     D.i("发布供应");
-
+                    currentType = MomentsType.supply.getEnumValue();
                     location.setLeftText("苗源地");
             /*发布*/
 //                    setTitle("发布供应");
@@ -522,6 +526,7 @@ public class PublishActivity extends BaseMVPActivity {
 //                    ToastUtil.showLongToast("发布求购");
                     D.i("发布求购");
 
+                    currentType = MomentsType.purchase.getEnumValue();
                     location.setLeftText("用苗地");
             /*采购*/
                     et_content.setHint(R.string.purchase_content);
@@ -605,10 +610,10 @@ public class PublishActivity extends BaseMVPActivity {
 //                                    ToastUtil.showLongToast(gsonBean.msg);
                                     Log.i(TAG, "run: 上传结束" + gsonBean.msg);
                                     hindLoading();
-                                    if (getTag().equals(PURCHASE)) {
+                                    if (currentType.equals(PURCHASE)) {
                                         //求购成功
                                         setResult(PURCHASE_SUCCEED);
-                                    } else if (getTag().equals(PUBLISH)) {
+                                    } else if (currentType.equals(PUBLISH)) {
                                         //发布成功
                                         setResult(PUBLISH_SUCCEED);
                                     }
@@ -636,10 +641,10 @@ public class PublishActivity extends BaseMVPActivity {
                                                     ToastUtil.showLongToast(gsonBean.msg);
                                                     Log.i(TAG, "run: 上传结束" + gsonBean.msg);
                                                     hindLoading();
-                                                    if (getTag().equals(PURCHASE)) {
+                                                    if (currentType.equals(PURCHASE)) {
                                                         //求购成功
                                                         setResult(PURCHASE_SUCCEED);
-                                                    } else if (getTag().equals(PUBLISH)) {
+                                                    } else if (currentType.equals(PUBLISH)) {
                                                         //发布成功
                                                         setResult(PUBLISH_SUCCEED);
                                                     }
@@ -822,8 +827,6 @@ public class PublishActivity extends BaseMVPActivity {
 
     private String getTag() {
         String mTag = getIntent().getStringExtra(TAG);
-
-
         if (TextUtils.isEmpty(mTag)) {
             ToastUtil.showLongToast("未知类型");
             return "";
@@ -994,12 +997,14 @@ public class PublishActivity extends BaseMVPActivity {
                                     ToastUtil.showLongToast(gsonBean.msg);
                                     Log.i(TAG, "run: 上传结束" + gsonBean.msg);
                                     hindLoading();
-                                    if (getTag().equals(PURCHASE)) {
+                                    if (currentType.equals(PURCHASE)) {
                                         //求购成功
                                         setResult(PURCHASE_SUCCEED);
-                                    } else if (getTag().equals(PUBLISH)) {
+                                    } else if (currentType.equals(PUBLISH)) {
                                         //发布成功
                                         setResult(PUBLISH_SUCCEED);
+                                    }else {
+
                                     }
                                     finish();
                                 }
@@ -1218,7 +1223,10 @@ public class PublishActivity extends BaseMVPActivity {
                                 DetailActivity.start(mActivity, moments.id);
                             });
 
-                            FinalBitmap.create(mActivity).display(getView(R.id.icon), moments.imageUrl);
+//                            FinalBitmap.create(mActivity).display(getView(R.id.icon), moments.imageUrl);
+
+
+                            ImageLoader.getInstance().displayImage(moments.imageUrl, (ImageView) getView(R.id.icon));
 
                             setText(getView(R.id.right_top), moments.timeStampStr);
 

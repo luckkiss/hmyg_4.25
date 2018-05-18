@@ -158,6 +158,7 @@ public class StoreDetailActivity extends BaseMVPActivity {
 
 
         option_phone.setRightText("\uD83D\uDCDE " + simpleGsonBean.getData().phone);
+//        option_phone.setRightTextColor(getColorByRes(R.color.main_color));
         option_phone.setOnClickListener(v -> {
 //            ToastUtil.showLongToast(simpleGsonBean.getData().phone);
             FlowerDetailActivity.CallPhone(
@@ -175,7 +176,7 @@ public class StoreDetailActivity extends BaseMVPActivity {
         if (simpleGsonBean.getData().identity) {
             option_identity.setOnClickListener(v -> {
 //            ToastUtil.showLongToast("认证");
-                AuthenticationCompanyActivity.start(mActivity, AuthenticationActivity.no_auth, "", false,StoreDetailActivity.storeId );
+                AuthenticationCompanyActivity.start(mActivity, AuthenticationActivity.no_auth, "", false, StoreDetailActivity.storeId);
             });
         } else {
             option_identity.showRightImg(false);

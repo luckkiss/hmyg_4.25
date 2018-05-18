@@ -168,7 +168,7 @@ public class ProductListAdapterForManager extends BaseAdapter {
                 tv_right_top.setTextColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.state_for_manager_doing));//审核中 #f3b473
                 break;
             case "published":
-                tv_right_top.setTextColor(Data.STATUS_STROGE_GREEN);//已上架
+                tv_right_top.setTextColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.main_color));//已上架
                 break;
             case "outline":
                 tv_right_top.setTextColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.state_for_manager_no));//已下架  #e75b45
