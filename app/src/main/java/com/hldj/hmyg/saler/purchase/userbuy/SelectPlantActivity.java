@@ -79,6 +79,11 @@ public class SelectPlantActivity extends BaseMVPActivity implements OnClickListe
         return getText(getView(R.id.et_program_serach_text));
     }
 
+    public void setSearchHintContent(String str) {
+        EditText editText = getView(R.id.et_program_serach_text);
+        editText.setHint(str);
+    }
+
     private void 搜索(String key) {
 
         new BasePresenter()
@@ -108,7 +113,7 @@ public class SelectPlantActivity extends BaseMVPActivity implements OnClickListe
     public void initView() {
         FinalActivity.initInjectedView(this);
 
-
+        setSearchHintContent("请输入搜索关键字");
         et_search_content.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

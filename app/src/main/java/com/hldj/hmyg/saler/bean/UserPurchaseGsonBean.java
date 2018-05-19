@@ -22,6 +22,8 @@ public class UserPurchaseGsonBean {
     public DataBean data;
     public String version;
 
+
+    public boolean isClose ;
     /**
      * code : 1
      * msg : 操作成功
@@ -60,6 +62,7 @@ public class UserPurchaseGsonBean {
              */
 
             public String storeName;
+            public boolean isClose;
             public String headImage;
             public String ownerId;
             public String displayName;

@@ -34,6 +34,7 @@ import com.hldj.hmyg.presenter.LoginPresenter;
 import com.hldj.hmyg.update.UpdateDialog;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.LoginUtil;
 import com.hldj.hmyg.util.MLocationManager;
 import com.hldj.hmyg.util.MyUtil;
 import com.hldj.hmyg.util.StartBarUtils;
@@ -235,6 +236,14 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     }
 
     public static void toD() {
+
+        if (!LoginUtil.toLogin(( instance)))
+        {
+
+            return;
+
+        }
+
         radioderGroup.check(R.id.tab_d);
     }
 
@@ -274,11 +283,20 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
             case R.id.tab_d:
                 if (!MyApplication.Userinfo.getBoolean("isLogin", false)) {
                     start2ActivityWithResult(LoginActivity.class, 4);
-                    ((RadioButton) group.getChildAt((Integer.parseInt(check)) - 1)).setChecked(true);
+                    if (!((RadioButton) group.getChildAt((Integer.parseInt(check)) - 1)).isChecked()) {
+                        ((RadioButton) group.getChildAt((Integer.parseInt(check)) - 1)).setChecked(true);
+                    }
+
                 } else {
                     tabHost.setCurrentTabByTag("4");
                     check = "4";
                 }
+//
+//                if (!LoginUtil.toLogin(MainActivity.this))
+//                {
+//
+//                    return;
+//                }
 
                 MainRadioButton tab_c = findViewById(R.id.tab_d);
                 tab_c.setShowSmallDot(false);

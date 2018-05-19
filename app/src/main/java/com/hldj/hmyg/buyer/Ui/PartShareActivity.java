@@ -3,6 +3,7 @@ package com.hldj.hmyg.buyer.Ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
+import android.text.SpannableStringBuilder;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.SpanUtils;
 
 import net.tsz.afinal.FinalActivity;
 import net.tsz.afinal.annotation.view.ViewInject;
@@ -73,7 +75,15 @@ public class PartShareActivity extends BaseMVPActivity {
             protected void convert(BaseViewHolder helper, PurchaseItemBean_new item) {
                 CheckedTextView checkedTextView = helper.getView(R.id.check_text);
                 checkedTextView.setChecked(item.isChecked());
-                checkedTextView.setText((helper.getAdapterPosition() + 1) + ". " + item.name);
+
+                SpannableStringBuilder spannableStringBuilder =
+                        new SpanUtils()
+                                .append((helper.getAdapterPosition() + 1) + ". " + item.name)
+                                .append(String.format("   %s/%s", item.count+"", item.unitTypeName)).setForegroundColor(getColorByRes(R.color.price_orige))
+                                .create();
+
+
+                checkedTextView.setText(spannableStringBuilder);
 
                 checkedTextView.setOnClickListener(v -> {
                     item.toggle();

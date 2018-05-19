@@ -211,7 +211,7 @@ public class IntegralActivity extends BaseMVPActivity {
 //                SaveSeedlingActivity.start2Activity(mActivity);
                 break;
             case "quote"://采购报价
-                PurchasePyMapActivity.start2Activity(mActivity);
+                PurchasePyMapActivity.start2Activity(mActivity,null);
                 break;
             case "browseSeedling"://浏览苗木超过3条
                 finish();

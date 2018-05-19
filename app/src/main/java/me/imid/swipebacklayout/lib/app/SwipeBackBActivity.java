@@ -54,11 +54,11 @@ public class SwipeBackBActivity extends FragmentActivity implements
     }
 
     public void hindLoading() {
-        if (getLoad().isRunning()) {
+        if (getLoad().isRunning() && !this.isFinishing()) {
             getLoad().cancel();
         }
 
-        if (dialog.isShowing()) {
+        if (dialog.isShowing() && !this.isFinishing()) {
             dialog.dismiss();
         }
     }

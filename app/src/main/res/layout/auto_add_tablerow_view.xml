@@ -21,7 +21,7 @@
         style="@style/table_row_right"
         android:layout_weight="6"
         android:background="@color/trans"
-        android:textColor="@color/text_color666"
+        android:textColor="@color/text_color333"
         tools:text="180-200" />
 
 

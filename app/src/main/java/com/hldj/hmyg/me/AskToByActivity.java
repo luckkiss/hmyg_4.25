@@ -17,6 +17,7 @@ import com.hldj.hmyg.me.fragments.AskToByFragment;
 import com.hldj.hmyg.saler.Adapter.FragmentPagerAdapter_TabLayout;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserActivity;
+import com.hldj.hmyg.util.LoginUtil;
 
 import net.tsz.afinal.FinalActivity;
 import net.tsz.afinal.annotation.view.ViewInject;
@@ -113,6 +114,10 @@ public class AskToByActivity extends BaseMVPActivity implements View.OnClickList
 
 
     public static void start(Activity mActivity) {
+        if (!LoginUtil.toLogin(mActivity)) {
+            return;
+        }
+
         mActivity.startActivity(new Intent(mActivity, AskToByActivity.class));
     }
 

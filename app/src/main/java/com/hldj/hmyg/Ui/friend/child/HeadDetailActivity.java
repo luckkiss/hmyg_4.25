@@ -2,6 +2,7 @@ package com.hldj.hmyg.Ui.friend.child;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckedTextView;
@@ -12,6 +13,7 @@ import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackSimpaleData;
 import com.hldj.hmyg.FlowerDetailActivity;
+import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.Ui.friend.bean.HeadDetail;
@@ -19,12 +21,14 @@ import com.hldj.hmyg.Ui.friend.bean.enums.AgentGrade;
 import com.hldj.hmyg.Ui.friend.util.CallLogUtil;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBeanData;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
@@ -134,6 +138,17 @@ public class HeadDetailActivity extends BaseMVPActivity {
 
         ImageLoader.getInstance().displayImage(result.headImage, (ImageView) getView(R.id.head));
 
+        getView(R.id.head).setOnClickListener(v -> {
+            if (!TextUtils.isEmpty(result.headImage)) {
+                ArrayList<Pic> ossUrls = new ArrayList<>();
+                ossUrls.add(new Pic("", false, result.headImage, 0));
+                GalleryImageActivity.startGalleryImageActivity(mActivity, 0, ossUrls);
+            } else {
+                showToast("未设置头像");
+            }
+        });
+
+
         /* 名称 */
         setText(getView(R.id.name), result.displayName);
 
@@ -159,7 +174,7 @@ public class HeadDetailActivity extends BaseMVPActivity {
 //            attention.setChecked(!attention.isChecked());
 
 
-            取消关注或加关注(result.userId, attention, !result.isFollowed,mActivity);
+            取消关注或加关注(result.userId, attention, !result.isFollowed, mActivity);
 
         });
 

@@ -27,6 +27,7 @@ import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.FUtil;
+import com.hldj.hmyg.util.LoginUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 
@@ -210,7 +211,13 @@ public class BuyForUserActivity extends BaseMVPActivity {
     }
 
 
+
     public static void start2Activity(Activity mActivity) {
+        if (!LoginUtil.toLogin(mActivity))
+        {
+            return;
+        }
+
         Intent intent = new Intent(mActivity, BuyForUserActivity.class);
         mActivity.startActivity(intent);
 

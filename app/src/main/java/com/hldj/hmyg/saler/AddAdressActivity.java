@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hldj.hmyg.M.AddressBean;
+import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
@@ -23,13 +24,13 @@ import com.hldj.hmyg.buyer.Ui.OnlyDirstreetWheelDialogF;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.MyOptionItemView;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.SpanUtils;
 import com.hy.utils.ToastUtil;
-import com.mrwujay.cascade.activity.GetCitiyNameByCode;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.zf.iosdialog.widget.AlertDialog;
 
@@ -130,12 +131,12 @@ public class AddAdressActivity extends BaseMVPActivity {
      */
     private void autoSetLoc() {
 
-//        if (MainActivity.aMapLocation != null) {
-//            addressBean.cityCode = MainActivity.aMapLocation.getAdCode();
-//            addressBean.longitude = Double.parseDouble(MainActivity.longitude);
-//            addressBean.latitude = Double.parseDouble(MainActivity.latitude);
-//            addressBean.detailAddress = FUtil.$(" ", MainActivity.aMapLocation.getStreet(), MainActivity.aMapLocation.getStreetNum(), MainActivity.aMapLocation.getAoiName());
-//        }
+        if (MainActivity.aMapLocation != null) {
+            addressBean.cityCode = MainActivity.aMapLocation.getAdCode();
+            addressBean.longitude = Double.parseDouble(MainActivity.longitude);
+            addressBean.latitude = Double.parseDouble(MainActivity.latitude);
+            addressBean.detailAddress = FUtil.$(" ", MainActivity.aMapLocation.getStreet(), MainActivity.aMapLocation.getStreetNum(), MainActivity.aMapLocation.getAoiName());
+        }
 //        addressBean.contactPhone = MyApplication.getUserBean().phone;
 //        addressBean.contactName = MyApplication.getUserBean().realName;
         initExtral(addressBean);
@@ -265,9 +266,9 @@ public class AddAdressActivity extends BaseMVPActivity {
         this.setText(getView(R.id.et_aaa_name), extral.name);//苗圃名称
         this.setText(getView(R.id.et_aaa_contactName), extral.contactName);//联系人
         this.setText(getView(R.id.et_aaa_contactPhone), extral.contactPhone);//联系电话
-        this.setText(getView(R.id.tv_aaa_area), GetCitiyNameByCode.initProvinceDatas(mActivity, extral.cityCode));//所在区域
+        this.setText(getView(R.id.tv_aaa_area), extral.cityName);//所在区域
 //        this.setText(getView(R.id.tv_aaa_street), extral.cityName.replace(GetCitiyNameByCode.initProvinceDatas(mActivity, extral.cityCode), ""));
-
+// GetCitiyNameByCode.initProvinceDatas(mActivity, extral.cityCode)
 //        CheckBox checkBox = getView(R.id.checkBox3);
 //        checkBox.setChecked(extral.isDefault);
 

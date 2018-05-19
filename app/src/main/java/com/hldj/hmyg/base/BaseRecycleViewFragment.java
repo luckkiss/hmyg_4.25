@@ -86,8 +86,14 @@ public abstract class BaseRecycleViewFragment<T> extends BaseLazyFragment {
     // 删除 与 清空 的
     public <H extends IDelete, A extends NeedSwipeBackActivity> void doUserDelDelete(BaseViewHolder helper, H t, A a, HandlerAjaxCallBack handlerAjaxCallBack) {
 
+        String tip = "确定删除本项?";
+        if (t instanceof IFootMarkEmpty) {
+            tip =   ((IFootMarkEmpty) t).getEmptyTip();
+        }
+
+//      String str = "确定删除本项?";
         new AlertDialog(a).builder()
-                .setTitle("确定删除本项?")
+                .setTitle(tip)
                 .setPositiveButton("确定", v1 -> {
                     {
                         if (t instanceof IFootMarkDelete) {
@@ -97,7 +103,7 @@ public abstract class BaseRecycleViewFragment<T> extends BaseLazyFragment {
                         }
                         if (t instanceof IFootMarkEmpty) {
                             new BasePresenter()
-                                    .putParams("sourceType",((IFootMarkEmpty) t).sourceType().getEnumValue())
+                                    .putParams("sourceType", ((IFootMarkEmpty) t).sourceType().getEnumValue())
                                     .doRequest(t.getDomain(), handlerAjaxCallBack);
                         }
 

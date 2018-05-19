@@ -266,6 +266,11 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> impl
     }
 
     @Override
+    public String getEmptyTip() {
+        return "确定清空  [苗木圈]";
+    }
+
+    @Override
     public String getResourceId() {
         return null;
     }

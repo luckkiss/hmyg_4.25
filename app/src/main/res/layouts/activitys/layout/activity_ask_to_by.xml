@@ -50,7 +50,7 @@
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/px96"
         android:layout_marginRight="10dp"
         android:gravity="center"
         android:src="@mipmap/home_publish"

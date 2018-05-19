@@ -109,12 +109,12 @@ public class ComonShareDialogFragment extends DialogFragment implements Platform
         shares.clear();
         if (platform.contains("1")) {
             PlatformForShare platformForShare = new PlatformForShare("朋友圈",
-                    "WechatMoments", "1", R.drawable.sns_icon_23);
+                    "WechatMoments", "1", R.drawable.ic_share_wechat_friend_circle);
             shares.add(platformForShare);
         }
         if (platform.contains("2")) {
             PlatformForShare platformForShare = new PlatformForShare("微信好友",
-                    "Wechat", "2", R.drawable.sns_icon_22);
+                    "Wechat", "2", R.drawable.ic_share_wechat_friend);
             shares.add(platformForShare);
         }
         if (platform.contains("3")) {

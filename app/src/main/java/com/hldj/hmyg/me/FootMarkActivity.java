@@ -91,6 +91,10 @@ public class FootMarkActivity extends BaseMVPActivity {
         ;
 
 
+        if (是否匿名()) {
+            helper.setText(R.id.content, item.attrData.timeStamp + "   " + item.ipCity);
+        }
+
         ImageLoader.getInstance().displayImage(item.attrData.userHeadImage, (ImageView) helper.getView(R.id.circleImageView));
 
 
@@ -185,7 +189,7 @@ public class FootMarkActivity extends BaseMVPActivity {
                         @Override
                         public void onRealSuccess(SimpleGsonBean gsonBean) {
 
-                          RxBus.getInstance().post(DActivity_new_mp.refresh, new Eactivity3_0.OnlineEvent(true));
+                            RxBus.getInstance().post(DActivity_new_mp.refresh, new Eactivity3_0.OnlineEvent(true));
 //                        ToastUtil.showShortToast("访客 未读 清除成功");
 //                        ToastUtil.showShortToast(gsonBean.msg);
                         }

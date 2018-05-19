@@ -55,8 +55,8 @@ public class UserBean {
      * permissionsName : 发布采购信息，添加购物车，发布苗木资源，采购报价，报价信息先发后审，
      */
 
-    public String id;
-    public String remarks;
+    public String id ="";
+    public String remarks ="";
     public String createDate;
     public String cityCode;
     public String prCode;
@@ -92,15 +92,15 @@ public class UserBean {
     public boolean supplierIsAgree;
     public boolean isActivated;
     public boolean isPartner;
-    public String recUserId;
-    public String agentTypeName;
+    public String recUserId= "";
+    public String agentTypeName= "";
     public boolean isDirectAgent;
     public String displayName = "";
     public String timeStampStr = "";
     public String cityName = "";
-    public String adminDisplayName;
-    public String displayPhone;
-    public String permissionsName;
+    public String adminDisplayName= "";
+    public String displayPhone= "";
+    public String permissionsName= "";
 
     public PurchaseJsonBean.CiCityBean ciCity ;
 

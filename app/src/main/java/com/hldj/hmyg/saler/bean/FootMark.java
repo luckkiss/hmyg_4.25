@@ -46,6 +46,8 @@ public class FootMark implements Serializable {
      */
     public Boolean isRead;
 
+    public String ipCity ;
+
 
     public AttrData attrData = new AttrData() ;
 

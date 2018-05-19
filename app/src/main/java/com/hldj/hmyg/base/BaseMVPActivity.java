@@ -219,4 +219,8 @@ public abstract class BaseMVPActivity<T extends BasePresenter, E extends BaseMod
 
         super.onDestroy();
     }
+
+
+
+
 }

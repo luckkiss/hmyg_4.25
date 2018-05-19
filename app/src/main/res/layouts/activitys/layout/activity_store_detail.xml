@@ -51,15 +51,53 @@
     <View style="@style/View_line_gray" />
 
 
-    <com.hldj.hmyg.widget.MyOptionItemView
+    <!--<com.hldj.hmyg.widget.MyOptionItemView-->
+    <!--android:id="@+id/option_phone"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/simpleHeightContent"-->
+    <!--android:background="@drawable/bg_bottom_line"-->
+    <!--android:paddingRight="12dp"-->
+    <!--app:left_text="联系商家"-->
+    <!--app:right_src="@mipmap/phone"-->
+    <!--app:right_text_color="@color/text_color666"-->
+    <!--app:right_text_margin_right="12dp" />-->
+
+    <RelativeLayout
         android:id="@+id/option_phone"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/simpleHeightContent"
-        android:background="@drawable/bg_bottom_line"
-        android:paddingRight="12dp"
-        app:left_text="联系商家"
-        app:right_text_color="@color/text_color666"
-        app:right_text_margin_right="12dp" />
+        android:layout_height="@dimen/simpleHeightContent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="12dp"
+            android:text="联系商家"
+            android:textSize="@dimen/textSizeContent" />
+
+
+        <ImageView
+            android:id="@+id/ic_phone"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:src="@mipmap/phone" />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+
+            android:layout_toLeftOf="@+id/ic_phone"
+            tools:text="17074990702" />
+
+
+    </RelativeLayout>
+
 
     <com.hldj.hmyg.widget.MyOptionItemView
         android:id="@+id/option_qc_code"

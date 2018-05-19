@@ -85,9 +85,8 @@
         android:layout_marginRight="16dp"
         android:background="@drawable/bg_check_gray_uncheck_main_selecteor"
         android:gravity="center"
-        android:padding="4dp"
+        android:padding="6dp"
         android:text="+关注"
-
         android:textAlignment="center"
         android:textColor="@color/color_check_gray_uncheck_main_selecteor"
         android:textSize="@dimen/textSizeContent"

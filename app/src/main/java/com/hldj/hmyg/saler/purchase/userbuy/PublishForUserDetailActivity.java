@@ -38,6 +38,7 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hldj.hmyg.util.LoginUtil;
 import com.hldj.hmyg.util.TakePhotoUtil;
 import com.hldj.hmyg.widget.MyOptionItemView;
 import com.hy.utils.ToastUtil;
@@ -286,6 +287,16 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
     public static boolean isPiPei = false;//是否匹配求购
 
     public static void start2Activity(Activity mActivity, String id, String owerId, boolean isPiPei) {
+//        if (!MyApplication.Userinfo.getBoolean("isLogin", false))
+//        {
+//
+//            return;
+//        }
+
+        if (!LoginUtil.toLogin(mActivity)) {
+            return;
+        }
+
         PublishForUserDetailActivity.isPiPei = isPiPei;
 //        Intent intent = new Intent(mActivity, PublishForUserListActivity.class);
         if (owerId.equals(MyApplication.getUserBean().id)) {
@@ -326,10 +337,10 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
                     @Override
                     public void onRealSuccess(UserPurchaseGsonBean result) {
 
+                        getView(R.id.show_state).setVisibility(result.data.userPurchase.isClose ? View.VISIBLE : View.GONE);
 
-                        getView(R.id.show_state).setVisibility(View.VISIBLE);
-
-                        Log.i(TAG, "onRealSuccess: " + result.data.headerMap.ownerId);
+//                        ToastUtil.showLongToast(result.data.userPurchase.isClose+"");
+                        Log.i(TAG, "onRealSuccess: " + result.data.userPurchase.ownerId);
                         getView(R.id.include_head)
                                 .setOnClickListener(v -> {
 //                                    ToastUtil.showLongToast("head is be click");

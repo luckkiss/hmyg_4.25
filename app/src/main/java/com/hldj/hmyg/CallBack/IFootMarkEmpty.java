@@ -6,12 +6,15 @@ import com.hldj.hmyg.saler.bean.enums.FootMarkSourceType;
  * 本接口用于  footmark  用户足迹 清空使用
  */
 
-public interface  IFootMarkEmpty extends IEmpty {
+public interface IFootMarkEmpty extends IEmpty {
 
-        FootMarkSourceType sourceType();
+    FootMarkSourceType sourceType();
 
-        void doEmpty();
+    void doEmpty();
 
+
+    /* 删除的项目名 */
+    String getEmptyTip();
 
 
 }

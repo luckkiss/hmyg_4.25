@@ -138,6 +138,12 @@ public class UserPurchaseHistoryFragment extends BaseRecycleViewFragment<UserPur
     }
 
     @Override
+    public String getEmptyTip() {
+        return "确定清空  [用户求购]？";
+    }
+
+
+    @Override
     public String getResourceId() {
         return null;
     }

@@ -1,5 +1,6 @@
 package com.hldj.hmyg.saler.Ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -29,6 +30,7 @@ import com.hldj.hmyg.saler.purchase.userbuy.BuyForUserActivity;
 import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserDetailActivity;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
+import com.hldj.hmyg.util.LoginUtil;
 import com.weavey.loading.lib.LoadingLayout;
 
 import java.lang.reflect.Type;
@@ -242,6 +244,10 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
     public static boolean initLeft = true;
 
     public static void start2Activity(Context context) {
+
+        if (!LoginUtil.toLogin((Activity) context)) {
+            return;
+        }
         context.startActivity(new Intent(context, ManagerQuoteListActivity_new.class));
     }
 

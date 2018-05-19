@@ -5,13 +5,15 @@
     android:background="@color/white"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:padding="5dip">
+    android:padding="4dip">
 
-    <ImageView
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="40.0dip"
+        android:layout_height="wrap_content"
         android:layout_marginTop="2.5dip"
-        android:background="@drawable/ss_02"
+        android:gravity="center"
+        android:src="@drawable/ss_02"
+        android:text="请选择分享平台"
         android:textSize="16sp" />
 
     <RelativeLayout
@@ -31,9 +33,9 @@
         android:layout_width="match_parent"
         android:layout_height="30.0dip"
         android:layout_marginTop="2.5dip"
-        android:background="@drawable/ss_04"
-        android:paddingBottom="10dip"
-        android:paddingTop="10dip"
-        android:textSize="16sp" />
+        android:background="@color/trans"
+        android:text="取消分享"
+        android:textColor="@color/text_color999"
+        android:textSize="14sp" />
 
 </LinearLayout>

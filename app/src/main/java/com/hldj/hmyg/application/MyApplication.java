@@ -70,7 +70,7 @@ public class MyApplication extends Application {
         if (userBean == null) {
             String json = (String) SPUtil.get(getInstance(), SPUtils.UserBean, "");
             if (TextUtils.isEmpty(json)) {
-                return new UserBean();
+                return userBean = new UserBean();
 //                ToastUtil.showShortToast("未登录");
             } else {
                 return userBean = GsonUtil.formateJson2Bean(json, UserBean.class);

@@ -603,7 +603,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //            ToastUtil.showLongToast(" 用户求购 ");
 //            BuyForUserActivity.stat2Activity(AActivity_3_0.this);
 //            PublishForUserActivity.start2Activity(AActivity_3_0.this);
-            PurchasePyMapActivity.start2Activity(AActivity_3_0.this);
+            PurchasePyMapActivity.start2Activity(AActivity_3_0.this,false);
 
 
         });
@@ -621,7 +621,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         //新闻资讯
 //        findViewById(R.id.stv_home_4).setOnClickListener(v -> NewsActivity.start2Activity(AActivity_3_0.this));
         //采购
-        findViewById(home_title_first).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this));
+        findViewById(home_title_first).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this ,null));
         findViewById(home_title_qiu_gou).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this, false));
         //苗木商城 更多
         findViewById(R.id.home_title_second).setOnClickListener(v -> MainActivity.toB());

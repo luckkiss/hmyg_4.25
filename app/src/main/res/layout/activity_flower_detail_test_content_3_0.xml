@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="320dp"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <com.javis.ab.view.AbSlidingPlayView
             android:id="@+id/viewPager_menu"
@@ -410,14 +410,15 @@
                         android:background="@null"
                         android:text="备注"
                         android:textColor="@color/text_color666"
-                        android:textSize="@dimen/textSizeTitle" />
+                        android:textSize="@dimen/textSizeContent" />
 
                     <TextView
                         android:id="@+id/remark"
                         style="@style/table_row_right"
-                        android:layout_marginLeft="12dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_weight="6"
                         android:text="-"
+                        android:textColor="@color/text_color333"
                         android:visibility="visible" />
                 </TableRow>
 

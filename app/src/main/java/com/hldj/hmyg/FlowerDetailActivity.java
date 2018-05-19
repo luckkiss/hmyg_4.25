@@ -65,6 +65,7 @@ import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
+import com.hldj.hmyg.util.LoginUtil;
 import com.hldj.hmyg.widget.AutoAdd2DetailLinearLayout;
 import com.hldj.hmyg.widget.ShareDialogFragment;
 import com.hy.utils.GetServerUrl;
@@ -371,7 +372,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         } else if ("seedling_list".equals(show_type)) {
         }
         initData();
-        visitsCount();
+//        visitsCount();
 
     }
 
@@ -481,12 +482,14 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         ;
 
 
-        btn_back.setSelected(false);
+        btn_back.setSelected(true);
+        iv_more.setSelected(true);
         scroll.setTitleAndHead(title, head, new AlphaTitleScrollView.OnStateChange() {
             @Override
             public void onShow() {
                 tv_title.setVisibility(View.VISIBLE);
                 btn_back.setSelected(false);
+                iv_more.setSelected(false);
                 StateBarUtil.setStatusTranslater(mActivity, true);//变黑
             }
 
@@ -494,6 +497,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
             public void onHiden() {
                 tv_title.setVisibility(View.GONE);
                 btn_back.setSelected(true);
+                iv_more.setSelected(true);
                 StateBarUtil.setStatusTranslater(mActivity, false);//变白
             }
         });
@@ -728,10 +732,14 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                     if (isLogin()) {//登录显示
                                         //打电话监听
                                         iv_lianxi.setVisibility(View.VISIBLE);
+                                        ((ViewGroup) iv_lianxi.getParent()).setVisibility(View.VISIBLE);
+
                                         iv_lianxi.setOnClickListener(callPhotoClick);
                                     } else {
                                         //打电话监听
-                                        iv_lianxi.setVisibility(View.GONE);
+                                        iv_lianxi.setVisibility(View.VISIBLE);
+                                        ((ViewGroup) iv_lianxi.getParent()).setVisibility(View.VISIBLE);
+                                        iv_lianxi.setOnClickListener(callPhotoClick);
                                     }
 
                                     //价格
@@ -1048,14 +1056,22 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                                         tv_store_phone.setText(displayPhone);//电话
                                         tv_contanct_name.setText(publicName);//联系人
                                     } else {
-                                        ll_store.setVisibility(View.GONE);
-                                        findViewById(R.id.login_to_show).setVisibility(View.VISIBLE);
-                                        findViewById(R.id.login_to_show).setOnClickListener(new OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                toLogin();
-                                            }
-                                        });
+
+                                        ll_store.setVisibility(View.VISIBLE);
+                                        findViewById(R.id.login_to_show).setVisibility(View.GONE);
+                                        tv_store_name.setText(nurseryJsonName);//商家信息    公司
+                                        tv_store_area.setText(address_name);// 所在地区
+                                        tv_store_phone.setText(displayPhone);//电话
+                                        tv_contanct_name.setText(publicName);//联系人
+
+//                                        ll_store.setVisibility(View.GONE);
+//                                        findViewById(R.id.login_to_show).setVisibility(View.VISIBLE);
+//                                        findViewById(R.id.login_to_show).setOnClickListener(new OnClickListener() {
+//                                            @Override
+//                                            public void onClick(View v) {
+//                                                toLogin();
+//                                            }
+//                                        });
                                     }
 
 
@@ -1900,6 +1916,12 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
     }
 
     public static void CallPhone(final String displayPhone, Activity mAct, View.OnClickListener succeed) {
+
+        if (!LoginUtil.toLogin(mAct))
+        {
+            return;
+        }
+
         // TODO Auto-generated method stub
         if (!"".equals(displayPhone)) {
 

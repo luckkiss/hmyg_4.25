@@ -337,6 +337,10 @@ public class CoreHeadRecyclerView extends LinearLayout implements BaseQuickAdapt
 
 
     public CoreHeadRecyclerView setDefaultEmptyView() {
+
+//        View loading = LayoutInflater.from(getContext()).inflate(R.layout.def_loading, null);
+//        setLoadingView(loading);
+
         View empty = LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null);
 //        View empty  = getContext(). inflate(R.layout.empty_view, null);
         empty.setOnClickListener(view1 -> onRefresh());

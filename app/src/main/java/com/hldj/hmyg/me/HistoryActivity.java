@@ -193,7 +193,7 @@ public class HistoryActivity extends BaseMVPActivity implements View.OnClickList
 
 
                         if (gsonBean.getData().typeList != null && gsonBean.getData().typeList.size() == 3) {
-                            tabLayout.getTabAt(0).setText(String.format("苗木信息(%s)", gsonBean.getData().typeList.get(0).count));
+                            tabLayout.getTabAt(0).setText(String.format("商城资源(%s)", gsonBean.getData().typeList.get(0).count));
                             tabLayout.getTabAt(1).setText(String.format("苗木圈(%s)", gsonBean.getData().typeList.get(1).count));
                             tabLayout.getTabAt(2).setText(String.format("用户求购(%s)", gsonBean.getData().typeList.get(2).count));
                         }

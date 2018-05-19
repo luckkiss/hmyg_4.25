@@ -17,6 +17,7 @@ import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment;
 import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.util.LoginUtil;
 
 /**
  * Created by luocaca on 2017/11/27 0027.
@@ -88,6 +89,11 @@ public class ReportActivity extends BaseMVPActivity {
 
 
     public static void start(Activity activity, String id, String type) {
+
+        if (!LoginUtil.toLogin(activity)) {
+            return;
+        }
+
         Intent intent = new Intent(activity, ReportActivity.class);
         intent.putExtra(TAG, id);
         intent.putExtra("sourceType", type);

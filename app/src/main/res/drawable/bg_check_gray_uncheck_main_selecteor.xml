@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@color/gray_bg_ed" android:state_checked="true" />
-    <item android:drawable="@color/main_color" />
+    <item android:drawable="@drawable/gray_bg_ed_drable" android:state_checked="true" />
+    <item android:drawable="@drawable/main_color_drable" />
 
 
 

@@ -14,6 +14,7 @@
         <item name="state_drawable_width">38dp</item>
         <item name="android:background">@color/white</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:textSize">@dimen/textSizeContent</item>
         <!--app:isShowState="true         app:state_drawable="@mipmap/wd_mmgl""-->
 
     </style>

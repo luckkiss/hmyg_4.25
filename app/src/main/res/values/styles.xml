@@ -478,7 +478,7 @@
         <item name="android:layout_marginLeft">@dimen/x10</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingLeft">10dp</item>
-        <item name="android:background">@drawable/conner_edit</item>
+        <item name="android:background">@drawable/conner_edit_input</item>
         <item name="android:imeOptions">actionNext</item>
         <item name="android:textColorHint">@color/hint_text_color</item>
         <item name="android:textSize">@dimen/x14</item>
@@ -555,8 +555,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center_vertical</item>
-
-        <item name="android:textColor">@color/text_color999</item>
+        <item name="android:textColor">@color/text_color333</item>
         <item name="android:textSize">@dimen/textSize</item>
         <item name="android:layout_marginRight">20dp</item>
         <item name="android:paddingLeft">20dp</item>

@@ -127,6 +127,11 @@ public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBe
     }
 
     @Override
+    public String getEmptyTip() {
+        return "确定清空  [商城资源]";
+    }
+
+    @Override
     public String getResourceId() {
         return null;
     }

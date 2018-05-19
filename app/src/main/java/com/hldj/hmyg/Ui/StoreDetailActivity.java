@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.zxing.WriterException;
@@ -139,7 +140,7 @@ public class StoreDetailActivity extends BaseMVPActivity {
 
 
     @ViewInject(id = R.id.option_phone)
-    MyOptionItemView option_phone;
+    RelativeLayout option_phone;
 
     @ViewInject(id = R.id.option_identity)
     MyOptionItemView option_identity;
@@ -157,14 +158,20 @@ public class StoreDetailActivity extends BaseMVPActivity {
         setText(getView(R.id.mmq), String.format("%d\n苗木圈", simpleGsonBean.getData().momentsCount));
 
 
-        option_phone.setRightText("\uD83D\uDCDE " + simpleGsonBean.getData().phone);
-//        option_phone.setRightTextColor(getColorByRes(R.color.main_color));
+        setText(getView(R.id.tv_phone), simpleGsonBean.getData().phone);
         option_phone.setOnClickListener(v -> {
-//            ToastUtil.showLongToast(simpleGsonBean.getData().phone);
             FlowerDetailActivity.CallPhone(
                     simpleGsonBean.getData().phone, mActivity, v1 ->
                             D.i("call loag -- - -- - -"));
         });
+//        option_phone.setRightText("" + simpleGsonBean.getData().phone);
+
+
+//        option_phone.setRightTextColor(getColorByRes(R.color.main_color));
+//        option_phone.setOnClickListener(v -> {
+////            ToastUtil.showLongToast(simpleGsonBean.getData().phone);
+//
+//        });
 
         option_identity.setRightText(simpleGsonBean.getData().identity ? "已认证" : "未认证");
 
@@ -198,12 +205,12 @@ public class StoreDetailActivity extends BaseMVPActivity {
     private void initOwnerBean(StoreGsonBean.DataBean.OwnerBean owner) {
         D.i("---------initOwnerBean-------" + owner.headImage);
 
-        if (TextUtils.isEmpty(owner.headImage)) {
-            logo.setImageResource(R.drawable.company_head);
-        } else {
-            ImageLoader.getInstance().displayImage(owner.headImage, logo);
-
-        }
+//        if (TextUtils.isEmpty(owner.headImage)) {
+//            logo.setImageResource(R.drawable.company_head);
+//        } else {
+//            ImageLoader.getInstance().displayImage(owner.headImage, logo);
+//
+//        }
 
         getView(R.id.mmq).setOnClickListener(v -> {
             CenterActivity.start(mActivity, owner.id);
@@ -238,6 +245,12 @@ public class StoreDetailActivity extends BaseMVPActivity {
     private void initStroeBean(StoreGsonBean.DataBean.StoreBean store, String head) {
         D.i("---------initStroeBean-------" + store.name);
         name.setText(store.name);
+
+        if (TextUtils.isEmpty(store.logoUrl)) {
+            logo.setImageResource(R.drawable.company_head);
+        } else {
+            ImageLoader.getInstance().displayImage(store.logoUrl, logo);
+        }
 
         option_qc_code.setOnClickListener(v -> {
 //            ToastUtil.showLongToast(getOssImagePaths(store.shareUrl).toString());

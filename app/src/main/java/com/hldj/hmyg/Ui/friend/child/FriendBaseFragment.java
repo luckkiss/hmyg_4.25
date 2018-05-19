@@ -568,7 +568,7 @@ public class FriendBaseFragment extends BaseFragment {
                 .openLoadMore(10, page -> {
                     baseMVPActivity.showLoading();
                     requestDatas(page + "");
-                });
+                }).closeDefaultEmptyView();
 
     }
 

@@ -29,6 +29,7 @@ import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.LoginUtil;
 import com.hldj.hmyg.widget.AutoAddRelative;
 import com.hy.utils.ToastUtil;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -90,7 +91,11 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
     }
 
 
+    @CheckLogin(isLogin = true)
     public static void start2Activity(Activity mActivity) {
+        if (!LoginUtil.toLogin(mActivity)) {
+            return;
+        }
         Intent intent = new Intent(mActivity, PublishForUserActivity.class);
         mActivity.startActivityForResult(intent, 100);
     }
@@ -105,6 +110,10 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
     }
 
     public static void start2Activity(Activity mActivity, String purchaseId) {
+        if (!LoginUtil.toLogin(mActivity)) {
+            return;
+        }
+
         Intent intent = new Intent(mActivity, PublishForUserActivity.class);
         intent.putExtra("id", purchaseId);
         mActivity.startActivityForResult(intent, 100);
@@ -121,7 +130,7 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100 && resultCode == 100) {
             SeedlingType seedlingType = (SeedlingType) data.getSerializableExtra("item");
-            qxz_pz.setText(seedlingType.name);
+            qxz_pz.setText(seedlingType.name+"("+seedlingType.parentName+")");
 
             try {
                 initAutoAddView(mGsonBean, seedlingType, null);

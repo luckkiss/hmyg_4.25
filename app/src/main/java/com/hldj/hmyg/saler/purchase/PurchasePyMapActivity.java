@@ -150,14 +150,21 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
          */
 
 
+        if (null == isShowLeft) {
+            // 左边
 //        if (!MyApplication.getUserBean().isQuote) {
-        if (!MyApplication.getUserBean().isQuote) {
-            RadioButton radioButton = (RadioButton) findViewById(R.id.button33);
-            radioButton.setChecked(true);
-        }
-        if (!isShowLeft) {
-            RadioButton radioButton = (RadioButton) findViewById(R.id.button33);
-            radioButton.setChecked(true);
+            if (!MyApplication.getUserBean().isQuote) {
+                RadioButton radioButton = (RadioButton) findViewById(R.id.button31);
+                radioButton.setChecked(true);
+            }
+        } else if (isShowLeft) {
+            //左边
+                RadioButton radioButton = (RadioButton) findViewById(R.id.button31);
+                radioButton.setChecked(true);
+        } else {
+            //→边
+                RadioButton radioButton = (RadioButton) findViewById(R.id.button33);
+                radioButton.setChecked(true);
         }
 
 
@@ -420,15 +427,15 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
     }
 
 
-    public static void start2Activity(Context context) {
-        start2Activity(context, true);
+    public static void start2Activity(Context context,Boolean flag) {
+        start2ActivityNew(context, flag);
 //        context.startActivity(new Intent(context, PurchasePyMapActivity.class));
     }
 
 
-    public static boolean isShowLeft = true;
+    public static Boolean isShowLeft = null;
 
-    public static void start2Activity(Context context, boolean isLeft) {
+    public static void start2ActivityNew(Context context, Boolean isLeft) {
         isShowLeft = isLeft;
         context.startActivity(new Intent(context, PurchasePyMapActivity.class));
     }
