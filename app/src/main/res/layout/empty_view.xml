@@ -61,6 +61,7 @@
                 android:layout_below="@+id/t_tipTextView"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/main_color_drable"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:text="立即发布"

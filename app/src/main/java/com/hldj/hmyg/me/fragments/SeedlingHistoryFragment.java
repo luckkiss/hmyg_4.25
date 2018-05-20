@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.BActivity_new_test;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
@@ -111,6 +112,9 @@ public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBe
                 })
         ;
 
+
+        SwipeLayout swipeLayout = helper.getView(R.id.sl_content);
+        swipeLayout.setSwipeEnabled(false);
 
     }
 

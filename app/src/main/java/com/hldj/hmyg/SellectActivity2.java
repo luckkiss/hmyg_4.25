@@ -458,8 +458,12 @@ public class SellectActivity2 extends NeedSwipeBackActivity {
 
                         planttype_has_ids.clear();
 //                        mFlowLayout1.setAdapter(adapter1);
-                        mFlowLayout2.getAdapter().resetList();
-                        mFlowLayout3.getAdapter().resetList();
+                        if (mFlowLayout2 !=null && mFlowLayout2.getAdapter()!=null)
+                        {
+                            mFlowLayout2.getAdapter().resetList();
+                            mFlowLayout3.getAdapter().resetList();
+                        }
+
                         childBeans = new CityGsonBean.ChildBeans();
                         tv_area.setText("全国");
                         type01 = "";

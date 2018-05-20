@@ -85,7 +85,6 @@
             android:gravity="center"
             android:padding="10dp"
             android:src="@drawable/sy_sj"
-            android:textColor="@color/main_color"
             android:textSize="7dp" />
 
         <!-- android:text="●●●"-->

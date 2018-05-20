@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/rl_seeding_commom"
-    android:layout_height="@dimen/y61">
+    android:layout_height="wrap_content"
+
+    >
 
 
     <TextView
@@ -65,18 +67,22 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:paddingBottom="6dp"
+
+        >
 
 
         <RadioButton
             android:id="@+id/rb_auto_add_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
             android:background="@drawable/tag_bg2"
             android:button="@null"
             android:checked="true"
-            android:paddingBottom="6dp"
             android:paddingLeft="12dp"
+            android:paddingBottom="6dp"
             android:paddingRight="12dp"
             android:paddingTop="6dp"
             android:text="0.3m量"

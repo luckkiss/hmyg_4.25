@@ -1,5 +1,6 @@
 package com.hldj.hmyg.me.fragments;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -24,7 +25,8 @@ import com.hldj.hmyg.me.AskToByActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserActivity;
-import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserListActivity;
+import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserDetailActivity;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.hy.utils.ToastUtil;
 
@@ -98,6 +100,7 @@ public class AskToByFragment extends BaseLazyFragment {
 //
 //            }
 //        }, 5000);
+
 
         recycle.onRefresh();
 
@@ -187,7 +190,7 @@ public class AskToByFragment extends BaseLazyFragment {
 
 
                 helper.convertView.setOnClickListener(v -> {
-                    PublishForUserListActivity.start2Activity(mActivity, item.id);
+                    PublishForUserDetailActivity.start2Activity(mActivity, item.id, "");
                 });
 
                 if (isClose()) {
@@ -215,7 +218,7 @@ public class AskToByFragment extends BaseLazyFragment {
                 });
             }
         }).setDefaultEmptyView(true, "", v -> {
-            ToastUtil.showLongToast("retry  bottom btn");
+//            ToastUtil.showLongToast("retry  bottom btn");
             PublishForUserActivity.start2Activity(mActivity);
         }).openLoadMore(100, page -> {
             requestData();
@@ -347,6 +350,19 @@ public class AskToByFragment extends BaseLazyFragment {
     @Override
     public void onResume() {
         super.onResume();
-        recycle.onRefresh();
+
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ConstantState.REFRESH) {
+            if (!isClose()) {
+//                ToastUtil.showLongToast("刷新");
+                recycle.onRefresh();
+            }
+
+        }
     }
 }

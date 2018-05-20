@@ -26,7 +26,7 @@ import com.hldj.hmyg.saler.Adapter.FragmentPagerAdapter_TabLayout;
 import com.hldj.hmyg.saler.ManagerQuoteListAdapter;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.UserQuote;
-import com.hldj.hmyg.saler.purchase.userbuy.BuyForUserActivity;
+import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
 import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserDetailActivity;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
@@ -156,7 +156,8 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
         })
                 .setDefaultEmptyView(true, "立即求购", retry -> {
 //                    ToastUtil.showLongToast("go to publish");
-                    BuyForUserActivity.start2Activity(mActivity);
+//                    BuyForUserActivity.start2Activity(mActivity);
+                    PurchasePyMapActivity.start2Activity(mActivity, false);
                 })
                 .openRefresh().openLoadMore(20, this::requestData);
 
@@ -203,7 +204,7 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
         Log.i("doConvert", "doConvert: " + item.toString());
 
         helper
-                .setText(R.id.title, item.attrData.name )
+                .setText(R.id.title, item.attrData.name)
                 .setText(R.id.shuliang, FUtil.$_zero(item.attrData.count + " " + item.attrData.unitTypeName))
                 .setText(R.id.qubaojia, "")
                 .setText(R.id.price, "¥" + item.price + "/" + item.attrData.unitTypeName)

@@ -445,6 +445,8 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
     }
 
     public void hidenContent(LoadingLayout loadingLayout) {
+
+        loadingLayout.setEmptyImage(R.drawable.wushuju);
         loadingLayout.setStatus(LoadingLayout.Empty);
         loadingLayout.setOnReloadListener(new LoadingLayout.OnReloadListener() {
             @Override

@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="0dp"
     android:background="@color/white"
     android:foreground="?attr/selectableItemBackground"
     android:orientation="vertical"
-    app:layout_constraintBottom_toTopOf="@+id/view2"
-    tools:layout_editor_absoluteX="0dp">
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="25dp">
 
     <TextView
         android:id="@+id/tv_program_purch_pos"
@@ -70,7 +69,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="有3条报价"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -91,14 +89,12 @@
     <View
         android:id="@+id/view2"
         style="@style/View_line_gray"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="8dp"
+        android:background="@color/color_bg_f5"
         app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@color/color_bg_f5"
-        app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_alreay_order" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_price_num" />
 
     <ImageView
         android:id="@+id/iv_program_purch_right_top"
@@ -114,17 +110,14 @@
         android:id="@+id/tv_program_purch_see_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
         android:drawablePadding="5dp"
         android:drawableRight="@drawable/arrow_green_selector"
         android:text="查看报价"
         android:textColor="@color/main_color"
         app:layout_constraintBottom_toTopOf="@+id/view2"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/textView9" />
 
     <TextView
         android:id="@+id/tv_program_purch_num_type"

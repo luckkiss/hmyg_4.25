@@ -31,6 +31,7 @@ import com.hldj.hmyg.saler.M.enums.ValidityEnum;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.saler.bean.UserQuote;
+import com.hldj.hmyg.util.ConstantState;
 import com.hy.utils.SpanUtils;
 import com.hy.utils.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -96,6 +97,9 @@ public class PublishForUserListActivity extends BaseMVPActivity {
                             TextView view = (TextView) foot.findViewById(R.id.t_emptyTextView);
                             view.setText("暂无用户报价");
                             recycle.addFooterView(foot);
+                            setResult(ConstantState.REFRESH);
+                        }else {
+                            setResult(ConstantState.REFRESH);
                         }
 
 
@@ -259,7 +263,7 @@ public class PublishForUserListActivity extends BaseMVPActivity {
         Intent intent = new Intent(mActivity, PublishForUserListActivity.class);
         Log.i(TAG, "id is =====  " + id);
         intent.putExtra("ID", id);
-        mActivity.startActivity(intent);
+        mActivity.startActivityForResult(intent,100);
 
     }
 

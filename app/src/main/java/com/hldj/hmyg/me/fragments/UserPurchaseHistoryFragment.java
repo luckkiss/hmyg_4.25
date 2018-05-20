@@ -20,6 +20,7 @@ import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.saler.bean.enums.FootMarkSourceType;
 import com.hldj.hmyg.saler.purchase.userbuy.BuyForUserActivity;
+import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserDetailActivity;
 import com.hldj.hmyg.util.D;
 
 import java.lang.reflect.Type;
@@ -101,6 +102,11 @@ public class UserPurchaseHistoryFragment extends BaseRecycleViewFragment<UserPur
 
         D.i("=============doConvert==============" + item.name);
         BuyForUserActivity.doConvert(helper, item, mActivity);
+
+        helper.convertView.setOnClickListener(v -> {
+            PublishForUserDetailActivity.start2Activity(mActivity, item.id,item.ownerId);
+        });
+
         helper
                 .setText(R.id.qubaojia, "删除")
                 .setBackgroundRes(R.id.qubaojia, R.drawable.round_rectangle_bg_red_gray)

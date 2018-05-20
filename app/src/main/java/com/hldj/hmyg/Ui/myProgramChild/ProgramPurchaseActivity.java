@@ -270,10 +270,18 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                     int layoid = R.layout.item_program_purch_sub;
 
                     /* 价格  +  名称    */
-                    helper.setText(R.id.tv_program_purch_sub_price_type, filterColor("[" + FUtil.$_zero(item.plantTypeName) + "]" + item.price + "元/" + item.unitTypeName, item.price));// 3200/株
 
+
+//                    String pri = !showQuote ? "*" : item.price + "";
                     /*暂时隐藏*/
+                    if (showQuote) {//已开标
+                        helper.setText(R.id.tv_program_purch_sub_price_type, filterColor("[" + FUtil.$_zero(item.plantTypeName) + "]" + item.price + "元/" + item.unitTypeName, item.price));// 3200/株
+                    } else {
+                        helper.setText(R.id.tv_program_purch_sub_price_type, filterColor("[" + FUtil.$_zero(item.plantTypeName) + "]" + " * " + "元/" + item.unitTypeName, " * "));// 3200/株
+                    }
+
                     helper.setText(tv_program_purch_sub_price_cont_serv_pric, filterColor(item.attrData.servicePrice + "(含服务费)", item.attrData.servicePrice + "", R.color.price_orige));//￥3520(含服务费)
+
 //                    helper.setVisible(tv_program_purch_sub_price_cont_serv_pric,false);
 
 
@@ -392,7 +400,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //                    }
 
                     helper.setText(R.id.tv_program_purch_sub_plant_addt, "苗源地：" + item.cityName);//福建漳州
-                    helper.setText(R.id.tv_program_purch_sub_space_text, "报价说明：" + item.specText + "; " + FUtil.$_zero_2_null(item.remarks) + "  可供数量:-");//
+                    helper.setText(R.id.tv_program_purch_sub_space_text, "报价说明：" + item.specText + "; " + FUtil.$_zero_2_null(item.remarks) + "  可供数量:" + FUtil.$_zero(item.count));//
                     helper.setText(R.id.tv_program_purch_sub_remark, item.implementRemarks);//备注
 
 //                    helper.setSelected(R.id.tv_program_purch_sub_is_true, item.quoteImplementStatus.equals("qualified"));
@@ -424,7 +432,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
                     D.e("=== \n" + item.toString());
 
-                    helper.setText(R.id.tv_program_purch_sub_plant_type, "种植类型：" + item.plantTypeName);//容器苗
+                    helper.setText(R.id.tv_program_purch_sub_plant_type, "种植类型：" + FUtil.$_zero(item.plantTypeName));//容器苗
 
 //                    helper.setText(R.id.tv_bottom_left, filterColor("苗木图片：" + "有" + item.imagesJson.size() + "张图片", item.imagesJson.size() + ""));//
 //                    helper.setText(R.id.tv_program_purch_sub_images_count, filterColor("有" + item.imagesJson.size() + "张图片", item.imagesJson.size() + "", R.color.orange_color));//
@@ -463,7 +471,11 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                     StringFormatUtil formatUtil = new StringFormatUtil(mActivity, wholeStr, item.quoteCountJson + "", R.color.red).fillColor();
                     helper.setText(R.id.tv_program_purch_price_num, formatUtil.getResult());
 
+
                     helper.setText(R.id.tv_program_purch_alreay_order, "已采用" + item.quoteUsedCountJson + "条");
+
+                    helper.setVisible(R.id.tv_program_purch_alreay_order, showQuote);
+
                     helper.setVisible(R.id.iv_program_purch_right_top, item.quoteUsedCountJson != 0);
 
 //                    GetServerUrl.isTest ||

@@ -80,19 +80,19 @@
             android:id="@+id/ic_phone"
             android:layout_width="12dp"
             android:layout_height="12dp"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"
-            android:src="@mipmap/phone" />
+            android:layout_marginRight="6dp"
+            android:src="@mipmap/phone"
+            android:layout_toLeftOf="@+id/tv_phone"
+            />
 
         <TextView
             android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="6dp"
-
-            android:layout_toLeftOf="@+id/ic_phone"
+            android:layout_marginRight="12dp"
+            android:layout_alignParentRight="true"
             tools:text="17074990702" />
 
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
 
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.friend.child.HeadDetailActivity;
@@ -20,6 +21,7 @@ import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BaseRxPresenter;
 import com.hldj.hmyg.util.ContactInfoParser;
+import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.CommonSectionDecoration;
 import com.hy.utils.ToastUtil;
@@ -287,7 +289,11 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
                     Log.i("resulet ", "  py  is  " + contactInfos.py + "   ---\n list  is = " + contactInfos.userList.toString());
                     recycler.getAdapter().addData(contactInfos.userList);
                 }, throwable -> {
-                    ToastUtil.showLongToast("请求失败" + throwable.getMessage());
+                    if (throwable instanceof JsonSyntaxException) {
+                        ToastUtil.showLongToast("未匹配到好友列表");
+                    } else {
+                        ToastUtil.showLongToast("网络错误");
+                    }
                 });
     }
 
@@ -304,10 +310,17 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
                                 .doRequest("admin/userFollow/matchMobileUser", true, new AjaxCallBack<String>() {
                                     @Override
                                     public void onSuccess(String json) {
-                                        TongXunGsonBean tongXunGsonBean = GsonUtil.formateJson2Bean(json, TongXunGsonBean.class);
-                                        e.onNext(tongXunGsonBean.data.userData);
-                                        e.onComplete();
-                                        Log.i("tongxun", "onSuccess: " + GsonUtil.formatJson2String(json));
+                                        try {
+                                            D.i(GsonUtil.formatJson2String(json));
+                                            TongXunGsonBean tongXunGsonBean = GsonUtil.formateJson2Bean(json, TongXunGsonBean.class);
+                                            e.onNext(tongXunGsonBean.data.userData);
+                                            e.onComplete();
+                                            Log.i("tongxun", "onSuccess: " + GsonUtil.formatJson2String(json));
+                                        } catch (Exception e1) {
+                                            e.onError(e1);
+                                        }
+
+
                                     }
 
                                     @Override

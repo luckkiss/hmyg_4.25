@@ -603,7 +603,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //            ToastUtil.showLongToast(" 用户求购 ");
 //            BuyForUserActivity.stat2Activity(AActivity_3_0.this);
 //            PublishForUserActivity.start2Activity(AActivity_3_0.this);
-            PurchasePyMapActivity.start2Activity(AActivity_3_0.this,false);
+            PurchasePyMapActivity.start2Activity(AActivity_3_0.this, null);
 
 
         });
@@ -621,7 +621,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         //新闻资讯
 //        findViewById(R.id.stv_home_4).setOnClickListener(v -> NewsActivity.start2Activity(AActivity_3_0.this));
         //采购
-        findViewById(home_title_first).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this ,null));
+        findViewById(home_title_first).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this, true));
         findViewById(home_title_qiu_gou).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this, false));
         //苗木商城 更多
         findViewById(R.id.home_title_second).setOnClickListener(v -> MainActivity.toB());
@@ -1044,13 +1044,13 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 lv_00.setAdapter(adapter);
                 D.e("VISIBLE");
             } else {
-                view.setVisibility(View.GONE);
-                ((ViewGroup) findViewById(R.id.home_title_first).getParent()).setVisibility(View.GONE);
+                view.setVisibility(View.VISIBLE);
+                ((ViewGroup) findViewById(R.id.home_title_first).getParent()).setVisibility(View.VISIBLE);
                 D.e("GONE");
             }
 
         } catch (Exception e) {
-            findViewById(R.id.ll_caigou_parent).setVisibility(View.GONE);
+            findViewById(R.id.ll_caigou_parent).setVisibility(View.VISIBLE);
             D.e("=============没有采购列表，或者采购数据异常===============");
             e.printStackTrace();
         }
@@ -1079,13 +1079,13 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 });
                 D.e("VISIBLE");
             } else {
-                view.setVisibility(View.GONE);
-                ((ViewGroup) findViewById(R.id.home_title_first).getParent()).setVisibility(View.GONE);
+                view.setVisibility(View.VISIBLE);
+                ((ViewGroup) findViewById(R.id.home_title_first).getParent()).setVisibility(View.VISIBLE);
                 D.e("GONE");
             }
 
         } catch (Exception e) {
-            findViewById(R.id.ll_caigou_parent).setVisibility(View.GONE);
+            findViewById(R.id.ll_caigou_parent).setVisibility(View.VISIBLE);
             D.e("=============没有采购列表，或者采购数据异常===============");
             e.printStackTrace();
         }
@@ -1097,11 +1097,11 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 BProduceAdapt bProduceAdapt = new BProduceAdapt(AActivity_3_0.this, indexGsonBean.data.seedlingList, R.layout.list_view_seedling_new);
                 ((ListView) findViewById(R.id.lv_00_store)).setAdapter(bProduceAdapt);
             } else {
-                findViewById(R.id.ll_tuijian_parent).setVisibility(View.GONE);
+                findViewById(R.id.ll_tuijian_parent).setVisibility(View.VISIBLE);
             }
 
         } catch (Exception e) {
-            findViewById(R.id.ll_tuijian_parent).setVisibility(View.GONE);
+            findViewById(R.id.ll_tuijian_parent).setVisibility(View.VISIBLE);
             D.e("=============没有推荐列表，或者数据异常===============");
 
             e.printStackTrace();

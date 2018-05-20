@@ -33,8 +33,10 @@ import com.hldj.hmyg.util.JpushUtil;
 import com.hldj.hmyg.util.MyUtil;
 import com.hldj.hmyg.util.SPUtil;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.ToastUtil;
 import com.loginjudge.LoginJudge;
 import com.mrwujay.cascade.activity.BaseActivity;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -224,6 +226,9 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_2_0);
+
+
+//       ToastUtil.showLongToast( " getApplicationInfo().targetSdkVersion = "+getApplicationInfo().targetSdkVersion+"");
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         multipleClickProcess = new MultipleClickProcess();//初始化点击事件
@@ -449,30 +454,37 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onSuccess(String json) {
                 hindLoading();
-                UserInfoGsonBean userInfoGsonBean = new GsonUtil().formateJson2Bean(json, UserInfoGsonBean.class);
-                save2SP(json);
+                try {
+
+                    UserInfoGsonBean userInfoGsonBean = new GsonUtil().formateJson2Bean(json, UserInfoGsonBean.class);
+                    save2SP(json);
 //                        MyApplication.spUtils.putString(UserBean, json);//把json 存储在sp中，需要的话直接通过gson 转换
-                //成功
-                if (userInfoGsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
-                    String id = userInfoGsonBean.getData().getUser().id;
-                    JpushUtil.setAlias(id);
-                    //设置 极光推送
-                    if ("LoginActivity".equals(activity)) {
+                    //成功
+                    if (userInfoGsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
+                        String id = userInfoGsonBean.getData().getUser().id;
+                        JpushUtil.setAlias(id);
+                        //设置 极光推送
+                        if ("LoginActivity".equals(activity)) {
 
-                        setResult(ConstantState.LOGIN_SUCCEED);
-                        finish();
-                        RxBus.getInstance().post(5, new Eactivity3_0.OnlineEvent(true));
+                            setResult(ConstantState.LOGIN_SUCCEED);
+                            finish();
+                            RxBus.getInstance().post(5, new Eactivity3_0.OnlineEvent(true));
 
-                    } else if ("SetProfileActivity".equals(activity.getClass().getName())) {
-                        D.e("=========SetProfileActivity===============不消失=====================");
+                        } else if ("SetProfileActivity".equals(activity.getClass().getName())) {
+                            D.e("=========SetProfileActivity===============不消失=====================");
+                        }
                     }
-                }
-                //失败
-                if (userInfoGsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
+                    //失败
+                    if (userInfoGsonBean.getCode().equals(ConstantState.SUCCEED_CODE)) {
 
-                    D.e("================获取个人信息失败成功====================================");
-                    D.e("================userInfoGsonBean====================================" + userInfoGsonBean.toString());
+                        D.e("================获取个人信息失败成功====================================");
+                        D.e("================userInfoGsonBean====================================" + userInfoGsonBean.toString());
+                    }
+                } catch (Exception e) {
+                    ToastUtil.showLongToast("获取个人信息失败");
+                    CrashReport.postCatchedException(e);
                 }
+
             }
 
             @Override

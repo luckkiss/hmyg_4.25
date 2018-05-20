@@ -17,6 +17,8 @@ import com.hldj.hmyg.me.fragments.AskToByFragment;
 import com.hldj.hmyg.saler.Adapter.FragmentPagerAdapter_TabLayout;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserActivity;
+import com.hldj.hmyg.util.ConstantState;
+import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.LoginUtil;
 
 import net.tsz.afinal.FinalActivity;
@@ -140,9 +142,28 @@ public class AskToByActivity extends BaseMVPActivity implements View.OnClickList
                         tabLayout.getTabAt(1).setText(String.format("已结束  (%d)", gsonBean.getData().closeCount));
 
 
-
                     }
                 });
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ConstantState.REFRESH) {
+
+            if (list_fragment != null && list_fragment.size() > 0) {
+                Fragment fragment = list_fragment.get(0);
+                fragment.onActivityResult(requestCode, resultCode, data);
+
+            }
+
+            D.i("--------onActivityResult回调-------");
+            D.i("--------onActivityResult回调-------");
+            D.i("--------onActivityResult回调-------");
+            D.i("--------onActivityResult回调-------");
+        }
 
 
     }

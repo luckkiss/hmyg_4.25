@@ -73,6 +73,7 @@ public class QuoteListJsonBean implements Serializable, MultiItemEntity, IExpand
 
     public String id;
     public String remarks;
+    public String count;
     public String createBy;
     public String createDate;
     public PurchaseBean.AttrDataBean attrData;
