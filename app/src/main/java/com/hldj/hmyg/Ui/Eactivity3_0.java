@@ -898,13 +898,16 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 //                        if (GetServerUrl.isTest)//测试的时候显示
 //                            ToastUtil.showShortToast("测试的时候显示\n" + "请求是否显示项目结果：\n" + json);
                         SimpleGsonBean bean = GsonUtil.formateJson2Bean(json, SimpleGsonBean.class);
+
+                        bean.getData().hasProjectManage = false;
+
                         if (bean.isSucceed()) {
 //                            GetServerUrl.isTest
-                            if (false) {
-                                getView(R.id.sptv_wd_wdxm).setVisibility(View.VISIBLE);
-                            } else {
-                                getView(R.id.sptv_wd_wdxm).setVisibility(bean.getData().hasProjectManage ? View.VISIBLE : View.INVISIBLE);
-                            }
+//                            if (false) {
+//                                getView(R.id.sptv_wd_wdxm).setVisibility(View.VISIBLE);
+//                            } else {
+//                                getView(R.id.sptv_wd_wdxm).setVisibility(bean.getData().hasProjectManage ? View.VISIBLE : View.GONE);
+//                            }
 
                             if (false) {
                                 getView(R.id.sptv_wd_jmb).setVisibility(View.VISIBLE);
@@ -912,7 +915,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                                 getView(R.id.sptv_wd_jmb).setVisibility(bean.getData().showSeedlingNote ? View.VISIBLE : View.GONE);
                             }
 
-                            select2Show(getView(R.id.sptv_wd_wdxm), getView(R.id.sptv_wd_jmb), bean.getData().hasProjectManage, bean.getData().showSeedlingNote);
+//                            select2Show(getView(R.id.sptv_wd_wdxm), getView(R.id.sptv_wd_jmb), bean.getData().hasProjectManage, bean.getData().showSeedlingNote);
 
 
                             showSeedlingNoteShare = bean.getData().showSeedlingNoteShare;

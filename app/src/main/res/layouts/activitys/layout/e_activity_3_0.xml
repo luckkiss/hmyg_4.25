@@ -383,6 +383,13 @@
                     style="@style/home_types"
                     android:text="采购选标"
                     app:state_drawable="@mipmap/wd_wdcgxb"
+                    tools:visibility="visible" android:visibility="gone" />
+
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/sptv_wd_jmb"
+                    style="@style/home_types"
+                    android:text="记苗本"
+                    app:state_drawable="@mipmap/wd_wdjmb"
                     tools:visibility="visible" />
 
 
@@ -395,12 +402,7 @@
                 android:weightSum="4">
 
 
-                <com.coorchice.library.SuperTextView
-                    android:id="@+id/sptv_wd_jmb"
-                    style="@style/home_types"
-                    android:text="记苗本"
-                    app:state_drawable="@mipmap/wd_wdjmb"
-                    tools:visibility="visible" />
+
 
 
 

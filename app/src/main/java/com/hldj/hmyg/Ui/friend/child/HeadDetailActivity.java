@@ -2,6 +2,7 @@ package com.hldj.hmyg.Ui.friend.child;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -155,10 +156,20 @@ public class HeadDetailActivity extends BaseMVPActivity {
 
         /* 实名认证  */
         SuperTextView identity = getView(R.id.identity);
-        identity.setShowState(result.identity);
+        identity.setShowState(true);
         identity.setText(result.identity ? "已实名认证" : "未实名认证");
-        if (!result.identity)
-            identity.setPadding(0, 0, 0, 0);
+
+        if (result.identity){
+            Drawable drawable = getResources().getDrawable(R.mipmap.wd_smrz_tg);
+            identity.setDrawable(drawable);
+        }else {
+            Drawable drawable = getResources().getDrawable(R.mipmap.wd_smrz_no);
+            identity.setDrawable(drawable);
+        }
+
+
+//        if (!result.identity)
+//            identity.setPadding(0, 0, 0, 0);
 
 
         /* 是否关注 */
@@ -220,10 +231,17 @@ public class HeadDetailActivity extends BaseMVPActivity {
 
     private void setStateAndText(String level, SuperTextView superTextView) {
 
-        AgentGrade agentGrade = Enum.valueOf(AgentGrade.class, level);
+        if ("level0".equals(level)) {
+//          AgentGrade agentGrade = Enum.valueOf(AgentGrade.class, level);
+            superTextView.setText("未成为供应商");
+            superTextView.setDrawable(getResources().getDrawable(AgentGrade.level0.getUpScore()));
+        } else {
 
-        superTextView.setText(agentGrade.getEnumText());
-        superTextView.setDrawable(getResources().getDrawable(agentGrade.getUpScore()));
+            AgentGrade agentGrade = Enum.valueOf(AgentGrade.class, level);
+
+            superTextView.setText(agentGrade.getEnumText());
+            superTextView.setDrawable(getResources().getDrawable(agentGrade.getUpScore()));
+        }
 
 
     }

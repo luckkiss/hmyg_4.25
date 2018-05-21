@@ -7,7 +7,7 @@ apply plugin: 'org.greenrobot.greendao'
 //
 
 def isDebug = true
-apply from: 'tinker-support.gradle'
+//apply from: 'tinker-support.gradle'
 
 //if (!isDebug) {
 

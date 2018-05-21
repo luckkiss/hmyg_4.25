@@ -75,25 +75,26 @@
         app:state_drawable_height="23dp"
         app:state_drawable_mode="left"
         app:state_drawable_width="23dp"
-        tools:text="铜牌供应商" />
+        tools:text="铜牌供应商ddddddd" />
 
     <CheckedTextView
         android:id="@+id/attention"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
         android:background="@drawable/bg_check_gray_uncheck_main_selecteor"
         android:gravity="center"
-        android:padding="6dp"
+        android:padding="3dp"
         android:text="+关注"
         android:textAlignment="center"
         android:textColor="@color/color_check_gray_uncheck_main_selecteor"
         android:textSize="@dimen/textSizeContent"
-        app:layout_constraintBottom_toBottomOf="@+id/head"
+        app:layout_constraintBottom_toTopOf="@+id/gys"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/head" />
+        app:layout_constraintTop_toTopOf="@+id/head"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView46"

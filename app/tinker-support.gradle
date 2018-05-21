@@ -50,7 +50,9 @@ tinkerSupport {
 //        tinkerId = "base-3.0.6release_fix1"
 //        tinkerId = "patch-3.0.6release_fix1"
 
-    tinkerId = "base-4.0.0_release"   // 新版本发布  4.0正式 改版  520 那一日的 约定
+    tinkerId = "base-4.0.1"   // 新版本发布  4.0正式 改版  520 那一日的 约定
+//  tinkerId = "patch-4.0.1"  //
+//    tinkerId = "base-4.0.0_release"   // 新版本发布  4.0正式 改版  520 那一日的 约定
 //  tinkerId = "patch-4.0.0_release"  //
 //    tinkerId = "base-3.0.6release_fix6"
 //  tinkerId = "patch-3.0.6release_fix6"  // 身份认证 版本   苗木圈 分享  图片问题
