@@ -104,7 +104,7 @@ public class SettingActivity extends NeedSwipeBackActivity implements
                 if (updateInfo != null) {
                     ToastUtil.showShortToast(updateInfo.newFeature);
                 } else {
-                    ToastUtil.showShortToast("暂无日志优化");
+                    ToastUtil.showShortToast("优化部分细节");
                 }
 
 //                Log.i(TAG, "hello world");

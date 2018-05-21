@@ -33,6 +33,8 @@ import java.util.ArrayList;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
+import static com.hldj.hmyg.me.AttentionActivity.getOption;
+
 /**
  * Created by luocaca on 2017/11/27 0027.
  * <p>
@@ -137,7 +139,7 @@ public class HeadDetailActivity extends BaseMVPActivity {
 
     private void processHeadDetail(HeadDetail result) {
 
-        ImageLoader.getInstance().displayImage(result.headImage, (ImageView) getView(R.id.head));
+        ImageLoader.getInstance().displayImage(result.headImage, (ImageView) getView(R.id.head),getOption());
 
         getView(R.id.head).setOnClickListener(v -> {
             if (!TextUtils.isEmpty(result.headImage)) {

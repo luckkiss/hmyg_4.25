@@ -68,6 +68,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import static com.example.weixin_friendcircle.Util.dip2px;
 import static com.hldj.hmyg.Ui.friend.child.FriendBaseFragment.sendPush;
 import static com.hldj.hmyg.base.rxbus.RxBus.TAG_UPDATE;
+import static com.hldj.hmyg.me.AttentionActivity.getOption;
 
 /**
  * Created by luocaca on 2017/11/27 0027.
@@ -264,7 +265,7 @@ public class DetailActivity extends BaseMVPActivity {
             title.setText(moments.attrData.displayName);
 //          finalBitmap.display(head, moments.attrData.headImage);
 //            if (!TextUtils.isEmpty(moments.attrData.headImage)) {
-            ImageLoader.getInstance().displayImage(moments.attrData.headImage, head);
+            ImageLoader.getInstance().displayImage(moments.attrData.headImage, head,getOption());
 
 
             AgentGrade anEnum = Enum.valueOf(AgentGrade.class, moments.attrData.level);
@@ -273,7 +274,14 @@ public class DetailActivity extends BaseMVPActivity {
 
 
             Log.i(TAG, "convert: " + anEnum.getUpScore());
-            imageView14.setImageDrawable(mActivity.getResources().getDrawable(anEnum.getUpScore()));
+
+            if (anEnum.compareTo(AgentGrade.level0) == 0) {
+                imageView14.setVisibility(View.GONE);
+            } else {
+                imageView14.setImageDrawable(mActivity.getResources().getDrawable(anEnum.getUpScore()));
+                imageView14.setVisibility(View.VISIBLE);
+            }
+//            imageView14.setImageDrawable(mActivity.getResources().getDrawable(anEnum.getUpScore()));
 
 
             ImageView imageView13 = getView(R.id.imageView13);
@@ -289,7 +297,7 @@ public class DetailActivity extends BaseMVPActivity {
                                 "path", moments.videoUrl));
                     }
                 });
-                ImageLoader.getInstance().displayImage(moments.attrData.videoImageUrl, video);
+                ImageLoader.getInstance().displayImage(moments.attrData.videoImageUrl, video,getOption());
             } else {
                 video.setVisibility(View.GONE);
             }
@@ -456,7 +464,7 @@ public class DetailActivity extends BaseMVPActivity {
 
                     ImageView head = helper.getView(R.id.head);
                     head.setVisibility(View.VISIBLE);
-                    ImageLoader.getInstance().displayImage(((MomentsThumbUp) item).attrData.headImage, head);
+                    ImageLoader.getInstance().displayImage(((MomentsThumbUp) item).attrData.headImage, head,getOption());
                     View.OnClickListener onClickListener = new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

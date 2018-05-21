@@ -72,6 +72,8 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
+import static com.hldj.hmyg.me.AttentionActivity.getCompanyOption;
+
 
 /**
  * 收藏夹  界面
@@ -475,10 +477,10 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
 
         TextView textView = (TextView) headView.findViewById(R.id.name);
-        textView.setText(storeBean.name);
+        textView.setText(TextUtils.isEmpty(storeBean.name) ? "未填写" : storeBean.name);
 
         ImageView logo = (ImageView) headView.findViewById(R.id.logo);
-        ImageLoader.getInstance().displayImage(storeBean.logoUrl, logo);
+        ImageLoader.getInstance().displayImage(storeBean.logoUrl, logo,getCompanyOption());
         FinalBitmap.create(mActivity).display(logo, storeBean.logoUrl);
 
         boolean isPass = storeBean.attrData.store_identity.equals(CompanyIdentityStatus.pass.getEnumValue());

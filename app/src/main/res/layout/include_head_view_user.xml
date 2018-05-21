@@ -10,24 +10,32 @@
 
     <TextView
         android:id="@+id/head_name"
-        android:layout_width="133dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="-"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:textColor="@color/text_color333"
         android:textSize="@dimen/textSizeTitle"
+        app:layout_constraintEnd_toStartOf="@+id/imageView16"
         app:layout_constraintStart_toEndOf="@+id/imageView17"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/head_title_name"
-        android:layout_width="133dp"
+        android:layout_width="0dp"
         android:layout_height="18dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="40dp"
         android:text="-"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:textColor="@color/text_color666"
+        app:layout_constraintEnd_toStartOf="@+id/imageView16"
         app:layout_constraintStart_toStartOf="@+id/head_name"
         app:layout_constraintTop_toTopOf="parent" />
 

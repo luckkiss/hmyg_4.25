@@ -77,6 +77,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import static com.hldj.hmyg.Ui.friend.FriendCycleActivity.isSelf;
 import static com.hldj.hmyg.application.MyApplication.dp2px;
 import static com.hldj.hmyg.base.rxbus.RxBus.TAG_UPDATE;
+import static com.hldj.hmyg.me.AttentionActivity.getOption;
 
 /**
  * 基础的  朋友圈首页  用于显示 发布的内容。。懒加载。不刷新模式
@@ -173,7 +174,7 @@ public class FriendBaseFragment extends BaseFragment {
 //                  finalBitmap.display(helper.getView(R.id.head), item.attrData.headImage);
                     MyCircleImageView circleImageView = helper.getView(R.id.head);
 //                    circleImageView.setImageURL(item.attrData.headImage);
-                    ImageLoader.getInstance().displayImage(item.attrData.headImage, circleImageView);
+                    ImageLoader.getInstance().displayImage(item.attrData.headImage, circleImageView, getOption());
 
                     AgentGrade anEnum = Enum.valueOf(AgentGrade.class, item.attrData.level);
 
@@ -181,7 +182,12 @@ public class FriendBaseFragment extends BaseFragment {
 
 
                     Log.i(TAG, "convert: " + anEnum.getUpScore());
-                    imageView14.setImageDrawable(mActivity.getResources().getDrawable(anEnum.getUpScore()));
+                    if (anEnum.compareTo(AgentGrade.level0) == 0) {
+                        imageView14.setVisibility(View.GONE);
+                    } else {
+                        imageView14.setImageDrawable(mActivity.getResources().getDrawable(anEnum.getUpScore()));
+                        imageView14.setVisibility(View.VISIBLE);
+                    }
 
 
                     ImageView imageView13 = helper.getView(R.id.imageView13);
@@ -698,8 +704,8 @@ public class FriendBaseFragment extends BaseFragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (mRecyclerView != null )
-                mRecyclerView.onRefresh();
+                if (mRecyclerView != null)
+                    mRecyclerView.onRefresh();
 
             }
         }, 500);

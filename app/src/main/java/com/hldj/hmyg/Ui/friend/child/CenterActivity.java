@@ -285,8 +285,14 @@ public class CenterActivity extends BaseMVPActivity {
 
 
                         Log.i(TAG, "convert: " + anEnum.getUpScore());
-                        imageView14.setImageDrawable(mActivity.getResources().getDrawable(anEnum.getUpScore()));
+//                        imageView14.setImageDrawable(mActivity.getResources().getDrawable(anEnum.getUpScore()));
 
+                        if (anEnum.compareTo(AgentGrade.level0) == 0) {
+                            imageView14.setVisibility(View.GONE);
+                        } else {
+                            imageView14.setImageDrawable(mActivity.getResources().getDrawable(anEnum.getUpScore()));
+                            imageView14.setVisibility(View.VISIBLE);
+                        }
 
                         ImageView imageView13 = helper.getView(R.id.imageView13);
                         imageView13.setVisibility(item.attrData.identity ? View.VISIBLE : View.GONE);

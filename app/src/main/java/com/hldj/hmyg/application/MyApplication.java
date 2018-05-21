@@ -28,6 +28,7 @@ import com.hldj.hmyg.util.SPUtils;
 import com.hldj.hmyg.util.VideoHempler;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.SdkChangeByTagUtil;
+import com.hy.utils.ToastUtil;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -247,17 +248,23 @@ public class MyApplication extends Application {
 
     @SuppressLint("SdCardPath")
     public static void createSDCardDir(Context context) {
-        if (Environment.MEDIA_MOUNTED.equals(Environment
-                .getExternalStorageState())) {
-            String path = "/mnt/sdcard/hmyg";
-            File file = new File(path);
-            if (!file.exists()) {
-                // 若不存在，创建目录，可以在应用启动的时候创建
-                file.mkdirs();
+        try {
+            if (Environment.MEDIA_MOUNTED.equals(Environment
+                    .getExternalStorageState())) {
+                String path = "/mnt/sdcard/hmyg";
+                File file = new File(path);
+                if (!file.exists()) {
+                    // 若不存在，创建目录，可以在应用启动的时候创建
+                    file.mkdirs();
+                }
+            } else {
+                // Toast.makeText(context, "未检查到sd卡，部分功能无法使用",
+                // Toast.LENGTH_SHORT).show();
             }
-        } else {
-            // Toast.makeText(context, "未检查到sd卡，部分功能无法使用",
-            // Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            ToastUtil.showLongToast("内存卡不可用,可能影响部分功能正常使用");
+            CrashReport.postCatchedException(e);
+            e.printStackTrace();
         }
 
     }
@@ -283,7 +290,7 @@ public class MyApplication extends Application {
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
-                .showImageForEmptyUri(R.drawable.no_image_to_show)
+                .showImageForEmptyUri(R.drawable.icon_persion_pic)
                 .showImageOnFail(R.drawable.no_image_to_show)
                 .build();
 

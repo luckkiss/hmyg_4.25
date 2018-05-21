@@ -213,9 +213,9 @@
     <style name="myDialogAnim" parent="android:Animation">
 
         <!-- 进入时的动画 -->
-        <item name="@android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
         <!-- 退出时的动画 -->
-        <item name="@android:windowExitAnimation">@anim/dialog_exit</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit</item>
     </style>
 
     <style name="my_msg_title">
@@ -673,8 +673,8 @@
     </style>
 
     <style name="BottomToTopAnim" parent="android:Animation">
-        <item name="@android:windowEnterAnimation">@anim/bottomview_anim_enter</item>
-        <item name="@android:windowExitAnimation">@anim/bottomview_anim_exit</item>
+        <item name="android:windowEnterAnimation">@anim/bottomview_anim_enter</item>
+        <item name="android:windowExitAnimation">@anim/bottomview_anim_exit</item>
     </style>
 
 

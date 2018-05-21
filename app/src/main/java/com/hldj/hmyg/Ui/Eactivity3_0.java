@@ -912,7 +912,7 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
                             if (false) {
                                 getView(R.id.sptv_wd_jmb).setVisibility(View.VISIBLE);
                             } else {
-                                getView(R.id.sptv_wd_jmb).setVisibility(bean.getData().showSeedlingNote ? View.VISIBLE : View.GONE);
+                                getView(R.id.sptv_wd_jmb).setVisibility(bean.getData().showSeedlingNote ? View.VISIBLE : View.INVISIBLE);
                             }
 
 //                            select2Show(getView(R.id.sptv_wd_wdxm), getView(R.id.sptv_wd_jmb), bean.getData().hasProjectManage, bean.getData().showSeedlingNote);
