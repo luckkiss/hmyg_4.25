@@ -21,6 +21,7 @@ import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.saler.bean.enums.FootMarkSourceType;
 import com.hldj.hmyg.saler.purchase.userbuy.BuyForUserActivity;
 import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserDetailActivity;
+import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.D;
 
 import java.lang.reflect.Type;
@@ -43,6 +44,7 @@ public class UserPurchaseHistoryFragment extends BaseRecycleViewFragment<UserPur
 
         new BasePresenter()
 
+                .putParams(ConstantParams.pageIndex, page)
                 .doRequest("admin/footmark/userPurchase/list", new HandlerAjaxCallBackPage<UserPurchase>(mActivity, type) {
                     @Override
                     public void onRealSuccess(List<UserPurchase> e) {
@@ -70,13 +72,33 @@ public class UserPurchaseHistoryFragment extends BaseRecycleViewFragment<UserPur
                     @Override
                     public String getGroupName(int position) {
 
-                        if (mCoreRecyclerView.getAdapter().getData().size() == 0) {
-                            return null;
-                        } else {
+//                        if (mCoreRecyclerView.getAdapter().getData().size() == 0) {
+//                            return null;
+//                        } else {
+//
+//                            UserPurchase databean = (UserPurchase) mCoreRecyclerView.getAdapter().getItem(position);
+//                            return databean.attrData.dateStr;
+//                        }
 
-                            UserPurchase databean = (UserPurchase) mCoreRecyclerView.getAdapter().getItem(position);
-                            return databean.attrData.dateStr;
+                        try {
+                            // 19   suze = 20-1
+                            if (position > mCoreRecyclerView.getAdapter().getData().size() - 1) {
+                                return null;
+                            }
+
+                            if (mCoreRecyclerView.getAdapter().getData().size() == 0) {
+                                return null;
+                            } else {
+
+                                UserPurchase databean = (UserPurchase) mCoreRecyclerView.getAdapter().getItem(position);
+                                return databean.attrData.dateStr;
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return null;
                         }
+
 
                     }
 
@@ -104,7 +126,7 @@ public class UserPurchaseHistoryFragment extends BaseRecycleViewFragment<UserPur
         BuyForUserActivity.doConvert(helper, item, mActivity);
 
         helper.convertView.setOnClickListener(v -> {
-            PublishForUserDetailActivity.start2Activity(mActivity, item.id,item.ownerId);
+            PublishForUserDetailActivity.start2Activity(mActivity, item.id, item.ownerId);
         });
 
         helper

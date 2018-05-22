@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -322,7 +323,16 @@ public class MyReceiver extends BroadcastReceiver {
                 Log.i(TAG, "store: 刷新");
                 Log.i(TAG, "store: 刷新");
 
-                MainActivity.radio_d.setShowSmallDot(true);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (MainActivity.radio_d != null) {
+                            MainActivity.radio_d.setShowSmallDot(true);
+                        }
+                    }
+                }, 500);
+
 
                 RxBus.getInstance().post(refresh, new Eactivity3_0.OnlineEvent(true));
 
@@ -334,8 +344,18 @@ public class MyReceiver extends BroadcastReceiver {
                 Log.i(TAG, "personal:刷新 ");
                 Log.i(TAG, "personal:刷新 ");
                 Log.i(TAG, "personal:刷新 ");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (MainActivity.radio_e != null) {
+                            MainActivity.radio_e.setShowSmallDot(true);
+                        }
+                    }
+                }, 500);
                 RxBus.getInstance().post(refresh_tip, new Eactivity3_0.OnlineEvent(true));
-                MainActivity.radio_e.setShowSmallDot(true);
+
+
             }
 
 

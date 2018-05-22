@@ -23,7 +23,8 @@
 
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowDisablePreview">true</item>
         <item name="android:windowLightStatusBar">true</item>
         <!-- 设置activity切换动画 -->
         <item name="android:windowAnimationStyle">@style/activityAnimation</item>
@@ -31,8 +32,6 @@
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:navigationBarColor">@color/white</item>
         <item name="android:configChanges">keyboardHidden|orientation|screenSize|locale</item>
-        <!--android:configChanges="keyboardHidden|orientation|screenSize|locale"-->
-        <!--<item name="android:screenOrientation">unspecified</item>-->
     </style>
 
     <style name="AppMainTheme" parent="AppBaseTheme">
@@ -58,11 +57,12 @@
 
     </style>
 
-    <!--6.0之后 提供亮色状态栏，，能黑白交换-->
+    <!--8.0之后 不能同时使用  windowTranslucentStatus = true  与强制 竖屏   提供亮色状态栏，，能黑白交换-->
     <style name="e_activity_theme" parent="Theme.AppCompat.Light.NoActionBar">
         <!--<item name="android:windowLightStatusBar">true</item>-->
         <!--&lt;!&ndash;<item name="colorPrimaryDark">@android:color/transparent</item>&ndash;&gt;-->
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowDisablePreview">true</item>
         <!--透明状态栏-->
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
@@ -70,6 +70,8 @@
         <!--使状态栏，导航栏可绘制-->
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:navigationBarColor">@color/white</item>
+
+        <item name="android:configChanges">keyboardHidden|orientation|screenSize|locale</item>
         <!--&lt;!&ndash;<item name="fitsSystemWindows">true</item>&ndash;&gt;-->
         <!--<item name="android:statusBarColor">@color/transparent</item>-->
     </style>

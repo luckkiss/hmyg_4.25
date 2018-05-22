@@ -1480,7 +1480,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             return;
         }
         Log.i(TAG, "是否登录" + MyApplication.Userinfo.getBoolean("isLogin", false));
-
+//https://www.jianshu.com/p/4c5fafe08fa7
 
         Log.i(TAG, "-----首页发布-- publish(Activity mActivity)--- ");
         CommonDialogFragment1.newInstance(context -> {

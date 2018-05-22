@@ -28,6 +28,7 @@ import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.buyer.weidet.decoration.SectionDecoration;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.enums.FootMarkSourceType;
+import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.VideoHempler;
@@ -62,7 +63,7 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> impl
         }.getType();
 
         new BasePresenter()
-
+                .putParams(ConstantParams.pageIndex, page)
                 .doRequest("admin/footmark/moment/list", new HandlerAjaxCallBackPage<Moments>(mActivity, type) {
                     @Override
                     public void onRealSuccess(List<Moments> e) {
@@ -86,13 +87,34 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> impl
                     @Override
                     public String getGroupName(int position) {
 
-                        if (mCoreRecyclerView.getAdapter().getData().size() == 0) {
-                            return null;
-                        } else {
 
-                            Moments databean = (Moments) mCoreRecyclerView.getAdapter().getItem(position);
-                            return databean.attrData.dateStr;
+                        try {
+                            // 19   suze = 20-1
+                            if (position > mCoreRecyclerView.getAdapter().getData().size() - 1) {
+                                return null;
+                            }
+
+                            if (mCoreRecyclerView.getAdapter().getData().size() == 0) {
+                                return null;
+                            } else {
+
+                                Moments databean = (Moments) mCoreRecyclerView.getAdapter().getItem(position);
+                                return databean.attrData.dateStr;
+                            }
+
+
+//                            if (mCoreRecyclerView.getAdapter().getData().size() == 0) {
+//                                return null;
+//                            } else {
+//                                //                            dateStr
+//                                BPageGsonBean.DatabeanX.Pagebean.Databean databean = (BPageGsonBean.DatabeanX.Pagebean.Databean) mCoreRecyclerView.getAdapter().getItem(position);
+//                                return databean.attrData.dateStr;
+//                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return null;
                         }
+
 
                     }
 

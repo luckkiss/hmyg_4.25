@@ -20,6 +20,8 @@ import android.view.WindowManager;
 
 public class CommonDialogFragment1 extends DialogFragment {
 
+    private Context mContent;
+
     /**
      * 监听弹出窗是否被取消
      */
@@ -36,6 +38,12 @@ public class CommonDialogFragment1 extends DialogFragment {
 
     public interface OnCallDialog {
         Dialog getDialog(Context context);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContent = context;
     }
 
     public static CommonDialogFragment1 newInstance(OnCallDialog call, boolean cancelable) {
@@ -55,10 +63,13 @@ public class CommonDialogFragment1 extends DialogFragment {
         if (null == mOnCallDialog) {
             super.onCreateDialog(savedInstanceState);
         }
-        return mOnCallDialog.getDialog(getActivity());
+        if (getActivity() != null && !getActivity().isFinishing()) {
+            return mOnCallDialog.getDialog(getActivity());
+        } else  {
+            return mOnCallDialog.getDialog(mContent);
+        }
+
     }
-
-
 
 
     @Override
@@ -77,7 +88,7 @@ public class CommonDialogFragment1 extends DialogFragment {
                 }
             }
             Window window = getDialog().getWindow();
-            WindowManager m =getActivity(). getWindowManager();
+            WindowManager m = getActivity().getWindowManager();
             WindowManager.LayoutParams windowParams = window.getAttributes();
             windowParams.dimAmount = 0.5f;
 

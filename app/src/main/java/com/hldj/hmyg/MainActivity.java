@@ -147,24 +147,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
 
         tabHost = this.getTabHost();
-        JPushInterface.setAlias(MainActivity.this, MyApplication.Userinfo
-                .getString("id", "").replace("-", "").toLowerCase().trim()
-                .toString(), new TagAliasCallback() {
-            @Override
-            public void gotResult(int arg0, String arg1, Set<String> arg2) {
-                // TODO Auto-generated method stub
-                Log.w(TAG, "gotResult: " + arg0);
-                Log.w(TAG, "gotResult: " + arg1);
-                Log.w(TAG, "gotResult: " + arg2);
-            }
-        });
-        if (MyApplication.Userinfo.getBoolean("notification", true)) {
-            JPushInterface.resumePush(getApplicationContext());
-            Log.i(TAG, "onCreate: 开启  极光通知");
-        } else {
-            JPushInterface.stopPush(getApplicationContext());
-            Log.i(TAG, "onCreate: 关闭  极光通知");
-        }
+
 
         tabHost.addTab(tabHost.newTabSpec("1").setIndicator("1")
 //                .setContent(new Intent(this, BActivity_new_test.class)));
@@ -185,7 +168,6 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
         radio_d = findViewById(R.id.tab_d);
         radio_e = findViewById(R.id.tab_e);
-
 
         radioderGroup.check(R.id.tab_a);// 默认第一个按钮
         check = "1";
@@ -222,6 +204,26 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         }
 
         requestUserInfo();
+
+
+        JPushInterface.setAlias(MainActivity.this, MyApplication.Userinfo
+                .getString("id", "").replace("-", "").toLowerCase().trim()
+                .toString(), new TagAliasCallback() {
+            @Override
+            public void gotResult(int arg0, String arg1, Set<String> arg2) {
+                // TODO Auto-generated method stub
+                Log.w(TAG, "gotResult: " + arg0);
+                Log.w(TAG, "gotResult: " + arg1);
+                Log.w(TAG, "gotResult: " + arg2);
+            }
+        });
+        if (MyApplication.Userinfo.getBoolean("notification", true)) {
+            JPushInterface.resumePush(getApplicationContext());
+            Log.i(TAG, "onCreate: 开启  极光通知");
+        } else {
+            JPushInterface.stopPush(getApplicationContext());
+            Log.i(TAG, "onCreate: 关闭  极光通知");
+        }
 
     }
 

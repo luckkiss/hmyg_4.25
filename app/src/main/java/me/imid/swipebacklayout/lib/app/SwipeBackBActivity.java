@@ -1,7 +1,9 @@
 package me.imid.swipebacklayout.lib.app;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.hldj.hmyg.buyer.weidet.DialogFragment.CustomDialog;
@@ -89,7 +91,29 @@ public class SwipeBackBActivity extends FragmentActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("------", "onCreate: ");
+        /**
+         * 设置为横屏
+         */
+
         super.onCreate(savedInstanceState);
+
+        try {
+//            if (getApplicationInfo().targetSdkVersion >= O) {
+
+            Log.i("----oncreate 之前----", "onCreate: ");
+            if (getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+                Log.i("----oncreate 之前----", "小于28 api: 取消强制 屏幕锁定");
+            }
+//            } else {
+//                Log.i("----oncreate 之前----", "小于28 api: ");
+//            }
+        } catch (Exception e) {
+//            ToastUtil.showLongToast("报错了");
+//            e.printStackTrace();
+        }
+
         getLoad();
         dialog = new CustomDialog(this);
 //      loading = new Loading(SwipeBackBActivity.this, "努力加载中.....");

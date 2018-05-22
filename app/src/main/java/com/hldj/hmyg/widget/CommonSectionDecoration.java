@@ -31,18 +31,28 @@ public class CommonSectionDecoration {
                     @Override
                     public String getGroupName(int position) {
 
-                        if (coreRecyclerView.getAdapter().getData().size() == 0) {
-                            return null;
-                        } else {
-//                            dateStr
-
-                            if (coreRecyclerView.getAdapter().getItem(position) instanceof IGroup) {
-                                IGroup iGroup = ((IGroup) coreRecyclerView.getAdapter().getItem(position));
-                                return iGroup.getGroupName();
+                        try {
+                            // 19   suze = 20-1
+                            if (position > coreRecyclerView.getAdapter().getData().size()-1) {
+                                return null;
                             }
-                            return null;
+                            if (coreRecyclerView.getAdapter().getData().size() == 0) {
+                                return null;
+                            } else {
+                                //                            dateStr
+                                if (coreRecyclerView.getAdapter().getItem(position) instanceof IGroup) {
+                                    IGroup iGroup = ((IGroup) coreRecyclerView.getAdapter().getItem(position));
+                                    return iGroup.getGroupName();
+                                }
+                                return null;
+                            }
 
+                        } catch (Exception e) {
+
+                            return null;
+//                            e.printStackTrace();
                         }
+
 
                     }
 

@@ -20,6 +20,7 @@ import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.buyer.weidet.decoration.SectionDecoration;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.enums.FootMarkSourceType;
+import com.hldj.hmyg.util.ConstantParams;
 
 import net.tsz.afinal.FinalBitmap;
 
@@ -42,7 +43,7 @@ public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBe
         }.getType();
 
         new BasePresenter()
-
+                .putParams(ConstantParams.pageIndex, page)
                 .doRequest("admin/footmark/seedling/list", new HandlerAjaxCallBackPage<BPageGsonBean.DatabeanX.Pagebean.Databean>(mActivity, type) {
                     @Override
                     public void onRealSuccess(List<BPageGsonBean.DatabeanX.Pagebean.Databean> e) {
@@ -67,13 +68,22 @@ public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBe
                 SectionDecoration.Builder.init(new SectionDecoration.PowerGroupListener() {
                     @Override
                     public String getGroupName(int position) {
+                        try {
+                            // 19   suze = 20-1
+                            if (position > mCoreRecyclerView.getAdapter().getData().size()-1) {
+                                return null;
+                            }
 
-                        if (mCoreRecyclerView.getAdapter().getData().size() == 0) {
+                            if (mCoreRecyclerView.getAdapter().getData().size() == 0) {
+                                return null;
+                            } else {
+                                //                            dateStr
+                                BPageGsonBean.DatabeanX.Pagebean.Databean databean = (BPageGsonBean.DatabeanX.Pagebean.Databean) mCoreRecyclerView.getAdapter().getItem(position);
+                                return databean.attrData.dateStr;
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                             return null;
-                        } else {
-//                            dateStr
-                            BPageGsonBean.DatabeanX.Pagebean.Databean databean = (BPageGsonBean.DatabeanX.Pagebean.Databean) mCoreRecyclerView.getAdapter().getItem(position);
-                            return databean.attrData.dateStr;
                         }
 
                     }
