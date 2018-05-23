@@ -77,7 +77,7 @@
                 android:textSize="@dimen/textSizeContent" />
 
             <EditText
-                android:id="@+id/et_aaa_nurseryContactName"
+                android:id="@+id/et_aaa_contactName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
@@ -87,7 +87,6 @@
                 android:layout_toRightOf="@+id/left1"
                 android:background="@color/trans"
                 android:hint="请输入联系人"
-                android:inputType="phone"
                 android:textColorHint="@color/hint_text_color"
                 android:textSize="@dimen/textSizeContent" />
 
@@ -111,7 +110,7 @@
                 android:textSize="@dimen/textSizeContent" />
 
             <EditText
-                android:id="@+id/et_aaa_nurseryContactPhone"
+                android:id="@+id/et_aaa_contactPhone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
@@ -120,6 +119,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/left2"
                 android:background="@color/trans"
+                android:inputType="phone"
                 android:hint="请输入联系电话"
                 android:textColorHint="@color/hint_text_color"
                 android:textSize="@dimen/textSizeContent" />
@@ -138,7 +138,7 @@
             android:paddingLeft="12dp"
             android:text="-"
             android:textSize="@dimen/textSizeContent" />
-<!--    android:text="@string/lxdh_desc"-->
+        <!--    android:text="@string/lxdh_desc"-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/simpleHeightContent"
@@ -155,7 +155,7 @@
                 android:textSize="@dimen/textSizeContent" />
 
             <EditText
-                android:id="@+id/et_aaa_contactName"
+                android:id="@+id/et_aaa_nurseryContactName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
@@ -187,7 +187,7 @@
                 android:textSize="@dimen/textSizeContent" />
 
             <EditText
-                android:id="@+id/et_aaa_contactPhone"
+                android:id="@+id/et_aaa_nurseryContactPhone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
@@ -196,6 +196,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/left22"
                 android:background="@color/trans"
+                android:inputType="phone"
                 android:hint="请输入联系电话"
                 android:textColorHint="@color/hint_text_color"
                 android:textSize="@dimen/textSizeContent" />
