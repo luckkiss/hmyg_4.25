@@ -126,6 +126,12 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.e_activity_3_0);
 
+        if (GetServerUrl.isTest) {
+            ToastUtil.showLongToast("测试时显示项目列表");
+            getView(R.id.sptv_wd_wdxm).setVisibility(View.VISIBLE);
+        }
+
+
         uploadHeadUtil = new UploadHeadUtil(mActivity);
 
         cachPath = UploadHeadUtil.getDiskCacheDir(this) + "/handimg.jpg";//图片路径

@@ -18,8 +18,42 @@
     <include layout="@layout/include_search_layout" />
 
     <View
-        style="@style/View_line_gray_1dp"
+        style="@style/View_line_gray"
         android:layout_marginTop="5dp" />
+
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_bottom_line"
+        app:tabSelectedTextColor="@color/main_color"
+        app:tabTextColor="@color/text_color666">
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已开标 (0)" />
+
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="未开标 (0)" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已结束 (0)" />
+
+
+    </android.support.design.widget.TabLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>

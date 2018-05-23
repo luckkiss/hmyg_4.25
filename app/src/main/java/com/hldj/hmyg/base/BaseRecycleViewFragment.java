@@ -1,5 +1,7 @@
 package com.hldj.hmyg.base;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
@@ -16,6 +18,8 @@ import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.ToastUtil;
 import com.zf.iosdialog.widget.AlertDialog;
+
+import java.io.Serializable;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
@@ -88,7 +92,7 @@ public abstract class BaseRecycleViewFragment<T> extends BaseLazyFragment {
 
         String tip = "确定删除本项?";
         if (t instanceof IFootMarkEmpty) {
-            tip =   ((IFootMarkEmpty) t).getEmptyTip();
+            tip = ((IFootMarkEmpty) t).getEmptyTip();
         }
 
 //      String str = "确定删除本项?";
@@ -131,6 +135,35 @@ public abstract class BaseRecycleViewFragment<T> extends BaseLazyFragment {
 
 
     // foot marks 清空
+
+
+    public static void addArgument(String key, Object value, Fragment fragment) {
+        if (fragment != null) {
+            Bundle bundle = new Bundle();
+            if (value instanceof String) {
+                bundle.putString(key, (String) value);
+            } else if (value instanceof Boolean) {
+                bundle.putBoolean(key, (Boolean) value);
+            } else if (value instanceof Serializable) {
+                bundle.putSerializable(key, ((Serializable) value));
+            } else {
+                D.i("-------------other---------");
+                D.i("-------------other---------");
+                D.i("-------------other---------");
+                D.i("-------------other-------需要时额外添加--");
+            }
+            fragment.setArguments(bundle);
+        }
+    }
+
+
+    public String getStringArgument(String key) {
+        if (getArguments() != null) {
+            return getArguments().getString(key, "");
+        } else {
+            return "";
+        }
+    }
 
 
 }

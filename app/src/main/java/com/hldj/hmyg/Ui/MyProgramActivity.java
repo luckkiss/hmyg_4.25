@@ -2,26 +2,33 @@ package com.hldj.hmyg.Ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
+import com.hldj.hmyg.CallBack.search.ISearch;
 import com.hldj.hmyg.M.CountTypeGsonBean;
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.Ui.myProgramChild.ProgramDirctActivity;
-import com.hldj.hmyg.Ui.myProgramChild.ProgramProtocolActivity;
+import com.hldj.hmyg.Ui.myProgramChild.consumerFragments.ConsumerFragment1;
 import com.hldj.hmyg.base.BaseMVPActivity;
-import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
-import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
+import com.hldj.hmyg.bean.SimpleGsonBean;
+import com.hldj.hmyg.bean.enums.PurchaseStatus;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.contract.MyProgramContract;
 import com.hldj.hmyg.model.MyProgramGsonBean;
 import com.hldj.hmyg.model.MyProgramModel;
 import com.hldj.hmyg.presenter.MyProgramPresenter;
+import com.hldj.hmyg.saler.Adapter.FragmentPagerAdapter_TabLayout;
+import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
-import com.hy.utils.ToastUtil;
 
+import net.tsz.afinal.FinalActivity;
+import net.tsz.afinal.annotation.view.ViewInject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -30,10 +37,30 @@ import java.util.List;
  * 我的项目  ---- 项目列表  采购选标
  */
 
-public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyProgramModel> implements MyProgramContract.View {
+public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyProgramModel> implements MyProgramContract.View, ISearch {
     private static final String TAG = "MyProgramActivity";
     private CoreRecyclerView recyclerView;
     private String search_key = "";
+    @ViewInject(id = R.id.viewpager)
+    private ViewPager viewpager;
+
+    @ViewInject(id = R.id.tablayout)
+    private TabLayout tablayout;
+
+    private ArrayList<String> list_title = new ArrayList<String>() {{
+//        add("报价单");
+        add("已开标");
+        add("报价中");
+        add("已结束");
+    }};
+
+    private ArrayList<Fragment> list_fragment = new ArrayList<Fragment>() {{
+//        add(new ProgramFragment1());
+        add(ConsumerFragment1.newInstance(PurchaseStatus.expired.enumValue));
+        add(ConsumerFragment1.newInstance(PurchaseStatus.published.enumValue));
+        add(ConsumerFragment1.newInstance(PurchaseStatus.finished.enumValue));
+    }};
+
 
     @Override
     public int bindLayoutID() {//step 1
@@ -42,68 +69,17 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
 
     @Override
     public void initView() {
-//        EditText editText = getView(R.id.et_program_serach_text);
-//        editText.setHint("请输入采购单名称");
+        FinalActivity.initInjectedView(this);
 
-        recyclerView = new CoreRecyclerView(mActivity);
+        FragmentPagerAdapter_TabLayout mFragmentPagerAdapter_tabLayout = new FragmentPagerAdapter_TabLayout(getSupportFragmentManager(), list_title, list_fragment);
+        viewpager.setAdapter(mFragmentPagerAdapter_tabLayout);
+        viewpager.setOffscreenPageLimit(3);
+        mFragmentPagerAdapter_tabLayout.notifyDataSetChanged();
+        tablayout.setupWithViewPager(viewpager);
 
-        //初始化recycleview
-        recyclerView.init(new BaseQuickAdapter<MyProgramGsonBean.DataBeanX.PageBean.DataBean, BaseViewHolder>(R.layout.item_program_list) {
-            @Override
-            protected void convert(BaseViewHolder helper, MyProgramGsonBean.DataBeanX.PageBean.DataBean item) {
-
-
-                helper.convertView.setOnClickListener(view -> {
-                    if (TextUtils.isEmpty(item.id)) {
-                        ToastUtil.showLongToast("项目信息获取失败");
-                        return;
-                    }
-                    if (!item.typeName.equals("直购")) {
-
-                        ProgramDirctActivity.start(mActivity, item.id);
-                    } else {
-                        ProgramProtocolActivity.start(mActivity, item.id);
-                    }
-                });
-                helper.setText(R.id.tv_program_pos, (helper.getAdapterPosition() + 1) + "");//获取位置 pos
-                helper.setText(R.id.tv_program_name, item.projectName);//获取 项目的 名称
-                helper.setText(R.id.tv_program_service_price, item.servicePoint + "%")
-                        .setVisible(R.id.tv_program_text, item.servicePoint != 0.0)
-                        .setVisible(R.id.tv_program_service_price, item.servicePoint != 0.0)
-                ;//
-
-                helper.setText(R.id.tv_program_load_car_count, item.purchaseCountJson + "");//
-//                helper.setText(R.id.tv_program_load_car_count, filterColor(item.loadCarCount + "车", item.loadCarCount + "", R.color.main_color));//
-                helper.setText(R.id.tv_program_alreay_order, "¥" + item.totalAmount);//
-                helper.setText(R.id.tv_program_state, strFilter(item.typeName));//
-//                helper.setText(R.id.tv_program_state, item.typeName);//
-                int colorId = item.typeName.equals("直购") ? ContextCompat.getColor(mActivity, R.color.price_orige) : ContextCompat.getColor(mActivity, R.color.main_color);
-                helper.setTextColor(R.id.tv_program_state, colorId);
-            }
-        }, false)
-                .openLoadMore(10, page -> {
-//                  mPresenter.getData(page + "", search_key, "params2");
-                    showLoading();
-                    mPresenter.getData(page + "", search_key);
-                })
-
-                .closeDefaultEmptyView()
-
-                .openRefresh();
-//        这句就是添加我们自定义的分隔线
-//        recyclerView.getRecyclerView().addItemDecoration(new MyDecoration(this, MyDecoration.VERTICAL_LIST));
-
-//        recyclerView.getRecyclerView().addItemDecoration(new RecycleViewDivider(
-//                mActivity, LinearLayoutManager.VERTICAL, 50, getResources().getColor(R.color.green)));
-//        recyclerView.getRecyclerView().addItemDecoration();
+        doRefreshCount();
 
 
-//        recyclerView.getAdapter().setd
-//        recyclerView.setDividerDrawable(new ColorDrawable(ContextCompat.getColor(mActivity,R.color.gray_bg_ed)));
-//        recyclerView.setDividerPadding(20);
-//        recyclerView.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gray_bg_ed));
-        getContentView().addView(recyclerView);
-        recyclerView.onRefresh();
     }
 
     @Override
@@ -170,4 +146,43 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
     }
 
 
+    @Override
+    public String getSearchKey() {
+        return getSearchText();
+    }
+
+    @Override
+    public void doRefreshCount() {
+        new BasePresenter()
+                .doRequest("admin/purchase/getStatusCount", new HandlerAjaxCallBack() {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+
+//                        ToastUtil.showLongToast(gsonBean.msg);
+/**
+ * 	"statusCount":{
+ "expired":1,
+ "finished":0,
+ "published":1
+ }
+ */
+                        for (int i = 0; i < 3; i++) {
+
+                            if (i == 0)
+                                tablayout.getTabAt(i).setText(String.format("已开标\n (%s)", gsonBean.getData().statusCount.get(PurchaseStatus.expired.enumValue)));
+
+                            if (i == 1)
+                                tablayout.getTabAt(i).setText(String.format("报价中\n (%s)", gsonBean.getData().statusCount.get(PurchaseStatus.published.enumValue)));
+
+                            if (i == 2)
+                                tablayout.getTabAt(i).setText(String.format("已结束\n (%s)", gsonBean.getData().statusCount.get(PurchaseStatus.finished.enumValue)));
+
+                        }
+
+
+                    }
+                });
+
+
+    }
 }

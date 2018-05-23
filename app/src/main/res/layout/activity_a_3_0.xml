@@ -147,7 +147,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@color/white"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"  >
 
                                 <TextView
                                     android:layout_width="@dimen/px52"

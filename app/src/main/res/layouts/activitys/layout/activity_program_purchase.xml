@@ -92,6 +92,45 @@
             android:background="@drawable/bg_top_bottom_line"
             android:orientation="horizontal"
             android:visibility="visible">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/sptv_pz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:minWidth="70dp"
+                    android:text="品种"
+                    android:textColor="@color/main_color"
+                    app:isShowState="false"
+                    app:state_drawable="@drawable/cycle"
+                    app:state_drawable_height="9px"
+                    app:state_drawable_mode="rightTop"
+                    app:state_drawable_width="9px" />
+
+                <View
+                    android:id="@+id/sptv_line_pz"
+                    android:layout_width="80dp"
+                    android:layout_height="3px"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/main_color" />
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="2px"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray_bg_ed" />
+
 
             <RelativeLayout
                 android:layout_width="0dp"
@@ -127,43 +166,6 @@
             </RelativeLayout>
 
 
-            <View
-                android:layout_width="2px"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/gray_bg_ed" />
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <com.coorchice.library.SuperTextView
-                    android:id="@+id/sptv_pz"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:minWidth="70dp"
-                    android:text="品种"
-                    android:textColor="@color/main_color"
-                    app:isShowState="false"
-                    app:state_drawable="@drawable/cycle"
-                    app:state_drawable_height="9px"
-                    app:state_drawable_mode="rightTop"
-                    app:state_drawable_width="9px" />
-
-                <View
-                    android:id="@+id/sptv_line_pz"
-                    android:layout_width="80dp"
-                    android:layout_height="3px"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:background="@color/main_color" />
-
-            </RelativeLayout>
 
 
         </LinearLayout>

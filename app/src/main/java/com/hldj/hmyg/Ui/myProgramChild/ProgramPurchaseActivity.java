@@ -874,7 +874,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
             }
         });
 
-        if (tag == 0) {// 供应 商显示
+        if (tag == 1) {// 供应 商显示
 
             loadingLayoutGys.setVisibility(View.VISIBLE);
             loadingLayout.setVisibility(View.GONE);

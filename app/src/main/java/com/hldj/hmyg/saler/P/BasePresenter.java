@@ -52,6 +52,12 @@ public class BasePresenter {
 //            FinalHttp finalHttp = new FinalHttp();
             GetServerUrl.addHeaders(finalHttp, isAddHeaders);
             finalHttp.post(GetServerUrl.getUrl() + path, getAjaxParams(), callBack);
+
+            if (GetServerUrl.isTest)
+            {
+                finalHttp.configTimeout(30*1000);
+
+            }
             resetAjaxParams();
             return this;
 

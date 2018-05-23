@@ -17,6 +17,7 @@ import com.hldj.hmyg.util.ContactInfoParser;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用于接收  普通的 成功失败返回  的gson 笨啊、===
@@ -49,7 +50,7 @@ public class SimpleGsonBean implements Serializable {
         public String storeId;
         public int outlineCount;
 
-public String name;
+        public String name;
 
         public String shareUrl;
         public String shareDetail;
@@ -72,6 +73,8 @@ public String name;
         public List<ContactInfoParser.ContactInfo> userList;
         /* 联系人 匹配列表 */
 
+
+        public Map<String, String> statusCount;
 
 
 

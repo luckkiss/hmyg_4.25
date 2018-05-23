@@ -131,6 +131,7 @@ public class PurchaseBean {
 
     public static class AttrDataBean {
         public String closeDateStr = "";
+        public String publishDateStr = "";
         public Boolean isSupplier = false;
         public boolean isOpen;
         public double servicePrice;
