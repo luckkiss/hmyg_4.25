@@ -31,10 +31,23 @@
         android:lineSpacingMultiplier="1.2"
         android:minHeight="28dp"
         android:paddingTop="7dp"
+        android:layout_toLeftOf="@+id/right_top"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textSize="15sp"
         tools:text="testandroidandroidandrtestandroidandroidandroidandroidandroidandroidandroidandroidandroidandroidtestandroidandroidandroidandroidandroidandroidandroidandroidandroidandroidtestandroidandroidandroidandroidandroidandroidandroidandroidandroidandroidoidandroidandroidandroidandroidandroidandroidandroid" />
 
+
+    <TextView
+        android:id="@+id/right_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="2dp"
+        android:layout_alignBaseline="@+id/content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:text="12小时前" />
 
 </RelativeLayout>
 

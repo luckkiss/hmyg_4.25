@@ -701,14 +701,7 @@ public class FriendBaseFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
 //      ToastUtil.showLongToast("--gragment --  执行 回调");
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mRecyclerView != null)
-                    mRecyclerView.onRefresh();
 
-            }
-        }, 500);
 
         if (mRecyclerView == null) {
             D.w("mRecyclerView==null,不能刷新");
@@ -717,6 +710,14 @@ public class FriendBaseFragment extends BaseFragment {
 
 
         if (resultCode == ConstantState.REFRESH) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mRecyclerView != null)
+                        mRecyclerView.onRefresh();
+
+                }
+            }, 500);
 //            mRecyclerView.onRefresh();
         } else if (resultCode == ConstantState.PUBLISH_SUCCEED) {
 //        } else if (resultCode == ConstantState.PUBLIC_SUCCEED) {
@@ -733,6 +734,15 @@ public class FriendBaseFragment extends BaseFragment {
 //            }
             D.e("currentType" + currentType);
 
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mRecyclerView != null)
+                        mRecyclerView.onRefresh();
+
+                }
+            }, 500);
+
         } else if (resultCode == ConstantState.PURCHASE_SUCCEED) {
             //求购成功，当求购的时候刷新
 //            if (currentType.equals(MomentsType.purchase.getEnumValue()))
@@ -744,6 +754,15 @@ public class FriendBaseFragment extends BaseFragment {
 //                }
 //            }
             D.e("currentType" + currentType);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mRecyclerView != null)
+                        mRecyclerView.onRefresh();
+
+                }
+            }, 500);
         }
 
 
