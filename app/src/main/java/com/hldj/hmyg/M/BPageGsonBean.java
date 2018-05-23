@@ -88,7 +88,7 @@ public class BPageGsonBean {
 
                 public String customerId;
 
-                public OwnerJsonbean ownerJson;
+                public OwnerJsonbean ownerJson = new OwnerJsonbean();
                 public long lastTime;
 
                 public String orderBy;

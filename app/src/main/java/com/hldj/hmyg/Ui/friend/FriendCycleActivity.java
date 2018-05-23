@@ -354,16 +354,17 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 //            ((FriendBaseFragment) list_fragment.get(2)).onrefresh();
 //            ((FriendBaseFragment) list_fragment.get(3)).onrefresh();
             D.e("currentType" + currentType);
-        }else {
-            rb_title_left.setChecked(true);
-            currentType = MomentsType.all.getEnumValue();
-            list_fragment.get(0).onActivityResult(requestCode, resultCode, data);
-//            ((FriendBaseFragment) list_fragment.get(1)).onrefresh();
-//            ((FriendBaseFragment) list_fragment.get(2)).onrefresh();
-//            ((FriendBaseFragment) list_fragment.get(3)).onrefresh();
-            list_fragment.get(1).onActivityResult(requestCode, resultCode, data);
-            list_fragment.get(2).onActivityResult(requestCode, resultCode, data);
-            D.e("currentType" + currentType);
+        }
+        else {
+//            rb_title_left.setChecked(true);
+//            currentType = MomentsType.all.getEnumValue();
+//            list_fragment.get(0).onActivityResult(requestCode, resultCode, data);
+////            ((FriendBaseFragment) list_fragment.get(1)).onrefresh();
+////            ((FriendBaseFragment) list_fragment.get(2)).onrefresh();
+////            ((FriendBaseFragment) list_fragment.get(3)).onrefresh();
+//            list_fragment.get(1).onActivityResult(requestCode, resultCode, data);
+//            list_fragment.get(2).onActivityResult(requestCode, resultCode, data);
+//            D.e("currentType" + currentType);
         }
 
     }

@@ -265,7 +265,7 @@ public class DetailActivity extends BaseMVPActivity {
             title.setText(moments.attrData.displayName);
 //          finalBitmap.display(head, moments.attrData.headImage);
 //            if (!TextUtils.isEmpty(moments.attrData.headImage)) {
-            ImageLoader.getInstance().displayImage(moments.attrData.headImage, head,getOption());
+            ImageLoader.getInstance().displayImage(moments.attrData.headImage, head, getOption());
 
 
             AgentGrade anEnum = Enum.valueOf(AgentGrade.class, moments.attrData.level);
@@ -297,7 +297,7 @@ public class DetailActivity extends BaseMVPActivity {
                                 "path", moments.videoUrl));
                     }
                 });
-                ImageLoader.getInstance().displayImage(moments.attrData.videoImageUrl, video,getOption());
+                ImageLoader.getInstance().displayImage(moments.attrData.videoImageUrl, video, getOption());
             } else {
                 video.setVisibility(View.GONE);
             }
@@ -396,9 +396,14 @@ public class DetailActivity extends BaseMVPActivity {
 
             @Override
             protected void convert(BaseViewHolder helper, Object item) {
-                if (item instanceof MomentsReply) {
+                if (item instanceof MomentsReply) {// 回复
                     ImageView head = helper.getView(R.id.head);
                     head.setVisibility(View.GONE);
+
+                    TextView time = helper.getView(R.id.right_top);
+                    time.setVisibility(View.GONE);
+                    time.setText("");
+
                     MomentsReply s = ((MomentsReply) item);
 //                    helper.setText(android.R.id.text1, ((MomentsReply) item).reply);
                     if (s.attrData == null || s.attrData.fromDisplayName == null) {
@@ -459,12 +464,17 @@ public class DetailActivity extends BaseMVPActivity {
                         EditDialog.instance("回复: " + s.attrData.fromDisplayName).show(mActivity.getSupportFragmentManager(), TAG);
                     });
 
-                } else if (item instanceof MomentsThumbUp) {
+                } else if (item instanceof MomentsThumbUp) {//点赞
                     helper.setText(R.id.content, ((MomentsThumbUp) item).attrData.displayName);
 
                     ImageView head = helper.getView(R.id.head);
                     head.setVisibility(View.VISIBLE);
-                    ImageLoader.getInstance().displayImage(((MomentsThumbUp) item).attrData.headImage, head,getOption());
+                    /* 增加回复时间  在右上角 */
+                    TextView time = helper.getView(R.id.right_top);
+                    time.setVisibility(View.VISIBLE);
+                    time.setText(((MomentsThumbUp) item).timeStampStr);
+
+                    ImageLoader.getInstance().displayImage(((MomentsThumbUp) item).attrData.headImage, head, getOption());
                     View.OnClickListener onClickListener = new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
