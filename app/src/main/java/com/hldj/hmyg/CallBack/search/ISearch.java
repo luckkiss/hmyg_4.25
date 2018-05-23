@@ -8,6 +8,5 @@ public interface ISearch {
 
     String getSearchKey();
 
-   void  doRefreshCount();
 
 }

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
-import com.hldj.hmyg.CallBack.search.ISearch;
+import com.hldj.hmyg.CallBack.search.IConsumerSearch;
 import com.hldj.hmyg.M.CountTypeGsonBean;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.myProgramChild.consumerFragments.ConsumerFragment1;
@@ -37,7 +37,7 @@ import java.util.List;
  * 我的项目  ---- 项目列表  采购选标
  */
 
-public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyProgramModel> implements MyProgramContract.View, ISearch {
+public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyProgramModel> implements MyProgramContract.View, IConsumerSearch {
     private static final String TAG = "MyProgramActivity";
     private CoreRecyclerView recyclerView;
     private String search_key = "";
@@ -169,13 +169,13 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
                         for (int i = 0; i < 3; i++) {
 
                             if (i == 0)
-                                tablayout.getTabAt(i).setText(String.format("已开标\n (%s)", gsonBean.getData().statusCount.get(PurchaseStatus.expired.enumValue)));
+                                tablayout.getTabAt(i).setText(String.format("%s\n已开标", gsonBean.getData().statusCount.get(PurchaseStatus.expired.enumValue)));
 
                             if (i == 1)
-                                tablayout.getTabAt(i).setText(String.format("报价中\n (%s)", gsonBean.getData().statusCount.get(PurchaseStatus.published.enumValue)));
+                                tablayout.getTabAt(i).setText(String.format("%s\n报价中", gsonBean.getData().statusCount.get(PurchaseStatus.published.enumValue)));
 
                             if (i == 2)
-                                tablayout.getTabAt(i).setText(String.format("已结束\n (%s)", gsonBean.getData().statusCount.get(PurchaseStatus.finished.enumValue)));
+                                tablayout.getTabAt(i).setText(String.format("%s\n已结束", gsonBean.getData().statusCount.get(PurchaseStatus.finished.enumValue)));
 
                         }
 
@@ -185,4 +185,15 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
 
 
     }
+
+    @Override
+    public void doRefreshOneFragment(int pos) {
+
+
+
+
+    }
+
+
+
 }

@@ -8,26 +8,33 @@ import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.hhl.library.FlowTagLayout;
+import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
+import com.hldj.hmyg.CallBack.search.IConsumerSearch;
 import com.hldj.hmyg.CallBack.search.ISearch;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.myProgramChild.ProgramPurchaseActivity;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseRecycleViewFragment;
+import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
 import com.hldj.hmyg.bean.SimplePageBean;
+import com.hldj.hmyg.bean.enums.PurchaseStatus;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.M.PurchaseBean;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.SpanUtils;
-import com.hy.utils.StringFormatUtil;
 import com.hy.utils.TagAdapter;
+import com.hy.utils.ToastUtil;
+import com.zf.iosdialog.widget.AlertDialog;
 
 import java.lang.reflect.Type;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 import static com.hldj.hmyg.saler.Adapter.PurchaseListAdapter.jump;
@@ -87,9 +94,27 @@ public class ConsumerFragment1 extends BaseRecycleViewFragment<PurchaseBean> {
 
     }
 
+    int item_id = R.layout.item_fragment_consumer;
+    ;
+
     @Override
     protected void doConvert(BaseViewHolder myViewHolder, PurchaseBean item, NeedSwipeBackActivity mActivity) {
         D.i("----------doConvert------------");
+
+        StatesProxy.doConverByState1(myViewHolder, item, mActivity);
+
+
+        myViewHolder.addOnClickListener(R.id.bottom, v -> {
+
+//            ToastUtil.showLongToast("bottom");
+            结束报价(myViewHolder, item, mActivity);
+        });
+
+        myViewHolder
+                .setText(R.id.tv_pos, (myViewHolder.getAdapterPosition() + 1) + "")
+                .setVisible(R.id.tv_pos, true)
+
+        ;
 
 
 //        ToastUtil.showLongToast("hellow world");
@@ -144,18 +169,27 @@ public class ConsumerFragment1 extends BaseRecycleViewFragment<PurchaseBean> {
 
         SpannableStringBuilder builder = new SpanUtils().
                 append(item.name)
-                .append("(" + item.num + ")").setForegroundColor(getResources().getColor(R.color.text_color999)).setFontSize(12, true)
+                .append("(" + item.num + ")").setForegroundColor(getResources().getColor(R.color.text_color999)).setFontSize(13, true)
                 .create();
 
         tv_01.setText(builder);
 
         tv_03.setText(item.cityName);
-        tv_04.setText("项目名称：" + item.projectName);
+
+        SpannableStringBuilder project = new SpanUtils()
+                .append("项目名称：").setForegroundColor(getResources().getColor(R.color.text_color999))
+                .append(item.projectName)
+                .create();
+        tv_04.setText(project);
 
 
 //        ToastUtil.showShortToast("item.showConsumerName" + item.showConsumerName);
         if (item.showConsumerName) {
-            tv_05.setText("发布日期：" + item.attrData.publishDateStr);
+            SpannableStringBuilder publishData = new SpanUtils()
+                    .append("发布日期：").setForegroundColor(getResources().getColor(R.color.text_color999))
+                    .append(item.attrData.publishDateStr)
+                    .create();
+            tv_05.setText(publishData);
             tv_05.setVisibility(View.VISIBLE);
         } else {
             tv_05.setVisibility(View.GONE);
@@ -164,11 +198,15 @@ public class ConsumerFragment1 extends BaseRecycleViewFragment<PurchaseBean> {
 
         if (MyApplication.getUserBean().showQuoteCount) {
             if (item.quoteCountJson > 0) {
-                StringFormatUtil fillColor = new StringFormatUtil(mActivity, "已有"
-                        + item.quoteCountJson + "条报价", item.quoteCountJson + "", R.color.price_orige)
-                        .fillColor();
-                tv_11.setText(fillColor.getResult());
-
+//                StringFormatUtil fillColor = new StringFormatUtil(mActivity, "报价条数："
+//                        + item.quoteCountJson + "条报价", item.quoteCountJson + "", R.color.price_orige)
+//                        .fillColor();
+                SpannableStringBuilder quoteCount = new SpanUtils()
+                        .append("报价条数：").setForegroundColor(getResources().getColor(R.color.text_color999))
+                        .append(item.quoteCountJson + "").setForegroundColor(getResources().getColor(R.color.price_orige))
+                        .append("条报价")
+                        .create();
+                tv_11.setText(quoteCount);
             } else {
                 tv_11.setText("暂无报价");
             }
@@ -179,23 +217,81 @@ public class ConsumerFragment1 extends BaseRecycleViewFragment<PurchaseBean> {
 
 
         if (!TextUtils.isEmpty(item.itemCountJson)) {
-            StringFormatUtil fillColor = new StringFormatUtil(mActivity, "共有" + item.itemCountJson + "个品种", item.itemCountJson + "", R.color.green)
-                    .fillColor();
-            if (null != fillColor.getResult()) {
-                tv_10.setText(fillColor.getResult());
+            if (getStringArgument(parameterKey).equals(PurchaseStatus.expired.enumValue)) {
+                D.i("--------已开标--------");
+
+                SpannableStringBuilder builder1 = new SpanUtils()
+                        .append("共有")
+                        .append(item.itemCountJson).setForegroundColor(getResources().getColor(R.color.main_color))
+                        .append("个品种")
+                        .append("  (11个已开标，6个未开标--测试 显示  --)")
+                        .create();
+                tv_10.setText(builder1);
+                myViewHolder.setVisible(R.id.bottom, true);
+
             } else {
-                tv_10.setText("暂无报价");
+                D.i("--------非开标--------");
+
+                SpannableStringBuilder builder1 = new SpanUtils()
+                        .append("共有")
+                        .append(item.itemCountJson).setForegroundColor(getResources().getColor(R.color.main_color))
+                        .append("个品种")
+                        .create();
+                tv_10.setText(builder1);
+                myViewHolder.setVisible(R.id.bottom, false);
             }
+
+
         } else {
             tv_10.setText("暂无报价");
         }
 
-        tv_caozuo01.setText("截止时间：" + item.attrData.closeDateStr);
+        SpannableStringBuilder closeDate = new SpanUtils()
+                .append("截止时间：").setForegroundColor(getResources().getColor(R.color.text_color999))
+                .append(item.attrData.closeDateStr)
+                .create();
+        tv_caozuo01.setText(closeDate);
+
+//        tv_caozuo01.setText("截止时间：" + item.attrData.closeDateStr);
 
 
         myViewHolder.convertView.setOnClickListener(view -> ProgramPurchaseActivity.start(mActivity, item.id));
 
 
+    }
+
+    private void 结束报价(BaseViewHolder myViewHolder, PurchaseBean item, NeedSwipeBackActivity mActivity) {
+        Observable.create(this::createAlert).filter(grand -> grand).subscribe(grand -> 取消报价(myViewHolder, item, mActivity), throwable -> ToastUtil.showLongToast(throwable.getMessage()));
+    }
+
+    private void createAlert(ObservableEmitter<Boolean> observableEmitter) {
+        new AlertDialog(mActivity).builder()
+                .setTitle("确定结束求购?")
+                .setNegativeButton("取消", v -> {
+                    observableEmitter.onNext(false);
+                    observableEmitter.onComplete();
+                }).setPositiveButton("确定", v -> {
+            observableEmitter.onNext(true);
+            observableEmitter.onComplete();
+        }).show();//取消
+    }
+
+    private void 取消报价(BaseViewHolder myViewHolder, PurchaseBean item, NeedSwipeBackActivity mActivity) {
+
+//        ToastUtil.showLongToast("执行取消报价接口");
+        new BasePresenter()
+                .putParams("id", item.id)
+                .doRequest("admin/purchase/finish", new HandlerAjaxCallBack() {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+                        if (ConsumerFragment1.this.mActivity instanceof ISearch) {
+                            ((IConsumerSearch) ConsumerFragment1.this.mActivity).doRefreshCount();
+                            ((IConsumerSearch) ConsumerFragment1.this.mActivity).doRefreshOneFragment(2);
+                            // 0 当前界面 1  报价中  2  已结束界面（ConsumerFragment1 类）
+                        }
+                        mCoreRecyclerView.onRefresh();
+                    }
+                });
     }
 
     @Override

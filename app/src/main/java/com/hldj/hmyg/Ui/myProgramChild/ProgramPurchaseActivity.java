@@ -863,14 +863,14 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
             @Override
             public void onClick(View v) {
 //                ToastUtil.showLongToast("pz");
-                switchGys_pz(1);
+                switchGys_pz(0);
             }
         });
         sptv_gys.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                ToastUtil.showLongToast("gys");
-                switchGys_pz(0);
+                switchGys_pz(1);
             }
         });
 

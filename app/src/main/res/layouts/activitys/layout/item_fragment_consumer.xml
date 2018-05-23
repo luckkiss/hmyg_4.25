@@ -140,13 +140,13 @@
                 android:id="@+id/tv_caozuo01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-
                 android:layout_alignParentBottom="true"
+
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="start"
                 android:layout_marginRight="10.0dip"
+                android:layout_marginTop="6dp"
                 android:gravity="start|center_vertical"
                 android:paddingBottom="3dip"
                 android:paddingRight="5.0dip"
@@ -154,6 +154,22 @@
                 android:textColor="@color/text_color666"
                 android:textSize="@dimen/textSizeContent"
                 tools:text="截止日期tv_caozuo01" />
+
+            <TextView
+                android:id="@+id/tv_11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/text_color666"
+                android:textSize="@dimen/textSizeContent"
+                android:visibility="gone"
+                tools:text="已有一条报价tv_11"
+                tools:visibility="visible" />
+            <!--默认隐藏，预览界面通过tools 来显示布局-->
 
         </LinearLayout>
 
@@ -196,32 +212,15 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:singleLine="true"
-                    android:textColor="@color/text_color666"
+                    android:textColor="@color/text_color999"
                     android:textSize="@dimen/textSizeContent"
                     tools:text="共有一条品种tv_10" />
 
-                <TextView
-                    android:id="@+id/tv_11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:singleLine="true"
-                    android:textColor="@color/text_color666"
-                    android:textSize="@dimen/textSizeContent"
-                    android:visibility="gone"
-                    tools:text="已有一条报价tv_11"
-                    tools:visibility="visible" />
-                <!--默认隐藏，预览界面通过tools 来显示布局-->
+
             </RelativeLayout>
 
 
         </RelativeLayout>
-
-
-
 
 
         <LinearLayout
@@ -325,15 +324,16 @@
 
 
         <TextView
+            android:id="@+id/bottom"
             style="@style/text_left_name_style"
             android:layout_width="match_parent"
             android:layout_height="@dimen/simpleHeightContent"
+            android:layout_marginTop="3dp"
             android:background="@drawable/bg_top_line"
             android:gravity="center"
-            android:layout_marginTop="3dp"
             android:text="结束求购"
-            android:textSize="@dimen/textSizeTitle"
-            android:textColor="@color/main_color" />
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/textSizeTitle" />
 
         <View style="@style/View_line_gray" />
 
