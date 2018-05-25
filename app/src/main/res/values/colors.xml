@@ -239,6 +239,7 @@
     <color name="little_black">#C0000000</color>
     <color name="little_black_sm">#858585</color>
     <color name="fabu_yellow">#FFCC00</color>
+    <color name="tip_yellow">#F0F000</color>
     <color name="province_line_border">#C7C7C7</color>
     <color name="feedback_content_stroke">#d6d6d6</color>
     <color name="colorPrimary">#8BC34A</color>

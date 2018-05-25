@@ -697,7 +697,7 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
                         @Override
                         public void onRealSuccess(SimpleGsonBean gsonBean) {
 
-                            ToastUtil.showLongToast(gsonBean.getData().nursery.toString());
+//                            ToastUtil.showLongToast(gsonBean.getData().nursery.toString());
                             Button button = getView(R.id.btn_manager_storege);
                             button.setText("更新");
                             button.append("  " + gsonBean.getData().nursery.rePublishDate);

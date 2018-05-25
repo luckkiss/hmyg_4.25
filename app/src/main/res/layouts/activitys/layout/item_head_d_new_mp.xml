@@ -20,7 +20,7 @@
             android:layout_width="@dimen/px128"
             android:layout_height="@dimen/px128"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:foreground="@drawable/zheng_white"
@@ -73,7 +73,7 @@
             android:id="@+id/imageView21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="12dp"
@@ -216,7 +216,7 @@
                 android:layout_width="200dp"
                 android:layout_height="@dimen/px74"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+
                 android:layout_alignParentTop="true"
                 android:gravity="center_vertical"
                 android:paddingLeft="8dp"

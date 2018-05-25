@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+
             android:layout_alignParentTop="true"
             android:gravity="center_horizontal"
             android:minWidth="160dp"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+
             android:layout_marginBottom="10dp"
             android:drawableLeft="@mipmap/jf_jftb_simple"
             android:drawablePadding="5dp"

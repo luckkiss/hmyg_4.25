@@ -27,6 +27,7 @@ import com.hldj.hmyg.saler.M.PurchaseBean;
 import com.hldj.hmyg.saler.M.PurchaseListGsonBean;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
+import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.StringFormatUtil;
@@ -110,9 +111,11 @@ public class ProgramFragment1 extends BaseFragment {
                 ((FlowTagLayout) helper.getView(R.id.mobile_flow_layout)).setAdapter(mMobileTagAdapter);
                 mMobileTagAdapter.onlyAddAll(item.itemNameList);
 
-                ((FlowTagLayout) helper.getView(R.id.mobile_flow_layout)).ClearClickAble(true, view1 -> ProgramPurchaseActivity.start(mActivity, item.id));
+                ((FlowTagLayout) helper.getView(R.id.mobile_flow_layout)).ClearClickAble(true, view1 -> ProgramPurchaseActivity.start(mActivity, item.id, ""));
 
-                helper.convertView.setOnClickListener(view -> ProgramPurchaseActivity.start(mActivity, item.id));
+                D.i("============暂时取消本界面。点击事件失效========");
+
+                helper.convertView.setOnClickListener(view -> ProgramPurchaseActivity.start(mActivity, item.id, ""));
 
                    /*是否显示简易报价 图标*/
                 ImageView iv_jianyi = helper.getView(R.id.iv_jianyi);

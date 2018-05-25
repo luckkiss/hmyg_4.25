@@ -17,6 +17,12 @@ public class PurchaseBean {
     public boolean tureQuote;
 
     public long lastTime;
+
+
+    public boolean hasChoosePermission;
+    public boolean isOpen;
+
+
     /**
      * id : 21fdc65b66d7408ca0f546518efb9081
      * createBy : 1
@@ -124,7 +130,7 @@ public class PurchaseBean {
 
     public List<String> itemNameList;
     public AttrDataBean attrData = new AttrDataBean();
-    public PurchaseJsonBean.CiCityBean ciCity;
+    public PurchaseJsonBean.CiCityBean ciCity = new PurchaseJsonBean.CiCityBean();
 
 
 //    "attrData": {"closeDateStr": "2017年06月09日 14点10分"},
@@ -136,6 +142,10 @@ public class PurchaseBean {
         public boolean isOpen;
         public double servicePrice;
         public String sellerName = "-";
+        public String priceStr = "-";
+
+        public String unOpenCount = "0";
+        public String openCount = "0";
 
 
     }

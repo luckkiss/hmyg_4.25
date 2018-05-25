@@ -5,11 +5,11 @@ import android.view.ViewGroup;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.M.CountTypeGsonBean;
 import com.hldj.hmyg.M.ProgramPurchaseExpanBean;
+import com.hldj.hmyg.M.ProgramPurchaseIndexGsonBean;
 import com.hldj.hmyg.M.QuoteUserGroup;
 import com.hldj.hmyg.base.Rx.BaseModel;
 import com.hldj.hmyg.base.Rx.BasePresenter;
 import com.hldj.hmyg.base.Rx.BaseView;
-import com.hldj.hmyg.saler.M.PurchaseBean;
 
 import java.util.List;
 
@@ -20,11 +20,13 @@ import java.util.List;
 public interface ProgramPurchaseContract {
     interface Model extends BaseModel {
         /* 获取供应商   的信息  */
-        void getDatasGys(String page, String proId, String searchKey, ResultCallBack callBack);
+        void getDatasGys(String page, String proId, String searchKey, String status, ResultCallBack callBack);
 
-        void getDatas(String page, String proId, String searchKey, ResultCallBack callBack);
+//        void getDatas(String page, String proId, String searchKey, ResultCallBack callBack);
 
-        void getIndexDatas(ResultCallBack callBack, String purchaseId);
+        void getDatas(String page, String proId, String searchKey, String state, ResultCallBack callBack);
+
+        void getIndexDatas(ResultCallBack callBack, String purchaseId, String getIndexDatas);
 
         void doDelete(String id, ResultCallBack callBack);
     }
@@ -38,7 +40,7 @@ public interface ProgramPurchaseContract {
 
         void onDeled(boolean bo);
 
-        void initHeadDatas(PurchaseBean purchaseBean);
+        void initHeadDatas(ProgramPurchaseIndexGsonBean.DataBean purchaseBean);
 
         String getSearchText();
 
@@ -51,11 +53,13 @@ public interface ProgramPurchaseContract {
 
         public abstract void getData(String page, String proId, String searchKey);
 
+        public abstract void getData(String page, String proId, String searchKey, String state);
+
         /* 获取供应商信息 */
-        public abstract void getDatasGys(String page, String proId, String searchKey);
+        public abstract void getDatasGys(String page, String proId, String searchKey, String status);
 
 
-        public abstract void getIndexDatas(String purchaseId);
+        public abstract void getIndexDatas(String purchaseId, String status);
 
         public abstract void doDelete(String id);
 

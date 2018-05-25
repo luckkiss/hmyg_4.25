@@ -55,7 +55,7 @@ public class BasePresenter {
 
             if (GetServerUrl.isTest)
             {
-                finalHttp.configTimeout(30*1000);
+                finalHttp.configTimeout(600*1000);
 
             }
             resetAjaxParams();

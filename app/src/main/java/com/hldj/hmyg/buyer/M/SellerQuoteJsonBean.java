@@ -88,6 +88,8 @@ public class SellerQuoteJsonBean implements Serializable {
     public List<SpecListBean> specList;
     public int count;
 
+    public boolean isAlternative ;
+    public boolean isUsed ;
 
     public List<ImagesJsonBean> imagesJson = new ArrayList<>();
 //     public ImagesJsonBean imagesJson ;

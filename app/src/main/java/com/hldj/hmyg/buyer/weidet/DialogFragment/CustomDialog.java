@@ -1,5 +1,6 @@
 package com.hldj.hmyg.buyer.weidet.DialogFragment;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
@@ -23,8 +24,14 @@ public class CustomDialog extends Dialog implements Serializable {
     private AnimationDrawable mAnimationDrawable;
     public TextView tv_loading_text;
 
+
+    private Activity mActivity;
+
     public CustomDialog(Context context) {
+
         super(context, R.style.CustomDialog);
+        mActivity = ((Activity) context);
+
     }
 
     public CustomDialog(Context context, int theme) {
@@ -72,23 +79,31 @@ public class CustomDialog extends Dialog implements Serializable {
 
     @Override
     public void show() {
+
+//        if (!((Activity) getContext()).isFinishing()) {
         super.show();
+
+
         ImageView img = (ImageView) this.findViewById(R.id.iv_amin_flowar);
 
         // 加载动画
         mAnimationDrawable = (AnimationDrawable) img.getDrawable();
         // 默认进入页面就开启动画
-        if (!mAnimationDrawable.isRunning()) {
+        if (mAnimationDrawable!=null &&  !mAnimationDrawable.isRunning()) {
             mAnimationDrawable.start();
         }
+//        }
+
     }
 
     @Override
     public void dismiss() {
+//        if ( !((Activity) getContext()).isFinishing()) {
         super.dismiss();
         // 默认进入页面就开启动画
-        if (mAnimationDrawable.isRunning()) {
+        if (mAnimationDrawable!=null &&  mAnimationDrawable.isRunning()) {
             mAnimationDrawable.stop();
         }
+//        }
     }
 }

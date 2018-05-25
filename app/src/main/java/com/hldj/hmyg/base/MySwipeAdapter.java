@@ -1,7 +1,6 @@
 package com.hldj.hmyg.base;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,9 +87,6 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
         } else {
             iv_right_top.setVisibility(View.GONE);
         }
-
-
-
 
 
         //设置小图标
@@ -211,17 +207,19 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
             textView.setText("发布人:-");
             return;
         }
-        if (!TextUtils.isEmpty(bean.getOwnerJson().getCompanyName())) {
-            textView.setText("发布人:" + bean.getOwnerJson().getCompanyName());
-        } else if (!TextUtils.isEmpty(bean.getOwnerJson().getPublicName())) {
-            textView.setText("发布人:" + bean.getOwnerJson().getPublicName());
-        } else if (!TextUtils.isEmpty(bean.getOwnerJson().getRealName())) {
-            textView.setText("发布人:" + bean.getOwnerJson().getRealName());
-        } else if (!TextUtils.isEmpty(bean.getOwnerJson().getUserName())) {//用户名
-            textView.setText("发布人:" + bean.getOwnerJson().getUserName());
-        } else {
-            textView.setText("发布人:-");
-        }
+        textView.setText("发布人:" + bean.getOwnerJson());
+        D.i("--------发布人--bean.getOwnerJson()---"+bean.getOwnerJson());
+//        if (!TextUtils.isEmpty(bean.getOwnerJson())) {
+//            textView.setText("发布人:" + bean.getOwnerJson().getCompanyName());
+//        } else if (!TextUtils.isEmpty(bean.getOwnerJson().getPublicName())) {
+//            textView.setText("发布人:" + bean.getOwnerJson().getPublicName());
+//        } else if (!TextUtils.isEmpty(bean.getOwnerJson().getRealName())) {
+//            textView.setText("发布人:" + bean.getOwnerJson().getRealName());
+//        } else if (!TextUtils.isEmpty(bean.getOwnerJson().getUserName())) {//用户名
+//            textView.setText("发布人:" + bean.getOwnerJson().getUserName());
+//        } else {
+//            textView.setText("发布人:-");
+//        }
     }
 
     public static void setSrcByType(TextView textView, String type) {

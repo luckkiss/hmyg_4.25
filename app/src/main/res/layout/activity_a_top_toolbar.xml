@@ -19,7 +19,7 @@
             android:id="@+id/tv_a_search"
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_top_default"
-            android:layout_alignParentEnd="true"
+
             android:layout_alignParentRight="true"
             android:layout_below="@+id/iv_a_msg"
 

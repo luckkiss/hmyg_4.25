@@ -98,6 +98,7 @@ public class ProgramPurchaseExpanBean extends AbstractExpandableItem<QuoteListJs
     public String statusName;
     public int quoteCountJson;
     public int quoteUsedCountJson;
+    public int quotePreUsedCountJson;
     public String orderBy;
     public String seedlingCityCodeName;
     public String source;

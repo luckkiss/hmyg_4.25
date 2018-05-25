@@ -76,7 +76,7 @@ public class QuoteListJsonBean implements Serializable, MultiItemEntity, IExpand
     public String count;
     public String createBy;
     public String createDate;
-    public PurchaseBean.AttrDataBean attrData;
+    public PurchaseBean.AttrDataBean attrData = new PurchaseBean.AttrDataBean();
     public String cityCode;
     public String cityName;
     public String prCode;
@@ -103,9 +103,11 @@ public class QuoteListJsonBean implements Serializable, MultiItemEntity, IExpand
     public String purchaseItemId;
     public String sellerId;
     public String price;
+    public String priceStr;
     public String prePrice = "";
     public boolean isInvoice;
     public boolean isUsed;
+    public boolean isAlternative;
     public String sendType = "";
     public String implementRemarks;
     public String quoteImplementStatus = "";

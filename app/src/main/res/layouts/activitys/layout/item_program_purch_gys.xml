@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/content"
     android:layout_height="wrap_content"
     android:layout_marginBottom="0dp"
-    android:background="@color/white"
+
+    android:background="@drawable/bg_bottom_line"
     android:foreground="?attr/selectableItemBackground"
     android:orientation="vertical"
     app:layout_constraintBottom_toTopOf="@+id/view2"
@@ -54,62 +56,19 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_pzsl"
         tools:text="spacetext" />
 
-    <View
-        android:id="@+id/textView9"
-        android:layout_width="0dp"
-        android:layout_height="5dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/xuxian"
-        android:layerType="software"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_myd" />
 
-    <View
-        android:id="@+id/view2"
-        style="@style/View_line_gray"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/color_bg_f5"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_detail" />
-
-    <TextView
-        android:id="@+id/tv_detail"
+    <ImageView
+        android:id="@+id/tv_right_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:drawableLeft="@mipmap/ckxq"
-        android:drawablePadding="5dp"
-        android:text="查看详情"
-        android:textColor="@color/main_color"
-        android:textSize="15sp"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-    <TextView
-        android:id="@+id/tv_right_price"
-        android:layout_width="66dp"
-        android:layout_height="66dp"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="27dp"
+        android:background="@drawable/arrow_right_eq"
         android:gravity="center"
-        android:textColor="@color/actionsheet_red"
         android:textSize="13sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView9"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.545"
-        tools:background="@mipmap/wkb"
         tools:text="￥\n14000111122" />
 
     <TextView
@@ -122,32 +81,25 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <View
-        android:id="@+id/line"
-        android:layout_width="1px"
-        android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="17dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/divider_color_bg"
-        android:layerType="software"
-        app:layout_constraintBottom_toTopOf="@+id/textView9"
-        app:layout_constraintRight_toLeftOf="@+id/tv_right_price"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
     <TextView
         android:id="@+id/tv_myd"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:ellipsize="end"
         android:gravity="start"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/line"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_ycy"
-        tools:text="苗源地：广东 中山  福建 福州" />
+        tools:text="山  山  福建 福州建山  山  福建 福州建 福州山  山  福建 福州建 福州山  山  福建 福州建 福州 福州" />
 
 
 </android.support.constraint.ConstraintLayout>

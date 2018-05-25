@@ -11,42 +11,48 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="vertical">
 
-        android:paddingTop="5dp">
-
-        <RelativeLayout
+        <TextView
+            android:id="@+id/tv_program_pur_projectName_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="2.5dip"
-            android:layout_marginTop="2.5dip"
-            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:button="@drawable/agreement_checkbox_bg"
+            android:checked="false"
+            android:gravity="start"
             android:paddingLeft="10.0dip"
-            android:paddingRight="10.0dip">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="2.0dip"
-                android:layout_toLeftOf="@+id/tv_03"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_program_pur_projectName_num"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:button="@drawable/agreement_checkbox_bg"
-                    android:checked="false"
-                    android:gravity="start"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/textSizeXXX"
-                    tools:text="股装二路精光" />
-            </LinearLayout>
+            android:paddingTop="5dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSizeTitle"
+            tools:text="股装二路精光" />
 
 
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_program_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip"
+            android:paddingTop="5dp"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSizeContent"
+            tools:text="项目名称" />
+
+        <TextView
+            android:id="@+id/tv_program_order_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip"
+            android:paddingTop="5dp"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSizeContent"
+            tools:text="用苗单位：厦门某某某" />
 
 
         <TextView
@@ -56,9 +62,10 @@
             android:layout_weight="1"
             android:paddingLeft="10.0dip"
             android:paddingRight="10.0dip"
+            android:paddingTop="5dp"
             android:singleLine="true"
             android:textColor="@color/white"
-            android:textSize="13sp"
+            android:textSize="@dimen/textSizeContent"
             tools:text="用苗地：厦门" />
 
         <LinearLayout
@@ -97,64 +104,89 @@
                 android:gravity="center"
                 android:paddingTop="5dp"
                 android:singleLine="true"
-                android:textColor="@color/fabu_yellow"
+                android:textColor="@color/tip_yellow"
                 android:textSize="13sp"
                 tools:text="15864982148" />
 
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/tv_program_service_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="3dp"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip"
+            android:paddingTop="5dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSizeContent"
+            tools:text="代购服务费" />
+
 
         <TextView
             android:id="@+id/tv_program_pur_close_time"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:paddingBottom="3dp"
             android:paddingLeft="10.0dip"
             android:paddingRight="10.0dip"
             android:paddingTop="5dp"
             android:textColor="@color/white"
             android:textSize="13sp"
-            tools:text="截止时间" />
-
-        <com.coorchice.library.SuperTextView
-            android:id="@+id/stv_1"
-            android:layout_width="110dp"
-            android:layout_height="29dp"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="报价说明"
-            android:textColor="@color/white"
-            android:textSize="@dimen/textSizeX"
-            app:corner="4dp"
-            app:left_bottom_corner="true"
-            app:left_top_corner="true"
-            app:right_bottom_corner="true"
-            app:right_top_corner="true"
-            app:solid="@color/main_color"
-            app:stroke_color="@color/white"
-            app:stroke_width="1dp" />
+            tools:text="开标时间" />
 
 
         <TextView
-            android:id="@+id/tv_head_ser_po"
+            android:id="@+id/tv_program_purchase_tip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white_60"
-            android:drawablePadding="6dp"
-            android:gravity="center"
-            android:paddingBottom="5dp"
-            android:paddingLeft="10dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip"
             android:paddingTop="5dp"
-            android:text="以下报价未包含10%服务费"
+            android:text="报价要求：点击查看"
             android:textColor="@color/white"
-            android:textSize="@dimen/textSize" />
+            android:textSize="13sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@color/white_60"
+            android:gravity="center">
+
+            <TextView
+
+                android:id="@+id/tv_head_ser_po_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="6dp"
+                android:gravity="center"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:text="开标倒计时:"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSizeContent" />
+
+            <TextView
+                android:id="@+id/tv_head_ser_po"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="6dp"
+                android:gravity="center"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:text="*天*小时*分钟*秒"
+                android:textColor="@color/tip_yellow"
+                android:textSize="@dimen/textSizeContent" />
+
+
+        </LinearLayout>
 
 
         <!--<TextView-->
@@ -178,6 +210,8 @@
         android:layout_gravity="right"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:src="@mipmap/zdbj" />
+        android:src="@mipmap/zdbj"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </FrameLayout>

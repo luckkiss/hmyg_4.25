@@ -50,6 +50,10 @@ public class SimpleGsonBean implements Serializable {
         public String storeId;
         public int outlineCount;
 
+
+        public int quoteUsedCountJson;
+        public int quotePreUsedCountJson;
+
         public String name;
 
         public String shareUrl;
@@ -125,6 +129,16 @@ public class SimpleGsonBean implements Serializable {
         public int purchaseCount = 0;
         /*收藏数量*/
         public int collectCount = 0;
+
+
+        public int uncoveredCount = 0;
+        public int preCount = 0;
+        public int quoteCount = 0;
+        public int useCount = 0;
+        public int itemQuoteCount = 0;
+        public int itemCount = 0;
+
+
 
         /*粉丝数量*/
         public int beFollowCount = 0;

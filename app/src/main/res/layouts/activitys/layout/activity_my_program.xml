@@ -29,7 +29,6 @@
         android:background="@drawable/bg_bottom_line"
         app:tabSelectedTextColor="@color/main_color"
         app:tabIndicatorColor="@color/main_color"
-
         app:tabTextColor="@color/text_color666">
 
         <android.support.design.widget.TabItem

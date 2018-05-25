@@ -755,8 +755,8 @@ public class SaveSeedingGsonBean implements Serializable {
                 this.nurseryJson = nurseryJson;
             }
 
-            public OwnerJsonBean getOwnerJson() {
-                return ownerJson;
+            public String getOwnerJson() {
+                return attrData.displayName;
             }
 
             public void setOwnerJson(OwnerJsonBean ownerJson) {
@@ -2730,6 +2730,7 @@ public class SaveSeedingGsonBean implements Serializable {
                 public String dateStr = "";
                 public String ziyingRemarks = "";
                 public String footMarkId = "";
+                public String displayName;
 
             }
 

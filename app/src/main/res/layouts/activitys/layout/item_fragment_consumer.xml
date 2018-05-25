@@ -9,7 +9,7 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical"
-    android:paddingTop="6dp">
+    android:paddingTop="8dp">
 
     <!--<View-->
     <!--android:id="@+id/view_top"-->
@@ -221,106 +221,6 @@
 
 
         </RelativeLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2.0dip"
-            android:paddingLeft="10.0dip"
-            android:paddingRight="10.0dip"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/tv_02"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:singleLine="true"
-                android:textColor="#5A5A5A"
-                android:textSize="14.0sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2.0dip"
-            android:paddingLeft="10.0dip"
-            android:paddingRight="10.0dip"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/tv_06"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:singleLine="true"
-                android:textColor="#5A5A5A"
-                android:textSize="14.0sp" />
-
-            <TextView
-                android:id="@+id/tv_07"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:singleLine="true"
-                android:textColor="#5A5A5A"
-                android:textSize="14.0sp"
-                android:visibility="gone" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#fff0f0f0" />
-
-        <LinearLayout
-            android:id="@+id/ll_caozuo"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="25.0dip"
-                android:layout_margin="5.0dip"
-                android:layout_weight="5.0"
-                android:gravity="center"
-                android:paddingLeft="20.0dip"
-                android:paddingRight="20.0dip"
-                android:textColor="@color/red"
-                android:textSize="11.0sp" />
-
-            <TextView
-                android:id="@+id/tv_caozuo02"
-                android:layout_width="wrap_content"
-                android:layout_height="25.0dip"
-                android:layout_margin="5.0dip"
-                android:layout_weight="1.0"
-                android:background="@drawable/green_btn_selector"
-                android:gravity="center"
-                android:paddingLeft="20.0dip"
-                android:paddingRight="20.0dip"
-                android:textColor="@color/main_color"
-                android:textSize="11.0sp"
-                android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/tv_caozuo03"
-                android:layout_width="wrap_content"
-                android:layout_height="25.0dip"
-                android:layout_margin="5.0dip"
-                android:layout_weight="1.0"
-                android:background="@drawable/green_btn_selector"
-                android:gravity="center"
-                android:paddingLeft="20.0dip"
-                android:paddingRight="20.0dip"
-                android:text="我要报价"
-                android:textColor="@color/main_color"
-                android:textSize="11.0sp" />
-        </LinearLayout>
 
 
         <TextView

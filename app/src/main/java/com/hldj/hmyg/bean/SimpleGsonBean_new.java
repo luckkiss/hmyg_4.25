@@ -31,6 +31,7 @@ public class SimpleGsonBean_new<T> {
         public VideoData video;
 
         public T list;
+        public T quoteList;
 
 //        bean_new = {SimpleGsonBean_new@8730} "SimpleGsonBean_new{code='1', msg='操作成功', data=com.hldj.hmyg.bean.SimpleGsonBean_new$Data@3a14767, page=null}"
 //        code = "1"

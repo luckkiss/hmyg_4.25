@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.bean.enums.PurchaseStatus;
 import com.hldj.hmyg.model.ProgramPurchaseModel;
 import com.hldj.hmyg.presenter.ProgramPurchasePresenter;
+import com.hldj.hmyg.util.D;
 
 /**
  * Created by 罗擦擦 on 2017/6/29 0029.
@@ -28,13 +30,13 @@ public class ProgramPurchaseActivityOnly extends ProgramPurchaseActivity {
 
     @Override
     public void initView() {
-
+        initExtralPermision();
 
         mPresenter = new ProgramPurchasePresenter();
         mModel = new ProgramPurchaseModel();
         mPresenter.setVM(this, mModel);
 
-        searchKey = getIntent().getExtras().getString("sellerId","");
+        searchKey = getIntent().getExtras().getString("sellerId", "");
 
         super.initView();
         getView(R.id.appbar).setVisibility(View.GONE);
@@ -52,10 +54,20 @@ public class ProgramPurchaseActivityOnly extends ProgramPurchaseActivity {
         coreRecyclerView.addHeaderView(head);
 
         TextView textView1 = new TextView(mActivity);
-        textView1.setText(TextUtils.isEmpty(totlePrice) ? " 暂未开标" : totlePrice);
+
+        if (!TextUtils.isEmpty(getExtralState()) && getExtralState().equals(PurchaseStatus.expired.enumValue)) {
+            //已开标
+            textView1.setText(totlePrice);
+        } else {
+            textView1.setText(" 暂未开标");
+        }
         textView1.setTextColor(getColorByRes(R.color.main_color));
         textView1.setBackgroundColor(getColorByRes(R.color.bg_cgd));
         textView1.setPadding(35, 35, 35, 35);
+        textView1.setVisibility(View.GONE);
+
+        D.w("-------------这里写一个 隐藏头部 。怕出现bug 特此记录----------");
+
         coreRecyclerView.addHeaderView(textView1);
 
 
@@ -63,15 +75,27 @@ public class ProgramPurchaseActivityOnly extends ProgramPurchaseActivity {
 
     @Override
     protected void switchGys_pz(int tag) {
-        super.switchGys_pz(1);
+        super.switchGys_pz(0);
     }
 
+
     //传值开启界面
-    public static void start(Activity mAct, String ext, String sellerId) {
+    //trueQutoe  是否 拥有权限
+    public static void start(Activity mAct, String ext, String sellerId, String states, boolean trueQutoe) {
         Intent intent = new Intent(mAct, ProgramPurchaseActivityOnly.class);
         intent.putExtra("ProgramPurchaseActivity", ext);
         intent.putExtra("sellerId", sellerId);//将  sellerId  赋值给 searchKey
+        intent.putExtra(ProgramPurchaseActivity.STATE, states);//将  sellerId  赋值给 searchKey
+        intent.putExtra(ProgramPurchaseActivity.HAS_PERMISION, trueQutoe);
         mAct.startActivity(intent);
+    }
+
+    private void initExtralPermision() {
+
+        setTrueQutoe(getIntent().getBooleanExtra(ProgramPurchaseActivity.HAS_PERMISION, false));
+
+        D.i("======initExtralPermision=========" + getTrueQutoe());
+
     }
 
 

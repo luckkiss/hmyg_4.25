@@ -54,7 +54,7 @@
                     android:layout_width="62dp"
                     android:layout_height="62dp"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
+
                     android:layout_below="@+id/top_bar_option"
                     android:layout_marginBottom="20dp"
                     android:layout_marginLeft="12dp"

@@ -31,7 +31,7 @@ public abstract class BaseLazyFragment extends Fragment {
     public View mRootView;
 
 
-    boolean isFirstVisible;
+    public boolean isFirstVisible;
 
 //    public boolean ismIsVisible() {
 //        return mIsVisible;

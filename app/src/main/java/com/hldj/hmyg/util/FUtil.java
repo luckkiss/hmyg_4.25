@@ -29,7 +29,6 @@ public class FUtil {
     }
 
 
-
     /**
      * 为  str 添加一个头
      *
@@ -60,8 +59,15 @@ public class FUtil {
 
 
     public static String $_zero(String str) {
-        if  ( TextUtils.isEmpty(str)  || "0".equals(str)) {
+        if (TextUtils.isEmpty(str) || "0".equals(str)) {
             return "-";
+        }
+        return str;
+    }
+
+    public static String $_null_to_you_say(String str, String youSay) {
+        if (TextUtils.isEmpty(str) || "0".equals(str)) {
+            return youSay;
         }
         return str;
     }

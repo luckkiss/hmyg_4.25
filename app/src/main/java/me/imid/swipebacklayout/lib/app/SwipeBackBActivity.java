@@ -32,7 +32,7 @@ public class SwipeBackBActivity extends FragmentActivity implements
 
     public void showLoading() {
 //        getLoad().showToastAlong();
-        if (!dialog.isShowing()) {
+        if (!dialog.isShowing() && !this.isFinishing()) {
             dialog.show();
         }
 
@@ -43,7 +43,7 @@ public class SwipeBackBActivity extends FragmentActivity implements
     }
 
     public void showLoadingCus(String str) {
-        if (!dialog.isShowing()) {
+        if (!dialog.isShowing() && !this.isFinishing()) {
             dialog.show();
             if (dialog.tv_loading_text != null) {
                 dialog.tv_loading_text.setText(str);
@@ -67,7 +67,7 @@ public class SwipeBackBActivity extends FragmentActivity implements
 
 
     public void UpdateLoading(String loadingMsg) {
-        if (dialog.isShowing()) {
+        if (dialog.isShowing() &&  !this.isFinishing()) {
             if (dialog.tv_loading_text != null) {
                 dialog.tv_loading_text.setText(loadingMsg);
             }
@@ -75,7 +75,7 @@ public class SwipeBackBActivity extends FragmentActivity implements
     }
 
     public void hindLoading(String str, long delay) {
-        if (getLoad().isRunning()) {
+        if (getLoad().isRunning() &&  !this.isFinishing()) {
             getLoad().cancel(str, delay);
         }
 
@@ -182,5 +182,12 @@ public class SwipeBackBActivity extends FragmentActivity implements
         return false;
     }
 
-
+    @Override
+    protected void onDestroy() {
+        if (dialog !=null )
+        {
+            dialog.dismiss();
+        }
+        super.onDestroy();
+    }
 }

@@ -5,31 +5,25 @@ import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.ViewGroup;
+import android.view.View;
 import android.widget.EditText;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.search.IConsumerSearch;
-import com.hldj.hmyg.M.CountTypeGsonBean;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.myProgramChild.consumerFragments.ConsumerFragment1;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.enums.PurchaseStatus;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
-import com.hldj.hmyg.contract.MyProgramContract;
-import com.hldj.hmyg.model.MyProgramGsonBean;
-import com.hldj.hmyg.model.MyProgramModel;
-import com.hldj.hmyg.presenter.MyProgramPresenter;
 import com.hldj.hmyg.saler.Adapter.FragmentPagerAdapter_TabLayout;
 import com.hldj.hmyg.saler.P.BasePresenter;
-import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.ConstantParams;
 
 import net.tsz.afinal.FinalActivity;
 import net.tsz.afinal.annotation.view.ViewInject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -37,12 +31,18 @@ import java.util.List;
  * 我的项目  ---- 项目列表  采购选标
  */
 
-public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyProgramModel> implements MyProgramContract.View, IConsumerSearch {
+public class MyProgramActivity extends BaseMVPActivity implements IConsumerSearch {
     private static final String TAG = "MyProgramActivity";
     private CoreRecyclerView recyclerView;
     private String search_key = "";
     @ViewInject(id = R.id.viewpager)
     private ViewPager viewpager;
+
+    @ViewInject(id = R.id.sptv_program_do_search, click = "search")
+    private View sptv_program_do_search;
+
+    @ViewInject(id = R.id.et_program_serach_text)
+    private EditText searchEdit;
 
     @ViewInject(id = R.id.tablayout)
     private TabLayout tablayout;
@@ -62,6 +62,21 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
     }};
 
 
+    public void search(View view) {
+//        doRefreshOneFragment(0);
+//        doRefreshOneFragment(1);
+//        doRefreshOneFragment(2);
+        for (int i = 0; i < list_fragment.size(); i++) {
+            if (i == tablayout.getSelectedTabPosition()) {
+                doRefreshOneFragment(i);
+            } else {
+                setVisibleToRefresh(i);
+            }
+        }
+
+        doRefreshCount();
+    }
+
     @Override
     public int bindLayoutID() {//step 1
         return R.layout.activity_my_program;
@@ -78,8 +93,13 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
         tablayout.setupWithViewPager(viewpager);
 
         doRefreshCount();
+        initSearchHint();
 
 
+    }
+
+    private void initSearchHint() {
+        searchEdit.setHint("请输入项目名称或采购单编号");
     }
 
     @Override
@@ -88,45 +108,10 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
         hindLoading();
     }
 
-    @Override
-    public void initVH() {
-        getView(R.id.sptv_program_do_search).setOnClickListener(view -> {
-            D.e("==========根据条件搜索===============");
-            search_key = getSearchText();
-            recyclerView.onRefresh();
-        });
-    }
 
-    @Override
-    public void initXRecycle(List<MyProgramGsonBean.DataBeanX.PageBean.DataBean> gsonBean) {
-        recyclerView.getAdapter().addData(gsonBean);
-        recyclerView.selfRefresh(false);
-        if (recyclerView.getAdapter().getData().size() == 0) {
-            recyclerView.setDefaultEmptyView();
-        }
-        hindLoading();
-    }
-
-    @Override
-    public void initCounts(CountTypeGsonBean gsonBean) {
-
-    }
-
-
-    @Override
-    public void onDeled(boolean bo) {
-
-    }
-
-    @Override
     public String getSearchText() {
 
         return ((EditText) getView(R.id.et_program_serach_text)).getText() + "";
-    }
-
-    @Override
-    public ViewGroup getContentView() {
-        return getView(R.id.my_program_content);
     }
 
 
@@ -154,6 +139,7 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
     @Override
     public void doRefreshCount() {
         new BasePresenter()
+                .putParams(ConstantParams.searchKey, getSearchKey())
                 .doRequest("admin/purchase/getStatusCount", new HandlerAjaxCallBack() {
                     @Override
                     public void onRealSuccess(SimpleGsonBean gsonBean) {
@@ -188,12 +174,25 @@ public class MyProgramActivity extends BaseMVPActivity<MyProgramPresenter, MyPro
 
     @Override
     public void doRefreshOneFragment(int pos) {
-
-
-
-
+        if (list_fragment != null && list_fragment.size() == 3) {
+            Fragment fragment = list_fragment.get(pos);
+            if (fragment instanceof ConsumerFragment1 && ((ConsumerFragment1) fragment).mCoreRecyclerView != null) {
+//                ((ConsumerFragment1) fragment).isVisibleMustRefresh = true;
+                ((ConsumerFragment1) fragment).mCoreRecyclerView.onRefresh();
+            }
+        }
     }
 
 
+    public void setVisibleToRefresh(int pos) {
+        if (list_fragment != null && list_fragment.size() == 3) {
+            Fragment fragment = list_fragment.get(pos);
+//            if (fragment instanceof ConsumerFragment1 && ((ConsumerFragment1) fragment).mCoreRecyclerView != null) {
+            ((ConsumerFragment1) fragment).isVisibleMustRefresh = true;
+//                ((ConsumerFragment1) fragment).mCoreRecyclerView.onRefresh();
+//            }
+        }
+
+    }
 
 }
