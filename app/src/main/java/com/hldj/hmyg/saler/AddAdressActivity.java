@@ -73,7 +73,7 @@ public class AddAdressActivity extends BaseMVPActivity {
         //商城联系人方式<font color='#999999'> (在商城显示的联系方式)</font>
         SpannableStringBuilder spannableStringBuilder1 = new SpanUtils()
                 .append("商城联系方式")
-                .append(" (在商城显示的联系方式)").setForegroundColor(mActivity.getResources().getColor(R.color.text_color999)).setFontSize(13,true)
+                .append(" (在商城显示的联系方式)").setForegroundColor(mActivity.getResources().getColor(R.color.text_color999)).setFontSize(13, true)
                 .create();
         setText(getView(R.id.sclxfs_title), spannableStringBuilder1);
 
@@ -150,9 +150,8 @@ public class AddAdressActivity extends BaseMVPActivity {
         //提交按钮点击事件是公用的
         getView(R.id.tv_save).setOnClickListener(v -> {
 
-            if (!submit(getView(R.id.et_aaa_nurseryContactPhone), "联系电话")
-                    || !submit(getView(R.id.et_aaa_name), "苗圃名称")
-                    ) {
+            if (!submit(getView(R.id.et_aaa_contactPhone), "商城联系电话")
+                    || !submit(getView(R.id.et_aaa_name), "苗圃名称")) {
                 return;
             }
 
