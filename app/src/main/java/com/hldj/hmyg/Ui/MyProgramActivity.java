@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.search.IConsumerSearch;
@@ -100,6 +103,20 @@ public class MyProgramActivity extends BaseMVPActivity implements IConsumerSearc
 
     private void initSearchHint() {
         searchEdit.setHint("请输入项目名称或采购单编号");
+        searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    //完成自己的事件
+                    search(v);
+                    return true;
+
+                } else {
+                    return false;
+                }
+            }
+        });
+
     }
 
     @Override
