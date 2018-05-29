@@ -219,6 +219,7 @@ public class CenterActivity extends BaseMVPActivity {
                 } else {
                     helper.setTextColorRes(R.id.bottom_right, item.allowRefresh ? R.color.main_color : R.color.text_color999);
 //                    helper.setVisible(R.id.bottom_right, item.allowRefresh);
+                    helper.setVisible(R.id.bottom_right, true);
                 }
 
 

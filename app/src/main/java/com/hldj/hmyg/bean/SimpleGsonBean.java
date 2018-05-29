@@ -137,6 +137,10 @@ public class SimpleGsonBean implements Serializable {
         public int useCount = 0;
         public int itemQuoteCount = 0;
         public int itemCount = 0;
+//        public int openCount = 0;//已开标数
+        public int unOpenCount = 0;//unOpenCount
+
+
 
 
 

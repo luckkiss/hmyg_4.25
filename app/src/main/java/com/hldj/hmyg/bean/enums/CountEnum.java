@@ -40,8 +40,8 @@ public enum CountEnum {
     报价品种数("itemQuoteCount", "报价品种数"),
 
 
-    已开标数("yesQuoteCount", "已开标数"),
-    未开标数("unQuoteCount", "未开标数"),
+    已开标数("openCount", "已开标数"),
+    未开标数("unOpenCount", "未开标数"),
     /**
      * 已上架
      */

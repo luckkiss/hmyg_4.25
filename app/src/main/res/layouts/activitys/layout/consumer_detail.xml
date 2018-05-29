@@ -24,8 +24,9 @@
             android:id="@+id/tv_show_title"
             style="@style/super_main_conner_top"
             android:drawableRight="@drawable/close"
-            android:paddingRight="10dp"
             android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="选标情况"
 
             />
 

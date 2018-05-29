@@ -44,5 +44,6 @@
         app:corner="5dp"
         app:right_bottom_corner="true"
         app:right_top_corner="true"
-        app:solid="@color/main_color" />
+        app:solid="@color/main_color"
+        android:focusable="true" />
 </LinearLayout>

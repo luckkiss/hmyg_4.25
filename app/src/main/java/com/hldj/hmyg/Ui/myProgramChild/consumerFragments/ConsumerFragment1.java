@@ -86,18 +86,10 @@ public class ConsumerFragment1 extends BaseRecycleViewFragment<PurchaseBean> {
                 .putParams("searchKey", searchKey)
                 .putParams("status", getStringArgument(parameterKey))
 //                .putParams("status", PurchaseStatus.open.enumValue)
-                .doRequest("admin/purchase/listByConsumer", new HandlerAjaxCallBackPage<PurchaseBean>(mActivity, type) {
+                .doRequest("admin/purchase/listByConsumer", new HandlerAjaxCallBackPage<PurchaseBean>(mActivity, type,mCoreRecyclerView) {
                     @Override
                     public void onRealSuccess(List<PurchaseBean> purchases) {
                         mCoreRecyclerView.getAdapter().addData(purchases);
-
-
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        mCoreRecyclerView.selfRefresh(false);
                     }
                 });
 
@@ -236,8 +228,8 @@ public class ConsumerFragment1 extends BaseRecycleViewFragment<PurchaseBean> {
 
 
         if (!TextUtils.isEmpty(item.itemCountJson)) {
-            if (getStringArgument(parameterKey).equals(PurchaseStatus.expired.enumValue)) {
-                D.i("--------已开标--------");
+            if (getStringArgument(parameterKey).equals(PurchaseStatus.expired.enumValue) || getStringArgument(parameterKey).equals(PurchaseStatus.published.enumValue)) {
+                D.i("--------已开标----或者 报价中----");
 
                 SpannableStringBuilder builder1 = new SpanUtils()
                         .append("共有")
@@ -246,7 +238,7 @@ public class ConsumerFragment1 extends BaseRecycleViewFragment<PurchaseBean> {
                         .append(String.format("  (%s个已开标，%s个未开标)", item.attrData.openCount, item.attrData.unOpenCount))
                         .create();
                 tv_10.setText(builder1);
-                myViewHolder.setVisible(R.id.bottom, true);
+                myViewHolder.setVisible(R.id.bottom, getStringArgument(parameterKey).equals(PurchaseStatus.expired.enumValue) );
 
             } else {
                 D.i("--------非开标--------");

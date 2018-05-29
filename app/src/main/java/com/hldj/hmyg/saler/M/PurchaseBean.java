@@ -140,9 +140,12 @@ public class PurchaseBean {
         public String publishDateStr = "";
         public Boolean isSupplier = false;
         public boolean isOpen;
+        public boolean showFinalPrice;
         public double servicePrice;
         public String sellerName = "-";
         public String priceStr = "-";
+        public String finalPrice = "-";
+        public String totalFinalPrice = "-";
 
         public String unOpenCount = "0";
         public String openCount = "0";

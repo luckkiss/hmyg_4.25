@@ -2,6 +2,7 @@ package com.hldj.hmyg.Ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.Keep;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -34,7 +35,8 @@ import java.util.ArrayList;
  * 我的项目  ---- 项目列表  采购选标
  */
 
-public class MyProgramActivity extends BaseMVPActivity implements IConsumerSearch {
+@Keep
+public class MyProgramActivity extends BaseMVPActivity implements IConsumerSearch  {
     private static final String TAG = "MyProgramActivity";
     private CoreRecyclerView recyclerView;
     private String search_key = "";
@@ -42,7 +44,7 @@ public class MyProgramActivity extends BaseMVPActivity implements IConsumerSearc
     private ViewPager viewpager;
 
     @ViewInject(id = R.id.sptv_program_do_search, click = "search")
-    private View sptv_program_do_search;
+    public View sptv_program_do_search;
 
     @ViewInject(id = R.id.et_program_serach_text)
     private EditText searchEdit;
@@ -65,6 +67,8 @@ public class MyProgramActivity extends BaseMVPActivity implements IConsumerSearc
     }};
 
 
+
+    @Keep
     public void search(View view) {
 //        doRefreshOneFragment(0);
 //        doRefreshOneFragment(1);

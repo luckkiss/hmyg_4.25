@@ -324,6 +324,7 @@ public class FriendBaseFragment extends BaseFragment {
                             return;
                         }
                         TextView textView = myViewHolder.getView(android.R.id.text1);
+
 //                        textView.setText(s.reply);
                         SpannableStringBuilder result;
                         String from = "";
@@ -401,7 +402,7 @@ public class FriendBaseFragment extends BaseFragment {
 //                            result = baseMVPActivity.filterColor(from + ": " + s.reply, from, R.color.main_color);
                             spanUtils
                                     .append(from).setForegroundColor(mActivity.getResources().getColor(R.color.main_color)).setClickSpan(left)
-                                    .append(": +" + s.reply).setForegroundColor(mActivity.getResources().getColor(R.color.text_color666)).setClickSpan(clickContent)
+                                    .append(": " + s.reply).setForegroundColor(mActivity.getResources().getColor(R.color.text_color666)).setClickSpan(clickContent)
                                     .append(".").setForegroundColor(mActivity.getResources().getColor(R.color.trans))
                             ;
                         } else {
@@ -414,17 +415,23 @@ public class FriendBaseFragment extends BaseFragment {
                                     .append(from).setClickSpan(left).setForegroundColor(mActivity.getResources().getColor(R.color.main_color))
                                     .append("回复").setForegroundColor(mActivity.getResources().getColor(R.color.text_color666))
                                     .append(to).setForegroundColor(mActivity.getResources().getColor(R.color.main_color)).setClickSpan(right)
-                                    .append(": +" + s.reply).setClickSpan(clickContent)
+                                    .append(": " + s.reply).setClickSpan(clickContent)
                                     .append(".").setForegroundColor(mActivity.getResources().getColor(R.color.trans))
                             ;
+//                            Linkify.addLinks(textView, PHONE, null);
+
+
+
 //                            spanUtils.append("回复")
 //                                    .append(to).setForegroundColor(mActivity.getResources().getColor(R.color.main_color))
 //                                    .setClickSpan(right)
 //                                    .append(s.reply)
 //                            ;
                         }
+                        textView.setText(spanUtils.create() );
+//                        LinkifySpannableUtils.getInstance().setSpan(mActivity,textView);
 
-                        textView.setText(spanUtils.create());
+//                        textView.setAutoLinkMask(Linkify.PHONE_NUMBERS );
 
 
 //                        textView.setText(result);

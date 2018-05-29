@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
 import com.hldj.hmyg.bean.SimplePageBean;
+import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hy.utils.ToastUtil;
 
@@ -25,7 +26,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
  */
 public abstract class HandlerAjaxCallBackPage<E> extends AjaxCallBack<String> {
 
-
+    CoreRecyclerView mCoreRecyclerView = null;
     Type type;
     Class classTypeResponse; // 响应的 respong class
 
@@ -48,6 +49,12 @@ public abstract class HandlerAjaxCallBackPage<E> extends AjaxCallBack<String> {
     public HandlerAjaxCallBackPage(NeedSwipeBackActivity activity, Type type) {
         this.type = type;
         this.needSwipeBackActivity = activity;
+    }
+
+    public HandlerAjaxCallBackPage(NeedSwipeBackActivity activity, Type type, CoreRecyclerView recyclerView) {
+        this.type = type;
+        this.needSwipeBackActivity = activity;
+        this.mCoreRecyclerView = recyclerView;
     }
 
 
@@ -108,6 +115,10 @@ public abstract class HandlerAjaxCallBackPage<E> extends AjaxCallBack<String> {
 
     public void onFailure(Throwable t, int errorNo, String strMsg) {
         ToastUtil.showShortToast(strMsg);
+
+        if (mCoreRecyclerView != null) {
+            mCoreRecyclerView.showLoadMoreFailedView();
+        }
         onFinish();
     }
 
@@ -116,6 +127,10 @@ public abstract class HandlerAjaxCallBackPage<E> extends AjaxCallBack<String> {
         if (needSwipeBackActivity != null && !needSwipeBackActivity.isFinishing()) {
             needSwipeBackActivity.hindLoading();
         }
+        if (mCoreRecyclerView != null) {
+            mCoreRecyclerView.selfRefresh(false);
+        }
+
     }
 
 

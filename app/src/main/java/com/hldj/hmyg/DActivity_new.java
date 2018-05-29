@@ -26,6 +26,7 @@ import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.bean.MomentsThumbUp;
 import com.hldj.hmyg.Ui.friend.bean.enums.MomentsType;
 import com.hldj.hmyg.Ui.friend.child.DetailActivity;
+import com.hldj.hmyg.Ui.friend.child.HeadDetailActivity;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.base.MySwipeAdapter;
@@ -262,7 +263,9 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 //                    circleImageView.setImageURL(item.attrData.headImage);
 
                 }
-
+                helper.getView(R.id.head).setOnClickListener(v -> {
+                    HeadDetailActivity.start(mActivity, item.ownerId);
+                });
 
 
                   /* 视频  预览图片   */

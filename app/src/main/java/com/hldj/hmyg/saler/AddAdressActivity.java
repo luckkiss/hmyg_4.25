@@ -96,7 +96,7 @@ public class AddAdressActivity extends BaseMVPActivity {
             //添加数据
             setTitle("新增苗圃");
             autoSetLoc();
-            EditText editText = getView(R.id.et_aaa_nurseryContactPhone);
+            EditText editText = getView(R.id.et_aaa_contactPhone);
             editText.setText(MyApplication.getUserBean().phone);
 
 
@@ -136,6 +136,8 @@ public class AddAdressActivity extends BaseMVPActivity {
             addressBean.longitude = Double.parseDouble(MainActivity.longitude);
             addressBean.latitude = Double.parseDouble(MainActivity.latitude);
             addressBean.detailAddress = FUtil.$(" ", MainActivity.aMapLocation.getStreet(), MainActivity.aMapLocation.getStreetNum(), MainActivity.aMapLocation.getAoiName());
+
+            addressBean.cityName = MainActivity.aMapLocation.getProvince() + MainActivity.aMapLocation.getCity() + MainActivity.aMapLocation.getDistrict();
         }
 //        addressBean.contactPhone = MyApplication.getUserBean().phone;
 //        addressBean.contactName = MyApplication.getUserBean().realName;

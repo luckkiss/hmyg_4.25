@@ -105,7 +105,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
     //public int shouldOpenPos = 666;
     public String pareId = "";
-    protected String searchKey = "";
+    protected String searchKey = "";// 本界面search key  是 传 sallerid 用的。。。。字段设计错误。懒得改了
 
     @Override
     public void initView() {
@@ -300,6 +300,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //                    admin/quote/alternativeQuote
                 new BasePresenter()
                         .putParams("id", item.id)
+                        .putParams("isSeller", !TextUtils.isEmpty(searchKey) + "")
                         .doRequest("admin/quote/alternativeQuote", new HandlerAjaxCallBack(mActivity) {
                             @Override
                             public void onRealSuccess(SimpleGsonBean gsonBean) {
@@ -361,12 +362,26 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //                        helper.setText(R.id.tv_program_purch_sub_price_type, filterColor("[" + FUtil.$_zero(item.plantTypeName) + "]" + " * " + "元/" + item.unitTypeName, " * "));// 3200/株
 //                    }
 
-                    helper.setText(R.id.tv_program_purch_sub_price_type, filterColor("[" + FUtil.$_null_to_you_say(item.plantTypeName, "未填写") + "]  " + item.attrData.priceStr + "/" + item.unitTypeName, item.attrData.priceStr));// 3200/株
+                    /* 显示 成交单价：￥1.85 */
+                    helper.setText(R.id.tv_program_purch_sub_price_type,
+                            filterColor("[" + FUtil.$_null_to_you_say(item.plantTypeName, "未填写") + "]  "
+                                    + item.attrData.priceStr + "/" + item.unitTypeName, item.attrData.priceStr));// 3200/株
 
 
-                    helper.setText(tv_program_purch_sub_price_cont_serv_pric, filterColor(item.attrData.servicePrice + "(含服务费)", item.attrData.servicePrice + "", R.color.price_orige));//￥3520(含服务费)
+                    helper.setText(tv_program_purch_sub_price_cont_serv_pric,
+                            filterColor("(成交单价:" + item.attrData.finalPrice + ")",
+                                    item.attrData.finalPrice + "",
+                                    R.color.price_orige));//￥3520(含服务费)
 
-//                    helper.setVisible(tv_program_purch_sub_price_cont_serv_pric,false);
+
+                    helper.setVisible(tv_program_purch_sub_price_cont_serv_pric, item.attrData.showFinalPrice);
+
+                    helper.setVisible(R.id.final_price, item.attrData.showFinalPrice);
+
+                    helper.setText(R.id.final_price,
+                            filterColor("小计:" + item.attrData.totalFinalPrice + "",
+                                    item.attrData.totalFinalPrice + "",
+                                    R.color.price_orige));//￥3520(含服务费)
 
 
                     helper.setBackgroundRes(tv_program_purch_sub_use_state, R.drawable.round_rectangle_bg_btn);//初始化设置drawable
@@ -605,6 +620,8 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //                    helper.setText(R.id.tv_program_purch_sub_images_count, filterColor("有" + item.imagesJson.size() + "张图片", item.imagesJson.size() + "", R.color.orange_color));//
                     PurchaseDetailActivity.setImgCounts(mActivity, helper.getView(R.id.tv_bottom_left), item.imagesJson);
 
+//                    helper.setVisible(R.id.tv_bottom_left,item.imagesJson.size() != 0);
+
                     if (item.imagesJson.size() != 0) {
                         helper.setVisible(R.id.tv_program_purch_sub_images_count, true);
                         helper.setText(R.id.tv_bottom_left, filterColor("苗木图片：" + "有" + item.imagesJson.size() + "张图片", item.imagesJson.size() + ""));//
@@ -789,11 +806,20 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
         /*  获取是否开标     */
 
+        SpanUtils spanUtils = new SpanUtils();
+        spanUtils.append("已采用：")
+                .append(item.quoteItemCount + "").setForegroundColor(getColorByRes(R.color.red))
+                .append("个品种    ")
+                .append(item.uncoveredCount + "").setForegroundColor(getColorByRes(R.color.red))
+                .append("个品种待落实");
+
+
         helper
                 .setText(R.id.tv_program_purch_pos, (helper.getAdapterPosition() + 1) + "")
                 .setText(R.id.title, "" + item.sellerName)
                 .setText(R.id.tv_pzsl, filterColor("报价品种数量：" + item.quoteItemCount + "个", item.quoteItemCount + ""))
-                .setText(R.id.tv_ycy, filterColor("已采用：" + item.usedCount + "个品种", item.usedCount + ""))
+//                .setText(R.id.tv_ycy, filterColor("已采用：" + item.usedCount + "个品种", item.usedCount + ""))
+                .setText(R.id.tv_ycy, spanUtils.create())
                 .setText(R.id.tv_myd, item.cityNames == null ? "苗源地 ：-" : "苗源地：" + item.cityNames.toString().substring(1, item.cityNames.toString().length() - 1))
 //                .setText(R.id.tv_right_price, showQuote ? "￥\n" + item.quoteTotalPrice + "起" : "")
 //                .setBackgroundRes(R.id.tv_right_price, showQuote ? 0 : R.mipmap.wkb)
@@ -986,13 +1012,13 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                                 setTextWithNum(tv2, CountEnum.报价条数.enumText, gsonBean.getData().quoteCount);
 
                                 TextView tv3 = (TextView) dialog1.findViewById(R.id.tv3);
-                                setTextWithNum(tv3, CountEnum.已开标数.enumText, 0);
+                                setTextWithNum(tv3, CountEnum.已开标数.enumText, gsonBean.getData().openCount);
 
                                 TextView tv4 = (TextView) dialog1.findViewById(R.id.tv4);
                                 setTextWithNum(tv4, CountEnum.采用数.enumText, gsonBean.getData().useCount);
 
                                 TextView tv5 = (TextView) dialog1.findViewById(R.id.tv5);
-                                setTextWithNum(tv5, CountEnum.未开标数.enumText, 0);
+                                setTextWithNum(tv5, CountEnum.未开标数.enumText, gsonBean.getData().unOpenCount);
 
                                 TextView tv6 = (TextView) dialog1.findViewById(R.id.tv6);
                                 setTextWithNum(tv6, CountEnum.备选.enumText, gsonBean.getData().preCount);
@@ -1089,6 +1115,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
             putParams("id", id);
             putParams("sendType", sendType);
             putParams("sellerId", searchKey);
+            putParams("isSeller", !TextUtils.isEmpty(searchKey) + "");
             AjaxCallBack callBack = new AjaxCallBack<String>() {
                 @Override
                 public void onSuccess(String json) {
