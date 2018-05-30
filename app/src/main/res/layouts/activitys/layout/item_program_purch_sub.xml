@@ -28,19 +28,17 @@
         android:layout_width="0dp"
         android:layout_height="18dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginLeft="4dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginRight="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="¥0(含服务费)"
-        android:textColor="@color/text_color999"
+        android:textColor="@color/text_color666"
         android:textSize="@dimen/textSizeContent"
         android:visibility="visible"
-        app:layout_constraintEnd_toStartOf="@+id/bak"
-        app:layout_constraintStart_toEndOf="@+id/tv_program_purch_sub_price_type"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/final_price" />
 
     <TextView
         android:id="@+id/tv_program_purch_sub_use_state"
@@ -92,9 +90,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:layout_marginLeft="16dp"
         android:text="成交单价:-"
         android:textSize="@dimen/textSizeContent"
-        app:layout_constraintLeft_toLeftOf="@+id/tv_program_purch_sub_price_type"
+        app:layout_constraintLeft_toRightOf="@+id/tv_program_purch_sub_price_cont_serv_pric"
         app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_price_type" />
 
     <TextView
@@ -206,7 +205,7 @@
     <View
         android:id="@+id/view10"
         android:layout_width="0dp"
-        android:layout_height="1dp"
+        android:layout_height="1px"
         android:layout_marginBottom="1dp"
         android:layout_marginTop="8dp"
         android:background="@color/gray_btn_bg_pressed_color"

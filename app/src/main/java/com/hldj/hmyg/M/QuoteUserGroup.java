@@ -13,7 +13,9 @@ public class QuoteUserGroup {
     /**
      * 供应商名称：名字 + 手机号
      */
-    public String sellerName;
+    public String sellerName = "-";
+
+    public String sellerPhone = "-";
 
     /**
      * 是否是客户自有供应商
@@ -51,4 +53,19 @@ public class QuoteUserGroup {
     public BigDecimal quoteTotalPrice;
 
 
+    @Override
+    public String toString() {
+        return "QuoteUserGroup{" +
+                "sellerId='" + sellerId + '\'' +
+                ", sellerName='" + sellerName + '\'' +
+                ", sellerPhone='" + sellerPhone + '\'' +
+                ", selfSeller=" + selfSeller +
+                ", quoteCount=" + quoteCount +
+                ", quoteItemCount=" + quoteItemCount +
+                ", usedCount=" + usedCount +
+                ", uncoveredCount=" + uncoveredCount +
+                ", cityNames=" + cityNames +
+                ", quoteTotalPrice=" + quoteTotalPrice +
+                '}';
+    }
 }

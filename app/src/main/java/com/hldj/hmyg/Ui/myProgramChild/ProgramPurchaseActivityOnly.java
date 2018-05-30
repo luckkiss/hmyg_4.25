@@ -3,6 +3,7 @@ package com.hldj.hmyg.Ui.myProgramChild;
 import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -57,14 +58,18 @@ public class ProgramPurchaseActivityOnly extends ProgramPurchaseActivity {
 
         if (!TextUtils.isEmpty(getExtralState()) && getExtralState().equals(PurchaseStatus.expired.enumValue)) {
             //已开标
+//            textView1.setText("供应商名称：花木易购供应商1\n联系电话：17074990702" + "");
             textView1.setText(totlePrice);
         } else {
-            textView1.setText(" 暂未开标");
+            textView1.setText(totlePrice);
         }
-        textView1.setTextColor(getColorByRes(R.color.main_color));
-        textView1.setBackgroundColor(getColorByRes(R.color.bg_cgd));
+        textView1.setLineSpacing(0.0f,1.5f);
+//        textView1.setTextSize(15);
+        textView1.setTextColor(getColorByRes(R.color.text_color666));
+        Linkify.addLinks(textView1,Linkify.PHONE_NUMBERS);
+        textView1.setBackgroundColor(getColorByRes(R.color.white));
         textView1.setPadding(35, 35, 35, 35);
-        textView1.setVisibility(View.GONE);
+        textView1.setVisibility(View.VISIBLE);
 
         D.w("-------------这里写一个 隐藏头部 。怕出现bug 特此记录----------");
 

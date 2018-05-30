@@ -91,6 +91,16 @@ public class SellerQuoteJsonBean implements Serializable {
     public boolean isAlternative ;
     public boolean isUsed ;
 
+    public AttrData attrData = new AttrData();
+
+
+    public static class AttrData{
+        public int quoteUsedCountJson ;
+        public int quotePreUsedCountJson ;
+    }
+
+
+
     public List<ImagesJsonBean> imagesJson = new ArrayList<>();
 //     public ImagesJsonBean imagesJson ;
 

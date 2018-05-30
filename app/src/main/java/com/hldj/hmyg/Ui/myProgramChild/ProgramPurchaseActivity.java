@@ -252,8 +252,9 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                         item.sendType = tag;
 
                         ProgramPurchaseExpanBean expanBean = (ProgramPurchaseExpanBean) coreRecyclerView.getAdapter().getData().get(posParent);
-                        expanBean.quoteUsedCountJson = gsonBean.getData().quoteUsedCountJson;
-                        expanBean.quotePreUsedCountJson = gsonBean.getData().quotePreUsedCountJson;
+                        expanBean.quoteUsedCountJson = gsonBean.getData().quote.attrData.quoteUsedCountJson;
+//                        expanBean.quoteUsedCountJson = gsonBean.getData().quoteUsedCountJson;
+                        expanBean.quotePreUsedCountJson = gsonBean.getData().quote.attrData.quotePreUsedCountJson;
                         pareId = expanBean.id;
 //
                         //item 改变 sub 的值
@@ -317,8 +318,8 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //                                    item.sendType = tag;
 
                                 ProgramPurchaseExpanBean expanBean = (ProgramPurchaseExpanBean) coreRecyclerView.getAdapter().getData().get(posParent);
-                                expanBean.quoteUsedCountJson = gsonBean.getData().quoteUsedCountJson;
-                                expanBean.quotePreUsedCountJson = gsonBean.getData().quotePreUsedCountJson;
+                                expanBean.quoteUsedCountJson = gsonBean.getData().quote.attrData.quoteUsedCountJson;
+                                expanBean.quotePreUsedCountJson = gsonBean.getData().quote.attrData.quotePreUsedCountJson;
                                 pareId = expanBean.id;
 //
                                 //item 改变 sub 的值
@@ -369,7 +370,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
 
                     helper.setText(tv_program_purch_sub_price_cont_serv_pric,
-                            filterColor("(成交单价:" + item.attrData.finalPrice + ")",
+                            filterColor("成交单价:" + item.attrData.finalPrice + "",
                                     item.attrData.finalPrice + "",
                                     R.color.price_orige));//￥3520(含服务费)
 
@@ -648,10 +649,19 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                     helper.setText(R.id.tv_program_purch_space_text, "规格：" + item.specText + "；" + item.remarks);
                     Log.e(TAG, "TYPE_LEVEL_0" + helper.getAdapterPosition());
 
-                    helper.setVisible(R.id.tv_program_purch_price_num, item.quoteUsedCountJson != 0);
+                    helper.setVisible(R.id.tv_program_purch_price_num, item.quoteCountJson != 0);
 
 
                     String wholeStr = "有" + item.quoteCountJson + "条报价";
+
+                    if (TextUtils.isEmpty(searchKey))//非供应商
+                    {
+                        wholeStr = "有" + item.quoteCountJson + "条报价";
+                    } else {//供应商
+                        wholeStr = "该品种" + "有" + item.quoteCountJson + "条报价";
+                    }
+
+
                     StringFormatUtil formatUtil = new StringFormatUtil(mActivity, wholeStr, item.quoteCountJson + "", R.color.red).fillColor();
                     helper.setText(R.id.tv_program_purch_price_num, formatUtil.getResult());
 
@@ -808,11 +818,13 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
         SpanUtils spanUtils = new SpanUtils();
         spanUtils.append("已采用：")
-                .append(item.quoteItemCount + "").setForegroundColor(getColorByRes(R.color.red))
+                .append(item.usedCount + "").setForegroundColor(getColorByRes(R.color.red))
                 .append("个品种    ")
                 .append(item.uncoveredCount + "").setForegroundColor(getColorByRes(R.color.red))
                 .append("个品种待落实");
-
+/**
+ * quoteCount=9, quoteItemCount=9, usedCount=1, uncoveredCount=2,
+ */
 
         helper
                 .setText(R.id.tv_program_purch_pos, (helper.getAdapterPosition() + 1) + "")
@@ -826,14 +838,18 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                 .addOnClickListener(R.id.content, v -> {
 //                    ToastUtil.showLongToast("-----------查看详情-----------" + item.sellerId);
                     ProgramPurchaseActivityOnly.title = "" + item.sellerName + "的报价";
-
+                    Log.i(TAG, "xuanran: "+item.toString());
                     /*  已开标 */
                     if (showQuote) {
-                        ProgramPurchaseActivityOnly.totlePrice = "￥ " + item.quoteTotalPrice + " 起";
+                        ProgramPurchaseActivityOnly.totlePrice = String.format("供应商名称：%s\n联系电话：%s",item.sellerName,item.sellerPhone);
+//                        textView1.setText("供应商名称：花木易购供应商1\n联系电话：17074990702" + "");
                     } else {
                         /* 未开标 */
-                        ProgramPurchaseActivityOnly.totlePrice = "";
+//                        ProgramPurchaseActivityOnly.totlePrice = "";
+//                        ProgramPurchaseActivityOnly.totlePrice = "￥ " + item.quoteTotalPrice + " 起";
+                        ProgramPurchaseActivityOnly.totlePrice = String.format("供应商名称：%s\n联系电话：%s",item.sellerName,item.sellerPhone);
                     }
+                    //"sellerName":"刘俊贤-华苑供应商","sellerPhone":"13501505325",
 
 //                    ToastUtil.showLongToast("showQutte=" + showQuote);
                     ProgramPurchaseActivityOnly.start(mActivity, getExtral(), item.sellerId, getExtralState(), getTrueQutoe());

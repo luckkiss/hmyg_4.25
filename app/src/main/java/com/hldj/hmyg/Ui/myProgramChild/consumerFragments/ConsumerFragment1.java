@@ -185,7 +185,7 @@ public class ConsumerFragment1 extends BaseRecycleViewFragment<PurchaseBean> {
 
         tv_01.setText(builder);
 
-        tv_03.setText(item.cityName);
+        tv_03.setText(item.ciCity.fullName);
 
         SpannableStringBuilder project = new SpanUtils()
                 .append("项目名称：").setForegroundColor(getResources().getColor(R.color.text_color999))
@@ -235,7 +235,7 @@ public class ConsumerFragment1 extends BaseRecycleViewFragment<PurchaseBean> {
                         .append("共有")
                         .append(item.itemCountJson).setForegroundColor(getResources().getColor(R.color.main_color))
                         .append("个品种")
-                        .append(String.format("  (%s个已开标，%s个未开标)", item.attrData.openCount, item.attrData.unOpenCount))
+                        .append(String.format("  (%s个已开标，报价中%s个)", item.attrData.openCount, item.attrData.unOpenCount))
                         .create();
                 tv_10.setText(builder1);
                 myViewHolder.setVisible(R.id.bottom, getStringArgument(parameterKey).equals(PurchaseStatus.expired.enumValue) );
@@ -279,7 +279,7 @@ public class ConsumerFragment1 extends BaseRecycleViewFragment<PurchaseBean> {
 
     private void createAlert(ObservableEmitter<Boolean> observableEmitter) {
         new AlertDialog(mActivity).builder()
-                .setTitle("确定结束求购?")
+                .setTitle("确定结束选标?")
                 .setNegativeButton("取消", v -> {
                     observableEmitter.onNext(false);
                     observableEmitter.onComplete();
