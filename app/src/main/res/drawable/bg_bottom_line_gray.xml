@@ -28,15 +28,13 @@
                         <!-- 红色背景 -->
                        
             <item>
-                <color android:color="@color/gray_bg_ed" />
+                <color android:color="@color/gray_btn_bg_pressed_color" />
             </item>
                         <!-- 白色背景 -->
                        
-            <item android:bottom="10dp"  android:drawable="@color/white" />
+            <item android:drawable="@color/color_bg_f5" android:bottom="0.5dp" />
                    
-
-
-        </layer-list >
+        </layer-list>
            
     </item>
 </selector>

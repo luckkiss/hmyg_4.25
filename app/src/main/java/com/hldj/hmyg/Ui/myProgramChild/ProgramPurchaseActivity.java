@@ -369,10 +369,16 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                                     + item.attrData.priceStr + "/" + item.unitTypeName, item.attrData.priceStr));// 3200/株
 
 
-                    helper.setText(tv_program_purch_sub_price_cont_serv_pric,
-                            filterColor("成交单价:" + item.attrData.finalPrice + "",
-                                    item.attrData.finalPrice + "",
-                                    R.color.price_orige));//￥3520(含服务费)
+                    helper.setText(R.id.tv_program_purch_sub_price_cont_serv_pric,
+                            new SpanUtils()
+                                    .append("成交单价：").setForegroundColor(getColorByRes(R.color.text_color666))
+                                    .append(item.attrData.finalPrice + "").setForegroundColor(getColorByRes(R.color.price_orige))
+                                    .create()
+                    );//￥3520(含服务费)
+                    // helper.setText(R.id.tv_program_purch_sub_price_cont_serv_pric,
+//                            filterColor("成交单价:" + item.attrData.finalPrice + "",
+//                                    item.attrData.finalPrice + "",
+//                                    R.color.price_orige));//￥3520(含服务费)
 
 
                     helper.setVisible(tv_program_purch_sub_price_cont_serv_pric, item.attrData.showFinalPrice);
@@ -380,9 +386,16 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                     helper.setVisible(R.id.final_price, item.attrData.showFinalPrice);
 
                     helper.setText(R.id.final_price,
-                            filterColor("小计:" + item.attrData.totalFinalPrice + "",
-                                    item.attrData.totalFinalPrice + "",
-                                    R.color.price_orige));//￥3520(含服务费)
+                            new SpanUtils()
+                                    .append("小计：").setForegroundColor(getColorByRes(R.color.text_color666))
+                                    .append(item.attrData.totalFinalPrice + "").setForegroundColor(getColorByRes(R.color.price_orige))
+                                    .create()
+                    );//￥3520(含服务费)
+
+//                    helper.setText(R.id.final_price,
+//                            filterColor("小计:" + item.attrData.totalFinalPrice + "",
+//                                    item.attrData.totalFinalPrice + "",
+//                                    R.color.price_orige));//￥3520(含服务费)
 
 
                     helper.setBackgroundRes(tv_program_purch_sub_use_state, R.drawable.round_rectangle_bg_btn);//初始化设置drawable
@@ -501,7 +514,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                         //(TextUtils.isEmpty(item.quoteImplementStatus)) ||
                         else if (item.isUsed && (TextUtils.isEmpty(item.quoteImplementStatus)) || item.quoteImplementStatus.equals("uncovered")) {
                             //    显示取消 按钮
-                            helper.setText(tv_program_purch_sub_use_state, "取消");
+                            helper.setText(tv_program_purch_sub_use_state, "取消采用");
 
                             helper.setBackgroundRes(tv_program_purch_sub_use_state, R.drawable.round_rectangle_bg_red);
                             helper.setTextColorRes(tv_program_purch_sub_use_state, R.color.price_orige);
@@ -520,6 +533,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                                     .addOnClickListener(tv_program_purch_sub_use_state, null)
                                     .setSelected(tv_program_purch_sub_use_state, true)
                                     .setTextColorRes(tv_program_purch_sub_use_state, R.color.text_login_type)
+                                    .setVisible(R.id.tv_program_purch_sub_use_state, false)
                                     .setSelected(R.id.imageView, true);
                         } else {//兼容旧数据。。。默认 已采用
                             helper.setText(R.id.tv_program_purch_sub_use_state, "已采用")
@@ -582,8 +596,22 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //                        helper.setText(R.id.tv_program_purch_sub_who_send, "");
 //                    }
 
-                    helper.setText(R.id.tv_program_purch_sub_plant_addt, "苗源地：" + item.cityName);//福建漳州
-                    helper.setText(R.id.tv_program_purch_sub_space_text, "报价说明：" + item.specText + "; " + FUtil.$_zero_2_null(item.remarks) + "  可供数量:" + FUtil.$_zero(item.count));//
+                    helper.setText(R.id.tv_program_purch_sub_plant_addt,
+                            new SpanUtils()
+                                    .append("苗源地：").setForegroundColor(getColorByRes(R.color.text_color666))
+                                    .append(item.cityName).setForegroundColor(getColorByRes(R.color.text_color333))
+                                    .create()
+                    );//福建漳州
+
+                    helper.setText(R.id.tv_program_purch_sub_space_text,
+                            new SpanUtils()
+                                    .append("报价说明：").setForegroundColor(getColorByRes(R.color.text_color666))
+                                    .append(item.specText).setForegroundColor(getColorByRes(R.color.text_color333))
+                                    .append("  可供数量:").setForegroundColor(getColorByRes(R.color.text_color333))
+                                    .append(FUtil.$_zero(item.count)).setForegroundColor(getColorByRes(R.color.text_color333))
+                                    .create()
+
+                    );//
                     helper.setText(R.id.tv_program_purch_sub_remark, item.implementRemarks);//备注
 
 //                    helper.setSelected(R.id.tv_program_purch_sub_is_true, item.quoteImplementStatus.equals("qualified"));
@@ -625,11 +653,25 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
                     if (item.imagesJson.size() != 0) {
                         helper.setVisible(R.id.tv_program_purch_sub_images_count, true);
-                        helper.setText(R.id.tv_bottom_left, filterColor("苗木图片：" + "有" + item.imagesJson.size() + "张图片", item.imagesJson.size() + ""));//
+                        helper.setText(R.id.tv_bottom_left,
+                                new SpanUtils()
+                                        .append("苗木图片：有").setForegroundColor(getColorByRes(R.color.text_color666))
+                                        .append(item.imagesJson.size() + "").setForegroundColor(getColorByRes(R.color.price_orige))
+                                        .append("张图片").setForegroundColor(getColorByRes(R.color.text_color333))
+                                        .create()
+
+                        );//
+                        // filterColor("苗木图片：" + "有" + item.imagesJson.size() + "张图片", item.imagesJson.size() + "")
                     } else {
                         helper.getView(R.id.tv_program_purch_sub_images_count).setVisibility(View.INVISIBLE);
+//"苗木图片：" + "未上传图片"
+                        helper.setText(R.id.tv_bottom_left,
 
-                        helper.setText(R.id.tv_bottom_left, "苗木图片：" + "未上传图片");//
+                                new SpanUtils()
+                                        .append("苗木图片： ").setForegroundColor(getColorByRes(R.color.text_color666))
+                                        .append("未上传图片").setForegroundColor(getColorByRes(R.color.text_color333))
+                                        .create()
+                        );//
                     }
 
 
@@ -819,9 +861,9 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
         SpanUtils spanUtils = new SpanUtils();
         spanUtils.append("已采用：")
                 .append(item.usedCount + "").setForegroundColor(getColorByRes(R.color.red))
-                .append("个品种    ")
+                .append("个品种    ").setForegroundColor(getColorByRes(R.color.text_color333))
                 .append(item.uncoveredCount + "").setForegroundColor(getColorByRes(R.color.red))
-                .append("个品种待落实");
+                .append("个品种待落实").setForegroundColor(getColorByRes(R.color.text_color333));
 /**
  * quoteCount=9, quoteItemCount=9, usedCount=1, uncoveredCount=2,
  */
@@ -829,25 +871,56 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
         helper
                 .setText(R.id.tv_program_purch_pos, (helper.getAdapterPosition() + 1) + "")
                 .setText(R.id.title, "" + item.sellerName)
-                .setText(R.id.tv_pzsl, filterColor("报价品种数量：" + item.quoteItemCount + "个", item.quoteItemCount + ""))
+                .setText(R.id.tv_pzsl,
+                        new SpanUtils()
+                                .append("报价品种数量：")
+                                .append("" + item.quoteItemCount).setForegroundColor(getColorByRes(R.color.red))
+                                .append("个").setForegroundColor(getColorByRes(R.color.text_color333))
+                                .create()
+                )
+                //                        filterColor("报价品种数量：" + item.quoteItemCount + "个", item.quoteItemCount + "")
+
 //                .setText(R.id.tv_ycy, filterColor("已采用：" + item.usedCount + "个品种", item.usedCount + ""))
                 .setText(R.id.tv_ycy, spanUtils.create())
-                .setText(R.id.tv_myd, item.cityNames == null ? "苗源地 ：-" : "苗源地：" + item.cityNames.toString().substring(1, item.cityNames.toString().length() - 1))
+                .setText(R.id.tv_myd, item.cityNames == null ? "苗源地 ：-" :
+                        new SpanUtils()
+                                .append("苗源地：")
+                                .append(item.cityNames.toString().substring(1, item.cityNames.toString().length() - 1)).setForegroundColor(getColorByRes(R.color.text_color333))
+                                .create()
+                )
+                //  "苗源地：" + item.cityNames.toString().substring(1, item.cityNames.toString().length() - 1)
 //                .setText(R.id.tv_right_price, showQuote ? "￥\n" + item.quoteTotalPrice + "起" : "")
 //                .setBackgroundRes(R.id.tv_right_price, showQuote ? 0 : R.mipmap.wkb)
                 .addOnClickListener(R.id.content, v -> {
 //                    ToastUtil.showLongToast("-----------查看详情-----------" + item.sellerId);
                     ProgramPurchaseActivityOnly.title = "" + item.sellerName + "的报价";
-                    Log.i(TAG, "xuanran: "+item.toString());
+                    Log.i(TAG, "xuanran: " + item.toString());
                     /*  已开标 */
                     if (showQuote) {
-                        ProgramPurchaseActivityOnly.totlePrice = String.format("供应商名称：%s\n联系电话：%s",item.sellerName,item.sellerPhone);
+                        ProgramPurchaseActivityOnly.totlePrice =
+                                new SpanUtils()
+                                        .append("供应商名称：").setForegroundColor(getColorByRes(R.color.text_color666))
+                                        .append(item.sellerName + "\n").setForegroundColor(getColorByRes(R.color.text_color333))
+                                        .append("联系电话：").setForegroundColor(getColorByRes(R.color.text_color666))
+                                        .append(item.sellerPhone).setForegroundColor(getColorByRes(R.color.text_color333))
+                                        .create()
+
+//                                String.format("供应商名称：%s\n联系电话：%s", item.sellerName, item.sellerPhone)
+
+                        ;
 //                        textView1.setText("供应商名称：花木易购供应商1\n联系电话：17074990702" + "");
                     } else {
                         /* 未开标 */
 //                        ProgramPurchaseActivityOnly.totlePrice = "";
 //                        ProgramPurchaseActivityOnly.totlePrice = "￥ " + item.quoteTotalPrice + " 起";
-                        ProgramPurchaseActivityOnly.totlePrice = String.format("供应商名称：%s\n联系电话：%s",item.sellerName,item.sellerPhone);
+                        ProgramPurchaseActivityOnly.totlePrice =
+                                new SpanUtils()
+                                        .append("供应商名称：").setForegroundColor(getColorByRes(R.color.text_color666))
+                                        .append(" item.sellerName").setForegroundColor(getColorByRes(R.color.text_color333))
+                                        .appendLine("联系电话：").setForegroundColor(getColorByRes(R.color.text_color666))
+                                        .append(item.sellerPhone).setForegroundColor(getColorByRes(R.color.text_color333))
+                                        .create()
+                        ;
                     }
                     //"sellerName":"刘俊贤-华苑供应商","sellerPhone":"13501505325",
 
@@ -954,8 +1027,22 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
         setText(getView(R.id.tv_program_pur_close_time), "开标时间：" + purchaseBean.purchase.closeDate);
 
 
-        if (purchaseBean.purchase.num != null)
+//        if (purchaseBean.purchase.num != null)
+//            ((TextView) getView(R.id.tv_activity_purchase_back)).setText(purchaseBean.purchase.num);
+
+
+        if (getExtralState().equals(PurchaseStatus.expired.enumValue)) {
+            ((TextView) getView(R.id.tv_activity_purchase_back)).setText(PurchaseStatus.expired.enumText);
+        } else if (getExtralState().equals(PurchaseStatus.published.enumValue)) {
+            ((TextView) getView(R.id.tv_activity_purchase_back)).setText(PurchaseStatus.published.enumText);
+
+        } else if (getExtralState().equals(PurchaseStatus.finished.enumValue)) {
+            ((TextView) getView(R.id.tv_activity_purchase_back)).setText(PurchaseStatus.finished.enumText);
+
+        } else {
+            if (purchaseBean.purchase.num != null) ;
             ((TextView) getView(R.id.tv_activity_purchase_back)).setText(purchaseBean.purchase.num);
+        }
 
 
         TextView tv_program_purchase_tip = getView(R.id.tv_program_purchase_tip);
@@ -1159,7 +1246,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
     public SpannableStringBuilder filterColor(String wholeStr, String hightLightStr) {
 
-        return filterColor(wholeStr, hightLightStr, R.color.red);
+        return filterColor(wholeStr, hightLightStr, R.color.price_orige);
     }
 
     public SpannableStringBuilder filterColor(String wholeStr, String hightLightStr, int color) {

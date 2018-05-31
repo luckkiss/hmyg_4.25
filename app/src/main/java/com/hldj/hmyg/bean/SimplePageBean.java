@@ -11,9 +11,9 @@ public class SimplePageBean<T> implements Serializable {
     /**
      * =============json=========={"code":"1","msg":"操作成功"}
      */
-    public Integer pageNo ;
-    public Integer pageSize;
-    public Integer total ;
+    public int pageNo ;
+    public int pageSize;
+    public int total ;
     public T data;
   
 }

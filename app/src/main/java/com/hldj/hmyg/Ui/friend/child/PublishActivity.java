@@ -748,7 +748,7 @@ public class PublishActivity extends BaseMVPActivity {
 
     public void addVideo(String path, String screen) {
 
-        ToastUtil.showLongToast("path = " + path);
+//        ToastUtil.showLongToast("path = " + path);
         Log.i(TAG, "addVideo: " + path);
 
         doShowVideo(path, screen);

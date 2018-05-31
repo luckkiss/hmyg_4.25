@@ -23,13 +23,14 @@ public class DispatcherActivity extends BaseWebViewActivity {
 
     @Override
     public String setTitle() {
+//        D.i("baseUrl ----- " + BaseUrl());
         return "调度专员";
     }
 
     @Override
     public String BaseUrl() {
         String head = GetServerUrl.getHtmlUrl();
-        return head + "page/dispatch.html?isApp=true";
+        return head + "page/dispatch.html?isApp=true&time=" + System.currentTimeMillis();
     }
 
     @Override

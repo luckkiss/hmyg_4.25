@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@color/main_color"
         android:gravity="center"
         android:minHeight="18dp"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:maxWidth="200dp"
         android:singleLine="true"
         android:textColor="@color/text_color333"
@@ -42,14 +42,15 @@
 
     <TextView
         android:id="@+id/tv_program_purch_space_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_zzlx"
-        tools:text="spacetext" />
+        tools:text="spacetextspacetextspaaspacetextspacetextspaacetextspacetextspacetextspaacetextcetext" />
 
     <View
         android:id="@+id/textView9"
@@ -137,7 +138,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:textColor="@color/actionsheet_red"
         app:layout_constraintLeft_toRightOf="@+id/tv_program_purch_name"
         app:layout_constraintTop_toTopOf="parent"

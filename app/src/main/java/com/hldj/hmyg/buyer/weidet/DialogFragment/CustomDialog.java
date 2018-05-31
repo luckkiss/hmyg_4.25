@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.util.D;
 
 import java.io.Serializable;
 
@@ -80,8 +81,15 @@ public class CustomDialog extends Dialog implements Serializable {
     @Override
     public void show() {
 
-//        if (!((Activity) getContext()).isFinishing()) {
-        super.show();
+        if (!mActivity.isFinishing()) {
+            try {
+                super.show();
+            } catch (Exception e) {
+                D.w("-----------------" + e.getMessage());
+            }
+        }
+
+
 
 
         ImageView img = (ImageView) this.findViewById(R.id.iv_amin_flowar);
@@ -89,7 +97,7 @@ public class CustomDialog extends Dialog implements Serializable {
         // 加载动画
         mAnimationDrawable = (AnimationDrawable) img.getDrawable();
         // 默认进入页面就开启动画
-        if (mAnimationDrawable!=null &&  !mAnimationDrawable.isRunning()) {
+        if (mAnimationDrawable != null && !mAnimationDrawable.isRunning()) {
             mAnimationDrawable.start();
         }
 //        }
@@ -101,7 +109,7 @@ public class CustomDialog extends Dialog implements Serializable {
 //        if ( !((Activity) getContext()).isFinishing()) {
         super.dismiss();
         // 默认进入页面就开启动画
-        if (mAnimationDrawable!=null &&  mAnimationDrawable.isRunning()) {
+        if (mAnimationDrawable != null && mAnimationDrawable.isRunning()) {
             mAnimationDrawable.stop();
         }
 //        }

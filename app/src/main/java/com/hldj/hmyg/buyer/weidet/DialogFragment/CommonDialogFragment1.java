@@ -10,9 +10,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.hldj.hmyg.util.D;
+import com.hy.utils.ToastUtil;
 
 /**
  * Created by Administrator on 2017/4/27.
@@ -65,7 +69,7 @@ public class CommonDialogFragment1 extends DialogFragment {
         }
         if (getActivity() != null && !getActivity().isFinishing()) {
             return mOnCallDialog.getDialog(getActivity());
-        } else  {
+        } else {
             return mOnCallDialog.getDialog(mContent);
         }
 
@@ -121,4 +125,16 @@ public class CommonDialogFragment1 extends DialogFragment {
         }
     }
 
+
+    @Override
+    public int show(FragmentTransaction transaction, String tag) {
+        ToastUtil.showLongToast("显示了");
+        try {
+            return super.show(transaction, tag);
+        } catch (Exception e) {
+            D.w("错误了-----" + e.getMessage());
+            return -1;
+        }
+
+    }
 }

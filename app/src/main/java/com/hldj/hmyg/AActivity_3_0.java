@@ -1484,6 +1484,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         Log.i(TAG, "-----首页发布-- publish(Activity mActivity)--- ");
         CommonDialogFragment1.newInstance(context -> {
+            if (context == null) {
+                context = mActivity;
+            }
             Dialog dialog1 = new Dialog(context);
             dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog1.setContentView(R.layout.item_home_type);

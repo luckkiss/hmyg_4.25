@@ -30,6 +30,8 @@ public abstract class HandlerAjaxCallBackPage<E> extends AjaxCallBack<String> {
     Type type;
     Class classTypeResponse; // 响应的 respong class
 
+    OnTotalCallBack totalCallBack;
+
     private NeedSwipeBackActivity needSwipeBackActivity;
 //    private Class<T> mClass;
 
@@ -55,6 +57,13 @@ public abstract class HandlerAjaxCallBackPage<E> extends AjaxCallBack<String> {
         this.type = type;
         this.needSwipeBackActivity = activity;
         this.mCoreRecyclerView = recyclerView;
+    }
+
+
+    public HandlerAjaxCallBackPage(NeedSwipeBackActivity activity, Type type, OnTotalCallBack totalCallBack) {
+        this.type = type;
+        this.needSwipeBackActivity = activity;
+        this.totalCallBack = totalCallBack;
     }
 
 
@@ -97,6 +106,15 @@ public abstract class HandlerAjaxCallBackPage<E> extends AjaxCallBack<String> {
                 //执行成功操作
                 //E = List<SaveSeedingGsonBean.DataBean.SeedlingBean>
                 onRealSuccess((List<E>) gsonBean_test.data.page.data);
+
+                if (totalCallBack != null) {
+                    try {
+                        totalCallBack.onToatl(gsonBean_test.data.page.total);
+                    } catch (Exception e) {
+                        totalCallBack.onToatl(0);
+                    }
+                }
+
             } else {
                 //执行失败操作
                 ToastUtil.showShortToast((gsonBean_test).msg);
@@ -158,5 +176,9 @@ public abstract class HandlerAjaxCallBackPage<E> extends AjaxCallBack<String> {
         }
     }
 
+
+    public static interface OnTotalCallBack {
+        void onToatl(int total);
+    }
 
 }

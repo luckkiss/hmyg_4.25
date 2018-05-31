@@ -39,6 +39,7 @@ import com.hldj.hmyg.util.MLocationManager;
 import com.hldj.hmyg.util.MyUtil;
 import com.hldj.hmyg.util.StartBarUtils;
 import com.hldj.hmyg.widget.MainRadioButton;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.white.update.UpdateInfo;
 import com.white.utils.SettingUtils;
 
@@ -239,8 +240,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
     public static void toD() {
 
-        if (!LoginUtil.toLogin(( instance)))
-        {
+        if (!LoginUtil.toLogin((instance))) {
 
             return;
 
@@ -300,8 +300,14 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 //                    return;
 //                }
 
-                MainRadioButton tab_c = findViewById(R.id.tab_d);
-                tab_c.setShowSmallDot(false);
+
+                try {
+                    MainRadioButton tab_c = findViewById(R.id.tab_d);
+                    tab_c.setShowSmallDot(false);
+                } catch (Exception e) {
+                    CrashReport.postCatchedException(new Exception("强转失败了,某些机型吗?"));
+                }
+
 
                 break;
             case R.id.tab_e:
@@ -313,8 +319,13 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                     check = "5";
                 }
 
-                MainRadioButton tab_e = findViewById(R.id.tab_e);
-                tab_e.setShowSmallDot(false);
+
+                try {
+                    MainRadioButton tab_e = findViewById(R.id.tab_e);
+                    tab_e.setShowSmallDot(false);
+                } catch (Exception e) {
+                    CrashReport.postCatchedException(new Exception("强转失败了,某些机型吗?"));
+                }
 //                tab_e.setCompoundDrawablePadding(20);
 
 

@@ -121,6 +121,7 @@
                 android:background="@color/trans"
                 android:foreground="?attr/selectableItemBackground"
                 android:text="花币获得明细"
+                android:textSize="@dimen/textSizeContent"
                 android:textColor="@color/price_orige" />
 
             <Button
@@ -131,6 +132,7 @@
                 android:background="@color/trans"
                 android:foreground="?attr/selectableItemBackground"
                 android:text="已邀请好友"
+                android:textSize="@dimen/textSizeContent"
                 android:textColor="@color/text_color666" />
 
         </LinearLayout>

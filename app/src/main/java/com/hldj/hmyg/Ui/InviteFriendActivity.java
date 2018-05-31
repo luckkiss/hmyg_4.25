@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.zxing.WriterException;
 import com.hldj.hmyg.M.IntegralBean;
@@ -40,6 +42,9 @@ public class InviteFriendActivity extends BaseMVPActivity {
 
     OptionItemView top;
 
+
+  TextView toolbar_right_text ;
+
     @Override
     public int bindLayoutID() {
         return R.layout.activity_invite_friend;
@@ -48,6 +53,17 @@ public class InviteFriendActivity extends BaseMVPActivity {
 
     @Override
     public void initView() {
+
+        toolbar_right_text =  getView(R.id.toolbar_right_text);
+        toolbar_right_text.setVisibility(View.VISIBLE);
+
+        toolbar_right_text.setText("邀请记录");
+        toolbar_right_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InviteFriendListActivity.start(mActivity);
+            }
+        });
 //        Platform.ShareParams sp2 = new Platform.ShareParams();
 //        sp2.setShareType(Platform.SHARE_WEBPAGE);
 //        sp2.setTitle("花木易购APP下载 ");

@@ -2,8 +2,11 @@ package com.hldj.hmyg.Ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
@@ -19,6 +22,7 @@ import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantParams;
+import com.hy.utils.SpanUtils;
 import com.lqr.optionitemview.OptionItemView;
 import com.mabeijianxi.smallvideorecord2.Log;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -41,9 +45,13 @@ public class InviteFriendListActivity extends BaseMVPActivity {
     @ViewInject(id = R.id.recycle)
     CoreRecyclerView recycle;
 
+    @ViewInject(id = R.id.show_total)
+    TextView show_total;
+
     List<IntegralBean> integralBeens;
 
     OptionItemView top;
+
 
     @Override
     public int bindLayoutID() {
@@ -130,12 +138,22 @@ public class InviteFriendListActivity extends BaseMVPActivity {
         ImageLoader.getInstance().displayImage(item.headImage, (de.hdodenhof.circleimageview.CircleImageView) helper.getView(R.id.circleImageView));
 
         helper
-                .setText(R.id.title, item.displayName)
+                .setText(R.id.title, item.phone)
                 .setText(R.id.content, item.timeStampStr + "  " + item.cityName)
-                .setVisible(R.id.fensi, false)
-
-
+                .setVisible(R.id.fensi, true)
+                .setText(R.id.fensi, item.displayName)
+                .setBackgroundColor(R.id.fensi, Color.TRANSPARENT)
+                .setTextColorRes(R.id.fensi, R.color.text_color999)
         ;
+        helper.getView(R.id.fensi).setPadding(0, 0, 0, 0);
+
+//        layout_constraintVertical_bias
+
+        TextView textView = helper.getView(R.id.fensi);
+
+        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textView.getLayoutParams();
+        layoutParams.verticalBias = 0.3f;
+        textView.setLayoutParams(layoutParams);
 
         helper.getConvertView().setOnClickListener(v -> {
             HeadDetailActivity.start(mActivity, item.id);
@@ -165,27 +183,41 @@ public class InviteFriendListActivity extends BaseMVPActivity {
 
         new BasePresenter()
                 .putParams(ConstantParams.pageIndex, page + "")
-                .doRequest("admin/user/invitelog", true, new HandlerAjaxCallBackPage<UserBean>(mActivity, type) {
-                    @Override
-                    public void onRealSuccess(List<UserBean> userBeans) {
+                .doRequest("admin/user/invitelog", true,
+                        new HandlerAjaxCallBackPage<UserBean>(mActivity, type,
+                                this::setTotalText) {
+                            @Override
+                            public void onRealSuccess(List<UserBean> userBeans) {
 
-                        Log.d("==================");
-                        recycle.getAdapter().addData(userBeans);
+                                Log.d("==================");
+                                recycle.getAdapter().addData(userBeans);
 
 
-                    }
+                            }
 
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        recycle.selfRefresh(false);
-                    }
-                });
+                            @Override
+                            public void onFinish() {
+                                super.onFinish();
+                                recycle.selfRefresh(false);
+                            }
+                        });
     }
 
 
     @Override
     public String setTitle() {
         return "邀请好友记录";
+    }
+
+
+    public void setTotalText(int totalText) {
+        ;
+        show_total.setText(new SpanUtils()
+                .append("共邀请了")
+                .append("" + totalText).setForegroundColor(getColorByRes(R.color.red))
+                .append("个好友")
+                .create());
+        show_total.setVisibility(totalText == 0 ? View.GONE : View.VISIBLE);
+
     }
 }

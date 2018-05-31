@@ -410,6 +410,7 @@ public class MyReceiver extends BroadcastReceiver {
 
                 SettingActivity.clearCache(MyApplication.Userinfo.edit());
                 Intent intent1 = new Intent(mContent, LoginOutDialogActivity.class);
+                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContent.startActivity(intent1);
             }
         } catch (JSONException e) {
