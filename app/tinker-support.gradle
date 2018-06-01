@@ -9,7 +9,7 @@ def bakPath = file("${buildDir}/bakApk/")
 //def baseApkDir = "app-0926-12-54-35"   3.0.5. 1
 //def baseApkDir = "app-1030-15-54-46"    // 3.0.5release
 
-def baseApkDir = ""    //app-0326-17-24-27
+def baseApkDir = "app-0531-18-04-21"    //app-0326-17-24-27
 //def baseApkDir = "app-1229-10-02-35"    //
 
 //def baseApkDir = ""    // 3.0.5fix1
