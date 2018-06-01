@@ -194,12 +194,14 @@
             <com.coorchice.library.SuperTextView
                 android:id="@+id/marks"
                 android:layout_width="0dp"
-                android:layout_height="21dp"
+                android:layout_height="wrap_content"
+                android:minHeight="21dp"
                 android:layout_weight="0.8"
                 android:gravity="center_vertical|start"
                 android:paddingRight="5dp"
                 android:textSize="12sp"
-                tools:text="假植苗" />
+                android:layout_gravity="center_vertical"
+                tools:text="假植苗假植苗假植苗假植苗假植苗假植苗假植苗假植苗假植苗假植苗假植苗假植苗" />
 
 
         </LinearLayout>

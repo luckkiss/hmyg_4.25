@@ -562,7 +562,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
                 })
                 .openRefresh()
                 .openLoadMore(10, page -> {
-                    requestData(0);
+                    requestData(page);
                 });
 
 //        BuyForUserActivity.
