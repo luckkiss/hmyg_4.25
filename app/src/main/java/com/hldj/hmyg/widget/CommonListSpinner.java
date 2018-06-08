@@ -17,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -280,10 +281,19 @@ public class CommonListSpinner {
     public void dismiss() {
         D.e("========dismiss=========");
 
-
+        if (onDismissListener != null) {
+            onDismissListener.onDismiss(null);
+        }
         selectPopupWindow.dismiss();
     }
 
+
+    PopupMenu.OnDismissListener onDismissListener;
+
+    public CommonListSpinner setOnDismissListener(PopupMenu.OnDismissListener onDismissListener) {
+        this.onDismissListener = onDismissListener;
+        return this;
+    }
 
     class SortListAdapter extends BaseAdapter {
 

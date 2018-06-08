@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:gravity="center_vertical"
     android:orientation="horizontal">
@@ -27,17 +28,18 @@
         android:layout_toLeftOf="@+id/iv_view_type"
         android:layout_toRightOf="@+id/toolbar_left_icon"
         android:background="@drawable/conner_edit"
-        android:drawableLeft="@drawable/sousuo2"
+        android:drawableLeft="@drawable/search_icon"
         android:drawablePadding="6dp"
-
         android:hint="品种名称/用户名称"
         android:imeOptions="actionSearch"
+        app:clear_left_width="15dp"
+        app:clear_left_height="15dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:singleLine="true"
         android:textColor="@color/text_color111"
         android:textColorHint="@color/hint_text_color"
-        android:textSize="15sp" />
+        android:textSize="16sp" />
 
 
     <TextView

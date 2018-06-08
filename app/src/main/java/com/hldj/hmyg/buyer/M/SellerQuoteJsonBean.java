@@ -94,7 +94,7 @@ public class SellerQuoteJsonBean implements Serializable {
     public AttrData attrData = new AttrData();
 
 
-    public static class AttrData{
+    public static class AttrData implements Serializable{
         public int quoteUsedCountJson ;
         public int quotePreUsedCountJson ;
     }

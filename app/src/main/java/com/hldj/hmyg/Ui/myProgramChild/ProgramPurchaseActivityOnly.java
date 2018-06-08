@@ -68,7 +68,7 @@ public class ProgramPurchaseActivityOnly extends ProgramPurchaseActivity {
      TextView   textView1 = headView.findViewById(R.id.tv_content_head);
         textView1.setText(totlePrice);
 
-        textView1.setLineSpacing(0.0f, 1.4f);
+//        textView1.setLineSpacing(0.0f, 1.4f);
 //        textView1.setBackground(getResources().getDrawable(R.drawable.bg_bottom_line_gray_20));
 //        textView1.setTextSize(15);
         textView1.setTextColor(getColorByRes(R.color.text_color666));

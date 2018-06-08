@@ -55,10 +55,7 @@
             android:textColor="@color/text_color666" />
 
         <View
-            android:layout_width="2px"
-            android:layout_height="22dp"
-            android:layout_gravity="center_vertical"
-            android:background="@color/divider_color"  android:layout_marginRight="8dp"/>
+           style="@style/View_line_vertical" android:layout_marginRight="8dp"/>
 
         <ImageView
             android:id="@+id/iv_store_l_g"

@@ -20,6 +20,7 @@ import com.hldj.hmyg.buyer.Ui.LoginOutDialogActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.FinalDb;
 
@@ -379,7 +380,7 @@ public class MyReceiver extends BroadcastReceiver {
 
             String title = jsonObject.getString("title");
             String message = jsonObject.getString("message");
-//            ToastUtil.showPointAdd(title, message);
+            ToastUtil.showPointAdd(title, message);
 
 
         } catch (JSONException e) {

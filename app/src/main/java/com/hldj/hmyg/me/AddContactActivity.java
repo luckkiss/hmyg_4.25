@@ -19,7 +19,7 @@ import com.hldj.hmyg.bean.TongXunGsonBean;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
-import com.hldj.hmyg.saler.P.BaseRxPresenter;
+import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ContactInfoParser;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
@@ -305,7 +305,7 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
                     public void subscribe(ObservableEmitter<List<TongXunGsonBean.DataBean.UserDataBean>> e) throws Exception {
                         java.lang.reflect.Type type = new TypeToken<SimpleGsonBean_new<SimplePageBean<List<ContactInfoParser.ContactInfo>>>>() {
                         }.getType();
-                        new BaseRxPresenter()
+                        new BasePresenter()
                                 .putParams("mobileData", GsonUtil.Bean2Json(contactInfos))
                                 .doRequest("admin/userFollow/matchMobileUser", true, new AjaxCallBack<String>() {
                                     @Override

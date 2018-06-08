@@ -11,12 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hldj.hmyg.CallBack.search.IRefresh;
+import com.hldj.hmyg.CallBack.search.ISearch;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.CollectGsonBean;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
+import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
@@ -32,7 +35,7 @@ import static com.hldj.hmyg.saler.Ui.Fragment1.doConvert;
  * Created by Administrator on 2017/5/2.
  */
 
-public class Fragment3 extends Fragment {
+public class Fragment3 extends Fragment implements IRefresh{
 
 
 
@@ -123,12 +126,13 @@ public class Fragment3 extends Fragment {
     }
 
 
-    private void initData(int pageIndex) {
+    public void initData(int pageIndex) {
         FinalHttp finalHttp = new FinalHttp();
         GetServerUrl.addHeaders(finalHttp, true);
         AjaxParams params = new AjaxParams();
         params.put("status", "unused");
         params.put("pageSize", 6 + "");
+        params.put(ConstantParams.searchKey,getSearchKey());
         params.put("pageIndex", pageIndex + "");
         finalHttp.post(GetServerUrl.getUrl() + "admin/quote/list", params, new AjaxCallBack<String>() {
 
@@ -150,5 +154,20 @@ public class Fragment3 extends Fragment {
                 recyclerView.selfRefresh(false);
             }
         });
+    }
+    private String getSearchKey() {
+        if (mActivity != null && mActivity instanceof ISearch)
+        {
+            return ((ISearch) mActivity).getSearchKey();
+        } else {
+            return "";
+        }
+    }
+
+
+    @Override
+    public void onRefresh(String searchKey) {
+        recyclerView.selfRefresh(true);
+        recyclerView.onRefresh();
     }
 }

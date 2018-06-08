@@ -2,11 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hldj.hmyg"
-    android:versionCode="93"
-    android:versionName="4.0.2">
+    android:versionCode="94"
+    android:versionName="4.0.2_1">
 
-<!--     android:versionCode="92"
-    android:versionName="4.0.1"> -->
+
+    <!-- android:versionCode="93"
+    android:versionName="4.0.2">-->
+
+    <!--     android:versionCode="92"
+        android:versionName="4.0.1"> -->
     <!-- android:versionCode="91"
     android:versionName="4.0.0_release">-->
 
@@ -209,7 +213,7 @@
 
         <activity
             android:name="com.hldj.hmyg.SplashActivity"
-              
+
             android:theme="@style/FullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -225,7 +229,7 @@
         <activity
             android:name="com.hldj.hmyg.MainActivity"
             android:launchMode="singleTask"
-              
+
             android:theme="@style/AppMainTheme"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -266,24 +270,26 @@
         <activity
             android:name="cn.hugo.android.scanner.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
-              
+
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
             android:name="com.hldj.hmyg.AActivity_3_0"
             android:launchMode="singleTask" />
+
+        <activity android:name="com.hldj.hmyg.AActivity_3_0_fast" />
         <activity
             android:name=".Ui.friend.FriendCycleActivity"
-              
+
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".Ui.friend.child.PushListActivity"
-              
+
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".Ui.friend.FriendCycleSearchActivity"
-              
+
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <!---->
         <!-- android:windowSoftInputMode="adjustPan|stateHidden"-->
@@ -296,21 +302,21 @@
         <activity android:name=".Ui.friend.child.MarchingPurchaseActivity" />
         <activity
             android:name=".Ui.friend.child.DetailActivity"
-              
+
             android:windowSoftInputMode="adjustPan" />
 
 
         <activity
             android:name=".Ui.friend.child.PublishActivity"
-              
+
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".Ui.friend.child.CenterActivity"
-              
+
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".Ui.friend.child.SearchActivity"
-              
+
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
@@ -326,8 +332,7 @@
             android:launchMode="standard" />
         <activity
             android:name="com.hldj.hmyg.SeedlingMarketWebActivity"
-            android:launchMode="singleTask"
-              ></activity>
+            android:launchMode="singleTask"></activity>
 
         <activity
             android:name="com.hldj.hmyg.DActivity_new"
@@ -368,21 +373,17 @@
 
         <activity
             android:name="com.hldj.hmyg.SafeAcountActivity"
-            android:launchMode="singleTask"
-              ></activity>
+            android:launchMode="singleTask"></activity>
         <activity android:name="com.hldj.hmyg.StoreActivity" />
         <activity
             android:name="com.hldj.hmyg.Ui.StoreActivity_new"
-              
+
             android:theme="@style/e_activity_theme" />
         <activity android:name="com.hldj.hmyg.Ui.StoreDetailActivity" />
-        <activity
-            android:name="com.hldj.hmyg.store.StoreTypeActivity"
-              ></activity>
+        <activity android:name="com.hldj.hmyg.store.StoreTypeActivity"></activity>
         <activity
             android:name="com.meinvtupian.album.ImagePagerActivity"
-            android:launchMode="singleTask"
-              ></activity>
+            android:launchMode="singleTask"></activity>
         <activity
             android:name="com.hldj.hmyg.FlowerDetailActivity"
             android:theme="@style/e_activity_theme" />
@@ -391,16 +392,15 @@
         <!--android:theme="@style/e_activity_theme"-->
         <activity
             android:name="com.hldj.hmyg.GalleryImageActivity"
-              
+
             android:theme="@style/FullScreenTheme" />
         <activity
             android:name="com.hldj.hmyg.GalleryImageActivity_new"
-              
+
             android:theme="@style/FullScreenTheme" />
         <activity
             android:name="com.hldj.hmyg.MessageListActivity"
-            android:launchMode="singleTask"
-              >
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="com.jpush.hmeg.message" />
 
@@ -410,13 +410,9 @@
         <activity android:name=".MessageListDetailActivity" />
 
         <activity android:name="com.hldj.hmyg.buyer.Ui.QuoteListActivity_bak" />
-        <activity
-            android:name="com.hldj.hmyg.buyer.AddPurchaseActivity"
-              ></activity>
+        <activity android:name="com.hldj.hmyg.buyer.AddPurchaseActivity"></activity>
 
-        <activity
-            android:name="com.hldj.hmyg.saler.SearchActivity"
-              ></activity>
+        <activity android:name="com.hldj.hmyg.saler.SearchActivity"></activity>
 
 
         <!--一轮报价-->
@@ -449,17 +445,17 @@
 
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.DialogActivityPackage"
-              
+
             android:theme="@style/dialog_activity"
             android:windowSoftInputMode="stateHidden" />
 
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity"
-              
+
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity
             android:name="com.hldj.hmyg.buyer.Ui.PurchaseDetailActivityChange"
-              
+
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
 
         <activity
@@ -493,39 +489,34 @@
             android:launchMode="singleTask" />
         <activity
             android:name="com.hldj.hmyg.SetPasswardActivity"
-            android:launchMode="singleTask"
-              ></activity>
+            android:launchMode="singleTask"></activity>
         <activity android:name="com.hldj.hmyg.SetPasswardByGetCodeActivity" />
 
-        <activity
-            android:name="com.hldj.hmyg.SetPhoneByGetCodeActivity"
-              ></activity>
+        <activity android:name="com.hldj.hmyg.SetPhoneByGetCodeActivity"></activity>
 
 
         <!-- 相片界面 -->
         <activity
             android:name="com.zzy.flowers.activity.photoalbum.PhotoActivity"
-              
+
             android:windowSoftInputMode="adjustUnspecified|adjustResize|stateHidden"></activity>
         <activity
             android:name="com.zzy.flowers.activity.photoalbum.PhotoAlbumActivity"
-              
+
             android:windowSoftInputMode="adjustUnspecified|adjustResize|stateHidden"></activity>
         <!-- e -->
         <!-- 图片预览编辑界面 -->
         <activity
             android:name="com.zzy.flowers.activity.photoalbum.EditGalleryImageActivity"
-              
+
             android:windowSoftInputMode="adjustUnspecified|adjustResize|stateHidden"></activity>
         <!-- 选择相片预览界面 -->
         <activity
             android:name="com.hldj.hmyg.saler.ChoosePhotoGalleryActivity"
-              
+
             android:windowSoftInputMode="adjustUnspecified|adjustResize|stateHidden"></activity>
 
-        <activity
-            android:name="com.hldj.hmyg.saler.SaveSeedlingActivity"
-              ></activity>
+        <activity android:name="com.hldj.hmyg.saler.SaveSeedlingActivity"></activity>
 
 
         <activity android:name="com.hldj.hmyg.saler.SaveSeedlingActivity_change_data" />
@@ -533,15 +524,11 @@
 
 
         <!--android:windowSoftInputMode="adjustUnspecified|stateHidden"-->
-        <activity
-            android:name="com.hldj.hmyg.saler.SubscribeManagerListActivity"
-              ></activity>
-        <activity
-            android:name="com.hldj.hmyg.saler.SubscribeSearchListActivity"
-              ></activity>
+        <activity android:name="com.hldj.hmyg.saler.SubscribeManagerListActivity"></activity>
+        <activity android:name="com.hldj.hmyg.saler.SubscribeSearchListActivity"></activity>
         <activity
             android:name="com.hldj.hmyg.saler.purchase.PurchasePyMapActivity"
-              
+
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity android:name="com.hldj.hmyg.saler.purchase.PurchaseHistoryActivity" />
 
@@ -555,27 +542,19 @@
         <activity android:name="com.hldj.hmyg.saler.purchase.userbuy.PublishForUserListActivity" />
         <!--用户报价界面  -->
 
-        <activity
-            android:name="com.hldj.hmyg.saler.EventsActivity"
-              ></activity>
-        <activity
-            android:name="com.hldj.hmyg.saler.SavePriceAndCountAndOutlineActivity"
-              ></activity>
+        <activity android:name="com.hldj.hmyg.saler.EventsActivity"></activity>
+        <activity android:name="com.hldj.hmyg.saler.SavePriceAndCountAndOutlineActivity"></activity>
 
-        <activity
-            android:name="com.hldj.hmyg.saler.StoreSettingActivity"
-              ></activity>
+        <activity android:name="com.hldj.hmyg.saler.StoreSettingActivity"></activity>
         <activity android:name="com.hldj.hmyg.saler.UpdataImageActivity" />
         <activity android:name="com.hldj.hmyg.saler.UpdataImageActivity_bak" />
 
         <activity
             android:name="com.hldj.hmyg.SellectActivity2"
-              
+
             android:windowSoftInputMode="adjustPan" />
         <!--stateunspeciedadjustPan-->
-        <activity
-            android:name="com.hldj.hmyg.saler.ChooseFirstTypeActivity"
-              ></activity>
+        <activity android:name="com.hldj.hmyg.saler.ChooseFirstTypeActivity"></activity>
 
         <activity android:name="com.hldj.hmyg.saler.Ui.ManagerQuoteListItemDetail" />
         <activity android:name="com.hldj.hmyg.saler.Ui.ManagerQuoteListItemDetail_new" />
@@ -586,30 +565,23 @@
 
         <activity
             android:name="com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new"
-            android:launchMode="singleTask" />
-        <activity
-            android:name="com.hldj.hmyg.saler.StorageSaveActivity"
-              ></activity>
+            android:launchMode="singleTask"  android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity android:name="com.hldj.hmyg.saler.StorageSaveActivity"></activity>
 
-        <activity
-            android:name="com.hldj.hmyg.saler.purchaseconfirmlist.ConfirmWebActivity"
-              ></activity>
+        <activity android:name="com.hldj.hmyg.saler.purchaseconfirmlist.ConfirmWebActivity"></activity>
 
 
         <activity
             android:name="com.hldj.hmyg.BuyerValidateApplyListActivity"
-            android:launchMode="singleTask"
-              ></activity>
+            android:launchMode="singleTask"></activity>
 
 
         <activity
             android:name="com.hldj.hmyg.BuyerListDetailActivity"
-            android:launchMode="singleTask"
-              ></activity>
+            android:launchMode="singleTask"></activity>
         <activity
             android:name="com.hldj.hmyg.BuyOrderActivity"
-            android:launchMode="singleTask"
-              ></activity>
+            android:launchMode="singleTask"></activity>
 
 
         <activity android:name="com.hldj.hmyg.ManagerListActivity_new" />
@@ -792,7 +764,7 @@
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
-              
+
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -818,7 +790,7 @@
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-              
+
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
@@ -830,27 +802,27 @@
 
         <activity
             android:name="com.photo.choosephotos.photoviewer.photoviewerinterface.ImageViewerActivity"
-              
+
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name="com.photo.choosephotos.photoviewer.photoviewerinterface.ViewPagerActivity"
-              
+
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name="com.photo.choosephotos.photoviewer.photoviewerinterface.ViewPagerDeleteActivity"
-              
+
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name="com.photo.choosephotos.photoviewer.photoviewerinterface.ViewPagerBitmapActivity"
-              
+
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name="com.photo.choosephotos.photo.PhotoActivity"
-              
+
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name="com.photo.choosephotos.photo.PhotoAlbumActivity"
-              
+
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity android:name="me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
@@ -863,14 +835,14 @@
         <activity android:name=".Ui.jimiao.SellectMiaoActivity" />
         <activity
             android:name=".Ui.jimiao.MiaoDetailActivity"
-              
+
             android:theme="@style/e_activity_theme" />
 
 
         <activity
             android:name="com.zxing.activity.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
-              
+
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
@@ -882,15 +854,15 @@
             android:theme="@style/FullScreenTheme" />
         <activity
             android:name="com.mabeijianxi.smallvideo2.VideoPlayerActivity"
-              
+
             android:theme="@style/FullScreenTheme" />
         <activity
             android:name="com.mabeijianxi.smallvideo2.VideoPlayerActivity2"
-              
+
             android:theme="@style/FullScreenTheme" />
         <activity
             android:name="com.mabeijianxi.smallvideo2.VideoActivity"
-              
+
             android:theme="@style/FullScreenTheme" />
 
         <!--<provider-->

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.friend.bean.enums.MomentsType;
@@ -32,11 +33,12 @@ public class FriendUtil {
     /**
      * 排序 显示位置不对. 小米上正确
      */
-    public static CommonListSpinner CreateSortSpinner(Activity activity, OnSortSelectListener selectListener, View p) {
+    public static CommonListSpinner CreateSortSpinner(Activity activity, OnSortSelectListener selectListener , PopupMenu.OnDismissListener onDismissListener, View p) {
 
         return CommonListSpinner.getInstance(activity, p) // 单利。有点low
                 .setSortMaps(getSortMaps()) // 赋值
                 .initViews() // 初始化
+                .setOnDismissListener(onDismissListener)
                 .addOnItemClickListener((parent, view1, position, id) -> {
                     D.e("addOnItemClickListener" + position);
                     for (Map.Entry<String, String> entry : getSortMaps().get(position).entrySet()) {
@@ -54,13 +56,14 @@ public class FriendUtil {
     /**
      * 地区选择  多选列表
      */
-    public static CommonListSpinner1 CreateSortCitySpinner(Activity activity, OnSortSelectListener selectListener, View p) {
+    public static CommonListSpinner1 CreateSortCitySpinner(Activity activity, OnSortSelectListener selectListener , PopupMenu.OnDismissListener onDismissListener, View p) {
 
 
         CommonListSpinner1.Builder builder = new CommonListSpinner1.Builder<ProvinceModel>()
                 .setDatasList(createProvincesMap())
                 .setChoice_mode_multiple(ListView.CHOICE_MODE_MULTIPLE)
                 .setMApplyParentView(p)
+                .setOnDismissListener(onDismissListener)
                 .setOnOkClickListener(new CommonListSpinner1.OnResultListener<ProvinceModel>() {
                     @Override
                     public void onResult(BaseAdapter adapter, List<ProvinceModel> list) {

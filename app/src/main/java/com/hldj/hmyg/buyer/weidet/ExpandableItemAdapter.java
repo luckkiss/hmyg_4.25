@@ -28,8 +28,8 @@ public abstract class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<Mu
         super(layoutResIds[0]);
 
         int length = layoutResIds.length;
-        if (length > 3) {
-            new SoMuchLayoutsException("so much layouts  ，very 多 layouts  不行啊，要3个以内 ");
+        if (length > 4) {
+            new SoMuchLayoutsException("so much layouts  ，very 多 layouts  不行啊，要4个以内 ");
         }
         for (int i = 0; i < length; i++) {
             if (i == 0) {

@@ -40,6 +40,7 @@
     <dimen name="common_circle_width">3dp</dimen>
     <dimen name="progress_circle_radius">34dp</dimen>
     <dimen name="top_padding_statu">1dp</dimen>
+    <dimen name="linepaddingbutton">3dp</dimen>
     <dimen name="status_bar_height">45dp</dimen>
 
     <dimen name="loadingbar_icon">40dp</dimen>

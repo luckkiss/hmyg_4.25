@@ -75,6 +75,8 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
     long mLastTime;
     long mCurTime;
+    long startTime;
+
 
     public String check = "1";
 
@@ -106,7 +108,8 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        startTime = System.currentTimeMillis();
+        Log.i(TAG, "onCreate start" + (System.currentTimeMillis() - startTime));
         instance = this;
         try {
             if (savedInstanceState != null) {
@@ -129,10 +132,13 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         StartBarUtils.MIUISetStatusBarLightMode(getWindow(), true);
         setContentView(R.layout.activity_main);
 
+        Log.i(TAG, "setContentView end" + (System.currentTimeMillis() - startTime));
+
         aaa();
 
-
+        Log.i(TAG, "getAddr start" + (System.currentTimeMillis() - startTime));
         getAddr();
+        Log.i(TAG, "getAddr end" + (System.currentTimeMillis() - startTime));
 
         e = MyApplication.Userinfo.edit();//初始化 sp
 
@@ -146,15 +152,18 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 //         StateBarUtil.setStatusBarIconDark(this,true);
         mMaterialDialog = new MaterialDialog(this);
 
+        Log.i(TAG, "edit and  PermissionUtils end" + (System.currentTimeMillis() - startTime));
 
+
+        Log.i(TAG, "tabHosts start" + (System.currentTimeMillis() - startTime));
         tabHost = this.getTabHost();
 
 
         tabHost.addTab(tabHost.newTabSpec("1").setIndicator("1")
 //                .setContent(new Intent(this, BActivity_new_test.class)));
-                .setContent(new Intent(this, AActivity_3_0.class)));
-        tabHost.addTab(tabHost.newTabSpec("2").setIndicator("2")
                 .setContent(new Intent(this, BActivity_new_test.class)));
+        tabHost.addTab(tabHost.newTabSpec("2").setIndicator("2")
+                .setContent(new Intent(this, AActivity_3_0.class)));
         tabHost.addTab(tabHost.newTabSpec("3").setIndicator("3")
                 .setContent(new Intent(this, FriendCycleActivity.class)));
         tabHost.addTab(tabHost.newTabSpec("4").setIndicator("4")
@@ -170,7 +179,12 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         radio_d = findViewById(R.id.tab_d);
         radio_e = findViewById(R.id.tab_e);
 
-        radioderGroup.check(R.id.tab_a);// 默认第一个按钮
+        Log.i(TAG, "tabHosts end" + (System.currentTimeMillis() - startTime));
+
+
+        Log.i(TAG, "check(R.id.tab_a start" + (System.currentTimeMillis() - startTime));
+//        radioderGroup.check(R.id.tab_a);// 默认第一个按钮
+        Log.i(TAG, "check(R.id.tab_a end" + (System.currentTimeMillis() - startTime));
         check = "1";
         // getUpDateInfo();
         // getUpDateInfo4Pgyer();
@@ -203,10 +217,12 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                 }
             }
         }
-
+        Log.i(TAG, "requestUserInfo start" + (System.currentTimeMillis() - startTime));
         requestUserInfo();
+        Log.i(TAG, "requestUserInfo end" + (System.currentTimeMillis() - startTime));
 
 
+        Log.i(TAG, "JPushInterface start" + (System.currentTimeMillis() - startTime));
         JPushInterface.setAlias(MainActivity.this, MyApplication.Userinfo
                 .getString("id", "").replace("-", "").toLowerCase().trim()
                 .toString(), new TagAliasCallback() {
@@ -225,6 +241,9 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
             JPushInterface.stopPush(getApplicationContext());
             Log.i(TAG, "onCreate: 关闭  极光通知");
         }
+
+
+        Log.i(TAG, "JPushInterface end" + (System.currentTimeMillis() - startTime));
 
     }
 
@@ -464,6 +483,9 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                 if (location.getAdCode() != null && location.getAdCode().length() >= 4) {
                     cityCode = location.getAdCode().substring(0, 4);
                 }
+                if (location.getAdCode() !=null) {
+                    adCode = location.getAdCode();
+                }
 
                 aMapLocation = location;
                 MLocationManager.getInstance().stopLoaction();//一次成功后关闭定位
@@ -503,6 +525,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
     public static String district_loc = "";
     public static AMapLocation aMapLocation = null;
     public static String cityCode = "";
+    public static String adCode = "";
 
     /**
      * ======amapLocation=========latitude=24.488207longitude=118.09651province=福建省#city=厦门市#district=思明区

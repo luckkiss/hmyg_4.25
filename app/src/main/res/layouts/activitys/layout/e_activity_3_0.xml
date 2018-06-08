@@ -47,20 +47,24 @@
                     app:splite_mode="true" />
                 <!--wd_xx_small-->
                 <!--<include layout="@layout/toolbar_3_0" />-->
-
+                <!--     <attr name="civ_border_width" format="dimension" />
+                        <attr name="civ_border_color" format="color" />
+                        <attr name="civ_border_overlay" format="boolean" />
+                        <attr name="civ_fill_color" format="color" />-->
 
                 <com.hldj.hmyg.widget.MyCircleImageView
                     android:id="@+id/iv_circle_head"
                     android:layout_width="62dp"
                     android:layout_height="62dp"
                     android:layout_alignParentLeft="true"
-
                     android:layout_below="@+id/top_bar_option"
                     android:layout_marginBottom="20dp"
                     android:layout_marginLeft="12dp"
                     android:layout_marginStart="12dp"
-                    android:foreground="@drawable/cycle_white"
-                    android:src="@drawable/icon_persion_pic" />
+                    android:src="@drawable/icon_persion_pic"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_overlay="true"
+                    app:civ_border_width="3px" />
 
 
                 <TextView
@@ -219,7 +223,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="75dp"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
@@ -238,24 +242,26 @@
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/sptv_wd_sfz"
                     style="@style/home_types"
+                    android:layout_height="match_parent"
+
+                    android:paddingBottom="12dp"
                     android:text="未实名认证"
                     app:state_drawable="@mipmap/wd_smrz"
-                    app:state_drawable_height="23dp"
-                    app:state_drawable_padding_top="16dp"
-                    app:state_drawable_width="27dp" />
+                    app:state_drawable_height="28dp"
+                    app:state_drawable_padding_top="14dp"
+                    app:state_drawable_width="28dp" />
 
-
-                <View
-                    style="@style/View_line_gray_1px"
-                    android:layout_width="2px"
-                    android:layout_height="22dp"
-                    android:layout_gravity="center" />
 
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/sptv_wd_gys"
                     style="@style/home_types"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="12dp"
                     android:text=" --- "
-                    app:state_drawable="@mipmap/wd_gys_no" />
+                    app:state_drawable="@mipmap/wd_gys_no"
+                    app:state_drawable_height="30dp"
+                    app:state_drawable_padding_top="14dp"
+                    app:state_drawable_width="30dp" />
 
                 <!--<com.hldj.hmyg.widget.DrawableCenterText-->
                 <!--android:id="@+id/sptv_wd_gys"-->
@@ -267,18 +273,16 @@
                 <!--android:text=" -&#45;&#45; "-->
                 <!--android:textSize="15sp" />-->
 
-                <View
-                    style="@style/View_line_gray_1px"
-                    android:layout_width="2px"
-                    android:layout_height="22dp"
-                    android:layout_gravity="center" />
 
                 <com.coorchice.library.SuperTextView
                     android:id="@+id/sptv_wd_jf"
                     style="@style/home_types"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="12dp"
                     android:text=" --- "
                     app:state_drawable="@mipmap/jf_e_hb"
                     app:state_drawable_height="30dp"
+                    app:state_drawable_padding_top="14dp"
                     app:state_drawable_width="30dp" />
 
                 <!--<com.hldj.hmyg.widget.DrawableCenterText-->
@@ -406,8 +410,8 @@
                     android:id="@+id/sptv_wd_jmb"
                     style="@style/home_types"
                     android:text="记苗本"
-                    app:state_drawable="@mipmap/wd_wdjmb"
                     android:visibility="gone"
+                    app:state_drawable="@mipmap/wd_wdjmb"
                     tools:visibility="visible" />
 
 

@@ -46,9 +46,20 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/rangeBar"
+                android:layout_toLeftOf="@+id/jia"
                 android:layout_alignParentRight="true"
                 android:gravity="end"
+                android:layout_marginRight="8dp"
                 android:hint="999" />
+
+            <TextView
+                android:id="@+id/jia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:layout_alignParentRight="true"
+                android:layout_above="@+id/rangeBar"
+                />
 
 
             <com.mabeijianxi.smallvideo2.RangeSeekBar

@@ -12,10 +12,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
+import com.hldj.hmyg.CallBack.search.IRefresh;
+import com.hldj.hmyg.CallBack.search.ISearch;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
 import com.hldj.hmyg.bean.SimplePageBean;
@@ -28,6 +32,7 @@ import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.UserQuote;
 import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
 import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserDetailActivity;
+import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.LoginUtil;
@@ -41,7 +46,7 @@ import java.util.List;
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 import me.maxwin.view.XListView;
 
-public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
+public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity implements ISearch {
     private XListView xListView;
     private ArrayList<HashMap<String, Object>> datas = new ArrayList<HashMap<String, Object>>();
 
@@ -60,6 +65,9 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
     ViewPager mViewPager;
 
     CoreRecyclerView coreRecyclerView;
+
+
+    TextView sptv_program_do_search;
 
     FragmentPagerAdapter_TabLayout mFragmentPagerAdapter_tabLayout;
     private ArrayList<String> list_title = new ArrayList<String>() {{
@@ -97,6 +105,15 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
 //        loadingLayout.show
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
+        sptv_program_do_search = (TextView) findViewById(R.id.sptv_program_do_search);
+        sptv_program_do_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                refreshCurrentItem();
+
+            }
+        });
         coreRecyclerView = (CoreRecyclerView) findViewById(R.id.recycle);
 
         mViewPager = (ViewPager) findViewById(R.id.view_pager_manager);
@@ -141,6 +158,33 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
         loadingLayout.setVisibility(initLeft ? View.VISIBLE : View.GONE);
         RadioButton rb_title_right = getView(R.id.rb_title_right);
         rb_title_right.setChecked(!initLeft);
+        initSearchHint();
+    }
+
+    private void refreshCurrentItem() {
+
+
+        RadioButton radioButton = getView(R.id.rb_title_left);
+
+        if (radioButton.isChecked()) {
+//            ToastUtil.showLongToast("左边显示 搜索");
+
+            currentSearchKey = getSearchContent();
+
+            for (Fragment fragment : list_fragment) {
+                if (fragment instanceof IRefresh) {
+                    ((IRefresh) fragment).onRefresh(currentSearchKey);//需要实现一个lazy refresh
+                }
+            }
+
+
+        } else {
+//            ToastUtil.showLongToast("→边显示 搜索");
+//            currentSearchKey
+            currentSearchKey = getSearchContent();
+            coreRecyclerView.onRefresh();
+        }
+
 
     }
 
@@ -182,6 +226,7 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
 
         new BasePresenter()
                 .putParams("pageSize", "20")
+                .putParams(ConstantParams.searchKey, currentSearchKey)
                 .putParams("pageIndex", "" + page)
                 .doRequest("admin/userQuote/list", new HandlerAjaxCallBackPage<UserQuote>(mActivity, type, UserQuote.class) {
                     @Override
@@ -272,4 +317,23 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity {
 
 
     }
+
+
+    @Override
+    public String getSearchKey() {
+        return currentSearchKey;
+    }
+
+
+    public String getSearchContent() {
+        EditText editText = getView(R.id.et_program_serach_text);
+        return editText.getText().toString();
+    }
+
+    public void initSearchHint() {
+        EditText editText = getView(R.id.et_program_serach_text);
+        editText.setHint("搜索");
+    }
+
+    private String currentSearchKey = "";
 }

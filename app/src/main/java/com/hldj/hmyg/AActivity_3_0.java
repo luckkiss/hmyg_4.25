@@ -1,6 +1,5 @@
 package com.hldj.hmyg;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -109,7 +108,6 @@ import static com.hldj.hmyg.R.id.home_title_qiu_gou;
  * change a list hellow world
  */
 @Keep
-@SuppressLint("NewApi")
 public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
     private ArrayList<HashMap<String, Object>> datas = new ArrayList<HashMap<String, Object>>();
@@ -139,10 +137,19 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private TabLayout.OnTabSelectedListener onTabSelectedListener;
 
 
+    long startTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startTime = System.currentTimeMillis();
+        Log.i(TAG, "setContentView start: " + startTime);
         setContentView(R.layout.activity_a_3_0);
+        Log.i(TAG, "setContentView  end  " + (System.currentTimeMillis() - startTime));
+
+
+
+        Log.i(TAG, "cache add tablayout  start  " + (System.currentTimeMillis() - startTime));
         mCache = ACache.get(this);
 
         tablayout = findViewById(R.id.tablayout);
@@ -155,7 +162,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         tablayout1.getTabAt(1).setCustomView(getTabView(1));
         tablayout1.getTabAt(2).setCustomView(getTabView(2));
 
+        Log.i(TAG, "cache add tablayout  end  " + (System.currentTimeMillis() - startTime));
 
+        Log.i(TAG, "init views  start  " + (System.currentTimeMillis() - startTime));
 //      ToastUtil.showShortToast("bugly 热更新生效");
         viewPager = (AutoScrollViewPager) findViewById(R.id.view_pager);
         indicator = (CirclePageIndicator) findViewById(R.id.indicator);
@@ -188,7 +197,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         LayoutParams l_params = new RelativeLayout.LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         WindowManager wm = this.getWindowManager();
-        l_params.height = wm.getDefaultDisplay().getWidth() * 1 / 2;
+        l_params.height = (int) (wm.getDefaultDisplay().getWidth() * 1 / 2);
         viewPager.setLayoutParams(l_params);
 
 
@@ -279,6 +288,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         };
         initView();
 
+        Log.i(TAG, "init views  end  " + (System.currentTimeMillis() - startTime));
+
+
         if (mCache.getAsString("index") != null && !"".equals(mCache.getAsString("index"))) {
             LoadCache(mCache.getAsString("index"));
         }
@@ -331,7 +343,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //            scrollView.scrollTo(0, scrollView.getScrollY() + location3[1] - location[1] - tablayout.getHeight());
 //
 //        });
-
+        Log.i(TAG, "oncreate  end  " + (System.currentTimeMillis() - startTime));
 
     }
 
@@ -349,14 +361,14 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             int y = scrollView.getScrollY() + location3[1] - location[1] - tablayout.getHeight();
 
 
-            Log.i(TAG, "y -- >  " + y + "  " + location_0[1]);
+//            Log.i(TAG, "y -- >  " + y + "  " + location_0[1]);
 
 
             if (location_0[1] <= location[1] + tablayout.getHeight()) {
 
 
                 if (location_1[1] <= location[1] + tablayout.getHeight()) {
-                    Log.i(TAG, "小于: ");
+//                    Log.i(TAG, "小于: ");
 
                     tablayout.clearOnTabSelectedListeners();
                     tablayout1.clearOnTabSelectedListeners();
@@ -372,7 +384,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                         tablayout1.addOnTabSelectedListener(onTabSelectedListener);
                     }
                 } else {
-                    Log.i(TAG, "小于: ");
+//                    Log.i(TAG, "小于: ");
 
                     tablayout.clearOnTabSelectedListeners();
                     tablayout1.clearOnTabSelectedListeners();
@@ -404,7 +416,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                     tablayout1.addOnTabSelectedListener(onTabSelectedListener);
                 }
 
-                Log.e(TAG, "大于: ");
+//                Log.e(TAG, "大于: ");
             }
 
 //            if (location_0[])
@@ -417,11 +429,11 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             int y = scrollView.getScrollY() + location3[1] - location[1] - tablayout.getHeight();
 
 
-            Log.i(TAG, "y -- >  " + y + "  " + location_0[1]);
+//            Log.i(TAG, "y -- >  " + y + "  " + location_0[1]);
 
             if (location_0[1] <= location[1] + tablayout.getHeight()) {
 
-                Log.i(TAG, "小于: ");
+//                Log.i(TAG, "小于: ");
 
                 tablayout.clearOnTabSelectedListeners();
                 tablayout1.clearOnTabSelectedListeners();
@@ -633,7 +645,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                 @Override
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    Log.i(TAG, "onScrollChange: onScrollChangeonScrollChangeonScrollChange");
+//                    Log.i(TAG, "onScrollChange: onScrollChangeonScrollChangeonScrollChange");
                     tablayout.getLocationOnScreen(location);
                     tablayout1.getLocationOnScreen(location2);
                     if (location2[1] <= 168) {

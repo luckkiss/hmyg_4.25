@@ -1,6 +1,7 @@
 package aom.xingguo.huang.banner;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -41,10 +42,35 @@ public class MyFragment extends Fragment implements OnPageChangeListener {
     public static int lie_Num = 2;
     private int width;
 
+    private Activity mActivity;
+
     public CustomViewPager getviewpager() {
 
         return viewpager;
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mActivity = (Activity) context;
+    }
+
+
+    public void refreshGrids(List<HomeStore> homeStores) {
+        // 清空一下
+        if (views.size() > 0) {
+            views.clear();
+        }
+
+        for (int i = 0; i < (homeStores.size() - 1) / Num + 1; i++) {
+            views.add(mInflater.inflate(R.layout.viewpager_gridview, null));
+        }
+
+        vpAdapter.notifyDataSetChanged();
+
+
+    }
+
 
     // private int Num =8;
 
@@ -111,7 +137,7 @@ public class MyFragment extends Fragment implements OnPageChangeListener {
             arrayList2 = urls;
         }
 
-        gridViewAdapter = new GridViewAdapter(getActivity(), arrayList2);
+        gridViewAdapter = new GridViewAdapter(mActivity, arrayList2);
         gv.setAdapter(gridViewAdapter);
     }
 

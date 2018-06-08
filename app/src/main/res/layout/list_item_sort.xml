@@ -3,19 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl_popo_list_item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#EEFFFFFF">
+    android:layout_height="@dimen/px88"
+
+
+    >
 
     <TextView
         android:id="@+id/tv_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/px88"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:paddingBottom="7dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="7dp"
+        android:layout_marginLeft="@dimen/px32"
+        android:layout_marginRight="@dimen/px32"
+        android:background="@drawable/bg_bottom_line"
+        android:gravity="center_vertical"
         android:textSize="16sp"
         tools:text="hellow world" />
 
@@ -25,7 +27,7 @@
         android:layout_height="18dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="@dimen/px32"
         android:padding="4dp"
         android:src="@drawable/yixuan"
         android:visibility="visible" />

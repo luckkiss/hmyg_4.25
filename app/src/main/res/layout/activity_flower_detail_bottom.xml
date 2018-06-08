@@ -23,8 +23,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/gray" />
+            android:layout_height="2px"
+            android:background="@color/divider_color_bg" />
 
         <LinearLayout
             android:id="@+id/ll_buy_car"

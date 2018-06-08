@@ -201,11 +201,12 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
         getView(R.id.select_city).setOnClickListener(v -> {
             ComonCityWheelDialogF
                     .instance()
+                    .showDistr(true)
                     .addSelectListener((province, city, distrect, cityCode) -> {
                         MyOptionItemView myOptionItemView = getView(R.id.select_city);
 //                        setText(getView(R.id.select_city), "用苗地  " + province + city);
-                        myOptionItemView.setRightText(province + city);
-                        currentCityCode = cityCode.substring(0, 4);
+                        myOptionItemView.setRightText(province + city +distrect);
+                        currentCityCode = cityCode;
 
                     }).show(getSupportFragmentManager(), "select_city");
         });
@@ -575,10 +576,10 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
 
     public void initLocation(MyOptionItemView city) {
         if (MainActivity.aMapLocation != null) {
-            if (!TextUtils.isEmpty(MainActivity.cityCode)) {
+            if (!TextUtils.isEmpty(MainActivity.adCode)) {
 //                CityGsonBean.ChildBeans cityBeans = new CityGsonBean.ChildBeans();
-                currentCityCode = MainActivity.cityCode;
-                city.setRightText(MainActivity.province_loc + " " + MainActivity.city_loc);
+                currentCityCode = MainActivity.adCode;
+                city.setRightText(MainActivity.province_loc + " " + MainActivity.city_loc +" "+ MainActivity.district_loc);
             }
         } else {
             city.setRightText("未选择");

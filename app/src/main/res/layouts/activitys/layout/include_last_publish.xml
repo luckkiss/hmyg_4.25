@@ -53,7 +53,7 @@
 
     <CheckedTextView
         android:id="@+id/refresh"
-        style="@style/save_bottom"
+        style="@style/save_bottom_text"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_marginRight="16dp"

@@ -135,6 +135,10 @@ public class MyCircleImageView extends ImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
+//        canvas.drawCircle(getWidth() / 2.0f,getWidth() / 2.0f,mDrawableRadius,mBorderPaint);
+
+
+
         if (mBitmap == null) {
             return;
         }
@@ -149,6 +153,11 @@ public class MyCircleImageView extends ImageView {
             canvas.drawCircle(getWidth() / 2.0f, getHeight() / 2.0f,
                     mBorderRadius, mBorderPaint);
         }
+
+
+
+
+
     }
 
     @Override

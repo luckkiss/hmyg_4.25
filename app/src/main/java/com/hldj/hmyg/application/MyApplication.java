@@ -25,7 +25,6 @@ import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.SPUtil;
 import com.hldj.hmyg.util.SPUtils;
-import com.hldj.hmyg.util.VideoHempler;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.SdkChangeByTagUtil;
 import com.hy.utils.ToastUtil;
@@ -59,6 +58,8 @@ public class MyApplication extends Application {
     public Vibrator mVibrator;
 
 
+    long startTime;
+
     //存储userbean
     private static UserBean userBean;
 
@@ -86,14 +87,20 @@ public class MyApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+        startTime = System.currentTimeMillis();
+        Log.i(TAG, "startTime: " + startTime);
         // you must install multiDex whatever tinker is installed!
         MultiDex.install(base);
+        Log.i(TAG, "MultiDex:install time  " + (System.currentTimeMillis() - startTime));
         // 安装tinker
 //        if (BuildConfig.DEBUG) {
         Beta.canNotifyUserRestart = true;
         Beta.betaPatchListener = MyBetaPatchListener.MY_BETA_PATCH_LISTENER;
         Beta.installTinker();
 
+//        new Thread().start();
+
+        Log.i(TAG, " Beta.installTinker time  " + (System.currentTimeMillis() - startTime));
 //        Log.i(TAG, "hello world");
 //        Toast.makeText(base, "hello world", Toast.LENGTH_SHORT).show();
 
@@ -110,6 +117,8 @@ public class MyApplication extends Application {
     @SuppressLint("SdCardPath")
     public void onCreate() {
         super.onCreate();
+        Log.i(TAG, " onCreate time  " + (System.currentTimeMillis() - startTime));
+        myApplication = this;
 
 
         D.e("=========本手机分辨率========" + "width=" + ScreenUtil.getScreenWidth(this) + "  height=" + ScreenUtil.getScreenHeight(this));
@@ -118,26 +127,31 @@ public class MyApplication extends Application {
         Bugly.setIsDevelopmentDevice(this, GetServerUrl.isTest);
         //设置为开发设备
         CrashReport.setIsDevelopmentDevice(this, GetServerUrl.isTest);
-        Bugly.init(this, "be88780120", true);
+        Bugly.init(this, "be88780120", GetServerUrl.isTest);
+
+        Log.i(TAG, "  Bugly.init time  " + (System.currentTimeMillis() - startTime));
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Userinfo = getSharedPreferences("Userinfo", Context.MODE_PRIVATE);
+                Deviceinfo = getSharedPreferences("Deviceinfo", Context.MODE_PRIVATE);
+                String tag = GetServerUrl.isTest ? "  ----->  (测试)" : "  ----->  (正式)";
+                Log.i("==crash_user_id==", "onCreate: " + Userinfo.getBoolean("isLogin", false));
+                if (!Userinfo.getBoolean("isLogin", false)) {
+                    CrashReport.setUserId(myApplication, "访客" + tag);
+                    Log.i("==crash_user_id==", "访客 ");
+                } else {
+                    String phone = MyApplication.Userinfo.getString("phone", "");
+                    String userName = MyApplication.Userinfo.getString("userName", "");
+                    String realName = MyApplication.Userinfo.getString("realName", "");
+                    CrashReport.setUserId(myApplication, FUtil.choseOne(realName, userName) + "   " + phone + tag);
+                    Log.i("==crash_user_id==", FUtil.choseOne(realName, userName) + "   " + phone);
+                }
+            }
+        }).start();
 
 
-        Userinfo = getSharedPreferences("Userinfo", Context.MODE_PRIVATE);
-        Deviceinfo = getSharedPreferences("Deviceinfo", Context.MODE_PRIVATE);
-
-
-        String tag = GetServerUrl.isTest ? "  ----->  (测试)" : "  ----->  (正式)";
-        Log.i("==crash_user_id==", "onCreate: " + Userinfo.getBoolean("isLogin", false));
-        if (!Userinfo.getBoolean("isLogin", false)) {
-            CrashReport.setUserId(this, "访客" + tag);
-            Log.i("==crash_user_id==", "访客 ");
-        } else {
-            String phone = MyApplication.Userinfo.getString("phone", "");
-            String userName = MyApplication.Userinfo.getString("userName", "");
-            String realName = MyApplication.Userinfo.getString("realName", "");
-            CrashReport.setUserId(this, FUtil.choseOne(realName, userName) + "   " + phone + tag);
-            Log.i("==crash_user_id==", FUtil.choseOne(realName, userName) + "   " + phone);
-
-        }
 //        CrashReport.setUserId(this, MyApplication.getUserBean().userName +  "17074990702");
 
         GetServerUrl.sdk_version = Build.VERSION.SDK_INT + "";
@@ -165,23 +179,31 @@ public class MyApplication extends Application {
         initImageLoader();
         createSDCardDir(getApplicationContext());
         // 由于Application类本身已经单例，所以直接按以下处理即可。
-        myApplication = this;
         mVibrator = (Vibrator) getApplicationContext().getSystemService(
                 Service.VIBRATOR_SERVICE);
 
-
+        Log.i(TAG, "  other time  " + (System.currentTimeMillis() - startTime));
 //        try {
 //            initDao();
 //        } catch (Exception e) {
 //            D.e("===dao初始化失败==="+e.getMessage());
 //        }
 
-        initDao();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                initDao();
+            }
+        }).start();
+
         JumpUtil.init(this);
 
 
-        VideoHempler.initSmallVideo();
+//        VideoHempler.initSmallVideo();
 
+
+        Log.i(TAG, " last time  " + (System.currentTimeMillis() - startTime));
 //        initLoadingLayout();
 
 //        ToastUtil.showShortToast("我是打了补丁的");

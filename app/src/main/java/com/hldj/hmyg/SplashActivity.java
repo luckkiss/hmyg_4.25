@@ -7,18 +7,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.PermissionUtils;
-import com.hldj.hmyg.buyer.weidet.DialogFragment.CustomDialog;
 import com.hy.utils.GetServerUrl;
 import com.white.utils.AndroidUtil;
 
-import java.util.concurrent.TimeUnit;
-
 import cn.jpush.android.api.JPushInterface;
-import io.reactivex.Observable;
 
 
 public class SplashActivity extends FragmentActivity {
@@ -28,23 +25,27 @@ public class SplashActivity extends FragmentActivity {
     private long delayMillis = 0;
     public Editor e;
 
+    private static final String TAG = "SplashActivity";
+    long startTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startTime = System.currentTimeMillis();
+        Log.i(TAG, "onCreate time  " + startTime);
 //        fb = FinalBitmap.create(this);
 //        setContentView(R.layout.activity_splash);
 
 //        ToastUtil.showShortToast("hellow world");
-        boolean test = false;
+//        boolean test = false;
 
 
-        if (test) {
-            CustomDialog dialog = new CustomDialog(SplashActivity.this, R.style.Dialog);
-            dialog.show();
-
-            return;
-        }
+//        if (test) {
+//            CustomDialog dialog = new CustomDialog(SplashActivity.this, R.style.Dialog);
+//            dialog.show();
+//
+//            return;
+//        }
 
 
         boolean requestREAD_PHONE_STATE = false;
@@ -76,16 +77,25 @@ public class SplashActivity extends FragmentActivity {
 //        }
 
 
-
     }
 
     public void putSpInfo_Before_6() {
+
+
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+        Log.i(TAG, "putSpInfo_Before_6 start" + (System.currentTimeMillis() - startTime));
         e = MyApplication.Deviceinfo.edit();
-        e.putString("version", AndroidUtil.getVersion(this));
-        e.putString("deviceId", AndroidUtil.getDeviceIMEI(this));
+        e.putString("version", AndroidUtil.getVersion(SplashActivity.this));
+        e.putString("deviceId", AndroidUtil.getDeviceIMEI(SplashActivity.this));
         e.commit();
-        GetServerUrl.version = AndroidUtil.getVersion(this);
-        GetServerUrl.deviceId = AndroidUtil.getDeviceIMEI(this);
+        GetServerUrl.version = AndroidUtil.getVersion(SplashActivity.this);
+        GetServerUrl.deviceId = AndroidUtil.getDeviceIMEI(SplashActivity.this);
+//            }
+//        }).start();
+
+        Log.i(TAG, "putSpInfo_Before_6 end" + (System.currentTimeMillis() - startTime));
         start2Main();
     }
 
@@ -95,12 +105,13 @@ public class SplashActivity extends FragmentActivity {
     int i = 0;
 
     private void start2Main() {
-        Observable.timer(delayMillis, TimeUnit.MILLISECONDS)
-                .subscribe(delay -> {
-                    Intent toMainActivity = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(toMainActivity);
-                    finish();
-                });
+        Log.i(TAG, "start2Main start" + (System.currentTimeMillis() - startTime));
+        Intent toMainActivity = new Intent(SplashActivity.this, MainActivity.class);
+        toMainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(toMainActivity);
+        Log.i(TAG, "start2Main center" + (System.currentTimeMillis() - startTime));
+        finish();
+        Log.i(TAG, "start2Main end" + (System.currentTimeMillis() - startTime));
     }
 
     @Override

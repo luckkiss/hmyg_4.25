@@ -34,7 +34,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="17dp"
                 android:gravity="center"
-                style="@style/save_bottom"
+                style="@style/save_bottom_text"
                 android:text="提交品种名称"
                 android:textColor="@android:color/white"
                 android:paddingLeft="8dp"

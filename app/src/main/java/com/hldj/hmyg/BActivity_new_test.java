@@ -1,6 +1,5 @@
 package com.hldj.hmyg;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -19,8 +18,10 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.M.BProduceAdapt;
@@ -64,7 +65,6 @@ import static com.hldj.hmyg.util.ConstantState.SEARCH_OK;
 /**
  * 商城界面
  */
-@SuppressLint("NewApi")
 public class BActivity_new_test extends NeedSwipeBackActivity {
 
     private CoreHeadRecyclerView recyclerView1;
@@ -165,12 +165,15 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
         getView(R.id.tv_b_filter).setOnClickListener(v -> {
             SellectActivity2.start2Activity(this, queryBean);
             setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "0", mActivity);
+            setStatusDrable(mActivity, getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), 0);
+
         });
 
         //排序
         getView(R.id.tv_b_sort).setOnClickListener(v -> {
             ChoiceSortList();
             setColor(getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), "1", mActivity);
+            setStatusDrable(mActivity, getView(R.id.tv_b_filter), getView(R.id.tv_b_sort), 1);
         });
 
 
@@ -196,6 +199,22 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
             }
         });
 
+
+    }
+
+    public static void setStatusDrable(Activity mActivity, SuperTextView left, SuperTextView right, int i) {
+
+        if (i == 0)// left select
+        {
+
+            left.setDrawable(mActivity.getResources().getDrawable(R.drawable.ic_arrow_down_select));
+            right.setDrawable(mActivity.getResources().getDrawable(R.drawable.ic_arrow_down));
+
+        } else {//right select
+            left.setDrawable(mActivity.getResources().getDrawable(R.drawable.ic_arrow_down));
+            right.setDrawable(mActivity.getResources().getDrawable(R.drawable.ic_arrow_down_up_select));
+
+        }
 
     }
 
@@ -229,6 +248,12 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 
         if (sortSpinner == null) {
             sortSpinner = SortSpinner.getInstance(BActivity_new_test.this, app_bar)
+                    .setOnDismissListener(new PopupMenu.OnDismissListener() {
+                        @Override
+                        public void onDismiss(PopupMenu menu) {
+                            ((SuperTextView) getView(R.id.tv_b_sort)).setDrawable(mActivity.getResources().getDrawable(R.drawable.ic_arrow_down_select));
+                        }
+                    })
                     .addOnItemClickListener((parent, view1, position, id) -> {
                         D.e("addOnItemClickListener" + position);
                         switch (position) {
@@ -250,8 +275,10 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
                         }
                         pos = position;
                         sortSpinner.dismiss();
+
                         refreshRc();
                     });
+
 
             sortSpinner.ShowWithPos(pos);
         } else {

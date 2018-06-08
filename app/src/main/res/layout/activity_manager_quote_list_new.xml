@@ -9,6 +9,14 @@
 
 
     <include layout="@layout/toolbar_radio_3_0" />
+
+    <include layout="@layout/include_search_layout" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp" android:background="@color/white"/>
+
+
     <!--<RelativeLayout-->
     <!--android:layout_width="fill_parent"-->
     <!--android:layout_height="35dp"-->

@@ -12,12 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hldj.hmyg.CallBack.search.IRefresh;
+import com.hldj.hmyg.CallBack.search.ISearch;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.CollectGsonBean;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
+import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
@@ -37,7 +40,7 @@ import static com.hldj.hmyg.saler.Ui.Fragment1.doConvert;
  * 选标中 界面
  */
 
-public class Fragment1_ing extends Fragment {
+public class Fragment1_ing extends Fragment implements IRefresh {
 
     private static final String TAG = "Fragment1_ing";
 
@@ -107,8 +110,6 @@ public class Fragment1_ing extends Fragment {
     }
 
 
-
-
     @Override
     public void onDestroyView() {
         Log.d("-----", "destroyAccView");
@@ -128,6 +129,7 @@ public class Fragment1_ing extends Fragment {
         AjaxParams params = new AjaxParams();
         params.put("status", "choosing");
         params.put("pageSize", 6 + "");
+        params.put(ConstantParams.searchKey, getSearchKey());
         params.put("pageIndex", pageIndex + "");
         finalHttp.post(GetServerUrl.getUrl() + "admin/quote/list", params, new AjaxCallBack<String>() {
 
@@ -163,13 +165,22 @@ public class Fragment1_ing extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == ConstantState.DELETE_SUCCEED) {
             ToastUtil.showShortToast("删除成功");
-            refresh();
+            onRefresh("");
         }
     }
 
-    public void refresh() {
+
+    private String getSearchKey() {
+        if (mActivity != null && mActivity instanceof ISearch) {
+            return ((ISearch) mActivity).getSearchKey();
+        } else {
+            return "";
+        }
+    }
+
+    @Override
+    public void onRefresh(String searchKey) {
         recyclerView.selfRefresh(true);
         recyclerView.onRefresh();
     }
-
 }

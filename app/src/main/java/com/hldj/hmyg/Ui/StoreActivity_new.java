@@ -193,6 +193,11 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
         /*后退*/
         getView(R.id.btn_back).setOnClickListener(v -> finish());
 
+        getView(R.id.iv_home_left).setOnClickListener(v -> CenterActivity.start(mActivity,persiId));
+
+
+
+
         /*分享*/
         getView(R.id.iv_fenxiang).setOnClickListener(v -> {
             D.d("分享");
@@ -459,7 +464,7 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
         WindowManager wm = this.getWindowManager();
 //        l_params.height = (int) (wm.getDefaultDisplay().getWidth() * 1 / 1.9);
 //        getView(R.id.iv_store_banner).setLayoutParams(l_params);
-//        bitmap.display(getView(R.id.iv_store_banner), indexBean.store.appBannerUrl);
+        bitmap.display(getView(R.id.iv_store_banner), indexBean.store.appBannerUrl);
 
         shareUrl = indexBean.store.shareUrl;
         /**

@@ -26,6 +26,8 @@ import com.hldj.hmyg.R;
 
 public class CommonPopupWindow extends PopupWindow {
 
+
+
     public static int TYPE_WHITE_UP = R.drawable.up;
     public static int TYPE_WHITE_DOWN = R.drawable.down;
     public static int TYPE_BLACK_UP = R.drawable.bg_popupwindow;

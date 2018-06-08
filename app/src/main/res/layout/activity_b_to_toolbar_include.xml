@@ -6,8 +6,7 @@
     android:background="@color/white"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
-    app:layout_scrollFlags="scroll|enterAlways"
-     >
+    app:layout_scrollFlags="scroll|enterAlways">
     <!--app:layout_scrollFlags="scroll|enterAlways">-->
 
 
@@ -21,40 +20,43 @@
 
         <ImageButton
             android:id="@+id/ib_b_back"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
             android:layout_centerVertical="true"
             android:background="@null"
             android:foreground="?attr/selectableItemBackground"
             android:src="@drawable/arrow_left_back"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:visibility="visible" />
 
         <com.coorchice.library.SuperTextView
             android:id="@+id/sptv_b_search"
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_top_default"
-            android:layout_margin="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:layout_toLeftOf="@+id/iv_view_type"
             android:layout_toRightOf="@+id/ib_b_back"
-            app:state_drawable_mode="left"
-            app:isShowState="true"
-            app:state_drawable_height="18dp"
-            app:state_drawable_width="18dp"
-            app:state_drawable="@drawable/search_icon"
             android:drawablePadding="5dp"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center_vertical"
             android:paddingLeft="30dp"
-            app:state_drawable_padding_left="5dp"
             android:text="品种名称/别名/品种编号"
             android:textColor="@color/text_color999"
             app:corner="5dp"
+            app:isShowState="true"
             app:left_bottom_corner="true"
             app:left_top_corner="true"
             app:right_bottom_corner="true"
             app:right_top_corner="true"
             app:solid="#f5f5f5"
-            />
+            app:state_drawable="@drawable/search_icon"
+            app:state_drawable_height="18dp"
+            app:state_drawable_mode="left"
+            app:state_drawable_padding_left="5dp"
+            app:state_drawable_width="18dp" />
 
 
         <!--<RelativeLayout-->
@@ -102,8 +104,9 @@
             android:layout_height="@dimen/y16"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/x13"
             android:layout_marginRight="@dimen/x10"
+            android:layout_marginLeft="2dp"
+            android:visibility="visible"
             android:foreground="?attr/selectableItemBackground"
             android:src="@drawable/selector_list_or_grid" />
     </RelativeLayout>

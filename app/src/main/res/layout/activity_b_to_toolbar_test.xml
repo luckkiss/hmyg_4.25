@@ -44,11 +44,8 @@
                 app:state_drawable_padding_left="24dp"
                 app:state_drawable_width="10dp" />
 
-            <ImageView
-                android:layout_width="2px"
-                android:layout_height="15.0dip"
-                android:layout_gravity="center_vertical"
-                android:background="@color/gray" />
+            <View
+                 style="@style/View_line_vertical"/>
 
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_b_sort"

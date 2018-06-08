@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -192,6 +193,8 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
                 tv_sort.setTextColor(getColorByRes(R.color.main_color));
 
 
+                setStatusDrable(mActivity, tv_filter, tv_sort, 1);
+
                 if (commonListSpinner1 != null) {
                     commonListSpinner1.ShowWithHistorys(cityCodeString);
                     return;
@@ -223,6 +226,11 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
                                 commonListSpinner1.dismiss();
 
                             }
+                        }, new PopupMenu.OnDismissListener() {
+                            @Override
+                            public void onDismiss(PopupMenu menu) {
+                                tv_sort.setDrawable(mActivity.getResources().getDrawable(R.drawable.ic_arrow_down_select));
+                            }
                         },
                         line).Show();
 
@@ -248,6 +256,7 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
                 /*地区*/
                 tv_sort.setTextColor(getColorByRes(R.color.text_color333));
 
+                setStatusDrable(mActivity, tv_filter, tv_sort, 0);
 
                 if (commonListSpinner != null) {
                     commonListSpinner.ShowWithPos(possition);
@@ -269,12 +278,34 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
 //                            viewpager.setCurrentItem(2);
 //                            }
                         }
+                    }, new PopupMenu.OnDismissListener() {
+                        @Override
+                        public void onDismiss(PopupMenu menu) {
+                            tv_filter.setDrawable(mActivity.getResources().getDrawable(R.drawable.ic_arrow_down_select));
+                        }
                     }, line).ShowWithPos(possition);
                 }
                 break;
         }
 
     }
+
+    public static void setStatusDrable(Activity mActivity, SuperTextView left, SuperTextView right, int i) {
+
+        if (i == 0)// left select
+        {
+
+            left.setDrawable(mActivity.getResources().getDrawable(R.drawable.ic_arrow_down_up_select));
+            right.setDrawable(mActivity.getResources().getDrawable(R.drawable.ic_arrow_down));
+
+        } else {//right select
+            left.setDrawable(mActivity.getResources().getDrawable(R.drawable.ic_arrow_down));
+            right.setDrawable(mActivity.getResources().getDrawable(R.drawable.ic_arrow_down_up_select));
+
+        }
+
+    }
+
 
     //城市搜索集合  { 11  ，  20  ，  30  ，  40  ... . }
     public String[] cityCodes = {"100", "200", "300"};

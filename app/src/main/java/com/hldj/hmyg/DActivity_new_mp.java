@@ -23,6 +23,7 @@ import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
 import com.hldj.hmyg.M.AddressBean;
 import com.hldj.hmyg.M.userIdentity.enums.CompanyIdentityStatus;
 import com.hldj.hmyg.Ui.Eactivity3_0;
+import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.Ui.friend.bean.tipNum.TipNum;
 import com.hldj.hmyg.Ui.friend.bean.tipNum.TipNumType;
 import com.hldj.hmyg.Ui.friend.child.MarchingPurchaseActivity;
@@ -247,7 +248,11 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
 //        FinalActivity.initInjectedView(this, recycle);
 
-        toolbar_left_icon.setVisibility(View.GONE);
+        toolbar_left_icon.setVisibility(View.VISIBLE);
+        toolbar_left_icon.setOnClickListener(v -> {
+            StoreActivity_new.start2Activity(mActivity, MyApplication.getUserBean().storeId);
+        });
+
         toolbar_right_icon.setVisibility(View.INVISIBLE);
         toolbar_right_icon.setImageResource(R.drawable.sousuo);
         toolbar_right_text.setVisibility(View.VISIBLE);
@@ -480,7 +485,7 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
         textView.setText(TextUtils.isEmpty(storeBean.name) ? "未填写" : storeBean.name);
 
         ImageView logo = (ImageView) headView.findViewById(R.id.logo);
-        ImageLoader.getInstance().displayImage(storeBean.logoUrl, logo,getCompanyOption());
+        ImageLoader.getInstance().displayImage(storeBean.logoUrl, logo, getCompanyOption());
         FinalBitmap.create(mActivity).display(logo, storeBean.logoUrl);
 
         boolean isPass = storeBean.attrData.store_identity.equals(CompanyIdentityStatus.pass.getEnumValue());

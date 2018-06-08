@@ -65,13 +65,12 @@
                     android:gravity="center_vertical"
                     android:singleLine="true"
                     android:textSize="@dimen/y11"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="214dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:singleLine="true"
@@ -117,12 +116,10 @@
                     android:textColor="@color/text_color666" />
 
                 <View
-                    android:layout_width="1px"
-                    android:layout_height="30dp"
+
+                    style="@style/View_line_vertical"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/text_color666"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp" />
+                 />
 
                 <RadioButton
                     android:id="@+id/ll_to_d4"
@@ -300,7 +297,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_bottom_line"
-            android:minHeight="@dimen/tableHeight"
+            android:minHeight="@dimen/px80"
             android:paddingLeft="8dp"
             android:weightSum="8">
 
@@ -325,7 +322,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="@dimen/tableHeight"
+            android:layout_height="@dimen/px80"
             android:background="@drawable/bg_bottom_line"
             android:minHeight="32dp"
             android:paddingLeft="8dp"
@@ -399,7 +396,7 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/px80"
                     android:background="@drawable/bg_bottom_line"
                     android:minHeight="@dimen/tableHeight"
                     android:paddingRight="20dp">
@@ -450,7 +447,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/tableHeight"
+            android:layout_height="@dimen/px80"
             android:gravity="center_vertical"
             android:paddingLeft="12dp"
             android:text="苗圃信息"
@@ -481,9 +478,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/tableHeight"
+                android:layout_height="@dimen/px80"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/x5"
                 android:background="@drawable/bg_bottom_line"
                 android:orientation="horizontal"
                 android:paddingLeft="12dp">
@@ -519,7 +515,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/tableHeight"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/px80"
                 android:background="@drawable/bg_bottom_line"
                 android:orientation="horizontal"
 
@@ -544,27 +541,25 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/px80"
                     android:layout_weight="6"
                     android:paddingRight="6dp">
 
                     <TextView
                         android:id="@+id/tv_store_area"
                         android:layout_width="0dp"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:ellipsize="end"
                         android:paddingLeft="15dp"
                         android:textColor="@color/text_color333"
-                        tools:text="福建   漳州福建   漳州州福建   漳州福建 州福   漳州福建 州福建   漳州福建 州福建   漳州福建 州福建建   漳州福建 " />
+                        tools:text="福州 州福建建   漳州福建 " />
 
-                    <View
-                        android:layout_width="1px"
-
-                        android:layout_height="20dp"
-                        android:layout_gravity="center_vertical"
-                        android:background="@color/readed_gray" />
+                    <View style="@style/View_line_vertical" />
 
 
                     <RadioButton
@@ -585,7 +580,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/tableHeight"
+                android:layout_height="@dimen/px80"
                 android:background="@drawable/bg_bottom_line"
                 android:orientation="horizontal"
                 android:paddingLeft="12dp">

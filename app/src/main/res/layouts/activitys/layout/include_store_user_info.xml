@@ -6,7 +6,7 @@
     android:background="@color/trans">
 
 
-    <ImageView
+    <com.hldj.hmyg.widget.RoundRectImageView
         android:id="@+id/logo"
         android:layout_width="@dimen/px126"
         android:layout_height="@dimen/px126"
@@ -14,8 +14,6 @@
 
         android:layout_centerVertical="true"
         android:layout_marginLeft="12dp"
-        android:foreground="@drawable/zheng_white"
-        android:padding="2dp"
         android:scaleType="centerCrop"
         android:src="@drawable/company_head" />
 

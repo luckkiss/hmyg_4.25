@@ -18,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 
 import com.hldj.hmyg.R;
@@ -330,6 +331,9 @@ public class CommonListSpinner1<T> {
     public void dismiss() {
         D.e("========dismiss=========");
 
+        if (mBuilder.onDismissListener != null) {
+            mBuilder.onDismissListener.onDismiss(null);
+        }
         selectPopupWindow.dismiss();
 
     }
@@ -458,6 +462,15 @@ public class CommonListSpinner1<T> {
             mApplyParentView = view;
             return this;
         }
+
+
+        PopupMenu.OnDismissListener onDismissListener;
+
+        public Builder setOnDismissListener(PopupMenu.OnDismissListener onDismissListener) {
+            this.onDismissListener = onDismissListener;
+            return this;
+        }
+
 
         public Builder setChoice_mode_multiple(int model) {
             choice_mode_multiple = model;

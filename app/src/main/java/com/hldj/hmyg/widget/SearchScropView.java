@@ -100,6 +100,9 @@ public class SearchScropView extends BaseLinearLayout<SellectActivity2.TypesBean
         TextView right;
         EditText et_min;
         EditText et_max;
+
+        TextView jia;//加  单位
+
         RangeSeekBar rangeBar;
         RxSeekBar seek_bar;
         TagFlowLayout flowlayout;
@@ -107,6 +110,7 @@ public class SearchScropView extends BaseLinearLayout<SellectActivity2.TypesBean
         public ViewHolder(View rootView) {
             this.rootView = rootView;
             this.seek_bar = (RxSeekBar) rootView.findViewById(R.id.seek_bar);
+            this.jia = (TextView) rootView.findViewById(R.id.jia);
             this.rangeBar = (RangeSeekBar) rootView.findViewById(R.id.rangeBar);
             this.tv_text = (TextView) rootView.findViewById(R.id.tv_text);
             this.left = (TextView) rootView.findViewById(R.id.left);
@@ -121,6 +125,13 @@ public class SearchScropView extends BaseLinearLayout<SellectActivity2.TypesBean
                     D.i("onRangeChanged: min" + min + "  max = " + max);
                     left.setText(((int) min) + "");
                     right.setText(((int) max) + "");
+
+                    if ((((int) max) + "").equals(((int) rangeBar.getMaxValue()) + "")) {
+                        jia.setVisibility(VISIBLE);
+                    } else {
+                        jia.setVisibility(GONE);
+                    }
+
                 }
             });
 
@@ -129,6 +140,7 @@ public class SearchScropView extends BaseLinearLayout<SellectActivity2.TypesBean
                 public void onRangeChanged(RxSeekBar view, float min, float max, boolean isFromUser) {
                     et_min.setText(((int) min) + "");
                     et_max.setText(((int) max) + "");
+
                 }
             });
 
@@ -175,8 +187,13 @@ public class SearchScropView extends BaseLinearLayout<SellectActivity2.TypesBean
 
 //        mViewHolder.seek_bar.setValue(mi, ma);
 
-
         mViewHolder.rangeBar.setValue(mi, ma);
+
+        if ((((int) mi) + "").equals(((int) mViewHolder.rangeBar.getMaxValue()) + "")) {
+            mViewHolder.jia.setVisibility(VISIBLE);
+        } else {
+            mViewHolder.jia.setVisibility(GONE);
+        }
 
 //        mViewHolder.left.setText(((int) mi) + "");
 //        mViewHolder.right.setText(((int) ma) + "");

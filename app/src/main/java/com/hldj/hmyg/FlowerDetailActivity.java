@@ -78,6 +78,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
+import com.zf.iosdialog.widget.ActionSheetDialog;
 import com.zf.iosdialog.widget.AlertDialog;
 import com.zzy.flowers.widget.popwin.EditP2;
 import com.zzy.flowers.widget.popwin.EditP3;
@@ -1007,19 +1008,26 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 //                                            msSeedlingParms);
 //                                    lv_00.setAdapter(myadapter);
 //                                }
-                                JSONObject ownerJson = JsonGetInfo
-                                        .getJSONObject(jsonObject2, "ownerJson");
-                                JSONObject coCity = JsonGetInfo.getJSONObject(
-                                        ownerJson, "coCity");
+//                                JSONObject ownerJson = JsonGetInfo
+//                                        .getJSONObject(jsonObject2, "ownerJson");
+//                                JSONObject coCity = JsonGetInfo.getJSONObject(
+//                                        ownerJson, "coCity");
 
 //                                ownerId = JsonGetInfo.getJsonString(  ownerJson, "ownerId");
 
+//                                displayPhone = JsonGetInfo.getJsonString(
+//                                        ownerJson, "displayPhone");
+
+                                JSONObject attrData = JsonGetInfo.getJSONObject(
+                                        jsonObject2, "attrData");
+
                                 displayPhone = JsonGetInfo.getJsonString(
-                                        ownerJson, "displayPhone");
-                                String displayName = JsonGetInfo.getJsonString(
-                                        ownerJson, "displayName");
+                                        attrData, "sellerPhone");
+
+//                                String displayName = JsonGetInfo.getJsonString(
+//                                        ownerJson, "displayName");
                                 String publicName = JsonGetInfo.getJsonString(
-                                        ownerJson, "publicName");
+                                        attrData, "displayName");
 
 
                                 {//商家信息 --详情
@@ -1292,11 +1300,10 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                             ToastUtil.showShortToast("未获取定位信息");
                             return;
                         }
-                        if (AMapUtil.isInstallByRead("com.autonavi.minimap")) {
-                            AMapUtil.goToNaviActivity(mActivity, "test", null, latitude, longitude, "1", "2");
-                        } else {
-                            ToastUtil.showShortToast("未安装高德导航");
-                        }
+
+                        chooseMap();
+
+
 //                        Intent intent = new Intent(mActivity, EventsActivity.class);
 //                        startActivityForResult(intent, 1);
 
@@ -1588,6 +1595,80 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
                 }
             }
         }
+    }
+
+    private void chooseMap() {
+//        if (AMapUtil.isInstallByRead("com.autonavi.minimap")) {
+//            AMapUtil.goToNaviActivity(mActivity, "test", null, latitude, longitude, "1", "2");
+//        } else {
+//            ToastUtil.showShortToast("未安装高德导航");
+//        }
+//
+//        if (AMapUtil.isInstallByRead("com.baidu.BaiduMap")) {
+//            AMapUtil.goToNaviBaiDuActivity(mActivity, "test", null, latitude, longitude, "1", "2");
+//        } else {
+//            ToastUtil.showShortToast("未安装百度导航");
+//        }
+
+//        if (AMapUtil.isInstallByRead("com.tencent.map")) {
+//            AMapUtil.goToNaviTencentActivity(mActivity, "test", null, latitude, longitude, "1", "2");
+//        } else {
+//            ToastUtil.showShortToast("未安装腾讯导航");
+//        }
+
+
+        if (!AMapUtil.isInstallByRead("com.autonavi.minimap")
+                ||
+                !AMapUtil.isInstallByRead("com.baidu.BaiduMap") ||
+                !AMapUtil.isInstallByRead("com.tencent.map")
+                ) {
+            ToastUtil.showLongToast("未检测到导航软件");
+            return;
+        }
+
+
+        ActionSheetDialog actionSheetDialog = new ActionSheetDialog(mActivity).builder().setCancelable(true).setCanceledOnTouchOutside(true);
+
+        actionSheetDialog.addSheetItem("请选择", ActionSheetDialog.SheetItemColor.Black, new ActionSheetDialog.OnSheetItemClickListener() {
+            @Override
+            public void onClick(int which) {
+
+            }
+        });
+
+
+        if (AMapUtil.isInstallByRead("com.autonavi.minimap")) {
+            actionSheetDialog.addSheetItem("高德导航", ActionSheetDialog.SheetItemColor.Blue,
+                    which -> {
+
+                        AMapUtil.goToNaviActivity(mActivity, "test", null, latitude, longitude, "1", "2");
+
+
+//                                SelectHeadTools.startCamearPicCut(mActivity, photoUri);
+                    });
+        }
+        if (AMapUtil.isInstallByRead("com.baidu.BaiduMap")) {
+            actionSheetDialog.addSheetItem("百度导航", ActionSheetDialog.SheetItemColor.Blue,
+                    which -> {
+
+                        AMapUtil.goToNaviBaiDuActivity(mActivity, "test", null, latitude, longitude, "1", "2");
+
+
+//                                SelectHeadTools.startCamearPicCut(mActivity, photoUri);
+                    });
+        }
+
+        if (AMapUtil.isInstallByRead("com.tencent.map")) {
+            actionSheetDialog.addSheetItem("腾讯导航", ActionSheetDialog.SheetItemColor.Blue,
+                    which -> {
+                        AMapUtil.goToNaviTencentActivity(mActivity, "test", null, latitude, longitude, "1", "2");
+//                                SelectHeadTools.startCamearPicCut(mActivity, photoUri);
+                    });
+        }
+
+
+        actionSheetDialog.show();
+
     }
 
     private void share() {
@@ -1917,8 +1998,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
     public static void CallPhone(final String displayPhone, Activity mAct, View.OnClickListener succeed) {
 
-        if (!LoginUtil.toLogin(mAct))
-        {
+        if (!LoginUtil.toLogin(mAct)) {
             return;
         }
 
@@ -1952,6 +2032,8 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
                 }
             }).show();
+        } else {
+            ToastUtil.showLongToast("电话号码未填写");
         }
     }
 

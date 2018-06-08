@@ -88,7 +88,8 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
     public void city(View view) {
         CityWheelDialogF.instance()
                 .isShowCity(true)
-                .addSelectListener(new CityWheelDialogF.OnCitySelectListener() {
+                .isShowDistrict(true)
+                .addSelectListener(new CityWheelDialogF.OnCitySelectListenerWrap() {
                     @Override
                     public void onCitySelect(CityGsonBean.ChildBeans childBeans) {
 //                        ToastUtil.showLongToast(childBeans.fullName);
@@ -99,6 +100,13 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
                     @Override
                     public void onProvinceSelect(CityGsonBean.ChildBeans childBeans) {
 
+                    }
+
+                    @Override
+                    public void onDistrectSelect(CityGsonBean.ChildBeans distrect) {
+                        cityBeans = distrect;
+                        city.setText(distrect.fullName);
+//                        ToastUtil.showLongToast(distrect.fullName);
                     }
                 })
                 .show(getSupportFragmentManager(), TAG);
@@ -386,10 +394,7 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
                 /* 图片的必须项目  星星的显示  */
 
 
-
-
-                    AutoAddRelative.isShowLeftAndRight(saveSeedingGsonBean.getData().getItem().purchaseJson.needImage,getView(R.id.tv_purchase_add_pic),R.drawable.seller_redstar,R.drawable.ic_right_icon_new);
-
+                AutoAddRelative.isShowLeftAndRight(saveSeedingGsonBean.getData().getItem().purchaseJson.needImage, getView(R.id.tv_purchase_add_pic), R.drawable.seller_redstar, R.drawable.ic_right_icon_new);
 
 
                 hindLoading();
@@ -506,15 +511,13 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
 
         cityBeans = new CityGsonBean.ChildBeans();
         if (MainActivity.aMapLocation != null) {
-            if (!TextUtils.isEmpty(MainActivity.cityCode))
-            {
-                cityCode = MainActivity.cityCode;
-                cityBeans.cityCode = MainActivity.cityCode;
-                city.setText(MainActivity.province_loc + " " + MainActivity.city_loc);
-                cityBeans.fullName = MainActivity.province_loc + " " + MainActivity.city_loc;
+            if (!TextUtils.isEmpty(MainActivity.adCode)) {
+                cityCode = MainActivity.adCode;
+                cityBeans.cityCode = MainActivity.adCode;
+                city.setText( MainActivity.province_loc + " " + MainActivity.city_loc +" "+MainActivity.district_loc);
+                cityBeans.fullName = MainActivity.province_loc + " " + MainActivity.city_loc +" "+MainActivity.district_loc;
             }
         }
-
 
 
     }

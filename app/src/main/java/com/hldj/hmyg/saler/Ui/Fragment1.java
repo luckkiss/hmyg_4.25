@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.coorchice.library.SuperTextView;
+import com.hldj.hmyg.CallBack.search.IRefresh;
+import com.hldj.hmyg.CallBack.search.ISearch;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.CollectGsonBean;
@@ -23,6 +25,7 @@ import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
+import com.hldj.hmyg.util.ConstantParams;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
@@ -44,7 +47,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
  * Created by Administrator on 2017/5/2.
  */
 
-public class Fragment1 extends Fragment {
+public class Fragment1 extends Fragment implements IRefresh {
 
     private static final String TAG = "Fragment1";
 
@@ -260,6 +263,7 @@ public class Fragment1 extends Fragment {
         GetServerUrl.addHeaders(finalHttp, true);
         AjaxParams params = new AjaxParams();
         params.put("status", "");
+        params.put(ConstantParams.searchKey, getSearchKey());
         params.put("pageSize", 6 + "");
         params.put("pageIndex", pageIndex + "");
         finalHttp.post(GetServerUrl.getUrl() + "admin/quote/list", params, new AjaxCallBack<String>() {
@@ -296,13 +300,39 @@ public class Fragment1 extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == ConstantState.DELETE_SUCCEED) {
             ToastUtil.showShortToast("删除成功");
-            refresh();
+            onRefresh("");
         }
     }
 
-    public void refresh() {
-        recyclerView.selfRefresh(true);
-        recyclerView.onRefresh();
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (getUserVisibleHint()) {
+            Log.i("setUserVisibleHint", "======显示  刷新====" + this);
+        } else {
+            Log.i("setUserVisibleHint", "====显示  不刷新======" + this);
+        }
+
     }
 
+
+    private String getSearchKey() {
+        if (mActivity != null && mActivity instanceof ISearch)
+        {
+            return ((ISearch) mActivity).getSearchKey();
+        } else {
+            return "";
+        }
+    }
+
+    @Override
+    public void onRefresh(String searchKey) {
+
+        recyclerView.selfRefresh(true);
+        recyclerView.onRefresh();
+
+
+    }
 }

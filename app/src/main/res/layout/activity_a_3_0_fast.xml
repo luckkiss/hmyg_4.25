@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:contentScrim="@color/white"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <!--app:expandedTitleMarginBottom="100dp"-->
+            <LinearLayout
+                android:id="@+id/ll_activity_purchase_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/title_top_default"
+                android:visibility="visible"
+                app:layout_collapseMode="none"
+                tools:visibility="visible">
+
+                <View style="@style/View_line_gray_1dp" />
+                <!--<include layout="@layout/item_friend_cicle" />-->
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:src="@drawable/no_image_show" />
+
+
+                <LinearLayout
+                    android:id="@+id/ll_fenlei2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/px52"
+                        android:layout_height="match_parent"
+                        android:background="@color/maimiao_yellower"
+                        android:gravity="center"
+                        android:text="卖\n苗"
+                        android:textColor="@color/white" />
+
+
+                    <com.coorchice.library.SuperTextView
+                        style="@style/home_types"
+                        android:text="苗圃管理"
+                        app:state_drawable="@mipmap/home_mpgl" />
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/stv_home_22"
+                        style="@style/home_types"
+                        android:text="采购报价"
+                        app:state_drawable="@mipmap/home_cgbj" />
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/stv_home_33"
+                        style="@style/home_types"
+                        android:text="我的报价"
+                        app:state_drawable="@mipmap/home_wdbj" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_fenlei3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/px52"
+                        android:layout_height="match_parent"
+                        android:background="@color/maimiao_yellower"
+                        android:gravity="center"
+                        android:text="卖\n苗"
+                        android:textColor="@color/white" />
+
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/stv_home_11"
+                        style="@style/home_types"
+                        android:text="苗圃管理"
+                        app:state_drawable="@mipmap/home_mpgl" />
+
+                    <com.coorchice.library.SuperTextView
+                        style="@style/home_types"
+                        android:text="采购报价"
+                        app:state_drawable="@mipmap/home_cgbj" />
+
+                    <com.coorchice.library.SuperTextView
+                        style="@style/home_types"
+                        android:text="我的报价"
+                        app:state_drawable="@mipmap/home_wdbj" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/activity_a_top_toolbar"
+                app:layout_collapseMode="pin" />
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/top"
+            android:background="@drawable/bg_top_bottom_line"
+            android:visibility="visible"
+            app:tabIndicatorColor="@color/main_color"
+            app:tabSelectedTextColor="@color/main_color">
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="平台直采" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个人求购" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="苗木推荐" />
+
+        </android.support.design.widget.TabLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+        android:id="@+id/recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="40dp"
+        android:background="@color/white"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+</android.support.design.widget.CoordinatorLayout>
+

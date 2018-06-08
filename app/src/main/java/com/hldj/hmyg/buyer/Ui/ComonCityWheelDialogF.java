@@ -62,6 +62,12 @@ public class ComonCityWheelDialogF extends DialogFragment implements OnWheelChan
         return wheelDialogF;
     }
 
+    private boolean isShowDirst = false;
+
+    public ComonCityWheelDialogF showDistr(boolean isShowDirst) {
+        this.isShowDirst = isShowDirst;
+        return this;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -122,7 +128,9 @@ public class ComonCityWheelDialogF extends DialogFragment implements OnWheelChan
         mViewProvince = (WheelView) dialog.findViewById(R.id.id_province);
         mViewCity = (WheelView) dialog.findViewById(R.id.id_city);
         mViewDistrict = (WheelView) dialog.findViewById(R.id.id_district);
-        mViewDistrict.setVisibility(View.GONE);
+
+
+        mViewDistrict.setVisibility(isShowDirst? View.VISIBLE :View.GONE);
 
         // 添加change事件
         mViewProvince.addChangingListener(this);

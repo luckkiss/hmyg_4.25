@@ -2,17 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_content_head"
+        tools:text="13465461346546134654613465461346546134654613465461346546"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="6dp"
+        android:gravity="center_vertical"
+        android:lineSpacingMultiplier="1.4"
+        android:paddingBottom="@dimen/linepaddingbutton"
         android:paddingLeft="12dp"
-        android:paddingTop="6dp"
-
-        android:text="1346546"
+        android:paddingTop="4dp"
 
         />
 
