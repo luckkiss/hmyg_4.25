@@ -1,0 +1,84 @@
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingBottom="5dp"
+    android:paddingTop="25dp"
+    app:contentInsetStart="0dp"
+    app:layout_scrollFlags="scroll|enterAlways">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp">
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/tv_a_search"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_top_default"
+
+
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:drawablePadding="4dp"
+            android:gravity="center"
+            android:paddingLeft="-2dp"
+            android:text="@string/search_content"
+            android:textColor="@color/gray"
+            app:corner="100dp"
+            app:isShowState="true"
+            app:left_bottom_corner="true"
+            app:left_top_corner="true"
+            app:pla_paddingLeft="2dp"
+            app:right_bottom_corner="true"
+            app:right_top_corner="true"
+            app:solid="#ededed"
+            app:state_drawable="@drawable/search_icon"
+            app:state_drawable_height="17dp"
+            app:state_drawable_mode="center"
+            app:state_drawable_padding_left="@dimen/home_search_padding"
+            app:state_drawable_width="17dp"
+            app:stroke_color="#ededed"
+            app:stroke_width="1px"
+            app:text_fill_color="@color/text_color999"
+            app:text_stroke_width="0px" />
+
+        <!--#ededed-->
+        <!--<com.hldj.hmyg.widget.DrawableCenterText-->
+        <!--android:id="@+id/tv_a_search"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/title_top_default"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_toLeftOf="@+id/iv_a_msg"-->
+        <!--android:background="@drawable/search_edit_selector"-->
+        <!--android:drawableLeft="@drawable/home_search_icon"-->
+        <!--android:drawablePadding="4dp"-->
+        <!--android:gravity="center"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:text="@string/search_content"-->
+        <!--android:textColor="@color/gray" />-->
+
+        <ImageView
+            android:id="@+id/iv_a_msg"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="6dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:scaleType="fitXY"
+            android:src="@drawable/message_selector"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+</android.support.v7.widget.Toolbar>
