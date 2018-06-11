@@ -119,15 +119,7 @@
                         android:background="@color/gray_bg" />
 
 
-                    <com.jarvis.MyView.MyGridView
-                        android:id="@+id/gd"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/gray_bg"
-                        android:horizontalSpacing="@dimen/y1"
-                        android:numColumns="2"
-                        android:verticalSpacing="@dimen/y1"
-                        android:visibility="gone" />
+
                 </LinearLayout>
 
 
@@ -180,12 +172,13 @@
                     android:orientation="vertical"
                     android:visibility="visible">
 
-                    <View style="@style/View_line_gray" />
+                    <View style="@style/View_line_gray" android:tag="a"/>
 
                     <com.coorchice.library.SuperTextView
                         android:id="@+id/home_title_first"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:tag="a"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="true"
                         android:layout_gravity="center_vertical"
@@ -201,18 +194,9 @@
                         app:state_drawable_width="50dp"
                         tools:text="  ▎最新采购" />
 
-                    <View style="@style/View_line_gray_1px" />
+                    <View style="@style/View_line_gray_1px" android:tag="a"/>
 
-                    <com.jarvis.MyView.MyListView
-                        android:id="@+id/lv_00"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:descendantFocusability="blocksDescendants"
-                        android:divider="@color/gray_bg_ed"
-                        android:dividerHeight="3px"
-                        android:headerDividersEnabled="true"
-                        app:dividerHeight="3px" />
+
                 </LinearLayout>
 
 
@@ -225,14 +209,14 @@
                     android:orientation="vertical"
                     android:visibility="visible">
 
-                    <View style="@style/View_line_gray" />
+                    <View style="@style/View_line_gray"  android:tag="a"/>
 
                     <com.coorchice.library.SuperTextView
                         android:id="@+id/home_title_qiu_gou"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_alignParentLeft="true"
-
+                        android:tag="a"
                         android:layout_alignParentTop="true"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
@@ -247,18 +231,9 @@
                         app:state_drawable_padding_left="-15dp"
                         app:state_drawable_width="50dp" />
 
-                    <View style="@style/View_line_gray_1px" />
+                    <View style="@style/View_line_gray_1px"  android:tag="a"/>
 
-                    <com.jarvis.MyView.MyListView
-                        android:id="@+id/lv_qiu_gou"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:descendantFocusability="blocksDescendants"
-                        android:divider="@color/gray_bg_ed"
-                        android:dividerHeight="3px"
-                        android:headerDividersEnabled="true"
-                        app:dividerHeight="3px" />
+
                 </LinearLayout>
                 <!-- 用户求购 -->
 
@@ -268,7 +243,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <View style="@style/View_line_gray" />
+                    <View style="@style/View_line_gray"  android:tag="a" />
 
                     <!--<RelativeLayout-->
                     <!--android:layout_width="match_parent"-->
@@ -304,7 +279,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_alignParentLeft="true"
-
+                        android:tag="a"
                         android:layout_alignParentTop="true"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
@@ -319,15 +294,15 @@
                         app:state_drawable_width="50dp"
                         tools:text="推荐资源" />
 
-                    <View style="@style/View_line_gray_1dp" />
+                    <View style="@style/View_line_gray_1dp"  android:tag="a"/>
 
-                    <com.jarvis.MyView.MyListView
-                        android:id="@+id/lv_00_store"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:descendantFocusability="blocksDescendants"
-                        android:divider="@null" />
+                    <!--<com.jarvis.MyView.MyListView-->
+                        <!--android:id="@+id/lv_00_store"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@color/white"-->
+                        <!--android:descendantFocusability="blocksDescendants"-->
+                        <!--android:divider="@null" />-->
                 </LinearLayout>
 
 

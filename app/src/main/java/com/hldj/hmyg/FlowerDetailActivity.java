@@ -288,7 +288,7 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
         });
 
         iv_lianxi = (TextView) findViewById(R.id.iv_lianxi);
-        lv_00 = (ListView) findViewById(R.id.lv_00);
+//        lv_00 = (ListView) findViewById(R.id.lv_00);
 //        lv_00.setDivider(null);
         tv_no_server_area = (TextView) findViewById(R.id.tv_no_server_area);
         tv_title = (TextView) findViewById(R.id.tv_title);

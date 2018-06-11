@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -117,13 +118,13 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private ImagePagerAdapter imagePagerAdapter;
     private CirclePageIndicator indicator;
     private AutoScrollViewPager viewPager;
-    private ListView lv_00;
-    private ListView lv_qiu_gou;
+    //    private ListView lv_00;
+//    private ListView lv_qiu_gou;
     private ImageView iv_msg;
     private NestedScrollView scrollView;
     private Button toTopBtn;// 返回顶部的按钮
     private ImageView iv_publish;//  发布按钮
-    private int scrollY = 0;// 标记上次滑动位置
+    //    private int scrollY = 0;// 标记上次滑动位置
     private View contentView;
     private final String TAG = "test";
     private ACache mCache;
@@ -133,6 +134,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
 
     int[] location = new int[2];
+    private BProduceAdapt bProduceAdapt;
+    private GlobBaseAdapter<UserPurchase> adapter;
+    private PurchaseListAdapter purchaseListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,10 +164,10 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //        iv_home_preferential = (ImageView) findViewById(R.id.iv_home_preferential);
 //        iv_fenlei = (ImageView) findViewById(R.id.iv_fenlei);
 
-        lv_00 = (ListView) findViewById(R.id.lv_00);
-        lv_qiu_gou = (ListView) findViewById(R.id.lv_qiu_gou);
-        lv_00.setDivider(null);
-        lv_qiu_gou.setDivider(null);
+//        lv_00 = (ListView) findViewById(R.id.lv_00);
+//        lv_qiu_gou = (ListView) findViewById(R.id.lv_qiu_gou);
+//        lv_00.setDivider(null);
+//        lv_qiu_gou.setDivider(null);
         scrollView = (NestedScrollView) findViewById(R.id.rotate_header_scroll_view);
         if (contentView == null) {
             contentView = scrollView.getChildAt(0);
@@ -225,7 +229,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         findViewById(R.id.tv_a_search).setOnClickListener(this);
 
         initSwipe();
-        setListAtMost();
 
 
 //        tablayout.addOnTabSelectedListener(onTabSelectedListener);
@@ -463,7 +466,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
                 viewPager.getLocationOnScreen(location);
 
-                Log.i("OnScrollChanged", "x = " + location[0] + "  y = " + location[1] + "  height = " + viewPager.getHeight());
+//                Log.i("OnScrollChanged", "x = " + location[0] + "  y = " + location[1] + "  height = " + viewPager.getHeight());
 
 
                 if (location[1] > 0) {
@@ -481,7 +484,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
                 float pre = (1 - precent / viewPager.getHeight());
 
-                Log.i("百分比", pre + "  % is = " + precent * 255);
+//                Log.i("百分比", pre + "  % is = " + precent * 255);
 
 //: 0.92105263  % is = 11475.0
 
@@ -497,11 +500,11 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                         toolbar.getBackground().mutate().setAlpha((int) (pre * 255));
                     }
 
-                    Log.i("j", "进来了");
+//                    Log.i("j", "进来了");
 
 
                 } else {
-                    Log.i("j", "no进来了");
+//                    Log.i("j", "no进来了");
 
 //                    if (pre > 0.8) {
 //                        toolbar.getBackground().mutate().setAlpha(10);
@@ -571,7 +574,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
                 Log.i(TAG, "handleStop");
                 NestedScrollView scroller = (NestedScrollView) view;
-                scrollY = scroller.getScrollY();
+//                scrollY = scroller.getScrollY();
 
                 doOnBorderListener();
             }
@@ -865,26 +868,32 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
      * @param indexGsonBean
      */
     private void initNewList(IndexGsonBean indexGsonBean) {
-        try {//采购项目
+        try {//最新采购
 
             LinearLayout view = (LinearLayout) findViewById(R.id.ll_caigou_parent);
 //            view.removeAllViews();
-//            View viewChild = LayoutInflater.from(this).inflate(R.layout.list_item_purchase_list_new, view);
-//            view.addView(viewChild);
-//            view.addView(viewChild);
-//            view.addView(viewChild);
-//            view.addView(viewChild);
-//
-            if (indexGsonBean.data.purchaseList.size() != 0) {
-                view.setVisibility(View.VISIBLE);
-                PurchaseListAdapter adapter = new PurchaseListAdapter(AActivity_3_0.this, indexGsonBean.data.purchaseList, R.layout.list_item_purchase_list_new);
-                lv_00.setAdapter(adapter);
-                D.e("VISIBLE");
+//            removeViewByTag(view, "a");
+
+            if (purchaseListAdapter == null) {
+                purchaseListAdapter = new PurchaseListAdapter(AActivity_3_0.this, indexGsonBean.data.purchaseList, R.layout.list_item_purchase_list_new);
+                for (int i = 0; i < purchaseListAdapter.getCount(); i++) {
+//                view.addView(adapter.getView(i, null, null));
+                    view.addView(viewSetTag("a", purchaseListAdapter, i));
+                }
             } else {
-                view.setVisibility(View.VISIBLE);
-                ((ViewGroup) findViewById(R.id.home_title_first).getParent()).setVisibility(View.VISIBLE);
-                D.e("GONE");
+                purchaseListAdapter.notifyDataSetChanged();
             }
+
+//            if (indexGsonBean.data.purchaseList.size() != 0) {
+//                view.setVisibility(View.VISIBLE);
+//                PurchaseListAdapter adapter = new PurchaseListAdapter(AActivity_3_0.this, indexGsonBean.data.purchaseList, R.layout.list_item_purchase_list_new);
+//                lv_00.setAdapter(adapter);
+//                D.e("VISIBLE");
+//            } else {
+//                view.setVisibility(View.VISIBLE);
+//                ((ViewGroup) findViewById(R.id.home_title_first).getParent()).setVisibility(View.VISIBLE);
+//                D.e("GONE");
+//            }
 
         } catch (Exception e) {
             findViewById(R.id.ll_caigou_parent).setVisibility(View.VISIBLE);
@@ -892,20 +901,15 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             e.printStackTrace();
         }
 
-        try {//采购项目
+        try {// 用户求购
 
-            View view = findViewById(R.id.ll_qiu_gou_parent);
-//
-            if (indexGsonBean.data.userPurchaseList.size() != 0) {
-//            if (true) {
-                view.setVisibility(View.VISIBLE);
-//                PurchaseListAdapter adapter = new PurchaseListAdapter(AActivity_3_0.this, indexGsonBean.data.purchaseList, R.layout.item_buy_for_user);
+            LinearLayout view = (LinearLayout) findViewById(R.id.ll_qiu_gou_parent);
+//            removeViewByTag(view, "a");
+//            View viewChild = LayoutInflater.from(this).inflate(R.layout.item_buy_for_user, null);
+//            view.removeAllViews();
 
-//                List<UserPurchase> ars = new ArrayList<>();
-//                ars.add("13213");
-//                ars.add("13213");
-//                ars.add("13213");
-                lv_qiu_gou.setAdapter(new GlobBaseAdapter<UserPurchase>(AActivity_3_0.this, indexGsonBean.data.userPurchaseList, R.layout.item_buy_for_user) {
+            if (adapter == null) {
+                adapter = new GlobBaseAdapter<UserPurchase>(AActivity_3_0.this, indexGsonBean.data.userPurchaseList, R.layout.item_buy_for_user) {
                     @Override
                     public void setConverView(ViewHolders myViewHolder, UserPurchase s, int position) {
                         Log.i(TAG, ": " + s.name);
@@ -913,13 +917,43 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                         doConvert(myViewHolder, s, AActivity_3_0.this);
 
                     }
-                });
-                D.e("VISIBLE");
+                };
+
+//            view.addView(adapter.getView(0, null, null));
+//            view.addView(adapter.getView(1, null, null));
+
+                for (int i = 0; i < adapter.getCount(); i++) {
+//                view.addView(adapter.getView(i, null, null));
+                    view.addView(viewSetTag("a", adapter, i));
+                }
             } else {
-                view.setVisibility(View.VISIBLE);
-                ((ViewGroup) findViewById(R.id.home_title_first).getParent()).setVisibility(View.VISIBLE);
-                D.e("GONE");
+                adapter.notifyDataSetChanged();
             }
+
+
+//            if (indexGsonBean.data.userPurchaseList.size() != 0) {
+////            if (true) {
+//                view.setVisibility(View.VISIBLE);
+//
+////                List<UserPurchase> ars = new ArrayList<>();
+////                ars.add("13213");
+////                ars.add("13213");
+////                ars.add("13213");
+//                lv_qiu_gou.setAdapter(new GlobBaseAdapter<UserPurchase>(AActivity_3_0.this, indexGsonBean.data.userPurchaseList, R.layout.item_buy_for_user) {
+//                    @Override
+//                    public void setConverView(ViewHolders myViewHolder, UserPurchase s, int position) {
+//                        Log.i(TAG, ": " + s.name);
+//
+//                        doConvert(myViewHolder, s, AActivity_3_0.this);
+//
+//                    }
+//                });
+//                D.e("VISIBLE");
+//            } else {
+//                view.setVisibility(View.VISIBLE);
+//                ((ViewGroup) findViewById(R.id.home_title_first).getParent()).setVisibility(View.VISIBLE);
+//                D.e("GONE");
+//            }
 
         } catch (Exception e) {
             findViewById(R.id.ll_caigou_parent).setVisibility(View.VISIBLE);
@@ -929,13 +963,30 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
 
         try {
-            if (indexGsonBean.data.seedlingList.size() != 0) {
-                findViewById(R.id.ll_tuijian_parent).setVisibility(View.VISIBLE);
-                BProduceAdapt bProduceAdapt = new BProduceAdapt(AActivity_3_0.this, indexGsonBean.data.seedlingList, R.layout.list_view_seedling_new);
-                ((ListView) findViewById(R.id.lv_00_store)).setAdapter(bProduceAdapt);
+            // 苗木资源推荐
+            LinearLayout view = (LinearLayout) findViewById(R.id.ll_tuijian_parent);
+//
+//            removeViewByTag(view, "a");
+
+//            View viewChild = LayoutInflater.from(this).inflate(R.layout.list_view_seedling_new, null);
+            if (bProduceAdapt == null) {
+                bProduceAdapt = new BProduceAdapt(AActivity_3_0.this, indexGsonBean.data.seedlingList, R.layout.list_view_seedling_new);
+//            view.removeAllViews();
+                for (int i = 0; i < bProduceAdapt.getCount(); i++) {
+                    view.addView(viewSetTag("a", bProduceAdapt, i));
+                }
             } else {
-                findViewById(R.id.ll_tuijian_parent).setVisibility(View.VISIBLE);
+                bProduceAdapt.notifyDataSetChanged();
             }
+
+
+//            if (indexGsonBean.data.seedlingList.size() != 0) {
+//                findViewById(R.id.ll_tuijian_parent).setVisibility(View.VISIBLE);
+//                BProduceAdapt bProduceAdapt = new BProduceAdapt(AActivity_3_0.this, indexGsonBean.data.seedlingList, R.layout.list_view_seedling_new);
+//                ((ListView) findViewById(R.id.lv_00_store)).setAdapter(bProduceAdapt);
+//            } else {
+//                findViewById(R.id.ll_tuijian_parent).setVisibility(View.VISIBLE);
+//            }
 
         } catch (Exception e) {
             findViewById(R.id.ll_tuijian_parent).setVisibility(View.VISIBLE);
@@ -966,6 +1017,18 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         }
 
 
+    }
+
+    private View viewSetTag(String a, BaseAdapter baseAdapter, int i) {
+        View child = baseAdapter.getView(i, null, null);
+//        child.setTag(a);
+        return child;
+    }
+
+    private View createViewById(int list_view_seedling_new) {
+        View view = LayoutInflater.from(this).inflate(list_view_seedling_new, null);
+        view.setTag("a");
+        return view;
     }
 
 
@@ -1000,13 +1063,15 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     public void onClick(View v) {
         // TODO Auto-generated method stub
         switch (v.getId()) {
+            //置顶
             case R.id.top_btn:
                 scrollView.post(new Runnable() {
                     @Override
                     public void run() {
                         scrollView.fullScroll(ScrollView.FOCUS_UP);
                         scrollView.smoothScrollTo(0, 0);
-                        scrollY = 0;
+                        toolbar.getBackground().mutate().setAlpha(0);
+//                        scrollY = 0;
                     }
                 });
                 toTopBtn.setVisibility(View.GONE);
@@ -1103,11 +1168,11 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         super.onResume();
         D.e("====onResume====");
 //        setListAtMost();
-        scrollView.postDelayed(() -> {
-            scrollView.scrollTo(0, scrollY);
-//            scrollView.smoothScrollBy(0, scrollY);
-//            ToastUtil.showShortToast("smoothY=" + currenY);
-        }, 30);
+//        scrollView.postDelayed(() -> {
+//            scrollView.scrollTo(0, scrollY);
+////            scrollView.smoothScrollBy(0, scrollY);
+////            ToastUtil.showShortToast("smoothY=" + currenY);
+//        }, 30);
 
 
         setStatusBars();
@@ -1153,10 +1218,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         D.e("====onRestart====");
     }
 
-    public void setListAtMost() {
-        setListViewHeightBasedOnChildren((ListView) findViewById(R.id.lv_00_store));
-        setListViewHeightBasedOnChildren((ListView) findViewById(R.id.lv_00));
-    }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
@@ -1427,4 +1488,18 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     }
 
 
+    private void removeViewByTag(LinearLayout parent, String tag) {
+        for (int i = 0; i < parent.getChildCount(); i++) {
+
+//            if (parent.getChildCount() >= 3) {
+//                parent.removeView(parent.getChildAt(i));
+//            }
+
+            if (parent.getChildAt(i).getTag() != null && !parent.getChildAt(i).getTag().toString().equals(tag)) {
+                parent.removeView(parent.getChildAt(i));
+            }
+        }
+
+
+    }
 }
