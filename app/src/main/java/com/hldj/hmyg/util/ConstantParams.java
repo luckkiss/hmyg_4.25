@@ -31,30 +31,64 @@ public interface ConstantParams {
      * 地径
      */
     String diameter = "diameter";
+    String minDiameter = "minDiameter";
+    String maxDiameter = "maxDiameter";
+
+
+
     /**
      * 米径
      */
     String mijing = "mijing";
+    String minMijing = "minMijing";
+    String maxMijing = "maxMijing";
+
+
     /**
      * 胸径
      */
     String dbh = "dbh";
+    /*最小 胸径*/
+    String minDbh = "minDbh";
+    /*最大 胸径*/
+    String maxDbh = "maxDbh";
+
     /**
      * 高度
      */
     String height = "height";
+    /*最小 高度*/
+    String minHeight = "minHeight";
+    /*最大 高度*/
+    String maxHeight = "maxHeight";
+
+
     /**
      * 冠幅
      */
     String crown = "crown";
+    /*最小 冠幅*/
+    String minCrown = "minCrown";
+    /*最大 冠幅*/
+    String maxCrown = "maxCrown";
+
+
     /**
      * 脱杆高
      */
     String offbarHeight = "offbarHeight";
+    String minOffbarHeight = "minOffbarHeight";
+    String maxOffbarHeight = "maxOffbarHeight";
+
+
     /**
      * 长度
      */
     String length = "length";
+    String minLength = "minLength";
+    String maxLength = "maxLength";
+
+
     /**
      * 数量
      */

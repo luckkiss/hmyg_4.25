@@ -251,7 +251,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="2">
 
                 <com.coorchice.library.SuperTextView
                     android:layout_width="wrap_content"
@@ -282,7 +282,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:visibility="invisible">
+                android:visibility="gone">
 
                 <com.coorchice.library.SuperTextView
                     android:layout_width="wrap_content"
@@ -293,6 +293,7 @@
                     android:text="种植类型:"
                     android:textSize="12sp"
                     app:solid="@color/trans"
+
 
                     />
 

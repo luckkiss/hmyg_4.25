@@ -125,14 +125,31 @@ public class DialogActivityPackage extends DialogActivitySecond {
                 .putParams(ConstantParams.diameter, 获取参数(ConstantParams.diameter))
                 .putParams(ConstantParams.diameterType, diameterType)
                 .putParams(ConstantParams.plantType, plantType)
-                .putParams(ConstantParams.length, 获取参数(ConstantParams.length))
-                .putParams(ConstantParams.offbarHeight, 获取参数(ConstantParams.offbarHeight))
                 .putParams(ConstantParams.price, 获取参数(ConstantParams.price))
                 .putParams(ConstantParams.prePrice, 获取参数(ConstantParams.prePrice))
                 .putParams(ConstantParams.count, 获取参数(ConstantParams.count))
-                .putParams(ConstantParams.height, 获取参数(ConstantParams.height))
-                .putParams(ConstantParams.crown, 获取参数(ConstantParams.crown))
-                .putParams(ConstantParams.dbh, 获取参数(ConstantParams.dbh))
+
+
+                .putParams(ConstantParams.minHeight, 获取参数(ConstantParams.height))
+                .putParams(ConstantParams.maxHeight, 获取参数最大(ConstantParams.height))
+
+                .putParams(ConstantParams.minCrown, 获取参数(ConstantParams.crown))
+                .putParams(ConstantParams.maxCrown, 获取参数最大(ConstantParams.crown))
+
+                .putParams(ConstantParams.minOffbarHeight, 获取参数(ConstantParams.offbarHeight))
+                .putParams(ConstantParams.maxOffbarHeight, 获取参数最大(ConstantParams.offbarHeight))
+
+                .putParams(ConstantParams.maxDbh, 获取参数(ConstantParams.dbh))
+                .putParams(ConstantParams.minDbh, 获取参数最大(ConstantParams.dbh))
+
+                .putParams(ConstantParams.minDiameter, 获取参数(ConstantParams.diameter))
+                .putParams(ConstantParams.maxDiameter, 获取参数最大(ConstantParams.diameter))
+
+                .putParams(ConstantParams.minLength, 获取参数(ConstantParams.length))
+                .putParams(ConstantParams.maxLength, 获取参数最大(ConstantParams.length))
+
+
+
                 .putParams(ConstantParams.dbhType, dbhType)
                 .putParams(ConstantParams.remarks, 备注.getText().toString())
                 .putParams(ConstantParams.cityCode, 获取地址code())

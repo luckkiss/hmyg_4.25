@@ -427,8 +427,8 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
     }
 
 
-    public static void start2Activity(Context context,Boolean flag) {
-        start2ActivityNew(context, flag);
+    public static void start2Activity(Context context,Boolean isLeft) {
+        start2ActivityNew(context, isLeft);
 //        context.startActivity(new Intent(context, PurchasePyMapActivity.class));
     }
 

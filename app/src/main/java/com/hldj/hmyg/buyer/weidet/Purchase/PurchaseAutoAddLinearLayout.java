@@ -81,6 +81,12 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
         return this;
     }
 
+    public BaseLinearLayout setDefaultDataMax(String msg) {
+
+        getViewHolder().et_params_04.setText(FUtil.$_zero_2_null(msg));
+        return this;
+    }
+
     public BaseLinearLayout setDefaultSize(String size) {
 
         RadioGroup radio_group_auto_add = (RadioGroup) findViewById(R.id.radio_group_auto_add);
@@ -95,6 +101,19 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
         }
         setSelect_size(size);
         return this;
+    }
+
+
+    public PurchaseAutoAddLinearLayout showRange() {
+
+        // 显示 区间
+        viewHolder.cut_line.setVisibility(VISIBLE);
+        viewHolder.et_params_04.setVisibility(VISIBLE);
+
+
+        return this;
+
+
     }
 
     public BaseLinearLayout setData(PlantBean plantBean) {
@@ -293,7 +312,9 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
     public class ViewHolder {
         public TextView tv_params_01;
         public TextView tv_params_02;
-        public EditText et_params_03;
+        public EditText et_params_03; // 最小值
+        public EditText et_params_04; // 最大值
+        public TextView cut_line; // 分割线   至   --   最新 -  最大
         public ViewStub vb_radions;
         //        private RadioGroup vb_radions;
         public RadioButton rb_auto_add_left;
@@ -302,6 +323,9 @@ public class PurchaseAutoAddLinearLayout extends BaseLinearLayout {
             this.tv_params_01 = (TextView) viewRroot.findViewById(R.id.tv_params_01);
             this.tv_params_02 = (TextView) viewRroot.findViewById(R.id.tv_params_02);
             this.et_params_03 = (EditText) viewRroot.findViewById(R.id.et_params_03);
+            this.et_params_04 = (EditText) viewRroot.findViewById(R.id.et_params_04);
+            this.cut_line = (TextView) viewRroot.findViewById(R.id.cut_line);
+
             this.vb_radions = (ViewStub) viewRroot.findViewById(R.id.vb_radions);
 
             rb_auto_add_left = (RadioButton) viewRroot.findViewById(R.id.rb_auto_add_left);

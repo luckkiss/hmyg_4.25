@@ -266,9 +266,9 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
         sellerQuoteJsonBean.prCode = "prCode";
         sellerQuoteJsonBean.ciCode = "ciCode";
         sellerQuoteJsonBean.firstSeedlingTypeId = "firstSeedlingTypeId";
-        sellerQuoteJsonBean.dbh = 12;
-        sellerQuoteJsonBean.height = 12;
-        sellerQuoteJsonBean.crown = 12;
+        sellerQuoteJsonBean.dbh = 12+"";
+        sellerQuoteJsonBean.height = 12+"";
+        sellerQuoteJsonBean.crown = 12+"";
         sellerQuoteJsonBean.plantType = "plantType";
         sellerQuoteJsonBean.plantTypeName = "plantTypeName";
         sellerQuoteJsonBean.paramsList = new ArrayList<>();

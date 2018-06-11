@@ -12,9 +12,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
-        android:minHeight="40dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:minHeight="40dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tv_params_01"
@@ -22,9 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"
-            android:textColor="@color/text_color333"
             android:minWidth="50dp"
-            android:text="脱杆高\n (预估)"  />
+            android:text="脱杆高\n (预估)"
+            android:textColor="@color/text_color333" />
 
         <TextView
             android:id="@+id/tv_params_02"
@@ -35,25 +37,28 @@
             android:textColor="@color/hint_text_color"
             android:visibility="gone" />
 
+        <include layout="@layout/include_range" />
 
-        <EditText
-            android:id="@+id/et_params_03"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/conner_edit"
-            android:gravity="center_vertical"
-            android:hint="cm"
-            android:inputType="number"
-            android:maxLength="6"
-            android:minWidth="70dp"
-            android:padding="5dp"
-            android:paddingLeft="5dp"
-            android:textColor="@color/text_color333"
-            android:textColorHint="@color/hint_text_color"
-            android:textSize="15sp" />
+        <!--<EditText-->
+        <!--android:id="@+id/et_params_03"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@drawable/conner_edit"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:hint="cm"-->
+        <!--android:inputType="number"-->
+        <!--android:maxLength="6"-->
+        <!--android:minWidth="70dp"-->
+        <!--android:padding="5dp"-->
+        <!--android:paddingLeft="5dp"-->
+        <!--android:textColor="@color/text_color333"-->
+        <!--android:textColorHint="@color/hint_text_color"-->
+        <!--android:textSize="15sp" />-->
+
+
     </LinearLayout>
 
 

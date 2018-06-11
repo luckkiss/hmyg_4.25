@@ -58,10 +58,32 @@ public class SellerQuoteJsonBean implements Serializable {
     public String coCode;
     public String twCode;
     public String firstSeedlingTypeId;
-    public int dbh;
-    public int diameter;
-    public int height;
-    public int crown;
+
+    public String dbh;
+    public String maxDbh;
+    public String minDbh;
+
+    public String diameter;
+    public String maxDiameter;
+    public String minDiameter;
+
+
+    public String height;
+    public String maxHeight;
+    public String minHeight;
+
+
+    public String crown;
+    public String maxCrown;
+    public String minCrown;
+
+
+
+
+
+
+
+
     public String plantType;
     public String unitTypeName;
     public String plantTypeName;

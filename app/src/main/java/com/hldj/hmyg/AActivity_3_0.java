@@ -45,6 +45,7 @@ import com.hldj.hmyg.Ui.DispatcherActivity;
 import com.hldj.hmyg.Ui.InviteFriendActivity;
 import com.hldj.hmyg.Ui.NewsActivity;
 import com.hldj.hmyg.Ui.NoticeActivity_detail;
+import com.hldj.hmyg.Ui.friend.child.MarchingPurchaseActivity;
 import com.hldj.hmyg.Ui.friend.child.PublishActivity;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
@@ -187,7 +188,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         shangji.setLayoutParams(params);
         Log.i("width = ", params.width + "px");
 
-        ToastUtil.showLongToast("screen widht = " + wm.getDefaultDisplay().getWidth() + " view  width = " + params.width);
+//        ToastUtil.showLongToast("screen widht = " + wm.getDefaultDisplay().getWidth() + " view  width = " + params.width);
 
 
         shangji.setSelected(true);
@@ -382,13 +383,29 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
      * 初始化 今日头条
      */
     private void initView() {
-        //我的求购
+        //  匹配求购
+        findViewById(R.id.shangji).setOnClickListener(v -> {
+            if (isLogin())
+                MarchingPurchaseActivity.start(AActivity_3_0.this);
+        });   //个人 求购 // 个人 求购
+        findViewById(R.id.grqg).setOnClickListener(v -> {
+            if (isLogin())
+                PurchasePyMapActivity.start2Activity(AActivity_3_0.this, false);
+        });   //个人 求购
+        //平台采购
+        findViewById(R.id.ptcz).setOnClickListener(v -> {
+//            if (isLogin())
+            PurchasePyMapActivity.start2Activity(AActivity_3_0.this, null);
+        });   //平台 采购
+
+
         findViewById(R.id.stv_home_1).setOnClickListener(v -> {
 //            if (isLogin()) ManagerListActivity_new.start2Activity(AActivity_3_0.this);
 //            PurchasePyMapActivity.start2Activity(AActivity_3_0.this);
 //            MainActivity.toB();
             //我的求购
-            AskToByActivity.start(AActivity_3_0.this);
+            if (isLogin())
+                AskToByActivity.start(AActivity_3_0.this);
 
         });
         // 我的报价
@@ -396,14 +413,17 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //            ToastUtil.showLongToast(" 用户求购 ");
 //            BuyForUserActivity.stat2Activity(AActivity_3_0.this);
 //            PublishForUserActivity.start2Activity(AActivity_3_0.this);
+            if (!isLogin()) {
+                return;
+            }
             ManagerQuoteListActivity_new.initLeft = true;
             ManagerQuoteListActivity_new.start2Activity(AActivity_3_0.this);
 
         });
         //邀请好友
         findViewById(R.id.stv_home_3).setOnClickListener(v -> {
-
-                    InviteFriendActivity.start(AActivity_3_0.this);
+                    if (isLogin())
+                        InviteFriendActivity.start(AActivity_3_0.this);
                 }
 //                NoticeActivity.start2Activity(AActivity_3_0.this)
 
@@ -642,6 +662,10 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
     public void requestData() {
         FinalHttp finalHttp = new FinalHttp();
+
+        if (GetServerUrl.isTest) {
+            finalHttp.configTimeout(60000);
+        }
         GetServerUrl.addHeaders(finalHttp, false);
         AjaxParams params = new AjaxParams();
         params.put("latitude", MyApplication.Userinfo.getString("latitude", ""));
@@ -843,7 +867,13 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private void initNewList(IndexGsonBean indexGsonBean) {
         try {//采购项目
 
-            View view = findViewById(R.id.ll_caigou_parent);
+            LinearLayout view = (LinearLayout) findViewById(R.id.ll_caigou_parent);
+//            view.removeAllViews();
+//            View viewChild = LayoutInflater.from(this).inflate(R.layout.list_item_purchase_list_new, view);
+//            view.addView(viewChild);
+//            view.addView(viewChild);
+//            view.addView(viewChild);
+//            view.addView(viewChild);
 //
             if (indexGsonBean.data.purchaseList.size() != 0) {
                 view.setVisibility(View.VISIBLE);

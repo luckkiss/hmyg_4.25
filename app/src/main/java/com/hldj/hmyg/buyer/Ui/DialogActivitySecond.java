@@ -170,6 +170,24 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
             PurchaseAutoAddLinearLayout.PlantBean plantBean = (PurchaseAutoAddLinearLayout.PlantBean) autoLayout.getTag();
             if (plantBean.value.equals(key)) {
 
+                if (plantBean.value.contains(ConstantParams.dbh)) {
+                    dbhType = autoLayout.getSelect_size();
+                }
+                if (plantBean.value.contains(ConstantParams.diameter)) {
+                    diameterType = autoLayout.getSelect_size();
+                }
+
+                return autoLayout.getViewHolder().et_params_03.getText().toString();
+            }
+        }
+        return "";
+    }
+
+    protected String 获取参数最大(String key) {
+        for (PurchaseAutoAddLinearLayout autoLayout : autoLayouts) {
+            PurchaseAutoAddLinearLayout.PlantBean plantBean = (PurchaseAutoAddLinearLayout.PlantBean) autoLayout.getTag();
+            if (plantBean.value.equals(key)) {
+
                 if (plantBean.value.equals(ConstantParams.dbh)) {
                     dbhType = autoLayout.getSelect_size();
                 }
@@ -177,7 +195,7 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
                     diameterType = autoLayout.getSelect_size();
                 }
 
-                return autoLayout.getViewHolder().et_params_03.getText().toString();
+                return autoLayout.getViewHolder().et_params_04.getText().toString();
             }
         }
         return "";
@@ -223,8 +241,10 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
             Log.i(TAG, "价格: " + 获取参数(ConstantParams.price));
             Log.i(TAG, "到岸价: " + 获取参数(ConstantParams.prePrice));
             Log.i(TAG, "数量: " + 获取参数(ConstantParams.count));
-            Log.i(TAG, "高度: " + 获取参数(ConstantParams.height));
-            Log.i(TAG, "冠幅: " + 获取参数(ConstantParams.crown));
+            Log.i(TAG, "胸径: min=" + 获取参数(ConstantParams.dbh) + " max = "+ 获取参数最大(ConstantParams.dbh) );
+            Log.i(TAG, "dimater: min=" + 获取参数(ConstantParams.diameter) + " max = "+ 获取参数最大(ConstantParams.diameter) );
+            Log.i(TAG, "高度: min=" + 获取参数(ConstantParams.height) + " max = "+ 获取参数最大(ConstantParams.height) );
+            Log.i(TAG, "冠幅 min=: " + 获取参数(ConstantParams.crown) + " max = "+ 获取参数最大(ConstantParams.crown) );
             Log.i(TAG, "直购。无效字段: " + 获取参数(ConstantParams.direct));
             Log.i(TAG, "备注: " + 备注.getText().toString());
             Log.i(TAG, "苗源地: " + 获取地址全名() + 获取地址code());
@@ -270,13 +290,25 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
                 .putParams(ConstantParams.diameterType, diameterType)
                 .putParams(ConstantParams.plantType, plantType)
                 .putParams(ConstantParams.length, 获取参数(ConstantParams.length))
-                .putParams(ConstantParams.offbarHeight, 获取参数(ConstantParams.offbarHeight))
                 .putParams(ConstantParams.price, 获取参数(ConstantParams.price))
                 .putParams(ConstantParams.prePrice, 获取参数(ConstantParams.prePrice))
                 .putParams(ConstantParams.count, 获取参数(ConstantParams.count))
-                .putParams(ConstantParams.height, 获取参数(ConstantParams.height))
-                .putParams(ConstantParams.crown, 获取参数(ConstantParams.crown))
-                .putParams(ConstantParams.dbh, 获取参数(ConstantParams.dbh))
+
+                .putParams(ConstantParams.minHeight, 获取参数(ConstantParams.height))
+                .putParams(ConstantParams.maxHeight, 获取参数最大(ConstantParams.height))
+
+                .putParams(ConstantParams.minCrown, 获取参数(ConstantParams.crown))
+                .putParams(ConstantParams.maxCrown, 获取参数最大(ConstantParams.crown))
+
+                .putParams(ConstantParams.minOffbarHeight, 获取参数(ConstantParams.offbarHeight))
+                .putParams(ConstantParams.maxOffbarHeight, 获取参数最大(ConstantParams.offbarHeight))
+
+                .putParams(ConstantParams.maxDbh, 获取参数(ConstantParams.dbh))
+                .putParams(ConstantParams.minDbh, 获取参数最大(ConstantParams.dbh))
+
+                .putParams(ConstantParams.minDiameter, 获取参数(ConstantParams.diameter))
+                .putParams(ConstantParams.maxDiameter, 获取参数最大(ConstantParams.diameter))
+
                 .putParams(ConstantParams.dbhType, dbhType)
                 .putParams(ConstantParams.remarks, 备注.getText().toString())
                 .putParams(ConstantParams.cityCode, 获取地址code())
@@ -473,7 +505,7 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
                             typeListBeen.get(i).getParamsList().get(j).isRequired()
                     ).setSizeList(mSaveSeedingGsonBean.getData().dbhTypeList, mSaveSeedingGsonBean.getData().diameterTypeList);
                     //给plant 赋值
-                    layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(plantBean);
+                    layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).showRange().setData(plantBean);
 
                     if (getItem() != null)
                         setDefayltMsg(layout, plantBean);
