@@ -161,9 +161,9 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
         tabHost.addTab(tabHost.newTabSpec("1").setIndicator("1")
 //                .setContent(new Intent(this, BActivity_new_test.class)));
-                .setContent(new Intent(this, BActivity_new_test.class)));
-        tabHost.addTab(tabHost.newTabSpec("2").setIndicator("2")
                 .setContent(new Intent(this, AActivity_3_0.class)));
+        tabHost.addTab(tabHost.newTabSpec("2").setIndicator("2")
+                .setContent(new Intent(this, BActivity_new_test.class)));
         tabHost.addTab(tabHost.newTabSpec("3").setIndicator("3")
                 .setContent(new Intent(this, FriendCycleActivity.class)));
         tabHost.addTab(tabHost.newTabSpec("4").setIndicator("4")

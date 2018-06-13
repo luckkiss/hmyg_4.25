@@ -2,5 +2,6 @@
 <resources>
     <dimen name="top_padding_statu">24dp</dimen>
     <dimen name="status_bar_height">70dp</dimen>
+    <dimen name="home_padding_top">25dp</dimen>
 
 </resources>

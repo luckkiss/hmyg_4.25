@@ -355,6 +355,13 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                     /* 价格  +  名称    */
 
 
+                    helper.addOnClickListener(R.id.gai, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ToastUtil.showLongToast("改");
+                        }
+                    });
+
 //                    String pri = !showQuote ? "*" : item.price + "";
                     /*暂时隐藏*/
 //                    if (showQuote) {//已开标

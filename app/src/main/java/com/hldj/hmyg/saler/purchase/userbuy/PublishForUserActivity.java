@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.hldj.hmyg.BActivity_new_test;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.R;
@@ -27,10 +28,12 @@ import com.hldj.hmyg.buyer.Ui.ComonCityWheelDialogF;
 import com.hldj.hmyg.saler.M.enums.ValidityEnum;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.UserPurchase;
+import com.hldj.hmyg.util.AlertUtil;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.LoginUtil;
 import com.hldj.hmyg.widget.AutoAddRelative;
+import com.hy.utils.SpanUtils;
 import com.hy.utils.ToastUtil;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.zzy.common.widget.wheelview.popwin.CustomDaysPickPopwin;
@@ -81,7 +84,7 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
     }
 
     private void 请选择品种() {
-        SelectPlantActivity.start2Activity(mActivity, qxz_pz.getText().equals("请选择") ? "" : qxz_pz.getText().toString());
+        SelectPlantActivity.start2Activity(mActivity, qxz_pz.getText().equals("请选择") ? "" : currentName);
     }
 
 
@@ -125,13 +128,15 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
     }
 
 
+    public String currentName = "";
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100 && resultCode == 100) {
             SeedlingType seedlingType = (SeedlingType) data.getSerializableExtra("item");
-            qxz_pz.setText(seedlingType.name+"("+seedlingType.parentName+")");
-
+            qxz_pz.setText(seedlingType.name + "(" + seedlingType.parentName + ")");
+            currentName = seedlingType.name;
             try {
                 initAutoAddView(mGsonBean, seedlingType, null);
             } catch (Exception e) {
@@ -142,6 +147,19 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
 
 
         }
+
+
+        AlertUtil.showAlert(
+                new SpanUtils()
+                        .append("系统为您匹配到")
+                        .append("13条" + currentName).setForegroundColor(getColorByRes(R.color.red))
+                        .append("资源")
+                        .create(), "去查看", mActivity, v -> {
+                    BActivity_new_test.start2Activity(mActivity, currentName,2);
+                }
+        );
+
+
     }
 
 
@@ -484,7 +502,8 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
         Log.i(TAG, "品种名称---->" + getText(getView(R.id.qxz_pz)));
 
         userPurchase.id = getId();
-        userPurchase.name = getText(getView(R.id.qxz_pz));
+        userPurchase.name = currentName;
+//        userPurchase.name = getText(getView(R.id.qxz_pz));
         userPurchase.secondSeedlingTypeId = seedlingType.id;
         userPurchase.firstSeedlingTypeId = seedlingType.parentId;
 

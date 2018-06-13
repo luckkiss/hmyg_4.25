@@ -10,7 +10,7 @@
     android:orientation="vertical"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="25dp">
-<!--color_bg_f5-->
+    <!--color_bg_f5-->
     <TextView
         android:id="@+id/tv_program_purch_sub_price_type"
         android:layout_width="wrap_content"
@@ -96,8 +96,8 @@
         android:id="@+id/final_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_marginLeft="36dp"
+        android:layout_marginTop="4dp"
         android:text="小计:-"
         android:textSize="@dimen/textSizeContent"
         app:layout_constraintLeft_toRightOf="@+id/tv_program_purch_sub_price_cont_serv_pric"
@@ -213,9 +213,9 @@
         android:id="@+id/view10"
         android:layout_width="0dp"
         android:layout_height="1px"
-        android:layout_marginTop="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
         android:background="@color/gray_btn_bg_pressed_color"
         android:text="TextView"
         app:layout_constraintHorizontal_bias="1.0"
@@ -269,7 +269,27 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_remark"
         app:solid="@color/trans" />
 
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/gai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="20dp"
+        android:minHeight="20dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:text="改"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:corner="3dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_program_purch_sub_price_type"
+        app:layout_constraintTop_toTopOf="@+id/tv_program_purch_sub_price_type"
+        app:left_bottom_corner="true"
 
+        app:left_top_corner="true"
+        app:right_bottom_corner="true"
+        app:right_top_corner="true"
+        app:solid="@color/state_for_manager_no" />
 
 
 </android.support.constraint.ConstraintLayout>

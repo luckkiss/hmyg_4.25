@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -86,7 +85,7 @@ public class EventsActivity extends Activity implements OnMapClickListener,
 
 
         if (getExtraLatitude() != 0 && getExtraLatitude() != 0.0) {
-            makepoint("测试一个固定点", getExtraLatitude(), getExtraLongitude());
+            makepoint("当前标注", getExtraLatitude(), getExtraLongitude());
         }
 
     }
@@ -340,7 +339,8 @@ public class EventsActivity extends Activity implements OnMapClickListener,
         aMap.setOnInfoWindowClickListener(new AMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                Toast.makeText(EventsActivity.this, "点击了我的地点", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(EventsActivity.this, "点击了我的地点", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

@@ -26,7 +26,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingTop="@dimen/title_top_default"
                 android:visibility="visible"
                 app:layout_collapseMode="none"
                 tools:visibility="visible">
@@ -37,7 +36,7 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="190dp"
                     android:src="@drawable/no_image_show" />
 
 
@@ -47,14 +46,6 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="@dimen/px52"
-                        android:layout_height="match_parent"
-                        android:background="@color/maimiao_yellower"
-                        android:gravity="center"
-                        android:text="卖\n苗"
-                        android:textColor="@color/white" />
 
 
                     <com.coorchice.library.SuperTextView
@@ -74,44 +65,16 @@
                         android:text="我的报价"
                         app:state_drawable="@mipmap/home_wdbj" />
 
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_fenlei3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="@dimen/px52"
-                        android:layout_height="match_parent"
-                        android:background="@color/maimiao_yellower"
-                        android:gravity="center"
-                        android:text="卖\n苗"
-                        android:textColor="@color/white" />
-
-
                     <com.coorchice.library.SuperTextView
-                        android:id="@+id/stv_home_11"
-                        style="@style/home_types"
-                        android:text="苗圃管理"
-                        app:state_drawable="@mipmap/home_mpgl" />
-
-                    <com.coorchice.library.SuperTextView
-                        style="@style/home_types"
-                        android:text="采购报价"
-                        app:state_drawable="@mipmap/home_cgbj" />
-
-                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/stv_home_44"
                         style="@style/home_types"
                         android:text="我的报价"
                         app:state_drawable="@mipmap/home_wdbj" />
 
-
                 </LinearLayout>
+
+
+                <include layout="@layout/include_home_item_layout" />
 
 
             </LinearLayout>
@@ -120,41 +83,16 @@
             <include
                 android:id="@+id/toolbar"
                 layout="@layout/activity_a_top_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="45dp"
+                android:layout_marginTop="20dp"
                 app:layout_collapseMode="pin" />
 
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tablayout"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_below="@id/top"
-            android:background="@drawable/bg_top_bottom_line"
-            android:visibility="visible"
-            app:tabIndicatorColor="@color/main_color"
-            app:tabSelectedTextColor="@color/main_color">
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="平台直采" />
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="个人求购" />
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="苗木推荐" />
-
-        </android.support.design.widget.TabLayout>
 
     </android.support.design.widget.AppBarLayout>
 

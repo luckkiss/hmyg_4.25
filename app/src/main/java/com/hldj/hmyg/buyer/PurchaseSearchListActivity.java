@@ -313,7 +313,7 @@ public class PurchaseSearchListActivity extends BaseMVPActivity {
                 if (!TextUtils.isEmpty(source)) {
                     StoreActivity_new.start2Activity(mActivity, source);
                 } else {
-                    BActivity_new_test.start2Activity(mActivity, search_key);
+                    BActivity_new_test.start2Activity(mActivity, search_key,0);
                 }
 
 

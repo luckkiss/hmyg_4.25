@@ -27,6 +27,7 @@
 
 
         <TextView
+            android:id="@+id/sj_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -35,13 +36,14 @@
 
             android:text="为您匹配30条求购"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="12sp"
 
             />
 
         <TextView
+            android:id="@+id/sj_one_jump"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="34dp"
             android:layout_gravity="bottom"
             android:background="@color/black_color_60"
             android:drawableRight="@drawable/ic_arrow_right_green"
@@ -49,7 +51,7 @@
             android:padding="8dp"
             android:text="红草花 200株"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
 
 
     </FrameLayout>

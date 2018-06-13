@@ -110,14 +110,15 @@
                     </LinearLayout>
 
 
-                    <include layout="@layout/include_home_item_layout" />
+                    <include
+                        android:id="@+id/constraint"
+                        layout="@layout/include_home_item_layout" />
 
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/gray_bg" />
-
 
 
                 </LinearLayout>
@@ -172,18 +173,20 @@
                     android:orientation="vertical"
                     android:visibility="visible">
 
-                    <View style="@style/View_line_gray" android:tag="a"/>
+                    <View
+                        style="@style/View_line_gray"
+                        android:tag="a" />
 
                     <com.coorchice.library.SuperTextView
                         android:id="@+id/home_title_first"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:tag="a"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="true"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
-                        android:paddingLeft="10dp"
+                        android:paddingLeft="4dp"
+                        android:tag="a"
                         android:textColor="@color/main_color"
                         android:textSize="17sp"
                         app:isShowState="true"
@@ -194,7 +197,9 @@
                         app:state_drawable_width="50dp"
                         tools:text="  ▎最新采购" />
 
-                    <View style="@style/View_line_gray_1px" android:tag="a"/>
+                    <View
+                        style="@style/View_line_gray_1px"
+                        android:tag="a" />
 
 
                 </LinearLayout>
@@ -209,18 +214,20 @@
                     android:orientation="vertical"
                     android:visibility="visible">
 
-                    <View style="@style/View_line_gray"  android:tag="a"/>
+                    <View
+                        style="@style/View_line_gray"
+                        android:tag="a" />
 
                     <com.coorchice.library.SuperTextView
                         android:id="@+id/home_title_qiu_gou"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_alignParentLeft="true"
-                        android:tag="a"
                         android:layout_alignParentTop="true"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
-                        android:paddingLeft="10dp"
+                        android:paddingLeft="4dp"
+                        android:tag="a"
                         android:text="用户求购"
                         android:textColor="@color/main_color"
                         android:textSize="17sp"
@@ -231,7 +238,9 @@
                         app:state_drawable_padding_left="-15dp"
                         app:state_drawable_width="50dp" />
 
-                    <View style="@style/View_line_gray_1px"  android:tag="a"/>
+                    <View
+                        style="@style/View_line_gray_1px"
+                        android:tag="a" />
 
 
                 </LinearLayout>
@@ -243,7 +252,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <View style="@style/View_line_gray"  android:tag="a" />
+                    <View
+                        style="@style/View_line_gray"
+                        android:tag="a" />
 
                     <!--<RelativeLayout-->
                     <!--android:layout_width="match_parent"-->
@@ -279,11 +290,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_alignParentLeft="true"
-                        android:tag="a"
                         android:layout_alignParentTop="true"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
-                        android:paddingLeft="10dp"
+                        android:paddingLeft="6dp"
+                        android:tag="a"
                         android:textColor="@color/main_color"
                         android:textSize="17sp"
                         app:isShowState="true"
@@ -294,15 +305,17 @@
                         app:state_drawable_width="50dp"
                         tools:text="推荐资源" />
 
-                    <View style="@style/View_line_gray_1dp"  android:tag="a"/>
+                    <View
+                        style="@style/View_line_gray_1dp"
+                        android:tag="a" />
 
                     <!--<com.jarvis.MyView.MyListView-->
-                        <!--android:id="@+id/lv_00_store"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:background="@color/white"-->
-                        <!--android:descendantFocusability="blocksDescendants"-->
-                        <!--android:divider="@null" />-->
+                    <!--android:id="@+id/lv_00_store"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="@color/white"-->
+                    <!--android:descendantFocusability="blocksDescendants"-->
+                    <!--android:divider="@null" />-->
                 </LinearLayout>
 
 
@@ -318,7 +331,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
+                    android:paddingLeft="4dp"
                     android:textColor="@color/main_color"
                     android:textSize="17sp"
                     app:isShowState="true"
@@ -350,6 +363,7 @@
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/touming"
         android:orientation="vertical">
 
 

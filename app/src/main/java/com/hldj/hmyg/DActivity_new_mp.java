@@ -94,6 +94,9 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
     @ViewInject(id = R.id.btn_xzmp, click = "onClick")
         /* 动态添加的  view  无法注入 headview  */
             ImageView btn_xzmp;
+    @ViewInject(id = R.id.btn_jrdp, click = "onClick")
+        /* 动态添加的  view  无法注入 headview  */
+            ImageView btn_jrdp;
 
     //    @ViewInject(id = R.id.logo, click = "onClick")
     /* 动态添加的  view  无法注入 headview  */
@@ -124,6 +127,10 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
             case R.id.btn_xzmp:
                 D.i("========新增圃==========");
                 AddAdressActivity.start2Activity(mActivity, null);
+                break;
+            case R.id.btn_jrdp:
+                D.i("========进入店铺==========");
+                StoreActivity_new.start2Activity(mActivity, MyApplication.getUserBean().storeId);
                 break;
             case R.id.sptv_program_do_search:
                 recycle.onRefresh();
@@ -248,10 +255,10 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
 //        FinalActivity.initInjectedView(this, recycle);
 
-        toolbar_left_icon.setVisibility(View.VISIBLE);
-        toolbar_left_icon.setOnClickListener(v -> {
-            StoreActivity_new.start2Activity(mActivity, MyApplication.getUserBean().storeId);
-        });
+        toolbar_left_icon.setVisibility(View.GONE);
+//        toolbar_left_icon.setOnClickListener(v -> {
+//            StoreActivity_new.start2Activity(mActivity, MyApplication.getUserBean().storeId);
+//        });
 
         toolbar_right_icon.setVisibility(View.INVISIBLE);
         toolbar_right_icon.setImageResource(R.drawable.sousuo);
@@ -502,6 +509,7 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
         logo.setOnClickListener(this);
         head_parent.setOnClickListener(this);
         btn_xzmp.setOnClickListener(this);
+        btn_jrdp.setOnClickListener(this);
 
 
 //        headView.findViewById(R.id.include_search).setVisibility(View.GONE);

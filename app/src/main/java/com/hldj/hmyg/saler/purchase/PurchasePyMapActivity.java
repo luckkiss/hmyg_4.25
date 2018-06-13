@@ -3,6 +3,7 @@ package com.hldj.hmyg.saler.purchase;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
+import com.flyco.dialog.listener.OnBtnClickL;
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
 import com.hldj.hmyg.CallBack.ResultCallBack;
@@ -40,6 +42,7 @@ import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.saler.purchase.userbuy.BuyForUserActivity;
 import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserDetailActivity;
 import com.hldj.hmyg.util.ConstantParams;
+import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.hldj.hmyg.widget.SegmentedGroup;
@@ -108,6 +111,9 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
         button32 = (RadioButton) findViewById(R.id.button32);
         ll_01 = (LinearLayout) findViewById(R.id.ll_01);
 
+
+        initTipSome();
+
         lanmus.add("按采购单");
         lanmus.add("按品种");
 
@@ -159,12 +165,12 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
             }
         } else if (isShowLeft) {
             //左边
-                RadioButton radioButton = (RadioButton) findViewById(R.id.button31);
-                radioButton.setChecked(true);
+            RadioButton radioButton = (RadioButton) findViewById(R.id.button31);
+            radioButton.setChecked(true);
         } else {
             //→边
-                RadioButton radioButton = (RadioButton) findViewById(R.id.button33);
-                radioButton.setChecked(true);
+            RadioButton radioButton = (RadioButton) findViewById(R.id.button33);
+            radioButton.setChecked(true);
         }
 
 
@@ -179,6 +185,9 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
 
                 break;
             case R.id.button31:
+                //左边
+
+                checkIsShowLeftTip("平台采购：签约采购商发布的优质订单");
 
                 StorePurchaseListActivity.shouldShow = true;
 
@@ -194,6 +203,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
 
             case R.id.button33:
 
+                checkIsShowRightTip("个人求购：个人发布,真实性由信息发布人负责");
 //                ToastUtil.showShortToast("zhongjian");
 //                recycle.onRefresh();
                 getView(R.id.ll_show_2).setVisibility(View.VISIBLE);
@@ -286,6 +296,8 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
             onRefresh();
         } else if (resultCode == 8) {
             onRefresh();
+        } else if (resultCode == ConstantState.PUBLIC_SUCCEED) {
+            recycle.onRefresh();
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -427,7 +439,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
     }
 
 
-    public static void start2Activity(Context context,Boolean isLeft) {
+    public static void start2Activity(Context context, Boolean isLeft) {
         start2ActivityNew(context, isLeft);
 //        context.startActivity(new Intent(context, PurchasePyMapActivity.class));
     }
@@ -613,10 +625,123 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
     }
 
 
-
-
-
     /*    处理  用户报价内容   */
+    TextView tv_xiaoxitishi;
+
+    public void checkIsShowLeftTip(String msg) {
+
+        if (closeCurrentLeft) {
+            tv_xiaoxitishi.setVisibility(View.GONE);
+            return;
+        }
+
+        boolean isShowLeft = MyApplication.Userinfo.getBoolean("NeedShowquoting", true);
+//                editor.putBoolean("NeedShowquoting", false);
+//    } else if ("unquote".equals(string)) {
+//        editor.putBoolean("NeedShowbangwo", false);
+        tv_xiaoxitishi.setVisibility(isShowLeft ? View.VISIBLE : View.GONE);
+
+        tv_xiaoxitishi.setText(msg);
+        tv_xiaoxitishi.setOnClickListener(v -> {
+//            DialogNoti("quoting");
+        });
+
+    }
+
+    public void checkIsShowRightTip(String msg) {
+        if (closeCurrentRight) {
+            tv_xiaoxitishi.setVisibility(View.GONE);
+            return;
+        }
+        boolean isShowRight = MyApplication.Userinfo.getBoolean("NeedShowbangwo", true);
+//                editor.putBoolean("NeedShowquoting", false);
+//    } else if ("unquote".equals(string)) {
+//        editor.putBoolean("NeedShowbangwo", false);
+        tv_xiaoxitishi.setVisibility(isShowRight ? View.VISIBLE : View.GONE);
+        tv_xiaoxitishi.setText(msg);
+        tv_xiaoxitishi.setOnClickListener(v -> {
+//            DialogNoti("unquote");
+        });
+    }
+
+    private void showNotice(int position) {
+        // TODO Auto-generated method stub
+        if (0 == position) {
+            if (MyApplication.Userinfo.getBoolean("NeedShowquoting", true)) {
+                tv_xiaoxitishi.setText("采购中：已经确认采购且即将调苗的采购项目。");
+                tv_xiaoxitishi.setVisibility(View.VISIBLE);
+            } else {
+                tv_xiaoxitishi.setVisibility(View.GONE);
+            }
+        } else if (1 == position) {
+            if (MyApplication.Userinfo.getBoolean("NeedShowunquote", true)) {
+                tv_xiaoxitishi.setText("待采购：已经确认采购但还未确定调苗时间的采购项目。");
+                tv_xiaoxitishi.setVisibility(View.VISIBLE);
+            } else {
+                tv_xiaoxitishi.setVisibility(View.GONE);
+            }
+        }
+    }
+
+
+    SharedPreferences.Editor editor;
+
+    public void initTipSome() {
+        tv_xiaoxitishi = (TextView) findViewById(R.id.tv_xiaoxitishi);
+        tv_xiaoxitishi.setOnClickListener(v -> {
+
+
+            DialogNoti("关闭提示内容");
+
+        });
+
+        editor = MyApplication.Userinfo.edit();
+
+
+    }
+
+    private void DialogNoti(String string) {
+        // TODO Auto-generated method stub
+
+        final com.flyco.dialog.widget.MaterialDialog dialog = new com.flyco.dialog.widget.MaterialDialog(
+                PurchasePyMapActivity.this);
+        dialog.title("温馨提示").content("关闭提示内容")
+                .btnText("不再提示", "关闭")//
+                .show();
+
+        dialog.setOnBtnClickL(new OnBtnClickL() {// left btn click listener
+            @Override
+            public void onBtnClick() {
+                if ("quoting".equals(string)) {
+                    editor.putBoolean("NeedShowquoting", false);
+                } else if ("unquote".equals(string)) {
+                    editor.putBoolean("NeedShowbangwo", false);
+                }
+                editor.commit();
+                dialog.dismiss();
+                tv_xiaoxitishi.setVisibility(View.GONE);
+            }
+        }, new OnBtnClickL() {// right btn click listener
+            @Override
+            public void onBtnClick() {
+                dialog.dismiss();
+                tv_xiaoxitishi.setVisibility(View.GONE);
+                if ("quoting".equals(string)) {
+                    //本次关闭 左边
+                    closeCurrentLeft = true;
+                } else {
+                    //本次关闭 又边
+                    closeCurrentRight = true;
+                }
+
+
+            }
+        });
+
+    }
+
+    public boolean closeCurrentLeft = false;
+    public boolean closeCurrentRight = false;
 
 
 }

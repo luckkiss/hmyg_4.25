@@ -91,6 +91,9 @@
     </RelativeLayout>
 
 
+    <include layout="@layout/include_pymap_tip" />
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

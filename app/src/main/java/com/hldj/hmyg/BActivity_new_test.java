@@ -628,14 +628,18 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
             getQueryBean().searchKey = getIntent().getStringExtra("tag");
             addADelTag();
 
-            setSwipeBackEnable(true);//默认不可滑动
+//            setSwipeBackEnable(true);//默认不可滑动
             getView(R.id.ib_b_back).setVisibility(View.VISIBLE);
             getView(R.id.ib_b_back).setOnClickListener(view -> finish());
 
 //            getView(R.id.appbar).setPadding(0,0,0,0);
 
 
-            setSwipeBackEnable(true);
+//            setSwipeBackEnable(true);
+
+            pos = getIntent().getIntExtra("defaultPos", 0);
+            findViewById(R.id.iv_b_publish).setVisibility(View.GONE);
+
 
         } else {
             setSwipeBackEnable(false);//默认不可滑动
@@ -644,11 +648,13 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 
     }
 
-    public static void start2Activity(Context context, String tag) {
+    public static void start2Activity(Context context, String tag, int defaultPos) {
         Intent intent = new Intent(context, BActivity_new_test.class);
         intent.putExtra("tag", tag);
+        intent.putExtra("defaultPos", defaultPos);
         context.startActivity(intent);
     }
+
 
     public void refreshRc() {
 //        getQueryBean().pageIndex = 0;
@@ -685,5 +691,11 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 
 //        StateBarUtil.setColorPrimaryDark(Color.WHITE, getWindow());
 
+    }
+
+    @Override
+    public boolean setSwipeBackEnable() {
+
+        return !TextUtils.isEmpty(getIntent().getStringExtra("tag"));
     }
 }

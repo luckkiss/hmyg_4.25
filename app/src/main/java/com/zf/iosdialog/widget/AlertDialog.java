@@ -67,7 +67,7 @@ public class AlertDialog {
 		return this;
 	}
 
-	public AlertDialog setTitle(String title) {
+	public AlertDialog setTitle(CharSequence title) {
 		showTitle = true;
 		if ("".equals(title)) {
 			txt_title.setText("标题");

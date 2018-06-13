@@ -1,5 +1,6 @@
 package com.hldj.hmyg.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -13,9 +14,11 @@ import com.hldj.hmyg.R;
 
 
 /**
- * Created by Administrator on 2017/4/1.
+ *  呵呵
+ *
  */
 
+@SuppressLint("AppCompatCustomView")
 public class DrawableCenterText extends TextView {
 
 
@@ -120,7 +123,6 @@ public class DrawableCenterText extends TextView {
 
 
         super.onDraw(canvas);
-
 //        canvas.drawText("hello - world ", 0, (int) ((getHeight() - drLeftHeight) / 2), getPaint());
 
 

@@ -42,6 +42,8 @@
     <dimen name="top_padding_statu">1dp</dimen>
     <dimen name="linepaddingbutton">3dp</dimen>
     <dimen name="status_bar_height">45dp</dimen>
+    <dimen name="home_padding_top">50dp</dimen>
+
 
     <dimen name="loadingbar_icon">40dp</dimen>
     <dimen name="title_top_default">39dp</dimen>

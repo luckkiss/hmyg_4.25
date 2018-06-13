@@ -78,6 +78,7 @@ import com.hldj.hmyg.widget.UPMarqueeView;
 import com.hldj.hmyg.widget.swipeview.MySwipeRefreshLayout;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
+import com.hy.utils.SpanUtils;
 import com.hy.utils.ToastUtil;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.white.utils.ScreenUtil;
@@ -100,6 +101,8 @@ import java.util.concurrent.TimeUnit;
 import aom.xingguo.huang.banner.MyFragment;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.hldj.hmyg.R.id.home_title_first;
@@ -137,6 +140,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private BProduceAdapt bProduceAdapt;
     private GlobBaseAdapter<UserPurchase> adapter;
     private PurchaseListAdapter purchaseListAdapter;
+    private Disposable subscription;
+    private TextView sj_one_jump;
+    private TextView sj_count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -480,7 +486,14 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                     toolbar.setVisibility(View.VISIBLE);
                 }
 
-                float precent = (viewPager.getHeight() + location[1]) % viewPager.getHeight();
+
+                float precent = 0;
+                try {
+                    precent = (viewPager.getHeight() + location[1]) % viewPager.getMeasuredHeight();
+                } catch (Exception e) {
+                    precent = 1;
+                    e.printStackTrace();
+                }
 
                 float pre = (1 - precent / viewPager.getHeight());
 
@@ -718,6 +731,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             e.printStackTrace();
         }
         if (indexGsonBean != null && indexGsonBean.code.equals(ConstantState.SUCCEED_CODE)) {
+            init商机(indexGsonBean);
             initNewList(indexGsonBean);//初始化 采购列表
             initArticles(indexGsonBean.data.articleList);//初始化  头条新闻
         }
@@ -861,6 +875,94 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         }
     }
 
+    private void init商机(IndexGsonBean indexGsonBean) {
+        if (indexGsonBean == null) {
+            return;
+        }
+
+        View sj = findViewById(R.id.shangji);
+
+        if ("0".equals(indexGsonBean.data.matchUserPurchaseCount) || TextUtils.isEmpty(indexGsonBean.data.matchUserPurchaseCount) ) {
+            sj.setSelected(false);
+            sj_count = findViewById(R.id.sj_count);
+            sj_count.setVisibility(View.GONE);
+            sj_one_jump = findViewById(R.id.sj_one_jump);
+            sj_one_jump.setVisibility(View.GONE);
+            Log.i(TAG, "数量为0");
+            return;
+        }
+        if (indexGsonBean.data.userPurchaseList.size() == 0) {
+            Log.i(TAG, "init商机: 列表为空");
+            return;
+        }
+
+
+        View constraint = findViewById(R.id.constraint);
+
+        sj_count = findViewById(R.id.sj_count);
+
+
+        sj_count.setText(
+                new SpanUtils()
+                        .append("为您匹配 ")
+                        .append(indexGsonBean.data.matchUserPurchaseCount + "").setForegroundColor(getResources().getColor(R.color.maimiao_yellower)).setFontSize(17, true)
+                        .append(" 条求购")
+                        .create()
+        );
+
+
+        List<String> list = new ArrayList();
+        list.add("aaaa 200");
+        list.add("bbbb 200");
+        list.add("cccc 200");
+        list.add("dddd 200");
+        list.add("eeee 200");
+
+
+        if (subscription != null && !subscription.isDisposed()) {
+            subscription.dispose();
+            subscription = null;
+        }
+
+
+        currentPos = 0;
+        subscription = Observable.interval(4000, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        currentPos++;
+                        sj_one_jump = findViewById(R.id.sj_one_jump);
+
+
+                        Log.i(TAG, "accept: " + currentPos % indexGsonBean.data.userPurchaseList.size());
+                        UserPurchase userPurchase = indexGsonBean.data.userPurchaseList.get(currentPos % indexGsonBean.data.userPurchaseList.size());
+                        sj_one_jump.setText(userPurchase.name + "  " + userPurchase.count + "" + userPurchase.unitTypeName);
+
+                        sj_one_jump.setOnClickListener(v -> {
+                            PublishForUserDetailActivity.start2Activity(AActivity_3_0.this, userPurchase.id, userPurchase.ownerId);
+                        });
+//                        Log.i(TAG, "accept: " + currentPos + "  persnet = " + currentPos % indexGsonBean.data.userPurchaseList.size());
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        ToastUtil.showLongToast("报错了" + throwable.getMessage());
+                    }
+                });
+
+
+    }
+
+    private int getCurrentText(List<String> list, int aLong) {
+        Log.i(TAG, "getCurrentText: " + aLong);
+//        ToastUtil.showLongToast("pos = " + pos);
+        return aLong;
+    }
+
+
+    int currentPos = 0;
 
     /**
      * 新增的2个数据列表
@@ -1210,6 +1312,10 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     protected void onDestroy() {
         super.onDestroy();
         D.e("====onDestroy====");
+        if (subscription != null && !subscription.isDisposed()) {
+            subscription.dispose();
+            subscription = null;
+        }
     }
 
     @Override
@@ -1425,7 +1531,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         helper.setText(R.id.title, FUtil.$_zero(item.name + ""));
 
 
-        helper.setText(R.id.shuliang, FUtil.$_zero(item.count + "/" + item.unitTypeName));
+        helper.setText(R.id.shuliang, FUtil.$_zero(item.count) + "/" + item.unitTypeName);
 
 //        helper.setText(R.id.shuliang, FUtil.$_zero(item.count + ""));
 
@@ -1436,8 +1542,8 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             helper.setText(R.id.qubaojia, FUtil.$(item.quoteCountJson) + "条报价");
             helper.setTextColorRes(R.id.qubaojia, R.color.main_color);
         }
-        helper.setText(R.id.space_text, item.specText);
-        helper.setText(R.id.city, "用苗地:" + item.cityName);
+        helper.setText(R.id.space_text, FUtil.$_zero(item.specText));
+        helper.setText(R.id.city, "用苗地:" + FUtil.$_zero(item.cityName));
         helper.setText(R.id.update_time, "结束时间:" + item.closeDateStr + "");
 
         if (helper.getView(R.id.state) != null)
@@ -1456,50 +1562,4 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     }
 
 
-    public View getTabView(int position) {
-        View view = LayoutInflater.from(this).inflate(R.layout.item_tab, null);
-        ImageView imageView = (ImageView) view.findViewById(R.id.ic);
-        if (position == 0)
-            imageView.setImageResource(R.drawable.ptzc_selecter);
-        if (position == 1)
-            imageView.setImageResource(R.drawable.grqg_selecter);
-        if (position == 2)
-            imageView.setImageResource(R.drawable.mmtj_selecter);
-
-        TextView txt_title = (TextView) view.findViewById(R.id.content);
-
-
-        if (position == 0) {
-            txt_title.setText("平台直采");
-            txt_title.setTextColor(getResources().getColor(R.color.main_color));
-
-        }
-        if (position == 1) {
-            txt_title.setText("个人求购");
-            txt_title.setTextColor(getResources().getColor(R.color.text_color666));
-        }
-        if (position == 2) {
-            txt_title.setText("苗木推荐");
-            txt_title.setTextColor(getResources().getColor(R.color.text_color666));
-
-        }
-
-        return view;
-    }
-
-
-    private void removeViewByTag(LinearLayout parent, String tag) {
-        for (int i = 0; i < parent.getChildCount(); i++) {
-
-//            if (parent.getChildCount() >= 3) {
-//                parent.removeView(parent.getChildAt(i));
-//            }
-
-            if (parent.getChildAt(i).getTag() != null && !parent.getChildAt(i).getTag().toString().equals(tag)) {
-                parent.removeView(parent.getChildAt(i));
-            }
-        }
-
-
-    }
 }

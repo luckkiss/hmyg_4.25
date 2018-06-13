@@ -11,7 +11,7 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
  */
 
 public class AlertUtil {
-    public static void showAlert(String title, NeedSwipeBackActivity mActivity, View.OnClickListener onClickListener) {
+    public static void showAlert(CharSequence title, NeedSwipeBackActivity mActivity, View.OnClickListener onClickListener) {
         new AlertDialog(mActivity)
                 .builder()
                 .setTitle(title)
@@ -21,5 +21,16 @@ public class AlertUtil {
         ;
     }
 
+
+
+    public static void showAlert(CharSequence title,String right, NeedSwipeBackActivity mActivity, View.OnClickListener onClickListener) {
+        new AlertDialog(mActivity)
+                .builder()
+                .setTitle(title)
+                .setPositiveButton(right, onClickListener)
+                .setNegativeButton("取消", v -> D.i("-------取消------"))
+                .show();
+        ;
+    }
 
 }

@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
@@ -54,6 +56,7 @@ import com.zxing.encoding.EncodingHandler;
 
 import net.tsz.afinal.FinalBitmap;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -184,6 +187,9 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
         bitmap = FinalBitmap.create(mActivity);
         bitmap.configLoadfailImage(R.drawable.logo);
 
+
+
+
     }
 
 
@@ -193,7 +199,7 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
         /*后退*/
         getView(R.id.btn_back).setOnClickListener(v -> finish());
 
-        getView(R.id.iv_home_left).setOnClickListener(v -> CenterActivity.start(mActivity,persiId));
+        getView(R.id.iv_home_left).setOnClickListener(v -> CenterActivity.start(mActivity, persiId));
 
 
 
@@ -527,11 +533,19 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
             ToastUtil.showShortToast("对不起，无分享地址");
             return;
         }
+//        saveNewImage();
+
+
         try {
             Bitmap qrCodeBitmap = EncodingHandler.createQRCode(shareUrl, 350);
+
+
             qrCodeBitmap = getRoundCornerImage(qrCodeBitmap, 3);
+
             try {
                 img_path = FileUtil.saveMyBitmap("commenQcCode", qrCodeBitmap);
+
+
                 if (!"".equals(img_path)) {
                     ossImagePaths.add(new Pic("", false, img_path, 0));
                 }
@@ -623,6 +637,46 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
         }
 
         return views;
+    }
+
+
+    public void saveNewImage() {
+
+        String str = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "myvideos/test.jpg";
+
+
+        File file = new File(str);
+
+
+        ToastUtil.showLongToast("是否存在  test.jpg 文件" + file.exists());
+
+        Bitmap bitmap = BitmapFactory.decodeFile(str);
+
+
+
+        bitmap =    getRoundCornerImage(bitmap, 3);
+        try {
+            img_path = FileUtil.saveMyBitmap("commenQcCode", bitmap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        if (!"".equals(img_path)) {
+            ossImagePaths.add(new Pic("", false, img_path, 0));
+        }
+
+        /**
+         *
+         qrCodeBitmap = getRoundCornerImage(qrCodeBitmap, 3);
+
+         try {
+         img_path = FileUtil.saveMyBitmap("commenQcCode", qrCodeBitmap);
+
+         if (!"".equals(img_path)) {
+         ossImagePaths.add(new Pic("", false, img_path, 0));
+         }
+         */
     }
 
 }

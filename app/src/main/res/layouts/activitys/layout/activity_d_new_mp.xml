@@ -30,6 +30,15 @@
 
 
         <ImageView
+            android:id="@+id/btn_jrdp"
+            style="@style/iv_home_publish"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="76dp"
+            android:src="@mipmap/jrdp"
+
+            />
+
+        <ImageView
             android:id="@+id/btn_xzmp"
             style="@style/iv_home_publish"
             android:layout_gravity="right|bottom"

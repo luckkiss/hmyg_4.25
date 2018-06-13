@@ -169,7 +169,7 @@ public class BuyForUserActivity extends BaseMVPActivity {
 
         helper.setText(R.id.title, FUtil.$_zero(item.name + ""));
 
-        helper.setText(R.id.shuliang, FUtil.$_zero(item.count + "/" + item.unitTypeName));
+        helper.setText(R.id.shuliang, FUtil.$_zero(item.count) + "/" + (item.unitTypeName));
 
 //        helper.setText(R.id.shuliang, FUtil.$_zero(item.count + ""));
 
@@ -180,8 +180,8 @@ public class BuyForUserActivity extends BaseMVPActivity {
             helper.setText(R.id.qubaojia, FUtil.$(item.quoteCountJson) + "条报价");
             helper.setTextColorRes(R.id.qubaojia, R.color.main_color);
         }
-        helper.setText(R.id.space_text, item.specText + "  " + FUtil.$_zero_2_null(item.remarks));
-        helper.setText(R.id.city, "用苗地:" + item.cityName);
+        helper.setText(R.id.space_text,   FUtil.$_zero(item.specText) + "  " + FUtil.$_zero_2_null(item.remarks));
+        helper.setText(R.id.city, "用苗地:" + FUtil.$_zero(item.cityName));
         helper.setText(R.id.update_time, "结束时间:" + item.closeDateStr + "");
 
         if (helper.getView(R.id.state) != null)
@@ -211,10 +211,8 @@ public class BuyForUserActivity extends BaseMVPActivity {
     }
 
 
-
     public static void start2Activity(Activity mActivity) {
-        if (!LoginUtil.toLogin(mActivity))
-        {
+        if (!LoginUtil.toLogin(mActivity)) {
             return;
         }
 

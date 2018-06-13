@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_bottom_line_gray_20">
+    android:background="@drawable/bg_bottom_line">
 
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         android:text="香樟"
         android:textColor="@color/text_color333"
@@ -42,8 +42,10 @@
 
         android:text="200株"
         android:textColor="@color/main_color"
+        android:visibility="gone"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/space_text"
@@ -71,7 +73,7 @@
         android:id="@+id/update_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:text="用苗地: 福建省厦门市园林集团"
         app:layout_constraintBottom_toBottomOf="parent"

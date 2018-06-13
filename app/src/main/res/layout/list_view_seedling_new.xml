@@ -19,13 +19,13 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="@dimen/y4">
+            android:paddingLeft="@dimen/px26">
 
             <RelativeLayout
                 android:layout_width="@dimen/x85"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="5dp"
-                android:layout_marginTop="@dimen/y3">
+                android:layout_marginTop="5dp">
 
                 <ImageView
                     android:id="@+id/iv_img"
@@ -33,7 +33,7 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
 
-                    />
+                    tools:src="@color/main_color" />
             </RelativeLayout>
 
             <LinearLayout
@@ -81,9 +81,9 @@
                             android:id="@+id/tv_01"
                             android:layout_width="16dp"
                             android:layout_height="16dp"
+                            android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
                             android:singleLine="true"
-                            android:layout_gravity="center_vertical"
                             android:textSize="@dimen/y10"
                             tools:background="@drawable/icon_seller_rong" />
 
