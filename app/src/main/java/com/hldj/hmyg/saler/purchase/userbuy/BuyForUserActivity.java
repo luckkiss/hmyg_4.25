@@ -182,7 +182,7 @@ public class BuyForUserActivity extends BaseMVPActivity {
         }
         helper.setText(R.id.space_text,   FUtil.$_zero(item.specText) + "  " + FUtil.$_zero_2_null(item.remarks));
         helper.setText(R.id.city, "用苗地:" + FUtil.$_zero(item.cityName));
-        helper.setText(R.id.update_time, "结束时间:" + item.closeDateStr + "");
+        helper.setText(R.id.update_time, "发布日期：" +  item.publishDateStr + "");
 
         if (helper.getView(R.id.state) != null)
             helper.setVisible(R.id.state, item.attrData.isUserQuoted);

@@ -103,6 +103,7 @@ public class UserPurchase implements MultiItemEntity, IFootMarkDelete {
     public String count;
     public String validity;
     public long publishDate;
+    public String publishDateStr = "-";
     public long closeDate;
     public boolean needImage;
     public boolean isClose;

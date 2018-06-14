@@ -9,8 +9,8 @@
 
     <FrameLayout
         android:id="@+id/shangji"
-        android:layout_width="148dp"
-        android:layout_height="148dp"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="8dp"
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="38dp"
+            android:layout_marginBottom="32dp"
             android:paddingLeft="8dp"
 
             android:text="为您匹配30条求购"
@@ -43,15 +43,15 @@
         <TextView
             android:id="@+id/sj_one_jump"
             android:layout_width="match_parent"
-            android:layout_height="34dp"
+            android:layout_height="30dp"
             android:layout_gravity="bottom"
             android:background="@color/black_color_60"
-            android:drawableRight="@drawable/ic_arrow_right_green"
-            android:drawableTint="@color/white"
+            android:drawableRight="@drawable/ic_arrow_right_white"
             android:padding="8dp"
+            android:gravity="center_vertical"
             android:text="红草花 200株"
             android:textColor="@color/white"
-            android:textSize="13sp" />
+            android:textSize="12sp" />
 
 
     </FrameLayout>
@@ -78,10 +78,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
         android:src="@mipmap/home_ptzc"
-        app:layout_constraintBottom_toBottomOf="@+id/shangji"
+        app:layout_constraintTop_toTopOf="@+id/shangji"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/grqg"
         app:layout_constraintTop_toBottomOf="@+id/grqg" />
@@ -92,14 +91,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:adjustViewBounds="true"
         android:src="@mipmap/home_grqg"
+        app:layout_constraintBottom_toBottomOf="@+id/shangji"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/shangji"
-        app:layout_constraintTop_toTopOf="@+id/shangji" />
+        app:layout_constraintStart_toEndOf="@+id/shangji" />
 
 
 </android.support.constraint.ConstraintLayout>

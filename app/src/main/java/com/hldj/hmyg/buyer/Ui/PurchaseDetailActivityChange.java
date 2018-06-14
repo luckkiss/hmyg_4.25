@@ -332,15 +332,15 @@ public class PurchaseDetailActivityChange extends BaseMVPActivity implements Cha
     protected void setDefayltMsg(PurchaseAutoAddLinearLayout layout, PurchaseAutoAddLinearLayout.PlantBean plantBean) {
         D.e("===dbytype==" + getItem().dbhType);
         if (plantBean.value.equals(ConstantParams.dbh)) {
-            layout.setDefaultData(FUtil.$_zero_2_null(getItem().minDbh + ""));
-            layout.setDefaultDataMax(FUtil.$_zero_2_null(getItem().maxDbh + ""));
+            layout.setDefaultData(FUtil.$_zero_2_null(getItem().minDbh));
+            layout.setDefaultDataMax(FUtil.$_zero_2_null(getItem().maxDbh));
             layout.setDefaultSize(getItem().dbhType);
 
 //            dbhType
         }
         if (plantBean.value.equals(ConstantParams.diameter)) {
-            layout.setDefaultData(FUtil.$_zero_2_null(getItem().minDiameter + ""));
-            layout.setDefaultDataMax(FUtil.$_zero_2_null(getItem().maxDiameter + ""));
+            layout.setDefaultData(FUtil.$_zero_2_null(getItem().minDiameter));
+            layout.setDefaultDataMax(FUtil.$_zero_2_null(getItem().maxDiameter));
             layout.setDefaultSize(getItem().diameterType);
 //            dbhType
         }
@@ -348,12 +348,12 @@ public class PurchaseDetailActivityChange extends BaseMVPActivity implements Cha
 //            layout.setDefaultData(FUtil.$_zero_2_null(getItem().diameter + ""));
 //        }
         if (plantBean.value.equals(ConstantParams.height)) {
-            layout.setDefaultData(FUtil.$_zero_2_null(getItem().minHeight + ""));
-            layout.setDefaultDataMax(FUtil.$_zero_2_null(getItem().maxHeight + ""));
+            layout.setDefaultData(FUtil.$_zero_2_null(getItem().minHeight));
+            layout.setDefaultDataMax(FUtil.$_zero_2_null(getItem().maxHeight));
         }
         if (plantBean.value.equals(ConstantParams.crown)) {
-            layout.setDefaultData(FUtil.$_zero_2_null(getItem().minCrown + ""));
-            layout.setDefaultDataMax(FUtil.$_zero_2_null(getItem().maxCrown + ""));
+            layout.setDefaultData(FUtil.$_zero_2_null(getItem().minCrown ));
+            layout.setDefaultDataMax(FUtil.$_zero_2_null(getItem().maxCrown ));
         }
 
     }

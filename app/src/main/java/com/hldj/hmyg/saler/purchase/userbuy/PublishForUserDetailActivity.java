@@ -285,7 +285,7 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
         start2Activity(mActivity, id, owerId, false);
     }
 
-    public static boolean isPiPei = false;//是否匹配求购
+    public static boolean isPiPei = false;//是否匹配求购 报价商机
 
     public static void start2Activity(Activity mActivity, String id, String owerId, boolean isPiPei) {
 //        if (!MyApplication.Userinfo.getBoolean("isLogin", false))

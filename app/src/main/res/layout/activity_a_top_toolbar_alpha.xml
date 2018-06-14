@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:paddingBottom="5dp"
-    android:paddingTop="@dimen/home_padding_top"
+
     app:contentInsetStart="0dp"
     app:layout_scrollFlags="scroll|enterAlways">
 
@@ -22,10 +22,11 @@
             android:layout_width="match_parent"
             android:layout_height="35dp"
 
-
             android:layout_alignParentLeft="true"
+
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_marginTop="29dp"
             android:drawablePadding="4dp"
             android:gravity="center"
             android:paddingLeft="-2dp"

@@ -149,17 +149,6 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
         }
 
 
-        AlertUtil.showAlert(
-                new SpanUtils()
-                        .append("系统为您匹配到")
-                        .append("13条" + currentName).setForegroundColor(getColorByRes(R.color.red))
-                        .append("资源")
-                        .create(), "去查看", mActivity, v -> {
-                    BActivity_new_test.start2Activity(mActivity, currentName,2);
-                }
-        );
-
-
     }
 
 
@@ -574,9 +563,32 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
                 .doRequest("admin/userPurchase/save", new HandlerAjaxCallBack(mActivity) {
                     @Override
                     public void onRealSuccess(SimpleGsonBean gsonBean) {
+
                         ToastUtil.showLongToast(gsonBean.msg);
-                        setResult(ConstantState.PUBLIC_SUCCEED);
-                        finish();
+
+                        if (gsonBean.getData().seedlingCount == 0) {
+                            setResult(ConstantState.PUBLIC_SUCCEED);
+                            finish();
+                            return;
+                        }
+
+
+                        AlertUtil.showAlert(
+                                new SpanUtils()
+                                        .append("您已发布成功,现系统为您匹配到")
+                                        .append(gsonBean.getData().seedlingCount + "" + currentName).setForegroundColor(getColorByRes(R.color.red))
+                                        .append("资源")
+                                        .create(), "去查看", mActivity, v -> {
+                                    BActivity_new_test.start2Activity(mActivity, currentName, 2);
+                                    setResult(ConstantState.PUBLIC_SUCCEED);
+                                    finish();
+                                }, onCancle -> {
+                                    setResult(ConstantState.PUBLIC_SUCCEED);
+                                    finish();
+                                }
+                        );
+
+
                     }
                 })
         ;

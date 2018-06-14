@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Created by luocaca on 2017/11/27 0027.
  * <p>
- * 匹配求购界面
+ * 匹配求购 报价商机 界面
  */
 
 public class MarchingPurchaseActivity extends BaseMVPActivity {
@@ -78,8 +78,8 @@ public class MarchingPurchaseActivity extends BaseMVPActivity {
 
                     }
                 })
-                .showEmptyAndSetTip("苗圃里的苗木品种越多，匹配到的求购越多")
-                .setEmptyText("未匹配到求购信息")
+                .showEmptyAndSetTip("快来发布苗木，增加报价机会吧!")
+                .setEmptyText("没有与您苗圃品种相匹配的求购")
                 .openRefresh()
                 .openLoadMore(20, this::requestData)
         ;
@@ -122,7 +122,7 @@ public class MarchingPurchaseActivity extends BaseMVPActivity {
 
     @Override
     public String setTitle() {
-        return "匹配求购";
+        return "报价商机";
     }
 
 

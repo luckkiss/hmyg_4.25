@@ -392,7 +392,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
      * 初始化 今日头条
      */
     private void initView() {
-        //  匹配求购
+        //  匹配求购 报价商机
         findViewById(R.id.shangji).setOnClickListener(v -> {
             if (isLogin())
                 MarchingPurchaseActivity.start(AActivity_3_0.this);
@@ -882,7 +882,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         View sj = findViewById(R.id.shangji);
 
-        if ("0".equals(indexGsonBean.data.matchUserPurchaseCount) || TextUtils.isEmpty(indexGsonBean.data.matchUserPurchaseCount) ) {
+        if ("0".equals(indexGsonBean.data.matchUserPurchaseCount) || TextUtils.isEmpty(indexGsonBean.data.matchUserPurchaseCount)) {
             sj.setSelected(false);
             sj_count = findViewById(R.id.sj_count);
             sj_count.setVisibility(View.GONE);
@@ -898,8 +898,11 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
 
         View constraint = findViewById(R.id.constraint);
-
+        sj_one_jump = findViewById(R.id.sj_one_jump);
         sj_count = findViewById(R.id.sj_count);
+        sj_count.setVisibility(View.VISIBLE);
+        sj.setSelected(true);
+        sj_one_jump.setVisibility(View.VISIBLE);
 
 
         sj_count.setText(
@@ -932,16 +935,14 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                     @Override
                     public void accept(Long aLong) throws Exception {
                         currentPos++;
-                        sj_one_jump = findViewById(R.id.sj_one_jump);
-
 
                         Log.i(TAG, "accept: " + currentPos % indexGsonBean.data.userPurchaseList.size());
                         UserPurchase userPurchase = indexGsonBean.data.userPurchaseList.get(currentPos % indexGsonBean.data.userPurchaseList.size());
                         sj_one_jump.setText(userPurchase.name + "  " + userPurchase.count + "" + userPurchase.unitTypeName);
 
-                        sj_one_jump.setOnClickListener(v -> {
-                            PublishForUserDetailActivity.start2Activity(AActivity_3_0.this, userPurchase.id, userPurchase.ownerId);
-                        });
+//                        sj_one_jump.setOnClickListener(v -> {
+//                            PublishForUserDetailActivity.start2Activity(AActivity_3_0.this, userPurchase.id, userPurchase.ownerId);
+//                        });
 //                        Log.i(TAG, "accept: " + currentPos + "  persnet = " + currentPos % indexGsonBean.data.userPurchaseList.size());
 
                     }
@@ -1544,7 +1545,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         }
         helper.setText(R.id.space_text, FUtil.$_zero(item.specText));
         helper.setText(R.id.city, "用苗地:" + FUtil.$_zero(item.cityName));
-        helper.setText(R.id.update_time, "结束时间:" + item.closeDateStr + "");
+
+
+        helper.setText(R.id.update_time, "发布日期：" + item.publishDateStr + "");
 
         if (helper.getView(R.id.state) != null)
 //         helper.getView(R.id.state).setVisibility(item.attrData.isUserQuoted? View.VISIBLE:View.GONE);
@@ -1560,6 +1563,13 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //                    this.state = (ImageView) rootView.findViewById(R.id.state);
 
     }
+
+//    public static String stringToDate(long time) {
+//
+//        java.sql.Date date = new java.sql.Date(time);
+//        java.text.SimpleDateFormat sd = new java.text.SimpleDateFormat("yyyy-MM-dd");
+//        return sd.format(date);
+//    }
 
 
 }

@@ -298,7 +298,7 @@
         <activity android:name=".Ui.friend.child.BeReportActivity" />
         <!-- 来电记录 -->
         <activity android:name=".Ui.friend.child.PhoneLogActivity" />
-        <!-- 匹配求购界面 -->
+        <!-- 匹配求购 报价商机 界面 -->
         <activity android:name=".Ui.friend.child.MarchingPurchaseActivity" />
         <activity
             android:name=".Ui.friend.child.DetailActivity"
