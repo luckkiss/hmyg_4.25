@@ -64,7 +64,9 @@
             android:layout_toEndOf="@+id/name"
             android:layout_toRightOf="@+id/name"
             android:adjustViewBounds="true"
-            android:src="@drawable/qyrz" />
+            android:src="@drawable/qyrz"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/imageView21"

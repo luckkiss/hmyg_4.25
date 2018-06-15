@@ -482,11 +482,11 @@ public class DialogActivitySecond extends PurchaseDetailActivityChange {
         ll_purc_auto_add.addView(layout);
 
 
-        layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("到货价\n(预估)", "prePrice", false));
-        autoLayouts.add(layout);
-        if (getBeanHistory() != null)
-            layout.setDefaultData(getBeanHistory().prePrice);// 默认到岸价
-        ll_purc_auto_add.addView(layout);
+//        layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("到货价\n(预估)", "prePrice", false));
+//        autoLayouts.add(layout);
+//        if (getBeanHistory() != null)
+//            layout.setDefaultData(getBeanHistory().prePrice);// 默认到岸价
+//        ll_purc_auto_add.addView(layout);
 
 
         layout = (PurchaseAutoAddLinearLayout) new PurchaseAutoAddLinearLayout(this).setData(new PurchaseAutoAddLinearLayout.PlantBean("数量", "count", false));

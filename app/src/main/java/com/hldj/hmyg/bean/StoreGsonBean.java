@@ -82,6 +82,7 @@ public class StoreGsonBean implements Serializable {
 
             public String nurseryCount ;
 
+            public boolean identity ;
 
             public AttrData attrData = new AttrData();
 

@@ -3,6 +3,7 @@ package com.hldj.hmyg.saler.M;
 import com.hldj.hmyg.buyer.M.BuyerBean;
 import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -135,7 +136,7 @@ public class PurchaseBean {
 
 //    "attrData": {"closeDateStr": "2017年06月09日 14点10分"},
 
-    public static class AttrDataBean {
+    public static class AttrDataBean implements Serializable{
         public String closeDateStr = "";
         public String publishDateStr = "";
         public Boolean isSupplier = false;
@@ -144,6 +145,7 @@ public class PurchaseBean {
         public double servicePrice;
         public String sellerName = "-";
         public String priceStr = "-";
+        public String oldPrice = "-";
         public String finalPrice = "-";
         public String totalFinalPrice = "-";
 
@@ -151,6 +153,7 @@ public class PurchaseBean {
         public String openCount = "0";
 
 
+        public boolean priceChange;
     }
 
 }

@@ -273,23 +273,25 @@
         android:id="@+id/gai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="20dp"
-        android:minHeight="20dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:gravity="center"
+        android:minHeight="18dp"
+        android:minWidth="18dp"
         android:text="改"
         android:textColor="@color/white"
-        android:textSize="13sp"
+        android:textSize="12sp"
+        android:visibility="gone"
         app:corner="3dp"
         app:layout_constraintStart_toEndOf="@+id/tv_program_purch_sub_price_type"
         app:layout_constraintTop_toTopOf="@+id/tv_program_purch_sub_price_type"
         app:left_bottom_corner="true"
-
         app:left_top_corner="true"
+
         app:right_bottom_corner="true"
         app:right_top_corner="true"
-        app:solid="@color/state_for_manager_no" />
+        app:solid="@color/state_for_manager_no"
+        tools:visibility="visible" />
 
 
 </android.support.constraint.ConstraintLayout>

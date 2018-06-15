@@ -21,7 +21,6 @@ import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
 import com.hldj.hmyg.M.AddressBean;
-import com.hldj.hmyg.M.userIdentity.enums.CompanyIdentityStatus;
 import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.Ui.friend.bean.tipNum.TipNum;
@@ -442,7 +441,7 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
                                 .append("我的苗圃").setForegroundColor(getColorByRes(R.color.main_color))
                                 .append(String.format("  (共%d个苗圃)", gsonBean.getData().nurseryCount)).setForegroundColor(getColorByRes(R.color.text_color999)).setFontSize(12, true)
                                 .create());
-                        initHeadView(headView, storeBean, tipNums);
+                        initHeadView(headView, storeBean, tipNums,gsonBean.getData().identity);
 
 
                     }
@@ -465,7 +464,7 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
     }
 
-    private void initHeadView(View headView, StoreGsonBean.DataBean.StoreBean storeBean, List<TipNum> tipNums) {
+    private void initHeadView(View headView, StoreGsonBean.DataBean.StoreBean storeBean, List<TipNum> tipNums , boolean isPass) {
         //           <cn.bingoogolapple.badgeview.BGABadgeLinearLayout
 //        android:id="@+id/ll_show_num1"
         createShareBean(storeBean, storeBean.bannerUrl);
@@ -495,7 +494,8 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
         ImageLoader.getInstance().displayImage(storeBean.logoUrl, logo, getCompanyOption());
         FinalBitmap.create(mActivity).display(logo, storeBean.logoUrl);
 
-        boolean isPass = storeBean.attrData.store_identity.equals(CompanyIdentityStatus.pass.getEnumValue());
+//        boolean isPass = storeBean.attrData.store_identity.equals(CompanyIdentityStatus.pass.getEnumValue());
+//        boolean isPass = storeBean.identity;
 
         headView.findViewById(R.id.store_identity).setVisibility(isPass ? View.VISIBLE : View.GONE);
         //通过认证

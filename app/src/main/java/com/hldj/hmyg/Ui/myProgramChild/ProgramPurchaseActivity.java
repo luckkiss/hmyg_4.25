@@ -355,10 +355,36 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                     /* 价格  +  名称    */
 
 
+                    helper.setVisible(R.id.gai, item.attrData.priceChange);
                     helper.addOnClickListener(R.id.gai, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ToastUtil.showLongToast("改");
+
+                            AlertUtil.showCommonDialog(R.layout.item_show_price_change, getSupportFragmentManager(), viewRoot -> {
+
+                                TextView textView = viewRoot.findViewById(R.id.content);
+
+
+                                textView.setText(
+                                        new SpanUtils()
+                                                .append("原始报价：")
+                                                .append(item.attrData.priceStr).setForegroundColor(getColorByRes(R.color.price_orige))
+                                                .append("/" + item.unitTypeName)
+                                                .appendLine()
+                                                .append("修改后报价：")
+                                                .append(item.attrData.oldPrice).setForegroundColor(getColorByRes(R.color.price_orige))
+                                                .append("/" + item.unitTypeName)
+                                                .create()
+                                );
+                                TextView close = viewRoot.findViewById(R.id.left);
+                                close.setOnClickListener(v1 -> {
+                                    viewRoot.dismiss();
+                                });
+
+
+                            },true);
+
+
                         }
                     });
 
@@ -1377,4 +1403,6 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
         }
         super.onDestroy();
     }
+
+
 }

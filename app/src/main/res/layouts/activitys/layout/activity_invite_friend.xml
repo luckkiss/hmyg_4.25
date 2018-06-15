@@ -7,9 +7,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
-    >
+    android:orientation="vertical">
 
 
     <include
@@ -19,7 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+
+    <FrameLayout
         android:id="@+id/qc_code"
         android:layout_width="153dp"
         android:layout_height="153dp"
@@ -31,7 +31,24 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2" />
+        app:layout_constraintTop_toBottomOf="@+id/include2">
+
+        <ImageView
+            android:id="@+id/qc_code_inner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@mipmap/jf_cgbj" />
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
+
+
+    </FrameLayout>
+
 
     <TextView
         android:id="@+id/textView10"
@@ -63,6 +80,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
+        android:drawablePadding="8dp"
         android:drawableTop="@drawable/share_wechat"
         android:src="@drawable/share_wechat"
         android:text="微信好友"
@@ -70,7 +88,6 @@
         app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        android:drawablePadding="8dp"
 
         app:layout_constraintTop_toBottomOf="@+id/textView26"
 
@@ -81,12 +98,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:drawablePadding="8dp"
         android:drawableTop="@drawable/share_wechat_moments"
         android:src="@drawable/share_wechat_moments"
         android:text="微信朋友圈"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        android:drawablePadding="8dp"
         app:layout_constraintStart_toEndOf="@+id/share_left"
         app:layout_constraintTop_toBottomOf="@+id/textView26" />
 

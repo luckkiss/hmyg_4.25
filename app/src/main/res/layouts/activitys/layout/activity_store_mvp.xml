@@ -27,25 +27,30 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="170dp"
+                    android:layout_height="212dp"
                     android:background="@color/trans">
 
                     <ImageView
                         android:id="@+id/iv_store_banner"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="170dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/me_bg_no_alf" />
-
+                        android:src="@drawable/store_banner_bg" />
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/touming_store_new" />
                     <include
                         layout="@layout/include_store_user_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentLeft="true"
-
                         android:layout_gravity="bottom"
                         android:layout_marginBottom="12dp" />
+
+
 
 
                 </RelativeLayout>
@@ -91,10 +96,10 @@
                         android:id="@+id/line"
                         android:layout_width="1px"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/px14"
-                        android:layout_marginBottom="@dimen/px14"
                         android:layout_centerVertical="true"
+                        android:layout_marginBottom="@dimen/px14"
                         android:layout_marginLeft="3dp"
+                        android:layout_marginTop="@dimen/px14"
                         android:layout_toRightOf="@+id/iv_home_left"
                         android:background="@color/gray_bg_ed" />
 

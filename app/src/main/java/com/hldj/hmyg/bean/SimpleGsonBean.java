@@ -162,6 +162,7 @@ public class SimpleGsonBean implements Serializable {
         /* 开启数量 */
 
 
+
         //        CenterActivity
         public int seedlingCount = 0;/*商城资源*/
         public int momentsCount = 0;/* 苗木圈资源数量 */

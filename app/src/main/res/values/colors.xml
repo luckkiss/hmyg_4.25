@@ -293,6 +293,7 @@
     <color name="get_code_color">#FFCECECE</color>
     <color name="hint_text_color">#cccccc</color>
     <color name="black_color_60">#50242625</color>
+    <color name="black_color_10">#10242625</color>
 
 
     <color name="text_color666">#666666</color>

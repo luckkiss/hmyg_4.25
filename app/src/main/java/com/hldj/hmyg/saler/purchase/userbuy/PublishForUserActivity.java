@@ -1,7 +1,7 @@
 package com.hldj.hmyg.saler.purchase.userbuy;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -25,10 +26,10 @@ import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.TypeListBean;
 import com.hldj.hmyg.bean.UnitTypeBean;
 import com.hldj.hmyg.buyer.Ui.ComonCityWheelDialogF;
+import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment1;
 import com.hldj.hmyg.saler.M.enums.ValidityEnum;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.UserPurchase;
-import com.hldj.hmyg.util.AlertUtil;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.LoginUtil;
@@ -48,7 +49,6 @@ import java.util.List;
 /**
  * 用户发布界面
  */
-@SuppressLint({"NewApi", "ResourceAsColor"})
 public class PublishForUserActivity extends BaseMVPActivity implements OnClickListener {
 
 
@@ -573,20 +573,65 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
                         }
 
 
-                        AlertUtil.showAlert(
-                                new SpanUtils()
-                                        .append("您已发布成功,现系统为您匹配到")
-                                        .append(gsonBean.getData().seedlingCount + "" + currentName).setForegroundColor(getColorByRes(R.color.red))
-                                        .append("资源")
-                                        .create(), "去查看", mActivity, v -> {
-                                    BActivity_new_test.start2Activity(mActivity, currentName, 2);
-                                    setResult(ConstantState.PUBLIC_SUCCEED);
-                                    finish();
-                                }, onCancle -> {
-                                    setResult(ConstantState.PUBLIC_SUCCEED);
-                                    finish();
-                                }
-                        );
+//                        AlertUtil.showAlert(
+//                                new SpanUtils()
+//                                        .append("您已发布成功,现系统为您匹配到")
+//                                        .append(gsonBean.getData().seedlingCount + "" + currentName).setForegroundColor(getColorByRes(R.color.red))
+//                                        .append("资源")
+//                                        .create(), "去查看", mActivity, v -> {
+//                                    BActivity_new_test.start2Activity(mActivity, currentName, 2);
+//                                    setResult(ConstantState.PUBLIC_SUCCEED);
+//                                    finish();
+//                                }, onCancle -> {
+//                                    setResult(ConstantState.PUBLIC_SUCCEED);
+//                                    finish();
+//                                }
+//                        );
+
+
+                        CommonDialogFragment1.newInstance(context -> {
+                            if (context == null) {
+                                context = mActivity;
+                            }
+                            Dialog dialog1 = new Dialog(context);
+                            dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog1.setContentView(R.layout.item_show_seeding_tip);
+
+                            TextView textView = dialog1.findViewById(R.id.content);
+                            textView.setText(new SpanUtils()
+                                    .append("系统为您自动搜索到")
+                                    .append(gsonBean.getData().seedlingCount + "").setForegroundColor(getColorByRes(R.color.main_color))
+                                    .append("条")
+                                    .appendLine(currentName).setForegroundColor(getColorByRes(R.color.main_color))
+                                    .append("是否去看看")
+                                    .create()
+                            );
+
+
+                            dialog1.findViewById(R.id.left).setOnClickListener(v1 -> {
+//                            ToastUtil.showLongToast("left");
+
+//                PublishActivity.start(mActivity, PublishActivity.ALL);
+//                SaveSeedlingActivity.start2Activity(AActivity_3_0.this);
+
+
+                                dialog1.dismiss();
+                                setResult(ConstantState.PUBLIC_SUCCEED);
+                                finish();
+
+                            });
+
+                            dialog1.findViewById(R.id.right).setOnClickListener(v1 -> {
+//                            ToastUtil.showLongToast("right");
+                                dialog1.dismiss();
+                                BActivity_new_test.start2Activity(mActivity, currentName, 2);
+                                setResult(ConstantState.PUBLIC_SUCCEED);
+                                finish();
+
+                            });
+
+                            return dialog1;
+                        }, false).show(getSupportFragmentManager(), TAG);
 
 
                     }

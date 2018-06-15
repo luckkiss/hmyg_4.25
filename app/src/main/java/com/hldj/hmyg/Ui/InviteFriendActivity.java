@@ -73,7 +73,7 @@ public class InviteFriendActivity extends BaseMVPActivity {
 //        sp2.setTitleUrl(Data.appDoloadUrl);
 //        sp2.setSiteUrl(Data.appDoloadUrl);
 
-        ImageView imageView = getView(R.id.qc_code);
+        ImageView imageView = getView(R.id.qc_code_inner);
 
         {
 

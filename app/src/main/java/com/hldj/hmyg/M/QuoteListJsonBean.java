@@ -71,6 +71,8 @@ public class QuoteListJsonBean implements Serializable, MultiItemEntity, IExpand
      * ossUrl : http://images.hmeg.cn/upload/image/201706/db44669c313149d4b77a27a280677491.jpeg@!wt
      */
 
+
+
     public String id;
     public String remarks;
     public String count;

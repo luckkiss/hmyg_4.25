@@ -42,7 +42,7 @@ public class RoundRectImageView extends AppCompatImageView {
         paint = new Paint();
         paint.setColor(Color.WHITE);
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(9);
+        paint.setStrokeWidth(7);
         paint.setAntiAlias(true);// 设置画笔的锯齿效果
 //        borderIMage = BitmapFactory.decodeResource(getResources(), R.drawable.zheng_white);
 //新建矩形r1

@@ -332,7 +332,7 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity implemen
 
     public void initSearchHint() {
         EditText editText = getView(R.id.et_program_serach_text);
-        editText.setHint("搜索");
+        editText.setHint("请输入品种名称");
     }
 
     private String currentSearchKey = "";

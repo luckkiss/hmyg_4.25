@@ -145,6 +145,7 @@ public abstract class StorePurchaseListAdapter_new_second extends StorePurchaseL
                 TextView pre_price = myViewHolder.getView(R.id.tv_quote_item_pre_price);
                 pre_price.setText(jsonBean.prePrice);
 
+
                  /*可供数量*/
                 TextView count = myViewHolder.getView(R.id.tv_quote_item_count);
                 count.setText(jsonBean.count + "");
