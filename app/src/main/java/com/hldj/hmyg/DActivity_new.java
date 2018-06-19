@@ -204,7 +204,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 //
 //        });
 
-        mCoreRecyclerView.init(new BaseQuickAdapter<Moments, BaseViewHolder>(R.layout.item_friend_cicle_simple_center) {
+        mCoreRecyclerView.init(new BaseQuickAdapter<Moments, BaseViewHolder>(R.layout.item_friend_cicle_simple_center_d_activity) {
             @Override
             protected void convert(BaseViewHolder helper, Moments item) {
 

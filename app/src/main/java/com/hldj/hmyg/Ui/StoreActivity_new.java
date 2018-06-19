@@ -179,6 +179,10 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
                     //中间状态
 //                    StateBarUtil.setStatusTranslater(mActivity, true);//变黑
 //                    getView(R.id.btn_back).setSelected(true);
+
+
+
+
                 }
             }
         });

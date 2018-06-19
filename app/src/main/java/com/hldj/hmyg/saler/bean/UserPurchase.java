@@ -113,7 +113,7 @@ public class UserPurchase implements MultiItemEntity, IFootMarkDelete {
     public List<String> paramsList;
 
     public String quoteCount;
-    public String quoteCountJson;
+    public String quoteCountJson = "0";
     public boolean isUserQuoted;
 
     public String price;

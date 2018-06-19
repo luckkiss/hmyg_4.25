@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -44,8 +45,7 @@
                 app:state_drawable_padding_left="24dp"
                 app:state_drawable_width="10dp" />
 
-            <View
-                 style="@style/View_line_vertical"/>
+            <View style="@style/View_line_vertical" />
 
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_b_sort"
@@ -108,6 +108,19 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+
+    <ImageView
+        android:id="@+id/iv_b_top"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="76dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/top_btn_bg"
+        android:gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/iv_b_publish"

@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="还没有好友接收邀请~"
+        android:text="还没有好友接受邀请~"
         app:layout_constraintBottom_toTopOf="@+id/tv_go_to_invite"
         android:textColor="@color/text_color999"
         android:textSize="@dimen/textSizeContent"

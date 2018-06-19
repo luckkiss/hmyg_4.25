@@ -494,7 +494,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                     precent = (viewPager.getHeight() + location[1]) % viewPager.getMeasuredHeight();
                 } catch (Exception e) {
                     precent = 1;
-                    e.printStackTrace();
+//                    e.printStackTrace();
                 }
 
                 float pre = (1 - precent / viewPager.getHeight());

@@ -1034,6 +1034,8 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
 
                                     JSONObject nurseryJson = JsonGetInfo.getJSONObject(jsonObject2, "nurseryJson");
+                                    publicName =  JsonGetInfo.getJsonString(nurseryJson, "contactName");
+                                    displayPhone =  JsonGetInfo.getJsonString(nurseryJson, "contactPhone");
                                     address_name = JsonGetInfo.getJsonString(nurseryJson, "cityName") + JsonGetInfo.getJsonString(nurseryJson, "detailAddress");
                                     nurseryJsonName = JsonGetInfo.getJsonString(nurseryJson, "name");
 //                                    ToastUtil.showShortToast("address_name->" + address_name);

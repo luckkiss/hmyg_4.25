@@ -205,7 +205,7 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
                     .addSelectListener((province, city, distrect, cityCode) -> {
                         MyOptionItemView myOptionItemView = getView(R.id.select_city);
 //                        setText(getView(R.id.select_city), "用苗地  " + province + city);
-                        myOptionItemView.setRightText(province + city +distrect);
+                        myOptionItemView.setRightText(province + city + distrect);
                         currentCityCode = cityCode;
 
                     }).show(getSupportFragmentManager(), "select_city");
@@ -320,7 +320,7 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
 
     @Override
     public String setTitle() {
-        return "用户求购";
+        return "个人求购";
     }
 
 
@@ -367,7 +367,13 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
                         setText(getView(R.id.city), result.data.userPurchase.cityName);
                         setText(getView(R.id.marks), result.data.userPurchase.remarks);
                         setText(getView(R.id.yaoqiu), result.data.userPurchase.needImage ? "需要上传图片" : "可以不上传图片");
-                        setText(getView(R.id.tv_fr_item_state), result.data.userPurchase.quoteCountJson + "条报价");
+
+
+                        if ("0".equals(result.data.userPurchase.quoteCountJson)) {
+                            setText(getView(R.id.tv_fr_item_state), "暂无报价");
+                        } else {
+                            setText(getView(R.id.tv_fr_item_state), result.data.userPurchase.quoteCountJson + "条报价");
+                        }
 
 
 //imagesJson
@@ -579,7 +585,7 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
             if (!TextUtils.isEmpty(MainActivity.adCode)) {
 //                CityGsonBean.ChildBeans cityBeans = new CityGsonBean.ChildBeans();
                 currentCityCode = MainActivity.adCode;
-                city.setRightText(MainActivity.province_loc + " " + MainActivity.city_loc +" "+ MainActivity.district_loc);
+                city.setRightText(MainActivity.province_loc + " " + MainActivity.city_loc + " " + MainActivity.district_loc);
             }
         } else {
             city.setRightText("未选择");

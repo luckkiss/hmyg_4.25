@@ -138,7 +138,7 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity implemen
 //                展示正常应用应该展示的界面
 
 
-        setTextOrHinden(R.id.rb_title_left, View.VISIBLE, "平台采购", v -> {
+        setTextOrHinden(R.id.rb_title_left, View.VISIBLE, "平台直采", v -> {
             mTabLayout.setVisibility(View.VISIBLE);
             loadingLayout.setVisibility(View.VISIBLE);
 
@@ -146,7 +146,7 @@ public class ManagerQuoteListActivity_new extends NeedSwipeBackActivity implemen
 
         setTextOrHinden(R.id.rb_title_center, View.GONE, "", null);
 
-        setTextOrHinden(R.id.rb_title_right, View.VISIBLE, "用户求购", v -> {
+        setTextOrHinden(R.id.rb_title_right, View.VISIBLE, "个人求购", v -> {
             mTabLayout.setVisibility(View.GONE);
             loadingLayout.setVisibility(View.GONE);
         });

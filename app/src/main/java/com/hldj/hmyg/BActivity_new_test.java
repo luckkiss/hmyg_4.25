@@ -70,6 +70,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
     private CoreHeadRecyclerView recyclerView1;
 
     int type = 0;
+    private static ImageView iv_b_top;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -122,6 +123,17 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 
         recyclerView1.addFooterView(view);
         recyclerView1.onRefresh();
+
+
+        iv_b_top = (ImageView) findViewById(R.id.iv_b_top);
+        iv_b_top.setOnClickListener(v -> {
+            if (recyclerView1 != null) {
+                recyclerView1.getRecyclerView().scrollToPosition(0);
+                recyclerView1.getRecyclerView().smoothScrollBy(0, 0);
+                iv_b_top.setVisibility(View.GONE);
+            }
+        });
+
 
     }
 
@@ -463,6 +475,16 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
      * @param item
      */
     public static void initListType(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item, FinalBitmap bitmap, String tag) {
+        if (helper.getAdapterPosition() > 5) {
+            if (iv_b_top != null) {
+                iv_b_top.setVisibility(View.VISIBLE);
+            }
+        } else {
+            if (iv_b_top != null) {
+                iv_b_top.setVisibility(View.GONE);
+            }
+        }
+
         bitmap.display(helper.getView(iv_img), item.smallImageUrl);
 
         TextView tv_01 = helper.getView(R.id.tv_01);
@@ -496,7 +518,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
                     item.ownerJson.companyName,
                     item.ownerJson.publicName,
                     item.ownerJson.realName,
-                    item.ownerJson.userName);
+                    item.ownerJson.userName, item.attrData.displayName);
         } else {
             if (item.closeDate.length() > 10) {
                 tv_06.setText("下架日期：" + item.closeDate.substring(0, 10));

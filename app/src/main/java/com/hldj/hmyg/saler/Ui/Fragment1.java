@@ -174,7 +174,14 @@ public class Fragment1 extends Fragment implements IRefresh {
 
         helper.setText(R.id.tv_fr_item_plant_name, fillColor.getResult());
 
-        helper.setText(R.id.tv_fr_item_company_name, item.purchaseJson.name + " (" + item.purchaseJson.num + ")");
+
+        if (TextUtils.isEmpty(item.purchaseJson.name)) {
+            helper.setText(R.id.tv_fr_item_company_name, item.purchaseJson.projectName + " (" + item.purchaseJson.num + ")");
+        } else {
+            helper.setText(R.id.tv_fr_item_company_name, item.purchaseJson.name + " (" + item.purchaseJson.num + ")");
+        }
+
+//        helper.setText(R.id.tv_fr_item_company_name, !TextUtils.isEmpty(item.purchaseJson.name) ? item.purchaseJson.projectName : item.purchaseJson.name + " (" + item.purchaseJson.num + ")");
 //                helper.setText(R.id.tv_fr_item_company_name, item.purchaseJson.buyer.displayName);
         helper.setText(R.id.tv_fr_item_company_addr_name, FUtil.$_zero(item.purchaseJson.cityName));
 
@@ -199,10 +206,10 @@ public class Fragment1 extends Fragment implements IRefresh {
 
 
         setStatus(helper, item.getStatus());//通过状态设置背景颜色
-        helper.addOnClickListener(R.id.cv_root, v -> {
-//                    ManagerQuoteListItemDetail.start2Activity(getActivity(), item);
-            ManagerQuoteListItemDetail_new.start2Activity(mActivity, item.getId());
-        });
+//        helper.addOnClickListener(R.id.cv_root, v -> {
+////                    ManagerQuoteListItemDetail.start2Activity(getActivity(), item);
+//            ManagerQuoteListItemDetail_new.start2Activity(mActivity, item.getId());
+//        });
 
     }
 
@@ -319,8 +326,7 @@ public class Fragment1 extends Fragment implements IRefresh {
 
 
     private String getSearchKey() {
-        if (mActivity != null && mActivity instanceof ISearch)
-        {
+        if (mActivity != null && mActivity instanceof ISearch) {
             return ((ISearch) mActivity).getSearchKey();
         } else {
             return "";

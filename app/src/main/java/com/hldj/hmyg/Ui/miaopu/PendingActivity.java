@@ -37,6 +37,7 @@ public class PendingActivity extends ManagerSplitListActivity_new<ManagerListPre
         context.startActivity(intent);
     }
 
+
     @Override
     public void initView() {
         setStoreId(MyApplication.getUserBean().storeId);
@@ -46,6 +47,11 @@ public class PendingActivity extends ManagerSplitListActivity_new<ManagerListPre
         getView(R.id.ll_bottom_layout).setVisibility(View.GONE);
 
         ((ViewGroup) xgkc.getParent()).setVisibility(View.GONE);
+
+        findViewById(R.id.toolbar2).setVisibility(View.GONE);
+        findViewById(R.id.toolbar1).setVisibility(View.VISIBLE);
+        Log.i("PendingActivity", "强行隐藏toolbar 栏目。禁止搜索");
+
 
     }
 
@@ -177,9 +183,6 @@ public class PendingActivity extends ManagerSplitListActivity_new<ManagerListPre
 
         return "待处理";
     }
-
-
-
 
 
 }
