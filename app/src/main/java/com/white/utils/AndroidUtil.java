@@ -1,7 +1,5 @@
 package com.white.utils;
 
-import java.util.List;
-
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.app.AlertDialog.Builder;
@@ -20,13 +18,14 @@ import android.provider.Settings.SettingNotFoundException;
 import android.telephony.TelephonyManager;
 import android.text.Layout;
 import android.text.TextPaint;
-import android.util.FloatMath;
+
+import java.util.List;
 
 public class AndroidUtil {
 
 	/**
 	 * 判断当前客户端是否在前台运行
-	 * 
+	 *
 	 * @param context
 	 * @return false 后台运行 true 前台运行
 	 */
@@ -41,7 +40,7 @@ public class AndroidUtil {
 			ComponentName cname = task_info.get(0).topActivity;
 			if (cname != null
 					&& context.getPackageName().equals(
-							cname.getPackageName().trim())) {
+					cname.getPackageName().trim())) {
 				result = true;
 			}
 		}
@@ -50,20 +49,20 @@ public class AndroidUtil {
 
 	/**
 	 * 判断当前是否处于锁屏
-	 * 
+	 *
 	 * @param context
 	 * @return false 否 true 是
 	 */
 	public static boolean isInKeyguardRestrictedInputMode(Context context) {
 		KeyguardManager mKeyguardManager = (KeyguardManager) context
 				.getSystemService(Context.KEYGUARD_SERVICE);
-        // 锁屏
-        return mKeyguardManager.inKeyguardRestrictedInputMode();
+		// 锁屏
+		return mKeyguardManager.inKeyguardRestrictedInputMode();
 	}
 
 	/**
 	 * 判断与包名相同的应用程序是否有安装
-	 * 
+	 *
 	 * @param packageName
 	 * @param context
 	 * @return
@@ -77,7 +76,7 @@ public class AndroidUtil {
 			packageInfo = null;
 			e.printStackTrace();
 		}
-        return packageInfo != null;
+		return packageInfo != null;
 	}
 
 	/**
@@ -96,7 +95,7 @@ public class AndroidUtil {
 
 	/**
 	 * 用来判断服务是否运行.
-	 * 
+	 *
 	 * @param mContext
 	 * @param className
 	 *            判断的服务名字
@@ -122,7 +121,7 @@ public class AndroidUtil {
 
 	/**
 	 * 回到桌面
-	 * 
+	 *
 	 * @param context
 	 *            当前环境上下文对象
 	 */
@@ -135,7 +134,7 @@ public class AndroidUtil {
 
 	/**
 	 * 获得版本信息
-	 * 
+	 *
 	 * @param context
 	 * @return
 	 */
@@ -153,8 +152,8 @@ public class AndroidUtil {
 		else
 			return "";
 	}
-	
-	
+
+
 	public static String getVersionCode(Context context) {
 		PackageManager pm = context.getPackageManager();
 		PackageInfo pinfo = null;
@@ -172,7 +171,7 @@ public class AndroidUtil {
 
 	/**
 	 * 获得屏幕超时设置
-	 * 
+	 *
 	 * @param context
 	 * @return
 	 */
@@ -190,7 +189,7 @@ public class AndroidUtil {
 
 	/**
 	 * 重新设置屏幕超时
-	 * 
+	 *
 	 * @param context
 	 * @param time
 	 *            毫秒为单位
@@ -202,7 +201,7 @@ public class AndroidUtil {
 
 	/**
 	 * 获得提醒对话框(AlertDialog)的Builder对象
-	 * 
+	 *
 	 * @param context
 	 *            当前环境上下文对象
 	 * @param title
@@ -212,13 +211,13 @@ public class AndroidUtil {
 	 * @return 提醒对话框的Builder对象
 	 */
 	public static Builder createADBuilder(Context context, int title,
-			int message) {
+										  int message) {
 		return new Builder(context).setTitle(title).setMessage(message);
 	}
 
 	/**
 	 * 获得提醒对话框(AlertDialog)的Builder对象
-	 * 
+	 *
 	 * @param context
 	 *            当前环境上下文对象
 	 * @param title
@@ -228,13 +227,13 @@ public class AndroidUtil {
 	 * @return 提醒对话框的Builder对象
 	 */
 	public static Builder createADBuilder(Context context, String title,
-			int message) {
+										  int message) {
 		return new Builder(context).setTitle(title).setMessage(message);
 	}
 
 	/**
 	 * 获得提醒对话框(AlertDialog)的Builder对象
-	 * 
+	 *
 	 * @param context
 	 *            当前环境上下文对象
 	 * @param title
@@ -244,13 +243,13 @@ public class AndroidUtil {
 	 * @return 提醒对话框的Builder对象
 	 */
 	public static Builder createADBuilder(Context context, String title,
-			String message) {
+										  String message) {
 		return new Builder(context).setTitle(title).setMessage(message);
 	}
 
 	/**
 	 * 将px值转化为dp
-	 * 
+	 *
 	 * @param context
 	 * @param pxValue
 	 * @return
@@ -285,7 +284,7 @@ public class AndroidUtil {
 
 	/**
 	 * 获取手机操作系统版本
-	 * 
+	 *
 	 * @return
 	 * @author SHANHY
 	 * @date 2015年12月4日

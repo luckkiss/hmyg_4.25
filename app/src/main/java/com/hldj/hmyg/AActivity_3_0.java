@@ -42,7 +42,7 @@ import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.M.BProduceAdapt;
 import com.hldj.hmyg.M.IndexGsonBean;
-import com.hldj.hmyg.Ui.DispatcherActivity;
+import com.hldj.hmyg.Ui.AboutWebActivity;
 import com.hldj.hmyg.Ui.InviteFriendActivity;
 import com.hldj.hmyg.Ui.NewsActivity;
 import com.hldj.hmyg.Ui.NoticeActivity_detail;
@@ -443,7 +443,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         findViewById(R.id.stv_home_4).setOnClickListener(v -> {
 //            if (isLogin()) ManagerListActivity_new.start2Activity(AActivity_3_0.this);
 //            PurchasePyMapActivity.start2Activity(AActivity_3_0.this);
-            DispatcherActivity.start(AActivity_3_0.this);
+//            DispatcherActivity.start(AActivity_3_0.this);
+
+            AboutWebActivity.start(AActivity_3_0.this);
 
 
         });

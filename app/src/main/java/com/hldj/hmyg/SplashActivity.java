@@ -3,19 +3,19 @@ package com.hldj.hmyg;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.ImageView;
 
 import com.hldj.hmyg.application.MyApplication;
-import com.hldj.hmyg.application.PermissionUtils;
 import com.hy.utils.GetServerUrl;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.white.utils.AndroidUtil;
+import com.white.utils.DeviceUuidFactory;
 
 import cn.jpush.android.api.JPushInterface;
+import io.reactivex.functions.Consumer;
 
 
 public class SplashActivity extends FragmentActivity {
@@ -49,21 +49,45 @@ public class SplashActivity extends FragmentActivity {
 
 
         boolean requestREAD_PHONE_STATE = false;
-        if (Build.VERSION.SDK_INT >= 23) {//大于6.0
-//            requestREAD_PHONE_STATE = new PermissionUtils(SplashActivity.this).requestREAD_PHONE_STATE(200);
-            int checkCallPhonePermission = ContextCompat.checkSelfPermission(SplashActivity.this, android.Manifest.permission.READ_PHONE_STATE);
-            if (checkCallPhonePermission == PackageManager.PERMISSION_GRANTED) {
+
+
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(android.Manifest.permission.READ_PHONE_STATE)
+                .doOnSubscribe(disposable -> {
+
+                }).subscribe(grand -> {
+
+            if (grand) {
                 putSpInfo_Before_6();
-                return;
+            } else {
+                start2Main();
             }
-        } else {//小于6.0
-            putSpInfo_Before_6();
-        }
-        try {
-            requestREAD_PHONE_STATE = new PermissionUtils(SplashActivity.this).requestREAD_PHONE_STATE(200);
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
+
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                start2Main();
+            }
+        });
+
+    }
+//        if (Build.VERSION.SDK_INT >= 23) {//大于6.0
+
+
+//            requestREAD_PHONE_STATE = new PermissionUtils(SplashActivity.this).requestREAD_PHONE_STATE(200);
+//            int checkCallPhonePermission = ContextCompat.checkSelfPermission(SplashActivity.this, android.Manifest.permission.READ_PHONE_STATE);
+//            if (checkCallPhonePermission == PackageManager.PERMISSION_GRANTED) {
+//                putSpInfo_Before_6();
+//                return;
+//            }
+//        } else {//小于6.0
+//            putSpInfo_Before_6();
+//        }
+//        try {
+//            requestREAD_PHONE_STATE = new PermissionUtils(SplashActivity.this).requestREAD_PHONE_STATE(200);
+//        } catch (Exception e1) {
+//            e1.printStackTrace();
+//        }
 
 
 //        boolean flag = (PackageManager.PERMISSION_GRANTED ==
@@ -77,21 +101,20 @@ public class SplashActivity extends FragmentActivity {
 //        }
 
 
-    }
+//        }
 
     public void putSpInfo_Before_6() {
-
-
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {
         Log.i(TAG, "putSpInfo_Before_6 start" + (System.currentTimeMillis() - startTime));
         e = MyApplication.Deviceinfo.edit();
         e.putString("version", AndroidUtil.getVersion(SplashActivity.this));
-        e.putString("deviceId", AndroidUtil.getDeviceIMEI(SplashActivity.this));
-        e.commit();
+        e.putString("deviceId", DeviceUuidFactory.getUniquePsuedoID());
+        e.apply();
         GetServerUrl.version = AndroidUtil.getVersion(SplashActivity.this);
-        GetServerUrl.deviceId = AndroidUtil.getDeviceIMEI(SplashActivity.this);
+        GetServerUrl.deviceId = DeviceUuidFactory.getUniquePsuedoID();
+//        GetServerUrl.deviceId = AndroidUtil.getDeviceIMEI(SplashActivity.this);
 //            }
 //        }).start();
 

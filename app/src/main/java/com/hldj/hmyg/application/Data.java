@@ -67,6 +67,8 @@ public class Data {
 
     //关于我们  http://192.168.1.252:8090/page/help/aboutus.html?isApp=true
     public static final String About = GetServerUrl.getHtmlUrl() + "page/help/aboutus.html?isApp=true";
+    //page/help/aboutus.html?isApp=true
+    //page/help/aboutus.html?isApp=true
 
     //分享页面  分享下载链接
     public static final String appDoloadUrl = GetServerUrl.getHtmlUrl() + "page/appdown.html";
@@ -125,7 +127,7 @@ public class Data {
     public static final String news_urls = GetServerUrl.getHtmlUrl() + "article?isHeader=true";
 
     //帮助中心
-    public static final String helpIndex = GetServerUrl.getHtmlUrl() + "page/help/index.html?isApp=true";
+    public static final String helpIndex = GetServerUrl.getHtmlUrl() + "help/index.html?isApp=true";
 
 
 // 新闻资讯  /article?isHeader=true.html

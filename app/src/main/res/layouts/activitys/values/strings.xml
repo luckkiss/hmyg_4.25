@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="beautiful_girl">服务专线</string>
+    <string name="beautiful_girl">客服</string>
     <string name="listview_header_hint_normal">下拉刷新...</string>
     <string name="listview_header_hint_release">释放刷新...</string>
     <!--<string name="refreshing">正在刷新...</string>-->

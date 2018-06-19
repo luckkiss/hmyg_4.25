@@ -20,6 +20,9 @@ public abstract class BaseWebViewActivity extends BaseMVPActivity {
     WebView mWebView;
     ProgressBar progressBar;
 
+    public WebView getmWebView() {
+        return mWebView;
+    }
 
     @Override
     public void initView() {
@@ -34,7 +37,7 @@ public abstract class BaseWebViewActivity extends BaseMVPActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 Log.i(TAG, "loadingUrl =   \n" + url);
-                    onLoadUrl(mWebView, url);
+                onLoadUrl(mWebView, url);
 //                view.loadUrl(url);
                 return true;
             }

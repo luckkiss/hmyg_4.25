@@ -194,6 +194,20 @@ public class FootMarkActivity extends BaseMVPActivity {
 //                        ToastUtil.showShortToast(gsonBean.msg);
                         }
                     });
+        }else {
+
+            new BasePresenter()
+                    .doRequest("admin/footmark/beUserIsRead", new HandlerAjaxCallBack() {
+                        @Override
+                        public void onRealSuccess(SimpleGsonBean gsonBean) {
+
+                            RxBus.getInstance().post(DActivity_new_mp.refresh, new Eactivity3_0.OnlineEvent(true));
+//                        ToastUtil.showShortToast("访客 未读 清除成功");
+//                        ToastUtil.showShortToast(gsonBean.msg);
+                        }
+                    });
+
+
         }
 
 

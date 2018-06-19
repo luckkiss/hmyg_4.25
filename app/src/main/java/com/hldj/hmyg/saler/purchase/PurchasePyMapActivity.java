@@ -643,7 +643,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
 
         tv_xiaoxitishi.setText(msg);
         tv_xiaoxitishi.setOnClickListener(v -> {
-//            DialogNoti("quoting");
+            DialogNoti("quoting");
         });
 
     }
@@ -660,7 +660,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
         tv_xiaoxitishi.setVisibility(isShowRight ? View.VISIBLE : View.GONE);
         tv_xiaoxitishi.setText(msg);
         tv_xiaoxitishi.setOnClickListener(v -> {
-//            DialogNoti("unquote");
+            DialogNoti("unquote");
         });
     }
 
@@ -705,8 +705,8 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
 
         final com.flyco.dialog.widget.MaterialDialog dialog = new com.flyco.dialog.widget.MaterialDialog(
                 PurchasePyMapActivity.this);
-        dialog.title("温馨提示").content("关闭提示内容")
-                .btnText("不再提示", "关闭")//
+        dialog.title("温馨提示").content("关闭提示内容?")
+                .btnText("不再提示", "知道了")//
                 .show();
 
         dialog.setOnBtnClickL(new OnBtnClickL() {// left btn click listener

@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
+import com.hldj.hmyg.CallBack.IScrollHiden;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.LoginActivity;
@@ -151,8 +152,11 @@ public class FriendBaseFragment extends BaseFragment {
         mRecyclerView.init(new BaseQuickAdapter<Moments, BaseViewHolder>(R.layout.item_friend_cicle) {
             @Override
             protected void convert(BaseViewHolder helper, Moments item) {
-
-
+                if (helper.getAdapterPosition() > 3) {
+                    ((IScrollHiden) mActivity).getHiddenView().setVisibility(View.VISIBLE);
+                } else {
+                    ((IScrollHiden) mActivity).getHiddenView().setVisibility(View.GONE);
+                }
                 isFirst = false;
                 Log.i(TAG, "convert: " + item + "   id=" + item.id);
                 D.i("-----------------");
@@ -421,14 +425,13 @@ public class FriendBaseFragment extends BaseFragment {
 //                            Linkify.addLinks(textView, PHONE, null);
 
 
-
 //                            spanUtils.append("回复")
 //                                    .append(to).setForegroundColor(mActivity.getResources().getColor(R.color.main_color))
 //                                    .setClickSpan(right)
 //                                    .append(s.reply)
 //                            ;
                         }
-                        textView.setText(spanUtils.create() );
+                        textView.setText(spanUtils.create());
 //                        LinkifySpannableUtils.getInstance().setSpan(mActivity,textView);
 
 //                        textView.setAutoLinkMask(Linkify.PHONE_NUMBERS );
@@ -583,6 +586,9 @@ public class FriendBaseFragment extends BaseFragment {
                     requestDatas(page + "");
                 }).closeDefaultEmptyView();
 
+
+        hiddenLisenter();
+
     }
 
     public static void sendPush(Moments item) {
@@ -707,7 +713,6 @@ public class FriendBaseFragment extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 //      ToastUtil.showLongToast("--gragment --  执行 回调");
-
 
 
         if (mRecyclerView == null) {
@@ -925,7 +930,61 @@ public class FriendBaseFragment extends BaseFragment {
         };
         D.w("onVisible 显示  解除订阅" + this);
 
+        hiddenLisenter();
+
+
     }
+
+    public void hiddenLisenter() {
+        if (mActivity instanceof IScrollHiden) {
+            if (((IScrollHiden) mActivity).getHiddenView() != null) {
+                ((IScrollHiden) mActivity).getHiddenView().setOnClickListener(v -> {
+
+                    if (mRecyclerView != null) {
+                        ((IScrollHiden) mActivity).getHiddenView().setVisibility(View.GONE);
+                        mRecyclerView.getRecyclerView().smoothScrollBy(0, 0);
+                        mRecyclerView.getRecyclerView().smoothScrollToPosition(0);
+                    }
+                });
+//                mRecyclerView.getRecyclerView().setOnScrollListener(new RecyclerView.OnScrollListener() {
+//                    @Override
+//                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                        super.onScrollStateChanged(recyclerView, newState);
+//                    }
+//
+//                    /**
+//                     *    //返回当前recyclerview的可见的item数目，也就是datas.length
+//                     //dx是水平滚动的距离，dy是垂直滚动距离，向上滚动的时候为正，向下滚动的时候为负
+//                     * @param recyclerView
+//                     * @param dx
+//                     * @param dy
+//                     */
+//                    @Override
+//                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                        super.onScrolled(recyclerView, dx, dy);
+//
+//
+//                        Log.i(" scroll -- > ", dy + "");
+//                        Log.i("getY() -- > ", recyclerView.getY() + "");
+//
+////                        if (recyclerView.getTop() > 200) {
+////                            ((IScrollHiden) mActivity).getHiddenView().setVisibility(View.VISIBLE);
+////                        } else {
+////                            ((IScrollHiden) mActivity).getHiddenView().setVisibility(View.GONE);
+////                        }
+//
+//                        //System.out.println(linearLayoutManager.getItemCount());
+//                        System.err.println(dy);
+//                    }
+//                });
+//            }
+            }
+        }
+        if (mActivity == null) {
+            new Handler().postDelayed(this::hiddenLisenter, 1000);
+        }
+    }
+
 
     @Override
     public void onPause() {
@@ -938,6 +997,7 @@ public class FriendBaseFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         RxRegi();
+
     }
 
     @Override
@@ -957,6 +1017,7 @@ public class FriendBaseFragment extends BaseFragment {
 
     //56dab9d64fd2424aa1450b9c4cb9192b
 //    http://192.168.1.20:83/api/
+
     public boolean mIsSelf(String onwerId) {
         return onwerId.equals(MyApplication.Userinfo.getString("id", ""));
     }

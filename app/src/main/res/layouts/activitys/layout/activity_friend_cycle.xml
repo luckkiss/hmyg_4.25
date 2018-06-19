@@ -70,6 +70,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+
+        <ImageView
+            android:id="@+id/iv_cycle_top"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="76dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/top_btn_bg"
+            android:gravity="center"
+            android:visibility="visible"
+            tools:visibility="visible" />
+
         <ImageView
             android:id="@+id/iv_cycle_publish"
             style="@style/iv_home_publish"

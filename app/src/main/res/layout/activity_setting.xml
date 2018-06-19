@@ -256,7 +256,10 @@
                 android:layout_height="@dimen/y34"
                 android:background="@drawable/feedback_content_edittext_shape"
                 android:orientation="horizontal"
-                android:padding="1px">
+                android:padding="1px"
+                android:visibility="gone"
+                tools:visibility="visible">
+                <!-- 暂时隐藏 -->
 
                 <LinearLayout
                     android:layout_width="match_parent"

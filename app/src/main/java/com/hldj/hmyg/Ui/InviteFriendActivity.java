@@ -43,7 +43,7 @@ public class InviteFriendActivity extends BaseMVPActivity {
     OptionItemView top;
 
 
-  TextView toolbar_right_text ;
+    TextView toolbar_right_text;
 
     @Override
     public int bindLayoutID() {
@@ -54,7 +54,7 @@ public class InviteFriendActivity extends BaseMVPActivity {
     @Override
     public void initView() {
 
-        toolbar_right_text =  getView(R.id.toolbar_right_text);
+        toolbar_right_text = getView(R.id.toolbar_right_text);
         toolbar_right_text.setVisibility(View.VISIBLE);
 
         toolbar_right_text.setText("邀请记录");
@@ -144,7 +144,8 @@ public class InviteFriendActivity extends BaseMVPActivity {
     }
 
     private String title = "花木易购注册邀请";
-    private String text = "卖过那么多苗，用过那么多app，还是这个靠谱!";
+    private String text = "免费找苗，上花木易购!";
+//    private String text = "卖过那么多苗，用过那么多app，还是这个靠谱!";
 
 
     @Override

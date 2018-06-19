@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 
 import com.flyco.dialog.widget.MaterialDialog;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
+import com.hldj.hmyg.CallBack.IScrollHiden;
 import com.hldj.hmyg.LoginActivity;
 import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.R;
@@ -57,7 +58,7 @@ import static com.hldj.hmyg.util.ConstantState.REFRESH;
  * FinalActivity 来进行    数据绑定
  */
 @Keep
-public class FriendCycleActivity extends BaseMVPActivity implements View.OnClickListener {
+public class FriendCycleActivity extends BaseMVPActivity implements View.OnClickListener ,IScrollHiden {
 
     private static final String TAG = "FriendCycleActivity";
 
@@ -492,4 +493,8 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
     }
 
 
+    @Override
+    public View getHiddenView() {
+        return getView(R.id.iv_cycle_top);
+    }
 }

@@ -395,41 +395,43 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
     public void Call_Phone() {
 
-
-        new ActionSheetDialog(mActivity).builder().setCancelable(true).setCanceledOnTouchOutside(true)
-                .addSheetItem("服务专线", ActionSheetDialog.SheetItemColor.Black, new ActionSheetDialog.OnSheetItemClickListener() {
-                    @Override
-                    public void onClick(int which) {
-                        Log.i("title", "onClick: ");
-                    }
-                })
-                .addSheetItem("购苗专线: 158-6012-8888 卢经理", ActionSheetDialog.SheetItemColor.Blue,
-                        which -> {
-
-                            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:15860128888"));
-                            if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                                return;
-                            }
-                            startActivity(intent);
-
-
-//                                SelectHeadTools.startCamearPicCut(mActivity, photoUri);
-                        })
-                .addSheetItem("供苗专线: 158-6013-8888 叶经理", ActionSheetDialog.SheetItemColor.Blue,
-                        which -> {
-
-                            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel::15860138888"));
-                            if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                                return;
-                            }
-                            startActivity(intent);
-
-//                            if (PermissionUtils.requestReadSDCardPermissions(200))
-//                                Crop.pickImage(mActivity);
-                        })
-
-
-                .show();
+        AboutWebActivity.start(mActivity);
+//
+//
+//        new ActionSheetDialog(mActivity).builder().setCancelable(true).setCanceledOnTouchOutside(true)
+//                .addSheetItem("服务专线", ActionSheetDialog.SheetItemColor.Black, new ActionSheetDialog.OnSheetItemClickListener() {
+//                    @Override
+//                    public void onClick(int which) {
+//                        Log.i("title", "onClick: ");
+//                    }
+//                })
+//                .addSheetItem("购苗专线: 158-6012-8888 卢经理", ActionSheetDialog.SheetItemColor.Blue,
+//                        which -> {
+//
+//                            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:15860128888"));
+//                            if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+//                                return;
+//                            }
+//                            startActivity(intent);
+//
+//
+////                                SelectHeadTools.startCamearPicCut(mActivity, photoUri);
+//                        })
+//                .addSheetItem("供苗专线: 158-6013-8888 叶经理", ActionSheetDialog.SheetItemColor.Blue,
+//                        which -> {
+//
+//                            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel::15860138888"));
+//                            if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+//                                return;
+//                            }
+//                            startActivity(intent);
+//
+////                            if (PermissionUtils.requestReadSDCardPermissions(200))
+////                                Crop.pickImage(mActivity);
+//                        })
+//
+//
+//                .show();
 
 
 //        final com.flyco.dialog.widget.MaterialDialog dialog = new com.flyco.dialog.widget.MaterialDialog(

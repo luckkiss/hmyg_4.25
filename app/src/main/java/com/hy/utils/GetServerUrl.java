@@ -31,6 +31,12 @@ public class GetServerUrl {
 //    static String API_03 = "http://110.86.33.238:90/";// 则金 外网 服务器地址/
 //    http://192.168.1.20:83/api
 
+
+    private static final String api_html = "http://m.hmeg.cn/";
+    //    private static final String api_html_test0 = "http://test.m.hmeg.cn/";
+    private static final String api_html_test0 = "http://192.168.1.252:8090/";
+
+
     static String FIR_01 = "http://api.fir.im/apps/latest/57882cfc748aac17af00001e?api_token=7b3d87a7cb04b3a1624abb900c045c22&type=android&bundle_id=com.hldj.hmyg";
     static String PGYER_UPLOAD_01 = "https://www.pgyer.com/hmeg3";
     static String aId_01 = "87045b497d4eaffc7621c1f2ef75a79f";
@@ -103,9 +109,7 @@ public class GetServerUrl {
         }
     }
 
-    private static final String api_html = "http://m.hmeg.cn/";
-    private static final String api_html_test0 = "http://test.m.hmeg.cn/";
-//    private static final String api_html_test0 = "http://192.168.1.252:8090/";
+
 
     public static String getHtmlUrl() {
         if (isTest) {

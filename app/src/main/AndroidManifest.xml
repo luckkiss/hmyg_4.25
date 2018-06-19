@@ -864,6 +864,7 @@
             android:name="com.mabeijianxi.smallvideo2.VideoActivity"
 
             android:theme="@style/FullScreenTheme" />
+        <activity android:name=".Ui.AboutWebActivity" />
 
         <!--<provider-->
         <!--android:name="android.support.v4.content.FileProvider"-->

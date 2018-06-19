@@ -3,6 +3,7 @@ package com.hldj.hmyg;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,7 +47,14 @@ public class WebActivity extends NeedSwipeBackActivity {
         ImageView btn_back = (ImageView) findViewById(R.id.btn_back);
         guanbi = (ImageView) findViewById(R.id.guanbi);
         TextView tv_title = (TextView) findViewById(R.id.tv_title);
-        tv_title.setText(title);
+        if (TextUtils.isEmpty(title)) {
+
+        }else {
+
+            tv_title.setText(title);
+        }
+
+
         btn_back.setOnClickListener(multipleClickProcess);
         guanbi.setOnClickListener(multipleClickProcess);
         webview = (WebView) findViewById(R.id.webview);
@@ -104,6 +112,15 @@ public class WebActivity extends NeedSwipeBackActivity {
         }
 
         @Override
+        public void onReceivedTitle(WebView view, String title) {
+            super.onReceivedTitle(view, title);
+
+
+
+
+        }
+
+        @Override
         public void onProgressChanged(WebView view, int newProgress) {
             if (newProgress == 100) {
                 bar.setVisibility(View.GONE);//加载完网页进度条消失
@@ -128,6 +145,16 @@ public class WebActivity extends NeedSwipeBackActivity {
             } else {
                 guanbi.setVisibility(View.GONE);
             }
+
+
+            if (TextUtils.isEmpty(title))
+            {
+                title = view.getTitle();
+                TextView tv_title = (TextView) findViewById(R.id.tv_title);
+                tv_title.setText(title);
+            }
+
+
         }
 
         @Override
