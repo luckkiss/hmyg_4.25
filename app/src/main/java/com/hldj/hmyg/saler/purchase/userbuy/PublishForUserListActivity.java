@@ -31,6 +31,7 @@ import com.hldj.hmyg.saler.M.enums.ValidityEnum;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.saler.bean.UserQuote;
+import com.hldj.hmyg.util.AlertUtil;
 import com.hldj.hmyg.util.ConstantState;
 import com.hy.utils.SpanUtils;
 import com.hy.utils.ToastUtil;
@@ -98,7 +99,7 @@ public class PublishForUserListActivity extends BaseMVPActivity {
                             view.setText("暂无用户报价");
                             recycle.addFooterView(foot);
                             setResult(ConstantState.REFRESH);
-                        }else {
+                        } else {
                             setResult(ConstantState.REFRESH);
                         }
 
@@ -201,16 +202,24 @@ public class PublishForUserListActivity extends BaseMVPActivity {
     }
 
     private void 不合适(String id, int pos) {
-        new BasePresenter()
-                .putParams("id", id)
-                .doRequest("admin/userQuote/saveExclude", new HandlerAjaxCallBack() {
-                    @Override
-                    public void onRealSuccess(SimpleGsonBean gsonBean) {
-                        ToastUtil.showLongToast(gsonBean.msg);
 
-                        refresh(pos);
-                    }
-                });
+        AlertUtil.showAlert("确定设置这条报价不合适?", mActivity, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new BasePresenter()
+                        .putParams("id", id)
+                        .doRequest("admin/userQuote/saveExclude", new HandlerAjaxCallBack() {
+                            @Override
+                            public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                ToastUtil.showLongToast(gsonBean.msg);
+
+                                refresh(pos);
+                            }
+                        });
+            }
+        });
+
+
     }
 
     private void refresh(int po) {
@@ -263,7 +272,7 @@ public class PublishForUserListActivity extends BaseMVPActivity {
         Intent intent = new Intent(mActivity, PublishForUserListActivity.class);
         Log.i(TAG, "id is =====  " + id);
         intent.putExtra("ID", id);
-        mActivity.startActivityForResult(intent,100);
+        mActivity.startActivityForResult(intent, 100);
 
     }
 
@@ -273,7 +282,7 @@ public class PublishForUserListActivity extends BaseMVPActivity {
 
     @Override
     public String setTitle() {
-        return "用户求购";
+        return "个人求购";
     }
 
 

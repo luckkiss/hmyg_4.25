@@ -43,7 +43,7 @@ public class IndexGsonBean {
     public DataBean data;
 
     public static class DataBean {
-        public String matchUserPurchaseCount ;
+        public String matchUserPurchaseCount;
         public List<TitleBean> titleList = new ArrayList<>();
         public List<PurchaseBean> purchaseList;
         public List<BPageGsonBean.DatabeanX.Pagebean.Databean> seedlingList;
@@ -55,6 +55,8 @@ public class IndexGsonBean {
 
 
         public List<UserPurchase> userPurchaseList = new ArrayList<>();
+
+        public List<MatchUserPurchase> matchUserPurchaseList = new ArrayList<>();
 
 
         /**
@@ -101,4 +103,17 @@ public class IndexGsonBean {
 
     }
 
+
+    public static class MatchUserPurchase {
+        public String countStr = "";
+        public String name = "";
+    }
+
+
+    /**
+     *   "matchUserPurchaseList": [{
+     "countStr": "11株",
+     "name": "香樟"
+     }],
+     */
 }

@@ -370,6 +370,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
             //暂存草稿箱
             this.iv_ready_save_2_stage.setOnClickListener(onClickListener);//
+            this.iv_ready_save_2_stage.setVisibility(View.GONE);
 
         }
 

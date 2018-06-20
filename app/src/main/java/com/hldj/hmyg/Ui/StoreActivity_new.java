@@ -319,7 +319,8 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
 
                                    ArrayList<Fragment> fragments = new ArrayList<Fragment>() {
                                        {
-                                           add(StoreHomeFragment.Instance(persion_id));
+//                                           add(StoreHomeFragment.Instance(persion_id));
+                                           add(StoreHomeFragment.Instance(getStoreID()));
                                            add(StoreDetailFragment.Instance(getStoreID()));
                                        }
                                    };

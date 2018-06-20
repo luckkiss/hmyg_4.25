@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 public class QueryBean implements Serializable {
     public String ownerId = "";
+    public String storeId = "";
     public String orderBy = "";
     public String plantTypes = "";
     public String firstSeedlingTypeId = "";

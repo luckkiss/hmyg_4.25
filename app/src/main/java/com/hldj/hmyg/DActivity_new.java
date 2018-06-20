@@ -24,6 +24,7 @@ import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.bean.MomentsThumbUp;
+import com.hldj.hmyg.Ui.friend.bean.enums.AgentGrade;
 import com.hldj.hmyg.Ui.friend.bean.enums.MomentsType;
 import com.hldj.hmyg.Ui.friend.child.DetailActivity;
 import com.hldj.hmyg.Ui.friend.child.HeadDetailActivity;
@@ -209,14 +210,49 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
             protected void convert(BaseViewHolder helper, Moments item) {
 
 
+                AgentGrade anEnum = Enum.valueOf(AgentGrade.class, item.attrData.level);
+
+                ImageView imageView14 = helper.getView(R.id.imageView14);
+
+
+                Log.i(TAG, "convert: " + anEnum.getUpScore());
+
+                if (anEnum.compareTo(AgentGrade.level0) == 0) {
+                    imageView14.setVisibility(View.GONE);
+                } else {
+                    imageView14.setImageDrawable(mActivity.getResources().getDrawable(anEnum.getUpScore()));
+                    imageView14.setVisibility(View.VISIBLE);
+                }
+//            imageView14.setImageDrawable(mActivity.getResources().getDrawable(anEnum.getUpScore()));
+
+
+                ImageView imageView13 = helper.getView(R.id.imageView13);
+                imageView13.setVisibility(item.attrData.identity ? View.VISIBLE : View.GONE);
+
+
+                if (item.attrData.isDelete) {
+                    helper.getView(R.id.root_view).setAlpha(0.5f);
+                    helper.setVisible(R.id.yxj, true);
+                } else {
+                    helper.getView(R.id.root_view).setAlpha(1f);
+                    helper.setVisible(R.id.yxj, false);
+                }
+
                 View.OnClickListener clickListener = v ->
                 {
 //                  ToastUtil.showLongToast("点击文字--->跳转采购单详情界面");
+                    if (item.attrData.isDelete) {
+//                        ToastUtil.showLongToast("删除了");
+                        return;
+                    }
                     DetailActivity.start(mActivity, item.id);
                 };
+
+
                 helper.addOnClickListener(R.id.title, clickListener);// 发布名称或者标题
                 helper.addOnClickListener(R.id.time_city, clickListener);//时间和  发布地址
                 helper.addOnClickListener(R.id.descript, clickListener);//描述
+
 
                 helper.setVisible(R.id.imageView7, false)
                         .setVisible(R.id.tv_right_top, true)

@@ -181,6 +181,8 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
                                             @Override
                                             public void onRealSuccess(SimpleGsonBean gsonBean) {
                                                 Log.i(TAG, "onRealSuccess: " + gsonBean.isSucceed());
+                                                PublishForUserDetailActivity.isPiPei = false;
+
                                                 initView();
                                             }
                                         });
@@ -272,6 +274,9 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
                 D.e("===========onCancle=============");
             }
         });
+
+
+        grid.getAdapter().Faild2Gone(true);
     }
 
 
@@ -458,6 +463,7 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
                                             new android.os.Handler().postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {
+
                                                     resetBottom();
                                                     initView();
                                                 }

@@ -152,11 +152,15 @@ public class FriendBaseFragment extends BaseFragment {
         mRecyclerView.init(new BaseQuickAdapter<Moments, BaseViewHolder>(R.layout.item_friend_cicle) {
             @Override
             protected void convert(BaseViewHolder helper, Moments item) {
-                if (helper.getAdapterPosition() > 3) {
-                    ((IScrollHiden) mActivity).getHiddenView().setVisibility(View.VISIBLE);
-                } else {
-                    ((IScrollHiden) mActivity).getHiddenView().setVisibility(View.GONE);
+                if (((IScrollHiden) mActivity).getHiddenView() != null) {
+                    if (helper.getAdapterPosition() > 3) {
+
+                        ((IScrollHiden) mActivity).getHiddenView().setVisibility(View.VISIBLE);
+                    } else {
+                        ((IScrollHiden) mActivity).getHiddenView().setVisibility(View.GONE);
+                    }
                 }
+
                 isFirst = false;
                 Log.i(TAG, "convert: " + item + "   id=" + item.id);
                 D.i("-----------------");

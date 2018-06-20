@@ -420,146 +420,228 @@ public class PublishActivity extends BaseMVPActivity {
         };
         toolbar_right_text.setOnClickListener(clickListener);
 
-        if (getTag().equals(PURCHASE)) {
-            currentType = MomentsType.purchase.getEnumValue();
-            location.setLeftText("用苗地");
-            /*采购*/
-            et_content.setHint(R.string.purchase_content);
-//            setTitle("发布求购");
-            clickListener = v -> {
-//                ToastUtil.showLongToast("发布求购");
-                if (TextUtils.isEmpty(et_content.getText())) {
-                    ToastUtil.showLongToast("先写点什么嘛^_^");
-                    return;
-                }
-                if (TextUtils.isEmpty(cityCode)) {
-                    ToastUtil.showLongToast("请先选择地址^_^");
-                    return;
-                }
-
-
-                if (!currentVideoPath.isEmpty()) {
-//                    ToastUtil.showLongToast("开始上传视频");
-                    doUpVideo(MomentsType.purchase.getEnumValue());
-                } else {
-                    requestUpload(MomentsType.purchase.getEnumValue());
-                }
-
-            };
-            toolbar_right_text.setOnClickListener(clickListener);
-
-        } else if (getTag().equals(PUBLISH)) {
-            location.setLeftText("苗源地");
-            /*发布*/
-//            setTitle("发布供应");
-
-            currentType = MomentsType.supply.getEnumValue();
-            et_content.setHint(R.string.publish_content);
-            clickListener = v -> {
-                if (TextUtils.isEmpty(et_content.getText())) {
-                    ToastUtil.showLongToast("先写点什么嘛^_^");
-                    return;
-                }
-                if (TextUtils.isEmpty(cityCode)) {
-                    ToastUtil.showLongToast("请先选择地址^_^");
-                    return;
-                }
-
-                if (!currentVideoPath.isEmpty()) {
-//                    ToastUtil.showLongToast("开始上传视频");
-                    doUpVideo(MomentsType.supply.getEnumValue());
-                } else {
-                    requestUpload(MomentsType.supply.getEnumValue());
-                }
-//                ToastUtil.showLongToast("发布供应");
-            };
-            toolbar_right_text.setOnClickListener(clickListener);
-        } else if (getTag().equals(ALL)) {
-
-
-            top_radio_group.setVisibility(View.VISIBLE);
+        top_radio_group.setVisibility(View.VISIBLE);
 //            setTitle("我的苗友圈");
-            location.setLeftText("用苗地");
+        location.setLeftText("用苗地");
             /*采购*/
-            et_content.setHint("写点什么....");
+        et_content.setHint("写点什么....");
 //            setTitle("发布苗木圈");
-            rb_type_left.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        rb_type_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 //                    ToastUtil.showLongToast("发布供应");
-                    D.i("发布供应");
-                    currentType = MomentsType.supply.getEnumValue();
-                    location.setLeftText("苗源地");
+                D.i("发布供应");
+                currentType = MomentsType.supply.getEnumValue();
+                location.setLeftText("苗源地");
             /*发布*/
 //                    setTitle("发布供应");
 
-                    et_content.setHint(R.string.publish_content);
+                et_content.setHint(R.string.publish_content);
 
-                    View.OnClickListener clickListener = v1 -> {
+                View.OnClickListener clickListener = v1 -> {
 //                ToastUtil.showLongToast("发布求购");
-                        if (TextUtils.isEmpty(et_content.getText())) {
-                            ToastUtil.showLongToast("先写点什么嘛^_^");
-                            return;
-                        }
-                        if (TextUtils.isEmpty(cityCode)) {
-                            ToastUtil.showLongToast("请先选择地址^_^");
-                            return;
-                        }
+                    if (TextUtils.isEmpty(et_content.getText())) {
+                        ToastUtil.showLongToast("先写点什么嘛^_^");
+                        return;
+                    }
+                    if (TextUtils.isEmpty(cityCode)) {
+                        ToastUtil.showLongToast("请先选择地址^_^");
+                        return;
+                    }
 
 
-                        if (!currentVideoPath.isEmpty()) {
+                    if (!currentVideoPath.isEmpty()) {
 //                    ToastUtil.showLongToast("开始上传视频");
-                            doUpVideo(MomentsType.supply.getEnumValue());
-                        } else {
-                            requestUpload(MomentsType.supply.getEnumValue());
-                        }
+                        doUpVideo(MomentsType.supply.getEnumValue());
+                    } else {
+                        requestUpload(MomentsType.supply.getEnumValue());
+                    }
 
-                    };
-                    toolbar_right_text.setOnClickListener(clickListener);
+                };
+                toolbar_right_text.setOnClickListener(clickListener);
 
 
-                }
-            });
-            rb_type_right.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            }
+        });
+        rb_type_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 //                    ToastUtil.showLongToast("发布求购");
-                    D.i("发布求购");
+                D.i("发布求购");
 
-                    currentType = MomentsType.purchase.getEnumValue();
-                    location.setLeftText("用苗地");
+                currentType = MomentsType.purchase.getEnumValue();
+                location.setLeftText("用苗地");
             /*采购*/
-                    et_content.setHint(R.string.purchase_content);
+                et_content.setHint(R.string.purchase_content);
 //                    setTitle("发布求购");
 
 
 //                    et_content.setHint(R.string.publish_content);
-                    View.OnClickListener clickListener = v3 -> {
-                        if (TextUtils.isEmpty(et_content.getText())) {
-                            ToastUtil.showLongToast("先写点什么嘛^_^");
-                            return;
-                        }
-                        if (TextUtils.isEmpty(cityCode)) {
-                            ToastUtil.showLongToast("请先选择地址^_^");
-                            return;
-                        }
+                View.OnClickListener clickListener = v3 -> {
+                    if (TextUtils.isEmpty(et_content.getText())) {
+                        ToastUtil.showLongToast("先写点什么嘛^_^");
+                        return;
+                    }
+                    if (TextUtils.isEmpty(cityCode)) {
+                        ToastUtil.showLongToast("请先选择地址^_^");
+                        return;
+                    }
 
-                        if (!currentVideoPath.isEmpty()) {
+                    if (!currentVideoPath.isEmpty()) {
 //                    ToastUtil.showLongToast("开始上传视频");
-                            doUpVideo(MomentsType.purchase.getEnumValue());
-                        } else {
-                            requestUpload(MomentsType.purchase.getEnumValue());
-                        }
+                        doUpVideo(MomentsType.purchase.getEnumValue());
+                    } else {
+                        requestUpload(MomentsType.purchase.getEnumValue());
+                    }
 //                ToastUtil.showLongToast("发布供应");
-                    };
-                    toolbar_right_text.setOnClickListener(clickListener);
+                };
+                toolbar_right_text.setOnClickListener(clickListener);
 
 
-                }
-            });
+            }
+        });
 
 
-        }
+//        if (getTag().equals(PURCHASE)) {
+//            currentType = MomentsType.purchase.getEnumValue();
+//            location.setLeftText("用苗地");
+//            /*采购*/
+//            et_content.setHint(R.string.purchase_content);
+////            setTitle("发布求购");
+//            clickListener = v -> {
+////                ToastUtil.showLongToast("发布求购");
+//                if (TextUtils.isEmpty(et_content.getText())) {
+//                    ToastUtil.showLongToast("先写点什么嘛^_^");
+//                    return;
+//                }
+//                if (TextUtils.isEmpty(cityCode)) {
+//                    ToastUtil.showLongToast("请先选择地址^_^");
+//                    return;
+//                }
+//
+//
+//                if (!currentVideoPath.isEmpty()) {
+////                    ToastUtil.showLongToast("开始上传视频");
+//                    doUpVideo(MomentsType.purchase.getEnumValue());
+//                } else {
+//                    requestUpload(MomentsType.purchase.getEnumValue());
+//                }
+//
+//            };
+//            toolbar_right_text.setOnClickListener(clickListener);
+//
+//        } else if (getTag().equals(PUBLISH)) {
+//            location.setLeftText("苗源地");
+//            /*发布*/
+////            setTitle("发布供应");
+//
+//            currentType = MomentsType.supply.getEnumValue();
+//            et_content.setHint(R.string.publish_content);
+//            clickListener = v -> {
+//                if (TextUtils.isEmpty(et_content.getText())) {
+//                    ToastUtil.showLongToast("先写点什么嘛^_^");
+//                    return;
+//                }
+//                if (TextUtils.isEmpty(cityCode)) {
+//                    ToastUtil.showLongToast("请先选择地址^_^");
+//                    return;
+//                }
+//
+//                if (!currentVideoPath.isEmpty()) {
+////                    ToastUtil.showLongToast("开始上传视频");
+//                    doUpVideo(MomentsType.supply.getEnumValue());
+//                } else {
+//                    requestUpload(MomentsType.supply.getEnumValue());
+//                }
+////                ToastUtil.showLongToast("发布供应");
+//            };
+//            toolbar_right_text.setOnClickListener(clickListener);
+//        } else if (getTag().equals(ALL)) {
+//
+//
+//            top_radio_group.setVisibility(View.VISIBLE);
+////            setTitle("我的苗友圈");
+//            location.setLeftText("用苗地");
+//            /*采购*/
+//            et_content.setHint("写点什么....");
+////            setTitle("发布苗木圈");
+//            rb_type_left.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+////                    ToastUtil.showLongToast("发布供应");
+//                    D.i("发布供应");
+//                    currentType = MomentsType.supply.getEnumValue();
+//                    location.setLeftText("苗源地");
+//            /*发布*/
+////                    setTitle("发布供应");
+//
+//                    et_content.setHint(R.string.publish_content);
+//
+//                    View.OnClickListener clickListener = v1 -> {
+////                ToastUtil.showLongToast("发布求购");
+//                        if (TextUtils.isEmpty(et_content.getText())) {
+//                            ToastUtil.showLongToast("先写点什么嘛^_^");
+//                            return;
+//                        }
+//                        if (TextUtils.isEmpty(cityCode)) {
+//                            ToastUtil.showLongToast("请先选择地址^_^");
+//                            return;
+//                        }
+//
+//
+//                        if (!currentVideoPath.isEmpty()) {
+////                    ToastUtil.showLongToast("开始上传视频");
+//                            doUpVideo(MomentsType.supply.getEnumValue());
+//                        } else {
+//                            requestUpload(MomentsType.supply.getEnumValue());
+//                        }
+//
+//                    };
+//                    toolbar_right_text.setOnClickListener(clickListener);
+//
+//
+//                }
+//            });
+//            rb_type_right.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+////                    ToastUtil.showLongToast("发布求购");
+//                    D.i("发布求购");
+//
+//                    currentType = MomentsType.purchase.getEnumValue();
+//                    location.setLeftText("用苗地");
+//            /*采购*/
+//                    et_content.setHint(R.string.purchase_content);
+////                    setTitle("发布求购");
+//
+//
+////                    et_content.setHint(R.string.publish_content);
+//                    View.OnClickListener clickListener = v3 -> {
+//                        if (TextUtils.isEmpty(et_content.getText())) {
+//                            ToastUtil.showLongToast("先写点什么嘛^_^");
+//                            return;
+//                        }
+//                        if (TextUtils.isEmpty(cityCode)) {
+//                            ToastUtil.showLongToast("请先选择地址^_^");
+//                            return;
+//                        }
+//
+//                        if (!currentVideoPath.isEmpty()) {
+////                    ToastUtil.showLongToast("开始上传视频");
+//                            doUpVideo(MomentsType.purchase.getEnumValue());
+//                        } else {
+//                            requestUpload(MomentsType.purchase.getEnumValue());
+//                        }
+////                ToastUtil.showLongToast("发布供应");
+//                    };
+//                    toolbar_right_text.setOnClickListener(clickListener);
+//
+//
+//                }
+//            });
+//
+//
+//        }
 
         /*初始化地址*/
 
@@ -610,11 +692,11 @@ public class PublishActivity extends BaseMVPActivity {
 //                                    ToastUtil.showLongToast(gsonBean.msg);
                                     Log.i(TAG, "run: 上传结束" + gsonBean.msg);
                                     hindLoading();
-                                    if (currentType.equals(PURCHASE)) {
-                                        //求购成功
+                                    if (currentType.equals(MomentsType.purchase.getEnumValue())) {
+                                        //求购成功  PURCHASE
                                         setResult(PURCHASE_SUCCEED);
-                                    } else if (currentType.equals(PUBLISH)) {
-                                        //发布成功
+                                    } else if (currentType.equals(MomentsType.supply.getEnumValue())) {
+                                        //发布成功 PUBLISH
                                         setResult(PUBLISH_SUCCEED);
                                     }
                                     finish();
@@ -641,11 +723,11 @@ public class PublishActivity extends BaseMVPActivity {
                                                     ToastUtil.showLongToast(gsonBean.msg);
                                                     Log.i(TAG, "run: 上传结束" + gsonBean.msg);
                                                     hindLoading();
-                                                    if (currentType.equals(PURCHASE)) {
-                                                        //求购成功
+                                                    if (currentType.equals(MomentsType.purchase.getEnumValue())) {
+                                                        //求购成功 PURCHASE
                                                         setResult(PURCHASE_SUCCEED);
-                                                    } else if (currentType.equals(PUBLISH)) {
-                                                        //发布成功
+                                                    } else if (currentType.equals(MomentsType.supply.getEnumValue())) {
+                                                        //发布成功 PUBLISH
                                                         setResult(PUBLISH_SUCCEED);
                                                     }
                                                     finish();
@@ -1003,7 +1085,7 @@ public class PublishActivity extends BaseMVPActivity {
                                     } else if (currentType.equals(PUBLISH)) {
                                         //发布成功
                                         setResult(PUBLISH_SUCCEED);
-                                    }else {
+                                    } else {
 
                                     }
                                     finish();
@@ -1232,7 +1314,15 @@ public class PublishActivity extends BaseMVPActivity {
 
                             CheckedTextView checkedTextView = getView(R.id.refresh);
 
-                            setText(getView(R.id.title), String.format("[%s]%s", moments.typeName, moments.content));
+//                            setText(getView(R.id.title), String.format("[%s]%s", moments.typeName, moments.content));
+
+
+                            setText(getView(R.id.title),
+                                    new SpanUtils()
+                                            .append(String.format("[%s]", moments.typeName)).setForegroundColor(getColorByRes(R.color.main_color))
+                                            .append(moments.content)
+                                            .create()
+                            );
 
 
                             TextView textView = getView(R.id.tip);

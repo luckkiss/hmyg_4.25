@@ -8,15 +8,15 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/y30"
+        android:layout_height="40dp"
         android:background="@color/white">
 
         <ImageView
             android:id="@+id/btn_back"
-            android:layout_width="@dimen/x24"
-            android:layout_height="@dimen/x24"
+            android:layout_width="@dimen/default_width"
+            android:layout_height="@dimen/default_width"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginLeft="6dp"
             android:background="@drawable/btn_back" />
 
         <TextView

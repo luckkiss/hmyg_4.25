@@ -42,28 +42,27 @@
 
         <ImageView
             android:id="@+id/imageView13"
-            android:layout_width="20dp"
-            android:adjustViewBounds="true"
+            android:layout_width="19dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="12dp"
             android:layout_toRightOf="@+id/title"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/wd_smrz_tg"
             app:layout_constraintStart_toEndOf="@+id/title"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@mipmap/wd_smrz_tg" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView14"
-            android:layout_width="wrap_content"
-            android:layout_height="21dp"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
             android:layout_alignTop="@+id/title"
+            android:layout_marginLeft="6dp"
             android:layout_marginTop="1dp"
             android:layout_toEndOf="@+id/imageView13"
             android:layout_toRightOf="@+id/imageView13"
+            android:adjustViewBounds="true"
             android:src="@mipmap/wd_gys_lv1" />
-
-
-
 
 
         <TextView
@@ -160,13 +159,12 @@
         android:id="@+id/video"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="12dp"
         android:scaleType="centerCrop"
         android:visibility="gone"
         tools:background="@color/main_color"
-        tools:visibility="visible"
-        android:layout_marginBottom="10dp"
-        />
+        tools:visibility="visible" />
 
 
 </LinearLayout>

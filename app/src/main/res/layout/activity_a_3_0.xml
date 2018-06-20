@@ -42,7 +42,7 @@
 
                     <com.autoscrollview.widget.indicator.CirclePageIndicator
                         android:id="@+id/indicator"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/view_pager"
                         android:layout_centerHorizontal="true"
@@ -148,8 +148,7 @@
                         android:layout_height="55dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="3dp"
-                        android:layout_toRightOf="@+id/iv_home_left"
-                        android:background="@color/gray_bg_ed" />
+                        android:layout_toRightOf="@+id/iv_home_left" />
 
 
                     <!--android:layout_margin="5dp"-->
@@ -201,6 +200,12 @@
                         style="@style/View_line_gray_1px"
                         android:tag="a" />
 
+                    <LinearLayout
+                        android:id="@+id/ll_caigou_parent_inner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
 
                 </LinearLayout>
 
@@ -241,6 +246,12 @@
                     <View
                         style="@style/View_line_gray_1px"
                         android:tag="a" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_qiu_gou_parent_inner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
 
 
                 </LinearLayout>

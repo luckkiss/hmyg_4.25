@@ -10,8 +10,6 @@
     android:paddingTop="6dp">
 
 
-
-
     <LinearLayout
         android:id="@+id/content"
         android:layout_width="fill_parent"
@@ -55,8 +53,8 @@
         </LinearLayout>
 
         <!--<View-->
-            <!--android:id="@+id/line"-->
-            <!--style="@style/View_line_gray_1dp" />-->
+        <!--android:id="@+id/line"-->
+        <!--style="@style/View_line_gray_1dp" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -135,7 +133,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical" android:visibility="gone">
+            android:gravity="center_vertical"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -415,6 +414,7 @@
                 android:drawablePadding="5dp"
                 android:text="2018-1-03 15:41"
                 android:textColor="@color/text_color333"
+                android:textSize="12sp"
                 android:visibility="gone"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_program_purch_sub_images_count"
@@ -424,13 +424,14 @@
                 android:id="@+id/tv_show_is_quote_title"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
+                android:drawableLeft="@drawable/sy_sj"
                 android:gravity="center|end"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:text="当前报价状态:"
+                android:text=""
                 android:textSize="12sp"
                 app:solid="@color/trans"
-                tools:visibility="invisible" />
+                tools:visibility="visible" />
 
             <com.coorchice.library.SuperTextView
                 android:id="@+id/tv_show_is_quote"
@@ -438,13 +439,13 @@
                 android:layout_height="30dp"
                 android:layout_weight="0.8"
                 android:gravity="center_vertical|start"
-                android:paddingLeft="5dp"
+                android:paddingLeft="1dp"
                 android:paddingRight="5dp"
-                android:textColor="@color/orange_color"
+                android:textColor="@color/text_color333"
                 android:textSize="12sp"
                 app:solid="@color/trans"
-                tools:text="已报价"
-                tools:visibility="invisible" />
+                tools:text="2015-09-07"
+                tools:visibility="visible" />
 
 
             <com.coorchice.library.SuperTextView

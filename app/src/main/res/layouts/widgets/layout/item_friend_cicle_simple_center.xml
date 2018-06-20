@@ -6,12 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:alpha="0.5"
+    >
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="61dp"
+
         android:background="@color/white">
 
         <com.hldj.hmyg.widget.MyCircleImageView
@@ -59,9 +62,11 @@
 
         <ImageView
             android:id="@+id/imageView14"
-            android:layout_width="wrap_content"
-            android:layout_height="21dp"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:layout_alignTop="@+id/title"
+            android:layout_marginLeft="6dp"
             android:layout_toEndOf="@+id/imageView13"
             android:layout_toRightOf="@+id/imageView13"
             android:src="@mipmap/wd_gys_lv1" />

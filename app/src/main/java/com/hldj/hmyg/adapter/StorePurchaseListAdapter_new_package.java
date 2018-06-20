@@ -390,56 +390,62 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
         TextView state = (TextView) view.findViewById(R.id.tv_show_is_quote);
 
 //                StringFormatUtil formatUtil = new StringFormatUtil(context, "当前报价状态：" + getStateName(jsonBean.status), getStateName(jsonBean.status), ContextCompat.getColor(context, R.color.orange)).fillColor();
-        state.setText(getStateName(jsonBean.status));
+        state.setText(jsonBean.createDate);
+//        state.setText(getStateName(jsonBean.status));
 
 
-        if ("choosing".equals(jsonBean.status)) {
-            //选中标   ---   全部显示
+//        TextView state = myViewHolder.getView(R.id.state);
 
-        } else if ("preQuote".equals(jsonBean.status)) {
-            // 隐藏不需要的东西
-            ((ViewGroup) time.getParent()).setVisibility(View.GONE);
-            ((ViewGroup) pre_price.getParent()).setVisibility(View.GONE);
-            ((ViewGroup) count.getParent()).setVisibility(View.GONE);
-            ((ViewGroup) count.getParent()).setVisibility(View.GONE);
-            ((ViewGroup) specText.getParent()).setVisibility(View.GONE);
-            ((ViewGroup) plantTypeName.getParent()).setVisibility(View.GONE);
-            photo_num.setVisibility(View.GONE);
-            TextView abc = (TextView) view.findViewById(R.id.abc);
-            abc.setVisibility(View.GONE);
-            abc.setText("第一轮报价预中标，点击编辑按钮，补充报价信息");
-            abc.setTextColor(ContextCompat.getColor(context, R.color.price_orige));
-            view.findViewById(R.id.tv_delete_item).setVisibility(View.GONE);
-            view.findViewById(R.id.tv_change_item).setVisibility(View.GONE);
-        }  /**
-         * 已中标，条件：合格并且已被采用
-         */
+//                StringFormatUtil formatUtil = new StringFormatUtil(context, "当前报价状态：" + getStateName(jsonBean.status), getStateName(jsonBean.status), ContextCompat.getColor(context, R.color.orange)).fillColor();
+//        state.setText(jsonBean.createDate);
 
-        else if ("used".equals(jsonBean.status)) {
-            //已中标
-
-            state.setTextColor(ContextCompat.getColor(context, R.color.main_color));
-
-            view.findViewById(R.id.tv_delete_item).setVisibility(View.GONE);
-            view.findViewById(R.id.tv_change_item).setVisibility(View.GONE);
-        } else {
-            // 隐藏不需要的东西
-            ((ViewGroup) time.getParent()).setVisibility(View.GONE);
-            ((ViewGroup) pre_price.getParent()).setVisibility(View.GONE);
-            ((ViewGroup) count.getParent()).setVisibility(View.GONE);
-            ((ViewGroup) count.getParent()).setVisibility(View.GONE);
-            ((ViewGroup) specText.getParent()).setVisibility(View.GONE);
-            ((ViewGroup) plantTypeName.getParent()).setVisibility(View.GONE);
-            photo_num.setVisibility(View.GONE);
-            TextView abc = (TextView) view.findViewById(R.id.abc);
-            abc.setText("第一轮报价预中标，点击编辑按钮，补充报价信息");
-            abc.setTextColor(ContextCompat.getColor(context, R.color.price_orige));
-        }
+//        if ("choosing".equals(jsonBean.status)) {
+//            //选中标   ---   全部显示
+//
+//        } else if ("preQuote".equals(jsonBean.status)) {
+//            // 隐藏不需要的东西
+//            ((ViewGroup) time.getParent()).setVisibility(View.GONE);
+//            ((ViewGroup) pre_price.getParent()).setVisibility(View.GONE);
+//            ((ViewGroup) count.getParent()).setVisibility(View.GONE);
+//            ((ViewGroup) count.getParent()).setVisibility(View.GONE);
+//            ((ViewGroup) specText.getParent()).setVisibility(View.GONE);
+//            ((ViewGroup) plantTypeName.getParent()).setVisibility(View.GONE);
+//            photo_num.setVisibility(View.GONE);
+//            TextView abc = (TextView) view.findViewById(R.id.abc);
+//            abc.setVisibility(View.GONE);
+//            abc.setText("第一轮报价预中标，点击编辑按钮，补充报价信息");
+//            abc.setTextColor(ContextCompat.getColor(context, R.color.price_orige));
+//            view.findViewById(R.id.tv_delete_item).setVisibility(View.GONE);
+//            view.findViewById(R.id.tv_change_item).setVisibility(View.GONE);
+//        }  /**
+//         * 已中标，条件：合格并且已被采用
+//         */
+//
+//        else if ("used".equals(jsonBean.status)) {
+//            //已中标
+//
+//            state.setTextColor(ContextCompat.getColor(context, R.color.main_color));
+//
+//            view.findViewById(R.id.tv_delete_item).setVisibility(View.GONE);
+//            view.findViewById(R.id.tv_change_item).setVisibility(View.GONE);
+//        } else {
+//            // 隐藏不需要的东西
+//            ((ViewGroup) time.getParent()).setVisibility(View.GONE);
+//            ((ViewGroup) pre_price.getParent()).setVisibility(View.GONE);
+//            ((ViewGroup) count.getParent()).setVisibility(View.GONE);
+//            ((ViewGroup) count.getParent()).setVisibility(View.GONE);
+//            ((ViewGroup) specText.getParent()).setVisibility(View.GONE);
+//            ((ViewGroup) plantTypeName.getParent()).setVisibility(View.GONE);
+//            photo_num.setVisibility(View.GONE);
+//            TextView abc = (TextView) view.findViewById(R.id.abc);
+//            abc.setText("第一轮报价预中标，点击编辑按钮，补充报价信息");
+//            abc.setTextColor(ContextCompat.getColor(context, R.color.price_orige));
+//        }
 
         state.setText("未提交");
-        TextView tv_time = (TextView) view.findViewById(R.id.tv_time);
-        tv_time.setText(jsonBean.quoteDateStr);
-        tv_time.setVisibility(View.VISIBLE);
+//        TextView tv_time = (TextView) view.findViewById(R.id.tv_time);
+//        tv_time.setText(jsonBean.quoteDateStr);
+//        tv_time.setVisibility(View.VISIBLE);
 
 
                 /*删除*/

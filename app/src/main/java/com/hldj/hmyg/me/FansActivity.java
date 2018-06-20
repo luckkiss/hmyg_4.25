@@ -22,7 +22,6 @@ import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hy.utils.SpanUtils;
-import com.hy.utils.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import net.tsz.afinal.FinalActivity;
@@ -207,7 +206,7 @@ public class FansActivity extends BaseMVPActivity implements View.OnClickListene
                     @Override
                     public void onRealSuccess(SimpleGsonBean gsonBean) {
 
-                        ToastUtil.showLongToast(gsonBean.msg);
+//                        ToastUtil.showLongToast(gsonBean.msg);
 //                        ToastUtil.showShortToast("清除成功");
 //                        ToastUtil.showShortToast(gsonBean.msg);
                     }
@@ -215,7 +214,7 @@ public class FansActivity extends BaseMVPActivity implements View.OnClickListene
                     @Override
                     public void onFailure(Throwable t, int errorNo, String strMsg) {
                         super.onFailure(t, errorNo, strMsg);
-                        ToastUtil.showLongToast(strMsg);
+//                        ToastUtil.showLongToast(strMsg);
                     }
                 });
 

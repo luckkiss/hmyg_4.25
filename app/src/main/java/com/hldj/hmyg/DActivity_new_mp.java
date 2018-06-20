@@ -254,7 +254,10 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
 //        FinalActivity.initInjectedView(this, recycle);
 
-        toolbar_left_icon.setVisibility(View.GONE);
+
+        configtoolbar_left_icon();
+
+
 //        toolbar_left_icon.setOnClickListener(v -> {
 //            StoreActivity_new.start2Activity(mActivity, MyApplication.getUserBean().storeId);
 //        });
@@ -300,6 +303,11 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 //            D.i("========苗圃管理==========");
 //            ManagerListActivity_new.start2Activity(mActivity);
 //        });
+
+    }
+
+    private void configtoolbar_left_icon() {
+        toolbar_left_icon.setVisibility(View.GONE);
 
     }
 
@@ -441,7 +449,7 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
                                 .append("我的苗圃").setForegroundColor(getColorByRes(R.color.main_color))
                                 .append(String.format("  (共%d个苗圃)", gsonBean.getData().nurseryCount)).setForegroundColor(getColorByRes(R.color.text_color999)).setFontSize(12, true)
                                 .create());
-                        initHeadView(headView, storeBean, tipNums,gsonBean.getData().identity);
+                        initHeadView(headView, storeBean, tipNums, gsonBean.getData().identity);
 
 
                     }
@@ -464,7 +472,7 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
     }
 
-    private void initHeadView(View headView, StoreGsonBean.DataBean.StoreBean storeBean, List<TipNum> tipNums , boolean isPass) {
+    private void initHeadView(View headView, StoreGsonBean.DataBean.StoreBean storeBean, List<TipNum> tipNums, boolean isPass) {
         //           <cn.bingoogolapple.badgeview.BGABadgeLinearLayout
 //        android:id="@+id/ll_show_num1"
         createShareBean(storeBean, storeBean.bannerUrl);

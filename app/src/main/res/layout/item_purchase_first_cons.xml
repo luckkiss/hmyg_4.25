@@ -110,7 +110,8 @@
         android:layout_height="0dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:text="当前报价状态："
+        android:text=""
+        android:drawableLeft="@drawable/sy_sj"
         app:layout_constraintBottom_toBottomOf="@+id/state"
         app:layout_constraintLeft_toLeftOf="parent"
         tools:layout_constraintBottom_creator="1"
@@ -158,12 +159,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textColor="@color/orange"
         app:layout_constraintBottom_toBottomOf="@+id/textView41"
         app:layout_constraintLeft_toRightOf="@+id/textView39"
         app:layout_constraintTop_toTopOf="@+id/textView41"
         tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        tools:layout_constraintTop_creator="1" android:layout_marginLeft="4dp"/>
 
     <TextView
         android:id="@+id/textView42"

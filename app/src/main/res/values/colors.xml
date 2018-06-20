@@ -263,6 +263,8 @@
     <color name="trans_success_stroke_color">#33A5DC86</color>
     <color name="warning_stroke_color">#F8BB86</color>
     <color name="main_color">#35b558</color>
+    <color name="tip_text_color">#db2e2e</color>
+    <color name="tip_bg_color">#f7eee2</color>
     <color name="simple_blue">#71bfc2</color>
     <color name="color_submit">#348136</color>
     <color name="main_color_half">#FFA5D9B3</color>

@@ -374,4 +374,8 @@ public class FriendCycleSearchActivity extends FriendCycleActivity {
 
     }
 
+    @Override
+    public void configtoolbar_left_icon() {
+      /* 子类空实现  不需要这个入口 */
+    }
 }

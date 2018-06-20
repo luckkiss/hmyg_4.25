@@ -67,6 +67,22 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> impl
                 .doRequest("admin/footmark/moment/list", new HandlerAjaxCallBackPage<Moments>(mActivity, type) {
                     @Override
                     public void onRealSuccess(List<Moments> e) {
+
+//                        Collections.sort(e, new Comparator<Moments>() {
+//
+//                            @Override
+//                            public int compare(Moments o1, Moments o2) {
+//                                if (o1.attrData.dateStr.compareTo(o2.attrData.dateStr) == 0) {
+//                                    return 0;
+//                                } else if (o1.attrData.dateStr.compareTo(o2.attrData.dateStr) > 0) {
+//                                    return -1;
+//                                } else {
+//                                    return 1;
+//                                }
+//                            }
+//
+//                        });
+
                         mCoreRecyclerView.getAdapter().addData(e);
                     }
 
@@ -142,9 +158,21 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> impl
 
 //        D.i("=============doConvert==============" + item.getName());
 
+        if (item.attrData.isDelete) {
+            helper.getView(R.id.root_view).setAlpha(0.5f);
+            helper.setVisible(R.id.yxj, true);
+        } else {
+            helper.getView(R.id.root_view).setAlpha(1f);
+            helper.setVisible(R.id.yxj, false);
+        }
 
         View.OnClickListener clickListener = v ->
         {
+
+            if (item.attrData.isDelete) {
+//                        ToastUtil.showLongToast("删除了");
+                return;
+            }
 //                  ToastUtil.showLongToast("点击文字--->跳转采购单详情界面");
             DetailActivity.start(mActivity, item.id);
         };
@@ -278,7 +306,7 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> impl
 
     @Override
     public int bindRecycleItemId() {
-        return R.layout.item_friend_cicle_simple_center;
+        return R.layout.item_friend_cicle_simple_center_d_activity;
     }
 
     @Override

@@ -367,13 +367,17 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
                                 textView.setText(
                                         new SpanUtils()
-                                                .append("原始报价：")
-                                                .append(item.attrData.priceStr).setForegroundColor(getColorByRes(R.color.price_orige))
+                                                .append("原报价：")
+                                                .append(item.attrData.oldPrice).setForegroundColor(getColorByRes(R.color.price_orige))
                                                 .append("/" + item.unitTypeName)
                                                 .appendLine()
                                                 .append("修改后报价：")
-                                                .append(item.attrData.oldPrice).setForegroundColor(getColorByRes(R.color.price_orige))
+                                                .append(item.attrData.priceStr).setForegroundColor(getColorByRes(R.color.price_orige))
                                                 .append("/" + item.unitTypeName)
+                                                .appendLine()
+                                                .append("操作人：" + item.attrData.updateUserName)
+                                                .appendLine()
+                                                .append("修改时间：" + item.attrData.priceChangeDate)
                                                 .create()
                                 );
                                 TextView close = viewRoot.findViewById(R.id.left);
@@ -382,7 +386,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                                 });
 
 
-                            },true);
+                            }, true);
 
 
                         }
@@ -720,7 +724,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
                     helper.setText(R.id.tv_program_purch_name, item.name);
                     helper.setText(R.id.tv_program_purch_num_type, item.count + item.unitTypeName);
-                    helper.setText(R.id.tv_zzlx, "种植类型：" + item.plantTypeName);
+                    helper.setText(R.id.tv_zzlx, "种植类型：" + item.plantTypeArrayNames);
                     helper.setText(R.id.tv_program_purch_space_text, "规格：" + item.specText + "；" + item.remarks);
                     Log.e(TAG, "TYPE_LEVEL_0" + helper.getAdapterPosition());
 

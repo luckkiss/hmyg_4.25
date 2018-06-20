@@ -3,7 +3,11 @@ package com.hldj.hmyg.saler;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.TextView;
 
+import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.UnitTypeBean;
@@ -66,6 +70,21 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
     }
 
     private void initExtra(SaveSeedingGsonBean saveSeedingGsonBean) {
+
+        TextView back_log = (TextView) findViewById(R.id.back_log);
+
+
+        try {
+            if (!TextUtils.isEmpty(saveSeedingGsonBean.getData().getSeedling().auditLogJson.remarks)) {
+                back_log.setText("退回原因：" + saveSeedingGsonBean.getData().getSeedling().auditLogJson.remarks);
+                back_log.setVisibility(View.VISIBLE);
+            } else {
+                back_log.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+            back_log.setVisibility(View.GONE);
+        }
+
 
         List<ImagesJsonBean> imagesJsonBeans = saveSeedingGsonBean.getData().getSeedling().getImagesJson();
 

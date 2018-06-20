@@ -82,7 +82,7 @@ public class UserBean {
     public boolean isInvoices;
     public String permissions;
     public String storeId = "";
-    public String headImage;
+    public String headImage= "";
     public boolean isPartners;
     public boolean cashOnDelivery;
     public boolean receiptMsg;

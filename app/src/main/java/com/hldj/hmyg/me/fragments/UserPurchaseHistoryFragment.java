@@ -48,6 +48,22 @@ public class UserPurchaseHistoryFragment extends BaseRecycleViewFragment<UserPur
                 .doRequest("admin/footmark/userPurchase/list", new HandlerAjaxCallBackPage<UserPurchase>(mActivity, type) {
                     @Override
                     public void onRealSuccess(List<UserPurchase> e) {
+
+//                        Collections.sort(e, new Comparator<UserPurchase>() {
+//
+//                            @Override
+//                            public int compare(UserPurchase o1, UserPurchase o2) {
+//                                if (o1.attrData.dateStr.compareTo(o2.attrData.dateStr) == 0) {
+//                                    return 0;
+//                                } else if (o1.attrData.dateStr.compareTo(o2.attrData.dateStr) > 0) {
+//                                    return -1;
+//                                } else {
+//                                    return 1;
+//                                }
+//                            }
+//
+//                        });
+
                         mCoreRecyclerView.getAdapter().addData(e);
 //                        UserPurchase userPurchase = e.get(0);
 //                        userPurchase.attrData.dateStr = "2018-05-09";

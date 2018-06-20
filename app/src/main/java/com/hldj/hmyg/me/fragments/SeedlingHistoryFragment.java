@@ -21,6 +21,8 @@ import com.hldj.hmyg.buyer.weidet.decoration.SectionDecoration;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.enums.FootMarkSourceType;
 import com.hldj.hmyg.util.ConstantParams;
+import com.hldj.hmyg.util.D;
+import com.mabeijianxi.smallvideorecord2.Log;
 
 import net.tsz.afinal.FinalBitmap;
 
@@ -47,6 +49,30 @@ public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBe
                 .doRequest("admin/footmark/seedling/list", new HandlerAjaxCallBackPage<BPageGsonBean.DatabeanX.Pagebean.Databean>(mActivity, type) {
                     @Override
                     public void onRealSuccess(List<BPageGsonBean.DatabeanX.Pagebean.Databean> e) {
+
+
+//                        ToastUtil.showLongToast("sort");
+//                        System.out.println(e.toString());
+//
+//                        prictList(e);
+//
+//
+//                        Collections.sort(e, new Comparator<BPageGsonBean.DatabeanX.Pagebean.Databean>() {
+//
+//                            @Override
+//                            public int compare(BPageGsonBean.DatabeanX.Pagebean.Databean o1, BPageGsonBean.DatabeanX.Pagebean.Databean o2) {
+//                                if (o1.attrData.dateStr.compareTo(o2.attrData.dateStr) == 0) {
+//                                    return 0;
+//                                } else if (o1.attrData.dateStr.compareTo(o2.attrData.dateStr) > 0) {
+//                                    return -1;
+//                                } else {
+//                                    return 1;
+//                                }
+//                            }
+//
+//                        });
+//
+//                        prictList(e);
                         mCoreRecyclerView.getAdapter().addData(e);
 
 
@@ -70,7 +96,7 @@ public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBe
                     public String getGroupName(int position) {
                         try {
                             // 19   suze = 20-1
-                            if (position > mCoreRecyclerView.getAdapter().getData().size()-1) {
+                            if (position > mCoreRecyclerView.getAdapter().getData().size() - 1) {
                                 return null;
                             }
 
@@ -114,6 +140,29 @@ public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBe
         });
 //        D.i("=============doConvert==============" + item.getName());
         BActivity_new_test.initListType(helper, item, FinalBitmap.create(mActivity), "BActivity_new");
+
+
+        if (!item.status.equals("published")) {
+            helper.setVisible(R.id.fr_goods_time_out, true);
+            View ll_info_content = helper.getView(R.id.ll_info_content);
+            ll_info_content.setAlpha(0.6f);
+            ll_info_content.setOnClickListener(null);
+        } else {
+            helper.setVisible(R.id.fr_goods_time_out, false);
+            View ll_info_content = helper.getView(R.id.ll_info_content);
+            ll_info_content.setAlpha(1.0f);
+
+//            view.findViewById(R.id.fr_goods_time_out).setVisibility(View.GONE);
+//            view.findViewById(R.id.ll_info_content).setAlpha(1.0f);
+            ll_info_content.setOnClickListener(v -> {
+                //点击布局
+                D.e("==点击布局==");
+                FlowerDetailActivity.start2Activity(mActivity, "show_type", item.id);
+            });
+
+
+        }
+
 
         helper
                 .setVisible(R.id.tv_right_top, true)
@@ -161,4 +210,17 @@ public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBe
     }
 
 
+    public void prictList(List<BPageGsonBean.DatabeanX.Pagebean.Databean> list) {
+
+
+        for (int i = 0; i < list.size(); i++) {
+//            System.out.printf("" + list.get(i).attrData.dateStr);
+            Log.i("------------", list.get(i).attrData.dateStr);
+            D.i("------------------------" + list.get(i).attrData.dateStr);
+        }
+
+        D.i("--------------分割线----------");
+
+
+    }
 }

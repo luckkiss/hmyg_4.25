@@ -5,7 +5,7 @@ import java.util.List;
 
 public class QuoteUserGroup {
 
-    boolean priceChange;//是否改价
+
 
     /**
      * 供应商ID

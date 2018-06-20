@@ -165,7 +165,7 @@ public class HeadDetailActivity extends BaseMVPActivity {
             Drawable drawable = getResources().getDrawable(R.mipmap.wd_smrz_tg);
             identity.setDrawable(drawable);
         }else {
-            Drawable drawable = getResources().getDrawable(R.mipmap.wd_smrz_no);
+            Drawable drawable = getResources().getDrawable(R.mipmap.wd_smrz_head);
             identity.setDrawable(drawable);
         }
 

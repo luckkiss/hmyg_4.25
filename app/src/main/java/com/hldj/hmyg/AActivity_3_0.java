@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -107,6 +108,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.hldj.hmyg.R.id.home_title_first;
 import static com.hldj.hmyg.R.id.home_title_qiu_gou;
+import static com.hldj.hmyg.base.GlobBaseAdapter.REFRESH;
 
 
 /**
@@ -893,11 +895,11 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             Log.i(TAG, "数量为0");
             return;
         }
-        if (indexGsonBean.data.userPurchaseList.size() == 0) {
+        if (indexGsonBean.data.matchUserPurchaseList.size() == 0) {
             Log.i(TAG, "init商机: 列表为空");
             return;
         }
-
+        //matchUserPurchaseList
 
         View constraint = findViewById(R.id.constraint);
         sj_one_jump = findViewById(R.id.sj_one_jump);
@@ -938,9 +940,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                     public void accept(Long aLong) throws Exception {
                         currentPos++;
 
-                        Log.i(TAG, "accept: " + currentPos % indexGsonBean.data.userPurchaseList.size());
-                        UserPurchase userPurchase = indexGsonBean.data.userPurchaseList.get(currentPos % indexGsonBean.data.userPurchaseList.size());
-                        sj_one_jump.setText(userPurchase.name + "  " + userPurchase.count + "" + userPurchase.unitTypeName);
+                        Log.i(TAG, "accept: " + currentPos % indexGsonBean.data.matchUserPurchaseList.size());
+                        IndexGsonBean.MatchUserPurchase userPurchase = indexGsonBean.data.matchUserPurchaseList.get(currentPos % indexGsonBean.data.matchUserPurchaseList.size());
+                        sj_one_jump.setText(userPurchase.name + "  " + userPurchase.countStr);
 
 //                        sj_one_jump.setOnClickListener(v -> {
 //                            PublishForUserDetailActivity.start2Activity(AActivity_3_0.this, userPurchase.id, userPurchase.ownerId);
@@ -975,7 +977,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     private void initNewList(IndexGsonBean indexGsonBean) {
         try {//最新采购
 
-            LinearLayout view = (LinearLayout) findViewById(R.id.ll_caigou_parent);
+            LinearLayout view = (LinearLayout) findViewById(R.id.ll_caigou_parent_inner);
 //            view.removeAllViews();
 //            removeViewByTag(view, "a");
 
@@ -985,7 +987,10 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //                view.addView(adapter.getView(i, null, null));
                     view.addView(viewSetTag("a", purchaseListAdapter, i));
                 }
+                setAdtapter(view, purchaseListAdapter);
             } else {
+                purchaseListAdapter.setState(REFRESH);
+                purchaseListAdapter.addData(indexGsonBean.data.purchaseList);
                 purchaseListAdapter.notifyDataSetChanged();
             }
 
@@ -1008,7 +1013,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         try {// 用户求购
 
-            LinearLayout view = (LinearLayout) findViewById(R.id.ll_qiu_gou_parent);
+            LinearLayout view = (LinearLayout) findViewById(R.id.ll_qiu_gou_parent_inner);
 //            removeViewByTag(view, "a");
 //            View viewChild = LayoutInflater.from(this).inflate(R.layout.item_buy_for_user, null);
 //            view.removeAllViews();
@@ -1031,10 +1036,18 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //                view.addView(adapter.getView(i, null, null));
                     view.addView(viewSetTag("a", adapter, i));
                 }
+
+
+                setAdtapter(view, adapter);
+
             } else {
+                adapter.setState(REFRESH);
+                adapter.addData(indexGsonBean.data.userPurchaseList);
                 adapter.notifyDataSetChanged();
             }
 
+//            ListView listView = new ListView();
+//            listView.setAdapter();
 
 //            if (indexGsonBean.data.userPurchaseList.size() != 0) {
 ////            if (true) {
@@ -1076,7 +1089,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //            View viewChild = LayoutInflater.from(this).inflate(R.layout.list_view_seedling_new, null);
             if (bProduceAdapt == null) {
                 bProduceAdapt = new BProduceAdapt(AActivity_3_0.this, indexGsonBean.data.seedlingList, R.layout.list_view_seedling_new);
-//            view.removeAllViews();
+//              view.removeAllViews();
                 for (int i = 0; i < bProduceAdapt.getCount(); i++) {
                     view.addView(viewSetTag("a", bProduceAdapt, i));
                 }
@@ -1120,6 +1133,37 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 e.printStackTrace();
             }
         }
+
+
+    }
+
+
+    private void setAdtapter(LinearLayout view, GlobBaseAdapter adapter) {
+
+
+        adapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+//                ToastUtil.showLongToast("onChanged");
+                Log.i("onChanged", "onChanged");
+                view.removeAllViews();
+
+                for (int i = 0; i < adapter.getCount(); i++) {
+//                view.addView(adapter.getView(i, null, null));
+                    view.addView(viewSetTag("a", adapter, i));
+                }
+
+
+            }
+
+            @Override
+            public void onInvalidated() {
+                super.onInvalidated();
+                ToastUtil.showLongToast("onInvalidated");
+                Log.i("onInvalidated", "onInvalidated");
+            }
+        });
 
 
     }

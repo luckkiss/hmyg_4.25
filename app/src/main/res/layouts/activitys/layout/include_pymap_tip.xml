@@ -3,29 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content" android:background="@color/trans">
 
 
     <TextView
         android:id="@+id/tv_xiaoxitishi"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginBottom="6dp"
-        android:layout_marginTop="6dp"
-        android:background="@color/main_color"
-        android:drawableLeft="@drawable/xiaoxiti"
+        android:layout_height="wrap_content"
+        android:background="@color/tip_bg_color"
+        android:drawableLeft="@drawable/xiaoxiti_red"
         android:drawablePadding="4dp"
-        android:drawableRight="@drawable/xiaoxitishi_x2"
+        android:drawableRight="@drawable/xiaoxitishi_x2_red"
         android:gravity="start|center_vertical"
         android:maxLines="2"
+        android:minHeight="40dp"
+        android:paddingTop="@dimen/px10"
+        android:paddingBottom="@dimen/px10"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:textColor="@color/white"
+        android:textColor="@color/text_color333"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="平台之才：激发老师就发生了房间爱立方" />
+        tools:text="平台之才：激发老师就发生了房间爱立方激发老师就发生了房间爱立方" />
+
+
     <!--        android:drawableRight="@drawable/xiaoxitishi_x2"
 -->
 </android.support.constraint.ConstraintLayout>

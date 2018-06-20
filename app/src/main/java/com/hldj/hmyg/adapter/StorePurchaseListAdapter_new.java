@@ -28,6 +28,7 @@ import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.buyer.Ui.QuoteListActivity_bak;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
+import com.hy.utils.SpanUtils;
 import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
 import com.zf.iosdialog.widget.AlertDialog;
@@ -92,6 +93,17 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
             tv_cankao.setVisibility(View.VISIBLE);
             PurchaseDetailActivity.setImgCounts((Activity) context, tv_cankao, purchaseItemBeanNew.imagesJson);
             tv_cankao.setText("参考图片");
+
+
+            tv_cankao.setText(
+                    new SpanUtils()
+                            .append("参考图片：")
+                            .append("查看").setForegroundColor(context.getResources().getColor(R.color.main_color)).setUnderline()
+                            .create()
+
+            );
+
+
         } else {
             tv_cankao.setVisibility(View.GONE);
             tv_cankao.setOnClickListener(null);
@@ -279,7 +291,8 @@ public abstract class StorePurchaseListAdapter_new extends GlobBaseAdapter<Purch
                 TextView state = myViewHolder.getView(R.id.state);
 
 //                StringFormatUtil formatUtil = new StringFormatUtil(context, "当前报价状态：" + getStateName(jsonBean.status), getStateName(jsonBean.status), ContextCompat.getColor(context, R.color.orange)).fillColor();
-                state.setText(getStateName(jsonBean.status));
+                state.setText(jsonBean.createDate);
+//                state.setText(getStateName(jsonBean.status));
                 //选标中 ---- 正常显示二次报价
 
 

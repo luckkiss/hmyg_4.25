@@ -11,18 +11,17 @@
 
     <include
 
-        layout="@layout/item_friend_cicle_simple_center"
-        />
+        layout="@layout/item_friend_cicle_simple_center" />
 
 
     <ImageView
+        android:id="@+id/yxj"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_gravity="right|top"
-
-        android:layout_marginRight="50dp"
+        android:layout_marginRight="100dp"
         android:layout_marginTop="30dp"
-        android:src="@mipmap/yixiajia" />
+        android:src="@mipmap/yishixiao" />
 
 
 </FrameLayout>

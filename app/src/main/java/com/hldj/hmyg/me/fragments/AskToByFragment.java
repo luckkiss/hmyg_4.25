@@ -190,7 +190,7 @@ public class AskToByFragment extends BaseLazyFragment {
 
 
                 helper.convertView.setOnClickListener(v -> {
-                    PublishForUserDetailActivity.start2Activity(mActivity, item.id, "");
+                    PublishForUserDetailActivity.start2Activity(mActivity, item.id, item.ownerId);
                 });
 
                 if (isClose()) {
@@ -360,6 +360,7 @@ public class AskToByFragment extends BaseLazyFragment {
         if (resultCode == ConstantState.REFRESH) {
             if (!isClose()) {
 //                ToastUtil.showLongToast("刷新");
+                if (recycle!=null)
                 recycle.onRefresh();
             }
 

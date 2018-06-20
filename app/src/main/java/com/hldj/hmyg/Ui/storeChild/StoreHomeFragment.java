@@ -123,7 +123,8 @@ public class StoreHomeFragment extends BaseFragment implements StoreContract.Vie
                     showLoading();
                     showActivityLoading();
                     getQueryBean().pageIndex = page + "";
-                    getQueryBean().ownerId = getStoreID();
+//                    getQueryBean().ownerId = getStoreID();
+                    getQueryBean().storeId = getStoreID();
                     myPresenter.getData();
 //            mPresenter.getData();
                 });

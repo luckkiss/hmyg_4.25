@@ -726,6 +726,14 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
         }
     }
 
+    @Override
+    public void initTodoStatusCount(SimpleGsonBean gsonBean) {
+
+
+
+
+    }
+
 
     //    @Override
 //    public void initTodoStatusCount(SimpleGsonBeanData<StatusCountBean> gsonBean) {

@@ -225,6 +225,12 @@ public class CenterActivity extends BaseMVPActivity {
 
                 helper.setText(R.id.bottom_right, "更新")
                         .addOnClickListener(R.id.bottom_right, v -> {
+
+                            if (!item.allowRefresh) {
+//                                ToastUtil.showLongToast("不可点击");
+                                return;
+                            }
+
                             new BasePresenter()
                                     .putParams("id", item.id)
                                     .doRequest("admin/moments/refresh", new HandlerAjaxCallBack(mActivity) {

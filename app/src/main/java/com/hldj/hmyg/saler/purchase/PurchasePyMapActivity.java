@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -47,6 +49,7 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.hldj.hmyg.widget.SegmentedGroup;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.SpanUtils;
 import com.hy.utils.ToastUtil;
 import com.weavey.loading.lib.LoadingLayout;
 
@@ -187,7 +190,18 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
             case R.id.button31:
                 //左边
 
-                checkIsShowLeftTip("平台采购：签约采购商发布的优质订单");
+
+                checkIsShowLeftTip(
+                        new SpanUtils()
+                                .append("由平台作为采购主体，成交率")
+                                .append("100%").setForegroundColor(getResources().getColor(R.color.tip_text_color))
+                                .append("，双方交易由")
+                                .append("平台担保").setForegroundColor(getResources().getColor(R.color.tip_text_color))
+                                .append("并")
+                                .append("支付苗款").setForegroundColor(getResources().getColor(R.color.tip_text_color))
+                                .create()
+                );
+
 
                 StorePurchaseListActivity.shouldShow = true;
 
@@ -203,7 +217,17 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
 
             case R.id.button33:
 
-                checkIsShowRightTip("个人求购：个人发布,真实性由信息发布人负责");
+
+                checkIsShowLeftTip(
+                        new SpanUtils()
+                                .append("采购方")
+                                .append("免费").setForegroundColor(getResources().getColor(R.color.tip_text_color))
+                                .append("在平台发布采购清单，供需双方")
+                                .append("自由").setForegroundColor(getResources().getColor(R.color.tip_text_color))
+                                .append("交易，平台不提供交易担保。")
+                                .create()
+                );
+//                checkIsShowRightTip("个人求购：个人发布,真实性由信息发布人负责");
 //                ToastUtil.showShortToast("zhongjian");
 //                recycle.onRefresh();
                 getView(R.id.ll_show_2).setVisibility(View.VISIBLE);
@@ -628,7 +652,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
     /*    处理  用户报价内容   */
     TextView tv_xiaoxitishi;
 
-    public void checkIsShowLeftTip(String msg) {
+    public void checkIsShowLeftTip(CharSequence msg) {
 
         if (closeCurrentLeft) {
             tv_xiaoxitishi.setVisibility(View.GONE);
@@ -645,6 +669,15 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
         tv_xiaoxitishi.setOnClickListener(v -> {
             DialogNoti("quoting");
         });
+
+        Drawable drawable = tv_xiaoxitishi.getCompoundDrawables()[0];
+        Drawable drawabler = tv_xiaoxitishi.getCompoundDrawables()[2];
+        drawable.setBounds(0, 0, MyApplication.dp2px(mActivity,17), MyApplication.dp2px(mActivity,17));
+        drawabler.setBounds(0, 0, MyApplication.dp2px(mActivity,17), MyApplication.dp2px(mActivity,17));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            tv_xiaoxitishi.setCompoundDrawables(drawable, null, drawabler, null);
+        }
+
 
     }
 

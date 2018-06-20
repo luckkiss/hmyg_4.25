@@ -123,14 +123,14 @@ public class Moments implements Serializable, IFootMarkDelete {
 
     public String typeName;
     public String type;
-    public String imageUrl    ;
+    public String imageUrl;
 
     public String getDisplayImageUrl() {
 
         if (isVideo) {
             return videoPic;
         }
-        if (imagesJson !=null && imagesJson.size() > 0) {
+        if (imagesJson != null && imagesJson.size() > 0) {
             return imagesJson.get(0).getOssMediumImagePath();
         }
         return "";
@@ -174,6 +174,7 @@ public class Moments implements Serializable, IFootMarkDelete {
          * storeId : d55e06b24d854d7587a3461230865e91
          * displayPhone : 18750215634
          */
+        public boolean isDelete;
 
         public String headImage;
         public String userId;

@@ -31,7 +31,6 @@ import com.hldj.hmyg.adapter.ProductListAdapterForManager;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.base.rxbus.RxBus;
-import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBeanData;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
@@ -43,7 +42,6 @@ import com.hldj.hmyg.saler.SaveSeedlingActivity;
 import com.hldj.hmyg.saler.SearchActivity;
 import com.hldj.hmyg.saler.StorageSaveActivity;
 import com.hldj.hmyg.util.ConstantState;
-import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 
@@ -160,6 +158,16 @@ public abstract class ManagerListActivity_new<P extends ManagerListPresenter, M 
 
                 helper.setIsRecyclable(false);
                 BActivity_new.initListType(helper, item, FinalBitmap.create(mContext), "Manager");
+
+
+                if (item.closeDate.length() > 10) {
+                    helper.setText(R.id.tv_06, "下架日期：" + item.closeDate.substring(0, 10));
+                } else {
+                    helper.setText(R.id.tv_06, "下架日期：" + item.closeDate);
+                }
+
+                helper.setTextColorRes(R.id.tv_02, R.color.text_color333);
+
 
                 EditText editText = helper.getView(R.id.et);
                 CheckBox checkBox = helper.getView(R.id.cb);
@@ -607,39 +615,6 @@ public abstract class ManagerListActivity_new<P extends ManagerListPresenter, M 
 
     }
 
-
-    @Override
-    public void initTodoStatusCount(SimpleGsonBean gsonBean) {
-//        ToastUtil.showLongToast(gsonBean.msg);
-        list_counts.clear();
-        LinearLayout linearLayout = getView(R.id.ll_counts_content);
-        findTagTextView(linearLayout);
-        for (int i = 0; i < list_counts.size(); i++) {
-            switch (i) {
-                case 0:
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    list_counts.get(i).setText("(" + gsonBean.getData().backedCount + ")");
-
-                    D.w(" storeId is =====>  " + gsonBean.getData().storeId);
-                    break;
-                case 3:
-//                    list_counts.get(i).setText("(" + gsonBean.data.pendingCount + ")");
-                    break;
-                case 4:
-//                    list_counts.get(i).setText("(" + gsonBean.data.countMap.backed + ")");
-                    break;
-                case 5:
-                    list_counts.get(i).setText("(" + gsonBean.getData().outlineCount + ")");
-
-//                    list_counts.get(i).setText("(" + gsonBean.data.pendingCount + ")");
-                    break;
-
-            }
-        }
-    }
 
     @Override
     public void onDeled(boolean bo) {

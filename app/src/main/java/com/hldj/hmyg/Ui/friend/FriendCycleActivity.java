@@ -13,7 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
 import com.flyco.dialog.widget.MaterialDialog;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.IScrollHiden;
@@ -24,10 +26,12 @@ import com.hldj.hmyg.Ui.friend.bean.Message;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.bean.MomentsReply;
 import com.hldj.hmyg.Ui.friend.bean.enums.MomentsType;
+import com.hldj.hmyg.Ui.friend.child.CenterActivity;
 import com.hldj.hmyg.Ui.friend.child.FriendBaseFragment;
 import com.hldj.hmyg.Ui.friend.child.PublishActivity;
 import com.hldj.hmyg.Ui.friend.child.PushListActivity;
 import com.hldj.hmyg.Ui.friend.presenter.FriendPresenter;
+import com.hldj.hmyg.Ui.friend.widget.GlideCircleTransform;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.base.BaseMVPActivity;
@@ -39,6 +43,7 @@ import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.saler.Adapter.FragmentPagerAdapter_TabLayout;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.LoginUtil;
 import com.hy.utils.ToastUtil;
 import com.zzy.common.widget.MeasureListView;
 
@@ -58,7 +63,7 @@ import static com.hldj.hmyg.util.ConstantState.REFRESH;
  * FinalActivity 来进行    数据绑定
  */
 @Keep
-public class FriendCycleActivity extends BaseMVPActivity implements View.OnClickListener ,IScrollHiden {
+public class FriendCycleActivity extends BaseMVPActivity implements View.OnClickListener, IScrollHiden {
 
     private static final String TAG = "FriendCycleActivity";
 
@@ -151,6 +156,8 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
         toolbar_left_icon.setImageResource(R.mipmap.friend_filter);
         toolbar_left_icon.setVisibility(View.GONE);
 
+        configtoolbar_left_icon();
+
         if (et_search != null) {
             et_search.setCursorVisible(false);
             et_search.clearFocus();
@@ -224,7 +231,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
                 }
                 Log.i(TAG, "是否登录" + MyApplication.Userinfo.getBoolean("isLogin", false));
 
-                PublishActivity.start(mActivity,PublishActivity.ALL);
+                PublishActivity.start(mActivity, PublishActivity.ALL);
                 break;
 
 
@@ -355,8 +362,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
 //            ((FriendBaseFragment) list_fragment.get(2)).onrefresh();
 //            ((FriendBaseFragment) list_fragment.get(3)).onrefresh();
             D.e("currentType" + currentType);
-        }
-        else {
+        } else {
 //            rb_title_left.setChecked(true);
 //            currentType = MomentsType.all.getEnumValue();
 //            list_fragment.get(0).onActivityResult(requestCode, resultCode, data);
@@ -488,7 +494,7 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        configtoolbar_left_icon();
 
     }
 
@@ -496,5 +502,40 @@ public class FriendCycleActivity extends BaseMVPActivity implements View.OnClick
     @Override
     public View getHiddenView() {
         return getView(R.id.iv_cycle_top);
+    }
+
+    public void configtoolbar_left_icon() {
+        toolbar_left_icon.setVisibility(View.VISIBLE);
+        toolbar_left_icon.setImageResource(R.drawable.icon_persion_pic);
+
+        toolbar_left_icon.setPadding(0, 0, 0, 0);
+
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) toolbar_left_icon.getLayoutParams();
+
+
+        layoutParams.setMargins(MyApplication.dp2px(mActivity, 12), layoutParams.topMargin, layoutParams.rightMargin, layoutParams.bottomMargin);
+
+        toolbar_left_icon.setLayoutParams(layoutParams);
+
+
+        try {
+//            ImageLoader.getInstance().displayImage(MyApplication.getUserBean().headImage, toolbar_left_icon);
+
+            Glide.with(mActivity)
+                    .load(MyApplication.getUserBean().headImage).placeholder(R.drawable.icon_persion_pic).transform(new GlideCircleTransform(mActivity)).into(toolbar_left_icon);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        toolbar_left_icon.setOnClickListener(v -> {
+            if (!LoginUtil.toLogin(mActivity)) {
+                return;
+            }
+            CenterActivity.start(mActivity, MyApplication.getUserBean().id);
+        });
+
+
     }
 }

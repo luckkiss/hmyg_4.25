@@ -82,6 +82,7 @@ public class ProgramPurchaseExpanBean extends AbstractExpandableItem<QuoteListJs
     public String firstTypeName;
     public String unitTypeName;
     public String plantTypeName;
+    public String plantTypeArrayNames = "-";
     public String diameterTypeName;
     public String dbhTypeName;
     public String thumbnailImageUrl;

@@ -114,7 +114,7 @@ public class PurchaseHistoryActivity extends BaseMVPActivity {
 
                 tv_01.setText(Html.fromHtml(html_source + "<font color='#FFA19494'><small>" + html_source1 + "</small></font>"));
 
-                tv_03.setText(item.cityName);
+                tv_03.setText(item.ciCity.fullName);
                 tv_04.setText("采购商家：" + item.buyer.companyName);
 
 

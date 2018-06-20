@@ -163,6 +163,9 @@ public class SaveSeedingGsonBean implements Serializable {
             private String minPrice = "";
             private String maxPrice = "";
 
+
+            public AuditLogJson auditLogJson;
+
             public List<QuoteListJsonBean> quoteListJson = new ArrayList<>();
 
             public int getQuoteUsedCountJson() {
@@ -3166,5 +3169,11 @@ public class SaveSeedingGsonBean implements Serializable {
 //                this.value = value;
 //            }
 //        }
+    }
+
+
+    public static class AuditLogJson implements Serializable {
+        public String remarks = "-";
+
     }
 }

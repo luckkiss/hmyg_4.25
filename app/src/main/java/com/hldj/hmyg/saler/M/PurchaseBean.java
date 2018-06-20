@@ -136,7 +136,7 @@ public class PurchaseBean {
 
 //    "attrData": {"closeDateStr": "2017年06月09日 14点10分"},
 
-    public static class AttrDataBean implements Serializable{
+    public static class AttrDataBean implements Serializable {
         public String closeDateStr = "";
         public String publishDateStr = "";
         public Boolean isSupplier = false;
@@ -154,6 +154,9 @@ public class PurchaseBean {
 
 
         public boolean priceChange;
+        public String priceChangeDate = "-";
+        public String updateUserName = "-";
+
     }
 
 }
