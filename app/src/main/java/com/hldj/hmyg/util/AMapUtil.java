@@ -54,7 +54,7 @@ public class AMapUtil {
 
 // 驾车导航
 //latitude, longitude
-        ToastUtil.showLongToast("baidumap://map/navi?location=" + lat +","+  lon);
+//        ToastUtil.showLongToast("baidumap://map/navi?location=" + lat +","+  lon);
         i1.setData(Uri.parse("baidumap://map/navi?location=" + lat +","+  lon));
 
         context.startActivity(i1);
@@ -71,7 +71,7 @@ public class AMapUtil {
          */
 // 驾车导航
 //latitude, longitude
-        ToastUtil.showLongToast("baidumap://map/navi?location=" + lat +","+  lon);
+//        ToastUtil.showLongToast("baidumap://map/navi?location=" + lat +","+  lon);
         i1.setData(Uri.parse("qqmap://map/routeplan?type=drive&tocoord=" + lat +","+  lon));
 
         context.startActivity(i1);

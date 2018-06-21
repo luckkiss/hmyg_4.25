@@ -3,43 +3,44 @@ apply plugin: 'com.tencent.bugly.tinker-support'
 def bakPath = file("${buildDir}/bakApk/")
 
 /**
- * ´Ë´¦ÌîĞ´Ã¿´Î¹¹½¨Éú³ÉµÄ»ù×¼°üÄ¿Â¼
+ * ?????ï¿½ï¿½??ï¿½ï¿½??????????????
  */
-//def baseApkDir = "app-0907-18-09-41"  3.0.4fix1 Ê¹ÓÃ
+//def baseApkDir = "app-0907-18-09-41"  3.0.4fix1 ???
 //def baseApkDir = "app-0926-12-54-35"   3.0.5. 1
 //def baseApkDir = "app-1030-15-54-46"    // 3.0.5release
 
-def baseApkDir = "app-0604-12-19-23"    //app-0326-17-24-27
+def baseApkDir = "app-0621-17-37-11"    // ï¿½ï¿½Ò³ï¿½Ä°ï¿½
+//def baseApkDir = "app-0604-12-19-23"    //app-0326-17-24-27
 //def baseApkDir = "app-1229-10-02-35"    //
 
 //def baseApkDir = ""    // 3.0.5fix1
-//def baseApkDir = "app-1107-15-32-11"   // ÄÚ²â°æ±¾2.1.1 72
+//def baseApkDir = "app-1107-15-32-11"   // ???ï¿½ï¿½2.1.1 72
 //
 /**
- * ¶ÔÓÚ²å¼ş¸÷²ÎÊıµÄÏêÏ¸½âÎöÇë²Î¿¼
+ * ???????????????????????ï¿½ï¿½?
  */
 tinkerSupport {
 
-    // ¿ªÆôtinker-support²å¼ş£¬Ä¬ÈÏÖµtrue
+    // ????tinker-support?????????true
     enable = true
-    // tinkerEnable¹¦ÄÜ¿ª¹Ø
+    // tinkerEnable???????
     tinkerEnable = true
 
-    // Ö¸¶¨¹éµµÄ¿Â¼£¬Ä¬ÈÏÖµµ±Ç°moduleµÄ×ÓÄ¿Â¼tinker
+    // ????ï¿½r???????????module??????tinker
     autoBackupApkDir = "${bakPath}"
 
-    // ±àÒë²¹¶¡°üÊ±£¬±ØĞèÖ¸¶¨»ùÏß°æ±¾µÄapk£¬Ä¬ÈÏÖµÎª¿Õ
-    // Èç¹ûÎª¿Õ£¬Ôò±íÊ¾²»ÊÇ½øĞĞ²¹¶¡°üµÄ±àÒë
+    // ??????????????????????ï¿½ï¿½??apk?????????
+    // ?????????????????ï¿½ï¿½??????????
     // @{link tinkerPatch.oldApk }
     baseApk = "${bakPath}/${baseApkDir}/app-release.apk"
 
-    // ¶ÔÓ¦tinker²å¼şapplyMapping
+    // ???tinker???applyMapping
     baseApkProguardMapping = "${bakPath}/${baseApkDir}/app-release-mapping.txt"
 
-    // ¶ÔÓ¦tinker²å¼şapplyResourceMapping
+    // ???tinker???applyResourceMapping
     baseApkResourceMapping = "${bakPath}/${baseApkDir}/app-release-R.txt"
 
-    // ¹¹½¨»ù×¼°üºÍ²¹¶¡°ü¶¼ÒªÖ¸¶¨²»Í¬µÄtinkerId£¬²¢ÇÒ±ØĞë±£Ö¤Î¨Ò»ĞÔ
+    // ???????????????????????????tinkerId??????????ï¿½ï¿½???
 
 //        tinkerId = "base-2.1.0_test"
 //      tinkerId = "patch-2.1.0_test"
@@ -50,19 +51,22 @@ tinkerSupport {
 //        tinkerId = "base-3.0.6release_fix1"
 //        tinkerId = "patch-3.0.6release_fix1"
 
-    tinkerId = "base-4.0.2_1"   // ĞÂ°æ±¾·¢²¼  4.0.2ÕıÊ½ ¸Ä°æ  ²É¹ºÑ¡±ê¸Ä°æ
+    tinkerId = "base-4.0.3"   // 6.21  ï¿½ï¿½Ò³ï¿½Ä°ï¿½  ï¿½æ±¾
+//    tinkerId = "patch-4.0.3"  //
+
+//    tinkerId = "base-4.0.2_1"   // ?ï¿½ï¿½ï¿½????  4.0.2??? ???  ????????
 //    tinkerId = "patch-4.0.2_1"  //
-//    tinkerId = "base-4.0.2"   // ĞÂ°æ±¾·¢²¼  4.0.2ÕıÊ½ ¸Ä°æ  ²É¹ºÑ¡±ê¸Ä°æ
+//    tinkerId = "base-4.0.2"   // ?ï¿½ï¿½ï¿½????  4.0.2??? ???  ????????
 //    tinkerId = "patch-4.0.2"  //
 
-//    tinkerId = "base-4.0.1"   // ĞÂ°æ±¾·¢²¼  4.0ÕıÊ½ ¸Ä°æ  520 ÄÇÒ»ÈÕµÄ Ô¼¶¨
+//    tinkerId = "base-4.0.1"   // ?ï¿½ï¿½ï¿½????  4.0??? ???  520 ?????? ???
 //  tinkerId = "patch-4.0.1"  //
-//    tinkerId = "base-4.0.0_release"   // ĞÂ°æ±¾·¢²¼  4.0ÕıÊ½ ¸Ä°æ  520 ÄÇÒ»ÈÕµÄ Ô¼¶¨
+//    tinkerId = "base-4.0.0_release"   // ?ï¿½ï¿½ï¿½????  4.0??? ???  520 ?????? ???
 //  tinkerId = "patch-4.0.0_release"  //
 //    tinkerId = "base-3.0.6release_fix6"
-//  tinkerId = "patch-3.0.6release_fix6"  // Éí·İÈÏÖ¤ °æ±¾   ÃçÄ¾È¦ ·ÖÏí  Í¼Æ¬ÎÊÌâ
+//  tinkerId = "patch-3.0.6release_fix6"  // ?????? ?ï¿½ï¿½   ???? ????  ??????
 
-//    tinkerId = "base-3.0.6release_fix5"  Ğ¡ÊÓÆµ °æ±¾
+//    tinkerId = "base-3.0.6release_fix5"  ï¿½ï¿½??? ?ï¿½ï¿½
 //  tinkerId = "patch-3.0.6release_fix5"
 
 //    tinkerId = "base-3.0.6release_fix4"
@@ -88,24 +92,24 @@ tinkerSupport {
 //        tinkerId = "base-3.0.4.fix1"
 //        tinkerId = "patch-3.0.4.fix1"
 
-    // ÊÇ·ñÆôÓÃ¸²¸ÇtinkerPatchÅäÖÃ¹¦ÄÜ£¬Ä¬ÈÏÖµfalse
-    // ¿ªÆôºótinkerPatchÅäÖÃ²»ÉúĞ§£¬¼´ÎŞĞèÌí¼ÓtinkerPatch
+    // ??????????tinkerPatch???ï¿½ï¿½????????false
+    // ??????tinkerPatch???ï¿½ï¿½???ï¿½ï¿½???????????tinkerPatch
     overrideTinkerPatchConfiguration = true
 
-    // ¹¹½¨¶àÇşµÀ²¹¶¡Ê±Ê¹ÓÃ
+    // ??????????????????
     // buildAllFlavorsDir = "${bakPath}/${baseApkDir}"
 
-    // ÊÇ·ñÆôÓÃ¼Ó¹ÌÄ£Ê½£¬Ä¬ÈÏÎªfalse.(tinker-spport 1.0.7ÆğÖ§³Ö£©
+    // ??????ï¿½ï¿½??????????false.(tinker-spport 1.0.7??????
     isProtectedApp = false
 
-    // ÊÇ·ñ¿ªÆô·´ÉäApplicationÄ£Ê½
+    // ?????????Application??
     enableProxyApplication = true
 
 }
 
 /**
- * Ò»°ãÀ´Ëµ,ÎÒÃÇÎŞĞè¶ÔÏÂÃæµÄ²ÎÊı×öÈÎºÎµÄĞŞ¸Ä
- * ¶ÔÓÚ¸÷²ÎÊıµÄÏêÏ¸½éÉÜÇë²Î¿¼:
+ * ??????,????????????????????ï¿½Ê¦ï¿½????
+ * ????????????????????ï¿½ï¿½?:
  * https://github.com/Tencent/tinker/wiki/Tinker-%E6%8E%A5%E5%85%A5%E6%8C%87%E5%8D%97
  */
 tinkerPatch {
@@ -146,8 +150,8 @@ tinkerPatch {
     buildConfig {
         keepDexApply = false
         //tinkerId = "1.0.1-base"
-        //applyMapping = "${bakPath}/${appName}/app-release-mapping.txt" //  ¿ÉÑ¡£¬ÉèÖÃmappingÎÄ¼ş£¬½¨Òé±£³Ö¾ÉapkµÄproguard»ìÏı·½Ê½
-        //applyResourceMapping = "${bakPath}/${appName}/app-release-R.txt" // ¿ÉÑ¡£¬ÉèÖÃR.txtÎÄ¼ş£¬Í¨¹ı¾ÉapkÎÄ¼ş±£³ÖResIdµÄ·ÖÅä
+        //applyMapping = "${bakPath}/${appName}/app-release-mapping.txt" //  ?????????mapping????????ï¿½g???apk??proguard???????
+        //applyResourceMapping = "${bakPath}/${appName}/app-release-R.txt" // ?????????R.txt??????????apk???????ResId?????
     }
 }
 

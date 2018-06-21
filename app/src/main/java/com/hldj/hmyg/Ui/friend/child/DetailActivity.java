@@ -46,6 +46,7 @@ import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hy.utils.ToastUtil;
 import com.mabeijianxi.smallvideo2.VideoPlayerActivity2;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -144,7 +145,7 @@ public class DetailActivity extends BaseMVPActivity {
 
         });
         tablayout.getTabAt(1).setText("点赞 (" + moments.thumbUpCount + ")");
-        first.setText("点赞 " + moments.thumbUpCount);
+        first.setText("点赞 " + FUtil.$_zero_2_null(moments.thumbUpCount + ""));
         first.setSelected(moments.isFavour);
         first.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,7 +165,7 @@ public class DetailActivity extends BaseMVPActivity {
 //                                moments.i = MyApplication.Userinfo.getString("id", "");
                                 ToastUtil.showLongToast(gsonBean.msg);
 
-                                first.setText("点赞 " + moments.thumbUpCount + "");
+                                first.setText("点赞 " + FUtil.$_zero_2_null(moments.thumbUpCount + ""));
                                 first.setSelected(moments.isFavour);
                                 tablayout.getTabAt(1).setText("点赞 (" + moments.thumbUpCount + ")");
                                 if (moments.isFavour) {

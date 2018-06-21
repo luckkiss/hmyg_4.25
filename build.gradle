@@ -7,7 +7,6 @@ buildscript {
 
     }
 
-
 //    dex {
 //        dexMode = "jar"
 //
@@ -18,6 +17,12 @@ buildscript {
 //    }
 
 //    useOldManifestMerger true
+    /**
+     * Error:Could not read XXX\build\intermediates\typedefs.txt (系统找不到指定的文件。)
+     *
+     * 切换   classpath 'me.tatarka:gradle-retrolambda:3.7.0'  编译后 切回来 不然 奔溃。垃圾
+     *
+     */
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
@@ -42,7 +47,6 @@ buildscript {
 allprojects {
 
 
-
     repositories {
         jcenter()
         google()
@@ -52,7 +56,7 @@ allprojects {
 
         // 添加这一行即可
         maven { url "https://raw.githubusercontent.com/miomin/mvn-repo-ione/master" }
-        maven { url "https://raw.githubusercontent.com/luocaca/StudentDemo/master"    }
+        maven { url "https://raw.githubusercontent.com/luocaca/StudentDemo/master" }
 //        maven {
 ////            url "http://dl.bintray.com/fir/maven"
 //            url "http://maven.bughd.com/public"
@@ -62,7 +66,6 @@ allprojects {
     }
 
 }
-
 
 //task ('processWithJavassist') << {
 //    String classPath = file('build/intermediates/classes/debug')//项目编译class所在目录

@@ -11,12 +11,14 @@ import net.tsz.afinal.FinalHttp;
  */
 
 public class GetServerUrl {
-    public static boolean isTest = true;//测试时使用true 表示正在测试
+    public static boolean isTest = false;//测试时使用true 表示正在测试
     /*发布时主要版本号   后面需要加 / */
 //    public static String apiVersion = "3.0.5/";//发布的时候修改 api 版本号
-//    public static String apiVersion = "4.0.2/";//测试的时候修改 api 版本号
+        public static String apiVersion = "4.0.3/";//   6.21 首页改版 api
+
+    //    public static String apiVersion = "4.0.2/";//测试的时候修改 api 版本号
 //    public static String apiVersion = "4.0.1/";//测试的时候修改 api 版本号
-    public static String apiVersion = "3.0.4/";//测试的时候修改 api 版本号
+//    public static String apiVersion = "3.0.4/";//测试的时候修改 api 版本号
 
 
     static String PGYER = "http://www.pgyer.com/apiv1/app/viewGroup";
@@ -33,7 +35,7 @@ public class GetServerUrl {
 
 
     private static final String api_html = "http://m.hmeg.cn/";
-        private static final String api_html_test0 = "http://test.m.hmeg.cn/";
+    private static final String api_html_test0 = "http://test.m.hmeg.cn/";
 //    private static final String api_html_test0 = "http://192.168.1.252:8090/";
 
 
@@ -108,7 +110,6 @@ public class GetServerUrl {
             return API_01;
         }
     }
-
 
 
     public static String getHtmlUrl() {

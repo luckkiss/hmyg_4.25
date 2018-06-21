@@ -51,6 +51,7 @@ import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
+import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.VideoHempler;
 import com.hldj.hmyg.widget.MyCircleImageView;
@@ -516,13 +517,13 @@ public class FriendBaseFragment extends BaseFragment {
                                     item.thumbUpCount = gsonBean.getData().thumbUpCount;
                                     ToastUtil.showLongToast(gsonBean.msg);
 //                                    int current = !helper.getView(R.id.first).isSelected() ? (item.thumbUpCount + 1) : (item.thumbUpCount);
-                                    helper.setText(R.id.first, "点赞 " + gsonBean.getData().thumbUpCount + "");
+                                    helper.setText(R.id.first, "点赞 " + FUtil.$_zero_2_null( gsonBean.getData().thumbUpCount + ""));
                                     helper.setSelected(R.id.first, gsonBean.getData().isThumUp);
                                     RxBus.getInstance().post(RxBus.TAG_UPDATE, item);
                                     sendPush(item);
                                 }
                             });
-                }).setText(R.id.first, "点赞 " + item.thumbUpCount);//按钮一 点赞
+                }).setText(R.id.first, "点赞 " + FUtil.$_zero_2_null(item.thumbUpCount + ""));//按钮一 点赞
 
                 helper.addOnClickListener(R.id.second, v -> {
                     if (!commitLogin()) return;

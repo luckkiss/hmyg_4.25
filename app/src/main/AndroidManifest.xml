@@ -2,8 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hldj.hmyg"
-    android:versionCode="94"
-    android:versionName="4.0.2_1">
+    android:versionCode="95"
+    android:versionName="4.0.3">
+
+
+    <!--android:versionCode="94"-->
+    <!--android:versionName="4.0.2_1">-->
 
 
     <!-- android:versionCode="93"
@@ -565,7 +569,8 @@
 
         <activity
             android:name="com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new"
-            android:launchMode="singleTask"  android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity android:name="com.hldj.hmyg.saler.StorageSaveActivity"></activity>
 
         <activity android:name="com.hldj.hmyg.saler.purchaseconfirmlist.ConfirmWebActivity"></activity>

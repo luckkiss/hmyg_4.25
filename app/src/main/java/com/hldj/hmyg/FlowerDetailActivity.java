@@ -1620,8 +1620,8 @@ public class FlowerDetailActivity extends NeedSwipeBackActivity implements Platf
 
 
         if (!AMapUtil.isInstallByRead("com.autonavi.minimap")
-                ||
-                !AMapUtil.isInstallByRead("com.baidu.BaiduMap") ||
+                &&
+                !AMapUtil.isInstallByRead("com.baidu.BaiduMap") &&
                 !AMapUtil.isInstallByRead("com.tencent.map")
                 ) {
             ToastUtil.showLongToast("未检测到导航软件");
