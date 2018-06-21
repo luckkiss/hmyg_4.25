@@ -925,6 +925,9 @@ public class FriendBaseFragment extends BaseFragment {
         MainActivity.clicks = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+//                ToastUtil.showLongToast("是否显示----------" + getUserVisibleHint());
+
                 Log.i("tag", FriendBaseFragment.this + "");
                 if (mRecyclerView != null) {
                     mRecyclerView.getRecyclerView().smoothScrollBy(0, 0);
@@ -948,6 +951,7 @@ public class FriendBaseFragment extends BaseFragment {
                         ((IScrollHiden) mActivity).getHiddenView().setVisibility(View.GONE);
                         mRecyclerView.getRecyclerView().smoothScrollBy(0, 0);
                         mRecyclerView.getRecyclerView().smoothScrollToPosition(0);
+                        onrefresh();
                     }
                 });
 //                mRecyclerView.getRecyclerView().setOnScrollListener(new RecyclerView.OnScrollListener() {

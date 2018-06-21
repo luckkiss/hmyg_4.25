@@ -33,8 +33,8 @@ public class GetServerUrl {
 
 
     private static final String api_html = "http://m.hmeg.cn/";
-    //    private static final String api_html_test0 = "http://test.m.hmeg.cn/";
-    private static final String api_html_test0 = "http://192.168.1.252:8090/";
+        private static final String api_html_test0 = "http://test.m.hmeg.cn/";
+//    private static final String api_html_test0 = "http://192.168.1.252:8090/";
 
 
     static String FIR_01 = "http://api.fir.im/apps/latest/57882cfc748aac17af00001e?api_token=7b3d87a7cb04b3a1624abb900c045c22&type=android&bundle_id=com.hldj.hmyg";

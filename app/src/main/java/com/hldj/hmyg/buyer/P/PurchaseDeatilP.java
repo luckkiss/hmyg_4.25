@@ -2,16 +2,15 @@ package com.hldj.hmyg.buyer.P;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.ProviderActivity;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean_new;
@@ -33,7 +32,7 @@ import java.lang.reflect.Type;
 
 import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
-import static com.tencent.bugly.beta.tinker.TinkerApplicationLike.TAG;
+import static top.wuhaojie.installerlibrary.utils.Utils.TAG;
 
 /**
  * Created by Administrator on 2017/4/25.
@@ -361,52 +360,59 @@ public class PurchaseDeatilP {
             @Override
             public Dialog getDialog(Context context) {
                 Dialog dialog = new Dialog(context);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.dialog_required_no_permission);
 //                activity.showLoading();
                 TextView tv_request = (TextView) dialog.findViewById(R.id.tv_request);
                 TextView tv_content = (TextView) dialog.findViewById(R.id.textView17);
                 TextView tv_dismiss = (TextView) dialog.findViewById(R.id.tv_dismiss);
+
+
                 tv_request.setOnClickListener(view -> {
+                    dialog.dismiss();
+                    ProviderActivity.start(activity, false);
 
-
-                    PurchaseDetailActivity.MyPresenter myPresenter = new PurchaseDetailActivity.MyPresenter();
-                    myPresenter.addResultCallBack(new ResultCallBack<String>() {
-                        @Override
-                        public void onSuccess(String o) {
-                            if (o.equals("申请成功")) {
-                                tv_request.setVisibility(View.GONE);
-                                tv_content.setText("权限申请已经提交成功，请等待客服与您联系！");
-                                tv_dismiss.setText("确定");
-                                tv_dismiss.setTextColor(ContextCompat.getColor(context, R.color.main_color));
-                            }
-                            activity.hindLoading();
-                        }
-
-                        @Override
-                        public void onFailure(Throwable t, int errorNo, String strMsg) {
-                            tv_request.setText("再次申请!");
-                            tv_content.setText(strMsg + "如果多次申请失败，您也可以直接联系我们的客服热线： 4006-579-888 " + " 感谢您的配合^_^ ");
-                            tv_dismiss.setText("确定");
-                            tv_dismiss.setTextColor(ContextCompat.getColor(context, R.color.main_color));
-                            new Handler().postDelayed(() -> {
-                                activity.hindLoading();
-                            }, 300);
-                        }
-                    });
-
-                    activity.showLoading();
-                    myPresenter.doRequestPermi();
-
-
+//                    PurchaseDetailActivity.MyPresenter myPresenter = new PurchaseDetailActivity.MyPresenter();
+//                    myPresenter.addResultCallBack(new ResultCallBack<String>() {
+//                        @Override
+//                        public void onSuccess(String o) {
+//                            if (o.equals("申请成功")) {
+//                                tv_request.setVisibility(View.GONE);
+//                                tv_content.setText("权限申请已经提交成功，请等待客服与您联系！");
+//                                tv_dismiss.setText("确定");
+//                                tv_dismiss.setTextColor(ContextCompat.getColor(context, R.color.main_color));
+//                            }
+//                            activity.hindLoading();
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Throwable t, int errorNo, String strMsg) {
+//                            tv_request.setText("再次申请!");
+//                            tv_content.setText(strMsg + "如果多次申请失败，您也可以直接联系我们的客服热线： 4006-579-888 " + " 感谢您的配合^_^ ");
+//                            tv_dismiss.setText("确定");
+//                            tv_dismiss.setTextColor(ContextCompat.getColor(context, R.color.main_color));
+//                            new Handler().postDelayed(() -> {
+//                                activity.hindLoading();
+//                            }, 300);
+//                        }
                 });
-                tv_dismiss.setOnClickListener(v -> {
+//
+//                    activity.showLoading();
+//                    myPresenter.doRequestPermi();
+
+
+                tv_dismiss.setOnClickListener(v ->
+
+                {
                     dialog.dismiss();
                 });
 
 
                 return dialog;
             }
-        }, false).show(activity.getSupportFragmentManager(), TAG);
+        }, false).
+
+                show(activity.getSupportFragmentManager(), TAG);
     }
 
 //    id

@@ -131,6 +131,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
                 recyclerView1.getRecyclerView().scrollToPosition(0);
                 recyclerView1.getRecyclerView().smoothScrollBy(0, 0);
                 iv_b_top.setVisibility(View.GONE);
+                recyclerView1.onRefresh();
             }
         });
 

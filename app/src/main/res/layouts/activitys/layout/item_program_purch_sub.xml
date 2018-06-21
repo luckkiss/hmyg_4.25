@@ -101,7 +101,7 @@
         android:text="小计:-"
         android:textSize="@dimen/textSizeContent"
         app:layout_constraintLeft_toRightOf="@+id/tv_program_purch_sub_price_cont_serv_pric"
-        app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_price_type" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_suplier" />
 
     <TextView
         android:id="@+id/tv_program_purch_sub_suplier"
@@ -113,9 +113,10 @@
         android:text="花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商花木购供应商"
         android:textColor="@color/main_color"
         android:textSize="@dimen/textSizeContent"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/final_price" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_price_type" />
 
     <TextView
         android:id="@+id/tv_program_purch_sub_plant_addt"
@@ -129,7 +130,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/tv_ygdhj"
+        app:layout_constraintTop_toBottomOf="@+id/tv_program_purch_sub_price_cont_serv_pric"
         tools:text="苗源地：福建 漳州" />
 
     <TextView

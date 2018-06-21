@@ -28,6 +28,7 @@ import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserActivity;
 import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserDetailActivity;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.widget.ComonShareDialogFragment;
+import com.hy.utils.SpanUtils;
 import com.hy.utils.ToastUtil;
 
 import java.lang.reflect.Type;
@@ -159,6 +160,26 @@ public class AskToByFragment extends BaseLazyFragment {
             protected void convert(BaseViewHolder helper, UserPurchase item) {
                 doConvert(helper, item, mActivity);
 
+
+//                if (TextUtils.isEmpty(FUtil.$_zero_2_null(item.quoteCountJson))) {
+//                    helper.setText(R.id.qubaojia, "暂无报价 ");
+//                    helper.setTextColorRes(R.id.qubaojia, R.color.text_color999);
+//                } else {
+//
+//                    //  FUtil.$(item.quoteCountJson) + "条报价"
+//                    helper.setText(R.id.qubaojia,
+//
+//                            new SpanUtils()
+//                                    .append(FUtil.$(item.quoteCountJson) + " 条报价 ")
+//                                    .appendImage(R.drawable.dot_red, SpanUtils.ALIGN_CENTER)
+//                                    .create()
+//
+//
+//                    );
+//                    helper.setTextColorRes(R.id.qubaojia, R.color.main_color);
+//                }
+
+
                 helper.setText(R.id.price, item.price);
 
 
@@ -180,7 +201,14 @@ public class AskToByFragment extends BaseLazyFragment {
 //                    ToastUtil.showShortToast("helper.getview = 2");
                 } else {
                     helper
-                            .setText(R.id.unread, item.unreadQuoteCountJson + "条未读")
+                            .setText(R.id.unread,
+//                                    item.unreadQuoteCountJson + "条未读"
+
+                                    new SpanUtils()
+                                            .append( item.unreadQuoteCountJson + " 条未读 ")
+                                            .appendImage(R.drawable.dot_red, SpanUtils.ALIGN_CENTER)
+                                            .create()
+                            )
                             .setTextColorRes(R.id.unread, R.color.price_orige)
                             .setVisible(R.id.unread, true)
                     ;
@@ -360,8 +388,8 @@ public class AskToByFragment extends BaseLazyFragment {
         if (resultCode == ConstantState.REFRESH) {
             if (!isClose()) {
 //                ToastUtil.showLongToast("刷新");
-                if (recycle!=null)
-                recycle.onRefresh();
+                if (recycle != null)
+                    recycle.onRefresh();
             }
 
         }

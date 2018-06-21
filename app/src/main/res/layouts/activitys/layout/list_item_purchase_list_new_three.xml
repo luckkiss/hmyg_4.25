@@ -21,7 +21,7 @@
         android:id="@+id/ll_item_broker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical" android:layout_marginTop="5dp">
 
         <!--<View-->
         <!--android:layout_width="match_parent"-->
@@ -217,7 +217,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_gravity="end"
+            android:layout_gravity="start"
             android:layout_marginRight="10.0dip"
             android:drawableLeft="@drawable/sy_sj"
             android:drawablePadding="@dimen/x5"

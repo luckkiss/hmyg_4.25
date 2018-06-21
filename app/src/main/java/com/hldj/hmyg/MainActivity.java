@@ -95,6 +95,10 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                     }
                 }
                 Log.i(TAG, "onClick: 点击了苗木圈");
+//                if (clicks != null) {
+//                    Log.i(TAG, "onClick: 触发回调");
+//                    clicks.onClick(v);
+//                }
             }
         });
     }

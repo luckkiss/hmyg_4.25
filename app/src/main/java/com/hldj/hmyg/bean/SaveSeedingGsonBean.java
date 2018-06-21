@@ -1278,7 +1278,7 @@ public class SaveSeedingGsonBean implements Serializable {
 
                 public String id = "";
                 private String createBy;
-                public String rePublishDate;
+                public String rePublishDate ="-";
                 private String createDate;
                 private String cityCode;
                 private String cityName = "-";

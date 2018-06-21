@@ -143,7 +143,7 @@ public class PurchaseSearchListActivity extends BaseMVPActivity {
                 ;
 
             }
-        });
+        }).lazyShowEmptyViewEnable(true);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -252,6 +252,8 @@ public class PurchaseSearchListActivity extends BaseMVPActivity {
                         }
 
 
+                        mCoreRecyclerView.setDefaultEmptyView();
+
                     }
                 });
         D.i("==========请求数据====keyword0====" + s);
@@ -313,7 +315,7 @@ public class PurchaseSearchListActivity extends BaseMVPActivity {
                 if (!TextUtils.isEmpty(source)) {
                     StoreActivity_new.start2Activity(mActivity, source);
                 } else {
-                    BActivity_new_test.start2Activity(mActivity, search_key,0);
+                    BActivity_new_test.start2Activity(mActivity, search_key, 0);
                 }
 
 

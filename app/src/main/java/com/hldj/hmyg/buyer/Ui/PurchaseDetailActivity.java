@@ -6,12 +6,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextView;
 
 import com.coorchice.library.SuperTextView;
@@ -19,6 +18,7 @@ import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.MainActivity;
 import com.hldj.hmyg.R;
+import com.hldj.hmyg.Ui.ProviderActivity;
 import com.hldj.hmyg.bean.CityGsonBean;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.PicSerializableMaplist;
@@ -531,6 +531,7 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
         }
         return pics;
     }
+
     //解析  原始 图片
     public static ArrayList<Pic> getPicListOriginalSeed(List<ImagesJsonBean> imagesJson) {
 
@@ -981,43 +982,46 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
     @Override
     public void desposeNoPermission() {
 
+        ToastUtil.showLongToast("hello ");
         CommonDialogFragment1.newInstance(new CommonDialogFragment1.OnCallDialog() {
             @Override
             public Dialog getDialog(Context context) {
                 Dialog dialog = new Dialog(context);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.dialog_required_no_permission);
 
                 TextView tv_request = (TextView) dialog.findViewById(R.id.tv_request);
                 TextView tv_content = (TextView) dialog.findViewById(R.id.textView17);
                 TextView tv_dismiss = (TextView) dialog.findViewById(R.id.tv_dismiss);
                 tv_request.setOnClickListener(view -> {
-
-                    showLoading();
-                    MyPresenter myPresenter = new MyPresenter();
-                    myPresenter.addResultCallBack(new ResultCallBack<String>() {
-                        @Override
-                        public void onSuccess(String o) {
-                            if (o.equals("申请成功")) {
-                                tv_request.setVisibility(View.GONE);
-                                tv_content.setText("权限申请已经提交成功，请等待客服与您联系！");
-                                tv_dismiss.setText("确定");
-                                tv_dismiss.setTextColor(ContextCompat.getColor(context, R.color.main_color));
-                            }
-                            hindLoading();
-                        }
-
-                        @Override
-                        public void onFailure(Throwable t, int errorNo, String strMsg) {
-                            tv_request.setText("再次申请!");
-                            tv_content.setText(strMsg + "如果多次申请失败，您也可以直接联系我们的客服热线： 4006-579-888 " + " 感谢您的配合^_^ ");
-                            tv_dismiss.setText("确定");
-                            tv_dismiss.setTextColor(ContextCompat.getColor(context, R.color.main_color));
-                            new Handler().postDelayed(() -> {
-                                hindLoading();
-                            }, 300);
-                        }
-                    });
-                    myPresenter.doRequestPermi();
+                    ProviderActivity.start(mActivity, false);
+                    dialog.dismiss();
+//                    showLoading();
+//                    MyPresenter myPresenter = new MyPresenter();
+//                    myPresenter.addResultCallBack(new ResultCallBack<String>() {
+//                        @Override
+//                        public void onSuccess(String o) {
+//                            if (o.equals("申请成功")) {
+//                                tv_request.setVisibility(View.GONE);
+//                                tv_content.setText("权限申请已经提交成功，请等待客服与您联系！");
+//                                tv_dismiss.setText("确定");
+//                                tv_dismiss.setTextColor(ContextCompat.getColor(context, R.color.main_color));
+//                            }
+//                            hindLoading();
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Throwable t, int errorNo, String strMsg) {
+//                            tv_request.setText("再次申请!");
+//                            tv_content.setText(strMsg + "如果多次申请失败，您也可以直接联系我们的客服热线： 4006-579-888 " + " 感谢您的配合^_^ ");
+//                            tv_dismiss.setText("确定");
+//                            tv_dismiss.setTextColor(ContextCompat.getColor(context, R.color.main_color));
+//                            new Handler().postDelayed(() -> {
+//                                hindLoading();
+//                            }, 300);
+//                        }
+//                    });
+//                    myPresenter.doRequestPermi();
 
 
                 });

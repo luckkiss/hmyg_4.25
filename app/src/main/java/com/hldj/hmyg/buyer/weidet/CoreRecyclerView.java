@@ -32,6 +32,7 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
     addDataListener addDataListener;
     RefreshListener refreshListener;
     private SwipeViewHeader mViewHeader;
+    private boolean isLazyShowEmpty = false;// 是否懒加载 empty 在第一次 加载数据成功之后  设置 default empty view
 
     public CoreRecyclerView addRefreshListener(RefreshListener refreshListener) {
         this.refreshListener = refreshListener;
@@ -297,6 +298,16 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
         return this;
     }
 
+    /* 默认是 关闭的   */
+    public CoreRecyclerView lazyShowEmptyViewEnable(boolean isLazy) {
+        isLazyShowEmpty = isLazy;
+        if (isLazy) {
+            closeDefaultEmptyView();
+        }
+        return this;
+    }
+
+
     public CoreRecyclerView setDefaultEmptyView() {
 //        View empty = LayoutInflater.from(getContext()).inflate(R.layout.dialog_custom_base, null);
 //        setLoadingView(empty);
@@ -435,6 +446,11 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
             new Handler().postDelayed(() -> mSwipeRefreshLayout.finishRefresh(), 500);
             mViewHeader.setState(3);
         }
+
+        if (!b && isLazyShowEmpty) {
+            setDefaultEmptyView();
+        }
+
         return this;
     }
 

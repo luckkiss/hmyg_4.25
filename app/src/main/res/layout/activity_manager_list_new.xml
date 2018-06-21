@@ -15,9 +15,14 @@
         android:visibility="visible"
         app:elevation="0dp">
 
-        <include layout="@layout/toolbar_3_0" android:id="@+id/toolbar1" />
+        <include
+            android:id="@+id/toolbar1"
+            layout="@layout/toolbar_3_0" />
 
-        <include layout="@layout/search_top_toolbar" android:visibility="gone" android:id="@+id/toolbar2"/>
+        <include
+            android:id="@+id/toolbar2"
+            layout="@layout/search_top_toolbar"
+            android:visibility="gone" />
 
 
         <LinearLayout
@@ -305,21 +310,28 @@
     <LinearLayout
         android:id="@+id/ll_bottom_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
-       >
+        tools:layout_editor_absoluteY="528dp">
 
         <Button
             android:id="@+id/btn_manager_storege"
             style="@style/bottom_button_green"
-            android:background="@color/simple_blue"
-            android:text="草稿箱(50)" />
+            android:layout_gravity="center"
+            android:background="@drawable/bg_top_bottom_line"
+            android:text="草稿箱"
+            android:textColor="@color/text_color999"
+            android:textSize="14sp"
+            android:layout_weight="0.5"
+            />
 
         <Button
             android:id="@+id/btn_manager_publish"
             style="@style/bottom_button_green"
-            android:text="添加苗木" />
+            android:layout_gravity="center"
+            android:text="添加苗木"
+            android:textSize="14sp" />
 
 
     </LinearLayout>

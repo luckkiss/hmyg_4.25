@@ -212,7 +212,7 @@ public class SimpleGsonBean implements Serializable {
         public List<SpecTypeBean> specTypeList;
 
 
-        public SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean nursery;
+        public SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean nursery = new SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean();
 
 
         public ImagesJsonBean image;

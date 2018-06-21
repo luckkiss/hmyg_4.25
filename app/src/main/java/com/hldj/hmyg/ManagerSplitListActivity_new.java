@@ -1,6 +1,7 @@
 package com.hldj.hmyg;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +35,7 @@ import com.hldj.hmyg.saler.SaveSeedlingActivity_change_data;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.CommonListSpinner1;
+import com.hy.utils.SpanUtils;
 import com.hy.utils.ToastUtil;
 
 import net.tsz.afinal.annotation.view.ViewInject;
@@ -64,6 +66,19 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
         context.startActivity(intent);
     }
 
+    public static void start2ActivityUpdate(Activity context, String id, String updateTime) {
+        Intent intent = new Intent(context, ManagerSplitListActivity_new.class);
+        intent.putExtra("id", id);
+        intent.putExtra("updateTime", updateTime);
+        Log.i(TAG, "start2Activity: 苗圃的  ---  >  " + id);
+        Log.i(TAG, "start2Activity: updateTime  ---  >  " + updateTime);
+        context.startActivityForResult(intent,100);
+    }
+
+
+    private String getUpdateTime() {
+        return getIntent().getStringExtra("updateTime");
+    }
 
     /*苗圃  id   -- -  地址id */
     private String getExtraNurseryId() {
@@ -678,6 +693,24 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
         Button button = getView(R.id.btn_manager_storege);
         button.setText("更新");
         button.setOnClickListener(updata);
+
+
+        if (!TextUtils.isEmpty(getUpdateTime())) {
+            button.setText(
+//                    String.format("更新\n(%s)", getUpdateTime())
+                    new SpanUtils()
+                            .append("更新")
+                            .appendLine("")
+                            .append(getUpdateTime()).setForegroundColor(getColorByRes(R.color.main_color)).setFontSize(12, true)
+                            .create()
+            );
+        }
+
+        /**
+         *   button.setText("更新");
+         button.append("  " + gsonBean.getData().nursery.rePublishDate);
+         */
+
     }
 
 
@@ -699,8 +732,18 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
 
 //                            ToastUtil.showLongToast(gsonBean.getData().nursery.toString());
                             Button button = getView(R.id.btn_manager_storege);
-                            button.setText("更新");
-                            button.append("  " + gsonBean.getData().nursery.rePublishDate);
+//                            button.setText("更新");
+                            button.setText(
+//                                    "  " + gsonBean.getData().nursery.rePublishDate
+
+                                    new SpanUtils()
+                                            .append("更新")
+                                            .appendLine("")
+                                            .append(gsonBean.getData().nursery.rePublishDate).setForegroundColor(getColorByRes(R.color.main_color)).setFontSize(12, true)
+                                            .create()
+                            );
+
+                            setResult(ConstantState.CHANGE_DATES);
 
 
                         }
@@ -728,8 +771,6 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
 
     @Override
     public void initTodoStatusCount(SimpleGsonBean gsonBean) {
-
-
 
 
     }

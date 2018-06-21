@@ -557,7 +557,8 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
             SaveSeedingBottomLinearLayout.addressBean = item;
 
-            ManagerSplitListActivity_new.start2Activity(mActivity, item.id);
+
+            ManagerSplitListActivity_new.start2ActivityUpdate(mActivity, item.id,item.rePublishDate );
 
 
         });

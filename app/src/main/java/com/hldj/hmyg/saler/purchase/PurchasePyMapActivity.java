@@ -218,7 +218,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
             case R.id.button33:
 
 
-                checkIsShowLeftTip(
+                checkIsShowRightTip(
                         new SpanUtils()
                                 .append("采购方")
                                 .append("免费").setForegroundColor(getResources().getColor(R.color.tip_text_color))
@@ -681,7 +681,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
 
     }
 
-    public void checkIsShowRightTip(String msg) {
+    public void checkIsShowRightTip(CharSequence msg) {
         if (closeCurrentRight) {
             tv_xiaoxitishi.setVisibility(View.GONE);
             return;

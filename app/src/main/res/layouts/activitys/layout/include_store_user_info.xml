@@ -22,7 +22,8 @@
         android:id="@+id/brower_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_alignBottom="@+id/logo"
         android:layout_alignLeft="@+id/group"
         android:layout_alignStart="@+id/group"
