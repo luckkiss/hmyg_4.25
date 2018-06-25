@@ -40,6 +40,8 @@ public class PhotoAdapter extends BaseAdapter {
     private int itemWidth;
     private Context context;
 
+    private boolean isSourceImage = false;
+
     public PhotoAdapter(Context context, List<PhotoItem> dataList) {
         super();
         this.dataList = dataList;
@@ -47,6 +49,16 @@ public class PhotoAdapter extends BaseAdapter {
         itemWidth = (GlobalData.getScreenWidth(false, context) - AndroidUtil.dip2px(context, 51)) / 4;
         inflater = LayoutInflater.from(context);
     }
+
+    public PhotoAdapter(Context context, List<PhotoItem> dataList, boolean isSource) {
+        super();
+        this.dataList = dataList;
+        this.context = context;
+        itemWidth = (GlobalData.getScreenWidth(false, context) - AndroidUtil.dip2px(context, 51)) / 4;
+        inflater = LayoutInflater.from(context);
+        this.isSourceImage = isSource;
+    }
+
 
     public void refreshView() {
         PhotoActivity.instance.refreshView();
@@ -184,7 +196,7 @@ public class PhotoAdapter extends BaseAdapter {
                 Log.i("toPreviewImages", "duration: " + dataList.get(position).duration / 1000);
                 Log.i("toPreviewImages", "videoSize: " + dataList.get(position).picSize / 1024);
 
-                if (dataList.get(position).duration / 1000 <= 15 && dataList.get(position).picSize / 1024  < 4000) {
+                if (dataList.get(position).duration / 1000 <= 15 && dataList.get(position).picSize / 1024 < 4000) {
                     Log.i("toPreviewImages---> ", "");
                     PublishActivity.instance.addVideo(dataList.get(position).getPath(), dataList.get(position).video_image_path);
                     Intent completeIntent = new Intent();
@@ -238,10 +250,21 @@ public class PhotoAdapter extends BaseAdapter {
 
             } else {
                 GlobalData.galleryImageData = dataList;
-                ChoosePhotoGalleryActivity.startChoosePhotoGalleryActivity(
-                        PhotoActivity.instance, position,
-                        PhotoActivity.instance.isSendSourcePic(),
-                        PhotoActivity.TO_CHOOSE_NEW_PIC);
+
+
+                if (PhotoActivity.instance != null) {
+                    ChoosePhotoGalleryActivity.startChoosePhotoGalleryActivity(
+                            PhotoActivity.instance, position,
+                            PhotoActivity.instance.isSendSourcePic(),
+                            PhotoActivity.TO_CHOOSE_NEW_PIC);
+                } else {
+                    ChoosePhotoGalleryActivity.startChoosePhotoGalleryActivity(
+                            (Activity) context, position,
+                            isSourceImage,
+                            PhotoActivity.TO_CHOOSE_NEW_PIC);
+                }
+
+
             }
 
 

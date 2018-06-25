@@ -689,7 +689,7 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
                 case TO_LOAD_IMAGE_OVER:
                     hideDialog();
                     titleTv.setText(titleStr);
-                    adapter = new PhotoAdapter(PhotoActivity.this, dataList);
+                    adapter = new PhotoAdapter(PhotoActivity.this, dataList,isSendSourcePic);
                     photoGv.setAdapter(adapter);
                     break;
                 case REFRESH_PHOTO_VIEW:

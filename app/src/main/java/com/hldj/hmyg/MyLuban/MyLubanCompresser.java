@@ -26,7 +26,8 @@ import io.reactivex.schedulers.Schedulers;
 import me.shaohui.advancedluban.Luban;
 
 /**
- *
+ * 获取图片属性  链接
+ * https://blog.csdn.net/liu_jing_hui/article/details/62416876
  */
 
 class MyLubanCompresser {
@@ -284,6 +285,23 @@ class MyLubanCompresser {
 
         res[0] = options.outWidth;
         res[1] = options.outHeight;
+
+
+        Log.i("=====width==height====", res[0] + " --- " + res[1]);
+
+        if (res[0] <= 0 || res[1] <= 0) {
+            try {
+                ExifInterface exifInterface = new ExifInterface(imagePath);
+                res[0] = Integer.valueOf(exifInterface.getAttribute(ExifInterface.TAG_IMAGE_WIDTH));
+                res[1] = Integer.valueOf(exifInterface.getAttribute(ExifInterface.TAG_IMAGE_LENGTH));
+
+
+                Log.i("=ExifInterface", res[0] + " --- " + res[1]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
 
         return res;
     }

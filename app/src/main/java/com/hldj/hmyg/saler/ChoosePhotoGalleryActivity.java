@@ -1,5 +1,6 @@
 package com.hldj.hmyg.saler;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -64,7 +65,7 @@ public class ChoosePhotoGalleryActivity extends CoreActivity implements
 
     private int currentPage;
 
-    public static void startChoosePhotoGalleryActivity(PhotoActivity context,
+    public static void startChoosePhotoGalleryActivity(Activity context,
                                                        int currentPage, boolean isSendSourcePic, int requestCode) {
         Intent intent = new Intent(context, ChoosePhotoGalleryActivity.class);
         intent.putExtra(INTENT_CURRENT_PAGE_KEY, currentPage);
