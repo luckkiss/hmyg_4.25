@@ -81,7 +81,7 @@ public class FansActivity extends BaseMVPActivity implements View.OnClickListene
                 .openLoadMore(20, page -> {
 
                     requestDatas(page);
-                })
+                }).lazyShowEmptyViewEnable(true)
         ;
 
 

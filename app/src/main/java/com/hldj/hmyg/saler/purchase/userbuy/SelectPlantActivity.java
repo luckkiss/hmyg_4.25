@@ -89,6 +89,13 @@ public class SelectPlantActivity extends BaseMVPActivity implements OnClickListe
         new BasePresenter()
                 .putParams("key", key)
                 .doRequest("seedling/autocomplete", new HandlerAjaxCallBack() {
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        recycle.selfRefresh(false);
+                    }
+
                     @Override
                     public void onRealSuccess(SimpleGsonBean gsonBean) {
 
@@ -208,7 +215,10 @@ public class SelectPlantActivity extends BaseMVPActivity implements OnClickListe
                     finish();
                 });
             }
-        }).setDefaultEmptyView();
+        })
+//                .setDefaultEmptyView()
+                .lazyShowEmptyViewEnable(true)
+        ;
 
 //        recycle.getRecyclerView().addItemDecoration(SectionDecoration.Builder.init(new SectionDecoration.PowerGroupListener() {
 //            @Override

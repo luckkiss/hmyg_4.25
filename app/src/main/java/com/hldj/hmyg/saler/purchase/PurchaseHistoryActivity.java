@@ -166,7 +166,8 @@ public class PurchaseHistoryActivity extends BaseMVPActivity {
             }
         }).openLoadMore(20, page -> {
             requestDataByPage(page);
-        }).openRefresh();
+        }).openRefresh()
+        .lazyShowEmptyViewEnable(true);
 
         recycle.onRefresh();
 

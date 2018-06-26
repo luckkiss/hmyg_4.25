@@ -88,6 +88,7 @@ public class AttentionActivity extends BaseMVPActivity implements View.OnClickLi
 
                     requestDatas(page);
                 })
+                .lazyShowEmptyViewEnable(true)
         ;
 
 

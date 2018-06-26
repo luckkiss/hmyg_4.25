@@ -599,7 +599,7 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
                 .openRefresh()
                 .openLoadMore(10, page -> {
                     requestData(page);
-                });
+                }).lazyShowEmptyViewEnable(true);
 
 //        BuyForUserActivity.
 //                requestData(0, mCityCode, getSearchContent(), mActivity, recycle);

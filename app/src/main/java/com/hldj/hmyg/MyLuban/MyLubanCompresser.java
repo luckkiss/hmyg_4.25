@@ -334,7 +334,8 @@ class MyLubanCompresser {
 //            inSampleSize += 1;
 //        }
 
-        options.inSampleSize = calculateInSampleSize(options, width, height) - 1;
+        options.inSampleSize = calculateInSampleSize(options, width, height);
+//        options.inSampleSize = calculateInSampleSize(options, width, height) - 1;
 
 
 //        if (inSampleSize >= 2) {
@@ -487,14 +488,27 @@ class MyLubanCompresser {
             mByteArrayOutputStream.reset();
         }
 
-        int options = 100;
+
+        Log.i("before save", "width = " + bitmap.getWidth() + " heithg = " + bitmap.getHeight());
+
+
+        int options = 88;
         bitmap.compress(mLuban.compressFormat, options, mByteArrayOutputStream);
 
-        while (mByteArrayOutputStream.size() / 1024 > size && options > 6) {
+        Log.i("start save", "width = " + bitmap.getWidth() + " heithg = " + bitmap.getHeight());
+
+        while (mByteArrayOutputStream.size() / 1024 > size && options > 34) {
             mByteArrayOutputStream.reset();
             options -= 6;
             bitmap.compress(mLuban.compressFormat, options, mByteArrayOutputStream);
         }
+
+        Log.i("after save", "width = " + bitmap.getWidth() + " heithg = " + bitmap.getHeight());
+
+//        ToastUtil.showLongToast("quatly = " + options);
+
+        Log.i("======quatly===", options + "");
+
         bitmap.recycle();
 
         FileOutputStream fos = new FileOutputStream(filePath);

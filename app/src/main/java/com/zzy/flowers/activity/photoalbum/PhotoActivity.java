@@ -558,9 +558,12 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
                     path = getNewImagePath(item.getPath(), i);
                 } catch (IOException e) {
                     e.printStackTrace();
+                    path = null;
                 }
                 if (path != null) {
                     resultPathList.add(new Pic("", false, path, 0));
+                } else {
+                    resultPathList.add(new Pic("", false, item.getPath(), 0));
                 }
             } else {
                 resultPathList.add(new Pic("", false, item.getPath(), 0));
@@ -668,7 +671,7 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
         // 存储临时文件
         if (bitmapSourceImg != null) {
             FileOutputStream out = new FileOutputStream(filetemp);
-            bitmapSourceImg.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            bitmapSourceImg.compress(Bitmap.CompressFormat.JPEG, 82, out);
             out.close();
         } else {
             return file.getAbsolutePath();
@@ -689,7 +692,7 @@ public class PhotoActivity extends CoreActivity implements IThumbnailUpdate {
                 case TO_LOAD_IMAGE_OVER:
                     hideDialog();
                     titleTv.setText(titleStr);
-                    adapter = new PhotoAdapter(PhotoActivity.this, dataList,isSendSourcePic);
+                    adapter = new PhotoAdapter(PhotoActivity.this, dataList, isSendSourcePic);
                     photoGv.setAdapter(adapter);
                     break;
                 case REFRESH_PHOTO_VIEW:

@@ -67,8 +67,8 @@ public final class ImageTools {
 	public static final int CIRCLE_IMAGE_BG_HALFWIDTH = 180;
 	// public static final int CIRCLE_IMAGE_BG_HALFWIDTH = 60; //缩略图的大小高度
 	/** 图片压缩至960像素以内 */
-	public static final int COMPRESS_IMAGE_HEIGHT_PX = 960;
-	public static final int COMPRESS_IMAGE_WIDTH_PX = 960;
+	public static final int COMPRESS_IMAGE_HEIGHT_PX = 1080;
+	public static final int COMPRESS_IMAGE_WIDTH_PX = 1920;
 
 	/**
 	 * 如果是静态图片，则进行压缩处理, 并旋转 传入前保证file不为空
