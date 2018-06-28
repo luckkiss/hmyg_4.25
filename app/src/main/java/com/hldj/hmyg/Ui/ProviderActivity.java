@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.webkit.WebView;
 
+import com.hldj.hmyg.WebActivity;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseWebViewActivity;
 import com.hldj.hmyg.util.D;
@@ -53,7 +54,25 @@ public class ProviderActivity extends BaseWebViewActivity {
 
     @Override
     public void onLoadUrl(WebView webView, String url) {
+
+        if (url.contains("app/userPoint/specialRateDetail")) {
+
+            url = url.substring(0, url.lastIndexOf("&"));
+            url += "&token=" + GetServerUrl.getKeyStr(System.currentTimeMillis());
+
+            Intent intent = new Intent(mActivity, WebActivity.class);
+            intent.putExtra("title", "");
+            intent.putExtra("url", url);
+            mActivity.startActivity(intent);
+
+
+            return;
+        }
+
         super.onLoadUrl(webView, url);
+        // http://192.168.1.252:8090/app/userPoint/specialRateDetail?uid=32704040045549a8ba89e234f663f39e&token=667940947325173071cbc26165f9e0af74bce37d3f870dc7
+
+
         if (url.contains("/personal/index")) {
             finish();
         } else {
