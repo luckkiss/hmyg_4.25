@@ -51,6 +51,7 @@ import com.hldj.hmyg.widget.ComonShareDialogFragment;
 import com.hldj.hmyg.widget.SharePopupWindow;
 import com.hldj.hmyg.widget.UPMarqueeView;
 import com.hy.utils.ToastUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.white.utils.FileUtil;
 import com.zxing.encoding.EncodingHandler;
 
@@ -466,7 +467,8 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
         ImageView sptv_store_home_head = getView(R.id.logo);
 
 
-        bitmap.display(sptv_store_home_head, indexBean.store.logoUrl);
+        ImageLoader.getInstance().displayImage(indexBean.store.logoUrl,sptv_store_home_head);
+//        bitmap.display(sptv_store_home_head, indexBean.store.logoUrl);
 
 
         ViewGroup.LayoutParams l_params = new LinearLayout.LayoutParams(

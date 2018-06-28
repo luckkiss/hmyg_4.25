@@ -39,6 +39,7 @@ import com.hldj.hmyg.util.MLocationManager;
 import com.hldj.hmyg.util.MyUtil;
 import com.hldj.hmyg.util.StartBarUtils;
 import com.hldj.hmyg.widget.MainRadioButton;
+import com.hy.utils.GetServerUrl;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.white.update.UpdateInfo;
 import com.white.utils.SettingUtils;
@@ -227,9 +228,16 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
 
 
         Log.i(TAG, "JPushInterface start" + (System.currentTimeMillis() - startTime));
-        JPushInterface.setAlias(MainActivity.this, MyApplication.Userinfo
+
+
+        String alieas = MyApplication.Userinfo
                 .getString("id", "").replace("-", "").toLowerCase().trim()
-                .toString(), new TagAliasCallback() {
+                .toString();
+        if (GetServerUrl.isTest) {
+            alieas = "test" + alieas;
+        }
+
+        JPushInterface.setAlias(MainActivity.this, alieas, new TagAliasCallback() {
             @Override
             public void gotResult(int arg0, String arg1, Set<String> arg2) {
                 // TODO Auto-generated method stub
@@ -487,7 +495,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
                 if (location.getAdCode() != null && location.getAdCode().length() >= 4) {
                     cityCode = location.getAdCode().substring(0, 4);
                 }
-                if (location.getAdCode() !=null) {
+                if (location.getAdCode() != null) {
                     adCode = location.getAdCode();
                 }
 

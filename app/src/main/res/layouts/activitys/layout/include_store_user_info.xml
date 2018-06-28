@@ -6,15 +6,14 @@
     android:background="@color/trans">
 
 
-    <com.hldj.hmyg.widget.RoundRectImageView
+    <!--<com.hldj.hmyg.widget.RoundRectImageView-->
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/logo"
         android:layout_width="@dimen/px126"
         android:layout_height="@dimen/px126"
         android:layout_alignParentLeft="true"
-
         android:layout_centerVertical="true"
         android:layout_marginLeft="12dp"
-        android:scaleType="centerCrop"
         android:src="@drawable/company_head" />
 
 
@@ -22,19 +21,19 @@
         android:id="@+id/brower_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
         android:layout_alignBottom="@+id/logo"
         android:layout_alignLeft="@+id/group"
         android:layout_alignStart="@+id/group"
         android:layout_marginBottom="5dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:gravity="center"
         android:textColor="@color/text_color666"
         android:textSize="@dimen/textSizeContent"
         tools:text="浏览量 2000 " />
 
-<!--        android:background="@drawable/black_alpha_60_10"
--->
+    <!--        android:background="@drawable/black_alpha_60_10"
+    -->
     <LinearLayout
         android:id="@+id/group"
         android:layout_width="match_parent"

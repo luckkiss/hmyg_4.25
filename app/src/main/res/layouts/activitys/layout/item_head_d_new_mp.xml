@@ -15,7 +15,7 @@
         android:background="@drawable/bg_bottom_line">
 
 
-        <com.hldj.hmyg.widget.RoundRectImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/logo"
             android:layout_width="@dimen/px128"
             android:layout_height="@dimen/px128"
@@ -23,7 +23,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:scaleType="centerCrop"
-            android:src="@color/main_color" />
+            android:src="@drawable/company_head" />
 
         <TextView
             android:id="@+id/name"

@@ -1,8 +1,10 @@
 package com.hldj.hmyg.util;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.hldj.hmyg.application.MyApplication;
+import com.hy.utils.GetServerUrl;
 
 import org.json.JSONObject;
 
@@ -110,6 +112,13 @@ public class JpushUtil {
      * @param id
      */
     public static void setAlias(String id) {
+        if (GetServerUrl.isTest) {
+            id = "test" + id;
+        }
+        if (!TextUtils.isEmpty(id) && id.contains("-")) {
+            id =   id.replaceAll("-", "");
+        }
+
         JPushInterface.setAlias(MyApplication.getInstance(), id, new TagAliasCallback() {
             @Override
             public void gotResult(int code, String arg1, Set<String> arg2) {

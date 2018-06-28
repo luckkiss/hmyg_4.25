@@ -322,7 +322,10 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                                     ArrayList<Pic> pics = new ArrayList<Pic>();
                                     pics.add(pic);
                                     str_logo_json = gson.toJson(pics);
-                                    fb.display(iv_logo, logoUrl);
+//                                    fb.display(iv_logo, logoUrl);
+
+                                    ImageLoader.getInstance().displayImage(logoUrl, iv_logo);
+
                                 }
                                 if (!"".equals(bannerId)
                                         && !"".equals(bannerUrl)) {
@@ -332,6 +335,8 @@ public class StoreSettingActivity extends NeedSwipeBackActivity {
                                     pics.add(pic);
                                     str_banner_json = gson.toJson(pics);
                                     fb.display(iv_banner, bannerUrl);
+
+
                                 }
 
                             } else {
