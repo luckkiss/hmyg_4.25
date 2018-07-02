@@ -28,12 +28,14 @@ import com.hldj.hmyg.util.SPUtils;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.SdkChangeByTagUtil;
 import com.hy.utils.ToastUtil;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -308,28 +310,82 @@ public class MyApplication extends Application {
         // ImageLoaderConfiguration.createDefault(this);
         // method.
 
-        //设置默认的配置，设置缓存，这里不设置可以到别的地方设置
-        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .showImageForEmptyUri(R.drawable.icon_persion_pic)
-                .showImageOnFail(R.drawable.no_image_to_show)
-                .build();
+        //缓存路径
+        try {
+            File cacheDir = StorageUtils.getOwnCacheDirectory(this, Environment.getExternalStorageDirectory().getPath());
 
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-                this).threadPriority(Thread.NORM_PRIORITY - 2)
-                .denyCacheImageMultipleSizesInMemory()
-                .defaultDisplayImageOptions(defaultOptions)
-                .diskCacheSize(60 * 1024 * 1024) // 50 Mb
-                .memoryCache(new LruMemoryCache(10 * 1024 * 1024))
-                .tasksProcessingOrder(QueueProcessingType.LIFO)//
-                .discCacheFileNameGenerator(new Md5FileNameGenerator())
-                .tasksProcessingOrder(QueueProcessingType.LIFO)
-                .writeDebugLogs() // Remove for release app
-                .build();
-        // Initialize ImageLoader with configuration.
-        ImageLoader.getInstance().init(config);
+            Log.d(TAG, "cacheDir: " + Environment.getExternalStorageDirectory().getPath());
+
+            //设置默认的配置，设置缓存，这里不设置可以到别的地方设置
+            DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                    .cacheInMemory(true)
+                    .cacheOnDisk(true)
+                    .showImageForEmptyUri(R.drawable.icon_persion_pic)
+                    .showImageOnFail(R.drawable.no_image_to_show)
+                    .build();
+
+            ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                    this).threadPriority(Thread.NORM_PRIORITY - 2)
+                    .denyCacheImageMultipleSizesInMemory()
+                    .defaultDisplayImageOptions(defaultOptions)
+//                  .diskCache(new UnlimitedDiskCache(cacheDir))
+                    .diskCache(new UnlimitedDiscCache(cacheDir))//配饰sdcard缓存路径
+                    .diskCacheSize(60 * 1024 * 1024) // 50 Mb
+                    .memoryCache(new LruMemoryCache(10 * 1024 * 1024))
+                    .tasksProcessingOrder(QueueProcessingType.LIFO)//
+                    .discCacheFileNameGenerator(new Md5FileNameGenerator())
+                    .tasksProcessingOrder(QueueProcessingType.LIFO)
+                    .writeDebugLogs() // Remove for release app
+                    .build();
+            // Initialize ImageLoader with configuration.
+            ImageLoader.getInstance().init(config);
 // Initialize ImageLoader with configuration.
+
+
+        } catch (Exception e) {
+
+
+//            File cacheDir = StorageUtils.getOwnCacheDirectory(this, Environment.getExternalStorageDirectory().getPath());
+
+            Log.d(TAG, "cacheDir: " + Environment.getExternalStorageDirectory().getPath());
+
+            //设置默认的配置，设置缓存，这里不设置可以到别的地方设置
+            DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                    .cacheInMemory(true)
+                    .cacheOnDisk(false)
+                    .showImageForEmptyUri(R.drawable.icon_persion_pic)
+                    .showImageOnFail(R.drawable.no_image_to_show)
+                    .build();
+
+            ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                    this).threadPriority(Thread.NORM_PRIORITY - 2)
+                    .denyCacheImageMultipleSizesInMemory()
+                    .defaultDisplayImageOptions(defaultOptions)
+//                  .diskCache(new UnlimitedDiskCache(cacheDir))
+//                    .diskCache(false)//配饰sdcard缓存路径
+//                    .diskCacheSize(60 * 1024 * 1024) // 50 Mb
+                    .memoryCache(new LruMemoryCache(10 * 1024 * 1024))
+                    .tasksProcessingOrder(QueueProcessingType.LIFO)//
+                    .discCacheFileNameGenerator(new Md5FileNameGenerator())
+                    .tasksProcessingOrder(QueueProcessingType.LIFO)
+                    .writeDebugLogs() // Remove for release app
+                    .build();
+            // Initialize ImageLoader with configuration.
+            ImageLoader.getInstance().init(config);
+
+
+
+
+
+            e.printStackTrace();
+
+
+
+
+
+        }
+
+
     }
 
 

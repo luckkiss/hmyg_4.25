@@ -155,6 +155,7 @@ public class PurchaseBean {
 
         public boolean priceChange;
         public String priceChangeDate = "-";
+        public String reason = "-";
         public String updateUserName = "-";
 
     }

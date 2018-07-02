@@ -378,6 +378,8 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                                                 .append("操作人：" + item.attrData.updateUserName)
                                                 .appendLine()
                                                 .append("修改时间：" + item.attrData.priceChangeDate)
+                                                .appendLine()
+                                                .append("修改原因：" + item.attrData.reason)
                                                 .create()
                                 );
                                 TextView close = viewRoot.findViewById(R.id.left);
