@@ -72,7 +72,6 @@ public class QuoteListJsonBean implements Serializable, MultiItemEntity, IExpand
      */
 
 
-
     public String id;
     public String remarks;
     public String count;
@@ -116,7 +115,7 @@ public class QuoteListJsonBean implements Serializable, MultiItemEntity, IExpand
     public String statusName;
     public String sellerName;
     public String sellerPhone;
-    public String status;
+    public String status = "";
     public String purchaseItemStatus;
     public int height;
     public int crown;
@@ -126,6 +125,7 @@ public class QuoteListJsonBean implements Serializable, MultiItemEntity, IExpand
     public List<String> paramsList;
     public List<ItemBean.SpecListBean> specList;
 
+    public String unuseReason = "";
 
     @Override
     public String toString() {

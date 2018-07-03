@@ -257,10 +257,12 @@ public abstract class ManagerListActivity_new<P extends ManagerListPresenter, M 
 
             }
         }).openLoadMore(10, page -> {
-//            xRecyclerView.selfRefresh(true);
+//          xRecyclerView.selfRefresh(true);
             showLoading();
             requestData(page);
-        }).openLoadAnimation(BaseQuickAdapter.ALPHAIN)
+        })
+                .lazyShowEmptyViewEnable(true)
+                .openLoadAnimation(BaseQuickAdapter.ALPHAIN)
                 .openRefresh();
 
         switch2Refresh("", 0);

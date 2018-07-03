@@ -394,6 +394,7 @@ public class CenterActivity extends BaseMVPActivity {
                         mRecyclerView.onLoadMoreRequested();
                     }
                 })
+        .lazyShowEmptyViewEnable(true)
         ;
         mRecyclerView.onRefresh();
     }

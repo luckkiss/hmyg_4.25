@@ -32,7 +32,8 @@
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="190dp">
+                    android:layout_height="190dp"
+                    tools:visibility="gone">
 
 
                     <com.autoscrollview.widget.AutoScrollViewPager
@@ -176,25 +177,42 @@
                         style="@style/View_line_gray"
                         android:tag="a" />
 
-                    <com.coorchice.library.SuperTextView
-                        android:id="@+id/home_title_first"
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="4dp"
-                        android:tag="a"
-                        android:textColor="@color/main_color"
-                        android:textSize="17sp"
-                        app:isShowState="true"
-                        app:state_drawable="@drawable/home_more"
-                        app:state_drawable_height="13dp"
-                        app:state_drawable_mode="right"
-                        app:state_drawable_padding_left="-15dp"
-                        app:state_drawable_width="50dp"
-                        tools:text="  ▎最新采购" />
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <ImageView
+                            android:layout_width="@dimen/px4"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="14dp"
+                            android:src="@color/main_color" />
+
+                        <com.coorchice.library.SuperTextView
+                            android:id="@+id/home_title_first"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/px20"
+                            android:gravity="center_vertical"
+                            android:tag="a"
+                            android:textColor="@color/main_color"
+                            android:textSize="17sp"
+                            app:isShowState="true"
+                            app:state_drawable="@drawable/home_more_new"
+                            app:state_drawable_height="12dp"
+                            app:state_drawable_mode="right"
+                            app:state_drawable_padding_left="-15dp"
+                            app:state_drawable_width="33.7dp"
+                            tools:text="最新采购" />
+
+                    </LinearLayout>
+
 
                     <View
                         style="@style/View_line_gray_1px"
@@ -223,25 +241,43 @@
                         style="@style/View_line_gray"
                         android:tag="a" />
 
-                    <com.coorchice.library.SuperTextView
-                        android:id="@+id/home_title_qiu_gou"
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="4dp"
-                        android:tag="a"
-                        android:text="用户求购"
-                        android:textColor="@color/main_color"
-                        android:textSize="17sp"
-                        app:isShowState="true"
-                        app:state_drawable="@drawable/home_more"
-                        app:state_drawable_height="13dp"
-                        app:state_drawable_mode="right"
-                        app:state_drawable_padding_left="-15dp"
-                        app:state_drawable_width="50dp" />
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <ImageView
+                            android:layout_width="@dimen/px4"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="14dp"
+                            android:src="@color/main_color" />
+
+                        <com.coorchice.library.SuperTextView
+                            android:id="@+id/home_title_qiu_gou"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/px20"
+                            android:gravity="center_vertical"
+                            android:tag="a"
+                            android:textColor="@color/main_color"
+                            android:textSize="17sp"
+                            app:isShowState="true"
+                            app:state_drawable="@drawable/home_more_new"
+                            app:state_drawable_height="12dp"
+                            app:state_drawable_mode="right"
+                            app:state_drawable_padding_left="-15dp"
+                            app:state_drawable_width="33.7dp"
+                            tools:text="用户求购" />
+
+                    </LinearLayout>
+
+
 
                     <View
                         style="@style/View_line_gray_1px"
@@ -296,25 +332,44 @@
                     <!--android:scaleType="fitCenter"-->
                     <!--android:src="@drawable/home_more" />-->
                     <!--</RelativeLayout>-->
-                    <com.coorchice.library.SuperTextView
-                        android:id="@+id/home_title_second"
+
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="6dp"
-                        android:tag="a"
-                        android:textColor="@color/main_color"
-                        android:textSize="17sp"
-                        app:isShowState="true"
-                        app:state_drawable="@drawable/home_more"
-                        app:state_drawable_height="13dp"
-                        app:state_drawable_mode="right"
-                        app:state_drawable_padding_left="-15dp"
-                        app:state_drawable_width="50dp"
-                        tools:text="推荐资源" />
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <ImageView
+                            android:layout_width="@dimen/px4"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="14dp"
+                            android:src="@color/main_color" />
+
+                        <com.coorchice.library.SuperTextView
+                            android:id="@+id/home_title_second"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/px20"
+                            android:gravity="center_vertical"
+                            android:tag="a"
+                            android:textColor="@color/main_color"
+                            android:textSize="17sp"
+                            app:isShowState="true"
+                            app:state_drawable="@drawable/home_more_new"
+                            app:state_drawable_height="12dp"
+                            app:state_drawable_mode="right"
+                            app:state_drawable_padding_left="-15dp"
+                            app:state_drawable_width="33.7dp"
+                            tools:text="推荐资源" />
+
+                    </LinearLayout>
+
+
 
                     <View
                         style="@style/View_line_gray_1dp"
@@ -333,25 +388,42 @@
                 <View style="@style/View_line_gray" />
 
 
-                <com.coorchice.library.SuperTextView
-                    android:id="@+id/home_title_third"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_alignParentLeft="true"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    android:layout_alignParentTop="true"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="4dp"
-                    android:textColor="@color/main_color"
-                    android:textSize="17sp"
-                    app:isShowState="true"
-                    app:state_drawable="@drawable/home_more"
-                    app:state_drawable_height="13dp"
-                    app:state_drawable_mode="right"
-                    app:state_drawable_padding_left="-15dp"
-                    app:state_drawable_width="50dp"
-                    tools:text="热门商家" />
+
+                    <ImageView
+                        android:layout_width="@dimen/px4"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="14dp"
+                        android:src="@color/main_color" />
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/home_title_third"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/px20"
+                        android:gravity="center_vertical"
+                        android:tag="a"
+                        android:textColor="@color/main_color"
+                        android:textSize="17sp"
+                        app:isShowState="true"
+                        app:state_drawable="@drawable/home_more_new"
+                        app:state_drawable_height="12dp"
+                        app:state_drawable_mode="right"
+                        app:state_drawable_padding_left="-15dp"
+                        app:state_drawable_width="33.7dp"
+                        tools:text="热门商家" />
+
+                </LinearLayout>
+
+
 
 
                 <View style="@style/View_line_gray_1dp" />

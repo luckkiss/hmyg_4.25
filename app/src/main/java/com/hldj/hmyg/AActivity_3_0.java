@@ -1401,7 +1401,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         } else {
             for (int i = 0; i < tvs.length; i++) {
-                tvs[i].setText("  ▎" + list.get(i).title);
+                tvs[i].setText(list.get(i).title);
 //              ((ViewGroup) tvs[i].getParent()).setVisibility(View.VISIBLE);
 
                 if (list.get(i).isClick) {

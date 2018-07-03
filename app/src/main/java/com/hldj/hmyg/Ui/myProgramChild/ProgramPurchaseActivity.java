@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.coorchice.library.SuperTextView;
@@ -50,6 +51,7 @@ import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.widget.DownTime;
+import com.hy.utils.GetServerUrl;
 import com.hy.utils.SpanUtils;
 import com.hy.utils.StringFormatUtil;
 import com.hy.utils.ToastUtil;
@@ -226,496 +228,14 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //                    }
         itemAdapter = new ExpandableItemAdapter(R.layout.item_program_purch, R.layout.item_program_purch_sub) {
 
-            public void hah(BaseViewHolder helper, QuoteListJsonBean item, String tag) {
-//                            //supplier  //item.sendType.equals("hmeg")
-
-
-                showLoading();
-//                            coreRecyclerView.getRecyclerView().getAdapter().notifyItemChanged(helper.getAdapterPosition());
-                MyPrestener myPrestener = new MyPrestener();
-                myPrestener.addResultCallBack(new ResultCallBack<SimpleGsonBean>() {
-                    @Override
-                    public void onSuccess(SimpleGsonBean gsonBean) {
-                        int posParent = coreRecyclerView.getAdapter().getParentPosition(item);
-
-
-                        /*sub 某个项 进行修改*/
-
-                        if (gsonBean.getData().quote != null) {
-                            item.isUsed = gsonBean.getData().quote.isUsed;
-                            item.isAlternative = gsonBean.getData().quote.isAlternative;
-                        } else {
-                            item.isUsed = !item.isUsed;
-                        }
-
-//                        item.isUsed = !item.isUsed;
-                        item.sendType = tag;
-
-                        ProgramPurchaseExpanBean expanBean = (ProgramPurchaseExpanBean) coreRecyclerView.getAdapter().getData().get(posParent);
-                        expanBean.quoteUsedCountJson = gsonBean.getData().quote.attrData.quoteUsedCountJson;
-//                        expanBean.quoteUsedCountJson = gsonBean.getData().quoteUsedCountJson;
-                        expanBean.quotePreUsedCountJson = gsonBean.getData().quote.attrData.quotePreUsedCountJson;
-                        pareId = expanBean.id;
-//
-                        //item 改变 sub 的值
-                        for (int i = 0; i < expanBean.quoteListJson.size(); i++) {
-                            if (expanBean.quoteListJson.get(i).id.equals(item.id)) {
-                                expanBean.quoteListJson.set(i, item);
-                            }
-                        }
-                        //棒极了
-                        coreRecyclerView.getAdapter().notifyItemChanged(helper.getAdapterPosition(), item);
-                        coreRecyclerView.getAdapter().notifyItemChanged(posParent + coreRecyclerView.getAdapter().getHeaderLayoutCount(), expanBean);
-//                                    for (int i = 0; i < expanBean.quoteListJson.size(); i++) {
-//                                        if (expanBean.quoteListJson.get(i).id.equals(item.id)) {
-//                                            expanBean.quoteListJson.set(i, item);
-//
-//                                        }
-//                                    }
-
-
-//                                    collapse(posParent);
-//                                    expand(posParent);
-//                                    ToastUtil.showShortToast("修改成功，准备刷新" + json);
-
-                        //成功后刷新
-//                                    coreRecyclerView.onRefresh();
-
-                        hindLoading();
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t, int errorNo, String strMsg) {
-                        ToastUtil.showShortToast("修改失败");
-                        hindLoading();
-                    }
-                });
-                myPrestener.doUpData(item.id, tag);
-            }
-
-            // 设为备选
-            public void bak(BaseViewHolder helper, QuoteListJsonBean item, String tag) {
-                // tag = doBak   ||  unBak
-
-//                if (tag.equals("doBak")) {
-//                    admin/quote/alternativeQuote
-                new BasePresenter()
-                        .putParams("id", item.id)
-                        .putParams("isSeller", !TextUtils.isEmpty(searchKey) + "")
-                        .doRequest("admin/quote/alternativeQuote", new HandlerAjaxCallBack(mActivity) {
-                            @Override
-                            public void onRealSuccess(SimpleGsonBean gsonBean) {
-                                int posParent = coreRecyclerView.getAdapter().getParentPosition(item);
-
-                                 /*sub 某个项 进行修改*/
-
-                                if (gsonBean.getData().quote != null) {
-                                    item.isAlternative = gsonBean.getData().quote.isAlternative;
-                                } else {
-                                    item.isAlternative = !item.isAlternative;
-                                }
-//                                item.isAlternative = !item.isAlternative;
-//                                    item.sendType = tag;
-
-                                ProgramPurchaseExpanBean expanBean = (ProgramPurchaseExpanBean) coreRecyclerView.getAdapter().getData().get(posParent);
-                                expanBean.quoteUsedCountJson = gsonBean.getData().quote.attrData.quoteUsedCountJson;
-                                expanBean.quotePreUsedCountJson = gsonBean.getData().quote.attrData.quotePreUsedCountJson;
-                                pareId = expanBean.id;
-//
-                                //item 改变 sub 的值
-                                for (int i = 0; i < expanBean.quoteListJson.size(); i++) {
-                                    if (expanBean.quoteListJson.get(i).id.equals(item.id)) {
-                                        expanBean.quoteListJson.set(i, item);
-                                    }
-                                }
-                                //棒极了
-                                coreRecyclerView.getAdapter().notifyItemChanged(helper.getAdapterPosition(), item);
-                                coreRecyclerView.getAdapter().notifyItemChanged(posParent + coreRecyclerView.getAdapter().getHeaderLayoutCount(), expanBean);
-                            }
-                        });
-
-
-//                } else {
-//                    tag.equals("unBak")
-//                }
-
-
-            }
-
 
             @Override
             protected void convert(BaseViewHolder helper, MultiItemEntity mItem) {
+
+
                 if (mItem.getItemType() == TYPE_LEVEL_1)//子布局
                 {
-
-//                    D.e("======TYPE_LEVEL_1========");
-                    QuoteListJsonBean item = ((QuoteListJsonBean) mItem);
-                    int layoid = R.layout.item_program_purch_sub;
-
-                    /* 价格  +  名称    */
-
-
-                    helper.setVisible(R.id.gai, item.attrData.priceChange);
-                    helper.addOnClickListener(R.id.gai, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            AlertUtil.showCommonDialog(R.layout.item_show_price_change, getSupportFragmentManager(), viewRoot -> {
-
-                                TextView textView = viewRoot.findViewById(R.id.content);
-
-
-                                textView.setText(
-                                        new SpanUtils()
-                                                .append("原报价：")
-                                                .append(item.attrData.oldPrice).setForegroundColor(getColorByRes(R.color.price_orige))
-                                                .append("/" + item.unitTypeName)
-                                                .appendLine()
-                                                .append("修改后报价：")
-                                                .append(item.attrData.priceStr).setForegroundColor(getColorByRes(R.color.price_orige))
-                                                .append("/" + item.unitTypeName)
-                                                .appendLine()
-                                                .append("操作人：" + item.attrData.updateUserName)
-                                                .appendLine()
-                                                .append("修改时间：" + item.attrData.priceChangeDate)
-                                                .appendLine()
-                                                .append("修改原因：" + item.attrData.reason)
-                                                .create()
-                                );
-                                TextView close = viewRoot.findViewById(R.id.left);
-                                close.setOnClickListener(v1 -> {
-                                    viewRoot.dismiss();
-                                });
-
-
-                            }, true);
-
-
-                        }
-                    });
-
-//                    String pri = !showQuote ? "*" : item.price + "";
-                    /*暂时隐藏*/
-//                    if (showQuote) {//已开标
-//                        helper.setText(R.id.tv_program_purch_sub_price_type, filterColor("[" + FUtil.$_zero(item.plantTypeName) + "]" + item.price + "元/" + item.unitTypeName, item.price));// 3200/株
-//                    } else {
-//                        helper.setText(R.id.tv_program_purch_sub_price_type, filterColor("[" + FUtil.$_zero(item.plantTypeName) + "]" + " * " + "元/" + item.unitTypeName, " * "));// 3200/株
-//                    }
-
-                    /* 显示 成交单价：￥1.85 */
-                    helper.setText(R.id.tv_program_purch_sub_price_type,
-                            filterColor("[" + FUtil.$_null_to_you_say(item.plantTypeName, "未填写") + "]  "
-                                    + item.attrData.priceStr + "/" + item.unitTypeName, item.attrData.priceStr));// 3200/株
-
-
-                    helper.setText(R.id.tv_program_purch_sub_price_cont_serv_pric,
-                            new SpanUtils()
-                                    .append("成交单价：").setForegroundColor(getColorByRes(R.color.text_color666))
-                                    .append(item.attrData.finalPrice + "").setForegroundColor(getColorByRes(R.color.price_orige))
-                                    .create()
-                    );//￥3520(含服务费)
-                    // helper.setText(R.id.tv_program_purch_sub_price_cont_serv_pric,
-//                            filterColor("成交单价:" + item.attrData.finalPrice + "",
-//                                    item.attrData.finalPrice + "",
-//                                    R.color.price_orige));//￥3520(含服务费)
-
-
-                    helper.setVisible(tv_program_purch_sub_price_cont_serv_pric, item.attrData.showFinalPrice);
-
-                    helper.setVisible(R.id.final_price, item.attrData.showFinalPrice);
-
-                    helper.setText(R.id.final_price,
-                            new SpanUtils()
-                                    .append("小计：").setForegroundColor(getColorByRes(R.color.text_color666))
-                                    .append(item.attrData.totalFinalPrice + "").setForegroundColor(getColorByRes(R.color.price_orige))
-                                    .create()
-                    );//￥3520(含服务费)
-
-//                    helper.setText(R.id.final_price,
-//                            filterColor("小计:" + item.attrData.totalFinalPrice + "",
-//                                    item.attrData.totalFinalPrice + "",
-//                                    R.color.price_orige));//￥3520(含服务费)
-
-
-                    helper.setBackgroundRes(tv_program_purch_sub_use_state, R.drawable.round_rectangle_bg_btn);//初始化设置drawable
-                    helper.setTextColorRes(tv_program_purch_sub_use_state, R.color.color_purch_sub);
-
-
-                    helper.setVisible(R.id.imageView, item.isUsed || item.isAlternative);// 采用  或者  备选
-                    helper.
-                            setText(R.id.tv_ygdhj, filterColor("预估到货价：" + FUtil.$_head("￥", item.prePrice), FUtil.$_head("￥", item.prePrice), R.color.orange));// 3200/株
-//                    if (FUtil.$_zero_2_null(item.prePrice).equals("")) {
-//
-//                        helper.
-//                                setText(R.id.tv_ygdhj, filterColor("预估到货价：" + "￥" + item.prePrice, "￥" + item.prePrice, R.color.orange));// 3200/株
-//
-//                    }
-
-//                    TextView textView = helper.getView(R.id.tv_ygdhj);
-//                    textView.append(filterColor("------预估到货价：" + item.prePrice, item.prePrice, R.color.fabu_yellow));
-
-
-                    //有报价权限   并且  已开标  --- 显示  按钮
-                    if (tureQuote && getExtralState().equals(PurchaseStatus.expired.enumValue)) {
-                        helper.setVisible(tv_program_purch_sub_use_state, true);
-
-
-                        // 已采用的时候  设为备选  隐藏
-
-
-                        if (item.isUsed) { //已采用
-                            D.i("======isAlternative===是否备选=====" + item.isAlternative);
-
-                            helper.setVisible(R.id.bak, false);
-                            helper.setImageResource(R.id.imageView, R.drawable.yicaiyong_selector);
-
-                        } else {//未采用
-                            helper.setVisible(R.id.bak, true);
-                            //备选 显示
-                            //没有采用   备选按钮显示
-                            helper.addOnClickListener(R.id.bak, v -> {
-//                                ToastUtil.showLongToast("备选");
-
-//                              helper.setText(R.id.bak, "取消备选");
-                                if (item.isAlternative) {
-                                    AlertUtil.showAlert("确定取消备选?", mActivity, v1 -> bak(helper, item, ""));
-                                } else {
-                                    AlertUtil.showAlert("确定设置报价为备选?", mActivity, v1 -> bak(helper, item, ""));
-                                }
-                            });
-
-                            //备选按钮隐藏
-                            if (item.isAlternative) {
-                                //是否备选.
-                                helper.setText(R.id.bak, "取消备选");
-
-                                helper.setImageResource(R.id.imageView, R.mipmap.beixuan);
-
-                                helper.setBackgroundRes(R.id.bak, R.drawable.round_rectangle_bg_red);
-                                helper.setTextColorRes(R.id.bak, R.color.price_orige);
-
-
-                            } else {
-                                helper.setText(R.id.bak, "设为备选");
-                                helper.setImageResource(R.id.imageView, R.drawable.yicaiyong_selector);
-                                helper.setBackgroundRes(R.id.bak, R.drawable.round_rectangle_bg_btn);
-                                helper.setTextColorRes(R.id.bak, R.color.main_color);
-                            }
-
-
-                        }
-
-
-
-
-                    /*未采用&&是花木易购供应商&&未落实或者合格的显示采用按钮*/
-
-
-                        if (!item.isUsed) {
-                            //未采用
-
-
-                            //--  self.usedQuoteBtn.userInteractionEnabled=YES;
-                            //--  不显示 imageview
-
-                            //--  显示采用按钮
-                            helper.setText(tv_program_purch_sub_use_state, "采用");
-                            //--  绿色 色调 边界 跟 字体颜色
-                            //--  显示 采用 字
-                            helper.setSelected(tv_program_purch_sub_use_state, false);
-
-                            helper.addOnClickListener(tv_program_purch_sub_use_state, view -> {
-                                if (!item.isUsed) {
-                                    AlertUtil.showAlert("确定设置报价为采用?", mActivity, v -> hah(helper, item, ""));
-                                } else {
-                                    AlertUtil.showAlert("确定取消采用?", mActivity, v -> hah(helper, item, ""));
-                                }
-                                //hmeg
-
-                            });// 花木易购 采用
-
-
-
-
-                    /* 未采用&&是自有供应商&&未落实或者合格的显示采用按钮*/
-                        }
-//                    else if (!item.isUsed && item.attrData.isSupplier && (TextUtils.isEmpty(item.quoteImplementStatus) || item.quoteImplementStatus.equals("uncovered") || item.quoteImplementStatus.equals("qualified"))) {
-//
-//                        helper.setText(R.id.tv_program_purch_sub_use_state, "采用")
-//                                .setSelected(R.id.tv_program_purch_sub_use_state, false); // 供应商 采用
-//
-//                        helper.addOnClickListener(R.id.tv_program_purch_sub_use_state, view -> {
-//                            hah(helper, item, "");
-//                        });
-//                    }
-
-                    /* <!-- 已采用&&未落实显示取消按钮 -->*/
-                        //(TextUtils.isEmpty(item.quoteImplementStatus)) ||
-                        else if (item.isUsed && (TextUtils.isEmpty(item.quoteImplementStatus)) || item.quoteImplementStatus.equals("uncovered")) {
-                            //    显示取消 按钮
-                            helper.setText(tv_program_purch_sub_use_state, "取消采用");
-
-                            helper.setBackgroundRes(tv_program_purch_sub_use_state, R.drawable.round_rectangle_bg_red);
-                            helper.setTextColorRes(tv_program_purch_sub_use_state, R.color.price_orige);
-//                        helper.setSelected(R.id.tv_program_purch_sub_use_state, false);
-                            helper.addOnClickListener(tv_program_purch_sub_use_state, v -> {
-                                if (!item.isUsed) {
-                                    AlertUtil.showAlert("确定设置报价为采用?", mActivity, v1 -> hah(helper, item, ""));
-                                } else {
-                                    AlertUtil.showAlert("确定取消采用?", mActivity, v1 -> hah(helper, item, ""));
-                                }
-                            });
-
-                     /*<!-- 已采用&&合格的显示已采用并且锁定不可修改 -->*/
-                        } else if (item.isUsed && item.quoteImplementStatus.equals("covered")) {
-                            helper.setText(tv_program_purch_sub_use_state, "已采用")
-                                    .addOnClickListener(tv_program_purch_sub_use_state, null)
-                                    .setSelected(tv_program_purch_sub_use_state, true)
-                                    .setTextColorRes(tv_program_purch_sub_use_state, R.color.text_login_type)
-                                    .setVisible(R.id.tv_program_purch_sub_use_state, false)
-                                    .setSelected(R.id.imageView, true);
-                        } else {//兼容旧数据。。。默认 已采用
-                            helper.setText(R.id.tv_program_purch_sub_use_state, "已采用")
-                                    .addOnClickListener(tv_program_purch_sub_use_state, null)
-                                    .setSelected(tv_program_purch_sub_use_state, true)
-                                    .setTextColorRes(tv_program_purch_sub_use_state, R.color.text_login_type)
-                                    .setSelected(R.id.imageView, true);
-                        }
-
-
-                    } else {
-                        helper.setVisible(tv_program_purch_sub_use_state, false);
-                        helper.setVisible(R.id.bak, false);
-                    }
-
-
-                    //供应商点击的时候
-
-                    if (searchKey.equals("") && ((getExtralState().equals(PurchaseStatus.expired.enumValue) || (getExtralState().equals(PurchaseStatus.finished.enumValue))))) {
-
-
-
-                               /*是花木易购  */
-                        if (!item.attrData.isSupplier) {
-                            helper
-//                                    .setText(R.id.tv_program_purch_sub_suplier, "花木易购供应商")
-                                    .setText(R.id.tv_program_purch_sub_suplier, item.attrData.sellerName)
-                                    .setTextColorRes(R.id.tv_program_purch_sub_suplier, R.color.main_color);
-
-                        } else {
-                        /*是供应商 字段*/
-                            helper
-                                    .setText(R.id.tv_program_purch_sub_suplier, item.attrData.sellerName)//供应商
-//                                    .setText(R.id.tv_program_purch_sub_suplier, "自有供应商" + item.sellerName)//供应商
-                                    .setTextColorRes(R.id.tv_program_purch_sub_suplier, R.color.price_orige)
-                                    .addOnClickListener(R.id.tv_program_purch_sub_suplier, v -> {
-                                        FlowerDetailActivity.CallPhone(item.sellerPhone, mActivity);
-                                    });
-                        }
-                        helper.setVisible(R.id.tv_program_purch_sub_suplier, true);
-
-                    } else {
-                        helper.setVisible(R.id.tv_program_purch_sub_suplier, false);
-                    }
-
-
-
-
-
-
-
-                    /*由花木易购 显示文字  tv_program_purch_sub_who_send  通过 sendType  进行修改*/
-//                    if (item.sendType.equals("hmeg")) {
-//                        helper
-//                                .setText(R.id.tv_program_purch_sub_who_send, "由花木易购发货");
-//
-//                    } else if (item.sendType.equals("supplier")) {
-//                        helper.setText(R.id.tv_program_purch_sub_who_send, "由供应商发货");
-//                    } else {
-//                        helper.setText(R.id.tv_program_purch_sub_who_send, "");
-//                    }
-
-                    helper.setText(R.id.tv_program_purch_sub_plant_addt,
-                            new SpanUtils()
-                                    .append("苗源地：").setForegroundColor(getColorByRes(R.color.text_color666))
-                                    .append(item.cityName).setForegroundColor(getColorByRes(R.color.text_color333))
-                                    .create()
-                    );//福建漳州
-
-                    helper.setText(R.id.tv_program_purch_sub_space_text,
-                            new SpanUtils()
-                                    .append("报价说明：").setForegroundColor(getColorByRes(R.color.text_color666))
-                                    .append(item.specText).setForegroundColor(getColorByRes(R.color.text_color333))
-                                    .append("  可供数量:").setForegroundColor(getColorByRes(R.color.text_color333))
-                                    .append(FUtil.$_zero(item.count)).setForegroundColor(getColorByRes(R.color.text_color333))
-                                    .create()
-
-                    );//
-                    helper.setText(R.id.tv_program_purch_sub_remark, item.implementRemarks);//备注
-
-//                    helper.setSelected(R.id.tv_program_purch_sub_is_true, item.quoteImplementStatus.equals("qualified"));
-                    if (!item.quoteImplementStatus.equals("uncovered") && !TextUtils.isEmpty(item.quoteImplementStatus)) {
-                        //已核实
-                        helper.setText(R.id.tv_program_purch_sub_is_true, "已落实");//
-                        helper.setVisible(R.id.tv_program_purch_sub_is_true, true);
-                        helper.setSelected(R.id.tv_program_purch_sub_is_true, true);
-                        helper.setVisible(R.id.tv_program_purch_sub_remark, true);
-                    }
-//                    else  {
-//                        helper.setText(R.id.tv_program_purch_sub_is_true, "未核实");//
-//                        helper.setVisible(R.id.tv_program_purch_sub_is_true, true);
-//                        helper.setVisible(R.id.tv_program_purch_sub_remark, true);
-//                        helper.setVisible(R.id.imageView, false);
-//                        helper.setVisible(R.id.tv_program_purch_sub_use_state, false);
-//
-//                    }
-                    else {
-                        helper.setVisible(R.id.tv_program_purch_sub_is_true, false);
-                        helper.setVisible(R.id.tv_program_purch_sub_remark, false);
-                    }
-
-//                    helper.setText(R.id.tv_program_purch_sub_is_true, "已核实");//
-//                    helper.setVisible(R.id.tv_program_purch_sub_is_true, true);
-//                    helper.setSelected(R.id.tv_program_purch_sub_is_true, true);
-//                    helper.setVisible(R.id.tv_program_purch_sub_remark, true);
-
-
-                    D.e("=== \n" + item.toString());
-
-                    helper.setText(R.id.tv_program_purch_sub_plant_type, "种植类型：" + FUtil.$_zero(item.plantTypeName));//容器苗
-
-//                    helper.setText(R.id.tv_bottom_left, filterColor("苗木图片：" + "有" + item.imagesJson.size() + "张图片", item.imagesJson.size() + ""));//
-//                    helper.setText(R.id.tv_program_purch_sub_images_count, filterColor("有" + item.imagesJson.size() + "张图片", item.imagesJson.size() + "", R.color.orange_color));//
-                    PurchaseDetailActivity.setImgCounts(mActivity, helper.getView(R.id.tv_bottom_left), item.imagesJson);
-
-//                    helper.setVisible(R.id.tv_bottom_left,item.imagesJson.size() != 0);
-
-                    if (item.imagesJson.size() != 0) {
-                        helper.setVisible(R.id.tv_program_purch_sub_images_count, true);
-                        helper.setText(R.id.tv_bottom_left,
-                                new SpanUtils()
-                                        .append("苗木图片：有").setForegroundColor(getColorByRes(R.color.text_color666))
-                                        .append(item.imagesJson.size() + "").setForegroundColor(getColorByRes(R.color.price_orige))
-                                        .append("张图片").setForegroundColor(getColorByRes(R.color.text_color333))
-                                        .create()
-
-                        );//
-                        // filterColor("苗木图片：" + "有" + item.imagesJson.size() + "张图片", item.imagesJson.size() + "")
-                    } else {
-                        helper.getView(R.id.tv_program_purch_sub_images_count).setVisibility(View.INVISIBLE);
-//"苗木图片：" + "未上传图片"
-                        helper.setText(R.id.tv_bottom_left,
-
-                                new SpanUtils()
-                                        .append("苗木图片： ").setForegroundColor(getColorByRes(R.color.text_color666))
-                                        .append("未上传图片").setForegroundColor(getColorByRes(R.color.text_color333))
-                                        .create()
-                        );//
-                    }
-
-
-                    Log.e(TAG, "TYPE_LEVEL_1" + helper.getAdapterPosition());
-
+                    doConvert1(helper, mItem);
                 } else if (mItem.getItemType() == TYPE_LEVEL_0) {
 
                     ProgramPurchaseExpanBean item = ((ProgramPurchaseExpanBean) mItem);
@@ -806,17 +326,19 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                 .closeDefaultEmptyView();
 //                .openRefresh();
         showLoading();
+
+        mPresenter.getIndexDatas(getExtral(), getExtralState());
+
    /*    获取品种数据    */
-        mPresenter.getData(0 + "", getExtral(), searchKey, getExtralState());
 //        coreRecyclerView.removeAllFooterView();
 //        coreRecyclerView.removeAllHeaderView();
 
+//        mPresenter.getData(0 + "", getExtral(), searchKey, getExtralState());
 
         //加载 index 信息 head
-        mPresenter.getIndexDatas(getExtral(), getExtralState());
 
         Observable.just("hellow world")
-                .delay(300, TimeUnit.MILLISECONDS)
+                .delay(600, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(cus -> {
@@ -1099,6 +621,14 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
 
         setStyleByStates(purchaseBean.status, purchaseBean.statusName, getView(R.id.tv_head_ser_po_title), getView(R.id.tv_head_ser_po), purchaseBean);
+
+
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+        mPresenter.getData(0 + "", getExtral(), searchKey, getExtralState());
+//            }
+//        }, 300);
 
 
     }
@@ -1410,5 +940,674 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
         super.onDestroy();
     }
 
+
+    public void hah(BaseViewHolder helper, QuoteListJsonBean item, String tag) {
+//                            //supplier  //item.sendType.equals("hmeg")
+
+
+        showLoading();
+//                            coreRecyclerView.getRecyclerView().getAdapter().notifyItemChanged(helper.getAdapterPosition());
+        MyPrestener myPrestener = new MyPrestener();
+        myPrestener.addResultCallBack(new ResultCallBack<SimpleGsonBean>() {
+            @Override
+            public void onSuccess(SimpleGsonBean gsonBean) {
+                int posParent = coreRecyclerView.getAdapter().getParentPosition(item);
+
+
+                        /*sub 某个项 进行修改*/
+
+                if (gsonBean.getData().quote != null) {
+                    item.isUsed = gsonBean.getData().quote.isUsed;
+                    item.isAlternative = gsonBean.getData().quote.isAlternative;
+                } else {
+                    item.isUsed = !item.isUsed;
+                }
+
+//                        item.isUsed = !item.isUsed;
+                item.sendType = tag;
+
+                ProgramPurchaseExpanBean expanBean = (ProgramPurchaseExpanBean) coreRecyclerView.getAdapter().getData().get(posParent);
+                expanBean.quoteUsedCountJson = gsonBean.getData().quote.attrData.quoteUsedCountJson;
+//                        expanBean.quoteUsedCountJson = gsonBean.getData().quoteUsedCountJson;
+                expanBean.quotePreUsedCountJson = gsonBean.getData().quote.attrData.quotePreUsedCountJson;
+                pareId = expanBean.id;
+//
+                //item 改变 sub 的值
+                for (int i = 0; i < expanBean.quoteListJson.size(); i++) {
+                    if (expanBean.quoteListJson.get(i).id.equals(item.id)) {
+                        expanBean.quoteListJson.set(i, item);
+                    }
+                }
+                //棒极了
+                coreRecyclerView.getAdapter().notifyItemChanged(helper.getAdapterPosition(), item);
+                coreRecyclerView.getAdapter().notifyItemChanged(posParent + coreRecyclerView.getAdapter().getHeaderLayoutCount(), expanBean);
+//                                    for (int i = 0; i < expanBean.quoteListJson.size(); i++) {
+//                                        if (expanBean.quoteListJson.get(i).id.equals(item.id)) {
+//                                            expanBean.quoteListJson.set(i, item);
+//
+//                                        }
+//                                    }
+
+
+//                                    collapse(posParent);
+//                                    expand(posParent);
+//                                    ToastUtil.showShortToast("修改成功，准备刷新" + json);
+
+                //成功后刷新
+//                                    coreRecyclerView.onRefresh();
+
+                hindLoading();
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                ToastUtil.showShortToast("修改失败");
+                hindLoading();
+            }
+        });
+        myPrestener.doUpData(item.id, tag);
+    }
+
+    // 设为备选
+    public void bak(BaseViewHolder helper, QuoteListJsonBean item, String tag) {
+        // tag = doBak   ||  unBak
+
+//                if (tag.equals("doBak")) {
+//                    admin/quote/alternativeQuote
+        new BasePresenter()
+                .putParams("id", item.id)
+                .putParams("isSeller", !TextUtils.isEmpty(searchKey) + "")
+                .doRequest("admin/quote/alternativeQuote", new HandlerAjaxCallBack(mActivity) {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+                        int posParent = coreRecyclerView.getAdapter().getParentPosition(item);
+
+                                 /*sub 某个项 进行修改*/
+
+                        if (gsonBean.getData().quote != null) {
+                            item.isAlternative = gsonBean.getData().quote.isAlternative;
+                        } else {
+                            item.isAlternative = !item.isAlternative;
+                        }
+//                                item.isAlternative = !item.isAlternative;
+//                                    item.sendType = tag;
+
+                        ProgramPurchaseExpanBean expanBean = (ProgramPurchaseExpanBean) coreRecyclerView.getAdapter().getData().get(posParent);
+                        expanBean.quoteUsedCountJson = gsonBean.getData().quote.attrData.quoteUsedCountJson;
+                        expanBean.quotePreUsedCountJson = gsonBean.getData().quote.attrData.quotePreUsedCountJson;
+                        pareId = expanBean.id;
+//
+                        //item 改变 sub 的值
+                        for (int i = 0; i < expanBean.quoteListJson.size(); i++) {
+                            if (expanBean.quoteListJson.get(i).id.equals(item.id)) {
+                                expanBean.quoteListJson.set(i, item);
+                            }
+                        }
+                        //棒极了
+                        coreRecyclerView.getAdapter().notifyItemChanged(helper.getAdapterPosition(), item);
+                        coreRecyclerView.getAdapter().notifyItemChanged(posParent + coreRecyclerView.getAdapter().getHeaderLayoutCount(), expanBean);
+                    }
+                });
+
+
+//                } else {
+//                    tag.equals("unBak")
+//                }
+
+
+    }
+
+
+    private void doConvert1(BaseViewHolder helper, MultiItemEntity mItem) {
+
+//                    D.e("======TYPE_LEVEL_1========");
+        QuoteListJsonBean item = ((QuoteListJsonBean) mItem);
+        int layoid = R.layout.item_program_purch_sub;
+        boolean isConverted = !item.quoteImplementStatus.equals("uncovered") && !TextUtils.isEmpty(item.quoteImplementStatus);
+                    /* 价格  +  名称    */
+
+
+        helper.addOnClickListener(R.id.reason, new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+
+                if (GetServerUrl.isTest)
+                    ToastUtil.showLongToast("测试显示\n  查看原因\n" + item.unuseReason + " 是否现场核实 \n  " + isConverted + "  covered name = " + item.quoteImplementStatus);
+
+                AlertUtil.showCommonEditDialog(getSupportFragmentManager(), new AlertUtil.DoConvertView() {
+                    @Override
+                    public void onConvert(Dialog viewRoot) {
+
+                         /* 已落实状态 */
+//                        boolean isConverted = !item.quoteImplementStatus.equals("uncovered") && !TextUtils.isEmpty(item.quoteImplementStatus);
+
+                        EditText editText1 = viewRoot.findViewById(R.id.edit_content);
+
+                        RadioButton yes = viewRoot.findViewById(R.id.yes);
+                        RadioButton no = viewRoot.findViewById(R.id.no);
+
+                        if (isConverted) {
+                            yes.setChecked(true);
+                            no.setVisibility(View.GONE);
+                        } else {
+                            no.setChecked(true);
+                            yes.setVisibility(View.GONE);
+                        }
+
+                        editText1.setText(item.unuseReason);
+                        editText1.setEnabled(false);
+
+
+                        TextView save = viewRoot.findViewById(R.id.save);
+                        save.setText("关闭");
+                        save.setOnClickListener(v1 -> {
+//                          dialog.dismiss();
+                            viewRoot.dismiss();
+                        });
+
+                        View cancel = viewRoot.findViewById(R.id.cancel);
+                        cancel.setOnClickListener(v1 -> {
+                            viewRoot.dismiss();
+                        });
+
+                        cancel.setVisibility(View.GONE);
+
+                    }
+                });
+
+
+            }
+        });
+
+        helper.setVisible(R.id.reason, false);
+        helper.setVisible(R.id.bad, true);
+
+        View.OnClickListener badClick = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+
+                AlertUtil.showCommonEditDialog(getSupportFragmentManager(), new AlertUtil.DoConvertView() {
+                    @Override
+                    public void onConvert(Dialog viewRoot) {
+
+                         /* 已落实状态 */
+                        boolean isConverted = !item.quoteImplementStatus.equals("uncovered") && !TextUtils.isEmpty(item.quoteImplementStatus);
+
+                        EditText editText1 = viewRoot.findViewById(R.id.edit_content);
+
+                        RadioButton yes = viewRoot.findViewById(R.id.yes);
+                        RadioButton no = viewRoot.findViewById(R.id.no);
+
+                        if (isConverted) {
+                            yes.setChecked(true);
+                            no.setVisibility(View.GONE);
+                        } else {
+                            no.setVisibility(View.VISIBLE);
+                        }
+
+
+                        View save = viewRoot.findViewById(R.id.save);
+                        save.setOnClickListener(v1 -> {
+//                            ToastUtil.showLongToast("save" + editText1.getText());
+
+                            if (!yes.isChecked() && !no.isChecked()) {
+                                ToastUtil.showLongToast("请确认是否现场合适");
+                                return;
+                            }
+                            if (TextUtils.isEmpty(editText1.getText())) {
+                                ToastUtil.showLongToast("请填写不合适原因");
+                                return;
+                            }
+
+
+                            //String id,String isCovered,String unUseReason
+                            new BasePresenter()
+                                    .putParams("id", item.id)
+                                    .putParams("isCovered", yes.isChecked() + "")
+                                    .putParams("unUseReason", editText1.getText().toString())
+                                    .doRequest("admin/quote/saveUnUsed", new HandlerAjaxCallBack(mActivity) {
+                                        @Override
+                                        public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                            if (gsonBean.isSucceed()) {
+
+//                                                gsonBean.getData().quote
+
+                                                helper.setVisible(R.id.reason, true);
+                                                helper.setVisible(R.id.bad, false);
+                                                helper.setVisible(R.id.bak, false);
+                                                helper.setVisible(R.id.tv_program_purch_sub_use_state, false);
+
+                                                helper.setVisible(R.id.imageView, true)
+                                                        .setImageResource(R.id.imageView, R.mipmap.weizhongbiao)
+                                                ;
+                                                item.unuseReason = editText1.getText().toString();
+                                                item.status = "unused";
+
+                                                if (yes.isChecked()) {
+                                                    item.quoteImplementStatus = "covered";
+                                                } else {
+                                                    item.quoteImplementStatus = "uncovered";
+                                                }
+                                                viewRoot.dismiss();
+                                            }
+                                        }
+                                    });
+                        });
+
+                        View cancel = viewRoot.findViewById(R.id.cancel);
+                        cancel.setOnClickListener(v1 -> {
+//                            ToastUtil.showLongToast("cancel" + editText1.getText());
+                            viewRoot.dismiss();
+                        });
+
+
+                    }
+                });
+
+
+            }
+        };
+
+        helper.addOnClickListener(R.id.bad, badClick);
+
+
+        helper.setVisible(R.id.gai, item.attrData.priceChange);
+        helper.addOnClickListener(R.id.gai, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertUtil.showCommonDialog(R.layout.item_show_price_change, getSupportFragmentManager(), viewRoot -> {
+
+                    TextView textView = viewRoot.findViewById(R.id.content);
+
+
+                    textView.setText(
+                            new SpanUtils()
+                                    .append("原报价：")
+                                    .append(item.attrData.oldPrice).setForegroundColor(getColorByRes(R.color.price_orige))
+                                    .append("/" + item.unitTypeName)
+                                    .appendLine()
+                                    .append("修改后报价：")
+                                    .append(item.attrData.priceStr).setForegroundColor(getColorByRes(R.color.price_orige))
+                                    .append("/" + item.unitTypeName)
+                                    .appendLine()
+                                    .append("操作人：" + item.attrData.updateUserName)
+                                    .appendLine()
+                                    .append("修改时间：" + item.attrData.priceChangeDate)
+                                    .appendLine()
+                                    .append("修改原因：" + item.attrData.reason)
+                                    .create()
+                    );
+                    TextView close = viewRoot.findViewById(R.id.left);
+                    close.setOnClickListener(v1 -> {
+                        viewRoot.dismiss();
+                    });
+
+
+                }, true);
+
+
+            }
+        });
+
+//                    String pri = !showQuote ? "*" : item.price + "";
+                    /*暂时隐藏*/
+//                    if (showQuote) {//已开标
+//                        helper.setText(R.id.tv_program_purch_sub_price_type, filterColor("[" + FUtil.$_zero(item.plantTypeName) + "]" + item.price + "元/" + item.unitTypeName, item.price));// 3200/株
+//                    } else {
+//                        helper.setText(R.id.tv_program_purch_sub_price_type, filterColor("[" + FUtil.$_zero(item.plantTypeName) + "]" + " * " + "元/" + item.unitTypeName, " * "));// 3200/株
+//                    }
+
+                    /* 显示 成交单价：￥1.85 */
+        helper.setText(R.id.tv_program_purch_sub_price_type,
+                filterColor("[" + FUtil.$_null_to_you_say(item.plantTypeName, "未填写") + "]  "
+                        + item.attrData.priceStr + "/" + item.unitTypeName, item.attrData.priceStr));// 3200/株
+
+
+        helper.setText(R.id.tv_program_purch_sub_price_cont_serv_pric,
+                new SpanUtils()
+                        .append("成交单价：").setForegroundColor(getColorByRes(R.color.text_color666))
+                        .append(item.attrData.finalPrice + "").setForegroundColor(getColorByRes(R.color.price_orige))
+                        .create()
+        );//￥3520(含服务费)
+        // helper.setText(R.id.tv_program_purch_sub_price_cont_serv_pric,
+//                            filterColor("成交单价:" + item.attrData.finalPrice + "",
+//                                    item.attrData.finalPrice + "",
+//                                    R.color.price_orige));//￥3520(含服务费)
+
+
+        helper.setVisible(tv_program_purch_sub_price_cont_serv_pric, item.attrData.showFinalPrice);
+
+        helper.setVisible(R.id.final_price, item.attrData.showFinalPrice);
+
+        helper.setText(R.id.final_price,
+                new SpanUtils()
+                        .append("小计：").setForegroundColor(getColorByRes(R.color.text_color666))
+                        .append(item.attrData.totalFinalPrice + "").setForegroundColor(getColorByRes(R.color.price_orige))
+                        .create()
+        );//￥3520(含服务费)
+
+//                    helper.setText(R.id.final_price,
+//                            filterColor("小计:" + item.attrData.totalFinalPrice + "",
+//                                    item.attrData.totalFinalPrice + "",
+//                                    R.color.price_orige));//￥3520(含服务费)
+
+
+        helper.setBackgroundRes(tv_program_purch_sub_use_state, R.drawable.round_rectangle_bg_btn);//初始化设置drawable
+        helper.setTextColorRes(tv_program_purch_sub_use_state, R.color.color_purch_sub);
+
+
+        helper.setVisible(R.id.imageView, item.isUsed || item.isAlternative);// 采用  或者  备选
+        helper.
+                setText(R.id.tv_ygdhj, filterColor("预估到货价：" + FUtil.$_head("￥", item.prePrice), FUtil.$_head("￥", item.prePrice), R.color.orange));// 3200/株
+//                    if (FUtil.$_zero_2_null(item.prePrice).equals("")) {
+//
+//                        helper.
+//                                setText(R.id.tv_ygdhj, filterColor("预估到货价：" + "￥" + item.prePrice, "￥" + item.prePrice, R.color.orange));// 3200/株
+//
+//                    }
+
+//                    TextView textView = helper.getView(R.id.tv_ygdhj);
+//                    textView.append(filterColor("------预估到货价：" + item.prePrice, item.prePrice, R.color.fabu_yellow));
+
+
+        //有报价权限   并且  已开标  --- 显示  按钮
+        if (tureQuote && getExtralState().equals(PurchaseStatus.expired.enumValue) && !item.status.equals("unused")) {
+            helper.setVisible(tv_program_purch_sub_use_state, true);
+
+
+            // 已采用的时候  设为备选  隐藏
+
+
+            if (item.isUsed) { //已采用
+                D.i("======isAlternative===是否备选=====" + item.isAlternative);
+
+                helper.setVisible(R.id.bak, false);
+                helper.setImageResource(R.id.imageView, R.drawable.yicaiyong_selector);
+
+                // 已采用 隐藏 bad 不合适 按钮
+//                helper.addOnClickListener(R.id.bad,badClick);
+                helper.setVisible(R.id.bad, false);
+
+
+            } else {//未采用
+                helper.setVisible(R.id.bad, true);
+                //备选 显示
+                //没有采用   备选按钮显示
+                helper.addOnClickListener(R.id.bak, v -> {
+//                                ToastUtil.showLongToast("备选");
+
+//                              helper.setText(R.id.bak, "取消备选");
+                    if (item.isAlternative) {
+                        AlertUtil.showAlert("确定取消备选?", mActivity, v1 -> bak(helper, item, ""));
+                    } else {
+                        AlertUtil.showAlert("确定设置报价为备选?", mActivity, v1 -> bak(helper, item, ""));
+                    }
+                });
+
+
+                //备选按钮隐藏
+                if (item.isAlternative) {
+                    //是否备选.
+                    helper.setText(R.id.bak, "取消备选");
+                    helper.setVisible(R.id.bak, !isConverted);
+                    helper.setImageResource(R.id.imageView, R.mipmap.beixuan);
+
+                    helper.setBackgroundRes(R.id.bak, R.drawable.round_rectangle_bg_red);
+                    helper.setTextColorRes(R.id.bak, R.color.price_orige);
+
+
+                    helper.setVisible(R.id.bad, false);
+
+                } else {
+                    helper.setVisible(R.id.bak, !isConverted);
+                    helper.setText(R.id.bak, "设为备选");
+                    helper.setImageResource(R.id.imageView, R.drawable.yicaiyong_selector);
+                    helper.setBackgroundRes(R.id.bak, R.drawable.round_rectangle_bg_btn);
+                    helper.setTextColorRes(R.id.bak, R.color.main_color);
+                }
+
+                    /* 已落实状态  。 隐藏  备选按钮 */
+
+
+
+
+            }
+
+
+
+
+                    /*未采用&&是花木易购供应商&&未落实或者合格的显示采用按钮*/
+
+
+            if (!item.isUsed) {
+                //未采用
+
+
+                //--  self.usedQuoteBtn.userInteractionEnabled=YES;
+                //--  不显示 imageview
+
+                //--  显示采用按钮
+                helper.setText(tv_program_purch_sub_use_state, "采用");
+                //--  绿色 色调 边界 跟 字体颜色
+                //--  显示 采用 字
+                helper.setSelected(tv_program_purch_sub_use_state, false);
+
+                helper.addOnClickListener(tv_program_purch_sub_use_state, view -> {
+                    if (!item.isUsed) {
+                        AlertUtil.showAlert("确定设置报价为采用?", mActivity, v -> hah(helper, item, ""));
+                    } else {
+                        AlertUtil.showAlert("确定取消采用?", mActivity, v -> hah(helper, item, ""));
+                    }
+                    //hmeg
+
+                });// 花木易购 采用
+
+
+
+
+                    /* 未采用&&是自有供应商&&未落实或者合格的显示采用按钮*/
+            }
+//                    else if (!item.isUsed && item.attrData.isSupplier && (TextUtils.isEmpty(item.quoteImplementStatus) || item.quoteImplementStatus.equals("uncovered") || item.quoteImplementStatus.equals("qualified"))) {
+//
+//                        helper.setText(R.id.tv_program_purch_sub_use_state, "采用")
+//                                .setSelected(R.id.tv_program_purch_sub_use_state, false); // 供应商 采用
+//
+//                        helper.addOnClickListener(R.id.tv_program_purch_sub_use_state, view -> {
+//                            hah(helper, item, "");
+//                        });
+//                    }
+
+                    /* <!-- 已采用&&未落实显示取消按钮 -->*/
+            //(TextUtils.isEmpty(item.quoteImplementStatus)) ||
+            else if (item.isUsed && (TextUtils.isEmpty(item.quoteImplementStatus)) || item.quoteImplementStatus.equals("uncovered")) {
+                //    显示取消 按钮
+                helper.setText(tv_program_purch_sub_use_state, "取消采用");
+
+                helper.setBackgroundRes(tv_program_purch_sub_use_state, R.drawable.round_rectangle_bg_red);
+                helper.setTextColorRes(tv_program_purch_sub_use_state, R.color.price_orige);
+//                        helper.setSelected(R.id.tv_program_purch_sub_use_state, false);
+                helper.addOnClickListener(tv_program_purch_sub_use_state, v -> {
+                    if (!item.isUsed) {
+                        AlertUtil.showAlert("确定设置报价为采用?", mActivity, v1 -> hah(helper, item, ""));
+                    } else {
+                        AlertUtil.showAlert("确定取消采用?", mActivity, v1 -> hah(helper, item, ""));
+                    }
+                });
+
+                     /*<!-- 已采用&&合格的显示已采用并且锁定不可修改 -->*/
+            } else if (item.isUsed && item.quoteImplementStatus.equals("covered")) {
+                helper.setText(tv_program_purch_sub_use_state, "已采用")
+                        .addOnClickListener(tv_program_purch_sub_use_state, null)
+                        .setSelected(tv_program_purch_sub_use_state, true)
+                        .setTextColorRes(tv_program_purch_sub_use_state, R.color.text_login_type)
+                        .setVisible(R.id.tv_program_purch_sub_use_state, false)
+                        .setSelected(R.id.imageView, true);
+            } else {//兼容旧数据。。。默认 已采用
+                helper.setText(R.id.tv_program_purch_sub_use_state, "已采用")
+                        .addOnClickListener(tv_program_purch_sub_use_state, null)
+                        .setSelected(tv_program_purch_sub_use_state, true)
+                        .setTextColorRes(tv_program_purch_sub_use_state, R.color.text_login_type)
+                        .setSelected(R.id.imageView, true);
+            }
+
+
+        } else {
+            helper.setVisible(tv_program_purch_sub_use_state, false);
+            helper.setVisible(R.id.bak, false);
+            helper.setVisible(R.id.bad, false);
+
+
+            // 未中标
+            if (!TextUtils.isEmpty(item.unuseReason) && item.status.equals("unused")) {
+//                unused
+                helper.setVisible(R.id.reason, true);
+                helper.setVisible(R.id.imageView, true)
+                        .setImageResource(R.id.imageView, R.mipmap.weizhongbiao)
+                ;
+            } else {
+                helper.setVisible(R.id.reason, false);
+                helper.setVisible(R.id.imageView, true)
+                        .setImageResource(R.id.imageView, R.mipmap.weizhongbiao)
+                ;
+//                helper.setImageResource(R.id.imageView,)
+            }
+
+
+        }
+
+
+        //供应商点击的时候
+
+        if (searchKey.equals("") && ((getExtralState().equals(PurchaseStatus.expired.enumValue) || (getExtralState().equals(PurchaseStatus.finished.enumValue))))) {
+
+
+
+                               /*是花木易购  */
+            if (!item.attrData.isSupplier) {
+                helper
+//                                    .setText(R.id.tv_program_purch_sub_suplier, "花木易购供应商")
+                        .setText(R.id.tv_program_purch_sub_suplier, item.attrData.sellerName)
+                        .setTextColorRes(R.id.tv_program_purch_sub_suplier, R.color.main_color);
+
+            } else {
+                        /*是供应商 字段*/
+                helper
+                        .setText(R.id.tv_program_purch_sub_suplier, item.attrData.sellerName)//供应商
+//                                    .setText(R.id.tv_program_purch_sub_suplier, "自有供应商" + item.sellerName)//供应商
+                        .setTextColorRes(R.id.tv_program_purch_sub_suplier, R.color.price_orige)
+                        .addOnClickListener(R.id.tv_program_purch_sub_suplier, v -> {
+                            FlowerDetailActivity.CallPhone(item.sellerPhone, mActivity);
+                        });
+            }
+            helper.setVisible(R.id.tv_program_purch_sub_suplier, true);
+
+        } else {
+            helper.setVisible(R.id.tv_program_purch_sub_suplier, false);
+        }
+
+
+
+
+
+
+
+                    /*由花木易购 显示文字  tv_program_purch_sub_who_send  通过 sendType  进行修改*/
+//                    if (item.sendType.equals("hmeg")) {
+//                        helper
+//                                .setText(R.id.tv_program_purch_sub_who_send, "由花木易购发货");
+//
+//                    } else if (item.sendType.equals("supplier")) {
+//                        helper.setText(R.id.tv_program_purch_sub_who_send, "由供应商发货");
+//                    } else {
+//                        helper.setText(R.id.tv_program_purch_sub_who_send, "");
+//                    }
+
+        helper.setText(R.id.tv_program_purch_sub_plant_addt,
+                new SpanUtils()
+                        .append("苗源地：").setForegroundColor(getColorByRes(R.color.text_color666))
+                        .append(item.cityName).setForegroundColor(getColorByRes(R.color.text_color333))
+                        .create()
+        );//福建漳州
+
+        helper.setText(R.id.tv_program_purch_sub_space_text,
+                new SpanUtils()
+                        .append("报价说明：").setForegroundColor(getColorByRes(R.color.text_color666))
+                        .append(item.specText).setForegroundColor(getColorByRes(R.color.text_color333))
+                        .append("  可供数量:").setForegroundColor(getColorByRes(R.color.text_color333))
+                        .append(FUtil.$_zero(item.count)).setForegroundColor(getColorByRes(R.color.text_color333))
+                        .create()
+
+        );//
+        helper.setText(R.id.tv_program_purch_sub_remark, item.implementRemarks);//备注
+
+//                    helper.setSelected(R.id.tv_program_purch_sub_is_true, item.quoteImplementStatus.equals("qualified"));
+        if (!item.quoteImplementStatus.equals("uncovered") && !TextUtils.isEmpty(item.quoteImplementStatus)) {
+            //已核实
+            helper.setText(R.id.tv_program_purch_sub_is_true, "已落实");//
+            helper.setVisible(R.id.tv_program_purch_sub_is_true, true);
+            helper.setSelected(R.id.tv_program_purch_sub_is_true, true);
+            helper.setVisible(R.id.tv_program_purch_sub_remark, true);
+        }
+//                    else  {
+//                        helper.setText(R.id.tv_program_purch_sub_is_true, "未核实");//
+//                        helper.setVisible(R.id.tv_program_purch_sub_is_true, true);
+//                        helper.setVisible(R.id.tv_program_purch_sub_remark, true);
+//                        helper.setVisible(R.id.imageView, false);
+//                        helper.setVisible(R.id.tv_program_purch_sub_use_state, false);
+//
+//                    }
+        else {
+            helper.setVisible(R.id.tv_program_purch_sub_is_true, false);
+            helper.setVisible(R.id.tv_program_purch_sub_remark, false);
+        }
+
+//                    helper.setText(R.id.tv_program_purch_sub_is_true, "已核实");//
+//                    helper.setVisible(R.id.tv_program_purch_sub_is_true, true);
+//                    helper.setSelected(R.id.tv_program_purch_sub_is_true, true);
+//                    helper.setVisible(R.id.tv_program_purch_sub_remark, true);
+
+
+        D.e("=== \n" + item.toString());
+
+        helper.setText(R.id.tv_program_purch_sub_plant_type, "种植类型：" + FUtil.$_zero(item.plantTypeName));//容器苗
+
+//                    helper.setText(R.id.tv_bottom_left, filterColor("苗木图片：" + "有" + item.imagesJson.size() + "张图片", item.imagesJson.size() + ""));//
+//                    helper.setText(R.id.tv_program_purch_sub_images_count, filterColor("有" + item.imagesJson.size() + "张图片", item.imagesJson.size() + "", R.color.orange_color));//
+        PurchaseDetailActivity.setImgCounts(mActivity, helper.getView(R.id.tv_bottom_left), item.imagesJson);
+
+//                    helper.setVisible(R.id.tv_bottom_left,item.imagesJson.size() != 0);
+
+        if (item.imagesJson.size() != 0) {
+            helper.setVisible(R.id.tv_program_purch_sub_images_count, true);
+            helper.setText(R.id.tv_bottom_left,
+                    new SpanUtils()
+                            .append("苗木图片：有").setForegroundColor(getColorByRes(R.color.text_color666))
+                            .append(item.imagesJson.size() + "").setForegroundColor(getColorByRes(R.color.price_orige))
+                            .append("张图片").setForegroundColor(getColorByRes(R.color.text_color333))
+                            .create()
+
+            );//
+            // filterColor("苗木图片：" + "有" + item.imagesJson.size() + "张图片", item.imagesJson.size() + "")
+        } else {
+            helper.getView(R.id.tv_program_purch_sub_images_count).setVisibility(View.INVISIBLE);
+//"苗木图片：" + "未上传图片"
+            helper.setText(R.id.tv_bottom_left,
+
+                    new SpanUtils()
+                            .append("苗木图片： ").setForegroundColor(getColorByRes(R.color.text_color666))
+                            .append("未上传图片").setForegroundColor(getColorByRes(R.color.text_color333))
+                            .create()
+            );//
+        }
+
+
+        Log.e(TAG, "TYPE_LEVEL_1" + helper.getAdapterPosition());
+
+    }
 
 }

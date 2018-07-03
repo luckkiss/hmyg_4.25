@@ -53,6 +53,7 @@ public abstract class BaseRecycleViewFragment<T> extends BaseLazyFragment {
             }
         })
                 .openRefresh()
+                .lazyShowEmptyViewEnable(true)
                 .openLoadMore(pageSize, page -> {
                     doRefreshRecycle(page + "");
                 });

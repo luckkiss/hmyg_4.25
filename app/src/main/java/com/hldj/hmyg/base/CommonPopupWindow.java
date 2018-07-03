@@ -32,7 +32,7 @@ public class CommonPopupWindow extends PopupWindow {
     public static int TYPE_WHITE_DOWN = R.drawable.down;
     public static int TYPE_BLACK_UP = R.drawable.bg_popupwindow;
     public static int TYPE_BLACK_UP_NEW = R.drawable.bg_popupwindow_new;
-    public static int TYPE_WHITE_UP_RIGHT_TOP = R.drawable.bg_white_up_right_top;
+    public static int TYPE_WHITE_UP_RIGHT_TOP = R.drawable.bg_white_up_right_top_new_one;
     public static int trans = R.drawable.trans_bg;
 
 
@@ -122,6 +122,7 @@ public class CommonPopupWindow extends PopupWindow {
             builder.listener.covertView(rootView, this);
         }
         setBackgroundDrawable(builder.mContext.getResources().getDrawable(builder.bgType));// 设置背景图片，不能在布局中设置，要通过代码来设置
+        this.getBackground().setAlpha(255);
     }
 
     public static Builder builder(Context mContext) {

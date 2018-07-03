@@ -318,9 +318,16 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
 
     }
 
+    private boolean lazy_isOpenRetryButton = false;
+    private String lazy_text = "";
+    private View.OnClickListener lazy_retry;
+
+
     public CoreRecyclerView setDefaultEmptyView(boolean isOpenRetryButton, String text, View.OnClickListener retry) {
         View empty = LayoutInflater.from(getContext()).inflate(R.layout.empty_view, null);
-
+        this.lazy_isOpenRetryButton = isOpenRetryButton;
+        this.lazy_text = text;
+        this.lazy_retry = retry;
         if (isOpenRetryButton) {
             TextView textView = empty.findViewById(R.id.go_to);
             textView.setVisibility(VISIBLE);
@@ -448,7 +455,7 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
         }
 
         if (!b && isLazyShowEmpty) {
-            setDefaultEmptyView();
+            setDefaultEmptyView(lazy_isOpenRetryButton, lazy_text, lazy_retry);
         }
 
         return this;

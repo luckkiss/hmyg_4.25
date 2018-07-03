@@ -318,18 +318,20 @@
         <Button
             android:id="@+id/btn_manager_storege"
             style="@style/bottom_button_green"
-            android:layout_gravity="center"
+            android:layout_gravity="center_vertical"
             android:background="@drawable/bg_top_bottom_line"
             android:text="草稿箱"
             android:textColor="@color/text_color999"
             android:textSize="14sp"
+            android:layout_height="match_parent"
             android:layout_weight="0.5"
             />
 
         <Button
             android:id="@+id/btn_manager_publish"
             style="@style/bottom_button_green"
-            android:layout_gravity="center"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
             android:text="添加苗木"
             android:textSize="14sp" />
 

@@ -250,7 +250,9 @@ public class AskToByFragment extends BaseLazyFragment {
             PublishForUserActivity.start2Activity(mActivity);
         }).openLoadMore(100, page -> {
             requestData();
-        }).openRefresh();
+        }).openRefresh()
+            .lazyShowEmptyViewEnable(true)
+        ;
 
         recycle.getRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
