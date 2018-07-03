@@ -1,5 +1,7 @@
 package com.hldj.hmyg.M;
 
+import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
+
 import java.util.List;
 
 /**
@@ -139,7 +141,7 @@ public class TestGsonBean {
                 public String diameterType;
                 public List<String> paramsList;
                 public List<SpecListBean> specList;
-                public List<QuoteListJsonBean> quoteListJson;
+                public List<SellerQuoteJsonBean> quoteListJson;
 
                 public static class SpecListBean {
                     /**

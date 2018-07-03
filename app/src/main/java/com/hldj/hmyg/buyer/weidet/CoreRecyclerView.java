@@ -349,7 +349,10 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
         return this;
     }
 
+    private CharSequence lazy_tip = "";
+
     public CoreRecyclerView showEmptyAndSetTip(CharSequence str) {
+        this.lazy_tip = str;
         if (mQuickAdapter.getEmptyView() != null) {
             TextView t_tipTextView = mQuickAdapter.getEmptyView().findViewById(R.id.t_tipTextView);
             if (t_tipTextView != null) {
@@ -456,6 +459,10 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
 
         if (!b && isLazyShowEmpty) {
             setDefaultEmptyView(lazy_isOpenRetryButton, lazy_text, lazy_retry);
+            if (!TextUtils.isEmpty(lazy_tip)) {
+                showEmptyAndSetTip(lazy_tip);
+            }
+
         }
 
         return this;

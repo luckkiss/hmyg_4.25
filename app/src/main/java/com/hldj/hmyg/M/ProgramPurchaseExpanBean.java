@@ -1,6 +1,7 @@
 package com.hldj.hmyg.M;
 
 import com.hldj.hmyg.buyer.M.ItemBean;
+import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
 import com.hldj.hmyg.buyer.weidet.entity.AbstractExpandableItem;
 import com.hldj.hmyg.buyer.weidet.entity.MultiItemEntity;
 
@@ -14,7 +15,7 @@ import static com.hldj.hmyg.buyer.weidet.ExpandableItemAdapter.TYPE_LEVEL_0;
  * Created by 罗擦擦   实现  多级列表   impl iexpanbale  on 2017/6/30 0030.
  */
 
-public class ProgramPurchaseExpanBean extends AbstractExpandableItem<QuoteListJsonBean> implements Serializable, MultiItemEntity {
+public class ProgramPurchaseExpanBean extends AbstractExpandableItem<SellerQuoteJsonBean> implements Serializable, MultiItemEntity {
 
     /**
      * id : f52f8fd5e7e74c0fa97abd1f3cfd1228
@@ -108,7 +109,7 @@ public class ProgramPurchaseExpanBean extends AbstractExpandableItem<QuoteListJs
     public String diameterType;
     public List<String> paramsList;
     public List<ItemBean.SpecListBean> specList;
-    public List<QuoteListJsonBean> quoteListJson = new ArrayList<>();
+    public List<SellerQuoteJsonBean> quoteListJson = new ArrayList<>();
 
     @Override
     public int getLevel() {
@@ -116,7 +117,7 @@ public class ProgramPurchaseExpanBean extends AbstractExpandableItem<QuoteListJs
     }
 
     @Override
-    public List<QuoteListJsonBean> getSubItems() {
+    public List<SellerQuoteJsonBean> getSubItems() {
         return quoteListJson;
     }
 

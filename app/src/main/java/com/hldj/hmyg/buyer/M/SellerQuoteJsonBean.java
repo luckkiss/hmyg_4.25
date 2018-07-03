@@ -1,14 +1,20 @@
 package com.hldj.hmyg.buyer.M;
 
+import com.hldj.hmyg.buyer.weidet.entity.IExpandable;
+import com.hldj.hmyg.buyer.weidet.entity.MultiItemEntity;
+import com.hldj.hmyg.saler.M.PurchaseBean;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.hldj.hmyg.buyer.weidet.ExpandableItemAdapter.TYPE_LEVEL_1;
+
 /**
- * Created by Administrator on 2017/4/27.
+ *  Created by 罗擦擦  实现  多级菜单 数据 on 2017/6/30 0030.
  */
 
-public class SellerQuoteJsonBean implements Serializable {
+public class SellerQuoteJsonBean implements Serializable  ,MultiItemEntity, IExpandable {
     /**
      * id : 95566496cd934b1da84f986db30e6a30
      * remarks : 备注
@@ -102,7 +108,7 @@ public class SellerQuoteJsonBean implements Serializable {
     public String sellerId;
     public String price;
     public String prePrice;
-    public String status;
+    public String status="";
     public String sellerName;
     public String sellerPhone;
     public String purchaseItemStatus;
@@ -113,10 +119,19 @@ public class SellerQuoteJsonBean implements Serializable {
     public boolean isAlternative ;
     public boolean isUsed ;
 
+
+    public String sendType = "";
+
+    public String unuseReason = "";
+    public String quoteImplementStatus = "";
+    public String implementRemarks = "";
+
+
     public AttrData attrData = new AttrData();
 
 
-    public static class AttrData implements Serializable{
+
+    public static class AttrData extends PurchaseBean.AttrDataBean implements Serializable{
         public int quoteUsedCountJson ;
         public int quotePreUsedCountJson ;
     }
@@ -135,5 +150,31 @@ public class SellerQuoteJsonBean implements Serializable {
 
         public String name;
         public String value;
+    }
+
+
+    @Override
+    public int getItemType() {
+        return TYPE_LEVEL_1;
+    }
+
+    @Override
+    public boolean isExpanded() {
+        return false;
+    }
+
+    @Override
+    public void setExpanded(boolean expanded) {
+
+    }
+
+    @Override
+    public List getSubItems() {
+        return null;
+    }
+
+    @Override
+    public int getLevel() {
+        return 1;
     }
 }

@@ -9,19 +9,19 @@
 
     <include layout="@layout/toolbar_3_0" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginBottom="8dp"
-        android:background="@color/white" />
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:background="@color/white" />-->
 
-    <include layout="@layout/include_search_layout" />
+    <!--<include layout="@layout/include_search_layout" />-->
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/white"
-        android:layout_marginTop="8dp" />
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px"-->
+        <!--android:background="@color/white"-->
+        <!--android:layout_marginTop="8dp" />-->
 
     <com.coorchice.library.SuperTextView
         android:layout_width="match_parent"

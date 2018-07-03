@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -65,13 +64,13 @@ public class InviteFriendListActivity extends BaseMVPActivity {
         FinalActivity.initInjectedView(this);
 
 
-        View emptyView = LayoutInflater.from(mActivity).inflate(R.layout.invite_friend_empty, null);
+//        View emptyView = LayoutInflater.from(mActivity).inflate(R.layout.invite_friend_empty, null);
 
-        emptyView.findViewById(R.id.tv_go_to_invite).setOnClickListener(v -> {
-//            ToastUtil.showLongToast("go to inviteing  11111");
-
-            InviteFriendActivity.start(mActivity);
-        });
+//        emptyView.findViewById(R.id.tv_go_to_invite).setOnClickListener(v -> {
+////            ToastUtil.showLongToast("go to inviteing  11111");
+//
+//            InviteFriendActivity.start(mActivity);
+//        });
 
         recycle.init(new BaseQuickAdapter<UserBean, BaseViewHolder>(R.layout.item_invite_friend_list) {
             @Override
@@ -82,7 +81,13 @@ public class InviteFriendListActivity extends BaseMVPActivity {
                 .openRefresh()
                 .openLoadMore(20, this::requestDatas)
                 .closeDefaultEmptyView()
-                .setEmptyView(emptyView);
+                .setDefaultEmptyView(true, "邀请好友", retry -> {
+                    InviteFriendActivity.start(mActivity);
+                })
+                .showEmptyAndSetTip("还没有好友接受邀请~")
+                .lazyShowEmptyViewEnable(true)
+//                .setEmptyView(emptyView)
+        ;
 
 
         recycle.onRefresh();

@@ -67,6 +67,7 @@ public class PhoneLogActivity extends BaseMVPActivity {
             }
         }).openRefresh()
                 .openLoadMore(20, this::requestData)
+        .lazyShowEmptyViewEnable(true)
         ;
 
         recycler.onRefresh();

@@ -73,6 +73,7 @@ public class FootMarkActivity extends BaseMVPActivity {
                 .openLoadMore(20, page -> {
                     requestDataByPage(page);
                 })
+        .lazyShowEmptyViewEnable(true)
         ;
 
         recycler.onRefresh();

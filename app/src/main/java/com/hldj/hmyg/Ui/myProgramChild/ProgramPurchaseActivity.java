@@ -25,13 +25,13 @@ import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.M.CountTypeGsonBean;
 import com.hldj.hmyg.M.ProgramPurchaseExpanBean;
 import com.hldj.hmyg.M.ProgramPurchaseIndexGsonBean;
-import com.hldj.hmyg.M.QuoteListJsonBean;
 import com.hldj.hmyg.M.QuoteUserGroup;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.enums.CountEnum;
 import com.hldj.hmyg.bean.enums.PurchaseStatus;
+import com.hldj.hmyg.buyer.M.SellerQuoteJsonBean;
 import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.buyer.Ui.WebViewDialogFragment;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
@@ -941,7 +941,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
     }
 
 
-    public void hah(BaseViewHolder helper, QuoteListJsonBean item, String tag) {
+    public void hah(BaseViewHolder helper, SellerQuoteJsonBean item, String tag) {
 //                            //supplier  //item.sendType.equals("hmeg")
 
 
@@ -1009,7 +1009,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
     }
 
     // 设为备选
-    public void bak(BaseViewHolder helper, QuoteListJsonBean item, String tag) {
+    public void bak(BaseViewHolder helper, SellerQuoteJsonBean item, String tag) {
         // tag = doBak   ||  unBak
 
 //                if (tag.equals("doBak")) {
@@ -1061,7 +1061,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
     private void doConvert1(BaseViewHolder helper, MultiItemEntity mItem) {
 
 //                    D.e("======TYPE_LEVEL_1========");
-        QuoteListJsonBean item = ((QuoteListJsonBean) mItem);
+        SellerQuoteJsonBean item = ((SellerQuoteJsonBean) mItem);
         int layoid = R.layout.item_program_purch_sub;
         boolean isConverted = !item.quoteImplementStatus.equals("uncovered") && !TextUtils.isEmpty(item.quoteImplementStatus);
                     /* 价格  +  名称    */
@@ -1174,24 +1174,50 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                                         public void onRealSuccess(SimpleGsonBean gsonBean) {
                                             if (gsonBean.isSucceed()) {
 
-//                                                gsonBean.getData().quote
+//                                              item =   gsonBean.getData().quote;
 
-                                                helper.setVisible(R.id.reason, true);
-                                                helper.setVisible(R.id.bad, false);
-                                                helper.setVisible(R.id.bak, false);
-                                                helper.setVisible(R.id.tv_program_purch_sub_use_state, false);
+//                                                recycle_program_purchase_gys.getAdapter().getData()
+                                                int posParent = coreRecyclerView.getAdapter().getParentPosition(item);
 
-                                                helper.setVisible(R.id.imageView, true)
-                                                        .setImageResource(R.id.imageView, R.mipmap.weizhongbiao)
-                                                ;
-                                                item.unuseReason = editText1.getText().toString();
-                                                item.status = "unused";
+                        /*sub 某个项 进行修改*/
 
-                                                if (yes.isChecked()) {
-                                                    item.quoteImplementStatus = "covered";
-                                                } else {
-                                                    item.quoteImplementStatus = "uncovered";
+
+
+//                        item.isUsed = !item.isUsed;
+
+                                                ProgramPurchaseExpanBean expanBean = (ProgramPurchaseExpanBean) coreRecyclerView.getAdapter().getData().get(posParent);
+
+//
+                                                //item 改变 sub 的值
+                                                for (int i = 0; i < expanBean.quoteListJson.size(); i++) {
+                                                    if (expanBean.quoteListJson.get(i).id.equals(gsonBean.getData().quote.id)) {
+//                                                        SellerQuoteJsonBean sellerQuoteJsonBean =   expanBean.quoteListJson.get(i);
+//                                                        coreRecyclerView.getAdapter().getData().set(helper.getAdapterPosition(),sellerQuoteJsonBean );
+//                                                        sellerQuoteJsonBean = gsonBean.getData().quote;
+                                                        coreRecyclerView.getAdapter().getData().set(helper.getAdapterPosition()- coreRecyclerView.getAdapter().getHeaderLayoutCount(),gsonBean.getData().quote );
+                                                        expanBean.quoteListJson.set(i, gsonBean.getData().quote);
+                                                    }
                                                 }
+                                                //棒极了
+                                                coreRecyclerView.getAdapter().notifyItemChanged(helper.getAdapterPosition(), gsonBean.getData().quote);
+
+
+//                                                helper.setVisible(R.id.reason, true);
+//                                                helper.setVisible(R.id.bad, false);
+//                                                helper.setVisible(R.id.bak, false);
+//                                                helper.setVisible(R.id.tv_program_purch_sub_use_state, false);
+//
+//                                                helper.setVisible(R.id.imageView, true)
+//                                                        .setImageResource(R.id.imageView, R.mipmap.weizhongbiao)
+//                                                ;
+//                                                item.unuseReason = editText1.getText().toString();
+//                                                item.status = "unused";
+//
+//                                                if (yes.isChecked()) {
+//                                                    item.quoteImplementStatus = "covered";
+//                                                } else {
+//                                                    item.quoteImplementStatus = "uncovered";
+//                                                }
                                                 viewRoot.dismiss();
                                             }
                                         }
@@ -1374,8 +1400,6 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                     /* 已落实状态  。 隐藏  备选按钮 */
 
 
-
-
             }
 
 
@@ -1539,7 +1563,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                         .append("报价说明：").setForegroundColor(getColorByRes(R.color.text_color666))
                         .append(item.specText).setForegroundColor(getColorByRes(R.color.text_color333))
                         .append("  可供数量:").setForegroundColor(getColorByRes(R.color.text_color333))
-                        .append(FUtil.$_zero(item.count)).setForegroundColor(getColorByRes(R.color.text_color333))
+                        .append(FUtil.$_zero(item.count + "")).setForegroundColor(getColorByRes(R.color.text_color333))
                         .create()
 
         );//

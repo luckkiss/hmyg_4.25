@@ -56,8 +56,8 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
     private RxPermissions rxPermissions;
 
 
-    @ViewInject(id = R.id.sptv_program_do_search, click = "showArrays")
-    View view;
+//    @ViewInject(id = R.id.sptv_program_do_search, click = "showArrays")
+//    View view;
 
 
 //    public void showArrays(View view) {
@@ -79,6 +79,9 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
 
     @Override
     public void initView() {
+//        getView(R.id.include_search).setVisibility(View.GONE);
+
+
         FinalActivity.initInjectedView(this);
 
         rxPermissions = new RxPermissions(mActivity);
@@ -141,6 +144,7 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
                 .openLoadMore(20, page -> {
                     requestData(page);
                 })
+                .lazyShowEmptyViewEnable(true)
                 .openRefresh();
 
         CommonSectionDecoration.simpleDecoration(recycler, mActivity);
@@ -281,6 +285,7 @@ public class AddContactActivity extends BaseMVPActivity implements View.OnClickL
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally(() -> {
                             recycler.selfRefresh(false);
+                            UpdateLoading("处理中...");
                             hindLoading();
 
                         }

@@ -1,22 +1,16 @@
 package com.hldj.hmyg.M;
 
 import com.hldj.hmyg.buyer.M.ImagesJsonBean;
-import com.hldj.hmyg.buyer.M.ItemBean;
-import com.hldj.hmyg.buyer.weidet.entity.IExpandable;
-import com.hldj.hmyg.buyer.weidet.entity.MultiItemEntity;
 import com.hldj.hmyg.saler.M.PurchaseBean;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.hldj.hmyg.buyer.weidet.ExpandableItemAdapter.TYPE_LEVEL_1;
 
 /**
  * Created by 罗擦擦  实现  多级菜单 数据 on 2017/6/30 0030.
  */
 
-public class QuoteListJsonBean implements Serializable, MultiItemEntity, IExpandable {
+public class QuoteListJsonBean  {
 
 
     public static final int QuoteListJsonBean_Type = 666;
@@ -86,7 +80,6 @@ public class QuoteListJsonBean implements Serializable, MultiItemEntity, IExpand
     public String twCode;
     public String firstSeedlingTypeId;
     public String secondSeedlingTypeId;
-    public int dbh;
     public String dbhType;
     public String plantType;
     public String unitType;
@@ -109,7 +102,6 @@ public class QuoteListJsonBean implements Serializable, MultiItemEntity, IExpand
     public boolean isInvoice;
     public boolean isUsed;
     public boolean isAlternative;
-    public String sendType = "";
     public String implementRemarks;
     public String quoteImplementStatus = "";
     public String statusName;
@@ -117,92 +109,11 @@ public class QuoteListJsonBean implements Serializable, MultiItemEntity, IExpand
     public String sellerPhone;
     public String status = "";
     public String purchaseItemStatus;
-    public int height;
-    public int crown;
     public String imageUrl;
     public String ossUrl;
     public List<ImagesJsonBean> imagesJson = new ArrayList<>();
-    public List<String> paramsList;
-    public List<ItemBean.SpecListBean> specList;
 
-    public String unuseReason = "";
 
-    @Override
-    public String toString() {
-        return "QuoteListJsonBean{" +
-                "id='" + id + '\'' +
-                ", remarks='" + remarks + '\'' +
-                ", createBy='" + createBy + '\'' +
-                ", createDate='" + createDate + '\'' +
-                ", attrData=" + attrData +
-                ", cityCode='" + cityCode + '\'' +
-                ", cityName='" + cityName + '\'' +
-                ", prCode='" + prCode + '\'' +
-                ", ciCode='" + ciCode + '\'' +
-                ", coCode='" + coCode + '\'' +
-                ", twCode='" + twCode + '\'' +
-                ", firstSeedlingTypeId='" + firstSeedlingTypeId + '\'' +
-                ", secondSeedlingTypeId='" + secondSeedlingTypeId + '\'' +
-                ", dbh=" + dbh +
-                ", dbhType='" + dbhType + '\'' +
-                ", plantType='" + plantType + '\'' +
-                ", unitType='" + unitType + '\'' +
-                ", unitTypeName='" + unitTypeName + '\'' +
-                ", plantTypeName='" + plantTypeName + '\'' +
-                ", diameterTypeName='" + diameterTypeName + '\'' +
-                ", dbhTypeName='" + dbhTypeName + '\'' +
-                ", thumbnailImageUrl='" + thumbnailImageUrl + '\'' +
-                ", smallImageUrl='" + smallImageUrl + '\'' +
-                ", mediumImageUrl='" + mediumImageUrl + '\'' +
-                ", largeImageUrl='" + largeImageUrl + '\'' +
-                ", seedlingParams='" + seedlingParams + '\'' +
-                ", specText='" + specText + '\'' +
-                ", purchaseId='" + purchaseId + '\'' +
-                ", purchaseItemId='" + purchaseItemId + '\'' +
-                ", sellerId='" + sellerId + '\'' +
-                ", price='" + price + '\'' +
-                ", isInvoice=" + isInvoice +
-                ", isUsed=" + isUsed +
-                ", sendType='" + sendType + '\'' +
-                ", implementRemarks='" + implementRemarks + '\'' +
-                ", quoteImplementStatus='" + quoteImplementStatus + '\'' +
-                ", statusName='" + statusName + '\'' +
-                ", sellerName='" + sellerName + '\'' +
-                ", sellerPhone='" + sellerPhone + '\'' +
-                ", status='" + status + '\'' +
-                ", purchaseItemStatus='" + purchaseItemStatus + '\'' +
-                ", height=" + height +
-                ", crown=" + crown +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", ossUrl='" + ossUrl + '\'' +
-                ", imagesJson=" + imagesJson +
-                ", paramsList=" + paramsList +
-                ", specList=" + specList +
-                '}';
-    }
 
-    @Override
-    public int getItemType() {
-        return TYPE_LEVEL_1;
-    }
 
-    @Override
-    public boolean isExpanded() {
-        return false;
-    }
-
-    @Override
-    public void setExpanded(boolean expanded) {
-
-    }
-
-    @Override
-    public List getSubItems() {
-        return null;
-    }
-
-    @Override
-    public int getLevel() {
-        return 1;
-    }
 }

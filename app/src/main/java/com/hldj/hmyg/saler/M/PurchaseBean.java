@@ -126,8 +126,11 @@ public class PurchaseBean {
     public String blurProjectName;
     public String blurName;
 
+
+
     public String consumerFullName = "-";//用苗单位
     public boolean showConsumerName = false;// 是否显示用苗单位
+
 
     public List<String> itemNameList;
     public AttrDataBean attrData = new AttrDataBean();
