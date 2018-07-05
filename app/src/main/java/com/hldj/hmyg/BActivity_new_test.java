@@ -26,6 +26,7 @@ import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.M.BProduceAdapt;
 import com.hldj.hmyg.P.BPresenter;
+import com.hldj.hmyg.Ui.friend.child.SearchActivity;
 import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.StateBarUtil;
@@ -156,7 +157,9 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
 //            Intent intent = new Intent(BActivity_new_test.this, PurchaseSearchListActivity.class);
 //            intent.putExtra("from", "BActivity");
 //            startActivityForResult(intent, 1);
-            PurchaseSearchListActivity.start(mActivity, PurchaseSearchListActivity.FROM_STORE);
+//            PurchaseSearchListActivity.start(mActivity, PurchaseSearchListActivity.FROM_STORE);
+            SearchActivity.start(mActivity, getQueryBean().searchKey  ,PurchaseSearchListActivity.FROM_STORE);
+
         });
 
 

@@ -363,6 +363,8 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
         return this;
     }
 
+    private CharSequence lazy_emptyText;
+
     public CoreRecyclerView setEmptyText(CharSequence str) {
 //        if (mQuickAdapter.getEmptyView() != null) {
 //            TextView t_tipTextView = mQuickAdapter.getEmptyView().findViewById(R.id.t_tipTextView);
@@ -371,6 +373,7 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
 //                t_tipTextView.setText(str);
 //            }
 //        }
+        this.lazy_emptyText = str;
         TextView tv_empty_err = (TextView) mQuickAdapter.getEmptyView().findViewById(R.id.t_emptyTextView);
         if (tv_empty_err != null) {
             if (!TextUtils.isEmpty(str))
@@ -462,11 +465,26 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
             if (!TextUtils.isEmpty(lazy_tip)) {
                 showEmptyAndSetTip(lazy_tip);
             }
-
+            if (!TextUtils.isEmpty(lazy_emptyText)) {
+                setEmptyText(lazy_emptyText);
+            }
         }
+
+
+        checkIsOpenRefresh();
 
         return this;
     }
+
+
+    private void checkIsOpenRefresh() {
+        if (getAdapter().getData().size() > 0) {
+            openRefresh();
+        } else {
+            closeRefresh();
+        }
+    }
+
 
     public CoreRecyclerView selfRefresh(boolean b, String errMsg) {
         this.selfRefresh(b);

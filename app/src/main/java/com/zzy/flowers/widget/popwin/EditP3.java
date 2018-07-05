@@ -22,7 +22,7 @@ public class EditP3 extends ExtensionDataBottomPopwin {
 		// TODO Auto-generated method stub
 		InputMethodManager imm = (InputMethodManager) activity
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
-		if (imm.isActive() && activity.getCurrentFocus() != null
+		if (imm != null && imm.isActive() && activity.getCurrentFocus() != null
 				&& activity.getCurrentFocus().getWindowToken() != null) {
 			imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
 		}

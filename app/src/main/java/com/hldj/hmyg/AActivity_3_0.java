@@ -22,7 +22,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
@@ -49,6 +48,7 @@ import com.hldj.hmyg.Ui.NewsActivity;
 import com.hldj.hmyg.Ui.NoticeActivity_detail;
 import com.hldj.hmyg.Ui.friend.child.MarchingPurchaseActivity;
 import com.hldj.hmyg.Ui.friend.child.PublishActivity;
+import com.hldj.hmyg.Ui.friend.child.SearchActivity;
 import com.hldj.hmyg.application.Data;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.application.StateBarUtil;
@@ -59,7 +59,6 @@ import com.hldj.hmyg.bean.ArticleBean;
 import com.hldj.hmyg.bean.HomeStore;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.Type;
-import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
 import com.hldj.hmyg.buyer.Ui.StorePurchaseListActivity;
 import com.hldj.hmyg.buyer.weidet.DialogFragment.CommonDialogFragment1;
 import com.hldj.hmyg.buyer.weidet.SwipeViewHeader;
@@ -109,6 +108,7 @@ import io.reactivex.schedulers.Schedulers;
 import static com.hldj.hmyg.R.id.home_title_first;
 import static com.hldj.hmyg.R.id.home_title_qiu_gou;
 import static com.hldj.hmyg.base.GlobBaseAdapter.REFRESH;
+import static com.hldj.hmyg.buyer.PurchaseSearchListActivity.FROM_HOME;
 
 
 /**
@@ -188,7 +188,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         RelativeLayout.LayoutParams l_params = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         WindowManager wm = this.getWindowManager();
-        l_params.height = (int) (wm.getDefaultDisplay().getHeight() * 1 / 1.5);
+        l_params.height = (int) (wm.getDefaultDisplay().getWidth() * 1 / 2);
         viewPager.setLayoutParams(l_params);
 
 
@@ -196,6 +196,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         View shangji = findViewById(R.id.shangji);
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) shangji.getLayoutParams();
         params.width = (int) ((int) ((wm.getDefaultDisplay().getWidth() - MyApplication.dp2px(this, 24))) / 2.71);
+        //.71
         params.height = (int) ((int) ((wm.getDefaultDisplay().getWidth() - MyApplication.dp2px(this, 24))) / 2.71);
         shangji.setLayoutParams(params);
         Log.i("width = ", params.width + "px");
@@ -466,86 +467,86 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //        findViewById(R.id.home_title_third).setOnClickListener(v -> ToastUtil.showShortToast("更多热门商家正在开发中..."));
 
 
-        toolbar.getBackground().mutate().setAlpha(0);
+//        toolbar.getBackground().mutate().setAlpha(0);
 
         // 滚动时触发事件  必定是 tablay 有接口
-        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-
-
-                viewPager.getLocationOnScreen(location);
-
-//                Log.i("OnScrollChanged", "x = " + location[0] + "  y = " + location[1] + "  height = " + viewPager.getHeight());
-
-
-                if (location[1] > 0) {
-
-
-                    toolbar.setVisibility(View.GONE);
-
-
-                    return;
-                } else {
-                    toolbar.setVisibility(View.VISIBLE);
-                }
-
-
-                float precent = 0;
-                try {
-                    precent = (viewPager.getHeight() + location[1]) % viewPager.getMeasuredHeight();
-                } catch (Exception e) {
-                    precent = 1;
-//                    e.printStackTrace();
-                }
-
-                float pre = (1 - precent / viewPager.getHeight());
-
-//                Log.i("百分比", pre + "  % is = " + precent * 255);
-
-//: 0.92105263  % is = 11475.0
-
-
-                if (pre > 0 && pre < 1) {
-
-                    if (pre > 0.8) {
-                        toolbar.getBackground().mutate().setAlpha(255);
-                    } else if (pre < 0.2) {
-                        toolbar.getBackground().mutate().setAlpha(0);
-                    } else {
-
-                        toolbar.getBackground().mutate().setAlpha((int) (pre * 255));
-                    }
-
-//                    Log.i("j", "进来了");
-
-
-                } else {
-//                    Log.i("j", "no进来了");
-
+//        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+//            @Override
+//            public void onScrollChanged() {
+//
+//
+//                viewPager.getLocationOnScreen(location);
+//
+////                Log.i("OnScrollChanged", "x = " + location[0] + "  y = " + location[1] + "  height = " + viewPager.getHeight());
+//
+//
+//                if (location[1] > 0) {
+//
+//
+//                    toolbar.setVisibility(View.GONE);
+//
+//
+//                    return;
+//                } else {
+//                    toolbar.setVisibility(View.VISIBLE);
+//                }
+//
+//
+//                float precent = 0;
+//                try {
+//                    precent = (viewPager.getHeight() + location[1]) % viewPager.getMeasuredHeight();
+//                } catch (Exception e) {
+//                    precent = 1;
+////                    e.printStackTrace();
+//                }
+//
+//                float pre = (1 - precent / viewPager.getHeight());
+//
+////                Log.i("百分比", pre + "  % is = " + precent * 255);
+//
+////: 0.92105263  % is = 11475.0
+//
+//
+//                if (pre > 0 && pre < 1) {
+//
 //                    if (pre > 0.8) {
-//                        toolbar.getBackground().mutate().setAlpha(10);
-//                    } else if (pre < 0.2) {
 //                        toolbar.getBackground().mutate().setAlpha(255);
+//                    } else if (pre < 0.2) {
+//                        toolbar.getBackground().mutate().setAlpha(0);
 //                    } else {
 //
-//                        toolbar.getBackground().mutate().setAlpha((int) ( pre * 255));
+//                        toolbar.getBackground().mutate().setAlpha((int) (pre * 255));
 //                    }
-
-                }
-
-
-                //: x = 0  y = -0  height = 570   透明
-
-                //: x = 0  y = -285  height = 570  半透明    （570  -285 ）/2 = 0.5 * 255
-
-
-                // x = 0  y = -573  height = 570   全白
-
-
-            }
-
-        });
+//
+////                    Log.i("j", "进来了");
+//
+//
+//                } else {
+////                    Log.i("j", "no进来了");
+//
+////                    if (pre > 0.8) {
+////                        toolbar.getBackground().mutate().setAlpha(10);
+////                    } else if (pre < 0.2) {
+////                        toolbar.getBackground().mutate().setAlpha(255);
+////                    } else {
+////
+////                        toolbar.getBackground().mutate().setAlpha((int) ( pre * 255));
+////                    }
+//
+//                }
+//
+//
+//                //: x = 0  y = -0  height = 570   透明
+//
+//                //: x = 0  y = -285  height = 570  半透明    （570  -285 ）/2 = 0.5 * 255
+//
+//
+//                // x = 0  y = -573  height = 570   全白
+//
+//
+//            }
+//
+//        });
 
         // http://blog.csdn.net/jiangwei0910410003/article/details/17024287
         /******************** 监听ScrollView滑动停止 *****************************/
@@ -1219,7 +1220,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                     public void run() {
                         scrollView.fullScroll(ScrollView.FOCUS_UP);
                         scrollView.smoothScrollTo(0, 0);
-                        toolbar.getBackground().mutate().setAlpha(0);
+//                        toolbar.getBackground().mutate().setAlpha(0);
 //                        scrollY = 0;
                     }
                 });
@@ -1282,7 +1283,11 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //                Intent intent = new Intent(AActivity_3_0.this, PurchaseSearchListActivity.class);
 //                intent.putExtra("from", "AActivity");
 //                startActivityForResult(intent, 1);
-                PurchaseSearchListActivity.start(AActivity_3_0.this, PurchaseSearchListActivity.FROM_HOME);
+//                PurchaseSearchListActivity.start(AActivity_3_0.this, PurchaseSearchListActivity.FROM_HOME);
+
+
+                SearchActivity.start(AActivity_3_0.this, "",FROM_HOME);
+
 
                 break;
             default:

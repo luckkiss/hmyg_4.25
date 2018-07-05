@@ -11,10 +11,10 @@ import java.util.List;
 import static com.hldj.hmyg.buyer.weidet.ExpandableItemAdapter.TYPE_LEVEL_1;
 
 /**
- *  Created by 罗擦擦  实现  多级菜单 数据 on 2017/6/30 0030.
+ * Created by 罗擦擦  实现  多级菜单 数据 on 2017/6/30 0030.
  */
 
-public class SellerQuoteJsonBean implements Serializable  ,MultiItemEntity, IExpandable {
+public class SellerQuoteJsonBean implements Serializable, MultiItemEntity, IExpandable {
     /**
      * id : 95566496cd934b1da84f986db30e6a30
      * remarks : 备注
@@ -55,7 +55,7 @@ public class SellerQuoteJsonBean implements Serializable  ,MultiItemEntity, IExp
     public String id;
     public String remarks;
     public String createBy;
-    public String createDate="-";
+    public String createDate = "-";
     public String quoteDateStr;
     public String cityCode;
     public String cityName;
@@ -84,12 +84,6 @@ public class SellerQuoteJsonBean implements Serializable  ,MultiItemEntity, IExp
     public String minCrown;
 
 
-
-
-
-
-
-
     public String plantType;
     public String unitTypeName;
     public String plantTypeName;
@@ -108,7 +102,8 @@ public class SellerQuoteJsonBean implements Serializable  ,MultiItemEntity, IExp
     public String sellerId;
     public String price;
     public String prePrice;
-    public String status="";
+    public String status = "";
+    public boolean isExclude = false;
     public String sellerName;
     public String sellerPhone;
     public String purchaseItemStatus;
@@ -116,8 +111,8 @@ public class SellerQuoteJsonBean implements Serializable  ,MultiItemEntity, IExp
     public List<SpecListBean> specList;
     public int count;
 
-    public boolean isAlternative ;
-    public boolean isUsed ;
+    public boolean isAlternative;
+    public boolean isUsed;
 
 
     public String sendType = "";
@@ -130,12 +125,10 @@ public class SellerQuoteJsonBean implements Serializable  ,MultiItemEntity, IExp
     public AttrData attrData = new AttrData();
 
 
-
-    public static class AttrData extends PurchaseBean.AttrDataBean implements Serializable{
-        public int quoteUsedCountJson ;
-        public int quotePreUsedCountJson ;
+    public static class AttrData extends PurchaseBean.AttrDataBean implements Serializable {
+        public int quoteUsedCountJson;
+        public int quotePreUsedCountJson;
     }
-
 
 
     public List<ImagesJsonBean> imagesJson = new ArrayList<>();

@@ -30,7 +30,7 @@
         android:background="@drawable/conner_edit"
         android:drawableLeft="@drawable/search_icon"
         android:drawablePadding="6dp"
-        android:hint="品种名称/用户名称"
+        android:hint="@string/search_content"
         android:imeOptions="actionSearch"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
@@ -54,11 +54,10 @@
         android:textColor="@color/white"
         android:foreground="?attr/selectableItemBackground"
         android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:paddingTop="8dp"
         android:text="搜索"
-
-
         />
+
 </RelativeLayout>

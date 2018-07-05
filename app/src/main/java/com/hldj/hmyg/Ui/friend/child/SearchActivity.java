@@ -13,10 +13,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.hldj.hmyg.BActivity_new_test;
 import com.hldj.hmyg.R;
-import com.hldj.hmyg.Ui.friend.FriendCycleSearchActivity;
 import com.hldj.hmyg.Ui.friend.bean.History;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.buyer.PurchaseSearchListActivity;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
@@ -34,7 +35,7 @@ import java.util.List;
 import static com.hldj.hmyg.buyer.weidet.CoreRecyclerView.REFRESH;
 
 /**
- * 搜索界面
+ * 搜索界面  包含历史记录
  */
 
 public class SearchActivity extends BaseMVPActivity {
@@ -42,7 +43,8 @@ public class SearchActivity extends BaseMVPActivity {
     /**
      * 搜索内容 标签
      */
-    public static final String SEARCH_CONTENT = "search_content";
+    public static final String SEARCH_CONTENT = "searchKey";
+
 
     @ViewInject(id = R.id.recycle)
     CoreRecyclerView mCoreRecyclerView;
@@ -74,18 +76,26 @@ public class SearchActivity extends BaseMVPActivity {
     /*赋值文本框内容，将历史记录快速输入*/
     private void setContent(String msg) {
         search_content.setText(msg);
+        if (!TextUtils.isEmpty(msg))
+            search_content.setSelection(msg.length());
     }
 
-    public void jump(int tag, Intent intent) {
-        if (tag == 1) {
-            //后退到上个界面。以删除按钮样式显示
+    public void jump(Intent intent) {
+        intent.putExtra(SEARCH_CONTENT, getContent());
+        if (getExtraFrom().equals(PurchaseSearchListActivity.FROM_HOME)) {//首页过来
+            hideSoftWare();
+            BActivity_new_test.start2Activity(mActivity, getContent(), 0);
+            finish();
+        } else if (getExtraFrom().equals(PurchaseSearchListActivity.FROM_STORE)) {//  商店过来
+            //调到新界面。，筛选显示
             hideSoftWare();
             setResult(ConstantState.SEARCH_OK, intent);
             finish();
-        } else {
-            //调到新界面。，筛选显示
+        } else {//其他
+            //后退到上个界面。以删除按钮样式显示
+
             hideSoftWare();
-            FriendCycleSearchActivity.start(mActivity, getContent());
+            BActivity_new_test.start2Activity(mActivity, getContent(), 0);
             finish();
         }
     }
@@ -138,7 +148,7 @@ public class SearchActivity extends BaseMVPActivity {
                             @Override
                             public void onClick(View v) {
                                 setContent(item.getContent());
-                                jump(0, new Intent());
+                                jump(new Intent());
                             }
                         })
                         .addOnClickListener(R.id.is_check, new View.OnClickListener() {
@@ -160,7 +170,10 @@ public class SearchActivity extends BaseMVPActivity {
                 ;
 
             }
-        });
+        })
+                .setEmptyText("暂无历史记录...")
+//        .lazyShowEmptyViewEnable(true)
+        ;
         refresh();
         View footView = LayoutInflater.from(mActivity).inflate(R.layout.item_friend_delete_all, null);
         footView.setOnClickListener(new View.OnClickListener() {
@@ -187,7 +200,7 @@ public class SearchActivity extends BaseMVPActivity {
     private void toSearch() {
         if (TextUtils.isEmpty(getContent().trim())) {
 //                    ToastUtil.showLongToast("请输入需要查找的内容");
-            jump(0, new Intent());
+            jump(new Intent());
             return;
         }
         Intent intent = new Intent();
@@ -209,7 +222,7 @@ public class SearchActivity extends BaseMVPActivity {
                 history1.setTime(history.getTime());
                 db.update(history1);
 //                        ToastUtil.showLongToast("数据库有次数据，更新");
-                jump(0, intent);
+                jump(intent);
                 return;
             }
         }
@@ -217,7 +230,7 @@ public class SearchActivity extends BaseMVPActivity {
         db.save(history);
 //                ToastUtil.showLongToast(userList.size() + "一共这么多条数据");
         refresh();
-        jump(0, intent);
+        jump(intent);
 //                hideSoftWare();
 //                setResult(ConstantState.SEARCH_OK, intent);
 //                finish();
@@ -253,7 +266,9 @@ public class SearchActivity extends BaseMVPActivity {
     public void hideSoftWare() {
         InputMethodManager inputMethod = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         // 隐藏软键盘
-        inputMethod.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        if (inputMethod != null && this.getCurrentFocus() != null) {
+            inputMethod.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
 
@@ -261,12 +276,19 @@ public class SearchActivity extends BaseMVPActivity {
         return getIntent().getStringExtra(TAG);
     }
 
-    public static void start(Activity activity, String keyWord) {
+    public static void start(Activity activity, String keyWord, String from) {
         Intent intent = new Intent(activity, SearchActivity.class);
         intent.putExtra(TAG, keyWord);
+        intent.putExtra(PurchaseSearchListActivity.FROM, from);
         activity.startActivityForResult(intent, 110);
     }
 
     private static final String TAG = "SearchActivity";
+
+
+    private String getExtraFrom() {
+
+        return TextUtils.isEmpty(getIntent().getStringExtra(PurchaseSearchListActivity.FROM)) ? "" : getIntent().getStringExtra(PurchaseSearchListActivity.FROM);
+    }
 
 }

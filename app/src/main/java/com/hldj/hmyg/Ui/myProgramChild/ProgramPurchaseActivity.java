@@ -1342,7 +1342,8 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
 
         //有报价权限   并且  已开标  --- 显示  按钮
-        if (tureQuote && getExtralState().equals(PurchaseStatus.expired.enumValue) && !item.status.equals("unused")) {
+        //!item.status.equals("unused")
+        if (tureQuote && getExtralState().equals(PurchaseStatus.expired.enumValue) && !item.isExclude ) {
             helper.setVisible(tv_program_purch_sub_use_state, true);
 
 
@@ -1486,17 +1487,17 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
             helper.setVisible(R.id.bad, false);
 
 
-            // 未中标
-            if (!TextUtils.isEmpty(item.unuseReason) && item.status.equals("unused")) {
+            // 未中标  item.status.equals("unused")  !
+            if (!TextUtils.isEmpty(item.unuseReason) && item.isExclude) {
 //                unused
                 helper.setVisible(R.id.reason, true);
                 helper.setVisible(R.id.imageView, true)
-                        .setImageResource(R.id.imageView, R.mipmap.weizhongbiao)
+                        .setImageResource(R.id.imageView, R.mipmap.buheshi_gray)
                 ;
             } else {
                 helper.setVisible(R.id.reason, false);
                 helper.setVisible(R.id.imageView, true)
-                        .setImageResource(R.id.imageView, R.mipmap.weizhongbiao)
+                        .setImageResource(R.id.imageView, R.mipmap.buheshi_gray)
                 ;
 //                helper.setImageResource(R.id.imageView,)
             }

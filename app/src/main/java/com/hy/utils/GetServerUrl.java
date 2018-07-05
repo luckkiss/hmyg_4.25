@@ -26,8 +26,8 @@ public class GetServerUrl {
 //    static String API_01 = "http://hmeg.cn:93/";
     // 正式 可用 3.0
     static String API_01 = "http://api.hmeg.cn/" + apiVersion;
-//    static String API_03 = "http://test.api.hmeg.cn/" + apiVersion;//3.0测式库
-    static String API_03 = "http://192.168.1.113:80/api/";//罗大傻的  电脑 服务器地址/
+    static String API_03 = "http://test.api.hmeg.cn/" + apiVersion;//3.0测式库
+//    static String API_03 = "http://192.168.1.116:80/api/";//罗大傻的  电脑 服务器地址/
 //  static String API_03 = "http://192.168.0.147:8091/api/";//罗伟电脑 服务器地址/
 //    static String API_03 = "http://192.168.1.20:83/";// 则金 服务器地址/
 //    static String API_03 = "http://110.86.33.238:90/";// 则金 外网 服务器地址/

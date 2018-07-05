@@ -6,7 +6,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.hldj.hmyg.FlowerDetailActivity;
-import com.hldj.hmyg.buyer.AddPurchaseActivity;
 
 public class EditP2 extends EditBottomPopwin {
 
@@ -25,7 +24,7 @@ public class EditP2 extends EditBottomPopwin {
 		// TODO Auto-generated method stub
 		InputMethodManager imm = (InputMethodManager) activity
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
-		if (imm.isActive() && activity.getCurrentFocus() != null
+		if (imm != null && imm.isActive() && activity.getCurrentFocus() != null
 				&& activity.getCurrentFocus().getWindowToken() != null) {
 			imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
 		}

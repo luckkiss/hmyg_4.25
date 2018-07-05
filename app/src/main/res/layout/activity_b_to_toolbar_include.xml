@@ -43,7 +43,7 @@
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center_vertical"
             android:paddingLeft="30dp"
-            android:text="品种名称/别名/品种编号"
+            android:text="@string/search_content"
             android:textColor="@color/text_color999"
             app:corner="5dp"
             app:isShowState="true"

@@ -1,23 +1,10 @@
 package com.hldj.hmyg.saler;
 
-import java.util.ArrayList;
-
-import me.maxwin.view.XListView;
-import net.tsz.afinal.FinalBitmap;
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,8 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.application.Data;
@@ -40,6 +27,19 @@ import com.hldj.hmyg.saler.bean.Subscribe;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.zzy.flowers.widget.popwin.EditP2;
+
+import net.tsz.afinal.FinalBitmap;
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import me.maxwin.view.XListView;
 
 public class SubscribeSearchListActivity extends Activity {
 	private XListView xListView;
@@ -115,7 +115,7 @@ public class SubscribeSearchListActivity extends Activity {
 
 	public void NoInputMethodManager() {
 		InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-		if (imm.isActive() && getCurrentFocus() != null
+		if (imm != null && imm.isActive() && getCurrentFocus() != null
 				&& getCurrentFocus().getWindowToken() != null) {
 			imm.hideSoftInputFromWindow(et_search.getWindowToken(), 0);
 		}

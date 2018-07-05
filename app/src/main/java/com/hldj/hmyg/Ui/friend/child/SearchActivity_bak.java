@@ -253,7 +253,9 @@ public class SearchActivity_bak extends BaseMVPActivity {
     public void hideSoftWare() {
         InputMethodManager inputMethod = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         // 隐藏软键盘
-        inputMethod.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        if (inputMethod != null && this.getCurrentFocus()!=null) {
+            inputMethod.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
 

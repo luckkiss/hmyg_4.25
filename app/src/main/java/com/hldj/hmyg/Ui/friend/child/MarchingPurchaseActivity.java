@@ -81,6 +81,7 @@ public class MarchingPurchaseActivity extends BaseMVPActivity {
                 .showEmptyAndSetTip("快来发布苗木，增加报价机会吧!")
                 .setEmptyText("没有与您苗圃品种相匹配的求购")
                 .openRefresh()
+                .lazyShowEmptyViewEnable(true)
                 .openLoadMore(20, this::requestData)
         ;
         recycler.onRefresh();

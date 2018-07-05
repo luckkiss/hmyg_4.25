@@ -292,14 +292,14 @@ public class PurchaseSearchListActivity extends BaseMVPActivity {
     public void initByFrom(EditText hint, ViewGroup parent) {
         switch (getFrom()) {
             case FROM_HOME:
-                hint.setHint("品名/别名/店铺");
+                hint.setHint("请输入品种名称");
                 break;
             case FROM_STORE:
-                hint.setHint("请输入关键字");
+                hint.setHint("请输入品种名称");
                 parent.setVisibility(View.GONE);
                 break;
             case FROM_SEARCH:
-                hint.setHint("请输入关键字");
+                hint.setHint("请输入品种名称");
                 parent.setVisibility(View.GONE);
                 break;
         }

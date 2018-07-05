@@ -9,11 +9,34 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
+    <LinearLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+
+        <include
+
+            layout="@layout/activity_a_top_toolbar_alpha" />
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/line_bak"
+            android:visibility="gone" />
+
+
+    </LinearLayout>
+
 
     <com.hldj.hmyg.widget.swipeview.MySwipeRefreshLayout
         android:id="@+id/swipe_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/top"
         app:loadmore_enable="false"
         app:pull_refresh_enable="true">
 
@@ -32,31 +55,31 @@
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="190dp"
-                    tools:visibility="gone">
+                    android:layout_height="wrap_content"
+                    tools:visibility="visible">
 
 
                     <com.autoscrollview.widget.AutoScrollViewPager
                         android:id="@+id/view_pager"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="0dp" />
 
                     <com.autoscrollview.widget.indicator.CirclePageIndicator
                         android:id="@+id/indicator"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_alignBottom="@+id/view_pager"
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="5dp" />
 
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="12dp"
-                        android:layout_alignBottom="@+id/view_pager"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/juxing"
-                        tools:tint="@color/main_color" />
+                    <!--<ImageView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="12dp"-->
+                    <!--android:layout_alignBottom="@+id/view_pager"-->
+                    <!--android:scaleType="fitXY"-->
+                    <!--android:src="@mipmap/juxing"-->
+                    <!--tools:tint="@color/main_color" />-->
 
 
                 </RelativeLayout>
@@ -278,7 +301,6 @@
                     </LinearLayout>
 
 
-
                     <View
                         style="@style/View_line_gray_1px"
                         android:tag="a" />
@@ -370,7 +392,6 @@
                     </LinearLayout>
 
 
-
                     <View
                         style="@style/View_line_gray_1dp"
                         android:tag="a" />
@@ -424,8 +445,6 @@
                 </LinearLayout>
 
 
-
-
                 <View style="@style/View_line_gray_1dp" />
 
                 <RelativeLayout
@@ -440,29 +459,6 @@
         </android.support.v4.widget.NestedScrollView>
 
     </com.hldj.hmyg.widget.swipeview.MySwipeRefreshLayout>
-
-
-    <LinearLayout
-        android:id="@+id/top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/touming"
-        android:orientation="vertical">
-
-
-        <include
-
-            layout="@layout/activity_a_top_toolbar_alpha" />
-
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/line_bak"
-            android:visibility="gone" />
-
-
-    </LinearLayout>
 
 
     <!--<android.support.design.widget.FloatingActionButton-->
