@@ -14,8 +14,8 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp">
+        android:layout_marginLeft="28dp"
+        android:layout_marginRight="28dp">
 
         <com.coorchice.library.SuperTextView
             android:id="@+id/tv_a_search"
@@ -32,7 +32,7 @@
             android:paddingLeft="-2dp"
             android:text="@string/search_content"
             android:textColor="@color/gray"
-            app:corner="5dp"
+            app:corner="99dp"
             app:isShowState="true"
             app:left_bottom_corner="true"
             app:left_top_corner="true"

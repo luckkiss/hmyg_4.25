@@ -22,6 +22,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
@@ -318,7 +319,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                                         swipeRefreshLayout.finishRefresh();
                                         swipeViewHeader.setState(3);
 
-                                        toolbar.setVisibility(View.VISIBLE);
+//                                        toolbar.setVisibility(View.VISIBLE);
 
                                     }
                                 }
@@ -468,18 +469,19 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
 
 //        toolbar.getBackground().mutate().setAlpha(0);
+        toolbar.setAlpha(0);
 
         // 滚动时触发事件  必定是 tablay 有接口
-//        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-//            @Override
-//            public void onScrollChanged() {
-//
-//
-//                viewPager.getLocationOnScreen(location);
-//
-////                Log.i("OnScrollChanged", "x = " + location[0] + "  y = " + location[1] + "  height = " + viewPager.getHeight());
-//
-//
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+
+
+                viewPager.getLocationOnScreen(location);
+
+//                Log.i("OnScrollChanged", "x = " + location[0] + "  y = " + location[1] + "  height = " + viewPager.getHeight());
+
+
 //                if (location[1] > 0) {
 //
 //
@@ -490,63 +492,72 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //                } else {
 //                    toolbar.setVisibility(View.VISIBLE);
 //                }
-//
-//
-//                float precent = 0;
-//                try {
-//                    precent = (viewPager.getHeight() + location[1]) % viewPager.getMeasuredHeight();
-//                } catch (Exception e) {
-//                    precent = 1;
-////                    e.printStackTrace();
-//                }
-//
-//                float pre = (1 - precent / viewPager.getHeight());
-//
-////                Log.i("百分比", pre + "  % is = " + precent * 255);
-//
-////: 0.92105263  % is = 11475.0
-//
-//
-//                if (pre > 0 && pre < 1) {
-//
-//                    if (pre > 0.8) {
-//                        toolbar.getBackground().mutate().setAlpha(255);
-//                    } else if (pre < 0.2) {
+
+
+                float precent = 0;
+                try {
+                    precent = (viewPager.getHeight() + location[1]) % viewPager.getMeasuredHeight();
+                } catch (Exception e) {
+                    precent = 1;
+//                    e.printStackTrace();
+                }
+
+                float pre = (1 - precent / viewPager.getHeight());
+
+//                Log.i("百分比", pre + "  % is = " + precent * 255);
+                Log.i("location", pre + "  % is = location[1]" + location[1]);
+
+//: 0.92105263  % is = 11475.0
+
+
+                if (pre > 0 && pre < 1 && location[1] < 0) {
+
+                    if (pre > 0.8) {
+                        toolbar.setAlpha(0.9f);
+//                        toolbar.getBackground().mutate().setAlpha((int) (255*0.8));
+                        toolbar.setVisibility(View.VISIBLE);
+                        Log.i("j", "pre > 0.8  " + pre);
+                    } else if (pre < 0.2) {
+                        toolbar.setAlpha(0);
 //                        toolbar.getBackground().mutate().setAlpha(0);
+                        toolbar.setVisibility(View.GONE);
+                        Log.i("j", "pre < 0.2  " + pre);
+                    } else {
+                        toolbar.setAlpha((float) (pre));
+                        toolbar.setVisibility(View.VISIBLE);
+                        Log.i("j", "else" + pre);
+                    }
+
+//                    Log.i("j", "进来了");
+
+
+                } else {
+//                    toolbar.setVisibility(View.GONE);
+//                    Log.i("j", "no进来了");
+
+//                    if (pre > 0.8) {
+//                        toolbar.getBackground().mutate().setAlpha(10);
+//                    } else if (pre < 0.2) {
+//                        toolbar.getBackground().mutate().setAlpha(255);
 //                    } else {
 //
-//                        toolbar.getBackground().mutate().setAlpha((int) (pre * 255));
+//                        toolbar.getBackground().mutate().setAlpha((int) ( pre * 255));
 //                    }
-//
-////                    Log.i("j", "进来了");
-//
-//
-//                } else {
-////                    Log.i("j", "no进来了");
-//
-////                    if (pre > 0.8) {
-////                        toolbar.getBackground().mutate().setAlpha(10);
-////                    } else if (pre < 0.2) {
-////                        toolbar.getBackground().mutate().setAlpha(255);
-////                    } else {
-////
-////                        toolbar.getBackground().mutate().setAlpha((int) ( pre * 255));
-////                    }
-//
-//                }
-//
-//
-//                //: x = 0  y = -0  height = 570   透明
-//
-//                //: x = 0  y = -285  height = 570  半透明    （570  -285 ）/2 = 0.5 * 255
-//
-//
-//                // x = 0  y = -573  height = 570   全白
-//
-//
-//            }
-//
-//        });
+
+                }
+
+
+                //: x = 0  y = -0  height = 570   透明
+
+                //: x = 0  y = -285  height = 570  半透明    （570  -285 ）/2 = 0.5 * 255
+
+
+                // x = 0  y = -573  height = 570   全白
+
+
+            }
+
+        });
 
         // http://blog.csdn.net/jiangwei0910410003/article/details/17024287
         /******************** 监听ScrollView滑动停止 *****************************/
@@ -1220,7 +1231,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                     public void run() {
                         scrollView.fullScroll(ScrollView.FOCUS_UP);
                         scrollView.smoothScrollTo(0, 0);
-//                        toolbar.getBackground().mutate().setAlpha(0);
+                        toolbar.setAlpha(0);
+                        toolbar.setVisibility(View.GONE);
+
 //                        scrollY = 0;
                     }
                 });
@@ -1286,7 +1299,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //                PurchaseSearchListActivity.start(AActivity_3_0.this, PurchaseSearchListActivity.FROM_HOME);
 
 
-                SearchActivity.start(AActivity_3_0.this, "",FROM_HOME);
+                SearchActivity.start(AActivity_3_0.this, "", FROM_HOME);
 
 
                 break;

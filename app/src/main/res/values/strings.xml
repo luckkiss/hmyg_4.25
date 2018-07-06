@@ -129,7 +129,7 @@
     <string name="str_red">#FF4444</string>
     <string name="ok">确定</string>
     <string name="cancle">取消</string>
-    <string name="search_content">输入品种名称</string>
+    <string name="search_content">输入名称找苗</string>
     <string name="login_note">短信登录</string>
     <string name="login_pwd">密码登录</string>
     <string name="input_phone_number_for_note">请输入手机号码</string>
