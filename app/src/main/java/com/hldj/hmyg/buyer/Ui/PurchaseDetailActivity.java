@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -45,6 +46,7 @@ import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.TakePhotoUtil;
 import com.hldj.hmyg.widget.AutoAddRelative;
 import com.hy.utils.GetServerUrl;
+import com.hy.utils.SpanUtils;
 import com.hy.utils.ToastUtil;
 import com.zf.iosdialog.widget.AlertDialog;
 
@@ -465,7 +467,15 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
     public static void setImgCounts(Activity activity, SuperTextView textView, List<ImagesJsonBean> imagesJson) {
         if (imagesJson.size() != 0) {
-            textView.setText(strFilter("有" + imagesJson.size() + "张图片"));//有多少张图片
+
+
+//            textView.setText(strFilter("有" + imagesJson.size() + "张图片"));//有多少张图片
+            textView.setText(new SpanUtils()
+                    .append("有")
+                    .append("" + imagesJson.size()).setForegroundColor(Color.RED)
+                    .append("张图片")
+                    .create());//有多少张图片
+
             textView.setShowState(true);
         } else {
             textView.setShowState(true);

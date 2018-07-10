@@ -51,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingRight="8dp"
+            android:textColor="@color/text_color999"
             android:text="12小时前" />
 
     </LinearLayout>
@@ -90,6 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingRight="8dp"
+            android:textColor="@color/text_color999"
             android:text="1231" />
 
     </LinearLayout>

@@ -19,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -62,6 +61,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -168,20 +168,21 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
                     getView(R.id.tv_store_name).setVisibility(View.GONE);
                     StateBarUtil.setStatusTranslater(mActivity, false);//变白
 
-//                     getView(R.id.btn_back).setSelected(false);
+                     getView(R.id.btn_back).setSelected(false);
+                     getView(R.id.iv_fenxiang).setSelected(false);
 
 
                 } else if (state == State.COLLAPSED) {
                     //折叠状态
                     getView(R.id.tv_store_name).setVisibility(View.VISIBLE);
 //                    StateBarUtil.setStatusTranslater(mActivity, true);//变黑
-//                    getView(R.id.btn_back).setSelected(true);
+                    getView(R.id.btn_back).setSelected(true);
+                    getView(R.id.iv_fenxiang).setSelected(true);
                 } else {
                     //中间状态
 //                    StateBarUtil.setStatusTranslater(mActivity, true);//变黑
-//                    getView(R.id.btn_back).setSelected(true);
-
-
+                    getView(R.id.btn_back).setSelected(false);
+                    getView(R.id.iv_fenxiang).setSelected(false);
 
 
                 }
@@ -191,8 +192,6 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
 
         bitmap = FinalBitmap.create(mActivity);
         bitmap.configLoadfailImage(R.drawable.logo);
-
-
 
 
     }
@@ -464,10 +463,13 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
         }
 
 
-        ImageView sptv_store_home_head = getView(R.id.logo);
+        CircleImageView sptv_store_home_head = getView(R.id.logo);
 
 
-        ImageLoader.getInstance().displayImage(indexBean.store.logoUrl,sptv_store_home_head);
+        ImageLoader.getInstance().displayImage(indexBean.store.logoUrl, sptv_store_home_head);
+
+        sptv_store_home_head.setBorderColor(getColorByRes(R.color.fabu_yellow));
+
 //        bitmap.display(sptv_store_home_head, indexBean.store.logoUrl);
 
 
@@ -660,8 +662,7 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
         Bitmap bitmap = BitmapFactory.decodeFile(str);
 
 
-
-        bitmap =    getRoundCornerImage(bitmap, 3);
+        bitmap = getRoundCornerImage(bitmap, 3);
         try {
             img_path = FileUtil.saveMyBitmap("commenQcCode", bitmap);
         } catch (IOException e) {

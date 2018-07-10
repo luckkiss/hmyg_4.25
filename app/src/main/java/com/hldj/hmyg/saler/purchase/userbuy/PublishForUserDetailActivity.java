@@ -34,6 +34,7 @@ import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
 import com.hldj.hmyg.saler.FlowerInfoPhotoChoosePopwin2;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.UserPurchaseGsonBean;
+import com.hldj.hmyg.saler.bean.UserQuote;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
@@ -345,6 +346,38 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
 
                         getView(R.id.show_state).setVisibility(result.data.userPurchase.isClose ? View.VISIBLE : View.GONE);
 
+                        if (result.data.userQuote != null) {
+                            //自己有报价
+                            getView(R.id.content_parent).setVisibility(View.GONE);
+                            getView(R.id.empty_parent).setVisibility(View.GONE);
+                            getView(R.id.qute_history_parent).setVisibility(View.VISIBLE);
+
+                            doHistory(result.data.userQuote);
+
+                        } else {
+                            //没有报价
+
+                            if (result.data.userPurchase.isClose) {
+                                // 已经结束   显示 empty
+                                getView(R.id.empty_parent).setVisibility(View.VISIBLE);
+                                getView(R.id.qute_history_parent).setVisibility(View.GONE);
+                                getView(R.id.content_parent).setVisibility(View.GONE);
+
+                            } else {
+                                // 没有结束   显示 填写框
+
+                                getView(R.id.content_parent).setVisibility(View.VISIBLE);
+
+                                getView(R.id.empty_parent).setVisibility(View.GONE);
+                                getView(R.id.qute_history_parent).setVisibility(View.GONE);
+
+
+                            }
+
+
+                        }
+
+
 //                        ToastUtil.showLongToast(result.data.userPurchase.isClose+"");
                         Log.i(TAG, "onRealSuccess: " + result.data.userPurchase.ownerId);
                         getView(R.id.include_head)
@@ -450,33 +483,73 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
 
                     }
 
-                    private void 删除报价(String purchaseId) {
-                        new BasePresenter()
-                                .putParams("id", purchaseId)
-                                .doRequest("admin/userQuote/del", new HandlerAjaxCallBack(mActivity) {
-                                    @Override
-                                    public void onRealSuccess(SimpleGsonBean gsonBean) {
-                                        Log.i(TAG, "onRealSuccess: " + gsonBean.isSucceed());
-                                        if (gsonBean.isSucceed()) {
-                                            ToastUtil.showLongToast("删除成功");
-                                            showLoading();
-                                            new android.os.Handler().postDelayed(new Runnable() {
-                                                @Override
-                                                public void run() {
-
-                                                    resetBottom();
-                                                    initView();
-                                                }
-                                            }, 1000);
-//
-                                        }
-                                    }
-                                });
-                    }
 
 
                 })
         ;
+
+
+    }
+    private void 删除报价(String purchaseId) {
+        new BasePresenter()
+                .putParams("id", purchaseId)
+                .doRequest("admin/userQuote/del", new HandlerAjaxCallBack(mActivity) {
+                    @Override
+                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+                        Log.i(TAG, "onRealSuccess: " + gsonBean.isSucceed());
+                        if (gsonBean.isSucceed()) {
+                            ToastUtil.showLongToast("删除成功");
+                            showLoading();
+                            new android.os.Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    resetBottom();
+                                    initView();
+                                }
+                            }, 1000);
+//
+                        }
+                    }
+                });
+    }
+
+
+    private void doHistory(UserQuote userQuote) {
+        int layoutId = R.layout.item_qute_history;
+        // 到岸价
+        setText(getView(R.id.dhj),String.format("[%s]",userQuote.priceTypeName));
+
+
+        // 价格
+        setText(getView(R.id.price),  "￥"+userQuote.price + "元/" + mUnitTypeName);
+
+
+        // 图片数量
+        PurchaseDetailActivity.setImgCounts(mActivity,getView(R.id.tupian), userQuote.imagesJson);
+
+
+        //苗源地
+        setText(getView(R.id.myd_content),  userQuote.cityName);
+
+        //说明
+        setText(getView(R.id.remarks_content), userQuote.remarks);
+
+        //删除按钮
+        getView(R.id.ddh).setOnClickListener(v -> {
+            Log.i(TAG, "onRealSuccess:  删除报价");
+
+            new AlertDialog(mActivity)
+                    .builder()
+                    .setCancelable(true)
+                    .setTitle("确定删除报价?")
+                    .setNegativeButton("取消", v1 -> {
+
+                    })
+                    .setPositiveButton("确定", v1 -> {
+                        删除报价(userQuote.id);
+                    }).show();
+        });
 
 
     }
@@ -566,7 +639,7 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
         input_remark.setEnabled(true);
 
         setText(getView(R.id.input), "");
-//        setText(getView(R.id.select_city), "苗源地");
+        setText(getView(R.id.select_city), "苗源地");
         setText(getView(R.id.input_remark), "");
 //        setText(getView(R.id.textView67), "元/" + mUnitTypeName);
 

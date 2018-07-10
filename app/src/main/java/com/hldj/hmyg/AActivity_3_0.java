@@ -532,6 +532,15 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
 
                 } else {
+
+
+                    if (pre == 1.0f || location[1] == 0) {
+                        toolbar.setAlpha(0);
+//                        toolbar.getBackground().mutate().setAlpha(0);
+                        toolbar.setVisibility(View.GONE);
+                        Log.i(TAG, "onScrollChanged: 隐藏  0 ");
+                    }
+
 //                    toolbar.setVisibility(View.GONE);
 //                    Log.i("j", "no进来了");
 

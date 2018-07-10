@@ -380,9 +380,15 @@ public class PublishActivity extends BaseMVPActivity {
 
             @Override
             public void onTakePic() {
+
+
+
                 D.e("===========onTakePic=============");
                 if (TakePhotoUtil.toTakePic(mActivity))//检查 存储空间
                     flowerInfoPhotoPath = TakePhotoUtil.doTakePhoto(mActivity, TakePhotoUtil.TO_TAKE_PIC);//照相
+
+
+
             }
 
             @Override

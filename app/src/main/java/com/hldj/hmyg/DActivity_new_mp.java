@@ -540,6 +540,10 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
                 .setText(R.id.textView64, new SpanUtils()
                         .append("在售  ")
                         .append("(" + item.onShelfJson + ")").setForegroundColor(getColorByRes(R.color.main_color)).setAlign(Layout.Alignment.ALIGN_NORMAL)
+
+                        .append("  审核中  ")
+                        .append("(" + item.unauditJson + ")").setForegroundColor(getColorByRes(R.color.main_color)).setAlign(Layout.Alignment.ALIGN_NORMAL)
+
                         .append("  下架  ")
                         .append("(" + item.downShelfJson + ")").setForegroundColor(getColorByRes(R.color.main_color)).setAlign(Layout.Alignment.ALIGN_NORMAL)
                         .create())
@@ -558,7 +562,7 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
             SaveSeedingBottomLinearLayout.addressBean = item;
 
 
-            ManagerSplitListActivity_new.start2ActivityUpdate(mActivity, item.id,item.rePublishDate );
+            ManagerSplitListActivity_new.start2ActivityUpdate(mActivity, item.id, item.rePublishDate);
 
 
         });

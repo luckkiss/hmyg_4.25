@@ -49,6 +49,8 @@ public class AddressBean implements Serializable{
      */
     public int onShelf;
     public int onShelfJson;
+    public int unauditJson;
+
 
     /**
      * 苗圃内已下架的资源数量

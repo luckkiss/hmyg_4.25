@@ -36,21 +36,20 @@
                         android:layout_height="170dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/store_banner_bg" />
+
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="170dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/touming_store_new" />
+
                     <include
                         layout="@layout/include_store_user_info"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/px186"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentLeft="true"
-                        android:layout_gravity="bottom"
-                        android:layout_marginBottom="12dp" />
-
-
+                        android:layout_gravity="bottom" />
 
 
                 </RelativeLayout>
@@ -182,9 +181,9 @@
                         android:layout_height="@dimen/default_width"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/x10"
-                        android:padding="5dp"
-                        android:src="@drawable/arrow_left"
-                        android:tint="@color/white" />
+                        android:padding="2dp"
+                        android:src="@drawable/btn_back_store"
+                        />
 
                     <TextView
                         android:id="@+id/tv_store_name"
@@ -208,9 +207,9 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/x10"
-                        android:padding="6dp"
-                        android:src="@drawable/fenxiang"
-                        android:tint="@color/white" />
+                        android:padding="2dp"
+                        android:src="@drawable/fenxiang_selector"
+                    />
 
                     <ImageView
                         android:id="@+id/iv_erweima"
@@ -221,7 +220,10 @@
                         android:layout_marginRight="45dp"
                         android:padding="6dp"
                         android:src="@drawable/fenxiang_erweimahui"
-                        android:tint="@color/white" />
+                        android:tint="@color/white"
+                        android:visibility="gone"
+                        tools:visibility="visible"
+                        />
                 </RelativeLayout>
 
             </android.support.v7.widget.Toolbar>

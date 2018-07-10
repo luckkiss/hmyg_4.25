@@ -48,6 +48,9 @@ public class TakePhotoUtil {
      * 拍照 检测
      */
     public static boolean toTakePic(Activity context) {
+
+
+
         Log.e("toTakePic", "photostatus1");
         String photostatus = Environment.getExternalStorageState();
         Log.e("toTakePic", photostatus);
@@ -75,6 +78,11 @@ public class TakePhotoUtil {
      */
     public static String doTakePhoto(Activity context, int request_code) {
 
+
+
+
+
+
         long str = System.currentTimeMillis();
         String filename = "flower_info_" + str + ".png";
 
@@ -83,7 +91,7 @@ public class TakePhotoUtil {
 //        filename = "output_image.jpg";
 //        File photoFile = uploadHeadUtil.getCacheFile(new File(UploadHeadUtil.getDiskCacheDir(context)), filename);
 
-        File dir = new File( FileUtil.getFlowerPicPath(""));
+        File dir = new File(FileUtil.getFlowerPicPath(""));
 
 //        File photoFile = cameraFile;
         File photoFile = new File(dir.getPath(), filename);
@@ -278,7 +286,7 @@ public class TakePhotoUtil {
     public static void toChoosePic(Context context, PublishFlowerInfoPhotoAdapter adapter) {
         String picstatus = Environment.getExternalStorageState();
         if (picstatus.equals(Environment.MEDIA_MOUNTED)) {
-            if (SystemSetting.getInstance(context).choosePhotoDirId.length() > 0   && SystemSetting.isAlbumHasPhoto(    context.getContentResolver(),   context)) {
+            if (SystemSetting.getInstance(context).choosePhotoDirId.length() > 0 && SystemSetting.isAlbumHasPhoto(context.getContentResolver(), context)) {
                 // UpdataImageActivity
                 // .startPhotoActivity(
                 // UpdataImageActivity.this,
@@ -307,14 +315,13 @@ public class TakePhotoUtil {
 
 
     /**
-     *
      * @param context
      * @param adapter
      */
-    public static void toChoosePicAndVideo(Context context, PublishFlowerInfoPhotoAdapter adapter , boolean isHadVideo) {
+    public static void toChoosePicAndVideo(Context context, PublishFlowerInfoPhotoAdapter adapter, boolean isHadVideo) {
         String picstatus = Environment.getExternalStorageState();
         if (picstatus.equals(Environment.MEDIA_MOUNTED)) {
-            if (SystemSetting.getInstance(context).choosePhotoDirId.length() > 0   && SystemSetting.isAlbumHasPhoto(    context.getContentResolver(),   context)) {
+            if (SystemSetting.getInstance(context).choosePhotoDirId.length() > 0 && SystemSetting.isAlbumHasPhoto(context.getContentResolver(), context)) {
                 // UpdataImageActivity
                 // .startPhotoActivity(
                 // UpdataImageActivity.this,
@@ -328,13 +335,13 @@ public class TakePhotoUtil {
                         context,
                         PhotoActivity.PHOTO_TYPE_PUBLISH_SEED_ATTACH,
                         adapter.getUrlPathsCount()
-                        ,isHadVideo
+                        , isHadVideo
                 );
             } else {
                 PhotoAlbumActivity.startPhotoAlbumActivityVideo(
                         context,
                         PhotoActivity.PHOTO_TYPE_PUBLISH_SEED_ATTACH,
-                        adapter.getUrlPathsCount(),isHadVideo
+                        adapter.getUrlPathsCount(), isHadVideo
                 );
             }
         } else {

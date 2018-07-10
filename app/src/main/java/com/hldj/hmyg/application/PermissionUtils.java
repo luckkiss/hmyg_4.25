@@ -60,6 +60,11 @@ public class PermissionUtils {
 				Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {// 没有权限
 			allNeedPermissions.add(Manifest.permission.RECORD_AUDIO);
 		}
+		if (ContextCompat.checkSelfPermission(context,
+				Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {// 没有权限
+			allNeedPermissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+		}
+
 
 		if (allNeedPermissions.size() > 0) {
 			String[] needReqPre = new String[allNeedPermissions.size()];

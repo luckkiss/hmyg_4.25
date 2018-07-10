@@ -1,8 +1,11 @@
 package com.hldj.hmyg.saler;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 
 import com.hldj.hmyg.R;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zzy.flowers.widget.popwin.BottomPopwin;
 
 public class FlowerInfoPhotoChoosePopwin2 extends BottomPopwin {
@@ -12,11 +15,28 @@ public class FlowerInfoPhotoChoosePopwin2 extends BottomPopwin {
     public FlowerInfoPhotoChoosePopwin2(Context context, onPhotoStateChangeListener onPhotoState) {
         super(new int[]{R.string.photo_take_pic, R.string.photo_album_title, R.string.cancel}, context);
         this.onPhotoState = onPhotoState;
+
+        RxPermissions rxPermissions = new RxPermissions((Activity) context);
+        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA)
+                .doOnSubscribe(disposable -> {
+                }).subscribe(grand -> {
+
+
+        });
+
     }
 
     public FlowerInfoPhotoChoosePopwin2(Context context, onPhotoStateChangeListener onPhotoState, boolean isOpenVideo) {
+
+
         super(new int[]{R.string.photo_take_pic, R.string.photo_album_title, R.string.small_video, R.string.cancel}, context);
         this.onPhotoState = onPhotoState;
+
+        RxPermissions rxPermissions = new RxPermissions((Activity) context);
+        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA)
+                .doOnSubscribe(disposable -> {
+                }).subscribe(grand -> {
+        });
     }
 
 
