@@ -35,6 +35,7 @@ import net.tsz.afinal.annotation.view.ViewInject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 
@@ -87,7 +88,7 @@ public class StoreDetailActivity extends BaseMVPActivity {
         });
 
         name.setTextColor(getColorByRes(R.color.text_color666));
-        brower_num.setTextColor(getColorByRes(R.color.text_color999));
+        brower_num.setTextColor(getColorByRes(R.color.text_color666));
 
 
         requestData();
@@ -150,10 +151,50 @@ public class StoreDetailActivity extends BaseMVPActivity {
 
     private void initOtherCount(SimpleGsonBean simpleGsonBean) {
 
+        TextView head_hzgys = getView(R.id.store_hzgys);
+        /*  */
+        TextView bg_hzgys = getView(R.id.bg_hzgys);
+        CircleImageView sptv_store_home_head = getView(R.id.logo);
+
+        if (simpleGsonBean.getData().isQuote && !TextUtils.isEmpty(simpleGsonBean.getData().levelName)) {
+//        if (simpleGsonBean.getData().isQuote ) {
+            bg_hzgys.setText(simpleGsonBean.getData().levelName);
+            bg_hzgys.setVisibility(View.VISIBLE);
+//            sptv_store_home_head.setBorderColor(getColorByRes(R.color.maimiao_yellower));
+            brower_num.setVisibility(View.GONE);
+
+//            ToastUtil.showLongToast("up");
+        } else {//不是供应商
+            bg_hzgys.setVisibility(View.GONE);
+            sptv_store_home_head.setBorderColor(getColorByRes(R.color.white));
+//            ToastUtil.showLongToast("down");
+            //么有企业认证  显示浏览量
+            if (!simpleGsonBean.getData().identity) {
+                brower_num.setText(String.format("浏览量 %d", simpleGsonBean.getData().visitsCount));
+                brower_num.setVisibility(View.VISIBLE);
+//                ToastUtil.showLongToast("up");
+            }else {
+//                ToastUtil.showLongToast("down");
+                brower_num.setVisibility(View.GONE);
+            }
+
+
+        }
+        head_hzgys.setVisibility(View.GONE);
+
+
+        // 没有供应商等级   && 没有 企业认证
+
+
         //onShelfCount在售苗木数量
+
         //momentsCount  苗木圈数量
+
+
         //identity  企业认证信息
-        brower_num.setText(String.format("浏览量 %d", simpleGsonBean.getData().visitsCount));
+        store_identity.setVisibility(simpleGsonBean.getData().identity ? View.VISIBLE : View.GONE);
+
+
         setText(getView(R.id.sps), String.format("%d\n商品数", simpleGsonBean.getData().onShelfCount));
         setText(getView(R.id.mmq), String.format("%d\n苗木圈", simpleGsonBean.getData().momentsCount));
 
@@ -177,7 +218,7 @@ public class StoreDetailActivity extends BaseMVPActivity {
 
         option_identity.showRightImg(true);
 
-        store_identity.setVisibility(simpleGsonBean.getData().identity ? View.VISIBLE : View.GONE);
+//        store_identity.setVisibility(View.GONE );
 
 
         if (simpleGsonBean.getData().identity) {
@@ -243,6 +284,8 @@ public class StoreDetailActivity extends BaseMVPActivity {
     TextView tv_remarks;
 
     private void initStroeBean(StoreGsonBean.DataBean.StoreBean store, String head) {
+
+
         D.i("---------initStroeBean-------" + store.name);
         name.setText(store.name);
 

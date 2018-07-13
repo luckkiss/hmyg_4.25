@@ -8,7 +8,9 @@ import com.daimajia.swipe.SwipeLayout;
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.BActivity_new_test;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
+import com.hldj.hmyg.CallBack.IEditable;
 import com.hldj.hmyg.CallBack.IFootMarkEmpty;
+import com.hldj.hmyg.CallBack.impl.DeleteAbleImpl;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.R;
@@ -18,6 +20,7 @@ import com.hldj.hmyg.bean.SimplePageBean;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.buyer.weidet.decoration.SectionDecoration;
+import com.hldj.hmyg.me.HistoryActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.enums.FootMarkSourceType;
 import com.hldj.hmyg.util.ConstantParams;
@@ -37,6 +40,13 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBean.DatabeanX.Pagebean.Databean> implements IFootMarkEmpty {
 
+    @Override
+    protected void onFragmentVisibleChange(boolean b) {
+        super.onFragmentVisibleChange(b);
+        if (b) {
+            ((HistoryActivity) mActivity).toggleBottomParent(isEditAble);
+        }
+    }
 
     @Override
     protected void doRefreshRecycle(String page) {
@@ -135,12 +145,36 @@ public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBe
     @Override
 //    protected void doConvert(BaseViewHolder helper, SaveSeedingGsonBean.DataBean.SeedlingBean item, NeedSwipeBackActivity mActivity) {
     protected void doConvert(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item, NeedSwipeBackActivity mActivity) {
-        helper.getConvertView().setOnClickListener(v -> {
-            FlowerDetailActivity.start2Activity(mActivity, "seedling_list", item.id);
-        });
+
+
+        helper.setChecked(R.id.checkBox, item.isChecked())
+                .setVisible(R.id.checkBox, isEditAble)
+//                .setVisible(R.id.checkBoxParent, isEditAble)
+//                .addOnClickListener(R.id.checkBoxParent, v -> {
+//                    item.toggle();
+//                    helper.setChecked(R.id.checkBox, item.isChecked());
+//                })
+                .addOnClickListener(R.id.checkBox, v -> {
+                    item.toggle();
+                });
+
+
 //        D.i("=============doConvert==============" + item.getName());
         BActivity_new_test.initListType(helper, item, FinalBitmap.create(mActivity), "BActivity_new");
 
+        // helper.getView(R.id.iv_right_top);
+//        helper.setVisible(R.id.iv_right_top, false);
+
+
+//        helper.getConvertView().setOnClickListener(v -> {
+//            if (isEditAble) {
+//                item.toggle();
+//                helper.setChecked(R.id.checkBox, item.isChecked());
+//            } else {
+//                FlowerDetailActivity.start2Activity(mActivity, "seedling_list", item.id);
+//            }
+
+//        });
 
         if (!item.status.equals("published")) {
             helper.setVisible(R.id.fr_goods_time_out, true);
@@ -157,19 +191,28 @@ public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBe
             ll_info_content.setOnClickListener(v -> {
                 //点击布局
                 D.e("==点击布局==");
-                FlowerDetailActivity.start2Activity(mActivity, "show_type", item.id);
+//                FlowerDetailActivity.start2Activity(mActivity, "show_type", item.id);
+
+                if (isEditAble) {
+                    item.toggle();
+                    helper.setChecked(R.id.checkBox, item.isChecked());
+                } else {
+                    FlowerDetailActivity.start2Activity(mActivity, "seedling_list", item.id);
+                }
+
+
             });
 
 
         }
 
 
-        helper
-                .setVisible(R.id.tv_right_top, true)
-                .addOnClickListener(R.id.tv_right_top, v -> {
-                    doUserDelDelete(helper, item, mActivity);
-                })
-        ;
+//        helper
+//                .setVisible(R.id.tv_right_top, false)
+//                .addOnClickListener(R.id.tv_right_top, v -> {
+//                    doUserDelDelete(helper, item, mActivity);
+//                })
+//        ;
 
 
         SwipeLayout swipeLayout = helper.getView(R.id.sl_content);
@@ -186,22 +229,51 @@ public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBe
     @Override
     public void doEmpty() {
 //        ToastUtil.showLongToast("清空  苗木资源");
+           /* 判断是否为空 */
+        if (null2Tip(this.getResourceId(), "请选择删除项")) return;
         doUserDelDelete(null, this, mActivity);
+    }
+
+    private boolean isEditAble = false;
+
+
+    /* core recycle view 代理 类 */
+    private IEditable iEditable;
+
+    public IEditable getiEditable() {
+        if (iEditable == null) {
+            iEditable = new DeleteAbleImpl(mCoreRecyclerView);
+        }
+        return iEditable;
+    }
+
+    @Override
+    public void doEdit() {
+        //编辑
+        this.isEditAble = !isEditAble;
+        mCoreRecyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void toggleSelect() {
+        getiEditable().toggleSelectAll();
+
     }
 
     @Override
     public String getEmptyTip() {
-        return "确定清空  [商城资源]";
+        return "确定删除所选？";
     }
+
 
     @Override
     public String getResourceId() {
-        return null;
+        return getiEditable().getDeleteIds();
     }
 
     @Override
     public String getDomain() {
-        return "admin/footmark/userDelBySource";
+        return "admin/footmark/userDel";
     }
 
     @Override

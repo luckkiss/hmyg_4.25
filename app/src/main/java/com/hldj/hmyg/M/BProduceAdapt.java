@@ -2,7 +2,6 @@ package com.hldj.hmyg.M;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,17 +30,17 @@ public class BProduceAdapt extends GlobBaseAdapter<BPageGsonBean.DatabeanX.Pageb
 
 //        if (position == 1)
 //            D.e("=======PurchaseListAdapter=====" + item.toString());
-        int layout_id = R.layout.list_view_seedling_new;
+        int layout_id = R.layout.list_view_seedling_new_eq;
 
         ImageView iv_img = myViewHolder.getView(R.id.iv_img);
         TextView tv_01 = myViewHolder.getView(R.id.tv_01);
         MySwipeAdapter.setSrcByType(tv_01, item.plantType);
-        View iv_right_top = myViewHolder.getView(R.id.iv_right_top);
-        if (item.attrData.ziying) {//自营显示票
-            iv_right_top.setVisibility(View.VISIBLE);
-        } else {
-            iv_right_top.setVisibility(View.GONE);
-        }
+//        View iv_right_top = myViewHolder.getView(R.id.iv_right_top);
+//        if (item.attrData.ziying) {//自营显示票
+//            iv_right_top.setVisibility(View.VISIBLE);
+//        } else {
+//            iv_right_top.setVisibility(View.GONE);
+//        }
         TextView tv_02 = myViewHolder.getView(R.id.tv_02);
         tv_02.setText(item.standardName);
 
@@ -49,7 +48,8 @@ public class BProduceAdapt extends GlobBaseAdapter<BPageGsonBean.DatabeanX.Pageb
         tv_03.setText(item.specText);
 
         TextView tv_04 = myViewHolder.getView(R.id.tv_04);
-        tv_04.setText("苗源地: " + item.ciCity.fullName);
+        tv_04.setText("" + item.ciCity.fullName);
+        //苗源地:
 
         TextView tv_06 = myViewHolder.getView(R.id.tv_06);
         setPublishName(tv_06,

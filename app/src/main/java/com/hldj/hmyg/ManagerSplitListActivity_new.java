@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,6 +21,8 @@ import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.M.AddressBean;
 import com.hldj.hmyg.M.BPageGsonBean;
+import com.hldj.hmyg.M.CountTypeGsonBean;
+import com.hldj.hmyg.M.StatusCountBean;
 import com.hldj.hmyg.base.MyFinalActivity;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
@@ -72,7 +75,7 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
         intent.putExtra("updateTime", updateTime);
         Log.i(TAG, "start2Activity: 苗圃的  ---  >  " + id);
         Log.i(TAG, "start2Activity: updateTime  ---  >  " + updateTime);
-        context.startActivityForResult(intent,100);
+        context.startActivityForResult(intent, 100);
     }
 
 
@@ -591,12 +594,12 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
     private void 隐藏3对控件1245() {
         rls[0].setVisibility(View.GONE);
         rls[1].setVisibility(View.GONE);
-        rls[3].setVisibility(View.GONE);
+//        rls[3].setVisibility(View.GONE);
         rls[4].setVisibility(View.GONE);
 
         lines[0].setVisibility(View.GONE);
         lines[1].setVisibility(View.GONE);
-        lines[3].setVisibility(View.GONE);
+//        lines[3].setVisibility(View.GONE);
         lines[4].setVisibility(View.GONE);
     }
 
@@ -636,16 +639,37 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
 
             tvs[5].setTextColor(ContextCompat.getColor(mActivity, R.color.text_color333));
             ivs[5].setVisibility(View.INVISIBLE);
+            tvs[3].setTextColor(ContextCompat.getColor(mActivity, R.color.text_color333));
+            ivs[3].setVisibility(View.INVISIBLE);
 
-            setType("other");
+            setType("published");
 
             getView(R.id.btn_manager_storege).setVisibility(View.VISIBLE);
 
+            getView(R.id.state_parent).setVisibility(View.GONE);
 
+
+        }
+        if (index == 3) {   //  审核中
+            tvs[3].setTextColor(ContextCompat.getColor(mActivity, R.color.main_color));
+            ivs[3].setVisibility(View.VISIBLE);
+
+            tvs[5].setTextColor(ContextCompat.getColor(mActivity, R.color.text_color333));
+            ivs[5].setVisibility(View.INVISIBLE);
+            tvs[2].setTextColor(ContextCompat.getColor(mActivity, R.color.text_color333));
+            ivs[2].setVisibility(View.INVISIBLE);
+
+            setType("unaudit");
+
+            getView(R.id.btn_manager_storege).setVisibility(View.GONE);
+
+            getView(R.id.state_parent).setVisibility(View.GONE);
         } else if (index == 5) // 带操作
         {
             tvs[2].setTextColor(ContextCompat.getColor(mActivity, R.color.text_color333));
             ivs[2].setVisibility(View.INVISIBLE);
+            tvs[3].setTextColor(ContextCompat.getColor(mActivity, R.color.text_color333));
+            ivs[3].setVisibility(View.INVISIBLE);
 
             tvs[5].setTextColor(ContextCompat.getColor(mActivity, R.color.main_color));
             ivs[5].setVisibility(View.VISIBLE);
@@ -666,9 +690,10 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
              android:text="发布苗木" />
              */
             getView(R.id.btn_manager_storege).setVisibility(View.GONE);
-
+            getView(R.id.state_parent).setVisibility(View.VISIBLE);
         }
         tvs[5].setText("待处理");
+        tvs[3].setText("审核中");
 
 
         resetStateList();
@@ -766,11 +791,41 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
         super.onActivityResult(arg0, arg1, arg2);
         if (arg1 == ConstantState.PUBLIC_SUCCEED) {
 //            xRecyclerView.onRefresh();
+//            ToastUtil.showLongToast("发布成功回调");
+            switch2Refresh("unaudit",3);
         }
     }
 
     @Override
     public void initTodoStatusCount(SimpleGsonBean gsonBean) {
+
+
+    }
+
+
+    @Override
+    public void initCounts(CountTypeGsonBean gsonBean) {
+        super.initCounts(gsonBean);
+        list_counts.clear();
+        LinearLayout linearLayout = getView(R.id.ll_counts_content);
+        findTagTextView(linearLayout);
+        for (int i = 0; i < list_counts.size(); i++) {
+            switch (i) {
+
+                case 3:
+                    list_counts.get(i).setText("(" + gsonBean.data.countMap.unsubmit + ")");
+                    break;
+
+
+            }
+        }
+
+
+    }
+
+    @Override
+    public void initCounts2(SimpleGsonBeanData<StatusCountBean> gsonBean) {
+        super.initCounts2(gsonBean);
 
 
     }

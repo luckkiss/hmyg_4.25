@@ -1,5 +1,7 @@
 package com.hldj.hmyg.saler.bean;
 
+import android.widget.Checkable;
+
 import com.hldj.hmyg.CallBack.IFootMarkDelete;
 import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
 import com.hldj.hmyg.buyer.weidet.ExpandableItemAdapter;
@@ -12,7 +14,7 @@ import java.util.List;
  * 用户求购  实体对象
  */
 
-public class UserPurchase implements MultiItemEntity, IFootMarkDelete {
+public class UserPurchase implements MultiItemEntity, IFootMarkDelete, Checkable {
 
     /**
      * id : 94a61b8865654112a48ce03f3c6b49eb
@@ -53,7 +55,7 @@ public class UserPurchase implements MultiItemEntity, IFootMarkDelete {
      * closeDateStr : 2018-04-27 09:39
      */
 
-    public int unreadQuoteCountJson ;
+    public int unreadQuoteCountJson;
     public String name;
     public String id;
     public String remarks;
@@ -138,6 +140,24 @@ public class UserPurchase implements MultiItemEntity, IFootMarkDelete {
     @Override
     public String getFootMarkId() {
         return attrData.footMarkId;
+    }
+
+
+    private boolean isChecked;
+
+    @Override
+    public void setChecked(boolean checked) {
+        this.isChecked = checked;
+    }
+
+    @Override
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    @Override
+    public void toggle() {
+        this.isChecked = !isChecked;
     }
 
 

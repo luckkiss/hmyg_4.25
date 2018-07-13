@@ -5,7 +5,7 @@
     android:id="@+id/qute_history_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_top_bottom_line">
+    android:background="@drawable/bg_bottom_line">
 
 
     <TextView
@@ -42,7 +42,7 @@
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="￥100"
+        android:text="¥100"
         android:layout_marginLeft="4dp"
         android:textColor="@color/price_orige"
         app:layout_constraintStart_toEndOf="@+id/dhj"
@@ -82,7 +82,7 @@
     <TextView
         android:id="@+id/myd_content"
         android:layout_width="wrap_content"
-        android:layout_height="14dp"
+        android:layout_height="wrap_content"
         android:text="广东中山"
         android:textColor="@color/text_color333"
         android:textSize="@dimen/textSizeContent"
@@ -95,13 +95,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        tools:text="这是m的cm的苗的苗这是m的cm的苗的苗这是m的cm的苗的苗这是m的cm的苗的苗这是m的cm的苗的苗"
         android:textColor="@color/text_color333"
         android:textSize="@dimen/textSizeContent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ddh"
         app:layout_constraintStart_toEndOf="@+id/remarks"
-        app:layout_constraintTop_toTopOf="@+id/remarks" />
+        app:layout_constraintTop_toTopOf="@+id/remarks"
+        tools:text="这是m的cm的苗的苗这是m的cm的苗的苗这是m的cm的苗的苗这是m的cm的苗的苗这是m的cm的苗的苗" />
 
     <TextView
         android:id="@+id/ddh"

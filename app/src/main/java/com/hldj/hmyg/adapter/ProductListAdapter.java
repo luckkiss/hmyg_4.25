@@ -286,11 +286,11 @@ public class ProductListAdapter extends BaseAdapter {
 //            tv_unit.setVisibility(View.GONE);
 //        } else {
 //            if (!isPriceNull(minPrice) && !isPriceNull(maxPrice)) {
-//                price = "￥" + minPrice + "-" + maxPrice;
+//                price = "¥" + minPrice + "-" + maxPrice;
 //            } else if (isPriceNull(minPrice) && !isPriceNull(maxPrice)) {
-//                price = "￥" + maxPrice;
+//                price = "¥" + maxPrice;
 //            } else if (!isPriceNull(minPrice) && isPriceNull(maxPrice)) {
-//                price = "￥" + minPrice;
+//                price = "¥" + minPrice;
 //            } else {
 //                price = "面议";
 //            }

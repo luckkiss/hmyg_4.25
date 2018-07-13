@@ -8,11 +8,13 @@ public interface IEmpty extends IDelete {
 
     abstract void doEmpty();
 
+    abstract void doEdit();
+
+    abstract void toggleSelect();
 
     /* 清空的 时候  使用  暂时弃用 */
     @Override
     public String getResourceId();
-
 
 
     /* 清空的 时候  使用  子类必须实现 */

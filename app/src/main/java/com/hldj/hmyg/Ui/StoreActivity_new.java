@@ -168,8 +168,8 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
                     getView(R.id.tv_store_name).setVisibility(View.GONE);
                     StateBarUtil.setStatusTranslater(mActivity, false);//变白
 
-                     getView(R.id.btn_back).setSelected(false);
-                     getView(R.id.iv_fenxiang).setSelected(false);
+                    getView(R.id.btn_back).setSelected(false);
+                    getView(R.id.iv_fenxiang).setSelected(false);
 
 
                 } else if (state == State.COLLAPSED) {
@@ -441,6 +441,20 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
     @Override
     public void initIndexBean(StoreGsonBean.DataBean indexBean) {
 
+        TextView store_hzgys = getView(R.id.store_hzgys);
+        CircleImageView sptv_store_home_head = getView(R.id.logo);
+
+        if (indexBean.isQuote && !TextUtils.isEmpty(indexBean.levelName)) {
+            store_hzgys.setText(indexBean.levelName);
+            sptv_store_home_head.setBorderColor(getColorByRes(R.color.maimiao_yellower));
+//            ToastUtil.showLongToast("up");
+        } else {
+            sptv_store_home_head.setBorderColor(getColorByRes(R.color.white));
+//            ToastUtil.showLongToast("down");
+        }
+        store_hzgys.setVisibility(indexBean.isQuote ? View.VISIBLE : View.GONE);
+
+
         typeListJson = GsonUtil.Bean2Json(indexBean.typeList);
 
         getView(R.id.store_identity).setVisibility(indexBean.identity ? View.VISIBLE : View.GONE);
@@ -463,12 +477,11 @@ public class StoreActivity_new extends BaseMVPActivity<StorePresenter, StoreMode
         }
 
 
-        CircleImageView sptv_store_home_head = getView(R.id.logo);
 
 
         ImageLoader.getInstance().displayImage(indexBean.store.logoUrl, sptv_store_home_head);
 
-        sptv_store_home_head.setBorderColor(getColorByRes(R.color.fabu_yellow));
+//        sptv_store_home_head.setBorderColor(getColorByRes(R.color.fabu_yellow));
 
 //        bitmap.display(sptv_store_home_head, indexBean.store.logoUrl);
 

@@ -1,5 +1,8 @@
 package com.hldj.hmyg.Ui.friend.bean;
 
+import android.widget.Checkable;
+
+import com.hldj.hmyg.CallBack.ICollectDelete;
 import com.hldj.hmyg.CallBack.IFootMarkDelete;
 import com.hldj.hmyg.Ui.friend.bean.enums.AgentGrade;
 import com.hldj.hmyg.bean.UserBean;
@@ -17,7 +20,7 @@ import java.util.List;
  * @author luow
  * @version 2017-11-24
  */
-public class Moments implements Serializable, IFootMarkDelete {
+public class Moments implements Serializable, IFootMarkDelete, Checkable ,ICollectDelete{
 
     public static final long serialVersionUID = 4307497280064329128L;
 
@@ -158,6 +161,30 @@ public class Moments implements Serializable, IFootMarkDelete {
     public String getFootMarkId() {
         return attrData.footMarkId;
     }
+
+    private boolean isChecked;
+
+    @Override
+    public void setChecked(boolean checked) {
+        this.isChecked = checked;
+    }
+
+    @Override
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    @Override
+    public void toggle() {
+        this.isChecked = !isChecked;
+
+    }
+
+
+    public String getCollectId()
+    {
+        return attrData.collectId;
+    }
      /*end*/
 
 //     "isFavour": true,
@@ -189,6 +216,9 @@ public class Moments implements Serializable, IFootMarkDelete {
 
         public String level = AgentGrade.level0.getEnumValue();
         public boolean identity = false;
+
+
+        public String collectId = "";
 
 
     }

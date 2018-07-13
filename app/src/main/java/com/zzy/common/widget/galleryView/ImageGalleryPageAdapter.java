@@ -138,7 +138,7 @@ public class ImageGalleryPageAdapter extends BaseAdapter {
 
                         @Override
                         public void onLoadingStarted(String arg0, View arg1) {
-                            holder.progressBar.setVisibility(View.VISIBLE);
+                            holder.progressBar.setVisibility(View.GONE);
                             D.e("===========onLoadingStarted============");
 //							notifyDataSetChanged();
                         }

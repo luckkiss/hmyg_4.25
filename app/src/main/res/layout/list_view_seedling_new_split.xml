@@ -15,241 +15,243 @@
         android:foreground="?attr/selectableItemBackground"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/y4">
+        <!--<LinearLayout-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:paddingLeft="@dimen/y4">-->
 
-            <RelativeLayout
-                android:layout_width="@dimen/px150"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="@dimen/y3">
+            <!--<RelativeLayout-->
+                <!--android:layout_width="@dimen/px150"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:layout_marginTop="@dimen/y3">-->
 
-                <ImageView
-                    android:id="@+id/iv_img"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
+                <!--<ImageView-->
+                    <!--android:id="@+id/iv_img"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:scaleType="centerCrop"-->
 
-                    />
-            </RelativeLayout>
+                    <!--/>-->
+            <!--</RelativeLayout>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/px200"
-                android:layout_marginLeft="@dimen/x5"
-                android:orientation="vertical">
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/px200"-->
+                <!--android:layout_marginLeft="@dimen/x5"-->
+                <!--android:orientation="vertical">-->
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
 
-                    <ImageView
-                        android:id="@+id/iv_right_top"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/piao_right_top"
-                        android:visibility="gone"
-                        tools:visibility="visible" />
+                    <!--<ImageView-->
+                        <!--android:id="@+id/iv_right_top"-->
+                        <!--android:layout_width="30dp"-->
+                        <!--android:layout_height="30dp"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:src="@drawable/piao_right_top"-->
+                        <!--android:visibility="gone"-->
+                        <!--tools:visibility="visible" />-->
 
-                    <TextView
-                        android:id="@+id/tv_right_top"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:gravity="center"
-                        android:paddingRight="10dp"
-                        android:paddingTop="8dp"
-                        android:src="@drawable/piao_right_top"
-                        android:text="12346"
-                        android:textSize="@dimen/textSizeContent"
-                        android:visibility="gone"
-                        tools:visibility="visible" />
-
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_toLeftOf="@+id/tv_right_top"
-                        android:orientation="horizontal"
-                        android:paddingTop="7dp">
-
-                        <TextView
-                            android:id="@+id/tv_01"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_gravity="center"
-                            android:gravity="center_vertical"
-                            android:singleLine="true"
-                            android:textSize="@dimen/y10"
-                            tools:background="@drawable/icon_seller_rong" />
-
-                        <TextView
-                            android:id="@+id/tv_02"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:gravity="center_vertical"
-                            android:singleLine="true"
-                            android:textColor="@color/main_color"
-                            android:textSize="@dimen/textSizeTitle"
-                            tools:text="吴波吴波吴波吴波吴波吴波" />
-                    </LinearLayout>
-                </RelativeLayout>
-
-                <!--冠幅 高度 思密达-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dip"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_03"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:singleLine="true"
-                        android:textColor="@color/little_black_sm"
-                        android:textSize="@dimen/textSizeContent"
-                        tools:text="米径：15 高度：500 冠幅：400" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_right_top"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:gravity="center"-->
+                        <!--android:paddingRight="10dp"-->
+                        <!--android:paddingTop="8dp"-->
+                        <!--android:src="@drawable/piao_right_top"-->
+                        <!--android:text="12346"-->
+                        <!--android:textSize="@dimen/textSizeContent"-->
+                        <!--android:visibility="gone"-->
+                        <!--tools:visibility="visible" />-->
 
 
-                </LinearLayout>
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentLeft="true"-->
+                        <!--android:layout_toLeftOf="@+id/tv_right_top"-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:paddingTop="7dp">-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/tv_01"-->
+                            <!--android:layout_width="18dp"-->
+                            <!--android:layout_height="18dp"-->
+                            <!--android:layout_gravity="center"-->
+                            <!--android:gravity="center_vertical"-->
+                            <!--android:singleLine="true"-->
+                            <!--android:textSize="@dimen/y10"-->
+                            <!--tools:background="@drawable/icon_seller_rong" />-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/tv_02"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="3dp"-->
+                            <!--android:gravity="center_vertical"-->
+                            <!--android:singleLine="true"-->
+                            <!--android:textColor="@color/main_color"-->
+                            <!--android:textSize="@dimen/textSizeTitle"-->
+                            <!--tools:text="吴波吴波吴波吴波吴波吴波" />-->
+                    <!--</LinearLayout>-->
+                <!--</RelativeLayout>-->
+
+                <!--&lt;!&ndash;冠幅 高度 思密达&ndash;&gt;-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dip"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:orientation="vertical">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_03"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="0dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:textColor="@color/little_black_sm"-->
+                        <!--android:textSize="@dimen/textSizeContent"-->
+                        <!--tools:text="米径：15 高度：500 冠幅：400" />-->
 
 
-                <!--地区移到右上角tv_04-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dip"
-                    android:layout_weight="0"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:id="@+id/tv_05"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-
-                        android:singleLine="true"
-                        android:textColor="@color/little_black_sm"
-                        android:textSize="@dimen/y8" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dip"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/tv_06"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:singleLine="true"
-                        android:textColor="@color/little_black_sm"
-                        android:textSize="@dimen/textSizeContent"
-                        tools:text="发布人：河南基地" />
-                </LinearLayout>
+                <!--</LinearLayout>-->
 
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dip"
-                    android:layout_weight="1.2"
-                    android:minHeight="30dp">
+                <!--&lt;!&ndash;地区移到右上角tv_04&ndash;&gt;-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dip"-->
+                    <!--android:layout_weight="0"-->
+                    <!--android:visibility="gone">-->
 
-                    <TextView
-                        android:id="@+id/tv_07"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:gravity="center_vertical|start"
-                        android:singleLine="true"
-                        android:text="20.00"
-                        android:textColor="@color/price_orige" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_05"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center_vertical"-->
 
-                    <TextView
-                        android:id="@+id/tv_09"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginLeft="28dp"
-                        android:layout_marginStart="28dp"
-                        android:layout_toEndOf="@+id/tv_08"
-                        android:layout_toRightOf="@+id/tv_08"
-                        android:gravity="center_vertical"
-                        android:paddingRight="10dp"
-                        android:singleLine="true"
-                        android:text="200株"
-                        android:textColor="@color/little_black_sm"
-                        android:textSize="@dimen/textSizeContent" />
+                        <!--android:singleLine="true"-->
+                        <!--android:textColor="@color/little_black_sm"-->
+                        <!--android:textSize="@dimen/y8" />-->
+                <!--</LinearLayout>-->
 
-                    <TextView
-                        android:id="@+id/tv_08"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tv_07"
-                        android:layout_alignBottom="@+id/tv_07"
-                        android:layout_toRightOf="@+id/tv_07"
-                        android:gravity="center_vertical"
-                        android:singleLine="true"
-                        android:text="/株"
-                        android:textColor="@color/little_black_sm"
-                        android:textSize="@dimen/textSizeContent" />
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dip"-->
+                    <!--android:layout_weight="1">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_06"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:textColor="@color/little_black_sm"-->
+                        <!--android:textSize="@dimen/textSizeContent"-->
+                        <!--tools:text="发布人：河南基地" />-->
+                <!--</LinearLayout>-->
 
 
-                    <EditText
-                        android:id="@+id/et"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_toLeftOf="@id/tv_09"
-                        android:layout_toRightOf="@+id/tv_08"
-                        android:background="@color/gray_bg_ed"
-                        android:visibility="gone" />
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dip"-->
+                    <!--android:layout_weight="1.2"-->
+                    <!--android:minHeight="30dp">-->
 
-                </RelativeLayout>
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_07"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:gravity="center_vertical|start"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:text="20.00"-->
+                        <!--android:textColor="@color/price_orige" />-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_09"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentBottom="true"-->
+                        <!--android:layout_alignParentTop="true"-->
+                        <!--android:layout_marginLeft="28dp"-->
+                        <!--android:layout_marginStart="28dp"-->
+                        <!--android:layout_toEndOf="@+id/tv_08"-->
+                        <!--android:layout_toRightOf="@+id/tv_08"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:paddingRight="10dp"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:text="200株"-->
+                        <!--android:textColor="@color/little_black_sm"-->
+                        <!--android:textSize="@dimen/textSizeContent" />-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_08"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignBaseline="@+id/tv_07"-->
+                        <!--android:layout_alignBottom="@+id/tv_07"-->
+                        <!--android:layout_toRightOf="@+id/tv_07"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:text="/株"-->
+                        <!--android:textColor="@color/little_black_sm"-->
+                        <!--android:textSize="@dimen/textSizeContent" />-->
 
 
-                <View
-                    style="@style/View_line_gray_1dp"
-                    android:layout_marginTop="2dp" />
+                    <!--<EditText-->
+                        <!--android:id="@+id/et"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="30dp"-->
+                        <!--android:layout_toLeftOf="@id/tv_09"-->
+                        <!--android:layout_toRightOf="@+id/tv_08"-->
+                        <!--android:background="@color/gray_bg_ed"-->
+                        <!--android:visibility="gone" />-->
 
-                <RelativeLayout
-                    android:id="@+id/rl_floorPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dip"
-                    android:layout_weight="1"
-                    android:visibility="gone">
+                <!--</RelativeLayout>-->
 
-                    <TextView
-                        android:id="@+id/tv_floorPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:gravity="center_vertical"
-                        android:singleLine="true"
-                        android:textColor="#FA0000" />
 
-                    <ImageView
-                        android:id="@+id/iv_like"
-                        android:layout_width="@dimen/y12"
-                        android:layout_height="@dimen/y12"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/y10"
-                        android:gravity="center_vertical"
+                <!--<View-->
+                    <!--style="@style/View_line_gray_1dp"-->
+                    <!--android:layout_marginTop="2dp" />-->
 
-                        android:src="@drawable/tuijian_hui" />
-                </RelativeLayout>
-            </LinearLayout>
-        </LinearLayout>
+                <!--<RelativeLayout-->
+                    <!--android:id="@+id/rl_floorPrice"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dip"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:visibility="gone">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_floorPrice"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:textColor="#FA0000" />-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/iv_like"-->
+                        <!--android:layout_width="@dimen/y12"-->
+                        <!--android:layout_height="@dimen/y12"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_marginRight="@dimen/y10"-->
+                        <!--android:gravity="center_vertical"-->
+
+                        <!--android:src="@drawable/tuijian_hui" />-->
+                <!--</RelativeLayout>-->
+            <!--</LinearLayout>-->
+        <!--</LinearLayout>-->
+
+        <include layout="@layout/list_view_seedling_new_eq" />
 
 
         <include

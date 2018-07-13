@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -45,10 +46,38 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
     </android.support.v4.view.ViewPager>
 
+
+    <LinearLayout
+        android:id="@+id/bottom_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <!--            android:drawableLeft="@drawable/dagou_seletor"
+-->
+        <com.hldj.hmyg.widget.DrawableCenterText
+            android:id="@+id/select_all"
+            style="@style/save_bottom_no_yingying"
+            android:layout_weight="1"
+            android:background="@drawable/round_rectangle_bg_red_gray"
+            android:text="全选"
+            android:textColor="@color/text_color666"
+            />
+
+        <TextView
+            android:id="@+id/delete_all"
+            style="@style/save_bottom_no_yingying"
+            android:layout_weight="1"
+            android:text="删除" />
+
+    </LinearLayout>
     <!--<com.hldj.hmyg.buyer.weidet.CoreRecyclerView-->
     <!--android:id="@+id/recycle"-->
     <!--android:layout_width="match_parent"-->

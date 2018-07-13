@@ -35,9 +35,36 @@ public class StoreGsonBean implements Serializable {
         public List<Moments> momentsList;
         public int momentsCount;
         public List<TypeListBean> typeList;
-        public int visitsCount ;
-        public boolean identity ;
+        public int visitsCount;
+        public boolean identity;
 
+        public boolean isQuote;
+        public String levelName = "";
+
+        /**
+         * "isQuote": true,
+         * "identity": false,
+         * "momentsCount": 0,
+         * "phone": "18959631119",
+         * "level": "level1",
+         * "store": {
+         * "id": "06613bdaba044753b49664e73b40f406",
+         * "remarks": "漳州集散中心里面，苗圃名字:中天园艺",
+         * "createBy": "78fb68af1fab4ec69f09d963f9751dbb",
+         * "createDate": "2016-07-15 18:53:00",
+         * "num": "E0573",
+         * "code": "zhongtian",
+         * "name": "中天园艺",
+         * "logoUrl": "http://image.hmeg.cn/upload/image/201707/c91cc145eec74683a2c44ffb7540b64d.jpeg",
+         * "mainType": "八月桂，金桂，丹桂，红叶石楠，杨梅，柚子树，朴树",
+         * "ownerId": "78fb68af1fab4ec69f09d963f9751dbb",
+         * "shareTitle": "中天园艺",
+         * "shareContent": "八月桂，金桂，丹桂，红叶石楠，杨梅，柚子树，朴树",
+         * "shareUrl": "http://m.hmeg.cn/seedling/store/06613bdaba044753b49664e73b40f406.html"
+         * },
+         * "momentsList": [],
+         * "levelName": "合作供应商",
+         */
 
 
         public static class StoreBean implements Serializable {
@@ -80,9 +107,10 @@ public class StoreGsonBean implements Serializable {
             public String shareUrl = "";
             public String storeUrl;
 
-            public String nurseryCount ;
+            public String nurseryCount;
 
-            public boolean identity ;
+            public boolean identity;
+
 
             public AttrData attrData = new AttrData();
 

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/px26">
+
+        <RelativeLayout
+            android:layout_width="@dimen/px180"
+            android:layout_height="@dimen/px180"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp">
+
+            <ImageView
+                android:id="@+id/iv_img"
+                tools:src="@color/main_color"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/px16"
+            android:background="@drawable/bg_bottom_line"
+            android:orientation="vertical"
+            android:weightSum="4"
+            android:paddingTop="@dimen/px10"
+            android:paddingBottom="@dimen/px6"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+
+                <TextView
+                    android:id="@+id/tv_04"
+                    tools:visibility="visible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/text_color999"
+                    android:src="@drawable/piao_right_top"
+                    android:text="福建 漳州"
+                    android:textSize="@dimen/textSizeContent"
+                    android:visibility="visible" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="@dimen/px4"
+                    android:layout_toLeftOf="@+id/tv_04"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_01"
+                        tools:background="@drawable/icon_seller_rong"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:textSize="@dimen/textSizeContent" />
+
+                    <TextView
+                        android:id="@+id/tv_02"
+                        tools:text="吴波吴波吴波吴波吴波吴波"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="3dp"
+                        android:singleLine="true"
+                        android:textColor="@color/text_color333"
+                        android:textSize="@dimen/textSizeTitle" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!--冠幅 高度 思密达-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/tv_03"
+                    tools:text="米径：15 高度：500 冠幅：400"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/little_black_sm"
+                    android:textSize="@dimen/textSizeContent" />
+
+
+                <TextView
+                    android:id="@+id/tv_06"
+                    tools:text="发布人：名发布人：名发布人：名发布人：名发布人：名发布人：名发布人：名"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginRight="70dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/little_black_sm"
+                    android:textSize="@dimen/textSizeContent" />
+
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_gravity="bottom"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_07"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical|start"
+                    android:singleLine="true"
+                    android:text="20.00"
+                    android:textColor="@color/price_orige"
+                    android:textSize="@dimen/textSizeContent" />
+
+                <TextView
+                    android:id="@+id/tv_09"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/px20"
+                    android:layout_toRightOf="@+id/tv_08"
+                    android:gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"
+                    android:text="200株"
+                    android:textColor="@color/little_black_sm"
+                    android:textSize="@dimen/textSizeContent" />
+
+                <TextView
+                    android:id="@+id/tv_08"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tv_07"
+                    android:layout_alignBottom="@+id/tv_07"
+                    android:layout_toRightOf="@+id/tv_07"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text="/株"
+                    android:textColor="@color/little_black_sm"
+                    android:textSize="@dimen/textSizeContent" />
+
+
+                <EditText
+                    android:id="@+id/et"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_toLeftOf="@id/tv_09"
+                    android:layout_toRightOf="@+id/tv_08"
+                    android:background="@color/gray_bg_ed"
+                    android:visibility="gone" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -12,6 +12,8 @@ public interface IFootMarkEmpty extends IEmpty {
 
     void doEmpty();
 
+    void doEdit();
+
 
     /* 删除的项目名 */
     String getEmptyTip();

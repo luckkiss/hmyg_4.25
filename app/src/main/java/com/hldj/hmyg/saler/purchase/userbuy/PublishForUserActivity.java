@@ -410,6 +410,7 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
 
                     ;
 
+//                    autoAddRelative_rd.setDiameterTypeWithSize();
 
                     autoAddRelative_rd.setSizeWithTag(paramsListBean.get(i).getValue());
                     autoAddRelative_rd.setTag(paramsListBean.get(i).getValue());
@@ -456,6 +457,7 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
 
     private void 还原(UserPurchase userPurchase) {
 
+        currentName = userPurchase.name;
 
         setText(getView(R.id.qxz_pz), userPurchase.name);
 
@@ -524,7 +526,7 @@ public class PublishForUserActivity extends BaseMVPActivity implements OnClickLi
                 Log.i(TAG, "最da dimater" + viewHolder_rd.et_auto_add_max.getText());
                 userPurchase.minDiameter = viewHolder_rd.et_auto_add_min.getText().toString();
                 userPurchase.maxDiameter = viewHolder_rd.et_auto_add_max.getText().toString();
-                userPurchase.dbhType = autoAddRelative_rd.getDiameterType();
+                userPurchase.diameterType = autoAddRelative_rd.getDiameterType();
             }
 
             Log.i(TAG, "xx size  " + autoAddRelative_rd.getDiameterType());

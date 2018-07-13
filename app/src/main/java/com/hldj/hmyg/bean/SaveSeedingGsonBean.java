@@ -1,5 +1,9 @@
 package com.hldj.hmyg.bean;
 
+import android.widget.Checkable;
+
+import com.hldj.hmyg.CallBack.ICollectDelete;
+import com.hldj.hmyg.CallBack.IDelete;
 import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.buyer.M.ItemBean;
 import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
@@ -105,7 +109,7 @@ public class SaveSeedingGsonBean implements Serializable {
         }
 
 
-        public static class SeedlingBean implements Serializable {
+        public static class SeedlingBean implements Serializable , IDelete , Checkable ,ICollectDelete {
 
 
             private String id;
@@ -980,6 +984,38 @@ public class SaveSeedingGsonBean implements Serializable {
 
             public void setDbhType(String dbhType) {
                 this.dbhType = dbhType;
+            }
+
+            @Override
+            public String getResourceId() {
+                return id;
+            }
+
+            @Override
+            public String getDomain() {
+                return "--------";
+            }
+
+            private boolean isChecked = false ;
+            @Override
+            public void setChecked(boolean checked) {
+                this.isChecked =checked;
+            }
+
+            @Override
+            public boolean isChecked() {
+                return isChecked;
+            }
+
+            @Override
+            public void toggle() {
+
+                this.isChecked = !isChecked ;
+            }
+
+            @Override
+            public String getCollectId() {
+                return attrData.collectId;
             }
 
 
@@ -2733,6 +2769,7 @@ public class SaveSeedingGsonBean implements Serializable {
                 public String dateStr = "";
                 public String ziyingRemarks = "";
                 public String footMarkId = "";
+                public String collectId = "";
                 public String displayName;
 
             }

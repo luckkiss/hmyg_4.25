@@ -280,7 +280,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingLeft="5dp"
-                android:text="报价：￥66/株"
+                android:text="报价：¥66/株"
                 android:textColor="@color/price_orige"
                 android:textSize="13sp" />
 
@@ -307,7 +307,7 @@
                 android:paddingRight="5dp"
                 android:textColor="@color/red"
                 android:textSize="12sp"
-                tools:text="预估到货价：￥100" />
+                tools:text="预估到货价：¥100" />
 
 
         </RelativeLayout>

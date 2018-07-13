@@ -74,7 +74,7 @@ public class AutoAddRelative extends RelativeLayout {
 
     public AutoAddRelative setDatas_rd(SaveSeedingGsonBean.DataBean.TypeListBean.ParamsListBean paramsListBean, List<SpecTypeBean> dbh, List<SpecTypeBean> dim) {
         viewHolder_rd.tv_auto_add_left1.setText(paramsListBean.getName());
-        if (paramsListBean.getValue().equals("dbh")) {
+        if (paramsListBean.getValue().equals("dbh") ) {
             if (isChangeName)
                 viewHolder_rd.initListener();
 

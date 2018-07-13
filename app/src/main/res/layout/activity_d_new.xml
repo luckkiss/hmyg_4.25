@@ -45,7 +45,7 @@
             android:layout_marginRight="15dp"
             android:layout_toLeftOf="@+id/btn_delete"
             android:gravity="right"
-            android:text="清空"
+            android:text="编辑"
             android:textSize="@dimen/titleRightTex" />
     </RelativeLayout>
 
@@ -54,12 +54,13 @@
         android:layout_height="wrap_content"
         android:background="@drawable/line_bak" />
 
-    <include layout="@layout/include_tab_head_double"/>
+    <include layout="@layout/include_tab_head_double" />
 
     <LinearLayout
         android:id="@+id/left_content"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:visibility="visible">
 
@@ -103,11 +104,41 @@
     <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
         android:id="@+id/coreRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone"
+
+        >
 
 
     </com.hldj.hmyg.buyer.weidet.CoreRecyclerView>
+
+
+    <LinearLayout
+        android:id="@+id/bottom_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <!--            android:drawableLeft="@drawable/dagou_seletor"
+-->
+        <com.hldj.hmyg.widget.DrawableCenterText
+            android:id="@+id/select_all"
+            style="@style/save_bottom_no_yingying"
+            android:layout_weight="1"
+            android:background="@drawable/round_rectangle_bg_red_gray"
+            android:text="全选"
+            android:textColor="@color/text_color666" />
+
+        <TextView
+            android:id="@+id/delete_all"
+            style="@style/save_bottom_no_yingying"
+            android:layout_weight="1"
+            android:text="删除" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -15,13 +15,15 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
-import com.hldj.hmyg.CallBack.ResultCallBack;
+import com.hldj.hmyg.CallBack.ICollectDelete;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
 import com.hldj.hmyg.Ui.friend.bean.MomentsThumbUp;
 import com.hldj.hmyg.Ui.friend.bean.enums.AgentGrade;
@@ -40,8 +42,8 @@ import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
-import com.hldj.hmyg.presenter.CollectPresenter;
 import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.util.AlertUtil;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
@@ -210,6 +212,19 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
             protected void convert(BaseViewHolder helper, Moments item) {
 
 
+                helper.setChecked(R.id.checkBox, item.isChecked())
+                        .setVisible(R.id.checkBox, isRightEditable)
+//                .setVisible(R.id.checkBoxParent, isEditAble)
+//                .addOnClickListener(R.id.checkBoxParent, v -> {
+//                    item.toggle();
+//                    helper.setChecked(R.id.checkBox, item.isChecked());
+//                })
+                        .addOnClickListener(R.id.checkBox, v -> {
+                            item.toggle();
+
+                        });
+
+
                 AgentGrade anEnum = Enum.valueOf(AgentGrade.class, item.attrData.level);
 
                 ImageView imageView14 = helper.getView(R.id.imageView14);
@@ -255,7 +270,7 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 
 
                 helper.setVisible(R.id.imageView7, false)
-                        .setVisible(R.id.tv_right_top, true)
+                        .setVisible(R.id.tv_right_top, false)
                         .addOnClickListener(R.id.tv_right_top, v ->
                                 {
 
@@ -397,9 +412,46 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
 
                 if (tab.getPosition() == 0) {
                     deleteType = seedling;
+
+                    //左边
+                    // 判断 左边是否可以编辑
+
+//                    collectAdapter.toggleEditable();
+                    if (collectAdapter.isEditable()) {
+
+                        TextView textView = (TextView) findViewById(R.id.tv_clear_all);
+                        View bottom = (findViewById(R.id.bottom_parent));
+                        bottom.setVisibility(View.VISIBLE);
+                        setTextByBottom(textView, bottom);
+                    } else {
+                        TextView textView = (TextView) findViewById(R.id.tv_clear_all);
+                        View bottom = (findViewById(R.id.bottom_parent));
+                        bottom.setVisibility(View.GONE);
+                        setTextByBottom(textView, bottom);
+                    }
+                    //
+
                 } else {
                     deleteType = moment;
+
+//                    isRightEditable = !isRightEditable;
+                    if (isRightEditable) {
+                        TextView textView = (TextView) findViewById(R.id.tv_clear_all);
+                        View bottom = (findViewById(R.id.bottom_parent));
+                        bottom.setVisibility(View.VISIBLE);
+                        setTextByBottom(textView, bottom);
+                    } else {
+                        TextView textView = (TextView) findViewById(R.id.tv_clear_all);
+                        View bottom = (findViewById(R.id.bottom_parent));
+                        bottom.setVisibility(View.GONE);
+                        setTextByBottom(textView, bottom);
+                    }
+
+
                 }
+
+
+//                toggleTvRightTop();
 
             }
 
@@ -517,37 +569,53 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
         }
 
 
+        getView(R.id.select_all).setOnClickListener(v -> {
+            deSelectAll();
+        });
+        getView(R.id.delete_all).setOnClickListener(v -> {
+            doDeleteAll();
+        });
+
+
         getView(R.id.tv_clear_all).setOnClickListener(v -> {
-                    showLoading();
-                    D.e("==============清空收藏夹============");
-                    String deleteTitle = deleteType.equals(seedling) ? "确认清空资源收藏?" : "确认清空苗木圈收藏?";
-                    new AlertDialog(this).builder()
-//                            .setTitle("确定清空所有收藏?")
-                            .setTitle(deleteTitle)
-                            .setPositiveButton("确定", v1 -> {
-                                new CollectPresenter(new ResultCallBack<SimpleGsonBean>() {
-                                    @Override
-                                    public void onSuccess(SimpleGsonBean simpleGsonBean) {
-//                                        pageIndex = 0;
-//                                        seedlingBeen.clear();
-//                                        collectAdapter.notifyDataSetChanged();
 
-                                        if (deleteType.equals(moment)) {
-                                            mCoreRecyclerView.onRefresh();
-                                        } else {
-                                            onRefresh();
-                                        }
 
-                                        hindLoading();
-                                    }
+                    toggleTvRightTop();
 
-                                    @Override
-                                    public void onFailure(Throwable t, int errorNo, String strMsg) {
-                                        hindLoading();
-                                    }
-                                }).reqClearCollect(deleteType);
-                            }).setNegativeButton("取消", v2 -> {
-                    }).show();
+
+//                    D.e("==============清空收藏夹============");
+//                    String deleteTitle = deleteType.equals(seedling) ? "确认清空资源收藏?" : "确认清空苗木圈收藏?";
+//                    new AlertDialog(this).builder()
+////                            .setTitle("确定清空所有收藏?")
+//                            .setTitle(deleteTitle)
+//                            .setPositiveButton("确定", v1 -> {
+//
+//                                showLoading();
+//
+//
+//                                new CollectPresenter(new ResultCallBack<SimpleGsonBean>() {
+//                                    @Override
+//                                    public void onSuccess(SimpleGsonBean simpleGsonBean) {
+////                                        pageIndex = 0;
+////                                        seedlingBeen.clear();
+////                                        collectAdapter.notifyDataSetChanged();
+//
+//                                        if (deleteType.equals(moment)) {
+//                                            mCoreRecyclerView.onRefresh();
+//                                        } else {
+//                                            onRefresh();
+//                                        }
+//
+//                                        hindLoading();
+//                                    }
+//
+//                                    @Override
+//                                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+//                                        hindLoading();
+//                                    }
+//                                }).reqClearCollect(deleteType);
+//                            }).setNegativeButton("取消", v2 -> {
+//                    }).show();
 
                 }
 
@@ -781,5 +849,192 @@ public class DActivity_new extends NeedSwipeBackActivity implements IXListViewLi
     public boolean setSwipeBackEnable() {
         return true;
     }
+
+
+    //    private boolean isLeftEditable = false;
+    private boolean isRightEditable = false;
+    //    private boolean isLeftSelectAll = false;
+    private boolean isRightSelectAll = false;
+
+
+    public void doLeftEdit() {
+
+
+    }
+
+    public void doRightEdit() {
+
+    }
+
+    /* 点击编辑 */
+    private void toggleTvRightTop() {
+
+//        bottom_parent
+
+        if (isShowLeft())
+            collectAdapter.toggleEditable();
+        else {
+            toggleRightEditable();
+        }
+
+        TextView textView = (TextView) findViewById(R.id.tv_clear_all);
+        View bottom = (findViewById(R.id.bottom_parent));
+
+//        setTextByBottom(textView, bottom);
+
+
+        if (isShowLeft()) {
+            if (collectAdapter.isEditable()) {
+                setText(textView, "完成");
+                bottom.setVisibility(View.VISIBLE);
+
+            } else {
+                setText(textView, "编辑");
+                bottom.setVisibility(View.GONE);
+            }
+        } else {
+            if (isRightEditable) {
+                setText(textView, "完成");
+                bottom.setVisibility(View.VISIBLE);
+            } else {
+                setText(textView, "编辑");
+                bottom.setVisibility(View.GONE);
+            }
+        }
+
+
+    }
+
+    private void setTextByBottom(TextView textView, View bottom) {
+
+
+        if (bottom.getVisibility() == View.VISIBLE) {
+            textView.setText("完成");
+        } else {
+            textView.setText("编辑");
+        }
+
+
+    }
+
+    public void toggleRightEditable() {
+        isRightEditable = !isRightEditable;
+        mCoreRecyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    public void toggleRightSelectAll() {
+        isRightSelectAll = !isRightSelectAll;
+
+        if (mCoreRecyclerView != null && mCoreRecyclerView.getAdapter().getData().size() > 0) {
+            for (Object checkable : mCoreRecyclerView.getAdapter().getData()) {
+                if (checkable instanceof Checkable) {
+                    ((Checkable) checkable).setChecked(isRightSelectAll);
+                }
+            }
+        }
+        mCoreRecyclerView.getAdapter().notifyDataSetChanged();
+
+
+    }
+
+
+    public boolean isShowLeft() {
+        return getView(R.id.left_content).getVisibility() == View.VISIBLE;
+    }
+
+
+    public void deSelectAll() {
+        if (isShowLeft()) {
+            //左边 全选或者 取消全选
+            collectAdapter.toggleSelectAll();
+        } else {
+            //又边 全选或者 取消全选
+            toggleRightSelectAll();
+        }
+    }
+
+    public void doDeleteAll() {
+        if (isShowLeft()) {
+            //左边  删除
+            //delete left
+//            ToastUtil.showLongToast("" + collectAdapter.getDeleteIds());
+
+            String ids = collectAdapter.getDeleteIds();
+            if (TextUtils.isEmpty(ids)) {
+                ToastUtil.showLongToast("请选择删除项");
+                return;
+            }
+
+            alert2Ok(v -> {
+
+
+                new BasePresenter()
+                        .putParams("ids", collectAdapter.getDeleteIds())
+                        .doRequest("admin/collect/delByIds", new HandlerAjaxCallBack(mActivity) {
+                            @Override
+                            public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                onRefresh();
+                            }
+                        });
+            });
+        } else {
+            //又边  删除
+            //delete right
+//            ToastUtil.showLongToast("" + getRightDeleteIds());
+
+            String ids = getRightDeleteIds();
+            if (TextUtils.isEmpty(ids)) {
+                ToastUtil.showLongToast("请选择删除项");
+                return;
+            }
+
+            alert2Ok(v -> {
+                new BasePresenter()
+                        .putParams("ids", getRightDeleteIds())
+
+                        .doRequest("admin/collect/delByIds", new HandlerAjaxCallBack(mActivity) {
+                            @Override
+                            public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                mCoreRecyclerView.onRefresh();
+                            }
+                        });
+            });
+
+
+        }
+    }
+
+
+    public void alert2Ok(View.OnClickListener onClickListener)
+
+    {
+        AlertUtil.showAlert("确定删除所选?", mActivity, new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                onClickListener.onClick(v);
+            }
+        });
+    }
+
+    public String getRightDeleteIds() {
+
+        if (mCoreRecyclerView == null || mCoreRecyclerView.getAdapter().getData().size() == 0) {
+            return "";
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Object item : mCoreRecyclerView.getAdapter().getData()) {
+
+            if (item instanceof Checkable && item instanceof ICollectDelete) {
+
+                if (((Checkable) item).isChecked())
+                    stringBuilder.append(((ICollectDelete) item).getCollectId() + ",");
+            }
+        }
+        D.i("-------------getRightDeleteIds--------" + stringBuilder.toString());
+        return stringBuilder.toString();
+
+    }
+
 }
 

@@ -42,7 +42,7 @@
                     android:checked="false"
                     android:gravity="center"
                     android:textSize="14.0sp"
-                    tools:text="价格：￥100" />
+                    tools:text="价格：¥100" />
 
                 <TextView
                     android:id="@+id/tv_ac"

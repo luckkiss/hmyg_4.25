@@ -160,7 +160,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //子布局
 //                    D.e("======TYPE_LEVEL_1========");
 // 3200/株
-//￥3520(含服务费)
+//¥3520(含服务费)
 //初始化设置drawable
 // 采用 未采用
 /*未采用&&是花木易购供应商&&未落实或者合格的显示采用按钮*///未采用
@@ -450,7 +450,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                                 .create()
                 )
                 //  "苗源地：" + item.cityNames.toString().substring(1, item.cityNames.toString().length() - 1)
-//                .setText(R.id.tv_right_price, showQuote ? "￥\n" + item.quoteTotalPrice + "起" : "")
+//                .setText(R.id.tv_right_price, showQuote ? "¥\n" + item.quoteTotalPrice + "起" : "")
 //                .setBackgroundRes(R.id.tv_right_price, showQuote ? 0 : R.mipmap.wkb)
                 .addOnClickListener(R.id.content, v -> {
 //                    ToastUtil.showLongToast("-----------查看详情-----------" + item.sellerId);
@@ -473,7 +473,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                     } else {
                         /* 未开标 */
 //                        ProgramPurchaseActivityOnly.totlePrice = "";
-//                        ProgramPurchaseActivityOnly.totlePrice = "￥ " + item.quoteTotalPrice + " 起";
+//                        ProgramPurchaseActivityOnly.totlePrice = "¥ " + item.quoteTotalPrice + " 起";
                         ProgramPurchaseActivityOnly.totlePrice =
                                 new SpanUtils()
                                         .append("供应商名称：").setForegroundColor(getColorByRes(R.color.text_color666))
@@ -1288,7 +1288,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //                        helper.setText(R.id.tv_program_purch_sub_price_type, filterColor("[" + FUtil.$_zero(item.plantTypeName) + "]" + " * " + "元/" + item.unitTypeName, " * "));// 3200/株
 //                    }
 
-                    /* 显示 成交单价：￥1.85 */
+                    /* 显示 成交单价：¥1.85 */
         helper.setText(R.id.tv_program_purch_sub_price_type,
                 filterColor("[" + FUtil.$_null_to_you_say(item.plantTypeName, "未填写") + "]  "
                         + item.attrData.priceStr + "/" + item.unitTypeName, item.attrData.priceStr));// 3200/株
@@ -1299,11 +1299,11 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                         .append("成交单价：").setForegroundColor(getColorByRes(R.color.text_color666))
                         .append(item.attrData.finalPrice + "").setForegroundColor(getColorByRes(R.color.price_orige))
                         .create()
-        );//￥3520(含服务费)
+        );//¥3520(含服务费)
         // helper.setText(R.id.tv_program_purch_sub_price_cont_serv_pric,
 //                            filterColor("成交单价:" + item.attrData.finalPrice + "",
 //                                    item.attrData.finalPrice + "",
-//                                    R.color.price_orige));//￥3520(含服务费)
+//                                    R.color.price_orige));//¥3520(含服务费)
 
 
         helper.setVisible(tv_program_purch_sub_price_cont_serv_pric, item.attrData.showFinalPrice);
@@ -1315,12 +1315,12 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                         .append("小计：").setForegroundColor(getColorByRes(R.color.text_color666))
                         .append(item.attrData.totalFinalPrice + "").setForegroundColor(getColorByRes(R.color.price_orige))
                         .create()
-        );//￥3520(含服务费)
+        );//¥3520(含服务费)
 
 //                    helper.setText(R.id.final_price,
 //                            filterColor("小计:" + item.attrData.totalFinalPrice + "",
 //                                    item.attrData.totalFinalPrice + "",
-//                                    R.color.price_orige));//￥3520(含服务费)
+//                                    R.color.price_orige));//¥3520(含服务费)
 
 
         helper.setBackgroundRes(tv_program_purch_sub_use_state, R.drawable.round_rectangle_bg_btn);//初始化设置drawable
@@ -1329,11 +1329,11 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
         helper.setVisible(R.id.imageView, item.isUsed || item.isAlternative);// 采用  或者  备选
         helper.
-                setText(R.id.tv_ygdhj, filterColor("预估到货价：" + FUtil.$_head("￥", item.prePrice), FUtil.$_head("￥", item.prePrice), R.color.orange));// 3200/株
+                setText(R.id.tv_ygdhj, filterColor("预估到货价：" + FUtil.$_head("¥", item.prePrice), FUtil.$_head("¥", item.prePrice), R.color.orange));// 3200/株
 //                    if (FUtil.$_zero_2_null(item.prePrice).equals("")) {
 //
 //                        helper.
-//                                setText(R.id.tv_ygdhj, filterColor("预估到货价：" + "￥" + item.prePrice, "￥" + item.prePrice, R.color.orange));// 3200/株
+//                                setText(R.id.tv_ygdhj, filterColor("预估到货价：" + "¥" + item.prePrice, "¥" + item.prePrice, R.color.orange));// 3200/株
 //
 //                    }
 

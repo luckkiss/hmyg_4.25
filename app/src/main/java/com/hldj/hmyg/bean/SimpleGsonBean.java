@@ -47,6 +47,9 @@ public class SimpleGsonBean implements Serializable {
 
         /* 待处理列表 start  */
         public int backedCount;
+        /* 审核中 数量 */
+        public int unauditCount ;
+
         public String storeId;
         public int outlineCount;
 
@@ -137,11 +140,8 @@ public class SimpleGsonBean implements Serializable {
         public int useCount = 0;
         public int itemQuoteCount = 0;
         public int itemCount = 0;
-//        public int openCount = 0;//已开标数
+        //        public int openCount = 0;//已开标数
         public int unOpenCount = 0;//unOpenCount
-
-
-
 
 
         /*粉丝数量*/
@@ -162,7 +162,6 @@ public class SimpleGsonBean implements Serializable {
         /* 开启数量 */
 
 
-
         //        CenterActivity
         public int seedlingCount = 0;/*商城资源*/
         public int momentsCount = 0;/* 苗木圈资源数量 */
@@ -180,6 +179,7 @@ public class SimpleGsonBean implements Serializable {
 
         private boolean isCollect;
         public String timeStampStr;
+        public String levelName = "";
 
 
         public boolean isCollect() {

@@ -1,5 +1,7 @@
 package com.hldj.hmyg.M;
 
+import android.widget.Checkable;
+
 import com.hldj.hmyg.CallBack.IFootMarkDelete;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.saler.bean.enums.FootMarkSourceType;
@@ -32,7 +34,7 @@ public class BPageGsonBean {
             public int maxResults;
             public List<Databean> data = new ArrayList<>();
 
-            public static class Databean implements IFootMarkDelete {
+            public static class Databean implements IFootMarkDelete, Checkable {
 
                 public int inputNum = -1;
                 public boolean isChecked = false;
@@ -136,7 +138,20 @@ public class BPageGsonBean {
                     return attrData.footMarkId;
                 }
 
+                @Override
+                public void setChecked(boolean checked) {
+                    this.isChecked = checked;
+                }
 
+                @Override
+                public boolean isChecked() {
+                    return isChecked;
+                }
+
+                @Override
+                public void toggle() {
+                    this.isChecked = !isChecked;
+                }
 
 
                 public static class CiCitybean {

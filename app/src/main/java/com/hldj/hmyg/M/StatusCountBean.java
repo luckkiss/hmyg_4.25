@@ -18,6 +18,7 @@ public class StatusCountBean {
     public String nurseryId;
     public int pendingCount;
     public int sellingCount;
+    public int unauditCount;
     public String type;
     public List<String> statusList;
 }

@@ -69,7 +69,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="￥\n14000111122" />
+        tools:text="¥\n14000111122" />
 
     <TextView
         android:id="@+id/tv_pzsl"

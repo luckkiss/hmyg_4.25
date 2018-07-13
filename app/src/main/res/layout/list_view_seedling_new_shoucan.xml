@@ -40,12 +40,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <LinearLayout
+                android:id="@+id/ll_info_content"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/y8"
+                    android:button="@drawable/dagou_black_seletor"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    />
+
+
+                <include layout="@layout/list_view_seedling_new_eq" />
+            </LinearLayout>
+
             <FrameLayout
                 android:id="@+id/fr_goods_time_out"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="100dp"
                 android:layout_centerVertical="true"
-                android:background="@color/white"
                 android:visibility="gone"
                 tools:visibility="visible">
 
@@ -54,283 +74,9 @@
                     android:layout_height="70dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="70dp"
-                    android:src="@mipmap/yixiajia" />
+                    android:src="@mipmap/yixiajia" android:tint="@color/red"/>
 
             </FrameLayout>
-
-
-            <LinearLayout
-                android:id="@+id/ll_info_content"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/y8">
-
-                <RelativeLayout
-                    android:layout_width="@dimen/x85"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="@dimen/y3">
-
-                    <ImageView
-                        android:id="@+id/iv_img"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY" />
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:layout_marginLeft="@dimen/x5"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/iv_right_top"
-                            android:layout_width="34dp"
-                            android:layout_height="34dp"
-                            android:layout_alignParentRight="true"
-                            android:src="@drawable/piao_right_top"
-                            tools:visibility="gone" />
-
-                        <com.coorchice.library.SuperTextView
-                            android:id="@+id/tv_right_top"
-                            android:layout_width="64dp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="16dp"
-                            android:layout_marginTop="12dp"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:text="删除"
-                            android:textColor="@color/text_color999"
-                            android:visibility="gone"
-                            app:corner="4dp"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:left_bottom_corner="true"
-                            app:left_top_corner="true"
-                            app:right_bottom_corner="true"
-                            app:right_top_corner="true"
-                            app:stroke_color="@color/text_color999"
-                            app:stroke_width="2px"
-                            tools:visibility="visible" />
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_toLeftOf="@+id/tv_right_top"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingTop="7dp">
-
-                            <TextView
-                                android:id="@+id/tv_01"
-                                android:layout_width="@dimen/y11"
-                                android:layout_height="@dimen/y11"
-                                android:gravity="center_vertical"
-                                android:maxLines="1"
-
-                                android:textSize="@dimen/y11" />
-
-                            <TextView
-                                android:id="@+id/tv_02"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:ellipsize="end"
-                                android:gravity="center_vertical"
-                                android:maxLines="1"
-                                android:textColor="@color/main_color"
-                                android:textSize="@dimen/y11"
-                                tools:text="af45s64fd6a4sf64s6adf46a4fd6a46sf46afa"
-
-                                />
-                        </LinearLayout>
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="3">
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_toLeftOf="@+id/tv_delete"
-                            android:layout_weight="3"
-                            android:orientation="vertical">
-
-
-                            <!--冠幅 高度 思密达-->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dip"
-                                android:layout_weight="2"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/tv_03"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="1"
-                                    android:gravity="center_vertical"
-                                    android:maxLines="1"
-                                    android:textColor="@color/little_black_sm"
-                                    android:textSize="@dimen/y8"
-                                    tools:text="河南信阳" />
-
-
-                                <TextView
-                                    android:id="@+id/tv_04"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="1"
-                                    android:gravity="center_vertical"
-                                    android:maxLines="1"
-                                    android:textColor="@color/little_black_sm"
-                                    android:textSize="@dimen/y8"
-                                    tools:text="河南信阳" />
-                            </LinearLayout>
-
-
-                            <!--地区移到右上角tv_04-->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dip"
-                                android:layout_weight="0"
-                                android:visibility="gone">
-
-                                <TextView
-                                    android:id="@+id/tv_05"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-
-                                    android:maxLines="1"
-                                    android:textColor="@color/little_black_sm"
-                                    android:textSize="@dimen/y8" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dip"
-                                android:layout_weight="1">
-
-                                <TextView
-                                    android:id="@+id/tv_06"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:maxLines="1"
-                                    android:textColor="@color/little_black_sm"
-                                    android:textSize="@dimen/y8"
-                                    tools:text="发布人：花木易购" />
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-
-                        <ImageView
-                            android:id="@+id/tv_delete"
-                            android:layout_width="30dp"
-                            android:layout_height="60dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_margin="5dp"
-                            android:padding="5dp"
-                            android:scaleType="fitStart"
-                            android:src="@mipmap/ic_delete"
-                            android:tint="@color/main_color"
-                            android:visibility="gone" />
-
-
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dip"
-                        android:layout_weight="1.2">
-
-                        <TextView
-                            android:id="@+id/tv_07"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:gravity="center_vertical"
-                            android:maxLines="1"
-                            android:text="20.00"
-                            android:textColor="@color/price_orige"
-                            android:textSize="@dimen/y11" />
-
-                        <TextView
-                            android:id="@+id/tv_09"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:gravity="center_vertical"
-                            android:maxLines="1"
-                            android:paddingRight="@dimen/y8"
-                            android:text="200株"
-                            android:textColor="@color/little_black_sm"
-                            android:textSize="@dimen/y8" />
-
-                        <TextView
-                            android:id="@+id/tv_08"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@+id/tv_07"
-                            android:layout_alignBottom="@+id/tv_07"
-                            android:layout_toRightOf="@+id/tv_07"
-                            android:gravity="center_vertical"
-                            android:maxLines="1"
-                            android:text="/株"
-                            android:textColor="@color/little_black_sm"
-                            android:textSize="@dimen/y7" />
-                    </RelativeLayout>
-
-
-                    <View
-                        style="@style/View_line_gray_1dp"
-                        android:layout_marginTop="2dp" />
-
-                    <RelativeLayout
-                        android:id="@+id/rl_floorPrice"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dip"
-                        android:layout_weight="1"
-                        android:visibility="gone">
-
-                        <TextView
-                            android:id="@+id/tv_floorPrice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:gravity="center_vertical"
-                            android:maxLines="1"
-                            android:textColor="#FA0000" />
-
-                        <ImageView
-                            android:id="@+id/iv_like"
-                            android:layout_width="@dimen/y12"
-                            android:layout_height="@dimen/y12"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="@dimen/y10"
-                            android:gravity="center_vertical"
-                            android:src="@drawable/tuijian_hui" />
-                    </RelativeLayout>
-                </LinearLayout>
-            </LinearLayout>
 
         </RelativeLayout>
 

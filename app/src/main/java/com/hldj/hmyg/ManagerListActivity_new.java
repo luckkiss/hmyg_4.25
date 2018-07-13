@@ -230,7 +230,7 @@ public abstract class ManagerListActivity_new<P extends ManagerListPresenter, M 
 
 //                helper.getView(R.id.et).setTag(helper.getAdapterPosition());
 
-                ProductListAdapterForManager.setStateColor(helper.getView(R.id.tv_right_top), item.status, item.statusName);
+                ProductListAdapterForManager.setStateColor(helper.getView(R.id.tv_04), item.status, item.statusName);
 
 //                ((SwipeLayout) helper.getView(R.id.swipe_manager)).computeScroll();
 
@@ -603,7 +603,7 @@ public abstract class ManagerListActivity_new<P extends ManagerListPresenter, M 
                     list_counts.get(i).setText("(" + gsonBean.data.sellingCount + ")");
                     break;
                 case 3:
-//                    list_counts.get(i).setText("(" + gsonBean.data.pendingCount + ")");
+                    list_counts.get(i).setText("(" + gsonBean.data.unauditCount + ")");
                     break;
                 case 4:
 //                    list_counts.get(i).setText("(" + gsonBean.data.countMap.backed + ")");

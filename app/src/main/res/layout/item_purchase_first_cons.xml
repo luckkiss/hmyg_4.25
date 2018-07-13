@@ -31,7 +31,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="￥100"
+        android:text="¥100"
         android:textColor="@color/price_orige"
         app:layout_constraintLeft_toRightOf="@+id/textView31"
         app:layout_constraintTop_toTopOf="parent" />

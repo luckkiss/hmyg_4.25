@@ -92,7 +92,7 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
             }
         });
         D.e("======设置fix======");
-        recyclerView1.init(new BaseMultAdapter<BPageGsonBean.DatabeanX.Pagebean.Databean, BaseViewHolder>(R.layout.list_view_seedling_new, R.layout.grid_view_seedling) {
+        recyclerView1.init(new BaseMultAdapter<BPageGsonBean.DatabeanX.Pagebean.Databean, BaseViewHolder>(R.layout.list_view_seedling_new_eq, R.layout.grid_view_seedling) {
             @Override
             protected void convert(BaseViewHolder helper, BPageGsonBean.DatabeanX.Pagebean.Databean item) {
                 if (type == GRID_VIEW) {
@@ -498,11 +498,13 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
         TextView tv_04 = helper.getView(R.id.tv_04);
 
         if (tag.equals("BActivity_new")) {
-            iv_right_top.setVisibility(item.attrData.ziying ? View.VISIBLE : View.GONE);
-            tv_04.setText("苗源地: " + item.ciCity.fullName);
+//            iv_right_top.setVisibility(item.attrData.ziying ? View.VISIBLE : View.GONE);
+            tv_04.setText("" + item.ciCity.fullName);
+
         } else {
             iv_right_top.setVisibility(View.GONE);
-            tv_04.setText("苗源地: " + item.nurseryJson.getCityName());
+            tv_04.setText("" + item.nurseryJson.getCityName());
+            //苗源地:
 
         }
 

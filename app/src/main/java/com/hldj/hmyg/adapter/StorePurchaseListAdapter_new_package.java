@@ -320,7 +320,7 @@ public abstract class StorePurchaseListAdapter_new_package extends StorePurchase
 
 //        /*价格*/
 //        TextView tv_01 = (TextView) view.findViewById(R.id.tv_01);
-//        tv_01.setText("价格: ￥200");
+//        tv_01.setText("价格: ¥200");
 
 
         D.e("=====setConverView======str=============" + jsonBean.toString());

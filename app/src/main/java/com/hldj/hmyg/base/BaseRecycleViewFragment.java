@@ -2,6 +2,7 @@ package com.hldj.hmyg.base;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
@@ -104,10 +105,12 @@ public abstract class BaseRecycleViewFragment<T> extends BaseLazyFragment {
                         if (t instanceof IFootMarkDelete) {
                             new BasePresenter()
                                     .putParams("ids", ((IFootMarkDelete) t).getFootMarkId())
+                                    .putParams("sourceType", ((IFootMarkDelete) t).getType().getEnumValue())
                                     .doRequest(t.getDomain(), handlerAjaxCallBack);
                         }
                         if (t instanceof IFootMarkEmpty) {
                             new BasePresenter()
+                                    .putParams("ids", ((IFootMarkEmpty) t).getResourceId())
                                     .putParams("sourceType", ((IFootMarkEmpty) t).sourceType().getEnumValue())
                                     .doRequest(t.getDomain(), handlerAjaxCallBack);
                         }
@@ -166,5 +169,16 @@ public abstract class BaseRecycleViewFragment<T> extends BaseLazyFragment {
         }
     }
 
+
+    /* 空返回true  */
+    public boolean null2Tip(String string, String tip) {
+        if (TextUtils.isEmpty(string)) {
+            ToastUtil.showLongToast(tip);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
 }

@@ -11,11 +11,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
+        <com.hldj.hmyg.widget.MyImageView
             android:id="@+id/iv_img"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y128"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             tools:src="@mipmap/ic_launcher" />
 
         <RelativeLayout

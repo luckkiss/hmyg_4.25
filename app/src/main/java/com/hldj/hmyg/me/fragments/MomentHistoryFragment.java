@@ -6,12 +6,15 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBackPage;
+import com.hldj.hmyg.CallBack.IEditable;
 import com.hldj.hmyg.CallBack.IFootMarkEmpty;
+import com.hldj.hmyg.CallBack.impl.DeleteAbleImpl;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.Ui.friend.bean.Moments;
@@ -26,6 +29,7 @@ import com.hldj.hmyg.buyer.Ui.PurchaseDetailActivity;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.buyer.weidet.decoration.SectionDecoration;
+import com.hldj.hmyg.me.HistoryActivity;
 import com.hldj.hmyg.saler.P.BasePresenter;
 import com.hldj.hmyg.saler.bean.enums.FootMarkSourceType;
 import com.hldj.hmyg.util.ConstantParams;
@@ -55,6 +59,14 @@ import me.imid.swipebacklayout.lib.app.NeedSwipeBackActivity;
 
 public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> implements IFootMarkEmpty {
 
+
+    @Override
+    protected void onFragmentVisibleChange(boolean b) {
+        super.onFragmentVisibleChange(b);
+        if (b) {
+            ((HistoryActivity) mActivity).toggleBottomParent(getiEditable().isEditable());
+        }
+    }
 
     @Override
     protected void doRefreshRecycle(String page) {
@@ -158,6 +170,21 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> impl
 
 //        D.i("=============doConvert==============" + item.getName());
 
+        CheckBox checkBox = helper.getView(R.id.checkBox);
+        if (checkBox != null) {
+            helper.setChecked(R.id.checkBox, item.isChecked())
+                    .setVisible(R.id.checkBox, getiEditable().isEditable())
+                    .setVisible(R.id.checkBoxParent, getiEditable().isEditable())
+                    .addOnClickListener(R.id.checkBoxParent, v -> {
+                        item.toggle();
+                        helper.setChecked(R.id.checkBox, item.isChecked());
+                    })
+                    .addOnClickListener(R.id.checkBox, v -> {
+                        item.toggle();
+                    });
+        }
+
+
         if (item.attrData.isDelete) {
             helper.getView(R.id.root_view).setAlpha(0.5f);
             helper.setVisible(R.id.yxj, true);
@@ -181,9 +208,10 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> impl
         helper.addOnClickListener(R.id.descript, clickListener);//描述
 
         helper.setVisible(R.id.imageView7, false)
-                .setVisible(R.id.tv_right_top, true)
+                .setVisible(R.id.tv_right_top, false)
                 .addOnClickListener(R.id.tv_right_top, v ->
                         {
+
 
                             doUserDelDelete(helper, item, mActivity);
 
@@ -312,22 +340,61 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> impl
     @Override
     public void doEmpty() {
 //        ToastUtil.showLongToast("清空  " + FootMarkSourceType.moments.getEnumText());
+
+//        ToastUtil.showLongToast(this.getResourceId());
+//        if (TextUtils.isEmpty(this.getResourceId())) {
+//            ToastUtil.showLongToast("请选择删除项");
+//            return;
+//        }
+
+        /* 判断是否为空 */
+        if (null2Tip(this.getResourceId(), "请选择删除项")) return;
+
         doUserDelDelete(null, this, mActivity);
+    }
+
+
+//    private boolean isEditAble = false;
+
+
+    /* core recycle view 代理 类 */
+    private IEditable iEditable;
+
+    public IEditable getiEditable() {
+        if (iEditable == null) {
+            iEditable = new DeleteAbleImpl(mCoreRecyclerView);
+        }
+        return iEditable;
+    }
+
+
+    @Override
+    public void doEdit() {
+        //编辑
+//        this.getiEditable().isEditable() = !this.getiEditable().isEditable();
+        getiEditable().toggleEditable();
+        mCoreRecyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void toggleSelect() {
+        getiEditable().toggleSelectAll();
     }
 
     @Override
     public String getEmptyTip() {
-        return "确定清空  [苗木圈]";
+        return "确定删除所选？";
     }
 
     @Override
     public String getResourceId() {
-        return null;
+        return getiEditable().getDeleteIds();
     }
 
+    //BySource
     @Override
     public String getDomain() {
-        return "admin/footmark/userDelBySource";
+        return "admin/footmark/userDel";
     }
 
     @Override

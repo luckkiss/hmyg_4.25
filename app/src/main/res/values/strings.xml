@@ -112,7 +112,7 @@
     <string name="xlistview_footer_hint_normal">查看更多</string>
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
     <string name="login">登录</string>
-    <string name="input_username_or_phone_number">请输入用户名/手机号码</string>
+    <string name="input_username_or_phone_number">手机号</string>
     <string name="input_phone_number">请输入11位手机号码</string>
     <string name="input_new_phone_number">请输入11位的新手机号码</string>
     <string name="input_passward">请填写6-15位登录密码</string>

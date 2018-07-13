@@ -1,24 +1,20 @@
 package com.hldj.hmyg.base;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
-import com.hldj.hmyg.CallBack.ResultCallBack;
+import com.hldj.hmyg.CallBack.IEditable;
 import com.hldj.hmyg.FlowerDetailActivity;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.adapter.ProductListAdapter;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
-import com.hldj.hmyg.bean.SimpleGsonBean;
-import com.hldj.hmyg.presenter.CollectPresenter;
 import com.hldj.hmyg.util.D;
-import com.hy.utils.ToastUtil;
-import com.zf.iosdialog.widget.AlertDialog;
 
 import net.tsz.afinal.FinalBitmap;
 
@@ -29,10 +25,14 @@ import java.util.List;
  * Created by Administrator on 2017/4/24.
  */
 
-public class MySwipeAdapter extends BaseSwipeAdapter {
+public class MySwipeAdapter extends BaseSwipeAdapter implements IEditable {
     List<SaveSeedingGsonBean.DataBean.SeedlingBean> items;
     Context context;
     public FinalBitmap finalBitmap;
+
+    private boolean isEditAble = false;
+    private boolean isSelectAll = false;
+
 
     public MySwipeAdapter(Context context, List<SaveSeedingGsonBean.DataBean.SeedlingBean> items) {
         this.context = context;
@@ -67,7 +67,35 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
 //        final CheckBox cb_swipe_tag1 = (CheckBox) view.findViewById(R.id.cb_swipe_tag1);
 
 
+//        helper.setChecked(R.id.checkBox, item.isChecked())
+//                .setVisible(R.id.checkBox, isRightEditable)
+////                .setVisible(R.id.checkBoxParent, isEditAble)
+////                .addOnClickListener(R.id.checkBoxParent, v -> {
+////                    item.toggle();
+////                    helper.setChecked(R.id.checkBox, item.isChecked());
+////                })
+//                .addOnClickListener(R.id.checkBox, v -> {
+//                    item.toggle();
+//
+//                });
+
+
         SaveSeedingGsonBean.DataBean.SeedlingBean seedlingBean = items.get(i);
+
+        CheckBox checkBox = view.findViewById(R.id.checkBox);
+
+        checkBox.setVisibility(isEditAble ? View.VISIBLE : View.GONE);
+
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                seedlingBean.toggle();
+            }
+        });
+
+        checkBox.setChecked(seedlingBean.isChecked());
+
+
         closeAllItems();
 
         int layoutId = R.layout.list_view_seedling_new_shoucan;
@@ -80,13 +108,13 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
         finalBitmap.display(iv_img, seedlingBean.getSmallImageUrl());
 
 
-        View iv_right_top = view.findViewById(R.id.iv_right_top);
+//        View iv_right_top = view.findViewById(R.id.iv_right_top);
 
-        if (seedlingBean.attrData.ziying) {//自营显示票
-            iv_right_top.setVisibility(View.VISIBLE);
-        } else {
-            iv_right_top.setVisibility(View.GONE);
-        }
+//        if (seedlingBean.attrData.ziying) {//自营显示票
+//            iv_right_top.setVisibility(View.VISIBLE);
+//        } else {
+//            iv_right_top.setVisibility(View.GONE);
+//        }
 
 
         //设置小图标
@@ -104,7 +132,8 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
 
         //地区：
         TextView tv_04 = (TextView) view.findViewById(R.id.tv_04);
-        tv_04.setText("苗源地:" + seedlingBean.getCiCity().getFullName());
+        //苗源地:
+        tv_04.setText("" + seedlingBean.getCiCity().getFullName());
 
 //            发布人
         TextView tv_06 = (TextView) view.findViewById(R.id.tv_06);
@@ -128,53 +157,61 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
         tv_09.setText("库存: " + seedlingBean.getCount() + "");
 
 
-        View tv_right_top = view.findViewById(R.id.tv_right_top);
-        tv_right_top.setVisibility(View.VISIBLE);
+//        View tv_right_top = view.findViewById(R.id.tv_right_top);
+//        tv_right_top.setVisibility(View.GONE);
 //      tv_delete_item   侧滑 删除时使用
-        view.findViewById(R.id.tv_right_top).setOnClickListener(v -> {
 
-            new AlertDialog(context).builder()
-//                            .setTitle("确定清空所有收藏?")
-                    .setTitle("确定删除本项?")
-                    .setPositiveButton("确定", v1 -> {
-
-                        {
-                            new CollectPresenter(new ResultCallBack<SimpleGsonBean>() {
-                                @Override
-                                public void onSuccess(SimpleGsonBean simpleGsonBean) {
-                                    ToastUtil.showShortToast("删除成功");
-                                    //成功删除某个item
-                                    try {
-                                        items.remove(i);
-                                        notifyDataSetChanged();
-                                        closeItem(i);
-                                    } catch (Exception e) {
-                                        notifyDataSetChanged();
-                                        Log.i("======删除报错===刷新列表===", "Exception: " + e.getMessage());
-                                        e.printStackTrace();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Throwable t, int errorNo, String strMsg) {
-
-                                }
-                            })
-                                    .reqCollect(items.get(i).getId());
-
-                        }
-
-
-                    }).setNegativeButton("取消", v2 -> {
-            }).show();
-
-
-        });
+//        view.findViewById(R.id.tv_right_top).setOnClickListener(v -> {
+//
+//            new AlertDialog(context).builder()
+////                            .setTitle("确定清空所有收藏?")
+//                    .setTitle("确定删除本项?")
+//                    .setPositiveButton("确定", v1 -> {
+//
+//                        {
+//                            new CollectPresenter(new ResultCallBack<SimpleGsonBean>() {
+//                                @Override
+//                                public void onSuccess(SimpleGsonBean simpleGsonBean) {
+//                                    ToastUtil.showShortToast("删除成功");
+//                                    //成功删除某个item
+//                                    try {
+//                                        items.remove(i);
+//                                        notifyDataSetChanged();
+//                                        closeItem(i);
+//                                    } catch (Exception e) {
+//                                        notifyDataSetChanged();
+//                                        Log.i("======删除报错===刷新列表===", "Exception: " + e.getMessage());
+//                                        e.printStackTrace();
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onFailure(Throwable t, int errorNo, String strMsg) {
+//
+//                                }
+//                            })
+//                                    .reqCollect(items.get(i).getId());
+//
+//                        }
+//
+//
+//                    }).setNegativeButton("取消", v2 -> {
+//            }).show();
+//
+//
+//        });
 
 //[model.status isEqualToString:@"published"]
         // 过期
         if (!seedlingBean.getStatus().equals("published")) {
             view.findViewById(R.id.fr_goods_time_out).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.fr_goods_time_out).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    checkBox.toggle();
+                    seedlingBean.toggle();
+                }
+            });
             view.findViewById(R.id.ll_info_content).setAlpha(0.6f);
 
         } else {
@@ -183,7 +220,15 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
             view.findViewById(R.id.layoutRoot).setOnClickListener(v -> {
                 //点击布局
                 D.e("==点击布局==");
-                FlowerDetailActivity.start2Activity(context, "show_type", items.get(i).getId());
+
+                if (this.isEditAble) {
+                    checkBox.toggle();
+                    seedlingBean.toggle();
+                } else {
+                    FlowerDetailActivity.start2Activity(context, "show_type", items.get(i).getId());
+
+                }
+
             });
         }
 
@@ -208,7 +253,7 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
             return;
         }
         textView.setText("发布人:" + bean.getOwnerJson());
-        D.i("--------发布人--bean.getOwnerJson()---"+bean.getOwnerJson());
+        D.i("--------发布人--bean.getOwnerJson()---" + bean.getOwnerJson());
 //        if (!TextUtils.isEmpty(bean.getOwnerJson())) {
 //            textView.setText("发布人:" + bean.getOwnerJson().getCompanyName());
 //        } else if (!TextUtils.isEmpty(bean.getOwnerJson().getPublicName())) {
@@ -260,4 +305,49 @@ public class MySwipeAdapter extends BaseSwipeAdapter {
     }
 
 
+    @Override
+    public IEditable toggleSelectAll() {
+        this.isSelectAll = !this.isSelectAll;
+        if (items != null && items.size() > 0) {
+            for (SaveSeedingGsonBean.DataBean.SeedlingBean item : items) {
+                item.setChecked(isSelectAll);
+            }
+        }
+        notifyDataSetChanged();
+        return this;
+    }
+
+    @Override
+    public IEditable toggleEditable() {
+        this.isEditAble = !this.isEditAble;
+        this.notifyDataSetChanged();
+        return this;
+    }
+
+    @Override
+    public boolean isSelectAll() {
+
+
+        return isSelectAll;
+    }
+
+    @Override
+    public boolean isEditable() {
+        return isEditAble;
+    }
+
+    @Override
+    public String getDeleteIds() {
+
+        if (items == null || items.size() == 0) {
+            return "";
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        for (SaveSeedingGsonBean.DataBean.SeedlingBean item : items) {
+            if (item.isChecked())
+                stringBuilder.append(item.getCollectId() + ",");
+        }
+        D.i("-------------getDeleteIds--------" + stringBuilder.toString());
+        return stringBuilder.toString();
+    }
 }

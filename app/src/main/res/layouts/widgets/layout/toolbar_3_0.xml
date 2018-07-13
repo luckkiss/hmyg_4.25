@@ -49,7 +49,7 @@
                 android:layout_width="@dimen/backWH"
                 android:layout_height="@dimen/backWH"
                 android:padding="5dp"
-                android:src="@drawable/ic_sousuo"
+                android:src="@mipmap/friend_search"
                 android:visibility="gone"
                 tools:visibility="visible" />
 

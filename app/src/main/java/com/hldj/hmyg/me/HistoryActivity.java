@@ -2,10 +2,12 @@ package com.hldj.hmyg.me;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.Keep;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
@@ -30,11 +32,24 @@ import java.util.ArrayList;
  * 我的足迹 界面
  */
 
+@Keep
 public class HistoryActivity extends BaseMVPActivity implements View.OnClickListener {
 
 
     int item_layout_id = R.layout.item_invite_friend_list;
     int item_layout_cycle_id = R.layout.item_invite_friend_list;
+
+
+    /* 全选按钮 */
+    @ViewInject(id = R.id.select_all, click = "onClick")
+    TextView select_all;
+    /* 删除按钮 */
+    @ViewInject(id = R.id.delete_all, click = "onClick")
+    TextView delete_all;
+    /* 底部整个控件 group */
+    @ViewInject(id = R.id.bottom_parent)
+    ViewGroup bottom_parent;
+
 
     @ViewInject(id = R.id.tabLayout)
     TabLayout tabLayout;
@@ -69,20 +84,52 @@ public class HistoryActivity extends BaseMVPActivity implements View.OnClickList
     @ViewInject(id = R.id.tijia, click = "onClick")
     TextView tijia;
 
+    @Keep
     @Override
     public void onClick(View v) {
+        BaseRecycleViewFragment baseRecycleViewFragment = (BaseRecycleViewFragment) list_fragment.get(viewpager.getCurrentItem());
 
         switch (v.getId()) {
+            case R.id.select_all:
+
+                if (baseRecycleViewFragment instanceof IFootMarkEmpty) {
+//                    ((IFootMarkEmpty) baseRecycleViewFragment).doEmpty();
+                    ((IFootMarkEmpty) baseRecycleViewFragment).toggleSelect();
+                }
+
+                break;
+
+            case R.id.delete_all:
+
+                if (baseRecycleViewFragment instanceof IFootMarkEmpty) {
+//                    ((IFootMarkEmpty) baseRecycleViewFragment).doEmpty();
+                    ((IFootMarkEmpty) baseRecycleViewFragment).doEmpty();
+                }
+
+                break;
+
             case R.id.tijia:
                 AddContactActivity.start(mActivity);
                 break;
             case R.id.toolbar_right_text:
 //                ToastUtil.showLongToast("清空");
 //                ToastUtil.showLongToast("" + viewpager.getCurrentItem());
-                BaseRecycleViewFragment baseRecycleViewFragment = (BaseRecycleViewFragment) list_fragment.get(viewpager.getCurrentItem());
                 if (baseRecycleViewFragment instanceof IFootMarkEmpty) {
-                    ((IFootMarkEmpty) baseRecycleViewFragment).doEmpty();
+//                    ((IFootMarkEmpty) baseRecycleViewFragment).doEmpty();
+                    ((IFootMarkEmpty) baseRecycleViewFragment).doEdit();
                 }
+
+
+                if (getView(R.id.bottom_parent).getVisibility() == View.VISIBLE) {
+                    toggleBottomParent(false);
+
+
+                } else {
+                    toggleBottomParent(true);
+
+                }
+
+
                 break;
 
 
@@ -95,7 +142,7 @@ public class HistoryActivity extends BaseMVPActivity implements View.OnClickList
         FinalActivity.initInjectedView(this);
 
         toolbar_right_text.setVisibility(View.VISIBLE);
-        toolbar_right_text.setText("清空");
+        toolbar_right_text.setText("编辑");
 
 
         FragmentPagerAdapter_TabLayout mFragmentPagerAdapter_tabLayout = new FragmentPagerAdapter_TabLayout(getSupportFragmentManager(), list_title, list_fragment);
@@ -204,5 +251,17 @@ public class HistoryActivity extends BaseMVPActivity implements View.OnClickList
 
 
     }
+
+
+    public void toggleBottomParent(boolean isEditable) {
+        if (!isEditable) {
+            toolbar_right_text.setText("编辑");
+        } else {
+            toolbar_right_text.setText("完成");
+        }
+
+        getView(R.id.bottom_parent).setVisibility(isEditable ? View.VISIBLE : View.GONE);
+    }
+
 
 }

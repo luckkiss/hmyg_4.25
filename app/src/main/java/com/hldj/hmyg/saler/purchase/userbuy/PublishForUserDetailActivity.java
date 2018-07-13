@@ -345,6 +345,7 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
                     public void onRealSuccess(UserPurchaseGsonBean result) {
 
                         getView(R.id.show_state).setVisibility(result.data.userPurchase.isClose ? View.VISIBLE : View.GONE);
+                        mUnitTypeName = result.data.userPurchase.unitTypeName;
 
                         if (result.data.userQuote != null) {
                             //自己有报价
@@ -398,7 +399,6 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
                         setText(getView(R.id.close_time), result.data.userPurchase.closeDateStr);
                         setText(getView(R.id.quote_num), result.data.userPurchase.count + result.data.userPurchase.unitTypeName);
 
-                        mUnitTypeName = result.data.userPurchase.unitTypeName;
                         setUnitType();
 
                         setText(getView(R.id.space_text), result.data.userPurchase.specText);
@@ -469,7 +469,8 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
 
 
                         } else {
-                            submit.setText("立即报价");
+                            grid.setVisibility(View.VISIBLE);
+                            submit.setText("提交报价");
 //                            setText(getView(R.id.textView67), "元/" + result.data.userPurchase.unitTypeName);
 
                             RadioGroup radioGroup = ((RadioGroup) getView(R.id.rb_title_left).getParent());
@@ -484,12 +485,12 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
                     }
 
 
-
                 })
         ;
 
 
     }
+
     private void 删除报价(String purchaseId) {
         new BasePresenter()
                 .putParams("id", purchaseId)
@@ -518,19 +519,22 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
     private void doHistory(UserQuote userQuote) {
         int layoutId = R.layout.item_qute_history;
         // 到岸价
-        setText(getView(R.id.dhj),String.format("[%s]",userQuote.priceTypeName));
+        setText(getView(R.id.dhj), String.format("[%s]", userQuote.priceTypeName));
 
 
         // 价格
-        setText(getView(R.id.price),  "￥"+userQuote.price + "元/" + mUnitTypeName);
+        setText(getView(R.id.price), "¥" + userQuote.price+" ");
 
+        setText(getView(R.id.unit), FUtil.$_head_no_("/",mUnitTypeName));
+
+        //11
 
         // 图片数量
-        PurchaseDetailActivity.setImgCounts(mActivity,getView(R.id.tupian), userQuote.imagesJson);
+        PurchaseDetailActivity.setImgCounts(mActivity, getView(R.id.tupian), userQuote.imagesJson);
 
 
         //苗源地
-        setText(getView(R.id.myd_content),  userQuote.cityName);
+        setText(getView(R.id.myd_content), userQuote.cityName);
 
         //说明
         setText(getView(R.id.remarks_content), userQuote.remarks);

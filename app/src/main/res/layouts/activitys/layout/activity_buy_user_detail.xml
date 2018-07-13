@@ -62,9 +62,11 @@
 
             <!-- qute_history_parent-->
             <include
-                android:id="@+id/qute_history_parent"
-                layout="@layout/item_qute_history" />
 
+                layout="@layout/item_qute_history"
+             />
+
+            <View style="@style/View_line_gray_1px"/>
 
             <LinearLayout
                 android:id="@+id/content_parent"

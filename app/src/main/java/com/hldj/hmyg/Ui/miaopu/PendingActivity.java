@@ -55,8 +55,10 @@ public class PendingActivity extends ManagerSplitListActivity_new<ManagerListPre
         findViewById(R.id.toolbar1).setVisibility(View.VISIBLE);
         Log.i("PendingActivity", "强行隐藏toolbar 栏目。禁止搜索");
 
-
+        rls[3].setVisibility(View.GONE);
+        lines[3].setVisibility(View.GONE);
     }
+
 
 
     @Override
@@ -213,6 +215,9 @@ public class PendingActivity extends ManagerSplitListActivity_new<ManagerListPre
                     D.w(" storeId is =====>  " + gsonBean.getData().storeId);
                     break;
                 case 3:
+
+                    list_counts.get(i).setText("(" + gsonBean.getData(). unauditCount + ")");
+
 //                    list_counts.get(i).setText("(" + gsonBean.data.pendingCount + ")");
                     break;
                 case 4:

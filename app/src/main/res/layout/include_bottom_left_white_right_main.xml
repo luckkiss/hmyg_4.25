@@ -9,7 +9,7 @@
     <Button
         android:id="@+id/bottom_left"
         style="@style/bottom_button_green"
-        android:background="@color/white"
+        android:background="@drawable/round_rectangle_gray_bg"
         android:text="不报价"
         android:textColor="@color/text_color666"
         android:textSize="@dimen/textSizeTitle" />

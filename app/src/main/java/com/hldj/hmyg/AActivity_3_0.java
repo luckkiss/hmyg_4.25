@@ -1109,7 +1109,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
 //            View viewChild = LayoutInflater.from(this).inflate(R.layout.list_view_seedling_new, null);
             if (bProduceAdapt == null) {
-                bProduceAdapt = new BProduceAdapt(AActivity_3_0.this, indexGsonBean.data.seedlingList, R.layout.list_view_seedling_new);
+                bProduceAdapt = new BProduceAdapt(AActivity_3_0.this, indexGsonBean.data.seedlingList, R.layout.list_view_seedling_new_eq);
 //              view.removeAllViews();
                 for (int i = 0; i < bProduceAdapt.getCount(); i++) {
                     view.addView(viewSetTag("a", bProduceAdapt, i));
@@ -1129,7 +1129,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         } catch (Exception e) {
             findViewById(R.id.ll_tuijian_parent).setVisibility(View.VISIBLE);
-            D.e("=============没有推荐列表，或者数据异常===============");
+            D.e("=============没有推荐列表，或者数据异常==============="+e.getMessage());
 
             e.printStackTrace();
         }
