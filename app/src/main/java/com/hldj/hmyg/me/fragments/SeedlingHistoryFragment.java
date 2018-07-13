@@ -45,6 +45,12 @@ public class SeedlingHistoryFragment extends BaseRecycleViewFragment<BPageGsonBe
         super.onFragmentVisibleChange(b);
         if (b) {
             ((HistoryActivity) mActivity).toggleBottomParent(isEditAble);
+        } else {
+//            if (mCoreRecyclerView != null && mCoreRecyclerView.getAdapter().getData().size() == 0)
+//                isEditAble = false;
+//            if (iEditable.isSelectAll()) {
+//                iEditable.toggleSelectAll();
+//            }
         }
     }
 

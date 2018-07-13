@@ -65,6 +65,14 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> impl
         super.onFragmentVisibleChange(b);
         if (b) {
             ((HistoryActivity) mActivity).toggleBottomParent(getiEditable().isEditable());
+        } else {
+//            if (mCoreRecyclerView != null && mCoreRecyclerView.getAdapter().getData().size() == 0)
+//                if (iEditable.isEditable()) {
+//                    iEditable.toggleEditable();
+//                }
+//            if (iEditable.isSelectAll()) {
+//                iEditable.toggleSelectAll();
+//            }
         }
     }
 
@@ -96,6 +104,14 @@ public class MomentHistoryFragment extends BaseRecycleViewFragment<Moments> impl
 //                        });
 
                         mCoreRecyclerView.getAdapter().addData(e);
+
+
+                        if (mCoreRecyclerView.getAdapter().getData().size() == 0) {
+                            if (getiEditable().isEditable()) {
+                                getiEditable().toggleEditable();
+                                ((HistoryActivity) mActivity).toggleBottomParent(getiEditable().isEditable());
+                            }
+                        }
                     }
 
                     @Override
