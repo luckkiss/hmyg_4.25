@@ -468,7 +468,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textSize">@dimen/x14</item>
+        <item name="android:textSize">@dimen/textSizeContent</item>
     </style>
 
 
@@ -481,7 +481,7 @@
         <item name="android:background">@drawable/conner_edit_input</item>
         <item name="android:imeOptions">actionNext</item>
         <item name="android:textColorHint">@color/hint_text_color</item>
-        <item name="android:textSize">@dimen/x14</item>
+        <item name="android:textSize">@dimen/textSizeContent</item>
         <item name="android:singleLine">true</item>
     </style>
 
@@ -490,7 +490,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:textSize">@dimen/x14</item>
+        <item name="android:textSize">@dimen/textSizeContent</item>
     </style>
 
 
@@ -762,7 +762,7 @@
         <item name="android:layout_width">0.0dip</item>
         <item name="android:layout_height">@dimen/y26</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:background">@color/main_color</item>
+        <item name="android:background">@drawable/round_textview_main_color_bg</item>
         <item name="android:gravity">center</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:textColor">@color/white</item>

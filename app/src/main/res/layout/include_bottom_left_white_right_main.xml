@@ -12,13 +12,21 @@
         android:background="@drawable/round_rectangle_gray_bg"
         android:text="不报价"
         android:textColor="@color/text_color666"
-        android:textSize="@dimen/textSizeTitle" />
+        android:textSize="@dimen/textSizeTitle"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="1"
+        />
 
     <Button
         android:id="@+id/bottom_right"
         style="@style/bottom_button_green"
         android:text="提交报价"
-        android:textSize="@dimen/textSizeTitle" />
+        android:textSize="@dimen/textSizeTitle"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="2"
+        />
 
 
 </LinearLayout>

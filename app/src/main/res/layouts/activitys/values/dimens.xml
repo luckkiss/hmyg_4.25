@@ -25,7 +25,7 @@
 
     <dimen name="tableHeight">36dp</dimen>
 
-    <dimen name="simpleHeightHead">46dp</dimen>
+    <dimen name="simpleHeightHead">44dp</dimen>
 
     <dimen name="simpleHeightContent">43dp</dimen>
 

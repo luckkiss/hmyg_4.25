@@ -6,15 +6,15 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/y34"
+        android:layout_height="@dimen/simpleHeightHead"
         android:background="@color/white">
 
         <ImageView
             android:id="@+id/btn_back"
-            android:layout_width="@dimen/x24"
-            android:layout_height="@dimen/x24"
+            android:layout_width="@dimen/default_width"
+            android:layout_height="@dimen/default_width"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginLeft="@dimen/px10"
             android:background="@drawable/btn_back" />
 
         <TextView
@@ -24,8 +24,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="苗木分类"
-            android:textColor="@color/main_color"
-            android:textSize="@dimen/x18" />
+            android:textSize="@dimen/textSizeTitle" />
 
         <TextView
             android:id="@+id/id_tv_edit_all"
@@ -33,11 +32,10 @@
             android:layout_height="@dimen/x24"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/x15"
+            android:layout_marginRight="@dimen/px10"
             android:gravity="center"
             android:text="重置"
-            android:textColor="@color/main_color"
-            android:textSize="16dp" />
+            android:textSize="14dp" />
     </RelativeLayout>
 
     <ImageView

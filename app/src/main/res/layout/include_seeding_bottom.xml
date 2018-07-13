@@ -16,7 +16,7 @@
             style="@style/text_left_name_style"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_margin="6dp"
+            android:layout_margin="2dp"
             android:drawableLeft="@drawable/seller_redstar"
             android:drawablePadding="2dp"
             android:text="价格" />
@@ -62,7 +62,7 @@
                 android:layout_weight="1"
                 android:gravity="center|bottom"
                 android:text="元"
-                android:textSize="@dimen/x14" />
+                android:textSize="@dimen/textSizeContent" />
 
             <CheckBox
                 android:id="@+id/cb_is_meet"
@@ -72,7 +72,7 @@
                 android:padding="3dp"
                 android:text="面议"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/x14" />
+                android:textSize="@dimen/textSizeContent" />
 
             <!--<TextView-->
             <!--style="@style/text_seeding_cm"-->
@@ -91,10 +91,9 @@
         <TextView
             android:id="@+id/tv_seeding_kucun"
             style="@style/text_left_name_style"
-            android:layout_margin="6dp"
+            android:layout_centerVertical="true"
             android:drawableLeft="@drawable/seller_redstar"
             android:drawablePadding="2dp"
-            android:layout_centerVertical="true"
             android:padding="3dp"
             android:text="库存" />
 
@@ -131,7 +130,7 @@
             android:drawablePadding="4dp"
             android:drawableRight="@drawable/arrow_down"
             android:text="株"
-            android:textSize="@dimen/x14" />
+            android:textSize="@dimen/textSizeContent" />
 
 
     </RelativeLayout>
@@ -192,7 +191,7 @@
             android:layout_toLeftOf="@+id/tv_unit"
             android:drawablePadding="4dp"
             android:text="90"
-            android:textSize="@dimen/x14" />
+            android:textSize="@dimen/textSizeContent" />
 
         <TextView
             android:id="@+id/tv_unit"
@@ -203,16 +202,17 @@
             android:drawablePadding="4dp"
             android:drawableRight="@drawable/arrow_down"
             android:text="天"
-            android:textSize="@dimen/x14" />
+            android:textSize="@dimen/textSizeContent" />
     </RelativeLayout>
 
 
-    <RelativeLayout style="@style/rl_seeding_commom">
+    <RelativeLayout
+        style="@style/rl_seeding_commom"
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_seeding_beizhu"
             style="@style/text_left_name_style"
-            android:layout_centerVertical="true"
             android:layout_margin="6dp"
             android:padding="3dp"
             android:text="备注" />
@@ -220,10 +220,13 @@
         <EditText
             android:id="@+id/et_remark"
             style="@style/et_seeding_common"
+            android:layout_height="67dp"
+            android:gravity="start"
+            android:paddingTop="6dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/tv_seeding_beizhu"
             android:hint="请填写备注信息"
-            android:textSize="@dimen/x14" />
+            />
     </RelativeLayout>
     <!-- android:layout_alignBaseline="@+id/tv_seeding_beizhu"-->
 </LinearLayout>

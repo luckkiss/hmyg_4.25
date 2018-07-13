@@ -33,8 +33,9 @@
                     android:gravity="center_vertical"
                     android:singleLine="true"
                     android:text="[默认]"
+
                     android:textColor="@color/red"
-                    android:textSize="@dimen/textSizeXXX"
+                    android:textSize="@dimen/textSizeContent"
                     android:visibility="gone"
                     tools:visibility="visible" />
 
@@ -44,8 +45,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:singleLine="true"
-                    android:textColor="@color/addr_default_selector"
-                    android:textSize="@dimen/textSizeXXX"
+                    android:textSize="@dimen/textSizeContent"
                     tools:text="fullname" />
             </LinearLayout>
 
@@ -57,6 +57,7 @@
                 android:gravity="center_vertical"
                 android:paddingBottom="6dp"
                 android:singleLine="true"
+                android:textSize="@dimen/textSizeContent"
                 tools:text="苗圃名称 " />
 
             <LinearLayout
@@ -72,6 +73,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:singleLine="true"
+                    android:textSize="@dimen/textSizeContent"
+
                     tools:text="联系人" />
             </LinearLayout>
 
@@ -85,6 +88,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="@dimen/x9"
             android:padding="10.0dip"
+            android:visibility="gone"
             android:src="@drawable/arrow_right" />
     </LinearLayout>
 

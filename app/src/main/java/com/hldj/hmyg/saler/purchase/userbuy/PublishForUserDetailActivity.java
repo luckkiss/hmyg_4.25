@@ -470,7 +470,7 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
 
                         } else {
                             grid.setVisibility(View.VISIBLE);
-                            submit.setText("提交报价");
+                            submit.setText("立即报价");
 //                            setText(getView(R.id.textView67), "元/" + result.data.userPurchase.unitTypeName);
 
                             RadioGroup radioGroup = ((RadioGroup) getView(R.id.rb_title_left).getParent());
@@ -613,7 +613,7 @@ public class PublishForUserDetailActivity extends BaseMVPActivity implements OnC
             view1.setBackground(new ColorDrawable());
 
             submit.setTextColor(getColorByRes(R.color.white));
-            submit.setBackground(MyApplication.getInstance().getResources().getDrawable(R.drawable.rb_left_select));
+            submit.setBackground(MyApplication.getInstance().getResources().getDrawable(R.drawable.round_textview_main_color_bg));
 
             /**
              *    android:background="@drawable/white_btn_selector"
