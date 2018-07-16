@@ -167,14 +167,25 @@ public class PublishForUserListActivity extends BaseMVPActivity {
 //                .append("(" + unreadQuoteCountJson + "条未读)").setForegroundColor(getColorByRes(R.color.price_orige))
 //                .create();
 
+//        SpanUtils spanUtils = new SpanUtils();
+//        if (item.imagesJson.size() == 0) {
+//            spanUtils.append("未上传图片");
+//        } else {
+//            spanUtils
+//                    .append("有")
+//                    .append(item.imagesJson.size() + "").setForegroundColor(Color.RED)
+//                    .append("张图片")
+//            ;
+//        }
 
+//        ToastUtil.showLongToast(spanUtils.create().toString());
         helper
                 .setVisible(R.id.title, helper.getAdapterPosition() == 1)
                 .setText(R.id.title, unreadHead)
                 .setText(R.id.dhj, "[" + item.priceTypeName + "] ")
                 .setText(R.id.price, item.price)
                 .setText(R.id.unit, "/" + item.attrData.unitTypeName)
-                .setText(R.id.tupian, "有" + item.imagesJson.size() + "张图片")
+//                .setText(R.id.tupian, spanUtils.create())
 //                .addOnClickListener(R.id.tupian,   )
                 .setText(R.id.myd_content, item.cityName)
                 .setText(R.id.remarks_content, item.remarks)

@@ -248,8 +248,14 @@ public class RangeSeekBar extends View {
     }
 
     public void setRules(float min, float max, float reserve, int cells) {
-        if (max <= min) {
-            throw new IllegalArgumentException("setRules() max must be greater than min ! #max:" + max + " #min:" + min);
+        if (max < min) {
+
+            float temp = 0;
+            temp = max;
+            max = min;
+            min = temp;
+
+//            throw new IllegalArgumentException("setRules() max must be greater than min ! #max:" + max + " #min:" + min);
         }
         if (min < 0) {
             offsetValue = 0 - min;

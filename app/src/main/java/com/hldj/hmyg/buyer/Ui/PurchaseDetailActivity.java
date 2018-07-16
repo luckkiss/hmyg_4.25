@@ -494,7 +494,14 @@ public class PurchaseDetailActivity extends PurchaseDetailActivityBase {
 
     public static void setImgCountsSeed(Activity activity, SuperTextView textView, List<ImagesJsonBean> imagesJson) {
         if (imagesJson.size() != 0) {
-            textView.setText(strFilter("有" + imagesJson.size() + "张图片"));//有多少张图片
+//            textView.setText(strFilter("有" + imagesJson.size() + "张图片"));//有多少张图片
+
+            textView.setText(new SpanUtils()
+                    .append("有")
+                    .append("" + imagesJson.size()).setForegroundColor(Color.RED)
+                    .append("张图片")
+                    .create());//有多少张图片
+
             textView.setShowState(true);
         } else {
             textView.setShowState(true);

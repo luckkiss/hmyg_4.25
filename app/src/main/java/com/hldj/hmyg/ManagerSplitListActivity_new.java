@@ -23,7 +23,9 @@ import com.hldj.hmyg.M.AddressBean;
 import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.M.CountTypeGsonBean;
 import com.hldj.hmyg.M.StatusCountBean;
+import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.base.MyFinalActivity;
+import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.SimpleGsonBeanData;
@@ -793,6 +795,7 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
 //            xRecyclerView.onRefresh();
 //            ToastUtil.showLongToast("发布成功回调");
             switch2Refresh("unaudit",3);
+            RxBus.getInstance().post(DActivity_new_mp.refresh, new Eactivity3_0.OnlineEvent(true));
         }
     }
 

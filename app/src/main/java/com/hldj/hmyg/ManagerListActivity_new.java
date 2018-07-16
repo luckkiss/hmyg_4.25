@@ -543,10 +543,13 @@ public abstract class ManagerListActivity_new<P extends ManagerListPresenter, M 
 
             switch2Refresh("", 0);
 
-        } else if (arg1 == ConstantState.PUBLIC_SUCCEED) {
-            xRecyclerView.onRefresh();
-            RxBus.getInstance().post(DActivity_new_mp.refresh, new Eactivity3_0.OnlineEvent(true));
-        } else if (arg1 == ConstantState.FLOW_BACK) {
+        }
+//        else if (arg1 == ConstantState.PUBLIC_SUCCEED) {
+////            xRecyclerView.onRefresh();
+////            switch2Refresh("unaudit",3);
+//            RxBus.getInstance().post(DActivity_new_mp.refresh, new Eactivity3_0.OnlineEvent(true));
+//        }
+        else if (arg1 == ConstantState.FLOW_BACK) {
             xRecyclerView.onRefresh();
         }
 
