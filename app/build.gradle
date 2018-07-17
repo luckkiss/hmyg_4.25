@@ -191,7 +191,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     //    compile project(':vlayout')
     compile 'com.lqr.optionitemview:library:1.0.7'
-    compile 'com.android.support.constraint:constraint-layout:1.1.0'
+    compile 'com.android.support.constraint:constraint-layout:1.1.2'
     /*  rxjava库*/
     compile 'io.reactivex.rxjava2:rxjava:2.0.7'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
