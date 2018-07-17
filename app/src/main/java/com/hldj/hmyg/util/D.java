@@ -22,7 +22,7 @@ package com.hldj.hmyg.util;
 
 import android.util.Log;
 
-import com.hy.utils.GetServerUrl;
+import com.hldj.hmyg.BuildConfig;
 
 
 /**
@@ -52,7 +52,7 @@ public class D {
      * @return
      */
     public static boolean isDebuggable() {
-        return GetServerUrl.isTest;
+        return BuildConfig.DEBUG;
     }
 
     /**

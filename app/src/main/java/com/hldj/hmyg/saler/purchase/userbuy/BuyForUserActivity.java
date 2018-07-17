@@ -175,7 +175,7 @@ public class BuyForUserActivity extends BaseMVPActivity {
 
         if (TextUtils.isEmpty(FUtil.$_zero_2_null(item.quoteCountJson))) {
             helper.setText(R.id.qubaojia, "暂无报价 ");
-            helper.setTextColorRes(R.id.qubaojia, R.color.text_color999);
+            helper.setTextColorRes(R.id.qubaojia, R.color.text_colorccc);
         } else {
             helper.setText(R.id.qubaojia, FUtil.$(item.quoteCountJson) + "条报价");
             helper.setTextColorRes(R.id.qubaojia, R.color.main_color);

@@ -9,7 +9,7 @@ def bakPath = file("${buildDir}/bakApk/")
 //def baseApkDir = "app-0926-12-54-35"   3.0.5. 1
 //def baseApkDir = "app-1030-15-54-46"    // 3.0.5release
 
-def baseApkDir = "app-0621-17-37-11"    // ��ҳ�İ�
+def baseApkDir = "app-0717-11-41-20"    //  7.17 基础包
 //def baseApkDir = "app-0604-12-19-23"    //app-0326-17-24-27
 //def baseApkDir = "app-1229-10-02-35"    //
 
@@ -51,7 +51,10 @@ tinkerSupport {
 //        tinkerId = "base-3.0.6release_fix1"
 //        tinkerId = "patch-3.0.6release_fix1"
 
-    tinkerId = "base-4.0.3"   // 6.21  ��ҳ�İ�  �汾
+    tinkerId = "base-4.0.4"   //7.17   修改正方形商城图片
+//    tinkerId = "patch-4.0.4"  //
+
+//    tinkerId = "base-4.0.3"   // 6.21  ��ҳ�İ�  �汾
 //    tinkerId = "patch-4.0.3"  //
 
 //    tinkerId = "base-4.0.2_1"   // ?���????  4.0.2??? ???  ????????

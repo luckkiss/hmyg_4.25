@@ -68,9 +68,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
 
+        android:layout_toLeftOf="@+id/qubaojia"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:layout_below="@+id/title"
         android:layout_marginTop="8dp"
-        android:text="脱肛高33cm"
+        android:text="脱肛高33cm脱3cm脱肛高肛高脱肛高33cm脱3cm脱肛高肛高33cm脱肛高33cm脱3cm脱肛高肛高33cm脱肛高33cm脱3cm脱肛高肛高33cm33cm"
         android:textColor="@color/text_color999" />
 
 

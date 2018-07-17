@@ -11,7 +11,7 @@ import com.hldj.hmyg.util.D;
 import com.hy.utils.GetServerUrl;
 
 /**
- * 积分详情界面
+ *  供应商等级 权限申请 界面
  */
 
 public class ProviderActivity extends BaseWebViewActivity {
@@ -31,11 +31,11 @@ public class ProviderActivity extends BaseWebViewActivity {
         //http://192.168.1.252:8090/app/protocol/supplier
 
         if (isQutot()) {
-            url = head + "app/userPoint/seller?uid=" + MyApplication.Userinfo.getString("id", "") + "&token=" + GetServerUrl.getKeyStr(System.currentTimeMillis());
+            url = head + "app/userPoint/seller?uid=" + MyApplication.Userinfo.getString("id", "") + "&token=" + GetServerUrl.getKeyStr(System.currentTimeMillis()) +"&isNew=true" ;
 
             D.e("=======BaseUrl===url===\n" + url);
         } else {
-            url = head + "app/protocol/supplier?uid=" + MyApplication.Userinfo.getString("id", "") + "&token=" + GetServerUrl.getKeyStr(System.currentTimeMillis());
+            url = head + "app/protocol/supplier?uid=" + MyApplication.Userinfo.getString("id", "") + "&token=" + GetServerUrl.getKeyStr(System.currentTimeMillis())  ;
         }
 
         return url;
