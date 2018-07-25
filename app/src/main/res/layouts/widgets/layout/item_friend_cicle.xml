@@ -156,6 +156,8 @@
         app:layout_constraintBottom_toBottomOf="@id/first"
         app:layout_constraintLeft_toRightOf="@+id/first"
         app:layout_constraintRight_toLeftOf="@id/second"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintTop_toTopOf="@id/first" />
 
 
@@ -181,6 +183,8 @@
 
     <View
         android:id="@+id/li2"
+        android:visibility="gone"
+        tools:visibility="visible"
         style="@style/View_line_vertical"
         app:layout_constraintBottom_toBottomOf="@id/second"
         app:layout_constraintLeft_toRightOf="@+id/space_text"
@@ -208,6 +212,8 @@
 
     <View
         android:id="@+id/li3"
+        android:visibility="gone"
+        tools:visibility="visible"
         style="@style/View_line_vertical"
         app:layout_constraintBottom_toBottomOf="@id/third"
         app:layout_constraintLeft_toRightOf="@+id/space_text"

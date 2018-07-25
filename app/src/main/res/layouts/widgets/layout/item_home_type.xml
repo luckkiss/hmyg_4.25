@@ -4,13 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp"
+    android:background="@drawable/conner_white_s"
+
+    >
 
     <ImageView
         android:id="@+id/iv_right"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="28dp"
         android:src="@mipmap/home_publish_cycle_big"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -21,10 +27,10 @@
         android:id="@+id/iv_left"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="16dp"
         android:src="@mipmap/home_publish_plant_big"
         app:layout_constraintEnd_toStartOf="@+id/iv_center"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -33,7 +39,7 @@
         android:id="@+id/iv_center"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
         android:src="@mipmap/home_fbqg_big"
         app:layout_constraintEnd_toStartOf="@+id/iv_right"
         app:layout_constraintHorizontal_bias="0.5"
@@ -48,6 +54,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:text="发布苗木圈"
+        android:textColor="@color/text_color333"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/iv_right"
         app:layout_constraintStart_toStartOf="@+id/iv_right" />
@@ -61,6 +69,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="发布求购"
+        android:textColor="@color/text_color333"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/iv_center"
         app:layout_constraintStart_toStartOf="@+id/iv_center" />
@@ -73,6 +83,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
+        android:textColor="@color/text_color333"
         android:text="发布苗木"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/iv_left"
@@ -84,9 +95,9 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="请选择发布类型"
-        android:textColor="@color/text_color333"
+        android:textColor="@color/text_color111"
         android:textSize="17sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

@@ -64,23 +64,34 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/ll_sor_contennt"
+
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="2px"
+            android:background="@color/gray_bg" />
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/ll_sor_contennt"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/bg_top_line"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_gravity="center_vertical">-->
 
             <me.kaede.tagview.TagView
                 android:id="@+id/tagview_b_act"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/gray_bg_ed"
+                android:gravity="center_vertical"
                 android:paddingLeft="5dp"
+                android:paddingTop="6dp"
                 app:lineMargin="5dp"
                 app:tagMargin="3dp"
-                app:textPaddingBottom="3dp"
+                app:textPaddingBottom="5dp"
                 app:textPaddingLeft="10dp"
                 app:textPaddingRight="10dp"
-                app:textPaddingTop="3dp" />
+                app:textPaddingTop="5dp" />
 
 
             <!--<View-->
@@ -90,13 +101,10 @@
             <!--android:background="@color/main_color" />-->
 
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="2px"
-            android:background="@color/gray_bg" />
+
 
 
     </android.support.design.widget.AppBarLayout>

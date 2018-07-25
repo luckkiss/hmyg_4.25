@@ -68,6 +68,7 @@
                 android:layout_height="24dip"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="center_vertical"
+                app:range_lineColorSelected="@color/main_color"
                 app:cells="1"
                 app:max="120"
                 app:min="0" />

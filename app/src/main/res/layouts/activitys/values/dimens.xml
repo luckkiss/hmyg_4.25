@@ -29,4 +29,9 @@
 
     <dimen name="simpleHeightContent">43dp</dimen>
 
+    <dimen name="padding_left">@dimen/px28</dimen>
+    <dimen name="padding_right">@dimen/px28</dimen>
+    <dimen name="padding_left_negative">-11.793dp</dimen>
+    <dimen name="search_edit_height">35dp</dimen>
+
 </resources>

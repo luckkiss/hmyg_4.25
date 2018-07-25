@@ -14,10 +14,9 @@
         <com.hldj.hmyg.widget.SegmentedGroup
             android:id="@+id/segmented3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/px54"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_margin="10dp"
             android:orientation="horizontal"
             app:sc_unchecked_tint_color="@color/white"
             segmentedgroup:sc_border_width="1dp"
@@ -28,7 +27,7 @@
                 android:id="@+id/button31"
                 style="@style/RadioButton3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:minHeight="32dp"
                 android:minWidth="78dp"
                 android:text="平台直采" />
@@ -37,7 +36,7 @@
                 android:id="@+id/button32"
                 style="@style/RadioButton3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="待采购"
                 android:visibility="gone" />
 
@@ -45,7 +44,7 @@
                 android:id="@+id/button33"
                 style="@style/RadioButton3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:minHeight="32dp"
                 android:minWidth="78dp"
                 android:text="个人求购" />
@@ -57,7 +56,7 @@
             android:layout_width="@dimen/backWH"
             android:layout_height="@dimen/backWH"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="@dimen/px8"
             android:padding="5dp"
             android:src="@drawable/ic_stepper_left_new" />
 
@@ -68,8 +67,8 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="12dp"
-            android:layout_marginRight="12dp"
+
+            android:layout_marginRight="@dimen/px8"
             android:gravity="center"
             android:padding="10dp"
             android:src="@drawable/fenxiang"
@@ -90,9 +89,9 @@
         <!-- android:text="●●●"-->
     </RelativeLayout>
 
-
+<View style="@style/View_line_gray_1px" android:background="#f3b373"/>
     <include layout="@layout/include_pymap_tip" />
-
+    <View style="@style/View_line_gray_1px" android:background="#f3b373"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -211,7 +210,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="visible"
+
+                android:background="@color/gray_bg_ed">
 
                 <com.weavey.loading.lib.LoadingLayout
                     android:id="@+id/listview_loading"
@@ -225,9 +226,9 @@
                         android:layout_height="match_parent"
                         android:divider="@color/gray_bg_ed"
                         android:dividerHeight="20px"
-                        android:footerDividersEnabled="false"
+                        android:footerDividersEnabled="true"
                         android:headerDividersEnabled="false"
-                        app:headerDividersEnabled="false" />
+                      />
                 </com.weavey.loading.lib.LoadingLayout>
             </FrameLayout>
 

@@ -30,7 +30,7 @@ public class AddressBean implements Serializable{
     public String realName= "";
     public String phone= "";
     public String fullAddress= "";
-    public String rePublishDate= "";
+    public String rePublishDate= "-";
     public int nurseryArea;
 
 

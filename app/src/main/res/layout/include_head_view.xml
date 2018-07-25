@@ -40,10 +40,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView16"
         app:layout_constraintTop_toTopOf="parent"
-        app:civ_border_color="@color/white"
-        app:civ_border_overlay="true"
-        app:civ_border_width="3px"
-
-
         />
 </android.support.constraint.ConstraintLayout>

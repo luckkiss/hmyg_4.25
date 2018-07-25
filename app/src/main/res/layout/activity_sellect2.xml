@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/y28"
-        android:background="@color/white">
+        android:background="@drawable/bg_bottom_line">
 
         <TextView
             android:layout_width="wrap_content"
@@ -17,8 +17,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="@string/sellect"
-            android:textColor="@color/main_color"
-            android:textSize="@dimen/x18" />
+            android:textColor="@color/text_color111"
+            android:textSize="@dimen/textSizeTitle" />
 
         <ImageView
             android:id="@+id/btn_back"
@@ -29,10 +29,7 @@
             android:background="@drawable/btn_back" />
     </RelativeLayout>
 
-
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -68,54 +65,13 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/white"
                     android:clickable="true"
-                    android:drawableRight="@drawable/arrow_right"
+                    android:drawableRight="@drawable/arrow_right_eq"
                     android:gravity="center_vertical"
                     android:onClick="importWords"
                     android:paddingLeft="@dimen/x10"
                     android:paddingRight="@dimen/x15"
                     android:text="关键字:"
                     android:textSize="@dimen/x15" />
-
-                <LinearLayout
-                    android:id="@+id/ll_area"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/y28"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/x10"
-                    android:paddingRight="@dimen/x10">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:text="地   区："
-                        android:textSize="@dimen/x15" />
-
-                    <TextView
-                        android:id="@+id/tv_area"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="全国"
-                        android:textColor="@color/main_color"
-                        android:textSize="@dimen/x13" />
-
-                    <ImageView
-                        android:id="@+id/iv_sa_delete"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:onClick="resetCity"
-                        android:padding="7dp"
-                        android:src="@drawable/ic_delete_green" />
-
-
-                </LinearLayout>
 
 
                 <LinearLayout
@@ -156,7 +112,6 @@
 
                 </LinearLayout>
 
-                <View style="@style/View_line_gray" />
 
                 <com.hldj.hmyg.widget.SearchScropView
                     android:id="@+id/search_view1"
@@ -166,17 +121,18 @@
 
                 <com.hldj.hmyg.widget.SearchScropView
                     android:id="@+id/search_view2"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="10dp"
+                    app:range_lineColorSelected="@color/main_color" />
 
 
                 <com.hldj.hmyg.widget.SearchScropView
                     android:id="@+id/search_view3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="10dp"
+                    app:range_lineColorSelected="@color/main_color" />
 
 
                 <LinearLayout
@@ -242,6 +198,50 @@
                         android:textSize="@dimen/x15" />
                 </LinearLayout>
 
+                <View style="@style/View_line_gray" />
+
+
+                <LinearLayout
+                    android:id="@+id/ll_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y28"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/x10"
+                    android:paddingRight="@dimen/x10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:text="地   区："
+                        android:textSize="@dimen/x15" />
+
+                    <TextView
+                        android:id="@+id/tv_area"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="全国"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/x13" />
+
+                    <ImageView
+                        android:id="@+id/iv_sa_delete"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:onClick="resetCity"
+                        android:padding="7dp"
+                        android:src="@drawable/ic_delete_green" />
+
+
+                </LinearLayout>
+
 
                 <com.zhy.view.flowlayout.TagFlowLayout
                     android:id="@+id/id_flowlayout2"
@@ -295,22 +295,6 @@
                     android:layout_height="1px"
                     android:background="@color/gray_bg" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/iv_reset"
-                        style="@style/bottom_button_white"
-                        android:text="@string/reset" />
-
-                    <TextView
-                        android:id="@+id/sure"
-                        style="@style/bottom_button_green"
-                        android:text="确认" />
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -318,6 +302,25 @@
         </RelativeLayout>
 
     </ScrollView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/iv_reset"
+            style="@style/bottom_button_white"
+            android:text="@string/reset" />
+
+        <TextView
+            android:id="@+id/sure"
+            style="@style/bottom_button_green"
+            android:background="@color/main_color"
+            android:text="确认" />
+    </LinearLayout>
 
 
 </LinearLayout>

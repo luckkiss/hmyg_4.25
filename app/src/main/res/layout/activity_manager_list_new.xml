@@ -24,6 +24,8 @@
             layout="@layout/search_top_toolbar"
             android:visibility="gone" />
 
+        <View style="@style/View_line_gray_1px" />
+
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -286,7 +288,9 @@
             <!-- 已上架 状态显示栏目-->
 
 
-            <include layout="@layout/include_ready_head" android:visibility="gone" />
+            <include
+                layout="@layout/include_ready_head"
+                android:visibility="gone" />
 
 
             <!-- 已上架 状态显示栏目-->
@@ -318,14 +322,13 @@
         <Button
             android:id="@+id/btn_manager_storege"
             style="@style/bottom_button_green"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
+            android:layout_weight="0.5"
             android:background="@drawable/bg_top_bottom_line"
             android:text="草稿箱"
             android:textColor="@color/text_color999"
-            android:textSize="14sp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            />
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/btn_manager_publish"

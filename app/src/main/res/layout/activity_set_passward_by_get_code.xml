@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/y34"
+        android:layout_height="@dimen/simpleHeightHead"
         android:background="@color/white">
 
         <TextView
@@ -19,13 +19,13 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="重置密码"
-            android:textColor="@color/main_color"
-            android:textSize="@dimen/x18" />
+            android:textColor="@color/text_color666"
+            android:textSize="@dimen/textSizeTitle" />
 
         <ImageView
             android:id="@+id/btn_back"
-            android:layout_width="@dimen/x24"
-            android:layout_height="@dimen/x24"
+            android:layout_width="@dimen/default_width"
+            android:layout_height="@dimen/default_width"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/x10"
             android:background="@drawable/btn_back" />
@@ -77,7 +77,7 @@
                     android:text="1231231"
                     android:textColor="@color/text_color666"
                     android:textColorHint="@color/gray_edit_hint"
-                    android:textSize="@dimen/y11" />
+                    android:textSize="@dimen/textSizeContent" />
 
                 <ImageButton
                     android:id="@+id/btn_clear_num"
@@ -121,7 +121,7 @@
                     android:singleLine="true"
                     android:textColor="@color/text_color666"
                     android:textColorHint="@color/gray_edit_hint"
-                    android:textSize="@dimen/y11" />
+                    android:textSize="@dimen/textSizeContent" />
 
                 <Button
                     android:id="@+id/btn_get_code"
@@ -136,7 +136,7 @@
                     android:padding="2.5dip"
                     android:text="获取验证码"
                     android:textColor="@color/main_color"
-                    android:textSize="15.0sp" />
+                    android:textSize="@dimen/textSizeContent" />
             </LinearLayout>
 
             <LinearLayout
@@ -169,7 +169,7 @@
                     android:singleLine="true"
                     android:textColor="@color/text_color666"
                     android:textColorHint="@color/gray_edit_hint"
-                    android:textSize="@dimen/y11" />
+                    android:textSize="@dimen/textSizeContent" />
 
                 <ImageButton
                     android:id="@+id/btn_clear_password"
@@ -213,7 +213,7 @@
                     android:singleLine="true"
                     android:textColor="@color/text_color666"
                     android:textColorHint="@color/gray_edit_hint"
-                    android:textSize="@dimen/y11" />
+                    android:textSize="@dimen/textSizeContent" />
 
                 <ImageButton
                     android:id="@+id/btn_clear_password_et_passward_confi"
@@ -231,15 +231,15 @@
                 android:id="@+id/set_passward"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/x37"
-                android:layout_marginLeft="@dimen/x10"
-                android:layout_marginRight="@dimen/x10"
+                android:layout_marginLeft="@dimen/padding_left"
+                android:layout_marginRight="@dimen/padding_right"
                 android:layout_marginTop="@dimen/x10"
                 android:background="@drawable/register_btn_selector"
                 android:enabled="false"
                 android:gravity="center"
                 android:text="确认修改"
                 android:textColor="@color/main_color"
-                android:textSize="@dimen/y11" />
+                android:textSize="@dimen/textSizeTitle" />
         </LinearLayout>
     </ScrollView>
 

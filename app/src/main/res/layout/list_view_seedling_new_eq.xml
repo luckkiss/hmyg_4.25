@@ -12,7 +12,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/px26">
+        android:paddingLeft="@dimen/padding_left">
 
         <RelativeLayout
             android:layout_width="@dimen/px180"
@@ -56,7 +56,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
-                    android:paddingRight="10dp"
+                    android:paddingRight="@dimen/padding_right"
                     android:textColor="@color/text_color999"
                     android:src="@drawable/piao_right_top"
                     android:text="福建 漳州"
@@ -105,11 +105,12 @@
 
                 <TextView
                     android:id="@+id/tv_03"
-                    tools:text="米径：15 高度：500 冠幅：400"
+                    tools:text="米径：15 高度：500 冠幅：400米径：15 高度：500 冠幅：400米径：15 高度：500 冠幅：400"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
+                    android:paddingRight="@dimen/padding_right"
                     android:singleLine="true"
                     android:textColor="@color/little_black_sm"
                     android:textSize="@dimen/textSizeContent" />
@@ -117,15 +118,15 @@
 
                 <TextView
                     android:id="@+id/tv_06"
-                    tools:text="发布人：名发布人：名发布人：名发布人：名发布人：名发布人：名发布人：名"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_marginRight="70dp"
+                    android:layout_marginRight="@dimen/padding_right"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:singleLine="true"
                     android:textColor="@color/little_black_sm"
-                    android:textSize="@dimen/textSizeContent" />
+                    android:textSize="@dimen/textSizeContent"
+                    tools:text="发布人：名发布名发布人：名发布人：名发布人：名发布人：名发布人：名发布人：名" />
 
 
             </LinearLayout>

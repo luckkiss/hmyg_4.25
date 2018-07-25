@@ -243,23 +243,23 @@ public class BActivity_new_test extends NeedSwipeBackActivity {
      * 排序 显示位置不对. 小米上正确
      */
     private void ChoiceSortList() {
-        View view = getView(R.id.ll_sor_contennt);
-        D.e("view getBottom " + view.getBottom());
-        View ll_sor_contennt = getView(R.id.ll_sor_contennt);
+//        View view = getView(R.id.ll_sor_contennt);
+//        D.e("view getBottom " + view.getBottom());
+//        View ll_sor_contennt = getView(R.id.ll_sor_contennt);
         View app_bar = getView(R.id.appbar);
         D.e("bar heigth=" + app_bar.getBottom());
         D.e("bar heigth=" + app_bar.getHeight());
-        D.e("top=" + view.getTop());
-        D.e("top=" + ll_sor_contennt.getTop());
-        D.e("======== ll_sor_contennt.getTop=======" + ll_sor_contennt.getTop());
-        Rect currentViewRect = new Rect();
-        view.getLocalVisibleRect(currentViewRect);
-        view.getGlobalVisibleRect(currentViewRect);
+//        D.e("top=" + view.getTop());
+//        D.e("top=" + ll_sor_contennt.getTop());
+//        D.e("======== ll_sor_contennt.getTop=======" + ll_sor_contennt.getTop());
+//        Rect currentViewRect = new Rect();
+//        view.getLocalVisibleRect(currentViewRect);
+//        view.getGlobalVisibleRect(currentViewRect);
 
-        D.e("======== currentViewRect.left=======" + currentViewRect.left);
-        D.e("======== currentViewRect.r=======" + currentViewRect.right);
-        D.e("======== currentViewRect.t=======" + currentViewRect.top);
-        D.e("======== currentViewRect.b=======" + currentViewRect.bottom);
+//        D.e("======== currentViewRect.left=======" + currentViewRect.left);
+//        D.e("======== currentViewRect.r=======" + currentViewRect.right);
+//        D.e("======== currentViewRect.t=======" + currentViewRect.top);
+//        D.e("======== currentViewRect.b=======" + currentViewRect.bottom);
 
 
         if (sortSpinner == null) {

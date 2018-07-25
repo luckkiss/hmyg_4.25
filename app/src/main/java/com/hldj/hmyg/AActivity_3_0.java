@@ -1565,7 +1565,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             if (context == null) {
                 context = mActivity;
             }
-            Dialog dialog1 = new Dialog(context);
+            Dialog dialog1 = new Dialog(context,R.style.myDialogTheme);
             dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog1.setContentView(R.layout.item_home_type);
             dialog1.findViewById(R.id.iv_left).setOnClickListener(v1 -> {

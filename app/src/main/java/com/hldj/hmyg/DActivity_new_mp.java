@@ -537,6 +537,7 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
         helper
                 .setText(R.id.title, String.format("%s.%s", (helper.getAdapterPosition()), item.name))
+                .setText(R.id.update_time, "更新时间："+item.rePublishDate)
                 .setText(R.id.textView64, new SpanUtils()
                         .append("在售  ")
                         .append("(" + item.onShelfJson + ")").setForegroundColor(getColorByRes(R.color.main_color)).setAlign(Layout.Alignment.ALIGN_NORMAL)

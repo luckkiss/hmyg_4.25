@@ -46,6 +46,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/view_pager"
                         android:layout_centerHorizontal="true"
+                        app:fillColor="@color/main_color"
+                        app:pageColor="@color/white"
+                        app:strokeWidth="0px"
                         android:layout_marginBottom="5dp" />
 
 
@@ -132,20 +135,18 @@
 
                     <ImageView
                         android:id="@+id/iv_home_left"
-                        android:layout_width="50dp"
-                        android:layout_height="55dp"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginBottom="4dp"
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="0dp"
-                        android:layout_marginTop="4dp"
-                        android:padding="7dp"
+                        android:padding="6dp"
                         android:src="@drawable/home_xwzx" />
 
                     <View
                         android:id="@+id/line"
                         android:layout_width="1px"
-                        android:layout_height="55dp"
+                        android:layout_height="50dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="3dp"
                         android:layout_toRightOf="@+id/iv_home_left" />
@@ -155,9 +156,9 @@
                     <com.hldj.hmyg.widget.UPMarqueeView
                         android:id="@+id/upview1"
                         android:layout_width="match_parent"
-                        android:layout_height="55dp"
+                        android:layout_height="45dp"
                         android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/line" />
+                        android:layout_toRightOf="@+id/line"/>
 
 
                 </RelativeLayout>
@@ -188,7 +189,7 @@
                             android:layout_width="@dimen/px4"
                             android:layout_height="18dp"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="14dp"
+                            android:layout_marginLeft="@dimen/padding_left"
                             android:src="@color/main_color" />
 
                         <com.coorchice.library.SuperTextView
@@ -207,7 +208,7 @@
                             app:state_drawable="@drawable/home_more_new"
                             app:state_drawable_height="12dp"
                             app:state_drawable_mode="right"
-                            app:state_drawable_padding_left="-15dp"
+                            app:state_drawable_padding_left="@dimen/padding_left_negative"
                             app:state_drawable_width="33.7dp"
                             tools:text="最新采购" />
 
@@ -271,7 +272,7 @@
                             app:state_drawable="@drawable/home_more_new"
                             app:state_drawable_height="12dp"
                             app:state_drawable_mode="right"
-                            app:state_drawable_padding_left="-15dp"
+                            app:state_drawable_padding_left="@dimen/padding_left_negative"
                             app:state_drawable_width="33.7dp"
                             tools:text="用户求购" />
 
@@ -362,7 +363,7 @@
                             app:state_drawable="@drawable/home_more_new"
                             app:state_drawable_height="12dp"
                             app:state_drawable_mode="right"
-                            app:state_drawable_padding_left="-15dp"
+                            app:state_drawable_padding_left="@dimen/padding_left_negative"
                             app:state_drawable_width="33.7dp"
                             tools:text="推荐资源" />
 
@@ -415,7 +416,7 @@
                         app:state_drawable="@drawable/home_more_new"
                         app:state_drawable_height="12dp"
                         app:state_drawable_mode="right"
-                        app:state_drawable_padding_left="-15dp"
+                        app:state_drawable_padding_left="@dimen/padding_left_negative"
                         app:state_drawable_width="33.7dp"
                         tools:text="热门商家" />
 

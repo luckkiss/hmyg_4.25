@@ -141,7 +141,7 @@ public class SearchActivity extends BaseMVPActivity {
                 helper
                         .setImageResource(R.id.is_check, R.mipmap.search_delete)
                         .setBackgroundRes(R.id.tv_item, R.drawable.bg_bottom_line)
-                        .setVisible(R.id.is_check, true)
+                        .setVisible(R.id.is_check, false)
                         .setText(R.id.tv_item, item.getContent())
                         .addOnClickListener(R.id.tv_item, new View.OnClickListener() {
 

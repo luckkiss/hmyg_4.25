@@ -126,6 +126,19 @@ public class PurchasePyMapActivity extends NeedSwipeBackActivity implements OnCh
 //        id_tv_edit_all.setVisibility(View.GONE);
 
         listview = (XListView) findViewById(R.id.listview);
+
+//        try {
+//            listview.addFooterView(null, null, true);
+//            listview.addHeaderView(null, null, true);
+//
+//        } catch (Exception e) {
+//            ToastUtil.showLongToast(e.getMessage());
+//            e.printStackTrace();
+//        }
+        //显示头部出现分割线
+
+        listview.setHeaderDividersEnabled(false);
+
         lv = (XListView) findViewById(R.id.lv);
         listview.setPullLoadEnable(true);
         listview.setPullRefreshEnable(true);
