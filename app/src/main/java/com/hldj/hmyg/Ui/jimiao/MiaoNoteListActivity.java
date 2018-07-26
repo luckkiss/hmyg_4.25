@@ -607,10 +607,10 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                 }
 
                 @Override
-                public void OnTvVisibleChange(boolean isSelf, TextView... tvs) {
+                public void OnTvVisibleChange(boolean isSelf,String ownerName, TextView... tvs) {
                     /* 返回 所有textview  需要 隐藏或者显示判断  是否显示隐藏 */
 
-                    onTvChange(isSelf, tvs);
+                    onTvChange(isSelf,ownerName, tvs);
 
 
                 }
@@ -677,8 +677,8 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                 }
 
                 @Override
-                public void OnTvVisibleChange(boolean isSelf, TextView... tvs) {
-                    onTvChange(isSelf, tvs);
+                public void OnTvVisibleChange(boolean isSelf, String owerName, TextView... tvs) {
+                    onTvChange(isSelf, owerName, tvs);
                 }
 //                                            @Override
 //                                            public void OnSelf(boolean isSelf) {
@@ -897,8 +897,8 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                                             }
 
                                             @Override
-                                            public void OnTvVisibleChange(boolean isSelf, TextView... tvs) {
-                                                onTvChange(isSelf, tvs);
+                                            public void OnTvVisibleChange(boolean isSelf,String ownerName, TextView... tvs) {
+                                                onTvChange(isSelf,ownerName, tvs);
                                             }
                                         });
 
@@ -1046,20 +1046,30 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
      * @param isSelf
      * @param tvs
      */
-    public void onTvChange(@Deprecated boolean isSelf, TextView... tvs) {
+    public void onTvChange(@Deprecated boolean isSelf, String owerName, TextView... tvs) {
         boolean isShow = (noteType.equals("1"));
 
 //        D.e("=======onTvChange=========" + isSelf + tvs.length);
         if (tvs.length > 0) {
             for (TextView tv : tvs) {
                 if (tv == null) {
-                    return;
+                    continue;
                 }
-                if (tv.getId() == R.id.tv_mpmc_lxr_dh) {
+                // 左边 苗圃名称
+                // 右边 发布人
+                if (tv.getId() == R.id.tv_06) {
                     /*当 是联系人 tv时*/
-                    tv.setVisibility(isShow ? View.GONE : View.VISIBLE);
-                } else {
+//                    tv.setVisibility(isShow ? View.GONE : View.VISIBLE);
+                    if (!isShow)
+                    {
+                        tv.setText(owerName);
+                    }
+
+
+                } else if (tv.getId() == R.id.textView){
+
                     tv.setVisibility(isShow ? View.VISIBLE : View.GONE);
+//                    tv.setBackgroundColor(Color.RED);
                 }
 
 

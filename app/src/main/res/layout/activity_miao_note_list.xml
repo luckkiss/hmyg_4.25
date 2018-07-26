@@ -179,13 +179,14 @@
     <LinearLayout
         android:id="@+id/ll_save"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y31"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/publish"
             style="@style/bottom_button_green"
+            android:background="@color/main_color"
             android:text="快速记苗" />
 
     </LinearLayout>

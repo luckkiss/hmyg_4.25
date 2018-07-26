@@ -97,7 +97,7 @@ public class MiaoNoteListAdapter extends BaseAdapter {
 //            holder.textView27 = (TextView) convertView.findViewById(R.id.textView27);
             holder.image = (ImageView) convertView.findViewById(R.id.iv_img);
 
-            holder.tv_05 = (TextView) convertView.findViewById( R.id.tv_07);//价格
+            holder.tv_05 = (TextView) convertView.findViewById(R.id.tv_07);//价格
             holder.tv_07 = (TextView) convertView.findViewById(R.id.tv_09); // 数量
 //            holder.tv_08 = (TextView) convertView.findViewById(tv_08);
             holder.tv_right_top = (TextView) convertView.findViewById(R.id.tv_04);//  省份地区
@@ -172,7 +172,7 @@ public class MiaoNoteListAdapter extends BaseAdapter {
 
 //        holder.tv_05.setText(ValueGetInfo.doubleTrans1(Double.parseDouble(data.get(position).get("price").toString())));
         holder.tv_05.setText(FUtil.$_head("¥", data.get(position).get("price").toString()));
-        holder.tv_07.setText(FUtil.$_zero(data.get(position).get("count").toString()));//数量
+        holder.tv_07.setText("库存：" + FUtil.$_zero(data.get(position).get("count").toString()));//数量
         String minSpec = data.get(position).get("minSpec").toString();
         String maxSpec = data.get(position).get("maxSpec").toString();
         if ("0".equals(minSpec)) {
@@ -246,8 +246,8 @@ public class MiaoNoteListAdapter extends BaseAdapter {
         /*将需要隐藏显示的空间返回的主界面。由主界面来控制*/
 
         if (null != myItemClickLister_content) {
-//            String ownerId = data.get(position).get("ownerId").toString();
-//            myItemClickLister_content.OnTvVisibleChange(is, holder.tv_mpmc_lxr_dh, holder.lxr, holder.tv_mpmc_lxr_dh, holder.textView, holder.view_line);
+            String ownerId = data.get(position).get("ownerId").toString();
+            myItemClickLister_content.OnTvVisibleChange(is, "发布人：" + ownerName, holder.tv_mpmc_lxr_dh, holder.lxr, holder.tv_mpmc_lxr_dh, holder.textView, holder.view_line);
         }
 
         //true  绿色     显示   发布到商城
@@ -379,7 +379,7 @@ public class MiaoNoteListAdapter extends BaseAdapter {
     public interface MyItemClickLister {
         void OnItemDel(int pos, String id, boolean isSelf);
 
-        void OnTvVisibleChange(boolean isSelf, TextView... tvs);
+        void OnTvVisibleChange(boolean isSelf, String owername, TextView... tvs);
 //        void OnSelf(boolean isSelf);//判断是否自己的单子
     }
 

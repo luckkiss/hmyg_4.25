@@ -362,7 +362,7 @@ public class MiaoDetailActivity extends NeedSwipeBackActivity {
 //            if ("0".equals(count)) {
 //                count = "-";
 //            }
-            tv_count.setText("数量：" + FUtil.$_zero(count));
+            tv_count.setText("库存：" + FUtil.$_zero(count));
             if ("0".equals(height)) {
                 height = "";
             }
