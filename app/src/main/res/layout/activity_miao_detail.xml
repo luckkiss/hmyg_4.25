@@ -9,53 +9,52 @@
     tools:context="com.hldj.hmyg.saler.SaveSeedlingActivity">
 
 
-
     <!--&lt;!&ndash;top bar&ndash;&gt;-->
     <!--<RelativeLayout-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="@dimen/y34"-->
-        <!--android:background="@color/white">-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="@dimen/y34"-->
+    <!--android:background="@color/white">-->
 
-        <!--<TextView-->
-            <!--android:id="@+id/tv_title"-->
-            <!--android:layout_width="200.0dip"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:gravity="center"-->
-            <!--android:singleLine="true"-->
-            <!--android:textColor="@color/main_color"-->
-            <!--android:textSize="@dimen/x18"-->
-            <!--tools:text="12345646" />-->
+    <!--<TextView-->
+    <!--android:id="@+id/tv_title"-->
+    <!--android:layout_width="200.0dip"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:gravity="center"-->
+    <!--android:singleLine="true"-->
+    <!--android:textColor="@color/main_color"-->
+    <!--android:textSize="@dimen/x18"-->
+    <!--tools:text="12345646" />-->
 
-        <!--<TextView-->
-            <!--android:id="@+id/id_tv_edit_all"-->
-            <!--android:layout_width="@dimen/x48"-->
-            <!--android:layout_height="@dimen/x24"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginRight="@dimen/x15"-->
-            <!--android:background="@drawable/green_btn_selector"-->
-            <!--android:gravity="center"-->
-            <!--android:text="清空"-->
-            <!--android:textColor="@color/main_color"-->
-            <!--android:textSize="16dp"-->
-            <!--android:visibility="gone" />-->
+    <!--<TextView-->
+    <!--android:id="@+id/id_tv_edit_all"-->
+    <!--android:layout_width="@dimen/x48"-->
+    <!--android:layout_height="@dimen/x24"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginRight="@dimen/x15"-->
+    <!--android:background="@drawable/green_btn_selector"-->
+    <!--android:gravity="center"-->
+    <!--android:text="清空"-->
+    <!--android:textColor="@color/main_color"-->
+    <!--android:textSize="16dp"-->
+    <!--android:visibility="gone" />-->
 
-        <!--<ImageView-->
-            <!--android:id="@+id/btn_back"-->
-            <!--android:layout_width="@dimen/x24"-->
-            <!--android:layout_height="@dimen/x24"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginLeft="@dimen/x10"-->
-            <!--android:background="@drawable/btn_back" />-->
+    <!--<ImageView-->
+    <!--android:id="@+id/btn_back"-->
+    <!--android:layout_width="@dimen/x24"-->
+    <!--android:layout_height="@dimen/x24"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginLeft="@dimen/x10"-->
+    <!--android:background="@drawable/btn_back" />-->
     <!--</RelativeLayout>-->
 
     <!--line-->
     <!--<ImageView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@drawable/line_bak" />-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@drawable/line_bak" />-->
 
     <!--content-->
     <com.hldj.hmyg.application.AlphaTitleScrollView
@@ -104,7 +103,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="80dp"
-                android:padding="@dimen/x10">
+                android:paddingBottom="@dimen/x8"
+                android:paddingLeft="@dimen/padding_left"
+                android:paddingRight="@dimen/padding_right"
+                android:paddingTop="@dimen/x8">
 
                 <TextView
                     android:id="@+id/tv_name_top"
@@ -127,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_count"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:textColor="@color/price_orige"
                     android:textSize="16sp"
                     tools:text="¥ 2000" />
@@ -138,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_name_top"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     tools:text="数量：2000" />
             </RelativeLayout>
 
@@ -189,10 +191,16 @@
             <!--</LinearLayout>-->
 
 
+            <View style="@style/View_line_gray" />
+
             <com.hldj.hmyg.widget.AutoAdd2DetailLinearLayout
                 android:id="@+id/auto_add"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+
+                />
+
+            <View style="@style/View_line_gray" />
 
             <LinearLayout
                 android:id="@+id/ll_03"
@@ -754,37 +762,6 @@
                     <!--android:layout_width="@dimen/x15"-->
                     <!--android:layout_height="@dimen/x15"-->
                     <!--android:layout_gravity="clip_vertical"-->
-                    <!--android:src="@drawable/seller_area"-->
-                    <!--android:visibility="gone" />-->
-
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="clip_vertical"
-                        android:layout_weight="2"
-                        android:text="苗圃地址:" />
-
-                    <TextView
-                        android:id="@+id/tv_address_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="clip_vertical"
-                        android:layout_weight="6"
-                        tools:text="福建   漳州福建   漳州福建   漳州福建   漳州福建   漳州" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/x5"
-                    android:orientation="horizontal">
-
-                    <!--<ImageView-->
-                    <!--android:layout_width="@dimen/x15"-->
-                    <!--android:layout_height="@dimen/x15"-->
-                    <!--android:layout_gravity="clip_vertical"-->
                     <!--android:src="@drawable/ditu_lianxiren"-->
                     <!--android:visibility="gone" />-->
 
@@ -803,6 +780,63 @@
                         android:layout_gravity="clip_vertical"
                         android:layout_weight="6"
                         tools:text="大傻苗圃" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/x5"
+                    android:orientation="horizontal">
+
+                    <!--<ImageView-->
+                    <!--android:layout_width="@dimen/x15"-->
+                    <!--android:layout_height="@dimen/x15"-->
+                    <!--android:layout_gravity="clip_vertical"-->
+                    <!--android:src="@drawable/seller_area"-->
+                    <!--android:visibility="gone" />-->
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="clip_vertical"
+                        android:layout_weight="2"
+                        android:text="苗圃地址:" />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="clip_vertical"
+                        android:layout_weight="6"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_address_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="clip_vertical"
+                            android:layout_weight="6"
+                            tools:text="福建   漳州福建   漳州福建   漳州福建   漳州福建   漳州" />
+
+                        <!--<View style="@style/View_line_vertical" />-->
+
+
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/location"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:layout_marginLeft="8dp"-->
+                            <!--android:button="@mipmap/ic_location"-->
+                            <!--android:paddingLeft="5dp"-->
+                            <!--android:text="未定位"-->
+                            <!--android:visibility="invisible"-->
+                            <!--tools:visibility="visible" />-->
+
+
+                    </LinearLayout>
+
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -893,7 +927,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                android:layout_height="40dp" />
 
 
         </LinearLayout>
@@ -910,19 +944,18 @@
         />
 
 
-
     <LinearLayout
         android:id="@+id/ll_detail_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:background="@color/white"
-        android:orientation="vertical" android:layout_alignParentTop="true">
+        android:orientation="vertical">
 
         <View
             android:id="@+id/view_detail_top"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/top_padding_statu"
-            />
+            android:layout_height="@dimen/top_padding_statu" />
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -938,8 +971,8 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:text="苗木详情"
-                android:textColor="@color/main_color"
-                android:textSize="@dimen/x18" />
+                android:textColor="@color/text_color333"
+                android:textSize="@dimen/textSizeTitle" />
 
             <ImageView
                 android:id="@+id/btn_back"
@@ -962,13 +995,18 @@
 
         <TextView
             style="@style/bottom_button_white"
+            android:background="@drawable/bg_top_line"
             android:clickable="true"
             android:onClick="CallPhone"
-            android:text="拨打苗圃电话" />
+            android:text="拨打苗圃电话"
+            android:textColor="@color/text_color666"
+
+            />
 
 
         <TextView
             style="@style/bottom_button_green"
+            android:background="@color/main_color"
             android:clickable="true"
             android:onClick="CallPhone1"
             android:text="拨打发布人电话" />

@@ -31,11 +31,6 @@ import java.util.Map;
 
 import cn.fanrunqi.swipelayoutlibrary.SwipeLayout;
 
-import static com.hldj.hmyg.R.id.tv_03;
-import static com.hldj.hmyg.R.id.tv_05;
-import static com.hldj.hmyg.R.id.tv_07;
-import static com.hldj.hmyg.R.id.tv_08;
-
 /**
  *
  *
@@ -93,27 +88,33 @@ public class MiaoNoteListAdapter extends BaseAdapter {
             holder.tv_delete_manager = (TextView) convertView.findViewById(R.id.btn_delete_manager);
             holder.swipe_manager1 = convertView.findViewById(R.id.swipe_manager1);
             holder.tv_01 = (TextView) convertView.findViewById(R.id.tv_01);
-            holder.view_line = (TextView) convertView.findViewById(R.id.view_line);
-            holder.tv_03 = (TextView) convertView.findViewById(tv_03);
-            holder.textView = (TextView) convertView.findViewById(R.id.textView);
-            holder.textView27 = (TextView) convertView.findViewById(R.id.textView27);
-            holder.image = (ImageView) convertView.findViewById(R.id.imageView);
+            holder.tv_02 = (TextView) convertView.findViewById(R.id.tv_02);
 
-            holder.tv_05 = (TextView) convertView.findViewById(tv_05);//价格
-            holder.tv_07 = (TextView) convertView.findViewById(tv_07); // 数量
-            holder.tv_08 = (TextView) convertView.findViewById(tv_08);
-            holder.tv_right_top = (TextView) convertView.findViewById(R.id.tv_right_top);//  省份地区
-            holder.tv_mpmc_lxr_dh = (TextView) convertView.findViewById(R.id.tv_mpmc_lxr_dh);//苗圃名称
-            holder.lxr = (TextView) convertView.findViewById(R.id.lxr);//苗圃名称
+//            holder.view_line = (TextView) convertView.findViewById(R.id.view_line);
+            holder.tv_08 = (TextView) convertView.findViewById(R.id.tv_03);
+//            holder.tv_04 = (TextView) convertView.findViewById(R.id.tv_04);
+            holder.textView = (TextView) convertView.findViewById(R.id.textView);
+//            holder.textView27 = (TextView) convertView.findViewById(R.id.textView27);
+            holder.image = (ImageView) convertView.findViewById(R.id.iv_img);
+
+            holder.tv_05 = (TextView) convertView.findViewById( R.id.tv_07);//价格
+            holder.tv_07 = (TextView) convertView.findViewById(R.id.tv_09); // 数量
+//            holder.tv_08 = (TextView) convertView.findViewById(tv_08);
+            holder.tv_right_top = (TextView) convertView.findViewById(R.id.tv_04);//  省份地区
+            holder.tv_mpmc_lxr_dh = (TextView) convertView.findViewById(R.id.tv_06);//苗圃名称
+
+//            holder.lxr = (TextView) convertView.findViewById(R.id.lxr);//苗圃名称
             convertView.setTag(holder);
         } else {
             holder = ((ViewHolder) convertView.getTag());
         }
 
+//        MySwipeAdapter.setSrcByType( holder.tv_01, item.plantType);
+
 
         holder.tv_mpmc_lxr_dh.setText("苗圃名称：" + data.get(position).get("nurseryJson_name").toString());
 
-        holder.lxr.setText("联系人：" + data.get(position).get("contactName"));
+//        holder.lxr.setText("联系人：" + data.get(position).get("contactName"));
 //                + "  " + data.get(position).get("contactPhone"));
         //        TextView tv_lxdh = (TextView) inflate.findViewById(R.id.tv_lxdh);//联系人 + 电话
 //        tv_lxdh.setText("联系人：" + data.get(position).get("contactName")
@@ -128,16 +129,23 @@ public class MiaoNoteListAdapter extends BaseAdapter {
         String ownerName = data.get(position).get("ownerName").toString();
         String ownerPhone = data.get(position).get("ownerPhone").toString();
 
-
-        holder.textView27.setVisibility(is ? View.GONE : View.VISIBLE);
-        holder.textView27.setText("发布人:" + ownerName);
+//        holder.tv_mpmc_lxr_dh.setText("发布人：" + ownerName);
+//        holder.textView27.setVisibility(is ? View.GONE : View.VISIBLE);
+//        holder.textView27.setText("发布人:" + ownerName);
 
 
 //        tv_right_top.setText(data.get(position).get("nurseryJson_createDate") + "");
 
-        holder.tv_01.setText(data.get(position).get("name").toString());
+//        holder.tv_01.setText(data.get(position).get("name").toString());
+//        MySwipeAdapter.setSrcByType(holder.tv_01, data.get(position).get("plantType").toString());
+        holder.tv_01.setVisibility(View.GONE);
+        holder.tv_02.setText(data.get(position).get("name").toString());
+
         String date = data.get(position).get("nurseryJson_createDate") + "";
-        holder.tv_03.setText("发布日期：" + date.split(" ")[0]);
+//        holder.tv_03.setText("发布日期：" + date.split(" ")[0]);
+
+//        holder.tv_04 .setText("");
+
 
         String imgJson = data.get(position).get("imagesJson") + "";
         String imageUrl = data.get(position).get("imageUrl") + "";
@@ -239,7 +247,7 @@ public class MiaoNoteListAdapter extends BaseAdapter {
 
         if (null != myItemClickLister_content) {
 //            String ownerId = data.get(position).get("ownerId").toString();
-            myItemClickLister_content.OnTvVisibleChange(is, holder.tv_mpmc_lxr_dh, holder.lxr, holder.textView27, holder.textView, holder.view_line);
+//            myItemClickLister_content.OnTvVisibleChange(is, holder.tv_mpmc_lxr_dh, holder.lxr, holder.tv_mpmc_lxr_dh, holder.textView, holder.view_line);
         }
 
         //true  绿色     显示   发布到商城
@@ -350,9 +358,12 @@ public class MiaoNoteListAdapter extends BaseAdapter {
     class ViewHolder {
         TextView textView;//已发布到商城
         TextView tv_01;
+        TextView tv_02;
         TextView view_line;
         TextView tv_03;
-        TextView textView27;//发布人
+        TextView tv_04;
+//        TextView textView27;//发布人
+
         TextView tv_05;
         TextView tv_07;
         TextView tv_08;

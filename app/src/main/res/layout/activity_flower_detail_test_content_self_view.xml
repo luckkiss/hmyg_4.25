@@ -8,6 +8,7 @@
     <!--<View style="@style/View_line_green" />-->
 
 
+
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,10 +20,12 @@
         <TextView
             style="@style/table_row_left"
             android:layout_weight="2"
+            android:paddingLeft="@dimen/padding_left"
             android:background="@null"
             android:text="苗木规格"
             android:textColor="@color/text_color333"
             android:textSize="@dimen/textSizeTitle"
+            android:gravity="start"
             />
 
         <TextView

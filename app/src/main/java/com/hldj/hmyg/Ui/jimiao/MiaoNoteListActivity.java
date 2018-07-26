@@ -1055,7 +1055,7 @@ public class MiaoNoteListActivity extends NeedSwipeBackActivity implements IXLis
                 if (tv == null) {
                     return;
                 }
-                if (tv.getId() == R.id.textView27) {
+                if (tv.getId() == R.id.tv_mpmc_lxr_dh) {
                     /*当 是联系人 tv时*/
                     tv.setVisibility(isShow ? View.GONE : View.VISIBLE);
                 } else {
