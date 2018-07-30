@@ -47,8 +47,8 @@
             android:layout_gravity="bottom"
             android:background="@color/black_color_60"
             android:drawableRight="@drawable/ic_arrow_right_white"
-            android:padding="8dp"
             android:gravity="center_vertical"
+            android:padding="8dp"
             android:text="红草花 200株"
             android:textColor="@color/white"
             android:textSize="12sp" />
@@ -80,10 +80,58 @@
         android:layout_marginRight="8dp"
         android:adjustViewBounds="true"
         android:src="@mipmap/home_ptzc"
-        app:layout_constraintTop_toTopOf="@+id/shangji"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/grqg"
-        app:layout_constraintTop_toBottomOf="@+id/grqg" />
+        app:layout_constraintTop_toBottomOf="@+id/grqg"
+        app:layout_constraintTop_toTopOf="@+id/shangji" />
+
+
+    <RelativeLayout
+        android:id="@+id/ptcz_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/grqg"
+        app:layout_constraintTop_toBottomOf="@+id/grqg"
+        app:layout_constraintTop_toTopOf="@+id/shangji"
+        tools:visibility="visible">
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/home_grqg_detail" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/grqg_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:paddingTop="16dp"
+            android:singleLine="true"
+            android:text="龙湖双龙原著项目[p0001102]"
+            android:textColor="@color/white" />
+
+
+    </RelativeLayout>
 
 
     <ImageView
@@ -94,6 +142,20 @@
         android:layout_marginStart="8dp"
         android:adjustViewBounds="true"
         android:src="@mipmap/home_grqg"
+        app:layout_constraintBottom_toBottomOf="@+id/shangji"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/shangji" />
+
+
+    <ImageView
+        android:id="@+id/grqg_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/home_ptzc_detail"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/shangji"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/shangji" />

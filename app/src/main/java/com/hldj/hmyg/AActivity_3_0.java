@@ -66,11 +66,13 @@ import com.hldj.hmyg.buyer.weidet.SwipeViewHeader;
 import com.hldj.hmyg.me.AskToByActivity;
 import com.hldj.hmyg.presenter.AActivityPresenter;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
+import com.hldj.hmyg.saler.M.PurchaseBean;
 import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
 import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
 import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserActivity;
 import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserDetailActivity;
+import com.hldj.hmyg.util.AnimationUtil;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.FUtil;
@@ -228,6 +230,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         initView();
 
 
+        initAnimatUp(findViewById(R.id.grqg), findViewById(R.id.grqg_detail));
+        initAnimatDown(findViewById(R.id.ptcz), findViewById(R.id.ptcz_detail));
+
         if (mCache.getAsString("index") != null && !"".equals(mCache.getAsString("index"))) {
             LoadCache(mCache.getAsString("index"));
         }
@@ -281,7 +286,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //        });
 
     }
-
 
     private void initSwipe() {
         MySwipeRefreshLayout swipeRefreshLayout = (MySwipeRefreshLayout) findViewById(R.id.swipe_main);
@@ -1001,8 +1005,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             LinearLayout view = (LinearLayout) findViewById(R.id.ll_caigou_parent_inner);
 //            view.removeAllViews();
 //            removeViewByTag(view, "a");
-
+            setCountDownDatas(indexGsonBean.data.purchaseList);
             if (purchaseListAdapter == null) {
+
                 purchaseListAdapter = new PurchaseListAdapter(AActivity_3_0.this, indexGsonBean.data.purchaseList, R.layout.list_item_purchase_list_new);
                 for (int i = 0; i < purchaseListAdapter.getCount(); i++) {
 //                view.addView(adapter.getView(i, null, null));
@@ -1129,7 +1134,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         } catch (Exception e) {
             findViewById(R.id.ll_tuijian_parent).setVisibility(View.VISIBLE);
-            D.e("=============没有推荐列表，或者数据异常==============="+e.getMessage());
+            D.e("=============没有推荐列表，或者数据异常===============" + e.getMessage());
 
             e.printStackTrace();
         }
@@ -1342,7 +1347,9 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
+        ToastUtil.showLongToast("onResume");
         D.e("====onResume====");
+//        animationUtil.resume();
 //        setListAtMost();
 //        scrollView.postDelayed(() -> {
 //            scrollView.scrollTo(0, scrollY);
@@ -1376,6 +1383,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     @Override
     protected void onPause() {
         super.onPause();
+        ToastUtil.showLongToast("onPause");
         D.e("====onPause====");
 //        ToastUtil.showShortToast("currentY=" + currenY);
 //        currenY = scrollView.getScrollY();
@@ -1565,7 +1573,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             if (context == null) {
                 context = mActivity;
             }
-            Dialog dialog1 = new Dialog(context,R.style.myDialogTheme);
+            Dialog dialog1 = new Dialog(context, R.style.myDialogTheme);
             dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog1.setContentView(R.layout.item_home_type);
             dialog1.findViewById(R.id.iv_left).setOnClickListener(v1 -> {
@@ -1644,5 +1652,43 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //        return sd.format(date);
 //    }
 
+
+//    AnimationUtil animationUtil ;
+
+    /**
+     * 先关闭  viwe  后开启 新view
+     *
+     * @param closeView
+     * @param openView
+     */
+    AnimationUtil animationUtilUp;
+    AnimationUtil animationUtilDown;
+
+    private void initAnimatUp(View closeView, View openView) {
+        animationUtilUp = new AnimationUtil(openView, closeView);
+        animationUtilUp.resume();
+    }
+
+    private void initAnimatDown(View closeView, View openView) {
+        animationUtilUp = new AnimationUtil(openView, closeView);
+        animationUtilUp.setDelayTime(10);
+        animationUtilUp.resume();
+    }
+
+
+    private void setCountDownDatas(List<PurchaseBean> purchaseList) {
+
+        for (int i = 0; i < 10; i++) {
+
+            PurchaseBean purchaseBean = new PurchaseBean();
+            purchaseBean.name = "当前名称--->" + i;
+            purchaseList.add(purchaseBean);
+        }
+
+        if (animationUtilUp != null)
+            animationUtilUp.setCountDownDatas(findViewById(R.id.grqg_title), purchaseList);
+
+
+    }
 
 }

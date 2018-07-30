@@ -249,6 +249,7 @@ public class SetPasswardByGetCodeActivity extends NeedSwipeBackActivity {
                                     "以上内容都需要填写！请检查...", Toast.LENGTH_SHORT).show();
                             return;
                         }
+                        phString = et_phone.getText().toString();
 
                         String str1 = et_passward.getText().toString();
                         String str2 = et_passward_confi.getText().toString();
