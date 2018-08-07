@@ -379,7 +379,7 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
             if (!TextUtils.isEmpty(str))
                 tv_empty_err.setText(str);
         }
-
+//        this.getAdapter().notifyDataSetChanged();
         return this;
     }
 

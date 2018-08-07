@@ -79,7 +79,7 @@
                 <com.hldj.hmyg.widget.MainRadioButton
                     android:id="@+id/tab_d"
                     style="@style/tab_hdpi"
-                    android:drawableTop="@drawable/miaopu_selecter"
+                    android:drawableTop="@drawable/ppdp_selecter"
                     android:text="@string/tab_d_text" />
 
                 <com.hldj.hmyg.widget.MainRadioButton

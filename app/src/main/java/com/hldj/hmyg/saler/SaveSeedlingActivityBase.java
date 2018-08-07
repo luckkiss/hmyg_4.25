@@ -25,9 +25,11 @@ import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.base.rxbus.event.PostObj;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.bean.SeedlingType;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.presenter.SaveSeedlingPresenter;
+import com.hldj.hmyg.saler.purchase.userbuy.SelectPlantActivity;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
@@ -39,6 +41,7 @@ import com.hldj.hmyg.widget.SaveSeedingBottomLinearLayout;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 import com.kaopiz.kprogresshud.KProgressHUD;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
 import com.zhy.view.flowlayout.TagFlowLayout;
 import com.zzy.common.widget.MeasureGridView;
@@ -72,7 +75,38 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
     public SaveSeedingGsonBean saveSeedingGsonBean;
     ArrayList<Pic> arrayList2Adapter = new ArrayList(); // 传入 适配器的图片列表
-    public AutoAddRelative autoAddRelative_top;
+    private String currentName;
+    private String parentId;
+    private String parentName;
+    private String plantId;
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
+    public void setParentId(String pid) {
+        this.parentId = pid;
+    }
+
+    public void setPlantId(String pid) {
+        this.plantId = pid;
+    }
+
+
+    public String getCurrentName() {
+        return currentName;
+    }
+
+    public void setCurrentName(String cuname) {
+        this.currentName = cuname;
+        viewHolder.name_select.setText(cuname + "(" + getParentName() + ")");
+
+    }
+    //    public AutoAddRelative autoAddRelative_top;
 
 
     @Override
@@ -81,9 +115,9 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         setContentView(R.layout.activity_save_seedling);
 
         saveSeedlingPresenter = new SaveSeedlingPresenter(this);
-        autoAddRelative_top = new AutoAddRelative(this)
-                .initView(R.layout.save_seeding_auto_add_top);
-        viewHolder_top = autoAddRelative_top.getViewHolder_top();
+//        autoAddRelative_top = new AutoAddRelative(this)
+//                .initView(R.layout.save_seeding_auto_add_top);
+//        viewHolder_top = autoAddRelative_top.getViewHolder_top();
 
 //step 1
         {
@@ -169,9 +203,74 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
         } else if (resultCode == 5) {
 
+        } else if (requestCode == 100 && resultCode == 100) {
+
+
+            SeedlingType seedlingType = (SeedlingType) data.getSerializableExtra("item");
+
+
+            reshowAutoParamas(seedlingType, this.saveSeedingGsonBean.getData().getTypeList());
+
+
         }
+
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+
+    public void reshowAutoParamas(SeedlingType seedlingType, List<SaveSeedingGsonBean.DataBean.TypeListBean> typeList) {
+
+        viewHolder.name_select.setText(seedlingType.name + "(" + seedlingType.parentName + ")");
+        currentName = seedlingType.name;
+
+        tag_ID = seedlingType.parentId;
+        parentId = seedlingType.parentId;
+        plantId = seedlingType.id;
+        setParentName(seedlingType.parentName);
+
+
+        try {
+//                initAutoAddView(mGsonBean, seedlingType, null);
+//                addParamViews(getParamesList(saveSeedingGsonBean,seedlingType));
+
+
+            List<SaveSeedingGsonBean.DataBean.TypeListBean> typeListBeen = this.saveSeedingGsonBean.getData().getTypeList();
+
+            SaveSeedingGsonBean.DataBean.TypeListBean aa = null;
+
+            for (SaveSeedingGsonBean.DataBean.TypeListBean typeListBean : typeListBeen) {
+                if (typeListBean.getId().equals(seedlingType.parentId) || typeListBean.getName().equals(seedlingType.parentName)) {
+                    aa = typeListBean;
+                }
+            }
+            /**
+             *   List<SaveSeedingGsonBean.DataBean.TypeListBean.ParamsListBean> paramsListBean = null;
+             for (int i = 0; i < typeListBeen.size(); i++) {
+             if (typeListBeen.get(i).getName().equals(seedlingType.parentName)) {
+             paramsListBean = mGsonBean.getData().typeList.get(i).paramsList;
+             }
+             }
+             */
+
+            if (aa == null) {
+                return;
+            }
+
+            tag_ID = aa.getId();
+            aa.getName();
+            paramsListBean = aa.getParamsList();
+            D.e("==tag=点击事件=" + paramsListBean.toString());
+            //添加品名 第一行
+            //根据参数来 配置布局
+            addParamViews(paramsListBean);
+
+        } catch (Exception e) {
+            ToastUtil.showLongToast("初始化失败");
+            CrashReport.postCatchedException(e);
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void getAllData(SaveSeedingGsonBean saveSeedingGsonBean) {
@@ -280,11 +379,11 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
         viewHolder.ll_auto_add_layout.removeAllViews();
         arrayList_holders.clear();
-        if (autoAddRelative_top != null) {
-            String str = autoAddRelative_top.getViewHolder_top().tv_auto_add_name.getText().toString();
-            viewHolder.ll_auto_add_layout.addView(autoAddRelative_top);
-            autoAddRelative_top.getViewHolder_top().tv_auto_add_name.setText(str);
-        }
+//        if (autoAddRelative_top != null) {
+//            String str = autoAddRelative_top.getViewHolder_top().tv_auto_add_name.getText().toString();
+//            viewHolder.ll_auto_add_layout.addView(autoAddRelative_top);
+//            autoAddRelative_top.getViewHolder_top().tv_auto_add_name.setText(str);
+//        }
         //添加品名 第一行
 //        AutoAddRelative autoAddRelative_top = new AutoAddRelative(this)
 //                .initView(R.layout.save_seeding_auto_add_top);
@@ -352,6 +451,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
         public ImageView btn_back;//后退
         public TextView id_tv_edit_all;//清空
+        public TextView name_select;//  请选择 品种名称
 
 
         public ViewHolder() {
@@ -364,14 +464,17 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             this.save = (Button) findViewById(R.id.save);
             this.btn_back = (ImageView) findViewById(R.id.btn_back);
             this.id_tv_edit_all = (TextView) findViewById(R.id.id_tv_edit_all);
+            this.name_select = (TextView) findViewById(R.id.name_select);
             this.ll_auto_add_layout = (LinearLayout) findViewById(R.id.ll_auto_add_layout);
             this.ll_mainView = (LinearLayout) findViewById(R.id.ll_mainView);
 
 
             //暂存草稿箱
             this.iv_ready_save_2_stage.setOnClickListener(onClickListener);//
-            this.iv_ready_save_2_stage.setVisibility(View.GONE);
+//            this.iv_ready_save_2_stage.setVisibility(View.GONE);
 
+
+            this.id_flowlayout.setVisibility(View.GONE);
         }
 
     }
@@ -380,6 +483,15 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
     int a = 0;
 
     public void initListener(ViewHolder holder) {
+
+
+        holder.name_select.setOnClickListener(v -> {
+
+            SelectPlantActivity.start2Activity(mActivity, "");
+
+
+        });
+
 
 //        public ImageView btn_back ;//后退
 //        public TextView id_tv_edit_all ;//清空
@@ -619,8 +731,9 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 
         AjaxParams params = new AjaxParams();
 
-        params.put("firstSeedlingTypeId", tag_ID);//乔木大类的id\
-        params.put("name", viewHolder_top.tv_auto_add_name.getText().toString());//品名
+//        params.put("firstSeedlingTypeId", tag_ID);//乔木大类的id\
+        params.put("name", getCurrentName());//品名
+//        params.put("name", viewHolder_top.tv_auto_add_name.getText().toString());//品名
         params.put("isNego", upLoadDatas.isMeet() + "");//是否面议
         params.put("minPrice", upLoadDatas.getPrice_min());//最小价格
         params.put("maxPrice", upLoadDatas.getPrice_max());//最大价格
@@ -628,6 +741,11 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         params.put("nurseryId", upLoadDatas.address.addressId);
         params.put("count", upLoadDatas.getRepertory_num());
         params.put("seedlingNoteId", getSeedlingNoteId());
+
+        params.put("firstSeedlingTypeId", parentId);
+        params.put("secondSeedlingTypeId", plantId);
+
+
         D.e("=========checkParames1=========");
 
         if (autoAddRelative_rd != null) {
@@ -702,8 +820,9 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             ToastUtil.showShortToast("请选择苗木分类");
             return false;
         }
-        if (TextUtils.isEmpty(viewHolder_top.tv_auto_add_name.getText())) {
-            ToastUtil.showShortToast("请输入品名");
+        if (TextUtils.isEmpty(getCurrentName())) {
+//        if (TextUtils.isEmpty(viewHolder_top.tv_auto_add_name.getText())) {
+            ToastUtil.showShortToast("请选择品种");
             return false;
         }
         if (tag_ID1.equals("")) {
@@ -775,7 +894,7 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
             List<ImagesJsonBean> list_imgs
                     = new ArrayList<ImagesJsonBean>();
             for (int i = 0; i < viewHolder.publish_flower_info_gv.getAdapter().getDataList().size(); i++) {
-                ImagesJsonBean   imagesJsonBean = new ImagesJsonBean()
+                ImagesJsonBean imagesJsonBean = new ImagesJsonBean()
                         .setLocal_url(viewHolder.publish_flower_info_gv.getAdapter()
                                 .getDataList()
                                 .get(i).getUrl());
@@ -792,7 +911,11 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
         //step 2 中间动态数据 保存
         seedlingBean.setFirstSeedlingTypeId(tag_ID);
         seedlingBean.setPlantType(tag_ID1);
-        seedlingBean.setName(viewHolder_top.tv_auto_add_name.getText().toString());
+        seedlingBean.setName(getCurrentName());
+        seedlingBean.setFirstSeedlingTypeId(parentId);
+        seedlingBean.setSecondSeedlingTypeId(plantId);
+        seedlingBean.setFirstTypeName(getParentName());
+
         if (autoAddRelative_rd != null) {
             if (autoAddRelative_rd.getMTag().equals("dbh")) {
                 seedlingBean.setMaxDbh(MyUtil.formateString2Int(viewHolder_rd.et_auto_add_max.getText().toString()));
@@ -868,6 +991,8 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
 //        seedlingBean.setValidity(MyUtil.formateString2Int(upLoadDatas.getValidity()));
         seedlingBean.setRemarks(upLoadDatas.getRemark());
 
+        seedlingBean.setFirstSeedlingTypeId(parentId);
+        seedlingBean.setSecondSeedlingTypeId(plantId);
 
         SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean nurseryJsonBean
                 = new SaveSeedingGsonBean.DataBean.SeedlingBean.NurseryJsonBean();
@@ -952,4 +1077,6 @@ public class SaveSeedlingActivityBase extends NeedSwipeBackActivity implements S
     public boolean setSwipeBackEnable() {
         return true;
     }
+
+
 }

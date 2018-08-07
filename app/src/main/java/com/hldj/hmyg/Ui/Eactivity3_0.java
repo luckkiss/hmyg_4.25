@@ -29,6 +29,7 @@ import com.coorchice.library.SuperTextView;
 import com.hldj.hmyg.CallBack.HandlerAjaxCallBack;
 import com.hldj.hmyg.CallBack.ResultCallBack;
 import com.hldj.hmyg.DActivity_new;
+import com.hldj.hmyg.DActivity_new_mp;
 import com.hldj.hmyg.FeedBackActivity;
 import com.hldj.hmyg.GalleryImageActivity;
 import com.hldj.hmyg.M.userIdentity.enums.UserIdentityStatus;
@@ -53,14 +54,17 @@ import com.hldj.hmyg.me.FansActivity;
 import com.hldj.hmyg.me.HistoryActivity;
 import com.hldj.hmyg.presenter.EPrestenter;
 import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.saler.SaveSeedlingActivity;
 import com.hldj.hmyg.saler.StoreSettingActivity;
 import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
+import com.hldj.hmyg.saler.purchase.userbuy.PublishForUserActivity;
 import com.hldj.hmyg.util.ConstantState;
 import com.hldj.hmyg.util.D;
 import com.hldj.hmyg.util.GsonUtil;
 import com.hldj.hmyg.util.RippleAdjuster;
 import com.hldj.hmyg.util.UploadHeadUtil;
 import com.hldj.hmyg.widget.BounceScrollView;
+import com.hldj.hmyg.widget.SaveSeedingBottomLinearLayout;
 import com.hy.utils.GetServerUrl;
 import com.hy.utils.ToastUtil;
 import com.lqr.optionitemview.OptionItemView;
@@ -236,7 +240,8 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
         this.getView(R.id.sptv_wd_fxapp).setOnClickListener(v -> InviteFriendActivity.start(mActivity));//分享 app
         this.getView(R.id.sptv_wd_kf).setOnClickListener(v -> Call_Phone()); // 客服
         this.getView(R.id.sptv_wd_yhfk).setOnClickListener(v -> FeedBackActivity.start2Activity(mActivity));//反馈
-        this.getView(R.id.sptv_wd_bjzl).setOnClickListener(v -> SetProfileActivity.start2ActivitySet(mActivity, 100));//编辑资料
+//        this.getView(R.id.sptv_wd_bjzl).setOnClickListener(v -> SetProfileActivity.start2ActivitySet(mActivity, 100));//编辑资料
+        this.getView(R.id.sptv_wd_bjzl).setOnClickListener(v -> RegistrationActivity.start(mActivity));//编辑资料
         this.getView(R.id.sptv_wd_wdxm).setOnClickListener(v -> MyProgramActivity.start(mActivity));//我的项目
         this.getView(R.id.sptv_wd_exit).setOnClickListener(v -> exit());//退出登录
         this.getView(R.id.sptv_wd_ddzy).setOnClickListener(v -> DispatcherActivity.start(mActivity));// 调度专员
@@ -252,6 +257,20 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 
 
         this.getView(R.id.tv_wd_sc).setOnClickListener(v -> DActivity_new.start2Activity(mActivity, true));//
+
+        this.getView(R.id.sptv_grxx).setOnClickListener(v -> SetProfileActivity.start2ActivitySet(mActivity, 100));// 个人信息 编辑资料
+        this.getView(R.id.sptv_wd_zh).setOnClickListener(v -> ToastUtil.showLongToast("我的账户"));// 我的账户
+        this.getView(R.id.sptv_wd_zd).setOnClickListener(v -> ToastUtil.showLongToast("我的账单"));//  我的账单
+
+
+        this.getView(R.id.sptv_fbmm).setOnClickListener(v -> {
+            SaveSeedingBottomLinearLayout.addressBean = null;
+            SaveSeedlingActivity.start2Activity(mActivity);
+        });//  发布苗木
+        this.getView(R.id.sptv_wdmp).setOnClickListener(v -> DActivity_new_mp.start2Activity(mActivity));// 我的苗圃
+
+        this.getView(R.id.sptv_fbqg).setOnClickListener(v -> PublishForUserActivity.start2Activity(mActivity));// 发布求购
+        this.getView(R.id.sptv_wd_qg).setOnClickListener(v -> PublishForUserActivity.start2Activity(mActivity));// 发布求购
 
 
 //        this.getView(R.id.stv_wd_mpgl).setOnClickListener(v -> MainActivity.toD());//
@@ -917,13 +936,16 @@ public class Eactivity3_0 extends NeedSwipeBackActivity {
 //                                getView(R.id.sptv_wd_wdxm).setVisibility(bean.getData().hasProjectManage ? View.VISIBLE : View.GONE);
 //                            }
 
-                            if (false) {
-                                getView(R.id.sptv_wd_jmb).setVisibility(View.VISIBLE);
-                            } else {
-                                getView(R.id.sptv_wd_jmb).setVisibility(bean.getData().showSeedlingNote ? View.VISIBLE : View.INVISIBLE);
-                            }
+//                            if (false) {
+//                                getView(R.id.sptv_wd_jmb).setVisibility(View.VISIBLE);
+//                            } else {
+//                                getView(R.id.sptv_wd_jmb).setVisibility(bean.getData().showSeedlingNote ? View.VISIBLE : View.INVISIBLE);
+//                            }
 
-                            select2Show(getView(R.id.sptv_wd_wdxm), getView(R.id.sptv_wd_jmb), bean.getData().hasProjectManage, bean.getData().showSeedlingNote);
+
+                            getView(R.id.sptv_wd_wdxm).setVisibility(bean.getData().hasProjectManage ? View.VISIBLE : View.GONE);
+                            getView(R.id.sptv_wd_jmb).setVisibility(bean.getData().showSeedlingNote ? View.VISIBLE : View.GONE);
+//                            select2Show(getView(R.id.sptv_wd_wdxm), getView(R.id.sptv_wd_jmb), bean.getData().hasProjectManage, bean.getData().showSeedlingNote);
 
 
                             showSeedlingNoteShare = bean.getData().showSeedlingNoteShare;

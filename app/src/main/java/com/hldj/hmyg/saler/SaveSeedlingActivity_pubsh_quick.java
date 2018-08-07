@@ -125,7 +125,7 @@ public class SaveSeedlingActivity_pubsh_quick extends SaveSeedlingActivityBase {
 
 
         //初始化品名
-        autoAddRelative_top.getViewHolder_top().tv_auto_add_name.setText(plantName);
+//        autoAddRelative_top.getViewHolder_top().tv_auto_add_name.setText(plantName);
 
         if (null != autoAddRelative_rd) {
             autoAddRelative_rd.getViewHolder_rd().et_auto_add_min.setText(space_min);

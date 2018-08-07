@@ -135,17 +135,17 @@ public enum TipNumType {
 
             if (tipNumType.compareTo(TipNumType.collect) == 0) {
                 views[0].setShowState(tipNum.showPoint);
-                views[0].setText(String.format("%d\n收藏", tipNum.count));
+                views[0].setText(String.format("%d\n我的收藏", tipNum.count));
 
             } else if (tipNumType.compareTo(TipNumType.follow) == 0) {
                 views[1].setShowState(tipNum.showPoint);
-                views[1].setText(String.format("%d\n关注", tipNum.count));
+                views[1].setText(String.format("%d\n我的关注", tipNum.count));
             } else if (tipNumType.compareTo(TipNumType.fans) == 0) {
                 views[2].setShowState(tipNum.showPoint);
-                views[2].setText(String.format("%d\n粉丝", tipNum.count));
+                views[2].setText(String.format("%d\n我的粉丝", tipNum.count));
             } else if (tipNumType.compareTo(TipNumType.footMark) == 0) {
                 views[3].setShowState(tipNum.showPoint);
-                views[3].setText(String.format("%d\n足迹", tipNum.count));
+                views[3].setText(String.format("%d\n浏览记录", tipNum.count));
             }
 
 

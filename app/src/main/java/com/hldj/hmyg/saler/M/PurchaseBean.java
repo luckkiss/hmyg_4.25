@@ -1,5 +1,6 @@
 package com.hldj.hmyg.saler.M;
 
+import com.hldj.hmyg.CallBack.IChangeData;
 import com.hldj.hmyg.buyer.M.BuyerBean;
 import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * Created by Administrator on 2017/5/12.
  */
 
-public class PurchaseBean {
+public class PurchaseBean implements Serializable,IChangeData {
 
     public boolean showQuote;
     public String servicePoint = "0.0";
@@ -135,6 +136,11 @@ public class PurchaseBean {
     public List<String> itemNameList;
     public AttrDataBean attrData = new AttrDataBean();
     public PurchaseJsonBean.CiCityBean ciCity = new PurchaseJsonBean.CiCityBean();
+
+    @Override
+    public String getChangData() {
+        return name +"["+num+"]";
+    }
 
 
 //    "attrData": {"closeDateStr": "2017年06月09日 14点10分"},

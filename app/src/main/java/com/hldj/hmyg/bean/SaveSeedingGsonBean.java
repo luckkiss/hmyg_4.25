@@ -127,6 +127,7 @@ public class SaveSeedingGsonBean implements Serializable {
             private TwCityBean twCity;
             private String remarks;
             private String firstSeedlingTypeId;
+            private String secondSeedlingTypeId;
             private String diameterType;
             private String plantType;
             private String unitType;
@@ -162,6 +163,7 @@ public class SaveSeedingGsonBean implements Serializable {
             private String seedlingParams;
             private String specText;
             private String name;
+
             private String seedlingNum;
             private boolean isNego = false;
             private String minPrice = "";
@@ -211,7 +213,7 @@ public class SaveSeedingGsonBean implements Serializable {
             private String sourceType;
             private int visitsCount;
             private boolean isSelfSupport;
-            private NurseryJsonBean nurseryJson;
+            private NurseryJsonBean nurseryJson = new NurseryJsonBean();
 
             private OwnerJsonBean ownerJson;
             private long lastTime;
@@ -489,6 +491,13 @@ public class SaveSeedingGsonBean implements Serializable {
             public void setFirstSeedlingTypeId(String firstSeedlingTypeId) {
                 this.firstSeedlingTypeId = firstSeedlingTypeId;
             }
+            public String getSecondSeedlingTypeId() {
+                return secondSeedlingTypeId;
+            }
+
+            public void setSecondSeedlingTypeId(String sec) {
+                this.secondSeedlingTypeId = sec;
+            }
 
             public String getDiameterType() {
                 return diameterType;
@@ -629,6 +638,7 @@ public class SaveSeedingGsonBean implements Serializable {
             public String getName() {
                 return name;
             }
+
 
             public void setName(String name) {
                 this.name = name;
@@ -2839,6 +2849,8 @@ public class SaveSeedingGsonBean implements Serializable {
 
 
         public static class TypeListBean implements Serializable {
+
+
             /**
              * id : 74b0e9c44dd0499381a1adcadae6b4c9
              * createBy : 1

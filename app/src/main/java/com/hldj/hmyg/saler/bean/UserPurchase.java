@@ -2,6 +2,7 @@ package com.hldj.hmyg.saler.bean;
 
 import android.widget.Checkable;
 
+import com.hldj.hmyg.CallBack.IChangeData;
 import com.hldj.hmyg.CallBack.IFootMarkDelete;
 import com.hldj.hmyg.buyer.M.PurchaseJsonBean;
 import com.hldj.hmyg.buyer.weidet.ExpandableItemAdapter;
@@ -14,7 +15,7 @@ import java.util.List;
  * 用户求购  实体对象
  */
 
-public class UserPurchase implements MultiItemEntity, IFootMarkDelete, Checkable {
+public class UserPurchase implements MultiItemEntity, IFootMarkDelete, Checkable ,IChangeData {
 
     /**
      * id : 94a61b8865654112a48ce03f3c6b49eb
@@ -110,7 +111,7 @@ public class UserPurchase implements MultiItemEntity, IFootMarkDelete, Checkable
     public boolean needImage;
     public boolean isClose;
     public boolean isTop;
-    public String closeDateStr;
+    public String closeDateStr ="";
 
     public List<String> paramsList;
 
@@ -158,6 +159,11 @@ public class UserPurchase implements MultiItemEntity, IFootMarkDelete, Checkable
     @Override
     public void toggle() {
         this.isChecked = !isChecked;
+    }
+
+    @Override
+    public String getChangData() {
+        return name + "["+closeDateStr.split(" ")[0]+"]";
     }
 
 

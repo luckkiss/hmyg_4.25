@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray_bg_ed">
+
+
+    <FrameLayout
+        android:id="@+id/shangji"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/shangji_selector"
+        android:contentDescription="首页商机"
+        android:src="@drawable/shangji_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/sj_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="32dp"
+            android:paddingLeft="8dp"
+
+            android:text="为您匹配30条求购"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+
+            />
+
+        <TextView
+            android:id="@+id/sj_one_jump"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom"
+            android:background="@color/black_color_60"
+            android:drawableRight="@drawable/ic_arrow_right_white"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:text="红草花 200株"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+
+    </FrameLayout>
+    <!--<ImageView-->
+    <!--android:id="@+id/shangji"-->
+    <!--android:layout_width="148dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="8dp"-->
+    <!--android:layout_marginLeft="16dp"-->
+    <!--android:layout_marginStart="4dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:adjustViewBounds="true"-->
+    <!--android:contentDescription="首页商机"-->
+    <!--android:src="@drawable/shangji_selector"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintDimensionRatio="1:1"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/shangji"
+        app:layout_constraintLeft_toRightOf="@+id/shangji"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/shangji">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <include layout="@layout/ptzc_average_layout" android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/ptcz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/home_ptzc"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginBottom="3dp"
+                />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <include layout="@layout/grqg_average_layout" android:visibility="gone" />
+
+
+            <ImageView
+                android:id="@+id/grqg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/home_grqg"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="3dp"
+                />
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

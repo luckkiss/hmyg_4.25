@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.bean.Pic;
 import com.hldj.hmyg.bean.SaveSeedingGsonBean;
+import com.hldj.hmyg.bean.SeedlingType;
 import com.hldj.hmyg.bean.UnitTypeBean;
 import com.hldj.hmyg.buyer.M.ImagesJsonBean;
 import com.hldj.hmyg.util.D;
@@ -44,7 +45,11 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
                 D.e("=========proId=========" + proId);
 
 
-                initAutoLayout(saveSeedingGsonBean.getData().getTypeList());
+//                try {
+//                    initAutoLayout(saveSeedingGsonBean.getData().getTypeList());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
                 initAutoLayout2(saveSeedingGsonBean.getData().getPlantTypeList());
 
 
@@ -63,9 +68,10 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
     @Override
     public void initAutoLayout2(List<SaveSeedingGsonBean.DataBean.TypeListBean.PlantTypeListBean> plantTypeList) {
         super.initAutoLayout2(plantTypeList);
-        if (autoAddRelative_top != null) {
-            autoAddRelative_top.getViewHolder_top().tv_auto_add_name.setText(saveSeedingGsonBean.getData().getSeedling().getName());
-        }
+//        if (autoAddRelative_top != null) {
+//            autoAddRelative_top.getViewHolder_top().tv_auto_add_name.setText(saveSeedingGsonBean.getData().getSeedling().getName());
+//        }
+
 
     }
 
@@ -114,11 +120,28 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
 
         SaveSeedingGsonBean.DataBean.SeedlingBean seedling = saveSeedingGsonBean.getData().getSeedling();
 
-        tag_ID = seedling.getFirstSeedlingTypeId();
-        initAutoLayout(saveSeedingGsonBean.getData().getTypeList());
+
+        try {
+            initAutoLayout(saveSeedingGsonBean.getData().getTypeList());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        setParentId(tag_ID);
 
         tag_ID1 = seedling.getPlantType();
         initAutoLayout2(saveSeedingGsonBean.getData().getPlantTypeList());
+        tag_ID = seedling.getFirstSeedlingTypeId();
+        setParentId(seedling.getFirstSeedlingTypeId());
+        setPlantId(seedling.getSecondSeedlingTypeId());
+
+        SeedlingType seedlingType = new SeedlingType();
+        seedlingType.name = seedling.getName();
+        seedlingType.id = seedling.getSecondSeedlingTypeId();
+        seedlingType.parentId = seedling.getFirstSeedlingTypeId();
+        seedlingType.parentName = seedling.getFirstTypeName();
+        setParentName(seedling.getFirstTypeName());
+        setCurrentName(seedling.getName());
+        reshowAutoParamas(seedlingType, saveSeedingGsonBean.getData().getTypeList());
 
 
         /**
@@ -130,7 +153,8 @@ public class SaveSeedlingActivity_change_data extends SaveSeedlingActivityBase {
          */
 
         if (viewHolder_rd != null) {
-            viewHolder_top.tv_auto_add_name.setText(seedling.getName());
+//            viewHolder_top.tv_auto_add_name.setText(seedling.getName());
+            setCurrentName(seedling.getName());
             //根据种类选择 0.3  1.0  1.3  哪个被选中
             if (autoAddRelative_rd.getMTag().equals("dbh")) {
                 viewHolder_rd.et_auto_add_min.setText(int_to_str(seedling.getMinDbh()));

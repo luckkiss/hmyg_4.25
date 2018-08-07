@@ -872,6 +872,11 @@
 
             android:theme="@style/FullScreenTheme" />
         <activity android:name=".Ui.AboutWebActivity" />
+        <activity android:name=".BrandShopActivity" />
+        <activity
+            android:name=".BrandShopMoreActivity"
+            android:windowSoftInputMode="stateAlwaysVisible" />
+        <activity android:name=".Ui.RegistrationActivity" />
 
         <!--<provider-->
         <!--android:name="android.support.v4.content.FileProvider"-->

@@ -172,7 +172,7 @@ public class MainActivity extends TabActivity implements OnCheckedChangeListener
         tabHost.addTab(tabHost.newTabSpec("3").setIndicator("3")
                 .setContent(new Intent(this, FriendCycleActivity.class)));
         tabHost.addTab(tabHost.newTabSpec("4").setIndicator("4")
-                .setContent(new Intent(this, DActivity_new_mp.class)));//跳转到收藏夹  界面
+                .setContent(new Intent(this, BrandShopActivity.class)));//跳转到收藏夹  界面 DActivity_new_mp
         tabHost.addTab(tabHost.newTabSpec("5").setIndicator("5")
                 .setContent(new Intent(this, Eactivity3_0.class)));
         radioderGroup = (RadioGroup) findViewById(R.id.rg_tab);

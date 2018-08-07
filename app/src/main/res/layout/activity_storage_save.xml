@@ -32,8 +32,8 @@
                 android:gravity="center"
                 android:singleLine="true"
                 android:text="草稿箱"
-                android:textColor="@color/main_color"
-                android:textSize="17.0sp" />
+                android:textColor="@color/text_color333"
+                android:textSize="@dimen/textSizeTitle" />
 
             <TextView
                 android:id="@+id/id_tv_edit_all"
@@ -44,8 +44,8 @@
                 android:layout_marginRight="@dimen/x15"
                 android:gravity="center"
                 android:text="删除"
-                android:textColor="@color/main_color"
-                android:textSize="16dp"
+                android:textColor="@color/text_color333"
+                android:textSize="@dimen/textSize"
                 android:visibility="visible" />
         </RelativeLayout>
 
@@ -85,7 +85,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y34"
+            android:layout_height="@dimen/simpleHeightContent"
             android:orientation="horizontal">
 
             <TextView

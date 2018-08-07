@@ -46,10 +46,10 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/view_pager"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="5dp"
                         app:fillColor="@color/main_color"
                         app:pageColor="@color/white"
-                        app:strokeWidth="0px"
-                        android:layout_marginBottom="5dp" />
+                        app:strokeWidth="0px" />
 
 
                     <ImageView
@@ -115,7 +115,7 @@
 
                     <include
                         android:id="@+id/constraint"
-                        layout="@layout/include_home_item_layout" />
+                        layout="@layout/include_home_item_layout_new" />
 
 
                     <View
@@ -156,13 +156,12 @@
                     <com.hldj.hmyg.widget.UPMarqueeView
                         android:id="@+id/upview1"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="48dp"
                         android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/line"/>
+                        android:layout_toRightOf="@+id/line" />
 
 
                 </RelativeLayout>
-
 
 
                 <!--如果没有采购，隐藏本项目-->
@@ -172,7 +171,8 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                     <View
                         style="@style/View_line_gray"
@@ -236,7 +236,8 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                     <View
                         style="@style/View_line_gray"
@@ -347,8 +348,26 @@
                             android:layout_marginLeft="14dp"
                             android:src="@color/main_color" />
 
-                        <com.coorchice.library.SuperTextView
+                        <TextView
                             android:id="@+id/home_title_second"
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/px20"
+                            android:drawablePadding="6dp"
+                            android:gravity="center_vertical"
+                            android:tag="a"
+                            android:textColor="@color/main_color"
+                            android:textSize="17sp"
+                            tools:text="推荐资源 ? " />
+                        <!--android:drawableRight="@drawable/wenhao"
+-->
+
+
+                        <com.coorchice.library.SuperTextView
+                            android:id="@+id/home_title_second_right"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:layout_alignParentLeft="true"
@@ -364,8 +383,8 @@
                             app:state_drawable_height="12dp"
                             app:state_drawable_mode="right"
                             app:state_drawable_padding_left="@dimen/padding_left_negative"
-                            app:state_drawable_width="33.7dp"
-                            tools:text="推荐资源" />
+                            app:state_drawable_width="33.7dp" />
+
 
                     </LinearLayout>
 
@@ -384,13 +403,93 @@
                 </LinearLayout>
 
 
-                <View style="@style/View_line_gray" />
+                <TextView
+                    android:id="@+id/more_plant"
+                    android:layout_width="match_parent"
+                    android:layout_height="43dp"
+                    android:background="@color/gray_bg_ed"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:text="--- 更多苗木，请进入供应大厅 ---"
+                    android:textColor="@color/main_color"
+                    android:textSize="16sp" />
+
+
+                <!-- 品牌店铺 -->
+                <LinearLayout
+                    android:id="@+id/ll_ppdp_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <View
+                        style="@style/View_line_gray"
+                        android:tag="a" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <ImageView
+                            android:layout_width="@dimen/px4"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="14dp"
+                            android:src="@color/main_color" />
+
+                        <com.coorchice.library.SuperTextView
+                            android:id="@+id/home_title_ppdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/px20"
+                            android:gravity="center_vertical"
+                            android:tag="a"
+                            android:textColor="@color/main_color"
+                            android:textSize="17sp"
+                            app:isShowState="true"
+                            app:state_drawable="@drawable/home_more_new"
+                            app:state_drawable_height="12dp"
+                            app:state_drawable_mode="right"
+                            app:state_drawable_padding_left="@dimen/padding_left_negative"
+                            app:state_drawable_width="33.7dp"
+                            android:text="品牌店铺" />
+
+                    </LinearLayout>
+
+
+                    <View
+                        style="@style/View_line_gray_1px"
+                        android:tag="a" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_ppdp_parent_inner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+
+                </LinearLayout>
+                <!-- 品牌店铺 -->
+
+
+                <!--<View style="@style/View_line_gray" />-->
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
 
                     <ImageView
@@ -430,7 +529,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="false"
-                    android:paddingBottom="@dimen/y8" />
+                    android:paddingBottom="@dimen/y8"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
 
 
             </LinearLayout>

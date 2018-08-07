@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <!--<include layout="@layout/toolbar_3_0" />-->
+
+    <include
+        android:id="@+id/search_bar"
+        layout="@layout/search_top_toolbar" />
+
+
+    <LinearLayout
+        android:id="@+id/out"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/white">
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/tv_filter"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="全部分类"
+            android:textColor="@color/text_color666"
+            app:isShowState="true"
+            android:singleLine="true"
+            android:ellipsize="end"
+            app:state_drawable="@drawable/ic_arrow_down"
+            app:state_drawable_height="6dp"
+            app:state_drawable_mode="center"
+            app:state_drawable_padding_left="40dp"
+            app:state_drawable_width="10dp" />
+
+        <View style="@style/View_line_vertical" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/tv_sort"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="地区"
+            android:textColor="@color/text_color666"
+            app:isShowState="true"
+            app:state_drawable="@drawable/ic_arrow_down"
+            app:state_drawable_height="6dp"
+            app:state_drawable_mode="center"
+            app:state_drawable_padding_left="24dp"
+            app:state_drawable_width="10dp" />
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+
+    <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+        android:id="@+id/recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/gray_bg_ed" />
+
+
+    <!--<include layout="@layout/item_footer_d_new_mp" />-->
+</LinearLayout>

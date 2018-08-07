@@ -217,6 +217,13 @@ public class FriendBaseFragment extends BaseFragment {
 //                    if (!commitLogin()) return;
 //                    ToastUtil.showLongToast("点击文字--->跳转采购单详情界面");
                     DetailActivity.start(FriendBaseFragment.this, item.id);
+//                    item.visitsCount ++ ;
+//
+//                    String city = "-";
+//                    if (item.ciCity != null) {
+//                        city = item.ciCity.fullName;
+//                    }
+//                    helper.setText(R.id.time_city, item.timeStampStr + "  " + city + FUtil.$_head_no_("  浏览量 ", item.visitsCount + ""));//时间和  发布地址
                 };
                 helper.addOnClickListener(R.id.title, clickListener);// 发布名称或者标题
 
@@ -229,7 +236,7 @@ public class FriendBaseFragment extends BaseFragment {
                 if (item.ciCity != null) {
                     city = item.ciCity.fullName;
                 }
-                helper.addOnClickListener(R.id.time_city, clickListener).setText(R.id.time_city, item.timeStampStr + "  " + city);//时间和  发布地址
+                helper.addOnClickListener(R.id.time_city, clickListener).setText(R.id.time_city, item.timeStampStr + "  " + city + FUtil.$_head_no_("  浏览量 ", item.visitsCount + ""));//时间和  发布地址
                 helper.addOnClickListener(R.id.descript, clickListener).setText(R.id.descript, item.content);//描述
 //                helper.addOnClickListener(R.id.imageView8, v -> ToastUtil.showLongToast("点击图片--->跳转图片浏览器"));//描述
 //                helper.addOnClickListener(R.id.receive, v -> ToastUtil.showLongToast("点击评论--->显示回复窗口"));//描述
@@ -495,6 +502,28 @@ public class FriendBaseFragment extends BaseFragment {
                     GalleryImageActivity.startGalleryImageActivity(
                             mContext1, pos, PurchaseDetailActivity.getPicListOriginal(item.imagesJson));
 
+
+                    new BasePresenter()
+                            .putParams("id", item.id)
+                            .doRequest("moments/visits", new HandlerAjaxCallBack() {
+                                @Override
+                                public void onRealSuccess(SimpleGsonBean gsonBean) {
+                                    if (gsonBean.isSucceed()) {
+//                                        ToastUtil.showLongToast(gsonBean.msg);
+                                        item.visitsCount ++ ;
+
+                                        String city = "-";
+                                        if (item.ciCity != null) {
+                                            city = item.ciCity.fullName;
+                                        }
+                                        helper.setText(R.id.time_city, item.timeStampStr + "  " + city + FUtil.$_head_no_("  浏览量 ", item.visitsCount + ""));//时间和  发布地址
+
+
+                                    }
+                                }
+                            });
+
+
                 });
 
                 if (PurchaseDetailActivity.getPicList(item.imagesJson).size() == 0) {
@@ -517,7 +546,7 @@ public class FriendBaseFragment extends BaseFragment {
                                     item.thumbUpCount = gsonBean.getData().thumbUpCount;
                                     ToastUtil.showLongToast(gsonBean.msg);
 //                                    int current = !helper.getView(R.id.first).isSelected() ? (item.thumbUpCount + 1) : (item.thumbUpCount);
-                                    helper.setText(R.id.first, "点赞 " + FUtil.$_zero_2_null( gsonBean.getData().thumbUpCount + ""));
+                                    helper.setText(R.id.first, "点赞 " + FUtil.$_zero_2_null(gsonBean.getData().thumbUpCount + ""));
                                     helper.setSelected(R.id.first, gsonBean.getData().isThumUp);
                                     RxBus.getInstance().post(RxBus.TAG_UPDATE, item);
                                     sendPush(item);

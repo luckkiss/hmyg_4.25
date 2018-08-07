@@ -3,7 +3,9 @@ package com.hldj.hmyg.M;
 import com.autoscrollview.adapter.ImagePagerAdapter_ali;
 import com.hldj.hmyg.bean.ArticleBean;
 import com.hldj.hmyg.saler.M.PurchaseBean;
+import com.hldj.hmyg.saler.bean.PurchaseMap;
 import com.hldj.hmyg.saler.bean.UserPurchase;
+import com.hldj.hmyg.saler.bean.UserPurchaseMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +57,9 @@ public class IndexGsonBean {
 
 
         public List<UserPurchase> userPurchaseList = new ArrayList<>();
+
+        public List<UserPurchaseMap> userPurchaseMaps = new ArrayList<>();
+        public List<PurchaseMap> purchaseMaps = new ArrayList<>();
 
         public List<MatchUserPurchase> matchUserPurchaseList = new ArrayList<>();
 

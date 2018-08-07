@@ -20,7 +20,7 @@ import java.util.List;
  * @author luow
  * @version 2017-11-24
  */
-public class Moments implements Serializable, IFootMarkDelete, Checkable ,ICollectDelete{
+public class Moments implements Serializable, IFootMarkDelete, Checkable, ICollectDelete {
 
     public static final long serialVersionUID = 4307497280064329128L;
 
@@ -29,6 +29,8 @@ public class Moments implements Serializable, IFootMarkDelete, Checkable ,IColle
 
 
     public boolean allowRefresh = true;
+
+    public int visitsCount;
 
     /**
      * 省级代码
@@ -181,8 +183,7 @@ public class Moments implements Serializable, IFootMarkDelete, Checkable ,IColle
     }
 
 
-    public String getCollectId()
-    {
+    public String getCollectId() {
         return attrData.collectId;
     }
      /*end*/

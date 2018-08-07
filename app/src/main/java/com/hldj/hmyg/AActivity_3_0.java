@@ -47,6 +47,7 @@ import com.hldj.hmyg.Ui.AboutWebActivity;
 import com.hldj.hmyg.Ui.InviteFriendActivity;
 import com.hldj.hmyg.Ui.NewsActivity;
 import com.hldj.hmyg.Ui.NoticeActivity_detail;
+import com.hldj.hmyg.Ui.StoreActivity_new;
 import com.hldj.hmyg.Ui.friend.child.MarchingPurchaseActivity;
 import com.hldj.hmyg.Ui.friend.child.PublishActivity;
 import com.hldj.hmyg.Ui.friend.child.SearchActivity;
@@ -66,7 +67,6 @@ import com.hldj.hmyg.buyer.weidet.SwipeViewHeader;
 import com.hldj.hmyg.me.AskToByActivity;
 import com.hldj.hmyg.presenter.AActivityPresenter;
 import com.hldj.hmyg.saler.Adapter.PurchaseListAdapter;
-import com.hldj.hmyg.saler.M.PurchaseBean;
 import com.hldj.hmyg.saler.Ui.ManagerQuoteListActivity_new;
 import com.hldj.hmyg.saler.bean.UserPurchase;
 import com.hldj.hmyg.saler.purchase.PurchasePyMapActivity;
@@ -83,11 +83,13 @@ import com.hy.utils.GetServerUrl;
 import com.hy.utils.JsonGetInfo;
 import com.hy.utils.SpanUtils;
 import com.hy.utils.ToastUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.white.utils.ScreenUtil;
 import com.white.utils.StringUtil;
 import com.yangfuhai.asimplecachedemo.lib.ACache;
 
+import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
@@ -229,9 +231,6 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
         initView();
 
-
-        initAnimatUp(findViewById(R.id.grqg), findViewById(R.id.grqg_detail));
-        initAnimatDown(findViewById(R.id.ptcz), findViewById(R.id.ptcz_detail));
 
         if (mCache.getAsString("index") != null && !"".equals(mCache.getAsString("index"))) {
             LoadCache(mCache.getAsString("index"));
@@ -409,8 +408,17 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             if (isLogin())
                 PurchasePyMapActivity.start2Activity(AActivity_3_0.this, false);
         });   //个人 求购
+        findViewById(R.id.grqg_detail).setOnClickListener(v -> {
+            if (isLogin())
+                PurchasePyMapActivity.start2Activity(AActivity_3_0.this, false);
+        });   //个人 求购
+
         //平台采购
         findViewById(R.id.ptcz).setOnClickListener(v -> {
+//            if (isLogin())
+            PurchasePyMapActivity.start2Activity(AActivity_3_0.this, null);
+        });   //平台 采购
+        findViewById(R.id.ptcz_detail).setOnClickListener(v -> {
 //            if (isLogin())
             PurchasePyMapActivity.start2Activity(AActivity_3_0.this, null);
         });   //平台 采购
@@ -460,6 +468,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 
 
         findViewById(R.id.iv_home_left).setOnClickListener(v -> NewsActivity.start2Activity(AActivity_3_0.this));
+        findViewById(R.id.more_plant).setOnClickListener(v -> MainActivity.toB());
 //        findViewById(R.id.iv_home_left).setOnClickListener(v -> NoticeActivity.start2Activity(AActivity_3_0.this));
         //新闻资讯
 //        findViewById(R.id.stv_home_4).setOnClickListener(v -> NewsActivity.start2Activity(AActivity_3_0.this));
@@ -467,7 +476,21 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
         findViewById(home_title_first).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this, true));
         findViewById(home_title_qiu_gou).setOnClickListener(v -> PurchasePyMapActivity.start2Activity(AActivity_3_0.this, false));
         //苗木商城 更多
-        findViewById(R.id.home_title_second).setOnClickListener(v -> MainActivity.toB());
+        findViewById(R.id.home_title_second).setOnClickListener(v -> {
+                }
+
+//                AlertUtil.showCommonDialog(R.layout.home_tip_show, getSupportFragmentManager(), new AlertUtil.DoConvertView() {
+//                    @Override
+//                    public void onConvert(Dialog viewRoot) {
+//                        viewRoot.findViewById(R.id.close)
+//                                .setOnClickListener(v -> {
+//                                    viewRoot.dismiss();
+//                                });
+//
+//                    }
+//                }, true)
+        );
+        findViewById(R.id.home_title_second_right).setOnClickListener(v -> MainActivity.toB());
         //热门商家
 //        findViewById(R.id.home_title_third).setOnClickListener(v -> ToastUtil.showShortToast("更多热门商家正在开发中..."));
 
@@ -1005,7 +1028,19 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             LinearLayout view = (LinearLayout) findViewById(R.id.ll_caigou_parent_inner);
 //            view.removeAllViews();
 //            removeViewByTag(view, "a");
-            setCountDownDatas(indexGsonBean.data.purchaseList);
+
+
+            if (indexGsonBean.data.purchaseMaps.size() == 0) {
+                if (animationUtilUp != null)
+                    animationUtilUp.poase();
+            } else {
+                initAnimatUp(findViewById(R.id.grqg), findViewById(R.id.grqg_detail));
+
+            }
+
+//            initAnimatUp(findViewById(R.id.grqg), findViewById(R.id.grqg_detail));
+            setCountDownDatas(animationUtilUp, indexGsonBean.data.purchaseMaps, findViewById(R.id.ptzc_title), findViewById(R.id.ptzc_title1));
+
             if (purchaseListAdapter == null) {
 
                 purchaseListAdapter = new PurchaseListAdapter(AActivity_3_0.this, indexGsonBean.data.purchaseList, R.layout.list_item_purchase_list_new);
@@ -1020,6 +1055,13 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 purchaseListAdapter.notifyDataSetChanged();
             }
 
+            if (indexGsonBean.data.purchaseList != null && indexGsonBean.data.purchaseList.size() > 0) {
+                findViewById(R.id.ll_caigou_parent).setVisibility(View.VISIBLE);
+            } else {
+                findViewById(R.id.ll_caigou_parent).setVisibility(View.GONE);
+            }
+
+
 //            if (indexGsonBean.data.purchaseList.size() != 0) {
 //                view.setVisibility(View.VISIBLE);
 //                PurchaseListAdapter adapter = new PurchaseListAdapter(AActivity_3_0.this, indexGsonBean.data.purchaseList, R.layout.list_item_purchase_list_new);
@@ -1032,7 +1074,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //            }
 
         } catch (Exception e) {
-            findViewById(R.id.ll_caigou_parent).setVisibility(View.VISIBLE);
+//            findViewById(R.id.ll_caigou_parent).setVisibility(View.VISIBLE);
             D.e("=============没有采购列表，或者采购数据异常===============");
             e.printStackTrace();
         }
@@ -1043,6 +1085,15 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //            removeViewByTag(view, "a");
 //            View viewChild = LayoutInflater.from(this).inflate(R.layout.item_buy_for_user, null);
 //            view.removeAllViews();
+//            setCountDownDatas(indexGsonBean.data.userPurchaseList);
+            if (indexGsonBean.data.userPurchaseMaps.size() == 0) {
+                if (animationUtilDown != null)
+                    animationUtilDown.poase();
+            } else {
+                initAnimatDown(findViewById(R.id.ptcz), findViewById(R.id.ptcz_detail));
+            }
+//            initAnimatDown(findViewById(R.id.ptcz), findViewById(R.id.ptcz_detail));
+            setCountDownDatas(animationUtilDown, indexGsonBean.data.userPurchaseMaps, findViewById(R.id.grqg_title), findViewById(R.id.grqg_title1));
 
             if (adapter == null) {
                 adapter = new GlobBaseAdapter<UserPurchase>(AActivity_3_0.this, indexGsonBean.data.userPurchaseList, R.layout.item_buy_for_user) {
@@ -1072,6 +1123,12 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 adapter.notifyDataSetChanged();
             }
 
+
+            if (indexGsonBean.data.userPurchaseList != null && indexGsonBean.data.userPurchaseList.size() > 0) {
+                findViewById(R.id.ll_qiu_gou_parent).setVisibility(View.VISIBLE);
+            } else {
+                findViewById(R.id.ll_qiu_gou_parent).setVisibility(View.GONE);
+            }
 //            ListView listView = new ListView();
 //            listView.setAdapter();
 
@@ -1100,7 +1157,7 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
 //            }
 
         } catch (Exception e) {
-            findViewById(R.id.ll_caigou_parent).setVisibility(View.VISIBLE);
+//            findViewById(R.id.ll_caigou_parent).setVisibility(View.VISIBLE);
             D.e("=============没有采购列表，或者采购数据异常===============");
             e.printStackTrace();
         }
@@ -1139,6 +1196,17 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
             e.printStackTrace();
         }
 
+
+
+
+        /* 品牌店铺 */
+
+        绘制品牌店铺(indexGsonBean);
+
+
+        /* 品牌店铺 */
+
+
         {  // 根据list 显示 title  并且设置点击事件
             TextView home_title_first = (TextView) findViewById(R.id.home_title_first);
             TextView home_title_qiu_gou = (TextView) findViewById(R.id.home_title_qiu_gou);
@@ -1158,6 +1226,73 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 D.e("=============没有title 列表===============");
                 e.printStackTrace();
             }
+        }
+
+
+    }
+
+
+    private GlobBaseAdapter<UserPurchase> adapterPPDP;
+    private void 绘制品牌店铺(IndexGsonBean indexGsonBean) {
+        try {// 品牌店铺
+            LinearLayout view = (LinearLayout) findViewById(R.id.ll_ppdp_parent_inner);
+            if (adapterPPDP == null) {
+                adapterPPDP = new GlobBaseAdapter<UserPurchase>(AActivity_3_0.this, indexGsonBean.data.userPurchaseList, R.layout.item_brand_shop) {
+                    @Override
+                    public void setConverView(ViewHolders helper, UserPurchase s, int position) {
+                        Log.i(TAG, ": " + s.name);
+//                        doConvert(myViewHolder, s, AActivity_3_0.this);
+                        int layout_id = R.layout.item_brand_shop;
+
+                        FinalBitmap.create(AActivity_3_0.this)
+                                .display(helper.getView(R.id.iv_left), "https://avatar.csdn.net/9/7/A/3_zhangphil.jpg");
+
+                        FinalBitmap.create(AActivity_3_0.this)
+                                .display(helper.getView(R.id.iv_center), "https://avatar.csdn.net/9/7/A/3_zhangphil.jpg");
+
+                        FinalBitmap.create(AActivity_3_0.this)
+                                .display(helper.getView(R.id.iv_right), "https://avatar.csdn.net/9/7/A/3_zhangphil.jpg");
+
+                        ImageLoader
+                                .getInstance()
+                                .displayImage("https://avatar.csdn.net/9/7/A/3_zhangphil.jpg", (ImageView) helper.getView(R.id.head));
+
+                        helper.getConvertView().setOnClickListener(v -> {
+                            StoreActivity_new.start2Activity(AActivity_3_0.this, MyApplication.getUserBean().storeId);
+                        });
+
+
+                    }
+                };
+
+//            view.addView(adapter.getView(0, null, null));
+//            view.addView(adapter.getView(1, null, null));
+
+                for (int i = 0; i < adapterPPDP.getCount(); i++) {
+//                view.addView(adapter.getView(i, null, null));
+                    view.addView(viewSetTag("a", adapterPPDP, i));
+                }
+
+
+                setAdtapter(view, adapterPPDP);
+
+            } else {
+                adapter.setState(REFRESH);
+                adapter.addData(indexGsonBean.data.userPurchaseList);
+                adapter.notifyDataSetChanged();
+            }
+
+            if (indexGsonBean.data.userPurchaseList != null && indexGsonBean.data.userPurchaseList.size() > 0) {
+                findViewById(R.id.ll_ppdp_parent).setVisibility(View.VISIBLE);
+            } else {
+                findViewById(R.id.ll_ppdp_parent).setVisibility(View.GONE);
+            }
+
+
+        } catch (Exception e) {
+//            findViewById(R.id.ll_caigou_parent).setVisibility(View.VISIBLE);
+            D.e("=============没有采购列表，或者采购数据异常===============");
+            e.printStackTrace();
         }
 
 
@@ -1439,10 +1574,13 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
                 tvs[i].setText(list.get(i).title);
 //              ((ViewGroup) tvs[i].getParent()).setVisibility(View.VISIBLE);
 
+
                 if (list.get(i).isClick) {
-                    ((SuperTextView) views[i]).setShowState(true);
+                    if (tvs[i] instanceof SuperTextView)
+                        ((SuperTextView) views[i]).setShowState(true);
                 } else {
-                    ((SuperTextView) views[i]).setShowState(false);
+                    if (tvs[i] instanceof SuperTextView)
+                        ((SuperTextView) views[i]).setShowState(false);
 //                    views[i].setVisibility(View.GONE);
                 }
 
@@ -1665,28 +1803,30 @@ public class AActivity_3_0 extends FragmentActivity implements OnClickListener {
     AnimationUtil animationUtilDown;
 
     private void initAnimatUp(View closeView, View openView) {
-        animationUtilUp = new AnimationUtil(openView, closeView);
+        if (animationUtilUp == null)
+            animationUtilUp = new AnimationUtil(openView, closeView);
         animationUtilUp.resume();
     }
 
     private void initAnimatDown(View closeView, View openView) {
-        animationUtilUp = new AnimationUtil(openView, closeView);
-        animationUtilUp.setDelayTime(10);
-        animationUtilUp.resume();
+        if (animationUtilDown == null)
+            animationUtilDown = new AnimationUtil(openView, closeView);
+        animationUtilDown.setDelayTime(5000);
+        animationUtilDown.resume();
     }
 
 
-    private void setCountDownDatas(List<PurchaseBean> purchaseList) {
+    private void setCountDownDatas(AnimationUtil animation, List purchaseList, TextView tv1, TextView tv2) {
+//        for (int i = 0; i < 10; i++) {
+//            PurchaseBean purchaseBean = new PurchaseBean();
+//            purchaseBean.name = "当前名称--->" + i;
+//            purchaseList.add(purchaseBean);
+//        }
 
-        for (int i = 0; i < 10; i++) {
-
-            PurchaseBean purchaseBean = new PurchaseBean();
-            purchaseBean.name = "当前名称--->" + i;
-            purchaseList.add(purchaseBean);
-        }
-
-        if (animationUtilUp != null)
-            animationUtilUp.setCountDownDatas(findViewById(R.id.grqg_title), purchaseList);
+//        if (animation != null)
+//            animation.resume();
+        if (animation != null)
+            animation.setCountDownDatas(tv1, tv2, purchaseList);
 
 
     }

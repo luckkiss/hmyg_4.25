@@ -110,7 +110,8 @@ public class SaveSeedlingActivity extends SaveSeedlingActivityBase {
     public void loadCache(SaveSeedingGsonBean saveSeedingGsonBean1) {
         SaveSeedlingActivity.this.saveSeedingGsonBean = saveSeedingGsonBean1;
 
-        initAutoLayout(this.saveSeedingGsonBean.getData().getTypeList());
+        //不再直接初始化。改为 点击后。选择 后 。进行初始化
+//        initAutoLayout(this.saveSeedingGsonBean.getData().getTypeList());
 
         initAutoLayout2(this.saveSeedingGsonBean.getData().getPlantTypeList());
 

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.coorchice.library.SuperTextView;
@@ -28,6 +29,8 @@ import com.hldj.hmyg.M.ProgramPurchaseIndexGsonBean;
 import com.hldj.hmyg.M.QuoteUserGroup;
 import com.hldj.hmyg.R;
 import com.hldj.hmyg.base.BaseMVPActivity;
+import com.hldj.hmyg.base.GlobBaseAdapter;
+import com.hldj.hmyg.base.ViewHolders;
 import com.hldj.hmyg.bean.SimpleGsonBean;
 import com.hldj.hmyg.bean.enums.CountEnum;
 import com.hldj.hmyg.bean.enums.PurchaseStatus;
@@ -59,7 +62,10 @@ import com.weavey.loading.lib.LoadingLayout;
 
 import net.tsz.afinal.http.AjaxCallBack;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -1077,6 +1083,28 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                     ToastUtil.showLongToast("测试显示\n  查看原因\n" + item.unuseReason + " 是否现场核实 \n  " + isConverted + "  covered name = " + item.quoteImplementStatus);
 
                 AlertUtil.showCommonEditDialog(getSupportFragmentManager(), new AlertUtil.DoConvertView() {
+
+                    //数据源
+                    private List<Map<String, Object>> getDat(List data) {
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("image", R.mipmap.ic_launcher);
+                        map.put("text", "北京");
+                        data.add(map);
+                        Map<String, Object> map1 = new HashMap<>();
+                        map1.put("image", R.mipmap.ic_launcher);
+                        map1.put("text", "上海");
+                        data.add(map1);
+                        Map<String, Object> map2 = new HashMap<>();
+                        map2.put("image", R.mipmap.ic_launcher);
+                        map2.put("text", "廣州");
+                        data.add(map2);
+                        Map<String, Object> map3 = new HashMap<>();
+                        map3.put("image", R.mipmap.ic_launcher);
+                        map3.put("text", "深圳");
+                        data.add(map3);
+                        return data;
+                    }
+
                     @Override
                     public void onConvert(Dialog viewRoot) {
 
@@ -1084,6 +1112,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //                        boolean isConverted = !item.quoteImplementStatus.equals("uncovered") && !TextUtils.isEmpty(item.quoteImplementStatus);
 
                         EditText editText1 = viewRoot.findViewById(R.id.edit_content);
+
 
                         RadioButton yes = viewRoot.findViewById(R.id.yes);
                         RadioButton no = viewRoot.findViewById(R.id.no);
@@ -1119,6 +1148,8 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
 
             }
+
+
         });
 
         helper.setVisible(R.id.reason, false);
@@ -1150,9 +1181,35 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                         }
 
 
+                        Spinner spinner = viewRoot.findViewById(R.id.select_reason);
+                        //数据源
+                        ArrayList data = new ArrayList<>();
+                        data.add("价格偏高");
+                        data.add("品质不符合要求");
+                        data.add("树存在病虫危害");
+                        data.add("苗源地问题");
+                        data.add("拼车运输问题");
+                        data.add("供货信誉问题");
+
+                        //创建一个SimpleAdapter适配器
+                        //第一个参数：上下文，第二个参数：数据源，第三个参数：item子布局，第四、五个参数：键值对，获取item布局中的控件id
+//                        final SimpleAdapter s_adapter = new SimpleAdapter(mActivity,getDat(data),  R.layout.item_footer_d_new_mp,  new String[]{"txt"}, new int[]{ R.id.btn_xzmp} );
+
+
+                        spinner.setAdapter(new GlobBaseAdapter<String>(mActivity, data, R.layout.item_reason) {
+                            @Override
+                            public void setConverView(ViewHolders myViewHolder, String s, int position) {
+
+                                myViewHolder.setText(R.id.tv,  s);
+
+                            }
+                        });
+
+
                         View save = viewRoot.findViewById(R.id.save);
                         save.setOnClickListener(v1 -> {
 //                            ToastUtil.showLongToast("save" + editText1.getText());
+
 
                             if (!yes.isChecked() && !no.isChecked()) {
                                 ToastUtil.showLongToast("请确认是否现场合适");
@@ -1160,6 +1217,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                             }
                             if (TextUtils.isEmpty(editText1.getText())) {
                                 ToastUtil.showLongToast("请填写不合适原因");
+//                                ToastUtil.showLongToast(spinner.getSelectedItem().toString());
                                 return;
                             }
 
@@ -1167,6 +1225,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                             //String id,String isCovered,String unUseReason
                             new BasePresenter()
                                     .putParams("id", item.id)
+                                    .putParams("reason",spinner.getSelectedItem().toString())
                                     .putParams("isCovered", yes.isChecked() + "")
                                     .putParams("unUseReason", editText1.getText().toString())
                                     .doRequest("admin/quote/saveUnUsed", new HandlerAjaxCallBack(mActivity) {
@@ -1182,7 +1241,6 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
                         /*sub 某个项 进行修改*/
 
 
-
 //                        item.isUsed = !item.isUsed;
 
                                                 ProgramPurchaseExpanBean expanBean = (ProgramPurchaseExpanBean) coreRecyclerView.getAdapter().getData().get(posParent);
@@ -1194,7 +1252,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 //                                                        SellerQuoteJsonBean sellerQuoteJsonBean =   expanBean.quoteListJson.get(i);
 //                                                        coreRecyclerView.getAdapter().getData().set(helper.getAdapterPosition(),sellerQuoteJsonBean );
 //                                                        sellerQuoteJsonBean = gsonBean.getData().quote;
-                                                        coreRecyclerView.getAdapter().getData().set(helper.getAdapterPosition()- coreRecyclerView.getAdapter().getHeaderLayoutCount(),gsonBean.getData().quote );
+                                                        coreRecyclerView.getAdapter().getData().set(helper.getAdapterPosition() - coreRecyclerView.getAdapter().getHeaderLayoutCount(), gsonBean.getData().quote);
                                                         expanBean.quoteListJson.set(i, gsonBean.getData().quote);
                                                     }
                                                 }
@@ -1343,7 +1401,7 @@ public class ProgramPurchaseActivity extends BaseMVPActivity<ProgramPurchasePres
 
         //有报价权限   并且  已开标  --- 显示  按钮
         //!item.status.equals("unused")
-        if (tureQuote && getExtralState().equals(PurchaseStatus.expired.enumValue) && !item.isExclude ) {
+        if (tureQuote && getExtralState().equals(PurchaseStatus.expired.enumValue) && !item.isExclude) {
             helper.setVisible(tv_program_purch_sub_use_state, true);
 
 

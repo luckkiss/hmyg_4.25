@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <!--<include layout="@layout/toolbar_3_0" />-->
+
+    <include layout="@layout/activity_a_top_toolbar_alpha" />
+
+
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.hldj.hmyg.buyer.weidet.CoreRecyclerView
+            android:id="@+id/recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/gray_bg_ed" />
+
+
+        <ImageView
+            android:id="@+id/btn_mpgl"
+            style="@style/iv_home_publish"
+            android:layout_gravity="right|bottom"
+            android:src="@mipmap/xzmp" />
+
+    </FrameLayout>
+
+
+    <!--<include layout="@layout/item_footer_d_new_mp" />-->
+</LinearLayout>

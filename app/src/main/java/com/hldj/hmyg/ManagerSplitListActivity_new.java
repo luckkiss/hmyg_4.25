@@ -794,7 +794,8 @@ public class ManagerSplitListActivity_new<P extends ManagerListPresenter, M exte
         if (arg1 == ConstantState.PUBLIC_SUCCEED) {
 //            xRecyclerView.onRefresh();
 //            ToastUtil.showLongToast("发布成功回调");
-            switch2Refresh("unaudit",3);
+//            switch2Refresh("unaudit",3);
+            switch2Refresh("published", 2);
             RxBus.getInstance().post(DActivity_new_mp.refresh, new Eactivity3_0.OnlineEvent(true));
         }
     }

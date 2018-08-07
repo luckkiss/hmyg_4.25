@@ -261,7 +261,7 @@ public class DetailActivity extends BaseMVPActivity {
 
 //        descript.setMaxLines(Integer.MAX_VALUE);
         descript.setText(moments.content);
-        time_city.setText(moments.timeStampStr + "  " + moments.ciCity.fullName);
+        time_city.setText(moments.timeStampStr + "  " + moments.ciCity.fullName + FUtil.$_head_no_("  浏览量 ", moments.visitsCount + ""));
         if (moments.attrData != null) {
             title.setText(moments.attrData.displayName);
 //          finalBitmap.display(head, moments.attrData.headImage);
@@ -366,6 +366,21 @@ public class DetailActivity extends BaseMVPActivity {
         gridView.setOnViewImagesListener((mContext, pos, pics) -> {
             GalleryImageActivity.startGalleryImageActivity(
                     mContext, pos, PurchaseDetailActivity.getPicListOriginal(moments.imagesJson));
+
+
+//            new BasePresenter()
+//                    .putParams("id", moments.id)
+//                    .doRequest("moments/visits", new HandlerAjaxCallBack() {
+//                        @Override
+//                        public void onRealSuccess(SimpleGsonBean gsonBean) {
+//                            if (gsonBean.isSucceed()) {
+//                                ToastUtil.showLongToast(gsonBean.msg);
+//                                moments.visitsCount ++ ;
+//                                time_city.setText(moments.timeStampStr + "  " + moments.ciCity.fullName + FUtil.$_head_no_("  浏览量 ", moments.visitsCount + ""));
+//                            }
+//                        }
+//                    });
+
         });
 
         gridView.getAdapter().closeAll(true);

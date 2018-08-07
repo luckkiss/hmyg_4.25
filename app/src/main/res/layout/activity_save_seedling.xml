@@ -97,6 +97,49 @@
                     android:scrollbars="none" />
             </LinearLayout>
 
+
+            <View style="@style/View_line_gray" />
+
+            <!--<com.hldj.hmyg.widget.MyOptionItemView-->
+            <!--style="@style/option_view_style"-->
+            <!--android:paddingLeft="@dimen/padding_left"-->
+            <!--android:paddingRight="@dimen/padding_right"-->
+            <!--app:left_src="@drawable/seller_redstar"-->
+            <!--app:left_text="品种名称"-->
+            <!--app:right_src="@drawable/arrow_right_eq"-->
+            <!--app:right_text="请选择" />-->
+
+
+            <RelativeLayout
+                android:id="@+id/name_parent"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/simpleHeightContent"
+                android:background="@drawable/feedback_content_edittext_shape"
+                android:paddingLeft="@dimen/x9">
+
+                <TextView
+                    style="@style/tv_seeding_include_bottom_left"
+                    android:layout_centerInParent="true"
+                    android:drawableLeft="@drawable/seller_redstar"
+                    android:drawablePadding="2dp"
+                    android:text="品种名称" />
+
+                <TextView
+                    android:id="@+id/name_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/padding_right"
+                    android:drawablePadding="4dp"
+                    android:drawableRight="@drawable/arrow_right_eq"
+                    android:gravity="center_vertical|end"
+                    android:text="请选择"
+                    android:textSize="@dimen/textSizeContent" />
+
+
+            </RelativeLayout>
+
+
             <View style="@style/View_line_gray" />
 
             <!--放 自动换行标签的控件-->
@@ -105,9 +148,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:padding="2.5dp"></com.zhy.view.flowlayout.TagFlowLayout>
+                android:padding="2.5dp" />
 
-            <View style="@style/View_line_gray" />
+            <!--<View style="@style/View_line_gray" />-->
 
             <LinearLayout
                 android:id="@+id/ll_auto_add_layout"
@@ -157,16 +200,15 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:text="暂存草稿"
-                    android:textSize="@dimen/textSizeTitle"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/text_color999" />
+                    android:textColor="@color/text_color999"
+                    android:textSize="@dimen/textSizeTitle" />
 
                 <Button
                     android:id="@+id/save"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_textview_main_color_bg"
                     android:gravity="center"

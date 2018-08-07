@@ -29,7 +29,6 @@ import com.hldj.hmyg.Ui.friend.child.MarchingPurchaseActivity;
 import com.hldj.hmyg.Ui.friend.child.PhoneLogActivity;
 import com.hldj.hmyg.Ui.miaopu.PendingActivity;
 import com.hldj.hmyg.application.MyApplication;
-import com.hldj.hmyg.application.StateBarUtil;
 import com.hldj.hmyg.base.BaseMVPActivity;
 import com.hldj.hmyg.base.CommonPopupWindow;
 import com.hldj.hmyg.base.rxbus.RxBus;
@@ -307,7 +306,7 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
     }
 
     private void configtoolbar_left_icon() {
-        toolbar_left_icon.setVisibility(View.GONE);
+        toolbar_left_icon.setVisibility(View.VISIBLE);
 
     }
 
@@ -345,9 +344,11 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
                     if (没有开通店铺()) {
                         recycle.selfRefresh(false);
-                        ToastUtil.showLongToast("未开通企业");
+//                        ToastUtil.showLongToast("未开通企业");
                         return;
                     }
+
+
 
                     if (recycle.getAdapter().getHeaderLayoutCount() == 0) {
                         recycle.addHeaderView(headView);
@@ -422,10 +423,12 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
             recycle.getAdapter().notifyDataSetChanged();
 
             btn_xzmp.setVisibility(View.GONE);
+            btn_jrdp.setVisibility(View.GONE);
 
             return true;
         }
         btn_xzmp.setVisibility(View.VISIBLE);
+        btn_jrdp.setVisibility(View.VISIBLE);
         return false;
     }
 
@@ -613,7 +616,6 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
     public static void start2Activity(Activity context) {
         Intent intent = new Intent(context, DActivity_new_mp.class);
         context.startActivity(intent);
-
     }
 
 
@@ -632,16 +634,20 @@ public class DActivity_new_mp extends BaseMVPActivity implements View.OnClickLis
 
 //        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
 //        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
-        StateBarUtil.setStatusTranslater(MainActivity.instance, true);
-//        StateBarUtil.setStatusTranslater(mActivity, true);
-        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
-        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
+
+
+
+
+
+//        StateBarUtil.setStatusTranslater(MainActivity.instance, true);
+//        StateBarUtil.setMiuiStatusBarDarkMode(MainActivity.instance, true);
+//        StateBarUtil.setMeizuStatusBarDarkIcon(MainActivity.instance, true);
 
     }
 
     @Override
     public boolean setSwipeBackEnable() {
-        return false;
+        return true;
     }
 
 

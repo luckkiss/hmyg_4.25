@@ -26,11 +26,9 @@ import com.hldj.hmyg.DaoBean.SaveJson.SavaBeanDao;
 import com.hldj.hmyg.M.BPageGsonBean;
 import com.hldj.hmyg.M.CountTypeGsonBean;
 import com.hldj.hmyg.M.StatusCountBean;
-import com.hldj.hmyg.Ui.Eactivity3_0;
 import com.hldj.hmyg.adapter.ProductListAdapterForManager;
 import com.hldj.hmyg.application.MyApplication;
 import com.hldj.hmyg.base.BaseMVPActivity;
-import com.hldj.hmyg.base.rxbus.RxBus;
 import com.hldj.hmyg.bean.SimpleGsonBeanData;
 import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
@@ -39,7 +37,6 @@ import com.hldj.hmyg.contract.ManagerListContract;
 import com.hldj.hmyg.model.ManagerListModel;
 import com.hldj.hmyg.presenter.ManagerListPresenter;
 import com.hldj.hmyg.saler.SaveSeedlingActivity;
-import com.hldj.hmyg.saler.SearchActivity;
 import com.hldj.hmyg.saler.StorageSaveActivity;
 import com.hldj.hmyg.util.ConstantState;
 import com.hy.utils.GetServerUrl;
@@ -421,12 +418,16 @@ public abstract class ManagerListActivity_new<P extends ManagerListPresenter, M 
 
     private void initToolbar() {
         ImageView iv_search = getView(R.id.toolbar_right_icon);
+
+        iv_search.setImageResource(R.mipmap.storage);
+
         iv_search.setVisibility(View.VISIBLE);
 //        setTitle("苗木管理");
         iv_search.setOnClickListener(view -> {
-            Intent toSearchActivity = new Intent(ManagerListActivity_new.this, SearchActivity.class);
-            toSearchActivity.putExtra("searchKey", searchKey);
-            startActivityForResult(toSearchActivity, 1);
+//            Intent toSearchActivity = new Intent(ManagerListActivity_new.this, SearchActivity.class);
+//            toSearchActivity.putExtra("searchKey", searchKey);
+//            startActivityForResult(toSearchActivity, 1);
+            StorageSaveActivity.start2Activity(mActivity);
         });
     }
 

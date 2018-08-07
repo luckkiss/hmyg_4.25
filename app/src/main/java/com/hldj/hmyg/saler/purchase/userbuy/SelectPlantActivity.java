@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -25,7 +26,10 @@ import com.hldj.hmyg.buyer.weidet.BaseQuickAdapter;
 import com.hldj.hmyg.buyer.weidet.BaseViewHolder;
 import com.hldj.hmyg.buyer.weidet.CoreRecyclerView;
 import com.hldj.hmyg.saler.P.BasePresenter;
+import com.hldj.hmyg.util.AlertUtil;
 import com.hldj.hmyg.util.D;
+import com.hy.utils.SpanUtils;
+import com.hy.utils.ToastUtil;
 import com.weavey.loading.lib.LoadingLayout;
 
 import net.tsz.afinal.FinalActivity;
@@ -137,6 +141,22 @@ public class SelectPlantActivity extends BaseMVPActivity implements OnClickListe
                 handler.removeCallbacks(runnable);
                 handler.postDelayed(runnable, 800);
                 搜索(s.toString());
+
+//                if (recycle != null && !TextUtils.isEmpty(getSearchKey())) {
+////                 recycle.setEmptyText(String.format("品种名称[%s]暂未收录," , getSearchKey()));
+//                    recycle
+//                            .closeDefaultEmptyView()
+//                            .setDefaultEmptyView(true, "协助完善品种库", new OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    ToastUtil.showLongToast("协助完善品种库");
+//                                }
+//                            })
+//                            .setEmptyText(String.format("品种名称[%s]暂未收录,", getSearchKey()))
+//                            .showEmptyAndSetTip("是否提交申请协助完善品种库");
+//
+//                }
+
             }
         });
         et_search_content.setText(getHistoryKey());
@@ -216,7 +236,45 @@ public class SelectPlantActivity extends BaseMVPActivity implements OnClickListe
                 });
             }
         })
-//                .setDefaultEmptyView()
+//              .setDefaultEmptyView()
+                .setEmptyText("改品种名称暂未收录,")
+                .showEmptyAndSetTip("是否提交申请协助完善品种库")
+                .setDefaultEmptyView(true, "协助完善品种库", new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        ToastUtil.showLongToast("协助完善品种库");
+
+
+                        AlertUtil.showAlert(
+                                new SpanUtils()
+                                        .append("确定提交完善品种名称")
+                                        .append("[" + getSearchKey() + "]").setForegroundColor(Color.RED)
+                                        .create()
+                                , "提交", mActivity, new OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        new BasePresenter()
+                                                .putParams("typeName", getSearchKey())
+                                                .doRequest("admin/feedback/newSeedlingTypeApply", new HandlerAjaxCallBack(mActivity) {
+                                                    @Override
+                                                    public void onRealSuccess(SimpleGsonBean gsonBean) {
+
+                                                        if (gsonBean.isSucceed()) {
+                                                            ToastUtil.showLongToast("提交成功");
+                                                        }
+
+
+                                                    }
+                                                });
+
+
+                                    }
+                                },v1 -> {});
+
+
+                    }
+                })
                 .lazyShowEmptyViewEnable(true)
         ;
 

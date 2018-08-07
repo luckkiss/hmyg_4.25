@@ -13,7 +13,7 @@ import com.hldj.hmyg.application.MyApplication;
  *
  *
  */
-public class ViewHolders {
+public class ViewHolders  {
     private SparseArray<View> sparseArray;
     private View convertView;
     private int position;
